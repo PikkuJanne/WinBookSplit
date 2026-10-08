@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "purpose": "Known original results only. Matching these results characterizes defects; it does not pass fixed-version acceptance.",
+  "source_sha256": {
+    "WinBookSplit.ps1": "897382a2193cdc38ce5aa911703004705b4af56fea94cee61b3f91ef073a052d",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b"
+  },
+  "cases": [
+    {"oracle_id": "MAN-01", "fixture": "simple10", "exit_code": 0, "ranges": [], "defect": "success_with_zero_files"},
+    {"oracle_id": "MAN-02", "fixture": "simple10", "exit_code": 0, "ranges": [[3, 6], [6, 10]], "defect": "pages_1_to_3_omitted"},
+    {"oracle_id": "MAN-03", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 3], [3, 6], [6, 10]], "defect": null},
+    {"oracle_id": "MAN-09", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 10]], "defect": "invalid_token_ignored"},
+    {"oracle_id": "MAN-10", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 10]], "defect": "range_token_ignored"},
+    {"oracle_id": "MAN-11", "fixture": "simple10", "exit_code": 0, "ranges": [[6, 10]], "defect": "invalid_token_ignored_and_pages_1_to_6_omitted"},
+    {"oracle_id": "MAN-12", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 10]], "defect": "out_of_range_tokens_ignored"},
+    {"oracle_id": "MAN-13", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 10]], "defect": "out_of_range_start_ignored"},
+    {"oracle_id": "MAN-14", "fixture": "simple10", "exit_code": 0, "ranges": [[3, 10]], "defect": "empty_token_ignored_and_pages_1_to_3_omitted"},
+    {"oracle_id": "MAN-15", "fixture": "simple10", "exit_code": 0, "ranges": [], "defect": "empty_token_ignored_and_success_with_zero_files"},
+    {"oracle_id": "MAN-16", "fixture": "simple10", "exit_code": 0, "ranges": [[0, 3], [3, 10]], "defect": "empty_token_ignored"},
+    {"oracle_id": "BM-01", "fixture": "simple10", "exit_code": 0, "ranges": [[3, 6], [6, 10]], "defect": "front_matter_pages_1_to_3_omitted"},
+    {"oracle_id": "BM-02", "fixture": "nested12", "exit_code": 0, "ranges": [[2, 8], [8, 12]], "defect": "front_matter_pages_1_to_2_omitted"},
+    {"oracle_id": "BM-03", "fixture": "nested12", "exit_code": 0, "ranges": [[3, 6], [6, 10], [10, 12]], "defect": "pages_1_to_3_omitted_and_A2_crosses_B_parent_at_page_9"}
+  ]
+}

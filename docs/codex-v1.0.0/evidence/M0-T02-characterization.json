@@ -1,0 +1,1088 @@
+{
+  "schema_version": 1,
+  "task_id": "M0-T02",
+  "observed_at": "2026-10-08T16:57:35.422238+00:00",
+  "result": "ORIGINAL_BEHAVIOR_REPRODUCED",
+  "meaning": "Known-bad characterization matched; no fixed-engine acceptance pass is claimed.",
+  "base_commit": "1c8c681cae0019dc2f413803e150951a962287ff",
+  "base_tree": "51daa9b7c1a3a0eb11808ed8b14deb81357b40df",
+  "tested_path_sha256": {
+    "WinBookSplit.ps1": "897382a2193cdc38ce5aa911703004705b4af56fea94cee61b3f91ef073a052d",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+    "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+    "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+    "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+    "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a"
+  },
+  "tested_paths_digest": "b86df43bc289003877949b922be934a4cc99c0afeca9ec8b256339ce70fa6ee1",
+  "embedded_engine_sha256": "44e583cbe022b070c537f2229e20fc39c02dd76acef1caebc9f29a136a306cd9",
+  "environment": {
+    "python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+    "pypdf": "6.10.0",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "reportlab": "4.4.9",
+    "python_isolated_children": true
+  },
+  "fixture_provenance": "tests/fixtures/README.md; generator-authored MIT fixtures only",
+  "generated_provenance": {
+    "content_origin": "Original programmatically generated text; no source documents",
+    "fixed_pdf_date": "D:20000101000000Z",
+    "fixtures": {
+      "nested12": {
+        "filename": "nested-12.pdf",
+        "metadata": {
+          "/Author": "WinBookSplit synthetic fixtures",
+          "/CreationDate": "D:20000101000000Z",
+          "/Creator": "WinBookSplit fixture generator",
+          "/ModDate": "D:20000101000000Z",
+          "/Producer": "WinBookSplit fixture generator (ReportLab and pypdf)",
+          "/Subject": "Original synthetic content under the repository MIT license",
+          "/Title": "WinBookSplit synthetic nested outline fixture"
+        },
+        "outline": [
+          {
+            "children": [
+              {
+                "children": [],
+                "start_page": 4,
+                "title": "A1"
+              },
+              {
+                "children": [],
+                "start_page": 7,
+                "title": "A2"
+              }
+            ],
+            "start_page": 3,
+            "title": "A"
+          },
+          {
+            "children": [
+              {
+                "children": [],
+                "start_page": 11,
+                "title": "B1"
+              }
+            ],
+            "start_page": 9,
+            "title": "B"
+          }
+        ],
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        "sha256": "168ccef79eeefd524da87deb97bf1add724acdf7b93f88c41972cd9777ceac43",
+        "size_bytes": 10101
+      },
+      "simple10": {
+        "filename": "simple-10.pdf",
+        "metadata": {
+          "/Author": "WinBookSplit synthetic fixtures",
+          "/CreationDate": "D:20000101000000Z",
+          "/Creator": "WinBookSplit fixture generator",
+          "/ModDate": "D:20000101000000Z",
+          "/Producer": "WinBookSplit fixture generator (ReportLab and pypdf)",
+          "/Subject": "Original synthetic content under the repository MIT license",
+          "/Title": "WinBookSplit synthetic simple outline fixture"
+        },
+        "outline": [
+          {
+            "children": [],
+            "start_page": 4,
+            "title": "A"
+          },
+          {
+            "children": [],
+            "start_page": 7,
+            "title": "B"
+          }
+        ],
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "sha256": "9b948f882e5a57f11fd37d30851fb13946e9fdcea0a7ab4faa2c07d17a6c8fa3",
+        "size_bytes": 8216
+      }
+    },
+    "license": "MIT - same license as repository LICENSE",
+    "page_marker_template": "WBS-PAGE-{page_id:03d}",
+    "reproducibility_scope": "Same source bytes and Python/ReportLab/pypdf versions",
+    "runtime_versions": {
+      "pypdf": "6.10.0",
+      "python": "3.12.14",
+      "reportlab": "4.4.9"
+    },
+    "schema_version": 1,
+    "source_sha256": {
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108"
+    }
+  },
+  "fixtures": {
+    "simple10": {
+      "sha256": "9b948f882e5a57f11fd37d30851fb13946e9fdcea0a7ab4faa2c07d17a6c8fa3",
+      "page_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "outlines": [
+        [
+          1,
+          "A",
+          4
+        ],
+        [
+          1,
+          "B",
+          7
+        ]
+      ],
+      "repeat_bytes_equal": true,
+      "metadata": {
+        "/Title": "WinBookSplit synthetic simple outline fixture",
+        "/Author": "WinBookSplit synthetic fixtures",
+        "/Subject": "Original synthetic content under the repository MIT license",
+        "/Creator": "WinBookSplit fixture generator",
+        "/Producer": "WinBookSplit fixture generator (ReportLab and pypdf)",
+        "/CreationDate": "D:20000101000000Z",
+        "/ModDate": "D:20000101000000Z"
+      }
+    },
+    "nested12": {
+      "sha256": "168ccef79eeefd524da87deb97bf1add724acdf7b93f88c41972cd9777ceac43",
+      "page_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "outlines": [
+        [
+          1,
+          "A",
+          3
+        ],
+        [
+          2,
+          "A1",
+          4
+        ],
+        [
+          2,
+          "A2",
+          7
+        ],
+        [
+          1,
+          "B",
+          9
+        ],
+        [
+          2,
+          "B1",
+          11
+        ]
+      ],
+      "repeat_bytes_equal": true,
+      "metadata": {
+        "/Title": "WinBookSplit synthetic nested outline fixture",
+        "/Author": "WinBookSplit synthetic fixtures",
+        "/Subject": "Original synthetic content under the repository MIT license",
+        "/Creator": "WinBookSplit fixture generator",
+        "/Producer": "WinBookSplit fixture generator (ReportLab and pypdf)",
+        "/CreationDate": "D:20000101000000Z",
+        "/ModDate": "D:20000101000000Z"
+      }
+    }
+  },
+  "engine_case_count": 14,
+  "engine_cases": [
+    {
+      "oracle_id": "MAN-01",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1",
+      "original_expectation_matched": true,
+      "known_defect": "success_with_zero_files",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): []\n",
+      "stderr": "",
+      "actual_ranges": [],
+      "outputs": [],
+      "missing_page_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            10
+          ]
+        ]
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-02",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1,4,7",
+      "original_expectation_matched": true,
+      "known_defect": "pages_1_to_3_omitted",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [4, 7]\n    [Writing] 01 - Section (Page 4-6).pdf\n    [Writing] 02 - Section (Page 7-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 4-6).pdf",
+          "page_ids": [
+            4,
+            5,
+            6
+          ],
+          "range": [
+            3,
+            6
+          ],
+          "sha256": "c8d40276a6e519a232a9a19ff4b9441e8301db5b80c07a91c65fae9066e5363b"
+        },
+        {
+          "filename": "02 - Section (Page 7-10).pdf",
+          "page_ids": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            6,
+            10
+          ],
+          "sha256": "ae6643424ebdc69fb7dcb9c121e07f34fa2bbda7a5bc68774b77896b81b8d892"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2,
+        3
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-03",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "4,7",
+      "original_expectation_matched": true,
+      "known_defect": null,
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-3).pdf",
+          "page_ids": [
+            1,
+            2,
+            3
+          ],
+          "range": [
+            0,
+            3
+          ],
+          "sha256": "8bd17566d34c40ce49bc5a624d8a6f1411b7c8cd4dd36680271937ace35e81be"
+        },
+        {
+          "filename": "02 - Section (Page 4-6).pdf",
+          "page_ids": [
+            4,
+            5,
+            6
+          ],
+          "range": [
+            3,
+            6
+          ],
+          "sha256": "c8d40276a6e519a232a9a19ff4b9441e8301db5b80c07a91c65fae9066e5363b"
+        },
+        {
+          "filename": "03 - Section (Page 7-10).pdf",
+          "page_ids": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            6,
+            10
+          ],
+          "sha256": "ae6643424ebdc69fb7dcb9c121e07f34fa2bbda7a5bc68774b77896b81b8d892"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "fixed_target_matched": true,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-09",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "abc",
+      "original_expectation_matched": true,
+      "known_defect": "invalid_token_ignored",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-10).pdf",
+          "page_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            0,
+            10
+          ],
+          "sha256": "537d763eaca88b26161f56bc1cf210553ff1ebf262cdeaa8b51bb8e35118a76f"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-10",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1-4",
+      "original_expectation_matched": true,
+      "known_defect": "range_token_ignored",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-10).pdf",
+          "page_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            0,
+            10
+          ],
+          "sha256": "537d763eaca88b26161f56bc1cf210553ff1ebf262cdeaa8b51bb8e35118a76f"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-11",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1,abc,7",
+      "original_expectation_matched": true,
+      "known_defect": "invalid_token_ignored_and_pages_1_to_6_omitted",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [7]\n    [Writing] 01 - Section (Page 7-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          6,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 7-10).pdf",
+          "page_ids": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            6,
+            10
+          ],
+          "sha256": "ae6643424ebdc69fb7dcb9c121e07f34fa2bbda7a5bc68774b77896b81b8d892"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-12",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "0,999",
+      "original_expectation_matched": true,
+      "known_defect": "out_of_range_tokens_ignored",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-10).pdf",
+          "page_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            0,
+            10
+          ],
+          "sha256": "537d763eaca88b26161f56bc1cf210553ff1ebf262cdeaa8b51bb8e35118a76f"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-13",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "11",
+      "original_expectation_matched": true,
+      "known_defect": "out_of_range_start_ignored",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-10).pdf",
+          "page_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            0,
+            10
+          ],
+          "sha256": "537d763eaca88b26161f56bc1cf210553ff1ebf262cdeaa8b51bb8e35118a76f"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-14",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1,,4",
+      "original_expectation_matched": true,
+      "known_defect": "empty_token_ignored_and_pages_1_to_3_omitted",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [4]\n    [Writing] 01 - Section (Page 4-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          3,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 4-10).pdf",
+          "page_ids": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            3,
+            10
+          ],
+          "sha256": "ce9d8a7d72037069623d87085d6b9d331320f6f1889b6dd1da2823871d683baa"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2,
+        3
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-15",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": "1,",
+      "original_expectation_matched": true,
+      "known_defect": "empty_token_ignored_and_success_with_zero_files",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): []\n",
+      "stderr": "",
+      "actual_ranges": [],
+      "outputs": [],
+      "missing_page_ids": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "MAN-16",
+      "acceptance_id": "AC-004",
+      "mode": "manual",
+      "input": ",4",
+      "original_expectation_matched": true,
+      "known_defect": "empty_token_ignored",
+      "exit_code": 0,
+      "stdout": "[*] Manual Split Points (Page #): [1, 4]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-10).pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Section (Page 1-3).pdf",
+          "page_ids": [
+            1,
+            2,
+            3
+          ],
+          "range": [
+            0,
+            3
+          ],
+          "sha256": "8bd17566d34c40ce49bc5a624d8a6f1411b7c8cd4dd36680271937ace35e81be"
+        },
+        {
+          "filename": "02 - Section (Page 4-10).pdf",
+          "page_ids": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            3,
+            10
+          ],
+          "sha256": "ce9d8a7d72037069623d87085d6b9d331320f6f1889b6dd1da2823871d683baa"
+        }
+      ],
+      "missing_page_ids": [],
+      "complete_ordered_coverage": true,
+      "fixed_target": {
+        "expected_error": "invalid_start_pages"
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "BM-01",
+      "acceptance_id": "AC-005",
+      "mode": "1",
+      "input": null,
+      "original_expectation_matched": true,
+      "known_defect": "front_matter_pages_1_to_3_omitted",
+      "exit_code": 0,
+      "stdout": "[*] Found 2 chapters based on bookmarks.\n    [Writing] 01 - A.pdf\n    [Writing] 02 - B.pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - A.pdf",
+          "page_ids": [
+            4,
+            5,
+            6
+          ],
+          "range": [
+            3,
+            6
+          ],
+          "sha256": "c8d40276a6e519a232a9a19ff4b9441e8301db5b80c07a91c65fae9066e5363b"
+        },
+        {
+          "filename": "02 - B.pdf",
+          "page_ids": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            6,
+            10
+          ],
+          "sha256": "ae6643424ebdc69fb7dcb9c121e07f34fa2bbda7a5bc68774b77896b81b8d892"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2,
+        3
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ]
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "BM-02",
+      "acceptance_id": "AC-005",
+      "mode": "1",
+      "input": null,
+      "original_expectation_matched": true,
+      "known_defect": "front_matter_pages_1_to_2_omitted",
+      "exit_code": 0,
+      "stdout": "[*] Found 2 chapters based on bookmarks.\n    [Writing] 01 - A.pdf\n    [Writing] 02 - B.pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          12
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - A.pdf",
+          "page_ids": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8
+          ],
+          "range": [
+            2,
+            8
+          ],
+          "sha256": "9a45b5ed5cf9e24647653b135c1e86098b2b5ea2800d4a90d07b8f521bf351f9"
+        },
+        {
+          "filename": "02 - B.pdf",
+          "page_ids": [
+            9,
+            10,
+            11,
+            12
+          ],
+          "range": [
+            8,
+            12
+          ],
+          "sha256": "62b90c1ad8edad4a1a4d1a4b649804abb71c126eab491c4e43fde32eccee153f"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            12
+          ]
+        ]
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    },
+    {
+      "oracle_id": "BM-03",
+      "acceptance_id": "AC-005",
+      "mode": "2",
+      "input": null,
+      "original_expectation_matched": true,
+      "known_defect": "pages_1_to_3_omitted_and_A2_crosses_B_parent_at_page_9",
+      "exit_code": 0,
+      "stdout": "[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n",
+      "stderr": "",
+      "actual_ranges": [
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "outputs": [
+        {
+          "filename": "01 - A1.pdf",
+          "page_ids": [
+            4,
+            5,
+            6
+          ],
+          "range": [
+            3,
+            6
+          ],
+          "sha256": "d05f375b1196d0943f8d94f0a7da97583f823c26529ea0d59383b9a4b571aff9"
+        },
+        {
+          "filename": "02 - A2.pdf",
+          "page_ids": [
+            7,
+            8,
+            9,
+            10
+          ],
+          "range": [
+            6,
+            10
+          ],
+          "sha256": "4d1e22e8e489f284248eea25afc8c154fe92eaed756800503486caf5ad8e1b19"
+        },
+        {
+          "filename": "03 - B1.pdf",
+          "page_ids": [
+            11,
+            12
+          ],
+          "range": [
+            10,
+            12
+          ],
+          "sha256": "cc3ceb84a58fe0c5689465aadc898983b4f8edee77151388a290bec35cb2a06f"
+        }
+      ],
+      "missing_page_ids": [
+        1,
+        2,
+        3
+      ],
+      "complete_ordered_coverage": false,
+      "fixed_target": {
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ]
+      },
+      "fixed_target_matched": false,
+      "source_and_neighbor_unchanged": true
+    }
+  ],
+  "launcher_probes": [
+    {
+      "id": "PS51-missing-input",
+      "scope": "unmodified early rejection path",
+      "known_defect": "invalid_input_exit_zero",
+      "exit_code": 0,
+      "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\n[!] Error: Invalid file.\nPlease drop a valid PDF, AZW3, or EPUB file.\n\n\n",
+      "stderr": ""
+    },
+    {
+      "id": "BAT-no-input",
+      "scope": "unmodified no-argument path",
+      "known_defect": "no_input_exit_zero",
+      "exit_code": 0,
+      "stdout": "No file dropped. Please drag a PDF file onto this batch file.\nPress any key to continue . . . \n",
+      "stderr": ""
+    },
+    {
+      "id": "PS51-version",
+      "exit_code": 0,
+      "stdout": "5.1.26100.9444\n",
+      "stderr": ""
+    }
+  ],
+  "not_run": [
+    "full PowerShell splitting workflow",
+    "Explorer drag/drop",
+    "Calibre conversion",
+    "release-package matrix",
+    "fixed-engine acceptance"
+  ],
+  "cleanup": "All generated fixtures/engine/slices are inside one TemporaryDirectory owned by this run."
+}
