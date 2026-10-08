@@ -1,0 +1,19 @@
+# Development environments/tools and generated evidence stay local.
+.venv/
+.venv-dev/
+.test-tools/
+test-results/
+__pycache__/
+*.py[cod]
+*.log
+
+# Source documents and generated slices are never repository inputs.
+*.pdf
+*.epub
+*.azw3
+*.mobi
+*.zip
+
+# Local packaging output (the release payload is verified separately).
+build/
+dist/
