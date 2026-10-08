@@ -3,6 +3,17 @@
   "task_id": "M0-T03",
   "observed_at": "2026-10-08T17:30:03.208436+00:00",
   "user_timezone": "Europe/Berlin",
+  "implementation_checkpoint": {
+    "commit": "2e63f259a59438a689e75ff0ff9c1a9fcd600c1f",
+    "tree": "687a9c159192a1020e5a3e54059a91f1b593d494",
+    "clean_commit_structural_validation": "PASSED",
+    "clean_commit_matches_recorded_source_digests": true,
+    "push": "normal push succeeded",
+    "sync_observed_at": "2026-10-08T17:33:12.039489+00:00",
+    "sync_status": "SYNCED",
+    "clean_local_head_equals_live_feature_sha": true,
+    "receipt_scope": "Historical implementation C observation; not the future evidence checkpoint's own synchronization or release acceptance"
+  },
   "result": "SUPPORT_PLAN_AND_ISOLATED_DEPENDENCIES_VERIFIED",
   "base_commit": "a66c8f95f922c36c58b47b6cbfba82be399a552a",
   "base_tree": "edef8ef19e24c6620eecf8fb4522d93a9a60071c",

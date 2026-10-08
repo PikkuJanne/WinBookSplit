@@ -106,16 +106,22 @@ generated PDFs or binary dependencies were committed or uploaded.
 
 ## Git and continuation
 
-Branch: `codex/winbooksplit-v1-m0`. PR #2 was already merged; create a new draft
-PR for this remaining M0 support/scaffolding work. Independent read-only review
+Branch: `codex/winbooksplit-v1-m0`; [draft PR #3](https://github.com/PikkuJanne/WinBookSplit/pull/3). PR #2 was already merged; the new draft continues
+this remaining M0 support/scaffolding work. Independent read-only review
 confirmed wheel hashes/dependency separation/scope and found the now-corrected
 PS5.1 quoting issue. No GitHub review submission or CI pass is claimed.
 M0-T04 retains the cumulative M0 review/test-scaffolding/merge gate.
 
-This implementation checkpoint will be committed as C, normally pushed and
-live-verified. The following evidence/status checkpoint records that actual C
-receipt. Its own final receipt belongs in the thread/PR, avoiding a self-SHA
-loop. No release or tag was created.
+Implementation C: `2e63f259a59438a689e75ff0ff9c1a9fcd600c1f`; tree
+`687a9c159192a1020e5a3e54059a91f1b593d494`. Clean-C structural plan validation
+and all recorded source-path digests passed. Normal push succeeded; fresh live
+receipt at `2026-10-08T17:33:12.039489+00:00` (19:33:12 Europe/Berlin): SYNCED,
+clean local HEAD = live feature SHA = C. Runtime/dependency inputs did not
+change after their recorded worktree checks.
+
+This following documentation-only evidence/status checkpoint records the
+already observed C receipt. Its own final receipt belongs in the thread/PR,
+avoiding a self-SHA loop. No release or tag was created.
 
 Next exact task: **M0-T04 — Add local test and evidence scaffolding**. Read its
 task/TESTING/GITHUB_WORKFLOW and the frozen support plan; implement the small
