@@ -1,0 +1,3 @@
+# Windows x64 CPython 3.14.8 runtime; no optional pypdf extras.
+# Hash is the reviewed PyPI wheel. See docs/codex-v1.0.0/SUPPORT_AND_SETUP.md.
+pypdf==6.19.0 --hash=sha256:7e5d6e730e7dae87d560a2cee218b852f6498c8be61966f3cd02ead971e48d14

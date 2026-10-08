@@ -8,6 +8,8 @@ M0-T02's executable original-behavior characterization is documented in `tests/b
 
 `ACCEPTANCE_CASES.json` and `PLAN_ORACLES.json` are requirements and expected outcomes, **not executed tests**. M0/M1 connect these IDs to actual tests. Test harnesses may use pytest, Pester, PSScriptAnalyzer and development-only fixture/render tools, pinned to reviewed versions. Keep runtime dependencies minimal and separate. Add one convenient local runner using the same commands as CI; failed native commands must fail the runner.
 
+M0-T03 selects stdlib unittest on regular CPython 3.14.8, Pester 6.2.0 and PSScriptAnalyzer 1.25.0 for M0-T04, with ReportLab 5.0.1/Pillow 12.3.0/charset-normalizer 3.5.2 only in `requirements-dev.txt`. Shell modules are not yet installed/tested. `SUPPORT_AND_SETUP.md` distinguishes the frozen test targets from observed passes and documents absolute paths/hash-verified isolated setup. Original characterization succeeded on the selected Python/pypdf/developer pins; repaired-engine, real conversion, Explorer and full launcher acceptance remain open.
+
 ## Risk-based execution
 
 At each task run targeted tests and related regressions. At a milestone run the relevant full layer and dependency/host compatibility checks. At release run the entire claimed matrix against exact release payload bytes. Pure Python tests may run on the available development host, but do not certify Windows behavior. Windows PowerShell 5.1 and PowerShell 7 require separate runs; a pwsh-only pass is not both. Document the actual Windows build, Python, pypdf, Calibre, shell and fixture versions.

@@ -10,6 +10,8 @@ A version command must work without document/dependency discovery. Before any co
 
 Choose/test minimum and selected Python versions during M0; helper Python 3.10+ is not automatically the application support matrix. Keep runtime and developer dependency files separate. Pin a reviewed working dependency set; document how it was chosen and how to update it safely. Check current package/runtime advisories before release without labeling an unperformed scan 'passed'. User installation/network access is an explicit setup action. Source [S3] documents current pypdf installation requirements; do not assume 'all Python 3'.
 
+M0-T03 freezes regular x64 CPython 3.14.8 only (minimum and selected are the same), plain pypdf 6.19.0 and the Calibre 9.15.0 conversion test target. See `../SUPPORT_AND_SETUP.md` and the root hashed runtime/dev requirements. These isolated dependency checks do not prove the original launcher's discovery or later Windows/conversion acceptance; M2-T04 must integrate and enforce the recorded selection.
+
 ## Process supervision
 
 Start child executables directly (`UseShellExecute = false` where appropriate). Correctly marshal arguments for Windows PowerShell 5.1/.NET Framework **and** PowerShell 7; do not blindly use APIs available only in newer .NET. Prefer a reviewed, small compatibility helper over repeated quoted strings. Untrusted titles belong in a local UTF-8 JSON plan, not an executable command. Never use `Invoke-Expression`, `cmd /c` with constructed text, or text interpolation into Python code.

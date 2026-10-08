@@ -98,7 +98,7 @@
         "Requirements/setup plan",
         "Decision record"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M0-T02"
       ],
@@ -106,8 +106,11 @@
         "AC-007",
         "AC-008"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M0-T03-support.md",
+        "evidence/M0-T03-environment.json"
+      ],
+      "implementation_commit": "2e63f259a59438a689e75ff0ff9c1a9fcd600c1f",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
