@@ -1,0 +1,246 @@
+{
+  "task": "M0-T01",
+  "observed_at": "2026-10-08T16:39:14.082820+00:00",
+  "display_date": "2026-10-08 Europe/Berlin",
+  "repository": "PikkuJanne/WinBookSplit",
+  "workspace": "D:/projects/WinBookSplit-main",
+  "initial_state": {
+    "git_metadata": "absent",
+    "branch": null,
+    "head": null,
+    "origin_fetch": null,
+    "origin_push": null,
+    "git_status": "UNAVAILABLE: not a Git repository",
+    "existing_paths": [
+      {
+        "path": "LICENSE",
+        "bytes": 1070,
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+        "blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359"
+      },
+      {
+        "path": "README.md",
+        "bytes": 6020,
+        "sha256": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+        "blob": "d49d6119c0dc5805c92c15a9ddf50fee2634863a"
+      },
+      {
+        "path": "WinBookSplit.bat",
+        "bytes": 342,
+        "sha256": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+        "blob": "6895252024730217765c18f2627a4c455b2c13fa"
+      },
+      {
+        "path": "WinBookSplit.ps1",
+        "bytes": 15116,
+        "sha256": "897382a2193cdc38ce5aa911703004705b4af56fea94cee61b3f91ef073a052d",
+        "blob": "60ba3c99bb09b6136729b6de969ceb06115544e0"
+      },
+      {
+        "path": "WinBookSplit_icon.ico",
+        "bytes": 21645,
+        "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196",
+        "blob": "fc57139965435f3ace0dc76d450e403a70adb8b8"
+      },
+      {
+        "path": "WinBookSplit_icon.png",
+        "bytes": 10426,
+        "sha256": "df68b594e45dced01f0b2eab0af23e7601e1c4ea42d023cd28d1b82d2a375159",
+        "blob": "910453b85c4a814168f9ce0ee8a28fa857983603"
+      },
+      {
+        "path": "WinBookSplit_poster.png",
+        "bytes": 6941344,
+        "sha256": "e05a5cb155a7b06124fcc9afaa43e7f5402f5b204bab679c4c6072a195abcbaa",
+        "blob": "3461d3bb810fb4cc8a82f6ba1e7590244fb876fb"
+      }
+    ],
+    "existing_guidance": [],
+    "ancestor_instructions_checked": [
+      "D:/AGENTS.md",
+      "D:/projects/AGENTS.md",
+      "D:/projects/WinBookSplit-main/AGENTS.md"
+    ],
+    "ancestor_instructions_found": []
+  },
+  "reconciliation": {
+    "method": "Clone live main with --no-checkout outside repository; compare entire local file set and raw Git blobs; read-tree HEAD in external clone to populate its index only; create previously absent local .git with copytree; verify unchanged file hashes and clean status. No existing history was reset and no application file was checked out.",
+    "live_main": "6edbed7c1a0c94968999882c5a46d90492d3c327",
+    "live_tree": "2443dfef5e6e2f064369f68b6f7b17d061e4b871",
+    "baseline_matches_live": true,
+    "all_original_files_match_live_blobs": true,
+    "restored_branch": "main",
+    "restored_upstream": "origin/main",
+    "restored_status": "clean; no dirty or untracked paths",
+    "in_progress_git_operations": [],
+    "origin_fetch": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "origin_push": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "selected_feature_branch": "codex/winbooksplit-v1-m0",
+    "feature_branch_initial_upstream": null,
+    "newer_local_or_remote_work": "None in the inspected files/live main. Original local Git history cannot be inspected because metadata was absent."
+  },
+  "github": {
+    "authentication": "gh active PikkuJanne, keyring; API pull/push permissions true; credentials not committed",
+    "public": true,
+    "default_branch": "main",
+    "initial_live_branches": [
+      {
+        "name": "main",
+        "commit": {
+          "sha": "6edbed7c1a0c94968999882c5a46d90492d3c327",
+          "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/commits/6edbed7c1a0c94968999882c5a46d90492d3c327"
+        },
+        "protected": false,
+        "protection": {
+          "enabled": false,
+          "required_status_checks": {
+            "enforcement_level": "off",
+            "contexts": [],
+            "checks": []
+          }
+        },
+        "protection_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches/main/protection"
+      }
+    ],
+    "tags": [],
+    "releases": [],
+    "open_prs_before_this_task": [],
+    "rulesets": [],
+    "main_protection": "404 Branch not protected; confirmed expected absence, not a successful protection check",
+    "settings_changed": false,
+    "query_commands": [
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/branches",
+        "--paginate"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/tags",
+        "--paginate"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases",
+        "--paginate"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/pulls",
+        "--paginate"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/rulesets",
+        "--paginate"
+      ],
+      [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/branches/main/protection"
+      ],
+      [
+        "git",
+        "ls-remote",
+        "--symref",
+        "origin",
+        "HEAD",
+        "refs/heads/*",
+        "refs/tags/*"
+      ]
+    ],
+    "authentication_commands": [
+      [
+        "gh",
+        "auth",
+        "status"
+      ],
+      [
+        "gh",
+        "api",
+        "user",
+        "--jq",
+        ".login"
+      ]
+    ]
+  },
+  "bundle": {
+    "archive_sha256": "523e5eca12d1176cf301a4f8d1303632e59fafdf088b2f061d1265f579c6c739",
+    "zip_crc": "PASS",
+    "path_duplicate_traversal_symlink_preflight": "PASS",
+    "manifested_files": 78,
+    "imported_files": 69,
+    "tasks": 36,
+    "acceptance_cases": 107,
+    "split_oracles": 30,
+    "initial_preview": "Refused safely because supplied directory was not a Git repository; no files copied.",
+    "successful_preview": "69 CREATE; zero conflicts/identical-existing handoff files; preview outside repository",
+    "apply_exit_code": 0,
+    "post_import_exact_payload_comparison": "69 of 69 match",
+    "original_file_preservation": "7 of 7 SHA256 unchanged",
+    "existing_guidance_reconciliation": "No guidance/status/AGENTS existed locally or on live main; no differing files to merge.",
+    "execution_cwd": "External extracted WinBookSplit-Codex-v1.0.0-Bundle directory",
+    "validation_command": "python ./validate_bundle.py --bundle .",
+    "preview_command": "python ./import_bundle.py --repo D:\\projects\\WinBookSplit-main",
+    "apply_command": "python ./import_bundle.py --repo D:\\projects\\WinBookSplit-main --apply"
+  },
+  "source_identity": {
+    "base_commit": "6edbed7c1a0c94968999882c5a46d90492d3c327",
+    "base_tree": "2443dfef5e6e2f064369f68b6f7b17d061e4b871",
+    "application_file_set_sha256": "5a2161df50a442aa6bcd41b4fb43749ff2958dfe09bf42b76b7428b7197ecca2",
+    "digest_recipe": "SHA256(UTF-8 JSON of sorted initial-state existing_paths rows; sort_keys=True,separators=(comma,colon)); includes LICENSE, README, launcher, PowerShell, artwork; no runtime package defined yet.",
+    "tested_helper_sha256": {
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39"
+    }
+  },
+  "environment": {
+    "windows_reported": "Microsoft Windows 10.0.26300",
+    "host_shell": "PowerShell 7.6.5 Core",
+    "python": "3.14.7",
+    "git": "2.56.0.windows.1",
+    "gh": "2.97.0",
+    "windows_powershell_5_1": "Executable found; not executed for application tests",
+    "pypdf": "Not installed in current Python 3.14.7",
+    "calibre": "Not on PATH or at three current application discovery paths; no conversion executed",
+    "developer_test_framework": "Python stdlib unittest from delivered bundle"
+  },
+  "checks": {
+    "bundle_validator": {
+      "exit_code": 0,
+      "status": "VALID",
+      "scope": "integrity/structure only"
+    },
+    "bundle_helper_suite": {
+      "command": "python -B -m unittest discover -s bundle_tests -v (outside repository)",
+      "run": 57,
+      "passed": 56,
+      "skipped": 1,
+      "skip_reason": "Symlink creation not available on this host",
+      "exit_code": 0,
+      "duration_seconds": 38.429
+    },
+    "imported_plan_validator": {
+      "exit_code": 0,
+      "status": "VALID"
+    },
+    "application_windows_calibre_ui_security_release_acceptance": "NOT RUN; no such pass is claimed.",
+    "pre_commit_review": "Read-only independent subagent: no blocking defect; original hashes/blobs, helper/payload bytes, scoped differences and digest recipe independently matched; imported plan validator exit 0."
+  },
+  "checkpoint": {
+    "status": "PENDING until intended commit is normally pushed and check_sync.py confirms clean live equality",
+    "implementation_commit": null
+  },
+  "next_task": "M0-T02"
+}

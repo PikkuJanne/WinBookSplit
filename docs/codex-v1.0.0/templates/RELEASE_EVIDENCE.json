@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "template": true,
+  "status": "not_started",
+  "repository": "PikkuJanne/WinBookSplit",
+  "tag": "v1.0.0",
+  "release_source_commit": null,
+  "release_source_tree": null,
+  "payload_input_manifest": null,
+  "tag_resolved_commit": null,
+  "tag_verified_at": null,
+  "release_url": null,
+  "release_id": null,
+  "published_at": null,
+  "draft": null,
+  "prerelease": null,
+  "ci_evidence": [],
+  "windows_package_evidence": [],
+  "calibre_evidence": [],
+  "security_review": null,
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.0.zip",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    },
+    {
+      "name": "release-manifest.json",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    }
+  ],
+  "downloaded_windows_smoke": null,
+  "signing_status": "not_decided_or_unsigned_disclose_actual",
+  "closure_commit": null,
+  "release_commit_is_ancestor_of_closure": null,
+  "payload_unchanged_after_release_commit": null,
+  "last_historical_main_sync_receipt": null,
+  "final_current_sync_receipt_location": null,
+  "known_limits": [],
+  "open_blockers": []
+}

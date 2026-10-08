@@ -1,0 +1,39 @@
+{
+  "repository": "PikkuJanne/WinBookSplit",
+  "observed_date": "2026-10-07",
+  "default_branch": "main",
+  "commit": "6edbed7c1a0c94968999882c5a46d90492d3c327",
+  "tree": "2443dfef5e6e2f064369f68b6f7b17d061e4b871",
+  "public_releases_observed": [],
+  "inspection": "GitHub connector reads; source-level review. No full Windows/Calibre execution during bundle preparation.",
+  "files": [
+    {
+      "path": "LICENSE",
+      "blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359"
+    },
+    {
+      "path": "README.md",
+      "blob": "d49d6119c0dc5805c92c15a9ddf50fee2634863a"
+    },
+    {
+      "path": "WinBookSplit.bat",
+      "blob": "6895252024730217765c18f2627a4c455b2c13fa"
+    },
+    {
+      "path": "WinBookSplit.ps1",
+      "blob": "60ba3c99bb09b6136729b6de969ceb06115544e0"
+    },
+    {
+      "path": "WinBookSplit_icon.ico",
+      "blob": "fc57139965435f3ace0dc76d450e403a70adb8b8"
+    },
+    {
+      "path": "WinBookSplit_icon.png",
+      "blob": "910453b85c4a814168f9ce0ee8a28fa857983603"
+    },
+    {
+      "path": "WinBookSplit_poster.png",
+      "blob": "3461d3bb810fb4cc8a82f6ba1e7590244fb876fb"
+    }
+  ]
+}

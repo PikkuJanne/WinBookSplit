@@ -1,0 +1,1206 @@
+{
+  "schema_version": 1,
+  "project": "PikkuJanne/WinBookSplit",
+  "target_release": "v1.0.0",
+  "initial_status": "not_started",
+  "tasks": [
+    {
+      "id": "M0-T01",
+      "milestone": "M0",
+      "title": "Reconcile the live repository and import the handoff",
+      "goal": "Establish the real starting point without discarding local or remote work.",
+      "actions": [
+        "Inspect applicable instructions, origin fetch/push identity, Git status, branch/upstream, current HEAD, GitHub tags/releases/PRs and authentication.",
+        "Validate/preview/import this handoff; manually reconcile pre-existing differing guidance and status rather than overwrite it.",
+        "Compare current code with BASELINE.json; document new work and choose the normal M0 feature branch.",
+        "Commit only the scoped handoff/audit, push and verify a fresh live SHA."
+      ],
+      "specs": [
+        "GITHUB_WORKFLOW.md",
+        "BASELINE_AUDIT.md",
+        "SCOPE_AND_DECISIONS.md"
+      ],
+      "deliverables": [
+        "Reconciled audit and live-state evidence",
+        "Imported guidance",
+        "First synchronized feature-branch checkpoint"
+      ],
+      "status": "in_progress",
+      "depends_on": [],
+      "acceptance_ids": [
+        "AC-001",
+        "AC-002",
+        "AC-003"
+      ],
+      "evidence_paths": [
+        "evidence/M0-T01-live-audit.json",
+        "evidence/M0-T01-handoff.md"
+      ],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M0-T02",
+      "milestone": "M0",
+      "title": "Capture baseline behavior with safe fixtures",
+      "goal": "Turn the observed bugs into executable evidence before modifying runtime logic.",
+      "actions": [
+        "Create generated 10/12-page fixtures with unique page IDs and simple/nested outlines; record provenance.",
+        "Characterize the original embedded Python and current launcher without depending on user textbooks.",
+        "Reproduce manual page-1 loss, invalid-token filtering, front-matter omission and parent crossing; capture expected fixed results.",
+        "Mark known-bad baseline expectations explicitly, separate from passing fixed-version acceptance tests."
+      ],
+      "specs": [
+        "BASELINE_AUDIT.md",
+        "PLAN_ORACLES.json",
+        "TESTING.md"
+      ],
+      "deliverables": [
+        "Fixture generator/provenance",
+        "Baseline regression evidence",
+        "Reusable expected-range cases"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M0-T01"
+      ],
+      "acceptance_ids": [
+        "AC-004",
+        "AC-005",
+        "AC-006"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M0-T03",
+      "milestone": "M0",
+      "title": "Freeze support and dependency decisions",
+      "goal": "Replace vague compatibility claims with an executable support plan.",
+      "actions": [
+        "Inspect actual Windows/shell/Python/pypdf/Calibre tools and current official requirements/advisories.",
+        "Select tested Python range and exact supported dependency versions; separate runtime and developer requirements.",
+        "Record Windows 11 PS5.1/PS7 target, conversion support, explicit encrypted-feature rejection, unsigned release and unclaimed Windows10/UNC status.",
+        "Document isolated-venv setup, explicit dependency paths and scope decisions without auto-installing globally."
+      ],
+      "specs": [
+        "SCOPE_AND_DECISIONS.md",
+        "specs/PROCESS_AND_PATHS.md",
+        "specs/PDF_SUPPORT.md",
+        "SOURCES.md"
+      ],
+      "deliverables": [
+        "Support/dependency matrix",
+        "Requirements/setup plan",
+        "Decision record"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M0-T02"
+      ],
+      "acceptance_ids": [
+        "AC-007",
+        "AC-008"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M0-T04",
+      "milestone": "M0",
+      "title": "Add local test and evidence scaffolding",
+      "goal": "Make later changes verifiable through one small local test workflow.",
+      "actions": [
+        "Add Python test layout and PowerShell/Pester/static-check entry points; preserve runtime behavior.",
+        "Add targeted/full test invocations with native exit-code enforcement and isolated temp fixtures.",
+        "Wire acceptance IDs and source/evidence digests into reports; keep outputs/private files out of Git.",
+        "Review M0 and merge its passing scoped changes via the repository process, then synchronize local main."
+      ],
+      "specs": [
+        "TESTING.md",
+        "GITHUB_WORKFLOW.md"
+      ],
+      "deliverables": [
+        "Local test runner/scaffolding",
+        "Fixture cleanup/ignore rules",
+        "M0 review and merge evidence"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M0-T03"
+      ],
+      "acceptance_ids": [
+        "AC-009",
+        "AC-010"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T01",
+      "milestone": "M1",
+      "title": "Extract the existing Python engine narrowly",
+      "goal": "Make existing PDF logic testable without replacing it.",
+      "actions": [
+        "Move existing Python logic to engine/winbooksplit_engine.py with import-safe functions and a guarded entry point.",
+        "Resolve it from the installed script root, not current directory or shared temp filename.",
+        "Keep characterization outputs stable before bug fixes; separate any mechanical refactor from behavior changes.",
+        "Verify both entry points can locate the shipped engine from an unrelated working directory."
+      ],
+      "specs": [
+        "specs/PROCESS_AND_PATHS.md",
+        "TESTING.md"
+      ],
+      "deliverables": [
+        "Version-controlled existing engine",
+        "Minimal PowerShell integration",
+        "Extraction equivalence evidence"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M0-T04"
+      ],
+      "acceptance_ids": [
+        "AC-011",
+        "AC-012"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T02",
+      "milestone": "M1",
+      "title": "Fix manual start-page parsing",
+      "goal": "Make every accepted manual request preserve the first page and reject bad tokens.",
+      "actions": [
+        "Implement the strict start-page grammar in SPLIT_CONTRACT.md; validate all tokens before normalizing.",
+        "Always include physical page 1, dedupe/sort with notices and treat input 1 as a whole-document one-section run.",
+        "Reject empty, mixed-invalid, range, signed/decimal/non-ASCII-numeric and out-of-range input before writing.",
+        "Connect deterministic manual oracles and randomized valid starts to executable tests."
+      ],
+      "specs": [
+        "specs/SPLIT_CONTRACT.md",
+        "PLAN_ORACLES.json"
+      ],
+      "deliverables": [
+        "Strict parser",
+        "Correct manual plans",
+        "First-page regression tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T01"
+      ],
+      "acceptance_ids": [
+        "AC-013",
+        "AC-014",
+        "AC-015",
+        "AC-016",
+        "AC-017",
+        "AC-018"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T03",
+      "milestone": "M1",
+      "title": "Normalize bookmarks and fix Level 1 coverage",
+      "goal": "Build deterministic usable Level 1 boundaries and preserve front matter.",
+      "actions": [
+        "Track outline depth/lineage/source order; validate destination pages and report invalid/external links.",
+        "Handle duplicate starts and out-of-order bookmarks deterministically with warnings.",
+        "Emit front matter and complete Level 1 parent intervals; protect traversal against malformed structures.",
+        "Retain deeper nodes for diagnostics without interpreting them as Level 1 starts."
+      ],
+      "specs": [
+        "specs/SPLIT_CONTRACT.md"
+      ],
+      "deliverables": [
+        "Outline normalization",
+        "Level 1 planner",
+        "Front-matter/invalid-outline tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T02"
+      ],
+      "acceptance_ids": [
+        "AC-019",
+        "AC-020",
+        "AC-021",
+        "AC-022"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T04",
+      "milestone": "M1",
+      "title": "Make Level 2 parent-aware",
+      "goal": "Stop a child chapter from absorbing pages belonging to the next parent.",
+      "actions": [
+        "Construct valid top-level intervals and use only each parent's own direct usable children.",
+        "Emit parent-opening sections and whole-parent fallback for parents lacking usable children.",
+        "Clip by parent ends by construction; reject/ignore invalid child destinations with explicit reasons.",
+        "Test nested/duplicate/out-of-order/missing-level cases and exact expected page identities."
+      ],
+      "specs": [
+        "specs/SPLIT_CONTRACT.md",
+        "PLAN_ORACLES.json"
+      ],
+      "deliverables": [
+        "Parent-aware Level 2 planner",
+        "Fallback semantics",
+        "Exact parent-boundary regression tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T03"
+      ],
+      "acceptance_ids": [
+        "AC-023",
+        "AC-024",
+        "AC-025",
+        "AC-026"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T05",
+      "milestone": "M1",
+      "title": "Unify planning, preview data and execution",
+      "goal": "Eliminate separate calculations that can make previews and written files disagree.",
+      "actions": [
+        "Define one small validated plan/result model used by every mode and the existing page writer.",
+        "Enforce nonempty in-range contiguous complete coverage and stable page identity/order checks.",
+        "Bind the plan to the probed source; invalidate it if source/conversion changes.",
+        "Expose read-only plan preview data without writing chapters; leave UI binding to M3."
+      ],
+      "specs": [
+        "specs/SPLIT_CONTRACT.md",
+        "specs/OUTPUT_AND_CONVERSION.md"
+      ],
+      "deliverables": [
+        "Shared plan/result contract",
+        "Coverage validator",
+        "Plan/execution parity tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T04"
+      ],
+      "acceptance_ids": [
+        "AC-027",
+        "AC-028",
+        "AC-029"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M1-T06",
+      "milestone": "M1",
+      "title": "Distinguish no-outline and invalid-document results",
+      "goal": "No empty run may masquerade as successful processing.",
+      "actions": [
+        "Separate no outlines, no bookmarks at requested level, no usable destinations and malformed/zero-page documents.",
+        "Return structured warning/error categories rather than hidden sentinel output or bare exception suppression.",
+        "Ensure invalid execution plans create no final output; capture a manual/Level1 fallback decision without silently applying it.",
+        "Run M1 regressions, review and merge/synchronize the milestone."
+      ],
+      "specs": [
+        "specs/SPLIT_CONTRACT.md",
+        "specs/CLI_AND_UX.md"
+      ],
+      "deliverables": [
+        "Structured diagnostic categories",
+        "Zero-output failure tests",
+        "M1 merged checkpoint"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T05"
+      ],
+      "acceptance_ids": [
+        "AC-030",
+        "AC-031"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M2-T01",
+      "milestone": "M2",
+      "title": "Isolate runs and stage validated output",
+      "goal": "Protect originals, neighboring files and every earlier run.",
+      "actions": [
+        "Allocate unique owned work/staging paths under the selected output base with no overwrite behavior.",
+        "Write slices into staging, reopen/validate expected pages, and promote only a complete run to a unique final path.",
+        "Track ownership for cleanup; prevent source aliases and symlink/junction traversal into unrelated files.",
+        "Inject failures after some slices and verify original/prior-output hashes and incomplete-result handling."
+      ],
+      "specs": [
+        "specs/OUTPUT_AND_CONVERSION.md",
+        "SECURITY.md"
+      ],
+      "deliverables": [
+        "Transactional-style staging/no-clobber implementation",
+        "Ownership-safe cleanup design",
+        "Failure/collision tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M1-T06"
+      ],
+      "acceptance_ids": [
+        "AC-032",
+        "AC-033",
+        "AC-034",
+        "AC-035"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M2-T02",
+      "milestone": "M2",
+      "title": "Harden literal paths and output filenames",
+      "goal": "Make valid Windows names reliable without inventing unsafe automatic repairs.",
+      "actions": [
+        "Use literal file-only validation and resolved provider paths throughout PowerShell.",
+        "Build safe Unicode titles, full-path-aware truncation, stable fallbacks, case-insensitive collision checks and dynamic numbering.",
+        "Test special characters, unreadable/unwritable paths, long paths and 100+ sections.",
+        "Preserve source filenames/paths; never alter machine-wide path/security settings."
+      ],
+      "specs": [
+        "specs/PROCESS_AND_PATHS.md",
+        "specs/OUTPUT_AND_CONVERSION.md"
+      ],
+      "deliverables": [
+        "Literal-path handling",
+        "Safe deterministic filenames",
+        "Windows-path tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M2-T01"
+      ],
+      "acceptance_ids": [
+        "AC-036",
+        "AC-037",
+        "AC-038",
+        "AC-039"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M2-T03",
+      "milestone": "M2",
+      "title": "Move ebook conversion into owned workspace",
+      "goal": "Keep conversion useful while eliminating same-name PDF collisions.",
+      "actions": [
+        "Convert EPUB/AZW3 to a unique working PDF, keeping original ebook identity separately.",
+        "Validate fresh nonempty readable PDF output and page count, not just process success.",
+        "Keep conversion settings explicit and add safe intermediate retention inside the run folder.",
+        "Handle no output, failure/cancel, read-only source locations and same-basename existing PDFs."
+      ],
+      "specs": [
+        "specs/OUTPUT_AND_CONVERSION.md"
+      ],
+      "deliverables": [
+        "Safe Calibre workflow",
+        "Conversion validation",
+        "Neighbor-preservation and retention tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M2-T02"
+      ],
+      "acceptance_ids": [
+        "AC-040",
+        "AC-041",
+        "AC-042"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M2-T04",
+      "milestone": "M2",
+      "title": "Implement interpreter and converter preflight",
+      "goal": "Fail early with accurate setup guidance and the exact runtime paths used.",
+      "actions": [
+        "Resolve explicit paths and the documented venv/PATH candidates safely; validate version and pypdf import with that interpreter.",
+        "Resolve Calibre only when a non-PDF input requires it; support trusted nonstandard installs.",
+        "Reject broken/shadowed/incompatible candidates and report actionable next steps.",
+        "Keep installation opt-in, project-local and separate from document processing."
+      ],
+      "specs": [
+        "specs/PROCESS_AND_PATHS.md",
+        "SCOPE_AND_DECISIONS.md"
+      ],
+      "deliverables": [
+        "Runtime discovery/preflight",
+        "Exact-version reporting",
+        "Missing/wrong dependency tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M2-T03"
+      ],
+      "acceptance_ids": [
+        "AC-043",
+        "AC-044",
+        "AC-045"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M2-T05",
+      "milestone": "M2",
+      "title": "Supervise subprocesses and UTF-8 streams",
+      "goal": "Remove stderr deadlocks and preserve diagnostics across both PowerShell hosts.",
+      "actions": [
+        "Use a small tested direct-executable argument-marshalling path compatible with PS5.1 and PS7.",
+        "Drain both streams concurrently to EOF including fast exit, blank lines, no-newline tail and heavy stderr.",
+        "Set child/output UTF-8 explicitly and bound buffers; close handles reliably.",
+        "Record real host tests and review/merge the milestone without mixing in a new process framework."
+      ],
+      "specs": [
+        "specs/PROCESS_AND_PATHS.md",
+        "SECURITY.md",
+        "TESTING.md"
+      ],
+      "deliverables": [
+        "Reliable process supervisor",
+        "Unicode/argument/flood tests",
+        "M2 merged checkpoint"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M2-T04"
+      ],
+      "acceptance_ids": [
+        "AC-046",
+        "AC-047",
+        "AC-048",
+        "AC-049"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M3-T01",
+      "milestone": "M3",
+      "title": "Propagate outcomes and cancel safely",
+      "goal": "Make success, failure and cancellation truthful through the batch entry point.",
+      "actions": [
+        "Apply one result/exit-code mapping and capture the final fallback attempt rather than the first failure only.",
+        "Remove unconditional success, preserve native result through cleanup and launcher pause behavior.",
+        "Implement cancellation/timeout and process ownership without killing unrelated Python/Calibre processes.",
+        "Test startup/write/conversion/fallback failures and marked partial/staging handling."
+      ],
+      "specs": [
+        "specs/CLI_AND_UX.md",
+        "specs/PROCESS_AND_PATHS.md",
+        "specs/OUTPUT_AND_CONVERSION.md"
+      ],
+      "deliverables": [
+        "End-to-end result/exit semantics",
+        "Safe cancel/timeout",
+        "Failure propagation tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M2-T05"
+      ],
+      "acceptance_ids": [
+        "AC-050",
+        "AC-051",
+        "AC-052"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M3-T02",
+      "milestone": "M3",
+      "title": "Add the small non-interactive CLI",
+      "goal": "Expose existing features for scripting without a second processing path.",
+      "actions": [
+        "Add validated target parameters/sets and comment-based help, using the shared planner/runtime.",
+        "Ensure Version is independent; NonInteractive has no prompts, dialogs, pauses, automatic fallback or Explorer launch.",
+        "Make Preview plan-only and document required temporary conversion for ebooks.",
+        "Test contradictory/missing parameters and proposed command examples."
+      ],
+      "specs": [
+        "specs/CLI_AND_UX.md"
+      ],
+      "deliverables": [
+        "Validated CLI/help",
+        "Noninteractive/preview behavior",
+        "Parameter/exit tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M3-T01"
+      ],
+      "acceptance_ids": [
+        "AC-053",
+        "AC-054",
+        "AC-055",
+        "AC-056"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M3-T03",
+      "milestone": "M3",
+      "title": "Polish launcher and menu behavior",
+      "goal": "Keep familiar drag/drop and handle no-input and multi-input cases explicitly.",
+      "actions": [
+        "Update .bat messages to all three input formats and preserve safe argument/exit behavior.",
+        "Offer no-input selection/prompt and return cancellation accurately.",
+        "Reject more than one dropped file; validate menu answers and fallback decisions exactly.",
+        "Test launching from unrelated directories and perform real Explorer interaction checks."
+      ],
+      "specs": [
+        "specs/CLI_AND_UX.md",
+        "specs/PROCESS_AND_PATHS.md"
+      ],
+      "deliverables": [
+        "Improved existing launcher/TUI",
+        "No/multiple-input behavior",
+        "Explorer evidence"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M3-T02"
+      ],
+      "acceptance_ids": [
+        "AC-057",
+        "AC-058",
+        "AC-059"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M3-T04",
+      "milestone": "M3",
+      "title": "Show plans and converted-PDF page guidance",
+      "goal": "Make the correct boundaries visible before interactive processing.",
+      "actions": [
+        "Render the shared plan with physical ranges, filenames, parent/opening/front-matter notices, output destination and coverage.",
+        "Confirm interactive execution and offer appropriate no-Level2/no-outline fallback choices.",
+        "For ebook manual starts, retain/open the working PDF only on request and make generated-PDF numbering explicit.",
+        "Show a truthful final folder/count summary and optional interactive folder opening."
+      ],
+      "specs": [
+        "specs/CLI_AND_UX.md",
+        "specs/SPLIT_CONTRACT.md"
+      ],
+      "deliverables": [
+        "Readable plan preview",
+        "Ebook manual guidance",
+        "Preview/write parity UX tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M3-T03"
+      ],
+      "acceptance_ids": [
+        "AC-060",
+        "AC-061",
+        "AC-062"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M3-T05",
+      "milestone": "M3",
+      "title": "Produce useful local manifests and redacted diagnostics",
+      "goal": "Make failures supportable without exposing private document information publicly.",
+      "actions": [
+        "Write bounded readable logs and UTF-8 run manifests with versions, normalized settings, source identities, ranges, warnings and final outcome.",
+        "Keep stdout/stderr categories and failures visible; avoid suppressing all pypdf warnings.",
+        "Add explicit redacted diagnostic export or a safe documented summary function; never upload automatically.",
+        "Test redaction/finalization failures, review M3 and merge/synchronize."
+      ],
+      "specs": [
+        "specs/CLI_AND_UX.md",
+        "SECURITY.md",
+        "GITHUB_WORKFLOW.md"
+      ],
+      "deliverables": [
+        "Logs/manifests",
+        "Redacted support summary",
+        "M3 review/checkpoint"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M3-T04"
+      ],
+      "acceptance_ids": [
+        "AC-063",
+        "AC-064",
+        "AC-065"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M4-T01",
+      "milestone": "M4",
+      "title": "Preserve tested PDF page fidelity and metadata",
+      "goal": "Prove supported pages survive splitting rather than relying on page counts alone.",
+      "actions": [
+        "Set chapter/source metadata and a useful chapter-start bookmark; preserve supported page content/geometry without rasterization.",
+        "Test text/images/rotations/crop boxes/mixed sizes/common annotations and permitted navigation.",
+        "Compare source/output page identities and representative renders; document limited cross-chapter links.",
+        "Keep difficult unsupported features explicit rather than silently promising catalog preservation."
+      ],
+      "specs": [
+        "specs/PDF_SUPPORT.md",
+        "TESTING.md"
+      ],
+      "deliverables": [
+        "Fidelity/metadata improvements",
+        "Render/structure evidence",
+        "Navigation limit documentation"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M3-T05"
+      ],
+      "acceptance_ids": [
+        "AC-066",
+        "AC-067",
+        "AC-068",
+        "AC-069"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M4-T02",
+      "milestone": "M4",
+      "title": "Enforce unsupported-document policy",
+      "goal": "Reject encrypted/unsafe unsupported structures before creating output.",
+      "actions": [
+        "Detect encrypted PDFs, including owner-only/empty-open-password variants; return the declared unsupported code.",
+        "Detect forms/signatures and other unsupported active/document-level features with a tested rejection or explicitly allowed warning.",
+        "Handle truncated, malformed and resource-pathological PDFs with clear bounded failure.",
+        "Ensure logs do not solicit/store passwords and do not recommend DRM removal."
+      ],
+      "specs": [
+        "specs/PDF_SUPPORT.md",
+        "SCOPE_AND_DECISIONS.md",
+        "SECURITY.md"
+      ],
+      "deliverables": [
+        "Document-feature preflight",
+        "Clear rejection tests",
+        "Accurate limitations"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M4-T01"
+      ],
+      "acceptance_ids": [
+        "AC-070",
+        "AC-071",
+        "AC-072"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M4-T03",
+      "milestone": "M4",
+      "title": "Expand regression and fault-injection coverage",
+      "goal": "Stress the safety guarantees under realistic failures and concurrent runs.",
+      "actions": [
+        "Add concurrency, disk/write failure, cleanup/junction, stream-flood, fast-exit, stale-source and repeated-run cases.",
+        "Add seeded property/invariant tests for valid starts and malformed outline inputs.",
+        "Verify source/neighbor/prior-run hashes, not just return codes.",
+        "Exercise PS5.1 and PS7 integration with scoped fake child tools and actual engine results."
+      ],
+      "specs": [
+        "ACCEPTANCE_CASES.json",
+        "TESTING.md",
+        "SECURITY.md"
+      ],
+      "deliverables": [
+        "Fault/concurrency regression suite",
+        "Invariant tests",
+        "Cross-host error evidence"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M4-T02"
+      ],
+      "acceptance_ids": [
+        "AC-073",
+        "AC-074",
+        "AC-075"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M4-T04",
+      "milestone": "M4",
+      "title": "Test real EPUB and AZW3 conversion",
+      "goal": "Back the advertised ebook support with actual format-specific evidence.",
+      "actions": [
+        "Generate/provenance a tiny original EPUB and a real AZW3 test input without copyrighted content.",
+        "Run the actual supported Calibre converter separately for each input; inspect output PDF layout/outlines and all-page coverage.",
+        "Verify conversion options, retention/manual guidance, failures and intended offline operation.",
+        "Keep current compatibility behavior unless a small tested preset is justified; do not expand into native ebook splitting."
+      ],
+      "specs": [
+        "specs/OUTPUT_AND_CONVERSION.md",
+        "TESTING.md",
+        "SOURCES.md"
+      ],
+      "deliverables": [
+        "Real Calibre format fixtures",
+        "EPUB/AZW3 integration evidence",
+        "Conversion support notes"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M4-T03"
+      ],
+      "acceptance_ids": [
+        "AC-076",
+        "AC-077",
+        "AC-078"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M4-T05",
+      "milestone": "M4",
+      "title": "Add least-privilege Windows CI",
+      "goal": "Automate regression checks while keeping manual Windows evidence honest.",
+      "actions": [
+        "Add modest Windows CI using reviewed pinned actions/tools and explicit PS5.1/PS7 runs.",
+        "Run static analysis, Python tests, Pester and package-input checks with failure artifact reporting.",
+        "Keep release writes isolated/manual; never publish on an ordinary branch push or untrusted PR.",
+        "Verify CI on the actual branch, review M4 and merge/synchronize main."
+      ],
+      "specs": [
+        "TESTING.md",
+        "SECURITY.md",
+        "GITHUB_WORKFLOW.md"
+      ],
+      "deliverables": [
+        "Windows CI workflow",
+        "Actual run URLs/results",
+        "M4 merged checkpoint"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M4-T04"
+      ],
+      "acceptance_ids": [
+        "AC-079",
+        "AC-080",
+        "AC-081"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M5-T01",
+      "milestone": "M5",
+      "title": "Correct user docs, licensing and versioning",
+      "goal": "Describe only implemented and tested behavior.",
+      "actions": [
+        "Rewrite application README/help examples, format matrix, physical-page semantics, safe outputs, setup/troubleshooting and support/feature limits.",
+        "Add CHANGELOG, third-party notices and concise contribution/security reporting guidance without a website.",
+        "Use one VERSION source; explain legacy banner naming without inventing older public releases.",
+        "Disclose unsigned status/checksum verification and execute every documented command."
+      ],
+      "specs": [
+        "SCOPE_AND_DECISIONS.md",
+        "specs/CLI_AND_UX.md",
+        "specs/PDF_SUPPORT.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Accurate end-user docs",
+        "Canonical version/changelog",
+        "License/notices"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M4-T05"
+      ],
+      "acceptance_ids": [
+        "AC-082",
+        "AC-083"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M5-T02",
+      "milestone": "M5",
+      "title": "Build an allowlisted release package",
+      "goal": "Create a small distribution from an explicit commit, not the developer worktree.",
+      "actions": [
+        "Implement a package builder using explicit allowed runtime paths and commit provenance.",
+        "Exclude tests/handoff/cache/private data/untracked dependencies and confirm all required engine/helper files are present.",
+        "Produce ZIP, external release-manifest and SHA256SUMS without circular self-hashes.",
+        "Test missing files/version mismatch/unsafe ZIP members and payload consistency."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md",
+        "SECURITY.md"
+      ],
+      "deliverables": [
+        "Package builder/allowlist",
+        "Provenance/checksum generation",
+        "Package-content tests"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M5-T01"
+      ],
+      "acceptance_ids": [
+        "AC-084",
+        "AC-085",
+        "AC-086"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M5-T03",
+      "milestone": "M5",
+      "title": "Smoke-test the extracted candidate on Windows",
+      "goal": "Catch dependencies on the development checkout and validate the actual user workflow.",
+      "actions": [
+        "Build an unreleased candidate and extract into a clean unrelated path with fresh venv and controlled dependency resolution.",
+        "Run both supported PowerShell hosts and real Explorer no/input/multiple/Unicode/manual/auto/fallback scenarios.",
+        "Run real EPUB and AZW3 conversions and inspect representative rendered slices.",
+        "Record candidate hash, exact environment and human outcomes; do not label skipped checks passed."
+      ],
+      "specs": [
+        "TESTING.md",
+        "templates/MANUAL_SMOKE.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Extracted-candidate Windows evidence",
+        "Cross-host/Explorer/Calibre results",
+        "Actionable defect list"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M5-T02"
+      ],
+      "acceptance_ids": [
+        "AC-087",
+        "AC-088",
+        "AC-089"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M5-T04",
+      "milestone": "M5",
+      "title": "Perform the release security and dependency review",
+      "goal": "Resolve concrete safety or dependency blockers before final acceptance.",
+      "actions": [
+        "Review subprocess/path/temp/output/cleanup/privacy/CI/release diffs against the threat checklist.",
+        "Check current dependency advisories and actual redistributed files/licenses; record tools and unavailable scans honestly.",
+        "Run full regression/static analysis and inspect public-ready logs/fixtures/assets for private data.",
+        "Record severity, fixes and remaining accurate limitations; no 100% security claim."
+      ],
+      "specs": [
+        "SECURITY.md",
+        "TESTING.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Security/dependency review",
+        "Full regression evidence",
+        "Resolved blocker register"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M5-T03"
+      ],
+      "acceptance_ids": [
+        "AC-090",
+        "AC-091",
+        "AC-092"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M5-T05",
+      "milestone": "M5",
+      "title": "Close acceptance gaps and merge final release scope",
+      "goal": "Arrive at a coherent final release candidate without feature creep.",
+      "actions": [
+        "Fix defects from M5 narrowly and rerun affected plus full claimed tests; update acceptance evidence and user docs.",
+        "Verify every approved improvement maps to an implemented feature or the predeclared supported rejection policy.",
+        "Set canonical final version 1.0.0 and review cumulative changes/CI; merge through the available process.",
+        "Synchronize clean main and hand off exact candidate state to M6; do not publish early."
+      ],
+      "specs": [
+        "IMPROVEMENT_MAP.md",
+        "ACCEPTANCE_CASES.json",
+        "GITHUB_WORKFLOW.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Closed acceptance matrix",
+        "Reviewed merged candidate",
+        "M6 handoff"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M5-T04"
+      ],
+      "acceptance_ids": [
+        "AC-093",
+        "AC-094"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T01",
+      "milestone": "M6",
+      "title": "Freeze and verify release source commit R",
+      "goal": "Identify the exact clean main commit from which v1.0.0 will be built.",
+      "actions": [
+        "Recheck live origin/main, branch/tag/release state, CI and M0-M5 evidence; reject stale or conflicting state.",
+        "Freeze release commit R with version 1.0.0 and payload input manifest.",
+        "Prove support/Windows/Calibre/security prerequisites; do not create tags/assets from uncommitted changes.",
+        "Record R as release source; do not record future publication as complete."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md",
+        "GITHUB_WORKFLOW.md"
+      ],
+      "deliverables": [
+        "Accepted R/CI/payload manifest",
+        "Release prerequisite evidence"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M5-T05"
+      ],
+      "acceptance_ids": [
+        "AC-095",
+        "AC-096"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T02",
+      "milestone": "M6",
+      "title": "Build and hash the final assets from R",
+      "goal": "Produce the actual files that will be tested and distributed.",
+      "actions": [
+        "Build the exact release ZIP from R using the reviewed allowlist in a clean build directory.",
+        "Generate release-manifest.json, SHA256SUMS.txt and truthful release notes; inspect all contents.",
+        "Record final ZIP size/hash and input/file provenance, no private/development payload.",
+        "Keep these bytes unchanged through acceptance and publication."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "WinBookSplit-v1.0.0.zip",
+        "release-manifest.json and SHA256SUMS.txt",
+        "Final release notes/asset hashes"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M6-T01"
+      ],
+      "acceptance_ids": [
+        "AC-097",
+        "AC-098"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T03",
+      "milestone": "M6",
+      "title": "Accept the exact final ZIP on Windows",
+      "goal": "Certify the exact bytes to be published, not an earlier candidate.",
+      "actions": [
+        "Run Gate C against the final asset hash and R using the isolated supported Windows setup.",
+        "Test both shells, actual launcher, PDF/manual/bookmarks and real EPUB/AZW3 conversions.",
+        "Inspect output content/fidelity and checksum/payload claims; record actual human/automated evidence.",
+        "Rebuild only by restarting asset acceptance; a missing mandatory test remains blocked."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md",
+        "TESTING.md",
+        "templates/MANUAL_SMOKE.md"
+      ],
+      "deliverables": [
+        "Final exact-asset Windows evidence",
+        "Accepted artifact hash/versions"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M6-T02"
+      ],
+      "acceptance_ids": [
+        "AC-099",
+        "AC-100"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T04",
+      "milestone": "M6",
+      "title": "Create the fixed tag and inspect the v1.0.0 draft",
+      "goal": "Assemble the only intended release without accidental tag creation or asset mismatch.",
+      "actions": [
+        "Recheck tag/release absence or exact safe resumption; never retarget or overwrite an existing conflict.",
+        "Create/push annotated v1.0.0 at accepted R and verify the remote peeled commit.",
+        "Create/resume the draft with verify-tag and attach only explicit tested assets.",
+        "Inspect draft metadata/assets/notes/hashes before publication; stop on any mismatch."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Verified remote tag at R",
+        "Inspected v1.0.0 draft",
+        "Draft asset audit"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M6-T03"
+      ],
+      "acceptance_ids": [
+        "AC-101",
+        "AC-102"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T05",
+      "milestone": "M6",
+      "title": "Publish and verify anonymous downloads",
+      "goal": "Make v1.0.0 genuinely public and prove the public bytes are the accepted bytes.",
+      "actions": [
+        "Publish the inspected draft under the delegated authority and actual tool permissions.",
+        "Verify public non-draft/non-prerelease metadata and remote tag R.",
+        "Anonymously download public ZIP/manifest/checksums to a new directory and compare to accepted hashes.",
+        "Run minimal downloaded-package Windows smoke and record actual release URL/results; no silent asset replacement."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md"
+      ],
+      "deliverables": [
+        "Public v1.0.0 URL and timestamp",
+        "Anonymous download/hash evidence",
+        "Downloaded-package smoke"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M6-T04"
+      ],
+      "acceptance_ids": [
+        "AC-103",
+        "AC-104",
+        "AC-105"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    },
+    {
+      "id": "M6-T06",
+      "milestone": "M6",
+      "title": "Commit closure and verify final local/main synchronization",
+      "goal": "Finish only with durable release evidence and a synchronized repository.",
+      "actions": [
+        "Fill real release evidence, mark all completed tasks and final status accurately; leave no fake pending website work.",
+        "Commit/merge/push documentation-only closure D; prove R ancestor and unchanged release payload.",
+        "Verify clean local main equals fresh live main; keep v1.0.0 fixed at R.",
+        "Provide the public release URL, R, final main/checkpoint, actual hashes and supported limitations in the final report."
+      ],
+      "specs": [
+        "RELEASE_RUNBOOK.md",
+        "GITHUB_WORKFLOW.md"
+      ],
+      "deliverables": [
+        "Durable completed evidence",
+        "Final synchronized main",
+        "Factual published-release handoff"
+      ],
+      "status": "todo",
+      "depends_on": [
+        "M6-T05"
+      ],
+      "acceptance_ids": [
+        "AC-106",
+        "AC-107"
+      ],
+      "evidence_paths": [],
+      "implementation_commit": null,
+      "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
+    }
+  ]
+}

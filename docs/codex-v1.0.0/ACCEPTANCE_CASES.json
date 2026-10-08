@@ -1,0 +1,970 @@
+{
+  "schema_version": 1,
+  "project": "PikkuJanne/WinBookSplit",
+  "status": "requirements_not_execution_evidence",
+  "cases": [
+    {
+      "id": "AC-001",
+      "task_id": "M0-T01",
+      "mode": "repository_review",
+      "scenario": "Correct repository and live state",
+      "procedure": "Inspect origin fetch/push URLs, Git root/status, HEAD, live branch, tags/releases and PRs.",
+      "expected": "Correct PikkuJanne/WinBookSplit identity; actual SHAs/releases and dirt recorded; no reset or lost work.",
+      "required": true
+    },
+    {
+      "id": "AC-002",
+      "task_id": "M0-T01",
+      "mode": "repository_review",
+      "scenario": "Safe handoff import",
+      "procedure": "Validate bundle; preview import; apply only non-conflicting handoff paths.",
+      "expected": "Existing differing files stop automated apply; source runtime/README/history untouched by importer.",
+      "required": true
+    },
+    {
+      "id": "AC-003",
+      "task_id": "M0-T01",
+      "mode": "live_github",
+      "scenario": "Initial synchronized checkpoint",
+      "procedure": "Commit intended M0 audit/guidance, push branch and run fresh live comparison.",
+      "expected": "Clean local HEAD equals live matching GitHub branch; unknown/failure never represented as synced.",
+      "required": true
+    },
+    {
+      "id": "AC-004",
+      "task_id": "M0-T02",
+      "mode": "python_characterization",
+      "scenario": "Manual first-page bug baseline",
+      "procedure": "Run baseline engine seam with 10 pages and inputs 1; 1,4,7; 4,7.",
+      "expected": "Record actual original result versus fixed oracle; regression identifies first-page loss, not a synthetic pass.",
+      "required": true
+    },
+    {
+      "id": "AC-005",
+      "task_id": "M0-T02",
+      "mode": "python_characterization",
+      "scenario": "Bookmark baseline defects",
+      "procedure": "Use first bookmark at page 4 and nested parents at 3/9 with children at 4/7/11.",
+      "expected": "Document original omission/parent-crossing behavior and exact required corrected ranges.",
+      "required": true
+    },
+    {
+      "id": "AC-006",
+      "task_id": "M0-T02",
+      "mode": "review",
+      "scenario": "Fixture provenance",
+      "procedure": "Inspect generated fixture contents and recorded generator/source/license.",
+      "expected": "No real textbooks, private documents or workplace identifiers; stable page IDs and reproducible fixture metadata.",
+      "required": true
+    },
+    {
+      "id": "AC-007",
+      "task_id": "M0-T03",
+      "mode": "environment",
+      "scenario": "Honest supported matrix",
+      "procedure": "Probe actual Windows/shell/Python/pypdf/Calibre and current primary docs.",
+      "expected": "Exact versions/ranges and unsupported platforms recorded; Windows10/UNC/ARM not called tested without evidence.",
+      "required": true
+    },
+    {
+      "id": "AC-008",
+      "task_id": "M0-T03",
+      "mode": "environment",
+      "scenario": "Runtime/dev dependency separation",
+      "procedure": "Inspect requirements/setup and build/test environment.",
+      "expected": "Isolated explicit install plan, pinned reviewed set, no automatic global install; Calibre only required for ebook use.",
+      "required": true
+    },
+    {
+      "id": "AC-009",
+      "task_id": "M0-T04",
+      "mode": "test_harness",
+      "scenario": "Runner failure propagation",
+      "procedure": "Run known failing native and Python/Pester test fixtures through runner.",
+      "expected": "Runner nonzero; no error masking by a later successful command or report step.",
+      "required": true
+    },
+    {
+      "id": "AC-010",
+      "task_id": "M0-T04",
+      "mode": "test_harness",
+      "scenario": "Isolated repeatable harness",
+      "procedure": "Run test scaffold twice from unrelated directory.",
+      "expected": "Fixtures isolated/cleaned, deterministic outcomes, source tree not polluted with runtime outputs.",
+      "required": true
+    },
+    {
+      "id": "AC-011",
+      "task_id": "M1-T01",
+      "mode": "python_integration",
+      "scenario": "Mechanical extraction preserves characterization",
+      "procedure": "Compare pre/post-extraction characterization cases before fixes.",
+      "expected": "Same understood baseline behavior; no unrelated rewrite; callable import has no processing side effects.",
+      "required": true
+    },
+    {
+      "id": "AC-012",
+      "task_id": "M1-T01",
+      "mode": "windows_integration",
+      "scenario": "Engine resolved from script root",
+      "procedure": "Invoke from another working directory and parallel launches.",
+      "expected": "Both locate shipped engine; no shared generated engine temp file.",
+      "required": true
+    },
+    {
+      "id": "AC-013",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Explicit first page alone",
+      "procedure": "N=10; starts=1.",
+      "expected": "Exactly [0,10), one-section notice; writer produces one valid 10-page output.",
+      "required": true
+    },
+    {
+      "id": "AC-014",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Explicit and implicit first page",
+      "procedure": "N=10; starts=1,4,7 then 4,7.",
+      "expected": "Both produce [0,3),[3,6),[6,10); no omitted first pages.",
+      "required": true
+    },
+    {
+      "id": "AC-015",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Sort duplicate and leading-zero inputs",
+      "procedure": "N=10; starts=7, 04,4, 1.",
+      "expected": "Validate then normalize to 1,4,7 with notices; no duplicate/empty slices.",
+      "required": true
+    },
+    {
+      "id": "AC-016",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Empty input and tokens",
+      "procedure": "Try empty, whitespace, comma, 1,,4, 1, and ,4.",
+      "expected": "All fail clearly before output; no whole-file implicit copy.",
+      "required": true
+    },
+    {
+      "id": "AC-017",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Unsupported syntax and mixed tokens",
+      "procedure": "Try abc; 1-4; 1,abc,7; +4; -1; 1.5; non-ASCII digit glyphs.",
+      "expected": "All rejected entirely; no token silently filtered.",
+      "required": true
+    },
+    {
+      "id": "AC-018",
+      "task_id": "M1-T02",
+      "mode": "python_unit",
+      "scenario": "Bounds and final page",
+      "procedure": "N=10: reject 0, 11, 0,999, huge integer; accept 10.",
+      "expected": "Invalid lists fail; valid 10 yields [0,9),[9,10), preserving final one-page segment.",
+      "required": true
+    },
+    {
+      "id": "AC-019",
+      "task_id": "M1-T03",
+      "mode": "python_integration",
+      "scenario": "Level 1 front matter",
+      "procedure": "N=10; Level1 starts 4,7.",
+      "expected": "[0,3) Front matter, [3,6),[6,10); source page order preserved.",
+      "required": true
+    },
+    {
+      "id": "AC-020",
+      "task_id": "M1-T03",
+      "mode": "python_unit",
+      "scenario": "Duplicate/out-of-order outline starts",
+      "procedure": "Top bookmarks source order page7 B, page4 A, page4 Alias.",
+      "expected": "Physical order deterministic; first same-page title wins, duplicates/sorting warned; complete coverage.",
+      "required": true
+    },
+    {
+      "id": "AC-021",
+      "task_id": "M1-T03",
+      "mode": "python_unit",
+      "scenario": "Invalid/external destination",
+      "procedure": "Mix None, -1, N, external links and one valid internal bookmark.",
+      "expected": "Invalid items reported/ignored safely; valid plan complete, no bare silent exception swallowing.",
+      "required": true
+    },
+    {
+      "id": "AC-022",
+      "task_id": "M1-T03",
+      "mode": "python_unit",
+      "scenario": "Deep/malformed outlines",
+      "procedure": "Nested 3+ levels and bounded cyclic/malformed mock nodes.",
+      "expected": "No unbounded recursion; depths retain lineage; deeper items not misinterpreted as Level1.",
+      "required": true
+    },
+    {
+      "id": "AC-023",
+      "task_id": "M1-T04",
+      "mode": "python_integration",
+      "scenario": "Parent-aware Level 2 exact example",
+      "procedure": "N=12; parents3,9; children4,7 and11.",
+      "expected": "[0,2),[2,3),[3,6),[6,8),[8,10),[10,12), never A2 through page10.",
+      "required": true
+    },
+    {
+      "id": "AC-024",
+      "task_id": "M1-T04",
+      "mode": "python_unit",
+      "scenario": "No children in one parent",
+      "procedure": "N=12; parents1,7; children1,4 for first; none for second.",
+      "expected": "[0,3),[3,6),[6,12); second parent fallback intact.",
+      "required": true
+    },
+    {
+      "id": "AC-025",
+      "task_id": "M1-T04",
+      "mode": "python_unit",
+      "scenario": "Children equal parent start or outside parent",
+      "procedure": "Include child at parent start, duplicates, and beyond next parent start.",
+      "expected": "No zero-length opening segment; duplicates handled; outside child warned/ignored, no cross-parent cuts.",
+      "required": true
+    },
+    {
+      "id": "AC-026",
+      "task_id": "M1-T04",
+      "mode": "python_unit",
+      "scenario": "No usable selected level",
+      "procedure": "Top-level bookmarks exist but no valid direct children.",
+      "expected": "Structured no_bookmarks_at_level; interactive Level1 offer possible; no silent noninteractive fallback.",
+      "required": true
+    },
+    {
+      "id": "AC-027",
+      "task_id": "M1-T05",
+      "mode": "python_unit",
+      "scenario": "Plan structural invariants",
+      "procedure": "Exercise valid/invalid ranges and seeded random start sets.",
+      "expected": "Reject gaps, overlaps, empty, negative, reversed or overflow ranges; accept complete ordered partition only.",
+      "required": true
+    },
+    {
+      "id": "AC-028",
+      "task_id": "M1-T05",
+      "mode": "python_integration",
+      "scenario": "Preview/execution page identity parity",
+      "procedure": "Record plan and execute it on fixture pages with unique IDs.",
+      "expected": "Each output filename/range/order matches preview; every original page occurs once.",
+      "required": true
+    },
+    {
+      "id": "AC-029",
+      "task_id": "M1-T05",
+      "mode": "python_integration",
+      "scenario": "Source changes after preview",
+      "procedure": "Alter/repoint source between plan and execution in controlled fixture.",
+      "expected": "Changed input detected or reader-bound source safely used; never silently execute stale plan against changed data.",
+      "required": true
+    },
+    {
+      "id": "AC-030",
+      "task_id": "M1-T06",
+      "mode": "python_integration",
+      "scenario": "No bookmarks versus unreadable/zero-page input",
+      "procedure": "Try flat valid PDF, empty/zero-page PDF, and corrupt/truncated bytes.",
+      "expected": "Distinct no-plan/read/invalid results; no execution success with no slices.",
+      "required": true
+    },
+    {
+      "id": "AC-031",
+      "task_id": "M1-T06",
+      "mode": "powershell_test",
+      "scenario": "No-Level2/no-outline fallback distinction",
+      "procedure": "Feed structured engine result categories to UI handler.",
+      "expected": "Correct message and choices, manual or Level1 offered only where applicable; selected level not mislabeled entire PDF missing.",
+      "required": true
+    },
+    {
+      "id": "AC-032",
+      "task_id": "M2-T01",
+      "mode": "windows_integration",
+      "scenario": "Repeat and same-basename runs",
+      "procedure": "Run same input twice and two different Book.pdf inputs into same output base.",
+      "expected": "Distinct complete run folders; all earlier outputs unchanged; no stale chapters mixed.",
+      "required": true
+    },
+    {
+      "id": "AC-033",
+      "task_id": "M2-T01",
+      "mode": "python_integration",
+      "scenario": "Write failure mid-run",
+      "procedure": "Inject failure after first output and failure on output reopen/count.",
+      "expected": "Nonzero result; no successful final folder; marked/owned partial handling; source/neighbor bytes unchanged.",
+      "required": true
+    },
+    {
+      "id": "AC-034",
+      "task_id": "M2-T01",
+      "mode": "windows_integration",
+      "scenario": "Concurrent unique output allocation",
+      "procedure": "Start simultaneous same-book runs under identical timestamps.",
+      "expected": "Unique atomic reservations, no file overwrite/cross-run cleanup; independent final manifests.",
+      "required": true
+    },
+    {
+      "id": "AC-035",
+      "task_id": "M2-T01",
+      "mode": "windows_integration",
+      "scenario": "Ownership and reparse cleanup",
+      "procedure": "Place unrelated sentinel and mock/real permitted junction/symlink escape in controlled workspace.",
+      "expected": "Cleanup rejects escape and preserves unrelated data; only owned created paths removed; testing setup isolated.",
+      "required": true
+    },
+    {
+      "id": "AC-036",
+      "task_id": "M2-T02",
+      "mode": "windows_integration",
+      "scenario": "Literal Windows input paths",
+      "procedure": "Test directories ending .pdf, paths with spaces/brackets/apostrophe/ampersand/parentheses and mixed extension case.",
+      "expected": "Directories rejected; valid files treated literally and parser verified; no wildcard matches to another source.",
+      "required": true
+    },
+    {
+      "id": "AC-037",
+      "task_id": "M2-T02",
+      "mode": "python_unit",
+      "scenario": "Filename sanitation",
+      "procedure": "Titles contain forbidden/control characters, trailing dots/spaces, reserved names, only punctuation and non-ASCII text.",
+      "expected": "Safe contained filenames, stable fallback, Unicode retained, no traversal or overwrite.",
+      "required": true
+    },
+    {
+      "id": "AC-038",
+      "task_id": "M2-T02",
+      "mode": "python_unit",
+      "scenario": "More than 99 chapters",
+      "procedure": "Generate 120 valid sections and inspect lexical ordering.",
+      "expected": "001..120-style width, stable chronological lexical order and unique filenames.",
+      "required": true
+    },
+    {
+      "id": "AC-039",
+      "task_id": "M2-T02",
+      "mode": "windows_integration",
+      "scenario": "Long/unwritable destinations",
+      "procedure": "Test full path budget and unwritable/full target simulation.",
+      "expected": "Safe full-path-aware shortening or early actionable rejection; no machine policy changes or source writes.",
+      "required": true
+    },
+    {
+      "id": "AC-040",
+      "task_id": "M2-T03",
+      "mode": "windows_integration",
+      "scenario": "Existing neighboring PDF",
+      "procedure": "Convert Book.epub with unrelated Book.pdf beside it, record hashes.",
+      "expected": "Neighbor untouched; converted PDF created in owned workspace only.",
+      "required": true
+    },
+    {
+      "id": "AC-041",
+      "task_id": "M2-T03",
+      "mode": "powershell_test",
+      "scenario": "Converter zero success with invalid output",
+      "procedure": "Fake child exits 0 with no file, empty file, corrupt PDF or zero-page PDF.",
+      "expected": "All rejected as conversion/output failure; no split or success summary.",
+      "required": true
+    },
+    {
+      "id": "AC-042",
+      "task_id": "M2-T03",
+      "mode": "windows_integration",
+      "scenario": "Intermediate retention",
+      "procedure": "Run real conversion with and without KeepConvertedPdf.",
+      "expected": "Optional retained PDF in successful output folder only; default workspace cleaned; original ebook remains unchanged.",
+      "required": true
+    },
+    {
+      "id": "AC-043",
+      "task_id": "M2-T04",
+      "mode": "powershell_test",
+      "scenario": "Missing and wrong Python/pypdf",
+      "procedure": "Test missing interpreter, non-Python stub, wrong version, missing pypdf and multiple interpreters.",
+      "expected": "Preflight fails before conversion/writes; reports chosen runtime and exact-interpreter setup guidance.",
+      "required": true
+    },
+    {
+      "id": "AC-044",
+      "task_id": "M2-T04",
+      "mode": "powershell_test",
+      "scenario": "PDF without Calibre",
+      "procedure": "Hide Calibre and run PDF-only plan/split.",
+      "expected": "PDF succeeds with correct Python/pypdf; no unnecessary Calibre dependency failure.",
+      "required": true
+    },
+    {
+      "id": "AC-045",
+      "task_id": "M2-T04",
+      "mode": "powershell_test",
+      "scenario": "Trusted explicit/nonstandard converter",
+      "procedure": "Provide explicit validated converter path; PATH candidate; missing install; document-directory decoy.",
+      "expected": "Document-directory decoy never auto-executed; chosen trusted executable/version logged; missing converter actionable.",
+      "required": true
+    },
+    {
+      "id": "AC-046",
+      "task_id": "M2-T05",
+      "mode": "windows_integration",
+      "scenario": "Dual stream flood",
+      "procedure": "Child writes large stderr before/stdout bursts and exits, both hosts.",
+      "expected": "No deadlock; bounded diagnostics retained; child result surfaced correctly.",
+      "required": true
+    },
+    {
+      "id": "AC-047",
+      "task_id": "M2-T05",
+      "mode": "windows_integration",
+      "scenario": "Fast exit and output tail",
+      "procedure": "Child exits immediately; blank lines; no trailing newline; final stderr message.",
+      "expected": "Both streams drained fully without loop skipping/tail loss; outcome preserved.",
+      "required": true
+    },
+    {
+      "id": "AC-048",
+      "task_id": "M2-T05",
+      "mode": "windows_integration",
+      "scenario": "Unicode encoding",
+      "procedure": "Paths/bookmarks/output include Janne, ääkköset, Größe and non-Latin characters in both hosts.",
+      "expected": "UTF-8 communication/logs round-trip correctly; no UnicodeEncodeError or mojibake-induced filenames.",
+      "required": true
+    },
+    {
+      "id": "AC-049",
+      "task_id": "M2-T05",
+      "mode": "windows_integration",
+      "scenario": "Argument injection boundary",
+      "procedure": "Controlled files contain &, %, !, brackets and spaces; titles contain shell/Python-looking text.",
+      "expected": "Literal data only; no extra command executed or injected engine source; intended file processed.",
+      "required": true
+    },
+    {
+      "id": "AC-050",
+      "task_id": "M3-T01",
+      "mode": "windows_integration",
+      "scenario": "Failure and fallback exit propagation",
+      "procedure": "Fail original mode, successful fallback, failed fallback and failed converter via .bat and .ps1.",
+      "expected": "Exit reflects final attempted operation; no unconditional Done/success; batch preserves nonzero failures.",
+      "required": true
+    },
+    {
+      "id": "AC-051",
+      "task_id": "M3-T01",
+      "mode": "windows_integration",
+      "scenario": "Cancel only owned processes",
+      "procedure": "Start unrelated Python process, then cancel splitting/conversion and exercise timeout.",
+      "expected": "Owned child tree terminates/cleans safely; unrelated process survives; cancelled result and no final successful output.",
+      "required": true
+    },
+    {
+      "id": "AC-052",
+      "task_id": "M3-T01",
+      "mode": "windows_integration",
+      "scenario": "Cleanup and finalization failures",
+      "procedure": "Inject cleanup, log/manifest finalize and publish-folder rename failure.",
+      "expected": "Truthful failed/incomplete result, no clobber or hidden success; recoverable diagnostics without deleting unrelated files.",
+      "required": true
+    },
+    {
+      "id": "AC-053",
+      "task_id": "M3-T02",
+      "mode": "powershell_test",
+      "scenario": "Noninteractive complete run",
+      "procedure": "Supply valid manual and auto parameters under both hosts with stdin unavailable.",
+      "expected": "No Read-Host/dialog/pause/Explorer; predictable outputs and documented exit codes.",
+      "required": true
+    },
+    {
+      "id": "AC-054",
+      "task_id": "M3-T02",
+      "mode": "powershell_test",
+      "scenario": "Invalid/contradictory parameters",
+      "procedure": "Manual without starts; Auto with starts; Manual with bookmark level; bad level/mode; missing input.",
+      "expected": "Early binding/validation failure, no writes or implicit fallback.",
+      "required": true
+    },
+    {
+      "id": "AC-055",
+      "task_id": "M3-T02",
+      "mode": "powershell_test",
+      "scenario": "Version without dependencies",
+      "procedure": "Remove/hide Python/Calibre and run Version from any directory.",
+      "expected": "Print canonical version and return 0 without input prompt, dependency probe or pause.",
+      "required": true
+    },
+    {
+      "id": "AC-056",
+      "task_id": "M3-T02",
+      "mode": "windows_integration",
+      "scenario": "Explicit Preview semantics",
+      "procedure": "Preview PDF and ebook with complete parameters.",
+      "expected": "No chapter outputs; accurate plan; ebook temporary conversion disclosed and safely cleaned.",
+      "required": true
+    },
+    {
+      "id": "AC-057",
+      "task_id": "M3-T03",
+      "mode": "manual_windows",
+      "scenario": "Explorer file formats",
+      "procedure": "Drag actual PDF, EPUB and AZW3 individually onto batch launcher.",
+      "expected": "Correct input received for each, no quoting/path corruption, intended existing console workflow.",
+      "required": true
+    },
+    {
+      "id": "AC-058",
+      "task_id": "M3-T03",
+      "mode": "manual_windows",
+      "scenario": "No-input selection and cancellation",
+      "procedure": "Double-click launcher; choose a book then repeat and cancel.",
+      "expected": "Usable supported selector/prompt; cancel returns cancellation without fake failure/success; no-input path does not crash.",
+      "required": true
+    },
+    {
+      "id": "AC-059",
+      "task_id": "M3-T03",
+      "mode": "manual_windows",
+      "scenario": "Multiple files and invalid menu input",
+      "procedure": "Drop two files; type arbitrary words/invalid letters into menu/fallback.",
+      "expected": "Extra files explicitly rejected; exact menu validation/reprompt; no silent first-file/default behavior.",
+      "required": true
+    },
+    {
+      "id": "AC-060",
+      "task_id": "M3-T04",
+      "mode": "manual_windows",
+      "scenario": "Readable complete preview",
+      "procedure": "Run nested fixture and inspect displayed title/ranges/counts/destination/coverage before confirming.",
+      "expected": "Same plan as written outputs; physical pages labeled; front matter/opening/fallback clearly shown.",
+      "required": true
+    },
+    {
+      "id": "AC-061",
+      "task_id": "M3-T04",
+      "mode": "manual_windows",
+      "scenario": "Converted-PDF manual guidance",
+      "procedure": "Choose ebook manual split; explicitly open generated PDF then enter its physical starts.",
+      "expected": "Preview remains available through selection; input uses generated PDF numbering, not original ebook locations.",
+      "required": true
+    },
+    {
+      "id": "AC-062",
+      "task_id": "M3-T04",
+      "mode": "manual_windows",
+      "scenario": "Truthful final summary",
+      "procedure": "Successful split, no-plan failure and opt-in open-output on supported host.",
+      "expected": "Final folder/count matches real output; no automatic open/noninteractive pause; failure never labeled success.",
+      "required": true
+    },
+    {
+      "id": "AC-063",
+      "task_id": "M3-T05",
+      "mode": "python_integration",
+      "scenario": "Manifest/log correctness",
+      "procedure": "Inspect successful/failed/cancelled run manifests and logs.",
+      "expected": "Versions/identity/mode/ranges/warnings/status accurate and UTF-8; no missing success manifest or falsely green failure.",
+      "required": true
+    },
+    {
+      "id": "AC-064",
+      "task_id": "M3-T05",
+      "mode": "review",
+      "scenario": "Redacted support information",
+      "procedure": "Use mock private user paths, titles, secrets in captured diagnostic fixtures and export summary.",
+      "expected": "Redacted summary omits private identifiers/content/secrets; no upload occurs; original local details remain controlled.",
+      "required": true
+    },
+    {
+      "id": "AC-065",
+      "task_id": "M3-T05",
+      "mode": "powershell_test",
+      "scenario": "No blanket warning suppression",
+      "procedure": "Trigger invalid-bookmark warning and pypdf parser warnings.",
+      "expected": "Useful categorized warning visible/logged; no blanket suppression disguising changed/dropped data.",
+      "required": true
+    },
+    {
+      "id": "AC-066",
+      "task_id": "M4-T01",
+      "mode": "pdf_integration",
+      "scenario": "Text and image page fidelity",
+      "procedure": "Split generated text/image/scanned fixtures; compare markers and representative same-renderer output.",
+      "expected": "Page identities/order/text/images preserved; no rasterization of text pages; image-only manual split works.",
+      "required": true
+    },
+    {
+      "id": "AC-067",
+      "task_id": "M4-T01",
+      "mode": "pdf_integration",
+      "scenario": "Geometry and common annotations",
+      "procedure": "Fixture has rotated pages, mixed dimensions/crop boxes and common static annotations.",
+      "expected": "Supported properties/rendered appearance preserved or tested explicit rejection where D12 requires; no silent corruption.",
+      "required": true
+    },
+    {
+      "id": "AC-068",
+      "task_id": "M4-T01",
+      "mode": "pdf_integration",
+      "scenario": "Chapter metadata/bookmark",
+      "procedure": "Split source with author/title and inspect outputs.",
+      "expected": "Chapter title/source author safe, useful chapter-start bookmark, no false signature/source-catalog claims.",
+      "required": true
+    },
+    {
+      "id": "AC-069",
+      "task_id": "M4-T01",
+      "mode": "pdf_integration",
+      "scenario": "Links across and within segments",
+      "procedure": "Fixture with intra-chapter and cross-chapter destinations.",
+      "expected": "Only tested remapping preserved; dropped/unavailable cross-chapter navigation explicitly warned/documented.",
+      "required": true
+    },
+    {
+      "id": "AC-070",
+      "task_id": "M4-T02",
+      "mode": "pdf_integration",
+      "scenario": "Encrypted variants rejected",
+      "procedure": "Generate password-required and owner-only/empty-open-password encrypted PDFs.",
+      "expected": "Both rejected before output/decryption with unsupported-feature result; no password storage/arguments.",
+      "required": true
+    },
+    {
+      "id": "AC-071",
+      "task_id": "M4-T02",
+      "mode": "pdf_integration",
+      "scenario": "Forms/signatures and active features",
+      "procedure": "Use generated/provenanced fixtures for AcroForm/XFA/signature and unsupported catalog actions/attachments.",
+      "expected": "Unsupported features detected; safe declared rejection/warning before output, never execution or silent preservation claim.",
+      "required": true
+    },
+    {
+      "id": "AC-072",
+      "task_id": "M4-T02",
+      "mode": "pdf_integration",
+      "scenario": "Corrupt/pathological input",
+      "procedure": "Try truncated malformed PDF, zero-page file and bounded deeply malformed outline.",
+      "expected": "Clear bounded failure/cancellation path, no empty successful run or unbounded recursion.",
+      "required": true
+    },
+    {
+      "id": "AC-073",
+      "task_id": "M4-T03",
+      "mode": "fault_injection",
+      "scenario": "Run isolation under failure",
+      "procedure": "Combine repeat/concurrent runs with injected mid-write failure.",
+      "expected": "Other runs/inputs/neighbor sentinels unchanged; only own marked staging affected.",
+      "required": true
+    },
+    {
+      "id": "AC-074",
+      "task_id": "M4-T03",
+      "mode": "python_property",
+      "scenario": "Randomized partition invariants",
+      "procedure": "Seeded random valid starts and outline arrangements with known parent intervals.",
+      "expected": "Every accepted plan partitions 0..N exactly once in order; invalid cases fail explicitly.",
+      "required": true
+    },
+    {
+      "id": "AC-075",
+      "task_id": "M4-T03",
+      "mode": "windows_integration",
+      "scenario": "Full cross-host error suite",
+      "procedure": "Run actual engine and fake-child failure suite under PS5.1 and PS7.",
+      "expected": "Both pass required path/stream/exit/cancel cases; no host skipped and called covered.",
+      "required": true
+    },
+    {
+      "id": "AC-076",
+      "task_id": "M4-T04",
+      "mode": "calibre_integration",
+      "scenario": "Real EPUB conversion",
+      "procedure": "Convert tiny authored EPUB with TOC using resolved actual Calibre, inspect generated PDF and split.",
+      "expected": "Actual EPUB input verified; readable generated/chapter PDFs; complete physical coverage and source unchanged.",
+      "required": true
+    },
+    {
+      "id": "AC-077",
+      "task_id": "M4-T04",
+      "mode": "calibre_integration",
+      "scenario": "Real AZW3 conversion",
+      "procedure": "Generate/provenance real AZW3, then run independent AZW3 -> PDF -> split.",
+      "expected": "Not renamed EPUB; actual converter evidence and validated complete readable output.",
+      "required": true
+    },
+    {
+      "id": "AC-078",
+      "task_id": "M4-T04",
+      "mode": "calibre_integration",
+      "scenario": "Offline/failure/profile behavior",
+      "procedure": "Run installed dependencies offline on safe self-contained ebooks; test conversion failure and compatibility settings.",
+      "expected": "No tool-initiated document upload/dependency install; failures actionable; exact tested conversion options recorded.",
+      "required": true
+    },
+    {
+      "id": "AC-079",
+      "task_id": "M4-T05",
+      "mode": "live_ci",
+      "scenario": "Real Windows CI results",
+      "procedure": "Run submitted workflow on actual branch/commit.",
+      "expected": "Static/Python/Pester checks and both shell executions pass with actual run URL/commit, not proposed YAML only.",
+      "required": true
+    },
+    {
+      "id": "AC-080",
+      "task_id": "M4-T05",
+      "mode": "security_review",
+      "scenario": "CI privilege and release separation",
+      "procedure": "Inspect permissions/triggers/action pins and secret handling.",
+      "expected": "Least privilege; no ordinary push/PR publishes release; untrusted input cannot execute in privileged publish context.",
+      "required": true
+    },
+    {
+      "id": "AC-081",
+      "task_id": "M4-T05",
+      "mode": "live_github",
+      "scenario": "Milestone merge verification",
+      "procedure": "Review completed M4 scope and required checks; merge then compare main live.",
+      "expected": "Scoped reviewed main clean/equal remote; no protection bypass or forced history change.",
+      "required": true
+    },
+    {
+      "id": "AC-082",
+      "task_id": "M5-T01",
+      "mode": "documentation",
+      "scenario": "README accuracy and working commands",
+      "procedure": "Run every documented example from extracted candidate; inspect format/page/output/dependency claims.",
+      "expected": "Commands match implemented parameters; PDF output/no native ebook/ranges claims; no fake compatibility or logging features.",
+      "required": true
+    },
+    {
+      "id": "AC-083",
+      "task_id": "M5-T01",
+      "mode": "documentation",
+      "scenario": "Version/license/signing statements",
+      "procedure": "Compare canonical version, banner, help, changelog and notices.",
+      "expected": "Consistent final 1.0.0, legacy label explained, MIT retained, dependencies accurately noticed, unsigned/checksum distinction clear.",
+      "required": true
+    },
+    {
+      "id": "AC-084",
+      "task_id": "M5-T02",
+      "mode": "package_test",
+      "scenario": "Allowlisted clean package",
+      "procedure": "Build from explicit commit and inspect all archive members plus dependency paths.",
+      "expected": "All runtime files present; no tests/handoff/dev caches/venv/private data, absolute/traversal/symlink members.",
+      "required": true
+    },
+    {
+      "id": "AC-085",
+      "task_id": "M5-T02",
+      "mode": "package_test",
+      "scenario": "Provenance/checksum integrity",
+      "procedure": "Generate manifest/SHA256SUMS and independently compute file/archive hashes.",
+      "expected": "Source commit/version/files align; checksums match final bytes without self-hash cycles.",
+      "required": true
+    },
+    {
+      "id": "AC-086",
+      "task_id": "M5-T02",
+      "mode": "package_test",
+      "scenario": "Broken package inputs fail",
+      "procedure": "Remove engine in test tree, inject bad version/nonallowed file/unsafe member.",
+      "expected": "Builder/validator fails rather than emits a deceptively complete release artifact.",
+      "required": true
+    },
+    {
+      "id": "AC-087",
+      "task_id": "M5-T03",
+      "mode": "manual_windows",
+      "scenario": "Clean extracted candidate both hosts",
+      "procedure": "Use new extraction/fresh venv/controlled path, run PS5.1 and PS7 smoke.",
+      "expected": "No checkout/global-environment dependency; actual supported Windows result and candidate hash recorded.",
+      "required": true
+    },
+    {
+      "id": "AC-088",
+      "task_id": "M5-T03",
+      "mode": "manual_windows",
+      "scenario": "Complete Explorer candidate workflow",
+      "procedure": "Perform the manual smoke template on actual candidate.",
+      "expected": "PDF/EPUB/AZW3, no/multi-input, unicode, auto/manual/fallback and repeat-run outcomes captured; no skipped pass.",
+      "required": true
+    },
+    {
+      "id": "AC-089",
+      "task_id": "M5-T03",
+      "mode": "pdf_integration",
+      "scenario": "Candidate visual/output checks",
+      "procedure": "Inspect first/last pages and representative slices from all formats.",
+      "expected": "Readable expected content/coverage; conversion artifacts/limitations honestly recorded.",
+      "required": true
+    },
+    {
+      "id": "AC-090",
+      "task_id": "M5-T04",
+      "mode": "security_review",
+      "scenario": "Concrete safety review",
+      "procedure": "Review runtime/process/output/cleanup/privacy/package diffs against SECURITY.md.",
+      "expected": "No unresolved data-loss/arbitrary-execution/unsafe-cleanup/private-data leak/release-integrity blocker.",
+      "required": true
+    },
+    {
+      "id": "AC-091",
+      "task_id": "M5-T04",
+      "mode": "dependency_review",
+      "scenario": "Current dependency/license audit",
+      "procedure": "Check current primary advisories and exact redistributed runtime/dev dependencies; record tool/output/date.",
+      "expected": "Findings triaged/remediated; unavailable scans called unavailable; actual notices match contents.",
+      "required": true
+    },
+    {
+      "id": "AC-092",
+      "task_id": "M5-T04",
+      "mode": "test_suite",
+      "scenario": "Full release regression",
+      "procedure": "Run all claimed automated layers/static checks at intended candidate.",
+      "expected": "Passing real commands/exit results with source identity; no skipped mandatory test reclassified as passed.",
+      "required": true
+    },
+    {
+      "id": "AC-093",
+      "task_id": "M5-T05",
+      "mode": "review",
+      "scenario": "Approved scope traceability",
+      "procedure": "Audit all 17 improvement mappings and required acceptance IDs after fixes.",
+      "expected": "No unimplemented safety item or unapproved website/rewrite/new feature; all gaps closed or explicit supported rejection satisfied.",
+      "required": true
+    },
+    {
+      "id": "AC-094",
+      "task_id": "M5-T05",
+      "mode": "live_github",
+      "scenario": "Final candidate merged/synced",
+      "procedure": "Review final candidate docs/version/tests and merge through available process.",
+      "expected": "Canonical 1.0.0 clean main equal live main, current passing CI and ready for R freeze; no release published yet by task.",
+      "required": true
+    },
+    {
+      "id": "AC-095",
+      "task_id": "M6-T01",
+      "mode": "live_github",
+      "scenario": "Release commit source proof",
+      "procedure": "Check live branch/tag/release state; freeze exact R on clean main.",
+      "expected": "R committed/reviewed, version1.0.0, required CI/evidence valid; no conflicting existing version silently overwritten.",
+      "required": true
+    },
+    {
+      "id": "AC-096",
+      "task_id": "M6-T01",
+      "mode": "release_review",
+      "scenario": "All prerequisites real",
+      "procedure": "Audit M0-M5 evidence and support/security matrix.",
+      "expected": "No unexecuted mandatory Windows/Calibre/CI/safety item; evidence references real commits/assets/environments.",
+      "required": true
+    },
+    {
+      "id": "AC-097",
+      "task_id": "M6-T02",
+      "mode": "package_test",
+      "scenario": "Exact final ZIP from R",
+      "procedure": "Build final explicit assets from R, inspect members/manifest/version.",
+      "expected": "Runtime bytes/provenance tied to R, correct ZIP name/version, no untracked/private payload.",
+      "required": true
+    },
+    {
+      "id": "AC-098",
+      "task_id": "M6-T02",
+      "mode": "package_test",
+      "scenario": "Final frozen hashes",
+      "procedure": "Hash final ZIP/manifest and create SHA256SUMS; independently verify.",
+      "expected": "Recorded accepted hash/size and internal hashes agree; no rebuild after acceptance without restarting it.",
+      "required": true
+    },
+    {
+      "id": "AC-099",
+      "task_id": "M6-T03",
+      "mode": "manual_windows",
+      "scenario": "Final exact-asset Windows acceptance",
+      "procedure": "Run Gate C on final ZIP, not M5 earlier build, both supported hosts and Explorer.",
+      "expected": "Actual final hash/R environment and all mandatory UI/path/manual/bookmark scenarios passed.",
+      "required": true
+    },
+    {
+      "id": "AC-100",
+      "task_id": "M6-T03",
+      "mode": "calibre_integration",
+      "scenario": "Final real ebook and PDF fidelity",
+      "procedure": "Run actual EPUB/AZW3 conversions and check chapter page identities/rendered samples from final ZIP.",
+      "expected": "Both advertised formats verified, complete readable output/source safety; no mock-only certification.",
+      "required": true
+    },
+    {
+      "id": "AC-101",
+      "task_id": "M6-T04",
+      "mode": "live_github",
+      "scenario": "Exact remote tag",
+      "procedure": "Create/resume annotated v1.0.0 and inspect remote direct/peeled refs.",
+      "expected": "Tag resolves to R; no other version, no retarget/delete/automatic latest-main tag.",
+      "required": true
+    },
+    {
+      "id": "AC-102",
+      "task_id": "M6-T04",
+      "mode": "live_github",
+      "scenario": "Draft asset inspection",
+      "procedure": "Inspect sole v1.0.0 draft metadata, explicit assets and notes.",
+      "expected": "Correct draft tag/repo, accepted hashes/names/sizes, truthful notes, no accidental missing or extra files.",
+      "required": true
+    },
+    {
+      "id": "AC-103",
+      "task_id": "M6-T05",
+      "mode": "live_github",
+      "scenario": "Actual public release",
+      "procedure": "Publish draft then re-read release metadata and tag.",
+      "expected": "Public published URL/timestamp, draft=false/prerelease=false, tag at R, only final v1.0.0 published.",
+      "required": true
+    },
+    {
+      "id": "AC-104",
+      "task_id": "M6-T05",
+      "mode": "public_download",
+      "scenario": "Anonymous downloaded asset integrity",
+      "procedure": "Download public ZIP/manifest/sums without auth into new directory and recompute.",
+      "expected": "All reachable publicly; downloaded hashes equal accepted pre-publication hashes and sums; no self-comparison shortcut.",
+      "required": true
+    },
+    {
+      "id": "AC-105",
+      "task_id": "M6-T05",
+      "mode": "manual_windows",
+      "scenario": "Downloaded-package smoke",
+      "procedure": "Extract downloaded matching ZIP and run Version and tiny PDF split on supported Windows.",
+      "expected": "Version1.0.0, valid expected split; exact archive equal to full-tested asset.",
+      "required": true
+    },
+    {
+      "id": "AC-106",
+      "task_id": "M6-T06",
+      "mode": "live_github",
+      "scenario": "Final synchronized main with fixed tag",
+      "procedure": "Commit documentation-only closure D, push/merge, verify live main and R ancestry/payload.",
+      "expected": "Local main clean/equal live main; tag stays R; D only permitted non-payload closure after R.",
+      "required": true
+    },
+    {
+      "id": "AC-107",
+      "task_id": "M6-T06",
+      "mode": "release_review",
+      "scenario": "Durable final evidence/report",
+      "procedure": "Inspect filled release evidence and final user report.",
+      "expected": "Actual release URL, R/D, environment/CI, accepted/downloaded hashes and honest limitations; no pending website task or false completion.",
+      "required": true
+    }
+  ]
+}
