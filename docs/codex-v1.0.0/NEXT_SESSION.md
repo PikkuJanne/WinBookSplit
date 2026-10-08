@@ -1,28 +1,29 @@
 # Next session
 
-Next task: **M1-T01 — Extract the existing Python engine narrowly**.
-M0-T01 through M0-T04 are done. M0's reviewed scaffold implementation C
-`01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee` was normally pushed and freshly
-SYNCED at `2026-10-08T17:59:55.797912+00:00` (19:59:55 Europe/Berlin).
-[PR #4](https://github.com/PikkuJanne/WinBookSplit/pull/4) merged at
-`2026-10-08T18:01:01Z` into main `ae9ddd0444e61578ed59625d6d3df4038e6fb09e`.
-Clean local main matched live main at `2026-10-08T18:01:05.818622+00:00`;
-tested raw source bytes were rechecked after switching branches.
-This following documentation-only closure receives its own final normal
-push/live receipt in the thread. Recheck current equality before starting;
-historical receipts and recorded done status do not prove current sync.
+Next task: **M1-T02 — Fix manual start-page parsing**.
+M0-T01 through M0-T04 and M1-T01 are done. M1-T01 implementation C
+`88c2149b3b3034fbd0d7ef23c2382f4b01648e4c` was normally pushed and clean local
+HEAD matched the fresh live feature branch at
+`2026-10-08T19:08:08.466690+00:00` (21:08:08 Europe/Berlin).
+[Draft PR #5](https://github.com/PikkuJanne/WinBookSplit/pull/5) continues M1;
+keep it draft until cumulative review/merge at M1-T06. This following
+documentation-only checkpoint receives its own final normal push/live receipt
+in the thread/PR. Recheck actual current equality next session; historical
+receipts and recorded done status do not prove current synchronization.
 
 Workspace: `D:\projects\WinBookSplit-main`. Active branch/upstream:
-`main` / `origin/main`. Origin fetch/push:
-`https://github.com/PikkuJanne/WinBookSplit.git`.
-Retained milestone branch `codex/winbooksplit-v1-m0` points to C; do not delete
-or reuse closed PRs. Create a normal `codex/` M1 milestone branch from the
-freshly verified current main. Never reset to recorded historical commits.
+`codex/winbooksplit-v1-m1` / `origin/codex/winbooksplit-v1-m1`.
+Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
+Main was `0de84f367f9bd5ddfa3f408a9c29505d7a39633f`, freshly synchronized
+at M1 start and still live at the read-only 19:00:29 UTC audit. Retain M0 branch
+and closed PRs; do not reset to historical baselines or start another milestone
+branch. Preserve unrelated edits/history and reconcile actual new remote work.
 
 Read AGENTS.md, STATUS.md, TASKS.json, SCOPE_AND_DECISIONS.md,
 GITHUB_WORKFLOW.md, TESTING.md, SUPPORT_AND_SETUP.md,
-evidence/M0-T04-scaffolding.md, evidence/M0-T04-harness.json,
-tasks/M1-T01.md and specs/PROCESS_AND_PATHS.md. Start with actual inspection:
+evidence/M1-T01-extraction.md, evidence/M1-T01-extraction.json,
+tasks/M1-T02.md, specs/SPLIT_CONTRACT.md and PLAN_ORACLES.json.
+Start with actual inspection:
 
 ```powershell
 git status --short --branch
@@ -34,83 +35,79 @@ python -B .\tools\codex-handoff\check_sync.py --repo .
 python -B .\tools\codex-handoff\validate_plan.py --plan-root .\docs\codex-v1.0.0
 ```
 
-Inspect authentication, live main/feature refs, PR state/protection/required
-checks and tags/releases separately. Repair unknown/unsynced checkpoints
-first. Preserve unrelated dirt/history; no auto-stash, force, reset or deletion.
+The stdlib handoff helpers use their authored sibling import: do not add `-I`
+to those two commands. Use the supported explicit Python `-I -B` for application
+tests. Inspect authentication, live feature/main refs, PR state/protection/
+required checks and tags/releases separately. Repair unknown/unsynced evidence
+first. No auto-stash, force push, reset or deletion.
 
-## M0 evidence to preserve
+## Verified extraction to preserve
 
-AC-009 passed actual native exit 23, Python unittest failure and one failed
-Pester test in each host through the central runner; later commands/reporting
-succeeded but overall exit stayed 1. AC-010 passed two full unrelated-directory
-runs: 11 Python tests, 9 Pester tests per actual Windows PowerShell
-5.1.26100.9444/PowerShell 7.6.5, zero syntax/new-scaffold static findings,
-14 original known-bad engine cases plus two early launcher boundaries.
-Input/neighbor/all-checkout bytes were preserved and owned temps removed.
-Actual tested-path digest:
-`fc8e5fd5ebb1001beba6d1a4f072b9172fc444410336c029e84841834c1bd536`.
-Use raw bytes and `--no-filters` when comparing original blobs under autocrlf.
+`engine/winbooksplit_engine.py` ships the original processing functions with
+identical ASTs and a guarded CLI entry; import has no processing/configuration
+side effects. PowerShell resolves it from `$PSScriptRoot`; no shared generated
+engine file exists. Batch, original README/license and artwork remain raw-byte
+identical. The explicit extraction route compares immutable Git originals,
+never weakening expected_original.json or the original harness's source guards.
+The historical `--layer baseline` correctly fails on changed PowerShell hashes.
 
-Independent cumulative M0 review found no remaining blocker; all seven
-original application files remain byte-identical. External handoff helper
-suite: 56 passed/one real symlink-creation skip. All 66 isolated shell-tool
-file hashes/sizes were independently checked. The unchanged application has
-68 legacy analyzer observations per host; these are not a runtime static pass.
-Main had no protection/rulesets/required checks or workflows/runs. No GitHub
-review submission or CI execution is claimed; CI remains M5-T01.
+Final full run: 20 Python tests, nine Pester tests per actual PS5.1.26100.9444/
+PS7.6.5 host, zero syntax/new-scaffold findings, all 14 original/extracted cases
+matching full observations, and six actual entrypoint probes including three
+parallel launches. Exact outputs/page identities matched; source/input/neighbor/
+decoy/shared-TEMP sentinel hashes were preserved. Actual Documents outputs were
+new GUID/marker-owned directories; only these were inspected and observed
+cleaned. Test-only tracked-tree termination and fail-closed preservation were
+verified after a real descendant-after-timeout reproduction. Two piped PS7
+probes retain RawUI cursor errors; this does not certify console UX/error paths.
+Sixty retained launcher analyzer findings per host are observations, not a
+runtime static pass. Tested-path digest:
+`2a456dfc50d0ae62e93eaa52c10717ed9a90a3d819ab80560b5a5006f6387054`.
+Independent source/receipt/privacy review found no remaining blocker; no
+submitted GitHub review or CI pass is claimed.
 
 Regular GIL CPython **3.14.8 x64 only**, plain **pypdf 6.19.0**;
-dev-only ReportLab **5.0.1**, Pillow **12.3.0**, charset-normalizer **3.5.2**.
-Fresh hash-required install/pip check/exact import-origin/version assertions
-passed. Follow SUPPORT_AND_SETUP.md for a new explicit dev venv, rather than
-assuming an old TEMP directory still exists or selecting PATH Python as
-application support. Handoff helpers need only stdlib.
+dev ReportLab **5.0.1**, Pillow **12.3.0**, charset-normalizer **3.5.2**.
+Use SUPPORT_AND_SETUP.md for a fresh explicit hash-required dev venv; do not
+assume an old external TEMP environment remains present. Exact-version shell
+tools are Pester **6.2.0** and PSScriptAnalyzer **1.25.0**. Use the central
+runner, explicit absolute host paths/external reports and host-owned module
+paths as described in tests/README.md. Children request process-only RemoteSigned;
+stored policies remain unchanged and managed policy wins.
 
-Use `tests/run_tests.py` with explicit interpreter `-I -B`, a new absolute
-external report, external shell tools and explicit host executables.
-See tests/README.md and tests/powershell/README.md for full/targeted commands
-and exact Save-Module setup. Pester **6.2.0** and PSScriptAnalyzer **1.25.0**
-are imported by absolute versioned manifests, never inbox substitution.
-Test children request process-only RemoteSigned with their own host built-in
-module path; stored user/machine policy is unchanged and managed policy wins.
-The harness is developer tooling, not ordinary application-launch acceptance.
+## M1-T02 boundary
 
-Original characterization verifies visible page identities/order and its
-known-bad results separately from corrected PLAN_ORACLES.json targets.
-Reproduced defects remain: manual `1` creates zero files/exit 0; `1,4,7`
-loses pages 1-3; invalid tokens are filtered; Level 1 omits front matter;
-nested Level 2 A2 crosses into B pages 9-10. `4,7` is the complete-coverage
-control. Both original early launcher rejection paths return 0.
-Fixtures are original MIT 10/12-page generated PDFs; no user documents.
-Do not weaken expectations or call reproduced defects repaired acceptance.
+Reproduced manual defects remain: `1` creates zero files/exit 0; `1,4,7` loses
+pages 1-3; mixed invalid tokens are filtered. `4,7` is the complete-coverage
+control. Implement the strict SPLIT_CONTRACT grammar, validate every token,
+always include physical page 1 and normalize only after validation. Cover
+AC-013 through AC-018, deterministic page identities and seeded valid starts.
+Keep source inputs immutable; no bookmark/output/discovery/UI scope expansion.
 
-## M1-T01 scope
+Behavior fixes intentionally invalidate current mechanical-equivalence AST/
+known-bad assertions. Preserve original and M1 historical receipts/guards, but
+explicitly transition the affected current suite/central route to corrected
+manual oracles; do not claim changed code is still the original or silently
+rewrite its historical expectations. Remaining bookmark/plan/metadata fixes
+belong to later M1 tasks. One task per thread; do not start M1-T03 now.
 
-Move only the existing embedded body into shipped
-`engine/winbooksplit_engine.py`, with import-safe functions and guarded entry.
-Resolve the shipped engine from the PowerShell script root, preserving the
-existing batch/PowerShell workflow and Python/pypdf. Do not fix parsers,
-bookmarks, coverage or output behavior during mechanical extraction.
+## Installed Calibre and remaining gates
 
-AC-011: compare understood pre/post-extraction characterization and prove
-import has no processing side effects. The original harness deliberately
-refuses changed launcher hashes; add an explicit extraction-equivalence route
-with separate source identities instead of silently treating modified code
-as the original. Preserve historical receipts/expected_original.json.
-AC-012: exercise both entry points from unrelated directories and parallel
-launches, locating the shipped engine without a shared generated engine file.
-Record actual supported host/interpreter paths and limits. Dependency discovery
-redesign remains M2-T04; engine bug fixes start M1-T02.
+User-requested official portable **Calibre 9.15.0** is installed at
+`$UserProfile\Apps\Calibre915\Calibre Portable`. Converter:
+`$UserProfile\Apps\Calibre915\Calibre Portable\Calibre\ebook-convert.exe`.
+Published SHA-256/SHA-512 and Valid Windows signatures were checked; installer
+and version probe exited 0. No elevation, global PATH or policy changes occurred.
+This trusted nonstandard absolute path is outside the launcher's unchanged
+search paths: integration remains M2-T04. GUI interaction and actual EPUB/AZW3
+conversion remain NOT RUN; real conversion gates remain M4-T04 and package/
+release acceptance. The binaries are external and must not be bundled/committed.
 
-Run targeted plus affected regressions, obtain independent source/evidence
-review, update evidence/tasks/status/next-session, stage intended files only,
-commit/push normally and verify clean HEAD equals a fresh live branch SHA.
-One focused task per thread; leave M1-T02 for its own task checkpoint.
-
-Calibre **9.15.0** remains absent; actual EPUB/AZW3 conversion is mandatory
-later. Full repaired application splitting, Explorer, renderer **26.10.0**,
-CI, release-package and public-download verification remain NOT RUN.
-Windows10/ARM/UNC/other Python are unclaimed. No tag/release exists.
-Only RELEASE_RUNBOOK.md's verified public non-draft/non-prerelease v1.0.0,
-matching anonymous downloads, fixed tag and synchronized final main finish
-the project. Unsigned release is allowed with disclosure/checksums.
+Explorer, all launcher/error/discovery paths, repaired engine, renderer 26.10.0,
+clean OS/extracted release package, CI and public downloads remain NOT RUN.
+Canonical CI task is **M4-T05**, correcting older M0 prose's M5-T01 reference.
+Live main had no protections/rulesets/required checks or workflows/runs; inspect
+current state again. Windows10/ARM/UNC/other Python remain unclaimed. No tag or
+release exists. Only RELEASE_RUNBOOK.md's public non-draft/non-prerelease
+v1.0.0, matching anonymous downloads, fixed tag and synchronized final main
+finish the project. Unsigned release remains allowed with disclosure/checksums.
