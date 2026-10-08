@@ -1,9 +1,9 @@
 # Next session
 
-Current task: M0-T01, pending implementation push and live verification. Repair/finish that checkpoint before starting M0-T02. Do not trust this file over current GitHub reality.
+Next task: M0-T02. M0-T01 implementation C `ac09c024589158e1402ae63263818466d3e77d5c` was pushed and verified SYNCED at `2026-10-08T16:43:50.035807+00:00` (18:43:50 Europe/Berlin). This evidence checkpoint will receive a separate final receipt after its push/check in [PR #1](https://github.com/PikkuJanne/WinBookSplit/pull/1)/the prior thread. Recheck current clean/live equality before starting; repair an incomplete evidence push first. Do not trust this file over current GitHub reality.
 
 Workspace: `D:\projects\WinBookSplit-main`.
-Branch: `codex/winbooksplit-v1-m0`; origin fetch/push `https://github.com/PikkuJanne/WinBookSplit.git`.
+Branch/upstream: `codex/winbooksplit-v1-m0` / `origin/codex/winbooksplit-v1-m0`; origin fetch/push `https://github.com/PikkuJanne/WinBookSplit.git`.
 Confirmed live baseline: `6edbed7c1a0c94968999882c5a46d90492d3c327`; existing application files remain unchanged.
 The directory originally lacked `.git`; only freshly fetched live history/index metadata was attached after an exact seven-file blob comparison. No previous local Git metadata was available to audit.
 
@@ -16,7 +16,9 @@ python .\tools\codex-handoff\check_sync.py --repo .
 python .\tools\codex-handoff\validate_plan.py --plan-root .\docs\codex-v1.0.0
 ```
 
-After M0-T01 is synchronized, the exact next task is M0-T02: generate original page-marked PDF fixtures and characterize the original embedded engine/launcher defects. Read tasks/M0-T02.md, BASELINE_AUDIT.md, PLAN_ORACLES.json and TESTING.md. pypdf is absent from the current Python 3.14.7; Calibre was not located. Resolve required fixture dependencies locally in isolation; no supported-version claim exists yet. No application or Windows UI/Calibre test has passed.
+After the fresh checkpoint verification, the exact next task is M0-T02: generate original page-marked PDF fixtures and characterize the original embedded engine/launcher defects. Read tasks/M0-T02.md, BASELINE_AUDIT.md, PLAN_ORACLES.json and TESTING.md. pypdf is absent from the current Python 3.14.7; Calibre was not located. Resolve required fixture dependencies locally in isolation; no supported-version claim exists yet. No application or Windows UI/Calibre test has passed.
+
+Reuse draft PR #1 for the M0 workstream and update its description to the actual cumulative implementation as later tasks finish. Review/merge the milestone in M0-T04; do not merge merely because M0-T01 is done. No CI checks or Actions runs existed for C, and no GitHub review was submitted.
 
 ## Continuation prompt for a new thread
 

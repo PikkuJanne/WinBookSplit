@@ -25,7 +25,7 @@
         "Imported guidance",
         "First synchronized feature-branch checkpoint"
       ],
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [],
       "acceptance_ids": [
         "AC-001",
@@ -36,7 +36,7 @@
         "evidence/M0-T01-live-audit.json",
         "evidence/M0-T01-handoff.md"
       ],
-      "implementation_commit": null,
+      "implementation_commit": "ac09c024589158e1402ae63263818466d3e77d5c",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

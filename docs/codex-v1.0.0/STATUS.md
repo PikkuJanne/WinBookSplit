@@ -2,13 +2,13 @@
 
 Project: WinBookSplit first public v1.0.0
 Overall: IN PROGRESS; handoff imported, application unchanged, release unverified.
-Current task: M0-T01, in progress pending its synchronized implementation checkpoint.
+Completed task: M0-T01; next dependency-ready task M0-T02 after fresh verification of the evidence checkpoint.
 Next task: M0-T02 after the verified M0-T01 evidence checkpoint.
 Live baseline confirmed 8 October 2026: `6edbed7c1a0c94968999882c5a46d90492d3c327`; all seven original file blobs match.
 Active branch: `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified code/checkpoint commit: none yet.
-Live synchronization: PENDING; the feature branch has not yet been pushed.
+Last verified implementation commit C: `ac09c024589158e1402ae63263818466d3e77d5c`.
+Historical C synchronization: SYNCED at `2026-10-08T16:43:50.035807+00:00` (18:43:50 Europe/Berlin), clean local HEAD equals live branch. Evidence checkpoint E receives a separate final receipt in the thread/[PR #1](https://github.com/PikkuJanne/WinBookSplit/pull/1); recheck live equality next thread.
 Public release: NOT PUBLISHED; live tags/releases were empty on 8 October 2026.
 Application Windows/Calibre/Explorer execution evidence: NOT RUN.
 
@@ -20,7 +20,7 @@ pypdf is absent from the current Python 3.14.7; Calibre was not found on PATH or
 
 ## Completed tasks
 
-None until M0-T01's intended commit is pushed and freshly verified. Historical receipts do not prove current synchronization. M0 review/merge remains M0-T04.
+M0-T01: live reconciliation, safe handoff import and verified feature-branch code checkpoint. TASKS.json references C and actual evidence. This evidence update must receive its own normal push/live verification; the final receipt lives outside its own commit. Historical receipts do not prove current synchronization. M0 review/merge remains M0-T04; PR #1 stays draft until that gate.
 
 ## Finish rule
 

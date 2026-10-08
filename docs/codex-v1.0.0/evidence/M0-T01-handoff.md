@@ -43,11 +43,17 @@ Skip: `SafePaths.test_symlink_escape_refused` could not create a symlink on this
 
 - AC-001: live identity/state reconciled with explicit missing-metadata limitation; original files retained.
 - AC-002: verified external extraction, safe failed preflight, reviewed successful preview, create-only import and byte-preservation checks completed.
-- AC-003: pending the implementation commit C, normal push and fresh clean/live equality check.
+- AC-003: passed for implementation commit C `ac09c024589158e1402ae63263818466d3e77d5c`: normal push and exit-0 sync checker confirmed clean local HEAD equals fresh live feature branch at `2026-10-08T16:43:50.035807+00:00` (18:43:50 Europe/Berlin).
 
 Pre-commit independent read-only review found no blocking defect and independently confirmed original file hashes/blobs, the file-set digest, imported helper/AGENTS bytes and the scoped guidance changes. The imported plan validator passed during that review.
 
-M0-T01 remains `in_progress` until C is pushed and verified. The subsequent evidence checkpoint E will reference that historical C receipt, then be pushed and checked separately. E's own final receipt belongs in the thread/PR or a later record, not inside E. The M0 milestone review/merge is scheduled for M0-T04; this thread does not merge incomplete milestone work.
+M0-T01 is `done` with verified implementation C `ac09c024589158e1402ae63263818466d3e77d5c`; its tree is `2ccc56e161053e2ded60df823929b179f6536992`. On clean C, the imported plan validator passed again and all seven original SHA-256 values remained unchanged. Staged diff checks passed; helpers remain byte-identical to the tested bundle, so their suite was not repeated. Application tests remain NOT RUN.
+
+The actual normal push used the authenticated gh credential helper for this invocation only: `git -c credential.helper= -c "credential.helper=!gh auth git-credential" push -u origin HEAD`. Then `python tools/codex-handoff/check_sync.py --repo .` exited 0 and produced the historical C receipt embedded in the JSON audit. The feature upstream is now `origin/codex/winbooksplit-v1-m0`.
+
+[PR #1](https://github.com/PikkuJanne/WinBookSplit/pull/1) is open in draft against main to carry the M0 milestone. Live PR inspection showed head C, MERGEABLE, empty statusCheckRollup and no submitted GitHub reviews. The Actions query for C returned zero runs; no CI or GitHub approval is claimed. The independent local review is recorded above. M0-T04 owns cumulative review/merge; this thread does not merge incomplete milestone work.
+
+This evidence/status update is checkpoint E. It references C's already observed results; E will be normally pushed and checked separately. E's own final SHA/receipt belongs in the final thread/PR or a later record, not inside E. If that push/check fails, repair the incomplete checkpoint before M0-T02 despite the canonical done status.
 
 ## Next thread
 

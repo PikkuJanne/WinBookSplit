@@ -236,11 +236,55 @@
       "status": "VALID"
     },
     "application_windows_calibre_ui_security_release_acceptance": "NOT RUN; no such pass is claimed.",
-    "pre_commit_review": "Read-only independent subagent: no blocking defect; original hashes/blobs, helper/payload bytes, scoped differences and digest recipe independently matched; imported plan validator exit 0."
+    "pre_commit_review": "Read-only independent subagent: no blocking defect; original hashes/blobs, helper/payload bytes, scoped differences and digest recipe independently matched; imported plan validator exit 0.",
+    "clean_C_checks": {
+      "source_commit": "ac09c024589158e1402ae63263818466d3e77d5c",
+      "plan_validator_exit_code": 0,
+      "original_files_unchanged": 7,
+      "staged_diff_check_exit_code": 0,
+      "helper_bytes_same_as_tested_bundle": true,
+      "application_tests": "NOT RUN"
+    },
+    "evidence_checkpoint_review": "Independent read-only review verified C receipt and only five scoped evidence/status changes; corrected premature final-receipt wording before E commit. No runtime changes or blocking issues."
   },
   "checkpoint": {
-    "status": "PENDING until intended commit is normally pushed and check_sync.py confirms clean live equality",
-    "implementation_commit": null
+    "status": "Implementation C pushed and freshly SYNCED; evidence E must receive its separate external final receipt",
+    "implementation_commit": "ac09c024589158e1402ae63263818466d3e77d5c",
+    "implementation_tree": "2ccc56e161053e2ded60df823929b179f6536992",
+    "implementation_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-08T16:43:50.035807+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m0",
+      "local_head": "ac09c024589158e1402ae63263818466d3e77d5c",
+      "worktree_clean": true,
+      "remote_head": "ac09c024589158e1402ae63263818466d3e77d5c",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "upstream_after_push": "origin/codex/winbooksplit-v1-m0",
+    "push_command": [
+      "git",
+      "-c",
+      "credential.helper=",
+      "-c",
+      "credential.helper=!gh auth git-credential",
+      "push",
+      "-u",
+      "origin",
+      "HEAD"
+    ],
+    "sync_command": [
+      "python",
+      "tools/codex-handoff/check_sync.py",
+      "--repo",
+      "."
+    ],
+    "pr_url": "https://github.com/PikkuJanne/WinBookSplit/pull/1",
+    "pr_state_at_code_checkpoint": "OPEN DRAFT; base main; head C; mergeable; no submitted GitHub reviews",
+    "ci_at_code_checkpoint": "No status checks or Actions runs; no CI pass claimed",
+    "final_evidence_checkpoint_receipt": "PENDING at E creation: record outside its own commit in final thread/PR only after successful normal push and fresh check. Recheck live state next thread."
   },
   "next_task": "M0-T02"
 }
