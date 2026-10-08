@@ -40,10 +40,11 @@ def source_manifest() -> dict[str, str]:
         "WinBookSplit.bat", "WinBookSplit.ps1", "README.md", "LICENSE", ".gitignore",
         "requirements.txt", "requirements-dev.txt",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
+        "tests/extraction/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
-    for directory in (ROOT / "tests", ROOT / "tools/codex-handoff"):
+    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff"):
         paths.extend(path for path in directory.rglob("*")
                      if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json"}
                      and "__pycache__" not in path.parts)
@@ -140,6 +141,19 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                     or type(child.get("engine_case_count")) is not int \
                     or child["engine_case_count"] < 1:
                 raise ValueError("Baseline report requires nonempty original characterization")
+        elif kind == "extraction":
+            cases = child.get("engine_cases")
+            import_observation = child.get("import_observation", {})
+            if child.get("result") != "EXTRACTION_EQUIVALENCE_REPRODUCED" \
+                    or child.get("success") is not True or child.get("exit_code") != 0 \
+                    or child.get("engine_case_count") != 14 \
+                    or not isinstance(cases, list) or len(cases) != 14 \
+                    or any(not isinstance(case, dict) or case.get("equivalent") is not True for case in cases) \
+                    or len({case.get("oracle_id") for case in cases}) != 14 \
+                    or child.get("source_unchanged") is not True \
+                    or not isinstance(import_observation, dict) or import_observation.get("import_safe") is not True \
+                    or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f":
+                raise ValueError("Extraction report requires fourteen equivalent cases, safe import and preserved source")
         else:
             raise ValueError("Unknown child evidence kind")
         step.update(evidence_sha256=sha256(data), evidence=child)
@@ -246,7 +260,7 @@ def execute(args: argparse.Namespace) -> dict:
                         **run_command(command, shell_work, environment=shell_environment)}
                 attach_child_report(step, child_report, "shell")
                 steps.append(step)
-        if not args.failure_probe and args.layer in {"baseline", "full"}:
+        if not args.failure_probe and args.layer == "baseline":
             child_report = work / "known-original.json"
             step = {"name": "known-original-characterization",
                     "meaning": "Known defects reproduced; no repaired-engine acceptance",
@@ -255,6 +269,18 @@ def execute(args: argparse.Namespace) -> dict:
                                    "--launcher-probes", "--report", str(child_report)],
                                   work, environment=environment)}
             attach_child_report(step, child_report, "baseline")
+            steps.append(step)
+        if not args.failure_probe and args.layer in {"extraction", "full"}:
+            child_report = work / "extraction-equivalence.json"
+            command = [sys.executable, "-I", "-B",
+                       str(ROOT / "tests/extraction/characterize_extraction.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "explicit-extraction-equivalence",
+                    "meaning": "Immutable original/extracted known defects compared; no repaired-engine acceptance",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "extraction")
             steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
@@ -275,7 +301,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
@@ -301,6 +327,10 @@ def main() -> int:
                 raise ValueError("Shell layer requires explicit --shell-path values")
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
+            args.shell_path = [shell.resolve() for shell in args.shell_path]
+        elif args.layer == "extraction" and args.shell_path:
+            if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
+                raise ValueError("Every extraction shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:

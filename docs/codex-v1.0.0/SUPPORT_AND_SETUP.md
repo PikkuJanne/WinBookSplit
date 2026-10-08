@@ -3,14 +3,28 @@
 Decision date: 8 October 2026 (Europe/Berlin), M0-T03, AC-007/AC-008.
 This is the v1.0.0 implementation/test target. The original application still
 contains the reproduced defects; installing these dependencies does not fix it.
-The historical README and source headers are unchanged until the documentation
-task. Release support requires the later Windows, conversion and exact-ZIP gates.
+The historical README remains unchanged until the documentation task. M1-T01
+updates the PowerShell setup header to mention the shipped engine directory.
+Release support requires the later Windows, conversion and exact-ZIP gates.
 
 M0-T04 subsequently verified the exact isolated Pester/PSScriptAnalyzer pins
 under both actual hosts through the local scaffold; see
 [`evidence/M0-T04-scaffolding.md`](evidence/M0-T04-scaffolding.md) and
 `tests/powershell/README.md`. The table's last column retains M0-T03's historical
 observations. M0-T04 does not certify application success paths or conversion.
+
+Subsequent M1-T01 observation (8 October 2026): the user requested Calibre
+installation. The official portable **9.15.0** build was installed per-user at
+`$UserProfile\Apps\Calibre915\Calibre Portable`, without elevation or global
+PATH/policy changes. Its download matched the official SHA-512 and GitHub
+asset SHA-256, with a valid Kovid Goyal Windows signature; the installed
+`Calibre\ebook-convert.exe --version` returned 9.15.0/exit 0. See
+[`evidence/M1-T01-extraction.md`](evidence/M1-T01-extraction.md) and its machine
+record. This trusted nonstandard path is outside the unchanged launcher's three
+search locations. Use the recorded absolute converter path for later tests;
+application discovery work remains M2-T04. No actual EPUB/AZW3 conversion or
+GUI interaction is claimed. The matrix below retains its historical M0-T03
+observations rather than retroactively changing them.
 
 ## Matrix and evidence boundary
 

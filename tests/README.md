@@ -21,9 +21,14 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell` or `--layer baseline` for targeted checks.
+Use `--layer python`, `--layer shell` or `--layer extraction` for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
+The extraction layer accepts the two `--shell-path` options for actual entrypoint
+probes; omit them only for a focused Python equivalence/import check and record
+AC-012 as not run. `--layer baseline` still invokes the untouched historical
+harness and deliberately refuses the modified PowerShell source after M1.
+The full layer now explicitly runs the separate extraction-equivalence route.
 `--failure-probe native`, `--failure-probe python` and
 `--failure-probe pester` deliberately fail and must return nonzero even after
 the runner's later successful command/report step. These are runner acceptance
@@ -40,16 +45,26 @@ Each child uses its own host's built-in module directory and the absolute
 external pins, so an inherited PowerShell 7 module path cannot supply tools to
 Windows PowerShell 5.1.
 
-Fixture PDFs, slices, Pester TestDrive files and child working directories live
-inside unique temporary directories. Cleanup removes only each run's owned
-directory. No user document is a test input. Source documents, environments,
+Fixture PDFs, direct-engine slices, Pester TestDrive files and child working
+directories live inside unique temporary directories. Actual M1 entrypoint
+probes use the application's observed Documents folder with separately reserved
+GUID directories, ownership markers and synthetic neighbors. Their nonrecursive
+cleanup verifies containment, marker, allowed files and absence of reparse
+points before removing only the run's owned outputs. No private Documents
+content is enumerated or used as input. See `extraction/README.md` for the actual
+six-probe unrelated-directory/parallel method and its limits. Environments,
 generated outputs and raw evidence are ignored; ignore rules do not replace
 reviewing the exact staged paths.
 
-The baseline layer executes the unchanged engine and verifies its deliberately
-known-bad expectations. A pass means reproduction, not repaired splitting.
+The extraction layer compares immutable original Git bytes with the shipped
+engine using fourteen understood known-bad cases. Processing ASTs, exits,
+stdout/stderr, filenames, exact page identities and PDF bytes must match, and
+engine import must have no processing/configuration side effects. A pass means
+mechanical equivalence, not repaired splitting. The historical baseline layer
+continues to require the original launcher hashes without exceptions.
 The shell layer gates syntax and the new scaffold's selected static checks;
 unchanged application analyzer findings are reported as legacy observations.
-Real splitting under both shells, Explorer, Calibre and the extracted release
-package remain separate mandatory later checks. CI installation and workflow
-execution belong to M5-T01; this local scaffold does not claim a CI run.
+Actual M1 synthetic splitting under both shells and batch verifies extraction
+and engine resolution; repaired behavior, full UX/Explorer, Calibre and the
+extracted release package remain separate mandatory later checks. CI installation and workflow
+execution belong to M4-T05; this local scaffold does not claim a CI run.

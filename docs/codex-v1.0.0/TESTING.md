@@ -10,6 +10,23 @@ M0-T02's executable original-behavior characterization is documented in `tests/b
 
 M0-T03 selects stdlib unittest on regular CPython 3.14.8, Pester 6.2.0 and PSScriptAnalyzer 1.25.0 for M0-T04, with ReportLab 5.0.1/Pillow 12.3.0/charset-normalizer 3.5.2 only in `requirements-dev.txt`. `SUPPORT_AND_SETUP.md` distinguishes frozen targets from historical observations and documents absolute paths/hash-verified isolated setup. See `tests/README.md` for full/targeted invocations and `tests/powershell/README.md` for exact-version external shell tools. M0-T04 evidence records actual both-host harness outcomes, deliberate failure probes and repeated unrelated-directory runs; these do not pass repaired-engine, real conversion, Explorer or full launcher acceptance.
 
+M1-T01 adds an explicit extraction-equivalence route in
+`tests/extraction/characterize_extraction.py`; see its README. It compares the
+immutable original Git engine with the shipped engine, including all 14
+understood known-bad cases, complete output bytes/page identities and safe
+import. The unchanged historical baseline harness must refuse the modified
+PowerShell source; `--layer baseline` therefore intentionally fails after
+extraction. `--layer extraction` and `--layer full` select the explicit current
+comparison instead. With both actual host paths, six bounded actual PS5.1/PS7/
+batch probes cover unrelated CWD and parallel launches. Their generated GUID
+outputs use the workstation's observed Documents folder with exclusive owner
+markers, synthetic neighbors and strict direct-file cleanup checks. No private
+Documents entries are enumerated or processed. Successful observed cleanup
+does not claim cleanup after every possible ownership/initialization failure;
+invalid ownership or unexpected members cause safe refusal and preservation.
+These controlled stdin/PATH/process-policy probes do not certify Explorer,
+ordinary discovery, all launcher paths or release-package behavior.
+
 Reports use new absolute paths outside the checkout, include actual source-byte and child-evidence SHA-256 digests, and retain every step's native exit status. A missing/invalid promised child report also fails. Each run owns one unique temporary directory; source and synthetic-neighbor hashes are checked before cleanup. AC-009 requires observed native/Python/Pester failures followed by success while the runner stays nonzero. AC-010 requires two actual full runs from unrelated directories, matching deterministic outcomes and owned cleanup. Acceptance IDs printed by a runner alone are not acceptance passes. The shell layer gates syntax and selected new-scaffold defect/security/compatibility rules while separately recording unchanged application analyzer findings; legacy observations are not a runtime static pass.
 
 ## Risk-based execution

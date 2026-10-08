@@ -7,6 +7,11 @@ the application at runtime. The original PowerShell and batch files are pinned
 by SHA-256; a changed launcher makes this harness fail rather than apply its
 known-bad expectations to repaired code.
 
+After M1 extraction, invoking this historical command deliberately fails on the
+changed PowerShell hash. Use `tests/extraction/characterize_extraction.py` or the
+central `--layer extraction` for explicit immutable-original/extracted-source
+comparison. Neither the original hash guards nor the expectations are changed.
+
 `expected_original.json` holds explicitly original results, including success
 with zero files and omitted pages. `docs/codex-v1.0.0/PLAN_ORACLES.json` remains
 the independent corrected-behavior oracle. Each report includes both results.
