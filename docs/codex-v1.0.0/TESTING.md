@@ -4,6 +4,8 @@
 
 Characterize existing behavior in M0 with generated safe inputs, then convert findings into regression tests. Python unit tests cover parser/bookmark normalization/plan invariants and filename rules. Integration tests create PDFs with actual pypdf, execute the engine, reopen slices and verify page identity/order. Pester covers PowerShell binding, paths, discovery, child process handling and exit propagation. Real Windows tests cover launcher/Explorer, encoding, cancellation, filesystem behavior and actual EPUB/AZW3 conversion.
 
+M0-T02's executable original-behavior characterization is documented in `tests/baseline/README.md`; fixture generation/provenance is in `tests/fixtures/README.md`. Its `expected_original.json` contains known-bad observations, while `PLAN_ORACLES.json` continues to contain corrected target behavior. A successful characterization is evidence of reproduction, not a fixed-engine acceptance pass. The JSON report records actual page identities, both expectation sets, source hashes, dependency versions and explicitly unrun layers.
+
 `ACCEPTANCE_CASES.json` and `PLAN_ORACLES.json` are requirements and expected outcomes, **not executed tests**. M0/M1 connect these IDs to actual tests. Test harnesses may use pytest, Pester, PSScriptAnalyzer and development-only fixture/render tools, pinned to reviewed versions. Keep runtime dependencies minimal and separate. Add one convenient local runner using the same commands as CI; failed native commands must fail the runner.
 
 ## Risk-based execution

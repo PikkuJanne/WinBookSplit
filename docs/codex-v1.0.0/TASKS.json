@@ -60,7 +60,7 @@
         "Baseline regression evidence",
         "Reusable expected-range cases"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M0-T01"
       ],
@@ -69,8 +69,11 @@
         "AC-005",
         "AC-006"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M0-T02-baseline.md",
+        "evidence/M0-T02-characterization.json"
+      ],
+      "implementation_commit": "8f1f556f318be488839e839830264fa2e5f4fbc8",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
