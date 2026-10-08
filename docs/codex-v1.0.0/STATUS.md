@@ -18,6 +18,8 @@ Application Windows/Calibre/Explorer execution evidence: NOT RUN.
 
 pypdf is absent from the current Python 3.14.7; Calibre was not found on PATH or at current application discovery locations. Supported dependency versions and real application tests remain later M0 work. These do not block this handoff task's checks.
 
+Initial evidence checkpoint E: `0d55b2f2f666797de0afdbfd3b89c62b7499ada1`, SYNCED at `2026-10-08T16:46:18.337217+00:00` (18:46:18 Europe/Berlin). A subsequent upstream-resolution check found the bootstrap fetch mapping covered only main; the standard all-heads local mapping and a normal fetch repaired it at 18:47:22. The resolved upstream equals E. This follow-up record receives a separate final push/live receipt in PR #1/the thread.
+
 ## Completed tasks
 
 M0-T01: live reconciliation, safe handoff import and verified feature-branch code checkpoint. TASKS.json references C and actual evidence. This evidence update must receive its own normal push/live verification; the final receipt lives outside its own commit. Historical receipts do not prove current synchronization. M0 review/merge remains M0-T04; PR #1 stays draft until that gate.

@@ -49,11 +49,21 @@ Pre-commit independent read-only review found no blocking defect and independent
 
 M0-T01 is `done` with verified implementation C `ac09c024589158e1402ae63263818466d3e77d5c`; its tree is `2ccc56e161053e2ded60df823929b179f6536992`. On clean C, the imported plan validator passed again and all seven original SHA-256 values remained unchanged. Staged diff checks passed; helpers remain byte-identical to the tested bundle, so their suite was not repeated. Application tests remain NOT RUN.
 
-The actual normal push used the authenticated gh credential helper for this invocation only: `git -c credential.helper= -c "credential.helper=!gh auth git-credential" push -u origin HEAD`. Then `python tools/codex-handoff/check_sync.py --repo .` exited 0 and produced the historical C receipt embedded in the JSON audit. The feature upstream is now `origin/codex/winbooksplit-v1-m0`.
+The actual normal push used the authenticated gh credential helper for this invocation only: `git -c credential.helper= -c "credential.helper=!gh auth git-credential" push -u origin HEAD`. Then `python tools/codex-handoff/check_sync.py --repo .` exited 0 and produced the historical C receipt embedded in the JSON audit. The push configured the feature upstream as `origin/codex/winbooksplit-v1-m0`; its fetch mapping needed the later correction documented below.
 
 [PR #1](https://github.com/PikkuJanne/WinBookSplit/pull/1) is open in draft against main to carry the M0 milestone. Live PR inspection showed head C, MERGEABLE, empty statusCheckRollup and no submitted GitHub reviews. The Actions query for C returned zero runs; no CI or GitHub approval is claimed. The independent local review is recorded above. M0-T04 owns cumulative review/merge; this thread does not merge incomplete milestone work.
 
 This evidence/status update is checkpoint E. It references C's already observed results; E will be normally pushed and checked separately. E's own final SHA/receipt belongs in the final thread/PR or a later record, not inside E. If that push/check fails, repair the incomplete checkpoint before M0-T02 despite the canonical done status.
+
+## Follow-up: verify and repair the local upstream mapping
+
+The first evidence checkpoint E `0d55b2f2f666797de0afdbfd3b89c62b7499ada1` was committed and normally pushed. The plan validator passed on clean E; the sync checker exited 0 at `2026-10-08T16:46:18.337217+00:00` (18:46:18 Europe/Berlin), with equal clean local/live feature SHAs. This helper checks branch equality; it does not verify that the locally configured upstream resolves.
+
+Late independent review found that `git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}'` failed (exit 128). The external bootstrap clone's `--single-branch` had left only `+refs/heads/main:refs/remotes/origin/main` in the local fetch mapping. The push configured the feature upstream, but its remote-tracking reference was not fetched. This local metadata defect did not invalidate the fresh live equality receipt; it did require correction for a usable continuation.
+
+At `2026-10-08T16:47:22.733237+00:00` (18:47:22 Europe/Berlin), `git remote set-branches origin '*'` restored the standard all-heads fetch mapping and `git fetch origin` fetched normally without pruning or changing any application files/history. Upstream resolution then exited 0 as `origin/codex/winbooksplit-v1-m0`; its SHA equaled clean local E. The JSON contains the exact before/after mapping, commands and receipt. No global or GitHub repository settings changed.
+
+This follow-up records E's historical receipt and the verified local metadata correction in a new ordinary commit. Its final push/live receipt will be kept outside its own commit in the final thread/PR. No commit is amended or rewritten, and no additional runtime test is claimed.
 
 ## Next thread
 

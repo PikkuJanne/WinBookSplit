@@ -20,6 +20,13 @@ After the fresh checkpoint verification, the exact next task is M0-T02: generate
 
 Reuse draft PR #1 for the M0 workstream and update its description to the actual cumulative implementation as later tasks finish. Review/merge the milestone in M0-T04; do not merge merely because M0-T01 is done. No CI checks or Actions runs existed for C, and no GitHub review was submitted.
 
+The initial evidence checkpoint `0d55b2f2f666797de0afdbfd3b89c62b7499ada1` was freshly SYNCED at 18:46:18 Europe/Berlin. A later check found the bootstrap single-branch fetch mapping prevented feature upstream resolution; it was repaired with the standard all-heads local fetch mapping and a normal fetch. At 18:47:22 the resolved upstream SHA equaled clean local E. See M0-T01 evidence for the historical receipts; this follow-up requires its own final push/live check. Also verify upstream resolution on continuation:
+
+```powershell
+git rev-parse --abbrev-ref --symbolic-full-name '@{upstream}'
+git rev-parse '@{upstream}'
+```
+
 ## Continuation prompt for a new thread
 
 Continue PikkuJanne/WinBookSplit toward the sole public v1.0.0 release in this existing local checkout. Read applicable AGENTS.md and docs/codex-v1.0.0/{STATUS.md,NEXT_SESSION.md,TASKS.json,SCOPE_AND_DECISIONS.md} plus the next task brief. Inspect actual origins, branch, dirt, HEAD and live GitHub; repair any incomplete synchronization checkpoint first. Never reset/discard unrelated work or force push.

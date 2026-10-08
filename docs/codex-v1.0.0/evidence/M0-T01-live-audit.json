@@ -245,7 +245,7 @@
       "helper_bytes_same_as_tested_bundle": true,
       "application_tests": "NOT RUN"
     },
-    "evidence_checkpoint_review": "Independent read-only review verified C receipt and only five scoped evidence/status changes; corrected premature final-receipt wording before E commit. No runtime changes or blocking issues."
+    "evidence_checkpoint_review": "Independent read-only review verified C receipt and scoped evidence/status changes. Premature receipt wording was corrected before E; a later upstream-resolution failure was diagnosed and repaired after E without rewriting commits. Details and actual commands in checkpoint.upstream_repair."
   },
   "checkpoint": {
     "status": "Implementation C pushed and freshly SYNCED; evidence E must receive its separate external final receipt",
@@ -263,7 +263,6 @@
       "remote_head": "ac09c024589158e1402ae63263818466d3e77d5c",
       "reason": "Clean local HEAD equals fresh live branch at observation time"
     },
-    "upstream_after_push": "origin/codex/winbooksplit-v1-m0",
     "push_command": [
       "git",
       "-c",
@@ -284,7 +283,46 @@
     "pr_url": "https://github.com/PikkuJanne/WinBookSplit/pull/1",
     "pr_state_at_code_checkpoint": "OPEN DRAFT; base main; head C; mergeable; no submitted GitHub reviews",
     "ci_at_code_checkpoint": "No status checks or Actions runs; no CI pass claimed",
-    "final_evidence_checkpoint_receipt": "PENDING at E creation: record outside its own commit in final thread/PR only after successful normal push and fresh check. Recheck live state next thread."
+    "final_evidence_checkpoint_receipt": "PENDING at this follow-up record creation: commit/push normally; final clean/live receipt belongs outside its own commit in thread/PR.",
+    "configured_upstream_after_push": "origin/codex/winbooksplit-v1-m0",
+    "initial_evidence_checkpoint_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-08T16:46:18.337217+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m0",
+      "local_head": "0d55b2f2f666797de0afdbfd3b89c62b7499ada1",
+      "worktree_clean": true,
+      "remote_head": "0d55b2f2f666797de0afdbfd3b89c62b7499ada1",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "upstream_repair": {
+      "observed_at": "2026-10-08T16:47:22.733237+00:00",
+      "prior_upstream_resolve_exit": 128,
+      "prior_fetch_refspec": "+refs/heads/main:refs/remotes/origin/main",
+      "cause": "Bootstrap external clone used --single-branch; push configured upstream but feature remote-tracking ref was unmapped.",
+      "correction_commands": [
+        [
+          "git",
+          "remote",
+          "set-branches",
+          "origin",
+          "*"
+        ],
+        [
+          "git",
+          "fetch",
+          "origin"
+        ]
+      ],
+      "fetch_refspec": "+refs/heads/*:refs/remotes/origin/*",
+      "upstream": "origin/codex/winbooksplit-v1-m0",
+      "upstream_head": "0d55b2f2f666797de0afdbfd3b89c62b7499ada1",
+      "local_head": "0d55b2f2f666797de0afdbfd3b89c62b7499ada1",
+      "worktree_clean": true,
+      "scope": "Local Git fetch metadata and normal fetch only; no history changes or remote repository settings changes."
+    }
   },
   "next_task": "M0-T02"
 }
