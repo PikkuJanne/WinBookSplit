@@ -133,7 +133,7 @@
         "Fixture cleanup/ignore rules",
         "M0 review and merge evidence"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M0-T03"
       ],
@@ -141,8 +141,11 @@
         "AC-009",
         "AC-010"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M0-T04-scaffolding.md",
+        "evidence/M0-T04-harness.json"
+      ],
+      "implementation_commit": "01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

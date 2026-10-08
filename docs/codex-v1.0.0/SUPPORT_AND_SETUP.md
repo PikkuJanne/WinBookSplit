@@ -6,6 +6,12 @@ contains the reproduced defects; installing these dependencies does not fix it.
 The historical README and source headers are unchanged until the documentation
 task. Release support requires the later Windows, conversion and exact-ZIP gates.
 
+M0-T04 subsequently verified the exact isolated Pester/PSScriptAnalyzer pins
+under both actual hosts through the local scaffold; see
+[`evidence/M0-T04-scaffolding.md`](evidence/M0-T04-scaffolding.md) and
+`tests/powershell/README.md`. The table's last column retains M0-T03's historical
+observations. M0-T04 does not certify application success paths or conversion.
+
 ## Matrix and evidence boundary
 
 | Component | Frozen target | Actual M0-T03 evidence |

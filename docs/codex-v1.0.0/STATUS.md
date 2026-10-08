@@ -1,15 +1,24 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; application unchanged, original defects reproduced, support/dependency plan frozen, release unverified.
-Completed tasks: M0-T01, M0-T02 and M0-T03.
-Next dependency-ready task: **M0-T04 — Add local test and evidence scaffolding**, after fresh verification of this evidence checkpoint.
-Active branch: `codex/winbooksplit-v1-m0`.
+Overall: IN PROGRESS; M0 complete and reviewed/merged, application unchanged, original defects reproduced, release unverified.
+Completed tasks: M0-T01, M0-T02, M0-T03 and M0-T04.
+Next dependency-ready task: **M1-T01 — Extract the existing Python engine narrowly**, after fresh verification of this documentation checkpoint.
+Active branch: `main`; retained milestone branch: `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `2e63f259a59438a689e75ff0ff9c1a9fcd600c1f`.
-Historical C synchronization: SYNCED at `2026-10-08T17:33:12.039489+00:00` (19:33:12 Europe/Berlin), clean local HEAD equals live feature branch.
-This documentation/evidence checkpoint receives its separate final push/live receipt in the thread/[draft PR #3](https://github.com/PikkuJanne/WinBookSplit/pull/3); recheck current equality next thread.
+Last verified implementation C: `01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee`.
+Historical C synchronization: SYNCED at `2026-10-08T17:59:55.797912+00:00` (19:59:55 Europe/Berlin), clean local HEAD equals live feature branch.
+Reviewed [PR #4](https://github.com/PikkuJanne/WinBookSplit/pull/4) merged at `2026-10-08T18:01:01Z`; merge commit `ae9ddd0444e61578ed59625d6d3df4038e6fb09e` freshly matched clean local/live main at `2026-10-08T18:01:05.818622+00:00` (20:01:05 Berlin).
+This following documentation-only evidence/status checkpoint receives its own final normal push/live receipt in the thread; recheck current equality next thread.
 Public release: NOT PUBLISHED; live tags/releases were empty on 8 October 2026.
+
+## M0-T04 evidence and limits
+
+[Harness evidence](evidence/M0-T04-scaffolding.md) and [machine record](evidence/M0-T04-harness.json) satisfy AC-009/010. The small local runner has targeted/full stdlib unittest, exact-version shell tools, syntax/new-scaffold static checks, source/evidence hashes, sticky native/test exit status, exclusive external reports and owned temporary fixtures. Two full unrelated-directory runs passed with identical tested source digests: 11 Python tests, 9 Pester tests in each actual 5.1.26100.9444/7.6.5 host, 14 original known-bad engine cases and two early launcher boundaries. Native exit 23, failed Python unittest and one failed Pester test per host all retained runner exit 1 after later success. All checkout/input/neighbor bytes were preserved and owned temporary directories removed.
+
+Fresh regular x64 CPython 3.14.8 dev venv/hash-pinned dependencies/import origins passed. Isolated Pester 6.2.0 and PSScriptAnalyzer 1.25.0 imported from absolute manifests in both hosts; all 66 saved tool file hashes/sizes were independently checked. Developer children use process-only RemoteSigned and their own built-in module paths; stored machine/user policies are unchanged. No global module/dependency installation occurred. Invalid shell preflight report writes and incomplete child-evidence acceptance were reproduced, fixed and covered by regressions. The external byte-matched handoff suite passed 56 tests with one symlink-creation skip.
+
+Independent cumulative M0 source/evidence/privacy review found no remaining blocker. Actual GitHub main was unprotected with no rulesets, required checks, workflows/runs or submitted reviews; CI is NOT RUN and remains M5-T01. Exact-head merge used the normal process without admin bypass/deletion. Main was fast-forwarded normally and tested raw bytes rechecked. The seven original application files remain byte-identical; its 68 per-host analyzer findings are legacy observations, and known runtime defects remain. Full repaired splitting, Explorer, Calibre, current rendering and release-package gates are NOT RUN; unsupported platforms stay unclaimed. No tag/release was created.
 
 ## M0-T03 evidence and limits
 
@@ -17,7 +26,7 @@ Public release: NOT PUBLISHED; live tags/releases were empty on 8 October 2026.
 
 Official Python was extracted without runtime registration/global installs. Fresh runtime/dev venv installs, pip checks and import-origin/version/absence assertions passed. The complete documented runtime setup ran under both actual shell hosts. The Windows PowerShell 5.1 native quoting defect found during review was fixed and rerun; execution policy remained unchanged. All 14 original engine cases and two unchanged early launcher error paths reproduced on the final dependency set, with exact page identities and source/input/neighbor preservation. This remains known-bad characterization, not repaired-engine acceptance. All seven original application files remain byte-identical.
 
-Actual workstation remains Windows 11 Pro 26H2 build 26300.9457 x64; hosts 5.1.26100.9444 and 7.6.5. Existing registered Python 3.14.7 and bundled 3.12.14 are historical/unchanged, not current supported pins. Calibre was not found; no conversion ran. External shell tooling and selected newer renderer are not installed/tested. Full PS5.1/7 splitting, Explorer, real EPUB/AZW3, repaired-engine and release-package checks remain NOT RUN. Windows10/ARM/UNC and other Python versions remain unclaimed. Independent source/evidence review found no remaining blocker; no GitHub review submission or CI execution is claimed. M0-T04's cumulative review/scaffolding/merge gate remains open.
+Actual workstation remains Windows 11 Pro 26H2 build 26300.9457 x64; hosts 5.1.26100.9444 and 7.6.5. Existing registered Python 3.14.7 and bundled 3.12.14 are historical/unchanged, not current supported pins. Calibre was not found; no conversion ran. External shell tooling and selected newer renderer are not installed/tested. Full PS5.1/7 splitting, Explorer, real EPUB/AZW3, repaired-engine and release-package checks remain NOT RUN. Windows10/ARM/UNC and other Python versions remain unclaimed. Independent source/evidence review found no remaining blocker; no GitHub review submission or CI execution is claimed. M0-T04 was open at that checkpoint; its record above now closes the cumulative gate.
 
 ## M0-T02 evidence and limits
 
@@ -27,7 +36,7 @@ The original synthetic 10/12-page fixtures reproduce byte-for-byte with the same
 
 Actual fixture/engine environment: existing Windows 11 workstation build 26300.9457; explicit bundled isolated Python 3.12.14, pypdf 6.10.0, ReportLab 4.4.9. Orchestrating shell was PowerShell 7.6.5; the bounded launcher probe used actual Windows PowerShell 5.1.26100.9444. Poppler was 26.07.0. These are development observations; supported versions remain M0-T03's decision. No global dependency installation occurred.
 
-Full Windows PowerShell 5.1/7 splitting workflow, human Explorer drag/drop, Calibre conversion, release-package checks and fixed-engine acceptance: **NOT RUN**. Independent read-only source/evidence review found no blocker. No GitHub review submission or CI pass is claimed. M0-T04's cumulative review/test-scaffolding/merge gate remains open.
+Full Windows PowerShell 5.1/7 splitting workflow, human Explorer drag/drop, Calibre conversion, release-package checks and fixed-engine acceptance: **NOT RUN**. Independent read-only source/evidence review found no blocker. No GitHub review submission or CI pass is claimed. M0-T04 was open at that checkpoint; its record above now closes the cumulative gate.
 
 ## Repository reconciliation and earlier work
 
