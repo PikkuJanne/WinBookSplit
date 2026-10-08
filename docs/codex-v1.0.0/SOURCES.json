@@ -1,0 +1,89 @@
+{
+  "verified_date": "2026-10-07",
+  "sources": [
+    {
+      "id": "R1",
+      "title": "Baseline PowerShell source",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/6edbed7c1a0c94968999882c5a46d90492d3c327/WinBookSplit.ps1",
+      "use": "Existing implementation, defects and entry points; inspected via GitHub connector."
+    },
+    {
+      "id": "R2",
+      "title": "Baseline launcher",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/6edbed7c1a0c94968999882c5a46d90492d3c327/WinBookSplit.bat",
+      "use": "Launcher behavior; inspected in preceding review."
+    },
+    {
+      "id": "R3",
+      "title": "Baseline README",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/6edbed7c1a0c94968999882c5a46d90492d3c327/README.md",
+      "use": "Original documented scope and mismatches; preceding repository review."
+    },
+    {
+      "id": "R4",
+      "title": "Baseline license",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/6edbed7c1a0c94968999882c5a46d90492d3c327/LICENSE",
+      "use": "Existing MIT license; preceding repository review."
+    },
+    {
+      "id": "R5",
+      "title": "Live GitHub repository/release metadata",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases",
+      "use": "No releases observed 2026-10-07; default main SHA/tree also rechecked via connector. Recheck live in M0/M6."
+    },
+    {
+      "id": "S1",
+      "title": "OpenAI Codex AGENTS.md guidance",
+      "url": "https://developers.openai.com/codex/guides/agents-md",
+      "use": "Codex loads repository guidance; keep root guidance compact and detail in task files. Official URL redirects to learn.chatgpt.com."
+    },
+    {
+      "id": "S2",
+      "title": "GitHub CLI official manual",
+      "url": "https://cli.github.com/manual/",
+      "use": "Use installed-version help for exact syntax and authentication; no API credentials belong in repository files."
+    },
+    {
+      "id": "S3",
+      "title": "pypdf installation",
+      "url": "https://pypdf.readthedocs.io/en/stable/user/installation.html",
+      "use": "Package/runtime requirements and optional dependencies; select/test actual versions rather than claim all Python3."
+    },
+    {
+      "id": "S4",
+      "title": "Calibre ebook-convert",
+      "url": "https://manual.calibre-ebook.com/generated/en/ebook-convert.html",
+      "use": "Format-dependent conversion options; test actual EPUB/AZW3 -> PDF settings."
+    },
+    {
+      "id": "S5",
+      "title": "Microsoft Process.StandardError",
+      "url": "https://learn.microsoft.com/en-us/dotnet/api/system.diagnostics.process.standarderror",
+      "use": "Redirected-stream reads can deadlock; use compatible concurrently drained process streams."
+    },
+    {
+      "id": "S6",
+      "title": "pypdf encryption/decryption",
+      "url": "https://pypdf.readthedocs.io/en/stable/user/encryption-decryption.html",
+      "use": "Encryption APIs/dependencies; v1.0.0 deliberately rejects encrypted input instead of claiming password support."
+    },
+    {
+      "id": "S7",
+      "title": "Git ls-remote",
+      "url": "https://git-scm.com/docs/git-ls-remote",
+      "use": "Fresh remote ref/object IDs, exit status and annotated tag peeled refs."
+    },
+    {
+      "id": "S8",
+      "title": "GitHub CLI release create",
+      "url": "https://cli.github.com/manual/gh_release_create",
+      "use": "Existing-tag verification, draft assembly, assets and immutability considerations."
+    },
+    {
+      "id": "S9",
+      "title": "GitHub CLI release edit",
+      "url": "https://cli.github.com/manual/gh_release_edit",
+      "use": "Publishing draft and explicit release fields; verify public outcome afterward."
+    }
+  ]
+}

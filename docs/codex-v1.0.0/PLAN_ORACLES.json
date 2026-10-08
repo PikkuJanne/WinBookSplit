@@ -1,0 +1,479 @@
+{
+  "schema_version": 1,
+  "note": "Expected target behavior, not executed tests. Each valid result partitions every page.",
+  "manual": [
+    {
+      "id": "MAN-01",
+      "pages": 10,
+      "input": "1",
+      "expected_ranges": [
+        [
+          0,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "MAN-02",
+      "pages": 10,
+      "input": "1,4,7",
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "MAN-03",
+      "pages": 10,
+      "input": "4,7",
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "MAN-04",
+      "pages": 10,
+      "input": "7, 04,4, 1",
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "MAN-05",
+      "pages": 10,
+      "input": "10",
+      "expected_ranges": [
+        [
+          0,
+          9
+        ],
+        [
+          9,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "MAN-06",
+      "pages": 1,
+      "input": "1",
+      "expected_ranges": [
+        [
+          0,
+          1
+        ]
+      ]
+    },
+    {
+      "id": "MAN-07",
+      "pages": 10,
+      "input": "",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-08",
+      "pages": 10,
+      "input": " ",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-09",
+      "pages": 10,
+      "input": "abc",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-10",
+      "pages": 10,
+      "input": "1-4",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-11",
+      "pages": 10,
+      "input": "1,abc,7",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-12",
+      "pages": 10,
+      "input": "0,999",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-13",
+      "pages": 10,
+      "input": "11",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-14",
+      "pages": 10,
+      "input": "1,,4",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-15",
+      "pages": 10,
+      "input": "1,",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-16",
+      "pages": 10,
+      "input": ",4",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-17",
+      "pages": 10,
+      "input": "+4",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-18",
+      "pages": 10,
+      "input": "-1",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-19",
+      "pages": 10,
+      "input": "1.5",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-20",
+      "pages": 10,
+      "input": "١,٤",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-21",
+      "pages": 10,
+      "input": "9999999999999999999999999999999999",
+      "expected_error": "invalid_start_pages"
+    },
+    {
+      "id": "MAN-22",
+      "pages": 0,
+      "input": "1",
+      "expected_error": "invalid_document"
+    }
+  ],
+  "bookmarks": [
+    {
+      "id": "BM-01",
+      "pages": 10,
+      "level": 1,
+      "parents": [
+        {
+          "start_page": 4,
+          "title": "A",
+          "children": []
+        },
+        {
+          "start_page": 7,
+          "title": "B",
+          "children": []
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "BM-02",
+      "pages": 12,
+      "level": 1,
+      "parents": [
+        {
+          "start_page": 3,
+          "title": "A",
+          "children": [
+            {
+              "start_page": 4,
+              "title": "A1"
+            },
+            {
+              "start_page": 7,
+              "title": "A2"
+            }
+          ]
+        },
+        {
+          "start_page": 9,
+          "title": "B",
+          "children": [
+            {
+              "start_page": 11,
+              "title": "B1"
+            }
+          ]
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "BM-03",
+      "pages": 12,
+      "level": 2,
+      "parents": [
+        {
+          "start_page": 3,
+          "title": "A",
+          "children": [
+            {
+              "start_page": 4,
+              "title": "A1"
+            },
+            {
+              "start_page": 7,
+              "title": "A2"
+            }
+          ]
+        },
+        {
+          "start_page": 9,
+          "title": "B",
+          "children": [
+            {
+              "start_page": 11,
+              "title": "B1"
+            }
+          ]
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "BM-04",
+      "pages": 12,
+      "level": 2,
+      "parents": [
+        {
+          "start_page": 1,
+          "title": "A",
+          "children": [
+            {
+              "start_page": 1,
+              "title": "A1"
+            },
+            {
+              "start_page": 4,
+              "title": "A2"
+            }
+          ]
+        },
+        {
+          "start_page": 7,
+          "title": "B",
+          "children": []
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "BM-05",
+      "pages": 10,
+      "level": 1,
+      "parents": [],
+      "expected_error": "no_bookmarks"
+    },
+    {
+      "id": "BM-06",
+      "pages": 10,
+      "level": 2,
+      "parents": [
+        {
+          "start_page": 1,
+          "title": "A",
+          "children": []
+        },
+        {
+          "start_page": 6,
+          "title": "B",
+          "children": []
+        }
+      ],
+      "expected_error": "no_bookmarks_at_level"
+    },
+    {
+      "id": "BM-07",
+      "pages": 10,
+      "level": 2,
+      "parents": [
+        {
+          "start_page": 1,
+          "title": "A",
+          "children": [
+            {
+              "start_page": 2,
+              "title": "A1"
+            },
+            {
+              "start_page": 8,
+              "title": "out-of-parent"
+            }
+          ]
+        },
+        {
+          "start_page": 6,
+          "title": "B",
+          "children": []
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          1
+        ],
+        [
+          1,
+          5
+        ],
+        [
+          5,
+          10
+        ]
+      ],
+      "expected_warnings": [
+        "child_outside_parent"
+      ]
+    },
+    {
+      "id": "BM-08",
+      "pages": 10,
+      "level": 1,
+      "parents": [
+        {
+          "start_page": 7,
+          "title": "B",
+          "children": []
+        },
+        {
+          "start_page": 4,
+          "title": "A",
+          "children": []
+        },
+        {
+          "start_page": 4,
+          "title": "Alias",
+          "children": []
+        }
+      ],
+      "expected_ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ],
+      "expected_warnings": [
+        "duplicate_destination",
+        "outline_reordered"
+      ]
+    }
+  ]
+}
