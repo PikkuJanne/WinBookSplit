@@ -2,13 +2,30 @@
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 reviewed/merged; M3 is complete through **M3-T01** only.
-Next dependency-ready task: **M3-T02 — Add the small non-interactive CLI**.
+Next action: finish the two BAT human Ctrl+C checks; then
+**M3-T02 — Add the small non-interactive CLI**.
 Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
 Origin: https://github.com/PikkuJanne/WinBookSplit.git.
 C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00`.
 E/continuation draft PR receive their actual external/thread receipts after push/creation;
 recheck live state rather than treating this historical C receipt as a reset target.
 No public release; fresh observed tags/releases remain empty.
+
+## Current-build human checks — partial
+
+[Human evidence](evidence/M3-T01-human.md) and [machine record](evidence/M3-T01-human.json)
+record the user-operated Explorer/visual/repeat/fallback/error checks on source
+E `9983191ed3105d0edfec35be19888190d5acca33`. These use synthetic fixtures and
+controlled dependency/output defaults; they are not final-package acceptance.
+Four physical Ctrl+C controls passed under PS5.1/PS7. BAT-engine reported application
+cancellation 130, but the operator answered Y to CMD's termination prompt, producing
+native 255. The series stopped before BAT-conversion. Keep the original failed
+attempt; a fresh two-case BAT retry requires N then Enter and remains NOT RUN.
+Human testing is not complete. No shipped runtime changes were needed.
+
+PR16 is now merged at main `981894db7a91d7c2d3f0e3af258323ddeef38106`
+(`2026-10-09T15:03:08Z`). The M3 branch was normally fast-forwarded to that merge
+before this documentation-only supplement. Its own push receipt follows externally.
 
 ## M3-T01 evidence and limits
 
@@ -33,14 +50,15 @@ raw acceptance/public evidence review passed; no submitted GitHub approval or CI
 
 Six actual OS signals, token cancellation and engine/converter deadlines prove owned
 PID/tree shutdown and unrelated Python survival. Any automated CMD prompt decision
-is recorded separately; human Ctrl+C/Explorer NOT RUN. Earlier failed/unknown receipts
+is recorded separately; human Ctrl+C/Explorer were NOT RUN at that automated checkpoint.
+The later partial human supplement above records the actual subsequent checks. Earlier failed/unknown receipts
 remain honest: lost fifth partial receipt, retained sixth/seventh unsafe workspaces,
 Unicode and redirected-header fixes, rejected-report labeling and inherited process
 footer-oracle fixes. An external capture collision left an unknown authored console
 log location; no broad scan/adoption/deletion was attempted. Do not retry old cleanup.
 Outer interruption retains marked staging without an engine ledger. Existing same-
 account race/crash limits are not a sandbox. Packaging must include Outcomes.json
-and Process.ps1. M3-T02 version/CLI, M3-T03 menu/preview UX, human/Explorer, broader
+and Process.ps1. M3-T02 version/CLI, M3-T03 menu/preview UX, remaining human checks, broader
 fidelity, CI, package and public release gates remain open. No tag/interim release.
 
 PR15 was already merged at thread start; clean main 85916466 was reconciled normally

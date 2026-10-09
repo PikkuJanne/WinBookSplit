@@ -1,10 +1,18 @@
-# Next session — M3-T02
+# Next session — finish human checks, then M3-T02
 
-Next: **M3-T02 — Add the small non-interactive CLI**. Stop at this task boundary.
+Next action: finish **two BAT human Ctrl+C controls** in the fresh external
+`<human-kit>/cancellation-bat-retry` kit. At CMD's termination prompt type **N**,
+then Enter. Verify actual native 130, both receipt rows and the operator confirmation;
+combine them with the four earlier PS5.1/PS7 passes without changing failed receipts.
+See evidence/M3-T01-human.md/json. Do not mark all human checks complete yet.
+Then: **M3-T02 — Add the small non-interactive CLI**. Stop at this task boundary.
 M3-T01 C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00` on
 codex/winbooksplit-v1-m3. E and the continuation draft PR receive their actual external/
 thread receipts after push/creation. Recheck live branch/PR/main; preserve all existing
 history and edits. M2/PR15 was already merged at main 85916466 when T01 began.
+PR16 later merged at main `981894db7a91d7c2d3f0e3af258323ddeef38106` on
+`2026-10-09T15:03:08Z`; the M3 branch was normally fast-forwarded before this human
+evidence supplement. No runtime source changed. Recheck fresh live state.
 
 Read AGENTS.md, STATUS.md, this file, TASKS.json, SCOPE_AND_DECISIONS.md,
 tasks/M3-T02.md, specs/CLI_AND_UX.md, specs/PROCESS_AND_PATHS.md,
@@ -34,8 +42,10 @@ T02 owns validated parameters/help, dependency-independent Version, no-prompt/no
 NonInteractive and plan-only Preview with disclosed ebook temporary conversion, using
 the existing planner/runtime. Cover AC-053/054/055/056 under both actual hosts and proposed
 commands. Existing interactive menus/version and binding failures are not finished CLI
-acceptance. M3-T03 owns remaining UX; human Ctrl+C/Explorer and later fidelity/CI/package/
-release gates remain unrun. Automated private-console signals are not human checks.
+acceptance. M3-T03 owns remaining UX. Current-build Explorer/visual/repeat/fallback/
+error checks and four physical PowerShell Ctrl+C controls have passed; the two BAT
+controls still require their fresh retry. Later fidelity/CI/exact-package/release
+gates remain unrun. Automated private-console signals are not human checks.
 
 Retain source immutability/no-overwrite publication/held-identity known-object cleanup.
 Outer interruption lacks an engine file ledger and retains marked stages. Preserve

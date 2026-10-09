@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T01",
+  "observed_at": "2026-10-09T16:38:14.591589Z",
+  "result": "PARTIAL_CURRENT_BUILD_HUMAN_CHECKS",
+  "human_testing_complete": false,
+  "source": {
+    "copied_application_commit": "9983191ed3105d0edfec35be19888190d5acca33",
+    "implementation_commit": "b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e",
+    "tested_paths_count": 85,
+    "tested_paths_digest": "ac6c5b910891ef8a86f078db43b2677f66cd515022dd17251ed10bbc9b3d87a0",
+    "all_tested_paths_match_current": true,
+    "observed_merged_main": "981894db7a91d7c2d3f0e3af258323ddeef38106",
+    "no_shipped_runtime_changes": true
+  },
+  "environment": {
+    "windows": "Windows 11 x64, build 26300.9457, 26H2",
+    "powershell51": "5.1.26100.9444",
+    "powershell7": "7.6.5",
+    "python": "regular x64 CPython 3.14.8",
+    "pypdf": "6.19.0",
+    "real_calibre": "portable 9.15.0",
+    "isolation": "External copied application and fresh application venv on current workstation; not final extracted package or clean OS"
+  },
+  "explorer": {
+    "human_report": "All six drag/drop rows completed successfully",
+    "initial_case_count": 6,
+    "initial_output_pdf_count": 21,
+    "initial_total_physical_pages": 49,
+    "reopened_pdf_range_content_manifest_verification": "PASS",
+    "initial_flat_pdf": "Direct manual; automatic fallback proved by later separate repeat",
+    "human_visual_first_last_pages": "PASS: operator-reported",
+    "repeat": "PASS: new 3-PDF/10-page output, prior45 saved files unchanged",
+    "fallback": "PASS: initial no_bookmarks5, explicit manual retry0, 3PDF/10physicalpages",
+    "native_batch_exits": "Not independently captured for Explorer success runs",
+    "final_stdout": "Not independently captured for Explorer success runs; retained logs contain provisional outcomes",
+    "sources_and_controlled_apps_preserved": true
+  },
+  "error_controls": {
+    "fallback_cancel": {
+      "human_native_batch_exit": 130,
+      "human_final_stdout_matches_provisional_log": true,
+      "no_chapter_publication": true,
+      "result": "PASS"
+    },
+    "invalid_manual": {
+      "human_native_batch_exit": 2,
+      "human_final_stdout_matches_provisional_log": true,
+      "no_done_or_chapter_publication": true,
+      "result": "PASS"
+    },
+    "failed_helpers": {
+      "native_exit": 9009,
+      "application_launched": false,
+      "failures_archived": true,
+      "defect": "UTF-8/chcp Unicode helper with LF-only lines",
+      "repair": "Only LF to CRLF",
+      "native_reproduction_and_scripted_diagnostic_controls": "PASS: expected130/2",
+      "original_preparation_manifest_preserved": true,
+      "repaired_two_helper_hashes_bound_in": "wrapper-repair-receipt.json",
+      "failed_attempts_not_reclassified": true
+    }
+  },
+  "physical_ctrlc": {
+    "first_four_result": "PASS: PS51 engine/conversion control and PS7 engine/conversion control",
+    "original_measurement_row_count": 5,
+    "original_series_success": false,
+    "original_human_report_exists": false,
+    "original_unlaunched_case": "BAT-conversion",
+    "operator_initial_report": "Six are finished successfully. Please confirm human testing is done and give next step",
+    "operator_cmd_answer": "Y, then Enter",
+    "interpretation": "Completion wording supports physical attribution of four saved passes; it cannot override native255 or prove an unlaunched sixth case",
+    "original_historical_NOT_CONFIRMED_fields_preserved": true,
+    "controls": [
+      {
+        "case_id": "PS51-engine",
+        "native_exit": 130,
+        "measurement_passed": true,
+        "final_stdout_outcome_exit": 130,
+        "input_is_real_console": true,
+        "automated_cancel_or_keyboard_input": false,
+        "unrelated_alive_after_case": true,
+        "receipt_path": "<human-kit>/cancellation/cases/PS51-engine/measurement.json",
+        "receipt_sha256": "1ca42ff85d60b0f1f9c89b7832737ad73cbc82083bf0c3904794b0c39883ebc8",
+        "human_attribution": "Operator completion report in physical-keypress instruction context; independent receipt review PASS"
+      },
+      {
+        "case_id": "PS51-conversion",
+        "native_exit": 130,
+        "measurement_passed": true,
+        "final_stdout_outcome_exit": 130,
+        "input_is_real_console": true,
+        "automated_cancel_or_keyboard_input": false,
+        "unrelated_alive_after_case": true,
+        "receipt_path": "<human-kit>/cancellation/cases/PS51-conversion/measurement.json",
+        "receipt_sha256": "f937fc9d0a46e1cfaa0d53e0a8d42b7e00ca94ff1204bd39da1b1453d36f363a",
+        "human_attribution": "Operator completion report in physical-keypress instruction context; independent receipt review PASS"
+      },
+      {
+        "case_id": "PS7-engine",
+        "native_exit": 130,
+        "measurement_passed": true,
+        "final_stdout_outcome_exit": 130,
+        "input_is_real_console": true,
+        "automated_cancel_or_keyboard_input": false,
+        "unrelated_alive_after_case": true,
+        "receipt_path": "<human-kit>/cancellation/cases/PS7-engine/measurement.json",
+        "receipt_sha256": "e69d8de35b7d87310e603c1d75bd67d8b61ccb2c67e04f7618526c97dbd5040f",
+        "human_attribution": "Operator completion report in physical-keypress instruction context; independent receipt review PASS"
+      },
+      {
+        "case_id": "PS7-conversion",
+        "native_exit": 130,
+        "measurement_passed": true,
+        "final_stdout_outcome_exit": 130,
+        "input_is_real_console": true,
+        "automated_cancel_or_keyboard_input": false,
+        "unrelated_alive_after_case": true,
+        "receipt_path": "<human-kit>/cancellation/cases/PS7-conversion/measurement.json",
+        "receipt_sha256": "3b38959afd3287390139bb467cbbfee8695cbcc07684a06f18e90fddaa824449",
+        "human_attribution": "Operator completion report in physical-keypress instruction context; independent receipt review PASS"
+      },
+      {
+        "case_id": "BAT-engine",
+        "native_exit": 255,
+        "measurement_passed": false,
+        "final_stdout_outcome_exit": 130,
+        "input_is_real_console": true,
+        "automated_cancel_or_keyboard_input": false,
+        "unrelated_alive_after_case": true,
+        "receipt_path": "<human-kit>/cancellation/cases/BAT-engine/measurement.json",
+        "receipt_sha256": "d83b48995afdc126485129339732904e606de2e5fc92e87fe1546d9663c3c69e",
+        "human_attribution": "Operator clarified Y, then Enter at CMD prompt; failed native BAT exit retained"
+      }
+    ],
+    "independent_review": "PASS for strict first4 receipts, source binding and preserved original failure; BATengine shutdown separately checked, native255 still failed",
+    "fixture_scope": "Real authored PDF writing and native authored converter control; finite120-second parent/child holds; not physical real-Calibre cancellation",
+    "unrelated_process_survival": "PASS at recorded case measurements",
+    "later_pid_reuse": "A later reused numeric PID was distinguished by creation time and not adopted or killed",
+    "fresh_retry": {
+      "directory": "<human-kit>/cancellation-bat-retry",
+      "cases": [
+        "BAT-engine",
+        "BAT-conversion"
+      ],
+      "result": "PREPARED_NOT_RUN",
+      "measurements_exist": false,
+      "human_report_exists": false,
+      "preparation": "Python compile, sealed helpers/source/input/app hashes, ASCII CRLF CMD checks, PS parsing, native converter compile0 PASS",
+      "independent_review": "PASS: exact copied defaults/finite holds/driver count2 and clear N+Enter instructions; no UI/signals run",
+      "required_actions": [
+        "M then Enter; 2,3 then Enter in each operation window",
+        "Wait READY, focus window, clear selection with Esc, Ctrl+C once",
+        "At CMD termination prompt type N then Enter",
+        "After both measured native exits130, type YES to attest both physical actions",
+        "Review both fresh rows and human-report.json before combining with first4"
+      ],
+      "no_automatic_signal_or_input": true,
+      "no_automatic_target_kill": true,
+      "retained_original_receipts": true
+    }
+  },
+  "commands_and_evidence": {
+    "setup_commands": "Exact argv/status/runtime setup records in hashed setup-commands.json",
+    "explorer_verification": "Read-only verify_explorer_step3.py and verify_explorer_repeat.py; separate retained receipts",
+    "wrapper_reproduction": "Exact argv/exit/context in hashed wrapper-repair-receipt.json; no human claim from scripted controls",
+    "ctrlc_commands": "Exact native host/argv/cwd and streams in hashed individual measurement receipts",
+    "current_source_verification": "Get-FileHash SHA256 of every85 tested_path_sha256 entry in M3-T01-outcomes.json; zero mismatches",
+    "checkpoint_checks": [
+      "python -B tools/codex-handoff/validate_plan.py: native0, VALID",
+      "git diff --check: native0"
+    ],
+    "checkpoint_check_scope": "Structural consistency and whitespace only; not application/Windows/human acceptance",
+    "prior_failed_checkpoint_invocation": "python -I -B tools/codex-handoff/validate_plan.py: native1, ModuleNotFoundError for repository sibling handoff_common because isolated mode omits script directory; retry with -B succeeded. No source change."
+  },
+  "raw_receipts": [
+    {
+      "path": "<human-kit>/preparation-manifest.json",
+      "sha256": "438b2aedc6af467ad23fdb9c460de2de0e7ab51ede0c9165875cb732d6b7b54c",
+      "size_bytes": 2919
+    },
+    {
+      "path": "<human-kit>/explorer-kit-provenance.json",
+      "sha256": "761620ef028448733f0cf58cef7b9e21e11905ceea20199917bf9035fb25da53",
+      "size_bytes": 7506
+    },
+    {
+      "path": "<human-kit>/setup-commands.json",
+      "sha256": "eb5bc5d0bc77a5996881536d40c0f14368dce5cea770ef09ded15c7feb84e6b6",
+      "size_bytes": 3803
+    },
+    {
+      "path": "<human-kit>/explorer-step3-observations.json",
+      "sha256": "8846397ae1dcab7a6632029cf4461b427e534020797f4b404e6e32b0950361a4",
+      "size_bytes": 29398
+    },
+    {
+      "path": "<human-kit>/explorer-step4-5-observations.json",
+      "sha256": "9d968d94e00593118067d9aa43a6782daec6c7172e3b06a68e89defa2a74f3b7",
+      "size_bytes": 2050
+    },
+    {
+      "path": "<human-kit>/explorer-fallback-observations.json",
+      "sha256": "f6f71fddac7632f55180b4fca88a10d34ea23e4e8b5a9428b4f5e330f994a29e",
+      "size_bytes": 2142
+    },
+    {
+      "path": "<human-kit>/human-error-controls-observations.json",
+      "sha256": "53c36bc32c952a62beb2eae949ca6323195e5f62b345e95fa2c37d827cdd68ff",
+      "size_bytes": 4488
+    },
+    {
+      "path": "<human-kit>/human-error-controls-confirmed.json",
+      "sha256": "96ab64ee91683518ef79f35b62358675276a9104aec215ce62315f0fb1ff015b",
+      "size_bytes": 946
+    },
+    {
+      "path": "<human-kit>/wrapper-repair-receipt.json",
+      "sha256": "313c32f84f25531845a37f58b912017b25df6d91abe265d3fff23e93c87e8c5d",
+      "size_bytes": 18513
+    },
+    {
+      "path": "<human-kit>/ctrlc-followup-observations.json",
+      "sha256": "5b999e64ea0de5709b2259c7079f95dbd792a12459c8bd89a4d0fc04a408d300",
+      "size_bytes": 2514
+    },
+    {
+      "path": "<human-kit>/cancellation/kit-provenance.json",
+      "sha256": "14721830cda7d1ef0caeff4d3e539bfa76aaab8e0af32768e89aed22c5593ccd",
+      "size_bytes": 44457
+    },
+    {
+      "path": "<human-kit>/cancellation/measurements.json",
+      "sha256": "91934e39d11e03835ea02280aa9d3661f0499f9dd8bf5c3d08699956a004f0d8",
+      "size_bytes": 38217
+    },
+    {
+      "path": "<human-kit>/cancellation/controller.log",
+      "sha256": "bf7a6d6a4a145f8ab99dca983dafeda11408a323754050777b4d28da069b6a68",
+      "size_bytes": 210
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/kit-provenance.json",
+      "sha256": "960c64009dffeff46ea28239a5baacc874dc68a5de7087812b98597de9117244",
+      "size_bytes": 25936
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/prior-evidence.json",
+      "sha256": "7ca9142a39d515426d3a5ad5dac9d5a273563ac5167e52eae7645b562429f22a",
+      "size_bytes": 2409
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/driver.py",
+      "sha256": "e2b70fe7756c7af927e19dc3e48c684d519ecd6ab427f7da22be2e5e5ca889bb",
+      "size_bytes": 19642
+    }
+  ],
+  "limits": [
+    "Current-build controlled copies only; final-package human acceptance remains open",
+    "Visual checks are human-reported; no automated render/fidelity pass inferred",
+    "Conversion cancellation uses authored control, not real Calibre",
+    "Fresh BAT retry NOT RUN; human testing not complete",
+    "No new application full-gate rerun, CI, tag or release claim"
+  ],
+  "next": "Run fresh two-case BAT retry, verify physical confirmation/native130; then M3-T02 small non-interactive CLI"
+}
