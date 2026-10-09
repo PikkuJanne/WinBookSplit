@@ -277,8 +277,8 @@ class Level1SyntheticPdfTests(unittest.TestCase):
                 output = self.work / name
                 output.mkdir()
                 with patch.object(engine, "log"):
-                    engine.split_pdf(str(source), str(output), "1")
-                files = sorted(output.glob("*.pdf"))
+                    execution = engine.split_pdf(str(source), str(output), "1")
+                files = sorted(Path(execution["final_directory"]).glob("*.pdf"))
                 self.assertEqual(len(files), len(expected))
                 observed = [fixtures.page_ids(path) for path in files]
                 self.assertEqual(observed, [list(range(start + 1, end + 1)) for start, end in expected])
@@ -375,8 +375,8 @@ class Level1SyntheticPdfTests(unittest.TestCase):
         output = self.work / "numeric-page-output"
         output.mkdir()
         with patch.object(engine, "log"):
-            engine.split_pdf(str(path), str(output), "1")
-        observed = [fixtures.page_ids(file) for file in sorted(output.glob("*.pdf"))]
+            execution = engine.split_pdf(str(path), str(output), "1")
+        observed = [fixtures.page_ids(file) for file in sorted(Path(execution["final_directory"]).glob("*.pdf"))]
         self.assertEqual(observed, [list(range(1, 7)), list(range(7, 11))])
         self.assertEqual(path.read_bytes(), before)
 

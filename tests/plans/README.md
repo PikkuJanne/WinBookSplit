@@ -17,7 +17,8 @@ no chapter files. Execution uses that same plan and captured reader. Each real
 output is reopened; numbered filenames, order, ranges and all synthetic physical
 page IDs must equal the preview, cover every input page once, and remain nonempty.
 The immutable execution result must preserve every preview entry and page count.
-Patches fail if execution attempts to reopen the source or rerun planning.
+Patches fail if execution attempts to reopen the source or rerun planning;
+reopening the new staged PDFs for validation remains required.
 Mutation attempts cover nested entries, normalized inputs, source identity and
 the frozen prepared job. Caller-owned nested metadata is detached at validation;
 an unbound mapping cannot be executed and leaves an empty output directory.
@@ -30,6 +31,12 @@ source digest, planned physical page IDs and extracted synthetic page-content
 hashes. Replacement and moved source bytes stay unchanged. These intentional
 copy changes are separate from the immutable
 fixture/input preservation checks.
+
+M2-T01 executions create distinct published children under the output base.
+Every result must match its complete returned/on-disk manifest, owner marker,
+ordered PDF hashes/sizes and reopened page IDs. Reusing a prepared snapshot
+retains the same source and plan while allocating a fresh run identity/folder.
+The current helper follows only the explicit receipt path and exact members.
 
 The report contains each case, actual preview/output records, captured and
 replacement source hashes, import observation, runtime versions and preservation/

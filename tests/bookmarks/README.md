@@ -39,6 +39,13 @@ certify corrected Level 2, all launcher/error paths, Explorer, Calibre,
 rendered fidelity, output transaction safety or an extracted release package.
 No private document is read, committed or uploaded.
 
+Current M2-T01 writers publish a unique child beneath the selected output base.
+Both bookmark routes bind their reopened slices to the explicit successful
+manifest and owner marker, verify digests/sizes and allow only that new child
+beside the unchanged synthetic neighbor. Earlier historical reports/guards
+retain their original scope. Transaction failure/concurrency/junction acceptance
+is provided by the separate output layer.
+
 # Current Level 2 regression route
 
 `characterize_level2.py` executes corrected BM-03/04/06/07 against the actual

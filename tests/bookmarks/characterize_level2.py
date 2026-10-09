@@ -113,7 +113,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
     neighbor.write_bytes(b"Original Level 2 synthetic neighbor\n")
     before = history.file_digest(source)
     result = manual.observe(ENGINE, source, output, cwd, "2")
-    records = history.outputs(output, generator)
+    records = manual.published_outputs(output, generator, result)
     if error is not None:
         status = 55 if error in {"no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"} else 1
         require(result["exit_code"] == status and error in result["stdout"] and not records
@@ -126,8 +126,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
     require(all(code in result["stdout"] for code in warnings), "Missing CLI hierarchy warning")
     require(history.file_digest(source) == before and neighbor.read_bytes() == b"Original Level 2 synthetic neighbor\n",
             "Level 2 CLI modified input/neighbor")
-    require({path.name for path in output.iterdir()} == {neighbor.name, *(record["filename"] for record in records)},
-            "Level 2 CLI wrote unexpected files")
+    manual.check_base_members(output, result, [neighbor.name])
     return {"outputs": records, "input_unchanged": True, "neighbor_unchanged": True, **result}
 
 

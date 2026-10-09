@@ -48,7 +48,15 @@ function ConvertFrom-SplitResult {
                 @($result.execution.outputs).Count -ne $result.written_count -or
                 @($result.execution.outputs | Where-Object { $null -eq $_ }).Count -gt 0 -or
                 $result.execution.coverage.complete -isnot [bool] -or
-                -not $result.execution.coverage.complete) { throw 'Invalid successful engine result.' }
+                -not $result.execution.coverage.complete -or
+                $result.execution.run_id -isnot [string] -or $result.execution.run_id -cnotmatch '^[0-9a-f]{32}$' -or
+                $result.execution.final_directory -isnot [string] -or
+                -not [IO.Path]::IsPathRooted($result.execution.final_directory) -or
+                $result.execution.manifest_filename -cne 'WinBookSplit_Manifest.json' -or
+                $null -eq $result.execution.manifest -or $result.execution.manifest.status -cne 'complete' -or
+                $result.execution.manifest.run_id -cne $result.execution.run_id -or
+                $result.execution.manifest.final_directory -cne $result.execution.final_directory -or
+                $result.execution.manifest.written_count -ne $result.written_count) { throw 'Invalid successful engine result.' }
         }
         'no_plan' {
             if ($ExitCode -ne 55 -or $result.code -cnotin @('no_bookmarks', 'no_usable_bookmarks', 'no_bookmarks_at_level') -or
@@ -72,7 +80,10 @@ function ConvertFrom-SplitResult {
         }
         'error' {
             if ($ExitCode -ne 1 -or $result.code -cnotin @('invalid_plan', 'invalid_prepared_split',
-                'source_changed', 'source_output_alias', 'output_exists', 'invalid_execution')) { throw 'Invalid failure result.' }
+                'source_changed', 'source_output_alias', 'output_exists', 'invalid_execution',
+                'output_validation_failed', 'output_ownership_failed', 'output_base_invalid',
+                'output_manifest_failed', 'output_publish_failed', 'output_cancelled',
+                'output_handle_close_failed')) { throw 'Invalid failure result.' }
         }
         default { throw 'Unknown engine result category.' }
     }

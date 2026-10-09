@@ -29,6 +29,18 @@ def corrected_level2_reference():
                         for index, (title, pair) in enumerate(zip(titles, ranges), 1)]}
 
 
+def transaction_result(result, number):
+    result = deepcopy(result)
+    result.update(schema_version=1, status="complete", run_id=f"{number:032x}",
+                  final_directory=f"C:/synthetic/output/Book_20261009-120000_{number:032x}",
+                  manifest_filename="WinBookSplit_Manifest.json")
+    for index, output in enumerate(result["outputs"], 1):
+        output.update(sha256=f"{index:064x}", size_bytes=100 + index)
+    result["manifest"] = {"schema_version": 1, "status": "complete", **{key: deepcopy(result[key]) for key in
+        ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}
+    return result
+
+
 def complete_plan_report():
     entries = [{"sequence": 1, "start": 0, "end": 1, "filename": "01 - Opening.pdf"},
                {"sequence": 2, "start": 1, "end": 3, "filename": "02 - Chapter.pdf"}]
@@ -61,15 +73,17 @@ def complete_plan_report():
         "owned_temp_removed": True, "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
         "import_observation": {"import_safe": True},
     }
-    for case in report["parity_cases"] + report["source_cases"]:
+    for number, case in enumerate(report["parity_cases"] + report["source_cases"], 1):
         case["writer_result"] = {"mode": case.get("mode", "manual"), "total_pages": 3,
                                  "written_count": 2, "coverage": deepcopy(case["coverage"]),
                                  "source_identity": deepcopy(case["source_identity"]),
                                  "outputs": [{**entry, "page_count": entry["end"] - entry["start"]}
                                              for entry in case["preview_entries"]]}
+        case["writer_result"] = transaction_result(case["writer_result"], number)
     repointed = report["source_cases"][1]
     repointed["deleted_path_snapshot"] = {field: deepcopy(repointed[field])
                                          for field in (*parity, "writer_result", "original_page_content_sha256", "page_content_sha256")}
+    repointed["deleted_path_snapshot"]["writer_result"] = transaction_result(repointed["writer_result"], 6)
     return report
 
 
@@ -86,6 +100,7 @@ def complete_diagnostic_report(hosts):
                                    for (start, end), filename in zip(unicode_ranges, names)])
     unicode_parity["writer_result"].update(total_pages=10, written_count=3, coverage=deepcopy(unicode_parity["coverage"]),
         outputs=[{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries])
+    unicode_parity["writer_result"] = transaction_result(unicode_parity["writer_result"], 2)
     cases = []
     for identifier, (mode, status, code, exit_code, fallback) in runner.DIAGNOSTIC_EXPECTATIONS.items():
         result = {"protocol": "winbooksplit.result", "version": 1, "mode": mode, "status": status, "code": code,
@@ -129,7 +144,125 @@ def complete_diagnostic_report(hosts):
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
 
 
+def complete_output_report():
+    template = complete_plan_report()["parity_cases"][0]
+
+    def success(identifier, number):
+        case = deepcopy(template)
+        case.update(id=identifier, manifest_validated=True, prior_outputs_unchanged=True, exit_code=0, stderr="")
+        case["writer_result"] = transaction_result(case["writer_result"], number)
+        for item, written in zip(case["outputs"], case["writer_result"]["outputs"]):
+            item["sha256"] = written["sha256"]
+        case["stdout"] = json.dumps({"protocol": "winbooksplit.result", "version": 1, "status": "success",
+                                     "exit_code": 0, "written_count": case["written_count"], "execution": case["writer_result"]}) + "\n"
+        return case
+
+    repeated = [success(name, 10 + index) for index, name in enumerate(sorted(runner.OUTPUT_REPEAT_IDS))]
+    concurrent = [success(name, 20 + index) for index, name in enumerate(sorted(runner.OUTPUT_CONCURRENT_IDS))]
+    for index, case in enumerate(concurrent):
+        case.update(pid=100 + index, fixed_timestamp="20261009-120000", barrier_synchronized=True,
+                    command=["C:/synthetic/python.exe", "-I", "-B", "fixed-timestamp-worker.py"],
+                    started_at="2026-10-09T12:00:00+00:00", completed_at="2026-10-09T12:00:01+00:00")
+    failures = []
+    for index, (identifier, code) in enumerate(sorted(runner.OUTPUT_FAILURE_CODES.items()), 30):
+        run_id = f"{index:032x}"
+        diagnostic = {"run_id": run_id, "cleanup_complete": True, "retained_staging": None, "cleanup_error": None,
+                      "record_path": f"C:/synthetic/output/.WinBookSplit-failed-{run_id}/failure.json"}
+        result = {"exit_code": 1, "code": code, "status": "write_error" if identifier == "mid-write" else "error",
+                  "written_count": 0, "execution": None, "diagnostic": diagnostic}
+        failures.append({"id": identifier, "passed": True, "exit_code": 1, "result": result,
+                         "successful_final_count": 0, "cleanup_complete": True, "neighbor_unchanged": True, "source_unchanged": True,
+                         "failure_owner": {"schema_version": 1, "kind": "failed", "run_id": run_id},
+                         "failure_record": {"schema_version": 1, "status": "failed", "code": code, "run_id": run_id,
+                                            "cleanup_complete": True, "retained_staging": None, "message": "Authored failure fixture"},
+                         "completed_slices_before_failure": 1 if identifier == "mid-write" else None})
+    cleanup = [{"id": identifier, "passed": True, "rejected": identifier not in {"ordinary-owned", "manifest-path-not-authority"},
+                "cleaned": True, "owned_stage_removed": True, "outside_sentinel_unchanged": True, "actual_windows": True,
+                "error_code": "output_ownership_failed", "native_junction": {"exit_code": 0, "command": ["powershell.exe", "New-Item"],
+                                                                                "reparse_verified": True}}
+               for identifier in sorted(runner.OUTPUT_CLEANUP_IDS)]
+    return {"schema_version": 1, "task_id": "M2-T01", "result": "OUTPUT_TRANSACTION_REGRESSION_PASSED", "success": True, "exit_code": 0,
+            "acceptance_ids": runner.OUTPUT_ACCEPTANCE_IDS, "repeat_cases": repeated, "concurrent_cases": concurrent,
+            "failure_cases": failures, "cleanup_cases": cleanup, "source_unchanged": True, "baseline_guards_preserved": True,
+            "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
+
+
 class RunnerTests(unittest.TestCase):
+    def test_output_target_runs_one_stage_without_shell_arguments(self):
+        args = SimpleNamespace(layer="output", failure_probe=None, shell_path=[Path("C:/unused/pwsh.exe")], tool_root=None)
+        commands = []
+
+        def successful_command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic-git-identity\n", "stderr": ""}
+
+        with patch.object(runner, "source_manifest", return_value={"synthetic-source": "hash"}), \
+                patch.object(runner, "run_command", side_effect=successful_command), \
+                patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        self.assertEqual([step["name"] for step in report["steps"]], ["output-regression"])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["output"])
+        self.assertEqual(len(commands), 3)
+        self.assertNotIn("--shell-path", commands[-1])
+        self.assertTrue(report["success"])
+
+    def test_output_receipt_requires_actual_unique_publication_failures_and_junction_guards(self):
+        complete = complete_output_report()
+        with tempfile.TemporaryDirectory(prefix="wbs-output-evidence-") as directory:
+            path = Path(directory) / "output.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            valid = {"exit_code": 0}
+            runner.attach_child_report(valid, path, "output")
+            self.assertEqual(valid["exit_code"], 0)
+            self.assertEqual(valid["evidence"], complete)
+            defects = []
+
+            def changed(name, mutate):
+                report = deepcopy(complete)
+                mutate(report)
+                defects.append((name, report))
+
+            for field, value in (("schema_version", True), ("task_id", "M1-T06"), ("result", "wrong"), ("exit_code", False),
+                                 ("acceptance_ids", ["AC-032"]), ("owned_temp_removed", False), ("source_unchanged", False),
+                                 ("baseline_guards_preserved", False), ("input_and_neighbor_unchanged", False), ("import_observation", {})):
+                defects.append((field, {**complete, field: value}))
+            for group in ("repeat_cases", "concurrent_cases", "failure_cases", "cleanup_cases"):
+                defects.append(("missing " + group, {**complete, group: []}))
+                changed("duplicate " + group, lambda report, group=group: report[group].__setitem__(-1, deepcopy(report[group][0])))
+            for field in ("run_id", "final_directory", "manifest_filename", "manifest"):
+                changed("missing publication " + field, lambda report, field=field: report["repeat_cases"][0]["writer_result"].pop(field))
+            changed("wrong manifest", lambda report: report["repeat_cases"][0]["writer_result"]["manifest"].update(status="failed"))
+            changed("bad digest", lambda report: report["repeat_cases"][0]["writer_result"]["outputs"][0].update(sha256="bad"))
+            changed("reopened digest differs", lambda report: report["repeat_cases"][0]["outputs"][0].update(sha256="f" * 64))
+            changed("boolean size", lambda report: report["repeat_cases"][0]["writer_result"]["outputs"][0].update(size_bytes=True))
+            changed("lost physical page", lambda report: report["repeat_cases"][0]["outputs"][0].update(page_ids=[]))
+            changed("changed content", lambda report: report["repeat_cases"][0].update(page_content_sha256=["f" * 64] * 3))
+            changed("prior run changed", lambda report: report["repeat_cases"][0].update(prior_outputs_unchanged=False))
+            changed("unbound native frame", lambda report: report["repeat_cases"][0].update(stdout="{}\n"))
+            changed("reused process", lambda report: report["concurrent_cases"][1].update(pid=report["concurrent_cases"][0]["pid"]))
+            changed("timestamp not fixed", lambda report: report["concurrent_cases"][0].update(fixed_timestamp="different"))
+            changed("unsynchronized launches", lambda report: report["concurrent_cases"][0].update(barrier_synchronized=False))
+            changed("failure succeeded", lambda report: report["failure_cases"][0]["result"].update(exit_code=0))
+            changed("published failed final", lambda report: report["failure_cases"][0].update(successful_final_count=1))
+            changed("lost failure diagnostic", lambda report: report["failure_cases"][0]["result"].pop("diagnostic"))
+            changed("retained failed stage", lambda report: report["failure_cases"][0]["result"]["diagnostic"].update(retained_staging="C:/foreign"))
+            changed("wrong failure owner", lambda report: report["failure_cases"][0]["failure_owner"].update(kind="run"))
+            changed("midwrite before first slice", lambda report: next(case for case in report["failure_cases"] if case["id"] == "mid-write").update(completed_slices_before_failure=0))
+            changed("outside sentinel changed", lambda report: report["cleanup_cases"][0].update(outside_sentinel_unchanged=False))
+            changed("junction only mocked", lambda report: next(case for case in report["cleanup_cases"] if case["id"] == "junction-child")["native_junction"].update(reparse_verified=False))
+            changed("junction native failed", lambda report: next(case for case in report["cleanup_cases"] if case["id"] == "junction-base")["native_junction"].update(exit_code=1))
+            for description, payload in defects:
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps(payload), encoding="utf-8")
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "output")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    failed = {"exit_code": 19}
+                    runner.attach_child_report(failed, path, "output")
+                    self.assertEqual(failed["exit_code"], 19)
     def test_ac009_python_failure_stays_failed_after_success(self):
         with tempfile.TemporaryDirectory(prefix="wbs-runner-probe-") as directory:
             work = Path(directory)
@@ -408,7 +541,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_five_regressions_and_forwards_hosts_to_manual_and_diagnostics(self):
+    def test_full_selects_all_six_regressions_and_forwards_hosts_to_manual_and_diagnostics(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -441,10 +574,13 @@ class RunnerTests(unittest.TestCase):
         diagnostics = [command for command in commands if str(ROOT / "tests/diagnostics/characterize_diagnostics.py") in command]
         self.assertEqual(len(diagnostics), 1)
         self.assertEqual(diagnostics[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics"])
-        self.assertEqual([step["name"] for step in report["steps"][-5:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression"])
-        self.assertEqual(len(report["steps"]), 8)
+        output = [command for command in commands if str(ROOT / "tests/output/characterize_output.py") in command]
+        self.assertEqual(len(output), 1)
+        self.assertNotIn("--shell-path", output[0])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output"])
+        self.assertEqual([step["name"] for step in report["steps"][-6:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression"])
+        self.assertEqual(len(report["steps"]), 9)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
@@ -620,6 +756,7 @@ class RunnerTests(unittest.TestCase):
                                          "source_identity": deepcopy(case["source_identity"]),
                                          "outputs": [{**entry, "page_count": entry["end"] - entry["start"]}
                                                      for entry in case["preview_entries"]]}
+                case["writer_result"] = transaction_result(case["writer_result"], 1 if group == "parity_cases" else 4)
                 path.write_text(json.dumps(report), encoding="utf-8")
                 valid_result_step = {"exit_code": 0}
                 runner.attach_child_report(valid_result_step, path, "plan")

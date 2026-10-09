@@ -178,15 +178,22 @@ def write_prepared(engine, prepared, output, generator, expected, *, original_co
     preview = engine.preview_plan(prepared)
     check_complete(preview, preview["total_pages"], expected)
     preview_before = plain(preview)
+    reader = engine.PdfReader
+    source_path = Path(preview["source_identity"]["path"])
+
+    def output_reader(path, *args, **kwargs):
+        require(isinstance(path, (str, os.PathLike)) and Path(path).resolve() != source_path.resolve(),
+                "Execution reopened source rather than its captured reader snapshot")
+        return reader(path, *args, **kwargs)
     # A prepared job must use its captured plan and reader, not rerun a mode.
     with patch.object(engine, "prepare_split", side_effect=RuntimeError("Execution replanned")), \
             patch.object(engine, "plan_manual_starts", side_effect=RuntimeError("Execution replanned manual")), \
             patch.object(engine, "plan_level1", side_effect=RuntimeError("Execution replanned Level 1")), \
             patch.object(engine, "plan_level2", side_effect=RuntimeError("Execution replanned Level 2")), \
-            patch.object(engine, "PdfReader", side_effect=RuntimeError("Execution reopened source")), \
+            patch.object(engine, "PdfReader", side_effect=output_reader), \
             redirect_stdout(StringIO()):
         result = engine.execute_split(prepared, output)
-    actual = history.outputs(output, generator)
+    actual = manual.published_outputs(output, generator, result)
     manual.check_outputs(actual, expected, preview["total_pages"])
     require([record["filename"] for record in actual] == [entry["filename"] for entry in preview["entries"]],
             "Real writer filenames differ from the preview")
@@ -194,16 +201,17 @@ def write_prepared(engine, prepared, output, generator, expected, *, original_co
             and result["mode"] == preview["mode"] and result["total_pages"] == preview["total_pages"]
             and result["source_identity"] == preview["source_identity"] and result["coverage"] == preview["coverage"],
             "Execution result disagrees with its prepared plan/source/coverage")
-    require(plain(result["outputs"]) == [{**entry, "page_count": entry["end"] - entry["start"]}
+    require([{key: value for key, value in record.items() if key not in {"sha256", "size_bytes"}}
+             for record in plain(result["outputs"])] == [{**entry, "page_count": entry["end"] - entry["start"]}
                                          for entry in preview_before["entries"]],
             "Execution results differ from preview entries")
     mutation_refused(lambda: assign(result, "written_count", 0))
     mutation_refused(lambda: assign(result["outputs"][0], "start", 9))
     require(plain(engine.preview_plan(prepared)) == preview_before, "Writing changed the shared preview")
     require(history.file_digest(neighbor) == neighbor_hash, "Shared writer changed a neighbor")
-    require({path.name for path in output.iterdir()} == {"synthetic-neighbor.txt", *(record["filename"] for record in actual)},
-            "Shared writer created unexpected files")
-    content = [digest for record in actual for digest in page_content(output / record["filename"])]
+    manual.check_base_members(output, result, [neighbor.name])
+    published = manual.published_directory(output, result)
+    content = [digest for record in actual for digest in page_content(published / record["filename"])]
     if original_content is not None:
         require(content == original_content, "Shared writer used replacement source content instead of the captured original")
     return {"total_pages": preview["total_pages"], "preview_entries": preview_before["entries"],

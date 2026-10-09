@@ -46,6 +46,14 @@ PLAN_STRUCTURAL_IDS = {"gap", "overlap", "empty", "negative", "reversed", "overf
 PLAN_PREVIEW_IDS = {"read-only-preview", "isolated-preview-data"}
 PLAN_SOURCE_IDS = {"changed-same-path", "repointed-source"}
 PLAN_MODES = {"manual", "1", "2"}
+OUTPUT_ACCEPTANCE_IDS = ["AC-032", "AC-033", "AC-034", "AC-035"]
+OUTPUT_REPEAT_IDS = {"repeat-first", "repeat-second", "same-basename-first", "same-basename-second"}
+OUTPUT_CONCURRENT_IDS = {f"concurrent-{number}" for number in range(4)}
+OUTPUT_FAILURE_CODES = {"mid-write": "output_write_failed", "reopen": "output_validation_failed",
+                        "wrong-page-count": "output_validation_failed", "manifest": "output_manifest_failed",
+                        "promotion": "output_publish_failed"}
+OUTPUT_CLEANUP_IDS = {"ordinary-owned", "unexpected-member", "held-marker-tamper", "manifest-path-not-authority",
+                      "mock-reparse", "junction-base", "junction-child", "held-stage-replacement"}
 DIAGNOSTIC_ACCEPTANCE_IDS = ["AC-030", "AC-031"]
 DIAGNOSTIC_EXPECTATIONS = {
     "flat-level1": ("1", "no_plan", "no_bookmarks", 55, ["manual"]),
@@ -63,7 +71,7 @@ DIAGNOSTIC_EXPECTATIONS = {
     "invalid-mode": ("3", "invalid_input", "invalid_mode", 1, []),
     "invalid-manual": ("manual", "invalid_input", "invalid_start_pages", 1, []),
     "malformed-outline": ("1", "invalid_input", "invalid_outline", 1, []),
-    "existing-output": ("manual", "error", "output_exists", 1, []),
+    "existing-output": ("manual", "success", "split_complete", 0, []),
     "invalid-plan": ("manual", "error", "invalid_plan", 1, []),
     "write-failure": ("manual", "write_error", "output_write_failed", 1, []),
     "unexpected-extra-argument": ("manual", "invalid_input", "invalid_arguments", 1, []),
@@ -100,6 +108,7 @@ def source_manifest() -> dict[str, str]:
         "tests/extraction/README.md", "tests/manual/README.md", "tests/bookmarks/README.md",
         "tests/plans/README.md",
         "tests/diagnostics/README.md",
+        "tests/output/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -288,8 +297,114 @@ def validate_plan_parity(case: dict) -> None:
             or any(not isinstance(output, dict) or any(type(output.get(field)) is not int
                                                       for field in ("sequence", "start", "end", "page_count"))
                    for output in result["outputs"]) \
-            or result["outputs"] != [{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries]:
+            or [{key: value for key, value in output.items() if key not in {"sha256", "size_bytes"}}
+                for output in result["outputs"]] != [{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries]:
         raise ValueError("Shared-plan execution result must preserve the complete preview and source")
+    validate_output_execution(result)
+
+
+def valid_digest(value: object) -> bool:
+    return isinstance(value, str) and len(value) == 64 and all(character in "0123456789abcdef" for character in value)
+
+
+def validate_output_execution(result: dict) -> None:
+    """Each current successful writer receipt names a distinct complete run."""
+    run_id, final, manifest = result.get("run_id"), result.get("final_directory"), result.get("manifest")
+    if type(result.get("schema_version")) is not int or result["schema_version"] != 1 or result.get("status") != "complete" \
+            or not isinstance(run_id, str) or len(run_id) != 32 or any(character not in "0123456789abcdef" for character in run_id) \
+            or not isinstance(final, str) or not Path(final).is_absolute() \
+            or len(Path(final).name.rsplit("_", 1)[-1]) != 32 \
+            or any(character not in "0123456789abcdef" for character in Path(final).name.rsplit("_", 1)[-1]) \
+            or result.get("manifest_filename") != "WinBookSplit_Manifest.json" \
+            or not isinstance(result.get("outputs"), list) or not result["outputs"] \
+            or any(not isinstance(item, dict) or not valid_digest(item.get("sha256"))
+                   or type(item.get("size_bytes")) is not int or item["size_bytes"] < 1 for item in result["outputs"]) \
+            or not isinstance(manifest, dict) or type(manifest.get("schema_version")) is not int \
+            or manifest != {"schema_version": 1, "status": "complete", **{key: result.get(key) for key in
+                ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}:
+        raise ValueError("Current writer evidence requires a unique complete run and matching manifest/digest/size records")
+
+
+def stable_writer_result(result: dict) -> dict:
+    return {key: value for key, value in result.items() if key not in {"run_id", "final_directory", "manifest_filename", "manifest"}}
+
+
+def validate_output_report(child: dict) -> None:
+    observation = child.get("import_observation")
+    if type(child.get("schema_version")) is not int or child.get("task_id") != "M2-T01" \
+            or child.get("result") != "OUTPUT_TRANSACTION_REGRESSION_PASSED" or child.get("success") is not True \
+            or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+            or child.get("acceptance_ids") != OUTPUT_ACCEPTANCE_IDS \
+            or any(child.get(name) is not True for name in ("source_unchanged", "baseline_guards_preserved",
+                                                          "input_and_neighbor_unchanged", "owned_temp_removed")) \
+            or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+            or not isinstance(observation, dict) or observation.get("import_safe") is not True:
+        raise ValueError("Output report requires all acceptance, actual publication, immutable guards and preservation promises")
+    repeated = validate_plan_case_ids(child.get("repeat_cases"), OUTPUT_REPEAT_IDS, "repeat/same-basename")
+    concurrent = validate_plan_case_ids(child.get("concurrent_cases"), OUTPUT_CONCURRENT_IDS, "concurrent output")
+    for case in repeated + concurrent:
+        validate_plan_parity(case)
+        validate_plan_page_content(case)
+        if type(case.get("exit_code")) is not int or case["exit_code"] != 0 \
+                or case.get("manifest_validated") is not True or case.get("prior_outputs_unchanged") is not True \
+                or not isinstance(case.get("stdout"), str) or not isinstance(case.get("stderr"), str) or case["stderr"] \
+                or any(output.get("sha256") != written["sha256"] for output, written in
+                       zip(case["outputs"], case["writer_result"]["outputs"])):
+            raise ValueError("Output success requires actual native/process and preserved complete-manifest evidence")
+        frames = [json.loads(line) for line in case["stdout"].splitlines() if line.startswith("{")]
+        if len(frames) != 1 or frames[0].get("protocol") != "winbooksplit.result" \
+                or frames[0].get("status") != "success" or frames[0].get("execution") != case["writer_result"] \
+                or frames[0].get("written_count") != case["written_count"] or frames[0].get("exit_code") != 0:
+            raise ValueError("Output CLI frame must identify its exact successful independent writer receipt")
+    for cases in (repeated, concurrent):
+        if len({case["writer_result"]["run_id"] for case in cases}) != len(cases) \
+                or len({Path(case["writer_result"]["final_directory"]) for case in cases}) != len(cases):
+            raise ValueError("Output runs require independent unique identities and final directories")
+    if any(type(case.get("pid")) is not int or case["pid"] < 1 or case.get("fixed_timestamp") != "20261009-120000"
+           or case.get("barrier_synchronized") is not True or not isinstance(case.get("command"), list)
+           or not case["command"] or not isinstance(case.get("started_at"), str) or not case["started_at"]
+           or not isinstance(case.get("completed_at"), str) or not case["completed_at"] for case in concurrent) \
+            or len({case["pid"] for case in concurrent}) != 4:
+        raise ValueError("Concurrency requires four actual barrier-synchronized processes under the identical timestamp")
+    failures = validate_plan_case_ids(child.get("failure_cases"), set(OUTPUT_FAILURE_CODES), "output failure")
+    for case in failures:
+        result, record, owner = case.get("result"), case.get("failure_record"), case.get("failure_owner")
+        if not isinstance(result, dict) or type(result.get("exit_code")) is not int or result["exit_code"] != 1 \
+                or result.get("code") != OUTPUT_FAILURE_CODES[case["id"]] or result.get("status") not in {"write_error", "error"} \
+                or type(result.get("written_count")) is not int or result["written_count"] != 0 or result.get("execution", "missing") is not None \
+                or type(case.get("exit_code")) is not int or case["exit_code"] != 1 \
+                or type(case.get("successful_final_count")) is not int or case["successful_final_count"] != 0 \
+                or any(case.get(name) is not True for name in ("cleanup_complete", "neighbor_unchanged", "source_unchanged")) \
+                or not isinstance(record, dict) or not isinstance(owner, dict):
+            raise ValueError("Injected output failures must retain their nonzero category without any successful final")
+        diagnostic = result.get("diagnostic")
+        if not isinstance(diagnostic, dict) or diagnostic.get("cleanup_complete") is not True \
+                or diagnostic.get("retained_staging", "missing") is not None or diagnostic.get("cleanup_error", "missing") is not None \
+                or not isinstance(diagnostic.get("run_id"), str) or len(diagnostic["run_id"]) != 32 \
+                or any(character not in "0123456789abcdef" for character in diagnostic["run_id"]) \
+                or not isinstance(diagnostic.get("record_path"), str) or not Path(diagnostic["record_path"]).is_absolute() \
+                or Path(diagnostic["record_path"]).name != "failure.json" \
+                or Path(diagnostic["record_path"]).parent.name != ".WinBookSplit-failed-" + diagnostic["run_id"] \
+                or owner != {"schema_version": 1, "kind": "failed", "run_id": diagnostic["run_id"]} \
+                or record.get("schema_version") != 1 or record.get("status") != "failed" \
+                or record.get("run_id") != diagnostic["run_id"] or record.get("code") != result["code"] \
+                or record.get("cleanup_complete") is not True or record.get("retained_staging", "missing") is not None \
+                or not isinstance(record.get("message"), str) or not 0 < len(record["message"]) <= 2048 \
+                or case["id"] == "mid-write" and (type(case.get("completed_slices_before_failure")) is not int
+                                                   or case["completed_slices_before_failure"] != 1):
+            raise ValueError("Output failure evidence requires removed owned staging and a bounded separately marked record")
+    cleanup = validate_plan_case_ids(child.get("cleanup_cases"), OUTPUT_CLEANUP_IDS, "owned cleanup")
+    for case in cleanup:
+        rejected = case["id"] not in {"ordinary-owned", "manifest-path-not-authority"}
+        if any(case.get(name) is not True for name in ("cleaned", "owned_stage_removed", "outside_sentinel_unchanged", "actual_windows")) \
+                or case.get("rejected") is not rejected \
+                or rejected and (not isinstance(case.get("error_code"), str) or not case["error_code"]):
+            raise ValueError("Cleanup evidence must reject escapes/tampering and preserve all outside sentinels")
+        if case["id"] in {"junction-base", "junction-child"}:
+            native = case.get("native_junction")
+            if not isinstance(native, dict) or type(native.get("exit_code")) is not int or native["exit_code"] != 0 \
+                    or native.get("reparse_verified") is not True or not isinstance(native.get("command"), list) or not native["command"]:
+                raise ValueError("Ownership acceptance requires both actual controlled Windows junction observations")
 
 
 def validate_plan_page_content(case: dict) -> None:
@@ -359,9 +474,13 @@ def validate_plan_report(child: dict) -> None:
             validate_plan_parity(deleted)
             validate_plan_page_content(deleted)
             if any(deleted[field] != case[field] for field in ("total_pages", "preview_entries", "coverage",
-                                                             "written_count", "source_identity", "writer_result",
+                                                             "written_count", "source_identity",
                                                              "original_page_content_sha256", "page_content_sha256")):
                 raise ValueError("Deleted-path execution must retain the same original preview, writer result and source content")
+            if stable_writer_result(deleted["writer_result"]) != stable_writer_result(case["writer_result"]) \
+                    or deleted["writer_result"]["run_id"] == case["writer_result"]["run_id"] \
+                    or deleted["writer_result"]["final_directory"] == case["writer_result"]["final_directory"]:
+                raise ValueError("Repeated deleted-path execution requires the same captured plan in a distinct complete run")
 
 
 def diagnostic_decision(fallbacks: list[str], choice: str) -> tuple[str, str | None]:
@@ -508,6 +627,8 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                     or not isinstance(import_observation, dict) or import_observation.get("import_safe") is not True \
                     or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f":
                 raise ValueError("Extraction report requires fourteen equivalent cases, safe import and preserved source")
+        elif kind == "output":
+            validate_output_report(child)
         elif kind == "manual":
             cases = child.get("engine_cases")
             bookmarks = child.get("historical_bookmark_cases")
@@ -692,7 +813,7 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "not_run": ["interactive preview UI/output-transaction acceptance", "full application splitting in both shells",
+        "not_run": ["interactive preview UI", "full application splitting in both shells",
                     "human Explorer drag/drop", "real Calibre EPUB/AZW3 conversion",
                     "release-package checks"],
     }
@@ -760,7 +881,7 @@ def execute(args: argparse.Namespace) -> dict:
             for shell in args.shell_path:
                 command.extend(["--shell-path", str(shell)])
             step = {"name": "manual-regression",
-                    "meaning": "Corrected manual target cases; bookmark behavior compared with historical observations",
+                    "meaning": "Corrected manual targets and corrected six-section Level 2 launcher reference",
                     "requested_shell_paths": [str(shell) for shell in args.shell_path],
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "manual")
@@ -803,6 +924,14 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "diagnostics")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"output", "full"}:
+            child_report = work / "output-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/output/characterize_output.py"),
+                       "--report", str(child_report)]
+            step = {"name": "output-regression", "meaning": "Isolated validated publication, actual fixed-time concurrency and owned Windows cleanup",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "output")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -822,7 +951,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],

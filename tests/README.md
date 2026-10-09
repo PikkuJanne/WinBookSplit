@@ -21,7 +21,7 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan` or `--layer diagnostics`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics` or `--layer output`
 for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
@@ -33,8 +33,8 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The eight-stage full layer runs this manual regression route, corrected
-Level 1/2 bookmark routes, shared-plan acceptance and diagnostics after the units and both shell stages.
+run. The nine-stage full layer runs this manual regression route, corrected
+Level 1/2 bookmark routes, shared-plan acceptance, diagnostics and output transactions after the units and both shell stages.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
 normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its
@@ -64,10 +64,20 @@ The diagnostics layer requires both actual shell hosts. It exercises 23 structur
 engine results, zero-new-output failures, three successful mode controls and the
 real category/choice handler under PS5.1/PS7. Explicit no-outline, no usable
 destinations and no-Level2 categories offer only applicable choices; invalid/read/
-write failures offer none. Eighteen malformed protocol records reject in each
+write failures offer none. Existing loose output files are preserved beside a
+separately published successful run. Eighteen malformed protocol records reject in each
 host. Actual native argument quoting and the production execution function's
 200K dual-stream/final-result handling are separate controlled probes. No top-level
 UI or Documents processing is performed here. See `diagnostics/README.md`.
+
+The output layer checks four actual repeat/same-basename runs, four simultaneous
+fixed-timestamp Python processes, five injected failure paths and eight ownership
+cases, including two actual controlled Windows junctions. Complete manifests,
+owner markers, PDF digest/size/count, exact physical IDs and content parity are
+required; earlier runs, sources and neighbors must remain unchanged. Failure
+results require no successful final and explicitly owned staging/diagnostic
+handling. This route requires actual Windows and receives no shell arguments.
+See `output/README.md` for the precise scope and recovery limits.
 
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after
@@ -96,11 +106,12 @@ Windows PowerShell 5.1.
 Fixture PDFs, direct-engine slices, Pester TestDrive files and child working
 directories live inside unique temporary directories. Actual M1 entrypoint
 probes use the application's observed Documents folder with separately reserved
-GUID directories, ownership markers and synthetic neighbors. Their nonrecursive
-cleanup verifies containment, marker, allowed files and absence of reparse
-points before removing only the run's owned outputs. No private Documents
-content is enumerated or used as input. See `extraction/README.md` for the actual
-six-probe unrelated-directory/parallel method and its limits. `manual/README.md`
+GUID sentinel parents and explicit emitted run/log children. Current nonrecursive
+cleanup verifies each exact child's containment, marker, allowed files and absence
+of reparse points before removing only known owned members. The original process
+and GUID-parent helper guards remain unchanged. No private Documents content is
+enumerated or used as input. See `manual/README.md` for the current six-probe method;
+`extraction/README.md` retains the historical method and limits. `manual/README.md`
 describes the corrected manual regression route and `bookmarks/README.md`
 describes corrected Level 1 checks. Environments,
 generated outputs and raw evidence are ignored; ignore rules do not replace

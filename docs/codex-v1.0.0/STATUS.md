@@ -1,17 +1,62 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 and M1 reviewed/merged. Runtime, output, UX and release gates remain open.
-Completed: M0-T01 through M0-T04 and M1-T01 through M1-T06.
-Next dependency-ready task: **M2-T01 — Isolate runs and stage validated output**.
-Current branch/upstream: `main` / `origin/main`; retained milestone branches `codex/winbooksplit-v1-m0` and `codex/winbooksplit-v1-m1`.
+Overall: IN PROGRESS; M0 and M1 reviewed/merged. M2 is in progress; later runtime, UX and release gates remain open.
+Completed: M0-T01 through M0-T04, M1-T01 through M1-T06, and M2-T01.
+Next dependency-ready task: **M2-T02 — Harden literal paths and output filenames**.
+Current branch/upstream: `codex/winbooksplit-v1-m2` / `origin/codex/winbooksplit-v1-m2`; retained M0/M1 branches are historical.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `dee49ac233650e12511a3597077523527de76c5e`.
-Historical C synchronization: SYNCED at `2026-10-09T07:21:51.780643+00:00`.
-[PR #10](https://github.com/PikkuJanne/WinBookSplit/pull/10) merged normally at `2026-10-09T07:23:47Z` to main `24a447c01ac590ceb7dcc456ae580cea6dd47e6a`.
-Historical merged-main synchronization: clean/live SYNCED at `2026-10-09T07:23:51.802430+00:00` with all tested actual bytes unchanged.
+Last verified implementation C: `a58ce43866331da42e32f80521a24c4893ab58f5`.
+C clean/live synchronization: **SYNCED** at `2026-10-09T08:31:04.317614+00:00`.
+[draft M2 PR](https://github.com/PikkuJanne/WinBookSplit/pull/11); no milestone merge requested at this task boundary.
 Following documentation-only E gets its own normal push/live receipt outside this commit; recheck current state next session.
 Public release: NOT PUBLISHED; inspected tags/releases empty on 9 October 2026.
+
+## M2-T01 evidence and limits
+
+[Output evidence](evidence/M2-T01-output.md) and
+[machine record](evidence/M2-T01-output.json) satisfy AC-032 through AC-035.
+Every mode executes its existing immutable source-bound plan into a unique owned
+stage. Exclusive files are registered immediately, reopened and checked for
+positive expected page counts, exact membership, sizes and hashes. A complete
+manifest and Windows same-volume no-replace rename publish a unique final child.
+Repeat/concurrent runs preserve earlier runs. The output argument is an existing
+base; PS uses actual Documents and prints explicit final/log paths. Console logs
+and bounded failed diagnostics have separate marked directories. BAT is unchanged.
+
+Cleanup authenticates held directory/file identities, marker and exact flat
+members. It removes only this run's known owned objects; unknown, replaced or
+reparse members are retained with an explicit error. Edited manifest paths do
+not drive deletion. Post-publication close failures preserve complete success
+with a warning; pre-publication failures remain nonzero and never announce Done.
+
+Final unrelated-CWD nine-stage gate passed 146 Python tests, nine Pester tests
+per actual PS5.1.26100.9444/PS7.6.5 host, and inherited manual/bookmark/plan/
+diagnostic regressions. Output checks cover four repeat/same-basename CLI runs,
+four simultaneous identical-clock process runs, five failure injections and
+eight ownership controls including actual junctions. There are 26 focused output
+units, six actual success launchers (three concurrent), and 12 additional actual
+controlled PS5.1/PS7/BAT failure probes. Sources/neighbors/prior output and owned
+cleanup were checked. Fresh hash-pinned CPython3.14.8/pypdf6.19.0 dev venv and
+all66 saved shell-tool hashes passed; stored execution policies are unchanged.
+Tested51-path digest: `eb9c4dee60c60e022bd5fafbacb1acad6894a2312f7240bfe3fd7932d1bb1e10`.
+Every final tested raw path byte matched clean C; no clean-C full rerun is claimed.
+Independent source/harness/native/raw/public evidence review passed;
+no submitted GitHub approval or CI pass is claimed.
+
+Compatible FILE_WRITE_ATTRIBUTES can mutate an empty directory despite sharing
+locks. Already observed mutation rejects before owner creation; check/create is
+not atomic. Windows requires closing child locks before final check/rename.
+These intervals do not sandbox an arbitrary same-account process. Cleanup never
+follows the target. Earlier probe snapshots and their defects are distinct from
+final source acceptance. No crash/power-loss durability is promised.
+
+Explorer/full interactive UX, early ordinary discovery and conversion paths,
+real Calibre conversion, PDF fidelity/features, release package, CI and public
+v1.0.0 remain open. M2-T02 owns full literal-path/filename handling; M2-T03/T04/T05
+own conversion, runtime and remaining process/encoding work. 0/1/55 compatibility
+codes remain until M3's CLI surface. No tag/release or milestone merge here.
+M0/M1 sections below retain their historical observations and merge receipts.
 
 ## M1-T06 evidence and limits
 
@@ -32,8 +77,8 @@ Sources/neighbors/prior output/owned cleanup were checked. Earlier failures and
 redirected stderr/prompt limitations remain in evidence; no human/Explorer,
 Calibre, CI, full ordinary discovery or release-package pass is claimed.
 
-Output failure can still leave partial files; **M2-T01** owns staging, validation,
-promotion and ownership-safe cleanup. Current 0/1/55 compatibility codes remain
+At the M1-T06 checkpoint output failure could still leave partial files;
+M2-T01 now provides staging, validation, publication and owned cleanup as above. Current 0/1/55 compatibility codes remain
 until M3 final CLI binding. Earlier evidence below is historical, including
 earlier incomplete-milestone/PR states; fresh live state is authoritative.
 

@@ -72,7 +72,11 @@ $InputFile = 'quote " [space] å & $(literal)\'
 $outputDir = $payload.output + '\'
 $logFile = $payload.log
 $manualData = '1,4,7 "literal" %value%!data!'
-$flood = Run-PythonSplitter -mode 'manual' -manualData $manualData 6>$null
+$stream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+$script:consoleLogWriter = New-Object IO.StreamWriter($stream, (New-Object Text.UTF8Encoding($false)))
+$script:consoleLogWriter.AutoFlush = $true
+try { $flood = Run-PythonSplitter -mode 'manual' -manualData $manualData 6>$null }
+finally { $script:consoleLogWriter.Dispose() }
 $echoed = $flood.message | ConvertFrom-Json
 $expectedArguments = @($InputFile, $outputDir, 'manual', $manualData)
 if (($echoed.arguments | ConvertTo-Json -Compress) -cne ($expectedArguments | ConvertTo-Json -Compress) -or

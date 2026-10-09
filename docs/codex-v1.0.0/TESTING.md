@@ -82,15 +82,42 @@ console integration checks; they do not certify Explorer, conversion, full
 interactive UX or output transactions. See `tests/diagnostics/README.md` and the
 task's actual evidence for executed bounds and limits.
 
+M2-T01 adds `--layer output` as the ninth full stage. Four repeat/same-basename
+CLI runs and four actual barrier-synchronized processes under identical timestamps
+must publish distinct complete manifests while preserving earlier run hashes.
+Five failures cover partial write, PDF reopen, wrong count, manifest and promotion;
+eight cleanup cases cover only-owned removal and unexpected/held/reparse refusal,
+including actual controlled Windows junctions. Every successful slice is reopened
+for exact page identities/content/order, expected positive counts, size and hash.
+Current mode/plan/diagnostic tests consume only the explicit returned final folder
+and exact manifest membership. Existing loose files in the base are now preserved
+while a new child is published; M1's existing-output refusal was historical.
+
+The current actual launcher helper uses only emitted final/log paths and marked
+GUID parents, exact members and held identities. It reacquires delete handles and
+checks replacement identity before removal; no recursive private Documents scan
+or manifest-directed deletion is allowed. Six success launchers and separately
+recorded controlled failure probes retain their bounded process/discovery/UX scope.
+Original/extraction harnesses, fixtures/oracles and older receipts remain unchanged.
+See `tests/output/README.md` and M2-T01 evidence for commands and final outcomes.
+
+Windows sharing probes must distinguish actual data protection from compatible
+metadata access. Already observed empty-stage reparse mutation rejects before
+owner creation, but check/create is not atomic. Closing child locks before final
+checks/rename is necessary; no arbitrary same-account process sandbox or crash
+recovery guarantee is claimed. Source/neighbor preservation and safe held-object
+cleanup remain required. These local counts do not certify Calibre, Explorer,
+PDF rendering/features, all cancellation paths or a release ZIP.
+
 M1-T05 adds `--layer plan` as the seventh full stage. Structural cases test the
 shared coverage validator; all-mode prepared previews execute through the real
 writer and are reopened for exact filename/range/physical-page identity parity.
 Nested preview mutation attempts, controlled same-path replacement/repointing
 and captured-source binding remain distinct from immutable generated fixtures.
 Seeded complete partitions supplement exact cases. The callable preview creates
-no chapters; console preview/confirmation still belongs to M3. Source/output
-alias and existing-output refusals are narrow pre-writer checks, not proof of
-complete output staging, rollback or publication. Historical mode/original/
+no chapters; console preview/confirmation still belongs to M3. At the M1-T05 checkpoint, source/output
+alias and existing-output refusals were narrow pre-writer checks; M2-T01 now
+provides the staged output lifecycle described above. Historical mode/original/
 extraction guards, oracles and prior evidence stay unchanged.
 
 At each task run targeted tests and related regressions. At a milestone run the relevant full layer and dependency/host compatibility checks. At release run the entire claimed matrix against exact release payload bytes. Pure Python tests may run on the available development host, but do not certify Windows behavior. Windows PowerShell 5.1 and PowerShell 7 require separate runs; a pwsh-only pass is not both. Document the actual Windows build, Python, pypdf, Calibre, shell and fixture versions.

@@ -132,7 +132,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
     neighbor.write_bytes(b"Preserve this Level 1 synthetic neighbor\n")
     before = history.file_digest(source)
     result = manual.observe(ENGINE, source, output, cwd, "1")
-    records = history.outputs(output, generator)
+    records = manual.published_outputs(output, generator, result)
     if error is not None:
         require(result["exit_code"] == (55 if error in {"no_bookmarks", "no_usable_bookmarks"} else 1)
                 and error in result["stdout"] and not records and "[Writing]" not in result["stdout"],
@@ -143,8 +143,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
     require(all(code in result["stdout"] for code in warnings), "Missing CLI bookmark warnings")
     require(history.file_digest(source) == before, "CLI modified its input")
     require(neighbor.read_bytes() == b"Preserve this Level 1 synthetic neighbor\n", "CLI modified its neighbor")
-    require({path.name for path in output.iterdir()} == {neighbor.name, *(record["filename"] for record in records)},
-            "CLI created unexpected files")
+    manual.check_base_members(output, result, [neighbor.name])
     return {"outputs": records, "input_unchanged": True, "neighbor_unchanged": True, **result}
 
 
@@ -362,8 +361,9 @@ def characterize(work):
             neighbor = output / "synthetic-neighbor.txt"
             neighbor.write_bytes(b"Original writer neighbor\n")
             with redirect_stdout(StringIO()):
-                engine.split_pdf(str(source), str(output), "1")
-            records = history.outputs(output, generator)
+                result = engine.run_split(str(source), str(output), "1")
+            records = manual.published_outputs(output, generator, result)
+            manual.check_base_members(output, result, [neighbor.name])
             manual.check_outputs(records, [list(pair) for pair in plan10["ranges"]], 10)
             require(history.file_digest(source) == source_hash and neighbor.read_bytes() == b"Original writer neighbor\n",
                     "Sampled writer modified source or neighbor")

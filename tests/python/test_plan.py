@@ -224,17 +224,20 @@ class PreparedPlanTests(unittest.TestCase):
                 self.assertEqual(result["coverage"], preview["coverage"])
                 self.assertEqual([entry["filename"] for entry in result["outputs"]],
                                  [entry["filename"] for entry in preview["entries"]])
+                published = Path(result["final_directory"])
                 observed = []
                 for entry, actual in zip(preview["entries"], result["outputs"]):
-                    ids = fixtures.page_ids(output / entry["filename"])
+                    ids = fixtures.page_ids(published / entry["filename"])
                     self.assertEqual(ids, list(range(entry["start"] + 1, entry["end"] + 1)))
                     self.assertEqual(actual["start"], entry["start"])
                     self.assertEqual(actual["end"], entry["end"])
                     self.assertEqual(actual["page_count"], entry["end"] - entry["start"])
                     observed.extend(ids)
                 self.assertEqual(observed, list(range(1, preview["total_pages"] + 1)))
-                self.assertEqual({path.name for path in output.iterdir()},
-                                 {entry["filename"] for entry in preview["entries"]} | {neighbor.name})
+                self.assertEqual({path.name for path in published.iterdir()},
+                                 {entry["filename"] for entry in preview["entries"]} |
+                                 {".WinBookSplit-owner.json", result["manifest_filename"]})
+                self.assertEqual({path.name for path in output.iterdir()}, {published.name, neighbor.name})
                 self.assertEqual(neighbor.read_bytes(), b"Synthetic neighbor preserved\n")
                 self.assertEqual(source.read_bytes(), before)
                 with self.assertRaises(TypeError):
@@ -299,7 +302,8 @@ class PreparedPlanTests(unittest.TestCase):
                 with patch.object(engine, "log"):
                     result = engine.execute_split(prepared, str(output))
                 self.assertEqual(result["source_identity"]["sha256"], sha256(original).hexdigest())
-                observed = [page for entry in preview["entries"] for page in fixtures.page_ids(output / entry["filename"])]
+                observed = [page for entry in preview["entries"]
+                            for page in fixtures.page_ids(Path(result["final_directory"]) / entry["filename"])]
                 self.assertEqual(observed, list(range(1, 11)))
                 if change != "delete":
                     self.assertEqual(source.read_bytes(), replacement_path.read_bytes())
@@ -307,7 +311,7 @@ class PreparedPlanTests(unittest.TestCase):
                     self.assertFalse(source.exists())
         self.assertEqual(self.inputs["simple10"].read_bytes(), original)
 
-    def test_existing_planned_output_is_refused_before_any_slice_and_preserves_neighbor(self):
+    def test_existing_same_named_base_chapter_is_preserved_by_unique_run_publication(self):
         prepared = engine.prepare_split(str(self.inputs["simple10"]), "manual", "4,7")
         preview = engine.preview_plan(prepared)
         output = self.work / "existing-output"
@@ -315,46 +319,51 @@ class PreparedPlanTests(unittest.TestCase):
         sentinel = output / preview["entries"][-1]["filename"]
         sentinel.write_bytes(b"Owned existing chapter must not be overwritten\n")
         before = sentinel.read_bytes()
-        with patch.object(engine, "write_slice") as writer:
-            with self.assertRaises(engine.PlanError):
-                engine.execute_split(prepared, str(output))
-        writer.assert_not_called()
-        self.assertEqual({path.name for path in output.iterdir()}, {sentinel.name})
+        with patch.object(engine, "log"):
+            result = engine.execute_split(prepared, str(output))
+        published = Path(result["final_directory"])
+        self.assertEqual({path.name for path in output.iterdir()}, {sentinel.name, published.name})
+        self.assertEqual(fixtures.page_ids(published / sentinel.name), list(range(7, 11)))
         self.assertEqual(sentinel.read_bytes(), before)
 
-    def test_source_output_alias_is_refused_before_writer_and_source_bytes_stay_unchanged(self):
+    def test_source_named_like_a_chapter_is_preserved_by_unique_run_publication(self):
         output = self.work / "source-output-alias"
         output.mkdir()
         source = output / "01 - Section (Page 1-10).pdf"
         source.write_bytes(self.inputs["simple10"].read_bytes())
         before = source.read_bytes()
         prepared = engine.prepare_split(str(source), "manual", "1")
-        with patch.object(engine, "write_slice") as writer:
-            with self.assertRaises(engine.PlanError):
-                engine.execute_split(prepared, str(output))
-        writer.assert_not_called()
+        with patch.object(engine, "log"):
+            result = engine.execute_split(prepared, str(output))
+        published = Path(result["final_directory"])
+        self.assertNotEqual(published / source.name, source)
+        self.assertEqual(fixtures.page_ids(published / source.name), list(range(1, 11)))
         self.assertEqual(source.read_bytes(), before)
-        self.assertEqual({path.name for path in output.iterdir()}, {source.name})
+        self.assertEqual({path.name for path in output.iterdir()}, {source.name, published.name})
 
     def test_writer_exclusive_creation_cannot_clobber_a_file_appearing_after_preflight(self):
         prepared = engine.prepare_split(str(self.inputs["simple10"]), "manual", "1")
         output = self.work / "collision-race-output"
         output.mkdir()
-        target = output / engine.preview_plan(prepared)["entries"][0]["filename"]
+        targets = []
         sentinel = b"Synthetic competing file created after preflight\n"
         original_write = engine.write_slice
 
-        def competing_write(reader, start, end, path):
-            self.assertEqual(Path(path), target)
+        def competing_write(reader, start, end, path, *, on_created=None):
+            target = Path(path)
+            targets.append(target)
+            self.assertEqual(target.name, engine.preview_plan(prepared)["entries"][0]["filename"])
             with Path(path).open("xb") as stream:
                 stream.write(sentinel)
-            return original_write(reader, start, end, path)
+            return original_write(reader, start, end, path, on_created=on_created)
 
         with patch.object(engine, "write_slice", side_effect=competing_write), patch.object(engine, "log"):
             with self.assertRaises((engine.PlanError, FileExistsError)):
                 engine.execute_split(prepared, str(output))
-        self.assertEqual(target.read_bytes(), sentinel)
-        self.assertEqual({path.name for path in output.iterdir()}, {target.name})
+        self.assertEqual(len(targets), 1)
+        self.assertEqual(targets[0].read_bytes(), sentinel)
+        self.assertFalse(any(path.is_dir() and not path.name.startswith(".WinBookSplit-")
+                             for path in output.iterdir()))
 
 
 if __name__ == "__main__":
