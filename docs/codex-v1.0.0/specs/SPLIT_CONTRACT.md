@@ -43,6 +43,15 @@ Ownership-authenticated cleanup removes only this run's known held objects;
 unexpected/reparse members are retained. See `OUTPUT_AND_CONVERSION.md` and
 `../evidence/M2-T01-output.md` for failure handling and tested native limits.
 
+M2-T02 adds optional keyword-only `output_base` during preparation. With a base,
+the immutable plan also records `output_naming` (resolved base, fixed run stem and
+filename budget). Sequence/title filenames are assigned within that full-path
+budget before preview; execution rejects a changed resolved base and never
+recalculates names. Without a bound base, the existing callable plan keeps its
+names and execution rejects an impossible budget before allocation. The CLI uses
+destination-aware preparation. These checks preserve the same page ranges and
+captured reader; see `../evidence/M2-T02-paths.md` for actual proof and limits.
+
 ## Manual starts
 
 Accept a nonempty comma-separated string of ASCII `[0-9]+` tokens, allowing surrounding whitespace. Integers must be in 1..N. Leading zeros are allowed and canonicalized. Reject signs, negative numbers, non-ASCII numeric glyphs, empty tokens, ranges (`1-4`), decimals, letters, or any invalid/out-of-range token; do not silently filter.

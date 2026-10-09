@@ -423,7 +423,7 @@
         "Safe deterministic filenames",
         "Windows-path tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M2-T01"
       ],
@@ -433,8 +433,11 @@
         "AC-038",
         "AC-039"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M2-T02-paths.md",
+        "evidence/M2-T02-paths.json"
+      ],
+      "implementation_commit": "a38d0e248cecd71513a2b06d6595c055e2712b95",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

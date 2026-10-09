@@ -18,6 +18,16 @@ No overwrite switch, destructive cleanup switch, or implicit resume in v1.0.0. E
 
 Use `width = max(2, len(str(section_count)))`, then `<sequence> - <safe-title>.pdf`. Clean Windows-invalid/control characters, whitespace and terminal dots; keep Unicode text. Fall back to a stable title such as `Section 3` for an empty result. Handle reserved names defensively without claiming the prefixed baseline necessarily hit them. Truncate titles based on the **full destination path budget**, preserving sequence/extension. Detect case-insensitive collisions; never use a title as a path. Too-long/unwritable paths fail with actionable errors, not registry/system-policy edits. Test 100+ outputs.
 
+M2-T02 implements this policy with destination-bound preparation; all modes
+freeze exact filenames before preview and reject casefold collisions/reserved
+components. Empty/punctuation-only titles receive stable fallbacks; usable Unicode
+and emoji are retained. Bound preparation may shorten titles/run stem; unbound
+plans keep their names or reject. Limits are conservative UTF-16 budgets:
+files 259, created directories 247, components 255, including stage/final and ownership/
+manifest/failure records. Changed bound bases reject before allocation. These
+limits do not promise arbitrary long paths or UNC and require no settings changes.
+See `../evidence/M2-T02-paths.md`; conversion requirements below remain separate.
+
 ## Conversion
 
 Resolve an explicit `-CalibrePath`, then trusted PATH discovery and known installation locations. Print/log the resolved executable and version. PDF-only runs do not probe/require Calibre. Do not look for executables in the document directory or download them silently. Use an executable plus correctly marshalled arguments, not shell-evaluated text.
