@@ -82,6 +82,7 @@ try {
     $scaffoldPaths = @(
         (Join-Path -Path $repository -ChildPath 'tests\Invoke-ShellTests.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Runtime.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Process.ps1'),
         (Join-Path -Path $repository -ChildPath 'tests\PSScriptAnalyzerSettings.psd1')
     ) + @((Get-ChildItem -LiteralPath (Join-Path -Path $repository -ChildPath 'tests\powershell') -File) |
         Where-Object { $_.Extension -in @('.ps1', '.psm1') } | ForEach-Object { $_.FullName })
@@ -112,6 +113,9 @@ try {
     })
     if (-not $FailureProbe) {
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Runtime.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
+        }
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Process.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
     }

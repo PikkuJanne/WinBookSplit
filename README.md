@@ -77,6 +77,15 @@ another runtime. The engine uses the same absolute path with `-I -B`, excluding
 book/current-directory modules, user site packages and Python environment hooks.
 The console and log report the selected executable, versions and pypdf origin.
 
+Each engine attempt runs in an owned Windows job. Both UTF-8 streams are drained
+to EOF; console diagnostics retain the last 64 KiB per stream and report any
+truncation. The structured result is kept separately. `-ProcessTimeout` sets the
+whole attempt deadline in seconds (1..172800); its default is at least one hour
+and 30 minutes longer than `-ConversionTimeout`. Timeout or cancellation stops
+only this attempt's process tree and returns a failure. Interrupted staging
+directories are retained for inspection because the console does not own the
+engine's cleanup ledger.
+
 For EPUB/AZW3, select an existing converter explicitly when needed:
 
 ```powershell

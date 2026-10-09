@@ -18,13 +18,15 @@ CALIBRE = r"C:\synthetic\Calibre\ebook-convert.exe"
 CONTENT = ["c" * 64, "d" * 64, "e" * 64]
 APP_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
              "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
+             "engine/WinBookSplit.Process.ps1",
              "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
              "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py")
 
 
 def native_probe(stdout, exit_code=0):
     return {"ExitCode": exit_code, "Pid": 1234, "TimedOut": False, "ParentStopped": True,
-            "DescendantsStopped": None, "StreamsComplete": True, "StartError": None,
+            "DescendantsStopped": True, "StreamsComplete": True, "JobAssigned": True, "Cancelled": False,
+            "StartError": None, "StopError": None,
             "Stdout": stdout, "Stderr": "", "StdoutTotalBytes": len(stdout.encode()),
             "StderrTotalBytes": 0, "StdoutTruncated": False, "StderrTruncated": False,
             "StreamError": None, "ElapsedSeconds": 0.1}
@@ -94,7 +96,7 @@ def valid_report():
     for name, shell, major, version in zip(("PS51", "PS7"), SHELLS, (5, 7), ("5.1.26100.9444", "7.6.5")):
         observed = {"host_major": major, "host_version": version, "syntax_error_count": 0,
                     "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1",
-                                       "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1"],
+                                       "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1"],
                     "stored_policies": deepcopy(policies)}
         hosts.append({"id": name, "passed": True, "shell_executable": shell, "exit_code": 0,
                       "command": [shell, "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "RemoteSigned",
@@ -210,7 +212,7 @@ def valid_report():
                         "marker_path": directory + "\\listing.txt", "marker_sha256": "b" * 64, "control_reached": True}
                 converter_source = "explicit" if kind == "explicit-portable" else "PATH" if ebook else None
                 writer = successful_writer(case, ebook)
-                engine_argv = ["-I", "-B", directory + "\\a\\engine\\winbooksplit_engine.py",
+                engine_argv = ["-I", "-B", "-X", "utf8", directory + "\\a\\engine\\winbooksplit_engine.py",
                                source, case["output_base"], "manual", "2,3"]
                 if ebook:
                     engine_argv += ["--calibre-path", CALIBRE, "--conversion-timeout", "1800"]
@@ -293,7 +295,7 @@ class RuntimeReceiptTests(unittest.TestCase):
             "boolean schema": lambda r: success(r)["dependency_selection"]["Runtime"]["Details"].update(schema_version=True),
             "native probe mismatch": lambda r: success(r)["dependency_selection"]["Runtime"]["Probe"].update(Stdout="{}"),
             "probe stream absent": lambda r: success(r)["dependency_selection"]["Runtime"]["Probe"].pop("StreamsComplete"),
-            "unproved descendants": lambda r: success(r)["dependency_selection"]["Runtime"]["Probe"].update(DescendantsStopped=True),
+            "unproved descendants": lambda r: success(r)["dependency_selection"]["Runtime"]["Probe"].update(DescendantsStopped=None),
             "engine changed interpreter": lambda r: success(r)["engine_invocation"].update(path=r"C:\other\python.exe"),
             "engine isolation missing": lambda r: success(r)["engine_invocation"]["arguments"].__setitem__(0, "-B"),
             "unrequested host": lambda r: r["host_cases"][1].update(shell_executable=r"C:\other\pwsh.exe"),

@@ -532,7 +532,7 @@
         "Unicode/argument/flood tests",
         "M2 merged checkpoint"
       ],
-      "status": "todo",
+      "status": "in_progress",
       "depends_on": [
         "M2-T04"
       ],

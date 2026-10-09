@@ -25,6 +25,7 @@ ACCEPTANCE_IDS = ["AC-043", "AC-044", "AC-045"]
 APPLICATION_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                      "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                      "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
+                     "engine/WinBookSplit.Process.ps1",
                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                      "engine/winbooksplit_job.py")
 
@@ -113,7 +114,7 @@ public class Stub {
 def host_probe(work):
     probe = work / "Host.ps1"
     probe.write_text("[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)\n"
-        "$total=0;$checked=@('WinBookSplit.ps1','engine/WinBookSplit.Paths.ps1','engine/WinBookSplit.Diagnostics.ps1','engine/WinBookSplit.Runtime.ps1')\n"
+        "$total=0;$checked=@('WinBookSplit.ps1','engine/WinBookSplit.Paths.ps1','engine/WinBookSplit.Diagnostics.ps1','engine/WinBookSplit.Runtime.ps1','engine/WinBookSplit.Process.ps1')\n"
         "foreach($name in $checked){$tokens=$null;$errors=$null;[Management.Automation.Language.Parser]::ParseFile((Join-Path $env:WBS_PATHS_ROOT $name),[ref]$tokens,[ref]$errors)|Out-Null;$total+=$errors.Count}\n"
         "$policies=@(Get-ExecutionPolicy -List|Where-Object {$_.Scope -ne 'Process'}|ForEach-Object {[pscustomobject]@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})\n"
         "[pscustomobject]@{host_major=$PSVersionTable.PSVersion.Major;host_version=$PSVersionTable.PSVersion.ToString();syntax_checked=$checked;syntax_error_count=$total;stored_policies=$policies}|ConvertTo-Json -Depth 6 -Compress\n", encoding="utf-8")
@@ -329,8 +330,8 @@ class Cases:
                 selected = dependency[0]["Runtime"]
                 require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == "3.14.8"
                         and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.19.0", "Selected actual interpreter differs from case")
-                require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:2] == ["-I", "-B"]
-                        and invocation[0]["arguments"][2:7] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", "2,3"], "Engine did not use exact selected interpreter and literal isolated argv")
+                require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:4] == ["-I", "-B", "-X", "utf8"]
+                        and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", "2,3"], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
                 require(selected["Details"]["isolated"] is True and selected["Details"]["dont_write_bytecode"] is True
                         and selected["Details"]["gil_disabled"] is False and selected["Details"]["bits"] == 64,
                         "Runtime probe did not verify required isolation/regular architecture")

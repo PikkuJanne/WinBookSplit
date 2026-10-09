@@ -89,3 +89,30 @@ See `../evidence/M2-T04-runtime.md/json` and `../../../tests/runtime/README.md`.
 Actual host/process, complete physical-page/content, source/neighbor/decoy,
 manifest/policy/known cleanup acceptance passes; broader compatibility, human
 Explorer, CI, package and release gates remain open.
+
+## M2-T05 implementation checkpoint
+
+`WinBookSplit.Process.ps1` supplies the narrow Windows native transport for both
+engine attempts and dependency probes. Existing literal argument quoting feeds
+direct `CreateProcessW` with restricted inherited standard handles. The child
+starts suspended, joins this run's non-breakaway kill-on-close job, then resumes.
+Background .NET readers concurrently drain both streams to EOF without PowerShell
+callbacks. Strict UTF-8 validation, 64 KiB rings, actual byte totals and truncation
+preserve bounded diagnostics; a separate 8 MiB result budget preserves framed
+JSON independently of human tails and refuses oversize/ambiguous/missing results.
+The fixed Python probe and engine use `-I -B -X utf8`; isolation ignores Python
+encoding environment hooks, so the explicit interpreter flag matters.
+
+`-ProcessTimeout` follows existing parameters, accepts 1..172800 seconds and
+defaults to max(3600, ConversionTimeout + 1800). Native test seam deadlines accept
+0.05 seconds. Deadlines cover parent, job membership and both EOFs. Cancellation
+tokens and the native Console.CancelKeyPress handler terminate only owned job
+handles, with bounded stop/drain grace and explicit proof/errors. Timeout or
+cancellation preserves failure through the existing launcher. The console lacks
+the engine file ledger and retains interrupted stages; process shutdown never
+authorizes broad deletion. Human Ctrl+C behavior remains a separate actual gate.
+
+Preflight retains its exact selection/compatibility/banners and 10-second default,
+0.05..60 range, but now shares this transport and requires stopped descendants.
+The earlier T04 parent-only lifecycle above is historical. Source parsing still
+runs with the user's privileges; this is process ownership, not a document sandbox.

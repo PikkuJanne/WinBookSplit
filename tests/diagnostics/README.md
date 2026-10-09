@@ -32,8 +32,9 @@ Each host also exercises the production native quoting helper with empty strings
 spaces, quotes, Unicode, trailing slashes and shell-like data. An AST load isolates
 the authored `Run-PythonSplitter` function from top-level application startup. A
 run-owned synthetic child sends 200K characters on both streams, literal argument
-echoes and a structured final failure. The actual function must drain/log both
-streams, retain the final category and use the explicit fresh Python via controlled
+echoes and a structured final failure. The actual function must drain both
+streams, retain bounded tails with explicit truncation and byte counts, preserve
+the final category and use the explicit fresh Python via controlled
 PATH. This probe writes no chapter files and touches no Documents content.
 It initializes and disposes the production function's held exclusive console
 writer in its own temporary working directory.

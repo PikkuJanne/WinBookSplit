@@ -204,6 +204,27 @@ Human Explorer/clean-OS/CI/package/release checks remain open. Earlier failed/pa
 receipts remain distinct, including two rejected partial workspace removals outside
 Git; actual application output and final suite cleanup are checked separately.
 
+## Current M2-T05 process acceptance
+
+`--layer process` requires both distinct actual supported hosts and no converter.
+The full route has thirteen stages and preserves real Calibre conversion/runtime
+regressions separately. See `tests/process/README.md` for the native and whole
+entrypoint controls. Both UTF-8 streams require exact totals, bounded final tails,
+blank/no-newline preservation, separate valid result capture and literal argv.
+Timeout/injected cancellation must prove the owned job stopped, observe authored
+PIDs stopped and preserve an unrelated process. Real Unicode/hostile PDFs require
+reopened physical page/content and filename/manifest parity through PS5.1/PS7/BAT.
+
+Dependency preflight now shares the owned supervisor; Runtime Pester checks
+inherited descendants after parent exit. Its old parent-only receipts above are
+historical. Fixed Python probe and engine use explicit `-X utf8` with `-I -B`.
+The diagnostics regression now requires bounded retained bytes/truncation and
+full drain counts rather than unbounded copies of its authored 200K streams.
+Malformed, duplicated, missing or oversized process receipts must fail. Focused
+Pester and synthetic receipt-validator checks retain their own narrower scope.
+Automated token cancellation is not a human Ctrl+C/Explorer pass; interrupted
+engine stages remain for inspection without outer-supervisor filesystem cleanup.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.

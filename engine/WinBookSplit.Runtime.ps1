@@ -1,6 +1,6 @@
 # Dependency preflight only. Dot-sourcing performs no discovery or installation.
-# Probe deadlines cover parent exit and both pipe EOFs. Parent-only termination
-# does not prove descendant shutdown and never authorizes filesystem cleanup.
+# Probe transport shares the owned engine job; discovery never owns file cleanup.
+. (Join-Path $PSScriptRoot 'WinBookSplit.Process.ps1')
 function Initialize-WinBookSplitRuntimeProbe {
     if ('WinBookSplit.Preflight.Probe' -as [type]) { return }
     Add-Type -TypeDefinition @'
@@ -141,9 +141,7 @@ namespace WinBookSplit.Preflight {
 function Invoke-WinBookSplitRuntimeProbe {
     param([string]$Path, [string[]]$Arguments, [string]$ApplicationRoot,
           [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 10)
-    Initialize-WinBookSplitRuntimeProbe
-    $nativeArguments = ($Arguments | ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' '
-    return [WinBookSplit.Preflight.Probe]::Run($Path, $nativeArguments, $ApplicationRoot, [int]($TimeoutSeconds * 1000))
+    return Invoke-WinBookSplitProcess -Path $Path -Arguments $Arguments -WorkingDirectory $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
 }
 
 function Get-WinBookSplitTrustedPath {
@@ -251,8 +249,8 @@ except Exception as error:
 print(json.dumps(r, ensure_ascii=True))
 raise SystemExit(0 if r['ok'] else 1)
 '@
-        $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments @('-I', '-B', '-c', $code) -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
-        if ($probe.TimedOut -or -not $probe.ParentStopped -or -not $probe.StreamsComplete -or $probe.StartError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) {
+        $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments @('-I', '-B', '-X', 'utf8', '-c', $code) -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        if ($probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) {
             throw 'The bounded interpreter probe did not complete safely.'
         }
         $lines = @($probe.Stdout -split '\r?\n' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
@@ -318,8 +316,8 @@ function Resolve-WinBookSplitRuntime {
         try {
             $launcher = Get-WinBookSplitTrustedPath $launcher -Automatic
             $probe = Invoke-WinBookSplitRuntimeProbe $launcher @('-0p') $root -TimeoutSeconds $TimeoutSeconds
-            if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or -not $probe.ParentStopped -or -not $probe.StreamsComplete -or
-                $probe.StartError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) { throw 'Read-only Python launcher listing failed.' }
+            if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
+                $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) { throw 'Read-only Python launcher listing failed.' }
             $attempts.Add([pscustomobject]@{ Path = $launcher; Source = 'py_launcher_listing'; Accepted = $true; Message = 'Read-only -0p listing; no runtime launch/install requested.'; Probe = $probe })
             foreach ($line in (($probe.Stdout + "`n" + $probe.Stderr) -split '\r?\n')) {
                 if ($line -match '([A-Za-z]:[\\/].*\.exe)\s*$') {
@@ -346,8 +344,8 @@ function Test-WinBookSplitConverterCandidate {
     try {
         $path = Get-WinBookSplitTrustedPath $Path -Automatic:($Source -in @('PATH', 'known_location'))
         $probe = Invoke-WinBookSplitRuntimeProbe $path @('--version') $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
-        if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or -not $probe.ParentStopped -or -not $probe.StreamsComplete -or
-            $probe.StartError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated -or
+        if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
+            $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated -or
             $probe.Stdout -cnotmatch '\Aebook-convert(?:\.exe)? \(calibre ([0-9]+\.[0-9]+\.[0-9]+)\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?\z') {
             throw 'The converter did not return a complete ebook-convert version probe.'
         }

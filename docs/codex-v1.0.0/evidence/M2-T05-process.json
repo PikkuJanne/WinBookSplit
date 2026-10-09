@@ -1,0 +1,4448 @@
+{
+  "schema_version": 1,
+  "task_id": "M2-T05",
+  "observed_at": "2026-10-09T13:13:19.151748+00:00",
+  "user_timezone": "Europe/Berlin",
+  "result": "PASS_AC046_AC049_TESTED_WORKTREE",
+  "acceptance": {
+    "AC-046": "PASS: exact dual two-MiB native stream totals/bounded tails and independent result frame under both hosts; nine actual PS/BAT application controls retain bounded logs and native outcome.",
+    "AC-047": "PASS: exact fast-exit blank lines/no-newline stdout+final stderr; large independent, oversize, duplicate, absent and malformed frames; EOF after parent exit and owned descendants independently queried stopped.",
+    "AC-048": "PASS: effective isolated -X utf8 plus explicit child environment and strict decoding; multibyte byte-budget cuts and three real Unicode-bookmark/path/output/log PDF cases.",
+    "AC-049": "PASS: literal empty/quote/backslash/hostile argv plus percent/exclamation/bracket/space paths and marker-bearing shell/Python-looking bookmark titles; exact intended physical content and markers absent in execution directories."
+  },
+  "tested_source": {
+    "base_commit": "c48a9dfe2a448599db97ac6bdc1d880ac3e0f0c1",
+    "base_tree": "bdba74a4b7a5c054b4d0c103f3850e1fc32bdc50",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/WinBookSplit.Diagnostics.ps1": "12fed8e19b520b8932f064f592657f0dc21c7cf65c09957acd0261ed5218a791",
+      "engine/WinBookSplit.Paths.ps1": "e37dfb4ca49977c4ab5e90726a5386857357506832a5631fbe4e1e4c6991d946",
+      "engine/WinBookSplit.Process.ps1": "ce4f235da0cdf3aeb125da4c55db57ca43a5aed5ebdd2a85633ce9af06498887",
+      "engine/WinBookSplit.Runtime.ps1": "5606281f071abbb67dd95fdd6df2ab1d491833826ed2ca0f0bddad4af3864564",
+      "engine/winbooksplit_conversion.py": "55ae6e477d96f27122a0a3f9b8d638bbc87a43cdf155bd00b5c44031bbf16da3",
+      "engine/winbooksplit_engine.py": "81c05ee54e4320b1028538e8a0756ea4d941386449ef35fef22fb5dae1e8007f",
+      "engine/winbooksplit_job.py": "d79de0620084a7a9bc716e3f6b66cd6c4020baf27937b7e9f2af9138b14cd3a5",
+      "engine/winbooksplit_windows.py": "24b258c03b68f6d9af1da2d514df62973e4b03ef3d8bfce5d17135cb0df1d411",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "70d15deb64b53658218f6db6857c71d55477939b57161a5f30f9fcb4accff9ee",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "01224fb0b86ca5f5bde1e51eb00d1fc2501352b50c44d5a5e7d8b0cd877b5ef6",
+      "tests/bookmarks/characterize_level2.py": "9404b95dce579de0ab450d8c6053d52d336b90db6ecadffa88e312f2bd668d57",
+      "tests/bookmarks/README.md": "3a5e47ef35e4b05161a79e0f2a27888ebac8458e922ced5b671a81904ddd4f76",
+      "tests/conversion/characterize_conversion.py": "9ae7b07957de20806d36de1f08e240c09227889726ae8aede0b4e053a088e1ca",
+      "tests/conversion/generate_ebook_fixtures.py": "bcf2968a44de8cb738a85097146ba5e680380424e72e8c08b94feb5cea8a61ae",
+      "tests/conversion/README.md": "9c13b92aacbd18db056abca83e9e8fe50168d67de74a58c545f64557dca4de6f",
+      "tests/diagnostics/characterize_diagnostics.py": "7a67e3b568e5bff7701640b705edfd57e301563f1b34d1bdf20690214d689cf0",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "01e265298ba645f5ff224003e673be94c0c894eb74b60caf7ad663944b19aa3a",
+      "tests/diagnostics/README.md": "e28ef72e1189607f6104a6e2411b509aede05bdb8f3006f55cf90e4c01dca288",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "6bad8548330e9255c37ab1043e78d96d4d046e9cc40e4c7df2eb41689b96b04c",
+      "tests/manual/characterize_manual.py": "f93b02bf13f1ecd618c697a93076babf607a8e2ea541fa2a369463ee890bc732",
+      "tests/manual/current_launchers.py": "616cf967e00e95d1f21cccebade8f51df13048a73f611c6219fc663b7522e26e",
+      "tests/manual/README.md": "7017e4c23fbb442dc9a96cab1e1fbaf94a57c3e630d0fddd372c0f65360adc80",
+      "tests/output/characterize_output.py": "cb54ebe2cf3351a6cde2e72d446a3e5cdb8644cd8a03dab879cd9b22f9a40283",
+      "tests/output/README.md": "2db938f7e05e509df3f345acf464ee1fb8324a4e33d77652e86096db1b880d63",
+      "tests/paths/characterize_paths.py": "89b62ea97fac55f6a34547daa83903662ff69859cde1c03d7e5faec25da59dc6",
+      "tests/paths/README.md": "dc749f95f72f3245432e6c1a875e66afff2151e03b9789982f015de0cdae1dec",
+      "tests/plans/characterize_plan.py": "9c66af6220369eeb23b581a345e6a1e41adc96189f1ef99d7e1d4ad3ed6c0d36",
+      "tests/plans/README.md": "4947c01dc5aa952b2d8d0116468b80cd41a2ed963ed03253d68472df6b531777",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Process.Tests.ps1": "b3baf33e0cb9cd9a7e18f53b372391459e32422730e7cd50d6c3609a0b19c423",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/process/characterize_process.py": "222b7f728d4475cd2e0095902ea07eb943d0508009020330388513a7654a82ac",
+      "tests/process/fake_engine.py": "4565e7ee541dbf067ed79dad45db8ec0d11fc0b2cee557246292537e4d88a67d",
+      "tests/process/native_child.py": "86e154f7a431064df2cb0084f64fa02ab90a8a66541ede4f0a0336c39ac24b12",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "5c8862352d7af399da7c3a1d583b665f728098d9160edda1872623015953f2f9",
+      "tests/process/validate_process_report.py": "8aa95c947dd0859f7021e7170793d458362edd4986f8b3d5fb1e89deaa635201",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_conversion.py": "5a71dbc76e25cc71458bf193ddb4b2e26f7b95125a8bc2034df0c492041a53f2",
+      "tests/python/test_diagnostics.py": "679881b1e7dfe42182cda2c8f2fdb53f46c49b8d94d8e5df00e20d0e2f035f0a",
+      "tests/python/test_extraction.py": "39379fe74b81853e27be935df3a27c8310eadc7b9b63ff185b704bc1adfab5a5",
+      "tests/python/test_filenames.py": "6a94b7d1669f6d7c264723f35ce56dbfa15cf246924ad2f7d99abf157e0857f4",
+      "tests/python/test_level1.py": "2a672b8edcce9ca6d3e6cbda92c2be82b5aaead01821ade130906787163a6895",
+      "tests/python/test_level2.py": "412f15045a78cf2f9fcef1de92516130a6a1d5f98c6de24fd63e5da142564b09",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_output.py": "a4272febb3d7e60699eee5e974007c30cda1ba12fccb3fdddb1381755355b55e",
+      "tests/python/test_plan.py": "0d3fcca41245444dc8c1174816a2a8738295ceb4f359c2055dc5414adfbce8c7",
+      "tests/python/test_process_receipt.py": "48dad0f2ffbab4b62e6712a5127f4ef03e2ed55b0deac0d8bb990a23a507eda3",
+      "tests/python/test_runner.py": "69ef17ca9a3a57969deef23a9e8fa3110469b3cc25b03f8bc8c9adaba3567506",
+      "tests/python/test_runtime_receipt.py": "c1a695877fddd54b5c04cf5ecbbdb9f4e7e234432c03b08c562c23481f980232",
+      "tests/README.md": "8fc76fc5a8021004f072fe365a55d94f9c75a35bfd8cd6c9d5845491250fe5c7",
+      "tests/run_tests.py": "3a537fc506ce54f84c3e2691ab9141ad4e493bca911097f48bd8821f4425f4c0",
+      "tests/runtime/characterize_runtime.py": "009bde67976784fbc7c32c69e18616547826fff396f1cff81af90bf3b5565e54",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "94e5c6d90f7611ebd09575cc2d950488dfb9ba6f1413a06ef7887e01517b694a",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "WinBookSplit.ps1": "8370f2e74250c0d5598858dee79c7e884b1804e60d75003c6fba951e47bdd47d"
+    },
+    "tested_paths_digest": "7ae333509eaa80abf92529e5ed720c65e7a3cf307d92bb0c18e4fc0c43e689e7",
+    "meaning": "Actual materialized pre-commit worktree bytes. Evidence/reporting files are excluded from this source manifest; Git blob normalization is a different identity.",
+    "source_unchanged": true,
+    "tested_path_count": 76,
+    "clean_commit_full_rerun": false
+  },
+  "environment": {
+    "version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "executable": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+    "base_prefix": "<official-CPython3148-root>",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "isolated": 1,
+    "no_bytecode": true,
+    "GIL_disabled": false,
+    "imports": {
+      "pypdf": {
+        "version": "6.19.0",
+        "origin": "<M2-T05-root>\\dev-venv\\Lib\\site-packages\\pypdf\\__init__.py"
+      },
+      "reportlab": {
+        "version": "5.0.1",
+        "origin": "<M2-T05-root>\\dev-venv\\Lib\\site-packages\\reportlab\\__init__.py"
+      },
+      "PIL": {
+        "version": "12.3.0",
+        "origin": "<M2-T05-root>\\dev-venv\\Lib\\site-packages\\PIL\\__init__.py"
+      },
+      "charset_normalizer": {
+        "version": "3.5.2",
+        "origin": "<M2-T05-root>\\dev-venv\\Lib\\site-packages\\charset_normalizer\\__init__.py"
+      }
+    }
+  },
+  "os_observation": {
+    "observed_at": "2026-10-09T12:54:58.2320319Z",
+    "ProductName": "Windows 10 Pro",
+    "DisplayVersion": "26H2",
+    "CurrentBuildNumber": "26300",
+    "UBR": 9457,
+    "EditionID": "Professional",
+    "InstallationType": "Client",
+    "LongPathsEnabled": 1
+  },
+  "shell_tools": {
+    "root": "<shell-tool-root>",
+    "saved_files": [
+      {
+        "sha256": "7ffd9a3541ed1019900487bac25b2586b8000b066a1e621e9fb0f73344c4aaf0",
+        "path": "Pester/6.2.0/bin/net462/Pester.dll",
+        "size": 153064
+      },
+      {
+        "sha256": "665e421670b0167e62a4c29c2464e30eced69e01f7a3993ec5e1e77ed5b75efd",
+        "path": "Pester/6.2.0/bin/net8.0/Pester.dll",
+        "size": 159208
+      },
+      {
+        "sha256": "5eb70b28e54b1000cbd9e49dded8bd9c0a8fc29364c450a1b586a6f657e57b01",
+        "path": "Pester/6.2.0/en-US/about_Pester.help.txt",
+        "size": 2954
+      },
+      {
+        "sha256": "254623869fd078771e7f468f53412dc454abf3e73a988325b3617d987574c885",
+        "path": "Pester/6.2.0/en-US/about_PesterConfiguration.help.txt",
+        "size": 12763
+      },
+      {
+        "sha256": "b3f9d0e11cbd3ec6944ac37889510a0b70ed79ef56079088d3ee8a8558ad2260",
+        "path": "Pester/6.2.0/Pester.Format.ps1xml",
+        "size": 28660
+      },
+      {
+        "sha256": "ea8445218d46eeb69dd08827d38222f1d23c592966722ecfd0bdc419bf045543",
+        "path": "Pester/6.2.0/Pester.psd1",
+        "size": 22918
+      },
+      {
+        "sha256": "04633d1fa5e2a28debc7b763b63adad7b477aeea88949fab9161cba04369eb5d",
+        "path": "Pester/6.2.0/Pester.psm1",
+        "size": 1125920
+      },
+      {
+        "sha256": "e81800adbea80275c85defdc491411dc5fe664441e6397ea347ed43ca4e44535",
+        "path": "Pester/6.2.0/Pester.ScriptScope.ps1",
+        "size": 17212
+      },
+      {
+        "sha256": "f221b127fbca8ffbc0b065e97daf5376f5c058ceaa7f6f31242e7aec2a900e0c",
+        "path": "Pester/6.2.0/PesterConfiguration.Format.ps1xml",
+        "size": 29169
+      },
+      {
+        "sha256": "face94d4975a0e7d01b376f9fb2fba298be61a3ca3b108799749df408d4bfefc",
+        "path": "Pester/6.2.0/schemas/Cobertura/coverage-loose.dtd",
+        "size": 2208
+      },
+      {
+        "sha256": "7effc41ffc755dbb2f4626653753ad7d533050f1685260e219951d6e9e5a2a94",
+        "path": "Pester/6.2.0/schemas/JaCoCo/report.dtd",
+        "size": 2912
+      },
+      {
+        "sha256": "db8a5fc7e72267f3983a3470d4fa532a0f9349df4dad699df9e2527b40690b94",
+        "path": "Pester/6.2.0/schemas/JUnit4/junit_schema_4.xsd",
+        "size": 4475
+      },
+      {
+        "sha256": "19baf3e207534c770ffb6c7d470e84f22a55271f684d29f4ec34c50308d98db7",
+        "path": "Pester/6.2.0/schemas/NUnit25/nunit_schema_2.5.xsd",
+        "size": 5933
+      },
+      {
+        "sha256": "67e39db6a3251ba20a1bbdec215168b50f95c8055801652f0f760553e6120a82",
+        "path": "Pester/6.2.0/schemas/NUnit3/TestDefinitions.xsd",
+        "size": 6570
+      },
+      {
+        "sha256": "fbe91c35957f34e3bb2b815edd0445e9cd92dfe5fd2dd734f38b13204f59175d",
+        "path": "Pester/6.2.0/schemas/NUnit3/TestFilterDefinitions.xsd",
+        "size": 3182
+      },
+      {
+        "sha256": "ce31e0cbd6be23c01a253570cef92c10a5689b8d184d3f3a74f2097703d3fc5b",
+        "path": "Pester/6.2.0/schemas/NUnit3/TestResult.xsd",
+        "size": 8679
+      },
+      {
+        "sha256": "d4d74d4e613732974217af5d690b797b40608a4853453cdc538535a2e7026003",
+        "path": "Pester/6.2.0/ThirdPartyNotices.txt",
+        "size": 10023
+      },
+      {
+        "sha256": "6ac5b29a690659d4217f53c8c9a859e013ca3af21082bb5c62c84c42447cb58a",
+        "path": "PSScriptAnalyzer/1.25.0/.signature.p7s",
+        "size": 12873
+      },
+      {
+        "sha256": "878362300df6712cb3cbb98dd369331d54d0b5e07092dca7d14c71dd9aab4f04",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/ubuntu_x64_18.04_6.2.4_x64_4.0.30319.42000_core.json",
+        "size": 14057147
+      },
+      {
+        "sha256": "cdb761d8e75be72b78157babd233487a79bf689b0b926ba6ae46f5aef3dc2a94",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/ubuntu_x64_18.04_7.0.0_x64_3.1.2_core.json",
+        "size": 14800607
+      },
+      {
+        "sha256": "196beb5415dfb8b63e3e3678268f2990e2239401a98b86d89800749504b69b66",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-4_x64_10.0.18362.0_6.2.4_x64_4.0.30319.42000_core.json",
+        "size": 17942759
+      },
+      {
+        "sha256": "66a64ccee6b4bcb3b68842843693849d2beb88cd1ddde525a1c4f0132f1609bf",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-4_x64_10.0.18362.0_7.0.0_x64_3.1.2_core.json",
+        "size": 33660662
+      },
+      {
+        "sha256": "9a99ccc7d25a974190e5352e0f773e24039d2fe831307d666a7502310d7c0907",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-48_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json",
+        "size": 23653457
+      },
+      {
+        "sha256": "10cabb80ec1e5567a96d50f053854c833b7b9701b01ffc1e4700dc115fa2ba4a",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework.json",
+        "size": 23727309
+      },
+      {
+        "sha256": "d889900200c1bed3f098991ccef0c84d48226fdb5be722c1018102819a1a38ad",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.14393.0_6.2.4_x64_4.0.30319.42000_core.json",
+        "size": 15076121
+      },
+      {
+        "sha256": "00d4fa18798da98b27a047f9cf629c71185e51e37ec627872450d4d2f7c67d87",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.14393.0_7.0.0_x64_3.1.2_core.json",
+        "size": 30796461
+      },
+      {
+        "sha256": "01c0d51beb49979d55f52e0dd58cb06bafd8d0553e197b65d4b17955ce97270d",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json",
+        "size": 24690250
+      },
+      {
+        "sha256": "7fa1bbbc38a59984f9bb661dd653f64f6116b6661a4efcd70e9dd051c7576f84",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.17763.0_6.2.4_x64_4.0.30319.42000_core.json",
+        "size": 17196301
+      },
+      {
+        "sha256": "bab82f4bc80c15bf3f2a2ef967c7244aae24acf9984b7910a3d95c0291a62b75",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_10.0.17763.0_7.0.0_x64_3.1.2_core.json",
+        "size": 32967223
+      },
+      {
+        "sha256": "60c3f51e87d332989cf0082dd8b785fa412f8b1cd488f7c8417560022e0bcc28",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework.json",
+        "size": 21257822
+      },
+      {
+        "sha256": "fc584750c710acf52d21eaf09b19ef52d54f87c95a67cb6c55fdd46746584153",
+        "path": "PSScriptAnalyzer/1.25.0/compatibility_profiles/win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework.json",
+        "size": 21716676
+      },
+      {
+        "sha256": "efb6db773eb0790ddc793e04905eddcb14ae9d070202f74d1b8fc29d3fb604d0",
+        "path": "PSScriptAnalyzer/1.25.0/en-US/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll-Help.xml",
+        "size": 109093
+      },
+      {
+        "sha256": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+        "path": "PSScriptAnalyzer/1.25.0/LICENSE",
+        "size": 1073
+      },
+      {
+        "sha256": "a7c3a149c660c0cd0ac6e15f391d749c2dde918b45ed770fde95e8f4c924b76b",
+        "path": "PSScriptAnalyzer/1.25.0/Microsoft.PowerShell.CrossCompatibility.dll",
+        "size": 143392
+      },
+      {
+        "sha256": "43450722c34b139c1934af56e7e0cc483ea21417eb4e2b8308445fc70890bc18",
+        "path": "PSScriptAnalyzer/1.25.0/Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll",
+        "size": 419872
+      },
+      {
+        "sha256": "145ba1459672da808757b2bc6c6494926a13d92353ccd6a0354a0d5d8fe14a5f",
+        "path": "PSScriptAnalyzer/1.25.0/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll",
+        "size": 227360
+      },
+      {
+        "sha256": "99c6184c081fbe1b965c168d109c0112f3f2aa1e97d86601411773c34d3ce6a3",
+        "path": "PSScriptAnalyzer/1.25.0/Newtonsoft.Json.dll",
+        "size": 731640
+      },
+      {
+        "sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791",
+        "path": "PSScriptAnalyzer/1.25.0/PSScriptAnalyzer.psd1",
+        "size": 17822
+      },
+      {
+        "sha256": "b69773fc9080cfb958dc13c95e42a625553e9bca5dcbedc27231e5c183a4e869",
+        "path": "PSScriptAnalyzer/1.25.0/PSScriptAnalyzer.psm1",
+        "size": 17647
+      },
+      {
+        "sha256": "d92cb413e18927bb64d9bac221191fc69cf1659f55c72c27ddf1fe19ef774caf",
+        "path": "PSScriptAnalyzer/1.25.0/PSv7/Microsoft.PowerShell.CrossCompatibility.dll",
+        "size": 153632
+      },
+      {
+        "sha256": "c8aa9890743a6d9c47ccfee5ec33caaee58c30591454d3ccf379720025a1533c",
+        "path": "PSScriptAnalyzer/1.25.0/PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll",
+        "size": 472088
+      },
+      {
+        "sha256": "c377532a1d8d8975e598891602b5c3ed39ab719f589d054eb889d11eb6ccaea3",
+        "path": "PSScriptAnalyzer/1.25.0/PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll",
+        "size": 252488
+      },
+      {
+        "sha256": "eeecdf663a3e854f67bbbb872dc45577e785a581c1ca86ea2ae1d8215b8505d6",
+        "path": "PSScriptAnalyzer/1.25.0/PSv7/Pluralize.NET.dll",
+        "size": 30264
+      },
+      {
+        "sha256": "113ea1d2fe4f0ce77aa116cf265a2de35f82f881a4e6bd32e35756e08f6786e5",
+        "path": "PSScriptAnalyzer/1.25.0/README.md",
+        "size": 8629
+      },
+      {
+        "sha256": "d647e6c1cdfe4052d2382f2d76b899ec596ec71d23d724553b93f74827d49044",
+        "path": "PSScriptAnalyzer/1.25.0/ScriptAnalyzer.format.ps1xml",
+        "size": 20940
+      },
+      {
+        "sha256": "34246566553fe97c96a9ffea8aeefee353c1e07e41a72d3bfe9fdf826cc71d2a",
+        "path": "PSScriptAnalyzer/1.25.0/ScriptAnalyzer.types.ps1xml",
+        "size": 18802
+      },
+      {
+        "sha256": "abe73f3d2a40900de478d8d6a9b9c76e7e9bf602309cdd3cee4355f1fcd1b459",
+        "path": "PSScriptAnalyzer/1.25.0/SECURITY.md",
+        "size": 2701
+      },
+      {
+        "sha256": "520c023182de4f23235af284db33d7e12cbc285aef6e82e45cb76539719140c0",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/CmdletDesign.psd1",
+        "size": 15025
+      },
+      {
+        "sha256": "8978821a976903e845dfbb591d2a82ab97cfd39291313b2bdd9bc114fbbdb592",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/CodeFormatting.psd1",
+        "size": 16330
+      },
+      {
+        "sha256": "19eae3db753e04223b486f5246f53245e70e5cec342e48dc38d4b67340428f62",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/CodeFormattingAllman.psd1",
+        "size": 16331
+      },
+      {
+        "sha256": "1dadb2ffd5e542cc009645d861b31c8bcb85c1b5ef9dabe7ea0435047d357610",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/CodeFormattingOTBS.psd1",
+        "size": 16331
+      },
+      {
+        "sha256": "e501d3f729ba3bf4275e5c08852db5b1e971930323df14532cad34b500ea5198",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/CodeFormattingStroustrup.psd1",
+        "size": 16375
+      },
+      {
+        "sha256": "4ac89539ca47eae3eb1d95547efc59894a8a6e062f86d52840da35edf189131b",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/core-6.1.0-linux-arm.json",
+        "size": 141310
+      },
+      {
+        "sha256": "a43e4b44e055410dd18742a281a704945aa1f39519b19c344d7cd78f4a4757b5",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/core-6.1.0-linux.json",
+        "size": 141310
+      },
+      {
+        "sha256": "70703e205682f5d216320143ed50f9acc9cf4d3655240435fcd109ac504a3b05",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/core-6.1.0-macos.json",
+        "size": 141310
+      },
+      {
+        "sha256": "e35c5ab33003a8a4fbbd5aff0f659a920743080f9337c90819d4001c7928720e",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/core-6.1.0-windows.json",
+        "size": 184113
+      },
+      {
+        "sha256": "e0dd156000b822ff10a9347ef3ba6a17c00c2136811acea01ef47d6dd1c092a7",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/desktop-2.0-windows.json",
+        "size": 287033
+      },
+      {
+        "sha256": "60aae851911741248d3414925cbaf4c59e8743efaf5a5005ed129db257dc4c4f",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/desktop-3.0-windows.json",
+        "size": 1083242
+      },
+      {
+        "sha256": "d11970a52c011335e3f93dea7f3da887428caf1f12807a803ec65a8068b77ba8",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/desktop-4.0-windows.json",
+        "size": 1213067
+      },
+      {
+        "sha256": "b829ff1493cadd5284c5bc326487107a0617b0b8c3799c5b8dbfcbb78ac8f652",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/desktop-5.1.14393.206-windows.json",
+        "size": 1821748
+      },
+      {
+        "sha256": "c1305c948b6ccc4dad6ae387ba7b9dc71ce7043df78e40b1e9e60485d6f76762",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/DSC.psd1",
+        "size": 14674
+      },
+      {
+        "sha256": "9e68228af73b868a35c63d1202c21b55aa09e846223ecda8e070a10e4bdbfdd8",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/PSGallery.psd1",
+        "size": 15735
+      },
+      {
+        "sha256": "3fa7e84b1c8f8eb104b9ac4de2f12bd9bac588cd56c75456c018711fd79ee6de",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/ScriptFunctions.psd1",
+        "size": 15157
+      },
+      {
+        "sha256": "7a78670582d1b8309974131c3377b3a74163b5409ab390518c8a49ba44ff40ab",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/ScriptingStyle.psd1",
+        "size": 14736
+      },
+      {
+        "sha256": "13c5674bf0eb873aa909161add076117b1573ee3a13650eae6122b5fa5c8bdab",
+        "path": "PSScriptAnalyzer/1.25.0/Settings/ScriptSecurity.psd1",
+        "size": 14985
+      },
+      {
+        "sha256": "2328c49f600036e032cbcca36b850ce4f2ae5db31a67d1485f779be03facf499",
+        "path": "PSScriptAnalyzer/1.25.0/ThirdPartyNotices.txt",
+        "size": 1732
+      }
+    ],
+    "verified_count": 66
+  },
+  "hosts": [
+    {
+      "id": "PS51",
+      "host_version": "5.1.26100.9444",
+      "shell_executable": "<WindowsPowerShell-exe>",
+      "stored_policies": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "LocalMachine"
+        }
+      ],
+      "policies_after": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "LocalMachine"
+        }
+      ]
+    },
+    {
+      "id": "PS7",
+      "host_version": "7.6.5",
+      "shell_executable": "<PowerShell7-exe>",
+      "stored_policies": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "RemoteSigned",
+          "scope": "LocalMachine"
+        }
+      ],
+      "policies_after": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "RemoteSigned",
+          "scope": "LocalMachine"
+        }
+      ]
+    }
+  ],
+  "full_run": {
+    "success": true,
+    "observed_at": "2026-10-09T13:04:32.112189+00:00",
+    "layer": "full",
+    "stage_count": 13,
+    "stages": [
+      {
+        "name": "stdlib-unittest",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "340fce890922e3ce9dd4c5ad8c233c86fcf40f702362c3db394ec50445130681",
+        "stderr_sha256": "cfbf0a923a84969243570c15523e59e88b1caa2121ef41035b1e3588f05e19b0",
+        "evidence_sha256": null
+      },
+      {
+        "name": "shell-0",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "018966bf53cb60e3be45739d0b615e36ec0cd64fb2dc331e24320ce44f76ddff",
+        "evidence_sha256": "6fd26183ebb936fc1ac4fb4c19b0d57cb43b23c6875da0559ea68b74fa3ddf99",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0
+        },
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "pester": {
+          "passed": 40,
+          "failed": 0,
+          "total": 40,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings_count": 43,
+        "legacy_application_analysis_is_acceptance_pass": false
+      },
+      {
+        "name": "shell-1",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "e19a0b1ce6b28c1f2f4cff743b94243c35231b50314f2eabfa062806238cd904",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0
+        },
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "RemoteSigned"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ]
+        },
+        "pester": {
+          "failed": 0,
+          "skipped": 0,
+          "failed_containers": 0,
+          "result": "Passed",
+          "passed": 40,
+          "total": 40,
+          "not_run": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings_count": 43,
+        "legacy_application_analysis_is_acceptance_pass": false
+      },
+      {
+        "name": "manual-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "fabc54ebc1658650f8f5f93f002f834518faa76355f62ab83db612731cf36747",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "33f8dcd019f18c5109169c8e6c2559b2cd201c137091fbd709672f4c8444e717",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "MANUAL_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "level1-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "e8d14c5f8d9e8d2ee8c68ddefc726f292a71fd03dd6f0644cddfc0f2264e957b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "38d84caae81768c44fb2a29367839ea6b6b61579c5c2556b6745f1f4f9fb152a",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "LEVEL1_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "level2-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "b8e0f3b00ac520e47bfe48f03b2210adae7db399061d899924313cdd7bc5819e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "a55ad259b3bcd7473747fabd39971a0f675ff22c0517705f615fc2d7905cd999",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "LEVEL2_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "shared-plan-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "9bb59687727203e5bbcee5db57daafcc6048323523e2d60023994ef478209e1b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "33318805e2e003da2804db3c8795ffd030e7cbb0df860ec66368381a5172e99f",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "SHARED_PLAN_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "diagnostic-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "3c2232272859f695083ba2bbf9b2ffd0750b8257214ae90fedb38fcf9934bbf8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "59ff640f2dd7aeb99ca164fe22b9b5b8c2bb634258a16add2da0feabc04e398f",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "DIAGNOSTIC_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "output-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "1a447277d2b9192b2a235273f7494411285690480b4d1b2070eb698458e8aabc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "a3523931a85879cd1e64278d308479c78764a4274eecfcbd3638e78dd5c06d8c",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "OUTPUT_TRANSACTION_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "path-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "696c91d26a5f5cf4995024c76cc4997f24685269c5a79a868e3598f23fa2caf3",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "9df71ec5d130b1c1dfdd8117de1687603c191bf24a62cd5da3e0f49164157242",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "PATH_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "machine_settings_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "conversion-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 300,
+        "stdout_sha256": "c63e533aff9fd900627331d9a564d3f20ddf596854bcf23804d5eea60c9bf3a5",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "c49c88a77df72d435ac02c70178709e33b0e78a93a1c3b2e66ce9da9e4b8623e",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "CONVERSION_REGRESSION_PASSED",
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "machine_settings_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "runtime-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 600,
+        "stdout_sha256": "a7230d2fb67806dddca0a915ebd57f905ec77fa42c7c2909e4ebb54eccf53719",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "9dc50863421e4ab3ffcf491057950ced0dfd09add3169a7fe9a1f20c3ff6356d",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "RUNTIME_REGRESSION_PASSED",
+          "case_count": 33,
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "machine_settings_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      },
+      {
+        "name": "process-regression",
+        "exit_code": 0,
+        "timed_out": false,
+        "timeout_seconds": 600,
+        "stdout_sha256": "931243aadebc9c0aaab57d3426d1a1e35d8c9962fb25679c986efa782e194e31",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "evidence_sha256": "82ff5c3f4ef23411099058a53b3bdd3675b8d6c00897e97f22a216a433ccfb00",
+        "evidence_result": {
+          "success": true,
+          "exit_code": 0,
+          "result": "PROCESS_REGRESSION_PASSED",
+          "case_count": 35,
+          "owned_temp_removed": true,
+          "source_unchanged": true,
+          "input_and_neighbor_unchanged": true,
+          "machine_settings_unchanged": true,
+          "baseline_guards_preserved": true
+        }
+      }
+    ],
+    "python_unit_count": 192,
+    "owned_work_directory_removed": true,
+    "synthetic_input_unchanged": true
+  },
+  "final_full_invocation": {
+    "argv": [
+      "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "<repo>\\tests\\run_tests.py",
+      "--layer",
+      "full",
+      "--report",
+      "<M2-T05-root>\\full-final-02.json",
+      "--tool-root",
+      "<shell-tool-root>",
+      "--shell-path",
+      "<WindowsPowerShell-exe>",
+      "--shell-path",
+      "<PowerShell7-exe>",
+      "--calibre-path",
+      "<Calibre915>/ebook-convert.exe"
+    ],
+    "cwd": "<M2-T05-root>\\full-final-02-cwd",
+    "started_at": "2026-10-09T13:04:29.042611+00:00",
+    "finished_at": "2026-10-09T13:11:51.892030+00:00",
+    "exit_code": 0,
+    "stdout_sha256": "5b9ac36ac8afb439a8e3eb800322c728b1b0c412f66bb42588f3e353350e1f13",
+    "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  "process_acceptance": {
+    "actual_case_count": 35,
+    "actual_native_cases": [
+      {
+        "id": "PS51-flood",
+        "kind": "flood",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 24084,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.12401939999999999,
+          "StdoutTotalBytes": 2097390,
+          "StderrTotalBytes": 2097215,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "df89d4ac498ae3d765d0719247429d65fcc84eb555dca57ccf6ab349b5acadb6"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "5d1488c69efc5eceeba6b12c0d0a2ffacad88341c391e6e625ef0c4f8b5a044d"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-fast-tail",
+        "kind": "fast-tail",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 23436,
+          "ExitCode": 23,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.09630799999999999,
+          "StdoutTotalBytes": 33,
+          "StderrTotalBytes": 25,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 33,
+            "sha256": "5c98ab41420615c35451e777b48f4729d655fb9bc977328a275f6a74c1793b31"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 25,
+            "sha256": "afc8b1628dc07a551bbb41d5a5a227564d0897ada9dbfc3920efe12a14d961ca"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-unicode-boundary",
+        "kind": "unicode-boundary",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 27128,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1046059,
+          "StdoutTotalBytes": 65587,
+          "StderrTotalBytes": 65587,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "348ce313b3142caf15d7adf1bbfdde665801099af9b6a80c24dc691bd377ae68"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 65535,
+            "sha256": "126f51df33a5309c8e7ad9754c2ba65914a6f880640fcc2cce10fcfd9285b9c5"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-arguments",
+        "kind": "arguments",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 13768,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1002559,
+          "StdoutTotalBytes": 434,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 434,
+            "sha256": "df81f02b617942fe850da6f773329f49f87246136537432f2dece002a93c2174"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 434,
+              "sha256": "df81f02b617942fe850da6f773329f49f87246136537432f2dece002a93c2174"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ],
+        "literal_argument_echo": {
+          "argv": [
+            "",
+            "space value",
+            "[%!] & (literal)",
+            "O'Brien",
+            "a\"b",
+            "end\\",
+            "slash\\\\\"quote",
+            "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+            "$(Set-Content injected.txt); __import__('os').system('echo injected')"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        }
+      },
+      {
+        "id": "PS51-large-frame",
+        "kind": "large-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 27300,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.0973462,
+          "StdoutTotalBytes": 100261,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": true,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "08f7331e66ec18ed4eab2fc362bf5b038f24c1b78c9a9ed7d7c182b048fa9c19"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 100261,
+              "sha256": "a6db12673b3c0240c539e3f240477acca92d7844b5a50f458ad21245d83ba360"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-oversized-frame",
+        "kind": "oversized-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 21548,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": "A structured result line exceeds the bounded result limit.",
+          "ElapsedSeconds": 0.0994501,
+          "StdoutTotalBytes": 4308,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 4308,
+            "sha256": "e1b160464521dab7051e2b3a71aa85f12fbd6d0c1b1035b233eaabcb9079145b"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-duplicate-frames",
+        "kind": "duplicate-frames",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 25772,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.0885748,
+          "StdoutTotalBytes": 474,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 474,
+            "sha256": "74c65b2230b34c59acf1c242bc896f7763e01946c97d0da4d5d43a9ddb9383a6"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            },
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            }
+          ]
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-no-frame",
+        "kind": "no-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 23048,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.08966389999999999,
+          "StdoutTotalBytes": 21,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 21,
+            "sha256": "d405f98a23fff95a610c52c7fc9939befb3f42521458a4a4ad01d384da3c2a7b"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-malformed-frame",
+        "kind": "malformed-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 18092,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1111689,
+          "StdoutTotalBytes": 21,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 21,
+            "sha256": "a798968e2b206abd8a229e05deb33b6b779f593a6858422ea94ede0f53ca81c9"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 21,
+              "sha256": "a798968e2b206abd8a229e05deb33b6b779f593a6858422ea94ede0f53ca81c9"
+            }
+          ]
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-timeout-tree",
+        "kind": "timeout-tree",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 13776,
+          "ExitCode": 1,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.026977,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 13776,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 8804,
+            "running": false,
+            "receipt_sha256": "7d72a241a2e5c9c8ab53dbf012f1a9114f84d9a39e1ab24e6d3536189c87232f"
+          },
+          {
+            "role": "authored_child",
+            "pid": 27104,
+            "running": false,
+            "receipt_sha256": "3746b9a19699e87a3be9067a252117a66169b162503a9eab4751ff86b397167c"
+          }
+        ],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-cancel-tree",
+        "kind": "cancel-tree",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 25868,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": true,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.5200794,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 25868,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 3352,
+            "running": false,
+            "receipt_sha256": "d2cb2fc90c47685385e66ad9837cfe9556b5e778c339d185b75b91d23b86c768"
+          },
+          {
+            "role": "authored_child",
+            "pid": 24572,
+            "running": false,
+            "receipt_sha256": "89279ab17be2a1211b23ec177a0aeeeea15fe1538727562568fcf10094a87d06"
+          }
+        ],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-inherited-pipe",
+        "kind": "inherited-pipe",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 23236,
+          "ExitCode": 0,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.0058475,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 23236,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 27200,
+            "running": false,
+            "receipt_sha256": "d9e8dede5fb6019fa6130f24f3af6459800ac501d753092a20007d38a832a1a7"
+          },
+          {
+            "role": "authored_child",
+            "pid": 9628,
+            "running": false,
+            "receipt_sha256": "9bdaadd3098c4f8a2271cb1a8850e82624dd83bbc79ab2b8611bd1967fa238cc"
+          }
+        ],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS51-detached-pipe",
+        "kind": "detached-pipe",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "5.1.26100.9444",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 24108,
+          "ExitCode": 0,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.0167926999999999,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 24108,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 16060,
+            "running": false,
+            "receipt_sha256": "7d860bd3d3c627b3d604e6080ade75568680d3526a6f7159be832c9873cd06c9"
+          },
+          {
+            "role": "authored_child",
+            "pid": 26408,
+            "running": false,
+            "receipt_sha256": "4ea96a6c1585bb5d7670f4ecbb854df2a54023a69211528c0bd4c6accea0e7cb"
+          }
+        ],
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-flood",
+        "kind": "flood",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 21844,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1375024,
+          "StdoutTotalBytes": 2097390,
+          "StderrTotalBytes": 2097215,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "df89d4ac498ae3d765d0719247429d65fcc84eb555dca57ccf6ab349b5acadb6"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "5d1488c69efc5eceeba6b12c0d0a2ffacad88341c391e6e625ef0c4f8b5a044d"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-fast-tail",
+        "kind": "fast-tail",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 22756,
+          "ExitCode": 23,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1045938,
+          "StdoutTotalBytes": 33,
+          "StderrTotalBytes": 25,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 33,
+            "sha256": "5c98ab41420615c35451e777b48f4729d655fb9bc977328a275f6a74c1793b31"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 25,
+            "sha256": "afc8b1628dc07a551bbb41d5a5a227564d0897ada9dbfc3920efe12a14d961ca"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-unicode-boundary",
+        "kind": "unicode-boundary",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 11360,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.0972553,
+          "StdoutTotalBytes": 65587,
+          "StderrTotalBytes": 65587,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "348ce313b3142caf15d7adf1bbfdde665801099af9b6a80c24dc691bd377ae68"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 65535,
+            "sha256": "126f51df33a5309c8e7ad9754c2ba65914a6f880640fcc2cce10fcfd9285b9c5"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-arguments",
+        "kind": "arguments",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 18184,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.0978038,
+          "StdoutTotalBytes": 434,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 434,
+            "sha256": "df81f02b617942fe850da6f773329f49f87246136537432f2dece002a93c2174"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 434,
+              "sha256": "df81f02b617942fe850da6f773329f49f87246136537432f2dece002a93c2174"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ],
+        "literal_argument_echo": {
+          "argv": [
+            "",
+            "space value",
+            "[%!] & (literal)",
+            "O'Brien",
+            "a\"b",
+            "end\\",
+            "slash\\\\\"quote",
+            "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+            "$(Set-Content injected.txt); __import__('os').system('echo injected')"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        }
+      },
+      {
+        "id": "PS7-large-frame",
+        "kind": "large-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 21128,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1013001,
+          "StdoutTotalBytes": 100261,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": true,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 65536,
+            "sha256": "08f7331e66ec18ed4eab2fc362bf5b038f24c1b78c9a9ed7d7c182b048fa9c19"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 100261,
+              "sha256": "a6db12673b3c0240c539e3f240477acca92d7844b5a50f458ad21245d83ba360"
+            }
+          ]
+        },
+        "protocol_rejected": false,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-oversized-frame",
+        "kind": "oversized-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 26860,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": "A structured result line exceeds the bounded result limit.",
+          "ElapsedSeconds": 0.1080605,
+          "StdoutTotalBytes": 4308,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 4308,
+            "sha256": "e1b160464521dab7051e2b3a71aa85f12fbd6d0c1b1035b233eaabcb9079145b"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-duplicate-frames",
+        "kind": "duplicate-frames",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 8876,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.1092624,
+          "StdoutTotalBytes": 474,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 474,
+            "sha256": "74c65b2230b34c59acf1c242bc896f7763e01946c97d0da4d5d43a9ddb9383a6"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            },
+            {
+              "utf8_size_bytes": 236,
+              "sha256": "8e958b7d0f31e9a3c2d5c5f471d5d8f4c3f3930141be64193f0555fd24ca4e22"
+            }
+          ]
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-no-frame",
+        "kind": "no-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 15668,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.093839,
+          "StdoutTotalBytes": 21,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 21,
+            "sha256": "d405f98a23fff95a610c52c7fc9939befb3f42521458a4a4ad01d384da3c2a7b"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-malformed-frame",
+        "kind": "malformed-frame",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 24816,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.0950538,
+          "StdoutTotalBytes": 21,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 21,
+            "sha256": "a798968e2b206abd8a229e05deb33b6b779f593a6858422ea94ede0f53ca81c9"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": [
+            {
+              "utf8_size_bytes": 21,
+              "sha256": "a798968e2b206abd8a229e05deb33b6b779f593a6858422ea94ede0f53ca81c9"
+            }
+          ]
+        },
+        "protocol_rejected": true,
+        "pid_observations": [],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-timeout-tree",
+        "kind": "timeout-tree",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 3508,
+          "ExitCode": 1,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.036555,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 3508,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 17352,
+            "running": false,
+            "receipt_sha256": "e34c068eb4efecad5cd66684c3caad6544b331bb6568d8027900e0b15c747fd5"
+          },
+          {
+            "role": "authored_child",
+            "pid": 26976,
+            "running": false,
+            "receipt_sha256": "8f50bd799bdefb652ba7ccd84593c7aa91fb082847128f17761d5bd99db8c436"
+          }
+        ],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-cancel-tree",
+        "kind": "cancel-tree",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 20548,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": true,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 0.541452,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 20548,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 22732,
+            "running": false,
+            "receipt_sha256": "02a14fa0d8f2f8284b5d5febf51a1e070a6e39b07eedefd88d0fa62d021ba602"
+          },
+          {
+            "role": "authored_child",
+            "pid": 27376,
+            "running": false,
+            "receipt_sha256": "38a86730e85ebff3c6ec076d8e3c791d1cea18d5b06b65910e7ce4ffb219959d"
+          }
+        ],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-inherited-pipe",
+        "kind": "inherited-pipe",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 20308,
+          "ExitCode": 0,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.0175949,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 20308,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 26072,
+            "running": false,
+            "receipt_sha256": "555fa491db2302ab0ee76b3787773a06c0e0f6a3940ec602d7880a9ae8b20efb"
+          },
+          {
+            "role": "authored_child",
+            "pid": 22940,
+            "running": false,
+            "receipt_sha256": "13d5778f622d93ac9421cf5a1723b1c58ddc57c531179dc291e2c1c6c694d6a9"
+          }
+        ],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      },
+      {
+        "id": "PS7-detached-pipe",
+        "kind": "detached-pipe",
+        "passed": true,
+        "actual_process": true,
+        "host_version": "7.6.5",
+        "shell_executable": "<PowerShell7-exe>",
+        "unrelated_process_alive": true,
+        "supervisor": {
+          "Pid": 9284,
+          "ExitCode": 0,
+          "TimedOut": true,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StreamError": null,
+          "StopError": null,
+          "ResultError": null,
+          "ElapsedSeconds": 1.0084244,
+          "StdoutTotalBytes": 0,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "StdoutTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "StderrTail": {
+            "utf8_size_bytes": 0,
+            "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          },
+          "ResultRecords": []
+        },
+        "protocol_rejected": false,
+        "pid_observations": [
+          {
+            "role": "launched",
+            "pid": 9284,
+            "running": false
+          },
+          {
+            "role": "authored_parent",
+            "pid": 20388,
+            "running": false,
+            "receipt_sha256": "fe8d84a3891517a1f0a84a99961f46f2585bef6d9e5b19cf2d07d733e3f1b9e8"
+          },
+          {
+            "role": "authored_child",
+            "pid": 27224,
+            "running": false,
+            "receipt_sha256": "404da35d7a85d1cceec7940c0ea53d398e4f7c5bad432f0b8646c8ef0d0063de"
+          }
+        ],
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<repo>\\tests\\process\\Probe-Process.ps1",
+          "-PayloadPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\payload.json",
+          "-ReportPath",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-native\\native-report.json"
+        ]
+      }
+    ],
+    "actual_application_cases": [
+      {
+        "id": "PS51-app-flood",
+        "kind": "flood",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\c",
+        "exit_code": 1,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 137617,
+        "log_sha256": "68720aaba9b84e3df1cd87b45be3fd640e3d9c98f529fa9f464dab01539f3f6e",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 25856,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 2097390,
+          "StderrTotalBytes": 2097215,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "ElapsedSeconds": 0.1409127,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 132041,
+          "sha256": "aec347542eb9c1f41224cd0f928c07e7a5593698cb375cb435765ac3b7508189"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "df89d4ac498ae3d765d0719247429d65fcc84eb555dca57ccf6ab349b5acadb6"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "5d1488c69efc5eceeba6b12c0d0a2ffacad88341c391e6e625ef0c4f8b5a044d"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\o",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-flood\\o",
+            "manual",
+            "2,3"
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "PS51-app-fast-tail",
+        "kind": "fast-tail",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\c",
+        "exit_code": 1,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 6728,
+        "log_sha256": "e77afcdf48c8023e3a3a9fa8d8fb59c0a0c576882b999ee4726ce412118c523a",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 25816,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 277,
+          "StderrTotalBytes": 75,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.1062722,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1174,
+          "sha256": "d4655a6b07555763ee74ffc1a95c10ba11b91f7d918d418619eda07278432c54"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 277,
+          "sha256": "e33728f3cb9837bb1f43c7a73d80762d0788990983ea171007108a67cff71769"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 75,
+          "sha256": "f07969ffe97b22991c64546a4c6ffd5fc31546943c167c05ebadc6f566117d19"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\o",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-fast-tail\\o",
+            "manual",
+            "2,3"
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "PS51-app-unicode-hostile",
+        "kind": "unicode-hostile",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "<WindowsPowerShell-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\c",
+        "exit_code": 0,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 11386,
+        "log_sha256": "f7263f54d33a4a458b23ea06d345c0f2f9630c8fd6cd95dd868fcae43b4c0798",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 3,
+        "process_summary": {
+          "Pid": 24944,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 4981,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.321901,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1463,
+          "sha256": "fa420d0e158a4d00b0f81f4fae362251bee64daaff254b99a24b86ce5edb0d31"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 4981,
+          "sha256": "437e80a96498cdb47c2da824e935388bedc9003bec5b7544dd7c7214091996aa"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "manifest_validated": true,
+        "complete_page_content": true,
+        "unicode_titles_preserved": true,
+        "unicode_log_preserved": true,
+        "source_readonly_observed": true,
+        "page_ids": [
+          1,
+          2,
+          3
+        ],
+        "source_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "output_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "expected_names": [
+          "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+          "02 - & % ! [literal] $(Set-Content inject.pdf",
+          "03 - __import__('pathlib').Path('injected.pdf"
+        ],
+        "destination_bound_preview": true,
+        "source_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "actual_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "independent_filename_budget": 45,
+        "independent_title_budget": 36,
+        "outputs": [
+          {
+            "filename": "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "0f6694ea367d707cd73585419a8f9b64ad91e8eeb90ab4496b68af677e98edef"
+          },
+          {
+            "filename": "02 - & % ! [literal] $(Set-Content inject.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "b93b961cae5f30b2f6e8c8c73fbcabdf708e719dfaf1d15de221e05850eac2ee"
+          },
+          {
+            "filename": "03 - __import__('pathlib').Path('injected.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "da7d0b7f42b9014f6c88b277b8edbebf3a9d43756254bb577c22c1d6f7481bf7"
+          }
+        ],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "1",
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 3
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS51-app-unicode-hostile\\o",
+            "1",
+            ""
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "PS7-app-flood",
+        "kind": "flood",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<PowerShell7-exe>",
+        "host_version": "7.6.5",
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\c",
+        "exit_code": 1,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 137584,
+        "log_sha256": "4ed81b78a5a881fd8d5c8f521382e9e6a7ec68999e0dd3c1900823f35971d98d",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 10496,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 2097390,
+          "StderrTotalBytes": 2097215,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "ElapsedSeconds": 0.1257679,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 132040,
+          "sha256": "84e90b626271422860120f00917dd786cad983c0093bab285b1daf7320de2549"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 382,
+          "sha256": "35917edd813625c695cb1eff637dc7bbe9f979fe17d43d13e5a13dbe4e788f00"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "df89d4ac498ae3d765d0719247429d65fcc84eb555dca57ccf6ab349b5acadb6"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "5d1488c69efc5eceeba6b12c0d0a2ffacad88341c391e6e625ef0c4f8b5a044d"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\o",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-flood\\o",
+            "manual",
+            "2,3"
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "PS7-app-fast-tail",
+        "kind": "fast-tail",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<PowerShell7-exe>",
+        "host_version": "7.6.5",
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\c",
+        "exit_code": 1,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 6714,
+        "log_sha256": "5a1fbbe18fb9c30e1342095b6a16b2544580a69deb8724fa80d8f3fe5695d495",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 3312,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 277,
+          "StderrTotalBytes": 75,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.1023757,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1173,
+          "sha256": "622657da095b0cdc6ec59f4a1ec3cdc79471ecda5eeacefa1691a3cd8369845e"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 382,
+          "sha256": "35917edd813625c695cb1eff637dc7bbe9f979fe17d43d13e5a13dbe4e788f00"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 277,
+          "sha256": "e33728f3cb9837bb1f43c7a73d80762d0788990983ea171007108a67cff71769"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 75,
+          "sha256": "f07969ffe97b22991c64546a4c6ffd5fc31546943c167c05ebadc6f566117d19"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\o",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-fast-tail\\o",
+            "manual",
+            "2,3"
+          ]
+        }
+      },
+      {
+        "id": "PS7-app-unicode-hostile",
+        "kind": "unicode-hostile",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<PowerShell7-exe>",
+        "host_version": "7.6.5",
+        "command": [
+          "<PowerShell7-exe>",
+          "-NoProfile",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\Invoke.ps1"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\c",
+        "exit_code": 0,
+        "batch_unchanged": null,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 11351,
+        "log_sha256": "56931d60ba333474f01a38d3296c5ccdb4bd60cf1037d88db72eae1e06eac5fb",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 3,
+        "process_summary": {
+          "Pid": 27400,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 4978,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.3351548,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1462,
+          "sha256": "874b7ff08ecd27bbf496e6fdcd5e16c62a0e848f05485528282be7146dc68021"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 382,
+          "sha256": "35917edd813625c695cb1eff637dc7bbe9f979fe17d43d13e5a13dbe4e788f00"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 4978,
+          "sha256": "f1d7bda97a459526b2526df1d45c26256a2761149e004783a65d7ed76f3baf25"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "manifest_validated": true,
+        "complete_page_content": true,
+        "unicode_titles_preserved": true,
+        "unicode_log_preserved": true,
+        "source_readonly_observed": true,
+        "page_ids": [
+          1,
+          2,
+          3
+        ],
+        "source_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "output_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "expected_names": [
+          "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+          "02 - & % ! [literal] $(Set-Content injecte.pdf",
+          "03 - __import__('pathlib').Path('injected.pdf"
+        ],
+        "destination_bound_preview": true,
+        "source_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "actual_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "independent_filename_budget": 46,
+        "independent_title_budget": 37,
+        "outputs": [
+          {
+            "filename": "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "0f6694ea367d707cd73585419a8f9b64ad91e8eeb90ab4496b68af677e98edef"
+          },
+          {
+            "filename": "02 - & % ! [literal] $(Set-Content injecte.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "b93b961cae5f30b2f6e8c8c73fbcabdf708e719dfaf1d15de221e05850eac2ee"
+          },
+          {
+            "filename": "03 - __import__('pathlib').Path('injected.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "da7d0b7f42b9014f6c88b277b8edbebf3a9d43756254bb577c22c1d6f7481bf7"
+          }
+        ],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "1",
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 3
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<owned-fixture-root>\\P-f574_0m2\\PS7-app-unicode-hostile\\o",
+            "1",
+            ""
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "BAT-app-flood",
+        "kind": "flood",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "C:\\WINDOWS\\System32\\cmd.exe",
+          "/d",
+          "/v:off",
+          "/c",
+          "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\Invoke.cmd"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\c",
+        "exit_code": 1,
+        "batch_unchanged": true,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 137510,
+        "log_sha256": "7ee1afa407434a5f36d5c008f69cc1443ead172bd42ef67b84ea96f07d2ce6b2",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 27428,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 2097390,
+          "StderrTotalBytes": 2097215,
+          "StdoutTruncated": true,
+          "StderrTruncated": true,
+          "ElapsedSeconds": 0.1238169,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 131972,
+          "sha256": "2722f7a604d23ad050afe302d49d62e3fc93ccdd7167a13565bbc3b0e7c2e049"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "df89d4ac498ae3d765d0719247429d65fcc84eb555dca57ccf6ab349b5acadb6"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 65536,
+          "sha256": "5d1488c69efc5eceeba6b12c0d0a2ffacad88341c391e6e625ef0c4f8b5a044d"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<user-profile>\\Documents",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-flood\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<user-profile>\\Documents",
+            "manual",
+            "2,3"
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "BAT-app-fast-tail",
+        "kind": "fast-tail",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "C:\\WINDOWS\\System32\\cmd.exe",
+          "/d",
+          "/v:off",
+          "/c",
+          "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\Invoke.cmd"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\c",
+        "exit_code": 1,
+        "batch_unchanged": true,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 6639,
+        "log_sha256": "0df97ac0a3dc2bf85060dd361800337338617dbad72d6eba1395691d361ddbc3",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 0,
+        "process_summary": {
+          "Pid": 26384,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 277,
+          "StderrTotalBytes": 75,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.1051317,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1101,
+          "sha256": "d6bfee230b47d25acae9010a1932dc467230744dd561c02cc0a08baa58af5d1d"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 277,
+          "sha256": "e33728f3cb9837bb1f43c7a73d80762d0788990983ea171007108a67cff71769"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 75,
+          "sha256": "f07969ffe97b22991c64546a4c6ffd5fc31546943c167c05ebadc6f566117d19"
+        },
+        "final_stderr_preserved": true,
+        "failure_outcome_preserved": true,
+        "outputs": [],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "manual",
+          "status": "invalid_input",
+          "code": "invalid_start_pages",
+          "exit_code": 1,
+          "written_count": 0
+        },
+        "child_receipt": {
+          "argv": [
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<user-profile>\\Documents",
+            "manual",
+            "2,3"
+          ],
+          "python": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+          "encoding": "utf-8",
+          "utf8_env": "1",
+          "io_env": "utf-8:backslashreplace"
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-fast-tail\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<user-profile>\\Documents",
+            "manual",
+            "2,3"
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      },
+      {
+        "id": "BAT-app-unicode-hostile",
+        "kind": "unicode-hostile",
+        "passed": true,
+        "actual_process": true,
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "host_version": "5.1.26100.9444",
+        "command": [
+          "C:\\WINDOWS\\System32\\cmd.exe",
+          "/d",
+          "/v:off",
+          "/c",
+          "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\Invoke.cmd"
+        ],
+        "cwd": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\c",
+        "exit_code": 0,
+        "batch_unchanged": true,
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "owned_outputs_removed": true,
+        "literal_arguments_preserved": true,
+        "log_utf8_roundtrip": true,
+        "log_size_bytes": 11185,
+        "log_sha256": "dc95e82a995c990790c517a181b347c77b1e707a824e9c839ecc59250b86f098",
+        "injection_marker_absent": true,
+        "injection_marker_observations": [
+          {
+            "location": "wrapper_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\c\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "engine_cwd",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\a\\engine\\injected.txt",
+            "exists": false
+          },
+          {
+            "location": "book_directory",
+            "path": "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\b\\injected.txt",
+            "exists": false
+          }
+        ],
+        "written_count": 3,
+        "process_summary": {
+          "Pid": 26372,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "StdoutTotalBytes": 4884,
+          "StderrTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "ElapsedSeconds": 0.30639469999999996,
+          "ResultRecordCount": 1
+        },
+        "stdout_process": {
+          "utf8_size_bytes": 1332,
+          "sha256": "3e5907100109a4f6ebea7b4fa90b34e937a22dd05709ac3de3cae23b06f063d7"
+        },
+        "stderr_process": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "logged_stdout_tail": {
+          "utf8_size_bytes": 4884,
+          "sha256": "a672dd4b713d34188daac94b6f97788d755047ba5fb495bdd00ceea1e5e92cb2"
+        },
+        "logged_stderr_tail": {
+          "utf8_size_bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "manifest_validated": true,
+        "complete_page_content": true,
+        "unicode_titles_preserved": true,
+        "unicode_log_preserved": true,
+        "source_readonly_observed": true,
+        "page_ids": [
+          1,
+          2,
+          3
+        ],
+        "source_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "output_content_sha256": [
+          "f1a408ab773fbeb5db0e8f6305db0bdb6beef0ce8383627da16b1da188bf67ac",
+          "9ccc91d5af651a3acab66ab394c9d44673ad92f2800b380e36698d05ebb821de",
+          "92c810f09676bee096307837ca3800857eacee6ac7e83d99e9f735582568a141"
+        ],
+        "expected_names": [
+          "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+          "02 - & % ! [literal] $(Set-Content injected.txt x).pdf",
+          "03 - __import__('pathlib').Path('injected.txt').touch().pdf"
+        ],
+        "destination_bound_preview": true,
+        "source_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "actual_titles": [
+          "Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4",
+          "& % ! [literal] $(Set-Content injected.txt x)",
+          "__import__('pathlib').Path('injected.txt').touch()"
+        ],
+        "independent_filename_budget": 120,
+        "independent_title_budget": 50,
+        "outputs": [
+          {
+            "filename": "01 - Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c \u4e2d\u6587 \ud55c\uad6d\uc5b4.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "0f6694ea367d707cd73585419a8f9b64ad91e8eeb90ab4496b68af677e98edef"
+          },
+          {
+            "filename": "02 - & % ! [literal] $(Set-Content injected.txt x).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "b93b961cae5f30b2f6e8c8c73fbcabdf708e719dfaf1d15de221e05850eac2ee"
+          },
+          {
+            "filename": "03 - __import__('pathlib').Path('injected.txt').touch().pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "da7d0b7f42b9014f6c88b277b8edbebf3a9d43756254bb577c22c1d6f7481bf7"
+          }
+        ],
+        "engine_record_summary": {
+          "protocol": "winbooksplit.result",
+          "version": 1,
+          "mode": "1",
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 3
+        },
+        "engine_invocation": {
+          "arguments": [
+            "-I",
+            "-B",
+            "-X",
+            "utf8",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\a\\engine\\winbooksplit_engine.py",
+            "<owned-fixture-root>\\P-f574_0m2\\BAT-app-unicode-hostile\\b\\Janne \u00e4\u00e4kk\u00f6set Gr\u00f6\u00dfe \u65e5\u672c [1] & %WBS_PROCESS_EXPAND%!WBS_PROCESS_EXPAND! (O'Neil).pdf",
+            "<user-profile>\\Documents",
+            "1",
+            ""
+          ],
+          "path": "<M2-T05-root>\\dev-venv\\Scripts\\python.exe"
+        }
+      }
+    ],
+    "source_unchanged": true,
+    "owned_temp_removed": true,
+    "input_and_neighbor_unchanged": true,
+    "machine_settings_unchanged": true,
+    "unrelated_process_removed": true,
+    "unrelated_process_observation": {
+      "command": [
+        "<official-CPython3148-root>\\python.exe",
+        "-I",
+        "-B",
+        "-X",
+        "utf8",
+        "-c",
+        "import json,os,pathlib,sys,time;pathlib.Path(sys.argv[1]).write_text(json.dumps({'pid':os.getpid(),'python':sys.executable}),encoding='utf-8');time.sleep(90)",
+        "<owned-fixture-root>\\P-f574_0m2\\unrelated-ready.json"
+      ],
+      "executable": "<official-CPython3148-root>\\python.exe",
+      "executable_sha256": "434b361fe0c5960d404974feed493db47f2603a1ace2574312104fbed0182c6f",
+      "retained_pid": 20432,
+      "retained_popen_handle": true,
+      "authored_ready": {
+        "pid": 20432,
+        "python": "<official-CPython3148-root>\\python.exe"
+      },
+      "readiness_sha256": "d395c594e1011f24fa72bb7f2da4511d8a569b25c96235f7f71837a4411e5c45",
+      "running_before_supervision": true,
+      "running_after_supervision": true,
+      "retained_exit_code": 1,
+      "running_after_stop": false
+    },
+    "independent_validator_actual_report_passed": true,
+    "validator_unit_count": 6,
+    "pester_process_tests_per_host": 12,
+    "validator_units_are_windows_acceptance": false
+  },
+  "runtime_before_reproduction": {
+    "PS51": {
+      "host_version": "5.1.26100.9444",
+      "inherited_child_alive_after_return": true,
+      "result": {
+        "ExitCode": 0,
+        "Pid": 16256,
+        "TimedOut": true,
+        "ParentStopped": true,
+        "DescendantsStopped": null,
+        "StreamsComplete": false,
+        "StartError": null,
+        "Stdout": "19196\r\n",
+        "Stderr": "",
+        "StdoutTotalBytes": 7,
+        "StderrTotalBytes": 0,
+        "StdoutTruncated": false,
+        "StderrTruncated": false,
+        "StreamError": null,
+        "ElapsedSeconds": 0.3110923
+      },
+      "child_ended_naturally": true,
+      "application_sha256": "646e584c7ec228f605940807ae9bbe9bf6252668550e4d0b95fa94a4e917490c"
+    },
+    "PS7": {
+      "child_ended_naturally": true,
+      "result": {
+        "ExitCode": 0,
+        "Pid": 24736,
+        "TimedOut": true,
+        "ParentStopped": true,
+        "DescendantsStopped": null,
+        "StreamsComplete": false,
+        "StartError": null,
+        "Stdout": "8924\r\n",
+        "Stderr": "",
+        "StdoutTotalBytes": 6,
+        "StderrTotalBytes": 0,
+        "StdoutTruncated": false,
+        "StderrTruncated": false,
+        "StreamError": null,
+        "ElapsedSeconds": 0.310383
+      },
+      "inherited_child_alive_after_return": true,
+      "host_version": "7.6.5",
+      "application_sha256": "646e584c7ec228f605940807ae9bbe9bf6252668550e4d0b95fa94a4e917490c"
+    }
+  },
+  "supervisor_reproduction_and_smoke": {
+    "baseline_reproduction": {
+      "PS51": {
+        "host": "5.1.26100.9444",
+        "source_sha256": "bb3bcb8c8bb92a94b16456112d710f1c84d0a1e2417c3c85250bd50e769542ca",
+        "flood_log_size_bytes": 4000698,
+        "stdout_blank_line_retained": false,
+        "inherited_pipe_wait_seconds": 3.1154927
+      },
+      "PS7": {
+        "host": "7.6.5",
+        "source_sha256": "bb3bcb8c8bb92a94b16456112d710f1c84d0a1e2417c3c85250bd50e769542ca",
+        "flood_log_size_bytes": 4000698,
+        "stdout_blank_line_retained": false,
+        "inherited_pipe_wait_seconds": 3.1182478
+      }
+    },
+    "later_helper_smoke": {
+      "source_sha256": "ce4f235da0cdf3aeb125da4c55db57ca43a5aed5ebdd2a85633ce9af06498887",
+      "PS51": {
+        "host": "5.1.26100.9444",
+        "already_cancelled_pid": null,
+        "cancelled": true,
+        "inherited_pipe_timeout_seconds": 0.2718833,
+        "descendants_stopped": true,
+        "streams_complete": true,
+        "large_frame_characters": 100050,
+        "human_tail_exact": "after\r\n\r\nlast"
+      },
+      "PS7": {
+        "host": "7.6.5",
+        "already_cancelled_pid": null,
+        "cancelled": true,
+        "inherited_pipe_timeout_seconds": 0.2559373,
+        "descendants_stopped": true,
+        "streams_complete": true,
+        "large_frame_characters": 100050,
+        "human_tail_exact": "after\r\n\r\nlast"
+      }
+    },
+    "initial_policy_refusal": {
+      "host": "Windows PowerShell 5.1",
+      "exit_code": 1,
+      "error": "Dot-source Diagnostics.ps1 and Process.ps1: .ps1 cannot be loaded because running scripts is disabled on this system; UnauthorizedAccess/PSSecurityException. Invoke-WinBookSplitProcess was subsequently unavailable (CommandNotFoundException).",
+      "scope": "Observed exact development tool transcript. The retry supplied -ExecutionPolicy Bypass to that child process and a simple smoke exited zero. No stored policy change was made; final tests independently compare stored policies.",
+      "raw_external_receipt": "Unavailable; no external hash is invented.",
+      "earlier_smoke_source_identity": "ps51/ps7-smoke.json use earlier d25b1 helper bytes; current helper ce4f23 bytes are separately recorded in smoke-handles receipts."
+    }
+  },
+  "earlier_actual_invocations": {
+    "python-transition-01": {
+      "argv": [
+        "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<repo>\\tests\\run_tests.py",
+        "--layer",
+        "python",
+        "--report",
+        "<M2-T05-root>\\python-transition-01.json"
+      ],
+      "cwd": "<M2-T05-root>\\python-transition-01-cwd",
+      "started_at": "2026-10-09T12:38:25.915740+00:00",
+      "finished_at": "2026-10-09T12:38:52.185633+00:00",
+      "exit_code": 1,
+      "stdout_sha256": "82d775460080991ae9052d1d349913931449d8f4c3161930269234111be6171a",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "diagnostic-transition-01": {
+      "argv": [
+        "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<repo>\\tests\\run_tests.py",
+        "--layer",
+        "diagnostics",
+        "--report",
+        "<M2-T05-root>\\diagnostic-transition-01.json",
+        "--shell-path",
+        "<WindowsPowerShell-exe>",
+        "--shell-path",
+        "<PowerShell7-exe>"
+      ],
+      "cwd": "<M2-T05-root>\\diagnostic-transition-01-cwd",
+      "started_at": "2026-10-09T12:46:41.367158+00:00",
+      "finished_at": "2026-10-09T12:46:59.772508+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "ee130562a625cd0dec475e7b430ac78736dfcb9f6dd7459b4ae020f80b2b3f86",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "shell-targeted-01": {
+      "argv": [
+        "<M2-T05-root>\\dev-venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<repo>\\tests\\run_tests.py",
+        "--layer",
+        "shell",
+        "--report",
+        "<M2-T05-root>\\shell-targeted-01.json",
+        "--tool-root",
+        "<shell-tool-root>",
+        "--shell-path",
+        "<WindowsPowerShell-exe>",
+        "--shell-path",
+        "<PowerShell7-exe>"
+      ],
+      "cwd": "<M2-T05-root>\\shell-targeted-01-cwd",
+      "started_at": "2026-10-09T12:47:22.262121+00:00",
+      "finished_at": "2026-10-09T12:47:58.580571+00:00",
+      "exit_code": 0,
+      "stdout_sha256": "fbfea759cab1fa3749b08f3d71ac2a5b16fd91bff4c6b9904f55a9dadbf90e8b",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "development_history": [
+    {
+      "attempt": "python-transition-01",
+      "exit_code": 1,
+      "actual_unit_count": 186,
+      "failed_tests": 1,
+      "reason": "A deliberate failure-runner unit checked source_unchanged while shared implementation was being edited. That guard correctly failed; no fixed-engine full acceptance is claimed."
+    },
+    {
+      "attempt": "process-dev1",
+      "exit_code": 1,
+      "raw_artifact": "No external receipt written; exact tool output retained in chat.",
+      "reason": "Actual PS5.1 supervisor rejected the literal empty argv string. AllowEmptyString was added; subsequent literal echo and full cases pass."
+    },
+    {
+      "attempt": "process-dev2",
+      "exit_code": "UNKNOWN",
+      "raw_artifact": "Final tool output was not captured and promised report was absent.",
+      "reason": "No pass or reproducible failure classification is claimed."
+    },
+    {
+      "attempt": "process-dev3",
+      "exit_code": 1,
+      "raw_artifact": "No external receipt written; exact tool output retained in chat.",
+      "reason": "The test initially equated the launched venv shim PID with Python os.getpid. The final oracle independently queries the launched PID plus authored parent and grandchild."
+    },
+    {
+      "attempt": "process-dev4",
+      "exit_code": 1,
+      "raw_artifact": "No successful external receipt written; exact tool output retained in chat.",
+      "reason": "All executed cases completed, then source_unchanged failed during concurrent source edits. It is not a final acceptance receipt."
+    },
+    {
+      "attempt": "process-dev5",
+      "exit_code": 0,
+      "scope": "Precursor actual native26/app9; before marker-bearing title and source-digest guard improvements."
+    },
+    {
+      "attempt": "process-final6",
+      "exit_code": 0,
+      "scope": "Actual native26/app9 with marker-bearing titles; before adding all explicit marker directories."
+    },
+    {
+      "attempt": "process-final7",
+      "exit_code": 0,
+      "scope": "Final standalone exact native26/app9 before the cumulative full run."
+    },
+    {
+      "attempt": "full-final-01",
+      "exit_code": 1,
+      "scope": "Actual 192 units, 40 Pester/host and first 12 stages passed; process stage rejected hardcoded complete-title filenames under nested full TEMP. The production destination-aware safe shortening was correct; the test oracle was fixed."
+    },
+    {
+      "attempt": "process-nested-before01",
+      "exit_code": 1,
+      "scope": "Actual process-only runner independently reproduced the same nested destination filename-oracle failure before changing it."
+    },
+    {
+      "attempt": "unrelated-fixture-before",
+      "scope": "Actual scoped 8-second authored control observed a venv launcher and separate CPython child. After shim terminate/wait the queried actual child was not alive; no survivor defect was reproduced. Earlier acceptance lacked independent actual self-PID/stop proof; final direct-base fixture supplies it."
+    },
+    {
+      "attempt": "process-direct-final8",
+      "exit_code": 0,
+      "scope": "Revised ordinary TEMP actual 35 cases; destination-aware preview and direct actual unrelated self-PID/alive-to-stopped proof."
+    },
+    {
+      "attempt": "process-nested-final02",
+      "exit_code": 0,
+      "scope": "Revised full-style nested TEMP runner actual 35 cases with the same strengthened oracles."
+    }
+  ],
+  "raw_receipts": [
+    {
+      "artifact": "<M2-T05-root>\\environment-setup.json",
+      "label": "environment-setup.json",
+      "sha256": "c8cf305b5a819c4a9fd4fe7f60de23a75ae04463a4dd419a89fe0d6af34f531d",
+      "size_bytes": 21143,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\os-observation.json",
+      "label": "os-observation.json",
+      "sha256": "1a7a501ab9adc0fc8d2c0cea1169bb745d0294206a5441d737e42e03e4d5884d",
+      "size_bytes": 261,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\runtime-before-PS51.json",
+      "label": "runtime-before-PS51.json",
+      "sha256": "c461be56f6a19240ac7d1f16d76f08c858a0b3f06ae92c2f6b01244d54ef64e8",
+      "size_bytes": 906,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\runtime-before-PS7.json",
+      "label": "runtime-before-PS7.json",
+      "sha256": "b2b1b49cd17a315e4397458d3752cb91102cc601ca7a465aed263aa2b13f2569",
+      "size_bytes": 627,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\Probe-BeforeRuntime.ps1",
+      "label": "Probe-BeforeRuntime.ps1",
+      "sha256": "eb1479e301463beccf756d70a07a6ba7abeb8aa953e6ccfffedde35a679f5a39",
+      "size_bytes": 1175,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\python-transition-01.json",
+      "label": "python-transition-01.json",
+      "sha256": "b9df1f9c74ca3431592a71ed223ce9aa22fed34d24e47eca074f39b8934d1cf9",
+      "size_bytes": 61479,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\python-transition-01-invocation.json",
+      "label": "python-transition-01-invocation.json",
+      "sha256": "8790faec7a40a66552f0befaabd5cee0f06703452f2ee8e957cfcc733b58f60b",
+      "size_bytes": 1025,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\diagnostic-transition-01.json",
+      "label": "diagnostic-transition-01.json",
+      "sha256": "9ebb8cc0c78e1c821b859ad1ad0de9f40eee7d3699a776f4800101d685179aff",
+      "size_bytes": 345071,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\diagnostic-transition-01-invocation.json",
+      "label": "diagnostic-transition-01-invocation.json",
+      "sha256": "5757eaa3f8633fc5c9ad7a3c1c0676545ab1a575332568c877cdb4a78fdbacb1",
+      "size_bytes": 1257,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\shell-targeted-01.json",
+      "label": "shell-targeted-01.json",
+      "sha256": "b3a1ebbe35cba10cbf41cbb879a012275ba1563025e24bfa9bf7ddf4de734ed5",
+      "size_bytes": 63077,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\shell-targeted-01-invocation.json",
+      "label": "shell-targeted-01-invocation.json",
+      "sha256": "555a9aba5b41f239194df498993dd59ce24948684390aa9fcb94bdc451658eb3",
+      "size_bytes": 1350,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-dev5.json",
+      "label": "process-dev5.json",
+      "sha256": "d4e19b28ef2f3c62c917eb141038ddb499a50668b906184ac76a1ad72a0ed16e",
+      "size_bytes": 2824755,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-final6.json",
+      "label": "process-final6.json",
+      "sha256": "a7545de7e869e1fa832ced701fe62ac059a09a019e1af2563ec3b6df4884766d",
+      "size_bytes": 2825582,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-final7.json",
+      "label": "process-final7.json",
+      "sha256": "7280db5651cfc0d4039701c873a63bdbc181017cca08f18d341d227ba57d2a11",
+      "size_bytes": 2831375,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\full-final-01.json",
+      "label": "full-final-01.json",
+      "sha256": "cc168b6531261541e6a637cc7468d1cfe602a98ea361ab214f0f716691fd37fb",
+      "size_bytes": 3397440,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\full-final-01-invocation.json",
+      "label": "full-final-01-invocation.json",
+      "sha256": "13fd7890d547c0afe5c1c5a1b5bf4090622b701fd37d7beae51156ae54b99dae",
+      "size_bytes": 1443,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\full-final-02.json",
+      "label": "full-final-02.json",
+      "sha256": "f183887f7f961ca48bd41588c28fc669f4a0ad4f951ebefede3e1a407ca511f9",
+      "size_bytes": 6276821,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\full-final-02-invocation.json",
+      "label": "full-final-02-invocation.json",
+      "sha256": "85f6c590691b34d604897802c2dbae5bea52937e07dc497903ed90a6a6a02538",
+      "size_bytes": 1443,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\github-before-C.json",
+      "label": "github-before-C.json",
+      "sha256": "af7fbfc1ec594d0dc73f457a84dd7daeba4b9f5b5ecfc82acd6190c7031be646",
+      "size_bytes": 5407,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\github-before-final-C.json",
+      "label": "github-before-final-C.json",
+      "sha256": "89e8f2b06eae1aa4f2bd76f74c264acec3e4338f670f3cf0380fb2d8184c0bae",
+      "size_bytes": 5407,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\unrelated-fixture-before.json",
+      "label": "unrelated-fixture-before.json",
+      "sha256": "f99774ea0a15100603fe3e3db6b4bcfb948e2e6a005889286703a3d65f0d1d4b",
+      "size_bytes": 523,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-nested-before01.json",
+      "label": "process-nested-before01.json",
+      "sha256": "dd786c17a92cdc08fbea370635a9117f03a96dc178bbbe14917b7c863704e0e9",
+      "size_bytes": 11696,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-nested-before01-invocation.json",
+      "label": "process-nested-before01-invocation.json",
+      "sha256": "84bc7685bf586bb1dd2e065c18f344f3c23380ee841c790cfa882ee9a63c2407",
+      "size_bytes": 1250,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-direct-final8.json",
+      "label": "process-direct-final8.json",
+      "sha256": "69064ed8137b343306ae7685733dde4188e872778069c844e5f18726a2e3abbd",
+      "size_bytes": 2847922,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-nested-final02.json",
+      "label": "process-nested-final02.json",
+      "sha256": "33f3698d57c447e89e45367ca1192775fe36da91faadf0029c62a98e2c230aac",
+      "size_bytes": 2891028,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\process-nested-final02-invocation.json",
+      "label": "process-nested-final02-invocation.json",
+      "sha256": "4ec17962409d565e3bc2d10ae1bd84d1f24cd055654e88d16e50bd5e9ec52427",
+      "size_bytes": 1247,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\WinBookSplit.baseline.ps1",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "bb3bcb8c8bb92a94b16456112d710f1c84d0a1e2417c3c85250bd50e769542ca",
+      "size_bytes": 15293,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\WinBookSplit.Diagnostics.baseline.ps1",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "12fed8e19b520b8932f064f592657f0dc21c7cf65c09957acd0261ed5218a791",
+      "size_bytes": 7909,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\reproduce.ps1",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "d2e3d161dc745786f006f8f1cf0427c431b5ca6b4e6f502b508a46c5b6f58eea",
+      "size_bytes": 1511,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\child.py",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "baf01ae06740e95f321617c341bbddde50857d18f560a292cffbefebb1e754ae",
+      "size_bytes": 512,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps51-repro.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "f41fc7b8d9c1073afa29d28aef40b76d7cf1a5c482e623fc5d19c05461c849df",
+      "size_bytes": 812,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps7-repro.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "de536ed7d2406003688c8e5888cc4c4926f0dc6997ee6d1cb534bc49afcb2457",
+      "size_bytes": 508,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\5-flood.log",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "bd16d6019c8943dd8f910a052fc72024783a032c6dbc58a09eb92c4a1ca04e02",
+      "size_bytes": 4000698,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\5-hold.log",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "fa10cfd02ddd4f55554a9a2c47599699a596a18feea92e7192acd6ab403eb442",
+      "size_bytes": 669,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\7-flood.log",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "b11239f04fcc4e14641c1241b7f09bd75694f16eb11045daafc954e9db05426d",
+      "size_bytes": 4000698,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\7-hold.log",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "4ef750e113ee216fcb5a3081df974d40d5d528f6e68a5f13773d038e0b1e5bf6",
+      "size_bytes": 669,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\smoke.ps1",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "4f7f11cbafa3782f1650ff1e2a82892aa36f470bb13e7815e75ed48e7febaf85",
+      "size_bytes": 2215,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps51-smoke.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "d51e1cb266cd7373f72c53564077c1e48508db86c985eb7193c1d239fb6913dd",
+      "size_bytes": 3462,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps7-smoke.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "56ad20cf313b84dc0b81e4e35ae12a74f77530c21a18bd83c46968aad6f81fee",
+      "size_bytes": 1750,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps51-smoke-handles.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "2f530cd8ad66fafaac7b43f0359ac9523072eef026c1948d3bd71f21cfb09c6a",
+      "size_bytes": 3453,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-supervisor-root>\\ps7-smoke-handles.json",
+      "label": "supervisor-owned raw receipt",
+      "sha256": "869fb4d229709210b2d0e10e5995ee1b6c9daffbaba8cbb1f8bf324d43ab813d",
+      "size_bytes": 1750,
+      "raw_content_retained_outside_git": true
+    }
+  ],
+  "git_review": {
+    "base_commit": "c48a9dfe2a448599db97ac6bdc1d880ac3e0f0c1",
+    "base_tree": "bdba74a4b7a5c054b4d0c103f3850e1fc32bdc50",
+    "branch": "codex/winbooksplit-v1-m2",
+    "pre_C_live_main_and_M2_equal_base": true,
+    "previous_PR14_merged_at": "2026-10-09T12:32:34Z",
+    "GitHub_actions_run_count_at_pre_C_audit": 0,
+    "tags_and_releases_at_pre_C_audit": [],
+    "checkpoint_scope": "Root-owned implementation commit, normal push, review/merge and fresh sync receipt are separate from this pre-commit tested-worktree record.",
+    "review_scope": "Independent local production/harness/validator/raw-evidence review; no submitted GitHub approval, remote CI or human GUI acceptance claimed."
+  },
+  "limits": [
+    "Controlled local Windows 11 x64 workstation; not Windows10, ARM, clean OS/VM or a same-account sandbox.",
+    "Injected CancellationToken and finite owned trees are separate from unrun human Ctrl+C/Explorer.",
+    "The job contains launched descendants; an arbitrary same-account process is not sandboxed. Failure to prove shutdown preserves owned data explicitly.",
+    "The child-output and JSON limits are finite diagnostics budgets, not an assertion of unlimited log fidelity.",
+    "No private documents were used or committed. Public summaries alias profile/installation/scratch paths; raw receipts remain outside Git.",
+    "Source lock/check/create/close intervals and crash/power-loss limitations from earlier tasks remain.",
+    "Standalone version/CLI/menus/preview are M3; rendered PDF fidelity/features, expanded/remote/DRM cases, CI/exact package/public v1.0.0 remain open."
+  ],
+  "not_run": [
+    "human Ctrl+C/Explorer",
+    "clean OS/VM",
+    "Windows10/ARM/UNC/arbitrary long paths",
+    "remote CI",
+    "release package/public release"
+  ],
+  "inherited_conversion": {
+    "calibre": {
+      "path": "<Calibre915>\\ebook-convert.exe",
+      "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "version": "9.15.0",
+      "version_observation": {
+        "argv": [
+          "<Calibre915>\\ebook-convert.exe",
+          "--version"
+        ],
+        "cwd": "<owned-fixture-root>\\C-peg_tcbt\\f",
+        "started_at": "2026-10-09T13:07:20.678220+00:00",
+        "finished_at": "2026-10-09T13:07:20.815944+00:00",
+        "exit_code": 0,
+        "stdout": "ebook-convert.exe (calibre 9.15.0)\nCreated by: Kovid Goyal <kovid@kovidgoyal.net>\n",
+        "stderr": ""
+      },
+      "size_bytes": 36104
+    },
+    "real_case_count": 8,
+    "real_cases": [
+      {
+        "id": "PS51-epub-default",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "format": "epub",
+        "keep_converted_pdf": false,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS51-epub-keep",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "format": "epub",
+        "keep_converted_pdf": true,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS51-azw3-default",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "format": "azw3",
+        "keep_converted_pdf": false,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS51-azw3-keep",
+        "shell_executable": "<WindowsPowerShell-exe>",
+        "format": "azw3",
+        "keep_converted_pdf": true,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS7-epub-default",
+        "shell_executable": "<PowerShell7-exe>",
+        "format": "epub",
+        "keep_converted_pdf": false,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS7-epub-keep",
+        "shell_executable": "<PowerShell7-exe>",
+        "format": "epub",
+        "keep_converted_pdf": true,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS7-azw3-default",
+        "shell_executable": "<PowerShell7-exe>",
+        "format": "azw3",
+        "keep_converted_pdf": false,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      },
+      {
+        "id": "PS7-azw3-keep",
+        "shell_executable": "<PowerShell7-exe>",
+        "format": "azw3",
+        "keep_converted_pdf": true,
+        "exit_code": 0,
+        "passed": true,
+        "written_count": 3,
+        "manifest_validated": true,
+        "owned_outputs_removed": true
+      }
+    ],
+    "captured_reader_controls": 2,
+    "invalid_native_zero_cases": 8,
+    "unchanged_BAT_dependency_refusal": true,
+    "source_unchanged": true,
+    "owned_temp_removed": true
+  },
+  "inherited_runtime": {
+    "actual_case_count": 33,
+    "group_counts": {
+      "python_failure_cases": 10,
+      "python_selection_cases": 8,
+      "shadow_cases": 2,
+      "pdf_without_calibre_cases": 2,
+      "converter_failure_cases": 6,
+      "converter_success_cases": 5
+    },
+    "source_unchanged": true,
+    "input_and_neighbor_unchanged": true,
+    "owned_temp_removed": true
+  }
+}

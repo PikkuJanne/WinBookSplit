@@ -64,7 +64,8 @@ USAGE
         - Run: .\WinBookSplit.ps1 -InputFile "C:\Path\To\Book.azw3"
         - Optional: -PythonPath "C:\Tools\Python\python.exe"
                     -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
-        - ConversionTimeout limits each attempt in seconds (default 1800).
+        - ConversionTimeout limits conversion in seconds (default 1800).
+        - ProcessTimeout bounds the engine and its streams (default at least 3600).
 
 NOTES
     - The script uses the shipped engine\winbooksplit_engine.py beside the
@@ -94,7 +95,8 @@ param (
     [string]$CalibrePath,
     [switch]$KeepConvertedPdf,
     [ValidateRange(1, 86400)][int]$ConversionTimeout = 1800,
-    [string]$PythonPath
+    [string]$PythonPath,
+    [ValidateRange(1, 172800)][int]$ProcessTimeout = [Math]::Max(3600, $ConversionTimeout + 1800)
 )
 
 # --- Configuration ---
@@ -114,6 +116,7 @@ function Draw-Header {
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Paths.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Diagnostics.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Runtime.ps1')
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Process.ps1')
 
 # --- Validation ---
 Draw-Header
@@ -201,50 +204,63 @@ $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
 
 # --- Execution Function ---
 function Run-PythonSplitter ($mode, $manualData) {
-    $pInfo = New-Object System.Diagnostics.ProcessStartInfo
-    $pInfo.FileName = $pythonExe
-    $engineArguments = @('-I', '-B', $enginePath, $InputFile, $outputDir, $mode, $manualData)
+    # -I ignores PYTHON* environment settings. -X utf8 explicitly applies to
+    # isolated Python as well as the UTF-8 environment inherited by Calibre.
+    $engineArguments = @('-I', '-B', '-X', 'utf8', $enginePath, $InputFile, $outputDir, $mode, $manualData)
     if ($InputFile -match '\.(epub|azw3)$') {
         $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
         if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
     }
-    $pInfo.Arguments = ($engineArguments |
-        ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' '
-    $pInfo.RedirectStandardOutput = $true
-    $pInfo.RedirectStandardError = $true
-    $pInfo.UseShellExecute = $false
-    $pInfo.CreateNoWindow = $true
-    $pInfo.StandardOutputEncoding = [System.Text.Encoding]::UTF8
-    $pInfo.StandardErrorEncoding = [System.Text.Encoding]::UTF8
-    $pInfo.EnvironmentVariables['PYTHONUTF8'] = '1'
-    $pInfo.EnvironmentVariables['PYTHONIOENCODING'] = 'utf-8'
     $script:consoleLogWriter.WriteLine('[ENGINE] ' + (@{ path = $pythonExe; arguments = @($engineArguments) } | ConvertTo-Json -Compress))
-
-    $p = New-Object System.Diagnostics.Process
-    $p.StartInfo = $pInfo
-    try {
-        $p.Start() | Out-Null
-        # Start both drains before waiting, including data after process exit.
-        $stdoutTask = $p.StandardOutput.ReadToEndAsync()
-        $stderrTask = $p.StandardError.ReadToEndAsync()
-        $p.WaitForExit()
-        $stdout = $stdoutTask.GetAwaiter().GetResult()
-        $stderr = $stderrTask.GetAwaiter().GetResult()
-        foreach ($line in ($stdout -split '\r?\n')) {
-            if ($line.Length -gt 0) {
-                $script:consoleLogWriter.WriteLine($line)
-                if (-not $line.StartsWith('{')) { Write-Host $line -ForegroundColor Green }
-            }
-        }
-        if ($stderr.Length -gt 0) {
-            Write-Host $stderr -ForegroundColor Red
-            $script:consoleLogWriter.WriteLine($stderr)
-        }
-        return ConvertFrom-SplitResult -Stdout $stdout -ExitCode $p.ExitCode -Mode $mode
+    $script:lastProcessResult = Invoke-WinBookSplitProcess -Path $pythonExe -Arguments $engineArguments `
+        -WorkingDirectory ([IO.Path]::GetDirectoryName($enginePath)) -TimeoutSeconds $ProcessTimeout
+    $transport = $script:lastProcessResult
+    $summary = [ordered]@{}
+    foreach ($name in @('Pid', 'ExitCode', 'TimedOut', 'Cancelled', 'ParentStopped', 'DescendantsStopped',
+        'StreamsComplete', 'JobAssigned', 'StartError', 'StopError', 'StreamError', 'ResultError',
+        'StdoutTotalBytes', 'StderrTotalBytes', 'StdoutTruncated', 'StderrTruncated', 'ElapsedSeconds')) {
+        $summary[$name] = $transport.$name
     }
-    finally {
-        $p.Dispose()
+    $summary['ResultRecordCount'] = @($transport.ResultRecords).Count
+    $script:consoleLogWriter.WriteLine('[PROCESS] ' + ($summary | ConvertTo-Json -Compress))
+    foreach ($name in @('Stdout', 'Stderr')) {
+        $text = $transport.$name
+        $truncated = $transport.($name + 'Truncated')
+        $script:consoleLogWriter.WriteLine('[' + $name.ToUpperInvariant() + ']')
+        if ($truncated) {
+            $notice = '[TRUNCATED] Retained the final 65536 bytes of ' + $name.ToLowerInvariant() + '; see [PROCESS] totals.'
+            Write-Host $notice -ForegroundColor Yellow
+            $script:consoleLogWriter.WriteLine($notice)
+        }
+        # Raw Write preserves blank lines and a final unterminated line.
+        $script:consoleLogWriter.Write($text)
+        $script:consoleLogWriter.WriteLine()
+        $display = $text
+        if ($name -eq 'Stdout') {
+            $display = $transport.HumanStdout
+        }
+        if ($display.Length -gt 0) {
+            $color = 'Green'; if ($name -eq 'Stderr') { $color = 'Red' }
+            Write-Host $display -ForegroundColor $color
+        }
     }
+    # A result survives even when subsequent human output evicts it from the
+    # bounded stdout tail. Its separate cap fails explicitly on oversized JSON.
+    foreach ($record in $transport.ResultRecords) {
+        if (-not $transport.Stdout.Contains($record)) { $script:consoleLogWriter.WriteLine($record) }
+    }
+    $shutdownMessage = 'Its owned process tree was proved stopped; any incomplete output is retained.'
+    if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or $transport.StopError) {
+        $shutdownMessage = 'Shutdown could not be proved complete; any incomplete output is retained. ' + $transport.StopError
+    }
+    if ($transport.Cancelled) { throw ('Engine processing was cancelled. ' + $shutdownMessage) }
+    if ($transport.TimedOut) { throw ('Engine processing exceeded ProcessTimeout (' + $ProcessTimeout + ' seconds), including pipe EOF. ' + $shutdownMessage) }
+    foreach ($name in @('StartError', 'StopError', 'StreamError', 'ResultError')) {
+        if ($transport.$name) { throw ($name + ': ' + $transport.$name) }
+    }
+    if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or
+        -not $transport.StreamsComplete -or $null -eq $transport.ExitCode) { throw 'The engine process tree and streams did not complete safely.' }
+    return ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode
 }
 
 # --- Main Logic Flow ---
