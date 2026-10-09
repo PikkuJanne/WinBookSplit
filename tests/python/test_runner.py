@@ -1,6 +1,7 @@
 """Harness regressions only; these are not corrected-engine acceptance tests."""
 
 import importlib.util
+from copy import deepcopy
 import json
 import os
 from pathlib import Path
@@ -26,6 +27,50 @@ def corrected_level2_reference():
             "outputs": [{"filename": f"{index:02d} - {title}.pdf", "range": pair,
                          "page_ids": list(range(pair[0] + 1, pair[1] + 1))}
                         for index, (title, pair) in enumerate(zip(titles, ranges), 1)]}
+
+
+def complete_plan_report():
+    entries = [{"sequence": 1, "start": 0, "end": 1, "filename": "01 - Opening.pdf"},
+               {"sequence": 2, "start": 1, "end": 3, "filename": "02 - Chapter.pdf"}]
+    outputs = [{"filename": "01 - Opening.pdf", "range": [0, 1], "page_ids": [1]},
+               {"filename": "02 - Chapter.pdf", "range": [1, 3], "page_ids": [2, 3]}]
+    parity = {"passed": True, "total_pages": 3, "preview_entries": entries, "outputs": outputs,
+              "coverage": {"complete": True, "covered_pages": 3, "section_count": 2}, "written_count": 2,
+              "source_identity": {"path": "C:/synthetic/original.pdf", "sha256": "a" * 64,
+                                  "size_bytes": 100, "binding": "reader_snapshot"},
+              "neighbor_unchanged": True, "no_replanning_or_reopening": True,
+              "original_page_content_sha256": ["c" * 64, "d" * 64, "e" * 64],
+              "page_content_sha256": ["c" * 64, "d" * 64, "e" * 64]}
+    report = {
+        "schema_version": 1, "task_id": "M1-T05", "result": "SHARED_PLAN_REGRESSION_PASSED",
+        "success": True, "exit_code": 0, "acceptance_ids": ["AC-027", "AC-028", "AC-029"],
+        "structural_cases": [{"id": name, "passed": True, "rejected": True, "error_code": "invalid_plan"}
+                             for name in ("gap", "overlap", "empty", "negative", "reversed", "overflow", "zero-pages", "noninteger")]
+                            + [{"id": "valid-whole-document", "passed": True, "accepted": True}],
+        "preview_cases": [{"id": "read-only-preview", "passed": True, "mutation_rejected": True, "chapter_files_written": 0},
+                          {"id": "isolated-preview-data", "passed": True, "detached_from_input": True,
+                           "unbound_execution_rejected": True, "chapter_files_written": 0}],
+        "parity_cases": [{"mode": mode, **deepcopy(parity)} for mode in ("manual", "1", "2")],
+        "source_cases": [{"id": name, **deepcopy(parity), "outcome": "bound_original_preserved",
+                          "captured_sha256": "a" * 64, "replacement_sha256": "b" * 64, "replacement_unchanged": True,
+                          "original_page_content_sha256": ["c" * 64, "d" * 64, "e" * 64],
+                          "page_content_sha256": ["c" * 64, "d" * 64, "e" * 64]}
+                         for name in ("changed-same-path", "repointed-source")],
+        "seeded_plan_cases": {"seed": 20261009, "count": 300, "per_mode": {"manual": 100, "1": 100, "2": 100}, "passed": True},
+        "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
+        "owned_temp_removed": True, "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+        "import_observation": {"import_safe": True},
+    }
+    for case in report["parity_cases"] + report["source_cases"]:
+        case["writer_result"] = {"mode": case.get("mode", "manual"), "total_pages": 3,
+                                 "written_count": 2, "coverage": deepcopy(case["coverage"]),
+                                 "source_identity": deepcopy(case["source_identity"]),
+                                 "outputs": [{**entry, "page_count": entry["end"] - entry["start"]}
+                                             for entry in case["preview_entries"]]}
+    repointed = report["source_cases"][1]
+    repointed["deleted_path_snapshot"] = {field: deepcopy(repointed[field])
+                                         for field in (*parity, "writer_result", "original_page_content_sha256", "page_content_sha256")}
+    return report
 
 
 class RunnerTests(unittest.TestCase):
@@ -307,7 +352,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_manual_and_both_bookmark_regressions_and_forwards_hosts_only_to_manual(self):
+    def test_full_selects_all_four_regressions_and_forwards_hosts_only_to_manual(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -334,12 +379,174 @@ class RunnerTests(unittest.TestCase):
         level2 = [command for command in commands if str(ROOT / "tests/bookmarks/characterize_level2.py") in command]
         self.assertEqual(len(level2), 1)
         self.assertNotIn("--shell-path", level2[0])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2"])
-        self.assertEqual(report["steps"][-3]["name"], "manual-regression")
-        self.assertEqual(report["steps"][-2]["name"], "level1-regression")
-        self.assertEqual(report["steps"][-1]["name"], "level2-regression")
-        self.assertEqual(len(report["steps"]), 6)
+        plans = [command for command in commands if str(ROOT / "tests/plans/characterize_plan.py") in command]
+        self.assertEqual(len(plans), 1)
+        self.assertNotIn("--shell-path", plans[0])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan"])
+        self.assertEqual([step["name"] for step in report["steps"][-4:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression"])
+        self.assertEqual(len(report["steps"]), 7)
         self.assertTrue(report["success"])
+
+    def test_plan_targeted_route_runs_only_plan_without_shell_arguments(self):
+        args = SimpleNamespace(layer="plan", failure_probe=None, shell_path=[Path("C:/unused/pwsh.exe")], tool_root=None)
+        commands = []
+
+        def successful_command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic-git-identity\n", "stderr": ""}
+
+        with patch.object(runner, "source_manifest", return_value={"synthetic-source": "hash"}), \
+                patch.object(runner, "run_command", side_effect=successful_command), \
+                patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        self.assertEqual([step["name"] for step in report["steps"]], ["shared-plan-regression"])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["plan"])
+        self.assertEqual(len(commands), 3)  # Git commit, tree, then the single targeted child.
+        self.assertEqual(commands[-1][3], str(ROOT / "tests/plans/characterize_plan.py"))
+        self.assertNotIn("--shell-path", commands[-1])
+        self.assertTrue(report["success"])
+
+    def test_plan_evidence_requires_all_promises_and_exact_preview_writer_identities(self):
+        complete = complete_plan_report()
+        with tempfile.TemporaryDirectory(prefix="wbs-plan-evidence-") as directory:
+            path = Path(directory) / "plan.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "plan")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["evidence"], complete)
+            self.assertIn("evidence_sha256", step)
+            defects = []
+
+            def defect(description, group, index, changes):
+                report = deepcopy(complete)
+                report[group][index].update(changes)
+                defects.append((description, report))
+
+            for field, value in (("schema_version", True), ("task_id", "M1-T04"), ("result", "LEVEL2_REGRESSION_PASSED"),
+                                 ("success", False), ("exit_code", False), ("acceptance_ids", ["AC-027"]),
+                                 ("source_unchanged", False), ("baseline_guards_preserved", False),
+                                 ("input_and_neighbor_unchanged", False), ("owned_temp_removed", False),
+                                 ("immutable_original_commit", "unknown"), ("import_observation", [])):
+                defects.append((field, {**complete, field: value}))
+            for group in ("structural_cases", "preview_cases", "parity_cases", "source_cases"):
+                defects.append(("missing " + group, {**complete, group: []}))
+                defects.append(("duplicate " + group, {**complete, group: complete[group][:-1] + [complete[group][0]]}))
+                key = "mode" if group == "parity_cases" else "id"
+                defect("wrong " + group + " ID", group, 0, {key: "unexpected"})
+                defect("unhashable " + group + " ID", group, 0, {key: []})
+                defect("failed " + group, group, 0, {"passed": False})
+            defect("no actual structural rejection", "structural_cases", 0, {"rejected": False})
+            defect("missing rejection diagnostic", "structural_cases", 0, {"error_code": ""})
+            defect("whole document rejected", "structural_cases", 8, {"accepted": False})
+            defect("mutable preview", "preview_cases", 0, {"mutation_rejected": False})
+            defect("preview wrote files", "preview_cases", 0, {"chapter_files_written": 1})
+            defect("boolean preview count", "preview_cases", 0, {"chapter_files_written": False})
+            defect("aliased preview metadata", "preview_cases", 1, {"detached_from_input": False})
+            defect("unbound mapping executed", "preview_cases", 1, {"unbound_execution_rejected": False})
+            for group in ("parity_cases", "source_cases"):
+                missing_result = deepcopy(complete)
+                del missing_result[group][0]["writer_result"]
+                defects.append(("missing writer result " + group, missing_result))
+                defect("zero files " + group, group, 0, {"outputs": [], "written_count": 0})
+                defect("missing preview " + group, group, 0, {"preview_entries": []})
+                defect("false output count " + group, group, 0, {"written_count": True})
+                defect("wrong coverage " + group, group, 0, {"coverage": {"complete": True, "covered_pages": 2, "section_count": 2}})
+                defect("integer complete flag " + group, group, 0, {"coverage": {"complete": 1, "covered_pages": 3, "section_count": 2}})
+                defect("changed neighbor " + group, group, 0, {"neighbor_unchanged": False})
+                defect("replanned " + group, group, 0, {"no_replanning_or_reopening": False})
+                output_changes = [{"page_ids": [3, 2]}, {"page_ids": [True]}, {"filename": "different.pdf"}, {"range": [0, 3]}]
+                for index, changes in enumerate(output_changes):
+                    report = deepcopy(complete)
+                    report[group][0]["outputs"][0].update(changes)
+                    defects.append((f"wrong physical output {group} {index}", report))
+                report = deepcopy(complete)
+                report[group][0]["preview_entries"][1]["start"] = 2
+                defects.append(("preview gap " + group, report))
+                report = deepcopy(complete)
+                report[group][0]["preview_entries"][0]["sequence"] = True
+                defects.append(("boolean sequence " + group, report))
+            defect("executed replacement", "source_cases", 0, {"outcome": "changed_source_used"})
+            defect("replacement changed", "source_cases", 0, {"replacement_unchanged": False})
+            defect("wrong bound digest", "source_cases", 0, {"captured_sha256": "c" * 64})
+            defect("unchanged replacement", "source_cases", 0, {"replacement_sha256": "a" * 64})
+            defect("invalid replacement digest", "source_cases", 0, {"replacement_sha256": "not-a-digest"})
+            defect("nonhex replacement digest", "source_cases", 0, {"replacement_sha256": "g" * 64})
+            defect("replacement page content used", "source_cases", 0, {"page_content_sha256": ["f" * 64] * 3})
+            defect("missing original page content", "source_cases", 0, {"original_page_content_sha256": []})
+            defect("ordinary writer page content mismatch", "parity_cases", 0, {"page_content_sha256": ["f" * 64] * 3})
+            defect("ordinary original content count mismatch", "parity_cases", 0, {"original_page_content_sha256": []})
+            defect("ordinary original content invalid hash", "parity_cases", 0, {"original_page_content_sha256": ["not-a-hash"] * 3})
+            for group in ("parity_cases", "source_cases"):
+                for field in ("original_page_content_sha256", "page_content_sha256"):
+                    missing_content = deepcopy(complete)
+                    del missing_content[group][0][field]
+                    defects.append(("omitted " + group + " " + field, missing_content))
+            defect("uncaptured source", "source_cases", 0, {"source_identity": {"binding": "path"}})
+            for group in ("parity_cases", "source_cases"):
+                report = deepcopy(complete)
+                case = report[group][0]
+                case["writer_result"] = {"mode": case.get("mode", "manual"), "total_pages": 3,
+                                         "written_count": 2, "coverage": deepcopy(case["coverage"]),
+                                         "source_identity": deepcopy(case["source_identity"]),
+                                         "outputs": [{**entry, "page_count": entry["end"] - entry["start"]}
+                                                     for entry in case["preview_entries"]]}
+                path.write_text(json.dumps(report), encoding="utf-8")
+                valid_result_step = {"exit_code": 0}
+                runner.attach_child_report(valid_result_step, path, "plan")
+                self.assertEqual(valid_result_step["exit_code"], 0)
+                for field in ("mode", "total_pages", "written_count", "coverage", "source_identity", "outputs"):
+                    changed = deepcopy(report)
+                    del changed[group][0]["writer_result"][field]
+                    defects.append(("omitted writer result " + group + " " + field, changed))
+                for field, value in (("written_count", 1), ("total_pages", True), ("outputs", []),
+                                     ("coverage", {}), ("source_identity", {}), ("mode", "invalid"), ("mode", [])):
+                    changed = deepcopy(report)
+                    changed[group][0]["writer_result"][field] = value
+                    defects.append(("writer result " + group + " " + field, changed))
+                changed = deepcopy(report)
+                changed[group][0]["writer_result"]["outputs"][0]["page_count"] = True
+                defects.append(("boolean result page count " + group, changed))
+            missing_deleted = deepcopy(complete)
+            del missing_deleted["source_cases"][1]["deleted_path_snapshot"]
+            defects.append(("omitted deleted-path execution", missing_deleted))
+            defect("invalid deleted-path object", "source_cases", 1, {"deleted_path_snapshot": []})
+            for field in ("writer_result", "original_page_content_sha256", "page_content_sha256", "source_identity"):
+                missing_nested = deepcopy(complete)
+                del missing_nested["source_cases"][1]["deleted_path_snapshot"][field]
+                defects.append(("omitted deleted-path " + field, missing_nested))
+            for field, value in (("written_count", 0), ("coverage", {}), ("outputs", []),
+                                 ("page_content_sha256", ["f" * 64] * 3)):
+                changed = deepcopy(complete)
+                changed["source_cases"][1]["deleted_path_snapshot"][field] = value
+                defects.append(("deleted-path mismatch " + field, changed))
+            changed = deepcopy(complete)
+            nested = changed["source_cases"][1]["deleted_path_snapshot"]
+            nested["source_identity"]["sha256"] = "f" * 64
+            nested["writer_result"]["source_identity"]["sha256"] = "f" * 64
+            defects.append(("deleted-path switched bound source", changed))
+            changed = deepcopy(complete)
+            nested = changed["source_cases"][1]["deleted_path_snapshot"]
+            nested["original_page_content_sha256"] = nested["page_content_sha256"] = ["f" * 64] * 3
+            defects.append(("deleted-path switched original content", changed))
+            changed = deepcopy(complete)
+            changed["source_cases"][1]["deleted_path_snapshot"]["writer_result"]["outputs"] = []
+            defects.append(("deleted-path writer result mismatch", changed))
+            for changes in ({"seed": 0}, {"count": 299}, {"count": True}, {"passed": False},
+                            {"per_mode": {"manual": 100, "1": 100}}, {"per_mode": {"manual": 99, "1": 101, "2": 100}}):
+                defects.append(("seeded modes " + repr(changes), {**complete, "seeded_plan_cases": {**complete["seeded_plan_cases"], **changes}}))
+            for description, payload in defects:
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps(payload), encoding="utf-8")
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "plan")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    failed_child = {"exit_code": 19}
+                    runner.attach_child_report(failed_child, path, "plan")
+                    self.assertEqual(failed_child["exit_code"], 19)
 
     def test_bookmark_evidence_requires_complete_targets_normalization_and_preservation(self):
         complete = {

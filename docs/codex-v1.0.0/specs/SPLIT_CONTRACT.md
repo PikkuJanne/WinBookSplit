@@ -8,6 +8,34 @@ For any accepted document with N > 0 pages: first start = 0, final end = N, ever
 
 Build/validate once, preview that plan, execute that same plan. Any input/conversion change invalidates it. Keep an open reader or verify identity/content before execution to avoid stale previews. Do not infer chapters from text or OCR.
 
+M1-T05 retains the existing logical mode planners and adds a common callable
+contract in the shipped engine. `prepare_split(path, mode, manual_data)` probes
+the PDF, validates one complete plan and returns a `PreparedSplit` bound to
+pypdf's captured in-memory reader. `preview_plan(prepared)` exposes the same
+recursively read-only mapping/tuple data without creating chapter files;
+`execute_split(prepared, output_dir)` consumes its exact entries without
+recalculating boundaries, titles or filenames. UI integration belongs to M3.
+
+The common plan includes `mode`, `total_pages`, `entries`, derived `ranges`,
+`normalized_inputs`, `notices`, `warnings`, `source_identity` and derived
+`coverage` (`complete`, `covered_pages`, `section_count`). Each entry retains
+its existing mode metadata. `validate_plan(mapping)` rejects invalid page
+types/bounds, gaps, overlaps, empty entries, incomplete coverage, nonconsecutive
+sequences, unsafe/duplicate filenames or disagreement with declared ranges;
+it freezes a detached copy. The result reports `written_count` and the same
+entry metadata in `outputs`, adding each expected `page_count`.
+
+Source identity records the requested/resolved PDF path, captured byte count
+and SHA-256 with `binding: reader_snapshot`. Replacing, deleting or repointing
+that filesystem path after preview cannot change the prepared reader or plan;
+execution safely uses the captured original PDF. Preparing a different source
+or newly converted PDF creates a new job. Execution rejects a replaced plan,
+a reader from another job or altered captured stream before writing. This is
+source binding, not a sandbox against arbitrary Python memory manipulation.
+All planned paths are checked for source aliasing/existing outputs before the
+first writer; exclusive file creation also refuses later collisions. Complete
+staging, rollback, directory ownership and publication remain later tasks.
+
 ## Manual starts
 
 Accept a nonempty comma-separated string of ASCII `[0-9]+` tokens, allowing surrounding whitespace. Integers must be in 1..N. Leading zeros are allowed and canonicalized. Reject signs, negative numbers, non-ASCII numeric glyphs, empty tokens, ranges (`1-4`), decimals, letters, or any invalid/out-of-range token; do not silently filter.
