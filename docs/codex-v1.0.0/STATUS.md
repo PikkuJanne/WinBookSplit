@@ -1,6 +1,54 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2 reviewed/merged; M3 is complete through **M3-T01** only.
+Next dependency-ready task: **M3-T02 — Add the small non-interactive CLI**.
+Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00`.
+E/continuation draft PR receive their actual external/thread receipts after push/creation;
+recheck live state rather than treating this historical C receipt as a reset target.
+No public release; fresh observed tags/releases remain empty.
+
+## M3-T01 evidence and limits
+
+[Outcome evidence](evidence/M3-T01-outcomes.md) and [machine record](evidence/M3-T01-outcomes.json)
+satisfy AC-050/051/052. One shipped JSON exit map now serves Python/PowerShell; final
+fallback, explicit cancellation, native failures and BAT status agree. Final success
+waits for log flush/close; secondary errors preserve primary failures, and completed
+publication is retained with incomplete 6 when finalization fails. Stdout OUTCOME is
+authoritative; the log's OPERATION-OUTCOME is provisional. UTF-8 preserves BAT Unicode
+paths; redirected PS7 skips cosmetic clearing. During supervision a rooted native
+Ctrl+C/Break handler preserves the enclosing pipeline and owns only its job shutdown.
+
+Frozen unrelated-CWD fourteen-stage full gate passed 217 Python tests,
+49 Pester tests per actual PS5.1.26100.9444/PS7.6.5 host, all inherited regressions,
+real Calibre 9.15.0 EPUB/genuine AZW3, 26 native plus 9 process applications and 51 outcome
+applications. All 85 tested raw paths match materialized clean C; digest
+`ac6c5b910891ef8a86f078db43b2677f66cd515022dd17251ed10bbc9b3d87a0`. No clean-C full rerun is claimed. Zero skips/syntax/new scaffold
+findings; 51 legacy application findings per host remain separate. Fresh pinned dev
+venv/imports/pip check, 66 shell-tool hashes, stored policies, source/neighbor/prior
+identity/content and known final suite cleanup pass. Independent source/strict receipt/
+raw acceptance/public evidence review passed; no submitted GitHub approval or CI pass.
+
+Six actual OS signals, token cancellation and engine/converter deadlines prove owned
+PID/tree shutdown and unrelated Python survival. Any automated CMD prompt decision
+is recorded separately; human Ctrl+C/Explorer NOT RUN. Earlier failed/unknown receipts
+remain honest: lost fifth partial receipt, retained sixth/seventh unsafe workspaces,
+Unicode and redirected-header fixes, rejected-report labeling and inherited process
+footer-oracle fixes. An external capture collision left an unknown authored console
+log location; no broad scan/adoption/deletion was attempted. Do not retry old cleanup.
+Outer interruption retains marked staging without an engine ledger. Existing same-
+account race/crash limits are not a sandbox. Packaging must include Outcomes.json
+and Process.ps1. M3-T02 version/CLI, M3-T03 menu/preview UX, human/Explorer, broader
+fidelity, CI, package and public release gates remain open. No tag/interim release.
+
+PR15 was already merged at thread start; clean main 85916466 was reconciled normally
+before the new M3 branch. Earlier sections below are historical observations.
+
+## Historical checkpoint before M3-T01
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1 reviewed/merged; cumulative M2 review and acceptance passed through **M2-T05**.
 Next dependency-ready task: **M3-T01 — Propagate outcomes and cancel safely**.
 Branch/upstream: codex/winbooksplit-v1-m2 / origin/codex/winbooksplit-v1-m2.

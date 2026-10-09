@@ -1,59 +1,49 @@
-# Next session — M3-T01
+# Next session — M3-T02
 
-Next: **M3-T01 — Propagate outcomes and cancel safely**. Stop at this task boundary.
-M2's cumulative source/acceptance review passed. C `877dd4bd7189d10d3dd9bbfd7efee8d42e631bae` is clean/live
-**SYNCED** at `2026-10-09T13:15:01.396075+00:00` on codex/winbooksplit-v1-m2.
-[Cumulative M2 continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/15). E/merge receipts live externally and in the
-thread/PR; inspect current main/PR state rather than treating this historical C receipt
-as a reset target. PR14 was already merged at T05 start; ordinary fast-forward
-incorporated c48a9dfe. Never force push/reset or infer a release from a merge.
+Next: **M3-T02 — Add the small non-interactive CLI**. Stop at this task boundary.
+M3-T01 C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00` on
+codex/winbooksplit-v1-m3. E and the continuation draft PR receive their actual external/
+thread receipts after push/creation. Recheck live branch/PR/main; preserve all existing
+history and edits. M2/PR15 was already merged at main 85916466 when T01 began.
 
 Read AGENTS.md, STATUS.md, this file, TASKS.json, SCOPE_AND_DECISIONS.md,
-tasks/M3-T01.md, specs/CLI_AND_UX.md, specs/PROCESS_AND_PATHS.md,
+tasks/M3-T02.md, specs/CLI_AND_UX.md, specs/PROCESS_AND_PATHS.md,
 specs/OUTPUT_AND_CONVERSION.md, SECURITY.md, TESTING.md and GITHUB_WORKFLOW.md.
 Inspect actual Git/origin/branch/worktree and live protection/CI/PR/tags/releases;
-preserve unrelated edits and reconcile normally. If M2 is merged, create/reuse an
-ordinary codex/ M3 branch from actual synchronized main, not a stale baseline.
+reuse the current M3 continuation branch if suitable. Never reset to recorded hashes,
+force push, auto-stash or discard unrelated work.
 
-Final unrelated-CWD thirteen-stage gate passed 192 Python tests, 40 Pester tests per
-actual supported host, all inherited page/plan/diagnostic/output/path regressions,
-real Calibre EPUB/genuine AZW3 and runtime discovery. Process acceptance passed
-26 native controls plus nine actual PS5.1/PS7/unchanged-BAT applications.
-Tested 76-path raw digest `7ae333509eaa80abf92529e5ed720c65e7a3cf307d92bb0c18e4fc0c43e689e7`; all tested raw bytes match clean C, with no
-clean-C full rerun claimed. See evidence/M2-T05-process.md/json for exact commands,
-versions, hashes, full01 oracle failure/other failed and unknown attempts, separate
-targeted receipts and limits. Ordinary/deeply nested final process runners pass;
-unrelated fixture actual identity/liveness/stop is independently checked.
+Final unrelated-CWD fourteen-stage full gate passed 217 Python tests,
+49 Pester/actual host, all inherited regression layers, real Calibre EPUB/genuine AZW3,
+26 native + 9 process applications and 51 final outcome applications. All 85 tested raw
+paths match materialized C; digest `ac6c5b910891ef8a86f078db43b2677f66cd515022dd17251ed10bbc9b3d87a0`. No clean-C full rerun is claimed.
+See evidence/M3-T01-outcomes.md/json for exact redacted commands, source/report hashes,
+runtime/tool versions, scopes and all earlier failed/unknown/focused receipts.
 
-Preserve direct literal native arguments, restricted inherited handles, suspended
-assignment to an owned non-breakaway job, concurrent strict UTF-8 drains, bounded
-64 KiB human tails, independent bounded results, fast/blank/no-newline output,
-parent/descendant/EOF proofs and bounded deadline/cancellation shutdown. Preflight
-now uses the same helper; Python is selected exact regular x64 CPython3.14.8/pypdf6.19
-and engine uses -I -B -X utf8. Defaults: ProcessTimeout=max(3600,ConversionTimeout+1800)
-seconds. Converter owned-job supervision remains intact. No global policy/settings/
-dependency writes; executable discovery precedence and literal source paths remain.
+Preserve the shared shipped Outcomes.json map, strict engine/final outcome validation,
+last-attempt fallback and explicit cancel 130. Success requires nonempty complete physical
+coverage, real publication and console finalization. Incomplete 6 retains valid published
+output/diagnostics; secondary log/cleanup errors preserve primary failures. The log
+OPERATION-OUTCOME precedes finalization; final stdout OUTCOME determines the exit.
+Preserve UTF-8 output, redirected header guard, literal argv, bounded concurrent drains,
+independent results, suspended assignment to an owned non-breakaway job, EOF/descendant
+proofs and rooted native Ctrl+C/Break handler through shutdown/removal. Preflight
+interruption stops discovery. Do not replace the existing console/Python/pypdf engine.
 
-Retain shared immutable reader-bound plan/complete physical page coverage,
-destination-aware preview/names, source preservation, no-overwrite publication,
-manifest validation and held-identity known-object cleanup. Process transport owns
-no filesystem cleanup; outer interrupted engine stage remains explicitly retained
-without an engine ledger. Unknown/replaced/reparse/unproved-stop cases retain their
-primary error and diagnostic staging. Existing same-account check/create/lock-close
-and crash limits are not a sandbox. Two historical partial sample workspaces remain
-external after rejected cleanup; do not retry deletion or claim their cleanup.
+T02 owns validated parameters/help, dependency-independent Version, no-prompt/no-fallback
+NonInteractive and plan-only Preview with disclosed ebook temporary conversion, using
+the existing planner/runtime. Cover AC-053/054/055/056 under both actual hosts and proposed
+commands. Existing interactive menus/version and binding failures are not finished CLI
+acceptance. M3-T03 owns remaining UX; human Ctrl+C/Explorer and later fidelity/CI/package/
+release gates remain unrun. Automated private-console signals are not human checks.
 
-M3-T01 owns one final result/exit-code mapping and final fallback outcome through
-PS/BAT, cleanup/finalization failures, timeout/cancel status and launcher pause.
-Current compatible 0/1/55 is not final CLI acceptance. Reproduce each defect before
-changing it; do not mix behavior fixes with refactors. Run actual AC-050/051/052
-under both supported hosts and unchanged/purposefully scoped BAT, including
-unrelated process survival. Existing token controls are not human Ctrl+C/Explorer
-evidence; perform/record human checks only when actually done. Later preview/menu,
-PDF feature/render fidelity, CI M4-T05, extracted-package and public v1.0.0 gates
-remain open. Include the shipped Process helper in future packaging. No interim release.
+Retain source immutability/no-overwrite publication/held-identity known-object cleanup.
+Outer interruption lacks an engine file ledger and retains marked stages. Preserve
+historical unsafe/unknown workspaces and unknown authored diagnostic-console location;
+no broad scan/adoption or retry deletion. Both runtimes require packaged Outcomes.json
+and Process.ps1. Signing optional; no interim release, tag or generalized platform.
 
-Use fresh supported developer venv, 66 verified shell-tool files, actual both hosts,
-real Calibre and new external receipts; run affected targeted and full regressions.
-Update intended C/E evidence/status/handoff files, commit/push normally and compare
-clean HEAD with a fresh live remote. No self-referential hash loop or history rewrite.
+Use a fresh supported developer venv, verified isolated shell tools, actual both hosts,
+real Calibre and new external receipts. Reproduce changes, run targeted/affected full
+checks, review source/receipts/public evidence, commit intended C/E paths, push normally
+and verify clean HEAD equals the fresh live M3 branch. No self-referential SHA loop.
