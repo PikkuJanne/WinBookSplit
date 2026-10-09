@@ -1,6 +1,61 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1 reviewed/merged; cumulative M2 review and acceptance passed through **M2-T05**.
+Next dependency-ready task: **M3-T01 — Propagate outcomes and cancel safely**.
+Branch/upstream: codex/winbooksplit-v1-m2 / origin/codex/winbooksplit-v1-m2.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+C `877dd4bd7189d10d3dd9bbfd7efee8d42e631bae` is clean/live **SYNCED** at `2026-10-09T13:15:01.396075+00:00`.
+[Cumulative M2 continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/15); E and the delegated merge receive their
+own external/PR/thread receipts after their actual push/merge. Recheck live state.
+No public release; fresh observed tags/releases are empty.
+
+## M2-T05 evidence and limits
+
+[Process evidence](evidence/M2-T05-process.md) and [machine record](evidence/M2-T05-process.json)
+satisfy AC-046/047/048/049. The narrow shipped PowerShell helper starts a direct
+executable suspended, assigns its own non-breakaway Windows job before resume,
+inherits only three selected handles, and drains strict UTF-8 stdout/stderr concurrently.
+Bounded 64 KiB human tails preserve blank lines/no-newline tails; independent bounded
+machine records preserve results beyond those tails. Parent, descendant and pipe EOF
+proofs bound timeout/cancellation. Preflight uses the same owned-tree transport.
+Isolated Python explicitly uses -I -B -X utf8. BAT remains byte-identical.
+
+Final unrelated-CWD thirteen-stage full gate passed 192 Python tests, 40 Pester tests
+per actual supported host, and all ten inherited/current regression stages including
+real Calibre 9.15.0 EPUB/genuine AZW3 conversion. Tested 76-path raw digest:
+`7ae333509eaa80abf92529e5ed720c65e7a3cf307d92bb0c18e4fc0c43e689e7`. All raw tested bytes match clean C; no clean-C full rerun is claimed.
+Process acceptance has 26 actual native controls and nine actual PS5.1/PS7/BAT
+applications: bounded dual-stream floods, fast nonzero exit/tails, Unicode boundaries,
+literal hostile arguments, independent large result records and protocol failures,
+owned descendants/pipe inheritance on timeout/token cancellation, unrelated process
+survival, and complete three-page synthetic PDF splits/content/manifests/source/neighbor
+checks. Ordinary and deeply nested targeted runners pass the final destination-aware
+filename oracle and independently identified fixture process cleanup.
+
+Fresh hash-pinned CPython 3.14.8/pypdf 6.19.0 developer venv, all 66 tool hashes,
+actual PS5.1.26100.9444/PS7.6.5 and stored-policy comparisons passed. Zero skipped
+tests/new scaffold static findings; 43 legacy application analyzer observations per
+host remain separately recorded. Earlier failed/unknown attempts and the full01
+test-oracle failure remain separate honest receipts. Independent cumulative M2
+source/strict receipt/public evidence review passed. No submitted GitHub approval
+or CI pass is claimed; fresh live main was unprotected with no required checks/runs.
+
+PR14 was already merged at 12:32:34Z (main c48a9dfe); ordinary fetch/fast-forward
+reconciled it before T05. Existing implementation commits/history were preserved.
+The prior parent-only preflight descendant-proof gap is now closed. Original engine
+drains already avoided deadlock; reproduced defects were unbounded logs, blank-line
+loss and unbounded inherited-pipe waits, not a fabricated baseline deadlock.
+Transport owns no filesystem cleanup; interrupted engine staging is explicitly retained
+because the console has no engine file ledger. Current compatible 0/1/55 codes remain
+for M3's final outcome/fallback mapping. Token cancellation is tested; human Ctrl+C,
+Explorer drag/drop, PDF feature/fidelity, expanded ebook/DRM/remote cases, extracted
+package, CI and public release gates remain open. Packaging must include the new helper.
+No tag/interim release. Earlier sections below are historical observations.
+
+## Historical checkpoint before M2-T05
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1 reviewed/merged; cumulative M2 remains open. Completed through **M2-T04**.
 Next dependency-ready task: **M2-T05 — Supervise subprocesses and UTF-8 streams**.
 Branch/upstream: codex/winbooksplit-v1-m2 / origin/codex/winbooksplit-v1-m2.

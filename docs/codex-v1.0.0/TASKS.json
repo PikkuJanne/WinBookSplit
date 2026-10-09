@@ -532,7 +532,7 @@
         "Unicode/argument/flood tests",
         "M2 merged checkpoint"
       ],
-      "status": "in_progress",
+      "status": "done",
       "depends_on": [
         "M2-T04"
       ],
@@ -542,8 +542,11 @@
         "AC-048",
         "AC-049"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M2-T05-process.md",
+        "evidence/M2-T05-process.json"
+      ],
+      "implementation_commit": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

@@ -95,7 +95,11 @@
     "meaning": "Actual materialized pre-commit worktree bytes. Evidence/reporting files are excluded from this source manifest; Git blob normalization is a different identity.",
     "source_unchanged": true,
     "tested_path_count": 76,
-    "clean_commit_full_rerun": false
+    "clean_commit_full_rerun": false,
+    "implementation_commit_C": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
+    "implementation_tree": "3ea8e45927c5ee669bae63baa906825cd1cc89de",
+    "actual_clean_C_bytes_match_tests": true,
+    "clean_C_full_rerun": false
   },
   "environment": {
     "version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
@@ -4286,6 +4290,20 @@
       "sha256": "869fb4d229709210b2d0e10e5995ee1b6c9daffbaba8cbb1f8bf324d43ab813d",
       "size_bytes": 1750,
       "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\C-checkpoint.json",
+      "label": "C-checkpoint.json",
+      "sha256": "f900ab43ac34aa9dde6fb98cca90d90dfdc9de51a779cce0e989911d939d7c1f",
+      "size_bytes": 10062,
+      "raw_content_retained_outside_git": true
+    },
+    {
+      "artifact": "<M2-T05-root>\\PR-create-command.json",
+      "label": "PR-create-command.json",
+      "sha256": "9aa16d9b2e48fea74791f402a5fd4c261cfaab20864908e07f7914ffbe878397",
+      "size_bytes": 1993,
+      "raw_content_retained_outside_git": true
     }
   ],
   "git_review": {
@@ -4296,8 +4314,14 @@
     "previous_PR14_merged_at": "2026-10-09T12:32:34Z",
     "GitHub_actions_run_count_at_pre_C_audit": 0,
     "tags_and_releases_at_pre_C_audit": [],
-    "checkpoint_scope": "Root-owned implementation commit, normal push, review/merge and fresh sync receipt are separate from this pre-commit tested-worktree record.",
-    "review_scope": "Independent local production/harness/validator/raw-evidence review; no submitted GitHub approval, remote CI or human GUI acceptance claimed."
+    "checkpoint_scope": "C was committed and pushed normally with clean live branch equality at the recorded instant. E/merge/final main receipts stay external/PR/thread; no future or self-referential SHA is recorded here.",
+    "review_scope": "Independent local production/harness/validator/raw-evidence review; no submitted GitHub approval, remote CI or human GUI acceptance claimed.",
+    "implementation_commit_C": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
+    "implementation_tree": "3ea8e45927c5ee669bae63baa906825cd1cc89de",
+    "implementation_sync_observed_at": "2026-10-09T13:15:01.396075+00:00",
+    "implementation_sync_status": "SYNCED",
+    "local_independent_final_review": "No blockers reported after final full/direct/nested raw receipts, source and public evidence review.",
+    "raw_receipts_reviewed_before_C": 41
   },
   "limits": [
     "Controlled local Windows 11 x64 workstation; not Windows10, ARM, clean OS/VM or a same-account sandbox.",
@@ -4444,5 +4468,27 @@
     "source_unchanged": true,
     "input_and_neighbor_unchanged": true,
     "owned_temp_removed": true
+  },
+  "checkpoint_update_observed_at": "2026-10-09T13:16:38.797611+00:00",
+  "implementation_sync": {
+    "repository": "PikkuJanne/WinBookSplit",
+    "observed_at": "2026-10-09T13:15:01.396075+00:00",
+    "status": "SYNCED",
+    "read_only": true,
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "branch": "codex/winbooksplit-v1-m2",
+    "local_head": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
+    "worktree_clean": true,
+    "remote_head": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
+    "reason": "Clean local HEAD equals fresh live branch at observation time"
+  },
+  "pull_request": {
+    "observed_at": "2026-10-09T13:15:24.842434+00:00",
+    "baseRefOid": "c48a9dfe2a448599db97ac6bdc1d880ac3e0f0c1",
+    "headRefOid": "877dd4bd7189d10d3dd9bbfd7efee8d42e631bae",
+    "isDraft": false,
+    "number": 15,
+    "state": "OPEN",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/pull/15"
   }
 }

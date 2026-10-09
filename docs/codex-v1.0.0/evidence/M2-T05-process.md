@@ -7,8 +7,11 @@ Base `c48a9dfe2a448599db97ac6bdc1d880ac3e0f0c1`, tree
 `bdba74a4b7a5c054b4d0c103f3850e1fc32bdc50`. Final unrelated-CWD full gate has
 13 stages: 192 Python units, 40 Pester tests per actual supported host, and all
 current integration stages pass. The 76-path raw source digest is `7ae333509eaa80abf92529e5ed720c65e7a3cf307d92bb0c18e4fc0c43e689e7`.
-These are materialized pre-commit bytes; no clean-C full rerun is claimed. The
-implementation commit/push/review/merge and fresh checkpoint are recorded separately.
+All tested materialized bytes match clean implementation C
+`877dd4bd7189d10d3dd9bbfd7efee8d42e631bae`, tree
+`3ea8e45927c5ee669bae63baa906825cd1cc89de`. C was committed/pushed normally and
+clean/live **SYNCED** at `2026-10-09T13:15:01.396075+00:00`.
+No clean-C full rerun is claimed. E's own/final merge receipt remains external/PR/thread.
 
 ## Changes and reproduced behavior
 
@@ -134,8 +137,12 @@ remain external; public evidence uses aliases and hashes/sizes. No private docum
 was used or uploaded. Local independent review is separate from submitted GitHub
 approval and remote CI. At the pre-C live audit PR14 was already merged at
 2026-10-09T12:32:34Z; main/M2 matched the observed base, tags/releases were empty and
-GitHub Actions had no runs. Final normal commit/push/review/merge synchronization is
-a separate root-owned checkpoint; no future checkpoint SHA is embedded here.
+GitHub Actions had no runs. [PR15](https://github.com/PikkuJanne/WinBookSplit/pull/15) was observed OPEN and non-draft at
+`2026-10-09T13:15:24.842434+00:00`, with C as its head. Independent local final
+source/raw/public review reported no blocker before C, including all 41 then-listed
+external raw hashes. C's normal commit/push/clean live receipt and PR creation are
+separate additional external records. E/merge/final main receipts stay external or
+in a later record; no future/self checkpoint SHA is embedded here.
 
 Injected token cancellation does not certify human Ctrl+C/Explorer. The job/helper
 is not a same-account sandbox or crash/power-loss durability guarantee. Earlier
