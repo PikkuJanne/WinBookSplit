@@ -11,8 +11,9 @@ $Runner = 'C:\Tools\WinBookSplit\tests\run_tests.py'
 $ToolRoot = 'C:\Tools\WinBookSplit-test-tools'
 $PS51 = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
 $PS7 = 'C:\Program Files\PowerShell\7\pwsh.exe'
+$Calibre = 'C:\Tools\Calibre\ebook-convert.exe'
 $Report = Join-Path $env:TEMP ('WinBookSplit-tests-' + [guid]::NewGuid().ToString('N') + '.json')
-& $TestPython -I -B $Runner --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --report $Report
+& $TestPython -I -B $Runner --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --report $Report
 if ($LASTEXITCODE -ne 0) { throw 'Local verification failed; inspect the report' }
 ```
 
@@ -21,7 +22,7 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output` or `--layer paths`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths` or `--layer conversion`
 for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
@@ -33,8 +34,11 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The ten-stage full layer runs this manual regression route, corrected
-Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions and path acceptance after the units and both shell stages.
+run. The eleven-stage full layer runs this manual regression route, corrected
+Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions,
+path acceptance and real conversion after the units and both shell stages.
+Conversion/full requires an explicit absolute converter with the pinned Calibre
+9.15.0 bytes. PDF-only targeted layers do not require or probe Calibre.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
 normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its
@@ -93,6 +97,17 @@ PS uses external owned bases; BAT uses only its explicit authenticated Documents
 run/log children. Stored policies, source/input/neighbor hashes and held cleanup
 are checked. See `paths/README.md` for exact methods and limits.
 
+The conversion layer generates an original offline EPUB and genuine Calibre
+AZW3, then executes eight real PS5.1/PS7 EPUB/AZW3 default/retention runs. It
+checks original ebook identities, same-name neighboring PDF hashes, read-only
+sources, actual captured/retained PDF contents and all physical pages (including
+AZW3's fourth inline-contents page). Two direct API controls independently inspect
+the captured reader and prohibit replanning/reopening. Eight actual native
+zero-exit controls reject missing, empty, corrupt and zero-page output under both
+hosts; the unchanged BAT launcher preserves a missing-converter failure.
+Successful BAT converter discovery remains M2-T04. Exact run/manifest members and
+held cleanup are required. See `conversion/README.md` for observation limits.
+
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after
 the intentional M1-T02 manual fixes; it is no longer part of the full gate.
@@ -146,6 +161,8 @@ and batch verifies engine resolution and selected paths. Level 1 regression
 checks exercise corrected front-matter/outline planning directly. Level 2 checks
 exercise parent boundaries and selected-level rejection.
 Shared-plan checks exercise the callable preview and captured-source writer.
-Full UX/Explorer, Calibre and the
-extracted release package remain separate mandatory later checks. CI installation and workflow
+Full UX/Explorer, expanded Calibre compatibility and conversion from the
+extracted release package remain separate mandatory later checks. The local
+conversion route covers the two original fixtures on the pinned converter.
+CI installation and workflow
 execution belong to M4-T05; this local scaffold does not claim a CI run.

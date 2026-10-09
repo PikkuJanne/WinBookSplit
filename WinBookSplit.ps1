@@ -60,6 +60,8 @@ USAGE
 
     B) Direct PowerShell
         - Run: .\WinBookSplit.ps1 -InputFile "C:\Path\To\Book.azw3"
+        - Optional: -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
+        - ConversionTimeout limits each attempt in seconds (default 1800).
 
 NOTES
     - The script uses the shipped engine\winbooksplit_engine.py beside the
@@ -68,7 +70,7 @@ NOTES
 
 LIMITATIONS
     - Requires a local Python installation with the 'pypdf' library.
-    - Requires Calibre installed in standard paths for AZW3/EPUB conversion.
+    - Requires Calibre in standard paths or an explicit -CalibrePath for AZW3/EPUB conversion.
     - Manual mode assumes every provided page number is the start of a new chapter.
 
 TROUBLESHOOTING
@@ -85,7 +87,10 @@ LICENSE / WARRANTY
 
 param (
     [string]$InputFile,
-    [string]$OutputDirectory
+    [string]$OutputDirectory,
+    [string]$CalibrePath,
+    [switch]$KeepConvertedPdf,
+    [ValidateRange(1, 86400)][int]$ConversionTimeout = 1800
 )
 
 # --- Configuration ---
@@ -128,71 +133,39 @@ catch {
 
 $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
 
-# --- Pre-process: Format Conversion, if needed ---
-# If it's not a PDF, we must convert it first.
+# Resolve a converter only for ebooks. Conversion and its owned workspace are
+# handled by the shipped engine; the original input remains the selected book.
+$converterExe = $null
 if ($inputExt -ne ".pdf") {
-    Write-Host "Detected $inputExt format." -ForegroundColor Yellow
-    Write-Host "Locating conversion engine (Calibre)..." -ForegroundColor Gray
-
-    $converterExe = $CalibreSearchPaths | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
-
-    if (-not $converterExe) {
-        Write-Host ""
-        Write-Host "[!] CONVERSION ERROR: Calibre not found." -ForegroundColor Red
-        Write-Host "To process AZW3/EPUB files, Calibre must be installed." -ForegroundColor White
-        Write-Host "Please install Calibre and try again." -ForegroundColor Gray
-        Write-Host ""
-        Read-Host "Press Enter to exit"
-        exit
-    }
-
-    Write-Host "Engine found: $converterExe" -ForegroundColor Gray
-    
-    # Define the path for the new full PDF, saved next to the source file
-    $convertedPdfPath = [System.IO.Path]::ChangeExtension($InputFile, ".pdf")
-    
-    Write-Host ""
-    Write-Host "--- STARTING CONVERSION ---" -ForegroundColor Cyan
-    Write-Host "Input:  $InputFile" -ForegroundColor White
-    Write-Host "Output: $convertedPdfPath" -ForegroundColor White
-    Write-Host "This may take a minute depending on book size..." -ForegroundColor Yellow
-    Write-Host ""
-
-    # Run calibre converter
-    # We use --output-profile tablet for better PDF margins/scaling
-    $convertArgs = "`"$InputFile`" `"$convertedPdfPath`" --output-profile tablet"
-    
-    # Run the process directly so the user sees Calibre's output stream
-    $proc = Start-Process -FilePath $converterExe -ArgumentList $convertArgs -Wait -NoNewWindow -PassThru
-
-    if ($proc.ExitCode -ne 0 -or -not (Test-Path -LiteralPath $convertedPdfPath -PathType Leaf)) {
-         Write-Host ""
-         Write-Host "[!] CALIBRE CONVERSION FAILED." -ForegroundColor Red
-         Read-Host "Press Enter to exit"
-         exit
-    }
-
-    Write-Host ""
-    Write-Host "[V] Conversion complete." -ForegroundColor Green
-    Start-Sleep -Seconds 1
-
-    # CRITICAL STEP, update the InputFile variable so the rest of the script operates on the newly created PDF.
     try {
-        $inputItem = Resolve-WinBookSplitInput -Path $convertedPdfPath
-        $InputFile = $inputItem.FullName
+        if (-not [string]::IsNullOrWhiteSpace($CalibrePath)) {
+            $converterItem = Get-Item -LiteralPath $CalibrePath -ErrorAction Stop
+            if ($converterItem -isnot [IO.FileInfo] -or
+                ($converterItem.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
+                throw 'CalibrePath must select an ordinary converter executable.'
+            }
+            $converterExe = $converterItem.FullName
+        }
+        else {
+            $converterExe = $CalibreSearchPaths | Where-Object {
+                Test-Path -LiteralPath $_ -PathType Leaf
+            } | Select-Object -First 1
+        }
+        if (-not $converterExe) { throw 'Calibre not found. Select ebook-convert.exe with -CalibrePath or install Calibre in a standard location.' }
     }
     catch {
-        Write-Host ("[!] Error: Cannot read the converted PDF: " + $_.Exception.Message) -ForegroundColor Red
-        Read-Host "Press Enter to exit"
+        Write-Host ("[!] CONVERSION ERROR: " + $_.Exception.Message) -ForegroundColor Red
+        Read-Host 'Press Enter to exit'
         exit 1
     }
-    # Refresh header to clear conversion clutter
-    Draw-Header
+}
+elseif ($KeepConvertedPdf) {
+    Write-Host '[!] KeepConvertedPdf applies only to EPUB or AZW3 conversion.' -ForegroundColor Red
+    Read-Host 'Press Enter to exit'
+    exit 1
 }
 
-
-# --- Preparation (Post-Conversion) ---
-# We calculate stats here so they reflect the PDF, not the source AZW3
+# Book metadata always describes the original source.
 $fileName = [System.IO.Path]::GetFileNameWithoutExtension($InputFile)
 $fileSize = "{0:N2} MB" -f ((Get-Item -LiteralPath $InputFile -ErrorAction Stop).Length / 1MB)
 
@@ -240,7 +213,12 @@ $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
 function Run-PythonSplitter ($mode, $manualData) {
     $pInfo = New-Object System.Diagnostics.ProcessStartInfo
     $pInfo.FileName = "python"
-    $pInfo.Arguments = (@($enginePath, $InputFile, $outputDir, $mode, $manualData) |
+    $engineArguments = @($enginePath, $InputFile, $outputDir, $mode, $manualData)
+    if ($InputFile -match '\.(epub|azw3)$') {
+        $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
+        if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
+    }
+    $pInfo.Arguments = ($engineArguments |
         ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' '
     $pInfo.RedirectStandardOutput = $true
     $pInfo.RedirectStandardError = $true
@@ -278,11 +256,13 @@ function Run-PythonSplitter ($mode, $manualData) {
 
 # --- Main Logic Flow ---
 
-# 1. Initial TUI, shows stats for the PDF, even if converted
+# 1. Initial TUI, shows original book metadata
 Write-Host "Target Book: $fileName" -ForegroundColor Green
 Write-Host "Size:        $fileSize" -ForegroundColor Gray
 if ($inputExt -ne ".pdf") {
-     Write-Host "Format:      Converted from $inputExt" -ForegroundColor DarkGray
+     Write-Host "Format:      $inputExt (Calibre PDF conversion before splitting)" -ForegroundColor DarkGray
+     Write-Host 'Conversion:  tablet profile; validated in a temporary owned workspace' -ForegroundColor DarkGray
+     if ($KeepConvertedPdf) { Write-Host 'Full PDF:    retained with successful chapter output' -ForegroundColor DarkGray }
 }
 Write-Host ""
 Write-Host "Select Splitting Method:" -ForegroundColor White

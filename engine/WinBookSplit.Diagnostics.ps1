@@ -84,7 +84,10 @@ function ConvertFrom-SplitResult {
                 'output_validation_failed', 'output_ownership_failed', 'output_base_invalid',
                 'output_manifest_failed', 'output_publish_failed', 'output_cancelled',
                 'output_handle_close_failed', 'output_path_too_long',
-                'output_destination_changed')) { throw 'Invalid failure result.' }
+                'output_destination_changed', 'converter_not_found',
+                'conversion_start_failed', 'conversion_failed', 'conversion_output_invalid',
+                'conversion_timeout', 'conversion_cancelled', 'conversion_cleanup_failed',
+                'conversion_source_changed', 'conversion_ownership_failed')) { throw 'Invalid failure result.' }
         }
         default { throw 'Unknown engine result category.' }
     }

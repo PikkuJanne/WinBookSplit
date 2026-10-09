@@ -268,7 +268,192 @@ def complete_paths_report(hosts):
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
 
 
+def complete_conversion_report(hosts, calibre):
+    policies = [{"scope": name, "policy": "Undefined"} for name in ("MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine")]
+
+    def success(fmt, number, keep):
+        pages = 3 if fmt == "epub" else 4
+        source = str(Path("C:/synthetic/Book." + fmt))
+        generated = str(Path("C:/synthetic/output/.WinBookSplit-stage-" + "f" * 32 + "/WinBookSplit_Converted.pdf"))
+        vector = [f"{index:064x}" for index in range(1, pages + 1)]
+        entries = [{"sequence": index, "start": start, "end": end, "filename": f"{index:02} - Section {index}.pdf",
+                    "title": f"Section {index}", "parent_id": None, "reason": "manual", "warnings": []}
+                   for index, (start, end) in enumerate(((0, 1), (1, 2), (2, pages)), 1)]
+        identity = {"path": generated, "sha256": "b" * 64, "size_bytes": 2048, "binding": "reader_snapshot"}
+        original = {"path": source, "sha256": "a" * 64, "size_bytes": 1024, "binding": "ebook_snapshot"}
+        conversion = {"converter_path": calibre, "argv": [calibre, source, generated, "--output-profile", "tablet"],
+                      "output_profile": "tablet", "exit_code": 0, "timeout_seconds": 1800, "elapsed_seconds": 1.0,
+                      "stdout_tail": "Actual controlled converter", "stderr_tail": "", "stdout_total_bytes": 27,
+                      "stderr_total_bytes": 0, "stdout_truncated": False, "stderr_truncated": False,
+                      "workspace_cleanup": {"cleanup_complete": True, "retained_staging": None},
+                      "original_source_identity": original,
+                      "generated_pdf_identity": {**identity, "page_count": pages, "page_content_sha256": vector}}
+        retained = {"filename": "WinBookSplit_Converted.pdf", "sha256": "b" * 64, "size_bytes": 2048, "page_count": pages} if keep else None
+        coverage = {"complete": True, "covered_pages": pages, "section_count": 3}
+        execution = transaction_result({"mode": "manual", "total_pages": pages, "source_identity": identity,
+                                       "coverage": coverage, "written_count": 3,
+                                       "outputs": [{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries]}, number)
+        execution.update(original_ebook_identity=original, conversion=conversion, retained_intermediate=retained)
+        execution["manifest"].update(original_ebook_identity=deepcopy(original), conversion=deepcopy(conversion), retained_intermediate=deepcopy(retained))
+        return {"passed": True, "format": fmt, "mode": "manual", "total_pages": pages, "preview_entries": entries,
+                "outputs": [{"filename": entry["filename"], "range": [entry["start"], entry["end"]],
+                             "page_ids": list(range(entry["start"] + 1, entry["end"] + 1))} for entry in entries],
+                "coverage": coverage, "source_identity": identity, "original_ebook_identity": original, "conversion": conversion,
+                "writer_result": execution, "written_count": 3, "keep_converted_pdf": keep, "retained_intermediate": retained,
+                "input_sha256": "a" * 64, "output_base": str(Path(execution["final_directory"]).parent),
+                "original_page_content_sha256": vector, "page_content_sha256": vector,
+                "converted_reference_page_content_sha256": vector, "chapter_markers": ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"],
+                "manifest_validated": True, "input_unchanged": True, "neighbor_unchanged": True,
+                "no_replanning_or_reopening": True, "workspace_absent_verified": True, "owned_outputs_removed": True,
+                "retained_sha256_verified": keep, "retained_page_content_verified": keep, "retained_absent_verified": not keep}
+
+    real = []
+    for index, identifier in enumerate(sorted(runner.CONVERSION_REAL_IDS), 1):
+        host, fmt, retention = identifier.split("-")
+        case = success(fmt, index, retention == "keep")
+        case.update(id=identifier, actual_process=True, exit_code=0, shell_executable=hosts[0 if host == "PS51" else 1],
+                    source_read_only_attribute_observed=True, source_attributes_restored=True,
+                    page_content_observation="actual-converter-metadata-compared-with-independent-real-conversion-and-slices",
+                    no_replanning_observation="supported-by-direct-api-and-shared-plan-controls")
+        case["engine_record"] = {"protocol": "winbooksplit.result", "version": 1, "status": "success", "code": "split_complete",
+                                 "exit_code": 0, "mode": "manual", "written_count": 3, "execution": deepcopy(case["writer_result"])}
+        real.append(case)
+    direct = []
+    for number, fmt in enumerate(("epub", "azw3"), 20):
+        case = success(fmt, number, fmt == "azw3")
+        case.update(id=fmt, page_content_observation="independent-captured-reader-and-real-conversion-and-slices",
+                    no_replanning_observation="direct-api-planner-and-source-reopen-traps", planner_calls_during_execute=0, source_reader_calls_during_execute=0,
+                    captured_pdf_bytes_verified=True)
+        direct.append(case)
+    invalid = [{"id": identifier, "passed": True, "actual_process": True, "exit_code": 1, "converter_exit_code": 0,
+                "shell_executable": hosts[0 if identifier.startswith("PS51") else 1],
+                "engine_record": {"code": "conversion_output_invalid", "exit_code": 1, "written_count": 0, "execution": None},
+                "outputs": [], "successful_final_count": 0, "no_success_summary": True, "workspace_absent_verified": True,
+                "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True}
+               for identifier in sorted(runner.CONVERSION_INVALID_IDS)]
+    for case in invalid:
+        observed = {"exit_code": 0, "stdout_tail": "WBS-FAKE-NATIVE-EXIT-0"}
+        case["converter_process"] = observed
+        case["engine_record"]["diagnostic"] = {"conversion": deepcopy(observed)}
+    provenance = {"kind": "original-offline-ebook-fixtures", "authored_original": True, "remote_resources": False, "license": "MIT",
+                  "chapter_markers": ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"],
+                  "files": [{"format": fmt, "sha256": "a" * 64, "size_bytes": 1024,
+                             "origin": "authored-epub" if fmt == "epub" else "actual-calibre-conversion"} for fmt in ("epub", "azw3")],
+                  "azw3_generation": {"argv": [calibre, "original.epub", "original.azw3", "--output-profile", "tablet"], "exit_code": 0}}
+    references = {fmt: {"process": {"argv": [calibre, "original." + fmt, "reference.pdf", "--output-profile", "tablet"], "exit_code": 0},
+                        "page_count": 3 if fmt == "epub" else 4, "sha256": "b" * 64, "size_bytes": 2048,
+                        "page_content_sha256": [f"{index:064x}" for index in range(1, (3 if fmt == "epub" else 4) + 1)]} for fmt in ("epub", "azw3")}
+    return {"schema_version": 1, "task_id": "M2-T03", "result": "CONVERSION_REGRESSION_PASSED", "success": True, "exit_code": 0,
+            "acceptance_ids": runner.CONVERSION_ACCEPTANCE_IDS, "calibre": {"path": calibre, "version": "9.15.0",
+            "sha256": runner.CONVERSION_CALIBRE_SHA256, "size_bytes": 36104,
+            "version_observation": {"exit_code": 0, "stdout": "ebook-convert.exe (calibre 9.15.0)"}},
+            "fixture_provenance": provenance, "reference_conversions": references,
+            "host_cases": [{"id": host, "passed": True, "shell_executable": hosts[index], "host_major": 5 if host == "PS51" else 7,
+                            "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.5", "exit_code": 0, "syntax_error_count": 0,
+                            "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"],
+                            "stored_policies": policies, "policies_after": policies} for index, host in enumerate(("PS51", "PS7"))],
+            "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,
+            "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 1, "outputs": [], "successful_final_count": 0,
+                "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
+                "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-deferred-M2-T04"},
+            "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
+            "owned_temp_removed": True, "machine_settings_unchanged": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
+
+
 class RunnerTests(unittest.TestCase):
+    def test_conversion_hashes_nonempty_false_mapping_content_stream(self):
+        path = ROOT / "tests/conversion/characterize_conversion.py"
+        spec = importlib.util.spec_from_file_location("content_hash_conversion", path)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+
+        class ContentStream(dict):
+            def get_data(self):
+                return b"Original nonempty page content"
+
+        stream = ContentStream()
+        self.assertFalse(stream)
+        reader = SimpleNamespace(pages=[SimpleNamespace(get_contents=lambda: stream)])
+        self.assertEqual(module.page_content(reader), [runner.sha256(stream.get_data())])
+        self.assertNotEqual(module.page_content(reader), [runner.sha256(b"")])
+
+    def test_conversion_target_forwards_actual_converter_and_both_hosts(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        calibre = Path("C:/trusted/ebook-convert.exe")
+        args = SimpleNamespace(layer="conversion", failure_probe=None, shell_path=hosts, tool_root=None, calibre_path=calibre)
+        commands = []
+
+        def command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic-git\n", "stderr": ""}
+
+        with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        routed = [argv for argv in commands if str(ROOT / "tests/conversion/characterize_conversion.py") in argv]
+        self.assertEqual(len(routed), 1)
+        self.assertEqual(routed[0][-6:], ["--calibre-path", str(calibre), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["conversion"])
+        self.assertEqual(report["steps"][0]["requested_calibre_path"], str(calibre))
+        self.assertEqual(len(report["steps"]), 1)
+        self.assertTrue(report["success"])
+
+    def test_conversion_evidence_requires_real_formats_content_retention_and_invalid_native_success_rejection(self):
+        hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]
+        calibre = "C:/trusted/ebook-convert.exe"
+        complete = complete_conversion_report(hosts, calibre)
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "conversion.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0, "requested_shell_paths": hosts, "requested_calibre_path": calibre}
+            runner.attach_child_report(step, path, "conversion")
+            self.assertEqual(step["exit_code"], 0, step.get("evidence_error"))
+            defects = [
+                ("wrong converter", lambda data: data["calibre"].__setitem__("path", "C:/unexpected/ebook-convert.exe")),
+                ("unverified bytes", lambda data: data["calibre"].__setitem__("sha256", "a" * 64)),
+                ("renamed azw3", lambda data: data["fixture_provenance"]["files"][1].__setitem__("origin", "renamed-epub")),
+                ("missing genuine generator", lambda data: data["fixture_provenance"].pop("azw3_generation")),
+                ("private source", lambda data: data["fixture_provenance"].__setitem__("authored_original", False)),
+                ("missing reference", lambda data: data["reference_conversions"].pop("azw3")),
+                ("unrequested host", lambda data: data["host_cases"][1].__setitem__("shell_executable", "C:/unexpected/pwsh.exe")),
+                ("policy changed", lambda data: data["host_cases"][0].__setitem__("policies_after", [])),
+                ("missing real case", lambda data: data["real_cases"].pop()),
+                ("known PDF confusion", lambda data: data["real_cases"][0]["original_ebook_identity"].__setitem__("binding", "reader_snapshot")),
+                ("no cleanup", lambda data: data["real_cases"][0]["conversion"]["workspace_cleanup"].__setitem__("cleanup_complete", False)),
+                ("unsafe workspace retention", lambda data: data["real_cases"][0]["conversion"]["workspace_cleanup"].__setitem__("retained_staging", "C:/synthetic/work")),
+                ("different source hash", lambda data: data["real_cases"][0]["conversion"]["generated_pdf_identity"].__setitem__("sha256", "c" * 64)),
+                ("missing actual source pages", lambda data: data["real_cases"][0]["conversion"]["generated_pdf_identity"].pop("page_content_sha256")),
+                ("dropped TOC", lambda data: data["real_cases"][0].__setitem__("page_content_sha256", ["f" * 64])),
+                ("native failure marked pass", lambda data: data["real_cases"][0].__setitem__("exit_code", 1)),
+                ("missing actual success frame", lambda data: data["real_cases"][0].pop("engine_record")),
+                ("read-only unobserved", lambda data: data["real_cases"][0].pop("source_read_only_attribute_observed")),
+                ("metadata claimed independent", lambda data: data["real_cases"][0].__setitem__("page_content_observation", "independent-captured-reader-and-real-conversion-and-slices")),
+                ("retained bytes unverified", lambda data: data["real_cases"][1].__setitem__("retained_sha256_verified", False)),
+                ("missing default absence", lambda data: data["real_cases"][0].pop("retained_absent_verified")),
+                ("manifest no conversion", lambda data: data["real_cases"][0]["writer_result"]["manifest"].pop("conversion")),
+                ("missing direct snapshot", lambda data: data["direct_api_cases"].pop()),
+                ("replan occurred", lambda data: data["direct_api_cases"][0].__setitem__("planner_calls_during_execute", 1)),
+                ("captured bytes unverified", lambda data: data["direct_api_cases"][0].pop("captured_pdf_bytes_verified")),
+                ("no invalid-output evidence", lambda data: data["invalid_converter_cases"].pop()),
+                ("not zero exit", lambda data: data["invalid_converter_cases"][0].__setitem__("converter_exit_code", 1)),
+                ("parent did not observe zero", lambda data: data["invalid_converter_cases"][0].pop("converter_process")),
+                ("lost native context", lambda data: data["invalid_converter_cases"][0]["engine_record"].pop("diagnostic")),
+                ("invalid output accepted", lambda data: data["invalid_converter_cases"][0]["engine_record"].__setitem__("written_count", 1)),
+                ("success summary on failure", lambda data: data["invalid_converter_cases"][0].__setitem__("no_success_summary", False)),
+                ("BAT zero failure", lambda data: data["bat_missing_converter_case"].__setitem__("exit_code", 0)),
+                ("unpreserved baseline", lambda data: data.__setitem__("baseline_guards_preserved", False)),
+            ]
+            for name, defect in defects:
+                with self.subTest(defect=name):
+                    child = deepcopy(complete)
+                    defect(child)
+                    path.write_text(json.dumps(child), encoding="utf-8")
+                    step = {"exit_code": 0, "requested_shell_paths": hosts, "requested_calibre_path": calibre}
+                    runner.attach_child_report(step, path, "conversion")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+
     def test_paths_target_runs_one_stage_and_forwards_both_actual_hosts(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="paths", failure_probe=None, shell_path=hosts, tool_root=None)
@@ -701,10 +886,10 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_seven_regressions_and_forwards_integration_hosts(self):
+    def test_full_selects_all_eight_regressions_and_forwards_integration_hosts_and_converter(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
-                               tool_root=Path("C:/trusted/tool-root"))
+                               tool_root=Path("C:/trusted/tool-root"), calibre_path=Path("C:/trusted/ebook-convert.exe"))
         commands = []
 
         def successful_command(argv, cwd, **kwargs):
@@ -740,10 +925,13 @@ class RunnerTests(unittest.TestCase):
         paths = [command for command in commands if str(ROOT / "tests/paths/characterize_paths.py") in command]
         self.assertEqual(len(paths), 1)
         self.assertEqual(paths[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths"])
-        self.assertEqual([step["name"] for step in report["steps"][-7:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression"])
-        self.assertEqual(len(report["steps"]), 10)
+        conversion = [command for command in commands if str(ROOT / "tests/conversion/characterize_conversion.py") in command]
+        self.assertEqual(len(conversion), 1)
+        self.assertEqual(conversion[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion"])
+        self.assertEqual([step["name"] for step in report["steps"][-8:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression"])
+        self.assertEqual(len(report["steps"]), 11)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):

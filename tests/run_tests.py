@@ -56,6 +56,12 @@ OUTPUT_FAILURE_CODES = {"mid-write": "output_write_failed", "reopen": "output_va
 OUTPUT_CLEANUP_IDS = {"ordinary-owned", "unexpected-member", "held-marker-tamper", "manifest-path-not-authority",
                       "mock-reparse", "junction-base", "junction-child", "held-stage-replacement"}
 PATH_ACCEPTANCE_IDS = ["AC-036", "AC-037", "AC-038", "AC-039"]
+CONVERSION_ACCEPTANCE_IDS = ["AC-040", "AC-041", "AC-042"]
+CONVERSION_REAL_IDS = {host + "-" + fmt + "-" + retention for host in ("PS51", "PS7")
+                       for fmt in ("epub", "azw3") for retention in ("default", "keep")}
+CONVERSION_INVALID_IDS = {host + "-" + kind for host in ("PS51", "PS7")
+                          for kind in ("missing", "empty", "corrupt", "zero-page")}
+CONVERSION_CALIBRE_SHA256 = "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
 PATH_LITERAL_IDS = {"PS51-literal", "PS7-literal", "BAT-literal"}
 PATH_REJECTION_IDS = {host + "-" + case for host in ("PS51", "PS7")
                       for case in ("directory-pdf", "provider-pdf", "corrupt-pdf", "unreadable-held-file")}
@@ -127,6 +133,7 @@ def source_manifest() -> dict[str, str]:
         "tests/diagnostics/README.md",
         "tests/output/README.md",
         "tests/paths/README.md",
+        "tests/conversion/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -591,6 +598,208 @@ def validate_paths_report(child: dict, requested_shells: list[str]) -> None:
             raise ValueError("Destination failure requires an explicit actionable error, zero published files and owned cleanup")
 
 
+def validate_conversion_success(case: dict, calibre_path: str) -> None:
+    result = case.get("writer_result")
+    if not isinstance(result, dict) or not isinstance(result.get("manifest"), dict):
+        raise ValueError("Conversion requires a complete writer result and manifest")
+    ebook_fields = {"original_ebook_identity", "conversion", "retained_intermediate"}
+    pdf_result = {key: value for key, value in result.items() if key not in ebook_fields}
+    pdf_result["manifest"] = {key: value for key, value in result["manifest"].items() if key not in ebook_fields}
+    validate_plan_parity({**case, "writer_result": pdf_result})
+    validate_plan_page_content(case)
+    original, conversion = case.get("original_ebook_identity"), case.get("conversion")
+    fmt = case.get("format")
+    if fmt not in {"epub", "azw3"} or case["total_pages"] != (3 if fmt == "epub" else 4) \
+            or not isinstance(original, dict) or original.get("binding") != "ebook_snapshot" \
+            or not isinstance(original.get("path"), str) or not Path(original["path"]).is_absolute() \
+            or Path(original["path"]).suffix.lower() != "." + fmt \
+            or not valid_digest(original.get("sha256")) or type(original.get("size_bytes")) is not int or original["size_bytes"] < 1 \
+            or case.get("input_sha256") != original["sha256"] or result.get("original_ebook_identity") != original \
+            or not isinstance(conversion, dict) or result.get("conversion") != conversion \
+            or os.path.normcase(conversion.get("converter_path", "")) != os.path.normcase(calibre_path) \
+            or conversion.get("output_profile") != "tablet" or type(conversion.get("exit_code")) is not int or conversion["exit_code"] != 0 \
+            or not isinstance(conversion.get("workspace_cleanup"), dict) \
+            or conversion["workspace_cleanup"].get("cleanup_complete") is not True \
+            or conversion["workspace_cleanup"].get("retained_staging", "missing") is not None:
+        raise ValueError("Conversion success requires the actual converter, original ebook identity and cleaned captured PDF")
+    generated = conversion.get("generated_pdf_identity")
+    source = conversion.get("original_source_identity")
+    if not isinstance(generated, dict) or generated.get("binding") != "reader_snapshot" \
+            or not isinstance(generated.get("path"), str) or not Path(generated["path"]).is_absolute() \
+            or Path(generated["path"]).suffix.lower() != ".pdf" or generated["path"] == original["path"] \
+            or generated.get("sha256") != result["source_identity"]["sha256"] \
+            or generated.get("size_bytes") != result["source_identity"]["size_bytes"] \
+            or generated.get("path") != result["source_identity"].get("path") \
+            or Path(generated["path"]).name != "WinBookSplit_Converted.pdf" \
+            or Path(generated["path"]).parent.parent != Path(case.get("output_base", "")) \
+            or re.fullmatch(r"\.WinBookSplit-stage-[0-9a-f]{32}", Path(generated["path"]).parent.name) is None \
+            or type(generated.get("page_count")) is not int or generated["page_count"] != case["total_pages"] \
+            or generated.get("page_content_sha256") != case["original_page_content_sha256"] \
+            or not isinstance(source, dict) or source.get("binding") != "ebook_snapshot" or source != original:
+        raise ValueError("Conversion identities and actual captured PDF page content must remain distinct and agree")
+    argv = conversion.get("argv")
+    if not isinstance(argv, list) or len(argv) != 5 \
+            or os.path.normcase(argv[0]) != os.path.normcase(calibre_path) \
+            or os.path.normcase(argv[1]) != os.path.normcase(original["path"]) \
+            or os.path.normcase(argv[2]) != os.path.normcase(generated["path"]) \
+            or argv[3:] != ["--output-profile", "tablet"]:
+        raise ValueError("Conversion report must preserve the exact reviewed executable argument vector")
+    for stream in ("stdout", "stderr"):
+        tail, count, truncated = conversion.get(stream + "_tail"), conversion.get(stream + "_total_bytes"), conversion.get(stream + "_truncated")
+        if not isinstance(tail, str) or type(count) is not int or count < 0 or type(truncated) is not bool:
+            raise ValueError("Conversion process evidence requires both bounded stream observations")
+    if type(conversion.get("timeout_seconds")) not in {int, float} or conversion["timeout_seconds"] <= 0 \
+            or type(conversion.get("elapsed_seconds")) not in {int, float} or conversion["elapsed_seconds"] < 0:
+        raise ValueError("Conversion process evidence requires bounded timing")
+    keep, retained = case.get("keep_converted_pdf"), result.get("retained_intermediate", "missing")
+    if type(keep) is not bool or case.get("retained_intermediate") != retained \
+            or result["manifest"].get("original_ebook_identity") != original \
+            or result["manifest"].get("conversion") != conversion \
+            or result["manifest"].get("retained_intermediate", "missing") != retained:
+        raise ValueError("Conversion manifest must preserve original identity and explicit retention policy")
+    if keep:
+        if retained != {"filename": "WinBookSplit_Converted.pdf", "sha256": generated["sha256"],
+                        "size_bytes": generated["size_bytes"], "page_count": case["total_pages"]} \
+                or case.get("retained_sha256_verified") is not True or case.get("retained_page_content_verified") is not True:
+            raise ValueError("Retained full PDF must independently match the actual captured conversion")
+    elif retained is not None or case.get("retained_absent_verified") is not True:
+        raise ValueError("Default conversion must leave no retained intermediate")
+    if case.get("chapter_markers") != ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"] \
+            or case.get("converted_reference_page_content_sha256") != case["original_page_content_sha256"] \
+            or case.get("manifest_validated") is not True or case.get("input_unchanged") is not True \
+            or case.get("neighbor_unchanged") is not True or case.get("owned_outputs_removed") is not True \
+            or case.get("workspace_absent_verified") is not True:
+        raise ValueError("Conversion acceptance requires exact original markers, all physical pages and preserved neighbors")
+    expected_ranges = [[0, 1], [1, 2], [2, case["total_pages"]]]
+    if [entry.get("range") for entry in case["outputs"]] != expected_ranges \
+            or case["written_count"] != 3 or Path(result["final_directory"]).parent != Path(case.get("output_base", "")):
+        raise ValueError("Conversion must publish exactly the three requested complete sections in its explicit base")
+
+
+def validate_conversion_report(child: dict, requested_shells: list[str], calibre_path: str) -> None:
+    if type(child.get("schema_version")) is not int or child["schema_version"] != 1 \
+            or child.get("task_id") != "M2-T03" or child.get("result") != "CONVERSION_REGRESSION_PASSED" \
+            or child.get("success") is not True or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+            or child.get("acceptance_ids") != CONVERSION_ACCEPTANCE_IDS \
+            or any(child.get(field) is not True for field in ("source_unchanged", "baseline_guards_preserved",
+                                                             "input_and_neighbor_unchanged", "owned_temp_removed", "machine_settings_unchanged")) \
+            or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+            or not isinstance(child.get("import_observation"), dict) or child["import_observation"].get("import_safe") is not True:
+        raise ValueError("Conversion report requires every M2-T03 acceptance and preservation promise")
+    calibre = child.get("calibre")
+    if not isinstance(calibre, dict) or os.path.normcase(calibre.get("path", "")) != os.path.normcase(calibre_path) \
+            or calibre.get("version") != "9.15.0" or calibre.get("sha256") != CONVERSION_CALIBRE_SHA256 \
+            or type(calibre.get("size_bytes")) is not int or calibre["size_bytes"] != 36104 \
+            or not isinstance(calibre.get("version_observation"), dict) \
+            or calibre["version_observation"].get("exit_code") != 0 \
+            or "calibre 9.15.0" not in calibre["version_observation"].get("stdout", ""):
+        raise ValueError("Conversion acceptance requires the actual pinned external Calibre executable")
+    provenance = child.get("fixture_provenance")
+    if not isinstance(provenance, dict) or provenance.get("kind") != "original-offline-ebook-fixtures" \
+            or provenance.get("authored_original") is not True or provenance.get("remote_resources") is not False \
+            or provenance.get("license") != "MIT" or provenance.get("chapter_markers") != ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"]:
+        raise ValueError("Conversion requires original offline ebook provenance, never private or renamed-format fixtures")
+    files = provenance.get("files")
+    if not isinstance(files, list) or len(files) != 2 \
+            or any(not isinstance(item, dict) or not valid_digest(item.get("sha256"))
+                   or type(item.get("size_bytes")) is not int or item["size_bytes"] < 1 for item in files) \
+            or {item.get("format") for item in files} != {"epub", "azw3"} \
+            or any(item.get("origin") != ("authored-epub" if item["format"] == "epub" else "actual-calibre-conversion") for item in files):
+        raise ValueError("Conversion requires both hashed authored EPUB and actual generated AZW3")
+    generation = provenance.get("azw3_generation")
+    if not isinstance(generation, dict) or type(generation.get("exit_code")) is not int or generation["exit_code"] != 0 \
+            or not isinstance(generation.get("argv"), list) or len(generation["argv"]) != 5 \
+            or os.path.normcase(generation["argv"][0]) != os.path.normcase(calibre_path) \
+            or not generation["argv"][1].endswith(".epub") or not generation["argv"][2].endswith(".azw3") \
+            or generation["argv"][3:] != ["--output-profile", "tablet"]:
+        raise ValueError("Genuine AZW3 fixture requires the actual pinned converter command and native success")
+    references = child.get("reference_conversions")
+    if not isinstance(references, dict) or set(references) != {"epub", "azw3"}:
+        raise ValueError("Conversion requires independent real PDF reference conversions for both actual formats")
+    for fmt, reference in references.items():
+        process = reference.get("process") if isinstance(reference, dict) else None
+        count = 3 if fmt == "epub" else 4
+        if not isinstance(process, dict) or type(process.get("exit_code")) is not int or process["exit_code"] != 0 \
+                or not isinstance(process.get("argv"), list) or len(process["argv"]) != 5 \
+                or os.path.normcase(process["argv"][0]) != os.path.normcase(calibre_path) \
+                or not process["argv"][1].endswith("." + fmt) or not process["argv"][2].endswith(".pdf") \
+                or process["argv"][3:] != ["--output-profile", "tablet"] \
+                or type(reference.get("page_count")) is not int or reference["page_count"] != count \
+                or not valid_digest(reference.get("sha256")) or type(reference.get("size_bytes")) is not int or reference["size_bytes"] < 1 \
+                or not isinstance(reference.get("page_content_sha256"), list) or len(reference["page_content_sha256"]) != count \
+                or any(not valid_digest(digest) for digest in reference["page_content_sha256"]):
+            raise ValueError("Independent real conversion references require exact physical page content and native command evidence")
+    hosts = validate_plan_case_ids(child.get("host_cases"), {"PS51", "PS7"}, "conversion actual hosts")
+    requested = {os.path.normcase(path) for path in requested_shells}
+    if len(requested) != 2 or {os.path.normcase(host.get("shell_executable", "")) for host in hosts} != requested:
+        raise ValueError("Conversion requires both requested actual shell hosts")
+    by_host = {host["id"]: host for host in hosts}
+    for host in hosts:
+        if host.get("host_major") != (5 if host["id"] == "PS51" else 7) \
+                or not isinstance(host.get("host_version"), str) \
+                or not host["host_version"].startswith("5.1." if host["id"] == "PS51" else "7.") \
+                or host.get("exit_code") != 0 or host.get("syntax_error_count") != 0 \
+                or host.get("syntax_checked") != ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"]:
+            raise ValueError("Conversion hosts require actual supported versions and successful syntax parsing")
+        policies = host.get("stored_policies")
+        if not isinstance(policies, list) or len(policies) != 4 \
+                or {item.get("scope") for item in policies if isinstance(item, dict)} != {"MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine"} \
+                or any(not isinstance(item.get("policy"), str) for item in policies) or host.get("policies_after") != policies:
+            raise ValueError("Conversion host evidence requires unchanged actual stored policies")
+    real = validate_plan_case_ids(child.get("real_cases"), CONVERSION_REAL_IDS, "real conversion/retention")
+    for case in real:
+        validate_conversion_success(case, calibre_path)
+        host_id, fmt, retention = case["id"].split("-")
+        frame = case.get("engine_record")
+        if case.get("actual_process") is not True or type(case.get("exit_code")) is not int or case["exit_code"] != 0 \
+                or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(by_host[host_id]["shell_executable"]) \
+                or case["format"] != fmt or case["keep_converted_pdf"] is not (retention == "keep") \
+                or case.get("source_read_only_attribute_observed") is not True or case.get("source_attributes_restored") is not True \
+                or case.get("page_content_observation") != "actual-converter-metadata-compared-with-independent-real-conversion-and-slices" \
+                or case.get("no_replanning_observation") != "supported-by-direct-api-and-shared-plan-controls" \
+                or not isinstance(frame, dict) or frame.get("protocol") != "winbooksplit.result" \
+                or type(frame.get("version")) is not int or frame["version"] != 1 \
+                or frame.get("status") != "success" or frame.get("code") != "split_complete" \
+                or type(frame.get("exit_code")) is not int or frame["exit_code"] != 0 \
+                or frame.get("mode") != case["mode"] or type(frame.get("written_count")) is not int \
+                or frame["written_count"] != case["written_count"] or frame.get("execution") != case["writer_result"]:
+            raise ValueError("Real conversion cases require actual read-only launchers and accurately scoped content evidence")
+        if case["original_page_content_sha256"] != references[fmt]["page_content_sha256"]:
+            raise ValueError("Actual converted slices must match the independently captured format reference")
+    direct = validate_plan_case_ids(child.get("direct_api_cases"), {"epub", "azw3"}, "direct conversion snapshot")
+    for case in direct:
+        validate_conversion_success(case, calibre_path)
+        if case.get("page_content_observation") != "independent-captured-reader-and-real-conversion-and-slices" \
+                or case.get("no_replanning_observation") != "direct-api-planner-and-source-reopen-traps" \
+                or case.get("captured_pdf_bytes_verified") is not True \
+                or any(type(case.get(field)) is not int or case[field] != 0 for field in ("planner_calls_during_execute", "source_reader_calls_during_execute")):
+            raise ValueError("Direct ebook execution requires actual captured-reader parity without replanning/reopening")
+        if case["original_page_content_sha256"] != references[case["format"]]["page_content_sha256"]:
+            raise ValueError("Direct captured reader must match the independent real PDF reference")
+    invalid = validate_plan_case_ids(child.get("invalid_converter_cases"), CONVERSION_INVALID_IDS, "zero-exit invalid converters")
+    for case in invalid:
+        host_id = case["id"].split("-", 1)[0]
+        frame = case.get("engine_record")
+        converter = case.get("converter_process")
+        if case.get("actual_process") is not True or case.get("exit_code") != 1 or case.get("converter_exit_code") != 0 \
+                or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(by_host[host_id]["shell_executable"]) \
+                or not isinstance(frame, dict) or frame.get("code") != "conversion_output_invalid" \
+                or frame.get("exit_code") != 1 or frame.get("written_count") != 0 or frame.get("execution", "missing") is not None \
+                or not isinstance(converter, dict) or type(converter.get("exit_code")) is not int or converter["exit_code"] != 0 \
+                or "WBS-FAKE-NATIVE-EXIT-0" not in converter.get("stdout_tail", "") \
+                or not isinstance(frame.get("diagnostic"), dict) or frame["diagnostic"].get("conversion") != converter \
+                or case.get("outputs") != [] or case.get("successful_final_count") != 0 \
+                or case.get("no_success_summary") is not True or case.get("workspace_absent_verified") is not True \
+                or any(case.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed")):
+            raise ValueError("Zero-exit converter controls must reject every invalid PDF without split/success output")
+    bat = child.get("bat_missing_converter_case")
+    if not isinstance(bat, dict) or bat.get("passed") is not True or bat.get("actual_process") is not True \
+            or bat.get("exit_code") != 1 or bat.get("outputs") != [] or bat.get("successful_final_count") != 0 \
+            or any(bat.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "no_success_summary")) \
+            or bat.get("scope") != "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-deferred-M2-T04":
+        raise ValueError("Conversion evidence must accurately preserve actual BAT missing-converter failure")
+
+
 def validate_plan_report(child: dict) -> None:
     properties, observation = child.get("seeded_plan_cases"), child.get("import_observation")
     if type(child.get("schema_version")) is not int or child.get("task_id") != "M1-T05" \
@@ -776,6 +985,8 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validate_diagnostics_report(child, step.get("requested_shell_paths", []))
         elif kind == "paths":
             validate_paths_report(child, step.get("requested_shell_paths", []))
+        elif kind == "conversion":
+            validate_conversion_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -990,8 +1201,11 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "not_run": ["interactive preview UI", "full application splitting in both shells",
-                    "human Explorer drag/drop", "real Calibre EPUB/AZW3 conversion",
+        "conversion_scope": "Actual original offline EPUB/AZW3 conversion and retained/default PDF cases under both requested hosts"
+                            if not args.failure_probe and args.layer in {"conversion", "full"}
+                            else "NOT_ASSERTED: this layer does not execute the real Calibre conversion acceptance route",
+        "not_run": ["interactive preview UI", "in-person console interaction",
+                    "human Explorer drag/drop", "unsupported ebooks/remote-resource behavior/DRM",
                     "release-package checks"],
     }
     steps = report["steps"]
@@ -1120,6 +1334,18 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "paths")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"conversion", "full"}:
+            child_report = work / "conversion-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/conversion/characterize_conversion.py"),
+                       "--report", str(child_report), "--calibre-path", str(args.calibre_path)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "conversion-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_calibre_path": str(args.calibre_path),
+                    "meaning": "Actual offline EPUB/AZW3 conversion, owned intermediate retention and invalid zero-exit converter rejection",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "conversion")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1139,9 +1365,10 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
+    parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/full acceptance")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
                         help="Absolute actual powershell.exe/pwsh.exe; repeat for both hosts")
     parser.add_argument("--failure-probe", choices=("native", "python", "pester"))
@@ -1166,12 +1393,16 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
-            raise ValueError("Diagnostics and paths require both explicit distinct supported shell hosts")
+        if args.layer in {"diagnostics", "paths", "conversion", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            raise ValueError("Diagnostics, paths and conversion require both explicit distinct supported shell hosts")
+        if not args.failure_probe and args.layer in {"conversion", "full"}:
+            if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
+                raise ValueError("Conversion/full requires the existing absolute actual pinned --calibre-path")
+            args.calibre_path = args.calibre_path.resolve()
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(report, stream, indent=2, ensure_ascii=True)
