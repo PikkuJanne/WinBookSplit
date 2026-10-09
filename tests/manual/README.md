@@ -27,17 +27,28 @@ Use the supported fresh developer interpreter with `-I -B`, an absolute runner
 path and a new external report: `tests/run_tests.py --layer manual --report ...`.
 `--layer full` runs current manual acceptance, corrected Level 1/2 bookmark
 acceptance, Python units and the shell layer.
-Optional repeated actual PS5.1/PS7 `--shell-path` arguments reuse the existing
-six GUID-owned entrypoint probes, including three simultaneous invocations.
+Optional repeated actual PS5.1/PS7 `--shell-path` arguments run six current
+GUID-owned entrypoint probes, including three simultaneous invocations.
 Manual `4,7` uses corrected exact output references. The actual current CLI
 also builds a corrected BM-03 launcher reference with all six ranges, complete
 physical page identities and Front matter/A opening/A1/A2/B opening/B1 titles.
-The six existing probes now compare its corrected bytes. This is recorded as
+The six probes compare its corrected bytes. This is recorded as
 `level2_launcher_reference`, separate from historical observations. The test
-output/cleanup/process safety boundaries are
-documented in `../extraction/README.md` and are unchanged. Reports must include
+process safety and GUID-parent guards reuse the unchanged historical helpers.
+`current_launchers.py` reads only exact emitted Output/Log paths, validates
+the direct child manifest/marker/files, and removes those known regular members
+nonrecursively through held native delete handles after capturing and matching
+their identities under root-to-parent directory guards. The unchanged historical
+parent cleanup then removes its separate GUID sentinel directory. Unknown/reparse paths or
+uncertain owned process termination are preserved. Reports must include
 all promised cases and requested entrypoints or the central runner fails.
 
 These controlled stdin/PATH/current-workstation probes do not certify Explorer,
-all launcher/error paths, Calibre conversion, output transaction safety, fidelity
+all launcher/error paths, Calibre conversion, complete output transaction safety, fidelity
 or an extracted release package. No private document is processed or uploaded.
+
+Since M2-T01, every current writer check uses the explicitly returned published
+child and its complete manifest, owner marker, ordered output digests/sizes and
+reopened page IDs. The output argument is a base; preserved root neighbors and
+earlier runs cannot be mixed into the new slices. The separate output layer
+checks failure handling, concurrency and actual Windows junction boundaries.

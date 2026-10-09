@@ -322,8 +322,8 @@ class Level2SyntheticPdfTests(unittest.TestCase):
                 output = self.work / ("unusable-parent-" + kind + "-output")
                 output.mkdir()
                 with patch.object(engine, "log"):
-                    engine.split_pdf(str(source), str(output), "2")
-                self.assertEqual([fixtures.page_ids(path) for path in sorted(output.glob("*.pdf"))],
+                    execution = engine.split_pdf(str(source), str(output), "2")
+                self.assertEqual([fixtures.page_ids(path) for path in sorted(Path(execution["final_directory"]).glob("*.pdf"))],
                                  [list(range(1, 6)), [6], list(range(7, 11))])
                 self.assertEqual(source.read_bytes(), before)
 
@@ -392,12 +392,15 @@ class Level2SyntheticPdfTests(unittest.TestCase):
                         self.assertEqual({path.name for path in output.iterdir()}, {neighbor.name})
                     else:
                         plan = engine.plan_level2(PdfReader(source), case["pages"])
-                        engine.split_pdf(str(source), str(output), "2")
-                        observed = [fixtures.page_ids(path) for path in sorted(output.glob("*.pdf"))]
+                        execution = engine.split_pdf(str(source), str(output), "2")
+                        published = Path(execution["final_directory"])
+                        observed = [fixtures.page_ids(path) for path in sorted(published.glob("*.pdf"))]
                         self.assertEqual(observed, [list(range(start + 1, end + 1)) for start, end in case["expected_ranges"]])
                         self.assertEqual([page for pages in observed for page in pages], list(range(1, case["pages"] + 1)))
-                        self.assertEqual({path.name for path in output.iterdir()},
-                                         {entry["filename"] for entry in plan["entries"]} | {neighbor.name})
+                        self.assertEqual({path.name for path in published.iterdir()},
+                                         {entry["filename"] for entry in plan["entries"]} |
+                                         {".WinBookSplit-owner.json", execution["manifest_filename"]})
+                        self.assertEqual({path.name for path in output.iterdir()}, {published.name, neighbor.name})
                 self.assertEqual(neighbor.read_bytes(), b"Original synthetic neighbor preserved\n")
                 self.assertEqual(sha256(source.read_bytes()).hexdigest(), before)
 

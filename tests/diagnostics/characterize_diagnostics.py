@@ -110,7 +110,7 @@ def engine_cases(engine, work, sources, generator):
         else:
             process = manual.observe(ENGINE, source, output, cwd, mode, data if mode == "manual" else None)
             diagnostic = parse_result(process["stdout"])
-        outputs = history.outputs(output, generator) if not existing else []
+        outputs = manual.published_outputs(output, generator, diagnostic)
         record = {"id": identifier, "passed": True, "diagnostic": diagnostic, "outputs": outputs,
                   "input_unchanged": input_before == (history.file_digest(source) if source.exists() else None),
                   "neighbor_unchanged": neighbor.read_bytes() == b"Preserve this diagnostic neighbor\n",
@@ -132,8 +132,7 @@ def engine_cases(engine, work, sources, generator):
         else:
             require(not outputs and ("[Writing]" not in process["stdout"] or identifier == "write-failure"),
                     "Rejected diagnostic case wrote or attempted a slice: " + identifier)
-        require({path.name for path in output.iterdir()} == {neighbor.name, *existing, *(item["filename"] for item in outputs)},
-                "Diagnostic case created unexpected output")
+        manual.check_base_members(output, diagnostic, [neighbor.name, *existing])
         records.append(record)
     return records
 
@@ -234,7 +233,7 @@ def characterize(work, shells):
             "immutable_original_commit": history.ORIGINAL_COMMIT, "historical_original_guard": guard,
             "tested_path_sha256": before, "input_sha256": inputs, "import_observation": import_observation,
             "environment": {"python": sys.version, "python_executable": sys.executable, "platform": platform.platform(), "pypdf": history.pypdf.__version__},
-            "not_run": ["top-level cancel/retry launcher UI", "Explorer", "Calibre", "release package", "complete output transactions"]}
+            "not_run": ["top-level cancel/retry launcher UI", "Explorer", "Calibre", "release package"]}
 
 
 def main():

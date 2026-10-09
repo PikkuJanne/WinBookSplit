@@ -166,7 +166,11 @@ class DiagnosticTests(unittest.TestCase):
         self.assert_failure_shape(result, "write_error", "output_write_failed", 1, ())
         self.assertEqual(writer.call_count, 1)
         self.assertIn("Synthetic first slice write failed", result["message"])
-        self.assertEqual(list(output.iterdir()), [])
+        diagnostic = result["diagnostic"]
+        self.assertTrue(diagnostic["cleanup_complete"])
+        self.assertIsNone(diagnostic["retained_staging"])
+        self.assertTrue(Path(diagnostic["record_path"]).is_file())
+        self.assertEqual(list(output.glob("*.pdf")), [])
         self.assertEqual(self.inputs["simple10"].read_bytes(), before)
 
     def test_zero_section_execution_result_cannot_be_reported_as_success(self):
@@ -191,7 +195,8 @@ class DiagnosticTests(unittest.TestCase):
         self.assertEqual(result["written_count"], 1)
         execution = result["execution"]
         self.assertEqual(execution["coverage"], {"complete": True, "covered_pages": 10, "section_count": 1})
-        self.assertEqual(fixtures.page_ids(output / execution["outputs"][0]["filename"]), list(range(1, 11)))
+        self.assertEqual(fixtures.page_ids(Path(execution["final_directory"]) / execution["outputs"][0]["filename"]),
+                         list(range(1, 11)))
 
     def test_recoverable_invalid_bookmark_warning_survives_success_without_losing_pages(self):
         output = self.work / "warning-success-result"
@@ -202,7 +207,8 @@ class DiagnosticTests(unittest.TestCase):
         self.assertEqual(result["written_count"], 2)
         self.assertTrue(any(warning["code"] == "invalid_destination" for warning in result["warnings"]))
         self.assertEqual([page for entry in result["execution"]["outputs"]
-                          for page in fixtures.page_ids(output / entry["filename"])], list(range(1, 11)))
+                          for page in fixtures.page_ids(Path(result["execution"]["final_directory"]) / entry["filename"])],
+                         list(range(1, 11)))
         self.assertEqual(self.warning_success.read_bytes(), before)
 
     def test_results_and_nested_warning_metadata_are_immutable_and_plain_json_serializable(self):

@@ -5,6 +5,12 @@ import os
 import re
 import logging
 import json
+import stat
+import uuid
+import importlib.util
+import time
+from datetime import datetime, timezone
+from pathlib import Path
 from collections.abc import Mapping
 from dataclasses import dataclass
 from hashlib import sha256
@@ -507,28 +513,398 @@ def preview_plan(prepared):
     return prepared.plan
 
 
+OWNER_FILENAME = ".WinBookSplit-owner.json"
+MANIFEST_FILENAME = "WinBookSplit_Manifest.json"
+
+
+class OutputError(PlanError):
+    def __init__(self, code, message, diagnostic=None):
+        super().__init__(code, message)
+        self.diagnostic = diagnostic
+
+
+def _timestamp():
+    return datetime.now(timezone.utc).strftime("%Y%m%d-%H%M%S")
+
+
+def _new_run_id():
+    return uuid.uuid4().hex
+
+
+def _windows_output():
+    # Load only the shipped sibling, never a similarly named CWD module.
+    path = Path(__file__).resolve().with_name("winbooksplit_windows.py")
+    spec = importlib.util.spec_from_file_location("_winbooksplit_windows", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module
+
+
+def _identity(details):
+    return details.st_dev, details.st_ino
+
+
+def _ordinary(path, directory=False):
+    details = os.lstat(path)
+    if details.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT or not (
+            stat.S_ISDIR(details.st_mode) if directory else stat.S_ISREG(details.st_mode)):
+        raise OutputError("output_ownership_failed", "Output ownership refuses a reparse point or unexpected file type.")
+    return details
+
+
+class OutputRun:
+    """One flat owned stage; no recursive cleanup or manifest-directed deletion."""
+    def __init__(self, base, source_path):
+        self.base = os.path.abspath(os.fspath(base))
+        self.stage = None
+        self.files, self.file_guards, self.guards = {}, {}, []
+        self.stage_guard = None
+        self.run_id = None
+        self.marker_bytes = None
+        self.windows = _windows_output()
+        try:
+            # Hold each ancestor against rename/reparse mutation while operating.
+            chain = list(reversed(Path(self.base).parents)) + [Path(self.base)]
+            for ancestor in chain:
+                guard = self.windows.DirectoryGuard(str(ancestor))
+                self.guards.append(guard)
+                _ordinary(ancestor, directory=True)
+            self.base_guard = self.guards[-1]
+            for _ in range(100):
+                self.run_id = _new_run_id()
+                if re.fullmatch(r"[0-9a-f]{32}", self.run_id) is None:
+                    raise OutputError("output_ownership_failed", "Invalid run identity.")
+                stage = os.path.join(self.base, ".WinBookSplit-stage-" + self.run_id)
+                try:
+                    os.mkdir(stage)
+                except FileExistsError:
+                    continue
+                self.stage = stage
+                self.stage_identity = _identity(_ordinary(stage, directory=True))
+                self.stage_guard = self.windows.DirectoryGuard(stage, delete_access=True)
+                if _identity(_ordinary(stage, directory=True)) != self.stage_identity:
+                    raise OutputError("output_ownership_failed", "The reserved stage was replaced.")
+                # Keep the pinned stage/nonempty base invariant while allowing
+                # other already prepared runs to publish into the same base.
+                self.base_guard.allow_publication(self.stage_guard)
+                break
+            else:
+                raise OutputError("output_exists", "Cannot reserve a unique output run.")
+            stem = re.sub(r'[<>:"/\\|?*\x00-\x1f]', '', Path(source_path).stem).strip(" .")[:64] or "Book"
+            self.final_prefix = stem + "_" + _timestamp() + "_"
+            self.marker_bytes = serialize_result({"schema_version": 1, "kind": "run", "run_id": self.run_id}).encode("utf-8")
+            self.write_owned(OWNER_FILENAME, self.marker_bytes)
+        except (Exception, KeyboardInterrupt) as error:
+            failure = OutputError("output_cancelled", "Output preparation was cancelled.") if isinstance(error, KeyboardInterrupt) else \
+                error if isinstance(error, OutputError) else OutputError(
+                    "output_base_invalid", "Cannot reserve a safe output base: " + str(error))
+            diagnostic = _failed_run(self, failure, initializing=True) if self.stage is not None else None
+            try:
+                self.close()
+            except Exception as close_error:
+                if diagnostic is not None:
+                    diagnostic["close_error"] = str(close_error)[:2048]
+                failure.args = (str(failure) + "; " + str(close_error)[:2048],)
+            raise OutputError(failure.code, str(failure), diagnostic) from error
+
+    def record_created(self, path, stream):
+        path = os.path.abspath(os.fspath(path))
+        if os.path.dirname(path) != self.stage or path in self.files:
+            raise OutputError("output_ownership_failed", "The created file is outside this run's stage.")
+        self.files[path] = _identity(os.fstat(stream.fileno()))
+
+    def seal_file(self, path):
+        path = os.path.abspath(os.fspath(path))
+        if path not in self.files:
+            raise OutputError("output_ownership_failed", "The writer did not register its exclusive file creation.")
+        if path not in self.file_guards:
+            guard = self.windows.FileGuard(path)
+            try:
+                if _identity(_ordinary(path)) != self.files[path]:
+                    raise OutputError("output_ownership_failed", "An owned file was replaced.")
+            except Exception:
+                guard.close()
+                raise
+            self.file_guards[path] = guard
+
+    def write_owned(self, name, data):
+        # Compatible metadata handles can mutate an empty directory's reparse
+        # attributes. Reject an observed change before creating the owner file;
+        # sharing flags are not an atomic check/create or account sandbox.
+        try:
+            for guard in self.guards:
+                guard.assert_unchanged()
+            self.stage_guard.assert_unchanged()
+            if _identity(_ordinary(self.stage, directory=True)) != self.stage_identity:
+                raise OutputError("output_ownership_failed", "The stage changed before owned file creation.")
+        except OSError as error:
+            raise OutputError("output_ownership_failed", "Output directory changed before file creation: " + str(error)) from error
+        path = os.path.join(self.stage, name)
+        with open(path, "xb") as stream:
+            self.record_created(path, stream)
+            stream.write(data)
+            stream.flush()
+            os.fsync(stream.fileno())
+        self.seal_file(path)
+
+    def assert_owned(self, check_marker=True):
+        for guard in self.guards:
+            guard.assert_unchanged()
+        self.stage_guard.assert_unchanged()
+        if _identity(_ordinary(self.stage, directory=True)) != self.stage_identity:
+            raise OutputError("output_ownership_failed", "The owned stage changed.")
+        if {os.path.join(self.stage, name) for name in os.listdir(self.stage)} != set(self.files):
+            raise OutputError("output_ownership_failed", "The stage contains unexpected members; it is preserved.")
+        for path in self.files:
+            self.seal_file(path)
+            self.file_guards[path].assert_unchanged()
+            if _identity(_ordinary(path)) != self.files[path]:
+                raise OutputError("output_ownership_failed", "An owned file changed identity.")
+        if check_marker and Path(self.stage, OWNER_FILENAME).read_bytes() != self.marker_bytes:
+            raise OutputError("output_ownership_failed", "The run ownership marker changed.")
+
+    def cleanup(self, check_marker=True):
+        # Only constructor failure can use the created identities before the
+        # ownership marker has finished writing. The ledger still must be exact.
+        self.assert_owned(check_marker=check_marker)
+        # Acquire DELETE handles and recheck identity after acquisition; never
+        # unlink a path between a check and a potentially foreign replacement.
+        for guard in self.file_guards.values():
+            guard.close()
+        self.file_guards.clear()
+        delete_guards = []
+        try:
+            for path, identity in self.files.items():
+                guard = self.windows.FileGuard(path, delete_access=True)
+                delete_guards.append(guard)
+                if _identity(_ordinary(path)) != identity:
+                    raise OutputError("output_ownership_failed", "Cleanup refuses a replaced file.")
+            if {os.path.join(self.stage, name) for name in os.listdir(self.stage)} != set(self.files):
+                raise OutputError("output_ownership_failed", "Cleanup refuses unexpected members.")
+            for guard in delete_guards:
+                guard.delete()
+        finally:
+            for guard in delete_guards:
+                guard.close()
+        self.stage_guard.delete()
+        self.stage_guard.close()
+        self.stage_guard = None
+        return not os.path.lexists(self.stage)
+
+    def remove_owned(self, name):
+        self.assert_owned()
+        path = os.path.join(self.stage, name)
+        self.file_guards.pop(path).close()
+        guard = self.windows.FileGuard(path, delete_access=True)
+        try:
+            if _identity(_ordinary(path)) != self.files[path]:
+                raise OutputError("output_ownership_failed", "Refusing to replace changed completion evidence.")
+            guard.delete()
+        finally:
+            guard.close()
+        del self.files[path]
+
+    def check_publication(self):
+        # Windows cannot rename a directory while protective child handles are
+        # open. Retain the directory/ancestor guards, release only child locks,
+        # then check the exact closed-file bytes and identities once more.
+        # This is not a sandbox against arbitrary same-account file mutation.
+        for guard in self.file_guards.values():
+            guard.close()
+        self.file_guards.clear()
+        for guard in self.guards:
+            guard.assert_unchanged()
+        self.stage_guard.assert_unchanged()
+        if _identity(_ordinary(self.stage, directory=True)) != self.stage_identity or \
+                {os.path.join(self.stage, name) for name in os.listdir(self.stage)} != set(self.files):
+            raise OutputError("output_ownership_failed", "Publication refuses changed stage members.")
+        for path, identity in self.files.items():
+            if _identity(_ordinary(path)) != identity:
+                raise OutputError("output_ownership_failed", "Publication refuses a replaced file.")
+        if Path(self.stage, OWNER_FILENAME).read_bytes() != self.marker_bytes:
+            raise OutputError("output_ownership_failed", "Publication refuses changed ownership.")
+        manifest = json.loads(Path(self.stage, MANIFEST_FILENAME).read_text(encoding="utf-8"))
+        if manifest != self.publication_manifest:
+            raise OutputError("output_ownership_failed", "Publication refuses changed completion evidence.")
+        for entry in manifest["outputs"]:
+            data = Path(self.stage, entry["filename"]).read_bytes()
+            if len(data) != entry["size_bytes"] or sha256(data).hexdigest() != entry["sha256"]:
+                raise OutputError("output_validation_failed", "Publication refuses changed PDF bytes.")
+
+    def close(self):
+        guards = list(self.file_guards.values())
+        self.file_guards.clear()
+        if self.stage_guard is not None:
+            guards.append(self.stage_guard)
+            self.stage_guard = None
+        guards.extend(reversed(self.guards))
+        self.guards.clear()
+        errors = []
+        for guard in guards:
+            try:
+                guard.close()
+            except Exception as error:
+                errors.append(str(error)[:512])
+        if errors:
+            raise OutputError("output_handle_close_failed", "Cannot close output handles: " + "; ".join(errors)[:2048])
+
+
+def _validate_output(path, entry):
+    try:
+        reader = PdfReader(path)
+        if len(reader.pages) != entry["end"] - entry["start"] or len(reader.pages) < 1:
+            raise ValueError("The staged PDF page count disagrees with its planned range.")
+        # Force page objects to be resolved before publication.
+        for page in reader.pages:
+            page.get_object()
+        data = Path(path).read_bytes()
+        return {"page_count": len(reader.pages), "sha256": sha256(data).hexdigest(), "size_bytes": len(data)}
+    except Exception as error:
+        raise OutputError("output_validation_failed", "Cannot validate staged PDF: " + str(error)) from error
+
+
+def _write_manifest(run, manifest):
+    run.write_owned(MANIFEST_FILENAME, (serialize_result(manifest) + "\n").encode("utf-8"))
+
+
+def _publish_run(run, final_name):
+    run.base_guard.allow_publication(run.stage_guard)
+    run.check_publication()
+    run.stage_guard.rename_to(run.base_guard, final_name)
+
+
+def _failed_run(run, error, initializing=False):
+    diagnostic = {"run_id": run.run_id, "cleanup_complete": False, "retained_staging": run.stage,
+                  "record_path": None, "cleanup_error": None}
+    try:
+        run.base_guard.restrict_writes(run.stage_guard)
+        diagnostic["cleanup_complete"] = run.cleanup(check_marker=not initializing)
+        if diagnostic["cleanup_complete"]:
+            diagnostic["retained_staging"] = None
+    except Exception as cleanup_error:
+        diagnostic["cleanup_error"] = str(cleanup_error)[:2048]
+    # A distinct diagnostic folder can never be confused with completed chapters.
+    directory = os.path.join(run.base, ".WinBookSplit-failed-" + run.run_id)
+    try:
+        for guard in run.guards:
+            guard.assert_unchanged()
+        os.mkdir(directory)
+        identity = _identity(_ordinary(directory, directory=True))
+        guard = run.windows.DirectoryGuard(directory, delete_access=True)
+        try:
+            if _identity(_ordinary(directory, directory=True)) != identity:
+                raise OutputError("output_ownership_failed", "The diagnostic reservation was replaced.")
+            marker = {"schema_version": 1, "kind": "failed", "run_id": run.run_id}
+            record = {"schema_version": 1, "status": "failed", "code": getattr(error, "code", "output_write_failed"),
+                      "message": str(error)[:2048], **diagnostic,
+                      "record_path": os.path.join(directory, "failure.json")}
+            for name, value in ((OWNER_FILENAME, marker), ("failure.json", record)):
+                for ancestor_guard in run.guards:
+                    ancestor_guard.assert_unchanged()
+                guard.assert_unchanged()
+                with open(os.path.join(directory, name), "xb") as stream:
+                    stream.write((serialize_result(value) + "\n").encode("utf-8"))
+            diagnostic["record_path"] = os.path.join(directory, "failure.json")
+        finally:
+            guard.close()
+    except Exception as record_error:
+        diagnostic["cleanup_error"] = ((diagnostic["cleanup_error"] or "") +
+                                       "; failure record: " + str(record_error))[:2048]
+    return diagnostic
+
+
 def execute_split(prepared, output_dir):
-    """Execute exactly the prepared entries against their captured source."""
+    """Stage the unchanged plan; publish only a complete validated unique run."""
     _check_prepared(prepared)
     plan = prepared.plan
-    paths = [os.path.join(output_dir, entry["filename"]) for entry in plan["entries"]]
-    source_paths = {os.path.normcase(plan["source_identity"][key]) for key in ("path", "resolved_path")}
-    for path in paths:
-        if os.path.normcase(os.path.realpath(path)) in source_paths \
-                or os.path.normcase(os.path.abspath(path)) in source_paths:
-            raise PlanError("source_output_alias", "A planned output would replace the source PDF.")
-        if os.path.lexists(path):
-            raise PlanError("output_exists", "A planned output already exists; use a new output directory.")
-    outputs = []
-    for entry, path in zip(plan["entries"], paths):
-        write_slice(prepared._reader, entry["start"], entry["end"], path)
-        outputs.append({**entry, "page_count": entry["end"] - entry["start"]})
-    return _freeze({"mode": plan["mode"], "total_pages": plan["total_pages"],
-                    "source_identity": plan["source_identity"], "coverage": plan["coverage"],
-                    "written_count": len(outputs), "outputs": outputs})
+    run = OutputRun(output_dir, plan["source_identity"]["path"])
+    published, close_error = False, None
+    try:
+        outputs = []
+        for entry in plan["entries"]:
+            run.assert_owned()
+            path = os.path.join(run.stage, entry["filename"])
+            write_slice(prepared._reader, entry["start"], entry["end"], path, on_created=run.record_created)
+            run.seal_file(path)
+            outputs.append({**entry, **_validate_output(path, entry)})
+        if not outputs or len(outputs) != len(plan["entries"]):
+            raise OutputError("invalid_execution", "The writer produced no complete split.")
+        # A final-name collision changes only the random suffix and completion
+        # evidence; it never replaces the existing directory.
+        for attempt in range(100):
+            suffix = run.run_id if attempt == 0 else _new_run_id()
+            final_name = run.final_prefix + suffix
+            final_directory = os.path.join(run.base, final_name)
+            manifest = {"schema_version": 1, "status": "complete", "run_id": run.run_id,
+                        "final_directory": final_directory, "mode": plan["mode"],
+                        "total_pages": plan["total_pages"], "source_identity": plan["source_identity"],
+                        "coverage": plan["coverage"], "written_count": len(outputs), "outputs": outputs}
+            try:
+                if attempt:
+                    run.remove_owned(MANIFEST_FILENAME)
+                _write_manifest(run, manifest)
+            except OutputError:
+                raise
+            except Exception as error:
+                raise OutputError("output_manifest_failed", "Cannot write completion manifest: " + str(error)) from error
+            run.assert_owned()
+            result = _freeze({**manifest, "manifest_filename": MANIFEST_FILENAME, "manifest": manifest})
+            run.publication_manifest = json.loads(serialize_result(manifest))
+            try:
+                # A concurrently starting/cleaning run may briefly hold a
+                # stricter base handle. Retry that native sharing conflict only;
+                # ownership/content validation still runs on each attempt.
+                for retry in range(100):
+                    try:
+                        _publish_run(run, final_name)
+                        break
+                    except OSError as sharing_error:
+                        if getattr(sharing_error, "winerror", None) != 32 or retry == 99:
+                            raise
+                        time.sleep(0.01)
+            except FileExistsError:
+                continue
+            except OutputError:
+                raise
+            except Exception as error:
+                raise OutputError("output_publish_failed", "Cannot publish the completed run: " + str(error)) from error
+            # Publication is the commit point: no subsequent filesystem writes.
+            published = True
+            break
+        else:
+            raise OutputError("output_exists", "Cannot publish to a unique final directory.")
+    except (Exception, KeyboardInterrupt) as error:
+        if isinstance(error, KeyboardInterrupt):
+            failure = OutputError("output_cancelled", "Output writing was cancelled.")
+        else:
+            failure = error if isinstance(error, PlanError) else OutputError("output_write_failed", str(error))
+        diagnostic = _failed_run(run, failure)
+        if isinstance(error, KeyboardInterrupt):
+            raise OutputError(failure.code, str(failure), diagnostic) from error
+        if isinstance(error, PlanError):
+            raise OutputError(error.code, str(error), diagnostic) from error
+        raise OutputError("output_write_failed", str(error), diagnostic) from error
+    finally:
+        pending_error = sys.exception()
+        try:
+            run.close()
+        except Exception as error:
+            if not published:
+                if pending_error is None:
+                    raise
+                if isinstance(getattr(pending_error, "diagnostic", None), dict):
+                    pending_error.diagnostic["close_error"] = str(error)[:2048]
+                pending_error.args = (str(pending_error) + "; " + str(error)[:2048],)
+            close_error = str(error)[:2048]
+    if close_error is not None:
+        # Keep the completed result and disclose the post-commit close problem;
+        # never relabel already published chapters as a failed transaction.
+        return _freeze({**result, "post_publication_warnings": [
+            {"code": "output_handle_close_failed", "message": close_error}]})
+    return result
 
 
-def _split_result(mode, status, code, message, warnings=(), execution=None):
+def _split_result(mode, status, code, message, warnings=(), execution=None, diagnostic=None):
     """One explicit outcome; choices are data and never execute a fallback."""
     fallback = ()
     if status == "no_plan":
@@ -538,7 +914,7 @@ def _split_result(mode, status, code, message, warnings=(), execution=None):
                     "fallback_modes": fallback, "exit_code": 0 if status == "success" else
                     55 if status == "no_plan" else 1,
                     "written_count": execution["written_count"] if execution is not None else 0,
-                    "execution": execution})
+                    "execution": execution, "diagnostic": diagnostic})
 
 
 def _planning_failure(mode, error):
@@ -574,9 +950,10 @@ def run_split(input_path, output_dir, mode, manual_data=None):
         if execution["written_count"] < 1 or not execution["outputs"]:
             raise PlanError("invalid_execution", "The writer produced no sections.")
         return _split_result(mode, "success", "split_complete", "PDF split completed.",
-                             plan["warnings"], execution)
+                             (*plan["warnings"], *execution.get("post_publication_warnings", ())), execution)
     except PlanError as error:
-        return _split_result(mode, "error", error.code, str(error), plan["warnings"])
+        return _split_result(mode, "write_error" if error.code == "output_write_failed" else "error",
+                             error.code, str(error), plan["warnings"], diagnostic=getattr(error, "diagnostic", None))
     except Exception as error:
         return _split_result(mode, "write_error", "output_write_failed", str(error), plan["warnings"])
 
@@ -602,12 +979,14 @@ def split_pdf(input_path, output_dir, mode, manual_data=None):
         raise SystemExit(result["exit_code"])
     return result["execution"]
 
-def write_slice(reader, start, end, out_path):
+def write_slice(reader, start, end, out_path, on_created=None):
     log(f"    [Writing] {os.path.basename(out_path)}")
     writer = PdfWriter()
     for p in range(start, end):
         writer.add_page(reader.pages[p])
     with open(out_path, "xb") as f:
+        if on_created is not None:
+            on_created(out_path, f)
         writer.write(f)
 
 

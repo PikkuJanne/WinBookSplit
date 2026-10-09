@@ -180,11 +180,23 @@ if ($inputExt -ne ".pdf") {
 $fileName = [System.IO.Path]::GetFileNameWithoutExtension($InputFile)
 $fileSize = "{0:N2} MB" -f ((Get-Item $InputFile).Length / 1MB)
 
-$timestamp = Get-Date -Format "yyyyMMdd_HHmmss"
-$outputDir = Join-Path $documentsPath "$fileName`_Chapters"
-$logFile = Join-Path $outputDir "WinBookSplit_Log_$timestamp.txt"
-
-if (-not (Test-Path $outputDir)) { New-Item -ItemType Directory -Path $outputDir | Out-Null }
+$outputDir = $documentsPath
+# Console diagnostics have their own exclusive run folder; chapters are
+# published by the engine only after the complete stage has been validated.
+$consoleRunId = [guid]::NewGuid().ToString('N')
+$consoleDir = Join-Path $documentsPath ('.WinBookSplit-console-' + $consoleRunId)
+New-Item -ItemType Directory -Path $consoleDir -ErrorAction Stop | Out-Null
+$consoleMarker = Join-Path $consoleDir '.WinBookSplit-console-owner.json'
+$markerStream = [IO.File]::Open($consoleMarker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+try {
+    $markerBytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $consoleRunId; kind = 'console' } | ConvertTo-Json -Compress))
+    $markerStream.Write($markerBytes, 0, $markerBytes.Length)
+}
+finally { $markerStream.Dispose() }
+$logFile = Join-Path $consoleDir 'console.log'
+$logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+$script:consoleLogWriter = New-Object IO.StreamWriter($logStream, (New-Object Text.UTF8Encoding($false)))
+$script:consoleLogWriter.AutoFlush = $true
 
 # --- The Python Engine ---
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
@@ -215,13 +227,13 @@ function Run-PythonSplitter ($mode, $manualData) {
         $stderr = $stderrTask.GetAwaiter().GetResult()
         foreach ($line in ($stdout -split '\r?\n')) {
             if ($line.Length -gt 0) {
-                $line | Out-File -FilePath $logFile -Append -Encoding UTF8
+                $script:consoleLogWriter.WriteLine($line)
                 if (-not $line.StartsWith('{')) { Write-Host $line -ForegroundColor Green }
             }
         }
         if ($stderr.Length -gt 0) {
             Write-Host $stderr -ForegroundColor Red
-            $stderr | Out-File -FilePath $logFile -Append -Encoding UTF8
+            $script:consoleLogWriter.WriteLine($stderr)
         }
         return ConvertFrom-SplitResult -Stdout $stdout -ExitCode $p.ExitCode -Mode $mode
     }
@@ -273,8 +285,7 @@ try {
             if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
             $retry = Read-Host $prompt
             $decision = Get-SplitDecision -Result $result -Choice $retry
-            "[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)" |
-                Out-File -FilePath $logFile -Append -Encoding UTF8
+            $script:consoleLogWriter.WriteLine("[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)")
             if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
         } while ($decision.decision -in @('pending', 'invalid'))
         if ($decision.decision -eq 'cancel') { break }
@@ -286,13 +297,20 @@ try {
         $result = Run-PythonSplitter -mode $mode -manualData $manualInput
     }
     $exitCode = $result.exit_code
-    if ($result.status -ceq 'success') { Write-Host 'Done.' -ForegroundColor Cyan }
+    if ($result.status -ceq 'success') {
+        foreach ($warning in $result.warnings) {
+            if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + $warning.message) -ForegroundColor Yellow }
+        }
+        Write-Host ('Output: ' + $result.execution.final_directory) -ForegroundColor Cyan
+        Write-Host 'Done.' -ForegroundColor Cyan
+    }
     else { Write-Host (Get-SplitDecision -Result $result).message -ForegroundColor Red }
 }
 catch {
     Write-Host "[!] Processor failure: $($_.Exception.Message)" -ForegroundColor Red
     $exitCode = 1
 }
+finally { $script:consoleLogWriter.Dispose() }
 Write-Host ""
 Pause
 exit $exitCode
