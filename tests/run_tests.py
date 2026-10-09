@@ -26,6 +26,13 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = Path(__file__).resolve()
 ACCEPTANCE_IDS = ["AC-009", "AC-010"]
+MANUAL_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(13, 19)]
+MANUAL_ORACLE_IDS = {f"MAN-{number:02}" for number in range(1, 23)}
+MANUAL_EXTRA_IDS = {"comma", "zero", "missing", "fullwidth", "embedded-space", "late-invalid",
+                    "huge", "long-leading-zeros"}
+HISTORICAL_BOOKMARK_IDS = {f"BM-{number:02}" for number in range(1, 4)}
+MANUAL_ENTRYPOINT_IDS = {"PS51-unrelated", "PS7-unrelated", "BAT-unrelated",
+                         "parallel-PS51-unrelated", "parallel-PS7-unrelated", "parallel-BAT-unrelated"}
 GIT_SELECTORS = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_OBJECT_DIRECTORY",
                  "GIT_ALTERNATE_OBJECT_DIRECTORIES")
 
@@ -40,7 +47,7 @@ def source_manifest() -> dict[str, str]:
         "WinBookSplit.bat", "WinBookSplit.ps1", "README.md", "LICENSE", ".gitignore",
         "requirements.txt", "requirements-dev.txt",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
-        "tests/extraction/README.md",
+        "tests/extraction/README.md", "tests/manual/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -121,6 +128,36 @@ def python_suite() -> int:
     return 0 if result.wasSuccessful() and result.testsRun else 1
 
 
+def validate_manual_entrypoints(child: dict, requested_shells: list[str]) -> None:
+    """Requested actual hosts must have complete evidence, not only a total."""
+    entrypoints = child.get("entrypoints")
+    if not isinstance(entrypoints, dict):
+        raise ValueError("Manual report omitted requested actual entrypoint evidence")
+    probes = entrypoints.get("probes")
+    # WindowsPath comparison accepts SystemRoot's casing and slash differences
+    # while still requiring the requested executable locations.
+    requested_paths = {Path(shell) for shell in requested_shells}
+    if len(requested_shells) != 2 or len(requested_paths) != 2 \
+            or type(entrypoints.get("probe_count")) is not int or entrypoints["probe_count"] != 6 \
+            or type(entrypoints.get("parallel_launch_count")) is not int or entrypoints["parallel_launch_count"] != 3 \
+            or entrypoints.get("shared_temp_engine_sentinel_unchanged") is not True \
+            or entrypoints.get("owned_document_outputs_removed") is not True \
+            or not isinstance(probes, list) or len(probes) != 6 \
+            or any(not isinstance(probe, dict) or not isinstance(probe.get("id"), str)
+                   or type(probe.get("exit_code")) is not int or probe["exit_code"] != 0
+                   or probe.get("input_unchanged") is not True
+                   or probe.get("cwd_engine_untouched") is not True
+                   or probe.get("owned_neighbor_unchanged") is not True
+                   or not isinstance(probe.get("shell_executable"), str)
+                   or Path(probe["shell_executable"]) not in requested_paths
+                   or not isinstance(probe.get("outputs"), list) or not probe["outputs"]
+                   for probe in probes) \
+            or {probe["id"] for probe in probes} != MANUAL_ENTRYPOINT_IDS \
+            or {Path(probe["shell_executable"]) for probe in probes} != requested_paths:
+        raise ValueError("Manual report requires six successful requested-host entrypoints, "
+                         "three parallel launches and preserved inputs/neighbors/owned cleanup")
+
+
 def attach_child_report(step: dict, path: Path, kind: str) -> None:
     """A successful process without its promised evidence is a failed step."""
     try:
@@ -154,6 +191,52 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                     or not isinstance(import_observation, dict) or import_observation.get("import_safe") is not True \
                     or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f":
                 raise ValueError("Extraction report requires fourteen equivalent cases, safe import and preserved source")
+        elif kind == "manual":
+            cases = child.get("engine_cases")
+            bookmarks = child.get("historical_bookmark_cases")
+            import_observation = child.get("import_observation")
+            properties = child.get("seeded_property_cases")
+            acceptance_ids = child.get("acceptance_ids")
+            extras = child.get("extra_cli_cases")
+            writer_samples = child.get("sampled_writer_cases")
+            if type(child.get("schema_version")) is not int \
+                    or child.get("task_id") != "M1-T02" \
+                    or child.get("result") != "MANUAL_REGRESSION_PASSED" \
+                    or child.get("success") is not True \
+                    or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+                    or type(child.get("engine_case_count")) is not int or child["engine_case_count"] != 22 \
+                    or not isinstance(cases, list) or len(cases) != 22 \
+                    or any(not isinstance(case, dict) or not isinstance(case.get("oracle_id"), str)
+                           or case.get("passed") is not True for case in cases) \
+                    or {case["oracle_id"] for case in cases} != MANUAL_ORACLE_IDS \
+                    or not isinstance(extras, list) or len(extras) != 8 \
+                    or any(not isinstance(case, dict) or not isinstance(case.get("id"), str)
+                           or case.get("passed") is not True for case in extras) \
+                    or {case["id"] for case in extras} != MANUAL_EXTRA_IDS \
+                    or not isinstance(writer_samples, list) or len(writer_samples) != 25 \
+                    or any(not isinstance(case, dict) or type(case.get("index")) is not int
+                           or not isinstance(case.get("outputs"), list) or not case["outputs"]
+                           for case in writer_samples) \
+                    or {case["index"] for case in writer_samples} != set(range(25)) \
+                    or not isinstance(bookmarks, list) or len(bookmarks) != 3 \
+                    or any(not isinstance(case, dict) or not isinstance(case.get("oracle_id"), str)
+                           or case.get("equivalent") is not True for case in bookmarks) \
+                    or {case["oracle_id"] for case in bookmarks} != HISTORICAL_BOOKMARK_IDS \
+                    or not isinstance(acceptance_ids, list) or acceptance_ids != MANUAL_ACCEPTANCE_IDS \
+                    or child.get("source_unchanged") is not True \
+                    or child.get("baseline_guards_preserved") is not True \
+                    or child.get("input_and_neighbor_unchanged") is not True \
+                    or child.get("owned_temp_removed") is not True \
+                    or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+                    or not isinstance(import_observation, dict) or import_observation.get("import_safe") is not True \
+                    or not isinstance(properties, dict) or type(properties.get("count")) is not int \
+                    or properties["count"] != 250 or properties.get("passed") is not True \
+                    or type(properties.get("seed")) is not int or properties["seed"] != 20261009:
+                raise ValueError("Manual report requires twenty-two targets, eight extra CLI cases, "
+                                 "seeded coverage checks, twenty-five writer samples, three historical bookmark "
+                                 "comparisons, safe import, preserved guards/source/inputs and owned cleanup")
+            if step.get("requested_shell_paths"):
+                validate_manual_entrypoints(child, step["requested_shell_paths"])
         else:
             raise ValueError("Unknown child evidence kind")
         step.update(evidence_sha256=sha256(data), evidence=child)
@@ -222,7 +305,7 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "not_run": ["corrected-engine acceptance", "full application splitting in both shells",
+        "not_run": ["corrected-bookmark acceptance", "full application splitting in both shells",
                     "human Explorer drag/drop", "real Calibre EPUB/AZW3 conversion",
                     "release-package checks"],
     }
@@ -270,7 +353,7 @@ def execute(args: argparse.Namespace) -> dict:
                                   work, environment=environment)}
             attach_child_report(step, child_report, "baseline")
             steps.append(step)
-        if not args.failure_probe and args.layer in {"extraction", "full"}:
+        if not args.failure_probe and args.layer == "extraction":
             child_report = work / "extraction-equivalence.json"
             command = [sys.executable, "-I", "-B",
                        str(ROOT / "tests/extraction/characterize_extraction.py"),
@@ -281,6 +364,19 @@ def execute(args: argparse.Namespace) -> dict:
                     "meaning": "Immutable original/extracted known defects compared; no repaired-engine acceptance",
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "extraction")
+            steps.append(step)
+        if not args.failure_probe and args.layer in {"manual", "full"}:
+            child_report = work / "manual-regression.json"
+            command = [sys.executable, "-I", "-B",
+                       str(ROOT / "tests/manual/characterize_manual.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "manual-regression",
+                    "meaning": "Corrected manual target cases; bookmark behavior compared with historical observations",
+                    "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "manual")
             steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
@@ -301,7 +397,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
@@ -328,9 +424,9 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer == "extraction" and args.shell_path:
+        elif args.layer in {"extraction", "manual"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
-                raise ValueError("Every extraction shell path must be an existing absolute executable")
+                raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:

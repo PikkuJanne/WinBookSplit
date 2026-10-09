@@ -4,6 +4,7 @@ import importlib.util
 import json
 import os
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -105,12 +106,20 @@ class ExtractionTests(unittest.TestCase):
             self.assertEqual((reserved[0] / ".wbs-m1-neighbor.txt").read_bytes(),
                              b"Original synthetic Documents neighbor\n")
 
-    def test_ac011_processing_functions_preserve_immutable_original_ast(self):
+    def test_historical_ac011_extracted_commit_preserved_immutable_original_ast(self):
+        # AC-011 records M1-T01's mechanical extraction. Later scoped behavior
+        # fixes must not rewrite that evidence or be required to retain defects.
         sources = extraction.original_sources()
         prior = extraction.function_asts(extraction.embedded_body(sources["WinBookSplit.ps1"]))
-        current = extraction.function_asts(extraction.ENGINE.read_text(encoding="utf-8"))
+        git = shutil.which("git")
+        self.assertIsNotNone(git, "Git is required to read the historical extraction")
+        reference = subprocess.run(
+            [git, "cat-file", "blob", "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c:engine/winbooksplit_engine.py"],
+            cwd=ROOT, env=extraction.clean_environment(), capture_output=True, timeout=30, check=False)
+        self.assertEqual(reference.returncode, 0, reference.stderr.decode("utf-8", errors="replace"))
+        extracted = extraction.function_asts(reference.stdout.decode("utf-8"))
         self.assertEqual(set(prior), {"log", "split_pdf", "write_slice"})
-        self.assertTrue(all(current.get(name) == tree for name, tree in prior.items()))
+        self.assertTrue(all(extracted.get(name) == tree for name, tree in prior.items()))
 
     def test_ac011_import_has_no_processing_or_configuration_side_effects(self):
         with tempfile.TemporaryDirectory(prefix="wbs-import-test-") as directory:

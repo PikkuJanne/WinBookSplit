@@ -203,7 +203,7 @@
         "Correct manual plans",
         "First-page regression tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T01"
       ],
@@ -215,8 +215,11 @@
         "AC-017",
         "AC-018"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ],
+      "implementation_commit": "ced0d96f0540d96adc2fdacc4e1ff31fa25be7b8",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
