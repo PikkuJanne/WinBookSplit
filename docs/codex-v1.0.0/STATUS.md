@@ -1,16 +1,58 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted, M1-T02 manual coverage fixed, bookmark/release gates open.
-Completed tasks: M0-T01 through M0-T04, M1-T01 and M1-T02.
-Next dependency-ready task: **M1-T03 — Normalize bookmarks and fix Level 1 coverage**, after fresh verification of this documentation checkpoint.
+Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted, M1-T02 manual coverage fixed, M1-T03 Level 1 coverage fixed; Level 2/release gates open.
+Completed tasks: M0-T01 through M0-T04 and M1-T01 through M1-T03.
+Next dependency-ready task: **M1-T04 — Make Level 2 parent-aware**, after fresh verification of this documentation checkpoint.
 Active branch: `codex/winbooksplit-v1-m1`; upstream `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `ced0d96f0540d96adc2fdacc4e1ff31fa25be7b8`.
-Historical C synchronization: SYNCED at `2026-10-09T03:39:03.607417+00:00` (05:39:03 Europe/Berlin), clean local HEAD equals live M1 feature branch.
-[Draft PR #6](https://github.com/PikkuJanne/WinBookSplit/pull/6) continues M1; cumulative merge gate remains M1-T06. PR #5 was already merged at `2026-10-09T03:26:06Z` into live main `8c7c22fa8eda3c61c23b63d429d0b6abbd40432a`; a normal fetch/fast-forward incorporated that history into the retained M1 branch before M1-T02. The earlier PR merge does not waive later tasks. Older main/PR receipts below are historical.
-This following documentation-only evidence/status checkpoint receives its own final normal push/live receipt in the thread; recheck current equality next thread.
+Last verified implementation C: `a0a742ef165e751dbbbd4667962e88d7df6c4827`.
+Historical C synchronization: SYNCED at `2026-10-09T04:12:06.716013+00:00` (06:12:06 Europe/Berlin), clean local HEAD equals live M1 feature branch.
+[Draft PR #7](https://github.com/PikkuJanne/WinBookSplit/pull/7) continues M1; cumulative merge gate remains M1-T06. PR #6 was already merged at `2026-10-09T03:52:26Z` into live main `9bdc03b47fd38213784ff55b5d76a0a0120815e3`. Normal fast-forwards incorporated that history into feature and local main. Earlier PR merges do not waive later tasks; older receipts below are historical.
+The following documentation-only checkpoint receives its own normal push/live receipt in the thread/PR; recheck current equality next thread.
 Public release: NOT PUBLISHED; live tags/releases were empty on 9 October 2026.
+
+## M1-T03 evidence and limits
+
+[Level 1 evidence](evidence/M1-T03-level1.md) and
+[machine record](evidence/M1-T03-level1.json) satisfy AC-019 through AC-022.
+The engine preserves source order/depth/lineage, warns and skips recoverable
+invalid/external destinations, keeps first-source duplicates and warns on
+physical reordering. Front matter plus parent intervals cover every physical
+page. Raw internal page references/fit validation prevents pypdf's number-as-
+object-ID and unknown-fit fallback errors. Raw outline/name trees and iterative
+normalization reject unreadable/cyclic/reused/over-limit structures before writes:
+depth 64, 10,000 raw nodes per tree/named definitions, and 10,000 normalized
+entries plus child-list containers. No-plan Level 1 keeps sentinel/exit 55;
+malformed/zero-page inputs fail. Valid named/indirect destinations are covered.
+
+Pre-fix evidence distinguishes three actual generated PDF writer cases from
+16 callable mocks. Final unrelated-CWD full gate passed 63 Python tests, nine
+Pester tests per actual PS5.1.26100.9444/PS7.6.5 host, zero skips/syntax/scaffold
+findings, four corrected Level 1 CLI targets, five normalization aggregates,
+150 seeded plans and ten real writer samples. Every slice/flattened sequence
+preserves exact page identities/order. Manual regressions retain 22 targets,
+eight extra CLI cases, 250 plans/25 writer samples; only historical Level 2
+BM-03 is compared with the original now. Six owned launcher probes including
+three concurrent preserve inputs/neighbors/decoys/shared TEMP and remove only
+GUID/marker-owned Documents outputs. They cover manual and historical Level 2;
+corrected Level 1 console/Explorer remains unclaimed. Both PS7 probes retain
+RawUI stderr; 60 inherited analyzer observations per host remain limitations.
+
+Fresh hash-pinned regular GIL CPython 3.14.8 x64/pypdf 6.19.0 passed exact
+versions/import origins/pip check. All 66 shell-tool files matched prior hashes;
+stored policies stayed unchanged. Final tested-path digest:
+`b937df04cc8035a30d01dbae9737114fe3646fc937033970c416b32e769cc468`.
+Every tested raw byte matched clean C; no clean-C full rerun is claimed. Three
+earlier development harness failures remain distinct from passing final source.
+Original/extraction guards/oracles/generator and historical evidence are intact.
+Independent source/harness/raw-evidence/privacy review found no remaining
+M1-T03 blocker; no GitHub submitted review or CI pass is claimed.
+
+Level 2 still crosses parents and is M1-T04. Full launcher/error/output safety,
+Explorer, Calibre conversion, rendering, extracted package, CI (M4-T05) and
+release/download gates remain open. No merge/tag/release was created in this
+task. Prior sections below retain their historical scope and observations.
 
 ## M1-T02 evidence and limits
 

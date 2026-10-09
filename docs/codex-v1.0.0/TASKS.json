@@ -241,7 +241,7 @@
         "Level 1 planner",
         "Front-matter/invalid-outline tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T02"
       ],
@@ -251,8 +251,11 @@
         "AC-021",
         "AC-022"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T03-level1.md",
+        "evidence/M1-T03-level1.json"
+      ],
+      "implementation_commit": "a0a742ef165e751dbbbd4667962e88d7df6c4827",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

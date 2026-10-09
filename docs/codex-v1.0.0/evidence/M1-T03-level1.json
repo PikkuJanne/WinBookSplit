@@ -1,0 +1,6077 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T03",
+  "observed_at": "2026-10-09T04:10:38.792098+00:00",
+  "user_timezone": "Europe/Berlin",
+  "result": "LEVEL1_ACCEPTANCE_PASSED",
+  "acceptance": {
+    "AC-019": "PASSED",
+    "AC-020": "PASSED",
+    "AC-021": "PASSED",
+    "AC-022": "PASSED"
+  },
+  "initial_checkpoint": {
+    "branch": "codex/winbooksplit-v1-m1",
+    "local_and_live_feature": "f5b849bd9d627244ca3963cde66778bc6bbc94f5",
+    "sync_observed_at": "2026-10-09T03:53:34.401894+00:00",
+    "PR6": {
+      "mergeCommit": {
+        "oid": "9bdc03b47fd38213784ff55b5d76a0a0120815e3"
+      },
+      "mergedAt": "2026-10-09T03:52:26Z",
+      "state": "MERGED"
+    },
+    "reconciliation": "Normal fetch/fast-forward incorporated live main 9bdc03b into retained M1 branch. Local main was also fast-forwarded normally; no history rewrite."
+  },
+  "tested_source": {
+    "base_commit": "9bdc03b47fd38213784ff55b5d76a0a0120815e3",
+    "base_tree": "e3c5f91a6d50d815efb5be70fa7100a0c3861bea",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "9bbca81284e9a6700e483bec62284f53965eb14f3e49867b86494c7c48e83f37",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "dc32b97bb50a0af178cde58af0fb4304fc9ebe89484d68ad80fdb42e46bc14ae",
+      "tests/bookmarks/README.md": "4409bdd356e0644d05036c1c3921c3d146c89a24e1931f04cdaf478382713663",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "b89525ba684c4ec9d9627c321897fa113cc7dd9a11732d5c8bcbb3e7c7d75189",
+      "tests/manual/characterize_manual.py": "efdae1995da49b72b6f3197b38e05a25ba5e90fc0259185103bf4f8fcd6b1f9d",
+      "tests/manual/README.md": "08783633edccc43627dda5546feb1ec26c69d66ff4a3d64f306c8098ef2f84ea",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_extraction.py": "39379fe74b81853e27be935df3a27c8310eadc7b9b63ff185b704bc1adfab5a5",
+      "tests/python/test_level1.py": "b8cb52283b47f8d9ed602a547b8aff41adfb82534371a6b539badd3d4ef0bb94",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_runner.py": "509cfeffc5d19e42d9fc73c7b5c1e5422d2aa51e77f61de6008866a4936265f1",
+      "tests/README.md": "0de35ba5df1761d65daf815028daef2f669b490e7cf3944f995ad0d8e6297913",
+      "tests/run_tests.py": "d7893f59116e30f4b108918ff83d98ed795ab10a16d818c53f5e0b1fffd5dd28",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df"
+    },
+    "tested_paths_digest": "b937df04cc8035a30d01dbae9737114fe3646fc937033970c416b32e769cc468",
+    "meaning": "Actual worktree bytes; Git identity alone does not imply a clean checkout",
+    "source_unchanged": true
+  },
+  "source_digest_recipe": "SHA256 of UTF-8 json.dumps(path_to_sha256_map, sort_keys=True, separators=(comma,colon)); actual checked-out bytes.",
+  "test_timing_scope": "Full tests ran before C; every tested actual-path hash matched clean C. No clean-C full rerun claimed.",
+  "implementation_checkpoint": {
+    "commit": "a0a742ef165e751dbbbd4667962e88d7df6c4827",
+    "tree": "b9cc8882883ef2585fb390a96725896b67c8a1f6",
+    "live_sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T04:12:06.716013+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "a0a742ef165e751dbbbd4667962e88d7df6c4827",
+      "worktree_clean": true,
+      "remote_head": "a0a742ef165e751dbbbd4667962e88d7df6c4827",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "workstation": {
+    "build": "26300",
+    "ubr": 9457,
+    "caption": "Microsoft Windows 11 Pro",
+    "architecture": "64-bit",
+    "display_version": "26H2",
+    "version": "10.0.26300",
+    "setup": "Existing Windows 11 workstation with fresh external venv; not a clean OS."
+  },
+  "dependency_setup": {
+    "fresh_regular_x64_GIL_venv": true,
+    "hash_required_binary_only_install_exit": 0,
+    "pip_check_exit": 0,
+    "exact_versions_and_venv_import_origins": {
+      "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "machine": "AMD64",
+      "regular_GIL": true,
+      "isolated": true,
+      "no_bytecode": true,
+      "imports": {
+        "pypdf": {
+          "version": "6.19.0",
+          "origin": "$M1T03ExternalRoot\\dev-venv\\Lib\\site-packages\\pypdf\\__init__.py"
+        },
+        "reportlab": {
+          "version": "5.0.1",
+          "origin": "$M1T03ExternalRoot\\dev-venv\\Lib\\site-packages\\reportlab\\__init__.py"
+        },
+        "PIL": {
+          "version": "12.3.0",
+          "origin": "$M1T03ExternalRoot\\dev-venv\\Lib\\site-packages\\PIL\\__init__.py"
+        },
+        "charset_normalizer": {
+          "version": "3.5.2",
+          "origin": "$M1T03ExternalRoot\\dev-venv\\Lib\\site-packages\\charset_normalizer\\__init__.py"
+        }
+      },
+      "pip_check": {
+        "exit_code": 0,
+        "stdout": "No broken requirements found.\n",
+        "stderr": ""
+      }
+    },
+    "install_log_sha256": "abb41a547b91a7851b63bd6e3aba554e1a161c28a9f59dc4289887911c98f79b",
+    "environment_receipt_sha256": "5c4090c6f6247be7856f808216bb3e686f3da9256e501b8879ec9c2866a9ed38",
+    "isolated_saved_tool_files_reverified": 66,
+    "saved_tool_reference": "M0-T04-harness.json shell_tools.saved_files (all 66 SHA-256/size entries)"
+  },
+  "policies": {
+    "before": [
+      {
+        "scope": "MachinePolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "UserPolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "Process",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "CurrentUser",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "LocalMachine",
+        "policy": "RemoteSigned"
+      }
+    ],
+    "after": [
+      {
+        "scope": "MachinePolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "UserPolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "Process",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "CurrentUser",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "LocalMachine",
+        "policy": "RemoteSigned"
+      }
+    ],
+    "unchanged": true,
+    "children_request": "RemoteSigned, process-only; host-owned module paths; no elevation"
+  },
+  "full_local_run": {
+    "command": "$DevPython -I -B $Repo\\tests\\run_tests.py --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --report $M1T03ExternalRoot\\full-final.json",
+    "cwd": "Unrelated external TEMP directory",
+    "exit_code": 0,
+    "success": true,
+    "python_tests": 63,
+    "python_skips": 0,
+    "raw_report_sha256": "707bf661912988db51aba408ae197c2eea2ee19f269639d4358df8bf754b43c2",
+    "shells": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1",
+            "name": "Pester",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1"
+          },
+          {
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+          }
+        ],
+        "pester": {
+          "passed": 9,
+          "failed": 0,
+          "total": 9,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "8e61b0e750e2401d1e7f480f848ef23f9cbf53ecf1bf5d5326ce1a0a6c21a4b9",
+        "native_exit_code": 0
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "RemoteSigned"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "name": "Pester",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1",
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1"
+          },
+          {
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1",
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1"
+          }
+        ],
+        "pester": {
+          "result": "Passed",
+          "total": 9,
+          "skipped": 0,
+          "passed": 9,
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "8d35af7c08f873c5594c8b6a76223869d5a64391ccc809777844d8437f84cf25",
+        "native_exit_code": 0
+      }
+    ],
+    "manual_child_sha256": "fdcae6efd545a2562f5b8317eff3b8c7ab22aa666f22d0d8f30075bd6b196524",
+    "bookmark_child_sha256": "7fa28ed6ac735d680e561505592dc34a3ef45bd3ebf29db01b9cf57863cf7e00",
+    "source_unchanged": true,
+    "synthetic_input_unchanged": true,
+    "owned_work_removed": true
+  },
+  "level1_acceptance": {
+    "schema_version": 1,
+    "task_id": "M1-T03",
+    "observed_at": "2026-10-09T04:11:30.047308+00:00",
+    "result": "LEVEL1_REGRESSION_PASSED",
+    "success": true,
+    "exit_code": 0,
+    "acceptance_ids": [
+      "AC-019",
+      "AC-020",
+      "AC-021",
+      "AC-022"
+    ],
+    "engine_case_count": 4,
+    "engine_cases": [
+      {
+        "oracle_id": "BM-01",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[*] Found 3 sections based on Level 1 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A.pdf\n    [Writing] 03 - B.pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-02",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "range": [
+              2,
+              8
+            ],
+            "sha256": "1ace585468b0db1837eb6e6646fd6133fe76bae84459bc52330cb2ddfd9e55dc"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "range": [
+              8,
+              12
+            ],
+            "sha256": "8b85ed756139687d06b10da4b2206126b1b0fec4a2ebc1407708e41b80e280e0"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[*] Found 3 sections based on Level 1 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A.pdf\n    [Writing] 03 - B.pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-05",
+        "passed": true,
+        "expected_ranges": null,
+        "expected_error": "no_bookmarks",
+        "outputs": [],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 55,
+        "stdout": "[ERROR] no_bookmarks: The PDF has no bookmarks.\n[NO_BOOKMARKS_FOUND]\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-08",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 3, depth 1): Ignored duplicate destination; first bookmark is bookmark-2.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[*] Found 3 sections based on Level 1 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A.pdf\n    [Writing] 03 - B.pdf\n",
+        "stderr": ""
+      }
+    ],
+    "normalization_cases": [
+      {
+        "id": "invalid-destinations",
+        "passed": true,
+        "warnings": [
+          {
+            "code": "invalid_destination",
+            "source_order": 2,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 3,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 4,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 5,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 6,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 7,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 8,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 9,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 10,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 11,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 12,
+            "depth": 1,
+            "message": "The destination must be an integer page in 0..9."
+          },
+          {
+            "code": "destination_error",
+            "source_order": 13,
+            "depth": 1,
+            "message": "Could not resolve the destination: ValueError: Original synthetic resolution failure"
+          },
+          {
+            "code": "external_destination",
+            "source_order": 14,
+            "depth": 1,
+            "message": "The bookmark action is external or unsupported."
+          },
+          {
+            "code": "external_destination",
+            "source_order": 15,
+            "depth": 1,
+            "message": "The bookmark action is external or unsupported."
+          },
+          {
+            "code": "external_destination",
+            "source_order": 16,
+            "depth": 1,
+            "message": "The bookmark action is external or unsupported."
+          },
+          {
+            "code": "external_destination",
+            "source_order": 17,
+            "depth": 1,
+            "message": "The bookmark action is external or unsupported."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 18,
+            "depth": 1,
+            "message": "The destination array or fit type is invalid."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 19,
+            "depth": 1,
+            "message": "The destination array or fit type is invalid."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 20,
+            "depth": 1,
+            "message": "The destination array or fit type is invalid."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 21,
+            "depth": 1,
+            "message": "The internal destination must reference a PDF page object."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 22,
+            "depth": 1,
+            "message": "The internal destination must reference a PDF page object."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 23,
+            "depth": 1,
+            "message": "The bookmark action is not a dictionary."
+          }
+        ],
+        "invalid_resolution_count": 12,
+        "external_action_count": 4,
+        "invalid_raw_count": 6,
+        "no_usable": {
+          "code": "no_usable_bookmarks",
+          "warnings": [
+            {
+              "code": "invalid_destination",
+              "source_order": 1,
+              "depth": 1,
+              "message": "The destination must be an integer page in 0..9."
+            }
+          ],
+          "writer_not_reached": true
+        },
+        "zero_pages": {
+          "code": "invalid_document",
+          "warnings": [],
+          "writer_not_reached": true
+        },
+        "raw_named_cli": {
+          "outputs": [
+            {
+              "filename": "01 - Front matter.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - Valid named.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - Valid raw.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true,
+          "exit_code": 0,
+          "stdout": "[WARNING] external_destination (outline 2, depth 1): The bookmark action is external or unsupported.\n[WARNING] invalid_destination (outline 3, depth 1): The named destination cannot be resolved.\n[WARNING] invalid_destination (outline 4, depth 1): The destination array or fit type is invalid.\n[WARNING] invalid_destination (outline 5, depth 1): The destination array or fit type is invalid.\n[WARNING] invalid_destination (outline 6, depth 1): The internal destination must reference a PDF page object.\n[*] Found 3 sections based on Level 1 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Valid named.pdf\n    [Writing] 03 - Valid raw.pdf\n",
+          "stderr": ""
+        }
+      },
+      {
+        "id": "deep-lineage",
+        "passed": true,
+        "bookmarks": [
+          {
+            "id": "bookmark-1",
+            "source_order": 1,
+            "depth": 1,
+            "parent_id": null,
+            "lineage": [],
+            "title": "Parent",
+            "page": 3
+          },
+          {
+            "id": "bookmark-2",
+            "source_order": 2,
+            "depth": 2,
+            "parent_id": "bookmark-1",
+            "lineage": [
+              "bookmark-1"
+            ],
+            "title": "Child",
+            "page": 4
+          },
+          {
+            "id": "bookmark-3",
+            "source_order": 3,
+            "depth": 3,
+            "parent_id": "bookmark-2",
+            "lineage": [
+              "bookmark-1",
+              "bookmark-2"
+            ],
+            "title": "Grandchild",
+            "page": 5
+          },
+          {
+            "id": "bookmark-4",
+            "source_order": 4,
+            "depth": 1,
+            "parent_id": null,
+            "lineage": [],
+            "title": "Second",
+            "page": 7
+          }
+        ],
+        "valid_depth_limit": 64
+      },
+      {
+        "id": "cyclic-outline",
+        "passed": true,
+        "rejections": [
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 1,
+                "message": "An outline list repeats or contains a cycle."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 1,
+                "message": "An outline list repeats or contains a cycle."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 1,
+                "message": "A destination is reused with contradictory source lineage."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 2,
+                "message": "A destination is reused with contradictory source lineage."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 1,
+                "message": "A outline tree repeats a node or contains a cycle."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 2,
+                "message": "A names tree repeats a node or contains a cycle."
+              }
+            ],
+            "writer_not_reached": true
+          }
+        ],
+        "serialized_pdf_cli": {
+          "outputs": [],
+          "input_unchanged": true,
+          "neighbor_unchanged": true,
+          "exit_code": 1,
+          "stdout": "[WARNING] outline_cycle (outline None, depth 1): A outline tree repeats a node or contains a cycle.\n[ERROR] invalid_outline: A outline tree repeats a node or contains a cycle.\n",
+          "stderr": ""
+        }
+      },
+      {
+        "id": "malformed-outline",
+        "passed": true,
+        "rejections": [
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": null,
+                "message": "The outline must be a list."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "An outline child list has no preceding parent."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": null,
+                "message": "The PDF catalog is not a dictionary."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": null,
+                "message": "The outline root is not a dictionary."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "A outline tree node is not a dictionary."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "Invalid named-destination pair list."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "Invalid named-destination child list."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "Duplicate named-destination definition."
+              }
+            ],
+            "writer_not_reached": true
+          }
+        ],
+        "scalar_warnings": [
+          {
+            "code": "invalid_destination",
+            "source_order": 2,
+            "depth": 1,
+            "message": "The outline entry is not a destination dictionary."
+          },
+          {
+            "code": "invalid_destination",
+            "source_order": 3,
+            "depth": 1,
+            "message": "The outline entry is not a destination dictionary."
+          }
+        ]
+      },
+      {
+        "id": "traversal-limits",
+        "passed": true,
+        "rejections": [
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 65,
+                "message": "The outline exceeds the depth limit."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 1,
+                "message": "The outline exceeds the traversal limit."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 65,
+                "message": "The outline tree exceeds the traversal limit."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 65,
+                "message": "The names tree exceeds the traversal limit."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 1,
+                "message": "Too many named destinations."
+              }
+            ],
+            "writer_not_reached": true
+          }
+        ],
+        "valid_node_limit": 10000
+      }
+    ],
+    "seeded_level1_cases": {
+      "seed": 20261009,
+      "count": 150,
+      "passed": true
+    },
+    "sampled_writer_cases": [
+      {
+        "index": 0,
+        "starts": [
+          9,
+          7,
+          2,
+          0,
+          4,
+          5,
+          3
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 3.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Node 2.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Node 6.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Node 4.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Node 5.pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "06 - Node 1.pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Node 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "starts": [
+          9,
+          2,
+          9,
+          3,
+          3,
+          3,
+          8,
+          8,
+          9,
+          9,
+          0,
+          4,
+          7,
+          9,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 10.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 14.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Node 1.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Node 3.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Node 11.pdf",
+            "page_ids": [
+              5,
+              6,
+              7
+            ],
+            "range": [
+              4,
+              7
+            ],
+            "sha256": "794ec6f1d70e4d9110a4229e519bf2d26f30bc2d61ba9ad142bf605647b5aa3d"
+          },
+          {
+            "filename": "06 - Node 12.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "07 - Node 6.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "08 - Node 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "starts": [
+          3,
+          6,
+          8,
+          6,
+          8,
+          0,
+          3,
+          0,
+          7,
+          4,
+          1,
+          0,
+          6,
+          5,
+          3
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 5.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 10.pdf",
+            "page_ids": [
+              2,
+              3
+            ],
+            "range": [
+              1,
+              3
+            ],
+            "sha256": "76abfbde4fe90d39ae965f65f949a004b9c33fd147f160b148e8361d653c9757"
+          },
+          {
+            "filename": "03 - Node 0.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Node 9.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Node 13.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Node 1.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Node 8.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Node 2.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "starts": [
+          5,
+          7,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 2.pdf",
+            "page_ids": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "range": [
+              1,
+              5
+            ],
+            "sha256": "736127cb52d2e2df615fd81198700dcef540cadd193a2804299331f86c0fbb52"
+          },
+          {
+            "filename": "03 - Node 0.pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "04 - Node 1.pdf",
+            "page_ids": [
+              8,
+              9,
+              10
+            ],
+            "range": [
+              7,
+              10
+            ],
+            "sha256": "c39c942a793421784eea8b953637eedf13c539337e09b4f3bc1c3524957145dc"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "starts": [
+          5,
+          5,
+          8,
+          9,
+          2,
+          3,
+          5,
+          2,
+          2,
+          1,
+          9,
+          4,
+          5,
+          4,
+          5,
+          3,
+          5,
+          4,
+          8
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 9.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Node 4.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Node 5.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Node 11.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Node 0.pdf",
+            "page_ids": [
+              6,
+              7,
+              8
+            ],
+            "range": [
+              5,
+              8
+            ],
+            "sha256": "20787940fd9b9c4f8b43fabcd4460e8ea2faaeb649d5e01a4243bdf4a76dc836"
+          },
+          {
+            "filename": "07 - Node 2.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "08 - Node 3.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "starts": [
+          0,
+          6,
+          2,
+          0,
+          9,
+          2,
+          0,
+          8,
+          2,
+          7,
+          3,
+          5
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 0.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Node 2.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Node 10.pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "04 - Node 11.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "05 - Node 1.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "06 - Node 9.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "07 - Node 7.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "08 - Node 4.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "starts": [
+          7,
+          9,
+          6,
+          0,
+          5,
+          1,
+          7,
+          3,
+          3,
+          0
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 3.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 5.pdf",
+            "page_ids": [
+              2,
+              3
+            ],
+            "range": [
+              1,
+              3
+            ],
+            "sha256": "76abfbde4fe90d39ae965f65f949a004b9c33fd147f160b148e8361d653c9757"
+          },
+          {
+            "filename": "03 - Node 7.pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "04 - Node 4.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "05 - Node 2.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "06 - Node 0.pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Node 1.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "starts": [
+          1,
+          2,
+          4,
+          2,
+          9,
+          0,
+          3,
+          9,
+          9,
+          7,
+          7,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 5.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 0.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Node 1.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Node 6.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Node 2.pdf",
+            "page_ids": [
+              5,
+              6,
+              7
+            ],
+            "range": [
+              4,
+              7
+            ],
+            "sha256": "794ec6f1d70e4d9110a4229e519bf2d26f30bc2d61ba9ad142bf605647b5aa3d"
+          },
+          {
+            "filename": "06 - Node 9.pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Node 4.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "starts": [
+          0,
+          2,
+          1,
+          7,
+          7,
+          7,
+          5,
+          2
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Node 0.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Node 2.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Node 1.pdf",
+            "page_ids": [
+              3,
+              4,
+              5
+            ],
+            "range": [
+              2,
+              5
+            ],
+            "sha256": "840ca82493d6619caae78237e590af6aa0ae062ccdd0973fc811740fdd360516"
+          },
+          {
+            "filename": "04 - Node 6.pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "05 - Node 3.pdf",
+            "page_ids": [
+              8,
+              9,
+              10
+            ],
+            "range": [
+              7,
+              10
+            ],
+            "sha256": "c39c942a793421784eea8b953637eedf13c539337e09b4f3bc1c3524957145dc"
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "starts": [
+          7,
+          5,
+          6,
+          3
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Node 3.pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "03 - Node 1.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "04 - Node 2.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "05 - Node 0.pdf",
+            "page_ids": [
+              8,
+              9,
+              10
+            ],
+            "range": [
+              7,
+              10
+            ],
+            "sha256": "c39c942a793421784eea8b953637eedf13c539337e09b4f3bc1c3524957145dc"
+          }
+        ]
+      }
+    ],
+    "source_unchanged": true,
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "historical_original_guard": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Characterization failed: Original launchers changed. Do not run known-bad expectations against fixed code.\n"
+    },
+    "tested_path_sha256": {
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "9bbca81284e9a6700e483bec62284f53965eb14f3e49867b86494c7c48e83f37",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/manual/characterize_manual.py": "efdae1995da49b72b6f3197b38e05a25ba5e90fc0259185103bf4f8fcd6b1f9d",
+      "tests/bookmarks/characterize_level1.py": "dc32b97bb50a0af178cde58af0fb4304fc9ebe89484d68ad80fdb42e46bc14ae",
+      "tests/bookmarks/README.md": "4409bdd356e0644d05036c1c3921c3d146c89a24e1931f04cdaf478382713663",
+      "tests/run_tests.py": "d7893f59116e30f4b108918ff83d98ed795ab10a16d818c53f5e0b1fffd5dd28"
+    },
+    "input_sha256": {
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\fixtures\\simple-10.pdf": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\fixtures\\nested-12.pdf": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\BM-01.pdf": "9512e8e504fad30e93c725688a539b5b5ac5b28ea23dd9a0c1860e10941daf46",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\BM-02.pdf": "5128faf38413fe440578f4400e81315c9d0efe4927d9fdc4ce92609093f6e166",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\BM-05.pdf": "c63f0ab3ea28a07bea27a82da40ac4fd63d765c6cc1cb995e5e483ef705cb193",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\BM-08.pdf": "a276cf2808a1a7ca08d43e10a52b54addaaee0184f5cd9e1b6c295a421ae0f4f",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\raw-named-destinations.pdf": "d52aeb5e3bfb73679cf3b0385046dec486b41c638223c8ca34fef9dfd5f5dc15",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\cyclic-outline.pdf": "dfdd541a3c24f034be8b9801f3f95aa6f026e7664a7f8fc2c5b31931e1ccee32",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-0.pdf": "ef723f44da5c16619f1f6d85ed3b846cb02ffc1a987284cd692d869c94acd041",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-1.pdf": "fdf1366d1f9c3cded999e2f70de76f6041d491d0b6c8aee0d3943efd881c8d79",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-2.pdf": "52d9669a19eb0b93f2e331adf4902416accab5767834c7031336f36a6ff3bf3a",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-3.pdf": "d0494c360eb20306bf1b0d3eb7f207363750bef980dc24f8dee8e356279428f7",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-4.pdf": "2799416546333c3de5da75ab3a93d5b026bfdf825d4a719a4e2cf86c02fa6f3d",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-5.pdf": "5f9a45287c6a26e20c4b4d38f91d73fc6eb5f8c8055465298d04fe2283a2365b",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-6.pdf": "179295aa7ee20d048b99ae9fd40bd6ee462111e0700b9b5714f46f4d10ce8c68",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-7.pdf": "97a5597ec9b4e8706c13b62862192c3218e0d849d8840e864bd3a49389637f17",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-8.pdf": "79eefa4ee740ba9b86ec7b18d4b32a27d65699583abbd9976143f9b62cdb889f",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-jrsvc08y\\WinBookSplit-M1-T03-tests-27scub40\\writer-9.pdf": "96a11ccf98cb8ca3f0ab2db1e6540939e477c25418f5be5257ec31f9a966128d"
+    },
+    "import_observation": {
+      "import_safe": true,
+      "stdout_stderr_empty": true,
+      "cwd_unchanged": true,
+      "logger_stdout_configuration_unchanged": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "not_run": [
+      "corrected Level 2",
+      "actual Level 1 launcher paths",
+      "Explorer",
+      "Calibre conversion",
+      "rendered fidelity",
+      "output transactions",
+      "release-package acceptance"
+    ],
+    "owned_temp_removed": true
+  },
+  "manual_regression": {
+    "engine_cases": [
+      {
+        "oracle_id": "MAN-01",
+        "passed": true,
+        "input": "1",
+        "expected_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] One section; no internal split.\n[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-02",
+        "passed": true,
+        "input": "1,4,7",
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-03",
+        "passed": true,
+        "input": "4,7",
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-04",
+        "passed": true,
+        "input": "7, 04,4, 1",
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] Start pages sorted into physical page order.\n[NOTICE] Duplicate start pages removed.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-05",
+        "passed": true,
+        "input": "10",
+        "expected_ranges": [
+          [
+            0,
+            9
+          ],
+          [
+            9,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-9).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "range": [
+              0,
+              9
+            ],
+            "sha256": "2f978b9c1a77af0ef4fd068fb78ec14a05e7e142928b07b0c044fb9083aa87f7"
+          },
+          {
+            "filename": "02 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 10]\n    [Writing] 01 - Section (Page 1-9).pdf\n    [Writing] 02 - Section (Page 10-10).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-06",
+        "passed": true,
+        "input": "1",
+        "expected_ranges": [
+          [
+            0,
+            1
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "c1645a9a82fef5973df04c07e060a8d89d9e6e657d8a9e9c0cf101445a59adfc"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] One section; no internal split.\n[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-1).pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-07",
+        "passed": true,
+        "input": "",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-08",
+        "passed": true,
+        "input": " ",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-09",
+        "passed": true,
+        "input": "abc",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-10",
+        "passed": true,
+        "input": "1-4",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-11",
+        "passed": true,
+        "input": "1,abc,7",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 2 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-12",
+        "passed": true,
+        "input": "0,999",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be between 1 and 10.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-13",
+        "passed": true,
+        "input": "11",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be between 1 and 10.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-14",
+        "passed": true,
+        "input": "1,,4",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 2 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-15",
+        "passed": true,
+        "input": "1,",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 2 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-16",
+        "passed": true,
+        "input": ",4",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-17",
+        "passed": true,
+        "input": "+4",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-18",
+        "passed": true,
+        "input": "-1",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-19",
+        "passed": true,
+        "input": "1.5",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-20",
+        "passed": true,
+        "input": "\u0661,\u0664",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-21",
+        "passed": true,
+        "input": "9999999999999999999999999999999999",
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be between 1 and 10.\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "MAN-22",
+        "passed": true,
+        "input": "1",
+        "expected_ranges": null,
+        "expected_error": "invalid_document",
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_document: The PDF must contain at least one page.\n",
+        "stderr": ""
+      }
+    ],
+    "engine_case_count": 22,
+    "extra_cli_cases": [
+      {
+        "id": "comma",
+        "input_length": 1,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "id": "zero",
+        "input_length": 1,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be between 1 and 10.\n",
+        "stderr": ""
+      },
+      {
+        "id": "missing",
+        "input_length": null,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Enter comma-separated start pages.\n",
+        "stderr": ""
+      },
+      {
+        "id": "fullwidth",
+        "input_length": 3,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "id": "embedded-space",
+        "input_length": 5,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 2 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "id": "late-invalid",
+        "input_length": 12,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 5 must be a nonempty ASCII decimal page number.\n",
+        "stderr": ""
+      },
+      {
+        "id": "huge",
+        "input_length": 5000,
+        "expected_ranges": null,
+        "expected_error": "invalid_start_pages",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1,
+        "stdout": "[ERROR] invalid_start_pages: Token 1 must be between 1 and 10.\n",
+        "stderr": ""
+      },
+      {
+        "id": "long-leading-zeros",
+        "input_length": 5001,
+        "expected_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[NOTICE] One section; no internal split.\n[*] Manual Split Points (Page #): [1]\n    [Writing] 01 - Section (Page 1-10).pdf\n",
+        "stderr": ""
+      }
+    ],
+    "seeded_property_cases": {
+      "seed": 20261009,
+      "count": 250,
+      "passed": true
+    },
+    "sampled_writer_cases": [
+      {
+        "index": 0,
+        "starts": [
+          6,
+          3,
+          4,
+          10,
+          8,
+          1,
+          5
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-2).pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Section (Page 6-7).pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "06 - Section (Page 8-9).pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 1,
+        "starts": [
+          4,
+          8,
+          5,
+          5,
+          2,
+          5,
+          6,
+          4,
+          8,
+          10,
+          7,
+          8,
+          5,
+          4,
+          4,
+          3,
+          5,
+          2,
+          6,
+          10,
+          6
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "08 - Section (Page 8-9).pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 2,
+        "starts": [
+          10,
+          1,
+          7,
+          3
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-2).pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Section (Page 3-6).pdf",
+            "page_ids": [
+              3,
+              4,
+              5,
+              6
+            ],
+            "range": [
+              2,
+              6
+            ],
+            "sha256": "a2b12601a63cc7b55c6db0fc6c6fb79c24bc1ee3774a444d807d18a0381504d2"
+          },
+          {
+            "filename": "03 - Section (Page 7-9).pdf",
+            "page_ids": [
+              7,
+              8,
+              9
+            ],
+            "range": [
+              6,
+              9
+            ],
+            "sha256": "5b36a6f7dda5b5b14c077f4daed016962bb9d896cb9ee935e8e969343334e96a"
+          },
+          {
+            "filename": "04 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 3,
+        "starts": [
+          8,
+          2,
+          3,
+          3,
+          6,
+          3,
+          8,
+          4,
+          8,
+          8,
+          7,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-5).pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "05 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-10).pdf",
+            "page_ids": [
+              8,
+              9,
+              10
+            ],
+            "range": [
+              7,
+              10
+            ],
+            "sha256": "c39c942a793421784eea8b953637eedf13c539337e09b4f3bc1c3524957145dc"
+          }
+        ]
+      },
+      {
+        "index": 4,
+        "starts": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ]
+      },
+      {
+        "index": 5,
+        "starts": [
+          4,
+          9,
+          5,
+          8,
+          10,
+          1,
+          3,
+          7,
+          8,
+          4,
+          5,
+          9,
+          5,
+          8,
+          7,
+          3,
+          9,
+          3,
+          2,
+          1,
+          8,
+          1,
+          8,
+          8
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-6).pdf",
+            "page_ids": [
+              5,
+              6
+            ],
+            "range": [
+              4,
+              6
+            ],
+            "sha256": "6d779e904008fd0b416d25a8ec14485c93a972748340e86598f56f8cd7df31f5"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 6,
+        "starts": [
+          1,
+          7
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-6).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "range": [
+              0,
+              6
+            ],
+            "sha256": "cab68e25d19e4f4c7520c8385ae324e27f16180c8d2f1759ec8d0ba275d78bf0"
+          },
+          {
+            "filename": "02 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ]
+      },
+      {
+        "index": 7,
+        "starts": [
+          8,
+          1,
+          8,
+          10,
+          2,
+          2,
+          9
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-7).pdf",
+            "page_ids": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7
+            ],
+            "range": [
+              1,
+              7
+            ],
+            "sha256": "ed16c6b68895d1de25f14f814221622f80cbfb99a27f9a8133c27c17c9fe3cc8"
+          },
+          {
+            "filename": "03 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "04 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "05 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 8,
+        "starts": [
+          4,
+          5,
+          7,
+          10,
+          1,
+          1,
+          3,
+          7,
+          10,
+          8
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-2).pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Section (Page 5-6).pdf",
+            "page_ids": [
+              5,
+              6
+            ],
+            "range": [
+              4,
+              6
+            ],
+            "sha256": "6d779e904008fd0b416d25a8ec14485c93a972748340e86598f56f8cd7df31f5"
+          },
+          {
+            "filename": "05 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "06 - Section (Page 8-9).pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 9,
+        "starts": [
+          6,
+          10
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-5).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "range": [
+              0,
+              5
+            ],
+            "sha256": "2b35ad136e1cc482acd63430560d3d8a3b606b757fa73ecb1c126063a9e0512e"
+          },
+          {
+            "filename": "02 - Section (Page 6-9).pdf",
+            "page_ids": [
+              6,
+              7,
+              8,
+              9
+            ],
+            "range": [
+              5,
+              9
+            ],
+            "sha256": "fa0b58670a2ef01987b1b944af664349303f4e858af62d60a519132449802056"
+          },
+          {
+            "filename": "03 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 10,
+        "starts": [
+          1,
+          5,
+          1,
+          5,
+          6,
+          3,
+          3,
+          6,
+          2,
+          5,
+          1,
+          2,
+          1,
+          3,
+          7,
+          2,
+          4
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ]
+      },
+      {
+        "index": 11,
+        "starts": [
+          1,
+          2,
+          8,
+          1,
+          9,
+          8,
+          7,
+          8
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-6).pdf",
+            "page_ids": [
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "range": [
+              1,
+              6
+            ],
+            "sha256": "49c7b5eac239ca0f7fcfd2b9f16b66fa75b255ad25a7fc8d8451714f33b739a9"
+          },
+          {
+            "filename": "03 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "04 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "05 - Section (Page 9-10).pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 12,
+        "starts": [
+          5,
+          5,
+          6,
+          10,
+          5,
+          3,
+          7,
+          3,
+          1,
+          6,
+          8,
+          2,
+          9,
+          7,
+          2,
+          9,
+          5,
+          5,
+          7
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-4).pdf",
+            "page_ids": [
+              3,
+              4
+            ],
+            "range": [
+              2,
+              4
+            ],
+            "sha256": "7fff512d570540306a47413f759207a9c022e0e00b5e71acacf24656cb73b212"
+          },
+          {
+            "filename": "04 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 13,
+        "starts": [
+          2,
+          6,
+          8,
+          6,
+          7,
+          5,
+          10,
+          4,
+          4,
+          7,
+          10,
+          9,
+          5,
+          6,
+          9,
+          5,
+          6,
+          1,
+          5,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-3).pdf",
+            "page_ids": [
+              2,
+              3
+            ],
+            "range": [
+              1,
+              3
+            ],
+            "sha256": "76abfbde4fe90d39ae965f65f949a004b9c33fd147f160b148e8361d653c9757"
+          },
+          {
+            "filename": "03 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 14,
+        "starts": [
+          2,
+          7,
+          9,
+          9,
+          3,
+          5,
+          5,
+          7,
+          6,
+          6,
+          2,
+          9,
+          10,
+          8,
+          1,
+          1,
+          5,
+          7,
+          8,
+          7,
+          1,
+          8
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-4).pdf",
+            "page_ids": [
+              3,
+              4
+            ],
+            "range": [
+              2,
+              4
+            ],
+            "sha256": "7fff512d570540306a47413f759207a9c022e0e00b5e71acacf24656cb73b212"
+          },
+          {
+            "filename": "04 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 15,
+        "starts": [
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ]
+      },
+      {
+        "index": 16,
+        "starts": [
+          2,
+          2,
+          2,
+          4
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-3).pdf",
+            "page_ids": [
+              2,
+              3
+            ],
+            "range": [
+              1,
+              3
+            ],
+            "sha256": "76abfbde4fe90d39ae965f65f949a004b9c33fd147f160b148e8361d653c9757"
+          },
+          {
+            "filename": "03 - Section (Page 4-10).pdf",
+            "page_ids": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              3,
+              10
+            ],
+            "sha256": "ba680ab6e8446163eb3ca9a81895273d48a88d4117ccf1bc22b89ee28380c348"
+          }
+        ]
+      },
+      {
+        "index": 17,
+        "starts": [
+          5,
+          10,
+          9,
+          2,
+          5,
+          4,
+          7,
+          3,
+          7,
+          7,
+          2,
+          8,
+          5,
+          6,
+          10,
+          8,
+          8,
+          4
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "08 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "09 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "10 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 18,
+        "starts": [
+          9,
+          2,
+          1,
+          5
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-4).pdf",
+            "page_ids": [
+              2,
+              3,
+              4
+            ],
+            "range": [
+              1,
+              4
+            ],
+            "sha256": "708edfbf85a7b5d8de3df97bd306d032efb1e19eaa8d7b4e22b454787dac3690"
+          },
+          {
+            "filename": "03 - Section (Page 5-8).pdf",
+            "page_ids": [
+              5,
+              6,
+              7,
+              8
+            ],
+            "range": [
+              4,
+              8
+            ],
+            "sha256": "cc896104ee6b34ceb961e3e3bc6c6515129c25b5a92dc4432e65516e1fd3b70f"
+          },
+          {
+            "filename": "04 - Section (Page 9-10).pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 19,
+        "starts": [
+          3,
+          3,
+          9,
+          5,
+          8,
+          1,
+          6,
+          3,
+          2,
+          7,
+          4,
+          8,
+          9,
+          1,
+          3,
+          9,
+          4,
+          1,
+          7
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "08 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "09 - Section (Page 9-10).pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 20,
+        "starts": [
+          3,
+          9,
+          2,
+          5,
+          9,
+          1,
+          6,
+          5,
+          3,
+          8,
+          2,
+          3
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-4).pdf",
+            "page_ids": [
+              3,
+              4
+            ],
+            "range": [
+              2,
+              4
+            ],
+            "sha256": "7fff512d570540306a47413f759207a9c022e0e00b5e71acacf24656cb73b212"
+          },
+          {
+            "filename": "04 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Section (Page 6-7).pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "06 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "07 - Section (Page 9-10).pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 21,
+        "starts": [
+          6,
+          4,
+          1,
+          4,
+          7,
+          9,
+          9,
+          8,
+          6,
+          6,
+          2,
+          1,
+          6,
+          3,
+          4,
+          9,
+          9,
+          8,
+          3,
+          8,
+          9,
+          8,
+          7,
+          1
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-5).pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "05 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Section (Page 8-8).pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Section (Page 9-10).pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "2b367bdb4559c5ae5b49bf4c67a1c4a7d1ac41877d19982d00e8d44ddd7ea57a"
+          }
+        ]
+      },
+      {
+        "index": 22,
+        "starts": [
+          6,
+          7,
+          7,
+          4,
+          6,
+          7,
+          10
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-5).pdf",
+            "page_ids": [
+              4,
+              5
+            ],
+            "range": [
+              3,
+              5
+            ],
+            "sha256": "f09969786fa73de80551ca65b9dc56cda95175aa893726a8029cd8e9c27f3614"
+          },
+          {
+            "filename": "03 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "04 - Section (Page 7-9).pdf",
+            "page_ids": [
+              7,
+              8,
+              9
+            ],
+            "range": [
+              6,
+              9
+            ],
+            "sha256": "5b36a6f7dda5b5b14c077f4daed016962bb9d896cb9ee935e8e969343334e96a"
+          },
+          {
+            "filename": "05 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 23,
+        "starts": [
+          4,
+          2,
+          1,
+          1,
+          2,
+          8,
+          1,
+          1,
+          7,
+          10,
+          3,
+          2,
+          2
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "05 - Section (Page 7-7).pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "06 - Section (Page 8-9).pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "07 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      },
+      {
+        "index": 24,
+        "starts": [
+          2,
+          7,
+          2,
+          3,
+          5,
+          7,
+          9,
+          1,
+          1,
+          6,
+          4,
+          2,
+          4,
+          2,
+          10,
+          4,
+          2,
+          1,
+          3,
+          7
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Section (Page 4-4).pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Section (Page 5-5).pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Section (Page 6-6).pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Section (Page 7-8).pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "7a45d436a0eec10c829a6188f05d6ba143ce28e5d2ac39ea406b32c3f50be7ea"
+          },
+          {
+            "filename": "08 - Section (Page 9-9).pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ]
+      }
+    ],
+    "fixtures": {
+      "simple10": {
+        "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "nested12": {
+        "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      }
+    },
+    "import_observation": {
+      "import_safe": true,
+      "stdout_stderr_empty": true,
+      "cwd_unchanged": true,
+      "logger_stdout_configuration_unchanged": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "historical_bookmark_cases": [
+      {
+        "oracle_id": "BM-03",
+        "equivalent": true,
+        "known_defect": "pages_1_to_3_omitted_and_A2_crosses_B_parent_at_page_9",
+        "original": {
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+            },
+            {
+              "filename": "02 - A2.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+            },
+            {
+              "filename": "03 - B1.pdf",
+              "page_ids": [
+                11,
+                12
+              ],
+              "range": [
+                10,
+                12
+              ],
+              "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+            }
+          ],
+          "exit_code": 0,
+          "stdout": "[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n",
+          "stderr": ""
+        },
+        "current": {
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+            },
+            {
+              "filename": "02 - A2.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+            },
+            {
+              "filename": "03 - B1.pdf",
+              "page_ids": [
+                11,
+                12
+              ],
+              "range": [
+                10,
+                12
+              ],
+              "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+            }
+          ],
+          "exit_code": 0,
+          "stdout": "[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n",
+          "stderr": ""
+        }
+      }
+    ],
+    "historical_original_guard": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Characterization failed: Original launchers changed. Do not run known-bad expectations against fixed code.\n"
+    },
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "owned_temp_removed": true
+  },
+  "entrypoints": {
+    "probes": [
+      {
+        "id": "PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-87167f5563524569bf2b3c3b8b26e573\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-87167f5563524569bf2b3c3b8b26e573_Chapters\\WinBookSplit_Log_20261009_061117.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$PS7Directory\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+          },
+          {
+            "filename": "03 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-681e96197e0b46b89a64eb71f03e510c\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-681e96197e0b46b89a64eb71f03e510c_Chapters\\WinBookSplit_Log_20261009_061119.txt\n\n[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-87de6cd59212461b8173e7e5afa0b39c\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-87de6cd59212461b8173e7e5afa0b39c_Chapters\\WinBookSplit_Log_20261009_061122.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-4c40e1e7331b4f0791e937f28f3a1127\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-4c40e1e7331b4f0791e937f28f3a1127_Chapters\\WinBookSplit_Log_20261009_061123.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$PS7Directory\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+          },
+          {
+            "filename": "03 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-4b23fec77a2b480b9ff0535e483453cf\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-4b23fec77a2b480b9ff0535e483453cf_Chapters\\WinBookSplit_Log_20261009_061125.txt\n\n[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "parallel-BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T03ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-4e6e96bf9dd44638b7c69d1458439b38\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-4e6e96bf9dd44638b7c69d1458439b38_Chapters\\WinBookSplit_Log_20261009_061123.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      }
+    ],
+    "probe_count": 6,
+    "parallel_launch_count": 3,
+    "shared_temp_engine_sentinel_unchanged": true,
+    "owned_document_outputs_removed": true,
+    "method": "Actual -File/BAT, piped prompts, controlled Python PATH, real observed Documents; GUID-owned marker/sentinel directories only. No prompt/path/host shim."
+  },
+  "unchanged_M1_T01_runtime_paths": {
+    "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+    "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+    "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+    "WinBookSplit_icon.png": "df68b594e45dced01f0b2eab0af23e7601e1c4ea42d023cd28d1b82d2a375159",
+    "WinBookSplit_poster.png": "e05a5cb155a7b06124fcc9afaa43e7f5402f5b204bab679c4c6072a195abcbaa",
+    "WinBookSplit_icon.ico": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+  },
+  "before_fix_reproduction": {
+    "command": "$DevPython -I -B $M1T03ExternalRoot\\before_level1.py",
+    "exit_code": 0,
+    "script_sha256": "b96c8cf378898274a2847a377dc617df70b93fc8cf56db7e302b2af5ec247a83",
+    "raw_report_sha256": "042fe91d3cb3819b909e528bb1207099993556fb81672224af69a4a61ae3fa02",
+    "observations": {
+      "source_head": "9bdc03b47fd38213784ff55b5d76a0a0120815e3",
+      "engine_sha256": "48531b10fdd7190cac360c98e31292cc5a6efb4ecb2730fefcc5f7f60f9f1bab",
+      "script_sha256": "b96c8cf378898274a2847a377dc617df70b93fc8cf56db7e302b2af5ec247a83",
+      "python": "3.14.8",
+      "pypdf": "6.19.0",
+      "python_executable": "$M1T03ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "content_origin": "Only original generated synthetic PDFs and mocked outlines; no private inputs",
+      "actual_pdf_cases": [
+        {
+          "name": "simple10",
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks.",
+            "    [Writing] 01 - A.pdf",
+            "    [Writing] 02 - B.pdf"
+          ],
+          "outputs": [
+            {
+              "filename": "01 - A.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ]
+            },
+            {
+              "filename": "02 - B.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "input_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+          "input_unchanged": true
+        },
+        {
+          "name": "nested12",
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks.",
+            "    [Writing] 01 - A.pdf",
+            "    [Writing] 02 - B.pdf"
+          ],
+          "outputs": [
+            {
+              "filename": "01 - A.pdf",
+              "page_ids": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ]
+            },
+            {
+              "filename": "02 - B.pdf",
+              "page_ids": [
+                9,
+                10,
+                11,
+                12
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "input_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+          "input_unchanged": true
+        },
+        {
+          "name": "out_of_order_duplicate",
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks.",
+            "    [Writing] 01 - A.pdf",
+            "    [Writing] 02 - B.pdf"
+          ],
+          "outputs": [
+            {
+              "filename": "01 - A.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ]
+            },
+            {
+              "filename": "02 - B.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "input_sha256": "aad319d67f042b365c991974ab55b8d693907e6835b06c0208e5cf7625fc27de",
+          "input_unchanged": true
+        }
+      ],
+      "mocked_cases": [
+        {
+          "name": "negative_minus_two",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              -2,
+              10,
+              "01 - Invalid destination.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "boolean",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              true,
+              10,
+              "01 - Invalid destination.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "float",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              "1.5",
+              10,
+              "01 - Invalid destination.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "out_of_bounds_N",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "none",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "nan",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              "nan",
+              10,
+              "01 - Invalid destination.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "infinity",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "string",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "TypeError",
+          "exception_message": "'>=' not supported between instances of 'str' and 'int'",
+          "writes": [],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "exception",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "external_action_accepted",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              2,
+              10,
+              "01 - URI action.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "empty_outline",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "zero_pages",
+          "input": "mocked synthetic outline",
+          "pages": 0,
+          "return": "normal",
+          "writes": [],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "list_cycle",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "RecursionError",
+          "exception_message": "maximum recursion depth exceeded",
+          "writes": [],
+          "logs": []
+        },
+        {
+          "name": "depth_1201",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "RecursionError",
+          "exception_message": "maximum recursion depth exceeded",
+          "writes": [],
+          "logs": []
+        },
+        {
+          "name": "reused_child_container",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              0,
+              5,
+              "01 - A.pdf"
+            ],
+            [
+              5,
+              10,
+              "02 - B.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "orphan_child",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              5,
+              10,
+              "01 - A.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        }
+      ],
+      "owned_temp_cleaned": true
+    }
+  },
+  "bounds": {
+    "maximum_depth": 64,
+    "maximum_raw_nodes_per_tree": 10000,
+    "maximum_named_definitions": 10000,
+    "maximum_normalized_entries_and_child_containers": 10000,
+    "rejection": "Unreadable/cyclic/reused/over-limit trees fail before writing. Recoverable invalid/external destinations are warned and skipped with lineage retained."
+  },
+  "review": {
+    "source_and_harness": "Independent read-only agent review found no remaining M1-T03 blocker after raw destination validation fixes.",
+    "github_submitted_review": false,
+    "CI_run": "NOT RUN"
+  },
+  "live_repository_observation": {
+    "observed_at": "2026-10-09T04:07:29.5048042Z",
+    "main": {
+      "name": "main",
+      "protected": false,
+      "sha": "9bdc03b47fd38213784ff55b5d76a0a0120815e3",
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      }
+    },
+    "feature": {
+      "name": "codex/winbooksplit-v1-m1",
+      "protected": false,
+      "sha": "f5b849bd9d627244ca3963cde66778bc6bbc94f5",
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      }
+    },
+    "rulesets": [],
+    "workflows": {
+      "total_count": 0,
+      "workflows": []
+    },
+    "run_count": "0",
+    "tags": [],
+    "releases": [],
+    "pr6": {
+      "mergeCommit": {
+        "oid": "9bdc03b47fd38213784ff55b5d76a0a0120815e3"
+      },
+      "mergedAt": "2026-10-09T03:52:26Z",
+      "state": "MERGED"
+    },
+    "reviews6": [],
+    "settings_changed": false
+  },
+  "not_run": [
+    "parent-aware Level 2 acceptance (M1-T04)",
+    "corrected Level 1 through console/Explorer",
+    "all launcher/discovery/error/output-safety paths",
+    "human Explorer drag/drop",
+    "Calibre conversion",
+    "rendering fidelity",
+    "clean OS/extracted release package",
+    "CI",
+    "tag/release/public download acceptance",
+    "Windows10/ARM/UNC/other Python"
+  ],
+  "next_task": "M1-T04",
+  "final_evidence_checkpoint_receipt": "Following E receives normal push/live receipt in thread/PR; no self SHA or future sync claim.",
+  "review_probes": {
+    "raw_report_sha256": "b0310e4f8a743bcce90677fa42a9b9cee2653f5a3e4d891ed74f57c7e969537c",
+    "observations": {
+      "schema_version": 1,
+      "task_id": "M1-T03",
+      "recorded_at": "2026-10-09T04:09:15.483750+00:00",
+      "method": "Isolated supported Python -I -B; synthetic in-memory PDFs, no source documents/files or output slices; no application CLI/Windows/Calibre pass claimed.",
+      "pypdf": "6.19.0",
+      "current_engine_sha256": "9bbca81284e9a6700e483bec62284f53965eb14f3e49867b86494c7c48e83f37",
+      "library_source_sha256": {
+        "_doc_common.py": "d15b696370ff90fd7dcdc3986546ca938e9aa6fca44ab7ea525287460509e92a",
+        "generic/_base.py": "f7669b91c0c64cb838f265e553c3a93711a51f0da9e69798d4023881c1c560e6",
+        "generic/_data_structures.py": "bad73c6fa6c421bb3a7cb42d7f4a299ef640fb0a8c680e9e0f139d66d33b77e7",
+        "generic/_fit.py": "607a2571a31e1c67d84fdb0d1a3dbfd04b52a09619d9a261b4aa9525c03887f9"
+      },
+      "current_observations": {
+        "raw_integer_internal_target": {
+          "raw_object_id": 7,
+          "library_resolved_zero_based_page": 3,
+          "fixed_engine_ranges": [
+            [
+              0,
+              6
+            ],
+            [
+              6,
+              10
+            ]
+          ],
+          "fixed_engine_first_bookmark_page": null,
+          "fixed_engine_warnings": [
+            {
+              "code": "invalid_destination",
+              "source_order": 1,
+              "depth": 1,
+              "message": "The internal destination must reference a PDF page object."
+            }
+          ]
+        },
+        "unknown_fit_fallback": {
+          "raw_zero_based_page": 1,
+          "raw_fit": "/BogusFit",
+          "extra_argument": 0,
+          "library_resolved_page": 0,
+          "library_normalized_fit": "/Fit",
+          "library_stderr": "Unknown destination: 'InvalidFit' [0]\n"
+        },
+        "deep_named_destinations": {
+          "kids_depth": 1500,
+          "reader_outline_exception": "RecursionError"
+        }
+      },
+      "earlier_live_engine_counterexample": {
+        "observed_at": null,
+        "engine_sha256": null,
+        "source_identity_limit": "The initial read-only probe did not capture engine bytes/hash or an exact timestamp. Values below are preserved from its actual chat tool output; do not represent them as an exact-source digest receipt.",
+        "raw_integer_object_id": 7,
+        "library_resolved_page": 3,
+        "pre_fix_engine_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "pre_fix_engine_warning_codes": []
+      },
+      "assertions_passed": true,
+      "engine_source_unchanged_during_receipt_probe": true
+    }
+  },
+  "targeted_bookmark_run": {
+    "command": "$DevPython -I -B $Repo\\tests\\run_tests.py --layer bookmarks --report <new-external-path>",
+    "raw_report_sha256": "a96815946a5cfcd45b24d67e9b9c6225fde8839a2fcd27ab4f756283fe99a17f",
+    "exit_code": 0
+  },
+  "earlier_harness_observations": [
+    {
+      "raw_report_sha256": "352eba01efb8abfa0c0e69966dd9e0f3b2237abdb9bd2c4b7904f7caa5954080",
+      "tested_source_digest": "6791e8c93d378248b775edccf20cacc57a1b135d31ae9f9caf2035e1c61addeb",
+      "native_exit_code": 1,
+      "stderr": "  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 266\r\n    {\"/Names\": {\"/Dests\": {\"/Names\": [\"duplicate\", [0, \"/Fit\"], \"duplicate\", [1, \"/Fit\"]}}}):\r\n                                                                                        ^\r\nSyntaxError: closing parenthesis '}' does not match opening parenthesis '['\r\n",
+      "meaning": "Development harness failure, distinct from final passing source. Syntax bracket, required synthetic fixture children, and mock reader pages were corrected before final full run."
+    },
+    {
+      "raw_report_sha256": "eae6cff43685a30c9ea1349c5a7a57beafa9752cebe97f28b69168ed3abab720",
+      "tested_source_digest": "fb3ecad0e28e7f441ec0010166fbf27fe6e4b39ae723d1194603bc6641b7b085",
+      "native_exit_code": 1,
+      "stderr": "Traceback (most recent call last):\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 411, in <module>\r\n    raise SystemExit(main())\r\n                     ~~~~^^\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 397, in main\r\n    report = characterize(Path(directory).resolve())\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 313, in characterize\r\n    source = fixture(work / (oracle[\"id\"] + \".pdf\"), generator, oracle[\"pages\"], oracle[\"parents\"])\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 117, in fixture\r\n    stream.write(generator._pdf_bytes({\"title\": \"Original Level 1 synthetic fixture\",\r\n                 ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n                                       \"pages\": pages, \"outline\": parents}))\r\n                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"$Repo\\tests\\fixtures\\generate_pdf_fixtures.py\", line 153, in _pdf_bytes\r\n    add_nodes(definition[\"outline\"])\r\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"$Repo\\tests\\fixtures\\generate_pdf_fixtures.py\", line 151, in add_nodes\r\n    add_nodes(node[\"children\"], item)\r\n    ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"$Repo\\tests\\fixtures\\generate_pdf_fixtures.py\", line 151, in add_nodes\r\n    add_nodes(node[\"children\"], item)\r\n              ~~~~^^^^^^^^^^^^\r\nKeyError: 'children'\r\n",
+      "meaning": "Development harness failure, distinct from final passing source. Syntax bracket, required synthetic fixture children, and mock reader pages were corrected before final full run."
+    },
+    {
+      "raw_report_sha256": "1210d2c12bb72d569e4eb4593294954b86e3ee8a77b5cee43afbe563520839f2",
+      "tested_source_digest": "6c0551c8167d43023497c307700ffcef90f8b2ab92270e5f50f8d5e9df4f0324",
+      "native_exit_code": 1,
+      "stderr": "Traceback (most recent call last):\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 86, in rejected\r\n    engine.plan_level1(reader, pages)\r\n    ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^\r\n  File \"$Repo\\engine\\winbooksplit_engine.py\", line 286, in plan_level1\r\n    raise BookmarkPlanError(\"no_usable_bookmarks\", \"The PDF has no usable Level 1 bookmarks.\", warnings)\r\nwbs_level1_current_engine.BookmarkPlanError: The PDF has no usable Level 1 bookmarks.\r\n\r\nDuring handling of the above exception, another exception occurred:\r\n\r\nTraceback (most recent call last):\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 414, in <module>\r\n    raise SystemExit(main())\r\n                     ~~~~^^\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 400, in main\r\n    report = characterize(Path(directory).resolve())\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 332, in characterize\r\n    normalization, extra_inputs = normalization_cases(engine, work, fixtures, generator)\r\n                                  ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 219, in normalization_cases\r\n    no_usable = rejected(engine, SyntheticReader([Destination(\"Invalid\", None), [Destination(\"Child\", 0)]]),\r\n                         10, \"no_usable_bookmarks\")\r\n  File \"$Repo\\tests\\bookmarks\\characterize_level1.py\", line 95, in rejected\r\n    engine.split_pdf(\"synthetic-unused-input.pdf\", \"synthetic-unused-output\", \"1\")\r\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\r\n  File \"$Repo\\engine\\winbooksplit_engine.py\", line 319, in split_pdf\r\n    total_pages = len(reader.pages)\r\n                      ^^^^^^^^^^^^\r\nAttributeError: 'SyntheticReader' object has no attribute 'pages'\r\n",
+      "meaning": "Development harness failure, distinct from final passing source. Syntax bracket, required synthetic fixture children, and mock reader pages were corrected before final full run."
+    }
+  ],
+  "draft_PR_checkpoint": {
+    "observation_scope": "Read after implementation C was pushed. No exact PR read timestamp was captured; live_repository_observation.observed_at applies only to the pre-code repository audit.",
+    "baseRefName": "main",
+    "headRefOid": "a0a742ef165e751dbbbd4667962e88d7df6c4827",
+    "isDraft": true,
+    "number": 7,
+    "state": "OPEN",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/pull/7"
+  },
+  "public_summary_privacy_check": {
+    "initial_builder_exit_code": 1,
+    "reason": "Absolute-path dictionary keys needed redaction; assertion refused before repository writes.",
+    "resolved": "Recursive key and value redaction applied; final public-summary check passed."
+  }
+}
