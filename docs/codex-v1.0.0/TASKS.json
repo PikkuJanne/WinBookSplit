@@ -644,7 +644,7 @@
         "No/multiple-input behavior",
         "Explorer evidence"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M3-T02"
       ],
@@ -653,8 +653,11 @@
         "AC-058",
         "AC-059"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M3-T03-launcher.md",
+        "evidence/M3-T03-launcher.json"
+      ],
+      "implementation_commit": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

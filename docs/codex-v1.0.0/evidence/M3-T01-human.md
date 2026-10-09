@@ -16,9 +16,17 @@ regular CPython 3.14.8, pypdf 6.19.0 and real portable Calibre 9.15.0.
 
 `<human-kit>` is the retained external copied-application workspace. It has a fresh
 application venv and authored PDF/EPUB/genuine AZW3 inputs, with no private books.
-Explorer PS defaults alone select its output base and real converter. Shipped BAT,
-engine and supporting runtime bytes are unchanged. This is current-workstation
-testing of controlled copies, not an extracted final package or clean OS.
+The Explorer kit builder changed only the OutputDirectory and CalibrePath
+parameter defaults in its owned copied WinBookSplit.ps1. These are two recorded
+source-byte substitutions, not ambient PowerShell profile defaults. Original
+entrypoint SHA256 was `ea6be0eba97d1915b7f96e7cce83ffe6eab2d8e311d04e3522b17b83373d2378`;
+controlled-copy SHA256 was `f6e6f59d8dc26f2f07b1e7880551e8297753a1cb8b9e075d6f6431acb780614f`.
+BAT, engine and supporting runtime bytes were unchanged. Provenance receipt
+`explorer-kit-provenance.json` SHA256 is
+`761620ef028448733f0cf58cef7b9e21e11905ceea20199917bf9035fb25da53`;
+the builder lines58–65 perform the substitutions. Human passes remain closed
+at their recorded source. This is historical current-workstation testing of
+controlled copies, not exact M3-T03 entrypoint, extracted package or clean OS testing.
 
 ## Human observations and disk verification
 
