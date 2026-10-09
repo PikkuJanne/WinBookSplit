@@ -83,7 +83,8 @@ function ConvertFrom-SplitResult {
                 'source_changed', 'source_output_alias', 'output_exists', 'invalid_execution',
                 'output_validation_failed', 'output_ownership_failed', 'output_base_invalid',
                 'output_manifest_failed', 'output_publish_failed', 'output_cancelled',
-                'output_handle_close_failed')) { throw 'Invalid failure result.' }
+                'output_handle_close_failed', 'output_path_too_long',
+                'output_destination_changed')) { throw 'Invalid failure result.' }
         }
         default { throw 'Unknown engine result category.' }
     }

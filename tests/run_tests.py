@@ -16,6 +16,7 @@ import json
 import os
 from pathlib import Path
 import platform
+import re
 import shutil
 import subprocess
 import sys
@@ -54,6 +55,22 @@ OUTPUT_FAILURE_CODES = {"mid-write": "output_write_failed", "reopen": "output_va
                         "promotion": "output_publish_failed"}
 OUTPUT_CLEANUP_IDS = {"ordinary-owned", "unexpected-member", "held-marker-tamper", "manifest-path-not-authority",
                       "mock-reparse", "junction-base", "junction-child", "held-stage-replacement"}
+PATH_ACCEPTANCE_IDS = ["AC-036", "AC-037", "AC-038", "AC-039"]
+PATH_LITERAL_IDS = {"PS51-literal", "PS7-literal", "BAT-literal"}
+PATH_REJECTION_IDS = {host + "-" + case for host in ("PS51", "PS7")
+                      for case in ("directory-pdf", "provider-pdf", "corrupt-pdf", "unreadable-held-file")}
+PATH_FILENAME_EXPECTATIONS = {
+    "forbidden-control": "01 - AB.pdf", "trailing-dots": "02 - Ending.pdf",
+    "reserved-title": "03 - CON.pdf", "punctuation-only": "04 - Section 4.pdf",
+    "unicode": "05 - 日本語 åäö 😀.pdf", "whitespace": "06 - spaced words.pdf",
+    "case-first": "07 - Same.pdf", "case-second": "08 - same.pdf",
+    "long-astral": "09 - " + "Å😀" * 16 + "Å.pdf",
+}
+PATH_DESTINATION_FAILURE_CODES = {"over-budget": "output_path_too_long",
+                                  "unbound-long-base": "output_path_too_long",
+                                  "changed-bound-base": "output_destination_changed",
+                                  "unwritable-held-base": "output_base_invalid",
+                                  "full-target": "output_write_failed"}
 DIAGNOSTIC_ACCEPTANCE_IDS = ["AC-030", "AC-031"]
 DIAGNOSTIC_EXPECTATIONS = {
     "flat-level1": ("1", "no_plan", "no_bookmarks", 55, ["manual"]),
@@ -109,6 +126,7 @@ def source_manifest() -> dict[str, str]:
         "tests/plans/README.md",
         "tests/diagnostics/README.md",
         "tests/output/README.md",
+        "tests/paths/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -179,6 +197,10 @@ def child_environment(work: Path | None = None) -> dict[str, str]:
 
 
 def python_suite() -> int:
+    # -I ignores PYTHONIOENCODING; callable Unicode writer tests still need
+    # the same explicit stream contract as the production CLI.
+    sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
     # Isolated Python excludes the script/CWD from sys.path. unittest gets only
     # this explicit trusted test directory; fixture helpers use absolute loads.
     tests = str(ROOT / "tests/python")
@@ -416,6 +438,159 @@ def validate_plan_page_content(case: dict) -> None:
         raise ValueError("Shared-plan source outputs must preserve every captured original page's synthetic content")
 
 
+def path_units(value: str) -> int:
+    return len(value.encode("utf-16-le")) // 2
+
+
+def validate_paths_success(case: dict) -> None:
+    validate_plan_parity(case)
+    validate_plan_page_content(case)
+    result = case["writer_result"]
+    observation = case.get("no_replanning_observation")
+    if observation not in {"direct-api-planner-and-source-reopen-traps", "supported-by-direct-api-and-shared-plan-controls"} \
+            or observation == "direct-api-planner-and-source-reopen-traps" and any(
+                type(case.get(field)) is not int or case[field] != 0
+                for field in ("planner_calls_during_execute", "source_reader_calls_during_execute")):
+        raise ValueError("Path parity must distinguish observed direct-API traps from inherited child-plan controls")
+    if case.get("manifest_validated") is not True or case.get("input_unchanged") is not True \
+            or case.get("owned_outputs_removed") is not True \
+            or not isinstance(case.get("input_resolved"), str) \
+            or not Path(case["input_resolved"]).is_absolute() \
+            or os.path.normcase(case["input_resolved"]) != os.path.normcase(result["source_identity"]["path"]) \
+            or not valid_digest(case.get("input_sha256")) or case["input_sha256"] != result["source_identity"]["sha256"] \
+            or not isinstance(case.get("output_base"), str) or not Path(case["output_base"]).is_absolute() \
+            or Path(result["final_directory"]).parent != Path(case["output_base"]):
+        raise ValueError("Path success requires literal source binding, explicit owned publication and cleanup")
+    final = Path(result["final_directory"])
+    stage = Path(case["output_base"]) / (".WinBookSplit-stage-" + result["run_id"])
+    actual_units = [path_units(str(final / item["filename"])) for item in case["outputs"]]
+    staged_units = [path_units(str(stage / item["filename"])) for item in case["outputs"]]
+    if case.get("final_path_utf16_units") != actual_units or case.get("stage_path_utf16_units") != staged_units \
+            or any(type(value) is not int or value > 259 for value in actual_units + staged_units) \
+            or any(path_units(str(directory)) > 247 for directory in (final, stage)):
+        raise ValueError("Path success requires independently measured staged and published Windows path budgets")
+    for item in case["outputs"]:
+        name = item["filename"]
+        if re.search(r'[<>:"/\\|?*\x00-\x1f\x7f]', name) or name != name.rstrip(" .") \
+                or path_units(name) > 255 or any(0xd800 <= ord(character) <= 0xdfff for character in name):
+            raise ValueError("Path outputs must remain safe Unicode basenames")
+
+
+def validate_paths_report(child: dict, requested_shells: list[str]) -> None:
+    if type(child.get("schema_version")) is not int or child.get("schema_version") != 1 \
+            or child.get("task_id") != "M2-T02" or child.get("result") != "PATH_REGRESSION_PASSED" \
+            or child.get("success") is not True or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+            or child.get("acceptance_ids") != PATH_ACCEPTANCE_IDS \
+            or any(child.get(field) is not True for field in ("source_unchanged", "baseline_guards_preserved",
+                                                             "input_and_neighbor_unchanged", "owned_temp_removed",
+                                                             "machine_settings_unchanged")) \
+            or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+            or not isinstance(child.get("import_observation"), dict) or child["import_observation"].get("import_safe") is not True:
+        raise ValueError("Path report requires the complete M2-T02 acceptance and preservation promises")
+    requested = {os.path.normcase(path) for path in requested_shells}
+    hosts = validate_plan_case_ids(child.get("host_cases"), {"PS51", "PS7"}, "actual path hosts")
+    if len(requested) != 2 or {os.path.normcase(host.get("shell_executable", "")) for host in hosts} != requested \
+            or {host.get("host_major") for host in hosts} != {5, 7}:
+        raise ValueError("Path acceptance requires exactly the requested actual PS5.1 and PS7 hosts")
+    by_host = {host["id"]: host for host in hosts}
+    for host in hosts:
+        if type(host.get("host_major")) is not int or not isinstance(host.get("host_version"), str) \
+                or host["host_major"] != (5 if host["id"] == "PS51" else 7) \
+                or not host["host_version"].startswith("5.1." if host["id"] == "PS51" else "7.") \
+                or type(host.get("exit_code")) is not int or host["exit_code"] != 0 \
+                or host.get("syntax_checked") != ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1"] \
+                or type(host.get("syntax_error_count")) is not int or host["syntax_error_count"] != 0:
+            raise ValueError("Path hosts require observed versions and successful production syntax parsing")
+        policies = host.get("stored_policies")
+        if not isinstance(policies, list) or len(policies) != 4 \
+                or any(not isinstance(item, dict) or not isinstance(item.get("policy"), str) or not item["policy"] for item in policies) \
+                or {item.get("scope") for item in policies} != {"MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine"} \
+                or host.get("policies_after") != policies:
+            raise ValueError("Path hosts require actual unchanged stored policy observations")
+    literal = validate_plan_case_ids(child.get("literal_cases"), PATH_LITERAL_IDS, "literal launcher cases")
+    for case in literal:
+        validate_paths_success(case)
+        expected_host = by_host["PS51" if case["id"].startswith(("PS51", "BAT")) else "PS7"]
+        argument = case.get("input_argument")
+        frame = case.get("engine_record")
+        if case.get("actual_process") is not True or type(case.get("exit_code")) is not int or case["exit_code"] != 0 \
+                or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(expected_host["shell_executable"]) \
+                or not isinstance(argument, str) or any(token not in argument for token in (" ", "[", "]", "'", "&", "(", ")", "%", "!", "章节")) \
+                or not argument.endswith(".PdF") or case.get("wildcard_decoy_unchanged") is not True \
+                or case.get("metadata_size_matches") is not True or case.get("literal_expansion_preserved") is not True \
+                or case.get("source_read_only_attribute_observed") is not True or case.get("source_attributes_restored") is not True \
+                or case.get("no_replanning_observation") != "supported-by-direct-api-and-shared-plan-controls" \
+                or not isinstance(case.get("reported_size_display"), str) \
+                or case["reported_size_display"].replace(",", ".") != case.get("input_size_display") \
+                or not isinstance(frame, dict) or frame.get("protocol") != "winbooksplit.result" \
+                or type(frame.get("version")) is not int or frame["version"] != 1 \
+                or frame.get("status") != "success" or frame.get("code") != "split_complete" or frame.get("mode") != case["mode"] \
+                or type(frame.get("exit_code")) is not int or frame["exit_code"] != 0 \
+                or type(frame.get("written_count")) is not int or frame["written_count"] != case["written_count"] \
+                or frame.get("execution") != case["writer_result"]:
+            raise ValueError("Literal launchers must preserve special characters, exact source metadata and native success")
+    rejected = validate_plan_case_ids(child.get("rejection_cases"), PATH_REJECTION_IDS, "literal rejection cases")
+    for case in rejected:
+        host = by_host[case["id"].split("-", 1)[0]]
+        corrupt = case["id"].endswith("corrupt-pdf")
+        if case.get("actual_process") is not True or type(case.get("exit_code")) is not int or case["exit_code"] != 1 \
+                or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(host["shell_executable"]) \
+                or type(case.get("successful_final_count")) is not int or case["successful_final_count"] != 0 \
+                or case.get("outputs") != [] or case.get("input_unchanged") is not True \
+                or case.get("neighbor_unchanged") is not True or case.get("owned_outputs_removed") is not True \
+                or case.get("engine_called") is not corrupt \
+                or corrupt and case.get("error_code") != "unreadable_document" \
+                or case["id"].endswith("unreadable-held-file") and case.get("native_lock_verified") is not True:
+            raise ValueError("Path rejection requires actual nonzero hosts, parser verification and zero successful output")
+    filename = child.get("filename_case")
+    if not isinstance(filename, dict) or filename.get("passed") is not True:
+        raise ValueError("Path report requires actual safe-title writer evidence")
+    validate_paths_success(filename)
+    if filename.get("no_replanning_observation") != "direct-api-planner-and-source-reopen-traps":
+        raise ValueError("Safe-title writer requires actual direct-API source and planner traps")
+    titles = validate_plan_case_ids(filename.get("title_cases"), set(PATH_FILENAME_EXPECTATIONS), "safe title cases")
+    if filename["written_count"] != len(PATH_FILENAME_EXPECTATIONS) \
+            or [entry["filename"] for entry in filename["outputs"]] != list(PATH_FILENAME_EXPECTATIONS.values()) \
+            or any(case.get("filename") != PATH_FILENAME_EXPECTATIONS[case["id"]] for case in titles):
+        raise ValueError("Safe title evidence must match independent deterministic fallback and Unicode expectations")
+    chapters = validate_plan_case_ids(child.get("chapter_cases"), PLAN_MODES, "120-section modes", key="mode")
+    for case in chapters:
+        validate_paths_success(case)
+        if case.get("no_replanning_observation") != "direct-api-planner-and-source-reopen-traps":
+            raise ValueError("120-section writers require actual direct-API source and planner traps")
+        names = [item["filename"] for item in case["outputs"]]
+        if case.get("section_count") != 120 or type(case.get("section_count")) is not int \
+                or case.get("number_width") != 3 or case["written_count"] != 120 or case["total_pages"] != 120 \
+                or names != sorted(names) or any(not name.startswith(f"{index:03d} - ") for index, name in enumerate(names, 1)):
+            raise ValueError("All modes must write 120 lexically chronological complete sections")
+    long_case = child.get("long_destination_case")
+    if not isinstance(long_case, dict) or long_case.get("passed") is not True:
+        raise ValueError("Path report requires an actual destination-bound long-base writer")
+    validate_paths_success(long_case)
+    if long_case.get("no_replanning_observation") != "direct-api-planner-and-source-reopen-traps":
+        raise ValueError("Long destination writer requires actual direct-API source and planner traps")
+    naming = long_case.get("output_naming")
+    if not isinstance(naming, dict) or naming.get("resolved_base") != long_case["output_base"] \
+            or type(naming.get("filename_budget")) is not int or not 1 <= naming["filename_budget"] < 59 \
+            or not isinstance(naming.get("run_stem"), str) or not naming["run_stem"] \
+            or long_case.get("preview_unchanged") is not True or long_case.get("shortened") is not True \
+            or any(path_units(item["filename"]) > naming["filename_budget"] for item in long_case["outputs"]) \
+            or naming["filename_budget"] != min(255, 259 - max(path_units(str(Path(long_case["output_base"]) / (".WinBookSplit-stage-" + "0" * 32))),
+                                                               path_units(long_case["writer_result"]["final_directory"])) - 1):
+        raise ValueError("Long destination evidence must bind a shortened immutable preview within the measured budget")
+    failures = validate_plan_case_ids(child.get("destination_failure_cases"), set(PATH_DESTINATION_FAILURE_CODES), "destination rejection cases")
+    for case in failures:
+        if case.get("error_code") != PATH_DESTINATION_FAILURE_CODES[case["id"]] \
+                or type(case.get("successful_final_count")) is not int or case["successful_final_count"] != 0 \
+                or case.get("written_count") != 0 or type(case.get("written_count")) is not int \
+                or case.get("outputs") != [] or case.get("cleanup_complete") is not True \
+                or case.get("source_unchanged") is not True or case.get("neighbor_unchanged") is not True \
+                or not isinstance(case.get("error_message"), str) or not case["error_message"] \
+                or case["id"] == "unwritable-held-base" and case.get("native_lock_verified") is not True \
+                or case["id"] == "full-target" and (case.get("injected_errno") != 28 or case.get("completed_slices_before_failure") != 1):
+            raise ValueError("Destination failure requires an explicit actionable error, zero published files and owned cleanup")
+
+
 def validate_plan_report(child: dict) -> None:
     properties, observation = child.get("seeded_plan_cases"), child.get("import_observation")
     if type(child.get("schema_version")) is not int or child.get("task_id") != "M1-T05" \
@@ -599,6 +774,8 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             raise ValueError("Expected a schema_version=1 JSON object report")
         if kind == "diagnostics":
             validate_diagnostics_report(child, step.get("requested_shell_paths", []))
+        elif kind == "paths":
+            validate_paths_report(child, step.get("requested_shell_paths", []))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -932,6 +1109,17 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "output")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"paths", "full"}:
+            child_report = work / "path-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/paths/characterize_paths.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "path-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "meaning": "Actual literal Windows launchers, safe destination-bound names and conservative path budgets",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "paths")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -951,7 +1139,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
@@ -978,12 +1166,12 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
-            raise ValueError("Diagnostics require both explicit distinct supported shell hosts")
+        if args.layer in {"diagnostics", "paths", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            raise ValueError("Diagnostics and paths require both explicit distinct supported shell hosts")
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(report, stream, indent=2, ensure_ascii=True)

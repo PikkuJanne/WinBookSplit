@@ -6,9 +6,9 @@ A "drop-and-forget" PDF/AZW3/EPUB decomposition tool for technical manuals, text
 - Multi-Format Support: Automatically detects AZW3/EPUB files and converts them to PDF using Calibre before processing.
 - Recursive Extraction: Deep-crawls the PDF outline tree to find chapter starts and titles often missed by basic splitters.
 - Smart Fallback: Automatically detects flat PDFs without bookmarks and triggers a TUI prompt for manual page entry.
-- Organized Output: Cleans illegal characters from titles and applies two-digit padding (01, 02...) to keep files perfectly ordered.
+- Organized Output: Cleans Windows-invalid title characters, keeps Unicode, and widens numbering to the section count (01, 02... or 001...120).
 - Detailed Logging: Generates a verbose report in the output folder tracking every bookmark match, skipped page, and extraction range.
-- Non-Destructive: Always creates a new folder in Documents, never modifies the original source file.
+- PDF Output: Publishes a new validated run folder under Documents or the explicit output base; earlier runs and source PDFs remain unchanged.
 
 **Requirements**
 - Windows 10 or 11
@@ -54,6 +54,21 @@ Place these together (e.g. C:\Tools\WinBookSplit\):
 Run from a PowerShell prompt:
 .\WinBookSplit.ps1 -InputFile "C:\Path\To\MyBook.azw3"
 You will see the same interactive menu and the same verbose log output.
+
+For PDF runs, an existing directory can be selected as the output base:
+
+```powershell
+.\WinBookSplit.ps1 -InputFile "C:\Books\Book [1].PDF" -OutputDirectory "D:\Reading"
+```
+
+Input and output paths are handled literally. Directories used as input files,
+non-filesystem providers and unreadable files are rejected with a nonzero exit.
+Titles with no usable text get stable `Section 1`-style names. Destination-aware
+preparation shortens titles and the run-folder stem before writing; preview and
+execution retain the same filenames. A destination that cannot hold chapters
+and diagnostic records is rejected with a request for a shorter output base.
+The current budget is 259 UTF-16 units for a complete file path and 247 for a
+created directory; this does not claim arbitrary long-path or UNC support.
 
 **What it actually does (step-by-step)**
 1. Checks & Conversion

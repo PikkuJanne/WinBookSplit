@@ -188,7 +188,167 @@ def complete_output_report():
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
 
 
+def complete_paths_report(hosts):
+    def success(number, names, mode="1"):
+        case = deepcopy(complete_plan_report()["parity_cases"][0])
+        pages = len(names)
+        entries = [{"sequence": i, "start": i - 1, "end": i, "filename": name} for i, name in enumerate(names, 1)]
+        source = str(Path("C:/synthetic/book [1] O'Neil & (notes) %WBS_PATHS_EXPAND%!WBS_PATHS_EXPAND! 章节.PdF"))
+        case.update(mode=mode, total_pages=pages, preview_entries=entries, written_count=pages,
+                    coverage={"complete": True, "covered_pages": pages, "section_count": pages},
+                    outputs=[{"filename": name, "range": [i - 1, i], "page_ids": [i], "sha256": f"{i:064x}"}
+                             for i, name in enumerate(names, 1)],
+                    original_page_content_sha256=[f"{i:064x}" for i in range(1, pages + 1)],
+                    page_content_sha256=[f"{i:064x}" for i in range(1, pages + 1)])
+        case["source_identity"]["path"] = source
+        writer = {"mode": mode, "total_pages": pages, "written_count": pages, "coverage": deepcopy(case["coverage"]),
+                  "source_identity": deepcopy(case["source_identity"]), "outputs": [{**entry, "page_count": 1} for entry in entries]}
+        case["writer_result"] = transaction_result(writer, number)
+        final = Path(case["writer_result"]["final_directory"])
+        base = final.parent
+        case.update(input_resolved=source, input_sha256=case["source_identity"]["sha256"], input_unchanged=True,
+                    output_base=str(base), manifest_validated=True, owned_outputs_removed=True,
+                    stage_path_utf16_units=[runner.path_units(str(base / (".WinBookSplit-stage-" + case["writer_result"]["run_id"]) / name)) for name in names],
+                    final_path_utf16_units=[runner.path_units(str(final / name)) for name in names])
+        case.update(no_replanning_observation="direct-api-planner-and-source-reopen-traps",
+                    planner_calls_during_execute=0, source_reader_calls_during_execute=0)
+        return case
+
+    host_cases = [{"id": identifier, "passed": True, "shell_executable": host, "host_major": major,
+                   "host_version": "5.1.1234.1" if major == 5 else "7.6.5", "exit_code": 0,
+                   "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1"], "syntax_error_count": 0}
+                  for identifier, host, major in zip(("PS51", "PS7"), hosts, (5, 7), strict=True)]
+    for host in host_cases:
+        host["stored_policies"] = [{"scope": name, "policy": "Undefined"} for name in ("MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine")]
+        host["policies_after"] = deepcopy(host["stored_policies"])
+    literal = []
+    for i, identifier in enumerate(sorted(runner.PATH_LITERAL_IDS), 1):
+        case = success(50 + i, ["01 - Section.pdf"], "manual")
+        case.update(id=identifier, actual_process=True, exit_code=0, shell_executable=hosts[1 if identifier.startswith("PS7") else 0],
+                    input_argument=case["input_resolved"], wildcard_decoy_unchanged=True, metadata_size_matches=True,
+                    literal_expansion_preserved=True, reported_size_display="0.00 MB", input_size_display="0.00 MB")
+        case.update(source_read_only_attribute_observed=True, source_attributes_restored=True,
+                    no_replanning_observation="supported-by-direct-api-and-shared-plan-controls")
+        case["engine_record"] = {"protocol": "winbooksplit.result", "version": 1, "status": "success", "code": "split_complete", "mode": "manual", "exit_code": 0,
+                                 "written_count": case["written_count"], "execution": deepcopy(case["writer_result"])}
+        literal.append(case)
+    rejected = [{"id": name, "passed": True, "actual_process": True, "exit_code": 1,
+                 "shell_executable": hosts[1 if name.startswith("PS7") else 0], "successful_final_count": 0,
+                 "outputs": [], "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True,
+                 "engine_called": name.endswith("corrupt-pdf"), "error_code": "unreadable_document" if name.endswith("corrupt-pdf") else "literal_preflight_rejected",
+                 "native_lock_verified": True}
+                for name in sorted(runner.PATH_REJECTION_IDS)]
+    filename = success(60, list(runner.PATH_FILENAME_EXPECTATIONS.values()))
+    filename["title_cases"] = [{"id": name, "passed": True, "filename": expected} for name, expected in runner.PATH_FILENAME_EXPECTATIONS.items()]
+    chapter = [dict(success(70 + i, [f"{n:03d} - Chapter {n}.pdf" for n in range(1, 121)], mode), section_count=120, number_width=3)
+               for i, mode in enumerate(("manual", "1", "2"))]
+    long_case = success(80, ["01 - Shortened title.pdf"])
+    long_base = Path("C:/synthetic") / ("b" * (170 - runner.path_units(str(Path("C:/synthetic"))) - 1))
+    final = long_base / ("Book_20261009-120000_" + long_case["writer_result"]["run_id"])
+    long_case["writer_result"]["final_directory"] = str(final)
+    long_case["writer_result"]["manifest"]["final_directory"] = str(final)
+    stage = long_base / (".WinBookSplit-stage-" + long_case["writer_result"]["run_id"])
+    long_case.update(output_base=str(long_base), final_path_utf16_units=[runner.path_units(str(final / long_case["outputs"][0]["filename"]))],
+                     stage_path_utf16_units=[runner.path_units(str(stage / long_case["outputs"][0]["filename"]))])
+    budget = min(255, 259 - max(runner.path_units(str(stage)), runner.path_units(str(final))) - 1)
+    long_case.update(output_naming={"resolved_base": long_case["output_base"], "run_stem": "Book", "filename_budget": budget},
+                     preview_unchanged=True, shortened=True)
+    failures = [{"id": name, "passed": True, "error_code": code, "error_message": "Authored actionable destination failure",
+                 "successful_final_count": 0, "written_count": 0, "outputs": [], "cleanup_complete": True,
+                 "source_unchanged": True, "neighbor_unchanged": True, "native_lock_verified": True,
+                 "injected_errno": 28 if name == "full-target" else None,
+                 "completed_slices_before_failure": 1 if name == "full-target" else None}
+                for name, code in runner.PATH_DESTINATION_FAILURE_CODES.items()]
+    return {"schema_version": 1, "task_id": "M2-T02", "result": "PATH_REGRESSION_PASSED", "success": True, "exit_code": 0,
+            "acceptance_ids": runner.PATH_ACCEPTANCE_IDS, "host_cases": host_cases, "literal_cases": literal,
+            "rejection_cases": rejected, "filename_case": filename, "chapter_cases": chapter,
+            "long_destination_case": long_case, "destination_failure_cases": failures,
+            "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
+            "owned_temp_removed": True, "machine_settings_unchanged": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
+
+
 class RunnerTests(unittest.TestCase):
+    def test_paths_target_runs_one_stage_and_forwards_both_actual_hosts(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="paths", failure_probe=None, shell_path=hosts, tool_root=None)
+        commands = []
+
+        def command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic-git-identity\n", "stderr": ""}
+
+        with patch.object(runner, "source_manifest", return_value={"synthetic-source": "hash"}), \
+                patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        self.assertEqual([step["name"] for step in report["steps"]], ["path-regression"])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["paths"])
+        self.assertEqual(report["steps"][0]["requested_shell_paths"], list(map(str, hosts)))
+        self.assertEqual(commands[-1][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertTrue(report["success"])
+
+    def test_paths_evidence_requires_actual_hosts_literal_names_full_coverage_and_failure_cleanup(self):
+        hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]
+        complete = complete_paths_report(hosts)
+        with tempfile.TemporaryDirectory(prefix="wbs-path-evidence-") as directory:
+            path = Path(directory) / "paths.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0, "requested_shell_paths": hosts}
+            runner.attach_child_report(step, path, "paths")
+            self.assertEqual(step["exit_code"], 0)
+            defects = []
+
+            def changed(name, mutate):
+                child = deepcopy(complete)
+                mutate(child)
+                defects.append((name, child))
+
+            for field, value in (("schema_version", True), ("task_id", "M2-T01"), ("result", "wrong"), ("exit_code", False),
+                                 ("acceptance_ids", ["AC-036"]), ("owned_temp_removed", False), ("source_unchanged", False),
+                                 ("input_and_neighbor_unchanged", False), ("machine_settings_unchanged", False), ("import_observation", {})):
+                defects.append((field, {**complete, field: value}))
+            for group in ("host_cases", "literal_cases", "rejection_cases", "chapter_cases", "destination_failure_cases"):
+                defects.append(("missing " + group, {**complete, group: []}))
+                changed("duplicate " + group, lambda child, group=group: child[group].__setitem__(-1, deepcopy(child[group][0])))
+            changed("unrequested host", lambda child: child["host_cases"][0].update(shell_executable="C:/unrequested/ps51.exe"))
+            changed("missing new helper syntax", lambda child: child["host_cases"][0].update(syntax_checked=["WinBookSplit.ps1"]))
+            changed("omitted policy observation", lambda child: child["host_cases"][0].pop("policies_after"))
+            changed("wildcard input selected", lambda child: child["literal_cases"][0].update(input_resolved="C:/synthetic/decoy.pdf"))
+            changed("lost literal percent", lambda child: child["literal_cases"][0].update(input_argument="C:/synthetic/plain.PdF"))
+            changed("wrong wildcard metadata", lambda child: child["literal_cases"][0].update(reported_size_display="1.00 MB"))
+            changed("unverified literal cleanup", lambda child: child["literal_cases"][0].pop("owned_outputs_removed"))
+            changed("false native success", lambda child: child["literal_cases"][0].update(exit_code=1))
+            changed("omitted actual native frame", lambda child: child["literal_cases"][0].pop("engine_record"))
+            changed("boolean native exit", lambda child: child["literal_cases"][0]["engine_record"].update(exit_code=False))
+            changed("unobserved read-only source", lambda child: child["literal_cases"][0].pop("source_read_only_attribute_observed"))
+            changed("source attributes left changed", lambda child: child["literal_cases"][0].update(source_attributes_restored=False))
+            changed("unobserved child planner traps", lambda child: child["literal_cases"][0].update(no_replanning_observation="direct-api-planner-and-source-reopen-traps"))
+            changed("omitted actual parser", lambda child: next(row for row in child["rejection_cases"] if row["id"].endswith("corrupt-pdf")).update(engine_called=False))
+            changed("directory accepted", lambda child: child["rejection_cases"][0].update(exit_code=0))
+            changed("unverified unreadability", lambda child: next(row for row in child["rejection_cases"] if row["id"].endswith("unreadable-held-file")).update(native_lock_verified=False))
+            changed("unsafe or unstated title", lambda child: child["filename_case"]["title_cases"][0].update(filename="../escape.pdf"))
+            changed("missing fallback proof", lambda child: child["filename_case"].pop("title_cases"))
+            changed("wrong dynamic width", lambda child: child["chapter_cases"][0].update(number_width=2))
+            changed("lost 120th page", lambda child: child["chapter_cases"][0]["outputs"][-1].update(page_ids=[]))
+            changed("missing ordinary content parity", lambda child: child["chapter_cases"][0].pop("page_content_sha256"))
+            changed("omitted direct source traps", lambda child: child["chapter_cases"][0].pop("no_replanning_observation"))
+            changed("execution replanned", lambda child: child["chapter_cases"][0].update(planner_calls_during_execute=1))
+            changed("unmeasured full path", lambda child: child["long_destination_case"].pop("final_path_utf16_units"))
+            changed("changed frozen preview", lambda child: child["long_destination_case"].update(preview_unchanged=False))
+            changed("title exceeds frozen budget", lambda child: child["long_destination_case"]["output_naming"].update(filename_budget=1))
+            changed("missing held access proof", lambda child: next(row for row in child["destination_failure_cases"] if row["id"] == "unwritable-held-base").update(native_lock_verified=False))
+            changed("wrong errno simulation", lambda child: next(row for row in child["destination_failure_cases"] if row["id"] == "full-target").update(injected_errno=13))
+            changed("no actual partial slice", lambda child: next(row for row in child["destination_failure_cases"] if row["id"] == "full-target").update(completed_slices_before_failure=0))
+            changed("failed stage retained", lambda child: child["destination_failure_cases"][0].update(cleanup_complete=False))
+            changed("failure announces files", lambda child: child["destination_failure_cases"][0].update(written_count=1))
+            for name, child in defects:
+                with self.subTest(defect=name):
+                    path.write_text(json.dumps(child), encoding="utf-8")
+                    step = {"exit_code": 0, "requested_shell_paths": hosts}
+                    runner.attach_child_report(step, path, "paths")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+
     def test_output_target_runs_one_stage_without_shell_arguments(self):
         args = SimpleNamespace(layer="output", failure_probe=None, shell_path=[Path("C:/unused/pwsh.exe")], tool_root=None)
         commands = []
@@ -541,7 +701,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_six_regressions_and_forwards_hosts_to_manual_and_diagnostics(self):
+    def test_full_selects_all_seven_regressions_and_forwards_integration_hosts(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -577,10 +737,13 @@ class RunnerTests(unittest.TestCase):
         output = [command for command in commands if str(ROOT / "tests/output/characterize_output.py") in command]
         self.assertEqual(len(output), 1)
         self.assertNotIn("--shell-path", output[0])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output"])
-        self.assertEqual([step["name"] for step in report["steps"][-6:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression"])
-        self.assertEqual(len(report["steps"]), 9)
+        paths = [command for command in commands if str(ROOT / "tests/paths/characterize_paths.py") in command]
+        self.assertEqual(len(paths), 1)
+        self.assertEqual(paths[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths"])
+        self.assertEqual([step["name"] for step in report["steps"][-7:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression"])
+        self.assertEqual(len(report["steps"]), 10)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):

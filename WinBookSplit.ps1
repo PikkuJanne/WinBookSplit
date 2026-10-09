@@ -33,7 +33,7 @@ FEATURES
     - Automated Sanitization:
         Cleans illegal Windows characters from titles to ensure valid filenames.
     - Systematic Naming:
-        Prefixes files with two-digit padding to maintain correct chronological order.
+        Prefixes files with at least two digits, widened to the section count.
     - Verbose Logging:
         Generates a detailed execution log tracking every match and action.
 
@@ -64,7 +64,7 @@ USAGE
 NOTES
     - The script uses the shipped engine\winbooksplit_engine.py beside the
       PowerShell entry point, independently of the current working directory.
-    - Output is always directed to a sub-folder in the 'Documents' directory.
+    - Output uses a new child of Documents or the explicit -OutputDirectory base.
 
 LIMITATIONS
     - Requires a local Python installation with the 'pypdf' library.
@@ -84,7 +84,8 @@ LICENSE / WARRANTY
 #>
 
 param (
-    [string]$InputFile
+    [string]$InputFile,
+    [string]$OutputDirectory
 )
 
 # --- Configuration ---
@@ -108,14 +109,21 @@ function Draw-Header {
     Write-Host ""
 }
 
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Paths.ps1')
+
 # --- Validation ---
 Draw-Header
-# Now accepts AZW3 and EPUB as valid inputs
-if (-not (Test-Path $InputFile) -or $InputFile -notmatch "\.pdf$|\.azw3$|\.epub$") {
-    Write-Host "[!] Error: Invalid file." -ForegroundColor Red
-    Write-Host "Please drop a valid PDF, AZW3, or EPUB file." -ForegroundColor Gray
+try {
+    $inputItem = Resolve-WinBookSplitInput -Path $InputFile
+    $InputFile = $inputItem.FullName
+    $requestedBase = $documentsPath
+    if (-not [string]::IsNullOrWhiteSpace($OutputDirectory)) { $requestedBase = $OutputDirectory }
+    $outputDir = Resolve-WinBookSplitOutputBase -Path $requestedBase
+}
+catch {
+    Write-Host ("[!] Error: " + $_.Exception.Message) -ForegroundColor Red
     Read-Host "Press Enter to exit"
-    exit
+    exit 1
 }
 
 $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
@@ -126,7 +134,7 @@ if ($inputExt -ne ".pdf") {
     Write-Host "Detected $inputExt format." -ForegroundColor Yellow
     Write-Host "Locating conversion engine (Calibre)..." -ForegroundColor Gray
 
-    $converterExe = $CalibreSearchPaths | Where-Object { Test-Path $_ } | Select-Object -First 1
+    $converterExe = $CalibreSearchPaths | Where-Object { Test-Path -LiteralPath $_ -PathType Leaf } | Select-Object -First 1
 
     if (-not $converterExe) {
         Write-Host ""
@@ -157,7 +165,7 @@ if ($inputExt -ne ".pdf") {
     # Run the process directly so the user sees Calibre's output stream
     $proc = Start-Process -FilePath $converterExe -ArgumentList $convertArgs -Wait -NoNewWindow -PassThru
 
-    if ($proc.ExitCode -ne 0 -or -not (Test-Path $convertedPdfPath)) {
+    if ($proc.ExitCode -ne 0 -or -not (Test-Path -LiteralPath $convertedPdfPath -PathType Leaf)) {
          Write-Host ""
          Write-Host "[!] CALIBRE CONVERSION FAILED." -ForegroundColor Red
          Read-Host "Press Enter to exit"
@@ -169,7 +177,15 @@ if ($inputExt -ne ".pdf") {
     Start-Sleep -Seconds 1
 
     # CRITICAL STEP, update the InputFile variable so the rest of the script operates on the newly created PDF.
-    $InputFile = $convertedPdfPath
+    try {
+        $inputItem = Resolve-WinBookSplitInput -Path $convertedPdfPath
+        $InputFile = $inputItem.FullName
+    }
+    catch {
+        Write-Host ("[!] Error: Cannot read the converted PDF: " + $_.Exception.Message) -ForegroundColor Red
+        Read-Host "Press Enter to exit"
+        exit 1
+    }
     # Refresh header to clear conversion clutter
     Draw-Header
 }
@@ -178,25 +194,43 @@ if ($inputExt -ne ".pdf") {
 # --- Preparation (Post-Conversion) ---
 # We calculate stats here so they reflect the PDF, not the source AZW3
 $fileName = [System.IO.Path]::GetFileNameWithoutExtension($InputFile)
-$fileSize = "{0:N2} MB" -f ((Get-Item $InputFile).Length / 1MB)
+$fileSize = "{0:N2} MB" -f ((Get-Item -LiteralPath $InputFile -ErrorAction Stop).Length / 1MB)
 
-$outputDir = $documentsPath
 # Console diagnostics have their own exclusive run folder; chapters are
 # published by the engine only after the complete stage has been validated.
-$consoleRunId = [guid]::NewGuid().ToString('N')
-$consoleDir = Join-Path $documentsPath ('.WinBookSplit-console-' + $consoleRunId)
-New-Item -ItemType Directory -Path $consoleDir -ErrorAction Stop | Out-Null
-$consoleMarker = Join-Path $consoleDir '.WinBookSplit-console-owner.json'
-$markerStream = [IO.File]::Open($consoleMarker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+$markerStream = $null
+$logStream = $null
+$script:consoleLogWriter = $null
+$consoleDir = $null
 try {
-    $markerBytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $consoleRunId; kind = 'console' } | ConvertTo-Json -Compress))
-    $markerStream.Write($markerBytes, 0, $markerBytes.Length)
+    $consoleReservation = New-WinBookSplitConsoleDirectory -Base $outputDir
+    $consoleRunId = $consoleReservation.run_id
+    $consoleDir = $consoleReservation.path
+    $consoleMarker = [IO.Path]::Combine($consoleDir, '.WinBookSplit-console-owner.json')
+    $markerStream = [IO.File]::Open($consoleMarker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+    try {
+        $markerBytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $consoleRunId; kind = 'console' } | ConvertTo-Json -Compress))
+        $markerStream.Write($markerBytes, 0, $markerBytes.Length)
+    }
+    finally { if ($null -ne $markerStream) { $markerStream.Dispose(); $markerStream = $null } }
+    $logFile = [IO.Path]::Combine($consoleDir, 'console.log')
+    $logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+    $script:consoleLogWriter = [IO.StreamWriter]::new($logStream, [Text.UTF8Encoding]::new($false))
+    $script:consoleLogWriter.AutoFlush = $true
 }
-finally { $markerStream.Dispose() }
-$logFile = Join-Path $consoleDir 'console.log'
-$logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
-$script:consoleLogWriter = New-Object IO.StreamWriter($logStream, (New-Object Text.UTF8Encoding($false)))
-$script:consoleLogWriter.AutoFlush = $true
+catch {
+    $setupMessage = $_.Exception.Message
+    foreach ($stream in @($script:consoleLogWriter, $logStream, $markerStream)) {
+        if ($null -ne $stream) {
+            try { $stream.Dispose() }
+            catch { $setupMessage += '; Cannot close a console stream: ' + $_.Exception.Message }
+        }
+    }
+    Write-Host ('[!] Error: Cannot prepare console records: ' + $setupMessage) -ForegroundColor Red
+    if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + $consoleDir) -ForegroundColor Gray }
+    Read-Host 'Press Enter to exit'
+    exit 1
+}
 
 # --- The Python Engine ---
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'

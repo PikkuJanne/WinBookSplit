@@ -2,15 +2,54 @@
 
 Project: WinBookSplit first public v1.0.0.
 Overall: IN PROGRESS; M0 and M1 reviewed/merged. M2 is in progress; later runtime, UX and release gates remain open.
-Completed: M0-T01 through M0-T04, M1-T01 through M1-T06, and M2-T01.
-Next dependency-ready task: **M2-T02 — Harden literal paths and output filenames**.
-Current branch/upstream: `codex/winbooksplit-v1-m2` / `origin/codex/winbooksplit-v1-m2`; retained M0/M1 branches are historical.
+Completed: M0-T01 through M0-T04, M1-T01 through M1-T06, M2-T01 and M2-T02.
+Next dependency-ready task: **M2-T03 — Move ebook conversion into owned workspace**.
+Current branch/upstream: `codex/winbooksplit-v1-m2` / `origin/codex/winbooksplit-v1-m2`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `a58ce43866331da42e32f80521a24c4893ab58f5`.
-C clean/live synchronization: **SYNCED** at `2026-10-09T08:31:04.317614+00:00`.
-[draft M2 PR](https://github.com/PikkuJanne/WinBookSplit/pull/11); no milestone merge requested at this task boundary.
-Following documentation-only E gets its own normal push/live receipt outside this commit; recheck current state next session.
+Last verified implementation C: `a38d0e248cecd71513a2b06d6595c055e2712b95`.
+C clean/live synchronization: **SYNCED** at `2026-10-09T09:52:45.121089+00:00`.
+[draft M2 continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/12); cumulative M2 remains open.
+Following documentation-only E gets its own normal push/live receipt outside this commit; recheck live state next session.
 Public release: NOT PUBLISHED; inspected tags/releases empty on 9 October 2026.
+
+## M2-T02 evidence and limits
+
+[Path evidence](evidence/M2-T02-paths.md) and
+[machine record](evidence/M2-T02-paths.json) satisfy AC-036 through AC-039.
+Literal FileSystem readable-file validation rejects directory/provider inputs,
+fixes wildcard metadata and accepts observed read-only synthetic inputs. PS accepts
+an existing literal output base. Native exclusive console reservation and caught
+marker/log setup preserve meaningful failures. Existing BAT/process drains and
+ownership cleanup remain unchanged.
+
+Every mode shares destination-aware safe Unicode/fallback filenames and widened
+numbering. Bound preparation freezes shortened titles/run stem before preview;
+execution rejects a changed base, consumes exact names and retains source binding.
+Unbound plans never silently rename at execution. Conservative complete-path limits
+are 259/247/255 UTF-16 units for files/created directories/components.
+
+Final unrelated-CWD ten-stage gate passed 162 Python tests, nine Pester tests
+per actual supported host, all inherited mode/plan/diagnostic/output checks, three
+actual literal PS5.1/PS7/BAT successes, eight actual rejection paths, nine title
+cases, 120 real outputs per mode, a 259-unit final path and five destination failures.
+Direct API no-replan/reopen traps, immutable preview, source/content/manifest/neighbor
+checks and authenticated cleanup pass. 14 focused filename units pass; separate
+controlled console-init before/after and native reservation receipts are accurately
+scoped. Fresh pinned venv/imports and all 66 shell-tool hashes pass. Stored policies
+remain unchanged in each host's actual path-stage comparison.
+Tested 55-path digest: `9da651cc0c13c961cf9e0a0d96d939792771ced264a7f37c0e0107636123f5d9`.
+All final raw tested bytes match clean C; no clean-C full rerun is claimed.
+Independent source/harness/raw/public evidence review passed; no CI/GitHub approval
+is claimed. Earlier failures/passing snapshots remain separate historical receipts.
+
+At start, PR11 was already live MERGED at 09:08:41Z, main/merge 8a21e49. Normal
+fetch/fast-forward reconciled M2 and local main, then normal M2 push; no reset or
+M2 milestone-acceptance inference. PR11 and earlier status text below are historical.
+
+Actual sharing denials/ENOSPC injection are not ACL/full-disk claims. Existing
+same-account check/create/lock-close intervals are not a sandbox. Human Explorer,
+UNC/arbitrary long paths, real Calibre, remaining discovery/process/CLI work,
+PDF fidelity, package, CI and public release remain open. No merge/tag/release.
 
 ## M2-T01 evidence and limits
 

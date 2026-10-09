@@ -27,3 +27,17 @@ PowerShell captures the final attempted result, including fallback. The .bat lau
 Use literal filesystem paths and file-only checks. Resolve a full provider path, ensure correct input extension and actual file readability, then let the parser verify contents. Reject directories with .pdf extensions. Test brackets, ampersands, apostrophes, parentheses, percent/exclamation marks, spaces, unicode, long paths, read-only sources, full/unwritable destinations, and paths from different current directories. Do not promise arbitrary UNC/long-path support not demonstrated in Windows tests.
 
 No elevation, no global execution-policy change, no disabling security tools. A process-scoped launcher policy option may preserve existing usability but is not a trust guarantee and must respect enterprise controls. Record its behavior; support rejection rather than advising a user to bypass organization policy.
+
+## M2-T02 implementation checkpoint
+
+The current PS entrypoint uses `Resolve-Path -LiteralPath`, FileSystem provider and
+FileInfo/readability checks, then literal metadata; directories/provider objects
+fail before processing with exit 1. `-OutputDirectory` selects an existing literal
+base; default remains actual Documents. Observed reparse ancestors reject. Native
+exclusive creation reserves console records, and a complete setup catch preserves
+errors/nonzero exit and names any retained directory. Both actual supported hosts
+and BAT preserve the tested literal/read-only source. Controlled PATH/stdin/UTF-8
+wrappers are recorded; no Explorer or ordinary discovery/all-entrypoint claim.
+No/multiple-input and final noninteractive/CLI behavior still belongs to M3;
+conversion discovery/streams remain scheduled M2 work. See
+`../evidence/M2-T02-paths.md` and `../../../tests/paths/README.md`.

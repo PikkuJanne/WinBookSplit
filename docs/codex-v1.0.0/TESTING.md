@@ -132,6 +132,25 @@ Run actual Explorer drag/drop for PDF, EPUB and AZW3, no-input selection/cancel,
 
 Real conversion fixtures: author a tiny original EPUB with TOC/chapters, and generate a redistributable AZW3 fixture with documented Calibre settings; use both as actual input formats in independent runs. Record conversion settings and inspect generated PDFs/chapter coverage. Do not test AZW3 only by renaming an EPUB. Use an explicit expected-failure case for DRM/unsupported conversion without acquiring or bypassing protected material.
 
+## Current M2-T02 path acceptance
+
+`--layer paths` requires both actual supported hosts; `--layer full` now includes
+it as the tenth stage. See `tests/paths/README.md` and
+`evidence/M2-T02-paths.md/json`. Three actual PS5.1/PS7/BAT successes retain literal
+special-character mixed-case/read-only input metadata and exact content against a
+wildcard decoy. Eight actual rejects cover directory/provider/parser/held-source
+failures. Nine title cases and 120 actual outputs per mode verify deterministic
+Unicode/fallback/width/lexical identity. A bound long preview executes unchanged
+within independently measured UTF-16 budgets; direct-API traps reject any planner
+or source-reader reopen. Five failures cover impossible bound/unbound bases,
+changed base, actual sharing-denied base and explicit ENOSPC after a real slice.
+Reports/strict runner require actual host/read-only observations, no-replan proof,
+complete content/manifest/source/neighbor/policy checks and authenticated cleanup.
+Held controls are not ACL tests, and ENOSPC is not a filled physical disk.
+Console-init statement-block/native reservation receipts have separately limited
+scope. Historical source guards/fixtures/oracles and raw failed/earlier passing
+receipts remain unchanged. Explorer/Calibre/CI/package gates remain open.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.
