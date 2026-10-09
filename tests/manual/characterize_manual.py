@@ -13,6 +13,7 @@ import os
 from pathlib import Path
 import random
 import re
+import shutil
 import stat
 import subprocess
 import sys
@@ -34,6 +35,31 @@ def load_module(name, path):
 
 history = load_module("wbs_manual_history", ROOT / "tests/extraction/characterize_extraction.py")
 require = history.require
+
+
+def trusted_original_sources():
+    """Verify immutable historical inputs while allowing scoped launcher changes.
+
+    M3 intentionally changes the current BAT exit/pause behavior. The original
+    extraction/baseline guards still require its original bytes on their legacy
+    routes. Current regressions read those historical bytes from Git, require
+    their pinned hashes, and continue requiring unchanged tests/fixtures/oracles.
+    Actual current BAT behavior is checked separately through native launches.
+    """
+    git = shutil.which("git")
+    require(git is not None, "Git is required for the immutable reference")
+    sources = {}
+    for path in history.BASELINE_PATHS:
+        result = subprocess.run([git, "cat-file", "blob", history.ORIGINAL_COMMIT + ":" + path],
+            cwd=ROOT, env=history.clean_environment(), capture_output=True, timeout=30, check=False)
+        require(result.returncode == 0, "Cannot read trusted original Git blob: " + path)
+        sources[path] = result.stdout
+    expected = json.loads(sources["tests/baseline/expected_original.json"])
+    require({path: history.digest(sources[path]) for path in expected["source_sha256"]}
+            == expected["source_sha256"], "Trusted Git originals do not match historical raw-byte guards")
+    for path in history.BASELINE_PATHS[2:]:
+        require((ROOT / path).read_bytes() == sources[path], "Current regression must preserve original test/input artifact: " + path)
+    return sources
 
 
 def plain(value):
@@ -149,7 +175,7 @@ def observe(engine, source, output, cwd, mode, manual_data=None):
 
 
 def characterize(work, shells):
-    sources = history.original_sources()  # Keep immutable baseline raw-byte guards.
+    sources = trusted_original_sources()  # Keep immutable test/input raw-byte guards.
     paths = (*history.BASELINE_PATHS, "engine/winbooksplit_engine.py",
              "tests/extraction/characterize_extraction.py", "tests/manual/characterize_manual.py")
     before = {path: history.file_digest(ROOT / path) for path in paths}
@@ -175,7 +201,8 @@ def characterize(work, shells):
         result = observe(ENGINE, by_pages[oracle["pages"]], output, cwd, "manual", oracle["input"])
         records = published_outputs(output, generator, result)
         if "expected_error" in oracle:
-            require(result["exit_code"] == 1 and oracle["expected_error"] in result["stdout"]
+            expected_exit = 6 if oracle["expected_error"] == "invalid_document" else 2
+            require(result["exit_code"] == expected_exit and oracle["expected_error"] in result["stdout"]
                     and not records and "[Writing]" not in result["stdout"], "Invalid request wrote or succeeded")
         else:
             require(result["exit_code"] == 0 and not result["stderr"], "Valid manual request failed")
@@ -207,7 +234,7 @@ def characterize(work, shells):
         result = observe(ENGINE, fixtures["simple10"], output, cwd, "manual", text)
         records = published_outputs(output, generator, result)
         if expected_ranges is None:
-            require(result["exit_code"] == 1 and "invalid_start_pages" in result["stdout"]
+            require(result["exit_code"] == 2 and "invalid_start_pages" in result["stdout"]
                     and not list(output.iterdir()), "Extra invalid syntax was accepted")
         else:
             require(result["exit_code"] == 0 and not result["stderr"], "Valid long leading-zero token failed")

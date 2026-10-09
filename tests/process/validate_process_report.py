@@ -46,7 +46,7 @@ def exact_cases(records, expected):
 def expected_frame(message="authored process failure"):
     return {"protocol": "winbooksplit.result", "version": 1, "mode": "manual", "status": "invalid_input",
         "code": "invalid_start_pages", "message": message, "warnings": [], "fallback_modes": [],
-        "exit_code": 1, "written_count": 0, "execution": None}
+        "exit_code": 2, "written_count": 0, "execution": None}
 
 
 def frame_bytes(message="authored process failure"):
@@ -73,6 +73,49 @@ def stream(record, field, data=None):
         require(len(text.encode("utf-8")) == count, field + ": incomplete small stream")
 
 
+def application_log_streams(text, stdout):
+    """Separate the finalizer metadata from the two exact raw transport tails."""
+    require(type(text) is str and type(stdout) is str, "Actual application log/stdout text required")
+    parts = text.split("\r\n[OPERATION-OUTCOME] ")
+    require(len(parts) == 2, "Exactly one provisional finalizer footer required")
+    transport_log, footer = parts
+    require(footer.endswith("\r\n") and "\r\n" not in footer[:-2], "Finalizer footer must be the terminal JSON line")
+    provisional = json.loads(footer[:-2])
+    final_lines = [line[len("[OUTCOME] "):] for line in stdout.splitlines() if line.startswith("[OUTCOME] ")]
+    require(len(final_lines) == 1, "Exactly one actual final stdout outcome required")
+    final = json.loads(final_lines[0])
+    require(type(provisional) is dict and provisional == final, "Provisional finalizer/footer differs from actual final outcome")
+    regions = transport_log.split("[STDOUT]\r\n", 1)
+    require(len(regions) == 2, "Raw stdout section missing")
+    regions = regions[1].split("\r\n[STDERR]\r\n", 1)
+    require(len(regions) == 2, "Raw stderr section/separator missing")
+    return regions[0], regions[1], provisional, final
+
+
+def application_outcome(case):
+    provisional, final = case.get("provisional_outcome"), case.get("final_outcome")
+    require(type(provisional) is dict and type(final) is dict and provisional == final,
+        "Application provisional/final outcome missing or contradicting")
+    require(type(case.get("stdout")) is str, "Actual application stdout required")
+    lines = [line[len("[OUTCOME] "):] for line in case["stdout"].splitlines() if line.startswith("[OUTCOME] ")]
+    require(len(lines) == 1 and json.loads(lines[0]) == final, "Stored final outcome differs from actual stdout")
+    engine = case.get("engine_record")
+    require(final.get("protocol") == "winbooksplit.outcome" and type(final.get("version")) is int and final["version"] == 1
+        and type(final.get("exit_code")) is int and final["exit_code"] == case.get("exit_code")
+        and type(final.get("written_count")) is int and type(engine) is dict and final.get("engine_result") == engine
+        and engine.get("protocol") == "winbooksplit.result" and type(engine.get("version")) is int and engine["version"] == 1
+        and all(final.get(field) == engine.get(field) for field in ("status", "code", "exit_code", "mode")),
+        "Application final native/engine outcome binding differs")
+    success = case.get("kind") == "unicode-hostile"
+    require((final.get("status"), final.get("code"), final.get("exit_code"), final["written_count"])
+        == (("success", "split_complete", 0, 3) if success else ("invalid_input", "invalid_start_pages", 2, 0)),
+        "Application final outcome does not match authored operation")
+    execution = engine.get("execution")
+    require(not success or type(execution) is dict, "Successful application lacks engine execution")
+    require(final.get("final_directory") == (execution.get("final_directory") if success else None),
+        "Application final publication differs from validated engine execution")
+
+
 def native(case, host):
     flags(case, "passed", "actual_process", "unrelated_process_alive")
     require(case.get("id") == host + "-" + case.get("kind", ""), "Native ID differs from kind")
@@ -92,8 +135,8 @@ def native(case, host):
     timed = kind in {"timeout-tree", "inherited-pipe", "detached-pipe"}
     require(result["TimedOut"] is timed and result["Cancelled"] is (kind == "cancel-tree"), "Wrong timeout/cancel outcome")
     data = {}
-    status = {"flood": 1, "fast-tail": 23, "unicode-boundary": 0, "arguments": 0,
-              "large-frame": 1, "oversized-frame": 1, "duplicate-frames": 1, "no-frame": 1,
+    status = {"flood": 2, "fast-tail": 23, "unicode-boundary": 0, "arguments": 0,
+              "large-frame": 2, "oversized-frame": 2, "duplicate-frames": 2, "no-frame": 1,
               "malformed-frame": 1, "inherited-pipe": 0, "detached-pipe": 0}
     if kind in status:
         require(result["ExitCode"] == status[kind], "Native exit status changed")
@@ -153,7 +196,7 @@ def validate_process_report(report, shell_paths):
           "machine_settings_unchanged", "owned_temp_removed", "unrelated_process_removed")
     require(report.get("acceptance_ids") == ACCEPTANCE, "Exact acceptance IDs required")
     require(type(report.get("tested_path_sha256")) is dict and bool(report["tested_path_sha256"]), "Missing source digest")
-    require({"engine/WinBookSplit.Process.ps1", "WinBookSplit.ps1", "WinBookSplit.bat",
+    require({"engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "WinBookSplit.ps1", "WinBookSplit.bat",
         "tests/process/characterize_process.py", "tests/process/native_child.py", "tests/process/fake_engine.py",
         "tests/process/Probe-Process.ps1", "tests/process/validate_process_report.py"}.issubset(report["tested_path_sha256"]),
         "Promised supervisor/application/harness source hashes missing")
@@ -191,6 +234,7 @@ def validate_process_report(report, shell_paths):
             native(cases[host + "-" + kind], host)
     apps = exact_cases(report.get("application_cases"), [host + "-app-" + kind for host in (*HOSTS, "BAT") for kind in ("flood", "fast-tail", "unicode-hostile")])
     for identifier, case in apps.items():
+        application_outcome(case)
         flags(case, "passed", "actual_process", "input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "literal_arguments_preserved", "log_utf8_roundtrip", "injection_marker_absent")
         markers = case.get("injection_marker_observations")
         require(type(markers) is list and [item.get("location") for item in markers] == ["wrapper_cwd", "engine_cwd", "book_directory"]
@@ -217,7 +261,7 @@ def validate_process_report(report, shell_paths):
         for field in ("Stdout", "Stderr"):
             stream(streams, field)
         if case["kind"] in {"flood", "fast-tail"}:
-            require(case.get("exit_code") == 1 and case.get("written_count") == 0 and case.get("outputs") == []
+            require(case.get("exit_code") == 2 and case.get("written_count") == 0 and case.get("outputs") == []
                     and case.get("engine_record", {}).get("code") == "invalid_start_pages", "App lost native failure or announced output")
             receipt = case.get("child_receipt")
             require(type(receipt) is dict and receipt.get("argv") == case.get("expected_argv") and receipt.get("utf8_env") == "1"

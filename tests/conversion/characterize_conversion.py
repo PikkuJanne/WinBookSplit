@@ -266,7 +266,8 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
             require(marker == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Conversion console ownership differs")
             frames = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith("{")]
         success = fake_kind is None and not batch
-        require(process["exit_code"] == (0 if success else 1), "Actual conversion launcher exit differs: " + identifier + ": " + repr(process))
+        expected_exit = 0 if success else 3 if batch else 4
+        require(process["exit_code"] == expected_exit, "Actual conversion launcher exit differs: " + identifier + ": " + repr(process))
         if success:
             require(len(frames) == 1 and frames[0]["status"] == "success" and frames[0]["exit_code"] == 0, "Real conversion did not produce one successful result")
             execution = frames[0]["execution"]
@@ -328,7 +329,7 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
 
 def characterize(work, shells, calibre):
     require(os.name == "nt", "Actual Windows conversion acceptance is required")
-    history.original_sources()
+    manual.trusted_original_sources()
     before = runner.source_manifest()
     engine = load("wbs_current_conversion_engine", ROOT / "engine/winbooksplit_engine.py")
     provenance = fixtures.generate(work / "f", calibre)

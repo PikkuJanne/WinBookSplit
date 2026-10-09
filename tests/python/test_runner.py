@@ -135,7 +135,7 @@ def complete_diagnostic_report(hosts):
                        "host_version": "5.1.1234.1" if index == 0 else "7.6.5", "category_cases": categories,
                        "protocol_cases": [{"id": name, "passed": True, "rejected": True} for name in sorted(runner.DIAGNOSTIC_PROTOCOL_IDS)],
                        "native_argument_probe": {"passed": True, "exit_code": 0, "actual_arguments": runner.DIAGNOSTIC_NATIVE_ARGUMENTS},
-                       "stream_probe": {"passed": True, "exit_code": 1, "stdout_length": 200000, "stderr_length": 200000,
+                       "stream_probe": {"passed": True, "exit_code": 2, "stdout_length": 200000, "stderr_length": 200000,
                                         "actual_run_function": True, "arguments_preserved": True,
                                         "actual_stdout_bytes": 201000, "actual_stderr_bytes": 200000,
                                         "streams_complete": True, "stdout_truncated": True, "stderr_truncated": True,
@@ -172,9 +172,9 @@ def complete_output_report():
         run_id = f"{index:032x}"
         diagnostic = {"run_id": run_id, "cleanup_complete": True, "retained_staging": None, "cleanup_error": None,
                       "record_path": f"C:/synthetic/output/.WinBookSplit-failed-{run_id}/failure.json"}
-        result = {"exit_code": 1, "code": code, "status": "write_error" if identifier == "mid-write" else "error",
+        result = {"exit_code": 6, "code": code, "status": "write_error" if identifier == "mid-write" else "error",
                   "written_count": 0, "execution": None, "diagnostic": diagnostic}
-        failures.append({"id": identifier, "passed": True, "exit_code": 1, "result": result,
+        failures.append({"id": identifier, "passed": True, "exit_code": 6, "result": result,
                          "successful_final_count": 0, "cleanup_complete": True, "neighbor_unchanged": True, "source_unchanged": True,
                          "failure_owner": {"schema_version": 1, "kind": "failed", "run_id": run_id},
                          "failure_record": {"schema_version": 1, "status": "failed", "code": code, "run_id": run_id,
@@ -236,7 +236,7 @@ def complete_paths_report(hosts):
         case["engine_record"] = {"protocol": "winbooksplit.result", "version": 1, "status": "success", "code": "split_complete", "mode": "manual", "exit_code": 0,
                                  "written_count": case["written_count"], "execution": deepcopy(case["writer_result"])}
         literal.append(case)
-    rejected = [{"id": name, "passed": True, "actual_process": True, "exit_code": 1,
+    rejected = [{"id": name, "passed": True, "actual_process": True, "exit_code": 6 if name.endswith("corrupt-pdf") else 2,
                  "shell_executable": hosts[1 if name.startswith("PS7") else 0], "successful_final_count": 0,
                  "outputs": [], "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True,
                  "engine_called": name.endswith("corrupt-pdf"), "error_code": "unreadable_document" if name.endswith("corrupt-pdf") else "literal_preflight_rejected",
@@ -329,9 +329,9 @@ def complete_conversion_report(hosts, calibre):
                     no_replanning_observation="direct-api-planner-and-source-reopen-traps", planner_calls_during_execute=0, source_reader_calls_during_execute=0,
                     captured_pdf_bytes_verified=True)
         direct.append(case)
-    invalid = [{"id": identifier, "passed": True, "actual_process": True, "exit_code": 1, "converter_exit_code": 0,
+    invalid = [{"id": identifier, "passed": True, "actual_process": True, "exit_code": 4, "converter_exit_code": 0,
                 "shell_executable": hosts[0 if identifier.startswith("PS51") else 1],
-                "engine_record": {"code": "conversion_output_invalid", "exit_code": 1, "written_count": 0, "execution": None},
+                "engine_record": {"code": "conversion_output_invalid", "exit_code": 4, "written_count": 0, "execution": None},
                 "outputs": [], "successful_final_count": 0, "no_success_summary": True, "workspace_absent_verified": True,
                 "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True}
                for identifier in sorted(runner.CONVERSION_INVALID_IDS)]
@@ -357,7 +357,7 @@ def complete_conversion_report(hosts, calibre):
                             "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"],
                             "stored_policies": policies, "policies_after": policies} for index, host in enumerate(("PS51", "PS7"))],
             "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,
-            "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 1, "outputs": [], "successful_final_count": 0,
+            "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 3, "outputs": [], "successful_final_count": 0,
                 "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
                 "preflight_before_console_output": True, "console_record_absent": True, "engine_invocation_record_absent": True,
                 "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
@@ -898,7 +898,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_nine_regressions_and_forwards_integration_hosts_and_converter(self):
+    def test_full_selects_all_current_regressions_and_forwards_integration_hosts_and_converter(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"), calibre_path=Path("C:/trusted/ebook-convert.exe"))
@@ -946,10 +946,13 @@ class RunnerTests(unittest.TestCase):
         process = [command for command in commands if str(ROOT / "tests/process/characterize_process.py") in command]
         self.assertEqual(len(process), 1)
         self.assertEqual(process[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process"])
-        self.assertEqual([step["name"] for step in report["steps"][-10:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression"])
-        self.assertEqual(len(report["steps"]), 13)
+        outcomes = [command for command in commands if str(ROOT / "tests/outcomes/characterize_outcomes.py") in command]
+        self.assertEqual(len(outcomes), 1)
+        self.assertEqual(outcomes[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes"])
+        self.assertEqual([step["name"] for step in report["steps"][-11:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression"])
+        self.assertEqual(len(report["steps"]), 14)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
@@ -1346,6 +1349,21 @@ class RunnerTests(unittest.TestCase):
                                          "--report", str(path)], Path(directory))
             self.assertEqual(result["exit_code"], 1)
             self.assertEqual(path.read_bytes(), b"preexisting evidence")
+
+    def test_rejected_child_receipt_retains_raw_failure_without_acceptance_evidence(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-rejected-receipt-") as directory:
+            path = Path(directory) / "partial.json"
+            partial = {"schema_version": 1, "success": False, "cleanup_safe": False,
+                       "cases": [], "failure": "owned tree stop unproved"}
+            path.write_text(json.dumps(partial), encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "outcomes")
+            self.assertEqual(step["exit_code"], 126)
+            self.assertIn("evidence_error", step)
+            self.assertNotIn("evidence", step)
+            self.assertEqual(step["failed_evidence"], partial)
+            self.assertEqual(step["failed_evidence_sha256"], runner.sha256(path.read_bytes()))
+            self.assertIs(step["cleanup_safe"], False)
 
     def test_reports_require_absolute_external_paths(self):
         with self.assertRaises(ValueError):

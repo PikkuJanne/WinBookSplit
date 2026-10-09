@@ -18,7 +18,7 @@ CALIBRE = r"C:\synthetic\Calibre\ebook-convert.exe"
 CONTENT = ["c" * 64, "d" * 64, "e" * 64]
 APP_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
              "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
-             "engine/WinBookSplit.Process.ps1",
+             "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
              "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
              "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py")
 
@@ -184,7 +184,7 @@ def valid_report():
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
                 guidance = ("3.14.8 6.19.0 -PythonPath -I -m pip requirements.txt " + candidate if category == "python_failure"
                             else "Calibre 9.15.0 -CalibrePath")
-                case.update(dependency_error=error, candidate_path=candidate, exit_code=1,
+                case.update(dependency_error=error, candidate_path=candidate, exit_code=3,
                             stdout="Dependency preflight failed " + guidance + "\n[DEPENDENCY-ERROR] " + json.dumps(error) + "\n",
                             preflight_before_output=True, output_base_before=[], output_base_after=[],
                             conversion_started=False, converter_version_marker_absent=not (category == "converter_failure" and kind == "wrong-version"),

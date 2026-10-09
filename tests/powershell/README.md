@@ -41,6 +41,15 @@ their respective cleanup. `FailureProbe.ps1` is selected only by
 normal `*.Tests.ps1` discovery. A later successful native command and JSON
 report cannot turn this probe into success.
 
+`Outcome.Tests.ps1` pins all final outcome codes independently under each actual
+host's integer representation. Authored records check cancellation/timeout and
+validated retained incomplete output. Trusted AST-loaded application functions
+run with authored transport and console writer controls to verify that later log
+errors preserve the engine evidence and primary failures. Dependency functions
+must propagate cancellation/timeout without trying another candidate. These are
+function/structural tests; real PS/BAT/Calibre outcome acceptance remains a
+separate route.
+
 Syntax errors in the application and new harness fail the shell layer. New
 harness files must also pass the defect/security/PowerShell 5.1 compatibility
 rules in `../PSScriptAnalyzerSettings.psd1`. The unchanged application is checked

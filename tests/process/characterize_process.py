@@ -37,7 +37,7 @@ validator = load("wbs_process_validator", ROOT / "tests/process/validate_process
 history, require = manual.history, manual.require
 APPLICATION = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
-    "engine/WinBookSplit.Process.ps1", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
+    "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
     "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py")
 
 
@@ -223,11 +223,7 @@ def application_case(work, host, kind, generator, *, batch=False):
         require(len(invocation) == 1, "Actual engine invocation record missing")
         summaries = [json.loads(line.removeprefix("[PROCESS] ")) for line in text.splitlines() if line.startswith("[PROCESS] ")]
         require(len(summaries) == 1, "Actual supervisor summary missing")
-        regions = text.split("[STDOUT]\r\n", 1)
-        require(len(regions) == 2, "Raw stdout section missing")
-        regions = regions[1].split("\r\n[STDERR]\r\n", 1)
-        require(len(regions) == 2 and regions[1].endswith("\r\n"), "Raw stderr section/separator missing")
-        logged_stdout, logged_stderr = regions[0], regions[1][:-2]
+        logged_stdout, logged_stderr, provisional_outcome, final_outcome = validator.application_log_streams(text, process["stdout"])
         for field, value in (("Stdout", logged_stdout), ("Stderr", logged_stderr)):
             if summaries[0][field + "Truncated"]:
                 notice, separator, value = value.partition("\r\n")
@@ -251,7 +247,7 @@ def application_case(work, host, kind, generator, *, batch=False):
             "injection_marker_absent": True, "injection_marker_observations": [
                 {"location": location, "path": str(target), "exists": target.exists()}
                 for location, target in zip(("wrapper_cwd", "engine_cwd", "book_directory"), injection_markers)],
-            "engine_record": frame, **process}
+            "engine_record": frame, "provisional_outcome": provisional_outcome, "final_outcome": final_outcome, **process}
         require(len(raw) < 400000 and "\ufffd" not in text, "Actual application log unbounded or mojibake")
         if kind == "unicode-hostile":
             require(process["exit_code"] == 0 and frame["status"] == "success", "Actual Unicode/title split failed")
@@ -271,7 +267,7 @@ def application_case(work, host, kind, generator, *, batch=False):
             require(record["actual_titles"] == titles and [entry["filename"] for entry in execution["outputs"]] == expected_names,
                     "Actual publication changed bound names or original Unicode/title data")
         else:
-            require(process["exit_code"] == 1 and frame["code"] == "invalid_start_pages" and "Done." not in process["stdout"]
+            require(process["exit_code"] == 2 and frame["code"] == "invalid_start_pages" and "Done." not in process["stdout"]
                     and "Output: " not in process["stdout"], "Controlled engine failure lost outcome through entrypoint")
             receipt = json.loads(receipt_path.read_text(encoding="utf-8"))
             require(receipt["argv"] == expected_argv, "Controlled actual engine argv differs")
@@ -292,7 +288,7 @@ def application_case(work, host, kind, generator, *, batch=False):
 
 def characterize(work, shells):
     require(os.name == "nt" and len(shells) == 2, "Actual Windows plus both supported hosts required")
-    history.original_sources()
+    manual.trusted_original_sources()
     before = runner.source_manifest()
     probe = host_probe(work)
     hosts = [paths.host_observation(shell, work, probe) for shell in shells]

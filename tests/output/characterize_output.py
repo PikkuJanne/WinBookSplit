@@ -179,7 +179,7 @@ def failure_cases(engine, work, source):
             patch.object(engine, "write_slice", side_effect=write)
         with seam, redirect_stdout(StringIO()):
             result = plans.plain(engine.run_split(source, base, "manual", "4,7"))
-        require(result["exit_code"] == 1 and result["written_count"] == 0 and result["execution"] is None
+        require(result["exit_code"] == 6 and result["written_count"] == 0 and result["execution"] is None
                 and result["code"] == runner.OUTPUT_FAILURE_CODES[identifier], "Injected failure lost nonzero category: " + repr(result))
         diagnostic = result["diagnostic"]
         require(diagnostic["cleanup_complete"] is True and diagnostic["retained_staging"] is None
@@ -195,7 +195,7 @@ def failure_cases(engine, work, source):
                 and failed["cleanup_complete"] is True and len(failed["message"]) <= 2048,
                 "Failure diagnostic ownership/category differs")
         require(neighbor.read_bytes() == b"Failure neighbor remains unchanged\n", "Failure changed neighbor")
-        records.append({"id": identifier, "passed": True, "exit_code": 1, "result": result,
+        records.append({"id": identifier, "passed": True, "exit_code": 6, "result": result,
                         "successful_final_count": 0, "failure_record": failed, "failure_owner": marker,
                         "cleanup_complete": True, "neighbor_unchanged": True, "source_unchanged": True,
                         "completed_slices_before_failure": 1 if identifier == "mid-write" else None})
@@ -302,7 +302,7 @@ def cleanup_cases(engine, work, source):
 
 def characterize(work):
     require(os.name == "nt", "Actual Windows output acceptance required")
-    history.original_sources()
+    manual.trusted_original_sources()
     before = runner.source_manifest()
     engine = manual.load_module("wbs_current_output_engine", ENGINE)
     generator = history.load_generator()

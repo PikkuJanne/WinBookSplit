@@ -18,8 +18,35 @@ from hashlib import sha256
 from io import BytesIO
 from types import MappingProxyType
 
-from pypdf import PdfReader, PdfWriter
-from pypdf.generic import IndirectObject, NullObject
+# Both entrypoints consume this shipped contract; unknown outcomes fail closed.
+with Path(__file__).resolve().with_name("WinBookSplit.Outcomes.json").open(encoding="utf-8") as _contract_stream:
+    _outcome_contract = json.load(_contract_stream)
+if _outcome_contract.get("schema_version") != 1 or not isinstance(_outcome_contract.get("codes"), dict):
+    raise ValueError("Invalid shipped outcome contract.")
+EXIT_CODES = MappingProxyType(_outcome_contract["codes"])
+
+
+def result_exit_code(code):
+    value = EXIT_CODES.get(code)
+    if type(value) is not int or value not in {0, 2, 3, 4, 5, 6, 7, 130}:
+        raise ValueError("Unknown or invalid outcome code: " + str(code))
+    return value
+
+
+try:
+    from pypdf import PdfReader, PdfWriter
+    from pypdf.generic import IndirectObject, NullObject
+except ImportError as error:
+    if __name__ != "__main__":
+        raise
+    # Direct engine invocation has the same dependency outcome as preflight.
+    dependency_exit = result_exit_code("dependency_missing")
+    print(json.dumps({"protocol": "winbooksplit.result", "version": 1,
+        "mode": sys.argv[3] if len(sys.argv) > 3 else "", "status": "error",
+        "code": "dependency_missing", "message": "Cannot import pypdf: " + str(error),
+        "warnings": [], "fallback_modes": [], "exit_code": dependency_exit, "written_count": 0,
+        "execution": None, "diagnostic": None}, ensure_ascii=True))
+    raise SystemExit(dependency_exit) from error
 
 
 def log(msg): print(msg)
@@ -1053,14 +1080,14 @@ def execute_split(prepared, output_dir):
         pending_error = sys.exception()
         try:
             run.close()
-        except Exception as error:
+        except (Exception, KeyboardInterrupt) as error:
             if not published:
                 if pending_error is None:
                     raise
                 if isinstance(getattr(pending_error, "diagnostic", None), dict):
                     pending_error.diagnostic["close_error"] = str(error)[:2048]
                 pending_error.args = (str(pending_error) + "; " + str(error)[:2048],)
-            close_error = str(error)[:2048]
+            close_error = (str(error) or "Output handle finalization was interrupted.")[:2048]
     if close_error is not None:
         # Keep the completed result and disclose the post-commit close problem;
         # never relabel already published chapters as a failed transaction.
@@ -1074,17 +1101,24 @@ def _split_result(mode, status, code, message, warnings=(), execution=None, diag
     fallback = ()
     if status == "no_plan":
         fallback = ("1", "manual") if code == "no_bookmarks_at_level" and mode == "2" else ("manual",)
+    exit_code = result_exit_code(code)
+    primary_code = diagnostic.get("primary_code") if isinstance(diagnostic, Mapping) else None
+    if code == "conversion_cleanup_failed" and primary_code in {"conversion_cancelled", "conversion_timeout"}:
+        exit_code = 130
+    if exit_code == 130:
+        status = "timeout" if code == "conversion_timeout" or primary_code == "conversion_timeout" else "cancelled"
     return _freeze({"protocol": "winbooksplit.result", "version": 1, "mode": mode,
                     "status": status, "code": code, "message": message, "warnings": warnings,
-                    "fallback_modes": fallback, "exit_code": 0 if status == "success" else
-                    55 if status == "no_plan" else 1,
+                    "fallback_modes": fallback, "exit_code": exit_code,
                     "written_count": execution["written_count"] if execution is not None else 0,
                     "execution": execution, "diagnostic": diagnostic})
 
 
 def _planning_failure(mode, error):
     warnings = getattr(error, "warnings", ())
-    if isinstance(error, BookmarkPlanError) and error.code in {
+    if isinstance(error, FileNotFoundError):
+        status, code = "invalid_input", "input_invalid"
+    elif isinstance(error, BookmarkPlanError) and error.code in {
             "no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"}:
         status, code = "no_plan", error.code
     elif isinstance(error, (ManualPlanError, BookmarkPlanError, PlanError)):
@@ -1122,6 +1156,8 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
                                      "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
             prepared = prepare_split(input_path, mode, manual_data, output_base=output_dir)
         plan = preview_plan(prepared)
+    except KeyboardInterrupt:
+        return _split_result(mode, "cancelled", "processing_cancelled", "PDF preparation was cancelled.")
     except Exception as error:
         if getattr(error, "code", "").startswith("conversion_") or getattr(error, "code", "") == "converter_not_found":
             conversion = getattr(error, "conversion", None)
@@ -1142,8 +1178,14 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
         execution = execute_split(prepared, output_dir)
         if execution["written_count"] < 1 or not execution["outputs"]:
             raise PlanError("invalid_execution", "The writer produced no sections.")
+        if execution.get("post_publication_warnings"):
+            return _split_result(mode, "incomplete", "output_handle_close_failed",
+                "Chapter PDFs were published, but output handles could not be finalized; the completed folder is retained.",
+                (*plan["warnings"], *execution["post_publication_warnings"]), execution)
         return _split_result(mode, "success", "split_complete", "PDF split completed.",
                              (*plan["warnings"], *execution.get("post_publication_warnings", ())), execution)
+    except KeyboardInterrupt:
+        return _split_result(mode, "cancelled", "processing_cancelled", "PDF processing was cancelled.", plan["warnings"])
     except PlanError as error:
         return _split_result(mode, "write_error" if error.code == "output_write_failed" else "error",
                              error.code, str(error), plan["warnings"], diagnostic=getattr(error, "diagnostic", None))
@@ -1216,8 +1258,9 @@ def main():
             else:
                 raise ValueError("Unknown or incomplete conversion option.")
     except ValueError as error:
-        log(serialize_result(_split_result(mode, "invalid_input", "invalid_arguments", str(error))))
-        return 1
+        result = _split_result(mode, "invalid_input", "invalid_arguments", str(error))
+        log(serialize_result(result))
+        return result["exit_code"]
     split_pdf(sys.argv[1], sys.argv[2], mode, manual_data, **options)
 
 

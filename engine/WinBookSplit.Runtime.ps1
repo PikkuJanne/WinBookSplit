@@ -1,6 +1,28 @@
 # Dependency preflight only. Dot-sourcing performs no discovery or installation.
 # Probe transport shares the owned engine job; discovery never owns file cleanup.
 . (Join-Path $PSScriptRoot 'WinBookSplit.Process.ps1')
+function Assert-WinBookSplitProbeNotInterrupted {
+    param($Probe)
+    if ($null -ne $Probe -and ($Probe.Cancelled -or $Probe.TimedOut)) {
+        $code = 'processor_cancelled'
+        $message = 'Dependency preflight was cancelled.'
+        if ($Probe.TimedOut) { $code = 'processor_timeout'; $message = 'Dependency preflight timed out.' }
+        if ($Probe.ParentStopped -and $Probe.DescendantsStopped -and -not $Probe.StopError) {
+            $message += ' Its owned process tree was proved stopped.'
+        }
+        else { $message += ' Shutdown could not be proved complete: ' + $Probe.StopError }
+        $failure = New-Object InvalidOperationException($message)
+        $failure.Data['Code'] = $code
+        $failure.Data['Probe'] = $Probe
+        throw $failure
+    }
+}
+
+function Test-WinBookSplitInterruption {
+    param($Failure)
+    return ($Failure.Data.Contains('Code') -and $Failure.Data['Code'] -in @('processor_cancelled', 'processor_timeout'))
+}
+
 function Initialize-WinBookSplitRuntimeProbe {
     if ('WinBookSplit.Preflight.Probe' -as [type]) { return }
     Add-Type -TypeDefinition @'
@@ -250,6 +272,7 @@ print(json.dumps(r, ensure_ascii=True))
 raise SystemExit(0 if r['ok'] else 1)
 '@
         $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments @('-I', '-B', '-X', 'utf8', '-c', $code) -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        Assert-WinBookSplitProbeNotInterrupted $probe
         if ($probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) {
             throw 'The bounded interpreter probe did not complete safely.'
         }
@@ -287,6 +310,7 @@ raise SystemExit(0 if r['ok'] else 1)
             PypdfVersion = $record.pypdf_version; PypdfPath = $record.pypdf_path;
             Details = $record; Probe = $probe; Arguments = @('-I', '-B'); Attempts = @($Attempts.ToArray()) }
     } catch {
+        if (Test-WinBookSplitInterruption $_.Exception) { throw }
         $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Message = $_.Exception.Message; Probe = $probe })
         return $null
     }
@@ -316,6 +340,7 @@ function Resolve-WinBookSplitRuntime {
         try {
             $launcher = Get-WinBookSplitTrustedPath $launcher -Automatic
             $probe = Invoke-WinBookSplitRuntimeProbe $launcher @('-0p') $root -TimeoutSeconds $TimeoutSeconds
+            Assert-WinBookSplitProbeNotInterrupted $probe
             if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
                 $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) { throw 'Read-only Python launcher listing failed.' }
             $attempts.Add([pscustomobject]@{ Path = $launcher; Source = 'py_launcher_listing'; Accepted = $true; Message = 'Read-only -0p listing; no runtime launch/install requested.'; Probe = $probe })
@@ -328,7 +353,10 @@ function Resolve-WinBookSplitRuntime {
                     if ($selected) { return $selected }
                 }
             }
-        } catch { $attempts.Add([pscustomobject]@{ Path = $launcher; Source = 'py_launcher_listing'; Accepted = $false; Message = $_.Exception.Message; Probe = $probe }) }
+        } catch {
+            if (Test-WinBookSplitInterruption $_.Exception) { throw }
+            $attempts.Add([pscustomobject]@{ Path = $launcher; Source = 'py_launcher_listing'; Accepted = $false; Message = $_.Exception.Message; Probe = $probe })
+        }
     }
     foreach ($candidate in @(Get-WinBookSplitPathCandidates 'python.exe' $root $DocumentPath $attempts)) {
         if ($seen.ContainsKey($candidate)) { continue }; $seen[$candidate] = $true
@@ -344,6 +372,7 @@ function Test-WinBookSplitConverterCandidate {
     try {
         $path = Get-WinBookSplitTrustedPath $Path -Automatic:($Source -in @('PATH', 'known_location'))
         $probe = Invoke-WinBookSplitRuntimeProbe $path @('--version') $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        Assert-WinBookSplitProbeNotInterrupted $probe
         if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
             $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated -or
             $probe.Stdout -cnotmatch '\Aebook-convert(?:\.exe)? \(calibre ([0-9]+\.[0-9]+\.[0-9]+)\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?\z') {
@@ -354,6 +383,7 @@ function Test-WinBookSplitConverterCandidate {
         $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Message = 'Supported converter version.'; Probe = $probe })
         return [pscustomobject]@{ Path = $path; Version = $version; Source = $Source; Probe = $probe; Attempts = @($Attempts.ToArray()) }
     } catch {
+        if (Test-WinBookSplitInterruption $_.Exception) { throw }
         $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Message = $_.Exception.Message; Probe = $probe })
         return $null
     }

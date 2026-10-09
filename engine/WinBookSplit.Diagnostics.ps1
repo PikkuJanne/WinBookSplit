@@ -1,4 +1,18 @@
 # Pure protocol and decision functions; dot-sourcing never starts processing.
+$script:splitOutcomeContract = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'WinBookSplit.Outcomes.json') -Raw -Encoding UTF8 | ConvertFrom-Json -ErrorAction Stop
+if ($script:splitOutcomeContract.schema_version -ne 1 -or $null -eq $script:splitOutcomeContract.codes) {
+    throw 'Invalid shipped outcome contract.'
+}
+
+function Get-SplitExitCode {
+    param([string]$Code)
+    $property = $script:splitOutcomeContract.codes.PSObject.Properties[$Code]
+    if ($null -eq $property -or -not (Test-SplitInteger $property.Value) -or $property.Value -notin @(0, 2, 3, 4, 5, 6, 7, 130)) {
+        throw ('Unknown or invalid outcome code: ' + $Code)
+    }
+    return [int]$property.Value
+}
+
 function Test-SplitInteger {
     param($Value)
     return ($Value -is [int] -or $Value -is [long])
@@ -39,6 +53,11 @@ function ConvertFrom-SplitResult {
         -not (Test-SplitInteger $result.written_count) -or $result.warnings -isnot [array] -or
         $result.fallback_modes -isnot [array]) { throw 'Invalid engine result metadata.' }
     $expectedFallback = @()
+    $mappedExit = Get-SplitExitCode -Code $result.code
+    if ($result.code -ceq 'conversion_cleanup_failed' -and
+        $result.diagnostic.primary_code -cin @('conversion_cancelled', 'conversion_timeout')) { $mappedExit = 130 }
+    if ($ExitCode -ne $mappedExit) { throw 'Outcome code does not match the documented native exit.' }
+    if ($ExitCode -eq 130 -and $result.status -cnotin @('cancelled', 'timeout')) { throw 'Cancellation requires its explicit result category.' }
     switch -CaseSensitive ($result.status) {
         'success' {
             if ($ExitCode -ne 0 -or $result.code -cne 'split_complete' -or $result.written_count -lt 1 -or
@@ -58,8 +77,17 @@ function ConvertFrom-SplitResult {
                 $result.execution.manifest.final_directory -cne $result.execution.final_directory -or
                 $result.execution.manifest.written_count -ne $result.written_count) { throw 'Invalid successful engine result.' }
         }
+        'incomplete' {
+            if ($ExitCode -ne 6 -or $result.code -cne 'output_handle_close_failed' -or $null -eq $result.execution) {
+                throw 'Invalid incomplete published result.'
+            }
+            # Apply every ordinary completed-output check to the retained folder.
+            $complete = $result | ConvertTo-Json -Depth 100 -Compress | ConvertFrom-Json -ErrorAction Stop
+            $complete.status = 'success'; $complete.code = 'split_complete'; $complete.exit_code = 0
+            $null = ConvertFrom-SplitResult -Stdout ($complete | ConvertTo-Json -Depth 100 -Compress) -ExitCode 0 -Mode $Mode
+        }
         'no_plan' {
-            if ($ExitCode -ne 55 -or $result.code -cnotin @('no_bookmarks', 'no_usable_bookmarks', 'no_bookmarks_at_level') -or
+            if ($ExitCode -ne 5 -or $result.code -cnotin @('no_bookmarks', 'no_usable_bookmarks', 'no_bookmarks_at_level') -or
                 $Mode -eq 'manual') { throw 'Invalid no-plan engine result.' }
             $expectedFallback = @('manual')
             if ($result.code -ceq 'no_bookmarks_at_level') {
@@ -68,18 +96,18 @@ function ConvertFrom-SplitResult {
             }
         }
         'invalid_input' {
-            if ($ExitCode -ne 1 -or $result.code -cnotin @('invalid_document', 'invalid_outline', 'invalid_start_pages', 'invalid_mode', 'invalid_arguments')) {
+            if ($result.code -cnotin @('input_invalid', 'invalid_document', 'invalid_outline', 'invalid_start_pages', 'invalid_mode', 'invalid_arguments')) {
                 throw 'Invalid input-failure result.'
             }
         }
         'read_error' {
-            if ($ExitCode -ne 1 -or $result.code -cne 'unreadable_document') { throw 'Invalid read-failure result.' }
+            if ($ExitCode -ne 6 -or $result.code -cne 'unreadable_document') { throw 'Invalid read-failure result.' }
         }
         'write_error' {
-            if ($ExitCode -ne 1 -or $result.code -cne 'output_write_failed') { throw 'Invalid write-failure result.' }
+            if ($ExitCode -ne 6 -or $result.code -cne 'output_write_failed') { throw 'Invalid write-failure result.' }
         }
         'error' {
-            if ($ExitCode -ne 1 -or $result.code -cnotin @('invalid_plan', 'invalid_prepared_split',
+            if ($result.code -cnotin @('invalid_plan', 'invalid_prepared_split', 'dependency_missing',
                 'source_changed', 'source_output_alias', 'output_exists', 'invalid_execution',
                 'output_validation_failed', 'output_ownership_failed', 'output_base_invalid',
                 'output_manifest_failed', 'output_publish_failed', 'output_cancelled',
@@ -89,9 +117,25 @@ function ConvertFrom-SplitResult {
                 'conversion_timeout', 'conversion_cancelled', 'conversion_cleanup_failed',
                 'conversion_source_changed', 'conversion_ownership_failed')) { throw 'Invalid failure result.' }
         }
+        'cancelled' {
+            if ($ExitCode -ne 130 -or $result.code -cnotin @('output_cancelled', 'conversion_cancelled',
+                'processing_cancelled', 'conversion_cleanup_failed') -or
+                ($result.code -ceq 'conversion_cleanup_failed' -and $result.diagnostic.primary_code -cne 'conversion_cancelled')) {
+                throw 'Invalid cancelled result.'
+            }
+        }
+        'timeout' {
+            if ($ExitCode -ne 130 -or $result.code -cnotin @('conversion_timeout', 'conversion_cleanup_failed') -or
+                ($result.code -ceq 'conversion_cleanup_failed' -and $result.diagnostic.primary_code -cne 'conversion_timeout')) {
+                throw 'Invalid timeout result.'
+            }
+        }
+        'unsupported' {
+            if ($ExitCode -ne 7 -or $result.code -cne 'unsupported_document') { throw 'Invalid unsupported-document result.' }
+        }
         default { throw 'Unknown engine result category.' }
     }
-    if ($result.status -cne 'success' -and ($result.written_count -ne 0 -or $null -ne $result.execution)) {
+    if ($result.status -cnotin @('success', 'incomplete') -and ($result.written_count -ne 0 -or $null -ne $result.execution)) {
         throw 'A failed result cannot claim successful output.'
     }
     if (@($result.fallback_modes).Count -ne $expectedFallback.Count) { throw 'Invalid fallback choices.' }

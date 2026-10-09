@@ -325,7 +325,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
     expected_files = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                       "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                       "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
-                      "engine/WinBookSplit.Process.ps1",
+                      "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                       "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                       "engine/winbooksplit_job.py"}
     require(set(application) == expected_files and
@@ -350,7 +350,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
 
 
 def failure_case(case: dict) -> None:
-    require(case["exit_code"] == 1, "failure: actual nonzero native status required")
+    require(case["exit_code"] == 3, "failure: dependency native status 3 required")
     for field in ("preflight_before_output", "no_success_summary", "setup_guidance_verified"):
         flag(case, field)
     for field in ("engine_invocation_record_absent", "dependency_success_record_absent"):

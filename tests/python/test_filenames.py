@@ -259,7 +259,7 @@ class ActualFilenameTests(unittest.TestCase):
         with patch.object(engine, "OutputRun") as reserve:
             rejected = engine.run_split(self.source, impossible, "1")
         self.assertEqual((rejected["status"], rejected["code"], rejected["exit_code"], rejected["written_count"]),
-                         ("error", "output_path_too_long", 1, 0))
+                         ("error", "output_path_too_long", 2, 0))
         reserve.assert_not_called()
         self.assertIsNone(rejected["diagnostic"])
         self.assertEqual(list(impossible.iterdir()), [])

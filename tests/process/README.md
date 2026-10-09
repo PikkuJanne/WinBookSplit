@@ -26,7 +26,11 @@ application; three real generated Unicode/hostile bookmark PDFs exercise the
 unmodified engine. The copied launchers/helpers retain actual reviewed bytes.
 Literal environment-variable wrappers avoid another expansion of supplied BAT
 paths. Native failure must remain nonzero, final stderr must survive, console logs
-remain below 400 KiB, and actual child argv/UTF-8 receipts must match. Real PDF
+remain below 400 KiB, and actual child argv/UTF-8 receipts must match. Logs
+separate the terminal provisional finalizer record from exact raw stream
+tails. That record must equal the sole final stdout outcome and preserve the
+actual native exit and validated engine result; stream byte limits remain exact.
+Real PDF
 outputs are reopened for all three physical page IDs/content, exact Unicode/title
 filenames, manifests and source/neighbor/read-only preservation. Exact names come
 from the destination-bound preview with independently measured complete path and

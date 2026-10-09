@@ -112,6 +112,11 @@ namespace WinBookSplit.Supervision {
         internal bool Eof { get { lock (gate) { return eof; } } }
     }
     public static class Child {
+        [UnmanagedFunctionPointer(CallingConvention.Winapi)]
+        delegate bool ConsoleControl(uint kind);
+        // If Windows refuses removal, retain the registered callback until host
+        // exit rather than leave a native pointer to a collected delegate.
+        static readonly List<ConsoleControl> retainedControlHandlers=new List<ConsoleControl>();
         [StructLayout(LayoutKind.Sequential)] struct Security { public int Size; public IntPtr Descriptor; public int Inherit; }
         [StructLayout(LayoutKind.Sequential, CharSet=CharSet.Unicode)] struct Startup {
             public int Size; public string Reserved, Desktop, Title; public int X,Y,XSize,YSize,XChars,YChars,Fill,Flags;
@@ -146,6 +151,7 @@ namespace WinBookSplit.Supervision {
         [DllImport("kernel32.dll",SetLastError=true)] static extern uint WaitForSingleObject(IntPtr handle,uint timeout);
         [DllImport("kernel32.dll",SetLastError=true)] static extern bool GetExitCodeProcess(IntPtr process,out uint code);
         [DllImport("kernel32.dll",SetLastError=true)] static extern bool CloseHandle(IntPtr handle);
+        [DllImport("kernel32.dll",SetLastError=true)] static extern bool SetConsoleCtrlHandler(ConsoleControl handler,bool add);
         static Win32Exception Failure(string action) { return new Win32Exception(Marshal.GetLastWin32Error(), action); }
         static uint Active(IntPtr job) {
             Accounting value;
@@ -188,11 +194,19 @@ namespace WinBookSplit.Supervision {
             ProcessInfo process=new ProcessInfo(); bool created=false, attributeReady=false; int consoleCancelled=0;
             Drain output=new Drain(captureLimit,resultLimit,true), error=new Drain(captureLimit,resultLimit,false);
             Thread outThread=null,errThread=null; FileStream outStream=null,errStream=null; bool outStarted=false,errStarted=false;
-            ConsoleCancelEventHandler cancelHandler=delegate(object sender,ConsoleCancelEventArgs args) { Interlocked.Exchange(ref consoleCancelled,1); args.Cancel=true; };
+            ConsoleControl cancelHandler=delegate(uint kind) {
+                if (kind!=0 && kind!=1) return false;
+                Interlocked.Exchange(ref consoleCancelled,1); return true;
+            };
             bool handlerAdded=false;
             try {
                 if (Environment.OSVersion.Platform != PlatformID.Win32NT) throw new PlatformNotSupportedException("Engine supervision requires Windows.");
                 if (cancellation.IsCancellationRequested) { result.Cancelled=true; return result; }
+                // Register before creating any owned child. This native last
+                // handler consumes Ctrl+C/Break before PowerShell can schedule
+                // a stop of the enclosing script pipeline.
+                if (!SetConsoleCtrlHandler(cancelHandler,true)) throw Failure("Register owned-process console cancellation");
+                handlerAdded=true;
                 Security security=new Security { Size=Marshal.SizeOf(typeof(Security)), Inherit=1 };
                 job=CreateJobObjectW(IntPtr.Zero,null); if (job==IntPtr.Zero) throw Failure("Create the owned engine job");
                 ExtendedLimits limits=new ExtendedLimits(); limits.Basic.Flags=0x2000;
@@ -217,7 +231,6 @@ namespace WinBookSplit.Supervision {
                 outStream=PipeStream(ref outputRead); errStream=PipeStream(ref errorRead);
                 outThread=new Thread(delegate() { output.Read(outStream); }); outThread.IsBackground=true; outThread.Start(); outStarted=true;
                 errThread=new Thread(delegate() { error.Read(errStream); }); errThread.IsBackground=true; errThread.Start(); errStarted=true;
-                Console.CancelKeyPress+=cancelHandler; handlerAdded=true;
                 if (cancellation.IsCancellationRequested || Interlocked.CompareExchange(ref consoleCancelled,0,0)!=0) { result.Cancelled=true; return result; }
                 if (ResumeThread(process.Thread)!=1) throw Failure("Resume the assigned engine primary thread");
                 Close(ref process.Thread,result);
@@ -231,7 +244,6 @@ namespace WinBookSplit.Supervision {
                 }
             } catch (Exception failure) { result.StartError=failure.Message; }
             finally {
-                if (handlerAdded) Console.CancelKeyPress-=cancelHandler;
                 // Failure/timeout/cancel shuts down only the handles created by this run.
                 if (created && !(result.ParentStopped && result.DescendantsStopped)) {
                     try {
@@ -263,6 +275,11 @@ namespace WinBookSplit.Supervision {
                     Close(ref outputRead,result); Close(ref errorRead,result); Close(ref process.Thread,result); Close(ref process.Process,result); Close(ref job,result);
                     if (attributeReady) DeleteProcThreadAttributeList(attributes);
                     if (attributes!=IntPtr.Zero) Marshal.FreeHGlobal(attributes); if (handles!=IntPtr.Zero) Marshal.FreeHGlobal(handles); if (env!=IntPtr.Zero) Marshal.FreeHGlobal(env);
+                    if (handlerAdded && !SetConsoleCtrlHandler(cancelHandler,false)) {
+                        StopError(result,Failure("Remove owned-process console cancellation").Message);
+                        lock (retainedControlHandlers) retainedControlHandlers.Add(cancelHandler);
+                    }
+                    GC.KeepAlive(cancelHandler);
                     result.ElapsedSeconds=clock.Elapsed.TotalSeconds;
                 }
             }
