@@ -31,3 +31,26 @@ Use a single documented mapping across Python, PowerShell and batch; proposed ma
 ## Completion, logs and accessibility
 
 Completion names the actual final folder, section count and page coverage; zero-output execution fails. Offer to open the completed folder only interactively. A converted input keeps its original ebook name in diagnostics. Use readable text without requiring color/ANSI. Show progress by stage/section rather than an invented ETA. Logs and UTF-8 JSON run manifests include version, resolved dependency versions, run ID, mode, original/generated source identity, page count, ranges, output names, warnings and final outcome. Save paths locally; a redacted diagnostic export strips user/profile paths, document titles/content, credentials and command environment. No telemetry or automatic upload.
+
+## M1-T06 diagnostic checkpoint
+
+The shipped engine now ends each ordinary split invocation with exactly one
+JSON object using `protocol: winbooksplit.result`, `version: 1`. Its status,
+code, selected mode, native exit code, warnings, permitted fallback modes and
+positive successful writer count are explicit. The PowerShell handler validates
+that result against the actual native exit and fails closed on missing,
+malformed, conflicting or zero-output success records.
+
+For this checkpoint, existing native compatibility codes remain **0** for a
+positive split, **55** for a valid document without a usable requested bookmark
+plan, and **1** for other failures. The proposed final CLI exit map is a
+later M3 contract; it is not implemented by this diagnostic task.
+
+No outline and no usable Level 1 destinations permit an explicit manual retry.
+Missing usable direct Level 2 bookmarks after valid Level 1 planning permits
+an explicit Level 1 or manual retry. Invalid/zero-page, unreadable, malformed
+outline, invalid plan and output failures offer no fallback. A decision is
+captured before a retry; it never changes modes silently. Cancel keeps the
+failed result and nonzero code. A failed retry remains a failure through PS/BAT.
+This does not implement the later preview, noninteractive, full menu or final
+parameter surface.

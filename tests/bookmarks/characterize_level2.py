@@ -86,7 +86,7 @@ def rejected(engine, reader, pages, code, warning=None):
                     expected = 55 if code in {"no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"} else 1
                     require(status.code == expected, "Rejected Level 2 call returned the wrong status")
                     if expected == 55:
-                        require("[NO_BOOKMARKS_FOUND]" in captured.getvalue(), "No-plan compatibility sentinel missing")
+                        require_no_plan_result(captured.getvalue(), code)
                 else:
                     raise RuntimeError("Rejected Level 2 call succeeded")
             require(not writer.called and code in captured.getvalue(), "Rejected Level 2 call wrote or lost its error")
@@ -94,6 +94,15 @@ def rejected(engine, reader, pages, code, warning=None):
             require(not reader.outline_read, "Malformed raw tree reached recursive pypdf retrieval")
         return {"code": error.code, "warnings": error.warnings, "writer_not_reached": True}
     raise RuntimeError("Rejected Level 2 outline was accepted")
+
+
+def require_no_plan_result(stdout, code):
+    records = [json.loads(line) for line in stdout.splitlines() if line.startswith("{")]
+    require(len(records) == 1 and records[0].get("protocol") == "winbooksplit.result"
+            and records[0].get("version") == 1 and records[0].get("status") == "no_plan"
+            and records[0].get("code") == code and records[0].get("exit_code") == 55
+            and records[0].get("written_count") == 0 and records[0].get("execution", "missing") is None
+            and "[NO_BOOKMARKS_FOUND]" not in stdout, "Missing explicit no-plan diagnostic result")
 
 
 def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
@@ -110,7 +119,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
         require(result["exit_code"] == status and error in result["stdout"] and not records
                 and "[Writing]" not in result["stdout"], "Rejected Level 2 CLI call wrote or returned the wrong error")
         if status == 55:
-            require("[NO_BOOKMARKS_FOUND]" in result["stdout"], "No-plan CLI sentinel missing")
+            require_no_plan_result(result["stdout"], error)
     else:
         require(result["exit_code"] == 0 and not result["stderr"], "Valid Level 2 CLI failed: " + repr(result))
         manual.check_outputs(records, expected, len(PdfReader(source).pages))

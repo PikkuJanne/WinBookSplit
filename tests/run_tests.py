@@ -46,6 +46,41 @@ PLAN_STRUCTURAL_IDS = {"gap", "overlap", "empty", "negative", "reversed", "overf
 PLAN_PREVIEW_IDS = {"read-only-preview", "isolated-preview-data"}
 PLAN_SOURCE_IDS = {"changed-same-path", "repointed-source"}
 PLAN_MODES = {"manual", "1", "2"}
+DIAGNOSTIC_ACCEPTANCE_IDS = ["AC-030", "AC-031"]
+DIAGNOSTIC_EXPECTATIONS = {
+    "flat-level1": ("1", "no_plan", "no_bookmarks", 55, ["manual"]),
+    "flat-level2": ("2", "no_plan", "no_bookmarks", 55, ["manual"]),
+    "no-usable-level1": ("1", "no_plan", "no_usable_bookmarks", 55, ["manual"]),
+    "no-usable-level2": ("2", "no_plan", "no_usable_bookmarks", 55, ["manual"]),
+    "parents-no-level2": ("2", "no_plan", "no_bookmarks_at_level", 55, ["1", "manual"]),
+    "zero-page-manual": ("manual", "invalid_input", "invalid_document", 1, []),
+    "zero-page-level1": ("1", "invalid_input", "invalid_document", 1, []),
+    "zero-page-level2": ("2", "invalid_input", "invalid_document", 1, []),
+    "empty-file": ("1", "read_error", "unreadable_document", 1, []),
+    "corrupt-bytes": ("1", "read_error", "unreadable_document", 1, []),
+    "truncated-pdf": ("1", "read_error", "unreadable_document", 1, []),
+    "missing-file": ("1", "read_error", "unreadable_document", 1, []),
+    "invalid-mode": ("3", "invalid_input", "invalid_mode", 1, []),
+    "invalid-manual": ("manual", "invalid_input", "invalid_start_pages", 1, []),
+    "malformed-outline": ("1", "invalid_input", "invalid_outline", 1, []),
+    "existing-output": ("manual", "error", "output_exists", 1, []),
+    "invalid-plan": ("manual", "error", "invalid_plan", 1, []),
+    "write-failure": ("manual", "write_error", "output_write_failed", 1, []),
+    "unexpected-extra-argument": ("manual", "invalid_input", "invalid_arguments", 1, []),
+    "missing-arguments": ("", "invalid_input", "invalid_arguments", 1, []),
+    "success-manual": ("manual", "success", "split_complete", 0, []),
+    "success-level1": ("1", "success", "split_complete", 0, []),
+    "success-level2": ("2", "success", "split_complete", 0, []),
+}
+DIAGNOSTIC_PROTOCOL_IDS = {"missing-result", "malformed-json", "wrong-protocol", "wrong-version",
+                           "native-exit-mismatch", "zero-output-success", "multiple-results",
+                           "invalid-fallback", "failed-result-with-outputs", "invalid-request-mode",
+                           "missing-result-field", "invalid-count-type", "null-success-outputs",
+                           "missing-success-coverage", "invalid-warning-type", "missing-success-outputs",
+                           "protocol-array", "protocol-casing"}
+DIAGNOSTIC_CHOICES = ["", "M", "Y", "1", "N", "C", "yes", "maybe", "m", "y", " n "]
+DIAGNOSTIC_NATIVE_ARGUMENTS = ["", "quote' [space] å & (paren)", "C:\\literal\\trailing\\",
+                               'embedded"quote', 'backslash\\\\"quote', "%value%!literal!$(data)"]
 MANUAL_ENTRYPOINT_IDS = {"PS51-unrelated", "PS7-unrelated", "BAT-unrelated",
                          "parallel-PS51-unrelated", "parallel-PS7-unrelated", "parallel-BAT-unrelated"}
 GIT_SELECTORS = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_OBJECT_DIRECTORY",
@@ -64,6 +99,7 @@ def source_manifest() -> dict[str, str]:
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
         "tests/extraction/README.md", "tests/manual/README.md", "tests/bookmarks/README.md",
         "tests/plans/README.md",
+        "tests/diagnostics/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -328,6 +364,113 @@ def validate_plan_report(child: dict) -> None:
                 raise ValueError("Deleted-path execution must retain the same original preview, writer result and source content")
 
 
+def diagnostic_decision(fallbacks: list[str], choice: str) -> tuple[str, str | None]:
+    token = choice.strip().upper()
+    if not fallbacks:
+        return "cancel", None
+    if not token:
+        return "pending", None
+    if token in {"N", "C"}:
+        return "cancel", None
+    retry = "manual" if token in {"M", "Y"} else "1" if token == "1" else None
+    return ("retry", retry) if retry in fallbacks else ("invalid", None)
+
+
+def validate_diagnostics_report(child: dict, requested_shells: list[str]) -> None:
+    observation, cases = child.get("import_observation"), child.get("engine_cases")
+    if type(child.get("schema_version")) is not int or child.get("task_id") != "M1-T06" \
+            or child.get("result") != "DIAGNOSTIC_REGRESSION_PASSED" or child.get("success") is not True \
+            or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+            or child.get("acceptance_ids") != DIAGNOSTIC_ACCEPTANCE_IDS \
+            or type(child.get("engine_case_count")) is not int or child["engine_case_count"] != 23 \
+            or any(child.get(name) is not True for name in ("source_unchanged", "baseline_guards_preserved",
+                                                          "input_and_neighbor_unchanged", "owned_temp_removed")) \
+            or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+            or not isinstance(observation, dict) or observation.get("import_safe") is not True:
+        raise ValueError("Diagnostics report requires complete acceptance, import and preserved immutable/source/input/cleanup promises")
+    validate_plan_case_ids(cases, set(DIAGNOSTIC_EXPECTATIONS), "diagnostic engine")
+    by_id = {case["id"]: case for case in cases}
+    for case in cases:
+        result = case.get("diagnostic")
+        mode, status, code, exit_code, fallback = DIAGNOSTIC_EXPECTATIONS[case["id"]]
+        if not isinstance(result, dict) or result.get("protocol") != "winbooksplit.result" \
+                or type(result.get("version")) is not int or result["version"] != 1 \
+                or result.get("mode") != mode or result.get("status") != status or result.get("code") != code \
+                or type(case.get("exit_code")) is not int or case["exit_code"] != exit_code \
+                or type(result.get("exit_code")) is not int or result["exit_code"] != exit_code \
+                or not isinstance(result.get("message"), str) or not result["message"].strip() \
+                or not isinstance(result.get("warnings"), list) or result.get("fallback_modes") != fallback \
+                or type(result.get("written_count")) is not int or not isinstance(case.get("outputs"), list) \
+                or not isinstance(case.get("stdout"), str) or not isinstance(case.get("stderr"), str) \
+                or case.get("input_unchanged") is not True or case.get("neighbor_unchanged") is not True \
+                or case.get("no_automatic_fallback") is not True:
+            raise ValueError("Diagnostic case categories, process exit, choices and preserved input/output evidence must match")
+        framed = [json.loads(line) for line in case["stdout"].splitlines() if line.startswith("{")]
+        if framed != [result] or "[NO_BOOKMARKS_FOUND]" in case["stdout"]:
+            raise ValueError("Each diagnostic process observation requires exactly its one explicit protocol frame")
+        if status == "success":
+            if not isinstance(result.get("execution"), dict) or result["written_count"] != len(case["outputs"]) or not case["outputs"]:
+                raise ValueError("Successful diagnostics require actual nonempty execution outputs")
+            execution = result["execution"]
+            validate_plan_parity({**case, "source_identity": execution.get("source_identity"),
+                                  "writer_result": execution, "coverage": execution.get("coverage"),
+                                  "written_count": result["written_count"], "no_replanning_or_reopening": True})
+        elif result["written_count"] != 0 or result.get("execution", "missing") is not None or case["outputs"]:
+            raise ValueError("Failed diagnostics cannot claim successful or newly created output")
+    if by_id["existing-output"].get("existing_outputs_preserved") is not True:
+        raise ValueError("Existing output preservation evidence is required")
+    if by_id["success-level1"].get("unicode_preserved") is not True \
+            or [record.get("filename") for record in by_id["success-level1"]["outputs"]] \
+            != ["01 - Front matter.pdf", "02 - 章节 å.pdf", "03 - 次章 é.pdf"]:
+        raise ValueError("Actual Unicode bookmark filename/stdout preservation evidence is required")
+    shells = child.get("shell_cases")
+    requested = {Path(path) for path in requested_shells}
+    if len(requested_shells) != 2 or len(requested) != 2 or not isinstance(shells, list) or len(shells) != 2 \
+            or any(not isinstance(shell, dict) or not isinstance(shell.get("shell_executable"), str)
+                   or type(shell.get("host_major")) is not int
+                   or Path(shell["shell_executable"]) not in requested for shell in shells) \
+            or {Path(shell["shell_executable"]) for shell in shells} != requested \
+            or {shell.get("host_major") for shell in shells} != {5, 7}:
+        raise ValueError("Diagnostics require both requested actual PS5.1 and PS7 hosts")
+    handler_ids = set(DIAGNOSTIC_EXPECTATIONS) - {"invalid-mode", "missing-arguments"}
+    for shell in shells:
+        if shell.get("passed") is not True or type(shell.get("exit_code")) is not int or shell["exit_code"] != 0 \
+                or type(shell.get("host_major")) is not int or not isinstance(shell.get("host_version"), str) \
+                or not shell["host_version"].startswith("5.1." if shell["host_major"] == 5 else "7.") \
+                or shell.get("no_automatic_execution") is not True or shell.get("owned_neighbor_unchanged") is not True:
+            raise ValueError("Actual diagnostic handlers require successful bounded pure execution and preserved neighbors")
+        handlers = validate_plan_case_ids(shell.get("category_cases"), handler_ids, "actual-host category")
+        for record in handlers:
+            if record.get("parsed_result") != by_id[record["id"]]["diagnostic"]:
+                raise ValueError("Actual handler must consume the captured engine result")
+            decisions = record.get("decisions")
+            if not isinstance(decisions, list) or len(decisions) != len(DIAGNOSTIC_CHOICES):
+                raise ValueError("Actual handler requires every explicit fallback decision")
+            for choice, decision in zip(DIAGNOSTIC_CHOICES, decisions):
+                expected, retry = diagnostic_decision(record["parsed_result"]["fallback_modes"], choice)
+                if not isinstance(decision, dict) or decision.get("choice") != choice \
+                        or decision.get("decision") != expected or decision.get("retry_mode", "missing") != retry \
+                        or decision.get("fallback_modes") != record["parsed_result"]["fallback_modes"] \
+                        or not isinstance(decision.get("message"), str) or not decision["message"].strip():
+                    raise ValueError("Actual category handler choices/messages must preserve the requested level")
+                if record["id"] == "parents-no-level2" and "Level 2" not in decision["message"]:
+                    raise ValueError("No-Level2 handler must identify the requested level")
+        protocol = validate_plan_case_ids(shell.get("protocol_cases"), DIAGNOSTIC_PROTOCOL_IDS, "protocol rejection")
+        if any(record.get("rejected") is not True for record in protocol):
+            raise ValueError("Malformed/mismatched protocol receipts must reject")
+        arguments, streams = shell.get("native_argument_probe"), shell.get("stream_probe")
+        if not isinstance(arguments, dict) or arguments.get("passed") is not True \
+                or arguments.get("actual_arguments") != DIAGNOSTIC_NATIVE_ARGUMENTS \
+                or type(arguments.get("exit_code")) is not int or arguments["exit_code"] != 0 \
+                or not isinstance(streams, dict) or streams.get("passed") is not True \
+                or type(streams.get("exit_code")) is not int or streams["exit_code"] != 1 \
+                or streams.get("actual_run_function") is not True or streams.get("arguments_preserved") is not True \
+                or type(streams.get("stdout_length")) is not int or streams["stdout_length"] != 200000 \
+                or type(streams.get("stderr_length")) is not int or streams["stderr_length"] != 200000:
+            raise ValueError("Actual-host native argument/dual-stream evidence must be complete: "
+                             + repr({"arguments": arguments, "streams": streams}))
+
+
 def attach_child_report(step: dict, path: Path, kind: str) -> None:
     """A successful process without its promised evidence is a failed step."""
     try:
@@ -335,7 +478,9 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
         child = json.loads(data.decode("utf-8-sig"))
         if not isinstance(child, dict) or child.get("schema_version") != 1:
             raise ValueError("Expected a schema_version=1 JSON object report")
-        if kind == "plan":
+        if kind == "diagnostics":
+            validate_diagnostics_report(child, step.get("requested_shell_paths", []))
+        elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
             if type(child.get("exit_code")) is not int or type(child.get("success")) is not bool:
@@ -647,6 +792,17 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "plan")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"diagnostics", "full"}:
+            child_report = work / "diagnostic-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/diagnostics/characterize_diagnostics.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "diagnostic-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "meaning": "Distinct structured diagnostics and actual category/choice handlers under both requested hosts",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "diagnostics")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -666,7 +822,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
@@ -693,10 +849,12 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
+        if args.layer in {"diagnostics", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            raise ValueError("Diagnostics require both explicit distinct supported shell hosts")
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(report, stream, indent=2, ensure_ascii=True)

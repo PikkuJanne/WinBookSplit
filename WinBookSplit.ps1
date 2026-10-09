@@ -188,33 +188,46 @@ if (-not (Test-Path $outputDir)) { New-Item -ItemType Directory -Path $outputDir
 
 # --- The Python Engine ---
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Diagnostics.ps1')
 
 # --- Execution Function ---
 function Run-PythonSplitter ($mode, $manualData) {
     $pInfo = New-Object System.Diagnostics.ProcessStartInfo
     $pInfo.FileName = "python"
-    $argString = "`"$enginePath`" `"$InputFile`" `"$outputDir`" `"$mode`" `"$manualData`""
-    $pInfo.Arguments = $argString
+    $pInfo.Arguments = (@($enginePath, $InputFile, $outputDir, $mode, $manualData) |
+        ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' '
     $pInfo.RedirectStandardOutput = $true
     $pInfo.RedirectStandardError = $true
     $pInfo.UseShellExecute = $false
     $pInfo.CreateNoWindow = $true
     $pInfo.StandardOutputEncoding = [System.Text.Encoding]::UTF8
+    $pInfo.StandardErrorEncoding = [System.Text.Encoding]::UTF8
 
     $p = New-Object System.Diagnostics.Process
     $p.StartInfo = $pInfo
-    $p.Start() | Out-Null
-
-    # Stream Output
-    while (-not $p.HasExited) {
-        while ($line = $p.StandardOutput.ReadLine()) {
-            if ($line -eq "[NO_BOOKMARKS_FOUND]") { continue }
-            Write-Host $line -ForegroundColor Green
-            $line | Out-File -FilePath $logFile -Append -Encoding UTF8
+    try {
+        $p.Start() | Out-Null
+        # Start both drains before waiting, including data after process exit.
+        $stdoutTask = $p.StandardOutput.ReadToEndAsync()
+        $stderrTask = $p.StandardError.ReadToEndAsync()
+        $p.WaitForExit()
+        $stdout = $stdoutTask.GetAwaiter().GetResult()
+        $stderr = $stderrTask.GetAwaiter().GetResult()
+        foreach ($line in ($stdout -split '\r?\n')) {
+            if ($line.Length -gt 0) {
+                $line | Out-File -FilePath $logFile -Append -Encoding UTF8
+                if (-not $line.StartsWith('{')) { Write-Host $line -ForegroundColor Green }
+            }
         }
-        Start-Sleep -Milliseconds 50
+        if ($stderr.Length -gt 0) {
+            Write-Host $stderr -ForegroundColor Red
+            $stderr | Out-File -FilePath $logFile -Append -Encoding UTF8
+        }
+        return ConvertFrom-SplitResult -Stdout $stdout -ExitCode $p.ExitCode -Mode $mode
     }
-    return $p.ExitCode
+    finally {
+        $p.Dispose()
+    }
 }
 
 # --- Main Logic Flow ---
@@ -250,31 +263,36 @@ Write-Host "Running Processor..." -ForegroundColor Yellow
 Write-Host "Log: $logFile" -ForegroundColor Gray
 Write-Host ""
 
-$exitCode = Run-PythonSplitter -mode $mode -manualData $manualInput
-
-# 4. Handle "No Bookmarks" Failure (Exit Code 55)
-if ($exitCode -eq 55) {
-    Write-Host ""
-    Write-Host "------------------------------------------------" -ForegroundColor Red
-    Write-Host "[!] AUTO-SPLIT FAILED: No Bookmarks Found." -ForegroundColor Red
-    Write-Host "------------------------------------------------" -ForegroundColor Red
-    Write-Host "The PDF has no internal chapter structure."
-    if ($inputExt -ne ".pdf") {
-         Write-Host "Note: Bookmarks are often lost during AZW3->PDF conversion." -ForegroundColor Gray
+try {
+    $result = Run-PythonSplitter -mode $mode -manualData $manualInput
+    while ($result.status -ceq 'no_plan') {
+        $decision = Get-SplitDecision -Result $result
+        Write-Host $decision.message -ForegroundColor Yellow
+        do {
+            $prompt = 'Choose [M] manual or [C] cancel'
+            if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
+            $retry = Read-Host $prompt
+            $decision = Get-SplitDecision -Result $result -Choice $retry
+            "[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)" |
+                Out-File -FilePath $logFile -Append -Encoding UTF8
+            if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
+        } while ($decision.decision -in @('pending', 'invalid'))
+        if ($decision.decision -eq 'cancel') { break }
+        $mode = $decision.retry_mode
+        $manualInput = ''
+        if ($mode -eq 'manual') {
+            $manualInput = Read-Host 'Pages (comma separated)'
+        }
+        $result = Run-PythonSplitter -mode $mode -manualData $manualInput
     }
-    Write-Host ""
-    
-    $retry = Read-Host "Do you want to switch to MANUAL mode? (Y/N)"
-    if ($retry -match "y|Y") {
-        Write-Host ""
-        Write-Host "Enter page numbers where new files should START." -ForegroundColor Yellow
-        $manualInput = Read-Host "Pages (comma separated)"
-        
-        Write-Host "Retrying in Manual Mode..." -ForegroundColor Yellow
-        Run-PythonSplitter -mode "manual" -manualData $manualInput
-    }
+    $exitCode = $result.exit_code
+    if ($result.status -ceq 'success') { Write-Host 'Done.' -ForegroundColor Cyan }
+    else { Write-Host (Get-SplitDecision -Result $result).message -ForegroundColor Red }
 }
-
+catch {
+    Write-Host "[!] Processor failure: $($_.Exception.Message)" -ForegroundColor Red
+    $exitCode = 1
+}
 Write-Host ""
-Write-Host "Done." -ForegroundColor Cyan
 Pause
+exit $exitCode

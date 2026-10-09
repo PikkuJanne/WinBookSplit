@@ -73,6 +73,62 @@ def complete_plan_report():
     return report
 
 
+def complete_diagnostic_report(hosts):
+    parities = {case["mode"]: case for case in complete_plan_report()["parity_cases"]}
+    unicode_parity = parities["1"]
+    unicode_ranges = [(0, 3), (3, 6), (6, 10)]
+    names = ["01 - Front matter.pdf", "02 - 章节 å.pdf", "03 - 次章 é.pdf"]
+    entries = [{"sequence": index, "start": start, "end": end, "filename": filename}
+               for index, ((start, end), filename) in enumerate(zip(unicode_ranges, names), 1)]
+    unicode_parity.update(total_pages=10, preview_entries=entries, written_count=3,
+                          coverage={"complete": True, "covered_pages": 10, "section_count": 3},
+                          outputs=[{"filename": filename, "range": [start, end], "page_ids": list(range(start + 1, end + 1))}
+                                   for (start, end), filename in zip(unicode_ranges, names)])
+    unicode_parity["writer_result"].update(total_pages=10, written_count=3, coverage=deepcopy(unicode_parity["coverage"]),
+        outputs=[{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries])
+    cases = []
+    for identifier, (mode, status, code, exit_code, fallback) in runner.DIAGNOSTIC_EXPECTATIONS.items():
+        result = {"protocol": "winbooksplit.result", "version": 1, "mode": mode, "status": status, "code": code,
+                  "message": "Synthetic diagnostic message", "exit_code": exit_code, "warnings": [],
+                  "fallback_modes": fallback, "written_count": 0, "execution": None}
+        case = {"id": identifier, "passed": True, "exit_code": exit_code, "outputs": [], "input_unchanged": True,
+                "neighbor_unchanged": True, "no_automatic_fallback": True, "stderr": ""}
+        if status == "success":
+            parity = deepcopy(parities[mode])
+            result.update(written_count=parity["written_count"], execution=parity["writer_result"])
+            case.update(total_pages=parity["total_pages"], preview_entries=parity["preview_entries"], outputs=parity["outputs"])
+        if identifier == "existing-output":
+            case["existing_outputs_preserved"] = True
+        if identifier == "success-level1":
+            case["unicode_preserved"] = True
+        case.update(diagnostic=result, stdout=json.dumps(result) + "\n")
+        cases.append(case)
+    shells = []
+    for index, host in enumerate(hosts):
+        categories = []
+        for case in cases:
+            if case["id"] in {"invalid-mode", "missing-arguments"}:
+                continue
+            decisions = []
+            for choice in runner.DIAGNOSTIC_CHOICES:
+                decision, retry = runner.diagnostic_decision(case["diagnostic"]["fallback_modes"], choice)
+                decisions.append({"choice": choice, "decision": decision, "retry_mode": retry,
+                                  "message": "No usable Level 2 bookmarks" if case["id"] == "parents-no-level2" else "Synthetic handler message",
+                                  "fallback_modes": case["diagnostic"]["fallback_modes"]})
+            categories.append({"id": case["id"], "passed": True, "parsed_result": deepcopy(case["diagnostic"]), "decisions": decisions})
+        shells.append({"shell_executable": host, "passed": True, "exit_code": 0, "host_major": 5 if index == 0 else 7,
+                       "host_version": "5.1.1234.1" if index == 0 else "7.6.5", "category_cases": categories,
+                       "protocol_cases": [{"id": name, "passed": True, "rejected": True} for name in sorted(runner.DIAGNOSTIC_PROTOCOL_IDS)],
+                       "native_argument_probe": {"passed": True, "exit_code": 0, "actual_arguments": runner.DIAGNOSTIC_NATIVE_ARGUMENTS},
+                       "stream_probe": {"passed": True, "exit_code": 1, "stdout_length": 200000, "stderr_length": 200000,
+                                        "actual_run_function": True, "arguments_preserved": True},
+                       "no_automatic_execution": True, "owned_neighbor_unchanged": True})
+    return {"schema_version": 1, "task_id": "M1-T06", "result": "DIAGNOSTIC_REGRESSION_PASSED", "success": True, "exit_code": 0,
+            "acceptance_ids": ["AC-030", "AC-031"], "engine_case_count": 23, "engine_cases": cases, "shell_cases": shells,
+            "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
+
+
 class RunnerTests(unittest.TestCase):
     def test_ac009_python_failure_stays_failed_after_success(self):
         with tempfile.TemporaryDirectory(prefix="wbs-runner-probe-") as directory:
@@ -352,7 +408,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_four_regressions_and_forwards_hosts_only_to_manual(self):
+    def test_full_selects_all_five_regressions_and_forwards_hosts_to_manual_and_diagnostics(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -382,11 +438,83 @@ class RunnerTests(unittest.TestCase):
         plans = [command for command in commands if str(ROOT / "tests/plans/characterize_plan.py") in command]
         self.assertEqual(len(plans), 1)
         self.assertNotIn("--shell-path", plans[0])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan"])
-        self.assertEqual([step["name"] for step in report["steps"][-4:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression"])
-        self.assertEqual(len(report["steps"]), 7)
+        diagnostics = [command for command in commands if str(ROOT / "tests/diagnostics/characterize_diagnostics.py") in command]
+        self.assertEqual(len(diagnostics), 1)
+        self.assertEqual(diagnostics[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics"])
+        self.assertEqual([step["name"] for step in report["steps"][-5:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression"])
+        self.assertEqual(len(report["steps"]), 8)
         self.assertTrue(report["success"])
+
+    def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
+        hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]
+        complete = complete_diagnostic_report(hosts)
+        with tempfile.TemporaryDirectory(prefix="wbs-diagnostic-evidence-") as directory:
+            path = Path(directory) / "diagnostics.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            valid = {"exit_code": 0, "requested_shell_paths": hosts}
+            runner.attach_child_report(valid, path, "diagnostics")
+            self.assertEqual(valid["exit_code"], 0)
+            self.assertEqual(valid["evidence"], complete)
+            self.assertIn("evidence_sha256", valid)
+            defects = []
+
+            def changed(description, mutate):
+                report = deepcopy(complete)
+                mutate(report)
+                defects.append((description, report))
+
+            for field, value in (("schema_version", True), ("task_id", "M1-T05"), ("result", "SHARED_PLAN_REGRESSION_PASSED"),
+                                 ("success", False), ("exit_code", False), ("acceptance_ids", ["AC-030"]),
+                                 ("engine_case_count", 0), ("source_unchanged", False), ("baseline_guards_preserved", False),
+                                 ("input_and_neighbor_unchanged", False), ("owned_temp_removed", False),
+                                 ("immutable_original_commit", "unknown"), ("import_observation", []), ("engine_cases", []), ("shell_cases", [])):
+                defects.append((field, {**complete, field: value}))
+            for field, value in (("id", []), ("id", "unknown"), ("passed", False), ("exit_code", 0),
+                                 ("outputs", [{"filename": "unwanted.pdf"}]), ("stdout", "no result"), ("input_unchanged", False),
+                                 ("neighbor_unchanged", False), ("no_automatic_fallback", False)):
+                changed("engine " + field, lambda report, field=field, value=value: report["engine_cases"][0].update({field: value}))
+            for field, value in (("protocol", "wrong"), ("version", True), ("status", "success"), ("code", "no_bookmarks_at_level"),
+                                 ("written_count", 1), ("execution", {}), ("fallback_modes", ["1", "manual"]), ("warnings", {})):
+                changed("category " + field, lambda report, field=field, value=value: report["engine_cases"][0]["diagnostic"].update({field: value}))
+            changed("duplicate engine", lambda report: report["engine_cases"].__setitem__(-1, deepcopy(report["engine_cases"][0])))
+            changed("existing output changed", lambda report: next(case for case in report["engine_cases"] if case["id"] == "existing-output").update(existing_outputs_preserved=False))
+            changed("unicode not verified", lambda report: next(case for case in report["engine_cases"] if case["id"] == "success-level1").update(unicode_preserved=False))
+            for field, value in (("shell_executable", "C:/other/pwsh.exe"), ("host_major", []), ("host_version", "6.0"),
+                                 ("passed", False), ("exit_code", 19), ("category_cases", []), ("protocol_cases", []),
+                                 ("no_automatic_execution", False), ("owned_neighbor_unchanged", False),
+                                 ("native_argument_probe", {}), ("stream_probe", {})):
+                changed("host " + field, lambda report, field=field, value=value: report["shell_cases"][0].update({field: value}))
+            changed("duplicate host", lambda report: report["shell_cases"].__setitem__(1, deepcopy(report["shell_cases"][0])))
+            changed("duplicate category", lambda report: report["shell_cases"][0]["category_cases"].__setitem__(-1, deepcopy(report["shell_cases"][0]["category_cases"][0])))
+            changed("unparsed category", lambda report: report["shell_cases"][0]["category_cases"][0].update(parsed_result={}))
+            changed("missing decisions", lambda report: report["shell_cases"][0]["category_cases"][0].update(decisions=[]))
+            changed("automatic retry", lambda report: report["shell_cases"][0]["category_cases"][0]["decisions"][0].update(decision="retry", retry_mode="manual"))
+            changed("wrong level choice", lambda report: report["shell_cases"][0]["category_cases"][0]["decisions"][3].update(decision="retry", retry_mode="1"))
+            changed("substring choice accepted", lambda report: report["shell_cases"][0]["category_cases"][0]["decisions"][6].update(decision="retry", retry_mode="manual"))
+            changed("misleading Level2 message", lambda report: next(case for case in report["shell_cases"][0]["category_cases"] if case["id"] == "parents-no-level2")["decisions"][0].update(message="No outline bookmarks in PDF"))
+            changed("accepted invalid protocol", lambda report: report["shell_cases"][0]["protocol_cases"][0].update(rejected=False))
+            changed("changed literal argv", lambda report: report["shell_cases"][0]["native_argument_probe"].update(actual_arguments=["wrong"]))
+            changed("lost stderr", lambda report: report["shell_cases"][0]["stream_probe"].update(stderr_length=0))
+            changed("synthetic stream replacement", lambda report: report["shell_cases"][0]["stream_probe"].update(actual_run_function=False))
+            for description, payload in defects:
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps(payload), encoding="utf-8")
+                    step = {"exit_code": 0, "requested_shell_paths": hosts}
+                    runner.attach_child_report(step, path, "diagnostics")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    failed = {"exit_code": 19, "requested_shell_paths": hosts}
+                    runner.attach_child_report(failed, path, "diagnostics")
+                    self.assertEqual(failed["exit_code"], 19)
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            for requested in ([], [hosts[0]], [hosts[0], hosts[0]]):
+                with self.subTest(requested=requested):
+                    step = {"exit_code": 0, "requested_shell_paths": requested}
+                    runner.attach_child_report(step, path, "diagnostics")
+                    self.assertEqual(step["exit_code"], 126)
 
     def test_plan_targeted_route_runs_only_plan_without_shell_arguments(self):
         args = SimpleNamespace(layer="plan", failure_probe=None, shell_path=[Path("C:/unused/pwsh.exe")], tool_root=None)
