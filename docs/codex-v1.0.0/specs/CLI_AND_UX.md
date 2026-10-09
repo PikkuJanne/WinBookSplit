@@ -34,8 +34,21 @@ historical only. The final `[OUTCOME]` JSON record describes the whole console
 operation and retains the validated final attempted engine result. Explicit
 fallback cancellation returns 130; timeout has a distinct `timeout` status/code.
 No missing, conflicting or zero-output engine result can become success.
-Preview/version and full parameter binding remain M3-T02; reserved code 7's
-feature rejection remains the PDF support work.
+M3-T02 supplies validated explicit parameter combinations, dependency-independent
+Version and no-prompt NonInteractive/Preview. The shipped outcome map also holds
+the canonical development version `1.0.0-dev`; final 1.0.0 is set at M5-T05.
+Auto requires BookmarkLevel and rejects StartPages; Manual requires StartPages and
+rejects BookmarkLevel. Explicit methods, NonInteractive and Preview need complete
+choices. Version rejects processing arguments. PowerShell invocation/type-binding
+failures before the script runs retain the native host status; script validation
+returns mapped 2. Reserved code 7's feature rejection remains PDF support work.
+
+Preview uses the same preparation/immutable plan and emits result status `preview`,
+code `preview_complete`, zero written_count, null execution and a validated plan.
+The console accepts that category only when Preview was requested and rejects an
+execution result on Preview. PDF preview writes no files; ebook preview converts
+temporarily and reports safe cleanup. Preview cannot retain a converted PDF and
+never prompts or changes modes after no-plan. NoPause suppresses only exit pauses.
 
 Console log flush/close precedes the success announcement. If chapter publication
 has already succeeded but handle/log finalization fails, the operation reports

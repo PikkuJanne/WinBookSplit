@@ -52,7 +52,7 @@ class OutcomeTests(unittest.TestCase):
 
     def test_ac050_documented_categories_are_pinned_independently_of_the_shipped_map(self):
         expected = {
-            0: ("split_complete",),
+            0: ("split_complete", "preview_complete"),
             2: ("invalid_arguments", "invalid_mode", "invalid_start_pages", "input_invalid",
                 "output_base_invalid", "output_path_too_long", "output_destination_changed", "source_output_alias"),
             3: ("dependency_missing", "runtime_invalid", "runtime_not_found", "converter_invalid",

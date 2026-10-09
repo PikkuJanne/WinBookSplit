@@ -1,92 +1,62 @@
 <#
-WinBookSplit.ps1
-Automated PDF/AZW3/EPUB Chapter Slicer & Organizer
-
-Author: Janne Vuorela
-Target OS: Windows 11
-PowerShell: Windows PowerShell 5.1 or PowerShell 7+
-Dependencies: Regular Windows x64 CPython 3.14.8, pypdf 6.19.0,
-              Calibre 9.15.0 (for AZW3/EPUB), .bat wrapper
-
-SYNOPSIS
-    A "smart" decomposition tool for technical manuals and textbooks.
-    Automates the tedious process of splitting large PDF/AZW3/EPUB files into 
-    individual chapters based on internal metadata or manual page ranges.
-
-WHAT THIS IS (AND ISN'T)
-    - A logic-driven parser for PDF structures.
-    - Designed for CS students/IT Support who need to modularize heavy documentation.
-    - Hybrid tool, attempts Auto-Discovery first, falls back to Manual Slicing.
-    - Not an OCR engine, it cannot read text on a flat image to find chapters.
-    - Not a PDF editor, it creates new files and does not modify the source.
-
-FEATURES
-    - Format Conversion:
-        Automatically detects AZW3/EPUB files and utilizes Calibre's engine 
-        to generate a high-quality PDF source before splitting.
-    - Text User Interface (TUI):
-        Dynamic console interface providing real-time feedback and file stats.
-        Includes a Bookmark Depth selector for Level 1 or Level 2.
-    - Intelligent Metadata Extraction:
-        Recursively crawls the PDF outline tree to map chapter starts and ends.
-    - Smart Manual Fallback:
-        Triggers an interactive manual mode if no metadata bookmarks are found.
-    - Automated Sanitization:
-        Cleans illegal Windows characters from titles to ensure valid filenames.
-    - Systematic Naming:
-        Prefixes files with at least two digits, widened to the section count.
-    - Verbose Logging:
-        Generates a detailed execution log tracking every match and action.
-
-MY INTENDED USAGE
-    - I keep WinBookSplit in my Tools directory with a shortcut to the .bat on my desktop.
-    - When I download a massive manual, AZW3 book, or a textbook:
-        1. I drag the PDF or AZW3 onto the .bat launcher.
-        2. If it's an AZW3, I let the script convert it to PDF first.
-        3. I attempt an "Auto" split for chapters.
-        4. If the book is "flat," I switch to manual mode and input page numbers.
-        5. I find a clean, numbered folder in my Documents, ready for my reader.
-
-SETUP
-    1) Follow docs/codex-v1.0.0/SUPPORT_AND_SETUP.md for explicit isolated setup.
-       Install hashed requirements.txt with the exact interpreter's -m pip.
-    2) Install Calibre 9.15.0 separately for AZW3/EPUB conversion support.
-    3) Create a folder (e.g., C:\Tools\WinBookSplit\).
-    4) Place the .ps1, .bat, and engine directory inside.
-    5) (Optional) Create a desktop shortcut to WinBookSplit.bat.
-
-USAGE
-    A) Drag-and-Drop (Recommended)
-        - Drag any PDF, AZW3, or EPUB file onto WinBookSplit.bat.
-        - Follow the TUI prompts for conversion and splitting.
-
-    B) Direct PowerShell
-        - Run: .\WinBookSplit.ps1 -InputFile "C:\Path\To\Book.azw3"
-        - Optional: -PythonPath "C:\Tools\Python\python.exe"
-                    -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
-        - ConversionTimeout limits conversion in seconds (default 1800).
-        - ProcessTimeout bounds the engine and its streams (default at least 3600).
-
-NOTES
-    - The script uses the shipped engine\winbooksplit_engine.py beside the
-      PowerShell entry point, independently of the current working directory.
-    - Output uses a new child of Documents or the explicit -OutputDirectory base.
-
-LIMITATIONS
-    - Requires a local Python installation with the 'pypdf' library.
-    - Requires a validated trusted Calibre executable for AZW3/EPUB conversion.
-    - Manual mode assumes every provided page number is the start of a new chapter.
-
-TROUBLESHOOTING
-    - "Calibre not found":
-        Ensure Calibre is installed to process non-PDF ebook formats.
-    - "[!!!] ERROR: No bookmarks found":
-        The PDF lacks an internal Outline. Use Manual Mode [M] instead.
-    - "Python not found":
-        Select regular x64 Python 3.14.8 with -PythonPath or prepare the app .venv.
-
-LICENSE / WARRANTY
-    - Personal IT automation tool, provided as-is.
+.SYNOPSIS
+Split a local PDF, EPUB or AZW3 into chapter PDFs without changing its source.
+.DESCRIPTION
+Preserves every physical PDF page using the existing Python/pypdf planner.
+Without Mode, select a method interactively. Scripted calls supply Mode plus
+BookmarkLevel or StartPages. NonInteractive and Preview require complete choices.
+EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Preview.
+Requires regular Windows x64 CPython 3.14.8 and pypdf 6.19.0; ebooks also require
+Calibre 9.15.0. See docs/codex-v1.0.0/SUPPORT_AND_SETUP.md for explicit setup.
+.PARAMETER InputFile
+One literal local PDF, EPUB or AZW3 source file. Required except with Version.
+.PARAMETER OutputDirectory
+Existing output base. Each execution publishes a unique new child. Defaults to Documents.
+.PARAMETER Mode
+Auto or Manual. Auto requires BookmarkLevel; Manual requires StartPages.
+.PARAMETER BookmarkLevel
+1 or 2, for Auto only. Level 2 children stay within their Level 1 parents.
+.PARAMETER StartPages
+Comma-separated ASCII decimal physical PDF start pages, for Manual only.
+Every token must be valid. Starts are sorted/deduplicated and page 1 is included.
+.PARAMETER Preview
+Print the validated plan and exit with no chapter PDFs or console log files.
+Ebooks require temporary conversion, safely cleaned before the plan returns.
+Cannot combine with KeepConvertedPdf. Preview never prompts or retries another mode.
+.PARAMETER NonInteractive
+Never prompt, pause, clear the console, open dialogs/Explorer or attempt a fallback.
+Supply InputFile, Mode and the selected level or starts; no usable plan returns 5.
+.PARAMETER NoPause
+Suppress exit pauses; interactive method/fallback prompts still apply.
+.PARAMETER Version
+Print the canonical development version and exit 0 without input or dependencies.
+Cannot combine with processing parameters.
+.PARAMETER PythonPath
+Explicit trusted absolute Python executable. Otherwise use validated discovery.
+.PARAMETER CalibrePath
+Explicit trusted absolute ebook-convert executable; PDF input never probes Calibre.
+.PARAMETER KeepConvertedPdf
+Retain the exact full converted PDF inside successful ebook output only.
+.PARAMETER ConversionTimeout
+Converter deadline in seconds, 1 through 86400; default 1800.
+.PARAMETER ProcessTimeout
+Engine/tree/stream deadline in seconds, 1 through 172800; default at least 3600.
+.EXAMPLE
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf'
+.EXAMPLE
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
+.EXAMPLE
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Manual -StartPages '1,4,7' -NonInteractive
+.EXAMPLE
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
+.EXAMPLE
+.\WinBookSplit.ps1 -Version
+.NOTES
+Application exits: 0 execution/preview/version, 2 invalid input/arguments/path,
+3 dependency, 4 conversion, 5 no requested bookmark plan, 6 PDF/output failure,
+7 unsupported features, 130 cancellation/timeout. Native PowerShell invocation
+errors before this script runs use the host's own exit status.
+Author: Janne Vuorela. MIT; unsigned application. Windows 11 x64, PS5.1/PS7.
 #>
 
 param (
@@ -96,7 +66,14 @@ param (
     [switch]$KeepConvertedPdf,
     [ValidateRange(1, 86400)][int]$ConversionTimeout = 1800,
     [string]$PythonPath,
-    [ValidateRange(1, 172800)][int]$ProcessTimeout = [Math]::Max(3600, $ConversionTimeout + 1800)
+    [ValidateRange(1, 172800)][int]$ProcessTimeout = [Math]::Max(3600, $ConversionTimeout + 1800),
+    [string]$Mode,
+    [string]$BookmarkLevel,
+    [string]$StartPages,
+    [switch]$Preview,
+    [switch]$NonInteractive,
+    [switch]$NoPause,
+    [switch]$Version
 )
 
 # Machine outcomes and path diagnostics use UTF-8 through every launcher.
@@ -104,12 +81,19 @@ param (
 
 # --- Configuration ---
 $AppName = "WinBookSplit"
-$ver = "2.1 (AZW3 Support)"
+$versionContract = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'engine\WinBookSplit.Outcomes.json') -Raw -Encoding UTF8 | ConvertFrom-Json -ErrorAction Stop
+$ver = $versionContract.application_version
+if ($ver -isnot [string] -or $ver -cnotmatch '^\d+\.\d+\.\d+(?:-[a-z0-9.]+)?$') { throw 'Invalid shipped application version.' }
+# Version precedes every input check, helper load and runtime probe.
+if ($Version -and $PSBoundParameters.Count -eq 1 -and $args.Count -eq 0) {
+    Write-Output ($AppName + ' ' + $ver)
+    exit 0
+}
 $documentsPath = [Environment]::GetFolderPath("MyDocuments")
 
 # --- UI Functions ---
 function Draw-Header {
-    if (-not [Console]::IsOutputRedirected) { Clear-Host }
+    if (-not $NonInteractive -and -not $Preview -and -not [Console]::IsOutputRedirected) { Clear-Host }
     Write-Host "==========================================" -ForegroundColor Cyan
     Write-Host "      $AppName v$ver" -ForegroundColor Yellow
     Write-Host "==========================================" -ForegroundColor Cyan
@@ -151,20 +135,89 @@ function Complete-WinBookSplitConsoleLog {
     $script:consoleLogWriter = $null
 }
 
+function Wait-WinBookSplitExit {
+    if (-not $NonInteractive -and -not $Preview -and -not $NoPause) {
+        try { $null = Read-Host 'Press Enter to exit' }
+        catch { Write-Host ('Cannot pause the console: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Yellow }
+    }
+}
+
+function ConvertTo-WinBookSplitDisplayText {
+    param([AllowNull()][string]$Text)
+    # Paths and bookmarks are data: controls cannot become console records.
+    # Only the human rendering changes; the immutable plan keeps its raw text.
+    return [regex]::Replace([string]$Text, '[\x00-\x1f\x7f-\x9f\u2028\u2029]', {
+        param($match)
+        '\u{0:x4}' -f [int][char]$match.Value
+    })
+}
+
+function Show-WinBookSplitPlan {
+    param($Plan)
+    $originalPath = $Plan.source_identity.path
+    if ($null -ne $Plan.original_ebook_identity) { $originalPath = $Plan.original_ebook_identity.path }
+    Write-Host ('Source: ' + (ConvertTo-WinBookSplitDisplayText $originalPath))
+    if ($null -ne $Plan.conversion) {
+        Write-Host ('Generated PDF: ' + (ConvertTo-WinBookSplitDisplayText $Plan.conversion.generated_pdf_identity.path))
+        Write-Host 'Temporary ebook conversion was cleaned; no converted PDF is retained.'
+    }
+    Write-Host ('Physical PDF pages: ' + $Plan.total_pages)
+    $method = 'Manual'
+    if ($Plan.mode -cne 'manual') { $method = 'Auto, bookmark level ' + $Plan.mode }
+    Write-Host ('Method: ' + $method)
+    Write-Host ('Output base: ' + (ConvertTo-WinBookSplitDisplayText $Plan.output_naming.resolved_base))
+    foreach ($entry in $Plan.entries) {
+        Write-Host ('{0}. {1} | physical pages {2}-{3} | {4} | {5}' -f $entry.sequence,
+            (ConvertTo-WinBookSplitDisplayText $entry.title), ($entry.start + 1), $entry.end,
+            (ConvertTo-WinBookSplitDisplayText $entry.filename), (ConvertTo-WinBookSplitDisplayText $entry.reason))
+    }
+    foreach ($notice in $Plan.notices) { Write-Host ('Notice: ' + (ConvertTo-WinBookSplitDisplayText $notice)) }
+    foreach ($warning in $Plan.warnings) {
+        Write-Host ('Warning: ' + (ConvertTo-WinBookSplitDisplayText $warning.code) + ': ' +
+            (ConvertTo-WinBookSplitDisplayText $warning.message)) -ForegroundColor Yellow
+    }
+    Write-Host ('Coverage: every physical page exactly once; {0} pages, {1} sections.' -f
+        $Plan.coverage.covered_pages, $Plan.coverage.section_count)
+    Write-Host 'Preview only: no chapter PDFs were written.'
+}
+
 # --- Validation ---
 Draw-Header
 try {
+    # Explicit choices form a validated processing set; no binding prompt may
+    # supply a missing choice or silently discard a contradictory option.
+    if ($args.Count -gt 0) { throw 'Unrecognized or extra arguments. Use Get-Help for the supported parameters.' }
+    if ($Version) { throw 'Version cannot be combined with processing parameters.' }
+    $hasMode = $PSBoundParameters.ContainsKey('Mode')
+    $hasStarts = $PSBoundParameters.ContainsKey('StartPages')
+    $hasLevel = $PSBoundParameters.ContainsKey('BookmarkLevel')
+    if ($hasMode) {
+        if ($Mode -notin @('Auto', 'Manual')) { throw 'Mode must be Auto or Manual.' }
+        if ($Mode -ieq 'Auto') {
+            if ($hasStarts) { throw 'Auto cannot be combined with StartPages.' }
+            if (-not $hasLevel -or $BookmarkLevel -cnotin @('1', '2')) { throw 'Auto requires BookmarkLevel 1 or 2.' }
+        }
+        else {
+            if ($hasLevel) { throw 'Manual cannot be combined with BookmarkLevel.' }
+            if (-not $hasStarts -or $StartPages -notmatch '^\s*[0-9]+\s*(,\s*[0-9]+\s*)*$') {
+                throw 'Manual requires comma-separated ASCII decimal physical PDF StartPages; every token must be valid.'
+            }
+        }
+    }
+    elseif ($hasStarts -or $hasLevel -or $NonInteractive -or $Preview) { throw 'Supply Mode and its BookmarkLevel or StartPages.' }
+    if ($Preview -and $KeepConvertedPdf) { throw 'Preview cannot retain a converted PDF; omit KeepConvertedPdf.' }
     $inputItem = Resolve-WinBookSplitInput -Path $InputFile
     $InputFile = $inputItem.FullName
+    if ($KeepConvertedPdf -and [IO.Path]::GetExtension($InputFile) -ieq '.pdf') { throw 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.' }
     $requestedBase = $documentsPath
     if (-not [string]::IsNullOrWhiteSpace($OutputDirectory)) { $requestedBase = $OutputDirectory }
     $outputDir = Resolve-WinBookSplitOutputBase -Path $requestedBase
 }
 catch {
     $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'invalid_arguments' -Message $_.Exception.Message
-    Write-Host ("[!] Error: " + $outcome.message) -ForegroundColor Red
+    Write-Host ("[!] Error: " + (ConvertTo-WinBookSplitDisplayText $outcome.message)) -ForegroundColor Red
     Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
-    Read-Host "Press Enter to exit"
+    Wait-WinBookSplitExit
     exit $outcome.exit_code
 }
 
@@ -186,7 +239,7 @@ try {
 }
 catch {
     $preflightFailure = $_.Exception
-    Write-Host ('[!] Dependency preflight failed: ' + $preflightFailure.Message) -ForegroundColor Red
+    Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $preflightFailure.Message)) -ForegroundColor Red
     if ($preflightFailure.Data.Contains('Code')) {
         Write-Host ('[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code']; Attempts = @($preflightFailure.Data['Attempts']); Probe = $preflightFailure.Data['Probe'] } | ConvertTo-Json -Depth 12 -Compress))
     }
@@ -197,7 +250,7 @@ catch {
     elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
     $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $preflightFailure.Message
     Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
-    if ($outcome.exit_code -ne 130) { Read-Host 'Press Enter to exit' }
+    if ($outcome.exit_code -ne 130) { Wait-WinBookSplitExit }
     exit $outcome.exit_code
 }
 
@@ -212,6 +265,11 @@ $logStream = $null
 $script:consoleLogWriter = $null
 $consoleDir = $null
 try {
+    if ($Preview) {
+        # Retain the same bounded transport/diagnostic path without disk logs.
+        $script:consoleLogWriter = New-Object IO.StringWriter
+    }
+    else {
     $consoleReservation = New-WinBookSplitConsoleDirectory -Base $outputDir
     $consoleRunId = $consoleReservation.run_id
     $consoleDir = $consoleReservation.path
@@ -226,6 +284,7 @@ try {
     $logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
     $script:consoleLogWriter = [IO.StreamWriter]::new($logStream, [Text.UTF8Encoding]::new($false))
     $script:consoleLogWriter.AutoFlush = $true
+    }
 }
 catch {
     $setupMessage = $_.Exception.Message
@@ -235,11 +294,11 @@ catch {
             catch { $setupMessage += '; Cannot close a console stream: ' + $_.Exception.Message }
         }
     }
-    Write-Host ('[!] Error: Cannot prepare console records: ' + $setupMessage) -ForegroundColor Red
-    if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + $consoleDir) -ForegroundColor Gray }
+    Write-Host ('[!] Error: Cannot prepare console records: ' + (ConvertTo-WinBookSplitDisplayText $setupMessage)) -ForegroundColor Red
+    if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + (ConvertTo-WinBookSplitDisplayText $consoleDir)) -ForegroundColor Gray }
     $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'console_setup_failed' -Message $setupMessage
     Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
-    Read-Host 'Press Enter to exit'
+    Wait-WinBookSplitExit
     exit $outcome.exit_code
 }
 
@@ -247,12 +306,13 @@ catch {
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
 
 # --- Execution Function ---
-function Run-PythonSplitter ($mode, $manualData) {
+function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
     $script:lastEngineResult = $null
     $script:consoleRecordError = $null
     # -I ignores PYTHON* environment settings. -X utf8 explicitly applies to
     # isolated Python as well as the UTF-8 environment inherited by Calibre.
     $engineArguments = @('-I', '-B', '-X', 'utf8', $enginePath, $InputFile, $outputDir, $mode, $manualData)
+    if ($PlanOnly) { $engineArguments += '--preview' }
     if ($InputFile -match '\.(epub|azw3)$') {
         $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
         if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
@@ -290,7 +350,7 @@ function Run-PythonSplitter ($mode, $manualData) {
         -not $transport.StreamError -and -not $transport.ResultError) {
         # A handle/handler close error can follow a fully validated publication.
         # Keep its location while preserving the primary transport failure.
-        try { $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode }
+        try { $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode -Preview $PlanOnly }
         catch {
             if ($null -eq $attemptFailure) { $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' $_.Exception.Message }
         }
@@ -322,7 +382,14 @@ function Run-PythonSplitter ($mode, $manualData) {
         }
         if ($display.Length -gt 0) {
             $color = 'Green'; if ($name -eq 'Stderr') { $color = 'Red' }
-            Write-Host $display -ForegroundColor $color
+            # Preserve raw streams in the log. Render each human line safely,
+            # including a child line which resembles an application receipt.
+            $displayLines = foreach ($line in [regex]::Split($display, '\r\n|\r|\n')) {
+                $safeLine = ConvertTo-WinBookSplitDisplayText $line
+                if ($safeLine -cmatch '^(\[OUTCOME\] |Log: )') { $safeLine = '[PROCESS] ' + $safeLine }
+                $safeLine
+            }
+            Write-Host ($displayLines -join "`n") -ForegroundColor $color
         }
     }
     # A result survives even when subsequent human output evicts it from the
@@ -346,6 +413,7 @@ $result = $null
 $outcome = $null
 $script:lastEngineResult = $null
 $script:consoleRecordError = $null
+$requestedMode = $Mode
 $mode = ''
 try {
 
@@ -354,15 +422,15 @@ $script:consoleLogWriter.WriteLine('[DEPENDENCY] ' + (@{ Runtime = $runtime; Con
 $runtimeLine = 'Python: ' + $runtime.Path + ' (' + $runtime.Version + '; ' + $runtime.Source + ')'
 $pypdfLine = 'pypdf: ' + $runtime.PypdfVersion + ' (' + $runtime.PypdfPath + ')'
 foreach ($line in @($runtimeLine, $pypdfLine)) {
-    Write-Host $line -ForegroundColor Gray
+    Write-Host (ConvertTo-WinBookSplitDisplayText $line) -ForegroundColor Gray
     $script:consoleLogWriter.WriteLine($line)
 }
 if ($null -ne $converter) {
     $converterLine = 'Calibre: ' + $converter.Path + ' (' + $converter.Version + '; ' + $converter.Source + ')'
-    Write-Host $converterLine -ForegroundColor Gray
+    Write-Host (ConvertTo-WinBookSplitDisplayText $converterLine) -ForegroundColor Gray
     $script:consoleLogWriter.WriteLine($converterLine)
 }
-Write-Host "Target Book: $fileName" -ForegroundColor Green
+Write-Host ('Target Book: ' + (ConvertTo-WinBookSplitDisplayText $fileName)) -ForegroundColor Green
 Write-Host "Size:        $fileSize" -ForegroundColor Gray
 if ($inputExt -ne ".pdf") {
      Write-Host "Format:      $inputExt (Calibre PDF conversion before splitting)" -ForegroundColor DarkGray
@@ -370,6 +438,12 @@ if ($inputExt -ne ".pdf") {
      if ($KeepConvertedPdf) { Write-Host 'Full PDF:    retained with successful chapter output' -ForegroundColor DarkGray }
 }
 Write-Host ""
+if ($hasMode) {
+    $manualInput = ''
+    if ($requestedMode -ieq 'Manual') { $mode = 'manual'; $manualInput = $StartPages }
+    else { $mode = $BookmarkLevel }
+}
+else {
 Write-Host "Select Splitting Method:" -ForegroundColor White
 Write-Host " [1] Level 1 Bookmarks (Auto)" -ForegroundColor Cyan
 Write-Host " [2] Level 2 Bookmarks (Auto)" -ForegroundColor Cyan
@@ -387,17 +461,21 @@ if ($mode -eq "manual") {
     Write-Host "Enter page numbers where new files should START." -ForegroundColor Yellow
     $manualInput = Read-Host "Pages (comma separated)"
 }
+}
 
 # 3. Execution
 Draw-Header
-Write-Host "Running Processor..." -ForegroundColor Yellow
-Write-Host "Log: $logFile" -ForegroundColor Gray
+if ($Preview) { Write-Host 'Preparing plan only...' -ForegroundColor Yellow }
+else {
+    Write-Host "Running Processor..." -ForegroundColor Yellow
+    Write-Host ('Log: ' + (ConvertTo-WinBookSplitDisplayText $logFile)) -ForegroundColor Gray
+}
 Write-Host ""
 
-    $result = Run-PythonSplitter -mode $mode -manualData $manualInput
-    while ($result.status -ceq 'no_plan') {
+    $result = Run-PythonSplitter -mode $mode -manualData $manualInput -PlanOnly ([bool]$Preview)
+    while (-not $NonInteractive -and -not $Preview -and $result.status -ceq 'no_plan') {
         $decision = Get-SplitDecision -Result $result
-        Write-Host $decision.message -ForegroundColor Yellow
+        Write-Host (ConvertTo-WinBookSplitDisplayText $decision.message) -ForegroundColor Yellow
         do {
             $prompt = 'Choose [M] manual or [C] cancel'
             if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
@@ -415,14 +493,14 @@ Write-Host ""
         if ($mode -eq 'manual') {
             $manualInput = Read-Host 'Pages (comma separated)'
         }
-        $result = Run-PythonSplitter -mode $mode -manualData $manualInput
+        $result = Run-PythonSplitter -mode $mode -manualData $manualInput -PlanOnly ([bool]$Preview)
     }
     if ($null -eq $outcome) {
         $outcome = New-WinBookSplitOutcome -Status $result.status -Code $result.code -Message (Get-SplitDecision -Result $result).message -Mode $mode -EngineResult $result
     }
 }
 catch {
-    Write-Host "[!] Processor failure: $($_.Exception.Message)" -ForegroundColor Red
+    Write-Host ('[!] Processor failure: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Red
     $failure = $_.Exception
     $failureCode = 'processor_protocol_failed'
     if ($failure.Data.Contains('Code')) { $failureCode = [string]$failure.Data['Code'] }
@@ -455,21 +533,23 @@ catch {
     }
 }
 Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
-if ($outcome.status -ceq 'success') {
+if ($outcome.status -ceq 'preview') {
+    Show-WinBookSplitPlan -Plan $result.plan
+}
+elseif ($outcome.status -ceq 'success') {
     foreach ($warning in $result.warnings) {
-        if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + $warning.message) -ForegroundColor Yellow }
+        if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + (ConvertTo-WinBookSplitDisplayText $warning.message)) -ForegroundColor Yellow }
     }
-    Write-Host ('Output: ' + $outcome.final_directory) -ForegroundColor Cyan
+    Write-Host ('Output: ' + (ConvertTo-WinBookSplitDisplayText $outcome.final_directory)) -ForegroundColor Cyan
     Write-Host 'Done.' -ForegroundColor Cyan
 }
 else {
-    Write-Host $outcome.message -ForegroundColor Red
-    if ($null -ne $outcome.final_directory) { Write-Host ('Completed engine output retained: ' + $outcome.final_directory) -ForegroundColor Yellow }
+    Write-Host (ConvertTo-WinBookSplitDisplayText $outcome.message) -ForegroundColor Red
+    if ($null -ne $outcome.final_directory) { Write-Host ('Completed engine output retained: ' + (ConvertTo-WinBookSplitDisplayText $outcome.final_directory)) -ForegroundColor Yellow }
 }
 $exitCode = $outcome.exit_code
 Write-Host ""
 if ($exitCode -ne 130) {
-    try { Pause }
-    catch { Write-Host ('Cannot pause the console: ' + $_.Exception.Message) -ForegroundColor Yellow }
+    Wait-WinBookSplitExit
 }
 exit $exitCode

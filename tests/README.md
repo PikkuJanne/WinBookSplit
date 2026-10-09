@@ -23,7 +23,14 @@ reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
 Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
-for targeted checks.
+for targeted checks. `--layer cli` requires both actual supported hosts and the
+real pinned Calibre executable; it adds M3-T02 CLI acceptance as stage 15 of full.
+See `cli/README.md` for the 72 native controls, dependency-independent Version,
+complete scripted modes, no-prompt/no-fallback behavior, plan-only PDF/ebook
+previews and real EPUB retained-output example. Preview tests validate complete
+physical coverage and safely cleaned temporary conversion independently of
+execution results. Source/type/receipt unit checks remain distinct from actual
+Windows acceptance.
 
 The M3-T01 outcomes layer checks final fallback/exit mapping, owned-tree cancellation
 and timeout, manifest/publish/cleanup failures and console-log finalization under

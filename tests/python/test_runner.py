@@ -949,10 +949,13 @@ class RunnerTests(unittest.TestCase):
         outcomes = [command for command in commands if str(ROOT / "tests/outcomes/characterize_outcomes.py") in command]
         self.assertEqual(len(outcomes), 1)
         self.assertEqual(outcomes[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes"])
-        self.assertEqual([step["name"] for step in report["steps"][-11:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression"])
-        self.assertEqual(len(report["steps"]), 14)
+        cli = [command for command in commands if str(ROOT / "tests/cli/characterize_cli.py") in command]
+        self.assertEqual(len(cli), 1)
+        self.assertEqual(cli[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli"])
+        self.assertEqual([step["name"] for step in report["steps"][-12:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression"])
+        self.assertEqual(len(report["steps"]), 15)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):

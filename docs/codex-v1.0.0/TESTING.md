@@ -253,6 +253,31 @@ launcher; historical AC-011 reads immutable original/extracted Git source.
 Code 7, full CLI binding, preview/version, menu/Explorer, PDF feature/fidelity,
 extracted package, CI and release remain later gates.
 
+## Current M3-T02 CLI acceptance
+
+`--layer cli` requires both distinct actual supported hosts and the real pinned
+Calibre executable; full adds it as the fifteenth stage. See
+`tests/cli/README.md`. The 72 native controls use unavailable DEVNULL stdin and
+the actual host's NonInteractive flag. Application NonInteractive, independent
+NoPause and Preview are separately exercised. Explicit manual/Level 1/Level 2
+execution preserves exact physical page identity/content/ranges; the documented
+EPUB Auto/retention command verifies actual chapters and the retained full PDF.
+PDF and real EPUB/genuine AZW3 previews have zero chapter publication, accurate
+complete plans, original/generated identity and independently checked cleanup.
+Version works in a helper-free copy containing only the entrypoint/shared JSON;
+full comment-based help is read under each host.
+
+Contradictory/missing choices, malformed tokens and unknown arguments reject
+before discovery or writes. No-plan never prompts or retries; missing dependencies
+and out-of-range physical starts preserve mapped native/final statuses. Exact
+source/neighbor/prior identities, read-only attributes, copied source hashes,
+stored policies and held-object output cleanup are required. The independent
+validator refuses missing/contradictory promised receipts. A timed-out test retains
+its workspace when owned descendant shutdown is unproved. Structural validator
+units and focused Pester checks do not certify native application acceptance.
+Current-build human checks are recorded separately in M3-T01-human.md/json;
+these tests do not certify future package bytes, PDF rendered fidelity or CI.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.
