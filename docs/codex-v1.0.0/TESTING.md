@@ -71,6 +71,17 @@ original/extraction guards, fixtures/oracles and evidence are unchanged.
 
 ## Risk-based execution
 
+M1-T06 adds `--layer diagnostics` as the eighth full stage. Generated flat,
+zero-page, empty, corrupt, truncated and outlined documents exercise structured
+results, no-plan distinctions and zero-output failures. Actual PS5.1 and PS7
+handler probes validate category-specific messages, permitted choices, explicit
+decisions and rejection of malformed or conflicting protocol records. The
+current exit codes remain 0/1/55 pending the final M3 CLI contract. Safe process
+draining, native argument preservation and final failure propagation are narrow
+console integration checks; they do not certify Explorer, conversion, full
+interactive UX or output transactions. See `tests/diagnostics/README.md` and the
+task's actual evidence for executed bounds and limits.
+
 M1-T05 adds `--layer plan` as the seventh full stage. Structural cases test the
 shared coverage validator; all-mode prepared previews execute through the real
 writer and are reopened for exact filename/range/physical-page identity parity.

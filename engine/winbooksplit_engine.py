@@ -4,6 +4,7 @@ import sys
 import os
 import re
 import logging
+import json
 from collections.abc import Mapping
 from dataclasses import dataclass
 from hashlib import sha256
@@ -527,10 +528,41 @@ def execute_split(prepared, output_dir):
                     "written_count": len(outputs), "outputs": outputs})
 
 
-def split_pdf(input_path, output_dir, mode, manual_data=None):
+def _split_result(mode, status, code, message, warnings=(), execution=None):
+    """One explicit outcome; choices are data and never execute a fallback."""
+    fallback = ()
+    if status == "no_plan":
+        fallback = ("1", "manual") if code == "no_bookmarks_at_level" and mode == "2" else ("manual",)
+    return _freeze({"protocol": "winbooksplit.result", "version": 1, "mode": mode,
+                    "status": status, "code": code, "message": message, "warnings": warnings,
+                    "fallback_modes": fallback, "exit_code": 0 if status == "success" else
+                    55 if status == "no_plan" else 1,
+                    "written_count": execution["written_count"] if execution is not None else 0,
+                    "execution": execution})
+
+
+def _planning_failure(mode, error):
+    warnings = getattr(error, "warnings", ())
+    if isinstance(error, BookmarkPlanError) and error.code in {
+            "no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"}:
+        status, code = "no_plan", error.code
+    elif isinstance(error, (ManualPlanError, BookmarkPlanError, PlanError)):
+        code = error.code
+        status = "invalid_input" if code in {"invalid_document", "invalid_outline",
+                                             "invalid_start_pages", "invalid_mode"} else "error"
+    else:
+        status, code = "read_error", "unreadable_document"
+    return _split_result(mode, status, code, str(error), warnings)
+
+
+def run_split(input_path, output_dir, mode, manual_data=None):
+    """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
         prepared = prepare_split(input_path, mode, manual_data)
         plan = preview_plan(prepared)
+    except Exception as error:
+        return _planning_failure(mode, error)
+    try:
         log_bookmark_warnings(plan["warnings"])
         if mode == "manual":
             for notice in plan["notices"]:
@@ -538,20 +570,37 @@ def split_pdf(input_path, output_dir, mode, manual_data=None):
             log(f"[*] Manual Split Points (Page #): {list(plan['normalized_inputs']['starts'])}")
         else:
             log(f"[*] Found {len(plan['entries'])} sections based on Level {mode} bookmarks.")
-        return execute_split(prepared, output_dir)
-    except BookmarkPlanError as error:
-        log_bookmark_warnings(error.warnings)
-        log(f"[ERROR] {error.code}: {error}")
-        if error.code in {"no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"}:
-            log("[NO_BOOKMARKS_FOUND]")
-            sys.exit(55)
-        sys.exit(1)
-    except (ManualPlanError, PlanError) as error:
-        log(f"[ERROR] {error.code}: {error}")
-        sys.exit(1)
+        execution = execute_split(prepared, output_dir)
+        if execution["written_count"] < 1 or not execution["outputs"]:
+            raise PlanError("invalid_execution", "The writer produced no sections.")
+        return _split_result(mode, "success", "split_complete", "PDF split completed.",
+                             plan["warnings"], execution)
+    except PlanError as error:
+        return _split_result(mode, "error", error.code, str(error), plan["warnings"])
     except Exception as error:
-        log(f"[CRITICAL] Could not complete PDF split: {error}")
-        sys.exit(1)
+        return _split_result(mode, "write_error", "output_write_failed", str(error), plan["warnings"])
+
+
+def serialize_result(result):
+    """JSON cannot encode frozen mappings directly; detach only for serialization."""
+    def thaw(value):
+        if isinstance(value, Mapping):
+            return {key: thaw(item) for key, item in value.items()}
+        if isinstance(value, (list, tuple)):
+            return [thaw(item) for item in value]
+        return value
+    return json.dumps(thaw(result), ensure_ascii=True, separators=(",", ":"))
+
+
+def split_pdf(input_path, output_dir, mode, manual_data=None):
+    result = run_split(input_path, output_dir, mode, manual_data)
+    if result["status"] != "success":
+        log_bookmark_warnings(result["warnings"])
+        log(f"[ERROR] {result['code']}: {result['message']}")
+    log(serialize_result(result))
+    if result["exit_code"]:
+        raise SystemExit(result["exit_code"])
+    return result["execution"]
 
 def write_slice(reader, start, end, out_path):
     log(f"    [Writing] {os.path.basename(out_path)}")
@@ -565,7 +614,13 @@ def write_slice(reader, start, end, out_path):
 def main():
     # Preserve CLI configuration while keeping callable imports free of it.
     logging.getLogger("pypdf").setLevel(logging.ERROR)
-    sys.stdout.reconfigure(line_buffering=True)
+    sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace", line_buffering=True)
+    sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
+    if len(sys.argv) not in {4, 5}:
+        mode = sys.argv[3] if len(sys.argv) > 3 else ""
+        log(serialize_result(_split_result(mode, "invalid_input", "invalid_arguments",
+                                          "Provide input, output, mode and at most one manual start-pages argument.")))
+        return 1
     mode = sys.argv[3]
     manual_data = sys.argv[4] if len(sys.argv) > 4 else None
     split_pdf(sys.argv[1], sys.argv[2], mode, manual_data)

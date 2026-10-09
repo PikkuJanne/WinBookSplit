@@ -262,7 +262,13 @@ class Level2PlanTests(unittest.TestCase):
                 writer.assert_not_called()
                 messages = " ".join(str(call.args[0]) for call in log.call_args_list)
                 self.assertIn(code, messages)
-                self.assertEqual("[NO_BOOKMARKS_FOUND]" in messages, exit_code == 55)
+                self.assertNotIn("[NO_BOOKMARKS_FOUND]", messages)
+                payloads = [json.loads(str(call.args[0])) for call in log.call_args_list
+                            if str(call.args[0]).startswith("{")]
+                self.assertEqual(len(payloads), 1)
+                self.assertEqual(payloads[0]["protocol"], "winbooksplit.result")
+                self.assertEqual(payloads[0]["code"], code)
+                self.assertEqual(payloads[0]["exit_code"], exit_code)
 
 
 class Level2SyntheticPdfTests(unittest.TestCase):
