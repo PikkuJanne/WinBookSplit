@@ -39,3 +39,31 @@ Retain the current tested compatibility options initially (including evaluating 
 `-KeepConvertedPdf` copies/retains the generated full PDF inside the successful run folder, never beside the input. Without it, remove the intermediate after success. Interactive manual selection may open the converted PDF only at the user's request; its preview location must remain valid until input is finished. Plan-only/preview runs may create temporary conversion data but never chapter outputs; document this distinction.
 
 Keep processing offline after dependencies are installed. Do not promise a sandbox: pypdf and Calibre parse untrusted documents with the user's privileges. Avoid fetching linked external ebook resources; test and document actual converter behavior. Never add DRM-removal plugins.
+
+## Current M2-T03 implementation
+
+PS keeps original ebook metadata and supports CalibrePath, KeepConvertedPdf and
+ConversionTimeout (default 1800, range 1..86400). An explicit ordinary converter or
+three old installation locations are available; broader trusted PATH/version/import
+preflight remains M2-T04. PDF processing never loads conversion.
+`prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_path,
+keep_converted_pdf=False, conversion_timeout=1800)` uses a separate flat
+owned workspace and a parent-created registered PDF identity. Valid nonempty
+unencrypted positive-page bytes are captured before known-file cleanup and the
+existing shared immutable plan returns. Original ebook identity is separate from
+PDF reader_snapshot; naming uses original stem. Conversion records exact argv/
+tablet profile/actual status/bounded streams/identities/page-content vector and
+workspace cleanup. Optional exact WinBookSplit_Converted.pdf has separate manifest
+filename/hash/size/page_count; it is not a chapter and publication rechecks it.
+
+Child launches suspended into an owned kill-on-close Windows job before verified
+thread resume; unbuffered concurrent streams keep 64 KiB tails/counts/truncation.
+Failure/timeout/controlled KeyboardInterrupt requires proved stopped-tree before
+cleanup. Unknown/replaced/reparse members/unproved stop retain stage and primary
+cause. No recursive external Calibre-temp adoption. failure.json preserves actual
+bounded conversion context when safe record creation runs. PDF-only schemas and
+0/1/55 remain. Callable preview has no file to open; M3 interactive opt-in file
+preview must receive its own safe lifetime until input ends. See T03 evidence for
+actual Calibre 9.15.0/tablet acceptance with three EPUB/four AZW3 physical pages.
+No GUI/Explorer/network sandbox, DRM removal, broad compatibility or rendered-fidelity
+claim follows.

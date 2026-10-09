@@ -459,7 +459,7 @@
         "Conversion validation",
         "Neighbor-preservation and retention tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M2-T02"
       ],
@@ -468,8 +468,11 @@
         "AC-041",
         "AC-042"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M2-T03-conversion.md",
+        "evidence/M2-T03-conversion.json"
+      ],
+      "implementation_commit": "0128377099e47f51bfad7887f421b52999d522ad",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
