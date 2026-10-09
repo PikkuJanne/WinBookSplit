@@ -154,7 +154,8 @@ receipts remain unchanged. Explorer/Calibre/CI/package gates remain open.
 ## Current M2-T03 conversion acceptance
 
 Conversion/full requires both actual hosts and explicit pinned Calibre 9.15.0;
-the full route now has eleven stages. PDF-only target layers remain converter-free.
+the T03 full route had eleven stages; T04 adds runtime acceptance as the twelfth.
+PDF-only target layers remain converter-free.
 See tests/conversion/README.md and evidence/M2-T03-conversion.md/json. Eight real
 whole-PS format/host/retention runs, two independently inspected captured-reader
 controls, eight actual native-zero invalid controls and actual BAT dependency
@@ -166,7 +167,42 @@ fullPDF; inherited PDF guards stay strict. Original/read-only ebook/neighbor has
 manifests, retained bytes, policies and known cleanup are required. Scoped native
 fake-child and parent/grandchild timeout/injected-cancel checks supplement acceptance.
 These do not certify human Ctrl+C/Explorer/GUI, expanded compatibility, remote
-resources/DRM, package or release. Successful BAT discovery remains M2-T04.
+resources/DRM, package or release. Successful portable BAT discovery is separately
+required and observed in M2-T04 runtime acceptance.
+
+## Current M2-T04 runtime acceptance
+
+`--layer runtime` requires both actual distinct supported hosts and the explicit
+real pinned Calibre executable; full now has twelve stages. See
+`tests/runtime/README.md` and `evidence/M2-T04-runtime.md/json`. The exact 33 actual
+whole-PS/BAT cases cover ten Python/pypdf refusals, eight runtime selections, two
+book/CWD/PYTHONPATH shadow controls, two PDF-without-Calibre successes, six converter
+refusals and five real portable EPUB successes including unchanged BAT PATH.
+Missing/wrong/non-Python/real unsupported 3.14.7 candidates reject before output;
+explicit/app-venv/multiple-PATH/authored native launcher-listing selections use
+actual supported Python/pypdf and isolated `-I -B` engine execution.
+
+The independent strict validator requires exact IDs, actual host/version/argv,
+meaningful native probe/reason and chosen paths, no late output/conversion on
+dependency failure, complete physical-page/content/manifest parity, read-only
+source/neighbor identity/hash/attribute parity, effective decoy positive controls,
+absent acceptance markers and known ownership cleanup. Promised missing/malformed
+receipts fail. Four synthetic validator tests cover 47 contradictions plus missing/
+duplicate cases; they are structural checks, not actual Windows acceptance.
+Full Pester includes existing nine plus 19 runtime tests per host. The deliberate
+Pester failure still returns nonzero after later native success. Static/syntax
+gates include the helper; legacy application findings remain observations.
+
+Authored py listing controls do not claim actual manager registration/install.
+Wrong pypdf alters only an owned copied package declaration; the real pinned dev
+package remains unchanged. Real 3.14.7 rejection is tested; broader unsupported
+runtime compatibility is not. ENGINE logs are launch intent; actual frames and
+reopened chapter PDFs prove execution. Parent-only preflight timeout never claims
+stopped descendants or authorizes cleanup. Existing owned-job conversion remains
+separate; M2-T05 owns remaining engine supervision/UTF-8 and cumulative review.
+Human Explorer/clean-OS/CI/package/release checks remain open. Earlier failed/partial
+receipts remain distinct, including two rejected partial workspace removals outside
+Git; actual application output and final suite cleanup are checked separately.
 
 ## CI
 

@@ -10,7 +10,7 @@ A version command must work without document/dependency discovery. Before any co
 
 Choose/test minimum and selected Python versions during M0; helper Python 3.10+ is not automatically the application support matrix. Keep runtime and developer dependency files separate. Pin a reviewed working dependency set; document how it was chosen and how to update it safely. Check current package/runtime advisories before release without labeling an unperformed scan 'passed'. User installation/network access is an explicit setup action. Source [S3] documents current pypdf installation requirements; do not assume 'all Python 3'.
 
-M0-T03 freezes regular x64 CPython 3.14.8 only (minimum and selected are the same), plain pypdf 6.19.0 and the Calibre 9.15.0 conversion test target. See `../SUPPORT_AND_SETUP.md` and the root hashed runtime/dev requirements. These isolated dependency checks do not prove the original launcher's discovery or later Windows/conversion acceptance; M2-T04 must integrate and enforce the recorded selection.
+M0-T03 freezes regular x64 CPython 3.14.8 only (minimum and selected are the same), plain pypdf 6.19.0 and Calibre 9.15.0. See `../SUPPORT_AND_SETUP.md` and the root hashed runtime/dev requirements. Its isolated setup observations are historical; the M2-T04 checkpoint below implements and tests selection in actual launchers.
 
 ## Process supervision
 
@@ -41,3 +41,51 @@ wrappers are recorded; no Explorer or ordinary discovery/all-entrypoint claim.
 No/multiple-input and final noninteractive/CLI behavior still belongs to M3;
 conversion discovery/streams remain scheduled M2 work. See
 `../evidence/M2-T02-paths.md` and `../../../tests/paths/README.md`.
+
+## M2-T04 implementation checkpoint
+
+`engine/WinBookSplit.Runtime.ps1` exposes `Resolve-WinBookSplitRuntime` with
+ApplicationRoot, PythonPath, DocumentPath and TimeoutSeconds (default 10, range
+0.05..60). It returns selected Path/Version/Source, PypdfVersion/PypdfPath,
+strict probe Details, native Probe, Arguments and Attempts. The PS entrypoint
+appends PythonPath after earlier parameters and runs preflight before console
+reservation, conversion or writing. The same absolute interpreter executes the
+existing engine with `-I -B`. Standalone version/CLI changes remain M3.
+
+Precedence is explicit PythonPath, application `.venv\Scripts\python.exe`, ordinary
+validated `py.exe -0p` read-only listing, then safe PATH python.exe. Invalid explicit
+selection or an existing broken/reparse .venv fails without substitution. Empty/
+relative PATH entries and book/unrelated-CWD descendants are excluded. Ordinary
+absolute long paths and ancestors are checked; reparse/short aliases reject, and
+automatic executable candidates require one hard link. Explicit trusted paths
+may have hard links but still reject short/reparse paths. Canonical checks do not
+authenticate executables or sandbox another process running as the same user.
+
+The fixed Python probe uses `-I -B -c` and strictly validates one object frame:
+regular GIL Windows AMD64 64-bit CPython 3.14.8, pypdf 6.19.0 distribution metadata,
+site-packages import/all loaded pypdf module origins, isolation and no bytecode.
+No input is interpolated into code. Launcher listing disables automatic installs;
+processing never installs/registers runtimes. Guidance uses the exact interpreter's
+`-I -m pip` and hashed requirements. Selected paths/versions/imports are printed
+and logged; structured `[DEPENDENCY-ERROR]` attempts preserve rejection reasons.
+`[ENGINE]` is launch intent; actual result frames and reopened PDFs prove execution.
+
+`Resolve-WinBookSplitConverter` takes ApplicationRoot, CalibrePath, DocumentPath
+and the same probe timeout. Only ebooks call it: explicit converter, safe PATH,
+then known locations. It validates native zero and the exact 9.15.0 banner with
+the optional exact real creator line. PDF skips even an invalid CalibrePath.
+Real portable explicit/PATH selection and unchanged BAT PATH processing pass.
+
+The narrow native compatibility probe launches without a shell, uses literal
+Windows argv, explicit UTF-8, concurrent background byte drains and 64 KiB tails
+per stream with total/truncation observations. Deadline covers parent exit and
+pipe EOF. Timeout kills/waits only the exact launched parent with bounded grace;
+DescendantsStopped is null, never an invented proof. Inherited-pipe reader threads
+may remain until EOF; no filesystem cleanup is authorized from that probe. The
+existing owned-job Calibre conversion remains separate. Remaining engine bounds,
+deadline/tree/cancel/UTF-8 work and cumulative M2 review belong to M2-T05.
+
+See `../evidence/M2-T04-runtime.md/json` and `../../../tests/runtime/README.md`.
+Actual host/process, complete physical-page/content, source/neighbor/decoy,
+manifest/policy/known cleanup acceptance passes; broader compatibility, human
+Explorer, CI, package and release gates remain open.

@@ -22,7 +22,7 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths` or `--layer conversion`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion` or `--layer runtime`
 for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
@@ -34,10 +34,10 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The eleven-stage full layer runs this manual regression route, corrected
+run. The twelve-stage full layer runs this manual regression route, corrected
 Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions,
-path acceptance and real conversion after the units and both shell stages.
-Conversion/full requires an explicit absolute converter with the pinned Calibre
+path acceptance, real conversion and dependency preflight after the units and both shell stages.
+Conversion/runtime/full requires an explicit absolute converter with the pinned Calibre
 9.15.0 bytes. PDF-only targeted layers do not require or probe Calibre.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
@@ -105,8 +105,16 @@ AZW3's fourth inline-contents page). Two direct API controls independently inspe
 the captured reader and prohibit replanning/reopening. Eight actual native
 zero-exit controls reject missing, empty, corrupt and zero-page output under both
 hosts; the unchanged BAT launcher preserves a missing-converter failure.
-Successful BAT converter discovery remains M2-T04. Exact run/manifest members and
+The runtime layer covers successful BAT converter discovery. Exact run/manifest members and
 held cleanup are required. See `conversion/README.md` for observation limits.
+
+The runtime layer checks AC-043/044/045 under both actual hosts: dependency
+rejections before console/conversion/output writes, explicit/application-venv/
+launcher/PATH interpreter selection, isolated imports, excluded book/CWD decoys,
+PDF-only operation without Calibre, and trusted nonstandard converter discovery.
+Actual native statuses, selected paths/versions/import origins, source/neighbor
+preservation, complete output contents, stored policies and known cleanup are
+required. See `runtime/README.md` for the exact executed cases and scoped limits.
 
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after

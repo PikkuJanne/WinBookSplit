@@ -43,9 +43,11 @@ Keep processing offline after dependencies are installed. Do not promise a sandb
 ## Current M2-T03 implementation
 
 PS keeps original ebook metadata and supports CalibrePath, KeepConvertedPdf and
-ConversionTimeout (default 1800, range 1..86400). An explicit ordinary converter or
-three old installation locations are available; broader trusted PATH/version/import
-preflight remains M2-T04. PDF processing never loads conversion.
+ConversionTimeout (default 1800, range 1..86400). M2-T04 now validates the exact
+Python/pypdf before any reservation and selects exact Calibre 9.15.0 through
+explicit ordinary paths, trusted PATH, then known installations, only for ebooks.
+PDF processing never loads conversion or probes Calibre. See the runtime evidence
+and PROCESS_AND_PATHS.md for native probe scope and trust limits.
 `prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_path,
 keep_converted_pdf=False, conversion_timeout=1800)` uses a separate flat
 owned workspace and a parent-created registered PDF identity. Valid nonempty

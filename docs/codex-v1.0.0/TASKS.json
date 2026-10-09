@@ -495,7 +495,7 @@
         "Exact-version reporting",
         "Missing/wrong dependency tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M2-T03"
       ],
@@ -504,8 +504,11 @@
         "AC-044",
         "AC-045"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M2-T04-runtime.md",
+        "evidence/M2-T04-runtime.json"
+      ],
+      "implementation_commit": "e9bcef45d826a5f94679c9e24a0cc67dd6017e43",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

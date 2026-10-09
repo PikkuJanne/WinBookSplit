@@ -11,11 +11,10 @@ A "drop-and-forget" PDF/AZW3/EPUB decomposition tool for technical manuals, text
 - PDF Output: Publishes a new validated run folder under Documents or the explicit output base; earlier runs and source PDFs remain unchanged.
 
 **Requirements**
-- Windows 10 or 11
-- Windows PowerShell 5.1 (built-in) or PowerShell 7+
-- Python 3.x (Must be installed and added to Windows PATH)
-- pypdf library (pip install pypdf)
-- Calibre (Required for AZW3/EPUB conversion support)
+- Windows 11 x64; Windows 10 remains unverified
+- Windows PowerShell 5.1 or the tested PowerShell 7.6.5
+- Regular x64 CPython 3.14.8 and plain pypdf 6.19.0
+- Calibre 9.15.0 for AZW3/EPUB; PDF-only processing does not require Calibre
 
 **Nice to have**
 - A basic understanding of your PDF's internal structure so you can decide between splitting by main chapters (Level 1) or sub-sections (Level 2) :)
@@ -29,14 +28,14 @@ Place these together (e.g. C:\Tools\WinBookSplit\):
 - WinBookSplit.bat
   - Simple launcher: enables drag-and-drop functionality for PDF, AZW3, and EPUB files.
 - pypdf
-  - The engine: This Python library handles the heavy lifting of PDF binary manipulation. Install via pip.
+  - The engine: Install the hashed requirements with the selected interpreter's `-m pip` during explicit setup.
 - Calibre (ebook-convert.exe) 
-  - External engine: Required for ebooks; use a standard installation or select its executable with -CalibrePath.
+  - External engine: Required for ebooks; select a trusted executable with `-CalibrePath`, or use a validated standard/PATH installation.
 
 **Installation**
 1. Copy the script files to a folder of your choice, e.g.: C:\Tools\WinBookSplit\
-2. Open your terminal and run: pip install pypdf
-3. Ensure Calibre is installed on your system.
+2. Follow [the isolated setup instructions](docs/codex-v1.0.0/SUPPORT_AND_SETUP.md) to prepare a fresh application `.venv` with the exact Python/pypdf pins. Installation is an explicit setup action; processing never installs packages.
+3. Install Calibre 9.15.0 separately if you process ebooks.
 4. (Optional) Create a desktop shortcut to WinBookSplit.bat and name it something friendly: "Book Splitter"
 
 **Usage**
@@ -63,6 +62,21 @@ For PDF runs, an existing directory can be selected as the output base:
 .\WinBookSplit.ps1 -InputFile "C:\Books\Book [1].PDF" -OutputDirectory "D:\Reading"
 ```
 
+Use `-PythonPath` to select a trusted absolute interpreter path explicitly:
+
+```powershell
+.\WinBookSplit.ps1 -InputFile "C:\Books\Book.pdf" -PythonPath "C:\Tools\WinBookSplit\.venv\Scripts\python.exe"
+```
+
+Before creating console records, converting or splitting, the application checks
+regular Windows x64 CPython 3.14.8 and imports pypdf 6.19.0 with that exact
+interpreter. Selection prefers `-PythonPath`, the application `.venv`, then
+validated launcher/PATH candidates. An invalid explicit selection or
+existing broken `.venv` fails with setup guidance; it never silently substitutes
+another runtime. The engine uses the same absolute path with `-I -B`, excluding
+book/current-directory modules, user site packages and Python environment hooks.
+The console and log report the selected executable, versions and pypdf origin.
+
 For EPUB/AZW3, select an existing converter explicitly when needed:
 
 ```powershell
@@ -87,9 +101,14 @@ known owned files and leaves a separate failure record; unexpected/replaced file
 are preserved with a reported cleanup failure. A hard stop can leave a marked
 stage; do not delete other runs or input files when inspecting it.
 
-Calibre discovery and dependency preflight are still being hardened in the next
-task. The batch launcher currently uses standard Calibre locations; the explicit
-path and retention options are available through the PowerShell command above.
+Calibre is resolved and version-checked only for ebooks. A trusted absolute
+`-CalibrePath` can select a nonstandard installation; automatic discovery checks
+standard locations and safe absolute PATH entries. Empty/relative entries and
+executables next to the book or in an unrelated current directory are excluded.
+Discovery also refuses reparse paths, short-path aliases and automatic hard-linked
+executables. Use an ordinary long absolute executable path or the prepared venv.
+The batch launcher can use the application `.venv` and trusted converter PATH.
+Explicit path and retention options are available through PowerShell above.
 The acceptance books contain only original local resources. Calibre and pypdf
 run with your privileges; these checks do not provide a document sandbox or
 establish behavior for ebooks with remote resources. Manual preview/confirmation
@@ -131,13 +150,13 @@ created directory; this does not claim arbitrary long-path or UNC support.
 
 **Troubleshooting**
 - "Calibre not found" 
-  - Select ebook-convert.exe with -CalibrePath in PowerShell, or install Calibre in a standard location.
+  - Select trusted Calibre 9.15.0 `ebook-convert.exe` with `-CalibrePath`, or provide a validated standard/PATH installation. PDF-only processing skips this check.
 - "AUTO-SPLIT FAILED: No Bookmarks Found"
   - The PDF has no internal Table of Contents metadata. Type "Y" when prompted to enter page numbers manually.
 - "Python not found"
-  - Ensure Python is installed and the "Add to PATH" checkbox was ticked during installation.
+  - Select regular Windows x64 CPython 3.14.8 with `-PythonPath`, or follow the isolated setup instructions for the application `.venv`.
 - "ModuleNotFoundError: No module named 'pypdf'"
-  - The required library is missing. Run 'pip install pypdf' in your command prompt.
+  - Use the exact selected interpreter's `-m pip install --require-hashes --only-binary=:all: -r requirements.txt` during explicit setup; avoid an unrelated `pip` command.
 
 **Intent & License**
 Personal helper for modularizing heavy technical documentation and CS textbooks. "I just want to read Chapter 5 on my tablet without loading a 500MB PDF." Provided as-is, without warranty. Use at your own risk. Feel free to modify the logic to fit your specific study workflow.

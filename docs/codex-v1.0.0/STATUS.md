@@ -1,13 +1,42 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
-M0/M1 reviewed/merged; cumulative M2 remains open. Completed through **M2-T03**.
-Next dependency-ready task: **M2-T04 — Implement interpreter and converter preflight**.
+M0/M1 reviewed/merged; cumulative M2 remains open. Completed through **M2-T04**.
+Next dependency-ready task: **M2-T05 — Supervise subprocesses and UTF-8 streams**.
 Branch/upstream: codex/winbooksplit-v1-m2 / origin/codex/winbooksplit-v1-m2.
 Origin: https://github.com/PikkuJanne/WinBookSplit.git.
-C `0128377099e47f51bfad7887f421b52999d522ad` is clean/live **SYNCED** at `2026-10-09T11:06:07.454548+00:00` on `codex/winbooksplit-v1-m2`.
-[Draft continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/13); E receives its own external/PR/thread push receipt.
-No public release; freshly inspected tags/releases empty on 9 October 2026.
+C `e9bcef45d826a5f94679c9e24a0cc67dd6017e43` is clean/live **SYNCED** at `2026-10-09T12:19:12.811580+00:00` on `codex/winbooksplit-v1-m2`.
+[Draft continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/14); E receives its own external/PR/thread receipt.
+No public release; fresh tags/releases empty at this task's observed audit.
+
+## M2-T04 evidence and limits
+
+[Runtime evidence](evidence/M2-T04-runtime.md) and [machine record](evidence/M2-T04-runtime.json)
+satisfy AC-043/044/045. Explicit/application venv/read-only py listing/trustedPATH
+select exact regular Windows x64 CPython 3.14.8/pypdf 6.19.0 and isolated -I -B engine.
+Missing/broken/shadowed/wrong dependencies reject before console/conversion/output;
+precise selected paths/version/imports/setup are reported. PDF never probes Calibre;
+ebooks validate explicit/trustedPATH/known-location9.15.0 including portableinstall.
+No auto-install/registration/elevation/globalpolicy/PATH/settings change.
+
+Final unrelated-CWD twelve-stage gate passed 186 Python tests, 28 Pester tests per actual supported host and all nine inherited/current regression stages. Tested 67-path raw digest: `8ea3467230d88e2438b2daa7da6b61ea79465ad3e177e083a57d1a00e4f41e66`. All tested raw bytes match clean C; no clean-C full rerun is claimed.
+Runtime 33 actual cases pass:16 early refusals,17 successes/51 chapter PDFs, five real
+portable EPUB successes including unchanged BAT and two authored listing controls.
+Complete physical page/content/manifest/source/neighbor/decoy/policy/known cleanup
+checks pass. Fresh pinned venv/imports and all 66 tool hashes pass. Focused19 runtime
+Pester/host and four synthetic validator tests have honest separate scope. Failed
+full/focused/development attempts and corrected defects remain separate receipts.
+
+PR13 was already merged at 11:23:44Z at main/merge c7af98e8; normal fast-forward
+reconciled main/M2 without reset or milestone acceptance inference. Newdraft continues
+T04 only; no merge/tag/release. Earlier sections below are historical receipts.
+Preflight bounds parent/EOF/streams but DescendantsStopped=null; conversion owned job
+supervision is unchanged. Authored listing is not actual manager registration;
+wrong pypdf declaration is an ownedcopy. Trusted probe is not authentication/sandbox.
+Two earlier partial sample workspaces remain external after rejectedcleanup; application
+outputs and final suite known cleanup pass separately. M2-T05 owns remaining engine
+supervision/UTF-8/cumulative review; M3 version/CLI/preview and remaining fidelity/
+Explorer/PDF features/CI/package/publicrelease gates remain open. 0/1/55 persists.
 
 ## M2-T03 evidence and limits
 

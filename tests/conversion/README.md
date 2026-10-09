@@ -25,6 +25,9 @@ two direct API captured-reader controls, eight zero-exit native converter contro
 missing-converter failure. It supplies scripted manual starts `2,3`; conversion
 uses exactly `--output-profile tablet`. These fixtures demonstrate the reviewed
 profile's actual behavior without claiming that it improves every ebook layout.
+The BAT failure must contain the actual `converter_not_found` dependency record
+and exact-version guidance, return 1, and create no console or engine result.
+It preserves the source and neighbor; successful discovery is tested separately.
 
 The EPUB yields three physical pages. The genuine AZW3 has three chapters plus
 an inline table of contents and yields four physical pages. All pages, including
@@ -47,8 +50,8 @@ publication checks accept the explicit retained member; earlier PDF-only helper
 guards remain strict. Stored execution policies and immutable historical sources,
 fixtures and oracles remain unchanged.
 
-Successful BAT converter discovery is deferred to M2-T04: the recorded portable
-path is outside the three old discovery locations, and the immutable BAT cannot
-forward the new PowerShell flags. These checks do not certify Calibre GUI,
+Successful BAT converter discovery is separately covered by the runtime
+acceptance layer with the actual portable converter on a controlled trusted
+PATH. The batch launcher remains unchanged. These checks do not certify Calibre GUI,
 Explorer drag/drop, arbitrary ebook resources, a network sandbox, DRM handling or
 release packaging. Fixture generation alone is not application acceptance.
