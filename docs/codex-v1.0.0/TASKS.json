@@ -386,7 +386,7 @@
         "Ownership-safe cleanup design",
         "Failure/collision tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T06"
       ],
@@ -396,8 +396,11 @@
         "AC-034",
         "AC-035"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M2-T01-output.md",
+        "evidence/M2-T01-output.json"
+      ],
+      "implementation_commit": "a58ce43866331da42e32f80521a24c4893ab58f5",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

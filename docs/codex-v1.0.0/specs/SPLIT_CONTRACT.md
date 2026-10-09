@@ -32,9 +32,16 @@ execution safely uses the captured original PDF. Preparing a different source
 or newly converted PDF creates a new job. Execution rejects a replaced plan,
 a reader from another job or altered captured stream before writing. This is
 source binding, not a sandbox against arbitrary Python memory manipulation.
-All planned paths are checked for source aliasing/existing outputs before the
-first writer; exclusive file creation also refuses later collisions. Complete
-staging, rollback, directory ownership and publication remain later tasks.
+At M1-T05, planned paths were checked for source aliases/existing outputs before
+the first writer, with exclusive creation refusing later collisions. M2-T01 now
+treats `output_dir` as an existing base and reserves a unique owned stage. Every
+slice is reopened for its expected positive count; exact manifest membership,
+sizes and hashes are validated before a Windows same-volume no-replace rename
+publishes a unique final child. Existing base files and earlier runs are preserved.
+The result adds run/final-directory/manifest identity and each PDF's size/hash.
+Ownership-authenticated cleanup removes only this run's known held objects;
+unexpected/reparse members are retained. See `OUTPUT_AND_CONVERSION.md` and
+`../evidence/M2-T01-output.md` for failure handling and tested native limits.
 
 ## Manual starts
 
