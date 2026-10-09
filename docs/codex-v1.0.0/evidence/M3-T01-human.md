@@ -1,8 +1,10 @@
-# M3-T01 current-build human checks — partial
+# M3-T01 current-build human checks — complete
 
-Human testing is **not complete**. Explorer, visual, repeat, fallback and error
-checks passed; four of six physical Ctrl+C controls passed. Two fresh BAT controls
-remain NOT RUN. [Machine record](M3-T01-human.json) contains the raw receipt hashes.
+The current-build human checks are **complete**. Explorer, visual, repeat, fallback
+and error checks passed; all six physical Ctrl+C controls passed across the four
+original PowerShell cases and two fresh BAT retries. The user confirmed: “Both
+retries passed. Human part of testing is now absolutely done”.
+[Machine record](M3-T01-human.json) contains the distinct raw receipt hashes.
 
 ## Source and environment
 
@@ -66,6 +68,8 @@ human pass is inferred from those earlier failed attempts.
 | PS7 conversion control | 130 | PASS |
 | Original BAT engine | 255 | Failed launcher check; application cancellation was 130 |
 | Original BAT conversion | Not launched | NOT RUN |
+| Fresh BAT engine retry | 130 | PASS |
+| Fresh BAT conversion retry | 130 | PASS |
 
 The user initially reported six successes, then explicitly answered **“Y, then
 Enter”** when asked about CMD's termination prompt. The saved series contains only
@@ -86,19 +90,33 @@ converter control, with finite 120-second parent/child holds. They do not prove
 physical cancellation of real Calibre. The observer sends no signals or keyboard
 events and never automatically kills the application target.
 
-## Next action and limits
+## Completed BAT retry and limits
 
-Fresh `<human-kit>/cancellation-bat-retry/Start-Cancel-controls.cmd` runs only
-BAT-engine and BAT-conversion. Preparation, Python compile, ASCII CRLF CMD checks,
-PowerShell parsing, native converter compilation and independent provenance review
-passed. Both fresh human cases remain NOT RUN. Press Ctrl+C once after READY; at
-CMD's termination prompt type **N**, then Enter. After both measured native exits
-are 130, confirm physical actions with YES in the main window. Verify both saved
-rows and human-report.json before declaring completion.
+Fresh `<human-kit>/cancellation-bat-retry/Start-Cancel-controls.cmd` ran only
+BAT-engine and BAT-conversion. Both saved native exits and final stdout outcomes
+are 130. The operator's separate `human-report.json`, confirmed at
+`2026-10-09T16:47:29.813297+00:00`, attests physical Ctrl+C in both READY windows
+and **N**, then Enter at CMD's termination prompts. The latest user message
+confirms both retries passed.
+
+Read-only independent receipt/disk review passed: both real console measurements,
+exact source/default/helper/runtime hashes, stopped owned parent/descendants,
+completed streams, no chapter publication, unchanged source/neighbor/prior
+identities and content, retained marked stages and unrelated Python survival at
+measurement. All 85 tested repository paths still match the sealed digest.
+The review compares recorded process observations; it does not adopt later reused
+numeric PIDs. Original failed/NOT_CONFIRMED receipts remain byte-identical.
+The converter-stage empty PDF is retained incomplete output, not a successful PDF.
+
+`completed-retry-independent-review-v2.json` records the successful audit and exact
+retained files. Its preserved first review had an overbroad “no processes” field;
+v2 corrects it to no **application** processes/signals because read-only `git show`
+processes did run. No application was relaunched or human action automated.
 
 Runtime source was unchanged; no application regression rerun is claimed by this
 documentation supplement. Structural plan and whitespace checks gate the checkpoint.
-M3-T02 CLI, M3-T03 UX, wider PDF fidelity, CI, exact-package acceptance and public
-release remain open. PR16 merged at main `981894db7a91d7c2d3f0e3af258323ddeef38106`;
+Next is M3-T02 CLI. M3-T03 UX, wider PDF fidelity, CI, exact-package acceptance and
+public release remain open; this current-build completion does not certify future
+package bytes. PR16 merged at main `981894db7a91d7c2d3f0e3af258323ddeef38106`;
 normal fast-forward reconciliation preserved history. This supplement's own commit,
 push and live-sync receipt are recorded externally after they actually happen.

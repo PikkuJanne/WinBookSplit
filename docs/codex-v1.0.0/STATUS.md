@@ -2,8 +2,7 @@
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 reviewed/merged; M3 is complete through **M3-T01** only.
-Next action: finish the two BAT human Ctrl+C checks; then
-**M3-T02 — Add the small non-interactive CLI**.
+Next action: **M3-T02 — Add the small non-interactive CLI**.
 Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
 Origin: https://github.com/PikkuJanne/WinBookSplit.git.
 C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00`.
@@ -11,17 +10,19 @@ E/continuation draft PR receive their actual external/thread receipts after push
 recheck live state rather than treating this historical C receipt as a reset target.
 No public release; fresh observed tags/releases remain empty.
 
-## Current-build human checks — partial
+## Current-build human checks — complete
 
 [Human evidence](evidence/M3-T01-human.md) and [machine record](evidence/M3-T01-human.json)
 record the user-operated Explorer/visual/repeat/fallback/error checks on source
 E `9983191ed3105d0edfec35be19888190d5acca33`. These use synthetic fixtures and
 controlled dependency/output defaults; they are not final-package acceptance.
-Four physical Ctrl+C controls passed under PS5.1/PS7. BAT-engine reported application
-cancellation 130, but the operator answered Y to CMD's termination prompt, producing
-native 255. The series stopped before BAT-conversion. Keep the original failed
-attempt; a fresh two-case BAT retry requires N then Enter and remains NOT RUN.
-Human testing is not complete. No shipped runtime changes were needed.
+Four physical Ctrl+C controls passed under PS5.1/PS7. The fresh BAT engine and
+conversion retries both passed with native/final cancellation 130 and N then Enter
+at CMD's termination prompt. The saved operator receipt and this thread's user
+confirmation close the current-build human testing. Preserve the original BAT
+native-255 failure and unlaunched conversion case as historical evidence.
+No shipped runtime changes were needed. Exact-package acceptance remains a later
+release gate, separate from these completed current-build observations.
 
 PR16 is now merged at main `981894db7a91d7c2d3f0e3af258323ddeef38106`
 (`2026-10-09T15:03:08Z`). The M3 branch was normally fast-forwarded to that merge

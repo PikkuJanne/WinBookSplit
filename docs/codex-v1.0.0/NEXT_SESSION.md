@@ -1,11 +1,9 @@
-# Next session — finish human checks, then M3-T02
+# Next session — M3-T02
 
-Next action: finish **two BAT human Ctrl+C controls** in the fresh external
-`<human-kit>/cancellation-bat-retry` kit. At CMD's termination prompt type **N**,
-then Enter. Verify actual native 130, both receipt rows and the operator confirmation;
-combine them with the four earlier PS5.1/PS7 passes without changing failed receipts.
-See evidence/M3-T01-human.md/json. Do not mark all human checks complete yet.
-Then: **M3-T02 — Add the small non-interactive CLI**. Stop at this task boundary.
+Next action: **M3-T02 — Add the small non-interactive CLI**. Stop at this task boundary.
+The two fresh BAT human Ctrl+C retries passed with native/final cancellation 130;
+saved receipts and operator confirmation close the current-build human checks.
+See evidence/M3-T01-human.md/json; retain the original failed BAT attempt unchanged.
 M3-T01 C `b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e` is clean/live **SYNCED** at `2026-10-09T14:49:29.758828+00:00` on
 codex/winbooksplit-v1-m3. E and the continuation draft PR receive their actual external/
 thread receipts after push/creation. Recheck live branch/PR/main; preserve all existing
@@ -43,8 +41,8 @@ NonInteractive and plan-only Preview with disclosed ebook temporary conversion, 
 the existing planner/runtime. Cover AC-053/054/055/056 under both actual hosts and proposed
 commands. Existing interactive menus/version and binding failures are not finished CLI
 acceptance. M3-T03 owns remaining UX. Current-build Explorer/visual/repeat/fallback/
-error checks and four physical PowerShell Ctrl+C controls have passed; the two BAT
-controls still require their fresh retry. Later fidelity/CI/exact-package/release
+error checks and all six physical PS5.1/PS7/BAT Ctrl+C controls have passed,
+including the fresh two-case BAT retry. Later fidelity/CI/exact-package/release
 gates remain unrun. Automated private-console signals are not human checks.
 
 Retain source immutability/no-overwrite publication/held-identity known-object cleanup.

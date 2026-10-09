@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
   "task_id": "M3-T01",
-  "observed_at": "2026-10-09T16:38:14.591589Z",
-  "result": "PARTIAL_CURRENT_BUILD_HUMAN_CHECKS",
-  "human_testing_complete": false,
+  "observed_at": "2026-10-09T16:52:39.713898+00:00",
+  "result": "COMPLETE_CURRENT_BUILD_HUMAN_CHECKS",
+  "human_testing_complete": true,
   "source": {
     "copied_application_commit": "9983191ed3105d0edfec35be19888190d5acca33",
     "implementation_commit": "b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e",
@@ -133,7 +133,7 @@
         "human_attribution": "Operator clarified Y, then Enter at CMD prompt; failed native BAT exit retained"
       }
     ],
-    "independent_review": "PASS for strict first4 receipts, source binding and preserved original failure; BATengine shutdown separately checked, native255 still failed",
+    "independent_review": "PASS: strict original first4/source binding plus two fresh BAT130 receipts and their retained files; original BAT255 and NOT_CONFIRMED records remain unchanged",
     "fixture_scope": "Real authored PDF writing and native authored converter control; finite120-second parent/child holds; not physical real-Calibre cancellation",
     "unrelated_process_survival": "PASS at recorded case measurements",
     "later_pid_reuse": "A later reused numeric PID was distinguished by creation time and not adopted or killed",
@@ -143,22 +143,60 @@
         "BAT-engine",
         "BAT-conversion"
       ],
-      "result": "PREPARED_NOT_RUN",
-      "measurements_exist": false,
-      "human_report_exists": false,
+      "result": "PASS_TWO_HUMAN_BAT_RETRIES",
+      "measurements_exist": true,
+      "human_report_exists": true,
       "preparation": "Python compile, sealed helpers/source/input/app hashes, ASCII CRLF CMD checks, PS parsing, native converter compile0 PASS",
-      "independent_review": "PASS: exact copied defaults/finite holds/driver count2 and clear N+Enter instructions; no UI/signals run",
-      "required_actions": [
+      "independent_review": "PASS: source/helper/control hashes, two native/final130s, real console and human attestation, stopped owned tree/EOF, preserved inputs/stages/prior/neighbor and unrelated survival; no new application launch",
+      "no_automatic_signal_or_input": true,
+      "no_automatic_target_kill": true,
+      "retained_original_receipts": true,
+      "previous_result": "PREPARED_NOT_RUN",
+      "human_confirmed_at": "2026-10-09T16:47:29.813297+00:00",
+      "human_confirmation": "YES: physical Ctrl+C in BOTH fresh BAT READY cases; N then Enter if CMD asked",
+      "operator_completion_report": "Both retries passed. Human part of testing is now absolutely done, please complete the task and continue with M3-T02",
+      "completed_procedure": [
         "M then Enter; 2,3 then Enter in each operation window",
         "Wait READY, focus window, clear selection with Esc, Ctrl+C once",
         "At CMD termination prompt type N then Enter",
         "After both measured native exits130, type YES to attest both physical actions",
         "Review both fresh rows and human-report.json before combining with first4"
       ],
-      "no_automatic_signal_or_input": true,
-      "no_automatic_target_kill": true,
-      "retained_original_receipts": true
-    }
+      "independent_review_receipt": "<human-kit>/cancellation-bat-retry/completed-retry-independent-review-v2.json",
+      "original_receipts_hashes_preserved": true,
+      "controls": [
+        {
+          "case_id": "BAT-engine",
+          "native_exit": 130,
+          "final_stdout_exit": 130,
+          "parent_descendants_streams_stopped": true,
+          "input_neighbor_prior_identity_content_preserved": true,
+          "marked_stage_preserved_no_publication": true,
+          "unrelated_alive_at_measurement": true,
+          "cmd_prompt_observed": true,
+          "human_confirmation": "Confirmed by operator after both fresh BAT retry cases",
+          "individual_receipt_sha256": "67c42ced5dd680ab20076ab93326ed52a0033a8aeb7d2dae05f114b6761baf57",
+          "log_sha256": "86fb72b6e338cea043367908babee269fff82bace1dda70683dafd1f486b05fe",
+          "receipt_path": "<human-kit>/cancellation-bat-retry/cases/BAT-engine/measurement.json"
+        },
+        {
+          "case_id": "BAT-conversion",
+          "native_exit": 130,
+          "final_stdout_exit": 130,
+          "parent_descendants_streams_stopped": true,
+          "input_neighbor_prior_identity_content_preserved": true,
+          "marked_stage_preserved_no_publication": true,
+          "unrelated_alive_at_measurement": true,
+          "cmd_prompt_observed": true,
+          "human_confirmation": "Confirmed by operator after both fresh BAT retry cases",
+          "individual_receipt_sha256": "37584f550bb509bb067e3da616ff43790b1cbce62237e6b651a109832108035d",
+          "log_sha256": "03780303979ba9efddb1e625a9735024c6086a4b9a9bf6e4d5aa3c1a5611ce5b",
+          "receipt_path": "<human-kit>/cancellation-bat-retry/cases/BAT-conversion/measurement.json"
+        }
+      ]
+    },
+    "passed_case_count": 6,
+    "aggregate_result": "PASS: four original PowerShell controls plus two fresh BAT retries; original failed BAT255 remains failed"
   },
   "commands_and_evidence": {
     "setup_commands": "Exact argv/status/runtime setup records in hashed setup-commands.json",
@@ -171,7 +209,18 @@
       "git diff --check: native0"
     ],
     "checkpoint_check_scope": "Structural consistency and whitespace only; not application/Windows/human acceptance",
-    "prior_failed_checkpoint_invocation": "python -I -B tools/codex-handoff/validate_plan.py: native1, ModuleNotFoundError for repository sibling handoff_common because isolated mode omits script directory; retry with -B succeeded. No source change."
+    "prior_failed_checkpoint_invocation": "python -I -B tools/codex-handoff/validate_plan.py: native1, ModuleNotFoundError for repository sibling handoff_common because isolated mode omits script directory; retry with -B succeeded. No source change.",
+    "completed_retry_review_command": [
+      "<developer-python>",
+      "-I",
+      "-B",
+      "-X",
+      "utf8",
+      "<human-kit>/cancellation-bat-retry/verify_completed_retry.py"
+    ],
+    "completed_retry_review_native_exit": 0,
+    "completed_retry_review_scope": "Saved human receipts and exact retained owned files plus Git source comparison; application targets not started or signalled. Historical PID observations only; no later numeric PID adoption.",
+    "completed_retry_prior_review_correction": "First external audit overbroad no_processes_started_or_signals_sent label corrected to no_application_processes_started_or_signals_sent because read-only git show processes did run; original audit receipt retained and referenced by v2."
   },
   "raw_receipts": [
     {
@@ -253,14 +302,57 @@
       "path": "<human-kit>/cancellation-bat-retry/driver.py",
       "sha256": "e2b70fe7756c7af927e19dc3e48c684d519ecd6ab427f7da22be2e5e5ca889bb",
       "size_bytes": 19642
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/measurements.json",
+      "sha256": "3f2e6602c2f254fe83a4179f8b19ca6a96584c7a969087fc936ca5e7f8276a79",
+      "size_bytes": 17657
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/human-report.json",
+      "sha256": "0fea3f014d64e6d0fd8bf0af80a6746a21898674d492553463f7d5e10dab2734",
+      "size_bytes": 17853
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/controller.log",
+      "sha256": "faa201b8db64a478e7b324e7be7eac60ee8d13f6f46dbb849aefbf91abe3db8b",
+      "size_bytes": 84
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/cases/BAT-engine/measurement.json",
+      "sha256": "67c42ced5dd680ab20076ab93326ed52a0033a8aeb7d2dae05f114b6761baf57",
+      "size_bytes": 7838
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/cases/BAT-conversion/measurement.json",
+      "sha256": "37584f550bb509bb067e3da616ff43790b1cbce62237e6b651a109832108035d",
+      "size_bytes": 7210
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/verify_completed_retry.py",
+      "sha256": "5c69cc57111b47e990009c377cbcbd26016f371049ff355cdae24e23b87ecc97",
+      "size_bytes": 11208
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/completed-retry-independent-review.json",
+      "sha256": "6c6f3054fcc9897ffb30aada4d9102bc990b15731726cfec21aa12f578180636",
+      "size_bytes": 3331
+    },
+    {
+      "path": "<human-kit>/cancellation-bat-retry/completed-retry-independent-review-v2.json",
+      "sha256": "98915149ef9ed9cf832f8c744ee63e1060aa9ce1da96b7f24e4c0af24ee63f2c",
+      "size_bytes": 3663
     }
   ],
   "limits": [
     "Current-build controlled copies only; final-package human acceptance remains open",
     "Visual checks are human-reported; no automated render/fidelity pass inferred",
     "Conversion cancellation uses authored control, not real Calibre",
-    "Fresh BAT retry NOT RUN; human testing not complete",
-    "No new application full-gate rerun, CI, tag or release claim"
+    "No new application full-gate rerun, CI, tag or release claim",
+    "Original failed BAT255 and unlaunched original BAT-conversion remain historical failures; fresh retries provide two separate actual passes"
   ],
-  "next": "Run fresh two-case BAT retry, verify physical confirmation/native130; then M3-T02 small non-interactive CLI"
+  "next": "M3-T02 small non-interactive CLI; completed current-build human checks do not replace future exact-package acceptance",
+  "previous_partial_observed_at": "2026-10-09T16:38:14.591589Z",
+  "human_testing_scope": "M3-T01 copied current-build controls; final-package acceptance remains a separate future gate",
+  "operator_completion_report": "Both retries passed. Human part of testing is now absolutely done, please complete the task and continue with M3-T02"
 }
