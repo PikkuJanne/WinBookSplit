@@ -1,0 +1,1305 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T01",
+  "observed_at": "2026-10-08T19:08:26.790700+00:00",
+  "user_timezone": "Europe/Berlin",
+  "result": "MECHANICAL_EXTRACTION_AND_SCRIPT_ROOT_RESOLUTION_VERIFIED",
+  "acceptance": {
+    "AC-011": "PASS: unchanged processing ASTs, all fourteen understood original/extracted cases exactly equivalent and import safe",
+    "AC-012": "PASS: actual PS5.1/PS7/BAT from unrelated CWD, three concurrent launches, shared old-temp sentinel unchanged"
+  },
+  "initial_checkpoint": {
+    "commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "branch": "main",
+    "sync_status": "SYNCED",
+    "observed_at": "2026-10-08T18:47:15.714649+00:00"
+  },
+  "tested_source": {
+    "base_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "base_tree": "d16b98e509cc3b71464ad9c988270b915cdf545c",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "cd9f3f4b7b74f740d550a23aaf43392919d074e370ec285c5c4f60ac524372e9",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "3b7731cecfb6ef77412da2198367a288daee06966a8bc536626eb1c874342206",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "b89525ba684c4ec9d9627c321897fa113cc7dd9a11732d5c8bcbb3e7c7d75189",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_extraction.py": "bfe8fb405b3a2cd8b5c5e0fae14c0d0f77ae6b821c263a1474f52c4c7345619a",
+      "tests/python/test_runner.py": "7bcb9af2230092c54c366c6c2229a2797ce415586aaf43167ed0ff6060eb9990",
+      "tests/README.md": "a0d6840a44e89654153d8f79dbaec06ddf9aac5558b08d7eced2e9096f79719e",
+      "tests/run_tests.py": "3c3ade727e6b991d76b8a56febb5ffb335a4a4ed8800b239dbf46a0568b4e55c",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df"
+    },
+    "tested_paths_digest": "2a456dfc50d0ae62e93eaa52c10717ed9a90a3d819ab80560b5a5006f6387054",
+    "meaning": "Actual worktree bytes; Git identity alone does not imply a clean checkout",
+    "source_unchanged": true
+  },
+  "source_digest_recipe": "SHA256 UTF-8 json.dumps(path_to_sha256_map,sort_keys=True,separators=(comma,colon)); actual checked-out bytes",
+  "test_timing_scope": "Final full run on pre-commit worktree; clean implementation C raw bytes independently match every tested path. No clean-C full rerun claimed.",
+  "implementation_checkpoint": {
+    "commit": "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c",
+    "tree": "b52ef0e7a4407a888cb06c47e7b99b8814431716",
+    "tested_path_bytes_match": true,
+    "normal_push": true,
+    "sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-08T19:08:08.466690+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c",
+      "worktree_clean": true,
+      "remote_head": "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "$M1ExternalRoot\\dev-venv\\Scripts\\python.exe",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "workstation": {
+    "caption": "Microsoft Windows 11 Pro",
+    "display_version": "26H2",
+    "build": "26300.9457",
+    "architecture": "x64",
+    "setup": "Current workstation, fresh isolated dev venv; not a clean OS"
+  },
+  "dependency_setup": {
+    "fresh_dev_venv": true,
+    "hash_required_binary_only_install_exit_code": 0,
+    "pip_check_exit_code": 0,
+    "version_origin_gil_assertions_passed": true,
+    "environment_report_sha256": "d55356dff49314997b1737f38052e2ef057cf4bcd76806b13ab0f2960557649f"
+  },
+  "preserved_original_files": {
+    "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+    "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+    "WinBookSplit_icon.ico": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196",
+    "WinBookSplit_icon.png": "df68b594e45dced01f0b2eab0af23e7601e1c4ea42d023cd28d1b82d2a375159",
+    "WinBookSplit_poster.png": "e05a5cb155a7b06124fcc9afaa43e7f5402f5b204bab679c4c6072a195abcbaa"
+  },
+  "intentional_original_change": "PowerShell engine path/header/shared-temp-generation cleanup only; batch unchanged",
+  "full_local_run": {
+    "report_filename": "full-final.json",
+    "report_sha256": "742732ac1ecb00e44289d6d25c5cc7de3ebf6b22e19183652b4169929499ddb7",
+    "success": true,
+    "step_count": 4,
+    "python_unit_count": 20,
+    "unit_stderr_sha256": "939db88086bf88b79f4ff0729ae7230e9afe285ec381a2ac70c590d4355a2453",
+    "shells": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\Pester\\6.2.0\\Pester.psm1",
+            "name": "Pester",
+            "version": "6.2.0",
+            "manifest": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\Pester\\6.2.0\\Pester.psd1"
+          },
+          {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "manifest": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+          }
+        ],
+        "exit_code": 0,
+        "pester": {
+          "passed": 9,
+          "failed": 0,
+          "total": 9,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "syntax_errors": 0,
+        "new_scaffold_findings": 0,
+        "retained_launcher_legacy_findings": 60,
+        "legacy_rule_counts": {
+          "PSUseApprovedVerbs": 2,
+          "PSAvoidTrailingWhitespace": 7,
+          "PSAvoidUsingWriteHost": 51
+        },
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_report_sha256": "8e61b0e750e2401d1e7f480f848ef23f9cbf53ecf1bf5d5326ce1a0a6c21a4b9"
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "RemoteSigned"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "version": "6.2.0",
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\Pester\\6.2.0\\Pester.psm1",
+            "manifest": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\Pester\\6.2.0\\Pester.psd1",
+            "name": "Pester"
+          },
+          {
+            "version": "1.25.0",
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "manifest": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1",
+            "name": "PSScriptAnalyzer"
+          }
+        ],
+        "exit_code": 0,
+        "pester": {
+          "skipped": 0,
+          "failed_containers": 0,
+          "result": "Passed",
+          "not_run": 0,
+          "failed": 0,
+          "total": 9,
+          "passed": 9
+        },
+        "syntax_errors": 0,
+        "new_scaffold_findings": 0,
+        "retained_launcher_legacy_findings": 60,
+        "legacy_rule_counts": {
+          "PSAvoidUsingWriteHost": 51,
+          "PSAvoidTrailingWhitespace": 7,
+          "PSUseApprovedVerbs": 2
+        },
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_report_sha256": "abe62fd7e502b0bee9dc069424c93d138ce176fc3b261fde020160464c92e561"
+      }
+    ],
+    "synthetic_input_unchanged": true,
+    "owned_work_directory_removed": true
+  },
+  "equivalence": {
+    "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "immutable_original_path_sha256": {
+      "WinBookSplit.ps1": "897382a2193cdc38ce5aa911703004705b4af56fea94cee61b3f91ef073a052d",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a"
+    },
+    "function_asts_identical": [
+      "log",
+      "split_pdf",
+      "write_slice"
+    ],
+    "import_observation": {
+      "import_safe": true,
+      "stdout_stderr_empty": true,
+      "cwd_unchanged": true,
+      "logger_stdout_configuration_unchanged": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "historical_original_guard": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Characterization failed: Original launchers changed. Do not run known-bad expectations against fixed code.\n"
+    },
+    "fixtures": {
+      "simple10": {
+        "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "nested12": {
+        "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ]
+      }
+    },
+    "engine_cases": [
+      {
+        "oracle_id": "MAN-01",
+        "known_defect": "success_with_zero_files",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [],
+        "outputs": [],
+        "decoded_stdout_utf8_sha256": "35337f1b23757bbe50e45077b95599490feecaae2c27f48dbd679aec88359cfe",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-02",
+        "known_defect": "pages_1_to_3_omitted",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "02 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "a94387a7bfeb541d1ac6dbf45e669e082067d157f072ba013b8537d00e547ff9",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-03",
+        "known_defect": null,
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "20773f7bd8268e745604cbd74a447e5cebc51b63ce718bb511ebea4d4ce3a8a7",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-09",
+        "known_defect": "invalid_token_ignored",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "31b203cc81975b9d8d3d11e95c932d2188ce7e464cb8e45c08e569735c09cf45",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-10",
+        "known_defect": "range_token_ignored",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "31b203cc81975b9d8d3d11e95c932d2188ce7e464cb8e45c08e569735c09cf45",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-11",
+        "known_defect": "invalid_token_ignored_and_pages_1_to_6_omitted",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            6,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "587fd21e0cd43ae5a1566b32bb80577ab87bc559e6324cfe1d9892ffcf2b37a0",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-12",
+        "known_defect": "out_of_range_tokens_ignored",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "31b203cc81975b9d8d3d11e95c932d2188ce7e464cb8e45c08e569735c09cf45",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-13",
+        "known_defect": "out_of_range_start_ignored",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "31b203cc81975b9d8d3d11e95c932d2188ce7e464cb8e45c08e569735c09cf45",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-14",
+        "known_defect": "empty_token_ignored_and_pages_1_to_3_omitted",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            3,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 4-10).pdf",
+            "page_ids": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              3,
+              10
+            ],
+            "sha256": "ba680ab6e8446163eb3ca9a81895273d48a88d4117ccf1bc22b89ee28380c348"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "50e5979b29da11ea5c23a6987625a62a82d9465397e51e4a22d8b60531b1dcf8",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-15",
+        "known_defect": "empty_token_ignored_and_success_with_zero_files",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [],
+        "outputs": [],
+        "decoded_stdout_utf8_sha256": "35337f1b23757bbe50e45077b95599490feecaae2c27f48dbd679aec88359cfe",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "MAN-16",
+        "known_defect": "empty_token_ignored",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-10).pdf",
+            "page_ids": [
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              3,
+              10
+            ],
+            "sha256": "ba680ab6e8446163eb3ca9a81895273d48a88d4117ccf1bc22b89ee28380c348"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "84f081c7b738bb9aaaefe9963f7d83de5c39bab7dad370ff0bad2898981fa87f",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "BM-01",
+        "known_defect": "front_matter_pages_1_to_3_omitted",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "02 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "8db363a832d2555eb7d471d6d74a234e34223cd4466a8a98e7189785bc72d71b",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "BM-02",
+        "known_defect": "front_matter_pages_1_to_2_omitted",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - A.pdf",
+            "page_ids": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "range": [
+              2,
+              8
+            ],
+            "sha256": "1ace585468b0db1837eb6e6646fd6133fe76bae84459bc52330cb2ddfd9e55dc"
+          },
+          {
+            "filename": "02 - B.pdf",
+            "page_ids": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "range": [
+              8,
+              12
+            ],
+            "sha256": "8b85ed756139687d06b10da4b2206126b1b0fec4a2ebc1407708e41b80e280e0"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "8db363a832d2555eb7d471d6d74a234e34223cd4466a8a98e7189785bc72d71b",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "oracle_id": "BM-03",
+        "known_defect": "pages_1_to_3_omitted_and_A2_crosses_B_parent_at_page_9",
+        "equivalent": true,
+        "exit_code": 0,
+        "actual_ranges": [
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+          },
+          {
+            "filename": "03 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "decoded_stdout_utf8_sha256": "7fb742903dc645f1547cbc4b18b6185fd95a2b1279d56180d5851f033233ce1b",
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "child_report_sha256": "01729072d5a5a835df66fd3cd42f7847ad8ecae9d0ed2229c9f9d7aecd5e9063"
+  },
+  "entrypoints": {
+    "method": "Actual -File/BAT, piped prompts, controlled Python PATH, real observed Documents; GUID-owned marker/sentinel directories only. No prompt/path/host shim.",
+    "probes": [
+      {
+        "id": "PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "oracle_id": "MAN-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": false,
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_observation": "empty"
+      },
+      {
+        "id": "PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "oracle_id": "BM-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+          },
+          {
+            "filename": "03 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": true,
+        "decoded_stderr_utf8_sha256": "35917edd813625c695cb1eff637dc7bbe9f979fe17d43d13e5a13dbe4e788f00",
+        "stderr_observation": "Legacy RawUI.CursorPosition invalid handle with piped input; no console/UI acceptance claim"
+      },
+      {
+        "id": "BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "oracle_id": "MAN-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": false,
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_observation": "empty"
+      },
+      {
+        "id": "parallel-PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "oracle_id": "MAN-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": false,
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_observation": "empty"
+      },
+      {
+        "id": "parallel-PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "oracle_id": "BM-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+          },
+          {
+            "filename": "03 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": true,
+        "decoded_stderr_utf8_sha256": "35917edd813625c695cb1eff637dc7bbe9f979fe17d43d13e5a13dbe4e788f00",
+        "stderr_observation": "Legacy RawUI.CursorPosition invalid handle with piped input; no console/UI acceptance claim"
+      },
+      {
+        "id": "parallel-BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "oracle_id": "MAN-03",
+        "exit_code": 0,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "stderr_present": false,
+        "decoded_stderr_utf8_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_observation": "empty"
+      }
+    ],
+    "parallel_launch_count": 3,
+    "shared_temp_engine_sentinel_unchanged": true,
+    "observed_owned_document_outputs_removed": true,
+    "failure_cleanup_boundary": "Invalid ownership/member/reparse or uncertain descendant termination preserves owned artifacts; no unconditional failure cleanup claim"
+  },
+  "timeout_harness_reproduction": {
+    "report_filename": "timeout-tree-probe-970eb45792114fbb8c026e2932d54e70/report.json",
+    "sha256": "b8e329d1bac07e03e0737a2babfb7be433c617073f1cedd2473a9c7613f28390",
+    "observation": "Direct parent timed out/killed after 1.015s; bounded descendant remained alive and grew owned log531 to951 bytes. Writer explicitly stopped/waited before cleanup.",
+    "repair_scope": "Test harness only; tracked PID-tree termination and fail-closed preservation, covered by final unit suite"
+  },
+  "earlier_observations": [
+    {
+      "report_filename": "WinBookSplit-M1-full-2c8f91c956bc4d6899c2049374e956e2.json",
+      "report_sha256": "5e9fc5d6707c09ed88b34291c5b141ef180ba2f769e1f6566725e707b07af6ab",
+      "result": "FAILED: all four steps exit0 but source_unchanged=false because test README was edited during the active run; not final acceptance"
+    },
+    {
+      "report_filename": "full-stable.json",
+      "report_sha256": "a3144e1a87fa973ba740fe30b648847ebaf66b7398f74570b5b2f80043023d5c",
+      "tested_paths_digest": "ffe0e278c901a45c543aa17e36c572a2606cee7cf34739534f77eb1f2e7d820b",
+      "result": "PASS17unit/9Pester perhost/14equivalence/6entrypoints; historical pre-timeout-hardening bytes"
+    },
+    {
+      "report_filename": "WinBookSplit-M1-timeout-fixed-a74cdd79800e4f9c885633e4bd59f6a1.json",
+      "report_sha256": "9289f4461a988df979c641f4a9e7e75156690997184f4989372918928e74d793",
+      "result": "PASS20units on intermediate hardening candidate; final reviewed stream-close handling verified by following full run"
+    },
+    {
+      "result": "Two initial new-test assumptions failed and were corrected: taskkill argv tail length and Windows venv redirector PID differing from interpreter PID. Actual tracked redirector, parent and descendant termination now checked."
+    },
+    {
+      "result": "Initial root plan-validator invocation incorrectly added -I, excluding its authored sibling handoff_common import and failing. The documented helper invocation with -B (without -I) then returned VALID; no helper source change."
+    }
+  ],
+  "calibre_user_requested_installation": {
+    "download": {
+      "url": "https://download.calibre-ebook.com/9.15.0/calibre-portable-installer-9.15.0.exe",
+      "sha256": "55a8c89bc0739a2dc6d496742ea625fccc6dfdec1413eb805805a28e7227536c",
+      "sha512": "a0520e0e3325039c89e6837c5b7b3ac1283c3dc529c981beb19d2d4c949c5481710071685e881a324eabff1bab50d95f0964cfcb45e04f56e34c322d877dde20",
+      "size": 205319944,
+      "github_asset_digest_match": true,
+      "vendor_sha512_match": true,
+      "authenticode_status": "Valid",
+      "signer": "CN=Kovid Goyal, O=Kovid Goyal, L=Mumbai, S=Maharashtra, C=IN",
+      "thumbprint": "980637D5ACC6319BEAE773CAC5291EDC3E84DC8E",
+      "preliminary_receipt_note": "Earlier octet-stream checksum decoding failed with nonterminating errors; its vendor_sha512_match claim is invalid. This fresh terminating-error rerun verified both digests before execution."
+    },
+    "installation": {
+      "installed_at": "2026-10-08T18:54:07.7776915Z",
+      "mode": "official portable, per-user, no elevation",
+      "target": "$UserProfile\\Apps\\Calibre915\\Calibre Portable",
+      "installer_exit_code": 0,
+      "converter": "$UserProfile\\Apps\\Calibre915\\Calibre Portable\\Calibre\\ebook-convert.exe",
+      "converter_version": "ebook-convert.exe (calibre 9.15.0)\nCreated by: Kovid Goyal <kovid@kovidgoyal.net>",
+      "converter_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "converter_authenticode": "Valid",
+      "gui_launcher": "$UserProfile\\Apps\\Calibre915\\Calibre Portable\\calibre-portable.exe",
+      "global_path_or_policy_changes": false,
+      "application_discovery": "Trusted nonstandard absolute path; existing launcher discovery unchanged until M2-T04"
+    },
+    "verified_download_report_sha256": "7879e57fd347a7cae45732e9483b3b4e0f167b345b052733e71bba44e29f51b2",
+    "install_report_sha256": "8c9a09825f580e9ba6bfbb7e2327f7f8ef9cc21adc26a95a775bcb7bb5957f27",
+    "primary_sources": [
+      "https://calibre-ebook.com/download_portable",
+      "https://download.calibre-ebook.com/9.15.0/",
+      "https://calibre-ebook.com/signatures/calibre-portable-installer-9.15.0.exe.sha512",
+      "https://github.com/kovidgoyal/calibre/releases/tag/v9.15.0"
+    ],
+    "actual_conversion": "NOT RUN",
+    "gui_interaction": "NOT RUN",
+    "gpg_verification": "NOT RUN",
+    "binary_redistribution": false
+  },
+  "live_repository_observation": {
+    "observed_at": "2026-10-08T19:00:29.9497591Z",
+    "main_sha": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "main_protected": false,
+    "required_status_checks": [],
+    "rulesets": 0,
+    "workflow_count": 0,
+    "run_count": 0,
+    "tags_count": 0,
+    "releases_count": 0,
+    "open_prs": [],
+    "scope": "Read-only point-in-time observation; no repository settings changed; no CI/release acceptance claim"
+  },
+  "review": "Independent read-only source/receipt/privacy review; no GitHub submitted review or CI run claimed",
+  "not_run": [
+    "M1-T02+ fixed-engine acceptance",
+    "all launcher/process/discovery/error paths",
+    "Explorer drag/drop",
+    "actual EPUB/AZW3 conversion",
+    "renderer/fidelity",
+    "clean OS or extracted release-package acceptance",
+    "CI (canonical owner M4-T05)",
+    "release/tag/public-download gates",
+    "Windows10/ARM/UNC/other Python"
+  ],
+  "next_task": "M1-T02: strict manual start-page parsing; preserve historical M1 equivalence receipts and explicitly transition current tests to fixed behavior",
+  "final_evidence_checkpoint_receipt": "Following documentation-only E receives a fresh normal-push/live receipt in thread/PR, not inside itself"
+}

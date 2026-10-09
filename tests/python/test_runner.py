@@ -133,6 +133,17 @@ class RunnerTests(unittest.TestCase):
                 self.assertEqual(step["exit_code"], 0)
                 self.assertIn("evidence_sha256", step)
 
+    def test_extraction_count_without_actual_cases_cannot_mask_success(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-extraction-evidence-") as directory:
+            path = Path(directory) / "incomplete.json"
+            path.write_text(json.dumps({"schema_version": 1, "success": True, "exit_code": 0,
+                                        "result": "EXTRACTION_EQUIVALENCE_REPRODUCED", "engine_case_count": 14,
+                                        "source_unchanged": True, "import_observation": {"import_safe": True}}),
+                            encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "extraction")
+            self.assertEqual(step["exit_code"], 126)
+
     def test_existing_report_is_preserved(self):
         with tempfile.TemporaryDirectory(prefix="wbs-no-overwrite-") as directory:
             path = Path(directory) / "existing.json"

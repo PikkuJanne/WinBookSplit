@@ -1,16 +1,58 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 complete and reviewed/merged, application unchanged, original defects reproduced, release unverified.
-Completed tasks: M0-T01, M0-T02, M0-T03 and M0-T04.
-Next dependency-ready task: **M1-T01 — Extract the existing Python engine narrowly**, after fresh verification of this documentation checkpoint.
-Active branch: `main`; retained milestone branch: `codex/winbooksplit-v1-m0`.
+Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted and verified, original defects preserved, release unverified.
+Completed tasks: M0-T01 through M0-T04, and M1-T01.
+Next dependency-ready task: **M1-T02 — Fix manual start-page parsing**, after fresh verification of this documentation checkpoint.
+Active branch: `codex/winbooksplit-v1-m1`; upstream `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee`.
-Historical C synchronization: SYNCED at `2026-10-08T17:59:55.797912+00:00` (19:59:55 Europe/Berlin), clean local HEAD equals live feature branch.
-Reviewed [PR #4](https://github.com/PikkuJanne/WinBookSplit/pull/4) merged at `2026-10-08T18:01:01Z`; merge commit `ae9ddd0444e61578ed59625d6d3df4038e6fb09e` freshly matched clean local/live main at `2026-10-08T18:01:05.818622+00:00` (20:01:05 Berlin).
+Last verified implementation C: `88c2149b3b3034fbd0d7ef23c2382f4b01648e4c`.
+Historical C synchronization: SYNCED at `2026-10-08T19:08:08.466690+00:00` (21:08:08 Europe/Berlin), clean local HEAD equals live M1 feature branch.
+[Draft PR #5](https://github.com/PikkuJanne/WinBookSplit/pull/5) continues M1; cumulative merge gate is M1-T06. Main remains M0 documentation checkpoint `0de84f367f9bd5ddfa3f408a9c29505d7a39633f`, freshly synchronized at M1 start `2026-10-08T18:47:15.714649+00:00`; live audit still matched it at 19:00:29 UTC. Reviewed M0 PR #4 merged at `2026-10-08T18:01:01Z` into `ae9ddd0444e61578ed59625d6d3df4038e6fb09e` before that documentation checkpoint.
 This following documentation-only evidence/status checkpoint receives its own final normal push/live receipt in the thread; recheck current equality next thread.
 Public release: NOT PUBLISHED; live tags/releases were empty on 8 October 2026.
+
+## M1-T01 evidence and limits
+
+[Extraction/install evidence](evidence/M1-T01-extraction.md) and
+[machine record](evidence/M1-T01-extraction.json) satisfy AC-011/012. The shipped
+engine preserves all three processing-function ASTs, with import-safe callable
+functions and a guarded CLI entry. PowerShell resolves it from `$PSScriptRoot`
+and no longer generates/removes a shared TEMP engine. The six unedited original
+files, including batch, still match their raw baseline blobs. Manual/bookmark/
+zero-output bugs are intentionally preserved; behavior fixes start M1-T02.
+
+Final unrelated-directory full run passed 20 Python tests, nine Pester tests in
+each actual PS5.1.26100.9444/PS7.6.5 host, zero syntax/new-scaffold findings,
+all 14 complete original/extracted known-bad observations and safe import.
+Six actual PS5.1/PS7/batch probes, including three concurrent launches, matched
+reference PDFs/page identities and preserved inputs, synthetic neighbors,
+counterfeit CWD engine and the shared TEMP sentinel. Actual Documents outputs
+were exclusively GUID/marker-owned and observed removed safely; private entries
+were not enumerated/read. A reproduced descendant-after-timeout test-harness
+defect and uncertain-pipe-close classifier were fixed and tested. Unknown
+ownership or uncertain process state preserves outputs. Two PS7 piped probes
+still emitted legacy RawUI cursor errors; console/error acceptance is unclaimed.
+Earlier failed/pre-hardening receipts remain distinct from the final passing
+digest `2a456dfc50d0ae62e93eaa52c10717ed9a90a3d819ab80560b5a5006f6387054`.
+Clean C independently matched every tested byte; no clean-C full rerun claimed.
+
+User-requested official portable Calibre 9.15.0 is now installed per-user at
+`$UserProfile\Apps\Calibre915\Calibre Portable`. Published SHA-256/SHA-512 and
+Valid Windows signatures were verified; installer and converter version probe
+returned 0. No elevation or global PATH/policy change. The trusted nonstandard
+path is outside unchanged launcher discovery; integrate discovery in M2-T04.
+No GUI interaction or actual ebook conversion ran. Fresh regular GIL x64
+CPython 3.14.8 dev venv/hash-pinned dependencies/import origins passed.
+
+Independent source/raw-evidence/privacy review found no remaining blocker.
+Live main had no protections/rulesets/required checks, workflows/runs or tags/
+releases; no GitHub submitted review or CI execution is claimed. Canonical CI
+owner is **M4-T05**; M0 prose assigning it M5-T01 was a documentation error.
+Full repaired application/Explorer/Calibre/rendering/extracted-package/release
+gates remain NOT RUN. Unsupported platforms stay unclaimed; no merge/tag/release
+was created. M0 sections below retain their historical observations, including
+the then-unmodified application and absent Calibre.
 
 ## M0-T04 evidence and limits
 
@@ -44,7 +86,7 @@ At M0-T02's start, clean local/live feature checkpoint `4f550a2cdfb9736be8c2fd35
 
 At M0-T03's start, clean local/live feature checkpoint `869218c3cc4c8b7f6b47d057a5e8e4a414924173` was freshly SYNCED. PR #2 was already merged at `2026-10-08T17:16:55Z`; live main `a66c8f95f922c36c58b47b6cbfba82be399a552a`. A normal fetch/fast-forward incorporated that history before implementation. New draft PR #3 continues the remaining M0 work; closed PR #2 is not reused. The earlier PR merges do not complete the M0-T04 gate.
 
-M0-T01 implementation C was `ac09c024589158e1402ae63263818466d3e77d5c`. Its [handoff evidence](evidence/M0-T01-handoff.md) and [live audit](evidence/M0-T01-live-audit.json) retain the missing initial Git metadata, safe reconciliation/import, seven preserved original blobs and actual helper checks (57 tests: 56 passed, one symlink skip). Its final `4f550a2` receipt is historical and was reverified before M0-T02. The recorded original baseline remains `6edbed7c1a0c94968999882c5a46d90492d3c327`; all seven original application files still match it byte-for-byte.
+M0-T01 implementation C was `ac09c024589158e1402ae63263818466d3e77d5c`. Its [handoff evidence](evidence/M0-T01-handoff.md) and [live audit](evidence/M0-T01-live-audit.json) retain the missing initial Git metadata, safe reconciliation/import, seven preserved original blobs and actual helper checks (57 tests: 56 passed, one symlink skip). Its final `4f550a2` receipt is historical and was reverified before M0-T02. The recorded original baseline remains `6edbed7c1a0c94968999882c5a46d90492d3c327`; all seven matched through M0. M1-T01 intentionally changes only PowerShell for extraction and adds the shipped engine; the other six remain byte-identical.
 
 ## Finish rule
 

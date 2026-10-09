@@ -168,7 +168,7 @@
         "Minimal PowerShell integration",
         "Extraction equivalence evidence"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M0-T04"
       ],
@@ -176,8 +176,11 @@
         "AC-011",
         "AC-012"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T01-extraction.md",
+        "evidence/M1-T01-extraction.json"
+      ],
+      "implementation_commit": "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
