@@ -1,6 +1,42 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2 reviewed/merged; M3 is complete through **M3-T02**.
+Next action: **M3-T03 — Polish launcher and menu behavior**.
+Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+Implementation C `710ea8f92036b110918fb255f222814e6c4eeb4e` is clean/live **SYNCED** at `2026-10-09T17:55:24.447853+00:00`.
+The evidence checkpoint receives its own actual external/thread receipt after push;
+recheck live state and reuse [draft PR18](https://github.com/PikkuJanne/WinBookSplit/pull/18).
+No release or tag was created. Current-build human testing is complete, including
+both fresh BAT Ctrl+C retries recorded in M3-T01-human.md/json.
+
+## M3-T02 evidence and limits
+
+[CLI evidence](evidence/M3-T02-cli.md) and [machine record](evidence/M3-T02-cli.json)
+satisfy AC-053/054/055/056. Complete explicit CLI choices use the existing planner,
+NonInteractive never prompts/falls back, Version is dependency-independent, and
+Preview returns a validated plan without chapter publication. Ebook preview uses
+real temporary conversion and verified cleanup. Canonical version is 1.0.0-dev;
+final 1.0.0 remains M5-T05. Untrusted console fields escape controls while raw
+plan/path metadata and saved streams remain unchanged.
+
+Frozen unrelated-CWD fifteen-stage full gate passed 230 Python tests,
+58 Pester tests per actual PS5.1/PS7 host, 72 native CLI controls and all inherited
+regressions, including real Calibre 9.15.0 EPUB/genuine AZW3. All 91 raw tested
+paths match committed C; digest `73872edccb4f380de3b97666a8084983b56c8bedd6d0565f4c7aa94b790265b7`. Zero skips; stored policies,
+source/neighbor/prior identities and known owned suite cleanup pass.
+Independent source/receipt/public evidence review passed;
+earlier actual failures and display reproducers remain recorded honestly.
+
+WinBookSplit.bat is unchanged. M3-T03 launcher/menu behavior, later PDF fidelity,
+CI, exact-package and public-release gates remain open. Completed current-build
+human checks are distinct from later exact-package acceptance. Preserve prior
+failed/unsafe/unknown external workspaces; no broad cleanup or history rewrite.
+
+## Historical checkpoint through M3-T01
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 reviewed/merged; M3 is complete through **M3-T01** only.
 Next action: **M3-T02 — Add the small non-interactive CLI**.
 Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.

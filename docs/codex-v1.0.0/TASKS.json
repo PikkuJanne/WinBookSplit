@@ -607,7 +607,7 @@
         "Noninteractive/preview behavior",
         "Parameter/exit tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M3-T01"
       ],
@@ -617,8 +617,11 @@
         "AC-055",
         "AC-056"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M3-T02-cli.md",
+        "evidence/M3-T02-cli.json"
+      ],
+      "implementation_commit": "710ea8f92036b110918fb255f222814e6c4eeb4e",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

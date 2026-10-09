@@ -56,6 +56,39 @@ Run from a PowerShell prompt:
 .\WinBookSplit.ps1 -InputFile "C:\Path\To\MyBook.azw3"
 You will see the same interactive menu and the same verbose log output.
 
+For scripting, supply a complete method and `-NonInteractive`. It never prompts,
+pauses, opens a dialog/Explorer, clears the console or changes modes after a
+no-bookmark failure. Manual starts refer to physical PDF pages; for ebooks these
+are pages of the generated PDF. Every input page is preserved exactly once.
+
+```powershell
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Manual -StartPages '1,4,7' -NonInteractive
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
+.\WinBookSplit.ps1 -Version
+Get-Help .\WinBookSplit.ps1 -Full
+```
+
+Auto requires `-BookmarkLevel 1` or `2`; Manual requires `-StartPages` and cannot
+use a bookmark level. Auto with start pages, missing choices and unrecognized
+arguments fail before dependency discovery or file writes. `-NoPause` suppresses
+exit pauses while retaining interactive method/fallback prompts.
+
+`-Preview` requires a complete method and prints source identities, physical page
+ranges, filenames, warnings, output base and complete coverage. PDF preview writes
+no files. Ebook preview requires real temporary Calibre conversion; its owned
+workspace is cleaned before the plan returns. No chapter or converted PDF is
+published, so Preview cannot combine with `-KeepConvertedPdf`. The generated PDF
+path shown in the plan records its temporary origin and is no longer available.
+
+`-Version` works from any directory without Python/Calibre and prints the canonical
+development version `1.0.0-dev`; the project has no published release yet. Version
+is an independent invocation and cannot combine with processing parameters.
+Application exits are 0 (execution/preview/version), 2 (input/arguments/path),
+3 (dependency), 4 (conversion), 5 (no requested bookmark plan), 6 (PDF/output),
+7 (unsupported features), and 130 (cancel/timeout, with a distinct recorded reason).
+PowerShell invocation/binding errors before the script runs use the host's status.
+
 For PDF runs, an existing directory can be selected as the output base:
 
 ```powershell
@@ -120,7 +153,7 @@ The batch launcher can use the application `.venv` and trusted converter PATH.
 Explicit path and retention options are available through PowerShell above.
 The acceptance books contain only original local resources. Calibre and pypdf
 run with your privileges; these checks do not provide a document sandbox or
-establish behavior for ebooks with remote resources. Manual preview/confirmation
+establish behavior for ebooks with remote resources. Interactive preview/confirmation
 and the final release workflow remain pending.
 
 Input and output paths are handled literally. Directories used as input files,

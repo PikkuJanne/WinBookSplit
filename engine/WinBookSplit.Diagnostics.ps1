@@ -27,8 +27,99 @@ function ConvertTo-NativeArgument {
     return '"' + $escaped + '"'
 }
 
+function Assert-SplitPreviewSourceIdentity {
+    param($Identity, [string]$Binding)
+    if ($null -eq $Identity) { throw 'Missing preview source identity.' }
+    foreach ($field in @('path', 'resolved_path', 'sha256', 'size_bytes', 'binding')) {
+        if ($Identity.PSObject.Properties.Name -notcontains $field) { throw ('Missing preview identity field: ' + $field) }
+    }
+    if ($Identity.path -isnot [string] -or -not [IO.Path]::IsPathRooted($Identity.path) -or
+        $Identity.resolved_path -isnot [string] -or -not [IO.Path]::IsPathRooted($Identity.resolved_path) -or
+        $Identity.sha256 -isnot [string] -or $Identity.sha256 -cnotmatch '^[0-9a-f]{64}$' -or
+        -not (Test-SplitInteger $Identity.size_bytes) -or $Identity.size_bytes -lt 1 -or
+        $Identity.binding -isnot [string] -or $Identity.binding -cne $Binding) { throw 'Invalid preview source identity.' }
+}
+
+function Assert-SplitPreviewPlan {
+    param($Plan, [string]$Mode)
+    if ($null -eq $Plan) { throw 'Missing preview plan.' }
+    foreach ($field in @('mode', 'total_pages', 'source_identity', 'entries', 'ranges', 'normalized_inputs',
+                         'notices', 'warnings', 'coverage', 'output_naming')) {
+        if ($Plan.PSObject.Properties.Name -notcontains $field) { throw ('Missing preview plan field: ' + $field) }
+    }
+    if ($Plan.mode -isnot [string] -or $Plan.mode -cne $Mode -or -not (Test-SplitInteger $Plan.total_pages) -or $Plan.total_pages -lt 1 -or
+        $Plan.entries -isnot [array] -or $Plan.entries.Count -lt 1 -or $Plan.ranges -isnot [array] -or
+        $Plan.ranges.Count -ne $Plan.entries.Count -or $Plan.notices -isnot [array] -or $Plan.warnings -isnot [array] -or
+        $null -eq $Plan.normalized_inputs -or $Plan.coverage.complete -isnot [bool] -or -not $Plan.coverage.complete -or
+        -not (Test-SplitInteger $Plan.coverage.covered_pages) -or $Plan.coverage.covered_pages -ne $Plan.total_pages -or
+        -not (Test-SplitInteger $Plan.coverage.section_count) -or $Plan.coverage.section_count -ne $Plan.entries.Count -or
+        $Plan.output_naming.resolved_base -isnot [string] -or -not [IO.Path]::IsPathRooted($Plan.output_naming.resolved_base) -or
+        $Plan.output_naming.run_stem -isnot [string] -or [string]::IsNullOrWhiteSpace($Plan.output_naming.run_stem) -or
+        $Plan.output_naming.run_stem -match '[<>:"/\\|?*\x00-\x1f]' -or $Plan.output_naming.run_stem.Length -gt 64 -or
+        $Plan.output_naming.run_stem -cne $Plan.output_naming.run_stem.Trim(' ', '.') -or
+        -not (Test-SplitInteger $Plan.output_naming.filename_budget) -or
+        $Plan.output_naming.filename_budget -lt 1 -or $Plan.output_naming.filename_budget -gt 255) { throw 'Invalid preview plan metadata.' }
+    foreach ($notice in $Plan.notices) { if ($notice -isnot [string]) { throw 'Invalid preview notice.' } }
+    foreach ($field in @('outputs', 'execution', 'written_count', 'final_directory')) {
+        if ($Plan.PSObject.Properties.Name -contains $field) { throw 'A preview plan cannot claim emitted output.' }
+    }
+    Assert-SplitPreviewSourceIdentity $Plan.source_identity 'reader_snapshot'
+    if ($Mode -ceq 'manual') {
+        if ($Plan.normalized_inputs.starts -isnot [array] -or
+            $Plan.normalized_inputs.starts.Count -ne $Plan.entries.Count) { throw 'Invalid preview manual starts.' }
+    }
+    elseif ($Plan.normalized_inputs.bookmarks -isnot [array]) { throw 'Invalid preview normalized bookmarks.' }
+    $filenames = [Collections.Generic.HashSet[string]]::new([StringComparer]::OrdinalIgnoreCase)
+    $previousEnd = 0
+    for ($index = 0; $index -lt $Plan.entries.Count; $index++) {
+        $entry = $Plan.entries[$index]
+        if ($null -eq $entry) { throw 'Missing preview section.' }
+        foreach ($field in @('sequence', 'title', 'start', 'end', 'parent_id', 'reason', 'filename', 'warnings')) {
+            if ($entry.PSObject.Properties.Name -notcontains $field) { throw ('Missing preview section field: ' + $field) }
+        }
+        $range = $Plan.ranges[$index]
+        $filename = $entry.filename
+        if ($Mode -ceq 'manual' -and (-not (Test-SplitInteger $Plan.normalized_inputs.starts[$index]) -or
+            $Plan.normalized_inputs.starts[$index] -ne ($entry.start + 1))) { throw 'Preview manual starts disagree with its sections.' }
+        if (-not (Test-SplitInteger $entry.sequence) -or $entry.sequence -ne ($index + 1) -or
+            -not (Test-SplitInteger $entry.start) -or -not (Test-SplitInteger $entry.end) -or
+            $entry.start -ne $previousEnd -or $entry.start -ge $entry.end -or $entry.end -gt $Plan.total_pages -or
+            $range -isnot [array] -or $range.Count -ne 2 -or
+            -not (Test-SplitInteger $range[0]) -or -not (Test-SplitInteger $range[1]) -or
+            $range[0] -ne $entry.start -or $range[1] -ne $entry.end -or
+            $entry.title -isnot [string] -or $entry.reason -isnot [string] -or
+            ($null -ne $entry.parent_id -and $entry.parent_id -isnot [string]) -or $entry.warnings -isnot [array] -or
+            $filename -isnot [string] -or -not $filename.EndsWith('.pdf', [StringComparison]::Ordinal) -or
+            $filename -in @('.pdf', '..pdf') -or $filename -cne $filename.Trim() -or
+            $filename -match '[<>:"/\\|?*\x00-\x1f]' -or $filename.Length -gt $Plan.output_naming.filename_budget -or
+            $filename -match '^(CON|PRN|AUX|NUL|CONIN\$|CONOUT\$|COM[1-9¹²³]|LPT[1-9¹²³])\s*\.' -or
+            -not $filenames.Add($filename)) { throw 'Invalid preview section partition or filename.' }
+        for ($character = 0; $character -lt $filename.Length; $character++) {
+            $category = [Globalization.CharUnicodeInfo]::GetUnicodeCategory($filename, $character)
+            if ($category -in @([Globalization.UnicodeCategory]::Control, [Globalization.UnicodeCategory]::Format,
+                               [Globalization.UnicodeCategory]::Surrogate)) { throw 'Invalid preview filename character.' }
+            if ([char]::IsHighSurrogate($filename[$character])) { $character++ }
+        }
+        $previousEnd = $entry.end
+    }
+    if ($previousEnd -ne $Plan.total_pages) { throw 'Preview sections must cover the final physical page.' }
+    if ($Plan.PSObject.Properties.Name -contains 'original_ebook_identity' -or
+        $Plan.PSObject.Properties.Name -contains 'conversion' -or $Plan.PSObject.Properties.Name -contains 'keep_converted_pdf') {
+        Assert-SplitPreviewSourceIdentity $Plan.original_ebook_identity 'ebook_snapshot'
+        $generated = $Plan.conversion.generated_pdf_identity
+        Assert-SplitPreviewSourceIdentity $generated 'reader_snapshot'
+        if ($Plan.keep_converted_pdf -isnot [bool] -or $Plan.keep_converted_pdf -or
+            -not (Test-SplitInteger $generated.page_count) -or $generated.page_count -ne $Plan.total_pages -or
+            $generated.path -cne $Plan.source_identity.path -or $generated.resolved_path -cne $Plan.source_identity.resolved_path -or
+            $generated.sha256 -cne $Plan.source_identity.sha256 -or $generated.size_bytes -ne $Plan.source_identity.size_bytes -or
+            $Plan.conversion.workspace_cleanup.cleanup_complete -isnot [bool] -or
+            -not $Plan.conversion.workspace_cleanup.cleanup_complete -or
+            $null -ne $Plan.conversion.workspace_cleanup.retained_staging) { throw 'Invalid converted preview source or cleanup.' }
+    }
+}
+
 function ConvertFrom-SplitResult {
-    param([string]$Stdout, [int]$ExitCode, [string]$Mode)
+    param([string]$Stdout, [int]$ExitCode, [string]$Mode, [bool]$Preview = $false)
     $records = @()
     foreach ($line in ($Stdout -split '\r?\n')) {
         if ($line.TrimStart().StartsWith('{')) {
@@ -59,8 +150,16 @@ function ConvertFrom-SplitResult {
     if ($ExitCode -ne $mappedExit) { throw 'Outcome code does not match the documented native exit.' }
     if ($ExitCode -eq 130 -and $result.status -cnotin @('cancelled', 'timeout')) { throw 'Cancellation requires its explicit result category.' }
     switch -CaseSensitive ($result.status) {
+        'preview' {
+            if (-not $Preview -or $ExitCode -ne 0 -or $result.code -cne 'preview_complete' -or
+                $result.written_count -ne 0 -or $null -ne $result.execution -or
+                $result.PSObject.Properties.Name -notcontains 'plan') { throw 'Invalid or unexpected preview result.' }
+            Assert-SplitPreviewPlan -Plan $result.plan -Mode $Mode
+            if (($result.warnings | ConvertTo-Json -Depth 100 -Compress) -cne
+                ($result.plan.warnings | ConvertTo-Json -Depth 100 -Compress)) { throw 'Preview warnings disagree with its plan.' }
+        }
         'success' {
-            if ($ExitCode -ne 0 -or $result.code -cne 'split_complete' -or $result.written_count -lt 1 -or
+            if ($Preview -or $ExitCode -ne 0 -or $result.code -cne 'split_complete' -or $result.written_count -lt 1 -or
                 $null -eq $result.execution -or -not (Test-SplitInteger $result.execution.written_count) -or
                 $result.execution.written_count -ne $result.written_count -or
                 $result.execution.outputs -isnot [array] -or
@@ -78,7 +177,7 @@ function ConvertFrom-SplitResult {
                 $result.execution.manifest.written_count -ne $result.written_count) { throw 'Invalid successful engine result.' }
         }
         'incomplete' {
-            if ($ExitCode -ne 6 -or $result.code -cne 'output_handle_close_failed' -or $null -eq $result.execution) {
+            if ($Preview -or $ExitCode -ne 6 -or $result.code -cne 'output_handle_close_failed' -or $null -eq $result.execution) {
                 throw 'Invalid incomplete published result.'
             }
             # Apply every ordinary completed-output check to the retained folder.

@@ -1096,7 +1096,7 @@ def execute_split(prepared, output_dir):
     return result
 
 
-def _split_result(mode, status, code, message, warnings=(), execution=None, diagnostic=None):
+def _split_result(mode, status, code, message, warnings=(), execution=None, diagnostic=None, plan=None):
     """One explicit outcome; choices are data and never execute a fallback."""
     fallback = ()
     if status == "no_plan":
@@ -1111,7 +1111,8 @@ def _split_result(mode, status, code, message, warnings=(), execution=None, diag
                     "status": status, "code": code, "message": message, "warnings": warnings,
                     "fallback_modes": fallback, "exit_code": exit_code,
                     "written_count": execution["written_count"] if execution is not None else 0,
-                    "execution": execution, "diagnostic": diagnostic})
+                    "execution": execution, "diagnostic": diagnostic,
+                    **({"plan": plan} if plan is not None else {})})
 
 
 def _planning_failure(mode, error):
@@ -1143,9 +1144,12 @@ def _log_conversion(conversion):
             log(f"[CONVERTER {stream}] {line}")
 
 
-def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False, conversion_timeout=1800):
+def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False, conversion_timeout=1800, preview=False):
     """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
+        if not isinstance(preview, bool) or preview and keep_converted_pdf:
+            return _split_result(mode, "invalid_input", "invalid_arguments",
+                                 "Preview must be an explicit Boolean and cannot retain a converted PDF.")
         if Path(input_path).suffix.lower() in {".epub", ".azw3"}:
             prepared = prepare_ebook(input_path, mode, manual_data, output_base=output_dir,
                                      calibre_path=calibre_path, keep_converted_pdf=keep_converted_pdf,
@@ -1175,6 +1179,19 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
             log(f"[*] Manual Split Points (Page #): {list(plan['normalized_inputs']['starts'])}")
         else:
             log(f"[*] Found {len(plan['entries'])} sections based on Level {mode} bookmarks.")
+        if preview:
+            # Preview has no reservation/writer. Inspect the existing destination
+            # through the same ordinary-directory rule as OutputRun, read-only.
+            try:
+                base = Path(os.path.abspath(os.fspath(output_dir)))
+                for ancestor in (*reversed(base.parents), base):
+                    _ordinary(ancestor, directory=True)
+            except OutputError:
+                raise
+            except OSError as error:
+                raise OutputError("output_base_invalid", "Cannot inspect the output base: " + str(error)) from error
+            return _split_result(mode, "preview", "preview_complete", "PDF split preview completed; no chapter outputs were written.",
+                                 plan["warnings"], plan=plan)
         execution = execute_split(prepared, output_dir)
         if execution["written_count"] < 1 or not execution["outputs"]:
             raise PlanError("invalid_execution", "The writer produced no sections.")
@@ -1206,13 +1223,13 @@ def serialize_result(result):
 
 def split_pdf(input_path, output_dir, mode, manual_data=None, **conversion_options):
     result = run_split(input_path, output_dir, mode, manual_data, **conversion_options)
-    if result["status"] != "success":
+    if result["status"] not in {"success", "preview"}:
         log_bookmark_warnings(result["warnings"])
         log(f"[ERROR] {result['code']}: {result['message']}")
     log(serialize_result(result))
     if result["exit_code"]:
         raise SystemExit(result["exit_code"])
-    return result["execution"]
+    return result["plan"] if result["status"] == "preview" else result["execution"]
 
 def write_slice(reader, start, end, out_path, on_created=None):
     log(f"    [Writing] {os.path.basename(out_path)}")
@@ -1244,10 +1261,13 @@ def main():
             if option == "--keep-converted-pdf" and "keep_converted_pdf" not in options:
                 options["keep_converted_pdf"] = True
                 index += 1
+            elif option == "--preview" and "preview" not in options:
+                options["preview"] = True
+                index += 1
             elif option in {"--calibre-path", "--conversion-timeout"} and index + 1 < len(extras):
                 key = "calibre_path" if option == "--calibre-path" else "conversion_timeout"
                 if key in options:
-                    raise ValueError("Repeated conversion option.")
+                    raise ValueError("Repeated processing option.")
                 value = extras[index + 1]
                 if key == "conversion_timeout":
                     if not re.fullmatch(r"[0-9]+", value) or not 1 <= int(value) <= 86400:
@@ -1256,7 +1276,7 @@ def main():
                 options[key] = value
                 index += 2
             else:
-                raise ValueError("Unknown or incomplete conversion option.")
+                raise ValueError("Unknown or incomplete processing option.")
     except ValueError as error:
         result = _split_result(mode, "invalid_input", "invalid_arguments", str(error))
         log(serialize_result(result))
