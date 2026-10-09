@@ -79,7 +79,10 @@ def controlled_application(app, kind, batch):
             require(text.count(before) == 1, "Copied NoPause control seam changed")
             text = text.replace(before, "[switch]$NoPause = $true,")
             modifications.append("copied NoPause default true")
-        (app / "WinBookSplit.ps1").write_text(text, encoding="utf-8-sig")
+        if kind in validator.EXTRA:
+            (app / "WinBookSplit.ps1").write_bytes(text.encode("utf-8-sig"))
+        else:
+            (app / "WinBookSplit.ps1").write_text(text, encoding="utf-8-sig")
     actual = {name: digest(app / name) for name in process_tests.APPLICATION}
     require(actual["WinBookSplit.bat"] == original["WinBookSplit.bat"], "Native test changed shipped BAT bytes")
     return original, actual, modifications
