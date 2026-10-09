@@ -68,6 +68,7 @@ $functions = @($ast.FindAll({ param($node) $node -is [Management.Automation.Lang
 if ($functions.Count -ne 1) { throw 'Exactly one trusted execution function is required.' }
 . ([scriptblock]::Create($functions[0].Extent.Text))
 $enginePath = $payload.flood_engine
+$pythonExe = $payload.python
 $InputFile = 'quote " [space] å & $(literal)\'
 $outputDir = $payload.output + '\'
 $logFile = $payload.log

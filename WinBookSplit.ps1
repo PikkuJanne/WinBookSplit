@@ -5,7 +5,8 @@ Automated PDF/AZW3/EPUB Chapter Slicer & Organizer
 Author: Janne Vuorela
 Target OS: Windows 11
 PowerShell: Windows PowerShell 5.1 or PowerShell 7+
-Dependencies: Python 3.x, pypdf library, Calibre (for AZW3/EPUB), .bat wrapper
+Dependencies: Regular Windows x64 CPython 3.14.8, pypdf 6.19.0,
+              Calibre 9.15.0 (for AZW3/EPUB), .bat wrapper
 
 SYNOPSIS
     A "smart" decomposition tool for technical manuals and textbooks.
@@ -47,8 +48,9 @@ MY INTENDED USAGE
         5. I find a clean, numbered folder in my Documents, ready for my reader.
 
 SETUP
-    1) Install Python engine: Run 'pip install pypdf' in your terminal.
-    2) Install Calibre: Required for AZW3/EPUB conversion support.
+    1) Follow docs/codex-v1.0.0/SUPPORT_AND_SETUP.md for explicit isolated setup.
+       Install hashed requirements.txt with the exact interpreter's -m pip.
+    2) Install Calibre 9.15.0 separately for AZW3/EPUB conversion support.
     3) Create a folder (e.g., C:\Tools\WinBookSplit\).
     4) Place the .ps1, .bat, and engine directory inside.
     5) (Optional) Create a desktop shortcut to WinBookSplit.bat.
@@ -60,7 +62,8 @@ USAGE
 
     B) Direct PowerShell
         - Run: .\WinBookSplit.ps1 -InputFile "C:\Path\To\Book.azw3"
-        - Optional: -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
+        - Optional: -PythonPath "C:\Tools\Python\python.exe"
+                    -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
         - ConversionTimeout limits each attempt in seconds (default 1800).
 
 NOTES
@@ -70,7 +73,7 @@ NOTES
 
 LIMITATIONS
     - Requires a local Python installation with the 'pypdf' library.
-    - Requires Calibre in standard paths or an explicit -CalibrePath for AZW3/EPUB conversion.
+    - Requires a validated trusted Calibre executable for AZW3/EPUB conversion.
     - Manual mode assumes every provided page number is the start of a new chapter.
 
 TROUBLESHOOTING
@@ -79,7 +82,7 @@ TROUBLESHOOTING
     - "[!!!] ERROR: No bookmarks found":
         The PDF lacks an internal Outline. Use Manual Mode [M] instead.
     - "Python not found":
-        Ensure Python is added to your Windows PATH environment variable.
+        Select regular x64 Python 3.14.8 with -PythonPath or prepare the app .venv.
 
 LICENSE / WARRANTY
     - Personal IT automation tool, provided as-is.
@@ -90,20 +93,14 @@ param (
     [string]$OutputDirectory,
     [string]$CalibrePath,
     [switch]$KeepConvertedPdf,
-    [ValidateRange(1, 86400)][int]$ConversionTimeout = 1800
+    [ValidateRange(1, 86400)][int]$ConversionTimeout = 1800,
+    [string]$PythonPath
 )
 
 # --- Configuration ---
 $AppName = "WinBookSplit"
 $ver = "2.1 (AZW3 Support)"
 $documentsPath = [Environment]::GetFolderPath("MyDocuments")
-
-# Standard locations for Calibre's converter tool
-$CalibreSearchPaths = @(
-    "C:\Program Files\Calibre2\ebook-convert.exe",
-    "C:\Program Files (x86)\Calibre2\ebook-convert.exe",
-    "$env:LOCALAPPDATA\Programs\Calibre\ebook-convert.exe"
-)
 
 # --- UI Functions ---
 function Draw-Header {
@@ -115,6 +112,8 @@ function Draw-Header {
 }
 
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Paths.ps1')
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Diagnostics.ps1')
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Runtime.ps1')
 
 # --- Validation ---
 Draw-Header
@@ -133,34 +132,26 @@ catch {
 
 $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
 
-# Resolve a converter only for ebooks. Conversion and its owned workspace are
-# handled by the shipped engine; the original input remains the selected book.
+# Validate dependencies before reserving console records or starting conversion.
+# The selected absolute interpreter is also used for every engine attempt.
+$runtime = $null
+$converter = $null
 $converterExe = $null
-if ($inputExt -ne ".pdf") {
-    try {
-        if (-not [string]::IsNullOrWhiteSpace($CalibrePath)) {
-            $converterItem = Get-Item -LiteralPath $CalibrePath -ErrorAction Stop
-            if ($converterItem -isnot [IO.FileInfo] -or
-                ($converterItem.Attributes -band [IO.FileAttributes]::ReparsePoint)) {
-                throw 'CalibrePath must select an ordinary converter executable.'
-            }
-            $converterExe = $converterItem.FullName
-        }
-        else {
-            $converterExe = $CalibreSearchPaths | Where-Object {
-                Test-Path -LiteralPath $_ -PathType Leaf
-            } | Select-Object -First 1
-        }
-        if (-not $converterExe) { throw 'Calibre not found. Select ebook-convert.exe with -CalibrePath or install Calibre in a standard location.' }
+try {
+    $runtime = Resolve-WinBookSplitRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile
+    $pythonExe = $runtime.Path
+    if ($inputExt -ne ".pdf") {
+        $converter = Resolve-WinBookSplitConverter -ApplicationRoot $PSScriptRoot -CalibrePath $CalibrePath -DocumentPath $InputFile
+        $converterExe = $converter.Path
     }
-    catch {
-        Write-Host ("[!] CONVERSION ERROR: " + $_.Exception.Message) -ForegroundColor Red
-        Read-Host 'Press Enter to exit'
-        exit 1
-    }
+    elseif ($KeepConvertedPdf) { throw 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.' }
 }
-elseif ($KeepConvertedPdf) {
-    Write-Host '[!] KeepConvertedPdf applies only to EPUB or AZW3 conversion.' -ForegroundColor Red
+catch {
+    $preflightFailure = $_.Exception
+    Write-Host ('[!] Dependency preflight failed: ' + $preflightFailure.Message) -ForegroundColor Red
+    if ($preflightFailure.Data.Contains('Code')) {
+        Write-Host ('[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code']; Attempts = @($preflightFailure.Data['Attempts']) } | ConvertTo-Json -Depth 12 -Compress))
+    }
     Read-Host 'Press Enter to exit'
     exit 1
 }
@@ -207,13 +198,12 @@ catch {
 
 # --- The Python Engine ---
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
-. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Diagnostics.ps1')
 
 # --- Execution Function ---
 function Run-PythonSplitter ($mode, $manualData) {
     $pInfo = New-Object System.Diagnostics.ProcessStartInfo
-    $pInfo.FileName = "python"
-    $engineArguments = @($enginePath, $InputFile, $outputDir, $mode, $manualData)
+    $pInfo.FileName = $pythonExe
+    $engineArguments = @('-I', '-B', $enginePath, $InputFile, $outputDir, $mode, $manualData)
     if ($InputFile -match '\.(epub|azw3)$') {
         $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
         if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
@@ -226,6 +216,9 @@ function Run-PythonSplitter ($mode, $manualData) {
     $pInfo.CreateNoWindow = $true
     $pInfo.StandardOutputEncoding = [System.Text.Encoding]::UTF8
     $pInfo.StandardErrorEncoding = [System.Text.Encoding]::UTF8
+    $pInfo.EnvironmentVariables['PYTHONUTF8'] = '1'
+    $pInfo.EnvironmentVariables['PYTHONIOENCODING'] = 'utf-8'
+    $script:consoleLogWriter.WriteLine('[ENGINE] ' + (@{ path = $pythonExe; arguments = @($engineArguments) } | ConvertTo-Json -Compress))
 
     $p = New-Object System.Diagnostics.Process
     $p.StartInfo = $pInfo
@@ -257,6 +250,18 @@ function Run-PythonSplitter ($mode, $manualData) {
 # --- Main Logic Flow ---
 
 # 1. Initial TUI, shows original book metadata
+$script:consoleLogWriter.WriteLine('[DEPENDENCY] ' + (@{ Runtime = $runtime; Converter = $converter } | ConvertTo-Json -Depth 12 -Compress))
+$runtimeLine = 'Python: ' + $runtime.Path + ' (' + $runtime.Version + '; ' + $runtime.Source + ')'
+$pypdfLine = 'pypdf: ' + $runtime.PypdfVersion + ' (' + $runtime.PypdfPath + ')'
+foreach ($line in @($runtimeLine, $pypdfLine)) {
+    Write-Host $line -ForegroundColor Gray
+    $script:consoleLogWriter.WriteLine($line)
+}
+if ($null -ne $converter) {
+    $converterLine = 'Calibre: ' + $converter.Path + ' (' + $converter.Version + '; ' + $converter.Source + ')'
+    Write-Host $converterLine -ForegroundColor Gray
+    $script:consoleLogWriter.WriteLine($converterLine)
+}
 Write-Host "Target Book: $fileName" -ForegroundColor Green
 Write-Host "Size:        $fileSize" -ForegroundColor Gray
 if ($inputExt -ne ".pdf") {

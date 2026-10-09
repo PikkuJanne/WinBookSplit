@@ -81,6 +81,7 @@ try {
     $application = Join-Path -Path $repository -ChildPath 'WinBookSplit.ps1'
     $scaffoldPaths = @(
         (Join-Path -Path $repository -ChildPath 'tests\Invoke-ShellTests.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Runtime.ps1'),
         (Join-Path -Path $repository -ChildPath 'tests\PSScriptAnalyzerSettings.psd1')
     ) + @((Get-ChildItem -LiteralPath (Join-Path -Path $repository -ChildPath 'tests\powershell') -File) |
         Where-Object { $_.Extension -in @('.ps1', '.psm1') } | ForEach-Object { $_.FullName })
@@ -106,9 +107,15 @@ try {
 
     $testFile = if ($FailureProbe) { 'tests\powershell\FailureProbe.ps1' } else { 'tests\powershell\Harness.Tests.ps1' }
     $config = New-PesterConfiguration
-    $config.Run.Container = @(New-PesterContainer -Path (Join-Path -Path $repository -ChildPath $testFile) -Data @{
+    $containers = @(New-PesterContainer -Path (Join-Path -Path $repository -ChildPath $testFile) -Data @{
         RepositoryRoot = $repository; ToolRoot = $ToolRoot; WorkRoot = $work
     })
+    if (-not $FailureProbe) {
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Runtime.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
+        }
+    }
+    $config.Run.Container = $containers
     $config.Run.PassThru = $true
     $config.Run.Exit = $false
     $config.Output.Verbosity = 'None'

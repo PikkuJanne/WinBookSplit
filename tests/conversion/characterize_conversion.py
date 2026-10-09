@@ -294,11 +294,22 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                               converter_process=converter_observation, fake_receipt=receipt)
                 remove_diagnostic(base, frames[0])
             else:
-                record["scope"] = "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-deferred-M2-T04"
+                record["scope"] = "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"
                 require("Calibre" in process["stdout"] or "calibre" in process["stdout"], "BAT failure did not identify the missing conversion dependency")
-                for frame in frames:
-                    require(frame["written_count"] == 0 and frame["execution"] is None, "BAT dependency failure wrote output")
-                    remove_diagnostic(base, frame)
+                dependency_errors = [json.loads(line.removeprefix("[DEPENDENCY-ERROR] ")) for line in process["stdout"].splitlines()
+                                     if line.startswith("[DEPENDENCY-ERROR] ")]
+                require(log is None and frames == [] and len(dependency_errors) == 1
+                        and dependency_errors[0].get("Code") == "converter_not_found"
+                        and isinstance(dependency_errors[0].get("Attempts"), list)
+                        and all(item.get("Accepted") is False and item.get("Probe") is None for item in dependency_errors[0]["Attempts"]),
+                        "Actual BAT missing converter did not fail in dependency preflight before console/processing")
+                require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"]
+                        and all(marker not in process["stdout"] for marker in ("[ENGINE]", "[CONVERSION]", "[DEPENDENCY] ")),
+                        "Actual BAT missing converter omitted precise guidance or started processing")
+                record.update(dependency_error=dependency_errors[0], preflight_before_console_output=True,
+                              console_record_absent=True, engine_invocation_record_absent=True,
+                              dependency_success_record_absent=True, conversion_started=False,
+                              written_count=0, setup_guidance_verified=True)
         require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
         record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
                       input_unchanged=True, neighbor_unchanged=True, **process)

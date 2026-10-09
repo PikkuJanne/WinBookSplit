@@ -57,6 +57,7 @@ OUTPUT_CLEANUP_IDS = {"ordinary-owned", "unexpected-member", "held-marker-tamper
                       "mock-reparse", "junction-base", "junction-child", "held-stage-replacement"}
 PATH_ACCEPTANCE_IDS = ["AC-036", "AC-037", "AC-038", "AC-039"]
 CONVERSION_ACCEPTANCE_IDS = ["AC-040", "AC-041", "AC-042"]
+RUNTIME_ACCEPTANCE_IDS = ["AC-043", "AC-044", "AC-045"]
 CONVERSION_REAL_IDS = {host + "-" + fmt + "-" + retention for host in ("PS51", "PS7")
                        for fmt in ("epub", "azw3") for retention in ("default", "keep")}
 CONVERSION_INVALID_IDS = {host + "-" + kind for host in ("PS51", "PS7")
@@ -134,6 +135,7 @@ def source_manifest() -> dict[str, str]:
         "tests/output/README.md",
         "tests/paths/README.md",
         "tests/conversion/README.md",
+        "tests/runtime/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -795,8 +797,15 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
     bat = child.get("bat_missing_converter_case")
     if not isinstance(bat, dict) or bat.get("passed") is not True or bat.get("actual_process") is not True \
             or bat.get("exit_code") != 1 or bat.get("outputs") != [] or bat.get("successful_final_count") != 0 \
-            or any(bat.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "no_success_summary")) \
-            or bat.get("scope") != "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-deferred-M2-T04":
+            or any(bat.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "no_success_summary",
+                    "preflight_before_console_output", "console_record_absent", "engine_invocation_record_absent",
+                    "dependency_success_record_absent", "setup_guidance_verified")) \
+            or bat.get("conversion_started") is not False or type(bat.get("written_count")) is not int or bat["written_count"] != 0 \
+            or not isinstance(bat.get("dependency_error"), dict) or bat["dependency_error"].get("Code") != "converter_not_found" \
+            or not isinstance(bat["dependency_error"].get("Attempts"), list) \
+            or any(not isinstance(item, dict) or item.get("Accepted") is not False or item.get("Probe") is not None
+                   for item in bat["dependency_error"]["Attempts"]) \
+            or bat.get("scope") != "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance":
         raise ValueError("Conversion evidence must accurately preserve actual BAT missing-converter failure")
 
 
@@ -987,6 +996,12 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validate_paths_report(child, step.get("requested_shell_paths", []))
         elif kind == "conversion":
             validate_conversion_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
+        elif kind == "runtime":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_runtime_receipt_validator", ROOT / "tests/runtime/validate_runtime_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_runtime_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1164,7 +1179,7 @@ def shell_command(shell: Path, work: Path, report: Path, tool_root: Path,
     environment = child_environment(work)
     environment.update(WBS_TEST_SCRIPT=str(ROOT / "tests/Invoke-ShellTests.ps1"),
                        WBS_TEST_ROOT=str(ROOT), WBS_TEST_TOOLS=str(tool_root),
-                       WBS_TEST_REPORT=str(report), WBS_TEST_WORK=str(work),
+                       WBS_TEST_REPORT=str(report), WBS_TEST_WORK=str(work), WBS_TEST_PYTHON=sys.executable,
                        TEMP=str(work), TMP=str(work),
                        PSModulePath=str(shell.parent / "Modules"))
     # This applies only to the fresh child. Machine/UserPolicy still takes
@@ -1346,6 +1361,18 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "conversion")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"runtime", "full"}:
+            child_report = work / "runtime-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/runtime/characterize_runtime.py"),
+                       "--report", str(child_report), "--calibre-path", str(args.calibre_path)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "runtime-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_calibre_path": str(args.calibre_path),
+                    "meaning": "Actual isolated interpreter/import selection, pre-output dependency rejection and trusted converter discovery",
+                    **run_command(command, work, environment=environment, timeout=600)}
+            attach_child_report(step, child_report, "runtime")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1365,10 +1392,10 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
-    parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/full acceptance")
+    parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/full acceptance")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
                         help="Absolute actual powershell.exe/pwsh.exe; repeat for both hosts")
     parser.add_argument("--failure-probe", choices=("native", "python", "pester"))
@@ -1393,15 +1420,15 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
-            raise ValueError("Diagnostics, paths and conversion require both explicit distinct supported shell hosts")
-        if not args.failure_probe and args.layer in {"conversion", "full"}:
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            raise ValueError("Diagnostics, paths, conversion and runtime require both explicit distinct supported shell hosts")
+        if not args.failure_probe and args.layer in {"conversion", "runtime", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
-                raise ValueError("Conversion/full requires the existing absolute actual pinned --calibre-path")
+                raise ValueError("Conversion/runtime/full requires the existing absolute actual pinned --calibre-path")
             args.calibre_path = args.calibre_path.resolve()
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:

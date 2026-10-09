@@ -355,7 +355,10 @@ def complete_conversion_report(hosts, calibre):
             "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,
             "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 1, "outputs": [], "successful_final_count": 0,
                 "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
-                "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-deferred-M2-T04"},
+                "preflight_before_console_output": True, "console_record_absent": True, "engine_invocation_record_absent": True,
+                "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
+                "dependency_error": {"Code": "converter_not_found", "Attempts": []},
+                "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"},
             "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
             "owned_temp_removed": True, "machine_settings_unchanged": True,
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
@@ -442,6 +445,11 @@ class RunnerTests(unittest.TestCase):
                 ("invalid output accepted", lambda data: data["invalid_converter_cases"][0]["engine_record"].__setitem__("written_count", 1)),
                 ("success summary on failure", lambda data: data["invalid_converter_cases"][0].__setitem__("no_success_summary", False)),
                 ("BAT zero failure", lambda data: data["bat_missing_converter_case"].__setitem__("exit_code", 0)),
+                ("BAT late failure", lambda data: data["bat_missing_converter_case"].__setitem__("preflight_before_console_output", False)),
+                ("BAT console written", lambda data: data["bat_missing_converter_case"].__setitem__("console_record_absent", False)),
+                ("BAT conversion started", lambda data: data["bat_missing_converter_case"].__setitem__("conversion_started", True)),
+                ("BAT wrong dependency", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Code", "runtime_invalid")),
+                ("BAT unproved probe", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Attempts", [{"Accepted": True, "Probe": None}])),
                 ("unpreserved baseline", lambda data: data.__setitem__("baseline_guards_preserved", False)),
             ]
             for name, defect in defects:
@@ -886,7 +894,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_all_eight_regressions_and_forwards_integration_hosts_and_converter(self):
+    def test_full_selects_all_nine_regressions_and_forwards_integration_hosts_and_converter(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"), calibre_path=Path("C:/trusted/ebook-convert.exe"))
@@ -928,10 +936,13 @@ class RunnerTests(unittest.TestCase):
         conversion = [command for command in commands if str(ROOT / "tests/conversion/characterize_conversion.py") in command]
         self.assertEqual(len(conversion), 1)
         self.assertEqual(conversion[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion"])
-        self.assertEqual([step["name"] for step in report["steps"][-8:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression"])
-        self.assertEqual(len(report["steps"]), 11)
+        runtime = [command for command in commands if str(ROOT / "tests/runtime/characterize_runtime.py") in command]
+        self.assertEqual(len(runtime), 1)
+        self.assertEqual(runtime[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime"])
+        self.assertEqual([step["name"] for step in report["steps"][-9:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression"])
+        self.assertEqual(len(report["steps"]), 12)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
