@@ -21,14 +21,27 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell` or `--layer extraction` for targeted checks.
+Use `--layer python`, `--layer shell` or `--layer manual` for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
-The extraction layer accepts the two `--shell-path` options for actual entrypoint
-probes; omit them only for a focused Python equivalence/import check and record
-AC-012 as not run. `--layer baseline` still invokes the untouched historical
-harness and deliberately refuses the modified PowerShell source after M1.
-The full layer now explicitly runs the separate extraction-equivalence route.
+The manual layer executes all 22 corrected manual oracles, eight extra CLI cases,
+250 seeded valid-start coverage checks, 25 real writer samples, safe import and
+three unchanged historical bookmark observations. Promised reports must include
+all case records and preserve the immutable baseline, source, inputs/neighbors
+and owned cleanup. When hosts are requested, the report must also contain all
+six successful entrypoint records, including three concurrent launches.
+It accepts the two `--shell-path` options for the controlled actual entrypoint
+probes; omit them for a focused Python check and record entrypoint checks as not
+run. The full layer now runs this manual regression route.
+
+`--layer extraction` remains an explicit historical diagnostic comparing the
+current engine with immutable original behavior. It is expected to fail after
+the intentional M1-T02 manual fixes; it is no longer part of the full gate.
+The historical AC-011 unit assertion instead reads the shipped engine blob at
+M1-T01 commit `88c2149b3b3034fbd0d7ef23c2382f4b01648e4c`, preserving its extraction
+evidence without requiring current code to retain known manual bugs.
+`--layer baseline` still invokes the untouched historical harness and deliberately
+refuses the modified PowerShell source after M1.
 `--failure-probe native`, `--failure-probe python` and
 `--failure-probe pester` deliberately fail and must return nonzero even after
 the runner's later successful command/report step. These are runner acceptance
@@ -52,19 +65,23 @@ GUID directories, ownership markers and synthetic neighbors. Their nonrecursive
 cleanup verifies containment, marker, allowed files and absence of reparse
 points before removing only the run's owned outputs. No private Documents
 content is enumerated or used as input. See `extraction/README.md` for the actual
-six-probe unrelated-directory/parallel method and its limits. Environments,
+six-probe unrelated-directory/parallel method and its limits. `manual/README.md`
+describes the corrected manual regression route. Environments,
 generated outputs and raw evidence are ignored; ignore rules do not replace
 reviewing the exact staged paths.
 
-The extraction layer compares immutable original Git bytes with the shipped
-engine using fourteen understood known-bad cases. Processing ASTs, exits,
+The explicit legacy extraction layer compares immutable original Git bytes with
+the current shipped engine using fourteen understood known-bad cases. Processing ASTs, exits,
 stdout/stderr, filenames, exact page identities and PDF bytes must match, and
 engine import must have no processing/configuration side effects. A pass means
-mechanical equivalence, not repaired splitting. The historical baseline layer
+mechanical equivalence, not repaired splitting; current corrected manual code is
+expected to fail this diagnostic. The historical baseline layer
 continues to require the original launcher hashes without exceptions.
 The shell layer gates syntax and the new scaffold's selected static checks;
 unchanged application analyzer findings are reported as legacy observations.
-Actual M1 synthetic splitting under both shells and batch verifies extraction
-and engine resolution; repaired behavior, full UX/Explorer, Calibre and the
+The manual route verifies corrected manual splitting directly against synthetic
+PDF page identities. Controlled actual M1 entrypoint splitting under both shells
+and batch verifies engine resolution and selected paths; corrected bookmark
+behavior, full UX/Explorer, Calibre and the
 extracted release package remain separate mandatory later checks. CI installation and workflow
 execution belong to M4-T05; this local scaffold does not claim a CI run.

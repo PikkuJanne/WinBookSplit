@@ -1,4 +1,4 @@
-"""Existing WinBookSplit PDF logic, mechanically extracted before behavior fixes."""
+"""WinBookSplit PDF logic with strict physical-page manual starts."""
 
 import sys
 import os
@@ -9,6 +9,52 @@ from pypdf import PdfReader, PdfWriter
 
 
 def log(msg): print(msg)
+
+
+class ManualPlanError(ValueError):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
+def plan_manual_starts(manual_data, total_pages):
+    """Validate every token before normalizing into complete half-open ranges."""
+    if type(total_pages) is not int or total_pages < 1:
+        raise ManualPlanError("invalid_document", "The PDF must contain at least one page.")
+    if not isinstance(manual_data, str):
+        raise ManualPlanError("invalid_start_pages", "Enter comma-separated start pages.")
+
+    starts = []
+    upper = str(total_pages)
+    for position, raw in enumerate(manual_data.split(','), start=1):
+        token = raw.strip()
+        if re.fullmatch(r'[0-9]+', token) is None:
+            raise ManualPlanError("invalid_start_pages",
+                                  f"Token {position} must be a nonempty ASCII decimal page number.")
+        # Compare bounded decimal text before int(): even very long inputs and
+        # valid leading-zero tokens do not depend on Python's digit limit.
+        canonical = token.lstrip('0') or '0'
+        if canonical == '0' or len(canonical) > len(upper) or (
+                len(canonical) == len(upper) and canonical > upper):
+            raise ManualPlanError("invalid_start_pages",
+                                  f"Token {position} must be between 1 and {total_pages}.")
+        starts.append(int(canonical))
+
+    notices = []
+    if starts != sorted(starts):
+        notices.append("Start pages sorted into physical page order.")
+    if len(set(starts)) != len(starts):
+        notices.append("Duplicate start pages removed.")
+    normalized = sorted(set(starts))
+    if normalized[0] != 1:
+        normalized.insert(0, 1)
+        notices.append("Physical page 1 added to preserve opening pages.")
+    indices = [page - 1 for page in normalized]
+    ranges = list(zip(indices, indices[1:] + [total_pages]))
+    if len(ranges) == 1:
+        notices.append("One section; no internal split.")
+    return {"starts": normalized, "ranges": ranges, "notices": notices}
+
 
 def split_pdf(input_path, output_dir, mode, manual_data=None):
     try:
@@ -65,21 +111,14 @@ def split_pdf(input_path, output_dir, mode, manual_data=None):
 
     elif mode == 'manual':
         try:
-            raw_nums = [int(x.strip()) for x in manual_data.split(',') if x.strip().isdigit()]
-        except:
-            log("[ERROR] Invalid number format.")
+            plan = plan_manual_starts(manual_data, total_pages)
+        except ManualPlanError as error:
+            log(f"[ERROR] {error.code}: {error}")
             sys.exit(1)
-        raw_nums.sort()
-        split_indices = []
-        if 1 not in raw_nums: split_indices.append(0)
-        for p in raw_nums:
-            idx = p - 1
-            if idx > 0 and idx < total_pages: split_indices.append(idx)
-        split_indices = sorted(list(set(split_indices)))
-
-        log(f"[*] Manual Split Points (Page #): {[x+1 for x in split_indices]}")
-        for i, start_idx in enumerate(split_indices):
-            end_idx = split_indices[i+1] if i + 1 < len(split_indices) else total_pages
+        for notice in plan['notices']:
+            log(f"[NOTICE] {notice}")
+        log(f"[*] Manual Split Points (Page #): {plan['starts']}")
+        for i, (start_idx, end_idx) in enumerate(plan['ranges']):
             fname = f"{i+1:02d} - Section (Page {start_idx+1}-{end_idx}).pdf"
             write_slice(reader, start_idx, end_idx, os.path.join(output_dir, fname))
 

@@ -7,6 +7,7 @@ from pathlib import Path
 import sys
 import tempfile
 import unittest
+from types import SimpleNamespace
 from unittest.mock import patch
 
 
@@ -143,6 +144,168 @@ class RunnerTests(unittest.TestCase):
             step = {"exit_code": 0}
             runner.attach_child_report(step, path, "extraction")
             self.assertEqual(step["exit_code"], 126)
+
+    def test_manual_evidence_requires_complete_target_and_preservation_results(self):
+        complete = {
+            "schema_version": 1, "task_id": "M1-T02", "result": "MANUAL_REGRESSION_PASSED",
+            "success": True, "exit_code": 0, "acceptance_ids": [f"AC-{number:03}" for number in range(13, 19)],
+            "engine_case_count": 22,
+            "engine_cases": [{"oracle_id": f"MAN-{number:02}", "passed": True} for number in range(1, 23)],
+            "extra_cli_cases": [{"id": name, "passed": True} for name in sorted(runner.MANUAL_EXTRA_IDS)],
+            "sampled_writer_cases": [{"index": number, "outputs": [{"filename": "synthetic.pdf"}]}
+                                     for number in range(25)],
+            "historical_bookmark_cases": [{"oracle_id": f"BM-{number:02}", "equivalent": True}
+                                          for number in range(1, 4)],
+            "source_unchanged": True, "baseline_guards_preserved": True,
+            "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+            "import_observation": {"import_safe": True},
+            "seeded_property_cases": {"count": 250, "passed": True, "seed": 20261009},
+        }
+        with tempfile.TemporaryDirectory(prefix="wbs-manual-evidence-") as directory:
+            path = Path(directory) / "manual.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "manual")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["evidence"], complete)
+            self.assertIn("evidence_sha256", step)
+            step = {"exit_code": 0, "requested_shell_paths": ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]}
+            runner.attach_child_report(step, path, "manual")
+            self.assertEqual(step["exit_code"], 126, "Core-only report cannot pass requested host probes")
+            self.assertNotIn("evidence", step)
+
+            defects = {
+                "boolean schema version": {"schema_version": True},
+                "wrong task": {"task_id": "M1-T01"},
+                "wrong result": {"result": "EXTRACTION_EQUIVALENCE_REPRODUCED"},
+                "wrong case count": {"engine_case_count": 21},
+                "missing cases despite correct count": {"engine_cases": []},
+                "duplicate oracle IDs": {"engine_cases": complete["engine_cases"][:-1]
+                                         + [{"oracle_id": "MAN-01", "passed": True}]},
+                "unknown oracle IDs": {"engine_cases": complete["engine_cases"][:-1]
+                                       + [{"oracle_id": "MAN-99", "passed": True}]},
+                "invalid oracle ID type": {"engine_cases": complete["engine_cases"][:-1]
+                                           + [{"oracle_id": [], "passed": True}]},
+                "failed target case": {"engine_cases": complete["engine_cases"][:-1]
+                                      + [{"oracle_id": "MAN-22", "passed": False}]},
+                "missing extra CLI cases": {"extra_cli_cases": []},
+                "duplicate extra CLI IDs": {"extra_cli_cases": complete["extra_cli_cases"][:-1]
+                                             + [complete["extra_cli_cases"][0]]},
+                "failed extra CLI case": {"extra_cli_cases": complete["extra_cli_cases"][:-1]
+                                           + [{**complete["extra_cli_cases"][-1], "passed": False}]},
+                "missing writer samples": {"sampled_writer_cases": []},
+                "duplicate writer indexes": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                               + [complete["sampled_writer_cases"][0]]},
+                "boolean writer index": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                          + [{"index": True, "outputs": [{"filename": "synthetic.pdf"}]}]},
+                "zero writer files": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                       + [{"index": 24, "outputs": []}]},
+                "boolean exit code": {"exit_code": False},
+                "incomplete acceptance": {"acceptance_ids": ["AC-013"]},
+                "missing bookmark observations": {"historical_bookmark_cases": []},
+                "changed bookmark behavior": {"historical_bookmark_cases": complete["historical_bookmark_cases"][:-1]
+                                             + [{"oracle_id": "BM-03", "equivalent": False}]},
+                "changed source": {"source_unchanged": False},
+                "changed original guards": {"baseline_guards_preserved": False},
+                "changed inputs": {"input_and_neighbor_unchanged": False},
+                "missing temp cleanup": {"owned_temp_removed": False},
+                "wrong immutable reference": {"immutable_original_commit": "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c"},
+                "unsafe import": {"import_observation": {"import_safe": False}},
+                "invalid import observation": {"import_observation": []},
+                "unrun properties": {"seeded_property_cases": {"count": 0, "passed": True, "seed": 20261009}},
+                "failed properties": {"seeded_property_cases": {"count": 250, "passed": False, "seed": 20261009}},
+                "missing reproducible seed": {"seeded_property_cases": {"count": 250, "passed": True}},
+            }
+            for description, changes in defects.items():
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps({**complete, **changes}), encoding="utf-8")
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "manual")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    # Missing evidence must preserve a real nonzero child exit.
+                    step = {"exit_code": 19}
+                    runner.attach_child_report(step, path, "manual")
+                    self.assertEqual(step["exit_code"], 19)
+
+    def test_requested_manual_entrypoints_require_records_preservation_and_requested_hosts(self):
+        hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]
+        probes = [{"id": name, "exit_code": 0, "input_unchanged": True,
+                   "cwd_engine_untouched": True, "owned_neighbor_unchanged": True,
+                   "shell_executable": hosts[1] if "PS7" in name else hosts[0],
+                   "outputs": [{"filename": "synthetic.pdf", "page_ids": [1, 2]}]}
+                  for name in sorted(runner.MANUAL_ENTRYPOINT_IDS)]
+        complete = {"probes": probes, "probe_count": 6, "parallel_launch_count": 3,
+                    "shared_temp_engine_sentinel_unchanged": True, "owned_document_outputs_removed": True}
+        runner.validate_manual_entrypoints({"entrypoints": complete}, hosts)
+        malformed = {
+            "count without records": {"probes": []},
+            "duplicate IDs": {"probes": probes[:-1] + [probes[0]]},
+            "failed child": {"probes": probes[:-1] + [{**probes[-1], "exit_code": 19}]},
+            "boolean child exit": {"probes": probes[:-1] + [{**probes[-1], "exit_code": False}]},
+            "changed input": {"probes": probes[:-1] + [{**probes[-1], "input_unchanged": False}]},
+            "unrequested host": {"probes": probes[:-1] + [{**probes[-1], "shell_executable": "C:/other/pwsh.exe"}]},
+            "only one host used": {"probes": [{**probe, "shell_executable": hosts[0]} for probe in probes]},
+            "zero files": {"probes": probes[:-1] + [{**probes[-1], "outputs": []}]},
+            "missing parallel coverage": {"parallel_launch_count": 0},
+            "changed shared sentinel": {"shared_temp_engine_sentinel_unchanged": False},
+            "missing cleanup": {"owned_document_outputs_removed": False},
+        }
+        for description, changes in malformed.items():
+            with self.subTest(defect=description):
+                with self.assertRaises(ValueError):
+                    runner.validate_manual_entrypoints({"entrypoints": {**complete, **changes}}, hosts)
+        with self.assertRaises(ValueError):
+            runner.validate_manual_entrypoints({}, hosts)
+
+    @unittest.skipUnless(sys.platform == "win32", "Windows host paths use case-insensitive comparison")
+    def test_requested_manual_entrypoints_accept_windows_path_case_variants(self):
+        hosts = [r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe",
+                 r"C:\Program Files\PowerShell\7\pwsh.exe"]
+        receipts = [r"C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe",
+                    "c:/PROGRAM FILES/PowerShell/7/pwsh.exe"]
+        probes = [{"id": name, "exit_code": 0, "input_unchanged": True,
+                   "cwd_engine_untouched": True, "owned_neighbor_unchanged": True,
+                   "shell_executable": receipts[1] if "PS7" in name else receipts[0],
+                   "outputs": [{"filename": "synthetic.pdf", "page_ids": [1, 2]}]}
+                  for name in sorted(runner.MANUAL_ENTRYPOINT_IDS)]
+        complete = {"probes": probes, "probe_count": 6, "parallel_launch_count": 3,
+                    "shared_temp_engine_sentinel_unchanged": True, "owned_document_outputs_removed": True}
+        runner.validate_manual_entrypoints({"entrypoints": complete}, hosts)
+        # Case normalization must not accept a different executable/location.
+        unrequested = [{**probe, "shell_executable": r"C:\WINDOWS\System32\other.exe"}
+                       if probe["id"] == "PS51-unrelated" else probe for probe in probes]
+        with self.assertRaises(ValueError):
+            runner.validate_manual_entrypoints({"entrypoints": {**complete, "probes": unrequested}}, hosts)
+        # Repeating the same path with different casing is still only one host.
+        with self.assertRaises(ValueError):
+            runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
+
+    def test_full_selects_manual_regression_and_forwards_actual_hosts(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
+                               tool_root=Path("C:/trusted/tool-root"))
+        commands = []
+
+        def successful_command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic-git-identity\n", "stderr": ""}
+
+        with patch.object(runner, "source_manifest", return_value={"synthetic-test-source": "hash"}), \
+                patch.object(runner, "run_command", side_effect=successful_command), \
+                patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        manual = [command for command in commands
+                  if str(ROOT / "tests/manual/characterize_manual.py") in command]
+        self.assertEqual(len(manual), 1)
+        self.assertEqual(manual[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertFalse(any(str(ROOT / "tests/extraction/characterize_extraction.py") in command
+                             for command in commands))
+        self.assertEqual(attach.call_args.args[2], "manual")
+        self.assertEqual(report["steps"][-1]["name"], "manual-regression")
+        self.assertTrue(report["success"])
 
     def test_existing_report_is_preserved(self):
         with tempfile.TemporaryDirectory(prefix="wbs-no-overwrite-") as directory:

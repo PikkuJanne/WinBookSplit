@@ -1,5 +1,14 @@
 # Mechanical extraction evidence
 
+This is the historical M1-T01 diagnostic. M1-T02 intentionally changes manual
+behavior, so running it against the current engine is expected to fail its AST/
+behavior equality requirements. Keep its original guards and known-bad expected
+observations intact. `--layer full` now uses `tests/manual/characterize_manual.py`
+for corrected manual regressions and historical bookmark comparisons. The
+AC-011 unit assertion reads the shipped engine blob at M1-T01 commit
+`88c2149b3b3034fbd0d7ef23c2382f4b01648e4c` to preserve the historical extraction
+claim; current import safety remains independently tested.
+
 `characterize_extraction.py` reads the original engine from immutable local Git
 commit `0de84f367f9bd5ddfa3f408a9c29505d7a39633f`. Original launcher raw hashes must
 match the historical `expected_original.json` guards; that file, the original
@@ -20,7 +29,7 @@ page coverage or release acceptance.
 Use the explicit selected developer interpreter with `-I -B`, an absolute script
 path and a new external `--report`. Add both actual host paths with repeated
 `--shell-path` to exercise AC-012. The central `--layer extraction` runs this
-route; `--layer full` explicitly includes it. `--layer baseline` retains the
+route only when selected explicitly. `--layer baseline` retains the
 historical guard and intentionally fails after extraction.
 
 AC-012 invokes the actual PowerShell file in Windows PowerShell 5.1 and
