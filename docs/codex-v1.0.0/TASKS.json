@@ -278,7 +278,7 @@
         "Fallback semantics",
         "Exact parent-boundary regression tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T03"
       ],
@@ -288,8 +288,11 @@
         "AC-025",
         "AC-026"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T04-level2.md",
+        "evidence/M1-T04-level2.json"
+      ],
+      "implementation_commit": "8c193ae2aac5df4819cad216635d59df57d12cbc",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
