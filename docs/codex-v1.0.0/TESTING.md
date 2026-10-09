@@ -71,6 +71,17 @@ original/extraction guards, fixtures/oracles and evidence are unchanged.
 
 ## Risk-based execution
 
+M1-T05 adds `--layer plan` as the seventh full stage. Structural cases test the
+shared coverage validator; all-mode prepared previews execute through the real
+writer and are reopened for exact filename/range/physical-page identity parity.
+Nested preview mutation attempts, controlled same-path replacement/repointing
+and captured-source binding remain distinct from immutable generated fixtures.
+Seeded complete partitions supplement exact cases. The callable preview creates
+no chapters; console preview/confirmation still belongs to M3. Source/output
+alias and existing-output refusals are narrow pre-writer checks, not proof of
+complete output staging, rollback or publication. Historical mode/original/
+extraction guards, oracles and prior evidence stay unchanged.
+
 At each task run targeted tests and related regressions. At a milestone run the relevant full layer and dependency/host compatibility checks. At release run the entire claimed matrix against exact release payload bytes. Pure Python tests may run on the available development host, but do not certify Windows behavior. Windows PowerShell 5.1 and PowerShell 7 require separate runs; a pwsh-only pass is not both. Document the actual Windows build, Python, pypdf, Calibre, shell and fixture versions.
 
 Generate unique per-page markers and known outline trees. Test nonempty disjoint complete coverage plus page identities; a matching total count alone could conceal a duplicated page. Add seeded randomized start lists/bookmark arrangements to check invariants, while keeping exact deterministic fixtures for bugs. Test failures after some writes and verify source/neighbor hashes remain unchanged. When runtime rejection is the policy (encryption/forms/signatures), assert clear rejection before outputs rather than demanding support.

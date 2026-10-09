@@ -4,6 +4,10 @@ import sys
 import os
 import re
 import logging
+from collections.abc import Mapping
+from dataclasses import dataclass
+from hashlib import sha256
+from types import MappingProxyType
 
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import IndirectObject, NullObject
@@ -382,64 +386,179 @@ def log_bookmark_warnings(warnings):
         log(f"[WARNING] {warning['code']} (outline {warning['source_order']}, depth {warning['depth']}): {warning['message']}")
 
 
+class PlanError(ValueError):
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
+def _freeze(value):
+    """Detach planning metadata and make nested containers read-only."""
+    if isinstance(value, Mapping):
+        if not all(isinstance(key, str) for key in value):
+            raise PlanError("invalid_plan", "Plan metadata keys must be strings.")
+        return MappingProxyType({key: _freeze(item) for key, item in value.items()})
+    if isinstance(value, (list, tuple)):
+        return tuple(_freeze(item) for item in value)
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    raise PlanError("invalid_plan", "Plan metadata contains an unsupported mutable value.")
+
+
+def validate_plan(plan):
+    """Return a frozen, complete ordered partition; never trust length sums alone."""
+    if not isinstance(plan, Mapping):
+        raise PlanError("invalid_plan", "A split plan must be a mapping.")
+    pages = plan.get("total_pages")
+    if type(pages) is not int or pages < 1:
+        raise PlanError("invalid_document", "The PDF must contain at least one page.")
+    if not isinstance(plan.get("mode"), str) or plan["mode"] not in {"manual", "1", "2"}:
+        raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
+    entries = plan.get("entries")
+    if not isinstance(entries, (list, tuple)) or not entries:
+        raise PlanError("invalid_plan", "A split plan must contain at least one section.")
+    previous_end, filenames, ranges = 0, set(), []
+    for sequence, entry in enumerate(entries, start=1):
+        if not isinstance(entry, Mapping) or not {"sequence", "title", "start", "end", "parent_id",
+                                                  "reason", "filename", "warnings"}.issubset(entry):
+            raise PlanError("invalid_plan", "Every plan entry must contain the complete section metadata.")
+        start, end = entry.get("start"), entry.get("end")
+        if type(start) is not int or type(end) is not int or not 0 <= start < end <= pages:
+            raise PlanError("invalid_plan", "Section ranges must be nonempty integer pages inside the PDF.")
+        if start != previous_end:
+            raise PlanError("invalid_plan", "Sections must cover every page in order without gaps or overlaps.")
+        if type(entry.get("sequence")) is not int or entry["sequence"] != sequence:
+            raise PlanError("invalid_plan", "Section sequences must be consecutive in physical page order.")
+        filename = entry.get("filename")
+        if not isinstance(filename, str) or not filename.endswith(".pdf") \
+                or re.search(r'[<>:"/\\|?*\x00-\x1f]', filename) or filename in {".pdf", "..pdf"} \
+                or filename != filename.strip() or filename.casefold() in filenames:
+            raise PlanError("invalid_plan", "Section filenames must be unique safe PDF basenames.")
+        if not isinstance(entry.get("title"), str) or not isinstance(entry.get("reason"), str) \
+                or entry.get("parent_id") is not None and not isinstance(entry["parent_id"], str) \
+                or not isinstance(entry.get("warnings", ()), (list, tuple)):
+            raise PlanError("invalid_plan", "Section metadata is invalid.")
+        filenames.add(filename.casefold())
+        ranges.append((start, end))
+        previous_end = end
+    if previous_end != pages:
+        raise PlanError("invalid_plan", "The final section must reach the final physical page.")
+    if "ranges" in plan:
+        declared = plan["ranges"]
+        if not isinstance(declared, (list, tuple)) or len(declared) != len(ranges) \
+                or any(not isinstance(item, (list, tuple)) or len(item) != 2
+                       or any(type(bound) is not int for bound in item) for item in declared) \
+                or tuple(tuple(item) for item in declared) != tuple(ranges):
+            raise PlanError("invalid_plan", "Declared ranges disagree with the section entries.")
+    data = dict(plan)
+    data.update(ranges=ranges, coverage={"complete": True, "covered_pages": pages,
+                                       "section_count": len(entries)})
+    return _freeze(data)
+
+
+@dataclass(frozen=True)
+class PreparedSplit:
+    """A validated immutable plan bound to its private captured PDF reader."""
+    plan: Mapping
+    _reader: object
+    _binding: tuple
+
+
+def prepare_split(input_path, mode, manual_data=None):
+    """Probe and plan without chapter writes; pypdf captures path inputs in memory."""
+    if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
+        raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
+    reader = PdfReader(input_path)
+    pages = len(reader.pages)
+    if mode == "manual":
+        raw = plan_manual_starts(manual_data, pages)
+        entries = [{"sequence": index, "title": f"Section (Page {start + 1}-{end})",
+                    "start": start, "end": end, "parent_id": None, "reason": "manual",
+                    "filename": f"{index:02d} - Section (Page {start + 1}-{end}).pdf", "warnings": []}
+                   for index, (start, end) in enumerate(raw["ranges"], start=1)]
+        data = {"mode": mode, "total_pages": pages, "entries": entries, "ranges": raw["ranges"],
+                "normalized_inputs": {"starts": raw["starts"]}, "notices": raw["notices"], "warnings": []}
+    else:
+        raw = plan_level1(reader, pages) if mode == "1" else plan_level2(reader, pages)
+        data = {**raw, "normalized_inputs": {"bookmarks": raw["bookmarks"]}, "notices": []}
+    snapshot = reader.stream.getvalue()
+    digest = sha256(snapshot).hexdigest()
+    source = {"path": os.path.abspath(os.fspath(input_path)),
+              "resolved_path": os.path.realpath(input_path), "sha256": digest,
+              "size_bytes": len(snapshot), "binding": "reader_snapshot"}
+    plan = validate_plan({**data, "source_identity": source})
+    return PreparedSplit(plan, reader, (id(plan), id(reader), digest))
+
+
+def _check_prepared(prepared):
+    if not isinstance(prepared, PreparedSplit) or not isinstance(prepared.plan, MappingProxyType) \
+            or not isinstance(prepared._binding, tuple) or len(prepared._binding) != 3 \
+            or prepared._binding[:2] != (id(prepared.plan), id(prepared._reader)):
+        raise PlanError("invalid_prepared_split", "Execute the unchanged job returned by prepare_split.")
+    if sha256(prepared._reader.stream.getvalue()).hexdigest() != prepared._binding[2] \
+            or len(prepared._reader.pages) != prepared.plan["total_pages"]:
+        raise PlanError("source_changed", "The captured PDF reader changed; prepare a new plan.")
+
+
+def preview_plan(prepared):
+    """Expose the same read-only plan without writing or reopening the input."""
+    _check_prepared(prepared)
+    return prepared.plan
+
+
+def execute_split(prepared, output_dir):
+    """Execute exactly the prepared entries against their captured source."""
+    _check_prepared(prepared)
+    plan = prepared.plan
+    paths = [os.path.join(output_dir, entry["filename"]) for entry in plan["entries"]]
+    source_paths = {os.path.normcase(plan["source_identity"][key]) for key in ("path", "resolved_path")}
+    for path in paths:
+        if os.path.normcase(os.path.realpath(path)) in source_paths \
+                or os.path.normcase(os.path.abspath(path)) in source_paths:
+            raise PlanError("source_output_alias", "A planned output would replace the source PDF.")
+        if os.path.lexists(path):
+            raise PlanError("output_exists", "A planned output already exists; use a new output directory.")
+    outputs = []
+    for entry, path in zip(plan["entries"], paths):
+        write_slice(prepared._reader, entry["start"], entry["end"], path)
+        outputs.append({**entry, "page_count": entry["end"] - entry["start"]})
+    return _freeze({"mode": plan["mode"], "total_pages": plan["total_pages"],
+                    "source_identity": plan["source_identity"], "coverage": plan["coverage"],
+                    "written_count": len(outputs), "outputs": outputs})
+
+
 def split_pdf(input_path, output_dir, mode, manual_data=None):
     try:
-        reader = PdfReader(input_path)
-    except Exception as e:
-        log(f"[CRITICAL] Could not read PDF: {e}")
+        prepared = prepare_split(input_path, mode, manual_data)
+        plan = preview_plan(prepared)
+        log_bookmark_warnings(plan["warnings"])
+        if mode == "manual":
+            for notice in plan["notices"]:
+                log(f"[NOTICE] {notice}")
+            log(f"[*] Manual Split Points (Page #): {list(plan['normalized_inputs']['starts'])}")
+        else:
+            log(f"[*] Found {len(plan['entries'])} sections based on Level {mode} bookmarks.")
+        return execute_split(prepared, output_dir)
+    except BookmarkPlanError as error:
+        log_bookmark_warnings(error.warnings)
+        log(f"[ERROR] {error.code}: {error}")
+        if error.code in {"no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"}:
+            log("[NO_BOOKMARKS_FOUND]")
+            sys.exit(55)
         sys.exit(1)
-
-    total_pages = len(reader.pages)
-
-    if mode == '1':
-        try:
-            plan = plan_level1(reader, total_pages)
-        except BookmarkPlanError as error:
-            log_bookmark_warnings(error.warnings)
-            log(f"[ERROR] {error.code}: {error}")
-            if error.code in {'no_bookmarks', 'no_usable_bookmarks'}:
-                log("[NO_BOOKMARKS_FOUND]")
-                sys.exit(55)
-            sys.exit(1)
-        log_bookmark_warnings(plan['warnings'])
-        log(f"[*] Found {len(plan['entries'])} sections based on Level 1 bookmarks.")
-        for entry in plan['entries']:
-            write_slice(reader, entry['start'], entry['end'], os.path.join(output_dir, entry['filename']))
-
-    elif mode == '2':
-        try:
-            plan = plan_level2(reader, total_pages)
-        except BookmarkPlanError as error:
-            log_bookmark_warnings(error.warnings)
-            log(f"[ERROR] {error.code}: {error}")
-            if error.code in {'no_bookmarks', 'no_usable_bookmarks', 'no_bookmarks_at_level'}:
-                log("[NO_BOOKMARKS_FOUND]")
-                sys.exit(55)
-            sys.exit(1)
-        log_bookmark_warnings(plan['warnings'])
-        log(f"[*] Found {len(plan['entries'])} sections based on Level 2 bookmarks.")
-        for entry in plan['entries']:
-            write_slice(reader, entry['start'], entry['end'], os.path.join(output_dir, entry['filename']))
-
-    elif mode == 'manual':
-        try:
-            plan = plan_manual_starts(manual_data, total_pages)
-        except ManualPlanError as error:
-            log(f"[ERROR] {error.code}: {error}")
-            sys.exit(1)
-        for notice in plan['notices']:
-            log(f"[NOTICE] {notice}")
-        log(f"[*] Manual Split Points (Page #): {plan['starts']}")
-        for i, (start_idx, end_idx) in enumerate(plan['ranges']):
-            fname = f"{i+1:02d} - Section (Page {start_idx+1}-{end_idx}).pdf"
-            write_slice(reader, start_idx, end_idx, os.path.join(output_dir, fname))
+    except (ManualPlanError, PlanError) as error:
+        log(f"[ERROR] {error.code}: {error}")
+        sys.exit(1)
+    except Exception as error:
+        log(f"[CRITICAL] Could not complete PDF split: {error}")
+        sys.exit(1)
 
 def write_slice(reader, start, end, out_path):
     log(f"    [Writing] {os.path.basename(out_path)}")
     writer = PdfWriter()
     for p in range(start, end):
         writer.add_page(reader.pages[p])
-    with open(out_path, "wb") as f:
+    with open(out_path, "xb") as f:
         writer.write(f)
 
 

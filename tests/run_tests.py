@@ -40,6 +40,12 @@ LEVEL1_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(19, 23)]
 LEVEL1_ORACLE_IDS = {"BM-01", "BM-02", "BM-05", "BM-08"}
 LEVEL1_NORMALIZATION_IDS = {"invalid-destinations", "deep-lineage", "cyclic-outline",
                             "malformed-outline", "traversal-limits"}
+PLAN_ACCEPTANCE_IDS = ["AC-027", "AC-028", "AC-029"]
+PLAN_STRUCTURAL_IDS = {"gap", "overlap", "empty", "negative", "reversed", "overflow",
+                       "zero-pages", "noninteger", "valid-whole-document"}
+PLAN_PREVIEW_IDS = {"read-only-preview", "isolated-preview-data"}
+PLAN_SOURCE_IDS = {"changed-same-path", "repointed-source"}
+PLAN_MODES = {"manual", "1", "2"}
 MANUAL_ENTRYPOINT_IDS = {"PS51-unrelated", "PS7-unrelated", "BAT-unrelated",
                          "parallel-PS51-unrelated", "parallel-PS7-unrelated", "parallel-BAT-unrelated"}
 GIT_SELECTORS = ("GIT_DIR", "GIT_WORK_TREE", "GIT_INDEX_FILE", "GIT_OBJECT_DIRECTORY",
@@ -57,6 +63,7 @@ def source_manifest() -> dict[str, str]:
         "requirements.txt", "requirements-dev.txt",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
         "tests/extraction/README.md", "tests/manual/README.md", "tests/bookmarks/README.md",
+        "tests/plans/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -185,6 +192,142 @@ def validate_level2_launcher_reference(reference: object) -> None:
         raise ValueError("Corrected BM-03 reference requires all six exact ranges, page identities and titles")
 
 
+def validate_plan_case_ids(cases: object, required: set[str], name: str, *, key: str = "id") -> list[dict]:
+    if not isinstance(cases, list) or len(cases) != len(required) \
+            or any(not isinstance(case, dict) or not isinstance(case.get(key), str)
+                   or case.get("passed") is not True for case in cases) \
+            or {case[key] for case in cases} != required:
+        raise ValueError(f"Shared-plan report requires every successful {name} case")
+    return cases
+
+
+def validate_plan_parity(case: dict) -> None:
+    """Preview and reopened physical output identities must agree completely."""
+    pages, entries, outputs = case.get("total_pages"), case.get("preview_entries"), case.get("outputs")
+    coverage, identity = case.get("coverage"), case.get("source_identity")
+    if type(pages) is not int or pages < 1 or not isinstance(entries, list) or not entries \
+            or not isinstance(outputs, list) or len(outputs) != len(entries) \
+            or type(case.get("written_count")) is not int or case["written_count"] != len(entries) \
+            or not isinstance(coverage, dict) or coverage.get("complete") is not True \
+            or type(coverage.get("covered_pages")) is not int or type(coverage.get("section_count")) is not int \
+            or coverage != {"complete": True, "covered_pages": pages, "section_count": len(entries)} \
+            or case.get("neighbor_unchanged") is not True or case.get("no_replanning_or_reopening") is not True \
+            or not isinstance(identity, dict) or identity.get("binding") != "reader_snapshot" \
+            or not isinstance(identity.get("path"), str) or not identity["path"] \
+            or type(identity.get("size_bytes")) is not int or identity["size_bytes"] < 1 \
+            or not isinstance(identity.get("sha256"), str) or len(identity["sha256"]) != 64 \
+            or any(character not in "0123456789abcdef" for character in identity["sha256"]):
+        raise ValueError("Shared-plan parity requires nonempty complete preview and writer records")
+    previous_end, filenames = 0, set()
+    for index, (entry, output) in enumerate(zip(entries, outputs), 1):
+        if not isinstance(entry, dict) or not isinstance(output, dict):
+            raise ValueError("Shared-plan parity requires actual entry and output objects")
+        start, end, filename = entry.get("start"), entry.get("end"), entry.get("filename")
+        if type(start) is not int or type(end) is not int or not previous_end == start < end <= pages \
+                or type(entry.get("sequence")) is not int or entry["sequence"] != index \
+                or not isinstance(filename, str) or not filename or filename.casefold() in filenames \
+                or output.get("filename") != filename or not isinstance(output.get("range"), list) \
+                or len(output["range"]) != 2 or any(type(bound) is not int for bound in output["range"]) \
+                or output["range"] != [start, end] \
+                or not isinstance(output.get("page_ids"), list) \
+                or any(type(page) is not int for page in output["page_ids"]) \
+                or output.get("page_ids") != list(range(start + 1, end + 1)):
+            raise ValueError("Shared-plan preview order, filenames and physical page identities must match outputs")
+        filenames.add(filename.casefold())
+        previous_end = end
+    if previous_end != pages:
+        raise ValueError("Shared-plan writer records omitted final physical pages")
+    result = case.get("writer_result")
+    if not isinstance(result, dict) or type(result.get("total_pages")) is not int \
+            or type(result.get("written_count")) is not int or result["total_pages"] != pages \
+            or result["written_count"] != len(entries) or result.get("coverage") != coverage \
+            or not isinstance(result.get("coverage"), dict) or result["coverage"].get("complete") is not True \
+            or type(result["coverage"].get("covered_pages")) is not int \
+            or type(result["coverage"].get("section_count")) is not int \
+            or result.get("source_identity") != identity or not isinstance(result.get("source_identity"), dict) \
+            or type(result["source_identity"].get("size_bytes")) is not int \
+            or not isinstance(result.get("mode"), str) or result["mode"] not in PLAN_MODES \
+            or "mode" in case and result["mode"] != case["mode"] \
+            or not isinstance(result.get("outputs"), list) \
+            or any(not isinstance(output, dict) or any(type(output.get(field)) is not int
+                                                      for field in ("sequence", "start", "end", "page_count"))
+                   for output in result["outputs"]) \
+            or result["outputs"] != [{**entry, "page_count": entry["end"] - entry["start"]} for entry in entries]:
+        raise ValueError("Shared-plan execution result must preserve the complete preview and source")
+
+
+def validate_plan_page_content(case: dict) -> None:
+    original_content, actual_content = case.get("original_page_content_sha256"), case.get("page_content_sha256")
+    if not isinstance(original_content, list) or len(original_content) != case["total_pages"] \
+            or any(not isinstance(digest, str) or len(digest) != 64
+                   or any(character not in "0123456789abcdef" for character in digest) for digest in original_content) \
+            or not isinstance(actual_content, list) or actual_content != original_content:
+        raise ValueError("Shared-plan source outputs must preserve every captured original page's synthetic content")
+
+
+def validate_plan_report(child: dict) -> None:
+    properties, observation = child.get("seeded_plan_cases"), child.get("import_observation")
+    if type(child.get("schema_version")) is not int or child.get("task_id") != "M1-T05" \
+            or child.get("result") != "SHARED_PLAN_REGRESSION_PASSED" or child.get("success") is not True \
+            or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+            or child.get("acceptance_ids") != PLAN_ACCEPTANCE_IDS \
+            or not isinstance(properties, dict) or type(properties.get("seed")) is not int \
+            or properties["seed"] != 20261009 or type(properties.get("count")) is not int \
+            or properties["count"] != 300 or properties.get("passed") is not True \
+            or not isinstance(properties.get("per_mode"), dict) or set(properties["per_mode"]) != PLAN_MODES \
+            or any(type(count) is not int or count != 100 for count in properties["per_mode"].values()) \
+            or any(child.get(name) is not True for name in ("source_unchanged", "baseline_guards_preserved",
+                                                          "input_and_neighbor_unchanged", "owned_temp_removed")) \
+            or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+            or not isinstance(observation, dict) or observation.get("import_safe") is not True:
+        raise ValueError("Shared-plan report requires all acceptance, seeded mode coverage, immutable guards and preservation promises")
+    structural = validate_plan_case_ids(child.get("structural_cases"), PLAN_STRUCTURAL_IDS, "structural")
+    for case in structural:
+        if case["id"] == "valid-whole-document":
+            if case.get("accepted") is not True:
+                raise ValueError("Shared-plan report omitted valid whole-document acceptance")
+        elif case.get("rejected") is not True or not isinstance(case.get("error_code"), str) or not case["error_code"]:
+            raise ValueError("Shared-plan structural rejection requires its actual error code")
+    previews = validate_plan_case_ids(child.get("preview_cases"), PLAN_PREVIEW_IDS, "preview")
+    for case in previews:
+        if type(case.get("chapter_files_written")) is not int or case["chapter_files_written"] != 0 \
+                or case["id"] == "read-only-preview" and case.get("mutation_rejected") is not True \
+                or case["id"] == "isolated-preview-data" and (case.get("detached_from_input") is not True
+                                                              or case.get("unbound_execution_rejected") is not True):
+            raise ValueError("Shared-plan preview requires read-only detached metadata and no chapter writes")
+    parity = validate_plan_case_ids(child.get("parity_cases"), PLAN_MODES, "mode parity", key="mode")
+    for case in parity:
+        validate_plan_parity(case)
+        validate_plan_page_content(case)
+    source_cases = validate_plan_case_ids(child.get("source_cases"), PLAN_SOURCE_IDS, "source binding")
+    for case in source_cases:
+        identity = case.get("source_identity")
+        if case.get("outcome") != "bound_original_preserved" or case.get("replacement_unchanged") is not True \
+                or not isinstance(identity, dict) or identity.get("binding") != "reader_snapshot" \
+                or not isinstance(identity.get("path"), str) or not identity["path"] \
+                or type(identity.get("size_bytes")) is not int or identity["size_bytes"] < 1 \
+                or not isinstance(identity.get("sha256"), str) or len(identity["sha256"]) != 64 \
+                or any(character not in "0123456789abcdef" for character in identity["sha256"]) \
+                or case.get("captured_sha256") != identity["sha256"] \
+                or not isinstance(case.get("replacement_sha256"), str) \
+                or len(case["replacement_sha256"]) != 64 \
+                or any(character not in "0123456789abcdef" for character in case["replacement_sha256"]) \
+                or case["replacement_sha256"] == identity["sha256"]:
+            raise ValueError("Shared-plan source cases require preserved original snapshot and deliberately different replacement evidence")
+        validate_plan_parity(case)
+        validate_plan_page_content(case)
+        if case["id"] == "repointed-source":
+            deleted = case.get("deleted_path_snapshot")
+            if not isinstance(deleted, dict):
+                raise ValueError("Repointed source evidence requires its deleted-path snapshot execution")
+            validate_plan_parity(deleted)
+            validate_plan_page_content(deleted)
+            if any(deleted[field] != case[field] for field in ("total_pages", "preview_entries", "coverage",
+                                                             "written_count", "source_identity", "writer_result",
+                                                             "original_page_content_sha256", "page_content_sha256")):
+                raise ValueError("Deleted-path execution must retain the same original preview, writer result and source content")
+
+
 def attach_child_report(step: dict, path: Path, kind: str) -> None:
     """A successful process without its promised evidence is a failed step."""
     try:
@@ -192,7 +335,9 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
         child = json.loads(data.decode("utf-8-sig"))
         if not isinstance(child, dict) or child.get("schema_version") != 1:
             raise ValueError("Expected a schema_version=1 JSON object report")
-        if kind == "shell":
+        if kind == "plan":
+            validate_plan_report(child)
+        elif kind == "shell":
             if type(child.get("exit_code")) is not int or type(child.get("success")) is not bool:
                 raise ValueError("Shell report requires exit_code and success")
             if child["exit_code"] == 0 and child["success"]:
@@ -402,7 +547,7 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "not_run": ["shared preview/output-safety acceptance", "full application splitting in both shells",
+        "not_run": ["interactive preview UI/output-transaction acceptance", "full application splitting in both shells",
                     "human Explorer drag/drop", "real Calibre EPUB/AZW3 conversion",
                     "release-package checks"],
     }
@@ -493,6 +638,15 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "level2")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"plan", "full"}:
+            child_report = work / "shared-plan-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/plans/characterize_plan.py"),
+                       "--report", str(child_report)]
+            step = {"name": "shared-plan-regression",
+                    "meaning": "Shared immutable plan validation, preview/writer parity and captured source binding",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "plan")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -512,7 +666,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],

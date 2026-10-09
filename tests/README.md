@@ -21,7 +21,7 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks` or `--layer level2`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2` or `--layer plan`
 for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
@@ -33,8 +33,8 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The six-stage full layer runs this manual regression route and corrected
-Level 1/2 bookmark routes after the units and both shell stages.
+run. The seven-stage full layer runs this manual regression route, corrected
+Level 1/2 bookmark routes and shared-plan acceptance after the units and both shell stages.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
 normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its
@@ -51,6 +51,14 @@ aggregates, 150 seeded parent/child plans and ten real writer samples. Direct
 children remain inside their own retained parent intervals; front matter,
 opening/fallback sections, aliases, invalid descendants and no-selected-level
 rejection are checked. This Python route receives no shell arguments.
+
+The plan layer checks complete shared partition validation, deeply immutable
+preview metadata, and three actual manual/Level 1/Level 2 writer results against
+preview filenames, order, ranges and exact physical page identities. It includes
+300 seeded plans and deliberate changes/repointing/removal of owned source copies;
+execution must preserve its captured original reader snapshot. Original fixtures,
+inputs/neighbors, historical guards and owned cleanup are required. This route
+receives no shell arguments. See `plans/README.md` for coverage and limits.
 
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after
@@ -102,6 +110,8 @@ The manual route verifies corrected manual splitting directly against synthetic
 PDF page identities. Controlled actual M1 entrypoint splitting under both shells
 and batch verifies engine resolution and selected paths. Level 1 regression
 checks exercise corrected front-matter/outline planning directly. Level 2 checks
-exercise parent boundaries and selected-level rejection. Full UX/Explorer, Calibre and the
+exercise parent boundaries and selected-level rejection.
+Shared-plan checks exercise the callable preview and captured-source writer.
+Full UX/Explorer, Calibre and the
 extracted release package remain separate mandatory later checks. CI installation and workflow
 execution belong to M4-T05; this local scaffold does not claim a CI run.
