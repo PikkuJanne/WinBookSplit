@@ -1,16 +1,57 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted and verified, original defects preserved, release unverified.
-Completed tasks: M0-T01 through M0-T04, and M1-T01.
-Next dependency-ready task: **M1-T02 — Fix manual start-page parsing**, after fresh verification of this documentation checkpoint.
+Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted, M1-T02 manual coverage fixed, bookmark/release gates open.
+Completed tasks: M0-T01 through M0-T04, M1-T01 and M1-T02.
+Next dependency-ready task: **M1-T03 — Normalize bookmarks and fix Level 1 coverage**, after fresh verification of this documentation checkpoint.
 Active branch: `codex/winbooksplit-v1-m1`; upstream `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `88c2149b3b3034fbd0d7ef23c2382f4b01648e4c`.
-Historical C synchronization: SYNCED at `2026-10-08T19:08:08.466690+00:00` (21:08:08 Europe/Berlin), clean local HEAD equals live M1 feature branch.
-[Draft PR #5](https://github.com/PikkuJanne/WinBookSplit/pull/5) continues M1; cumulative merge gate is M1-T06. Main remains M0 documentation checkpoint `0de84f367f9bd5ddfa3f408a9c29505d7a39633f`, freshly synchronized at M1 start `2026-10-08T18:47:15.714649+00:00`; live audit still matched it at 19:00:29 UTC. Reviewed M0 PR #4 merged at `2026-10-08T18:01:01Z` into `ae9ddd0444e61578ed59625d6d3df4038e6fb09e` before that documentation checkpoint.
+Last verified implementation C: `ced0d96f0540d96adc2fdacc4e1ff31fa25be7b8`.
+Historical C synchronization: SYNCED at `2026-10-09T03:39:03.607417+00:00` (05:39:03 Europe/Berlin), clean local HEAD equals live M1 feature branch.
+[Draft PR #6](https://github.com/PikkuJanne/WinBookSplit/pull/6) continues M1; cumulative merge gate remains M1-T06. PR #5 was already merged at `2026-10-09T03:26:06Z` into live main `8c7c22fa8eda3c61c23b63d429d0b6abbd40432a`; a normal fetch/fast-forward incorporated that history into the retained M1 branch before M1-T02. The earlier PR merge does not waive later tasks. Older main/PR receipts below are historical.
 This following documentation-only evidence/status checkpoint receives its own final normal push/live receipt in the thread; recheck current equality next thread.
-Public release: NOT PUBLISHED; live tags/releases were empty on 8 October 2026.
+Public release: NOT PUBLISHED; live tags/releases were empty on 9 October 2026.
+
+## M1-T02 evidence and limits
+
+[Manual acceptance evidence](evidence/M1-T02-manual.md) and
+[machine record](evidence/M1-T02-manual.json) satisfy AC-013 through AC-018.
+The engine validates all ASCII decimal tokens/bounds before writing, normalizes
+valid starts with notices and always includes physical page 1. `1` now writes
+one whole-document PDF; explicit/implicit first-page inputs preserve identical
+complete ranges. Empty/mixed-invalid/non-ASCII/out-of-range tokens fail entirely;
+zero-page manual PDFs fail. Huge numbers/leading zeros are bounded lexically
+before integer conversion. Bookmark/writer/launcher behavior remains scoped to
+later tasks.
+
+Fresh hash-pinned regular GIL x64 CPython 3.14.8/pypdf 6.19.0 passed exact
+versions/import origins and pip check. Final unrelated-CWD full gate passed
+36 Python tests, nine Pester tests per actual PS5.1.26100.9444/PS7.6.5 host,
+zero syntax/scaffold findings/skips, all 22 manual CLI oracles, eight extra
+CLI cases, 250 seeded valid plans and 25 real writer samples. Every slice's
+page identities/order and flattened complete coverage were checked. Six bounded
+owned launcher probes, including three concurrent launches, matched references
+and preserved inputs/neighbors/decoys/shared TEMP. GUID/marker-owned Documents
+outputs were removed safely without reading private entries. Both PS7 probes
+retain inherited RawUI cursor stderr; console/error acceptance is unclaimed.
+Sixty inherited application analyzer observations per host remain limitations.
+
+The current full route deliberately uses corrected manual targets. Immutable
+original guards, extraction harness, fixture generator/oracles and historical
+M1 evidence are unchanged. Historical AC-011 ASTs read immutable M1-T01 C;
+current safe import and three known-bad bookmark observations are separate.
+A reproduced new evidence-checker Windows path casing defect was fixed and
+regression-tested; earlier failed receipts remain distinct from final digest
+`27cf0208484d831d5e818e64b1f2478a5066b96f436e2fb9da53f8029a3fe1ad`.
+Every tested raw byte matched clean C; no clean-C full rerun is claimed.
+
+Independent source/harness/evidence/privacy review found no remaining M1-T02
+blocker; no GitHub submitted review or CI pass is claimed. Live main/feature
+were unprotected with no rulesets/workflows/runs/tags/releases; no settings were
+changed. Calibre remains installed but conversion/discovery integration is open.
+Corrected bookmarks, all launcher/error/output-safety paths, Explorer, rendering,
+extracted-package and release gates remain NOT RUN. No merge/tag/release was
+created in this task. Older sections below retain their historical observations.
 
 ## M1-T01 evidence and limits
 
