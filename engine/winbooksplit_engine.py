@@ -9,6 +9,7 @@ import stat
 import uuid
 import importlib.util
 import time
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
 from collections.abc import Mapping
@@ -27,6 +28,57 @@ class ManualPlanError(ValueError):
     def __init__(self, code, message):
         super().__init__(message)
         self.code = code
+
+
+MAX_FILE_PATH_UNITS = 259
+MAX_DIRECTORY_PATH_UNITS = 247
+MAX_COMPONENT_UNITS = 255
+MAX_TITLE_UNITS = 50
+
+
+def _utf16_units(value):
+    """Count Windows path units, including two units for astral characters."""
+    return len(value.encode("utf-16-le")) // 2
+
+
+def _truncate_units(value, limit):
+    used, result = 0, []
+    for character in value:
+        width = 2 if ord(character) > 0xffff else 1
+        if used + width > limit:
+            break
+        used += width
+        result.append(character)
+    return "".join(result)
+
+
+def _safe_title(title, fallback, limit):
+    # Keep Unicode text without normalization; controls and surrogate code
+    # points cannot form a usable Windows basename. Titles are never paths.
+    cleaned = "".join(character for character in title
+                      if character not in '<>:"/\\|?*'
+                      and unicodedata.category(character) not in {"Cc", "Cf", "Cs"})
+    cleaned = re.sub(r"\s+", " ", cleaned).strip(" .")
+    cleaned = _truncate_units(cleaned, limit).rstrip(" .")
+    if not any(unicodedata.category(character)[0] not in {"P", "Z"} for character in cleaned):
+        if _utf16_units(fallback) > limit:
+            raise PlanError("output_path_too_long", "Choose a shorter output base; a stable section name cannot fit.")
+        cleaned = fallback
+    return cleaned
+
+
+def _assign_filenames(entries, filename_budget=MAX_COMPONENT_UNITS):
+    width = max(2, len(str(len(entries))))
+    for sequence, entry in enumerate(entries, start=1):
+        prefix = f"{sequence:0{width}d} - "
+        title_budget = min(MAX_TITLE_UNITS, filename_budget - _utf16_units(prefix + ".pdf"))
+        safe_title = _safe_title(entry["title"], f"Section {sequence}", title_budget)
+        entry.update(sequence=sequence, filename=prefix + safe_title + ".pdf")
+
+
+def _reserved_basename(filename):
+    device = filename.split(".", 1)[0].rstrip(" ").upper()
+    return device in {"CON", "PRN", "AUX", "NUL", "CONIN$", "CONOUT$"} or re.fullmatch(r"(?:COM|LPT)[1-9¹²³]", device) is not None
 
 
 def plan_manual_starts(manual_data, total_pages):
@@ -307,9 +359,7 @@ def plan_level1(reader, total_pages):
         end = ordered[index + 1]["page"] if index + 1 < len(ordered) else total_pages
         entries.append({"title": record["title"], "start": record["page"], "end": end,
                         "parent_id": None, "bookmark_id": record["id"], "reason": "bookmark", "warnings": []})
-    for sequence, entry in enumerate(entries, start=1):
-        safe_title = re.sub(r'[<>:""/\\|?*]', '', entry["title"]).strip()[:50]
-        entry.update(sequence=sequence, filename=f"{sequence:02d} - {safe_title}.pdf")
+    _assign_filenames(entries)
     return {"mode": "1", "total_pages": total_pages, "entries": entries,
             "ranges": [(entry["start"], entry["end"]) for entry in entries],
             "bookmarks": records, "warnings": warnings}
@@ -380,9 +430,7 @@ def plan_level2(reader, total_pages):
                             "reason": "bookmark", "warnings": []})
     if not usable_children:
         raise BookmarkPlanError("no_bookmarks_at_level", "The PDF has no usable direct Level 2 bookmarks.", warnings)
-    for sequence, entry in enumerate(entries, start=1):
-        safe_title = re.sub(r'[<>:""/\\|?*]', '', entry["title"]).strip()[:50]
-        entry.update(sequence=sequence, filename=f"{sequence:02d} - {safe_title}.pdf")
+    _assign_filenames(entries)
     return {"mode": "2", "total_pages": total_pages, "entries": entries,
             "ranges": [(entry["start"], entry["end"]) for entry in entries],
             "bookmarks": records, "warnings": warnings}
@@ -439,7 +487,9 @@ def validate_plan(plan):
         filename = entry.get("filename")
         if not isinstance(filename, str) or not filename.endswith(".pdf") \
                 or re.search(r'[<>:"/\\|?*\x00-\x1f]', filename) or filename in {".pdf", "..pdf"} \
-                or filename != filename.strip() or filename.casefold() in filenames:
+                or filename != filename.strip() or filename.casefold() in filenames \
+                or any(unicodedata.category(character) in {"Cc", "Cf", "Cs"} for character in filename) \
+                or _utf16_units(filename) > MAX_COMPONENT_UNITS or _reserved_basename(filename):
             raise PlanError("invalid_plan", "Section filenames must be unique safe PDF basenames.")
         if not isinstance(entry.get("title"), str) or not isinstance(entry.get("reason"), str) \
                 or entry.get("parent_id") is not None and not isinstance(entry["parent_id"], str) \
@@ -471,7 +521,7 @@ class PreparedSplit:
     _binding: tuple
 
 
-def prepare_split(input_path, mode, manual_data=None):
+def prepare_split(input_path, mode, manual_data=None, *, output_base=None):
     """Probe and plan without chapter writes; pypdf captures path inputs in memory."""
     if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
         raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
@@ -481,8 +531,9 @@ def prepare_split(input_path, mode, manual_data=None):
         raw = plan_manual_starts(manual_data, pages)
         entries = [{"sequence": index, "title": f"Section (Page {start + 1}-{end})",
                     "start": start, "end": end, "parent_id": None, "reason": "manual",
-                    "filename": f"{index:02d} - Section (Page {start + 1}-{end}).pdf", "warnings": []}
+                    "filename": "", "warnings": []}
                    for index, (start, end) in enumerate(raw["ranges"], start=1)]
+        _assign_filenames(entries)
         data = {"mode": mode, "total_pages": pages, "entries": entries, "ranges": raw["ranges"],
                 "normalized_inputs": {"starts": raw["starts"]}, "notices": raw["notices"], "warnings": []}
     else:
@@ -494,6 +545,12 @@ def prepare_split(input_path, mode, manual_data=None):
               "resolved_path": os.path.realpath(input_path), "sha256": digest,
               "size_bytes": len(snapshot), "binding": "reader_snapshot"}
     plan = validate_plan({**data, "source_identity": source})
+    if output_base is not None:
+        naming = _output_naming(output_base, source["path"])
+        entries = [dict(entry) for entry in plan["entries"]]
+        _assign_filenames(entries, naming["filename_budget"])
+        _check_output_budget(output_base, naming["run_stem"], [entry["filename"] for entry in entries])
+        plan = validate_plan({**plan, "entries": entries, "output_naming": naming})
     return PreparedSplit(plan, reader, (id(plan), id(reader), digest))
 
 
@@ -515,6 +572,45 @@ def preview_plan(prepared):
 
 OWNER_FILENAME = ".WinBookSplit-owner.json"
 MANIFEST_FILENAME = "WinBookSplit_Manifest.json"
+
+
+def _check_output_budget(base, run_stem, filenames=()):
+    """Check every created path before reservation, without long-path opt-in."""
+    if not isinstance(run_stem, str) or not run_stem or run_stem != run_stem.strip(" .") \
+            or any(character in '<>:"/\\|?*' or unicodedata.category(character) in {"Cc", "Cf", "Cs"}
+                   for character in run_stem):
+        raise PlanError("invalid_plan", "The output run stem must be a safe basename.")
+    base = os.path.abspath(os.fspath(base))
+    directories = [".WinBookSplit-stage-" + "0" * 32, ".WinBookSplit-failed-" + "0" * 32,
+                   run_stem + "_20000101-000000_" + "0" * 32]
+    members = [(directories[0], (OWNER_FILENAME, MANIFEST_FILENAME, *filenames)),
+               (directories[1], (OWNER_FILENAME, "failure.json")),
+               (directories[2], (OWNER_FILENAME, MANIFEST_FILENAME, *filenames))]
+    for directory, names in members:
+        path = os.path.join(base, directory)
+        if _utf16_units(directory) > MAX_COMPONENT_UNITS or _utf16_units(path) > MAX_DIRECTORY_PATH_UNITS:
+            raise PlanError("output_path_too_long", "Choose a shorter output base; the run directory exceeds the Windows path budget.")
+        for name in names:
+            if _utf16_units(name) > MAX_COMPONENT_UNITS or _utf16_units(os.path.join(path, name)) > MAX_FILE_PATH_UNITS:
+                raise PlanError("output_path_too_long", "Choose a shorter output base; output or diagnostic files exceed the Windows path budget.")
+
+
+def _output_naming(base, source_path, *, required_filename_units=0):
+    """Freeze a stem/title budget for stage, final and diagnostic locations."""
+    base = os.path.abspath(os.fspath(base))
+    # Completion evidence must fit even when a short chapter title could fit.
+    required = max(_utf16_units(MANIFEST_FILENAME), required_filename_units)
+    stem_budget = min(64, MAX_COMPONENT_UNITS - 49,
+                      MAX_DIRECTORY_PATH_UNITS - _utf16_units(base) - 1 - 49,
+                      MAX_FILE_PATH_UNITS - _utf16_units(base) - 2 - required - 49)
+    if stem_budget < 1:
+        raise PlanError("output_path_too_long", "Choose a shorter output base; there is no room for a complete run and manifest.")
+    stem = _safe_title(Path(source_path).stem, "Book", stem_budget)
+    _check_output_budget(base, stem)
+    stage = os.path.join(base, ".WinBookSplit-stage-" + "0" * 32)
+    final = os.path.join(base, stem + "_20000101-000000_" + "0" * 32)
+    budget = min(MAX_COMPONENT_UNITS, MAX_FILE_PATH_UNITS - max(_utf16_units(stage), _utf16_units(final)) - 1)
+    return {"resolved_base": os.path.realpath(base), "run_stem": stem, "filename_budget": budget}
 
 
 class OutputError(PlanError):
@@ -554,8 +650,14 @@ def _ordinary(path, directory=False):
 
 class OutputRun:
     """One flat owned stage; no recursive cleanup or manifest-directed deletion."""
-    def __init__(self, base, source_path):
+    def __init__(self, base, source_path, *, run_stem=None):
         self.base = os.path.abspath(os.fspath(base))
+        if run_stem is None:
+            run_stem = _output_naming(self.base, source_path)["run_stem"]
+        _check_output_budget(self.base, run_stem)
+        timestamp = _timestamp()
+        if not isinstance(timestamp, str) or re.fullmatch(r"[0-9]{8}-[0-9]{6}", timestamp) is None:
+            raise OutputError("output_ownership_failed", "Invalid output timestamp.")
         self.stage = None
         self.files, self.file_guards, self.guards = {}, {}, []
         self.stage_guard = None
@@ -590,8 +692,7 @@ class OutputRun:
                 break
             else:
                 raise OutputError("output_exists", "Cannot reserve a unique output run.")
-            stem = re.sub(r'[<>:"/\\|?*\x00-\x1f]', '', Path(source_path).stem).strip(" .")[:64] or "Book"
-            self.final_prefix = stem + "_" + _timestamp() + "_"
+            self.final_prefix = run_stem + "_" + timestamp + "_"
             self.marker_bytes = serialize_result({"schema_version": 1, "kind": "run", "run_id": self.run_id}).encode("utf-8")
             self.write_owned(OWNER_FILENAME, self.marker_bytes)
         except (Exception, KeyboardInterrupt) as error:
@@ -817,7 +918,14 @@ def execute_split(prepared, output_dir):
     """Stage the unchanged plan; publish only a complete validated unique run."""
     _check_prepared(prepared)
     plan = prepared.plan
-    run = OutputRun(output_dir, plan["source_identity"]["path"])
+    naming = plan.get("output_naming")
+    if naming is None:
+        naming = _output_naming(output_dir, plan["source_identity"]["path"],
+                                required_filename_units=max(_utf16_units(entry["filename"]) for entry in plan["entries"]))
+    elif os.path.normcase(os.path.realpath(os.path.abspath(os.fspath(output_dir)))) != os.path.normcase(naming["resolved_base"]):
+        raise PlanError("output_destination_changed", "Execute at the output base used for this preview, or prepare a new plan.")
+    _check_output_budget(output_dir, naming["run_stem"], [entry["filename"] for entry in plan["entries"]])
+    run = OutputRun(output_dir, plan["source_identity"]["path"], run_stem=naming["run_stem"])
     published, close_error = False, None
     try:
         outputs = []
@@ -934,7 +1042,7 @@ def _planning_failure(mode, error):
 def run_split(input_path, output_dir, mode, manual_data=None):
     """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
-        prepared = prepare_split(input_path, mode, manual_data)
+        prepared = prepare_split(input_path, mode, manual_data, output_base=output_dir)
         plan = preview_plan(prepared)
     except Exception as error:
         return _planning_failure(mode, error)

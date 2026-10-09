@@ -21,7 +21,7 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics` or `--layer output`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output` or `--layer paths`
 for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
@@ -33,8 +33,8 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The nine-stage full layer runs this manual regression route, corrected
-Level 1/2 bookmark routes, shared-plan acceptance, diagnostics and output transactions after the units and both shell stages.
+run. The ten-stage full layer runs this manual regression route, corrected
+Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions and path acceptance after the units and both shell stages.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
 normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its
@@ -78,6 +78,20 @@ required; earlier runs, sources and neighbors must remain unchanged. Failure
 results require no successful final and explicitly owned staging/diagnostic
 handling. This route requires actual Windows and receives no shell arguments.
 See `output/README.md` for the precise scope and recovery limits.
+
+The paths layer requires both actual supported hosts. Three PS5.1/PS7/BAT
+literal input successes and eight rejection probes check file-only/provider
+validation, mixed extension case, special characters/Unicode, wildcard decoys,
+correct metadata, parser rejection, actual held-unreadable inputs and read-only
+source successes with restored attributes. Direct API writers reject
+replanning/source reopens through installed execution traps. Nine title
+cases and 120 real sections per mode check safe Unicode/fallback names and
+chronological dynamic numbering. Destination-bound previews preserve exact
+names within conservative UTF-16 budgets; impossible/changed bases, actual
+held-unwritable bases and explicit ENOSPC failure retain zero published output.
+PS uses external owned bases; BAT uses only its explicit authenticated Documents
+run/log children. Stored policies, source/input/neighbor hashes and held cleanup
+are checked. See `paths/README.md` for exact methods and limits.
 
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after
