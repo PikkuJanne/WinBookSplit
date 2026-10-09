@@ -581,7 +581,9 @@
       ],
       "evidence_paths": [
         "evidence/M3-T01-outcomes.md",
-        "evidence/M3-T01-outcomes.json"
+        "evidence/M3-T01-outcomes.json",
+        "evidence/M3-T01-human.md",
+        "evidence/M3-T01-human.json"
       ],
       "implementation_commit": "b8c6ed0f9e1153e20ba9b265615c6c3cab8d1a7e",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
