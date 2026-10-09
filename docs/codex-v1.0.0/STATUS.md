@@ -1,16 +1,39 @@
 # Project status
 
-Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 and M1 reviewed/merged. M2 is in progress; later runtime, UX and release gates remain open.
-Completed: M0-T01 through M0-T04, M1-T01 through M1-T06, M2-T01 and M2-T02.
-Next dependency-ready task: **M2-T03 — Move ebook conversion into owned workspace**.
-Current branch/upstream: `codex/winbooksplit-v1-m2` / `origin/codex/winbooksplit-v1-m2`.
-Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `a38d0e248cecd71513a2b06d6595c055e2712b95`.
-C clean/live synchronization: **SYNCED** at `2026-10-09T09:52:45.121089+00:00`.
-[draft M2 continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/12); cumulative M2 remains open.
-Following documentation-only E gets its own normal push/live receipt outside this commit; recheck live state next session.
-Public release: NOT PUBLISHED; inspected tags/releases empty on 9 October 2026.
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1 reviewed/merged; cumulative M2 remains open. Completed through **M2-T03**.
+Next dependency-ready task: **M2-T04 — Implement interpreter and converter preflight**.
+Branch/upstream: codex/winbooksplit-v1-m2 / origin/codex/winbooksplit-v1-m2.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+C `0128377099e47f51bfad7887f421b52999d522ad` is clean/live **SYNCED** at `2026-10-09T11:06:07.454548+00:00` on `codex/winbooksplit-v1-m2`.
+[Draft continuation PR](https://github.com/PikkuJanne/WinBookSplit/pull/13); E receives its own external/PR/thread push receipt.
+No public release; freshly inspected tags/releases empty on 9 October 2026.
+
+## M2-T03 evidence and limits
+
+[Conversion evidence](evidence/M2-T03-conversion.md) and [machine record](evidence/M2-T03-conversion.json)
+satisfy AC-040/041/042. Original ebooks and same-name PDFs stay unchanged; parent-owned
+conversion PDF is validated, captured and cleaned before shared immutable preparation
+returns. Optional exact full PDF has separate manifest metadata in successful output
+only. Suspended job assignment, concurrent bounded drains, actual status/context and
+proved-stop cleanup preserve failures. Unknown/replaced objects/unproved stop retain
+stage explicitly. PDF schemas/historical guards and complete page coverage remain.
+
+Final unrelated-CWD eleven-stage gate passed 182 Python tests, nine Pester tests per actual PowerShell host, and all inherited regressions. Tested 61-path raw digest: `2dedae126955a871fff7812145a7bc78d38d258aa0c8e1e3918e87d225ffb4f9`. All raw tested bytes match clean C; no clean-C full rerun is claimed.
+Eight real Calibre 9.15.0 EPUB/genuine AZW3 host/retention launches, two independent
+captured-reader controls, eight invalid native-zero cases and BAT dependency failure
+pass. All three EPUB/four AZW3 physical pages, content/markers, identities, manifests, retained
+bytes, known cleanup/policies pass. Seventeen focused units and separate owned-tree
+timeout/cancel controls pass. Fresh pinned venv/imports and all 66 tool hashes pass.
+Earlier failed/partial attempts have separate honest receipts. Independent review
+passed; no GitHub approval/CI/human Explorer claim.
+
+PR12 was already merged at 10:19:22Z with main/merge 8a622dca; normal fast-forward
+reconciled main/M2. No milestone acceptance inferred, no merge/tag/release here.
+Earlier sections retain historical checkpoint observations. Runtime/discovery,
+remaining process/encoding, preview/CLI, rendered fidelity/features, human Explorer,
+expanded/remote/DRM cases, CI/package and release remain open. No sandbox/crash or
+arbitrary long-path/UNC claim; current 0/1/55 persists until M3. Next is M2-T04 only.
 
 ## M2-T02 evidence and limits
 

@@ -151,6 +151,23 @@ Console-init statement-block/native reservation receipts have separately limited
 scope. Historical source guards/fixtures/oracles and raw failed/earlier passing
 receipts remain unchanged. Explorer/Calibre/CI/package gates remain open.
 
+## Current M2-T03 conversion acceptance
+
+Conversion/full requires both actual hosts and explicit pinned Calibre 9.15.0;
+the full route now has eleven stages. PDF-only target layers remain converter-free.
+See tests/conversion/README.md and evidence/M2-T03-conversion.md/json. Eight real
+whole-PS format/host/retention runs, two independently inspected captured-reader
+controls, eight actual native-zero invalid controls and actual BAT dependency
+failure are required. All three EPUB/four AZW3 physical pages and three chapter markers
+must survive once; exact captured source-to-slice content matches independent real references.
+Default source vectors are explicitly engine metadata; direct/retained PDFs have
+independent byte observations. Exact conversion-only membership includes optional
+fullPDF; inherited PDF guards stay strict. Original/read-only ebook/neighbor hashes,
+manifests, retained bytes, policies and known cleanup are required. Scoped native
+fake-child and parent/grandchild timeout/injected-cancel checks supplement acceptance.
+These do not certify human Ctrl+C/Explorer/GUI, expanded compatibility, remote
+resources/DRM, package or release. Successful BAT discovery remains M2-T04.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.

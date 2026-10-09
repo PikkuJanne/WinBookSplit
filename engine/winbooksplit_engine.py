@@ -15,6 +15,7 @@ from pathlib import Path
 from collections.abc import Mapping
 from dataclasses import dataclass
 from hashlib import sha256
+from io import BytesIO
 from types import MappingProxyType
 
 from pypdf import PdfReader, PdfWriter
@@ -521,11 +522,13 @@ class PreparedSplit:
     _binding: tuple
 
 
-def prepare_split(input_path, mode, manual_data=None, *, output_base=None):
+def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_bytes=None, _conversion_metadata=None):
     """Probe and plan without chapter writes; pypdf captures path inputs in memory."""
     if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
         raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
-    reader = PdfReader(input_path)
+    if _pdf_bytes is not None and not isinstance(_pdf_bytes, bytes):
+        raise PlanError("invalid_prepared_split", "Converted PDF input must be a captured byte snapshot.")
+    reader = PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
     pages = len(reader.pages)
     if mode == "manual":
         raw = plan_manual_starts(manual_data, pages)
@@ -544,14 +547,50 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None):
     source = {"path": os.path.abspath(os.fspath(input_path)),
               "resolved_path": os.path.realpath(input_path), "sha256": digest,
               "size_bytes": len(snapshot), "binding": "reader_snapshot"}
+    naming_source = source["path"]
+    if _conversion_metadata is not None:
+        original = _conversion_metadata["original_ebook_identity"]
+        conversion = _conversion_metadata["conversion"]
+        generated = conversion["generated_pdf_identity"]
+        if generated["sha256"] != digest or generated["size_bytes"] != len(snapshot) or generated["page_count"] != pages:
+            raise PlanError("conversion_output_invalid", "Converted PDF identity disagrees with the captured reader.")
+        data.update(original_ebook_identity=original, conversion=conversion,
+                    keep_converted_pdf=_conversion_metadata["keep_converted_pdf"])
+        naming_source = original["path"]
     plan = validate_plan({**data, "source_identity": source})
     if output_base is not None:
-        naming = _output_naming(output_base, source["path"])
+        naming = _output_naming(output_base, naming_source)
         entries = [dict(entry) for entry in plan["entries"]]
         _assign_filenames(entries, naming["filename_budget"])
         _check_output_budget(output_base, naming["run_stem"], [entry["filename"] for entry in entries])
         plan = validate_plan({**plan, "entries": entries, "output_naming": naming})
     return PreparedSplit(plan, reader, (id(plan), id(reader), digest))
+
+
+
+def prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_path,
+                  keep_converted_pdf=False, conversion_timeout=1800):
+    """Convert in a flat owned workspace; return only a captured immutable PDF job."""
+    if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
+        raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
+    if not isinstance(keep_converted_pdf, bool):
+        raise PlanError("invalid_prepared_split", "Intermediate retention must be an explicit Boolean.")
+    path = Path(__file__).resolve().with_name("winbooksplit_conversion.py")
+    spec = importlib.util.spec_from_file_location("_winbooksplit_conversion", path)
+    module = importlib.util.module_from_spec(spec)
+    # Dataclasses resolve their defining module while loading; publish this
+    # exact sibling under the private name, never an import from CWD.
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    converted = module.convert_ebook(input_path, calibre_path, output_base,
+                              new_run=OutputRun, record_failure=_failed_run,
+                              timeout_seconds=conversion_timeout)
+    _log_conversion(converted.conversion)
+    metadata = {"original_ebook_identity": converted.original_source_identity,
+                "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
+    return prepare_split(converted.generated_pdf_identity["path"], mode, manual_data,
+                         output_base=output_base, _pdf_bytes=converted.pdf_bytes,
+                         _conversion_metadata=metadata)
 
 
 def _check_prepared(prepared):
@@ -827,7 +866,10 @@ class OutputRun:
         manifest = json.loads(Path(self.stage, MANIFEST_FILENAME).read_text(encoding="utf-8"))
         if manifest != self.publication_manifest:
             raise OutputError("output_ownership_failed", "Publication refuses changed completion evidence.")
-        for entry in manifest["outputs"]:
+        verified_pdfs = list(manifest["outputs"])
+        if manifest.get("retained_intermediate") is not None:
+            verified_pdfs.append(manifest["retained_intermediate"])
+        for entry in verified_pdfs:
             data = Path(self.stage, entry["filename"]).read_bytes()
             if len(data) != entry["size_bytes"] or sha256(data).hexdigest() != entry["sha256"]:
                 raise OutputError("output_validation_failed", "Publication refuses changed PDF bytes.")
@@ -899,6 +941,9 @@ def _failed_run(run, error, initializing=False):
             record = {"schema_version": 1, "status": "failed", "code": getattr(error, "code", "output_write_failed"),
                       "message": str(error)[:2048], **diagnostic,
                       "record_path": os.path.join(directory, "failure.json")}
+            if getattr(error, "conversion", None):
+                # Converter streams are already bounded to 64 KiB per tail.
+                record["conversion"] = error.conversion
             for name, value in ((OWNER_FILENAME, marker), ("failure.json", record)):
                 for ancestor_guard in run.guards:
                     ancestor_guard.assert_unchanged()
@@ -928,6 +973,15 @@ def execute_split(prepared, output_dir):
     run = OutputRun(output_dir, plan["source_identity"]["path"], run_stem=naming["run_stem"])
     published, close_error = False, None
     try:
+        retained_intermediate = None
+        if plan.get("keep_converted_pdf", False):
+            data = prepared._reader.stream.getvalue()
+            name = "WinBookSplit_Converted.pdf"
+            run.write_owned(name, data)
+            path = os.path.join(run.stage, name)
+            retained_intermediate = {"filename": name, **_validate_output(path, {"start": 0, "end": plan["total_pages"]})}
+            if retained_intermediate["sha256"] != plan["source_identity"]["sha256"] or retained_intermediate["size_bytes"] != len(data):
+                raise OutputError("output_validation_failed", "Retained converted PDF disagrees with the captured reader.")
         outputs = []
         for entry in plan["entries"]:
             run.assert_owned()
@@ -947,6 +1001,9 @@ def execute_split(prepared, output_dir):
                         "final_directory": final_directory, "mode": plan["mode"],
                         "total_pages": plan["total_pages"], "source_identity": plan["source_identity"],
                         "coverage": plan["coverage"], "written_count": len(outputs), "outputs": outputs}
+            if "conversion" in plan:
+                manifest.update(original_ebook_identity=plan["original_ebook_identity"],
+                                conversion=plan["conversion"], retained_intermediate=retained_intermediate)
             try:
                 if attempt:
                     run.remove_owned(MANIFEST_FILENAME)
@@ -1039,12 +1096,40 @@ def _planning_failure(mode, error):
     return _split_result(mode, status, code, str(error), warnings)
 
 
-def run_split(input_path, output_dir, mode, manual_data=None):
+def _log_conversion(conversion):
+    """Keep bounded converter diagnostics visible without introducing result frames."""
+    if not conversion:
+        return
+    log(f"[CONVERSION] Calibre: {conversion.get('converter_path', '')}; profile: tablet; exit: {conversion.get('exit_code')}")
+    for stream in ("stdout", "stderr"):
+        tail = conversion.get(stream + "_tail", "")
+        if conversion.get(stream + "_truncated", False):
+            log(f"[CONVERTER {stream}] Earlier output omitted; showing final 65536 bytes.")
+        for line in tail.splitlines():
+            log(f"[CONVERTER {stream}] {line}")
+
+
+def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False, conversion_timeout=1800):
     """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
-        prepared = prepare_split(input_path, mode, manual_data, output_base=output_dir)
+        if Path(input_path).suffix.lower() in {".epub", ".azw3"}:
+            prepared = prepare_ebook(input_path, mode, manual_data, output_base=output_dir,
+                                     calibre_path=calibre_path, keep_converted_pdf=keep_converted_pdf,
+                                     conversion_timeout=conversion_timeout)
+        else:
+            if keep_converted_pdf:
+                return _split_result(mode, "invalid_input", "invalid_arguments",
+                                     "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
+            prepared = prepare_split(input_path, mode, manual_data, output_base=output_dir)
         plan = preview_plan(prepared)
     except Exception as error:
+        if getattr(error, "code", "").startswith("conversion_") or getattr(error, "code", "") == "converter_not_found":
+            conversion = getattr(error, "conversion", None)
+            _log_conversion(conversion)
+            diagnostic = getattr(error, "diagnostic", None)
+            if conversion:
+                diagnostic = {**(diagnostic or {}), "conversion": conversion}
+            return _split_result(mode, "error", error.code, str(error), diagnostic=diagnostic)
         return _planning_failure(mode, error)
     try:
         log_bookmark_warnings(plan["warnings"])
@@ -1077,8 +1162,8 @@ def serialize_result(result):
     return json.dumps(thaw(result), ensure_ascii=True, separators=(",", ":"))
 
 
-def split_pdf(input_path, output_dir, mode, manual_data=None):
-    result = run_split(input_path, output_dir, mode, manual_data)
+def split_pdf(input_path, output_dir, mode, manual_data=None, **conversion_options):
+    result = run_split(input_path, output_dir, mode, manual_data, **conversion_options)
     if result["status"] != "success":
         log_bookmark_warnings(result["warnings"])
         log(f"[ERROR] {result['code']}: {result['message']}")
@@ -1103,14 +1188,37 @@ def main():
     logging.getLogger("pypdf").setLevel(logging.ERROR)
     sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace", line_buffering=True)
     sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
-    if len(sys.argv) not in {4, 5}:
-        mode = sys.argv[3] if len(sys.argv) > 3 else ""
-        log(serialize_result(_split_result(mode, "invalid_input", "invalid_arguments",
-                                          "Provide input, output, mode and at most one manual start-pages argument.")))
+    mode = sys.argv[3] if len(sys.argv) > 3 else ""
+    try:
+        if len(sys.argv) < 4:
+            raise ValueError("Provide input, output and a split mode.")
+        # Keep the existing fourth positional manual token literal. New options
+        # follow it, so invalid manual text cannot turn into a conversion switch.
+        manual_data = sys.argv[4] if len(sys.argv) > 4 else None
+        extras = sys.argv[5:]
+        options, index = {}, 0
+        while index < len(extras):
+            option = extras[index]
+            if option == "--keep-converted-pdf" and "keep_converted_pdf" not in options:
+                options["keep_converted_pdf"] = True
+                index += 1
+            elif option in {"--calibre-path", "--conversion-timeout"} and index + 1 < len(extras):
+                key = "calibre_path" if option == "--calibre-path" else "conversion_timeout"
+                if key in options:
+                    raise ValueError("Repeated conversion option.")
+                value = extras[index + 1]
+                if key == "conversion_timeout":
+                    if not re.fullmatch(r"[0-9]+", value) or not 1 <= int(value) <= 86400:
+                        raise ValueError("Conversion timeout must be 1 through 86400 seconds.")
+                    value = int(value)
+                options[key] = value
+                index += 2
+            else:
+                raise ValueError("Unknown or incomplete conversion option.")
+    except ValueError as error:
+        log(serialize_result(_split_result(mode, "invalid_input", "invalid_arguments", str(error))))
         return 1
-    mode = sys.argv[3]
-    manual_data = sys.argv[4] if len(sys.argv) > 4 else None
-    split_pdf(sys.argv[1], sys.argv[2], mode, manual_data)
+    split_pdf(sys.argv[1], sys.argv[2], mode, manual_data, **options)
 
 
 if __name__ == "__main__":
