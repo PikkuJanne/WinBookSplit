@@ -28,8 +28,8 @@ Use the supported fresh developer interpreter with `-I -B`, an absolute runner
 path and a new external report: `tests/run_tests.py --layer bookmarks --report ...`.
 The full route includes this stage after manual regressions. This route receives
 no shell arguments. Existing full/manual owned launcher probes still exercise
-corrected MAN-03 and unchanged Level 2 BM-03; actual Level 1 launcher paths remain
-a separate check. The current manual route compares only BM-03 after Level 1
+corrected MAN-03 and corrected Level 2 BM-03; actual Level 1 launcher paths remain
+a separate check. Current manual historical comparisons are empty after Level 2
 corrections. Historical baseline/extraction guards, expected observations,
 fixture generator/oracles and prior evidence remain unchanged.
 
@@ -38,3 +38,40 @@ safe import, every promised case and owned temporary cleanup. It does not
 certify corrected Level 2, all launcher/error paths, Explorer, Calibre,
 rendered fidelity, output transaction safety or an extracted release package.
 No private document is read, committed or uploaded.
+
+# Current Level 2 regression route
+
+`characterize_level2.py` executes corrected BM-03/04/06/07 against the actual
+CLI with original marked PDFs. Exact slice identities/order and the complete
+flattened physical sequence are checked. The parent-aware example yields six
+sections, including front matter and both parents' opening pages. Whole-parent
+fallback, a child equal to its parent start, outside-child diagnostics and
+structured no-selected-level rejection are verified without silent fallback.
+
+Six hierarchy aggregates exercise duplicate-parent and invalid-parent subtrees,
+child ordering/aliases, invalid child destinations, deeper/malformed outlines
+and no usable selected level. Callable mocks distinguish unusable ancestors
+from valid direct children and assert that rejected calls never reach the
+writer. Actual generated PDFs test valid named child destinations, invalid
+raw integer/object-ID collisions, unsupported fits, unresolved names, external
+children and a serialized cyclic outline. These records distinguish real CLI
+checks from mock-reader checks.
+
+Seed 20261009 runs 150 independently expected parent/child plans. Ten further
+samples use actual generated PDFs and the real CLI writer. Every emitted entry
+must stay within a retained parent's interval and every selected bookmark must
+be that parent's own direct child. Exact titles, first-source alias selection,
+range adjacency and physical page identity/order are checked.
+
+Use `tests/run_tests.py --layer level2 --report ...` with the supported explicit
+developer interpreter, `-I -B`, an absolute runner path and a new external report.
+This route receives no shell arguments. The full route adds it as its sixth
+stage. The manual route supplies the corrected actual six-section BM-03
+reference to the existing six owned launchers, including three concurrent runs.
+Its historical comparison list is empty; earlier evidence/guards stay intact.
+
+The report requires all four CLI targets, all six hierarchy records, 150 seeded
+plans, ten nonempty writer samples, immutable original guards, safe import,
+source/input/neighbor preservation and owned temporary cleanup. Interactive
+fallback offers, all launcher/error paths, Explorer, Calibre, rendered fidelity,
+output transactions and extracted-package acceptance remain separate checks.

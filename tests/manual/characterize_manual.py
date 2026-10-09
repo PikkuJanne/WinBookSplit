@@ -1,4 +1,4 @@
-"""Current manual acceptance; unchanged Level 2 BM-03 remains a historical observation."""
+"""Current manual acceptance with a corrected Level 2 launcher reference."""
 
 from __future__ import annotations
 
@@ -15,7 +15,7 @@ import subprocess
 import sys
 import tempfile
 
-from pypdf import PdfWriter
+from pypdf import PdfReader, PdfWriter
 
 ROOT = Path(__file__).resolve().parents[2]
 ENGINE = ROOT / "engine/winbooksplit_engine.py"
@@ -148,31 +148,32 @@ def characterize(work, shells):
             check_outputs(records, [list(pair) for pair in plan10["ranges"]], 10)
             sampled_writes.append({"index": index, "starts": starts10, "outputs": records})
 
-    original = work / "immutable-original.py"
-    original.write_text(history.embedded_body(sources["WinBookSplit.ps1"]), encoding="utf-8", newline="\n")
-    expected = json.loads(sources["tests/baseline/expected_original.json"])
     oracle_map = {case["id"]: case for case in oracles["bookmarks"]}
-    bookmark_cases = []
-    for case in expected["cases"]:
-        # Level 1 targets are now verified by their own corrected route.
-        # Retain only the unchanged Level 2 observation and launcher reference.
-        if case["oracle_id"] != "BM-03":
-            continue
-        cwd = work / case["oracle_id"]
-        cwd.mkdir()
-        observations = {}
-        for label, implementation in (("original", original), ("current", ENGINE)):
-            output = cwd / label
-            output.mkdir()
-            result = observe(implementation, fixtures[case["fixture"]], output, cwd,
-                             str(oracle_map[case["oracle_id"]]["level"]))
-            records = history.outputs(output, generator)
-            require(result["exit_code"] == case["exit_code"]
-                    and [r["range"] for r in records] == case["ranges"], "Historical bookmark observation changed")
-            observations[label] = {"outputs": records, **result}
-        require(observations["original"] == observations["current"], "Unrelated bookmark behavior changed")
-        bookmark_cases.append({"oracle_id": case["oracle_id"], "equivalent": True,
-                               "known_defect": case["defect"], **observations})
+    # The last known-bad current comparison is replaced deliberately in M1-T04.
+    # Immutable original evidence remains guarded; actual current launchers use
+    # independently checked corrected BM-03 output bytes as their reference.
+    reference_cwd = work / "corrected-level2-reference"
+    reference_cwd.mkdir()
+    reference_output = reference_cwd / "output"
+    reference_output.mkdir()
+    reference_neighbor = reference_output / "synthetic-neighbor.txt"
+    reference_neighbor.write_bytes(b"Original corrected-reference neighbor\n")
+    reference_result = observe(ENGINE, fixtures["nested12"], reference_output, reference_cwd, "2")
+    reference_records = history.outputs(reference_output, generator)
+    require(reference_result["exit_code"] == 0 and not reference_result["stderr"], "Corrected BM-03 reference failed")
+    reference_ranges = oracle_map["BM-03"]["expected_ranges"]
+    check_outputs(reference_records, reference_ranges, 12)
+    reference_plan = engine.plan_level2(PdfReader(fixtures["nested12"]), 12)
+    reference_titles = [entry["title"] for entry in reference_plan["entries"]]
+    require(reference_titles == ["Front matter", "A - Opening pages", "A1", "A2", "B - Opening pages", "B1"],
+            "Incorrect corrected Level 2 titles")
+    require([record["filename"] for record in reference_records] == [entry["filename"] for entry in reference_plan["entries"]],
+            "Corrected Level 2 writer did not use planned titles")
+    require(reference_neighbor.read_bytes() == b"Original corrected-reference neighbor\n"
+            and {path.name for path in reference_output.iterdir()} == {reference_neighbor.name, *(r["filename"] for r in reference_records)},
+            "Corrected reference modified its neighbor or wrote unexpected files")
+    level2_reference = {"oracle_id": "BM-03", "passed": True, "expected_ranges": reference_ranges,
+                        "titles": reference_titles, "outputs": reference_records, **reference_result}
 
     import_observation = history.probe_import(work)
     guard_path = work / "baseline-must-refuse.json"
@@ -181,10 +182,10 @@ def characterize(work, shells):
     require(guard["exit_code"] == 1 and "Original launchers changed" in guard["stderr"]
             and not guard_path.exists(), "Historical baseline guard was weakened")
     # Existing owned launcher probes compare exact output bytes, independent of
-    # notices. Manual 4,7 and unchanged BM-03 use their explicit reference PDFs.
+    # notices. Both manual 4,7 and Level 2 BM-03 now use corrected references.
     references = [{"oracle_id": "MAN-03", "original": {"outputs": next(
         case["outputs"] for case in cases if case["oracle_id"] == "MAN-03")}},
-        next(case for case in bookmark_cases if case["oracle_id"] == "BM-03")]
+        {"oracle_id": "BM-03", "original": {"outputs": reference_records}}]
     entrypoints = history.launchers(work, fixtures, generator, shells, references) if shells else None
     require(inputs_before == {str(path): history.file_digest(path) for path in (*fixtures.values(), single, zero)},
             "Synthetic source input changed")
@@ -193,14 +194,15 @@ def characterize(work, shells):
             "result": "MANUAL_REGRESSION_PASSED", "success": True, "exit_code": 0,
             "acceptance_ids": ACCEPTANCE_IDS, "engine_cases": cases, "engine_case_count": len(cases),
             "extra_cli_cases": extra_cases, "seeded_property_cases": {"seed": seed, "count": 250, "passed": True},
-            "sampled_writer_cases": sampled_writes, "historical_bookmark_cases": bookmark_cases,
+            "sampled_writer_cases": sampled_writes, "historical_bookmark_cases": [],
+            "level2_launcher_reference": level2_reference,
             "baseline_guards_preserved": True, "historical_original_guard": guard,
             "immutable_original_commit": history.ORIGINAL_COMMIT, "source_unchanged": True,
             "tested_path_sha256": before, "input_and_neighbor_unchanged": True,
             "fixtures": {name: {"sha256": history.file_digest(path), "page_ids": generator.page_ids(path)}
                          for name, path in fixtures.items()},
             "import_observation": import_observation, "entrypoints": entrypoints,
-            "not_run": ["corrected Level 1 (separate bookmark layer)", "corrected Level 2", "Explorer",
+            "not_run": ["full corrected Level 1/2 acceptance (separate layers)", "Explorer",
                         "Calibre conversion", "release-package acceptance"]
                        + ([] if shells else ["actual entrypoints"])}
 
