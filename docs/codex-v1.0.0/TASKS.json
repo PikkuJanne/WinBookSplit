@@ -351,7 +351,7 @@
         "Zero-output failure tests",
         "M1 merged checkpoint"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T05"
       ],
@@ -359,8 +359,11 @@
         "AC-030",
         "AC-031"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T06-diagnostics.md",
+        "evidence/M1-T06-diagnostics.json"
+      ],
+      "implementation_commit": "dee49ac233650e12511a3597077523527de76c5e",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

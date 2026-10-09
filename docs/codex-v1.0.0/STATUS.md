@@ -1,16 +1,41 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 reviewed/merged, shared validated source-bound plan complete through M1-T05; M1 diagnostic and release gates open.
-Completed: M0-T01 through M0-T04 and M1-T01 through M1-T05.
-Next dependency-ready task: **M1-T06 — Distinguish no-outline and invalid-document results**, after fresh checkpoint verification.
-Active branch/upstream: `codex/winbooksplit-v1-m1` / `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
+Overall: IN PROGRESS; M0 and M1 reviewed/merged. Runtime, output, UX and release gates remain open.
+Completed: M0-T01 through M0-T04 and M1-T01 through M1-T06.
+Next dependency-ready task: **M2-T01 — Isolate runs and stage validated output**.
+Current branch/upstream: `main` / `origin/main`; retained milestone branches `codex/winbooksplit-v1-m0` and `codex/winbooksplit-v1-m1`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf`.
-Historical C synchronization: SYNCED at `2026-10-09T05:45:17.796145+00:00` (07:45:17 Europe/Berlin), clean local HEAD equals live feature.
-[Draft PR #9](https://github.com/PikkuJanne/WinBookSplit/pull/9) continues M1; cumulative review/merge gate remains M1-T06. PR #8 was already merged at `2026-10-09T05:22:09Z` into main `828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c`; normal fast-forwards incorporated that actual history into feature/local main. Earlier merges do not waive later gates.
-Following documentation-only E receives its own normal-push/live receipt in the thread/PR; recheck current equality next session.
-Public release: NOT PUBLISHED; live tags/releases empty on 9 October 2026.
+Last verified implementation C: `dee49ac233650e12511a3597077523527de76c5e`.
+Historical C synchronization: SYNCED at `2026-10-09T07:21:51.780643+00:00`.
+[PR #10](https://github.com/PikkuJanne/WinBookSplit/pull/10) merged normally at `2026-10-09T07:23:47Z` to main `24a447c01ac590ceb7dcc456ae580cea6dd47e6a`.
+Historical merged-main synchronization: clean/live SYNCED at `2026-10-09T07:23:51.802430+00:00` with all tested actual bytes unchanged.
+Following documentation-only E gets its own normal push/live receipt outside this commit; recheck current state next session.
+Public release: NOT PUBLISHED; inspected tags/releases empty on 9 October 2026.
+
+## M1-T06 evidence and limits
+
+[Diagnostic evidence](evidence/M1-T06-diagnostics.md) and
+[machine record](evidence/M1-T06-diagnostics.json) satisfy AC-030/031 and record
+the cumulative M1 review/merge. Distinct structured results replace the hidden
+sentinel. The real handler offers only applicable explicit retries, rejects bad
+protocol/success records and preserves failed/cancelled exits through PS/BAT.
+Native quoting and both drains preserve literal data, stderr and the final result.
+
+Final unrelated-CWD eight-stage gate passed 118 Python tests, nine Pester
+tests per actual supported host, and all inherited manual/bookmark/shared-plan
+regressions. New diagnostics cover 23 engine records, three real writer controls,
+21 category records × 11 choices and 18 malformed-protocol rejections per host,
+literal native arguments/Unicode and 200K dual streams. Twelve controlled actual
+PS5.1/PS7/BAT failure probes passed after the final UTF-8 source change.
+Sources/neighbors/prior output/owned cleanup were checked. Earlier failures and
+redirected stderr/prompt limitations remain in evidence; no human/Explorer,
+Calibre, CI, full ordinary discovery or release-package pass is claimed.
+
+Output failure can still leave partial files; **M2-T01** owns staging, validation,
+promotion and ownership-safe cleanup. Current 0/1/55 compatibility codes remain
+until M3 final CLI binding. Earlier evidence below is historical, including
+earlier incomplete-milestone/PR states; fresh live state is authoritative.
 
 ## M1-T05 evidence and limits
 
