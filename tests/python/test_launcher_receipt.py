@@ -44,7 +44,7 @@ def cancelled_case(kind="source-c"):
         "parameters": params, "cwd": "C:/synthetic/c", "input_path": source, "output_base": "C:/synthetic/o",
         "outcome": {"protocol": "winbooksplit.outcome", "version": 1, "status": "cancelled", "code": "cancelled", "exit_code": 130,
                     "written_count": 0, "engine_result": None, "final_directory": None}, "engine_records": [], "process_summaries": [], "log_sha256": None,
-        "final_publication": None, "console_operation_outcomes": []}
+        "final_publication": None, "console_operation_outcomes": [], "console_decisions": []}
     row["additional_inputs_after"] = deepcopy(row["additional_inputs_before"])
     row["actual_application_sha256"] = deepcopy(row["application_sha256"])
     if kind in {"menu-cancel", "menu-eof"}:

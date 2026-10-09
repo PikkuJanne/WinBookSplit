@@ -154,7 +154,8 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
             "source_observations_before": before, "source_observations_after": {"source": identity(source), "neighbor": identity(neighbor), "prior": identity(prior)},
             "additional_inputs_before": extra_before, "additional_inputs_after": {str(item): identity(item) for item in (second, third)},
             "output_members_before": [prior.name], "output_members_after": sorted(item.name for item in base.iterdir()),
-            "outcome": None, "engine_records": [], "process_summaries": [], "log_sha256": None, "console_operation_outcomes": [],
+            "outcome": None, "engine_records": [], "process_summaries": [], "log_sha256": None,
+            "console_operation_outcomes": [], "console_decisions": [],
             "powershell_launch_sentinel_absent": not (directory / "ps-started.txt").exists(),
             "final_publication": None, "publication_manifest": None, "publication_manifest_sha256": None,
             "expected_entries": expected["entries"] if expected else None,
@@ -216,6 +217,7 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
             log_text = log.read_text(encoding="utf-8")
             record["console_operation_outcomes"] = [json.loads(line[len("[OPERATION-OUTCOME] "):])
                 for line in log_text.splitlines() if line.startswith("[OPERATION-OUTCOME] ")]
+            record["console_decisions"] = [line[len("[DECISION] "):] for line in log_text.splitlines() if line.startswith("[DECISION] ")]
             require(record["console_operation_outcomes"] == [record["outcome"]], "Owned console footer differs from final native outcome")
             record["console_log_scope"] = {"path": str(log), "owner": marker,
                 "members": sorted((".WinBookSplit-console-owner.json", "console.log")), "sha256": digest(log)}

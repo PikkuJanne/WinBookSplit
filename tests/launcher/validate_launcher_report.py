@@ -173,13 +173,21 @@ def validate_case(row):
         need(rows[0].get("status") == "no_plan" and rows[0].get("exit_code") == 5 and rows[0].get("written_count") == 0
              and rows[0].get("execution") is None and rows[0].get("mode") == first_mode
              and rows[0].get("code") == ("no_bookmarks_at_level" if first_mode == "2" else "no_bookmarks")
-             and rows[0].get("fallback_modes") == (["1", "manual"] if first_mode == "2" else ["manual"])
-             and "[FALLBACK]" in row["stdout"], "Fallback did not follow actual non-writing requested no-plan")
+             and rows[0].get("fallback_modes") == (["1", "manual"] if first_mode == "2" else ["manual"]),
+             "Fallback did not follow actual non-writing requested no-plan")
+        final_decision = "cancel; retry mode: " if kind in CANCELLED else "retry; retry mode: " + expected_mode
+        decisions = (["invalid; retry mode: ", "invalid; retry mode: ", "pending; retry mode: ",
+                      "invalid; retry mode: ", "invalid; retry mode: "] if kind in {"fallback-invalid-manual", "fallback-invalid-cancel"} else []) + [final_decision]
+        need(row.get("console_decisions") == decisions, "Exact fallback decisions/retry/cancel log differs")
+    else:
+        need(row.get("console_decisions") == [], "No-plan fallback happened without a requested fallback case")
     if kind in {"menu-invalid-level1", "menu-invalid-manual"}:
         minimum = len(INVALID_MENU) if kind == "menu-invalid-level1" else 2
-        need(row.get("menu_invalid_message_count", 0) >= minimum, "Arbitrary initial choices did not all reprompt")
+        need(row.get("menu_invalid_message_count", 0) == row["stdout"].count("Choose exactly 1, 2, M or C.") >= minimum,
+             "Arbitrary initial choices did not all reprompt")
     if kind in {"fallback-invalid-manual", "fallback-invalid-cancel"}:
-        need(row.get("fallback_invalid_message_count", 0) >= len(INVALID_FALLBACK), "Arbitrary fallback choices did not all reprompt")
+        need(row.get("fallback_invalid_message_count", 0) == row["stdout"].count("Choose one of the displayed options.") >= len(INVALID_FALLBACK),
+             "Arbitrary fallback choices did not all reprompt")
     if kind in CANCELLED:
         need(final.get("status") == "cancelled" and final.get("code") == "cancelled" and final["written_count"] == 0
              and final.get("mode") == expected_mode and final.get("final_directory") is None
