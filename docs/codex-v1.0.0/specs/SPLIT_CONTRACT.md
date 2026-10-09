@@ -37,6 +37,15 @@ When first child starts after parent start, emit `[parent_start,first_child)` as
 
 Duplicate parents at the same destination use the first parent and its subtree; warn about ignored alias subtrees. Depth 3+ is not a split boundary in Level 1/2. A malformed tree or contradictory parentage is a diagnostic condition, not a mandate to recurse indefinitely.
 
+M1-T04 uses the normalized Level 1 parent IDs to select direct children before
+deduplication/sorting. Ignored alias/invalid parent subtrees remain in metadata
+with diagnostics; none of their descendants can satisfy the usable-child gate.
+Outside children cannot satisfy it either. With usable parents but no retained
+direct child, the noninteractive CLI emits `no_bookmarks_at_level`, the existing
+`[NO_BOOKMARKS_FOUND]` compatibility sentinel and exit 55 without writing or
+falling back. Empty/no usable parent errors remain distinct. The console's
+interactive fallback choice belongs to M3; this does not certify that UI.
+
 ## Exact example: 12 physical pages
 
 Parent A starts at 3, with children A1 at 4 and A2 at 7. Parent B starts at 9, with child B1 at 11.

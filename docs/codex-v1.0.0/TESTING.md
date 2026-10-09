@@ -33,8 +33,8 @@ manual acceptance (`--layer manual`), documented in `tests/manual/README.md`.
 All 22 unchanged manual oracles execute against the shipped engine, including
 whole-document output, every invalid token and zero-page rejection. Exact page
 identities/order, normalization notices, eight extra CLI edge cases, 250 seeded
-plans and 25 actual writer samples are checked. Current safe import and three
-unchanged known-bad bookmark observations remain separate checks. Historical
+plans and 25 actual writer samples are checked. At that checkpoint, safe import
+and three unchanged known-bad bookmark observations remained separate checks. Historical
 AC-011 AST evidence reads immutable M1-T01 C; the original/extraction harnesses
 and their guards remain unchanged. Their explicit legacy layers now refuse the
 changed launcher/processing ASTs as expected. No current mechanical manual
@@ -43,17 +43,31 @@ GUID/marker-owned method and its original limits.
 
 Reports use new absolute paths outside the checkout, include actual source-byte and child-evidence SHA-256 digests, and retain every step's native exit status. A missing/invalid promised child report also fails. Each run owns one unique temporary directory; source and synthetic-neighbor hashes are checked before cleanup. AC-009 requires observed native/Python/Pester failures followed by success while the runner stays nonzero. AC-010 requires two actual full runs from unrelated directories, matching deterministic outcomes and owned cleanup. Acceptance IDs printed by a runner alone are not acceptance passes. The shell layer gates syntax and selected new-scaffold defect/security/compatibility rules while separately recording unchanged application analyzer findings; legacy observations are not a runtime static pass.
 
-M1-T03 adds `--layer bookmarks` and makes it the fifth stage of the current full
+M1-T03 added `--layer bookmarks` as the fifth stage of the then-current full
 route. It checks corrected Level 1 BM-01/02/05/08 targets, invalid destinations,
 depth/lineage and bounded malformed traversal, 150 seeded plans and ten actual
 writer samples. Every output slice and flattened page sequence must preserve
-physical identities. The current manual route retains only the unchanged
+physical identities. At that checkpoint, the manual route retained only the unchanged
 Level 2 BM-03 observation; M1-T02's three-case record above is historical.
 Original/extraction guards, oracles, generator and prior evidence remain
 unchanged. This bookmark route runs Python CLI/callable checks; the six existing
-actual shell/batch probes still cover manual MAN-03 and historical Level 2 BM-03.
+actual shell/batch probes then covered manual MAN-03 and historical Level 2 BM-03.
 Corrected Level 1 console/Explorer and full application acceptance are separate
 later gates. See `tests/bookmarks/README.md` for exact bounds and evidence scope.
+
+M1-T04 adds `--layer level2` as the sixth full stage. Corrected BM-03/04/06/07
+execute through the actual Python CLI, including parent opening/fallback slices,
+outside-child warnings and structured no-plan rejection. Six hierarchy aggregates,
+150 seeded parent/child plans and ten real writer samples verify exact page
+identities, selected-parent ownership and complete coverage. Manual/Level 1
+regressions remain in the full route. The current manual harness no longer
+compares any repaired bookmark mode with historical defective behavior: its
+new corrected BM-03 CLI reference supplies the existing six owned launcher
+probes. Their two actual PS7 Level 2 probes now match corrected complete
+output bytes/page identities. This is controlled entrypoint evidence; ordinary
+discovery, full interactive fallback/Explorer, Calibre and output transactions
+remain separate later gates. Prior bookmark comparison records are historical;
+original/extraction guards, fixtures/oracles and evidence are unchanged.
 
 ## Risk-based execution
 

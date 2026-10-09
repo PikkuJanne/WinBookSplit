@@ -1,0 +1,4899 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T04",
+  "observed_at": "2026-10-09T05:01:23.965488+00:00",
+  "user_timezone": "Europe/Berlin",
+  "result": "LEVEL2_ACCEPTANCE_PASSED",
+  "acceptance": {
+    "AC-023": "PASSED",
+    "AC-024": "PASSED",
+    "AC-025": "PASSED",
+    "AC-026": "PASSED"
+  },
+  "initial_checkpoint": {
+    "branch": "codex/winbooksplit-v1-m1",
+    "live_sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T04:53:21.608211+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "edc82ec5f459ff66a199987cc47d0de8a7832183",
+      "worktree_clean": true,
+      "remote_head": "edc82ec5f459ff66a199987cc47d0de8a7832183",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "PR7": {
+      "mergeCommit": {
+        "oid": "90297a80256315de20730e44403d820d40d9d4e9"
+      },
+      "mergedAt": "2026-10-09T04:52:11Z",
+      "state": "MERGED"
+    },
+    "reconciliation": "Normal fetch/fast-forward incorporated live main 90297a8 into retained M1 branch and local main; no history rewrite."
+  },
+  "tested_source": {
+    "base_commit": "90297a80256315de20730e44403d820d40d9d4e9",
+    "base_tree": "d8472411b73f952ccf7e50dfae6d4516f2babe8d",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "d3a49a3c1d4dac3ca6cf5d0d2342d62abede1fc9852607d1e941146dbf3de11e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "dc32b97bb50a0af178cde58af0fb4304fc9ebe89484d68ad80fdb42e46bc14ae",
+      "tests/bookmarks/characterize_level2.py": "689c39a256f277b78f928db95114146f0f125552c5f6c4db14a01b96c9ad030c",
+      "tests/bookmarks/README.md": "282d9cba53c37de5021e30933b12482bfe17016b814a88d125b14c601407cb1a",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "b89525ba684c4ec9d9627c321897fa113cc7dd9a11732d5c8bcbb3e7c7d75189",
+      "tests/manual/characterize_manual.py": "f7b01dbab4f3e2746a3802e6e0a684951d16e5c237e18b2e47666d43943f7459",
+      "tests/manual/README.md": "fc82af5a7f94a8ba09c6db56156624786df56667f6dbaf3abd29fd9a316a91d2",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_extraction.py": "39379fe74b81853e27be935df3a27c8310eadc7b9b63ff185b704bc1adfab5a5",
+      "tests/python/test_level1.py": "b8cb52283b47f8d9ed602a547b8aff41adfb82534371a6b539badd3d4ef0bb94",
+      "tests/python/test_level2.py": "c1a629f3c22aae5ef5263959bcef27a70d589f2699e07310a2ab3fe5db936fd7",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_runner.py": "fad02e89f3d9835065dbb4f9a34e4785c5d31cf50d0394656e0b713fb0ec6977",
+      "tests/README.md": "bc4df1deae2b3996376c3ea4e6d8bf1590c019836d5441e6f264733c77e002de",
+      "tests/run_tests.py": "cfdfb84f76624700494c0e9738cd0400e9e05cb88569373436c4721f4ffee950",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df"
+    },
+    "tested_paths_digest": "fca9a3b30142da14f0403a971b9d5ee02ee7e81d0cf3899ed0cc28f7609c1003",
+    "meaning": "Actual worktree bytes; Git identity alone does not imply a clean checkout",
+    "source_unchanged": true
+  },
+  "tested_path_count": 38,
+  "source_digest_recipe": "SHA256 of UTF-8 json.dumps(path_to_sha256_map, sort_keys=True, separators=(comma,colon)); actual checked-out bytes.",
+  "test_timing_scope": "Full tests ran before C; every tested actual-path hash matched clean C. No clean-C full rerun claimed.",
+  "implementation_checkpoint": {
+    "commit": "8c193ae2aac5df4819cad216635d59df57d12cbc",
+    "tree": "6c45267978a41af14881115de02521ea6fb30d99",
+    "live_sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T05:03:45.266791+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "8c193ae2aac5df4819cad216635d59df57d12cbc",
+      "worktree_clean": true,
+      "remote_head": "8c193ae2aac5df4819cad216635d59df57d12cbc",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "workstation": {
+    "ubr": 9457,
+    "architecture": "64-bit",
+    "caption": "Microsoft Windows 11 Pro",
+    "display_version": "26H2",
+    "build": "26300",
+    "version": "10.0.26300",
+    "setup": "Existing Windows 11 workstation with fresh external venv; not a clean OS."
+  },
+  "dependency_setup": {
+    "fresh_regular_x64_GIL_venv": true,
+    "hash_required_binary_only_install_exit": 0,
+    "pip_check_exit": 0,
+    "exact_versions_and_venv_import_origins": {
+      "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "machine": "AMD64",
+      "regular_GIL": true,
+      "isolated": true,
+      "no_bytecode": true,
+      "imports": {
+        "pypdf": {
+          "version": "6.19.0",
+          "origin": "$M1T04ExternalRoot\\dev-venv\\Lib\\site-packages\\pypdf\\__init__.py"
+        },
+        "reportlab": {
+          "version": "5.0.1",
+          "origin": "$M1T04ExternalRoot\\dev-venv\\Lib\\site-packages\\reportlab\\__init__.py"
+        },
+        "PIL": {
+          "version": "12.3.0",
+          "origin": "$M1T04ExternalRoot\\dev-venv\\Lib\\site-packages\\PIL\\__init__.py"
+        },
+        "charset_normalizer": {
+          "version": "3.5.2",
+          "origin": "$M1T04ExternalRoot\\dev-venv\\Lib\\site-packages\\charset_normalizer\\__init__.py"
+        }
+      },
+      "pip_check": {
+        "exit_code": 0,
+        "stdout": "No broken requirements found.\n",
+        "stderr": ""
+      }
+    },
+    "install_log_sha256": "0a208fed5ad96a273270f478d2260917ce40da9b17b797cf37d8c5002789fcce",
+    "environment_receipt_sha256": "2a9505e9f993cab012ab1878d42da51dab2db385664e0bdf409cfea8f10a1a3d",
+    "isolated_saved_tool_files_reverified": 66,
+    "saved_tool_reference": "M0-T04-harness.json shell_tools.saved_files (all 66 SHA-256/size entries)"
+  },
+  "policies": {
+    "before": [
+      {
+        "scope": "MachinePolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "UserPolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "Process",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "CurrentUser",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "LocalMachine",
+        "policy": "RemoteSigned"
+      }
+    ],
+    "after": [
+      {
+        "policy": "Undefined",
+        "scope": "MachinePolicy"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "UserPolicy"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "Process"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "CurrentUser"
+      },
+      {
+        "policy": "RemoteSigned",
+        "scope": "LocalMachine"
+      }
+    ],
+    "unchanged": true,
+    "children_request": "RemoteSigned, process-only; host-owned module paths; no elevation"
+  },
+  "full_local_run": {
+    "command": "$DevPython -I -B $Repo\\tests\\run_tests.py --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --report $M1T04ExternalRoot\\full-final.json",
+    "cwd": "Unrelated external TEMP directory",
+    "exit_code": 0,
+    "success": true,
+    "python_tests": 85,
+    "python_skips": 0,
+    "raw_report_sha256": "9b581eddd16685c220cfdedc0d5be296967e69ce79660ee425ba5a11b545f2e1",
+    "shells": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1",
+            "name": "Pester",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1"
+          },
+          {
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+          }
+        ],
+        "pester": {
+          "passed": 9,
+          "failed": 0,
+          "total": 9,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "8e61b0e750e2401d1e7f480f848ef23f9cbf53ecf1bf5d5326ce1a0a6c21a4b9",
+        "native_exit_code": 0
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "name": "Pester",
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1"
+          },
+          {
+            "name": "PSScriptAnalyzer",
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+          }
+        ],
+        "pester": {
+          "result": "Passed",
+          "skipped": 0,
+          "failed_containers": 0,
+          "total": 9,
+          "not_run": 0,
+          "failed": 0,
+          "passed": 9
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "b4594d85e05bddf3b8af49f0638ce34da90a07c3237c2981741e9e1530d8da1e",
+        "native_exit_code": 0
+      }
+    ],
+    "manual_child_sha256": "3927303e84fb5849cda2c6b26dd88b7acc13407937b5c9a07c2b1122f7ce7745",
+    "level1_child_sha256": "4f8afd2e329d83e5f07545be9d4a33630c860dae53e8b0095b7290f150e635c2",
+    "level2_child_sha256": "84451197e3e5f3bcd3876c3375982a059407aad99b45f7efcdbef5b7b402c44d",
+    "source_unchanged": true,
+    "synthetic_input_unchanged": true,
+    "owned_work_removed": true
+  },
+  "level2_acceptance": {
+    "schema_version": 1,
+    "task_id": "M1-T04",
+    "observed_at": "2026-10-09T05:02:22.723573+00:00",
+    "result": "LEVEL2_REGRESSION_PASSED",
+    "success": true,
+    "exit_code": 0,
+    "acceptance_ids": [
+      "AC-023",
+      "AC-024",
+      "AC-025",
+      "AC-026"
+    ],
+    "engine_case_count": 4,
+    "engine_cases": [
+      {
+        "oracle_id": "BM-03",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-04",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - A1.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "d9e11b11538e56bc569610a6eb376978ee925050a763a7425a02010b54e1bf95"
+          },
+          {
+            "filename": "02 - A2.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10,
+              11,
+              12
+            ],
+            "range": [
+              6,
+              12
+            ],
+            "sha256": "b176b7ad02bb0092d3b172c2d4824b35dcb0a4ac5a5e572a134871badd5aecaa"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[*] Found 3 sections based on Level 2 bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B.pdf\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-06",
+        "passed": true,
+        "expected_ranges": null,
+        "expected_error": "no_bookmarks_at_level",
+        "outputs": [],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 55,
+        "stdout": "[ERROR] no_bookmarks_at_level: The PDF has no usable direct Level 2 bookmarks.\n[NO_BOOKMARKS_FOUND]\n",
+        "stderr": ""
+      },
+      {
+        "oracle_id": "BM-07",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            5
+          ],
+          [
+            5,
+            10
+          ]
+        ],
+        "expected_error": null,
+        "outputs": [
+          {
+            "filename": "01 - A - Opening pages.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - A1.pdf",
+            "page_ids": [
+              2,
+              3,
+              4,
+              5
+            ],
+            "range": [
+              1,
+              5
+            ],
+            "sha256": "736127cb52d2e2df615fd81198700dcef540cadd193a2804299331f86c0fbb52"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              5,
+              10
+            ],
+            "sha256": "75873fd362f66df829a1aa2c0af95629e44cd3377d6823e0f11acdeb89052587"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] child_outside_parent (outline 3, depth 2): Ignored child outside parent pages 1..5.\n[*] Found 3 sections based on Level 2 bookmarks.\n    [Writing] 01 - A - Opening pages.pdf\n    [Writing] 02 - A1.pdf\n    [Writing] 03 - B.pdf\n",
+        "stderr": ""
+      }
+    ],
+    "hierarchy_cases": [
+      {
+        "id": "duplicate-parent-subtrees",
+        "passed": true,
+        "plan": {
+          "mode": "2",
+          "total_pages": 10,
+          "entries": [
+            {
+              "title": "Canonical - Opening pages",
+              "start": 0,
+              "end": 2,
+              "parent_id": "bookmark-1",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Canonical - Opening pages.pdf"
+            },
+            {
+              "title": "Own",
+              "start": 2,
+              "end": 6,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-2",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - Own.pdf"
+            },
+            {
+              "title": "Next - Opening pages",
+              "start": 6,
+              "end": 7,
+              "parent_id": "bookmark-5",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - Next - Opening pages.pdf"
+            },
+            {
+              "title": "Next child",
+              "start": 7,
+              "end": 10,
+              "parent_id": "bookmark-5",
+              "bookmark_id": "bookmark-6",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 4,
+              "filename": "04 - Next child.pdf"
+            }
+          ],
+          "ranges": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              6,
+              7
+            ],
+            [
+              7,
+              10
+            ]
+          ],
+          "bookmarks": [
+            {
+              "id": "bookmark-1",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Canonical",
+              "page": 0
+            },
+            {
+              "id": "bookmark-2",
+              "source_order": 2,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Own",
+              "page": 2
+            },
+            {
+              "id": "bookmark-3",
+              "source_order": 3,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Alias",
+              "page": 0,
+              "alias_of": "bookmark-1",
+              "subtree_ignored_reason": "duplicate_parent_subtree"
+            },
+            {
+              "id": "bookmark-4",
+              "source_order": 4,
+              "depth": 2,
+              "parent_id": "bookmark-3",
+              "lineage": [
+                "bookmark-3"
+              ],
+              "title": "Alias child",
+              "page": 5
+            },
+            {
+              "id": "bookmark-5",
+              "source_order": 5,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Next",
+              "page": 6
+            },
+            {
+              "id": "bookmark-6",
+              "source_order": 6,
+              "depth": 2,
+              "parent_id": "bookmark-5",
+              "lineage": [
+                "bookmark-5"
+              ],
+              "title": "Next child",
+              "page": 7
+            }
+          ],
+          "warnings": [
+            {
+              "code": "duplicate_destination",
+              "source_order": 3,
+              "depth": 1,
+              "message": "Ignored duplicate destination; first bookmark is bookmark-1."
+            },
+            {
+              "code": "duplicate_parent_subtree",
+              "source_order": 3,
+              "depth": 1,
+              "parent_id": "bookmark-3",
+              "message": "Ignored this parent's subtree because its start is an alias or unusable."
+            }
+          ]
+        },
+        "alias_only_rejection": {
+          "code": "no_bookmarks_at_level",
+          "warnings": [
+            {
+              "code": "duplicate_destination",
+              "source_order": 2,
+              "depth": 1,
+              "message": "Ignored duplicate destination; first bookmark is bookmark-1."
+            },
+            {
+              "code": "duplicate_parent_subtree",
+              "source_order": 2,
+              "depth": 1,
+              "parent_id": "bookmark-2",
+              "message": "Ignored this parent's subtree because its start is an alias or unusable."
+            }
+          ],
+          "writer_not_reached": true
+        }
+      },
+      {
+        "id": "invalid-parent-subtrees",
+        "passed": true,
+        "plan": {
+          "mode": "2",
+          "total_pages": 10,
+          "entries": [
+            {
+              "title": "Valid - Opening pages",
+              "start": 0,
+              "end": 2,
+              "parent_id": "bookmark-3",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Valid - Opening pages.pdf"
+            },
+            {
+              "title": "Own",
+              "start": 2,
+              "end": 10,
+              "parent_id": "bookmark-3",
+              "bookmark_id": "bookmark-4",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - Own.pdf"
+            }
+          ],
+          "ranges": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              10
+            ]
+          ],
+          "bookmarks": [
+            {
+              "id": "bookmark-1",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Invalid",
+              "page": null,
+              "subtree_ignored_reason": "invalid_parent_subtree"
+            },
+            {
+              "id": "bookmark-2",
+              "source_order": 2,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Orphaned child",
+              "page": 0
+            },
+            {
+              "id": "bookmark-3",
+              "source_order": 3,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Valid",
+              "page": 0
+            },
+            {
+              "id": "bookmark-4",
+              "source_order": 4,
+              "depth": 2,
+              "parent_id": "bookmark-3",
+              "lineage": [
+                "bookmark-3"
+              ],
+              "title": "Own",
+              "page": 2
+            }
+          ],
+          "warnings": [
+            {
+              "code": "invalid_destination",
+              "source_order": 1,
+              "depth": 1,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_parent_subtree",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": "bookmark-1",
+              "message": "Ignored this parent's subtree because its start is an alias or unusable."
+            }
+          ]
+        },
+        "invalid_only_rejection": {
+          "code": "no_bookmarks_at_level",
+          "warnings": [
+            {
+              "code": "invalid_destination",
+              "source_order": 1,
+              "depth": 1,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_parent_subtree",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": "bookmark-1",
+              "message": "Ignored this parent's subtree because its start is an alias or unusable."
+            }
+          ],
+          "writer_not_reached": true
+        }
+      },
+      {
+        "id": "child-order-and-aliases",
+        "passed": true,
+        "plan": {
+          "mode": "2",
+          "total_pages": 10,
+          "entries": [
+            {
+              "title": "At parent",
+              "start": 0,
+              "end": 3,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-3",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - At parent.pdf"
+            },
+            {
+              "title": "First duplicate",
+              "start": 3,
+              "end": 5,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-4",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - First duplicate.pdf"
+            },
+            {
+              "title": "Last",
+              "start": 5,
+              "end": 6,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-2",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - Last.pdf"
+            },
+            {
+              "title": "B",
+              "start": 6,
+              "end": 10,
+              "parent_id": "bookmark-7",
+              "bookmark_id": "bookmark-7",
+              "reason": "parent_fallback",
+              "warnings": [],
+              "sequence": 4,
+              "filename": "04 - B.pdf"
+            }
+          ],
+          "ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              5
+            ],
+            [
+              5,
+              6
+            ],
+            [
+              6,
+              10
+            ]
+          ],
+          "bookmarks": [
+            {
+              "id": "bookmark-1",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "A",
+              "page": 0
+            },
+            {
+              "id": "bookmark-2",
+              "source_order": 2,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Last",
+              "page": 5
+            },
+            {
+              "id": "bookmark-3",
+              "source_order": 3,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "At parent",
+              "page": 0
+            },
+            {
+              "id": "bookmark-4",
+              "source_order": 4,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "First duplicate",
+              "page": 3
+            },
+            {
+              "id": "bookmark-5",
+              "source_order": 5,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Alias child",
+              "page": 3,
+              "alias_of": "bookmark-4"
+            },
+            {
+              "id": "bookmark-6",
+              "source_order": 6,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Outside",
+              "page": 6
+            },
+            {
+              "id": "bookmark-7",
+              "source_order": 7,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "B",
+              "page": 6
+            }
+          ],
+          "warnings": [
+            {
+              "code": "duplicate_destination",
+              "source_order": 5,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "message": "Ignored duplicate child destination; first bookmark is bookmark-4."
+            },
+            {
+              "code": "child_outside_parent",
+              "source_order": 6,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "message": "Ignored child outside parent pages 1..6."
+            },
+            {
+              "code": "outline_reordered",
+              "source_order": null,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "message": "Child bookmarks sorted into physical page order."
+            }
+          ]
+        }
+      },
+      {
+        "id": "invalid-child-destinations",
+        "passed": true,
+        "plan": {
+          "mode": "2",
+          "total_pages": 10,
+          "entries": [
+            {
+              "title": "Parent - Opening pages",
+              "start": 0,
+              "end": 2,
+              "parent_id": "bookmark-1",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Parent - Opening pages.pdf"
+            },
+            {
+              "title": "Usable",
+              "start": 2,
+              "end": 6,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-13",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - Usable.pdf"
+            },
+            {
+              "title": "Next",
+              "start": 6,
+              "end": 10,
+              "parent_id": "bookmark-14",
+              "bookmark_id": "bookmark-14",
+              "reason": "parent_fallback",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - Next.pdf"
+            }
+          ],
+          "ranges": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              6
+            ],
+            [
+              6,
+              10
+            ]
+          ],
+          "bookmarks": [
+            {
+              "id": "bookmark-1",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Parent",
+              "page": 0
+            },
+            {
+              "id": "bookmark-2",
+              "source_order": 2,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 0",
+              "page": null
+            },
+            {
+              "id": "bookmark-3",
+              "source_order": 3,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 1",
+              "page": null
+            },
+            {
+              "id": "bookmark-4",
+              "source_order": 4,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 2",
+              "page": null
+            },
+            {
+              "id": "bookmark-5",
+              "source_order": 5,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 3",
+              "page": null
+            },
+            {
+              "id": "bookmark-6",
+              "source_order": 6,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 4",
+              "page": null
+            },
+            {
+              "id": "bookmark-7",
+              "source_order": 7,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 5",
+              "page": null
+            },
+            {
+              "id": "bookmark-8",
+              "source_order": 8,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 6",
+              "page": null
+            },
+            {
+              "id": "bookmark-9",
+              "source_order": 9,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 7",
+              "page": null
+            },
+            {
+              "id": "bookmark-10",
+              "source_order": 10,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 8",
+              "page": null
+            },
+            {
+              "id": "bookmark-11",
+              "source_order": 11,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Invalid 9",
+              "page": null
+            },
+            {
+              "id": "bookmark-12",
+              "source_order": 12,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "External",
+              "page": null
+            },
+            {
+              "id": "bookmark-13",
+              "source_order": 13,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "Usable",
+              "page": 2
+            },
+            {
+              "id": "bookmark-14",
+              "source_order": 14,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "Next",
+              "page": 6
+            }
+          ],
+          "warnings": [
+            {
+              "code": "invalid_destination",
+              "source_order": 2,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 3,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 4,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 5,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 6,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 7,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 8,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 9,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "invalid_destination",
+              "source_order": 10,
+              "depth": 2,
+              "message": "The destination must be an integer page in 0..9."
+            },
+            {
+              "code": "destination_error",
+              "source_order": 11,
+              "depth": 2,
+              "message": "Could not resolve the destination: ValueError: Original child resolution failure"
+            },
+            {
+              "code": "external_destination",
+              "source_order": 12,
+              "depth": 2,
+              "message": "The bookmark action is external or unsupported."
+            }
+          ]
+        },
+        "actual_raw_child_cli": {
+          "outputs": [
+            {
+              "filename": "01 - Parent - Opening pages.pdf",
+              "page_ids": [
+                1,
+                2
+              ],
+              "range": [
+                0,
+                2
+              ],
+              "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+            },
+            {
+              "filename": "02 - Valid child.pdf",
+              "page_ids": [
+                3
+              ],
+              "range": [
+                2,
+                3
+              ],
+              "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+            },
+            {
+              "filename": "03 - Valid named child.pdf",
+              "page_ids": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                3,
+                10
+              ],
+              "sha256": "ba680ab6e8446163eb3ca9a81895273d48a88d4117ccf1bc22b89ee28380c348"
+            }
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true,
+          "exit_code": 0,
+          "stdout": "[WARNING] invalid_destination (outline 4, depth 2): The internal destination must reference a PDF page object.\n[WARNING] invalid_destination (outline 5, depth 2): The destination array or fit type is invalid.\n[WARNING] invalid_destination (outline 6, depth 2): The named destination cannot be resolved.\n[WARNING] external_destination (outline 7, depth 2): The bookmark action is external or unsupported.\n[*] Found 3 sections based on Level 2 bookmarks.\n    [Writing] 01 - Parent - Opening pages.pdf\n    [Writing] 02 - Valid child.pdf\n    [Writing] 03 - Valid named child.pdf\n",
+          "stderr": ""
+        }
+      },
+      {
+        "id": "deep-and-malformed-outlines",
+        "passed": true,
+        "plan": {
+          "mode": "2",
+          "total_pages": 10,
+          "entries": [
+            {
+              "title": "Front matter",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "front_matter",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Front matter.pdf"
+            },
+            {
+              "title": "A - Opening pages",
+              "start": 3,
+              "end": 4,
+              "parent_id": "bookmark-1",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - A - Opening pages.pdf"
+            },
+            {
+              "title": "A1",
+              "start": 4,
+              "end": 7,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-2",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - A1.pdf"
+            },
+            {
+              "title": "B - Opening pages",
+              "start": 7,
+              "end": 8,
+              "parent_id": "bookmark-4",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 4,
+              "filename": "04 - B - Opening pages.pdf"
+            },
+            {
+              "title": "B1",
+              "start": 8,
+              "end": 10,
+              "parent_id": "bookmark-4",
+              "bookmark_id": "bookmark-5",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 5,
+              "filename": "05 - B1.pdf"
+            }
+          ],
+          "ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              7
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              8,
+              10
+            ]
+          ],
+          "bookmarks": [
+            {
+              "id": "bookmark-1",
+              "source_order": 1,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "A",
+              "page": 3
+            },
+            {
+              "id": "bookmark-2",
+              "source_order": 2,
+              "depth": 2,
+              "parent_id": "bookmark-1",
+              "lineage": [
+                "bookmark-1"
+              ],
+              "title": "A1",
+              "page": 4
+            },
+            {
+              "id": "bookmark-3",
+              "source_order": 3,
+              "depth": 3,
+              "parent_id": "bookmark-2",
+              "lineage": [
+                "bookmark-1",
+                "bookmark-2"
+              ],
+              "title": "Ignored grandchild",
+              "page": 5
+            },
+            {
+              "id": "bookmark-4",
+              "source_order": 4,
+              "depth": 1,
+              "parent_id": null,
+              "lineage": [],
+              "title": "B",
+              "page": 7
+            },
+            {
+              "id": "bookmark-5",
+              "source_order": 5,
+              "depth": 2,
+              "parent_id": "bookmark-4",
+              "lineage": [
+                "bookmark-4"
+              ],
+              "title": "B1",
+              "page": 8
+            }
+          ],
+          "warnings": []
+        },
+        "accepted_depth": 64,
+        "rejections": [
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_cycle",
+                "source_order": null,
+                "depth": 1,
+                "message": "An outline list repeats or contains a cycle."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "malformed_outline",
+                "source_order": null,
+                "depth": 1,
+                "message": "An outline child list has no preceding parent."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_outline",
+            "warnings": [
+              {
+                "code": "outline_limit",
+                "source_order": null,
+                "depth": 65,
+                "message": "The outline exceeds the depth limit."
+              }
+            ],
+            "writer_not_reached": true
+          }
+        ],
+        "serialized_cycle_cli": {
+          "outputs": [],
+          "input_unchanged": true,
+          "neighbor_unchanged": true,
+          "exit_code": 1,
+          "stdout": "[WARNING] outline_cycle (outline None, depth 1): A outline tree repeats a node or contains a cycle.\n[ERROR] invalid_outline: A outline tree repeats a node or contains a cycle.\n",
+          "stderr": ""
+        }
+      },
+      {
+        "id": "no-usable-level2",
+        "passed": true,
+        "rejections": [
+          {
+            "code": "no_bookmarks",
+            "warnings": [],
+            "writer_not_reached": true
+          },
+          {
+            "code": "no_usable_bookmarks",
+            "warnings": [
+              {
+                "code": "invalid_destination",
+                "source_order": 1,
+                "depth": 1,
+                "message": "The destination must be an integer page in 0..9."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "no_bookmarks_at_level",
+            "warnings": [],
+            "writer_not_reached": true
+          },
+          {
+            "code": "no_bookmarks_at_level",
+            "warnings": [
+              {
+                "code": "invalid_destination",
+                "source_order": 2,
+                "depth": 2,
+                "message": "The destination must be an integer page in 0..9."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "no_bookmarks_at_level",
+            "warnings": [
+              {
+                "code": "child_outside_parent",
+                "source_order": 2,
+                "depth": 2,
+                "parent_id": "bookmark-1",
+                "message": "Ignored child outside parent pages 1..6."
+              }
+            ],
+            "writer_not_reached": true
+          },
+          {
+            "code": "invalid_document",
+            "warnings": [],
+            "writer_not_reached": true
+          }
+        ]
+      }
+    ],
+    "seeded_level2_cases": {
+      "seed": 20261009,
+      "count": 150,
+      "passed": true
+    },
+    "sampled_writer_cases": [
+      {
+        "index": 0,
+        "parents": [
+          {
+            "title": "Parent 5",
+            "start_page": 10,
+            "children": [
+              {
+                "title": "Parent 5 child 0",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 5 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 5 child 2",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 5 child 3",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 4,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 4,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 2",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 3",
+            "start_page": 6,
+            "children": [
+              {
+                "title": "Parent 3 child 0",
+                "start_page": 6,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 1",
+                "start_page": 7,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 2",
+                "start_page": 8,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 3",
+                "start_page": 8,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 4",
+                "start_page": 8,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 0",
+            "start_page": 3,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 2",
+                "start_page": 3,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 4",
+            "start_page": 9,
+            "children": [
+              {
+                "title": "Parent 4 child 0",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 1",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 2",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 3",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 4",
+                "start_page": 9,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 2",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Parent 2 child 0",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 1",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 2",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 3",
+                "start_page": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 10,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Parent 0 child 0.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Parent 1 child 0.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "04 - Parent 2 child 0.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "05 - Parent 3 child 0.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "06 - Parent 3 child 1.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "07 - Parent 3 child 2.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Parent 4 child 0.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Parent 5 child 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 31, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[WARNING] duplicate_parent_subtree (outline 31, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 18, depth 2): Ignored duplicate child destination; first bookmark is bookmark-17.\n[WARNING] duplicate_destination (outline 19, depth 2): Ignored duplicate child destination; first bookmark is bookmark-17.\n[WARNING] duplicate_destination (outline 8, depth 2): Ignored duplicate child destination; first bookmark is bookmark-7.\n[WARNING] duplicate_destination (outline 9, depth 2): Ignored duplicate child destination; first bookmark is bookmark-7.\n[WARNING] duplicate_destination (outline 28, depth 2): Ignored duplicate child destination; first bookmark is bookmark-27.\n[WARNING] duplicate_destination (outline 29, depth 2): Ignored duplicate child destination; first bookmark is bookmark-27.\n[WARNING] duplicate_destination (outline 30, depth 2): Ignored duplicate child destination; first bookmark is bookmark-27.\n[WARNING] duplicate_destination (outline 14, depth 2): Ignored duplicate child destination; first bookmark is bookmark-13.\n[WARNING] duplicate_destination (outline 15, depth 2): Ignored duplicate child destination; first bookmark is bookmark-13.\n[WARNING] duplicate_destination (outline 22, depth 2): Ignored duplicate child destination; first bookmark is bookmark-21.\n[WARNING] duplicate_destination (outline 23, depth 2): Ignored duplicate child destination; first bookmark is bookmark-21.\n[WARNING] duplicate_destination (outline 24, depth 2): Ignored duplicate child destination; first bookmark is bookmark-21.\n[WARNING] duplicate_destination (outline 25, depth 2): Ignored duplicate child destination; first bookmark is bookmark-21.\n[WARNING] duplicate_destination (outline 3, depth 2): Ignored duplicate child destination; first bookmark is bookmark-2.\n[WARNING] duplicate_destination (outline 4, depth 2): Ignored duplicate child destination; first bookmark is bookmark-2.\n[WARNING] duplicate_destination (outline 5, depth 2): Ignored duplicate child destination; first bookmark is bookmark-2.\n[*] Found 9 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 0.pdf\n    [Writing] 03 - Parent 1 child 0.pdf\n    [Writing] 04 - Parent 2 child 0.pdf\n    [Writing] 05 - Parent 3 child 0.pdf\n    [Writing] 06 - Parent 3 child 1.pdf\n    [Writing] 07 - Parent 3 child 2.pdf\n    [Writing] 08 - Parent 4 child 0.pdf\n    [Writing] 09 - Parent 5 child 0.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 1,
+        "parents": [
+          {
+            "title": "Parent 2",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Parent 2 child 0",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 3",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Parent 3 child 0",
+                "start_page": 6,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 1",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 2",
+                "start_page": 6,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 3",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 4",
+                "start_page": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 3,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 2",
+                "start_page": 3,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 0",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 5",
+            "start_page": 10,
+            "children": []
+          },
+          {
+            "title": "Parent 4",
+            "start_page": 7,
+            "children": [
+              {
+                "title": "Parent 4 child 0",
+                "start_page": 7,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 1",
+                "start_page": 8,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 2",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 3",
+                "start_page": 9,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Parent 0 child 0.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Parent 1 child 0.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Parent 2 child 0.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Parent 3 child 1.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Parent 3 child 0.pdf",
+            "page_ids": [
+              6
+            ],
+            "range": [
+              5,
+              6
+            ],
+            "sha256": "47e0857f3f51c14a314106664f69959e1b1448701ff08d489ee216037a71907a"
+          },
+          {
+            "filename": "07 - Parent 4 child 0.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "08 - Parent 4 child 1.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "09 - Parent 4 child 2.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "10 - Parent 5.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 21, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[WARNING] duplicate_parent_subtree (outline 21, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 11, depth 2): Ignored duplicate child destination; first bookmark is bookmark-10.\n[WARNING] duplicate_destination (outline 12, depth 2): Ignored duplicate child destination; first bookmark is bookmark-10.\n[WARNING] duplicate_destination (outline 6, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[WARNING] duplicate_destination (outline 7, depth 2): Ignored duplicate child destination; first bookmark is bookmark-5.\n[WARNING] duplicate_destination (outline 8, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[WARNING] duplicate_destination (outline 20, depth 2): Ignored duplicate child destination; first bookmark is bookmark-19.\n[*] Found 10 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 0.pdf\n    [Writing] 03 - Parent 1 child 0.pdf\n    [Writing] 04 - Parent 2 child 0.pdf\n    [Writing] 05 - Parent 3 child 1.pdf\n    [Writing] 06 - Parent 3 child 0.pdf\n    [Writing] 07 - Parent 4 child 0.pdf\n    [Writing] 08 - Parent 4 child 1.pdf\n    [Writing] 09 - Parent 4 child 2.pdf\n    [Writing] 10 - Parent 5.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 2,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 2,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 2",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 3",
+                "start_page": 2,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 4",
+                "start_page": 2,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 5,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 3",
+            "start_page": 9,
+            "children": [
+              {
+                "title": "Parent 3 child 0",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 2",
+            "start_page": 8,
+            "children": []
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 2,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Parent 0 child 1.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Parent 1 - Opening pages.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Parent 1 child 0.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Parent 1 child 1.pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "07 - Parent 2.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "08 - Parent 3 - Opening pages.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "09 - Parent 3 child 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 13, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[WARNING] duplicate_parent_subtree (outline 13, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 4, depth 2): Ignored duplicate child destination; first bookmark is bookmark-2.\n[WARNING] duplicate_destination (outline 5, depth 2): Ignored duplicate child destination; first bookmark is bookmark-3.\n[WARNING] duplicate_destination (outline 6, depth 2): Ignored duplicate child destination; first bookmark is bookmark-3.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[*] Found 9 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 1.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n    [Writing] 04 - Parent 1 - Opening pages.pdf\n    [Writing] 05 - Parent 1 child 0.pdf\n    [Writing] 06 - Parent 1 child 1.pdf\n    [Writing] 07 - Parent 2.pdf\n    [Writing] 08 - Parent 3 - Opening pages.pdf\n    [Writing] 09 - Parent 3 child 0.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 3,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 2",
+                "start_page": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 2,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Parent 0 - Opening pages.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              3,
+              4
+            ],
+            "range": [
+              2,
+              4
+            ],
+            "sha256": "7fff512d570540306a47413f759207a9c022e0e00b5e71acacf24656cb73b212"
+          },
+          {
+            "filename": "04 - Parent 0 child 2.pdf",
+            "page_ids": [
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "range": [
+              4,
+              9
+            ],
+            "sha256": "05013a1f8c37b9e368a17a651f38e7c9e174579b04e508452da2be41e24a04aa"
+          },
+          {
+            "filename": "05 - Parent 0 child 1.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 5, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] duplicate_parent_subtree (outline 5, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[*] Found 5 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 - Opening pages.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n    [Writing] 04 - Parent 0 child 2.pdf\n    [Writing] 05 - Parent 0 child 1.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 4,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 10,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 10,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "range": [
+              0,
+              9
+            ],
+            "sha256": "2f978b9c1a77af0ef4fd068fb78ec14a05e7e142928b07b0c044fb9083aa87f7"
+          },
+          {
+            "filename": "02 - Parent 0 child 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 3, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] duplicate_parent_subtree (outline 3, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[*] Found 2 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 0.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 5,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 7,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 8,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 7,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 9,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 2",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 3",
+                "start_page": 9,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 7,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 7,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6
+            ],
+            "range": [
+              0,
+              6
+            ],
+            "sha256": "cab68e25d19e4f4c7520c8385ae324e27f16180c8d2f1759ec8d0ba275d78bf0"
+          },
+          {
+            "filename": "02 - Parent 0 child 1.pdf",
+            "page_ids": [
+              7
+            ],
+            "range": [
+              6,
+              7
+            ],
+            "sha256": "b3e3fc8eabecfc3474e1b0b69d67277a962b8d1eae49408b69a80d11aa1d4514"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "04 - Parent 1 child 0.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "05 - Parent 1 child 1.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 9, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] duplicate_parent_subtree (outline 9, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[WARNING] duplicate_destination (outline 7, depth 2): Ignored duplicate child destination; first bookmark is bookmark-5.\n[WARNING] duplicate_destination (outline 8, depth 2): Ignored duplicate child destination; first bookmark is bookmark-5.\n[*] Found 5 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 1.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n    [Writing] 04 - Parent 1 child 0.pdf\n    [Writing] 05 - Parent 1 child 1.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 6,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 8,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 2",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 5,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4
+            ],
+            "range": [
+              0,
+              4
+            ],
+            "sha256": "2d1e9ac2e3bd8a377b25ce07a043a3a4daafe283893fce924d096da76afcae0b"
+          },
+          {
+            "filename": "02 - Parent 0 - Opening pages.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              6,
+              7
+            ],
+            "range": [
+              5,
+              7
+            ],
+            "sha256": "a3a5e22b10daa01e1623aa2d3646427da6afd4e248032cce6715a0355754a9e6"
+          },
+          {
+            "filename": "04 - Parent 1 - Opening pages.pdf",
+            "page_ids": [
+              8,
+              9
+            ],
+            "range": [
+              7,
+              9
+            ],
+            "sha256": "c807b0e050ab69d03f02037be8953a314311d1f2c337c8ecf8a6c3da813defb9"
+          },
+          {
+            "filename": "05 - Parent 1 child 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 7, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] duplicate_parent_subtree (outline 7, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 5, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[WARNING] duplicate_destination (outline 6, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[*] Found 5 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 - Opening pages.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n    [Writing] 04 - Parent 1 - Opening pages.pdf\n    [Writing] 05 - Parent 1 child 0.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 7,
+        "parents": [
+          {
+            "title": "Parent 0",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 7,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Parent 0 - Opening pages.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 3, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] duplicate_parent_subtree (outline 3, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[*] Found 3 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 - Opening pages.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 8,
+        "parents": [
+          {
+            "title": "Parent 1",
+            "start_page": 4,
+            "children": []
+          },
+          {
+            "title": "Parent 0",
+            "start_page": 3,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 2",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 3",
+                "start_page": 3,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 2",
+            "start_page": 8,
+            "children": [
+              {
+                "title": "Parent 2 child 0",
+                "start_page": 8,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 2",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 3",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 2 child 4",
+                "start_page": 8,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "09df296778739900a4429aa59b13de326a871522028a6857dbf4e259a1dda159"
+          },
+          {
+            "filename": "02 - Parent 0 child 0.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "03 - Parent 1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6,
+              7
+            ],
+            "range": [
+              3,
+              7
+            ],
+            "sha256": "0feed821aa10fc781d3fd935992bbe623a95369315fce03e1ea3cc6a797e6cef"
+          },
+          {
+            "filename": "04 - Parent 2 child 0.pdf",
+            "page_ids": [
+              8
+            ],
+            "range": [
+              7,
+              8
+            ],
+            "sha256": "4080c9af1156ee78e274e7e9068996fea56a6df7994d19e7238ffe5175c2c189"
+          },
+          {
+            "filename": "05 - Parent 2 child 2.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "06 - Parent 2 child 1.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 13, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[WARNING] duplicate_parent_subtree (outline 13, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 4, depth 2): Ignored duplicate child destination; first bookmark is bookmark-3.\n[WARNING] duplicate_destination (outline 5, depth 2): Ignored duplicate child destination; first bookmark is bookmark-3.\n[WARNING] duplicate_destination (outline 6, depth 2): Ignored duplicate child destination; first bookmark is bookmark-3.\n[WARNING] duplicate_destination (outline 11, depth 2): Ignored duplicate child destination; first bookmark is bookmark-9.\n[WARNING] duplicate_destination (outline 12, depth 2): Ignored duplicate child destination; first bookmark is bookmark-8.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 child 0.pdf\n    [Writing] 03 - Parent 1.pdf\n    [Writing] 04 - Parent 2 child 0.pdf\n    [Writing] 05 - Parent 2 child 2.pdf\n    [Writing] 06 - Parent 2 child 1.pdf\n",
+        "stderr": ""
+      },
+      {
+        "index": 9,
+        "parents": [
+          {
+            "title": "Parent 2",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Parent 2 child 0",
+                "start_page": 5,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 1",
+            "start_page": 4,
+            "children": [
+              {
+                "title": "Parent 1 child 0",
+                "start_page": 4,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 1",
+                "start_page": 4,
+                "children": []
+              },
+              {
+                "title": "Parent 1 child 2",
+                "start_page": 4,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 0",
+            "start_page": 2,
+            "children": [
+              {
+                "title": "Parent 0 child 0",
+                "start_page": 3,
+                "children": []
+              },
+              {
+                "title": "Parent 0 child 1",
+                "start_page": 3,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 4",
+            "start_page": 10,
+            "children": [
+              {
+                "title": "Parent 4 child 0",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 1",
+                "start_page": 10,
+                "children": []
+              },
+              {
+                "title": "Parent 4 child 2",
+                "start_page": 10,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Parent 3",
+            "start_page": 6,
+            "children": [
+              {
+                "title": "Parent 3 child 0",
+                "start_page": 9,
+                "children": []
+              },
+              {
+                "title": "Parent 3 child 1",
+                "start_page": 6,
+                "children": []
+              }
+            ]
+          },
+          {
+            "title": "Alias parent",
+            "start_page": 5,
+            "children": [
+              {
+                "title": "Ignored alias child",
+                "start_page": 5,
+                "children": []
+              }
+            ]
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+          },
+          {
+            "filename": "02 - Parent 0 - Opening pages.pdf",
+            "page_ids": [
+              2
+            ],
+            "range": [
+              1,
+              2
+            ],
+            "sha256": "0a2061819278e8099a5a1d59fd8fdd193e9426f440fe241c2c6cd178abde8e98"
+          },
+          {
+            "filename": "03 - Parent 0 child 0.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c242ce3dbf4ca9e74206de35d6f3aa6fadb7f7521925d86edc6e74475b92fe5d"
+          },
+          {
+            "filename": "04 - Parent 1 child 0.pdf",
+            "page_ids": [
+              4
+            ],
+            "range": [
+              3,
+              4
+            ],
+            "sha256": "15327fa74c81baf47854b63dcbdd80d36201dc9cca78c26c0ad4ff0d13fe346e"
+          },
+          {
+            "filename": "05 - Parent 2 child 0.pdf",
+            "page_ids": [
+              5
+            ],
+            "range": [
+              4,
+              5
+            ],
+            "sha256": "009a93708452d0ba067b2297a2d5b005ea8a362dcff3b4c30897b56a51cd0836"
+          },
+          {
+            "filename": "06 - Parent 3 child 1.pdf",
+            "page_ids": [
+              6,
+              7,
+              8
+            ],
+            "range": [
+              5,
+              8
+            ],
+            "sha256": "20787940fd9b9c4f8b43fabcd4460e8ea2faaeb649d5e01a4243bdf4a76dc836"
+          },
+          {
+            "filename": "07 - Parent 3 child 0.pdf",
+            "page_ids": [
+              9
+            ],
+            "range": [
+              8,
+              9
+            ],
+            "sha256": "a80956ed9dd8d751dd193258dbe58130ac817fe92101adf213a2595360eb20c3"
+          },
+          {
+            "filename": "08 - Parent 4 child 0.pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "input_unchanged": true,
+        "neighbor_unchanged": true,
+        "exit_code": 0,
+        "stdout": "[WARNING] duplicate_destination (outline 17, depth 1): Ignored duplicate destination; first bookmark is bookmark-1.\n[WARNING] outline_reordered (outline None, depth 1): Bookmarks sorted into physical page order.\n[WARNING] duplicate_parent_subtree (outline 17, depth 1): Ignored this parent's subtree because its start is an alias or unusable.\n[WARNING] duplicate_destination (outline 9, depth 2): Ignored duplicate child destination; first bookmark is bookmark-8.\n[WARNING] duplicate_destination (outline 5, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[WARNING] duplicate_destination (outline 6, depth 2): Ignored duplicate child destination; first bookmark is bookmark-4.\n[WARNING] outline_reordered (outline None, depth 2): Child bookmarks sorted into physical page order.\n[WARNING] duplicate_destination (outline 12, depth 2): Ignored duplicate child destination; first bookmark is bookmark-11.\n[WARNING] duplicate_destination (outline 13, depth 2): Ignored duplicate child destination; first bookmark is bookmark-11.\n[*] Found 8 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - Parent 0 - Opening pages.pdf\n    [Writing] 03 - Parent 0 child 0.pdf\n    [Writing] 04 - Parent 1 child 0.pdf\n    [Writing] 05 - Parent 2 child 0.pdf\n    [Writing] 06 - Parent 3 child 1.pdf\n    [Writing] 07 - Parent 3 child 0.pdf\n    [Writing] 08 - Parent 4 child 0.pdf\n",
+        "stderr": ""
+      }
+    ],
+    "source_unchanged": true,
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "historical_original_guard": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Characterization failed: Original launchers changed. Do not run known-bad expectations against fixed code.\n"
+    },
+    "tested_path_sha256": {
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "d3a49a3c1d4dac3ca6cf5d0d2342d62abede1fc9852607d1e941146dbf3de11e",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/manual/characterize_manual.py": "f7b01dbab4f3e2746a3802e6e0a684951d16e5c237e18b2e47666d43943f7459",
+      "tests/bookmarks/characterize_level1.py": "dc32b97bb50a0af178cde58af0fb4304fc9ebe89484d68ad80fdb42e46bc14ae",
+      "tests/bookmarks/characterize_level2.py": "689c39a256f277b78f928db95114146f0f125552c5f6c4db14a01b96c9ad030c",
+      "tests/bookmarks/README.md": "282d9cba53c37de5021e30933b12482bfe17016b814a88d125b14c601407cb1a",
+      "tests/run_tests.py": "cfdfb84f76624700494c0e9738cd0400e9e05cb88569373436c4721f4ffee950"
+    },
+    "input_sha256": {
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\fixtures\\simple-10.pdf": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\fixtures\\nested-12.pdf": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\BM-03.pdf": "5128faf38413fe440578f4400e81315c9d0efe4927d9fdc4ce92609093f6e166",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\BM-04.pdf": "4ee00410d31a48e599d39d383c6173620c1a288c65b3eca56e4a500580431256",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\BM-06.pdf": "16635298d6feb17f0429501744b4a2fcdff5bfe168541779394ffa90768cd092",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\BM-07.pdf": "a658ba96d2bd978f0ceb443a1feef501629577fa86e0328fd625f486151113e3",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\raw-child-destinations.pdf": "debe561050ecf20fb21247e9afd88a3aad119af50b648a8acaa1dfbc1e06362c",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\level2-cyclic.pdf": "dfdd541a3c24f034be8b9801f3f95aa6f026e7664a7f8fc2c5b31931e1ccee32",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-0.pdf": "d7f40588c20bf1f0bdc8379262fd38ba95da6833f4d6cfd1c10fefe5f77c46d0",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-1.pdf": "f33b24da22c684e10f6240bb5cf9347b3d46f5292bcb35325bf113aa645aca5f",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-2.pdf": "0f1b9ff9bcf100a875c258143c5438bd5eb2354fa47ca971ab10e9af8e79e89c",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-3.pdf": "1ed62b27fb4d87e4be2a1d702fb309378fc50c3bc04ff39caed1620ef907b07d",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-4.pdf": "b764035cd99ca4272db2b2217c067750d8e1c1b6ceedcc6ea24a8ffd2cc1e01e",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-5.pdf": "9fcb1a88e25c5da6c0b14a5dc8eaf8beafa264c49d24bc3ba4a81b7c55d95b5a",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-6.pdf": "be7d2debd539d4780276c04fbbba9e281e2a693c49ba72718b39c5b11e38f8a1",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-7.pdf": "33e1191cede0ce84347d552106da05b35ed6a84f1015b0736864dcf66bb31d5e",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-8.pdf": "3ae4e238b03ed4f7e1fb2a0bb983a8b4f54e0922db8db22983b7127bdfd25ea5",
+      "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-l2mj8kpo\\WinBookSplit-M1-T04-tests-0u81j9xl\\writer-9.pdf": "03b58d5b116666827be1ada78281a19c3be181603c6ba4431386515f45bf768d"
+    },
+    "import_observation": {
+      "import_safe": true,
+      "stdout_stderr_empty": true,
+      "cwd_unchanged": true,
+      "logger_stdout_configuration_unchanged": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "not_run": [
+      "interactive no-plan fallback offer",
+      "all launcher/error paths",
+      "Explorer",
+      "Calibre conversion",
+      "rendered fidelity",
+      "output transactions",
+      "release-package acceptance"
+    ],
+    "owned_temp_removed": true
+  },
+  "manual_regression": {
+    "task_id": "M1-T02",
+    "result": "MANUAL_REGRESSION_PASSED",
+    "success": true,
+    "engine_case_count": 22,
+    "engine_cases": [
+      {
+        "oracle_id": "MAN-01",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-10).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              0,
+              10
+            ],
+            "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-02",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-03",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-04",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-05",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-9).pdf",
+            "page_ids": [
+              1,
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8,
+              9
+            ],
+            "range": [
+              0,
+              9
+            ],
+            "sha256": "2f978b9c1a77af0ef4fd068fb78ec14a05e7e142928b07b0c044fb9083aa87f7"
+          },
+          {
+            "filename": "02 - Section (Page 10-10).pdf",
+            "page_ids": [
+              10
+            ],
+            "range": [
+              9,
+              10
+            ],
+            "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-06",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "page_ids": [
+              1
+            ],
+            "range": [
+              0,
+              1
+            ],
+            "sha256": "c1645a9a82fef5973df04c07e060a8d89d9e6e657d8a9e9c0cf101445a59adfc"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "MAN-07",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-08",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-09",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-10",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-11",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-12",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-13",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-14",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-15",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-16",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-17",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-18",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-19",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-20",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-21",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      },
+      {
+        "oracle_id": "MAN-22",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 1
+      }
+    ],
+    "seeded_property_cases": {
+      "seed": 20261009,
+      "count": 250,
+      "passed": true
+    },
+    "writer_sample_count": 25,
+    "safe_import": true,
+    "source_unchanged": true,
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "owned_temp_removed": true,
+    "extra_cli_case_count": 8,
+    "historical_bookmark_cases": [],
+    "level2_launcher_reference": {
+      "oracle_id": "BM-03",
+      "passed": true,
+      "expected_ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ],
+      "titles": [
+        "Front matter",
+        "A - Opening pages",
+        "A1",
+        "A2",
+        "B - Opening pages",
+        "B1"
+      ],
+      "outputs": [
+        {
+          "filename": "01 - Front matter.pdf",
+          "page_ids": [
+            1,
+            2
+          ],
+          "range": [
+            0,
+            2
+          ],
+          "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+        },
+        {
+          "filename": "02 - A - Opening pages.pdf",
+          "page_ids": [
+            3
+          ],
+          "range": [
+            2,
+            3
+          ],
+          "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+        },
+        {
+          "filename": "03 - A1.pdf",
+          "page_ids": [
+            4,
+            5,
+            6
+          ],
+          "range": [
+            3,
+            6
+          ],
+          "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+        },
+        {
+          "filename": "04 - A2.pdf",
+          "page_ids": [
+            7,
+            8
+          ],
+          "range": [
+            6,
+            8
+          ],
+          "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+        },
+        {
+          "filename": "05 - B - Opening pages.pdf",
+          "page_ids": [
+            9,
+            10
+          ],
+          "range": [
+            8,
+            10
+          ],
+          "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+        },
+        {
+          "filename": "06 - B1.pdf",
+          "page_ids": [
+            11,
+            12
+          ],
+          "range": [
+            10,
+            12
+          ],
+          "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+        }
+      ],
+      "exit_code": 0,
+      "stdout": "[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n",
+      "stderr": ""
+    }
+  },
+  "level1_regression": {
+    "task_id": "M1-T03",
+    "result": "LEVEL1_REGRESSION_PASSED",
+    "success": true,
+    "engine_case_count": 4,
+    "engine_cases": [
+      {
+        "oracle_id": "BM-01",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "BM-02",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ],
+            "range": [
+              2,
+              8
+            ],
+            "sha256": "1ace585468b0db1837eb6e6646fd6133fe76bae84459bc52330cb2ddfd9e55dc"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              9,
+              10,
+              11,
+              12
+            ],
+            "range": [
+              8,
+              12
+            ],
+            "sha256": "8b85ed756139687d06b10da4b2206126b1b0fec4a2ebc1407708e41b80e280e0"
+          }
+        ],
+        "exit_code": 0
+      },
+      {
+        "oracle_id": "BM-05",
+        "passed": true,
+        "outputs": [],
+        "exit_code": 55
+      },
+      {
+        "oracle_id": "BM-08",
+        "passed": true,
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "exit_code": 0
+      }
+    ],
+    "seeded_level1_cases": {
+      "seed": 20261009,
+      "count": 150,
+      "passed": true
+    },
+    "writer_sample_count": 10,
+    "safe_import": true,
+    "source_unchanged": true,
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "owned_temp_removed": true,
+    "normalization_case_ids": [
+      "invalid-destinations",
+      "deep-lineage",
+      "cyclic-outline",
+      "malformed-outline",
+      "traversal-limits"
+    ]
+  },
+  "entrypoints": {
+    "probes": [
+      {
+        "id": "PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-f21ff451858b4b05a4c03cd680e14820\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-f21ff451858b4b05a4c03cd680e14820_Chapters\\WinBookSplit_Log_20261009_070203.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$PS7Directory\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-0b1942c440044b1b88405da7c9db23bf\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-0b1942c440044b1b88405da7c9db23bf_Chapters\\WinBookSplit_Log_20261009_070206.txt\n\n[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-3b23588d3398408f8edd04fa7671773c\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-3b23588d3398408f8edd04fa7671773c_Chapters\\WinBookSplit_Log_20261009_070209.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-f3bd517fb0224f99aa4d1736d8b331c7\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-f3bd517fb0224f99aa4d1736d8b331c7_Chapters\\WinBookSplit_Log_20261009_070210.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$PS7Directory\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-04e99b1149f04364b911aac99f959bb4\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-04e99b1149f04364b911aac99f959bb4_Chapters\\WinBookSplit_Log_20261009_070211.txt\n\n[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "parallel-BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T04ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-bae5a58ab0ae49f8a0622a58292d1ea6\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-bae5a58ab0ae49f8a0622a58292d1ea6_Chapters\\WinBookSplit_Log_20261009_070210.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      }
+    ],
+    "probe_count": 6,
+    "parallel_launch_count": 3,
+    "shared_temp_engine_sentinel_unchanged": true,
+    "owned_document_outputs_removed": true,
+    "method": "Actual -File/BAT, piped prompts, controlled Python PATH, real observed Documents; GUID-owned marker/sentinel directories only. No prompt/path/host shim."
+  },
+  "unchanged_M1_T01_runtime_paths": {
+    "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+    "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+    "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+    "WinBookSplit_icon.png": "df68b594e45dced01f0b2eab0af23e7601e1c4ea42d023cd28d1b82d2a375159",
+    "WinBookSplit_poster.png": "e05a5cb155a7b06124fcc9afaa43e7f5402f5b204bab679c4c6072a195abcbaa",
+    "WinBookSplit_icon.ico": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+  },
+  "before_fix_reproduction": {
+    "command": "$DevPython -I -B $M1T04ExternalRoot\\before_level2.py",
+    "exit_code": 0,
+    "script_sha256": "ca5ce183fd0617d91dc5fd35a0758aaaf968b40ad3c2ad7d9dfc623e7f69f683",
+    "raw_report_sha256": "38fb690ff19266f997a9a82bd2e5aa8dae1bc3d0a9b7ee5a0f8483812f182946",
+    "observations": {
+      "source_head": "90297a80256315de20730e44403d820d40d9d4e9",
+      "source_sha256": {
+        "engine/winbooksplit_engine.py": "9bbca81284e9a6700e483bec62284f53965eb14f3e49867b86494c7c48e83f37",
+        "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+        "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a"
+      },
+      "script_sha256": "ca5ce183fd0617d91dc5fd35a0758aaaf968b40ad3c2ad7d9dfc623e7f69f683",
+      "python": "3.14.8",
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "python_executable": "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "content_origin": "Only original generated synthetic PDFs and mocked outlines; no private inputs",
+      "claim": "Pre-fix observations, not corrected acceptance passes",
+      "actual_cli_cases": [
+        {
+          "oracle_id": "BM-03",
+          "pages": 12,
+          "command": [
+            "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "$Repo\\engine\\winbooksplit_engine.py",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-03.pdf",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-03-outputs",
+            "2"
+          ],
+          "elapsed_seconds": 0.25707510000211187,
+          "exit_code": 0,
+          "stdout": "[*] Found 3 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n    [Writing] 03 - B1.pdf\n",
+          "stderr": "",
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+            },
+            {
+              "filename": "02 - A2.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "sha256": "5301224128027a54f075d81b58446caebb4530405ab026a84114defa4023dd3e"
+            },
+            {
+              "filename": "03 - B1.pdf",
+              "page_ids": [
+                11,
+                12
+              ],
+              "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+            }
+          ],
+          "expected_ranges": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              3
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              6,
+              8
+            ],
+            [
+              8,
+              10
+            ],
+            [
+              10,
+              12
+            ]
+          ],
+          "expected_error": null,
+          "flattened_page_ids": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "input_sha256": "2557fd0ad9d6d300dc5c4f9796aa2465fd8a4c9df328adb6f6970321b9f74369",
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "oracle_id": "BM-04",
+          "pages": 12,
+          "command": [
+            "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "$Repo\\engine\\winbooksplit_engine.py",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-04.pdf",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-04-outputs",
+            "2"
+          ],
+          "elapsed_seconds": 0.26554849999956787,
+          "exit_code": 0,
+          "stdout": "[*] Found 2 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - A2.pdf\n",
+          "stderr": "",
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "sha256": "d9e11b11538e56bc569610a6eb376978ee925050a763a7425a02010b54e1bf95"
+            },
+            {
+              "filename": "02 - A2.pdf",
+              "page_ids": [
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "sha256": "44a8f596d75d743ba82179e35c78a2a5b5857775f22765055a80e391c6e1c6bc"
+            }
+          ],
+          "expected_ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              6
+            ],
+            [
+              6,
+              12
+            ]
+          ],
+          "expected_error": null,
+          "flattened_page_ids": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "input_sha256": "a93af154688eb9dee0c87c5c7fae45ca4c29391f1beee4bee1f09cadee92f519",
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "oracle_id": "BM-06",
+          "pages": 10,
+          "command": [
+            "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "$Repo\\engine\\winbooksplit_engine.py",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-06.pdf",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-06-outputs",
+            "2"
+          ],
+          "elapsed_seconds": 0.23938629999611294,
+          "exit_code": 55,
+          "stdout": "[NO_BOOKMARKS_FOUND]\n",
+          "stderr": "",
+          "outputs": [],
+          "expected_ranges": null,
+          "expected_error": "no_bookmarks_at_level",
+          "flattened_page_ids": [],
+          "input_sha256": "4e3e6c6cd49790a8db85c2620da187dfbfc6fa0c52b3e6870ff5c724cca14044",
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "oracle_id": "BM-07",
+          "pages": 10,
+          "command": [
+            "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "$Repo\\engine\\winbooksplit_engine.py",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-07.pdf",
+            "$M1T04ExternalRoot\\before-level2-owned-lvt97tfv\\BM-07-outputs",
+            "2"
+          ],
+          "elapsed_seconds": 0.2749499999990803,
+          "exit_code": 0,
+          "stdout": "[*] Found 2 chapters based on bookmarks.\n    [Writing] 01 - A1.pdf\n    [Writing] 02 - out-of-parent.pdf\n",
+          "stderr": "",
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                2,
+                3,
+                4,
+                5,
+                6,
+                7
+              ],
+              "sha256": "ed16c6b68895d1de25f14f814221622f80cbfb99a27f9a8133c27c17c9fe3cc8"
+            },
+            {
+              "filename": "02 - out-of-parent.pdf",
+              "page_ids": [
+                8,
+                9,
+                10
+              ],
+              "sha256": "c39c942a793421784eea8b953637eedf13c539337e09b4f3bc1c3524957145dc"
+            }
+          ],
+          "expected_ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              5
+            ],
+            [
+              5,
+              10
+            ]
+          ],
+          "expected_error": null,
+          "flattened_page_ids": [
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "input_sha256": "cfab0f9eac63c48e233fba6371cf5974c2b88570cb0855ba85ac329200fb76a5",
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        }
+      ],
+      "mocked_cases": [
+        {
+          "name": "parent_alias_subtree",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              1,
+              2,
+              "01 - Alias child.pdf"
+            ],
+            [
+              2,
+              10,
+              "02 - A1.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "unusable_parent_subtree",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              1,
+              6,
+              "01 - Orphan child.pdf"
+            ],
+            [
+              6,
+              10,
+              "02 - B1.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 2 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "child_duplicate_order_outside",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              1,
+              3,
+              "01 - A1.pdf"
+            ],
+            [
+              3,
+              8,
+              "02 - A2.pdf"
+            ],
+            [
+              8,
+              10,
+              "03 - Outside.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 3 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "depth3_not_selected",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              1,
+              10,
+              "01 - A1.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "invalid_child_mixed",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "return": "normal",
+          "writes": [
+            [
+              -2,
+              true,
+              "01 - Minus2.pdf"
+            ],
+            [
+              true,
+              1.5,
+              "02 - True.pdf"
+            ],
+            [
+              "1.5",
+              3,
+              "03 - Float.pdf"
+            ],
+            [
+              3,
+              10,
+              "04 - Valid.pdf"
+            ]
+          ],
+          "logs": [
+            "[*] Found 5 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "no_direct_children",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "no_usable_children",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "empty_outline",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "SystemExit",
+          "exception_message": "55",
+          "writes": [],
+          "logs": [
+            "[NO_BOOKMARKS_FOUND]"
+          ]
+        },
+        {
+          "name": "zero_pages_with_child",
+          "input": "mocked synthetic outline",
+          "pages": 0,
+          "return": "normal",
+          "writes": [],
+          "logs": [
+            "[*] Found 1 chapters based on bookmarks."
+          ]
+        },
+        {
+          "name": "list_cycle",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "RecursionError",
+          "exception_message": "maximum recursion depth exceeded",
+          "writes": [],
+          "logs": []
+        },
+        {
+          "name": "depth_1201",
+          "input": "mocked synthetic outline",
+          "pages": 10,
+          "exception": "RecursionError",
+          "exception_message": "maximum recursion depth exceeded",
+          "writes": [],
+          "logs": []
+        }
+      ],
+      "neighbor_unchanged": true,
+      "owned_temp_cleaned": true,
+      "engine_unchanged_during_reproduction": true
+    }
+  },
+  "additional_real_pdf_unit_receipt": {
+    "raw_report_sha256": "ff87c285617f5ec3faf7440998b58e47acad600abfe643fedcae5d0b46cd9131",
+    "observations": {
+      "command": [
+        "$M1T04ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "$Repo\\tests\\python\\test_level2.py"
+      ],
+      "cwd": "$M1T04ExternalRoot",
+      "exit_code": 0,
+      "python": "3.14.8",
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "source_sha256": {
+        "engine/winbooksplit_engine.py": "d3a49a3c1d4dac3ca6cf5d0d2342d62abede1fc9852607d1e941146dbf3de11e",
+        "tests/python/test_level2.py": "c1a629f3c22aae5ef5263959bcef27a70d589f2699e07310a2ab3fe5db936fd7",
+        "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108"
+      },
+      "source_unchanged_during_run": true,
+      "test_count": 21,
+      "stdout": "",
+      "stderr": "test_ac023_openings_and_children_have_parent_identity_and_end_at_parent_boundary (__main__.Level2PlanTests.test_ac023_openings_and_children_have_parent_identity_and_end_at_parent_boundary) ... ok\ntest_ac024_parent_without_children_is_an_intact_fallback (__main__.Level2PlanTests.test_ac024_parent_without_children_is_an_intact_fallback) ... ok\ntest_ac025_equal_start_creates_no_empty_opening_and_first_child_alias_wins (__main__.Level2PlanTests.test_ac025_equal_start_creates_no_empty_opening_and_first_child_alias_wins) ... ok\ntest_ac026_absent_outlines_invalid_parents_and_missing_selected_level_are_distinct (__main__.Level2PlanTests.test_ac026_absent_outlines_invalid_parents_and_missing_selected_level_are_distinct) ... ok\ntest_alias_subtree_cannot_satisfy_the_selected_level_requirement (__main__.Level2PlanTests.test_alias_subtree_cannot_satisfy_the_selected_level_requirement) ... ok\ntest_child_at_next_parent_start_can_only_split_its_actual_parent (__main__.Level2PlanTests.test_child_at_next_parent_start_can_only_split_its_actual_parent) ... ok\ntest_depth3_metadata_is_retained_without_creating_boundaries (__main__.Level2PlanTests.test_depth3_metadata_is_retained_without_creating_boundaries) ... ok\ntest_fallback_parents_before_or_between_children_cannot_be_absorbed_by_a_neighbor (__main__.Level2PlanTests.test_fallback_parents_before_or_between_children_cannot_be_absorbed_by_a_neighbor) ... ok\ntest_first_parent_and_its_subtree_win_over_parent_aliases (__main__.Level2PlanTests.test_first_parent_and_its_subtree_win_over_parent_aliases) ... ok\ntest_four_unchanged_level2_oracles (__main__.Level2PlanTests.test_four_unchanged_level2_oracles) ... ok\ntest_no_plan_and_malformed_requests_write_nothing_and_keep_meaningful_exit_codes (__main__.Level2PlanTests.test_no_plan_and_malformed_requests_write_nothing_and_keep_meaningful_exit_codes) ... ok\ntest_only_outside_children_cannot_satisfy_the_selected_level_requirement (__main__.Level2PlanTests.test_only_outside_children_cannot_satisfy_the_selected_level_requirement) ... ok\ntest_outside_children_before_parent_at_parent_end_and_after_parent_end_are_ignored (__main__.Level2PlanTests.test_outside_children_before_parent_at_parent_end_and_after_parent_end_are_ignored) ... ok\ntest_physically_out_of_order_parents_and_children_keep_their_own_intervals (__main__.Level2PlanTests.test_physically_out_of_order_parents_and_children_keep_their_own_intervals) ... ok\ntest_recoverable_invalid_and_external_children_are_diagnosed_with_a_complete_valid_plan (__main__.Level2PlanTests.test_recoverable_invalid_and_external_children_are_diagnosed_with_a_complete_valid_plan) ... ok\ntest_unusable_parent_children_and_depth3_children_cannot_satisfy_level2 (__main__.Level2PlanTests.test_unusable_parent_children_and_depth3_children_cannot_satisfy_level2) ... ok\ntest_unusable_parent_descendants_are_warned_and_not_orphaned_into_other_parents (__main__.Level2PlanTests.test_unusable_parent_descendants_are_warned_and_not_orphaned_into_other_parents) ... ok\ntest_zero_pages_and_malformed_cyclic_outlines_reject_before_execution (__main__.Level2PlanTests.test_zero_pages_and_malformed_cyclic_outlines_reject_before_execution) ... ok\ntest_real_alias_children_and_grandchildren_below_unusable_direct_child_cannot_create_level2 (__main__.Level2SyntheticPdfTests.test_real_alias_children_and_grandchildren_below_unusable_direct_child_cannot_create_level2) ... Removed unexpected destination NullObject from destination\nRemoved unexpected destination NullObject from destination\nRemoved unexpected destination NullObject from destination\nRemoved unexpected destination NullObject from destination\nok\ntest_real_oracle_outputs_preserve_every_page_and_the_expected_parent_boundaries (__main__.Level2SyntheticPdfTests.test_real_oracle_outputs_preserve_every_page_and_the_expected_parent_boundaries) ... ok\ntest_real_unusable_parents_retain_children_without_orphaning_them_into_valid_intervals (__main__.Level2SyntheticPdfTests.test_real_unusable_parents_retain_children_without_orphaning_them_into_valid_intervals) ... Removed unexpected destination NullObject from destination\nRemoved unexpected destination NullObject from destination\nRemoved unexpected destination NullObject from destination\nok\n\n----------------------------------------------------------------------\nRan 21 tests in 0.383s\n\nOK\n",
+      "content_origin": "Only original synthetic PDF generation; no private inputs",
+      "real_lineage_cases": [
+        "Null destination parent",
+        "unknown named destination parent",
+        "URI action parent",
+        "alias parent has only children",
+        "grandchild below unusable direct child"
+      ],
+      "checks": "Actual pypdf outline shape and valid descendant destinations; normalized depth/parent IDs; ignored orphan subtrees with warning; full actual output page identities or exit55 before writer; source bytes unchanged",
+      "scope_limit": "Unit/callable writer checks; no launcher/Explorer/Calibre certification"
+    },
+    "scope": "Unit/callable writer evidence; expected pypdf NullObject warnings are retained in stderr. No empty-stderr, full Windows or CLI claim."
+  },
+  "review": {
+    "source_and_harness": "Independent read-only review found no remaining M1-T04 blocker; final public evidence/privacy review accompanies E.",
+    "github_submitted_review": false,
+    "CI_run": "NOT RUN"
+  },
+  "live_repository_observation": {
+    "observed_at": "2026-10-09T04:55:08.4674011Z",
+    "main": {
+      "name": "main",
+      "protected": false,
+      "sha": "90297a80256315de20730e44403d820d40d9d4e9",
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      }
+    },
+    "feature": {
+      "name": "codex/winbooksplit-v1-m1",
+      "protected": false,
+      "sha": "edc82ec5f459ff66a199987cc47d0de8a7832183",
+      "protection": {
+        "enabled": false,
+        "required_status_checks": {
+          "enforcement_level": "off",
+          "contexts": [],
+          "checks": []
+        }
+      }
+    },
+    "rulesets": [],
+    "workflows": {
+      "total_count": 0,
+      "workflows": []
+    },
+    "run_count": 0,
+    "tags": [],
+    "releases": [],
+    "pr7": {
+      "mergeCommit": {
+        "oid": "90297a80256315de20730e44403d820d40d9d4e9"
+      },
+      "mergedAt": "2026-10-09T04:52:11Z",
+      "state": "MERGED"
+    },
+    "reviews7": [],
+    "settings_changed": false
+  },
+  "draft_PR_checkpoint": {
+    "observation_scope": "Read after C push; no exact PR read timestamp captured. Pre-code repository audit has its own timestamp.",
+    "baseRefName": "main",
+    "headRefOid": "8c193ae2aac5df4819cad216635d59df57d12cbc",
+    "isDraft": true,
+    "number": 8,
+    "state": "OPEN",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/pull/8"
+  },
+  "not_run": [
+    "shared plan/coverage/source-binding acceptance (M1-T05)",
+    "corrected Level 2 through actual PS5.1/batch",
+    "corrected Level 1 through console/Explorer",
+    "full interactive selected-level fallback",
+    "all launcher/discovery/error/output-safety paths",
+    "human Explorer drag/drop",
+    "Calibre conversion",
+    "rendering fidelity",
+    "clean OS/extracted release package",
+    "CI",
+    "tag/release/public download acceptance",
+    "Windows10/ARM/UNC/other Python"
+  ],
+  "next_task": "M1-T05",
+  "final_evidence_checkpoint_receipt": "Following E receives normal push/live receipt in thread/PR; no self SHA or future sync claim.",
+  "targeted_level2_run": {
+    "command": "$DevPython -I -B $Repo\\tests\\run_tests.py --layer level2 --report <new-external-path>",
+    "raw_report_sha256": "8622fe030457de2d58e961855c28e7e365f5e8dea337e4d453aa77bc8382ea74",
+    "exit_code": 0
+  },
+  "earlier_harness_observations": []
+}

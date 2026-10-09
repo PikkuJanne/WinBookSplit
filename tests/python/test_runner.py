@@ -18,6 +18,16 @@ runner = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(runner)
 
 
+def corrected_level2_reference():
+    ranges = [[0, 2], [2, 3], [3, 6], [6, 8], [8, 10], [10, 12]]
+    titles = ["Front matter", "A - Opening pages", "A1", "A2", "B - Opening pages", "B1"]
+    return {"oracle_id": "BM-03", "passed": True, "exit_code": 0,
+            "expected_ranges": ranges, "titles": titles,
+            "outputs": [{"filename": f"{index:02d} - {title}.pdf", "range": pair,
+                         "page_ids": list(range(pair[0] + 1, pair[1] + 1))}
+                        for index, (title, pair) in enumerate(zip(titles, ranges), 1)]}
+
+
 class RunnerTests(unittest.TestCase):
     def test_ac009_python_failure_stays_failed_after_success(self):
         with tempfile.TemporaryDirectory(prefix="wbs-runner-probe-") as directory:
@@ -154,7 +164,7 @@ class RunnerTests(unittest.TestCase):
             "extra_cli_cases": [{"id": name, "passed": True} for name in sorted(runner.MANUAL_EXTRA_IDS)],
             "sampled_writer_cases": [{"index": number, "outputs": [{"filename": "synthetic.pdf"}]}
                                      for number in range(25)],
-            "historical_bookmark_cases": [{"oracle_id": "BM-03", "equivalent": True}],
+            "historical_bookmark_cases": [], "level2_launcher_reference": corrected_level2_reference(),
             "source_unchanged": True, "baseline_guards_preserved": True,
             "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
@@ -202,10 +212,10 @@ class RunnerTests(unittest.TestCase):
                                        + [{"index": 24, "outputs": []}]},
                 "boolean exit code": {"exit_code": False},
                 "incomplete acceptance": {"acceptance_ids": ["AC-013"]},
-                "missing bookmark observations": {"historical_bookmark_cases": []},
+                "missing current historical declaration": {"historical_bookmark_cases": None},
                 "obsolete Level 1 known-bad comparisons": {"historical_bookmark_cases": [
                     {"oracle_id": f"BM-{number:02}", "equivalent": True} for number in range(1, 4)]},
-                "wrong unchanged comparison": {"historical_bookmark_cases": [{"oracle_id": "BM-01", "equivalent": True}]},
+                "obsolete Level 2 known-bad comparison": {"historical_bookmark_cases": [{"oracle_id": "BM-03", "equivalent": True}]},
                 "changed bookmark behavior": {"historical_bookmark_cases": complete["historical_bookmark_cases"][:-1]
                                              + [{"oracle_id": "BM-03", "equivalent": False}]},
                 "changed source": {"source_unchanged": False},
@@ -218,6 +228,18 @@ class RunnerTests(unittest.TestCase):
                 "unrun properties": {"seeded_property_cases": {"count": 0, "passed": True, "seed": 20261009}},
                 "failed properties": {"seeded_property_cases": {"count": 250, "passed": False, "seed": 20261009}},
                 "missing reproducible seed": {"seeded_property_cases": {"count": 250, "passed": True}},
+                "missing corrected launcher reference": {"level2_launcher_reference": None},
+                "wrong corrected title": {"level2_launcher_reference": {**corrected_level2_reference(), "titles": ["A1", "A2", "B1"]}},
+                "old crossing reference ranges": {"level2_launcher_reference": {**corrected_level2_reference(),
+                                                                               "expected_ranges": [[3, 6], [6, 10], [10, 12]]}},
+                "incomplete corrected outputs": {"level2_launcher_reference": {**corrected_level2_reference(),
+                                                                                "outputs": corrected_level2_reference()["outputs"][:-1]}},
+                "wrong corrected page identity": {"level2_launcher_reference": {**corrected_level2_reference(),
+                    "outputs": [{**corrected_level2_reference()["outputs"][0], "page_ids": [2, 1]},
+                                *corrected_level2_reference()["outputs"][1:]]}},
+                "wrong corrected output title": {"level2_launcher_reference": {**corrected_level2_reference(),
+                    "outputs": [{**corrected_level2_reference()["outputs"][0], "filename": "01 - A1.pdf"},
+                                *corrected_level2_reference()["outputs"][1:]]}},
             }
             for description, changes in defects.items():
                 with self.subTest(defect=description):
@@ -285,7 +307,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_manual_and_level1_regressions_and_forwards_hosts_only_to_manual(self):
+    def test_full_selects_manual_and_both_bookmark_regressions_and_forwards_hosts_only_to_manual(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -309,10 +331,14 @@ class RunnerTests(unittest.TestCase):
                      if str(ROOT / "tests/bookmarks/characterize_level1.py") in command]
         self.assertEqual(len(bookmarks), 1)
         self.assertNotIn("--shell-path", bookmarks[0])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks"])
-        self.assertEqual(report["steps"][-2]["name"], "manual-regression")
-        self.assertEqual(report["steps"][-1]["name"], "level1-regression")
-        self.assertEqual(len(report["steps"]), 5)
+        level2 = [command for command in commands if str(ROOT / "tests/bookmarks/characterize_level2.py") in command]
+        self.assertEqual(len(level2), 1)
+        self.assertNotIn("--shell-path", level2[0])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2"])
+        self.assertEqual(report["steps"][-3]["name"], "manual-regression")
+        self.assertEqual(report["steps"][-2]["name"], "level1-regression")
+        self.assertEqual(report["steps"][-1]["name"], "level2-regression")
+        self.assertEqual(len(report["steps"]), 6)
         self.assertTrue(report["success"])
 
     def test_bookmark_evidence_requires_complete_targets_normalization_and_preservation(self):
@@ -389,6 +415,80 @@ class RunnerTests(unittest.TestCase):
                     self.assertNotIn("evidence", step)
                     step = {"exit_code": 19}
                     runner.attach_child_report(step, path, "bookmarks")
+                    self.assertEqual(step["exit_code"], 19)
+
+    def test_level2_evidence_requires_complete_targets_hierarchy_and_preservation(self):
+        complete = {
+            "schema_version": 1, "task_id": "M1-T04", "result": "LEVEL2_REGRESSION_PASSED",
+            "success": True, "exit_code": 0, "acceptance_ids": ["AC-023", "AC-024", "AC-025", "AC-026"],
+            "engine_case_count": 4,
+            "engine_cases": [{"oracle_id": name, "passed": True} for name in ("BM-03", "BM-04", "BM-06", "BM-07")],
+            "hierarchy_cases": [{"id": name, "passed": True} for name in (
+                "duplicate-parent-subtrees", "invalid-parent-subtrees", "child-order-and-aliases",
+                "invalid-child-destinations", "deep-and-malformed-outlines", "no-usable-level2")],
+            "seeded_level2_cases": {"seed": 20261009, "count": 150, "passed": True},
+            "sampled_writer_cases": [{"index": number, "outputs": [{"filename": "synthetic.pdf"}]}
+                                     for number in range(10)],
+            "source_unchanged": True, "baseline_guards_preserved": True,
+            "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+            "import_observation": {"import_safe": True},
+        }
+        with tempfile.TemporaryDirectory(prefix="wbs-level2-evidence-") as directory:
+            path = Path(directory) / "level2.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "level2")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["evidence"], complete)
+            self.assertIn("evidence_sha256", step)
+            defects = {
+                "boolean schema": {"schema_version": True},
+                "wrong task": {"task_id": "M1-T03"},
+                "wrong result": {"result": "LEVEL1_REGRESSION_PASSED"},
+                "claimed failure": {"success": False},
+                "boolean exit": {"exit_code": False},
+                "incomplete acceptance": {"acceptance_ids": ["AC-023"]},
+                "wrong case count": {"engine_case_count": 3},
+                "count without actual cases": {"engine_cases": []},
+                "duplicate target ID": {"engine_cases": complete["engine_cases"][:-1] + [complete["engine_cases"][0]]},
+                "wrong target ID": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": "BM-08", "passed": True}]},
+                "invalid target ID type": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": [], "passed": True}]},
+                "failed target": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": "BM-07", "passed": False}]},
+                "missing hierarchy cases": {"hierarchy_cases": []},
+                "duplicate hierarchy ID": {"hierarchy_cases": complete["hierarchy_cases"][:-1] + [complete["hierarchy_cases"][0]]},
+                "wrong hierarchy ID": {"hierarchy_cases": complete["hierarchy_cases"][:-1] + [{"id": "unexpected", "passed": True}]},
+                "invalid hierarchy ID type": {"hierarchy_cases": complete["hierarchy_cases"][:-1] + [{"id": [], "passed": True}]},
+                "failed hierarchy case": {"hierarchy_cases": complete["hierarchy_cases"][:-1]
+                                          + [{**complete["hierarchy_cases"][-1], "passed": False}]},
+                "wrong seed": {"seeded_level2_cases": {"seed": 0, "count": 150, "passed": True}},
+                "wrong property count": {"seeded_level2_cases": {"seed": 20261009, "count": 0, "passed": True}},
+                "failed properties": {"seeded_level2_cases": {"seed": 20261009, "count": 150, "passed": False}},
+                "missing writer samples": {"sampled_writer_cases": []},
+                "duplicate writer indexes": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                             + [complete["sampled_writer_cases"][0]]},
+                "boolean writer index": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                         + [{"index": True, "outputs": [{"filename": "synthetic.pdf"}]}]},
+                "zero writer files": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                      + [{"index": 9, "outputs": []}]},
+                "changed source": {"source_unchanged": False},
+                "changed guards": {"baseline_guards_preserved": False},
+                "changed inputs or neighbors": {"input_and_neighbor_unchanged": False},
+                "missing cleanup": {"owned_temp_removed": False},
+                "wrong immutable reference": {"immutable_original_commit": "unknown"},
+                "unsafe import": {"import_observation": {"import_safe": False}},
+                "invalid import observation": {"import_observation": []},
+            }
+            for description, changes in defects.items():
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps({**complete, **changes}), encoding="utf-8")
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "level2")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    step = {"exit_code": 19}
+                    runner.attach_child_report(step, path, "level2")
                     self.assertEqual(step["exit_code"], 19)
 
     def test_existing_report_is_preserved(self):

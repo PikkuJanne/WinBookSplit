@@ -30,7 +30,12 @@ MANUAL_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(13, 19)]
 MANUAL_ORACLE_IDS = {f"MAN-{number:02}" for number in range(1, 23)}
 MANUAL_EXTRA_IDS = {"comma", "zero", "missing", "fullwidth", "embedded-space", "late-invalid",
                     "huge", "long-leading-zeros"}
-HISTORICAL_BOOKMARK_IDS = {"BM-03"}
+LEVEL2_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(23, 27)]
+LEVEL2_ORACLE_IDS = {"BM-03", "BM-04", "BM-06", "BM-07"}
+LEVEL2_HIERARCHY_IDS = {"duplicate-parent-subtrees", "invalid-parent-subtrees", "child-order-and-aliases",
+                        "invalid-child-destinations", "deep-and-malformed-outlines", "no-usable-level2"}
+LEVEL2_REFERENCE_RANGES = [[0, 2], [2, 3], [3, 6], [6, 8], [8, 10], [10, 12]]
+LEVEL2_REFERENCE_TITLES = ["Front matter", "A - Opening pages", "A1", "A2", "B - Opening pages", "B1"]
 LEVEL1_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(19, 23)]
 LEVEL1_ORACLE_IDS = {"BM-01", "BM-02", "BM-05", "BM-08"}
 LEVEL1_NORMALIZATION_IDS = {"invalid-destinations", "deep-lineage", "cyclic-outline",
@@ -162,6 +167,24 @@ def validate_manual_entrypoints(child: dict, requested_shells: list[str]) -> Non
                          "three parallel launches and preserved inputs/neighbors/owned cleanup")
 
 
+def validate_level2_launcher_reference(reference: object) -> None:
+    if not isinstance(reference, dict) or reference.get("oracle_id") != "BM-03" \
+            or reference.get("passed") is not True \
+            or type(reference.get("exit_code")) is not int or reference["exit_code"] != 0 \
+            or reference.get("expected_ranges") != LEVEL2_REFERENCE_RANGES \
+            or reference.get("titles") != LEVEL2_REFERENCE_TITLES:
+        raise ValueError("Manual report requires the corrected six-section BM-03 launcher reference")
+    outputs = reference.get("outputs")
+    if not isinstance(outputs, list) or len(outputs) != 6 \
+            or any(not isinstance(record, dict) for record in outputs) \
+            or [record.get("range") for record in outputs] != LEVEL2_REFERENCE_RANGES \
+            or [record.get("page_ids") for record in outputs] != [list(range(start + 1, end + 1))
+                                                                 for start, end in LEVEL2_REFERENCE_RANGES] \
+            or [record.get("filename") for record in outputs] != [f"{index:02d} - {title}.pdf"
+                                                                   for index, title in enumerate(LEVEL2_REFERENCE_TITLES, 1)]:
+        raise ValueError("Corrected BM-03 reference requires all six exact ranges, page identities and titles")
+
+
 def attach_child_report(step: dict, path: Path, kind: str) -> None:
     """A successful process without its promised evidence is a failed step."""
     try:
@@ -222,10 +245,7 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                            or not isinstance(case.get("outputs"), list) or not case["outputs"]
                            for case in writer_samples) \
                     or {case["index"] for case in writer_samples} != set(range(25)) \
-                    or not isinstance(bookmarks, list) or len(bookmarks) != 1 \
-                    or any(not isinstance(case, dict) or not isinstance(case.get("oracle_id"), str)
-                           or case.get("equivalent") is not True for case in bookmarks) \
-                    or {case["oracle_id"] for case in bookmarks} != HISTORICAL_BOOKMARK_IDS \
+                    or bookmarks != [] \
                     or not isinstance(acceptance_ids, list) or acceptance_ids != MANUAL_ACCEPTANCE_IDS \
                     or child.get("source_unchanged") is not True \
                     or child.get("baseline_guards_preserved") is not True \
@@ -237,8 +257,9 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                     or properties["count"] != 250 or properties.get("passed") is not True \
                     or type(properties.get("seed")) is not int or properties["seed"] != 20261009:
                 raise ValueError("Manual report requires twenty-two targets, eight extra CLI cases, "
-                                 "seeded coverage checks, twenty-five writer samples, the unchanged historical "
-                                 "BM-03 comparison, safe import, preserved guards/source/inputs and owned cleanup")
+                                 "seeded coverage checks, twenty-five writer samples, empty current historical "
+                                 "comparisons, safe import, preserved guards/source/inputs and owned cleanup")
+            validate_level2_launcher_reference(child.get("level2_launcher_reference"))
             if step.get("requested_shell_paths"):
                 validate_manual_entrypoints(child, step["requested_shell_paths"])
         elif kind == "bookmarks":
@@ -279,6 +300,40 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                 raise ValueError("Level 1 report requires all four targets, five normalization cases, "
                                  "150 seeded plans, ten writer samples, safe import, preserved "
                                  "guards/source/inputs and owned cleanup")
+        elif kind == "level2":
+            cases = child.get("engine_cases")
+            hierarchy = child.get("hierarchy_cases")
+            properties = child.get("seeded_level2_cases")
+            writer_samples = child.get("sampled_writer_cases")
+            import_observation = child.get("import_observation")
+            if type(child.get("schema_version")) is not int \
+                    or child.get("task_id") != "M1-T04" or child.get("result") != "LEVEL2_REGRESSION_PASSED" \
+                    or child.get("success") is not True \
+                    or type(child.get("exit_code")) is not int or child["exit_code"] != 0 \
+                    or child.get("acceptance_ids") != LEVEL2_ACCEPTANCE_IDS \
+                    or type(child.get("engine_case_count")) is not int or child["engine_case_count"] != 4 \
+                    or not isinstance(cases, list) or len(cases) != 4 \
+                    or any(not isinstance(case, dict) or not isinstance(case.get("oracle_id"), str)
+                           or case.get("passed") is not True for case in cases) \
+                    or {case["oracle_id"] for case in cases} != LEVEL2_ORACLE_IDS \
+                    or not isinstance(hierarchy, list) or len(hierarchy) != 6 \
+                    or any(not isinstance(case, dict) or not isinstance(case.get("id"), str)
+                           or case.get("passed") is not True for case in hierarchy) \
+                    or {case["id"] for case in hierarchy} != LEVEL2_HIERARCHY_IDS \
+                    or not isinstance(properties, dict) or type(properties.get("seed")) is not int \
+                    or properties["seed"] != 20261009 or type(properties.get("count")) is not int \
+                    or properties["count"] != 150 or properties.get("passed") is not True \
+                    or not isinstance(writer_samples, list) or len(writer_samples) != 10 \
+                    or any(not isinstance(case, dict) or type(case.get("index")) is not int
+                           or not isinstance(case.get("outputs"), list) or not case["outputs"]
+                           for case in writer_samples) \
+                    or {case["index"] for case in writer_samples} != set(range(10)) \
+                    or child.get("source_unchanged") is not True or child.get("baseline_guards_preserved") is not True \
+                    or child.get("input_and_neighbor_unchanged") is not True or child.get("owned_temp_removed") is not True \
+                    or child.get("immutable_original_commit") != "0de84f367f9bd5ddfa3f408a9c29505d7a39633f" \
+                    or not isinstance(import_observation, dict) or import_observation.get("import_safe") is not True:
+                raise ValueError("Level 2 report requires four targets, six hierarchy cases, 150 seeded plans, "
+                                 "ten writer samples, safe import, preserved guards/source/inputs and owned cleanup")
         else:
             raise ValueError("Unknown child evidence kind")
         step.update(evidence_sha256=sha256(data), evidence=child)
@@ -347,7 +402,7 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "not_run": ["corrected-Level-2 acceptance", "full application splitting in both shells",
+        "not_run": ["shared preview/output-safety acceptance", "full application splitting in both shells",
                     "human Explorer drag/drop", "real Calibre EPUB/AZW3 conversion",
                     "release-package checks"],
     }
@@ -430,6 +485,14 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "bookmarks")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"level2", "full"}:
+            child_report = work / "level2-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/bookmarks/characterize_level2.py"),
+                       "--report", str(child_report)]
+            step = {"name": "level2-regression", "meaning": "Corrected parent-aware Level 2 targets and hierarchy checks",
+                    **run_command(command, work, environment=environment)}
+            attach_child_report(step, child_report, "level2")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -449,7 +512,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],

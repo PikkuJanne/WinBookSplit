@@ -1,25 +1,25 @@
 # Next session
 
-Next task: **M1-T04 — Make Level 2 parent-aware**.
-M0-T01 through M0-T04 and M1-T01 through M1-T03 are done. Implementation C
-`a0a742ef165e751dbbbd4667962e88d7df6c4827` was normally pushed; clean local
-HEAD matched live feature at `2026-10-09T04:12:06.716013+00:00`
-(06:12:06 Europe/Berlin). The following evidence/status checkpoint receives its
-own normal-push/live receipt in the thread/PR; recheck current equality.
+Next task: **M1-T05 — Unify planning, preview data and execution**.
+M0-T01 through M0-T04 and M1-T01 through M1-T04 are done. Implementation C
+`8c193ae2aac5df4819cad216635d59df57d12cbc` was normally pushed; clean local
+HEAD matched live feature at `2026-10-09T05:03:45.266791+00:00`
+(07:03:45 Europe/Berlin). Following evidence/status checkpoint receives its own
+normal-push/live receipt in the thread/PR; recheck current equality.
 
 Workspace: `D:\projects\WinBookSplit-main`; branch/upstream:
 `codex/winbooksplit-v1-m1` / `origin/codex/winbooksplit-v1-m1`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-[Draft PR #7](https://github.com/PikkuJanne/WinBookSplit/pull/7) continues M1;
-keep draft through cumulative M1-T06 review/merge. PR #6 was already merged
-at `2026-10-09T03:52:26Z` to main `9bdc03b47fd38213784ff55b5d76a0a0120815e3`.
-Normal fast-forwards reconciled feature and local main. Earlier merges do not
-waive later tasks. Preserve unrelated edits/history and reconcile fresh work.
+[Draft PR #8](https://github.com/PikkuJanne/WinBookSplit/pull/8) continues M1;
+keep draft through cumulative M1-T06. PR #7 was already merged at
+`2026-10-09T04:52:11Z` to main `90297a80256315de20730e44403d820d40d9d4e9`.
+Normal fast-forwards reconciled feature/local main. Earlier merges do not waive
+later gates. Preserve unrelated edits/history and reconcile fresh work normally.
 
 Read AGENTS.md, STATUS.md, TASKS.json, SCOPE_AND_DECISIONS.md,
 GITHUB_WORKFLOW.md, TESTING.md, SUPPORT_AND_SETUP.md,
-evidence/M1-T03-level1.md/json, tasks/M1-T04.md, specs/SPLIT_CONTRACT.md
-and PLAN_ORACLES.json. Start with actual inspection:
+evidence/M1-T04-level2.md/json, tasks/M1-T05.md, specs/SPLIT_CONTRACT.md,
+specs/OUTPUT_AND_CONVERSION.md and PLAN_ORACLES.json. Start with actual inspection:
 
 ```powershell
 git status --short --branch
@@ -31,88 +31,97 @@ python -B .\tools\codex-handoff\check_sync.py --repo .
 python -B .\tools\codex-handoff\validate_plan.py --plan-root .\docs\codex-v1.0.0
 ```
 
-Do not add `-I` to sibling-import handoff helpers. Application tests use the
-explicit supported fresh developer Python `-I -B`. Inspect authentication/live
-feature/main refs/PR/protections/checks/tags/releases independently. The last
-audit found no protections/rulesets/workflows/runs/tags/releases; that is
-historical evidence. No reset/force push/auto-stash/deletion/settings changes.
+Do not add `-I` to sibling-import handoff helpers. Application tests use explicit
+fresh supported developer Python `-I -B`. Inspect authentication/live feature/
+main/PR/protections/checks/tags/releases separately. Last audit found no
+protections/rulesets/workflows/runs/tags/releases; historical evidence is not
+current proof. No reset/force push/auto-stash/deletion or settings changes.
 
-## Preserve the verified behavior
+## Verified behavior to preserve
 
 The import-safe shipped engine exposes `plan_manual_starts`, `normalize_outline`,
-`normalize_bookmarks`, `plan_level1`, `split_pdf` and the existing writer.
-Manual starts validate all ASCII tokens/bounds before writing, preserve page 1,
-sort/dedupe with notices, produce one whole-document file for `1`, and reject
-invalid/zero-page requests. Huge decimal/leading-zero tokens stay bounded.
+`normalize_bookmarks`, `plan_level1`, `plan_level2`, `split_pdf` and the existing
+writer. Manual starts validate every ASCII token/bound before normalization or
+writes, preserve page 1, sort/dedupe with notices, handle huge/leading-zero tokens,
+produce one whole-document file for `1` and reject invalid/zero-page requests.
 
-Level 1 normalization retains source order/depth/parent IDs/lineage and unusable
-records. Recoverable invalid/external destinations warn and skip. Raw page
-references and supported fits are checked before trusting pypdf's normalized
-pages; named/indirect valid destinations retain their pages. First-source
-duplicate title wins, physical sorting warns, front matter and parent intervals
-cover every page. Invalid parents remain in metadata so future Level 2 cannot
-orphan their descendants. Depth 3+ is retained, never a Level 1 boundary.
+Level 1 normalization retains source order/depth/parent IDs/lineage, including
+unusable records. Invalid/external destinations warn/skip; raw internal page
+references/fits are validated before trusting pypdf pages. Valid named/indirect
+destinations retain correct pages. First-source duplicate parents win; physical
+sorting warns; front matter plus parent intervals cover every page. Raw outline/
+name trees and iterative normalization reject unreadable/cyclic/reused/over-limit
+structures before writing. Limits: depth 64; 10,000 raw nodes per tree/named
+definitions; 10,000 normalized entries plus child-list containers.
 
-Raw outline/name-tree preflight runs before recursive pypdf retrieval; unreadable,
-cyclic/reused/over-limit trees reject before writing. Limits: depth 64; 10,000
-raw nodes per tree/named definitions; 10,000 normalized entries PLUS child-list
-containers. Empty/no usable Level 1 emits structured error plus compatibility
-sentinel/exit 55; malformed/zero-page requests exit 1. These are bounded handling
-semantics, not arbitrary-depth support. Both launchers remain unchanged.
+Level 2 calls Level 1 once and groups only depth 2 children by retained parent ID.
+Filter to parent.start <= page < parent.end before dedupe/sort; first valid child
+alias wins. Parent aliases retain first subtree; invalid-parent descendants are
+warned/ignored, never adopted. Depth 3+ is metadata. Add front matter and parent
+opening/whole-parent fallback entries; each child ends at next sibling/parent end.
+At least one retained usable direct child is required globally; otherwise
+no_bookmarks_at_level/sentinel/exit 55 before writer, with no noninteractive fallback.
+Empty/no usable parents retain distinct errors; malformed/zero-page fails exit 1.
+Interactive fallback choice/UI remains M3. Entry parent_id/bookmark_id/reason
+and sequential title-derived filenames are verified by actual identities.
 
-Final full gate: 63 Python tests; nine Pester tests per actual PS5.1.26100.9444/
-PS7.6.5; zero skips/syntax/scaffold findings. Four corrected Level 1 CLI targets,
-five normalization aggregates, 150 seeded plans/ten writer samples check exact
-slice/flattened physical IDs. Manual: 22 targets/eight extras/250 plans/25 writer
-samples. Six existing GUID-owned actual launchers include three concurrent
-invocations, preserve inputs/neighbors/decoys/shared TEMP and remove owned
-Documents outputs without reading private entries. These launchers cover
-manual MAN-03 and historical Level 2 BM-03, not corrected Level 1 console paths.
-Both PS7 probes retain RawUI stderr; 60 legacy analyzer findings per host remain.
+Final full gate: 85 Python tests; nine Pester tests per actual PS5.1.26100.9444/
+PS7.6.5; zero skips/syntax/scaffold findings. Manual: 22 targets/8 extras/250 plans/25 writers;
+Level 1: 4 targets/5 aggregates/150 plans/10 writers; Level 2: 4 targets/6 aggregates/
+150 plans/10 writers. Every output/flattened sequence preserves physical IDs and
+selected-parent ownership. Additional real-PDF unit lineage cases pass; seven
+pypdf NullObject warnings remain captured. Six actual owned launchers include
+three concurrent, preserve sources/neighbors/decoys/shared TEMP and remove only
+owned Documents outputs without reading private entries. Both PS7 Level 2 BM-03
+probes match corrected six-section PDF bytes/IDs. Other probes cover manual;
+actual corrected Level 2 PS5.1/batch and Level 1 console remain unclaimed. Both
+PS7 probes retain RawUI stderr; 60 legacy analyzer observations per host remain.
 Tested-path digest:
-`b937df04cc8035a30d01dbae9737114fe3646fc937033970c416b32e769cc468`.
-Clean C matched every tested actual byte; no clean-C full rerun claimed.
+`fca9a3b30142da14f0403a971b9d5ee02ee7e81d0cf3899ed0cc28f7609c1003`.
+All 38 actual tested paths matched clean C; no clean-C full rerun was claimed.
 
-## Test route and M1-T04 boundary
+## Current test route and M1-T05 boundary
 
-Use `tests/run_tests.py --layer bookmarks` for targeted Level 1 regression and
-`--layer full` with both actual hosts/tool root for the five-stage full route.
-Use a fresh external report path and unrelated CWD. Bookmark route takes no
-shell arguments; full/manual uses six controlled owned launcher probes. Current
-manual route retains only unchanged historical BM-03. Original/extraction
-harnesses/raw guards/oracles/generator/evidence are unchanged. Historical
-AC-011 reads immutable M1-T01 C `88c2149`; current safe import stays checked.
-Explicit baseline/extraction diagnostics deliberately refuse changed source.
-Do not weaken historical guards or call current code mechanically identical.
+Use `tests/run_tests.py --layer level2`, `--layer bookmarks` or `--layer manual`
+for focused checks. `--layer full` now has six stages and requires both actual
+hosts and isolated tool root. Always use a fresh absolute external report and
+unrelated CWD. Bookmark/level2 routes take no shell args. Manual historical
+bookmark comparisons are empty; its corrected actual BM-03 CLI reference
+supplies existing six owned launcher probes. Immutable original/extraction
+harnesses/guards/oracles/generator/older evidence are unchanged. Historical
+AC-011 reads M1-T01 C `88c2149`; current safe import remains checked. Explicit
+baseline/extraction diagnostics deliberately refuse changed source. Do not
+weaken historical guards or claim current code equals known-bad original logic.
 
-Level 2 still has its old recursive flattening/bare exception and parent crossing.
-M1-T04 covers AC-023 through AC-026: use normalized parent intervals and each
-parent's own direct usable children; add opening sections and whole-parent
-fallback, warn/ignore outside children, retain front matter, avoid alias subtree
-orphaning and define structured `no_bookmarks_at_level`. Reproduce affected
-defects first. Transition BM-03 and other Level 2 targets deliberately while
-retaining all manual/Level 1 regressions and immutable historical evidence.
-Shared validation/output/metadata tasks follow. One thread-sized task at a time.
+M1-T05 covers AC-027 through AC-029: one small shared validated plan/result,
+nonempty/in-range/contiguous/complete ordered coverage, read-only preview data,
+execution of that same plan, and a reader-bound or checked source identity.
+Test gaps/overlaps/reversal/overflow/empty and seeded invariants, exact preview-
+filename/range/page identity parity and controlled source changes/repointing.
+Keep the existing app/page writer/Python; no new framework. Source binding must
+not silently execute a stale plan on changed data. UI binding remains M3 and
+output transactions have later task ownership. Preserve all manual/Level 1/Level 2
+regressions and historical receipts. One thread-sized task at a time.
 
 ## Runtime and remaining gates
 
 Regular GIL CPython **3.14.8 x64 only**, pypdf **6.19.0**; dev ReportLab 5.0.1/
-Pillow 12.3.0/charset-normalizer 3.5.2. Create a fresh hash-required dev venv and
-assert import origins; do not assume old TEMP environments persist. Pester 6.2.0/
-PSScriptAnalyzer 1.25.0 are isolated external pins; reverify all 66 prior files.
-Discover actual absolute host paths; PS7 example directory may be absent.
-Children request process-only RemoteSigned with host-owned module paths;
-stored policies remain unchanged and managed policy wins.
+Pillow 12.3.0/charset-normalizer 3.5.2. Fresh hash-required dev venv/exact origins;
+do not assume old TEMP persists. Pester 6.2.0/PSScriptAnalyzer 1.25.0 are external
+pins; reverify all 66 prior file hashes/sizes. Discover actual absolute shell
+locations; PS7 example directory may be absent. Children request process-only
+RemoteSigned and host-owned modules; stored policies stay unchanged and managed
+policy wins.
 
 Official portable Calibre 9.15.0 remains per-user at
 `$UserProfile\Apps\Calibre915\Calibre Portable`; converter:
 `$UserProfile\Apps\Calibre915\Calibre Portable\Calibre\ebook-convert.exe`.
-Prior hash/Valid-signature/install/version evidence is M1-T01. No actual ebook
-conversion/GUI is claimed. Integrate the trusted nonstandard path in M2-T04;
-real EPUB/AZW3 conversion remains M4-T04/package/release work. Do not bundle
-dependency binaries. Full launcher/discovery/error/output transactions,
-corrected Level 1 console, Explorer, rendering, clean OS/extracted package,
-CI (M4-T05), release/download gates remain open; Windows10/ARM/UNC/other Python
-remain unclaimed. No tag/release created. Only the verified public final
-v1.0.0/package/download/fixed-tag/synchronized-main runbook closes the project.
+Hash/Valid-signature/install/version evidence is M1-T01, not a current conversion
+pass. Integrate the trusted nonstandard path in M2-T04; real EPUB/AZW3 conversion
+is M4-T04/package/release work. No dependency binaries may be bundled.
+Shared plan/source invariants, full launcher/discovery/error/output transactions,
+interactive fallback/Explorer, renderer/fidelity, clean OS/extracted package,
+CI (M4-T05), public release/download gates remain open. Windows10/ARM/UNC/other
+Python stay unclaimed. No tag/release. Only the verified public final v1.0.0/
+package/download/fixed-tag/synchronized-main runbook closes the project.
 Unsigned publication remains allowed with disclosure.

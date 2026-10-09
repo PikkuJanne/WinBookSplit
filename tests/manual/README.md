@@ -11,12 +11,10 @@ integer and a valid 5001-character leading-zero token.
 
 Seed 20261009 exercises 250 valid manual partitions; 25 samples also exercise
 the real PDF writer on page-marked fixtures. Normalization and one-section
-notices are asserted. Current safe import remains checked. The original Level 2
-bookmark observation BM-03 still matches the immutable original engine, including
-its known defect. M1-T03 now checks Level 1 targets in the separate bookmark route;
-current BM-01/02 are no longer expected to match the known-bad original behavior.
-Historical M1-T02 evidence retains the three observations that were unchanged
-at that checkpoint.
+notices are asserted. Current safe import remains checked. Current historical
+bookmark comparisons are empty after M1-T04 repairs Level 2. Separate Level 1/2
+routes verify corrected targets. Historical M1-T02 evidence retains the three
+then-unchanged observations; M1-T03 evidence retains its then-unchanged BM-03.
 
 The original harness, its raw-byte guards, fixture generator, plan oracles,
 batch launcher and extraction harness remain unchanged. Historical AC-011 AST
@@ -27,12 +25,16 @@ processing ASTs. Neither route calls corrected code the unchanged original.
 
 Use the supported fresh developer interpreter with `-I -B`, an absolute runner
 path and a new external report: `tests/run_tests.py --layer manual --report ...`.
-`--layer full` runs current manual acceptance, corrected Level 1 bookmark
+`--layer full` runs current manual acceptance, corrected Level 1/2 bookmark
 acceptance, Python units and the shell layer.
 Optional repeated actual PS5.1/PS7 `--shell-path` arguments reuse the existing
 six GUID-owned entrypoint probes, including three simultaneous invocations.
-Manual `4,7` uses the corrected exact output references; bookmark BM-03 remains
-a known-bad comparison. The test output/cleanup/process safety boundaries are
+Manual `4,7` uses corrected exact output references. The actual current CLI
+also builds a corrected BM-03 launcher reference with all six ranges, complete
+physical page identities and Front matter/A opening/A1/A2/B opening/B1 titles.
+The six existing probes now compare its corrected bytes. This is recorded as
+`level2_launcher_reference`, separate from historical observations. The test
+output/cleanup/process safety boundaries are
 documented in `../extraction/README.md` and are unchanged. Reports must include
 all promised cases and requested entrypoints or the central runner fails.
 

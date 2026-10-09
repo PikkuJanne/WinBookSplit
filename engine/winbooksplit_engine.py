@@ -1,4 +1,4 @@
-"""WinBookSplit PDF logic with complete manual and Level 1 page coverage."""
+"""WinBookSplit PDF logic with complete manual and parent-aware bookmark coverage."""
 
 import sys
 import os
@@ -304,6 +304,79 @@ def plan_level1(reader, total_pages):
             "bookmarks": records, "warnings": warnings}
 
 
+def plan_level2(reader, total_pages):
+    """Partition each retained Level 1 parent using only its own direct children."""
+    parent_plan = plan_level1(reader, total_pages)
+    records, warnings = parent_plan["bookmarks"], parent_plan["warnings"]
+    parents = [entry for entry in parent_plan["entries"] if entry["reason"] == "bookmark"]
+    selected_ids = {entry["bookmark_id"] for entry in parents}
+    children_by_parent = {}
+    parents_with_descendants = set()
+    for record in records:
+        if record["lineage"]:
+            parents_with_descendants.add(record["lineage"][0])
+        if record["depth"] == 2:
+            children_by_parent.setdefault(record["parent_id"], []).append(record)
+
+    for record in records:
+        if record["depth"] != 1 or record["id"] in selected_ids or record["id"] not in parents_with_descendants:
+            continue
+        reason = "duplicate_parent_subtree" if "alias_of" in record else "invalid_parent_subtree"
+        record["subtree_ignored_reason"] = reason
+        warnings.append({"code": reason, "source_order": record["source_order"], "depth": 1,
+                         "parent_id": record["id"],
+                         "message": "Ignored this parent's subtree because its start is an alias or unusable."})
+
+    entries = [dict(entry) for entry in parent_plan["entries"] if entry["reason"] == "front_matter"]
+    usable_children = 0
+    for parent in parents:
+        parent_id = parent["bookmark_id"]
+        first_at_page, children = {}, []
+        for child in children_by_parent.get(parent_id, []):
+            if child["page"] is None:
+                continue  # Normalization already records the resolution diagnostic.
+            if not parent["start"] <= child["page"] < parent["end"]:
+                warnings.append({"code": "child_outside_parent", "source_order": child["source_order"],
+                                 "depth": 2, "parent_id": parent_id,
+                                 "message": f"Ignored child outside parent pages {parent['start'] + 1}..{parent['end']}."})
+                continue
+            if child["page"] in first_at_page:
+                child["alias_of"] = first_at_page[child["page"]]["id"]
+                warnings.append({"code": "duplicate_destination", "source_order": child["source_order"],
+                                 "depth": 2, "parent_id": parent_id,
+                                 "message": f"Ignored duplicate child destination; first bookmark is {child['alias_of']}."})
+            else:
+                first_at_page[child["page"]] = child
+                children.append(child)
+        ordered = sorted(children, key=lambda child: child["page"])
+        if children != ordered:
+            warnings.append({"code": "outline_reordered", "source_order": None, "depth": 2,
+                             "parent_id": parent_id, "message": "Child bookmarks sorted into physical page order."})
+        usable_children += len(ordered)
+        if not ordered:
+            entries.append({"title": parent["title"], "start": parent["start"], "end": parent["end"],
+                            "parent_id": parent_id, "bookmark_id": parent_id,
+                            "reason": "parent_fallback", "warnings": []})
+            continue
+        if ordered[0]["page"] > parent["start"]:
+            entries.append({"title": parent["title"] + " - Opening pages", "start": parent["start"],
+                            "end": ordered[0]["page"], "parent_id": parent_id,
+                            "reason": "parent_opening", "warnings": []})
+        for index, child in enumerate(ordered):
+            end = ordered[index + 1]["page"] if index + 1 < len(ordered) else parent["end"]
+            entries.append({"title": child["title"], "start": child["page"], "end": end,
+                            "parent_id": parent_id, "bookmark_id": child["id"],
+                            "reason": "bookmark", "warnings": []})
+    if not usable_children:
+        raise BookmarkPlanError("no_bookmarks_at_level", "The PDF has no usable direct Level 2 bookmarks.", warnings)
+    for sequence, entry in enumerate(entries, start=1):
+        safe_title = re.sub(r'[<>:""/\\|?*]', '', entry["title"]).strip()[:50]
+        entry.update(sequence=sequence, filename=f"{sequence:02d} - {safe_title}.pdf")
+    return {"mode": "2", "total_pages": total_pages, "entries": entries,
+            "ranges": [(entry["start"], entry["end"]) for entry in entries],
+            "bookmarks": records, "warnings": warnings}
+
+
 def log_bookmark_warnings(warnings):
     for warning in warnings:
         log(f"[WARNING] {warning['code']} (outline {warning['source_order']}, depth {warning['depth']}): {warning['message']}")
@@ -334,48 +407,19 @@ def split_pdf(input_path, output_dir, mode, manual_data=None):
             write_slice(reader, entry['start'], entry['end'], os.path.join(output_dir, entry['filename']))
 
     elif mode == '2':
-        target_level = 2
-        if not reader.outline:
-            log("[NO_BOOKMARKS_FOUND]")
-            sys.exit(55)
-
-        bookmarks_found = []
-        def extract(nodes, depth=1):
-            for node in nodes:
-                if isinstance(node, list):
-                    extract(node, depth + 1)
-                else:
-                    if depth == target_level:
-                        try:
-                            pg = reader.get_destination_page_number(node)
-                            if pg is not None and pg != -1:
-                                title = node.title if node.title else "Untitled"
-                                bookmarks_found.append({'page': pg, 'title': title})
-                        except: pass
-
-        extract(reader.outline)
-
-        if not bookmarks_found:
-            log("[NO_BOOKMARKS_FOUND]")
-            sys.exit(55)
-
-        bookmarks_found.sort(key=lambda x: x['page'])
-        unique_map = []
-        seen = set()
-        for b in bookmarks_found:
-            if b['page'] not in seen:
-                unique_map.append(b)
-                seen.add(b['page'])
-
-        log(f"[*] Found {len(unique_map)} chapters based on bookmarks.")
-
-        for i, mark in enumerate(unique_map):
-            start = mark['page']
-            end = unique_map[i+1]['page'] if i+1 < len(unique_map) else total_pages
-            if start >= end: continue
-            safe_title = re.sub(r'[<>:""/\\|?*]', '', mark['title']).strip()[:50]
-            fname = f"{i+1:02d} - {safe_title}.pdf"
-            write_slice(reader, start, end, os.path.join(output_dir, fname))
+        try:
+            plan = plan_level2(reader, total_pages)
+        except BookmarkPlanError as error:
+            log_bookmark_warnings(error.warnings)
+            log(f"[ERROR] {error.code}: {error}")
+            if error.code in {'no_bookmarks', 'no_usable_bookmarks', 'no_bookmarks_at_level'}:
+                log("[NO_BOOKMARKS_FOUND]")
+                sys.exit(55)
+            sys.exit(1)
+        log_bookmark_warnings(plan['warnings'])
+        log(f"[*] Found {len(plan['entries'])} sections based on Level 2 bookmarks.")
+        for entry in plan['entries']:
+            write_slice(reader, entry['start'], entry['end'], os.path.join(output_dir, entry['filename']))
 
     elif mode == 'manual':
         try:
