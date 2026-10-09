@@ -116,7 +116,7 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
     answers, mode = validator.recipe(kind, source)
     environment = history.clean_environment(cwd)
     system = Path(os.environ["SystemRoot"])
-    environment.update(PATH=os.pathsep.join((str(system / "System32"), str(system))),
+    environment.update(PATH=os.pathsep.join((str(Path(host["shell_executable"]).parent), str(system / "System32"), str(system))),
         PSModulePath=str(Path(host["shell_executable"]).parent / "Modules"), WBS_LAUNCHER_BAT=str(app / "WinBookSplit.bat"),
         WBS_LAUNCHER_OUTPUTDIRECTORY=str(base), WBS_LAUNCHER_PYTHONPATH=sys.executable,
         WBS_LAUNCHER_CALIBREPATH=str(calibre), WBS_LAUNCHER_INPUT1=str(source), WBS_LAUNCHER_INPUT2=str(second),
