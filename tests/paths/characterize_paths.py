@@ -234,7 +234,8 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
             marker = json.loads((log.parent / ".WinBookSplit-console-owner.json").read_text(encoding="utf-8"))
             require(marker == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Path console owner differs")
             payloads = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith("{")]
-        require(process["exit_code"] == (0 if expected_success else 1), "Actual path launcher exit differs: " + identifier + ": " + repr(process))
+        expected_exit = 0 if expected_success else 6 if identifier.endswith("corrupt-pdf") else 2
+        require(process["exit_code"] == expected_exit, "Actual path launcher exit differs: " + identifier + ": " + repr(process))
         if expected_success:
             require(len(payloads) == 1 and payloads[0]["status"] == "success" and payloads[0]["exit_code"] == 0,
                     "Actual literal source did not produce exactly one successful engine record")
@@ -450,7 +451,8 @@ def destinations(engine, work, generator, inputs):
                 with redirect_stdout(StringIO()):
                     result = manual.plain(engine.run_split(source, target, "1"))
                 method = "Actual run_split rejects all created-path budgets before allocation"
-            require(result["exit_code"] == 1 and result["written_count"] == 0 and result["execution"] is None,
+            expected_exit = 6 if identifier == "full-target" else 2
+            require(result["exit_code"] == expected_exit and result["written_count"] == 0 and result["execution"] is None,
                     "Destination failure announced successful output")
             actual_code, message, diagnostic = result["code"], result["message"], result["diagnostic"]
         require(actual_code == code, "Destination failure category differs: " + identifier + ": " + actual_code)
@@ -479,7 +481,7 @@ def destinations(engine, work, generator, inputs):
 
 def characterize(work, shells):
     require(os.name == "nt" and len(shells) == 2, "Actual Windows and both explicit supported shell hosts required")
-    history.original_sources()
+    manual.trusted_original_sources()
     before = runner.source_manifest()
     engine = load("wbs_current_paths_engine", ENGINE)
     generator = history.load_generator()

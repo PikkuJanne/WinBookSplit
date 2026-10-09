@@ -17,7 +17,13 @@ routes verify corrected targets. Historical M1-T02 evidence retains the three
 then-unchanged observations; M1-T03 evidence retains its then-unchanged BM-03.
 
 The original harness, its raw-byte guards, fixture generator, plan oracles,
-batch launcher and extraction harness remain unchanged. Historical AC-011 AST
+and extraction harness remain unchanged. M3-T01 intentionally changes current
+batch exit/pause handling. Current routes use `trusted_original_sources` to read
+the original launchers from Git and verify all historical source hashes, while
+requiring unchanged live baseline tests, fixtures and oracles. The historical
+baseline/extraction guards remain unchanged and still reject a changed original
+launcher on their legacy routes. Actual current BAT behavior is tested through
+native launches. Historical AC-011 AST
 verification reads the extracted engine at immutable M1-T01 commit
 `88c2149b3b3034fbd0d7ef23c2382f4b01648e4c`. The historical baseline route still
 refuses changed PowerShell bytes; the extraction route still refuses changed

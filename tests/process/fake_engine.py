@@ -22,4 +22,4 @@ elif kind == "fast-tail":
     control.emit(2, b"\n\nFINAL_STDERR_NO_NEWLINE_" + control.UNICODE.encode("utf-8"))
 else:
     raise ValueError("Unknown controlled engine case")
-raise SystemExit(1)
+raise SystemExit(2)

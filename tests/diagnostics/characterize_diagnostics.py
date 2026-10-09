@@ -163,10 +163,10 @@ def protocol_cases(cases):
     success_variants = {"zero-output-success", "invalid-count-type", "null-success-outputs", "missing-success-coverage", "missing-success-outputs"}
     for identifier, result in variants.items():
         mode = "manual" if identifier in success_variants else "1"
-        exit_code = 0 if identifier in success_variants else 1 if identifier == "native-exit-mismatch" else 55
+        exit_code = 0 if identifier in success_variants else 6 if identifier == "native-exit-mismatch" else 5
         records.append({"id": identifier, "stdout": result if isinstance(result, str) else json.dumps(result), "mode": mode, "exit_code": exit_code})
     invalid = next(case for case in cases if case["id"] == "invalid-mode")
-    records.append({"id": "invalid-request-mode", "stdout": invalid["stdout"], "mode": "3", "exit_code": 1})
+    records.append({"id": "invalid-request-mode", "stdout": invalid["stdout"], "mode": "3", "exit_code": 2})
     return records
 
 
@@ -184,8 +184,8 @@ def actual_hosts(work, shells, cases):
             "message=json.dumps({'arguments':sys.argv[1:],'python_executable':sys.executable})\n"
             "result={'protocol':'winbooksplit.result','version':1,'mode':'manual','status':'invalid_input',"
             "'code':'invalid_start_pages','message':message,'warnings':[],'fallback_modes':[],"
-            "'exit_code':1,'written_count':0,'execution':None}\n"
-            "sys.stdout.write('o'*200000+'\\n'); sys.stderr.write('e'*200000); print(json.dumps(result)); sys.exit(1)\n", encoding="utf-8")
+            "'exit_code':2,'written_count':0,'execution':None}\n"
+            "sys.stdout.write('o'*200000+'\\n'); sys.stderr.write('e'*200000); print(json.dumps(result)); sys.exit(2)\n", encoding="utf-8")
         payload = {"helper": str(ROOT / "engine/WinBookSplit.Diagnostics.ps1"), "application": str(ROOT / "WinBookSplit.ps1"),
                    "python": sys.executable, "flood_engine": str(flood_engine), "output": str(output), "log": str(cwd / "streams.log"),
                    "neighbor": str(neighbor), "cases": [{"id": case["id"], "stdout": case["stdout"], "exit_code": case["exit_code"],
@@ -207,7 +207,7 @@ def actual_hosts(work, shells, cases):
 
 
 def characterize(work, shells):
-    history.original_sources()
+    manual.trusted_original_sources()
     paths = (*history.BASELINE_PATHS, "WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Diagnostics.ps1",
              "tests/run_tests.py", "tests/python/test_runner.py", "tests/README.md", "tests/diagnostics/README.md",
              "tests/diagnostics/characterize_diagnostics.py", "tests/diagnostics/Probe-Diagnostics.ps1",

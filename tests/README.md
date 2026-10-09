@@ -22,8 +22,18 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime` or `--layer process`
+Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
 for targeted checks.
+
+The M3-T01 outcomes layer checks final fallback/exit mapping, owned-tree cancellation
+and timeout, manifest/publish/cleanup failures and console-log finalization under
+both actual supported hosts and BAT. Its separate OS console-signal controls use
+hidden private consoles; human keypress/Explorer checks remain separate. The full
+route includes this layer and inherited real Calibre checks. See
+`outcomes/README.md` for controlled copied-application provenance and recovery limits.
+Current regression helpers authenticate immutable historical Git inputs while
+allowing the reviewed launcher to evolve; untouched baseline/extraction guards
+still refuse current launchers that differ from their historical originals.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
 The manual layer executes all 22 corrected manual oracles, eight extra CLI cases,

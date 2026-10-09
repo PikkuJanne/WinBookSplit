@@ -93,7 +93,8 @@ class OutputTransactionTests(unittest.TestCase):
         return final
 
     def assert_failed_transaction(self, result, code, *, cleanup_complete=True):
-        self.assertEqual(result["exit_code"], 1)
+        expected_exit = 130 if code == "output_cancelled" else 2 if code == "output_base_invalid" else 6
+        self.assertEqual(result["exit_code"], expected_exit)
         self.assertEqual(result["code"], code)
         self.assertNotEqual(result["status"], "success")
         self.assertEqual(result["written_count"], 0)
@@ -225,7 +226,8 @@ class OutputTransactionTests(unittest.TestCase):
         with patch.object(engine.OutputRun, "write_owned", side_effect=OSError("Synthetic initial marker failure")), \
                 patch.object(engine, "write_slice") as writer, patch.object(engine, "log"):
             result = engine.run_split(str(self.source), str(self.base), "manual", "4,7")
-        self.assertEqual(result["exit_code"], 1)
+        self.assertEqual(result["exit_code"], 2)
+        self.assertEqual(result["code"], "output_base_invalid")
         self.assertNotEqual(result["status"], "success")
         writer.assert_not_called()
         self.assertEqual(list(self.base.glob(".WinBookSplit-stage-*")), [])
@@ -369,10 +371,10 @@ class OutputTransactionTests(unittest.TestCase):
             result = engine.run_split(str(self.source), str(self.base), "manual", "4,7")
         self.assertEqual(count, 2)
         self.assert_failed_transaction(result, "output_cancelled")
-        self.assertEqual(result["status"], "error")
+        self.assertEqual(result["status"], "cancelled")
         self.assertEqual(list(self.base.rglob("*.pdf")), [])
 
-    def test_post_publication_close_error_retains_success_and_explicit_warning(self):
+    def test_post_publication_close_error_is_incomplete_with_validated_output_retained(self):
         original = engine.OutputRun.close
         closed = []
         def close_then_error(run):
@@ -383,16 +385,33 @@ class OutputTransactionTests(unittest.TestCase):
                 patch.object(engine, "log"):
             result = engine.run_split(str(self.source), str(self.base), "manual", "4,7")
         self.assertEqual(len(closed), 1)
-        self.assertEqual(result["status"], "success")
-        self.assertEqual(result["exit_code"], 0)
-        self.assertEqual(result["code"], "split_complete")
-        self.assertIsNone(result["diagnostic"])
+        self.assertEqual(result["status"], "incomplete")
+        self.assertEqual(result["exit_code"], 6)
+        self.assertEqual(result["code"], "output_handle_close_failed")
+        self.assertEqual(result["fallback_modes"], ())
         execution = result["execution"]
         final = self.assert_complete_run(execution, list(range(1, 11)))
         warnings = execution["post_publication_warnings"]
         self.assertTrue(warnings)
         self.assertTrue(any("Synthetic close error" in str(warning) for warning in warnings))
         self.assertTrue(all(warning in result["warnings"] for warning in warnings))
+        self.assertEqual({path.name for path in self.base.iterdir()}, {final.name, self.neighbor.name})
+        self.assert_preserved()
+
+    def test_post_publication_close_interrupt_retains_validated_output_as_incomplete(self):
+        original = engine.OutputRun.close
+        def close_then_interrupt(run):
+            original(run)
+            raise KeyboardInterrupt
+        with patch.object(engine.OutputRun, "close", autospec=True, side_effect=close_then_interrupt), \
+                patch.object(engine, "log"):
+            result = engine.run_split(str(self.source), str(self.base), "manual", "4,7")
+        self.assertEqual(result["status"], "incomplete")
+        self.assertEqual(result["exit_code"], 6)
+        self.assertEqual(result["code"], "output_handle_close_failed")
+        self.assertEqual(result["fallback_modes"], ())
+        final = self.assert_complete_run(result["execution"], list(range(1, 11)))
+        self.assertTrue(any("interrupted" in warning["message"] for warning in result["warnings"]))
         self.assertEqual({path.name for path in self.base.iterdir()}, {final.name, self.neighbor.name})
         self.assert_preserved()
 
@@ -548,7 +567,7 @@ class OutputTransactionTests(unittest.TestCase):
             with self.subTest(destination=destination), patch.object(engine, "write_slice") as writer, \
                     patch.object(engine, "log"):
                 result = engine.run_split(str(self.source), str(destination), "manual", "4,7")
-            self.assertEqual(result["exit_code"], 1)
+            self.assertEqual(result["exit_code"], 2)
             self.assertEqual(result["code"], "output_base_invalid")
             writer.assert_not_called()
             self.assertEqual(hashes(target), before)

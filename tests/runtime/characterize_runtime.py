@@ -25,7 +25,7 @@ ACCEPTANCE_IDS = ["AC-043", "AC-044", "AC-045"]
 APPLICATION_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                      "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                      "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
-                     "engine/WinBookSplit.Process.ps1",
+                     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                      "engine/winbooksplit_job.py")
 
@@ -299,7 +299,7 @@ class Cases:
                     cleanup_safe = False
                     raise history.EntryPointFailure("Entrypoint interrupted; process tree state is uncertain: " + repr(error),
                                                     cleanup_safe=False, pid=None) from error
-            require(process["exit_code"] == (1 if expected_failure else 0), "Actual runtime launcher native status differs: " + identifier + ": " + repr(process))
+            require(process["exit_code"] == (3 if expected_failure else 0), "Actual runtime launcher native status differs: " + identifier + ": " + repr(process))
             if expected_failure:
                 require(not any(base.iterdir()), "Dependency failure created output/console/stage members")
                 errors = prefixed_json(process["stdout"], "[DEPENDENCY-ERROR] ")
@@ -398,7 +398,7 @@ class Cases:
 
 
 def characterize(work, shells, calibre):
-    history.original_sources()
+    manual.trusted_original_sources()
     source_before = runner.source_manifest()
     probe = host_probe(work)
     hosts = [paths.host_observation(shell, work, probe) for shell in shells]

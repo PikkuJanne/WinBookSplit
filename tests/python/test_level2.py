@@ -173,7 +173,7 @@ class Level2PlanTests(unittest.TestCase):
                 patch.object(engine, "write_slice") as writer, patch.object(engine, "log"):
             with self.assertRaises(SystemExit) as raised:
                 engine.split_pdf("synthetic-input.pdf", "synthetic-unused-output", "2")
-        self.assertEqual(raised.exception.code, 55)
+        self.assertEqual(raised.exception.code, 5)
         writer.assert_not_called()
 
     def test_unusable_parent_descendants_are_warned_and_not_orphaned_into_other_parents(self):
@@ -247,11 +247,11 @@ class Level2PlanTests(unittest.TestCase):
     def test_no_plan_and_malformed_requests_write_nothing_and_keep_meaningful_exit_codes(self):
         cycle = [Destination("A", 0)]
         cycle.append(cycle)
-        cases = [([], 10, 55, "no_bookmarks"),
-                 ([Destination("Invalid parent", None)], 10, 55, "no_usable_bookmarks"),
-                 ([Destination("A", 0)], 10, 55, "no_bookmarks_at_level"),
-                 (cycle, 10, 1, "invalid_outline"),
-                 ([Destination("A", 0), [Destination("A1", 0)]], 0, 1, "invalid_document")]
+        cases = [([], 10, 5, "no_bookmarks"),
+                 ([Destination("Invalid parent", None)], 10, 5, "no_usable_bookmarks"),
+                 ([Destination("A", 0)], 10, 5, "no_bookmarks_at_level"),
+                 (cycle, 10, 6, "invalid_outline"),
+                 ([Destination("A", 0), [Destination("A1", 0)]], 0, 6, "invalid_document")]
         for outline, pages, exit_code, code in cases:
             with self.subTest(code=code):
                 with patch.object(engine, "PdfReader", return_value=SyntheticReader(outline, pages)), \
@@ -366,7 +366,7 @@ class Level2SyntheticPdfTests(unittest.TestCase):
                 with patch.object(engine, "write_slice") as writer_spy, patch.object(engine, "log"):
                     with self.assertRaises(SystemExit) as exited:
                         engine.split_pdf(str(source), str(output), "2")
-                self.assertEqual(exited.exception.code, 55)
+                self.assertEqual(exited.exception.code, 5)
                 writer_spy.assert_not_called()
                 self.assertEqual(list(output.iterdir()), [])
                 self.assertEqual(source.read_bytes(), before)
@@ -388,7 +388,7 @@ class Level2SyntheticPdfTests(unittest.TestCase):
                     if "expected_error" in case:
                         with self.assertRaises(SystemExit) as raised:
                             engine.split_pdf(str(source), str(output), "2")
-                        self.assertEqual(raised.exception.code, 55)
+                        self.assertEqual(raised.exception.code, 5)
                         self.assertEqual({path.name for path in output.iterdir()}, {neighbor.name})
                     else:
                         plan = engine.plan_level2(PdfReader(source), case["pages"])

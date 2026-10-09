@@ -313,7 +313,7 @@ def seeded_cases(engine):
 
 
 def characterize(work):
-    history.original_sources()
+    manual.trusted_original_sources()
     paths = (*history.BASELINE_PATHS, "engine/winbooksplit_engine.py", "tests/run_tests.py", "tests/README.md",
              "tests/extraction/characterize_extraction.py", "tests/manual/characterize_manual.py",
              "tests/bookmarks/characterize_level1.py", "tests/bookmarks/characterize_level2.py",

@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import argparse
 import base64
+from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
 from importlib.metadata import PackageNotFoundError, version
@@ -80,26 +81,26 @@ PATH_DESTINATION_FAILURE_CODES = {"over-budget": "output_path_too_long",
                                   "full-target": "output_write_failed"}
 DIAGNOSTIC_ACCEPTANCE_IDS = ["AC-030", "AC-031"]
 DIAGNOSTIC_EXPECTATIONS = {
-    "flat-level1": ("1", "no_plan", "no_bookmarks", 55, ["manual"]),
-    "flat-level2": ("2", "no_plan", "no_bookmarks", 55, ["manual"]),
-    "no-usable-level1": ("1", "no_plan", "no_usable_bookmarks", 55, ["manual"]),
-    "no-usable-level2": ("2", "no_plan", "no_usable_bookmarks", 55, ["manual"]),
-    "parents-no-level2": ("2", "no_plan", "no_bookmarks_at_level", 55, ["1", "manual"]),
-    "zero-page-manual": ("manual", "invalid_input", "invalid_document", 1, []),
-    "zero-page-level1": ("1", "invalid_input", "invalid_document", 1, []),
-    "zero-page-level2": ("2", "invalid_input", "invalid_document", 1, []),
-    "empty-file": ("1", "read_error", "unreadable_document", 1, []),
-    "corrupt-bytes": ("1", "read_error", "unreadable_document", 1, []),
-    "truncated-pdf": ("1", "read_error", "unreadable_document", 1, []),
-    "missing-file": ("1", "read_error", "unreadable_document", 1, []),
-    "invalid-mode": ("3", "invalid_input", "invalid_mode", 1, []),
-    "invalid-manual": ("manual", "invalid_input", "invalid_start_pages", 1, []),
-    "malformed-outline": ("1", "invalid_input", "invalid_outline", 1, []),
+    "flat-level1": ("1", "no_plan", "no_bookmarks", 5, ["manual"]),
+    "flat-level2": ("2", "no_plan", "no_bookmarks", 5, ["manual"]),
+    "no-usable-level1": ("1", "no_plan", "no_usable_bookmarks", 5, ["manual"]),
+    "no-usable-level2": ("2", "no_plan", "no_usable_bookmarks", 5, ["manual"]),
+    "parents-no-level2": ("2", "no_plan", "no_bookmarks_at_level", 5, ["1", "manual"]),
+    "zero-page-manual": ("manual", "invalid_input", "invalid_document", 6, []),
+    "zero-page-level1": ("1", "invalid_input", "invalid_document", 6, []),
+    "zero-page-level2": ("2", "invalid_input", "invalid_document", 6, []),
+    "empty-file": ("1", "read_error", "unreadable_document", 6, []),
+    "corrupt-bytes": ("1", "read_error", "unreadable_document", 6, []),
+    "truncated-pdf": ("1", "read_error", "unreadable_document", 6, []),
+    "missing-file": ("1", "invalid_input", "input_invalid", 2, []),
+    "invalid-mode": ("3", "invalid_input", "invalid_mode", 2, []),
+    "invalid-manual": ("manual", "invalid_input", "invalid_start_pages", 2, []),
+    "malformed-outline": ("1", "invalid_input", "invalid_outline", 6, []),
     "existing-output": ("manual", "success", "split_complete", 0, []),
-    "invalid-plan": ("manual", "error", "invalid_plan", 1, []),
-    "write-failure": ("manual", "write_error", "output_write_failed", 1, []),
-    "unexpected-extra-argument": ("manual", "invalid_input", "invalid_arguments", 1, []),
-    "missing-arguments": ("", "invalid_input", "invalid_arguments", 1, []),
+    "invalid-plan": ("manual", "error", "invalid_plan", 6, []),
+    "write-failure": ("manual", "write_error", "output_write_failed", 6, []),
+    "unexpected-extra-argument": ("manual", "invalid_input", "invalid_arguments", 2, []),
+    "missing-arguments": ("", "invalid_input", "invalid_arguments", 2, []),
     "success-manual": ("manual", "success", "split_complete", 0, []),
     "success-level1": ("1", "success", "split_complete", 0, []),
     "success-level2": ("2", "success", "split_complete", 0, []),
@@ -137,12 +138,13 @@ def source_manifest() -> dict[str, str]:
         "tests/conversion/README.md",
         "tests/runtime/README.md",
         "tests/process/README.md",
+        "tests/outcomes/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
     for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff"):
         paths.extend(path for path in directory.rglob("*")
-                     if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json"}
+                     if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json", ".cs"}
                      and "__pycache__" not in path.parts)
     return {path.relative_to(ROOT).as_posix(): sha256(path.read_bytes())
             for path in sorted(set(paths)) if path.is_file()}
@@ -401,10 +403,10 @@ def validate_output_report(child: dict) -> None:
     failures = validate_plan_case_ids(child.get("failure_cases"), set(OUTPUT_FAILURE_CODES), "output failure")
     for case in failures:
         result, record, owner = case.get("result"), case.get("failure_record"), case.get("failure_owner")
-        if not isinstance(result, dict) or type(result.get("exit_code")) is not int or result["exit_code"] != 1 \
+        if not isinstance(result, dict) or type(result.get("exit_code")) is not int or result["exit_code"] != 6 \
                 or result.get("code") != OUTPUT_FAILURE_CODES[case["id"]] or result.get("status") not in {"write_error", "error"} \
                 or type(result.get("written_count")) is not int or result["written_count"] != 0 or result.get("execution", "missing") is not None \
-                or type(case.get("exit_code")) is not int or case["exit_code"] != 1 \
+                or type(case.get("exit_code")) is not int or case["exit_code"] != 6 \
                 or type(case.get("successful_final_count")) is not int or case["successful_final_count"] != 0 \
                 or any(case.get(name) is not True for name in ("cleanup_complete", "neighbor_unchanged", "source_unchanged")) \
                 or not isinstance(record, dict) or not isinstance(owner, dict):
@@ -543,7 +545,7 @@ def validate_paths_report(child: dict, requested_shells: list[str]) -> None:
     for case in rejected:
         host = by_host[case["id"].split("-", 1)[0]]
         corrupt = case["id"].endswith("corrupt-pdf")
-        if case.get("actual_process") is not True or type(case.get("exit_code")) is not int or case["exit_code"] != 1 \
+        if case.get("actual_process") is not True or type(case.get("exit_code")) is not int or case["exit_code"] != (6 if corrupt else 2) \
                 or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(host["shell_executable"]) \
                 or type(case.get("successful_final_count")) is not int or case["successful_final_count"] != 0 \
                 or case.get("outputs") != [] or case.get("input_unchanged") is not True \
@@ -784,10 +786,10 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
         host_id = case["id"].split("-", 1)[0]
         frame = case.get("engine_record")
         converter = case.get("converter_process")
-        if case.get("actual_process") is not True or case.get("exit_code") != 1 or case.get("converter_exit_code") != 0 \
+        if case.get("actual_process") is not True or case.get("exit_code") != 4 or case.get("converter_exit_code") != 0 \
                 or os.path.normcase(case.get("shell_executable", "")) != os.path.normcase(by_host[host_id]["shell_executable"]) \
                 or not isinstance(frame, dict) or frame.get("code") != "conversion_output_invalid" \
-                or frame.get("exit_code") != 1 or frame.get("written_count") != 0 or frame.get("execution", "missing") is not None \
+                or frame.get("exit_code") != 4 or frame.get("written_count") != 0 or frame.get("execution", "missing") is not None \
                 or not isinstance(converter, dict) or type(converter.get("exit_code")) is not int or converter["exit_code"] != 0 \
                 or "WBS-FAKE-NATIVE-EXIT-0" not in converter.get("stdout_tail", "") \
                 or not isinstance(frame.get("diagnostic"), dict) or frame["diagnostic"].get("conversion") != converter \
@@ -797,7 +799,7 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
             raise ValueError("Zero-exit converter controls must reject every invalid PDF without split/success output")
     bat = child.get("bat_missing_converter_case")
     if not isinstance(bat, dict) or bat.get("passed") is not True or bat.get("actual_process") is not True \
-            or bat.get("exit_code") != 1 or bat.get("outputs") != [] or bat.get("successful_final_count") != 0 \
+            or bat.get("exit_code") != 3 or bat.get("outputs") != [] or bat.get("successful_final_count") != 0 \
             or any(bat.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "no_success_summary",
                     "preflight_before_console_output", "console_record_absent", "engine_invocation_record_absent",
                     "dependency_success_record_absent", "setup_guidance_verified")) \
@@ -976,7 +978,7 @@ def validate_diagnostics_report(child: dict, requested_shells: list[str]) -> Non
                 or arguments.get("actual_arguments") != DIAGNOSTIC_NATIVE_ARGUMENTS \
                 or type(arguments.get("exit_code")) is not int or arguments["exit_code"] != 0 \
                 or not isinstance(streams, dict) or streams.get("passed") is not True \
-                or type(streams.get("exit_code")) is not int or streams["exit_code"] != 1 \
+                or type(streams.get("exit_code")) is not int or streams["exit_code"] != 2 \
                 or streams.get("actual_run_function") is not True or streams.get("arguments_preserved") is not True \
                 or type(streams.get("stdout_length")) is not int or streams["stdout_length"] != 200000 \
                 or type(streams.get("stderr_length")) is not int or streams["stderr_length"] != 200000:
@@ -999,6 +1001,11 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
         child = json.loads(data.decode("utf-8-sig"))
         if not isinstance(child, dict) or child.get("schema_version") != 1:
             raise ValueError("Expected a schema_version=1 JSON object report")
+        # Keep failed/partial raw receipts before validation. They are evidence
+        # of a failure, never an acceptance pass or cleanup authority.
+        step.update(failed_evidence_sha256=sha256(data), failed_evidence=child)
+        if child.get("cleanup_safe") is False:
+            step["cleanup_safe"] = False
         if kind == "diagnostics":
             validate_diagnostics_report(child, step.get("requested_shell_paths", []))
         elif kind == "paths":
@@ -1017,6 +1024,12 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validator = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(validator)
             validator.validate_process_report(child, step.get("requested_shell_paths", []))
+        elif kind == "outcomes":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_outcomes_receipt_validator", ROOT / "tests/outcomes/validate_outcomes_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_outcomes_report(child, step.get("requested_shell_paths", []))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1166,6 +1179,8 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
         else:
             raise ValueError("Unknown child evidence kind")
         step.update(evidence_sha256=sha256(data), evidence=child)
+        step.pop("failed_evidence_sha256", None)
+        step.pop("failed_evidence", None)
         if child.get("success") is False or child.get("exit_code", 0) != 0:
             if step["exit_code"] == 0:
                 step["exit_code"] = 126
@@ -1174,6 +1189,21 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
         step["evidence_error"] = str(error)
         if step["exit_code"] == 0:
             step["exit_code"] = 126
+
+
+@contextmanager
+def owned_evidence_workspace(steps):
+    """Outer cleanup must not undo a child's explicit unsafe-stop retention."""
+    temporary = tempfile.TemporaryDirectory(prefix="WinBookSplit-tests-")
+    try:
+        yield temporary.name
+    finally:
+        unsafe = any(step.get("cleanup_safe") is False or step.get("timed_out") is True
+            or "Unproved" in step.get("stderr", "") for step in steps)
+        if unsafe:
+            temporary._finalizer.detach()
+        else:
+            temporary.cleanup()
 
 
 def shell_command(shell: Path, work: Path, report: Path, tool_root: Path,
@@ -1239,7 +1269,7 @@ def execute(args: argparse.Namespace) -> dict:
                     "release-package checks"],
     }
     steps = report["steps"]
-    with tempfile.TemporaryDirectory(prefix="WinBookSplit-tests-") as directory:
+    with owned_evidence_workspace(steps) as directory:
         work = Path(directory).resolve()
         report["owned_work_directory"] = str(work)
         sentinel = work / "synthetic-input-sentinel.txt"
@@ -1395,9 +1425,20 @@ def execute(args: argparse.Namespace) -> dict:
             for shell in args.shell_path:
                 command.extend(["--shell-path", str(shell)])
             step = {"name": "process-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
-                    "meaning": "Actual owned-tree UTF-8 bounded dual-stream supervision, literal arguments and unchanged BAT status",
+                    "meaning": "Actual owned-tree UTF-8 bounded dual-stream supervision, literal arguments and shipped BAT status",
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "process")
+            steps.append(step)
+        if not args.failure_probe and args.layer in {"outcomes", "full"}:
+            child_report = work / "outcome-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/outcomes/characterize_outcomes.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "outcome-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "meaning": "Actual final fallback/native outcomes, owned cancellation/timeout and truthful finalization failures",
+                    **run_command(command, work, environment=environment, timeout=600)}
+            attach_child_report(step, child_report, "outcomes")
             steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
@@ -1418,7 +1459,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/full acceptance")
@@ -1446,12 +1487,12 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
-            raise ValueError("Diagnostics, paths, conversion, runtime and process require both explicit distinct supported shell hosts")
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            raise ValueError("Diagnostics, paths, conversion, runtime, process and outcomes require both explicit distinct supported shell hosts")
         if not args.failure_probe and args.layer in {"conversion", "runtime", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
                 raise ValueError("Conversion/runtime/full requires the existing absolute actual pinned --calibre-path")

@@ -109,10 +109,15 @@ class ExtractionTests(unittest.TestCase):
     def test_historical_ac011_extracted_commit_preserved_immutable_original_ast(self):
         # AC-011 records M1-T01's mechanical extraction. Later scoped behavior
         # fixes must not rewrite that evidence or be required to retain defects.
-        sources = extraction.original_sources()
-        prior = extraction.function_asts(extraction.embedded_body(sources["WinBookSplit.ps1"]))
         git = shutil.which("git")
         self.assertIsNotNone(git, "Git is required to read the historical extraction")
+        original = subprocess.run(
+            [git, "cat-file", "blob", extraction.ORIGINAL_COMMIT + ":WinBookSplit.ps1"],
+            cwd=ROOT, env=extraction.clean_environment(), capture_output=True, timeout=30, check=False)
+        self.assertEqual(original.returncode, 0, original.stderr.decode("utf-8", errors="replace"))
+        expected = json.loads((ROOT / "tests/baseline/expected_original.json").read_text(encoding="utf-8"))
+        self.assertEqual(extraction.digest(original.stdout), expected["source_sha256"]["WinBookSplit.ps1"])
+        prior = extraction.function_asts(extraction.embedded_body(original.stdout))
         reference = subprocess.run(
             [git, "cat-file", "blob", "88c2149b3b3034fbd0d7ef23c2382f4b01648e4c:engine/winbooksplit_engine.py"],
             cwd=ROOT, env=extraction.clean_environment(), capture_output=True, timeout=30, check=False)

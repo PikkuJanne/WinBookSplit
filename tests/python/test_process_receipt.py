@@ -25,7 +25,64 @@ def complete_fast_case():
             "ResultRecords": [], "ResultError": None}}
 
 
+def complete_application_case():
+    engine = validator.expected_frame()
+    outcome = {"protocol": "winbooksplit.outcome", "version": 1, "status": "invalid_input", "code": "invalid_start_pages",
+        "exit_code": 2, "mode": "manual", "written_count": 0, "final_directory": None, "engine_result": deepcopy(engine)}
+    return {"kind": "fast-tail", "exit_code": 2, "engine_record": engine,
+        "provisional_outcome": deepcopy(outcome), "final_outcome": deepcopy(outcome),
+        "stdout": "[OUTCOME] " + json.dumps(outcome) + "\n"}
+
+
 class ProcessReceiptTests(unittest.TestCase):
+    def test_finalizer_footer_is_separate_from_exact_unterminated_stderr(self):
+        case = complete_application_case()
+        expected_stderr = b"E" * (2 * 1024 * 1024) + b"\nFINAL_STDERR_" + validator.UNICODE.encode("utf-8")
+        retained_stderr = validator.tail(expected_stderr)
+        logged_stdout = "\n\nstdout blank\n\nno-newline-output"
+        log = "[STDOUT]\r\n" + logged_stdout + "\r\n[STDERR]\r\n" + retained_stderr \
+            + "\r\n[OPERATION-OUTCOME] " + json.dumps(case["provisional_outcome"]) + "\r\n"
+        actual_stdout, actual_stderr, provisional, final = validator.application_log_streams(log, case["stdout"])
+        self.assertEqual(actual_stdout, logged_stdout)
+        self.assertEqual(actual_stderr, retained_stderr)
+        self.assertEqual(provisional, final)
+        self.assertEqual(len(actual_stderr.encode("utf-8")), 65536)
+        validator.stream({"Stderr": actual_stderr, "StderrTotalBytes": len(expected_stderr), "StderrTruncated": True},
+            "Stderr", expected_stderr)
+        validator.application_outcome(case)
+
+    def test_finalizer_footer_missing_duplicate_malformed_or_nonterminal_is_rejected(self):
+        case = complete_application_case()
+        footer = "\r\n[OPERATION-OUTCOME] " + json.dumps(case["provisional_outcome"]) + "\r\n"
+        transport = "[STDOUT]\r\n\n\nstdout\r\n[STDERR]\r\n\n\nstderr no newline"
+        for log, stdout in ((transport, case["stdout"]), (transport + footer + footer, case["stdout"]),
+                (transport + "\r\n[OPERATION-OUTCOME] invalid\r\n", case["stdout"]),
+                (transport + footer + "trailing data", case["stdout"]), (transport + footer + "\r\n", case["stdout"]),
+                (transport + footer, "missing final outcome"), (transport + footer, case["stdout"] * 2),
+                (transport + footer, "[OUTCOME] {}\n")):
+            with self.subTest(log=log[-30:], stdout=stdout[-30:]), self.assertRaises(ValueError):
+                validator.application_log_streams(log, stdout)
+
+    def test_application_finalizer_outcome_native_and_engine_binding_is_required(self):
+        valid = complete_application_case()
+        validator.application_outcome(valid)
+        for field, replacement in (("protocol", "wrong"), ("version", True), ("status", "success"),
+                ("code", "invalid_mode"), ("exit_code", 0), ("mode", "1"), ("written_count", 3),
+                ("final_directory", "C:/invented"), ("engine_result", {})):
+            case = deepcopy(valid)
+            case["provisional_outcome"][field] = deepcopy(replacement)
+            case["final_outcome"][field] = deepcopy(replacement)
+            case["stdout"] = "[OUTCOME] " + json.dumps(case["final_outcome"]) + "\n"
+            with self.subTest(field=field), self.assertRaises(ValueError):
+                validator.application_outcome(case)
+        for change in (lambda case: case.update(exit_code=0), lambda case: case.update(provisional_outcome={}),
+                lambda case: case.update(final_outcome={}), lambda case: case.update(stdout="[OUTCOME] {}\n"),
+                lambda case: case.update(stdout=None),
+                lambda case: case["engine_record"].update(code="invalid_mode")):
+            case = deepcopy(valid)
+            change(case)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                validator.application_outcome(case)
     def test_complete_fast_exit_blank_and_tail_evidence_is_accepted(self):
         validator.native(complete_fast_case(), "PS51")
 
@@ -65,7 +122,7 @@ class ProcessReceiptTests(unittest.TestCase):
         case.update(id="PS51-large-frame", kind="large-frame")
         message = "L" * 100000 + validator.UNICODE
         data = validator.frame_bytes(message)
-        case["process"].update(ExitCode=1, Stdout=validator.tail(data), Stderr="", StdoutTotalBytes=len(data),
+        case["process"].update(ExitCode=2, Stdout=validator.tail(data), Stderr="", StdoutTotalBytes=len(data),
             StderrTotalBytes=0, StdoutTruncated=True, ResultRecords=[data.decode()], ResultError=None)
         case.update(parsed_result=validator.expected_frame(message), protocol_error=None)
         validator.native(case, "PS51")

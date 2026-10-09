@@ -95,7 +95,7 @@ def rejected(engine, reader, pages, code="invalid_outline", warning=None):
                 try:
                     engine.split_pdf("synthetic-unused-input.pdf", "synthetic-unused-output", "1")
                 except SystemExit as exit_error:
-                    require(exit_error.code == (55 if code in {"no_bookmarks", "no_usable_bookmarks"} else 1),
+                    require(exit_error.code == (5 if code in {"no_bookmarks", "no_usable_bookmarks"} else 6),
                             "Rejected outline returned the wrong process status")
                 else:
                     raise RuntimeError("Rejected outline unexpectedly succeeded")
@@ -134,7 +134,7 @@ def cli_case(source, cwd, generator, *, expected=None, error=None, warnings=()):
     result = manual.observe(ENGINE, source, output, cwd, "1")
     records = manual.published_outputs(output, generator, result)
     if error is not None:
-        require(result["exit_code"] == (55 if error in {"no_bookmarks", "no_usable_bookmarks"} else 1)
+        require(result["exit_code"] == (5 if error in {"no_bookmarks", "no_usable_bookmarks"} else 6)
                 and error in result["stdout"] and not records and "[Writing]" not in result["stdout"],
                 "Rejected CLI outline wrote output or returned an incorrect error")
     else:
@@ -304,7 +304,7 @@ def normalization_cases(engine, work, fixtures, generator):
 
 
 def characterize(work):
-    sources = history.original_sources()
+    sources = manual.trusted_original_sources()
     paths = (*history.BASELINE_PATHS, "engine/winbooksplit_engine.py", "tests/extraction/characterize_extraction.py",
              "tests/manual/characterize_manual.py", "tests/bookmarks/characterize_level1.py", "tests/bookmarks/README.md",
              "tests/run_tests.py")

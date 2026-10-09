@@ -225,6 +225,34 @@ Pester and synthetic receipt-validator checks retain their own narrower scope.
 Automated token cancellation is not a human Ctrl+C/Explorer pass; interrupted
 engine stages remain for inspection without outer-supervisor filesystem cleanup.
 
+## Current M3-T01 outcomes acceptance
+
+`--layer outcomes` requires both distinct actual supported hosts and exercises
+the shipped BAT bytes in controlled copied applications. `--layer full` adds this
+fourteenth stage to all inherited page/plan/output/path/runtime/process checks
+and real Calibre EPUB/AZW3 checks. See `tests/outcomes/README.md` for the exact
+failure/fallback/cancellation/finalization matrix and ownership recovery method.
+The strict independent validator requires native and final structured outcomes
+to agree, selects the final attempted fallback, proves every authored process
+stopped and unrelated Python survived, and binds source/application/native-control
+bytes and source/neighbor/prior-output identities. Missing or contradictory
+promised receipts fail. Validator unit tests are structural evidence only.
+
+Token cancellation and actual OS CTRL_C_EVENT in hidden private consoles have
+distinct controls; neither is a human keypress or Explorer claim. Outer abrupt
+interruption retains marked staging when no engine ledger is available. Known
+owned failure cleanup, unsafe-cleanup refusal, manifest/publish errors and
+published-output retention after finalization errors are separately checked.
+Focused Pester verifies mapped protocol and secondary-log-failure handling under
+each actual host; these function controls are narrower than application acceptance.
+
+Corrected regression helpers authenticate historical original Git bytes and
+unchanged fixtures/oracles while permitting the reviewed current BAT to evolve.
+Original baseline/extraction guards remain untouched and still reject a changed
+launcher; historical AC-011 reads immutable original/extracted Git source.
+Code 7, full CLI binding, preview/version, menu/Explorer, PDF feature/fidelity,
+extracted package, CI and release remain later gates.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.

@@ -28,6 +28,22 @@ Show original source, generated PDF where applicable, PDF physical page count, s
 
 Use a single documented mapping across Python, PowerShell and batch; proposed mapping: 0 = successful execution/explicit preview/version; 2 = input/arguments/path validation; 3 = dependency missing/incompatible; 4 = conversion failure; 5 = no usable plan at requested bookmark level; 6 = PDF/read/write/output-validation failure; 7 = unsupported document features; 130 = cancelled/timeout (distinguish reason in structured result). Existing internal code 55 may be mapped, not leaked inconsistently. Pin this contract in tests; precise alternatives require a decision update, not ad hoc codes.
 
+M3-T01 implements the split-operation mapping in the shipped
+`engine/WinBookSplit.Outcomes.json`, consumed by Python and PowerShell. `55` is
+historical only. The final `[OUTCOME]` JSON record describes the whole console
+operation and retains the validated final attempted engine result. Explicit
+fallback cancellation returns 130; timeout has a distinct `timeout` status/code.
+No missing, conflicting or zero-output engine result can become success.
+Preview/version and full parameter binding remain M3-T02; reserved code 7's
+feature rejection remains the PDF support work.
+
+Console log flush/close precedes the success announcement. If chapter publication
+has already succeeded but handle/log finalization fails, the operation reports
+`incomplete` and exit 6, names the retained completed folder, and preserves its
+validated execution evidence. A secondary finalization error preserves an
+existing failure/cancellation code and appends its cause. The launcher explicitly
+returns the saved PowerShell exit; a pause cannot replace the operation outcome.
+
 ## Completion, logs and accessibility
 
 Completion names the actual final folder, section count and page coverage; zero-output execution fails. Offer to open the completed folder only interactively. A converted input keeps its original ebook name in diagnostics. Use readable text without requiring color/ANSI. Show progress by stage/section rather than an invented ETA. Logs and UTF-8 JSON run manifests include version, resolved dependency versions, run ID, mode, original/generated source identity, page count, ranges, output names, warnings and final outcome. Save paths locally; a redacted diagnostic export strips user/profile paths, document titles/content, credentials and command environment. No telemetry or automatic upload.

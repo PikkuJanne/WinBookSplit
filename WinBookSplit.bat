@@ -10,3 +10,5 @@ if "%~1"=="" (
 
 :: Launch PowerShell script with the dropped file path
 PowerShell -NoProfile -ExecutionPolicy Bypass -File "%~dp0WinBookSplit.ps1" "%~1"
+set "WinBookSplitExitCode=%ERRORLEVEL%"
+exit /b %WinBookSplitExitCode%

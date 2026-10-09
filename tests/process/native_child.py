@@ -16,7 +16,7 @@ UNICODE = "Janne ääkköset Größe 日本 中文 한국어"
 def frame(message="authored process failure", mode="manual"):
     return {"protocol": "winbooksplit.result", "version": 1, "mode": mode,
             "status": "invalid_input", "code": "invalid_start_pages", "message": message,
-            "warnings": [], "fallback_modes": [], "exit_code": 1, "written_count": 0,
+            "warnings": [], "fallback_modes": [], "exit_code": 2, "written_count": 0,
             "execution": None}
 
 
@@ -47,7 +47,7 @@ def main():
     kind, *arguments = sys.argv[1:]
     if kind == "flood":
         flood()
-        return 1
+        return 2
     if kind == "fast-tail":
         emit(1, b"\n\nstdout blank\n\nno-newline-output")
         emit(2, b"\n\nFINAL_STDERR_NO_NEWLINE")
@@ -63,16 +63,16 @@ def main():
         return 0
     if kind == "large-frame":
         emit(1, encoded_frame("L" * 100000 + UNICODE))
-        return 1
+        return 2
     if kind == "large-frame-human-tail":
         emit(1, encoded_frame("L" * 100000 + UNICODE) + b"\n\nHuman last no-newline")
-        return 1
+        return 2
     if kind == "oversized-frame":
         emit(1, encoded_frame("L" * 4096))
-        return 1
+        return 2
     if kind == "duplicate-frames":
         emit(1, encoded_frame() + b"\n" + encoded_frame() + b"\n")
-        return 1
+        return 2
     if kind == "no-frame":
         emit(1, b"Human diagnostic only")
         return 1

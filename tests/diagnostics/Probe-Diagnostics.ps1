@@ -64,10 +64,12 @@ $tokens = $null
 $errors = $null
 $ast = [Management.Automation.Language.Parser]::ParseFile($payload.application, [ref]$tokens, [ref]$errors)
 if (@($errors).Count -ne 0) { throw 'Application syntax errors.' }
-$functions = @($ast.FindAll({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
-                            $node.Name -ceq 'Run-PythonSplitter' }, $true))
-if ($functions.Count -ne 1) { throw 'Exactly one trusted execution function is required.' }
-. ([scriptblock]::Create($functions[0].Extent.Text))
+foreach ($functionName in @('New-WinBookSplitFailure', 'Run-PythonSplitter')) {
+    $functions = @($ast.FindAll({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
+                                $node.Name -ceq $functionName }, $true))
+    if ($functions.Count -ne 1) { throw ('Exactly one trusted execution function is required: ' + $functionName) }
+    . ([scriptblock]::Create($functions[0].Extent.Text))
+}
 $enginePath = $payload.flood_engine
 $pythonExe = $payload.python
 $InputFile = 'quote " [space] å & $(literal)\'
@@ -87,7 +89,7 @@ if (($echoed.arguments | ConvertTo-Json -Compress) -cne ($expectedArguments | Co
     throw 'Actual execution function changed arguments or used another Python.'
 }
 $log = [IO.File]::ReadAllText($logFile, [Text.Encoding]::UTF8)
-if ($flood.exit_code -ne 1 -or $flood.code -cne 'invalid_start_pages' -or
+if ($flood.exit_code -ne 2 -or $flood.code -cne 'invalid_start_pages' -or
     $script:lastProcessResult.StdoutTotalBytes -lt 200000 -or $script:lastProcessResult.StderrTotalBytes -ne 200000 -or
     -not $script:lastProcessResult.StdoutTruncated -or -not $script:lastProcessResult.StderrTruncated -or
     [Text.Encoding]::UTF8.GetByteCount($script:lastProcessResult.Stdout) -gt 65536 -or

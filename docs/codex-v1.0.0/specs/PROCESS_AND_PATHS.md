@@ -116,3 +116,34 @@ Preflight retains its exact selection/compatibility/banners and 10-second defaul
 0.05..60 range, but now shares this transport and requires stopped descendants.
 The earlier T04 parent-only lifecycle above is historical. Source parsing still
 runs with the user's privileges; this is process ownership, not a document sandbox.
+
+## M3-T01 outcome checkpoint
+
+Dependency cancellation/timeout now stops discovery immediately with 130 and
+the actual native shutdown proof; another runtime/converter is never substituted
+after interruption. Engine transport failures, validated engine results and
+explicit fallback cancellation use the shipped shared outcome map. The console
+captures each attempt before logging it, preserving the final attempt and primary
+failure even if a log write fails. Final console success is emitted only after
+flush/close; the preceding log `[OPERATION-OUTCOME]` records the processing stage,
+while stdout `[OUTCOME]` is authoritative for finalization. The BAT launcher saves
+and explicitly returns the child status. No process ownership or filesystem
+cleanup policy is broadened; outer interruption still retains marked engine
+staging when it lacks the engine ledger.
+
+The application sets its own console output encoding to UTF-8 before writing
+headers or machine outcomes, including through BAT. A redirected PowerShell 7
+console skips cosmetic screen clearing while retaining the printed header.
+Neither change writes machine-wide settings.
+
+An actual whole-script OS Ctrl+C reproduction showed that the earlier managed
+Console.CancelKeyPress callback could stop the PowerShell script pipeline before
+it emitted an outcome. During supervised processing, a rooted native console
+handler now consumes only Ctrl+C/Break, records the cancellation flag, and leaves
+the owned job shutdown/drains to the ordinary supervisor. Registration/removal
+failures are explicit; the handler remains alive through shutdown and is removed
+afterward. This affects only the calling process during supervision. Windows
+documents the last-registered handler order and TRUE return semantics in
+[SetConsoleCtrlHandler](https://learn.microsoft.com/en-us/windows/console/setconsolectrlhandler).
+Automated signals in hidden private consoles are separate from human keypress,
+menu, Explorer, close-window and power-loss checks.

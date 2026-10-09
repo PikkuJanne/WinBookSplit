@@ -15,7 +15,7 @@ BeforeAll {
 Describe 'M2 bounded owned executable supervision' -Tag 'AC-046', 'AC-047' {
     It 'drains dual two-MiB streams and retains a separate valid final frame' {
         $result = Invoke-Control 'flood'
-        $result.ExitCode | Should-Be -Expected 1
+        $result.ExitCode | Should-Be -Expected 2
         $result.JobAssigned | Should-BeTrue
         $result.ParentStopped | Should-BeTrue
         $result.DescendantsStopped | Should-BeTrue
@@ -40,14 +40,14 @@ Describe 'M2 bounded owned executable supervision' -Tag 'AC-046', 'AC-047' {
         $result.StdoutTruncated | Should-BeTrue
         ($null -eq $result.ResultError) | Should-BeTrue
         @($result.ResultRecords).Count | Should-Be -Expected 1
-        $frame = ConvertFrom-SplitResult -Stdout ($result.ResultRecords -join "`n") -ExitCode 1 -Mode 'manual'
+        $frame = ConvertFrom-SplitResult -Stdout ($result.ResultRecords -join "`n") -ExitCode 2 -Mode 'manual'
         ($frame.message.Length -gt 100000) | Should-BeTrue
     }
     It 'reports a result frame that exceeds its separate bounded budget' {
         $result = Invoke-Control 'oversized-frame' -ResultLimit 1024
         ([string]::IsNullOrEmpty($result.ResultError)) | Should-BeFalse
         $result.StreamsComplete | Should-BeTrue
-        $result.ExitCode | Should-Be -Expected 1
+        $result.ExitCode | Should-Be -Expected 2
     }
     It 'keeps human text after a partial large frame without displaying machine fragments' {
         $result = Invoke-Control 'large-frame-human-tail'
@@ -57,7 +57,7 @@ Describe 'M2 bounded owned executable supervision' -Tag 'AC-046', 'AC-047' {
     }
     It 'rejects duplicate structured frames rather than selecting a final success' {
         $result = Invoke-Control 'duplicate-frames'
-        { ConvertFrom-SplitResult -Stdout ($result.ResultRecords -join "`n") -ExitCode 1 -Mode 'manual' } | Should-Throw
+        { ConvertFrom-SplitResult -Stdout ($result.ResultRecords -join "`n") -ExitCode 2 -Mode 'manual' } | Should-Throw
     }
     It 'rejects absent and malformed frames after complete native failure' {
         foreach ($kind in @('no-frame','malformed-frame')) {

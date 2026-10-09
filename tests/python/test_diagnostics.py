@@ -86,13 +86,13 @@ class DiagnosticTests(unittest.TestCase):
 
     def test_ac030_valid_flat_zero_page_and_unreadable_inputs_have_distinct_categories(self):
         flat = self.rejected_run("flat-result", self.flat, "1")
-        self.assert_failure_shape(flat, "no_plan", "no_bookmarks", 55, ("manual",))
+        self.assert_failure_shape(flat, "no_plan", "no_bookmarks", 5, ("manual",))
         zero = self.rejected_run("zero-result", self.zero, "1")
-        self.assert_failure_shape(zero, "invalid_input", "invalid_document", 1, ())
+        self.assert_failure_shape(zero, "invalid_input", "invalid_document", 6, ())
         for name, source in (("empty", self.empty), ("corrupt", self.corrupt), ("truncated", self.truncated)):
             with self.subTest(input=name):
                 result = self.rejected_run(name + "-result", source, "1")
-                self.assert_failure_shape(result, "read_error", "unreadable_document", 1, ())
+                self.assert_failure_shape(result, "read_error", "unreadable_document", 6, ())
 
     def test_ac031_fallback_modes_depend_on_the_requested_level_and_usable_parents(self):
         cases = [("flat-level2", self.flat, "2", "no_bookmarks", ("manual",)),
@@ -102,7 +102,7 @@ class DiagnosticTests(unittest.TestCase):
         for name, source, mode, code, fallbacks in cases:
             with self.subTest(case=name):
                 result = self.rejected_run(name, source, mode)
-                self.assert_failure_shape(result, "no_plan", code, 55, fallbacks)
+                self.assert_failure_shape(result, "no_plan", code, 5, fallbacks)
                 self.assertEqual(result["mode"], mode)
                 if code == "no_bookmarks_at_level":
                     self.assertIn("Level 2", result["message"])
@@ -111,19 +111,19 @@ class DiagnosticTests(unittest.TestCase):
 
     def test_invalid_manual_input_or_mode_offers_no_fallback_and_does_not_probe_for_invalid_mode(self):
         manual = self.rejected_run("bad-manual", self.flat, "manual", "1,abc,7")
-        self.assert_failure_shape(manual, "invalid_input", "invalid_start_pages", 1, ())
+        self.assert_failure_shape(manual, "invalid_input", "invalid_start_pages", 2, ())
         for mode in ("unsupported", None, []):
             with self.subTest(mode=mode):
                 with patch.object(engine, "PdfReader") as probe, patch.object(engine, "write_slice") as writer:
                     result = engine.run_split("unused-synthetic-source.pdf", "unused-synthetic-output", mode)
-                self.assert_failure_shape(result, "invalid_input", "invalid_mode", 1, ())
+                self.assert_failure_shape(result, "invalid_input", "invalid_mode", 2, ())
                 probe.assert_not_called()
                 writer.assert_not_called()
 
-    def test_missing_file_is_read_error_without_a_manual_or_level1_offer(self):
+    def test_missing_file_is_path_validation_error_without_a_manual_or_level1_offer(self):
         missing = self.work / "never-created-source.pdf"
         result = self.rejected_run("missing-file-result", missing, "1")
-        self.assert_failure_shape(result, "read_error", "unreadable_document", 1, ())
+        self.assert_failure_shape(result, "invalid_input", "input_invalid", 2, ())
         self.assertFalse(missing.exists())
 
     def test_malformed_outline_has_diagnostics_and_no_fallback_before_writer(self):
@@ -140,7 +140,7 @@ class DiagnosticTests(unittest.TestCase):
 
         with patch.object(engine, "PdfReader", return_value=Reader()), patch.object(engine, "write_slice") as writer:
             result = engine.run_split("unused-synthetic-source.pdf", "unused-synthetic-output", "1")
-        self.assert_failure_shape(result, "invalid_input", "invalid_outline", 1, ())
+        self.assert_failure_shape(result, "invalid_input", "invalid_outline", 6, ())
         self.assertTrue(result["warnings"])
         writer.assert_not_called()
 
@@ -153,7 +153,7 @@ class DiagnosticTests(unittest.TestCase):
         output.mkdir()
         with patch.object(engine, "plan_level1", return_value=malformed), patch.object(engine, "write_slice") as writer:
             result = engine.run_split(str(self.inputs["simple10"]), str(output), "1")
-        self.assert_failure_shape(result, "error", "invalid_plan", 1, ())
+        self.assert_failure_shape(result, "error", "invalid_plan", 6, ())
         writer.assert_not_called()
         self.assertEqual(list(output.iterdir()), [])
 
@@ -163,7 +163,7 @@ class DiagnosticTests(unittest.TestCase):
         before = self.inputs["simple10"].read_bytes()
         with patch.object(engine, "write_slice", side_effect=OSError("Synthetic first slice write failed")) as writer:
             result = engine.run_split(str(self.inputs["simple10"]), str(output), "manual", "1")
-        self.assert_failure_shape(result, "write_error", "output_write_failed", 1, ())
+        self.assert_failure_shape(result, "write_error", "output_write_failed", 6, ())
         self.assertEqual(writer.call_count, 1)
         self.assertIn("Synthetic first slice write failed", result["message"])
         diagnostic = result["diagnostic"]
@@ -180,7 +180,7 @@ class DiagnosticTests(unittest.TestCase):
         with patch.object(engine, "execute_split", return_value={"written_count": 0, "outputs": ()}), \
                 patch.object(engine, "write_slice") as writer:
             result = engine.run_split(str(self.inputs["simple10"]), str(output), "manual", "1")
-        self.assert_failure_shape(result, "error", "invalid_execution", 1, ())
+        self.assert_failure_shape(result, "error", "invalid_execution", 6, ())
         writer.assert_not_called()
         self.assertEqual(list(output.iterdir()), [])
         self.assertEqual(self.inputs["simple10"].read_bytes(), before)
@@ -231,7 +231,7 @@ class DiagnosticTests(unittest.TestCase):
         with patch.object(engine, "write_slice") as writer, patch.object(engine, "log") as log:
             with self.assertRaises(SystemExit) as raised:
                 engine.split_pdf(str(self.inputs["simple10"]), str(output), "2")
-        self.assertEqual(raised.exception.code, 55)
+        self.assertEqual(raised.exception.code, 5)
         writer.assert_not_called()
         messages = [str(call.args[0]) for call in log.call_args_list]
         self.assertTrue(all("[NO_BOOKMARKS_FOUND]" not in message for message in messages))

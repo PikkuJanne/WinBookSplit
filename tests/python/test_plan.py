@@ -160,7 +160,7 @@ class PreparedPlanTests(unittest.TestCase):
                             patch.object(engine, "write_slice") as writer, patch.object(engine, "log") as log:
                         with self.assertRaises(SystemExit) as raised:
                             engine.split_pdf(str(source), str(output), mode, "4,7")
-                    self.assertEqual(raised.exception.code, 1)
+                    self.assertEqual(raised.exception.code, 6)
                     self.assertIn("invalid_plan", " ".join(str(call.args[0]) for call in log.call_args_list))
                     writer.assert_not_called()
                     self.assertEqual({path.name for path in output.iterdir()}, {neighbor.name})

@@ -99,6 +99,9 @@ param (
     [ValidateRange(1, 172800)][int]$ProcessTimeout = [Math]::Max(3600, $ConversionTimeout + 1800)
 )
 
+# Machine outcomes and path diagnostics use UTF-8 through every launcher.
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+
 # --- Configuration ---
 $AppName = "WinBookSplit"
 $ver = "2.1 (AZW3 Support)"
@@ -106,7 +109,7 @@ $documentsPath = [Environment]::GetFolderPath("MyDocuments")
 
 # --- UI Functions ---
 function Draw-Header {
-    Clear-Host
+    if (-not [Console]::IsOutputRedirected) { Clear-Host }
     Write-Host "==========================================" -ForegroundColor Cyan
     Write-Host "      $AppName v$ver" -ForegroundColor Yellow
     Write-Host "==========================================" -ForegroundColor Cyan
@@ -118,6 +121,36 @@ function Draw-Header {
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Runtime.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Process.ps1')
 
+function New-WinBookSplitFailure {
+    param([string]$Code, [string]$Message)
+    $failure = New-Object InvalidOperationException($Message)
+    $failure.Data['Code'] = $Code
+    return $failure
+}
+
+function New-WinBookSplitOutcome {
+    param([string]$Status, [string]$Code, [string]$Message, [string]$Mode = '', $EngineResult = $null)
+    $count = 0
+    $finalDirectory = $null
+    if ($null -ne $EngineResult -and $null -ne $EngineResult.execution) {
+        $finalDirectory = $EngineResult.execution.final_directory
+        if ($Status -ceq 'success') { $count = $EngineResult.written_count }
+    }
+    $exitCode = Get-SplitExitCode -Code $Code
+    if ($null -ne $EngineResult -and $EngineResult.code -ceq $Code) { $exitCode = $EngineResult.exit_code }
+    return [pscustomobject][ordered]@{ protocol = 'winbooksplit.outcome'; version = 1;
+        status = $Status; code = $Code; message = $Message; exit_code = $exitCode;
+        mode = $Mode; written_count = $count; final_directory = $finalDirectory; engine_result = $EngineResult }
+}
+
+function Complete-WinBookSplitConsoleLog {
+    param([Parameter(Mandatory = $true)]$Outcome)
+    $script:consoleLogWriter.WriteLine('[OPERATION-OUTCOME] ' + ($Outcome | ConvertTo-Json -Depth 100 -Compress))
+    $script:consoleLogWriter.Flush()
+    $script:consoleLogWriter.Dispose()
+    $script:consoleLogWriter = $null
+}
+
 # --- Validation ---
 Draw-Header
 try {
@@ -128,9 +161,11 @@ try {
     $outputDir = Resolve-WinBookSplitOutputBase -Path $requestedBase
 }
 catch {
-    Write-Host ("[!] Error: " + $_.Exception.Message) -ForegroundColor Red
+    $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'invalid_arguments' -Message $_.Exception.Message
+    Write-Host ("[!] Error: " + $outcome.message) -ForegroundColor Red
+    Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
     Read-Host "Press Enter to exit"
-    exit 1
+    exit $outcome.exit_code
 }
 
 $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
@@ -147,16 +182,23 @@ try {
         $converter = Resolve-WinBookSplitConverter -ApplicationRoot $PSScriptRoot -CalibrePath $CalibrePath -DocumentPath $InputFile
         $converterExe = $converter.Path
     }
-    elseif ($KeepConvertedPdf) { throw 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.' }
+    elseif ($KeepConvertedPdf) { throw (New-WinBookSplitFailure 'invalid_arguments' 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.') }
 }
 catch {
     $preflightFailure = $_.Exception
     Write-Host ('[!] Dependency preflight failed: ' + $preflightFailure.Message) -ForegroundColor Red
     if ($preflightFailure.Data.Contains('Code')) {
-        Write-Host ('[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code']; Attempts = @($preflightFailure.Data['Attempts']) } | ConvertTo-Json -Depth 12 -Compress))
+        Write-Host ('[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code']; Attempts = @($preflightFailure.Data['Attempts']); Probe = $preflightFailure.Data['Probe'] } | ConvertTo-Json -Depth 12 -Compress))
     }
-    Read-Host 'Press Enter to exit'
-    exit 1
+    $failureCode = 'runtime_invalid'
+    if ($preflightFailure.Data.Contains('Code')) { $failureCode = [string]$preflightFailure.Data['Code'] }
+    $failureStatus = 'failed'
+    if ($failureCode -eq 'processor_cancelled') { $failureStatus = 'cancelled' }
+    elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
+    $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $preflightFailure.Message
+    Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
+    if ($outcome.exit_code -ne 130) { Read-Host 'Press Enter to exit' }
+    exit $outcome.exit_code
 }
 
 # Book metadata always describes the original source.
@@ -195,8 +237,10 @@ catch {
     }
     Write-Host ('[!] Error: Cannot prepare console records: ' + $setupMessage) -ForegroundColor Red
     if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + $consoleDir) -ForegroundColor Gray }
+    $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'console_setup_failed' -Message $setupMessage
+    Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
     Read-Host 'Press Enter to exit'
-    exit 1
+    exit $outcome.exit_code
 }
 
 # --- The Python Engine ---
@@ -204,6 +248,8 @@ $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
 
 # --- Execution Function ---
 function Run-PythonSplitter ($mode, $manualData) {
+    $script:lastEngineResult = $null
+    $script:consoleRecordError = $null
     # -I ignores PYTHON* environment settings. -X utf8 explicitly applies to
     # isolated Python as well as the UTF-8 environment inherited by Calibre.
     $engineArguments = @('-I', '-B', '-X', 'utf8', $enginePath, $InputFile, $outputDir, $mode, $manualData)
@@ -215,6 +261,41 @@ function Run-PythonSplitter ($mode, $manualData) {
     $script:lastProcessResult = Invoke-WinBookSplitProcess -Path $pythonExe -Arguments $engineArguments `
         -WorkingDirectory ([IO.Path]::GetDirectoryName($enginePath)) -TimeoutSeconds $ProcessTimeout
     $transport = $script:lastProcessResult
+    # Classify this attempt before logging. A secondary log error cannot hide
+    # its cancellation/failure or the location of completed engine output.
+    $attemptFailure = $null
+    $shutdownMessage = 'Its owned process tree was proved stopped; any incomplete output is retained.'
+    if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or $transport.StopError) {
+        $shutdownMessage = 'Shutdown could not be proved complete; any incomplete output is retained. ' + $transport.StopError
+    }
+    if ($transport.Cancelled) { $attemptFailure = New-WinBookSplitFailure 'processor_cancelled' ('Engine processing was cancelled. ' + $shutdownMessage) }
+    elseif ($transport.TimedOut) { $attemptFailure = New-WinBookSplitFailure 'processor_timeout' ('Engine processing exceeded ProcessTimeout (' + $ProcessTimeout + ' seconds), including pipe EOF. ' + $shutdownMessage) }
+    else {
+        foreach ($name in @('StartError', 'StopError', 'StreamError', 'ResultError')) {
+            if ($transport.$name) {
+                $failureCode = 'processor_protocol_failed'
+                if ($name -eq 'StartError') { $failureCode = 'processor_start_failed' }
+                $attemptFailure = New-WinBookSplitFailure $failureCode ($name + ': ' + $transport.$name)
+                break
+            }
+        }
+        if ($null -eq $attemptFailure -and (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or
+            -not $transport.StreamsComplete -or $null -eq $transport.ExitCode)) {
+            $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' 'The engine process tree and streams did not complete safely.'
+        }
+    }
+    if (-not $transport.Cancelled -and -not $transport.TimedOut -and
+        $transport.ParentStopped -and $transport.DescendantsStopped -and $transport.StreamsComplete -and
+        $null -ne $transport.ExitCode -and -not $transport.StartError -and
+        -not $transport.StreamError -and -not $transport.ResultError) {
+        # A handle/handler close error can follow a fully validated publication.
+        # Keep its location while preserving the primary transport failure.
+        try { $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode }
+        catch {
+            if ($null -eq $attemptFailure) { $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' $_.Exception.Message }
+        }
+    }
+    try {
     $summary = [ordered]@{}
     foreach ($name in @('Pid', 'ExitCode', 'TimedOut', 'Cancelled', 'ParentStopped', 'DescendantsStopped',
         'StreamsComplete', 'JobAssigned', 'StartError', 'StopError', 'StreamError', 'ResultError',
@@ -249,21 +330,24 @@ function Run-PythonSplitter ($mode, $manualData) {
     foreach ($record in $transport.ResultRecords) {
         if (-not $transport.Stdout.Contains($record)) { $script:consoleLogWriter.WriteLine($record) }
     }
-    $shutdownMessage = 'Its owned process tree was proved stopped; any incomplete output is retained.'
-    if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or $transport.StopError) {
-        $shutdownMessage = 'Shutdown could not be proved complete; any incomplete output is retained. ' + $transport.StopError
     }
-    if ($transport.Cancelled) { throw ('Engine processing was cancelled. ' + $shutdownMessage) }
-    if ($transport.TimedOut) { throw ('Engine processing exceeded ProcessTimeout (' + $ProcessTimeout + ' seconds), including pipe EOF. ' + $shutdownMessage) }
-    foreach ($name in @('StartError', 'StopError', 'StreamError', 'ResultError')) {
-        if ($transport.$name) { throw ($name + ': ' + $transport.$name) }
+    catch {
+        $script:consoleRecordError = 'Cannot record engine diagnostics: ' + $_.Exception.Message
+        if ($null -eq $attemptFailure -and ($null -eq $script:lastEngineResult -or $script:lastEngineResult.exit_code -eq 0)) {
+            $attemptFailure = New-WinBookSplitFailure 'console_finalize_failed' $script:consoleRecordError
+        }
     }
-    if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or
-        -not $transport.StreamsComplete -or $null -eq $transport.ExitCode) { throw 'The engine process tree and streams did not complete safely.' }
-    return ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode
+    if ($null -ne $attemptFailure) { throw $attemptFailure }
+    return $script:lastEngineResult
 }
 
 # --- Main Logic Flow ---
+$result = $null
+$outcome = $null
+$script:lastEngineResult = $null
+$script:consoleRecordError = $null
+$mode = ''
+try {
 
 # 1. Initial TUI, shows original book metadata
 $script:consoleLogWriter.WriteLine('[DEPENDENCY] ' + (@{ Runtime = $runtime; Converter = $converter } | ConvertTo-Json -Depth 12 -Compress))
@@ -310,7 +394,6 @@ Write-Host "Running Processor..." -ForegroundColor Yellow
 Write-Host "Log: $logFile" -ForegroundColor Gray
 Write-Host ""
 
-try {
     $result = Run-PythonSplitter -mode $mode -manualData $manualInput
     while ($result.status -ceq 'no_plan') {
         $decision = Get-SplitDecision -Result $result
@@ -323,7 +406,10 @@ try {
             $script:consoleLogWriter.WriteLine("[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)")
             if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
         } while ($decision.decision -in @('pending', 'invalid'))
-        if ($decision.decision -eq 'cancel') { break }
+        if ($decision.decision -eq 'cancel') {
+            $outcome = New-WinBookSplitOutcome -Status 'cancelled' -Code 'cancelled' -Message 'Splitting was cancelled before a fallback attempt.' -Mode $mode -EngineResult $result
+            break
+        }
         $mode = $decision.retry_mode
         $manualInput = ''
         if ($mode -eq 'manual') {
@@ -331,21 +417,59 @@ try {
         }
         $result = Run-PythonSplitter -mode $mode -manualData $manualInput
     }
-    $exitCode = $result.exit_code
-    if ($result.status -ceq 'success') {
-        foreach ($warning in $result.warnings) {
-            if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + $warning.message) -ForegroundColor Yellow }
-        }
-        Write-Host ('Output: ' + $result.execution.final_directory) -ForegroundColor Cyan
-        Write-Host 'Done.' -ForegroundColor Cyan
+    if ($null -eq $outcome) {
+        $outcome = New-WinBookSplitOutcome -Status $result.status -Code $result.code -Message (Get-SplitDecision -Result $result).message -Mode $mode -EngineResult $result
     }
-    else { Write-Host (Get-SplitDecision -Result $result).message -ForegroundColor Red }
 }
 catch {
     Write-Host "[!] Processor failure: $($_.Exception.Message)" -ForegroundColor Red
-    $exitCode = 1
+    $failure = $_.Exception
+    $failureCode = 'processor_protocol_failed'
+    if ($failure.Data.Contains('Code')) { $failureCode = [string]$failure.Data['Code'] }
+    $failureStatus = 'failed'
+    if ($failureCode -eq 'processor_cancelled') { $failureStatus = 'cancelled' }
+    elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
+    elseif ($null -ne $script:lastEngineResult -and $script:lastEngineResult.status -ceq 'success') {
+        $failureStatus = 'incomplete'
+        if (-not $failure.Data.Contains('Code')) { $failureCode = 'console_finalize_failed' }
+    }
+    $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $failure.Message -Mode $mode -EngineResult $script:lastEngineResult
 }
-finally { $script:consoleLogWriter.Dispose() }
+if ($script:consoleRecordError -and -not $outcome.message.Contains($script:consoleRecordError)) { $outcome.message += '; ' + $script:consoleRecordError }
+try { Complete-WinBookSplitConsoleLog -Outcome $outcome }
+catch {
+    $finalizeMessage = 'Cannot finalize the console log: ' + $_.Exception.Message
+    $finalizeStatus = 'failed'
+    if ($outcome.status -ceq 'success') { $finalizeStatus = 'incomplete' }
+    if ($outcome.exit_code -ne 0) {
+        # A secondary log failure must not replace a primary failure or cancellation.
+        $outcome.message += '; ' + $finalizeMessage
+    }
+    else {
+        $outcome = New-WinBookSplitOutcome -Status $finalizeStatus -Code 'console_finalize_failed' -Message ($outcome.message + '; ' + $finalizeMessage) -Mode $mode -EngineResult $outcome.engine_result
+    }
+    if ($null -ne $script:consoleLogWriter) {
+        try { $script:consoleLogWriter.Dispose() }
+        catch { $outcome.message += '; Cannot close the console log: ' + $_.Exception.Message }
+        $script:consoleLogWriter = $null
+    }
+}
+Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
+if ($outcome.status -ceq 'success') {
+    foreach ($warning in $result.warnings) {
+        if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + $warning.message) -ForegroundColor Yellow }
+    }
+    Write-Host ('Output: ' + $outcome.final_directory) -ForegroundColor Cyan
+    Write-Host 'Done.' -ForegroundColor Cyan
+}
+else {
+    Write-Host $outcome.message -ForegroundColor Red
+    if ($null -ne $outcome.final_directory) { Write-Host ('Completed engine output retained: ' + $outcome.final_directory) -ForegroundColor Yellow }
+}
+$exitCode = $outcome.exit_code
 Write-Host ""
-Pause
+if ($exitCode -ne 130) {
+    try { Pause }
+    catch { Write-Host ('Cannot pause the console: ' + $_.Exception.Message) -ForegroundColor Yellow }
+}
 exit $exitCode

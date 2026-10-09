@@ -69,3 +69,14 @@ preview must receive its own safe lifetime until input ends. See T03 evidence fo
 actual Calibre 9.15.0/tablet acceptance with three EPUB/four AZW3 physical pages.
 No GUI/Explorer/network sandbox, DRM removal, broad compatibility or rendered-fidelity
 claim follows.
+
+## M3-T01 finalization outcomes
+
+Known owned output still cleans on ordinary engine failure/cancellation. Unsafe
+cleanup retains the original cause, explicit diagnostic and marked stage. Converter
+cleanup failure after cancellation/timeout retains 130 and its primary reason.
+Completion-manifest or publication failure is exit 6 with no completed folder.
+After the publication commit point, a handle or console-log finalization failure
+reports `incomplete`/6 and retains the validated completed directory and execution
+evidence; it never announces Done or removes already-published chapters. Console
+finalization cannot replace an earlier nonzero processing/cancellation outcome.
