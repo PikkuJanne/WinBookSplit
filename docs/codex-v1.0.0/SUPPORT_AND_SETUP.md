@@ -1,11 +1,12 @@
 # Frozen support and dependency plan
 
 Decision date: 8 October 2026 (Europe/Berlin), M0-T03, AC-007/AC-008.
-This is the v1.0.0 implementation/test target. The original application still
-contains the reproduced defects; installing these dependencies does not fix it.
-The historical README remains unchanged until the documentation task. M1-T01
-updates the PowerShell setup header to mention the shipped engine directory.
-Release support requires the later Windows, conversion and exact-ZIP gates.
+This is the v1.0.0 implementation/test target. At M0 the original application
+still contained the reproduced defects; dependency installation alone was no fix.
+M1-T01 updated the PowerShell header for the shipped engine. M2-T04 now updates
+README setup/runtime guidance and implements preflight as recorded below; full
+documentation and release support still require the later Windows and exact-ZIP
+gates. Historical matrix observations are preserved explicitly.
 
 M0-T04 subsequently verified the exact isolated Pester/PSScriptAnalyzer pins
 under both actual hosts through the local scaffold; see
@@ -116,11 +117,15 @@ setup. A reviewed wheelhouse can be prepared with the same requirements and
 `--no-index --find-links <absolute-wheelhouse>` in place of `--index-url`.
 Normal document processing must remain offline and never auto-install.
 
-M2-T04 will implement explicit `-PythonPath`, application-local `.venv`, and
-validated launcher/PATH discovery in that order. The current launcher has no
-`-PythonPath` option and does not automatically select this venv. These setup
-commands prepare dependencies; they are not a claim that original launcher
-discovery or splitting is ready.
+M2-T04 implements explicit `-PythonPath`, application-local `.venv`, validated
+read-only `py.exe -0p` listing, then trusted PATH discovery. The chosen interpreter
+must pass exact regular Windows x64 CPython 3.14.8/pypdf 6.19.0 isolated import
+checks before console/conversion/output creation, and executes the engine with
+`-I -B`. Invalid explicit or existing broken .venv selections fail without
+substitution. Book/current-directory modules and automatic executable decoys are
+excluded. Printed/logged selected paths and versions identify the setup target.
+See `evidence/M2-T04-runtime.md/json` for actual host acceptance and limits.
+Setup commands remain explicit user actions; normal processing never installs.
 
 For development, create a separate fresh `.venv-dev` with the same interpreter,
 then use its absolute `Scripts\python.exe` with the same pip flags and
@@ -139,8 +144,13 @@ setup plan, not permission to change global module locations.
 
 Calibre 9.15.0 must be obtained separately from its official Windows/portable
 distribution and `ebook-convert.exe --version` checked at a trusted absolute
-path. M2-T04 will support a trusted nonstandard converter path and resolve it
-only for ebooks. It must not find an executable next to an untrusted input.
+path. M2-T04 supports trusted nonstandard `-CalibrePath`, then safe PATH and known
+locations, and resolves/version-checks it only for ebooks. Real portable conversion
+passes under both actual hosts and unchanged BAT. PDF skips Calibre entirely.
+Automatic discovery excludes book/unrelated-CWD descendants, empty/relative PATH,
+reparse/short aliases and hard-linked executables. An explicit trusted path may
+have hard links but must remain an ordinary long path. These compatibility checks
+are not authentication or a document sandbox; no wider support matrix is implied.
 No Calibre installer, converter or library is shipped with WinBookSplit.
 
 ## Pin selection and maintenance
