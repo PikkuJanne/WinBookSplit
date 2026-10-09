@@ -121,6 +121,9 @@ try {
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Outcome.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Launcher.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
+        }
     }
     $config.Run.Container = $containers
     $config.Run.PassThru = $true

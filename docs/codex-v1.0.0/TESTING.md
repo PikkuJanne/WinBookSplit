@@ -278,6 +278,27 @@ units and focused Pester checks do not certify native application acceptance.
 Current-build human checks are recorded separately in M3-T01-human.md/json;
 these tests do not certify future package bytes, PDF rendered fidelity or CI.
 
+## Current M3-T03 launcher acceptance
+
+`--layer launcher` adds 70 redirected-input native controls under actual PS5.1,
+PS7 and BAT; full includes it as stage sixteen. See `tests/launcher/README.md`
+for exact source-copy controls and scope. It proves literal paths, no-input
+selection/cancel130, multi-input rejection2 including quoted-empty argument 2,
+exact menu/fallback reprompts and closed-input cancellation. Structured outcomes,
+real Calibre ebook conversion, complete physical page contents/manifests,
+source/neighbor/prior preservation, policy equality and known owned cleanup are
+required. Successful native BAT copies declare only PowerShell parameter-default
+changes; multi-input controls declare a PowerShell launch sentinel. They do not
+prove Explorer interaction. Focused Pester decision helpers and strict receipt
+mutation units are narrower tests.
+
+AC-057/058/059 also require actual Explorer drag/drop and double-click procedures
+on byte-identical committed application files and authored books. Record
+assistant-operated UI checks separately from historical human M3-T01 receipts and
+native stdin controls. Native exit observers must attach real process handles
+before completion; an unobserved exit remains unknown. No new human result,
+clean-OS/package, CI or rendered-fidelity claim follows from these tests.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.

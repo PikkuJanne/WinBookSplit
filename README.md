@@ -41,15 +41,23 @@ Place these together (e.g. C:\Tools\WinBookSplit\):
 **Usage**
 
 **Recommended: Drag-and-Drop**
-1. Drag a file (PDF, AZW3, or EPUB) onto the WinBookSplit.bat icon.
+1. Drag one file (PDF, AZW3, or EPUB) onto the WinBookSplit.bat icon. Multiple files are rejected.
 2. For AZW3/EPUB, Calibre generates and validates a PDF in an owned temporary workspace after you choose a split mode.
 3. A window will open showing the book details and asking for a Mode:
    - Type 1 for Level 1 (Main Chapters).
    - Type 2 for Level 2 (Sub-chapters/sections).
    - Type M for Manual Mode (if you already know your page cuts).
+   - Type C to cancel before processing.
 4. Press Enter.
-5. If Auto-Split fails due to no bookmarks, type Y to switch to manual mode and enter your page numbers (e.g., 15, 34, 72).
+5. If the selected bookmark plan is unavailable, choose an offered fallback: M for manual, 1 for Level 1 when offered, or C to cancel. Y/N remain exact manual/cancel compatibility answers. Invalid menu or fallback answers reprompt.
 6. Find your organized chapter folder in your Documents folder.
+
+You can also double-click WinBookSplit.bat and enter the literal path to one
+supported book. A pasted path may have paired outer double quotes. Blank input
+or C cancels with exit 130 before dependency discovery or file writes. Paths are
+not expanded as commands, variables or wildcards. NonInteractive and Preview
+still require InputFile and never open this prompt. The batch launcher uses the
+script beside itself, including when launched from another working directory.
 
 **Command line**
 Run from a PowerShell prompt:
