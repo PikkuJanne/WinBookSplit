@@ -136,7 +136,11 @@ def complete_diagnostic_report(hosts):
                        "protocol_cases": [{"id": name, "passed": True, "rejected": True} for name in sorted(runner.DIAGNOSTIC_PROTOCOL_IDS)],
                        "native_argument_probe": {"passed": True, "exit_code": 0, "actual_arguments": runner.DIAGNOSTIC_NATIVE_ARGUMENTS},
                        "stream_probe": {"passed": True, "exit_code": 1, "stdout_length": 200000, "stderr_length": 200000,
-                                        "actual_run_function": True, "arguments_preserved": True},
+                                        "actual_run_function": True, "arguments_preserved": True,
+                                        "actual_stdout_bytes": 201000, "actual_stderr_bytes": 200000,
+                                        "streams_complete": True, "stdout_truncated": True, "stderr_truncated": True,
+                                        "retained_stdout_bytes": 65536, "retained_stderr_bytes": 65536,
+                                        "log_size_bytes": 132500},
                        "no_automatic_execution": True, "owned_neighbor_unchanged": True})
     return {"schema_version": 1, "task_id": "M1-T06", "result": "DIAGNOSTIC_REGRESSION_PASSED", "success": True, "exit_code": 0,
             "acceptance_ids": ["AC-030", "AC-031"], "engine_case_count": 23, "engine_cases": cases, "shell_cases": shells,
@@ -939,10 +943,13 @@ class RunnerTests(unittest.TestCase):
         runtime = [command for command in commands if str(ROOT / "tests/runtime/characterize_runtime.py") in command]
         self.assertEqual(len(runtime), 1)
         self.assertEqual(runtime[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime"])
-        self.assertEqual([step["name"] for step in report["steps"][-9:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression"])
-        self.assertEqual(len(report["steps"]), 12)
+        process = [command for command in commands if str(ROOT / "tests/process/characterize_process.py") in command]
+        self.assertEqual(len(process), 1)
+        self.assertEqual(process[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process"])
+        self.assertEqual([step["name"] for step in report["steps"][-10:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression"])
+        self.assertEqual(len(report["steps"]), 13)
         self.assertTrue(report["success"])
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
@@ -995,6 +1002,11 @@ class RunnerTests(unittest.TestCase):
             changed("accepted invalid protocol", lambda report: report["shell_cases"][0]["protocol_cases"][0].update(rejected=False))
             changed("changed literal argv", lambda report: report["shell_cases"][0]["native_argument_probe"].update(actual_arguments=["wrong"]))
             changed("lost stderr", lambda report: report["shell_cases"][0]["stream_probe"].update(stderr_length=0))
+            changed("unbounded stdout tail", lambda report: report["shell_cases"][0]["stream_probe"].update(retained_stdout_bytes=200000))
+            changed("unbounded flood log", lambda report: report["shell_cases"][0]["stream_probe"].update(log_size_bytes=400000))
+            changed("lost stderr byte totals", lambda report: report["shell_cases"][0]["stream_probe"].update(actual_stderr_bytes=65536))
+            changed("omitted truncation", lambda report: report["shell_cases"][0]["stream_probe"].update(stderr_truncated=False))
+            changed("unproved EOF", lambda report: report["shell_cases"][0]["stream_probe"].update(streams_complete=False))
             changed("synthetic stream replacement", lambda report: report["shell_cases"][0]["stream_probe"].update(actual_run_function=False))
             for description, payload in defects:
                 with self.subTest(defect=description):

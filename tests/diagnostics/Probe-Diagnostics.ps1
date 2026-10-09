@@ -6,6 +6,7 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 $payload = [IO.File]::ReadAllText($PayloadPath, [Text.Encoding]::UTF8) | ConvertFrom-Json
 . $payload.helper
+. (Join-Path ([IO.Path]::GetDirectoryName($payload.application)) 'engine\WinBookSplit.Process.ps1')
 $neighborBefore = [IO.File]::ReadAllBytes($payload.neighbor)
 $categories = @()
 foreach ($case in $payload.cases) {
@@ -73,6 +74,7 @@ $InputFile = 'quote " [space] å & $(literal)\'
 $outputDir = $payload.output + '\'
 $logFile = $payload.log
 $manualData = '1,4,7 "literal" %value%!data!'
+$ProcessTimeout = 30
 $stream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
 $script:consoleLogWriter = New-Object IO.StreamWriter($stream, (New-Object Text.UTF8Encoding($false)))
 $script:consoleLogWriter.AutoFlush = $true
@@ -86,8 +88,12 @@ if (($echoed.arguments | ConvertTo-Json -Compress) -cne ($expectedArguments | Co
 }
 $log = [IO.File]::ReadAllText($logFile, [Text.Encoding]::UTF8)
 if ($flood.exit_code -ne 1 -or $flood.code -cne 'invalid_start_pages' -or
-    -not $log.Contains(('o' * 200000)) -or -not $log.Contains(('e' * 200000))) {
-    throw 'Actual execution function did not preserve both large process streams/final result.'
+    $script:lastProcessResult.StdoutTotalBytes -lt 200000 -or $script:lastProcessResult.StderrTotalBytes -ne 200000 -or
+    -not $script:lastProcessResult.StdoutTruncated -or -not $script:lastProcessResult.StderrTruncated -or
+    [Text.Encoding]::UTF8.GetByteCount($script:lastProcessResult.Stdout) -gt 65536 -or
+    [Text.Encoding]::UTF8.GetByteCount($script:lastProcessResult.Stderr) -gt 65536 -or
+    [IO.FileInfo]::new($logFile).Length -ge 150000 -or -not $log.Contains('[TRUNCATED]')) {
+    throw 'Actual execution function did not drain both streams with bounded diagnostics/final result.'
 }
 $neighborAfter = [IO.File]::ReadAllBytes($payload.neighbor)
 if ([Convert]::ToBase64String($neighborBefore) -cne [Convert]::ToBase64String($neighborAfter) -or
@@ -97,7 +103,12 @@ $report = [ordered]@{
     host_version = $PSVersionTable.PSVersion.ToString(); category_cases = $categories; protocol_cases = $protocol
     native_argument_probe = [ordered]@{ passed = $true; exit_code = $echo.exit_code; actual_arguments = [string[]]$actualArguments }
     stream_probe = [ordered]@{ passed = $true; exit_code = $flood.exit_code; stdout_length = 200000; stderr_length = 200000
-        actual_run_function = $true; arguments_preserved = $true; python_executable = $echoed.python_executable }
+        actual_run_function = $true; arguments_preserved = $true; python_executable = $echoed.python_executable
+        actual_stdout_bytes = $script:lastProcessResult.StdoutTotalBytes; actual_stderr_bytes = $script:lastProcessResult.StderrTotalBytes
+        retained_stdout_bytes = [Text.Encoding]::UTF8.GetByteCount($script:lastProcessResult.Stdout)
+        retained_stderr_bytes = [Text.Encoding]::UTF8.GetByteCount($script:lastProcessResult.Stderr)
+        stdout_truncated = [bool]$script:lastProcessResult.StdoutTruncated; stderr_truncated = [bool]$script:lastProcessResult.StderrTruncated
+        log_size_bytes = [IO.FileInfo]::new($logFile).Length; streams_complete = [bool]$script:lastProcessResult.StreamsComplete }
     no_automatic_execution = $true; owned_neighbor_unchanged = $true
 }
 if (Test-Path -LiteralPath $ReportPath) { throw 'Report already exists.' }

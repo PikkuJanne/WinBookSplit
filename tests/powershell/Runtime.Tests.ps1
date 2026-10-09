@@ -8,8 +8,8 @@ BeforeAll {
     function New-CompleteProbe {
         param([string]$Stdout)
         return [pscustomobject]@{ Stdout=$Stdout; Stderr=''; ExitCode=0; TimedOut=$false;
-            ParentStopped=$true; DescendantsStopped=$null; StreamsComplete=$true;
-            StartError=$null; StreamError=$null; StdoutTruncated=$false; StderrTruncated=$false }
+            ParentStopped=$true; DescendantsStopped=$true; StreamsComplete=$true; JobAssigned=$true; Cancelled=$false;
+            StartError=$null; StopError=$null; StreamError=$null; StdoutTruncated=$false; StderrTruncated=$false }
     }
 }
 
@@ -148,12 +148,14 @@ for thread in threads: thread.join()
         $probe.Stdout.Length | Should-Be -Expected 65536
         $probe.Stderr.Length | Should-Be -Expected 65536
     }
-    It 'bounds parent timeout and reports no descendant-stop proof' {
+    It 'bounds owned-tree timeout and records stopped descendants' {
         $clock=[Diagnostics.Stopwatch]::StartNew()
         $probe=Invoke-WinBookSplitRuntimeProbe -Path $TestPython -ApplicationRoot $RepositoryRoot -Arguments @('-I','-B','-c','import time; time.sleep(30)') -TimeoutSeconds 0.2
         $probe.TimedOut | Should-BeTrue
         $probe.ParentStopped | Should-BeTrue
-        ($null -eq $probe.DescendantsStopped) | Should-BeTrue
+        $probe.DescendantsStopped | Should-BeTrue
+        $probe.JobAssigned | Should-BeTrue
+        $probe.StreamsComplete | Should-BeTrue
         ($clock.Elapsed.TotalSeconds -lt 2) | Should-BeTrue
     }
     It 'bounds inherited pipe EOF after the original parent already exited' {
@@ -163,12 +165,13 @@ for thread in threads: thread.join()
         $probe.TimedOut | Should-BeTrue
         $probe.ParentStopped | Should-BeTrue
         $probe.ExitCode | Should-Be -Expected 0
-        $probe.StreamsComplete | Should-BeFalse
-        ($null -eq $probe.DescendantsStopped) | Should-BeTrue
+        $probe.StreamsComplete | Should-BeTrue
+        $probe.DescendantsStopped | Should-BeTrue
+        $probe.JobAssigned | Should-BeTrue
+        $childPid=[int]$probe.Stdout.Trim()
+        ($null -eq (Get-Process -Id $childPid -ErrorAction SilentlyContinue)) | Should-BeTrue
         ($clock.Elapsed.TotalSeconds -lt 2) | Should-BeTrue
-        # This finite authored child ends itself. No PID/name kill or output
-        # cleanup is authorized by the original parent's zero exit.
-        Start-Sleep -Milliseconds 1300
+        # The original parent's zero exit does not skip the owned job/EOF deadline.
     }
 }
 

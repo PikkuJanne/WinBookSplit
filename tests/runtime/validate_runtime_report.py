@@ -90,7 +90,7 @@ def case_set(child: dict, field: str) -> dict[str, dict]:
 
 def probe(record, *, success: bool) -> dict:
     record = mapping(record, "probe")
-    require(record.get("DescendantsStopped") is None and "DescendantsStopped" in record,
+    require(record.get("DescendantsStopped") is True,
             "probe: descendant stop is unproved")
     for field in ("TimedOut", "ParentStopped", "StreamsComplete", "StdoutTruncated", "StderrTruncated"):
         require(type(record.get(field)) is bool, f"probe.{field}: missing boolean")
@@ -111,10 +111,12 @@ def probe(record, *, success: bool) -> dict:
                 "probe: successful native status required")
         flag(record, "TimedOut", False)
         flag(record, "ParentStopped")
+        flag(record, "JobAssigned")
+        flag(record, "Cancelled", False)
         flag(record, "StreamsComplete")
         flag(record, "StdoutTruncated", False)
         flag(record, "StderrTruncated", False)
-        require(record.get("StartError") is None and record.get("StreamError") is None,
+        require(record.get("StartError") is None and record.get("StopError") is None and record.get("StreamError") is None,
                 "probe: start/stream errors contradict success")
     return record
 
@@ -323,6 +325,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
     expected_files = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                       "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                       "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
+                      "engine/WinBookSplit.Process.ps1",
                       "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                       "engine/winbooksplit_job.py"}
     require(set(application) == expected_files and
@@ -446,13 +449,13 @@ def success_case(case: dict, calibre_path: str) -> None:
     invocation = mapping(case.get("engine_invocation"), "actual engine invocation")
     same_path(invocation.get("path"), selected_runtime["Path"], "success: same interpreter used")
     argv = invocation.get("arguments")
-    require(type(argv) is list and all(type(value) is str for value in argv) and argv[:2] == ["-I", "-B"],
-            "success: actual isolated engine argv missing")
-    require(len(argv) >= 7 and argv[5:7] == ["manual", "2,3"], "success: authored manual control differs")
-    same_path(argv[2], ntpath.join(ntpath.dirname(case["command"][-1]), "a", "engine", "winbooksplit_engine.py"),
+    require(type(argv) is list and all(type(value) is str for value in argv) and argv[:4] == ["-I", "-B", "-X", "utf8"],
+            "success: actual isolated UTF-8 engine argv missing")
+    require(len(argv) >= 9 and argv[7:9] == ["manual", "2,3"], "success: authored manual control differs")
+    same_path(argv[4], ntpath.join(ntpath.dirname(case["command"][-1]), "a", "engine", "winbooksplit_engine.py"),
               "success: shipped copied engine")
-    same_path(argv[3], case["source_path"], "success: engine source")
-    same_path(argv[4], case["output_base"], "success: engine output base")
+    same_path(argv[5], case["source_path"], "success: engine source")
+    same_path(argv[6], case["output_base"], "success: engine output base")
     origin = path(selected_runtime["PypdfPath"], "selected pypdf")
     for excluded in (ntpath.dirname(path(case["source_path"], "source")), path(case["cwd"], "cwd")):
         require(not origin.startswith(excluded + "\\"), "success: shadowed pypdf origin")
@@ -465,7 +468,7 @@ def success_case(case: dict, calibre_path: str) -> None:
             frame["written_count"] == case.get("written_count") == writer["written_count"],
             "success: actual protocol/writer/count parity differs")
     if case["source_format"] == "pdf":
-        require("Converter" in selected and selected["Converter"] is None and len(argv) == 7,
+        require("Converter" in selected and selected["Converter"] is None and len(argv) == 9,
                 "PDF: converter must remain unprobed")
         flag(case["decoy_marker_observation"], "converter_version_absent")
     else:
@@ -473,9 +476,9 @@ def success_case(case: dict, calibre_path: str) -> None:
         converter_source = "explicit" if case["kind"] == "explicit-portable" else "PATH"
         require(case.get("expected_converter_source") == chosen["Source"] == converter_source,
                 "success: converter selection priority differs")
-        require(len(argv) == 11 and argv[7] == "--calibre-path" and argv[9:] == ["--conversion-timeout", "1800"],
+        require(len(argv) == 13 and argv[9] == "--calibre-path" and argv[11:] == ["--conversion-timeout", "1800"],
                 "success: engine conversion argv differs")
-        same_path(argv[8], chosen["Path"], "success: same converter used")
+        same_path(argv[10], chosen["Path"], "success: same converter used")
         original = mapping(writer.get("original_ebook_identity"), "original ebook identity")
         require(original.get("binding") == "ebook_snapshot", "success: original ebook binding missing")
         conversion = mapping(writer.get("conversion"), "actual conversion")
@@ -558,7 +561,7 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
         require(version.startswith("5.1.") if identifier == "PS51" else version == "7.6.5", "host: mislabeled version")
         require(type(host.get("syntax_error_count")) is int and host["syntax_error_count"] == 0 and
                 host.get("syntax_checked") == ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1",
-                    "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1"], "host: required syntax observations missing")
+                    "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1"], "host: required syntax observations missing")
         policies(host.get("stored_policies"), "host stored policy")
         require(host.get("policies_after") == host["stored_policies"], "host: stored policies changed")
         command = host.get("command")
