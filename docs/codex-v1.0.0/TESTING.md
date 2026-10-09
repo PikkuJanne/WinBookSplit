@@ -6,7 +6,7 @@ Characterize existing behavior in M0 with generated safe inputs, then convert fi
 
 M0-T02's executable original-behavior characterization is documented in `tests/baseline/README.md`; fixture generation/provenance is in `tests/fixtures/README.md`. Its `expected_original.json` contains known-bad observations, while `PLAN_ORACLES.json` continues to contain corrected target behavior. A successful characterization is evidence of reproduction, not a fixed-engine acceptance pass. The JSON report records actual page identities, both expectation sets, source hashes, dependency versions and explicitly unrun layers.
 
-`ACCEPTANCE_CASES.json` and `PLAN_ORACLES.json` are requirements and expected outcomes, **not executed tests**. M0/M1 connect these IDs to actual tests. Test harnesses use stdlib unittest, Pester, PSScriptAnalyzer and development-only fixture/render tools, pinned to reviewed versions. Keep runtime dependencies minimal and separate. The local runner is `tests/run_tests.py`; M5-T01 must use the same entry point in CI. Failed native commands fail the runner.
+`ACCEPTANCE_CASES.json` and `PLAN_ORACLES.json` are requirements and expected outcomes, **not executed tests**. M0/M1 connect these IDs to actual tests. Test harnesses use stdlib unittest, Pester, PSScriptAnalyzer and development-only fixture/render tools, pinned to reviewed versions. Keep runtime dependencies minimal and separate. The local runner is `tests/run_tests.py`; M4-T05 must use the same entry point in CI. Failed native commands fail the runner.
 
 M0-T03 selects stdlib unittest on regular CPython 3.14.8, Pester 6.2.0 and PSScriptAnalyzer 1.25.0 for M0-T04, with ReportLab 5.0.1/Pillow 12.3.0/charset-normalizer 3.5.2 only in `requirements-dev.txt`. `SUPPORT_AND_SETUP.md` distinguishes frozen targets from historical observations and documents absolute paths/hash-verified isolated setup. See `tests/README.md` for full/targeted invocations and `tests/powershell/README.md` for exact-version external shell tools. M0-T04 evidence records actual both-host harness outcomes, deliberate failure probes and repeated unrelated-directory runs; these do not pass repaired-engine, real conversion, Explorer or full launcher acceptance.
 
@@ -42,6 +42,18 @@ equivalence is claimed. Optional actual entrypoint probes retain the bounded
 GUID/marker-owned method and its original limits.
 
 Reports use new absolute paths outside the checkout, include actual source-byte and child-evidence SHA-256 digests, and retain every step's native exit status. A missing/invalid promised child report also fails. Each run owns one unique temporary directory; source and synthetic-neighbor hashes are checked before cleanup. AC-009 requires observed native/Python/Pester failures followed by success while the runner stays nonzero. AC-010 requires two actual full runs from unrelated directories, matching deterministic outcomes and owned cleanup. Acceptance IDs printed by a runner alone are not acceptance passes. The shell layer gates syntax and selected new-scaffold defect/security/compatibility rules while separately recording unchanged application analyzer findings; legacy observations are not a runtime static pass.
+
+M1-T03 adds `--layer bookmarks` and makes it the fifth stage of the current full
+route. It checks corrected Level 1 BM-01/02/05/08 targets, invalid destinations,
+depth/lineage and bounded malformed traversal, 150 seeded plans and ten actual
+writer samples. Every output slice and flattened page sequence must preserve
+physical identities. The current manual route retains only the unchanged
+Level 2 BM-03 observation; M1-T02's three-case record above is historical.
+Original/extraction guards, oracles, generator and prior evidence remain
+unchanged. This bookmark route runs Python CLI/callable checks; the six existing
+actual shell/batch probes still cover manual MAN-03 and historical Level 2 BM-03.
+Corrected Level 1 console/Explorer and full application acceptance are separate
+later gates. See `tests/bookmarks/README.md` for exact bounds and evidence scope.
 
 ## Risk-based execution
 

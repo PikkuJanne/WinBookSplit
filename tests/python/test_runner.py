@@ -154,8 +154,7 @@ class RunnerTests(unittest.TestCase):
             "extra_cli_cases": [{"id": name, "passed": True} for name in sorted(runner.MANUAL_EXTRA_IDS)],
             "sampled_writer_cases": [{"index": number, "outputs": [{"filename": "synthetic.pdf"}]}
                                      for number in range(25)],
-            "historical_bookmark_cases": [{"oracle_id": f"BM-{number:02}", "equivalent": True}
-                                          for number in range(1, 4)],
+            "historical_bookmark_cases": [{"oracle_id": "BM-03", "equivalent": True}],
             "source_unchanged": True, "baseline_guards_preserved": True,
             "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
@@ -204,6 +203,9 @@ class RunnerTests(unittest.TestCase):
                 "boolean exit code": {"exit_code": False},
                 "incomplete acceptance": {"acceptance_ids": ["AC-013"]},
                 "missing bookmark observations": {"historical_bookmark_cases": []},
+                "obsolete Level 1 known-bad comparisons": {"historical_bookmark_cases": [
+                    {"oracle_id": f"BM-{number:02}", "equivalent": True} for number in range(1, 4)]},
+                "wrong unchanged comparison": {"historical_bookmark_cases": [{"oracle_id": "BM-01", "equivalent": True}]},
                 "changed bookmark behavior": {"historical_bookmark_cases": complete["historical_bookmark_cases"][:-1]
                                              + [{"oracle_id": "BM-03", "equivalent": False}]},
                 "changed source": {"source_unchanged": False},
@@ -283,7 +285,7 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.validate_manual_entrypoints({"entrypoints": complete}, [hosts[0], receipts[0]])
 
-    def test_full_selects_manual_regression_and_forwards_actual_hosts(self):
+    def test_full_selects_manual_and_level1_regressions_and_forwards_hosts_only_to_manual(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
                                tool_root=Path("C:/trusted/tool-root"))
@@ -303,9 +305,91 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(manual[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
         self.assertFalse(any(str(ROOT / "tests/extraction/characterize_extraction.py") in command
                              for command in commands))
-        self.assertEqual(attach.call_args.args[2], "manual")
-        self.assertEqual(report["steps"][-1]["name"], "manual-regression")
+        bookmarks = [command for command in commands
+                     if str(ROOT / "tests/bookmarks/characterize_level1.py") in command]
+        self.assertEqual(len(bookmarks), 1)
+        self.assertNotIn("--shell-path", bookmarks[0])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks"])
+        self.assertEqual(report["steps"][-2]["name"], "manual-regression")
+        self.assertEqual(report["steps"][-1]["name"], "level1-regression")
+        self.assertEqual(len(report["steps"]), 5)
         self.assertTrue(report["success"])
+
+    def test_bookmark_evidence_requires_complete_targets_normalization_and_preservation(self):
+        complete = {
+            "schema_version": 1, "task_id": "M1-T03", "result": "LEVEL1_REGRESSION_PASSED",
+            "success": True, "exit_code": 0, "acceptance_ids": ["AC-019", "AC-020", "AC-021", "AC-022"],
+            "engine_case_count": 4,
+            "engine_cases": [{"oracle_id": name, "passed": True} for name in ("BM-01", "BM-02", "BM-05", "BM-08")],
+            "normalization_cases": [{"id": name, "passed": True} for name in (
+                "invalid-destinations", "deep-lineage", "cyclic-outline", "malformed-outline", "traversal-limits")],
+            "seeded_level1_cases": {"seed": 20261009, "count": 150, "passed": True},
+            "sampled_writer_cases": [{"index": number, "outputs": [{"filename": "synthetic.pdf"}]}
+                                     for number in range(10)],
+            "source_unchanged": True, "baseline_guards_preserved": True,
+            "input_and_neighbor_unchanged": True, "owned_temp_removed": True,
+            "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+            "import_observation": {"import_safe": True},
+        }
+        with tempfile.TemporaryDirectory(prefix="wbs-bookmark-evidence-") as directory:
+            path = Path(directory) / "bookmarks.json"
+            path.write_text(json.dumps(complete), encoding="utf-8")
+            step = {"exit_code": 0}
+            runner.attach_child_report(step, path, "bookmarks")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["evidence"], complete)
+            self.assertIn("evidence_sha256", step)
+            defects = {
+                "boolean schema": {"schema_version": True},
+                "wrong task": {"task_id": "M1-T02"},
+                "wrong result": {"result": "MANUAL_REGRESSION_PASSED"},
+                "claimed failure": {"success": False},
+                "boolean exit": {"exit_code": False},
+                "wrong case count": {"engine_case_count": 3},
+                "count without records": {"engine_cases": []},
+                "duplicate oracle IDs": {"engine_cases": complete["engine_cases"][:-1] + [complete["engine_cases"][0]]},
+                "unknown oracle ID": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": "BM-03", "passed": True}]},
+                "invalid oracle ID type": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": [], "passed": True}]},
+                "failed target": {"engine_cases": complete["engine_cases"][:-1] + [{"oracle_id": "BM-08", "passed": False}]},
+                "missing normalization": {"normalization_cases": []},
+                "duplicate normalization ID": {"normalization_cases": complete["normalization_cases"][:-1]
+                                               + [complete["normalization_cases"][0]]},
+                "unknown normalization ID": {"normalization_cases": complete["normalization_cases"][:-1]
+                                             + [{"id": "unexpected", "passed": True}]},
+                "invalid normalization ID type": {"normalization_cases": complete["normalization_cases"][:-1]
+                                                  + [{"id": [], "passed": True}]},
+                "failed normalization": {"normalization_cases": complete["normalization_cases"][:-1]
+                                         + [{**complete["normalization_cases"][-1], "passed": False}]},
+                "wrong seed": {"seeded_level1_cases": {"seed": 0, "count": 150, "passed": True}},
+                "wrong property count": {"seeded_level1_cases": {"seed": 20261009, "count": 0, "passed": True}},
+                "failed properties": {"seeded_level1_cases": {"seed": 20261009, "count": 150, "passed": False}},
+                "missing writer samples": {"sampled_writer_cases": []},
+                "duplicate writer indexes": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                             + [complete["sampled_writer_cases"][0]]},
+                "boolean writer index": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                         + [{"index": True, "outputs": [{"filename": "synthetic.pdf"}]}]},
+                "zero output files": {"sampled_writer_cases": complete["sampled_writer_cases"][:-1]
+                                      + [{"index": 9, "outputs": []}]},
+                "incomplete acceptance": {"acceptance_ids": ["AC-019"]},
+                "changed source": {"source_unchanged": False},
+                "changed guards": {"baseline_guards_preserved": False},
+                "changed inputs or neighbors": {"input_and_neighbor_unchanged": False},
+                "missing cleanup": {"owned_temp_removed": False},
+                "wrong immutable reference": {"immutable_original_commit": "unknown"},
+                "unsafe import": {"import_observation": {"import_safe": False}},
+                "invalid import observation": {"import_observation": []},
+            }
+            for description, changes in defects.items():
+                with self.subTest(defect=description):
+                    path.write_text(json.dumps({**complete, **changes}), encoding="utf-8")
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "bookmarks")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIn("evidence_error", step)
+                    self.assertNotIn("evidence", step)
+                    step = {"exit_code": 19}
+                    runner.attach_child_report(step, path, "bookmarks")
+                    self.assertEqual(step["exit_code"], 19)
 
     def test_existing_report_is_preserved(self):
         with tempfile.TemporaryDirectory(prefix="wbs-no-overwrite-") as directory:

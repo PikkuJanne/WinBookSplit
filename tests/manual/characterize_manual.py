@@ -1,4 +1,4 @@
-"""Current manual acceptance; unchanged bookmark defects remain historical observations."""
+"""Current manual acceptance; unchanged Level 2 BM-03 remains a historical observation."""
 
 from __future__ import annotations
 
@@ -154,7 +154,9 @@ def characterize(work, shells):
     oracle_map = {case["id"]: case for case in oracles["bookmarks"]}
     bookmark_cases = []
     for case in expected["cases"]:
-        if not case["oracle_id"].startswith("BM-"):
+        # Level 1 targets are now verified by their own corrected route.
+        # Retain only the unchanged Level 2 observation and launcher reference.
+        if case["oracle_id"] != "BM-03":
             continue
         cwd = work / case["oracle_id"]
         cwd.mkdir()
@@ -198,7 +200,8 @@ def characterize(work, shells):
             "fixtures": {name: {"sha256": history.file_digest(path), "page_ids": generator.page_ids(path)}
                          for name, path in fixtures.items()},
             "import_observation": import_observation, "entrypoints": entrypoints,
-            "not_run": ["corrected bookmarks", "Explorer", "Calibre conversion", "release-package acceptance"]
+            "not_run": ["corrected Level 1 (separate bookmark layer)", "corrected Level 2", "Explorer",
+                        "Calibre conversion", "release-package acceptance"]
                        + ([] if shells else ["actual entrypoints"])}
 
 
