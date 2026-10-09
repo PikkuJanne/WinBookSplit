@@ -11,9 +11,12 @@ integer and a valid 5001-character leading-zero token.
 
 Seed 20261009 exercises 250 valid manual partitions; 25 samples also exercise
 the real PDF writer on page-marked fixtures. Normalization and one-section
-notices are asserted. Current safe import remains checked. Three original
-bookmark observations (BM-01/02/03) still match the immutable original engine,
-including their known defects; repaired bookmark acceptance starts M1-T03.
+notices are asserted. Current safe import remains checked. The original Level 2
+bookmark observation BM-03 still matches the immutable original engine, including
+its known defect. M1-T03 now checks Level 1 targets in the separate bookmark route;
+current BM-01/02 are no longer expected to match the known-bad original behavior.
+Historical M1-T02 evidence retains the three observations that were unchanged
+at that checkpoint.
 
 The original harness, its raw-byte guards, fixture generator, plan oracles,
 batch launcher and extraction harness remain unchanged. Historical AC-011 AST
@@ -24,7 +27,8 @@ processing ASTs. Neither route calls corrected code the unchanged original.
 
 Use the supported fresh developer interpreter with `-I -B`, an absolute runner
 path and a new external report: `tests/run_tests.py --layer manual --report ...`.
-`--layer full` runs current manual acceptance, Python units and the shell layer.
+`--layer full` runs current manual acceptance, corrected Level 1 bookmark
+acceptance, Python units and the shell layer.
 Optional repeated actual PS5.1/PS7 `--shell-path` arguments reuse the existing
 six GUID-owned entrypoint probes, including three simultaneous invocations.
 Manual `4,7` uses the corrected exact output references; bookmark BM-03 remains

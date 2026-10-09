@@ -21,18 +21,29 @@ new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
 
-Use `--layer python`, `--layer shell` or `--layer manual` for targeted checks.
+Use `--layer python`, `--layer shell`, `--layer manual` or `--layer bookmarks`
+for targeted checks.
 The shell layer requires explicit hosts and the isolated exact-version modules;
 the full layer must include both supported hosts for the milestone gate.
 The manual layer executes all 22 corrected manual oracles, eight extra CLI cases,
 250 seeded valid-start coverage checks, 25 real writer samples, safe import and
-three unchanged historical bookmark observations. Promised reports must include
+the unchanged historical Level 2 BM-03 observation. Promised reports must include
 all case records and preserve the immutable baseline, source, inputs/neighbors
 and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The full layer now runs this manual regression route.
+run. The full layer runs this manual regression route and the corrected Level 1
+bookmark route.
+
+The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
+normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its
+new report must include every case, exact page identity checks and preservation/
+cleanup results. This Python route receives no shell arguments; the full
+layer's six existing owned launcher probes still exercise manual MAN-03 and
+unchanged Level 2 BM-03. See `bookmarks/README.md` for Level 1 coverage and limits.
+Historical M1-T02 evidence retains the three then-unchanged bookmark observations;
+the current manual route compares only BM-03 after the Level 1 corrections.
 
 `--layer extraction` remains an explicit historical diagnostic comparing the
 current engine with immutable original behavior. It is expected to fail after
@@ -66,7 +77,8 @@ cleanup verifies containment, marker, allowed files and absence of reparse
 points before removing only the run's owned outputs. No private Documents
 content is enumerated or used as input. See `extraction/README.md` for the actual
 six-probe unrelated-directory/parallel method and its limits. `manual/README.md`
-describes the corrected manual regression route. Environments,
+describes the corrected manual regression route and `bookmarks/README.md`
+describes corrected Level 1 checks. Environments,
 generated outputs and raw evidence are ignored; ignore rules do not replace
 reviewing the exact staged paths.
 
@@ -81,7 +93,8 @@ The shell layer gates syntax and the new scaffold's selected static checks;
 unchanged application analyzer findings are reported as legacy observations.
 The manual route verifies corrected manual splitting directly against synthetic
 PDF page identities. Controlled actual M1 entrypoint splitting under both shells
-and batch verifies engine resolution and selected paths; corrected bookmark
-behavior, full UX/Explorer, Calibre and the
+and batch verifies engine resolution and selected paths. Level 1 regression
+checks exercise corrected front-matter/outline planning directly; corrected
+Level 2 behavior, full UX/Explorer, Calibre and the
 extracted release package remain separate mandatory later checks. CI installation and workflow
 execution belong to M4-T05; this local scaffold does not claim a CI run.

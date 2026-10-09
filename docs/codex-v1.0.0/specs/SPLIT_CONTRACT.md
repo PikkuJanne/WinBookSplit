@@ -20,6 +20,13 @@ Collect usable internal destinations with titles, source outline order, depth an
 
 ## Level 1
 
+M1-T03's implementation bounds outline and destination-name retrieval to depth
+64 and 10,000 raw nodes per tree; named definitions are also capped at 10,000.
+Normalized traversal counts both destination entries and child-list containers
+against 10,000. Cycles, reused containers/contradictory lineage, unreadable trees
+and exceeded bounds reject the request before writing. Safely recoverable
+invalid destinations are warned and skipped while retaining their lineage.
+
 Sort valid top-level starts; dedupe positions deterministically. Parent interval end is next top-level start or N. Add `[0, first_parent_start)` as Front matter when nonempty. Emit each parent interval using its title. No valid Level 1 outline yields structured `no_bookmarks`/`no_usable_bookmarks`, not success with zero files.
 
 ## Level 2
