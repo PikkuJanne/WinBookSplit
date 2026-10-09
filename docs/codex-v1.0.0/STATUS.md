@@ -1,16 +1,55 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0.
-Overall: IN PROGRESS; M0 reviewed/merged, M1-T01 extracted, manual and Level 1/2 coverage fixed through M1-T04; shared plan and release gates open.
-Completed tasks: M0-T01 through M0-T04 and M1-T01 through M1-T04.
-Next dependency-ready task: **M1-T05 — Unify planning, preview data and execution**, after fresh verification of this documentation checkpoint.
-Active branch: `codex/winbooksplit-v1-m1`; upstream `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
+Overall: IN PROGRESS; M0 reviewed/merged, shared validated source-bound plan complete through M1-T05; M1 diagnostic and release gates open.
+Completed: M0-T01 through M0-T04 and M1-T01 through M1-T05.
+Next dependency-ready task: **M1-T06 — Distinguish no-outline and invalid-document results**, after fresh checkpoint verification.
+Active branch/upstream: `codex/winbooksplit-v1-m1` / `origin/codex/winbooksplit-v1-m1`; retained M0 branch `codex/winbooksplit-v1-m0`.
 Origin fetch/push: `https://github.com/PikkuJanne/WinBookSplit.git`.
-Last verified implementation C: `8c193ae2aac5df4819cad216635d59df57d12cbc`.
-Historical C synchronization: SYNCED at `2026-10-09T05:03:45.266791+00:00` (07:03:45 Europe/Berlin), clean local HEAD equals live M1 feature branch.
-[Draft PR #8](https://github.com/PikkuJanne/WinBookSplit/pull/8) continues M1; cumulative merge gate remains M1-T06. PR #7 was already merged at `2026-10-09T04:52:11Z` into live main `90297a80256315de20730e44403d820d40d9d4e9`. Normal fast-forwards incorporated that history into feature and local main. Earlier PR merges do not waive later tasks; older receipts below are historical.
-The following documentation-only checkpoint receives its own normal push/live receipt in the thread/PR; recheck current equality next thread.
-Public release: NOT PUBLISHED; live tags/releases were empty on 9 October 2026.
+Last verified implementation C: `3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf`.
+Historical C synchronization: SYNCED at `2026-10-09T05:45:17.796145+00:00` (07:45:17 Europe/Berlin), clean local HEAD equals live feature.
+[Draft PR #9](https://github.com/PikkuJanne/WinBookSplit/pull/9) continues M1; cumulative review/merge gate remains M1-T06. PR #8 was already merged at `2026-10-09T05:22:09Z` into main `828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c`; normal fast-forwards incorporated that actual history into feature/local main. Earlier merges do not waive later gates.
+Following documentation-only E receives its own normal-push/live receipt in the thread/PR; recheck current equality next session.
+Public release: NOT PUBLISHED; live tags/releases empty on 9 October 2026.
+
+## M1-T05 evidence and limits
+
+[Shared plan evidence](evidence/M1-T05-plan.md) and
+[machine record](evidence/M1-T05-plan.json) satisfy AC-027 through AC-029.
+Existing logical mode planners stay intact. One validator freezes complete
+ordered coverage/entries/ranges/metadata. Reader-bound `prepare_split`, read-only
+`preview_plan` and `execute_split` share the same plan without recalculation.
+Changed/repointed/deleted paths safely retain the original captured reader;
+ordinary plan/reader replacement and stream mutation reject before writing.
+Source/output alias and existing files reject before slices; exclusive creation
+refuses later collisions. Full transactions/rollback/publication remain later.
+
+Final unrelated-CWD seven-stage gate passed 105 Python tests, nine Pester tests
+per actual PS5.1.26100.9444/PS7.6.5, zero skips/syntax/scaffold findings.
+New plan evidence: nine structural/two preview/three actual writer modes/two
+source aggregates plus deletion, exact entries/filenames/ranges/IDs/content,
+300 seeded plans (100/mode), and 18 stable-source units. Twenty runner units
+reject incomplete promised evidence. Manual/Level 1/Level 2 regressions preserve
+22/4/4 targets, 8/5/6 aggregates, 250/150/150 plans and 25/10/10 writer samples.
+Six controlled launchers include three concurrent; both PS7 BM-03 probes retain
+corrected six-section complete bytes/IDs. Sources/neighbors/decoys/shared TEMP
+are intact; only owned outputs/temp are removed.
+
+Fresh supported hash-pinned dev venv and all 66 external shell-tool file hashes
+passed; stored policies unchanged. Tested digest `73f7c3848cf35dcd3444cdd5af861231e81efe775d9afff298eac22abc2defae`;
+all 41 tested actual bytes matched clean C, without claiming a clean-C full rerun.
+Pre-change coverage/stale-plan/alias/overwrite probes, failed setup capture,
+earlier unit source-consistency failure and pre-final-guard passing full receipt
+remain distinct from final acceptance. Original guards/fixtures/oracles/older
+evidence and launchers are unchanged. Independent source/harness/raw/public
+review found no blocker; no GitHub submitted review or CI pass is claimed.
+
+Seven pypdf NullObject warnings, PS5.1 CLIXML progress, PS7 launcher RawUI stderr
+and 60 legacy analyzer observations per host remain recorded limits. Ordinary
+discovery/all launcher/error paths, corrected Level 2 PS5.1/BAT/Level 1 console,
+interactive preview/fallback/Explorer, Calibre, PDF feature/fidelity, output
+transactions, extracted package, CI and release/download gates remain open.
+No merge/tag/release created here. Prior sections retain historical scope.
 
 ## M1-T04 evidence and limits
 

@@ -315,7 +315,7 @@
         "Coverage validator",
         "Plan/execution parity tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M1-T04"
       ],
@@ -324,8 +324,11 @@
         "AC-028",
         "AC-029"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M1-T05-plan.md",
+        "evidence/M1-T05-plan.json"
+      ],
+      "implementation_commit": "3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

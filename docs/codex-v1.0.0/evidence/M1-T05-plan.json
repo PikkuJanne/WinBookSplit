@@ -1,0 +1,3619 @@
+{
+  "schema_version": 1,
+  "task_id": "M1-T05",
+  "observed_at": "2026-10-09T05:42:45.913161+00:00",
+  "user_timezone": "Europe/Berlin",
+  "result": "SHARED_PLAN_ACCEPTANCE_PASSED",
+  "acceptance": {
+    "AC-027": "PASSED",
+    "AC-028": "PASSED",
+    "AC-029": "PASSED"
+  },
+  "initial_checkpoint": {
+    "live_sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T05:24:04.418335+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "e63032e43722ad01db69c64cdb70849c85691678",
+      "worktree_clean": true,
+      "remote_head": "e63032e43722ad01db69c64cdb70849c85691678",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "live_audit": {
+      "observed_at": "2026-10-09T05:27:44.8352533+00:00",
+      "main_protection": {
+        "stdout": "gh: Branch not protected (HTTP 404)\r\n{\"message\":\"Branch not protected\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"404\"}\r\n",
+        "exit_code": 1
+      },
+      "feature_protection": {
+        "stdout": "gh: Branch not protected (HTTP 404)\r\n{\"message\":\"Branch not protected\",\"documentation_url\":\"https://docs.github.com/rest/branches/branch-protection#get-branch-protection\",\"status\":\"404\"}\r\n",
+        "exit_code": 1
+      },
+      "rulesets": {
+        "stdout": "[]\r\n",
+        "exit_code": 0
+      },
+      "workflows": {
+        "stdout": "{\"total_count\":0,\"workflows\":[]}\r\n",
+        "exit_code": 0
+      },
+      "runs": {
+        "stdout": "{\"total_count\":0,\"workflow_runs\":[]}\r\n",
+        "exit_code": 0
+      },
+      "tags": {
+        "stdout": "[]\r\n",
+        "exit_code": 0
+      },
+      "releases": {
+        "stdout": "[]\r\n",
+        "exit_code": 0
+      },
+      "pr8": {
+        "stdout": "{\"baseRefName\":\"main\",\"headRefName\":\"codex/winbooksplit-v1-m1\",\"headRefOid\":\"e63032e43722ad01db69c64cdb70849c85691678\",\"isDraft\":false,\"mergeCommit\":{\"oid\":\"828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c\"},\"mergedAt\":\"2026-10-09T05:22:09Z\",\"number\":8,\"state\":\"MERGED\",\"url\":\"https://github.com/PikkuJanne/WinBookSplit/pull/8\"}\r\n",
+        "exit_code": 0
+      },
+      "reviews": {
+        "stdout": "[]\r\n",
+        "exit_code": 0
+      }
+    },
+    "reconciliation": "PR8 was already merged to main 828b232; normal fast-forwards incorporated it into feature and local main."
+  },
+  "tested_source": {
+    "base_commit": "828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c",
+    "base_tree": "5691bd09234822fd96ff944f4810671fb6b3172b",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/winbooksplit_engine.py": "232632f1b1ba8cb296b22f94317281d990b4461be58397741b591ab0f5762c04",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "dc32b97bb50a0af178cde58af0fb4304fc9ebe89484d68ad80fdb42e46bc14ae",
+      "tests/bookmarks/characterize_level2.py": "689c39a256f277b78f928db95114146f0f125552c5f6c4db14a01b96c9ad030c",
+      "tests/bookmarks/README.md": "282d9cba53c37de5021e30933b12482bfe17016b814a88d125b14c601407cb1a",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "b89525ba684c4ec9d9627c321897fa113cc7dd9a11732d5c8bcbb3e7c7d75189",
+      "tests/manual/characterize_manual.py": "f7b01dbab4f3e2746a3802e6e0a684951d16e5c237e18b2e47666d43943f7459",
+      "tests/manual/README.md": "fc82af5a7f94a8ba09c6db56156624786df56667f6dbaf3abd29fd9a316a91d2",
+      "tests/plans/characterize_plan.py": "cd83d9b0207c5a4ed6703eb2f30bb1e9a3713c7cb1938fd1fd1332801a12262b",
+      "tests/plans/README.md": "54c594b291ced7b945c5d9666379b23a1af866fc2b4c2a4de2551f0f20f4d311",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_extraction.py": "39379fe74b81853e27be935df3a27c8310eadc7b9b63ff185b704bc1adfab5a5",
+      "tests/python/test_level1.py": "b8cb52283b47f8d9ed602a547b8aff41adfb82534371a6b539badd3d4ef0bb94",
+      "tests/python/test_level2.py": "c1a629f3c22aae5ef5263959bcef27a70d589f2699e07310a2ab3fe5db936fd7",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_plan.py": "d95d6ea40db35df1a9c062ab0d0b7f13521053d86e0a347d9460cb5620fedfbb",
+      "tests/python/test_runner.py": "5dd8fed753743e5a87df1a019f3acff2aa5b5d773c46a31473f7952427003fc1",
+      "tests/README.md": "bdccc5560b467dac24564509b7b265fe1933f13cb7a49b11cdbaa61c5bad1036",
+      "tests/run_tests.py": "ac7cca4a253db99b5d39d77524484def80bf63f5ee3c6b5ba24321bf23ab1a93",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+      "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df"
+    },
+    "tested_paths_digest": "73f7c3848cf35dcd3444cdd5af861231e81efe775d9afff298eac22abc2defae",
+    "meaning": "Actual worktree bytes; Git identity alone does not imply a clean checkout",
+    "source_unchanged": true
+  },
+  "tested_path_count": 41,
+  "source_digest_recipe": "SHA256 of UTF-8 json.dumps(path_to_sha256_map, sort_keys=True, separators=(comma,colon)); actual checked-out bytes.",
+  "test_timing_scope": "Full tests preceded C; every tested actual path matched clean C. No clean-C full rerun claimed.",
+  "implementation_checkpoint": {
+    "commit": "3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf",
+    "tree": "450ee7db1cd2330643cf2fd431cb7855f9c489a9",
+    "live_sync_receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T05:45:17.796145+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m1",
+      "local_head": "3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf",
+      "worktree_clean": true,
+      "remote_head": "3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "workstation": {
+    "display_version": "26H2",
+    "build": "26300",
+    "caption": "Microsoft Windows 11 Pro",
+    "version": "10.0.26300",
+    "architecture": "64-bit",
+    "ubr": 9457
+  },
+  "dependency_setup": {
+    "hash_required_binary_only_install_exit": 0,
+    "install_log_sha256": "808e00ecced5cd47afd0201385ec7b576adb8185468cfa5253fe84cb8caf486d",
+    "exact_versions_and_venv_import_origins": {
+      "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "platform": "Windows-11-10.0.26300-SP0",
+      "machine": "AMD64",
+      "regular_GIL": true,
+      "isolated": true,
+      "no_bytecode": true,
+      "imports": {
+        "pypdf": {
+          "version": "6.19.0",
+          "origin": "$M1T05ExternalRoot\\dev-venv\\Lib\\site-packages\\pypdf\\__init__.py"
+        },
+        "reportlab": {
+          "version": "5.0.1",
+          "origin": "$M1T05ExternalRoot\\dev-venv\\Lib\\site-packages\\reportlab\\__init__.py"
+        },
+        "PIL": {
+          "version": "12.3.0",
+          "origin": "$M1T05ExternalRoot\\dev-venv\\Lib\\site-packages\\PIL\\__init__.py"
+        },
+        "charset_normalizer": {
+          "version": "3.5.2",
+          "origin": "$M1T05ExternalRoot\\dev-venv\\Lib\\site-packages\\charset_normalizer\\__init__.py"
+        }
+      },
+      "pip_check": {
+        "exit_code": 0,
+        "stdout": "No broken requirements found.\n",
+        "stderr": ""
+      }
+    },
+    "fresh_regular_x64_GIL_venv": true,
+    "reverified_tool_files": 66,
+    "tool_manifest_reference": "M0-T04-harness.json shell_tools.saved_files; all 66 size/SHA256 entries"
+  },
+  "policies": {
+    "before": [
+      {
+        "scope": "MachinePolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "UserPolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "Process",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "CurrentUser",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "LocalMachine",
+        "policy": "RemoteSigned"
+      }
+    ],
+    "after": [
+      {
+        "scope": "MachinePolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "UserPolicy",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "Process",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "CurrentUser",
+        "policy": "Undefined"
+      },
+      {
+        "scope": "LocalMachine",
+        "policy": "RemoteSigned"
+      }
+    ],
+    "unchanged": true,
+    "children_request": "Process-only RemoteSigned and host-owned modules; no elevation"
+  },
+  "full_local_run": {
+    "command": "$DevPython -I -B $Repo\\tests\\run_tests.py --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --report $M1T05ExternalRoot\\full-final.json",
+    "cwd": "Unrelated external TEMP task directory",
+    "success": true,
+    "exit_code": 0,
+    "python_tests": 105,
+    "python_skips": 0,
+    "raw_sha256": "a95dd06cdcacec376bd87a7427ad792fd32ea58b8f58e3324e62eb3d923e301c",
+    "shells": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1",
+            "name": "Pester",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1"
+          },
+          {
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+          }
+        ],
+        "pester": {
+          "passed": 9,
+          "failed": 0,
+          "total": 9,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "8e61b0e750e2401d1e7f480f848ef23f9cbf53ecf1bf5d5326ce1a0a6c21a4b9",
+        "native_exit_code": 0
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "imports": [
+          {
+            "path": "$ToolRoot\\Pester\\6.2.0\\Pester.psm1",
+            "version": "6.2.0",
+            "manifest": "$ToolRoot\\Pester\\6.2.0\\Pester.psd1",
+            "name": "Pester"
+          },
+          {
+            "path": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+            "version": "1.25.0",
+            "manifest": "$ToolRoot\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1",
+            "name": "PSScriptAnalyzer"
+          }
+        ],
+        "pester": {
+          "not_run": 0,
+          "failed": 0,
+          "passed": 9,
+          "failed_containers": 0,
+          "total": 9,
+          "skipped": 0,
+          "result": "Passed"
+        },
+        "syntax_errors": 0,
+        "scaffold_findings": 0,
+        "legacy_application_findings": 60,
+        "legacy_analysis_is_acceptance_pass": false,
+        "child_sha256": "d0f3790c05a61e08f8d3d24b0090193795ccfea2f35a934c58c3cc0894859e33",
+        "native_exit_code": 0
+      }
+    ],
+    "plan_child_sha256": "3eddbae9f7cf1f9059b36f6995f35f1d7a43c602fd83273d5ed7593bcb4022ac",
+    "source_unchanged": true,
+    "synthetic_input_unchanged": true,
+    "owned_work_removed": true
+  },
+  "plan_acceptance": {
+    "schema_version": 1,
+    "task_id": "M1-T05",
+    "observed_at": "2026-10-09T05:43:46.236618+00:00",
+    "result": "SHARED_PLAN_REGRESSION_PASSED",
+    "success": true,
+    "exit_code": 0,
+    "acceptance_ids": [
+      "AC-027",
+      "AC-028",
+      "AC-029"
+    ],
+    "structural_cases": [
+      {
+        "id": "gap",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "Sections must cover every page in order without gaps or overlaps."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Sections must cover every page in order without gaps or overlaps."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "The final section must reach the final physical page."
+          }
+        ]
+      },
+      {
+        "id": "overlap",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "Sections must cover every page in order without gaps or overlaps."
+          }
+        ]
+      },
+      {
+        "id": "empty",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "A split plan must contain at least one section."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          }
+        ]
+      },
+      {
+        "id": "negative",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          }
+        ]
+      },
+      {
+        "id": "reversed",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          }
+        ]
+      },
+      {
+        "id": "overflow",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_plan",
+        "rejections": [
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          }
+        ]
+      },
+      {
+        "id": "zero-pages",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_document",
+        "rejections": [
+          {
+            "error_code": "invalid_document",
+            "message": "The PDF must contain at least one page."
+          }
+        ]
+      },
+      {
+        "id": "noninteger",
+        "passed": true,
+        "rejected": true,
+        "error_code": "invalid_document",
+        "rejections": [
+          {
+            "error_code": "invalid_document",
+            "message": "The PDF must contain at least one page."
+          },
+          {
+            "error_code": "invalid_document",
+            "message": "The PDF must contain at least one page."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section ranges must be nonempty integer pages inside the PDF."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Every plan entry must contain the complete section metadata."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section sequences must be consecutive in physical page order."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section sequences must be consecutive in physical page order."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section filenames must be unique safe PDF basenames."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section filenames must be unique safe PDF basenames."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section filenames must be unique safe PDF basenames."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section metadata is invalid."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Section filenames must be unique safe PDF basenames."
+          },
+          {
+            "error_code": "invalid_plan",
+            "message": "Declared ranges disagree with the section entries."
+          },
+          {
+            "error_code": "invalid_mode",
+            "message": "Choose manual, Level 1 or Level 2 splitting."
+          }
+        ]
+      },
+      {
+        "id": "valid-whole-document",
+        "passed": true,
+        "accepted": true,
+        "modes": [
+          {
+            "mode": "manual",
+            "coverage": {
+              "complete": true,
+              "covered_pages": 10,
+              "section_count": 1
+            },
+            "ranges": [
+              [
+                0,
+                10
+              ]
+            ]
+          },
+          {
+            "mode": "1",
+            "coverage": {
+              "complete": true,
+              "covered_pages": 10,
+              "section_count": 1
+            },
+            "ranges": [
+              [
+                0,
+                10
+              ]
+            ]
+          },
+          {
+            "mode": "2",
+            "coverage": {
+              "complete": true,
+              "covered_pages": 10,
+              "section_count": 1
+            },
+            "ranges": [
+              [
+                0,
+                10
+              ]
+            ]
+          }
+        ]
+      }
+    ],
+    "preview_cases": [
+      {
+        "id": "read-only-preview",
+        "passed": true,
+        "mutation_rejected": true,
+        "chapter_files_written": 0,
+        "mutation_attempts": 6
+      },
+      {
+        "id": "isolated-preview-data",
+        "passed": true,
+        "detached_from_input": true,
+        "unbound_execution_rejected": true,
+        "chapter_files_written": 0
+      }
+    ],
+    "parity_cases": [
+      {
+        "mode": "manual",
+        "passed": true,
+        "total_pages": 10,
+        "preview_entries": [
+          {
+            "sequence": 1,
+            "title": "Section (Page 1-3)",
+            "start": 0,
+            "end": 3,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "01 - Section (Page 1-3).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 2,
+            "title": "Section (Page 4-6)",
+            "start": 3,
+            "end": 6,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "02 - Section (Page 4-6).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 3,
+            "title": "Section (Page 7-10)",
+            "start": 6,
+            "end": 10,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "03 - Section (Page 7-10).pdf",
+            "warnings": []
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "coverage": {
+          "complete": true,
+          "covered_pages": 10,
+          "section_count": 3
+        },
+        "written_count": 3,
+        "source_identity": {
+          "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+          "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+          "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+          "size_bytes": 8211,
+          "binding": "reader_snapshot"
+        },
+        "writer_result": {
+          "mode": "manual",
+          "total_pages": 10,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+            "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+            "size_bytes": 8211,
+            "binding": "reader_snapshot"
+          },
+          "coverage": {
+            "complete": true,
+            "covered_pages": 10,
+            "section_count": 3
+          },
+          "written_count": 3,
+          "outputs": [
+            {
+              "sequence": 1,
+              "title": "Section (Page 1-3)",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "01 - Section (Page 1-3).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 2,
+              "title": "Section (Page 4-6)",
+              "start": 3,
+              "end": 6,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "02 - Section (Page 4-6).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 3,
+              "title": "Section (Page 7-10)",
+              "start": 6,
+              "end": 10,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "03 - Section (Page 7-10).pdf",
+              "warnings": [],
+              "page_count": 4
+            }
+          ]
+        },
+        "neighbor_unchanged": true,
+        "no_replanning_or_reopening": true,
+        "page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ],
+        "original_page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ]
+      },
+      {
+        "mode": "1",
+        "passed": true,
+        "total_pages": 10,
+        "preview_entries": [
+          {
+            "title": "Front matter",
+            "start": 0,
+            "end": 3,
+            "parent_id": null,
+            "reason": "front_matter",
+            "warnings": [],
+            "sequence": 1,
+            "filename": "01 - Front matter.pdf"
+          },
+          {
+            "title": "A",
+            "start": 3,
+            "end": 6,
+            "parent_id": null,
+            "bookmark_id": "bookmark-1",
+            "reason": "bookmark",
+            "warnings": [],
+            "sequence": 2,
+            "filename": "02 - A.pdf"
+          },
+          {
+            "title": "B",
+            "start": 6,
+            "end": 10,
+            "parent_id": null,
+            "bookmark_id": "bookmark-2",
+            "reason": "bookmark",
+            "warnings": [],
+            "sequence": 3,
+            "filename": "03 - B.pdf"
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - A.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - B.pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "coverage": {
+          "complete": true,
+          "covered_pages": 10,
+          "section_count": 3
+        },
+        "written_count": 3,
+        "source_identity": {
+          "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+          "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+          "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+          "size_bytes": 8211,
+          "binding": "reader_snapshot"
+        },
+        "writer_result": {
+          "mode": "1",
+          "total_pages": 10,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\simple-10.pdf",
+            "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+            "size_bytes": 8211,
+            "binding": "reader_snapshot"
+          },
+          "coverage": {
+            "complete": true,
+            "covered_pages": 10,
+            "section_count": 3
+          },
+          "written_count": 3,
+          "outputs": [
+            {
+              "title": "Front matter",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "front_matter",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Front matter.pdf",
+              "page_count": 3
+            },
+            {
+              "title": "A",
+              "start": 3,
+              "end": 6,
+              "parent_id": null,
+              "bookmark_id": "bookmark-1",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - A.pdf",
+              "page_count": 3
+            },
+            {
+              "title": "B",
+              "start": 6,
+              "end": 10,
+              "parent_id": null,
+              "bookmark_id": "bookmark-2",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - B.pdf",
+              "page_count": 4
+            }
+          ]
+        },
+        "neighbor_unchanged": true,
+        "no_replanning_or_reopening": true,
+        "page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ],
+        "original_page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ]
+      },
+      {
+        "mode": "2",
+        "passed": true,
+        "total_pages": 12,
+        "preview_entries": [
+          {
+            "title": "Front matter",
+            "start": 0,
+            "end": 2,
+            "parent_id": null,
+            "reason": "front_matter",
+            "warnings": [],
+            "sequence": 1,
+            "filename": "01 - Front matter.pdf"
+          },
+          {
+            "title": "A - Opening pages",
+            "start": 2,
+            "end": 3,
+            "parent_id": "bookmark-1",
+            "reason": "parent_opening",
+            "warnings": [],
+            "sequence": 2,
+            "filename": "02 - A - Opening pages.pdf"
+          },
+          {
+            "title": "A1",
+            "start": 3,
+            "end": 6,
+            "parent_id": "bookmark-1",
+            "bookmark_id": "bookmark-2",
+            "reason": "bookmark",
+            "warnings": [],
+            "sequence": 3,
+            "filename": "03 - A1.pdf"
+          },
+          {
+            "title": "A2",
+            "start": 6,
+            "end": 8,
+            "parent_id": "bookmark-1",
+            "bookmark_id": "bookmark-3",
+            "reason": "bookmark",
+            "warnings": [],
+            "sequence": 4,
+            "filename": "04 - A2.pdf"
+          },
+          {
+            "title": "B - Opening pages",
+            "start": 8,
+            "end": 10,
+            "parent_id": "bookmark-4",
+            "reason": "parent_opening",
+            "warnings": [],
+            "sequence": 5,
+            "filename": "05 - B - Opening pages.pdf"
+          },
+          {
+            "title": "B1",
+            "start": 10,
+            "end": 12,
+            "parent_id": "bookmark-4",
+            "bookmark_id": "bookmark-5",
+            "reason": "bookmark",
+            "warnings": [],
+            "sequence": 6,
+            "filename": "06 - B1.pdf"
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "coverage": {
+          "complete": true,
+          "covered_pages": 12,
+          "section_count": 6
+        },
+        "written_count": 6,
+        "source_identity": {
+          "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\nested-12.pdf",
+          "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\nested-12.pdf",
+          "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+          "size_bytes": 10094,
+          "binding": "reader_snapshot"
+        },
+        "writer_result": {
+          "mode": "2",
+          "total_pages": 12,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\nested-12.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\fixtures\\nested-12.pdf",
+            "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+            "size_bytes": 10094,
+            "binding": "reader_snapshot"
+          },
+          "coverage": {
+            "complete": true,
+            "covered_pages": 12,
+            "section_count": 6
+          },
+          "written_count": 6,
+          "outputs": [
+            {
+              "title": "Front matter",
+              "start": 0,
+              "end": 2,
+              "parent_id": null,
+              "reason": "front_matter",
+              "warnings": [],
+              "sequence": 1,
+              "filename": "01 - Front matter.pdf",
+              "page_count": 2
+            },
+            {
+              "title": "A - Opening pages",
+              "start": 2,
+              "end": 3,
+              "parent_id": "bookmark-1",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 2,
+              "filename": "02 - A - Opening pages.pdf",
+              "page_count": 1
+            },
+            {
+              "title": "A1",
+              "start": 3,
+              "end": 6,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-2",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 3,
+              "filename": "03 - A1.pdf",
+              "page_count": 3
+            },
+            {
+              "title": "A2",
+              "start": 6,
+              "end": 8,
+              "parent_id": "bookmark-1",
+              "bookmark_id": "bookmark-3",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 4,
+              "filename": "04 - A2.pdf",
+              "page_count": 2
+            },
+            {
+              "title": "B - Opening pages",
+              "start": 8,
+              "end": 10,
+              "parent_id": "bookmark-4",
+              "reason": "parent_opening",
+              "warnings": [],
+              "sequence": 5,
+              "filename": "05 - B - Opening pages.pdf",
+              "page_count": 2
+            },
+            {
+              "title": "B1",
+              "start": 10,
+              "end": 12,
+              "parent_id": "bookmark-4",
+              "bookmark_id": "bookmark-5",
+              "reason": "bookmark",
+              "warnings": [],
+              "sequence": 6,
+              "filename": "06 - B1.pdf",
+              "page_count": 2
+            }
+          ]
+        },
+        "neighbor_unchanged": true,
+        "no_replanning_or_reopening": true,
+        "page_content_sha256": [
+          "d16bbb1173c43e49e6bbfd5255d0233cd6674686d16552c3834d300e4e35f5ab",
+          "77f108876a5f88b33046419de016eb901e12114eb788d29ea23e1302bcc197fb",
+          "1c740b3ab6c946c038e82d717afcc34c1b11f5c9ca6f1dd930e7f5cc9808771a",
+          "3a2b5e4f339a4352be140bbdc1baf9e1ab0ad16c012da5ae92a8cc09e30c9a90",
+          "afadb4b2f08254151947b58490e5f08d57651b8bc0eca1c4fc649adce1a9c3af",
+          "c158e1279910004128bf7009c03c954cbb574540d9d1a454514c7bde3fdc566b",
+          "1b852bf58b7caa128fc75e6ced45d2bbe2a3cc9a6dcd719e1f9d0af202a99830",
+          "ee5875cae99428a821e804079b4b211b547dbe064e591cc5771a061ed4b344d5",
+          "e5890e46d913ad2162a0766c6405995d7a51bb098490795cdc98567ac96b600a",
+          "520d12e4c6569e2ea943fb371210796ce52bc9e38279673dd60893873842422a",
+          "a72fffc76103e9e0c17f376378ececb262df8b66379e12c5d65ccc4a15c7a06c",
+          "9236a10074d951052495b94b566ad8ee0d24eda70d3b7a3316c46762fd78baf3"
+        ],
+        "original_page_content_sha256": [
+          "d16bbb1173c43e49e6bbfd5255d0233cd6674686d16552c3834d300e4e35f5ab",
+          "77f108876a5f88b33046419de016eb901e12114eb788d29ea23e1302bcc197fb",
+          "1c740b3ab6c946c038e82d717afcc34c1b11f5c9ca6f1dd930e7f5cc9808771a",
+          "3a2b5e4f339a4352be140bbdc1baf9e1ab0ad16c012da5ae92a8cc09e30c9a90",
+          "afadb4b2f08254151947b58490e5f08d57651b8bc0eca1c4fc649adce1a9c3af",
+          "c158e1279910004128bf7009c03c954cbb574540d9d1a454514c7bde3fdc566b",
+          "1b852bf58b7caa128fc75e6ced45d2bbe2a3cc9a6dcd719e1f9d0af202a99830",
+          "ee5875cae99428a821e804079b4b211b547dbe064e591cc5771a061ed4b344d5",
+          "e5890e46d913ad2162a0766c6405995d7a51bb098490795cdc98567ac96b600a",
+          "520d12e4c6569e2ea943fb371210796ce52bc9e38279673dd60893873842422a",
+          "a72fffc76103e9e0c17f376378ececb262df8b66379e12c5d65ccc4a15c7a06c",
+          "9236a10074d951052495b94b566ad8ee0d24eda70d3b7a3316c46762fd78baf3"
+        ]
+      }
+    ],
+    "source_cases": [
+      {
+        "id": "changed-same-path",
+        "passed": true,
+        "outcome": "bound_original_preserved",
+        "captured_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "replacement_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "replacement_unchanged": true,
+        "replacement_page_content_sha256": [
+          "d16bbb1173c43e49e6bbfd5255d0233cd6674686d16552c3834d300e4e35f5ab",
+          "77f108876a5f88b33046419de016eb901e12114eb788d29ea23e1302bcc197fb",
+          "1c740b3ab6c946c038e82d717afcc34c1b11f5c9ca6f1dd930e7f5cc9808771a",
+          "3a2b5e4f339a4352be140bbdc1baf9e1ab0ad16c012da5ae92a8cc09e30c9a90",
+          "afadb4b2f08254151947b58490e5f08d57651b8bc0eca1c4fc649adce1a9c3af",
+          "c158e1279910004128bf7009c03c954cbb574540d9d1a454514c7bde3fdc566b",
+          "1b852bf58b7caa128fc75e6ced45d2bbe2a3cc9a6dcd719e1f9d0af202a99830",
+          "ee5875cae99428a821e804079b4b211b547dbe064e591cc5771a061ed4b344d5",
+          "e5890e46d913ad2162a0766c6405995d7a51bb098490795cdc98567ac96b600a",
+          "520d12e4c6569e2ea943fb371210796ce52bc9e38279673dd60893873842422a",
+          "a72fffc76103e9e0c17f376378ececb262df8b66379e12c5d65ccc4a15c7a06c",
+          "9236a10074d951052495b94b566ad8ee0d24eda70d3b7a3316c46762fd78baf3"
+        ],
+        "total_pages": 10,
+        "preview_entries": [
+          {
+            "sequence": 1,
+            "title": "Section (Page 1-3)",
+            "start": 0,
+            "end": 3,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "01 - Section (Page 1-3).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 2,
+            "title": "Section (Page 4-6)",
+            "start": 3,
+            "end": 6,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "02 - Section (Page 4-6).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 3,
+            "title": "Section (Page 7-10)",
+            "start": 6,
+            "end": 10,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "03 - Section (Page 7-10).pdf",
+            "warnings": []
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "coverage": {
+          "complete": true,
+          "covered_pages": 10,
+          "section_count": 3
+        },
+        "written_count": 3,
+        "source_identity": {
+          "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\changed-same-path.pdf",
+          "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\changed-same-path.pdf",
+          "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+          "size_bytes": 8211,
+          "binding": "reader_snapshot"
+        },
+        "writer_result": {
+          "mode": "manual",
+          "total_pages": 10,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\changed-same-path.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\changed-same-path.pdf",
+            "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+            "size_bytes": 8211,
+            "binding": "reader_snapshot"
+          },
+          "coverage": {
+            "complete": true,
+            "covered_pages": 10,
+            "section_count": 3
+          },
+          "written_count": 3,
+          "outputs": [
+            {
+              "sequence": 1,
+              "title": "Section (Page 1-3)",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "01 - Section (Page 1-3).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 2,
+              "title": "Section (Page 4-6)",
+              "start": 3,
+              "end": 6,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "02 - Section (Page 4-6).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 3,
+              "title": "Section (Page 7-10)",
+              "start": 6,
+              "end": 10,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "03 - Section (Page 7-10).pdf",
+              "warnings": [],
+              "page_count": 4
+            }
+          ]
+        },
+        "neighbor_unchanged": true,
+        "no_replanning_or_reopening": true,
+        "page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ],
+        "original_page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ]
+      },
+      {
+        "id": "repointed-source",
+        "passed": true,
+        "outcome": "bound_original_preserved",
+        "captured_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "replacement_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "replacement_unchanged": true,
+        "replacement_page_content_sha256": [
+          "d16bbb1173c43e49e6bbfd5255d0233cd6674686d16552c3834d300e4e35f5ab",
+          "77f108876a5f88b33046419de016eb901e12114eb788d29ea23e1302bcc197fb",
+          "1c740b3ab6c946c038e82d717afcc34c1b11f5c9ca6f1dd930e7f5cc9808771a",
+          "3a2b5e4f339a4352be140bbdc1baf9e1ab0ad16c012da5ae92a8cc09e30c9a90",
+          "afadb4b2f08254151947b58490e5f08d57651b8bc0eca1c4fc649adce1a9c3af",
+          "c158e1279910004128bf7009c03c954cbb574540d9d1a454514c7bde3fdc566b",
+          "1b852bf58b7caa128fc75e6ced45d2bbe2a3cc9a6dcd719e1f9d0af202a99830",
+          "ee5875cae99428a821e804079b4b211b547dbe064e591cc5771a061ed4b344d5",
+          "e5890e46d913ad2162a0766c6405995d7a51bb098490795cdc98567ac96b600a",
+          "520d12e4c6569e2ea943fb371210796ce52bc9e38279673dd60893873842422a",
+          "a72fffc76103e9e0c17f376378ececb262df8b66379e12c5d65ccc4a15c7a06c",
+          "9236a10074d951052495b94b566ad8ee0d24eda70d3b7a3316c46762fd78baf3"
+        ],
+        "total_pages": 10,
+        "preview_entries": [
+          {
+            "sequence": 1,
+            "title": "Section (Page 1-3)",
+            "start": 0,
+            "end": 3,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "01 - Section (Page 1-3).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 2,
+            "title": "Section (Page 4-6)",
+            "start": 3,
+            "end": 6,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "02 - Section (Page 4-6).pdf",
+            "warnings": []
+          },
+          {
+            "sequence": 3,
+            "title": "Section (Page 7-10)",
+            "start": 6,
+            "end": 10,
+            "parent_id": null,
+            "reason": "manual",
+            "filename": "03 - Section (Page 7-10).pdf",
+            "warnings": []
+          }
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "coverage": {
+          "complete": true,
+          "covered_pages": 10,
+          "section_count": 3
+        },
+        "written_count": 3,
+        "source_identity": {
+          "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+          "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+          "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+          "size_bytes": 8211,
+          "binding": "reader_snapshot"
+        },
+        "writer_result": {
+          "mode": "manual",
+          "total_pages": 10,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+            "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+            "size_bytes": 8211,
+            "binding": "reader_snapshot"
+          },
+          "coverage": {
+            "complete": true,
+            "covered_pages": 10,
+            "section_count": 3
+          },
+          "written_count": 3,
+          "outputs": [
+            {
+              "sequence": 1,
+              "title": "Section (Page 1-3)",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "01 - Section (Page 1-3).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 2,
+              "title": "Section (Page 4-6)",
+              "start": 3,
+              "end": 6,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "02 - Section (Page 4-6).pdf",
+              "warnings": [],
+              "page_count": 3
+            },
+            {
+              "sequence": 3,
+              "title": "Section (Page 7-10)",
+              "start": 6,
+              "end": 10,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "03 - Section (Page 7-10).pdf",
+              "warnings": [],
+              "page_count": 4
+            }
+          ]
+        },
+        "neighbor_unchanged": true,
+        "no_replanning_or_reopening": true,
+        "page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ],
+        "original_page_content_sha256": [
+          "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+          "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+          "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+          "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+          "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+          "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+          "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+          "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+          "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+          "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+        ],
+        "deleted_path_snapshot": {
+          "total_pages": 10,
+          "preview_entries": [
+            {
+              "sequence": 1,
+              "title": "Section (Page 1-3)",
+              "start": 0,
+              "end": 3,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "01 - Section (Page 1-3).pdf",
+              "warnings": []
+            },
+            {
+              "sequence": 2,
+              "title": "Section (Page 4-6)",
+              "start": 3,
+              "end": 6,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "02 - Section (Page 4-6).pdf",
+              "warnings": []
+            },
+            {
+              "sequence": 3,
+              "title": "Section (Page 7-10)",
+              "start": 6,
+              "end": 10,
+              "parent_id": null,
+              "reason": "manual",
+              "filename": "03 - Section (Page 7-10).pdf",
+              "warnings": []
+            }
+          ],
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-3).pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - Section (Page 4-6).pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - Section (Page 7-10).pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "coverage": {
+            "complete": true,
+            "covered_pages": 10,
+            "section_count": 3
+          },
+          "written_count": 3,
+          "source_identity": {
+            "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+            "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+            "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+            "size_bytes": 8211,
+            "binding": "reader_snapshot"
+          },
+          "writer_result": {
+            "mode": "manual",
+            "total_pages": 10,
+            "source_identity": {
+              "path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+              "resolved_path": "$UserProfile\\AppData\\Local\\Temp\\WinBookSplit-tests-rzfm6e1h\\WinBookSplit-M1-T05-tests-ghiguk3s\\repointed-source.pdf",
+              "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+              "size_bytes": 8211,
+              "binding": "reader_snapshot"
+            },
+            "coverage": {
+              "complete": true,
+              "covered_pages": 10,
+              "section_count": 3
+            },
+            "written_count": 3,
+            "outputs": [
+              {
+                "sequence": 1,
+                "title": "Section (Page 1-3)",
+                "start": 0,
+                "end": 3,
+                "parent_id": null,
+                "reason": "manual",
+                "filename": "01 - Section (Page 1-3).pdf",
+                "warnings": [],
+                "page_count": 3
+              },
+              {
+                "sequence": 2,
+                "title": "Section (Page 4-6)",
+                "start": 3,
+                "end": 6,
+                "parent_id": null,
+                "reason": "manual",
+                "filename": "02 - Section (Page 4-6).pdf",
+                "warnings": [],
+                "page_count": 3
+              },
+              {
+                "sequence": 3,
+                "title": "Section (Page 7-10)",
+                "start": 6,
+                "end": 10,
+                "parent_id": null,
+                "reason": "manual",
+                "filename": "03 - Section (Page 7-10).pdf",
+                "warnings": [],
+                "page_count": 4
+              }
+            ]
+          },
+          "neighbor_unchanged": true,
+          "no_replanning_or_reopening": true,
+          "page_content_sha256": [
+            "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+            "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+            "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+            "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+            "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+            "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+            "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+            "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+            "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+            "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+          ],
+          "original_page_content_sha256": [
+            "90c3640ac5d905691ebe7c38845d84546c05dad34c25296d8e78b20657755690",
+            "88cb487f8dcfacd9ff5cad53c1a9f63aa7b3a852f937e7fd154b8636c90c11f2",
+            "bbecf7f608ee38870ca56e5c8dbf8d1394cb35c77987b1c0e1a0acc4383f5a3a",
+            "609ad0a76c18f40cc7fceaf6e35f5696bd6eea17e45f7d934d5c41b2e8589b33",
+            "1008f0b29f47732a0251efa615b4e1b922b53f63c5b1c3dcec0c7ded816e5e0e",
+            "cf9b15b59e98a48af3e44f4426b1c24a01e3e6887436d22712f5859b6a819376",
+            "96ccbbc5be0287c05ce5ad40a2d2939805c572f2e2543bfe7d5f1dec83f652f2",
+            "5e2874e6b45649c0807d43f95eb6f8d2c19908fb79ba03a32d56a7a6ee37a7dc",
+            "9b47f183678bee3d8d6a5fbe7556e27e11413d7cfbcbddbf3cc5a6fb512038e4",
+            "3b368a3f3eb6ca579c51db3388ce898aa0f539f4cd33ebf3949eead30e5f4213"
+          ]
+        }
+      }
+    ],
+    "seeded_plan_cases": {
+      "seed": 20261009,
+      "count": 300,
+      "per_mode": {
+        "manual": 100,
+        "1": 100,
+        "2": 100
+      },
+      "passed": true,
+      "observations_sha256": "f104690ea35e92240a3eda7c63875df5acd553f4cc3e71d6ab94f832b46928ef"
+    },
+    "source_unchanged": true,
+    "baseline_guards_preserved": true,
+    "input_and_neighbor_unchanged": true,
+    "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
+    "historical_original_guard": {
+      "exit_code": 1,
+      "stdout": "",
+      "stderr": "Characterization failed: Original launchers changed. Do not run known-bad expectations against fixed code.\n"
+    },
+    "import_observation": {
+      "import_safe": true,
+      "stdout_stderr_empty": true,
+      "cwd_unchanged": true,
+      "logger_stdout_configuration_unchanged": true,
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    "not_run": [
+      "interactive preview UI",
+      "additional actual launcher probes",
+      "Explorer",
+      "Calibre conversion",
+      "rendered fidelity",
+      "output transactions",
+      "release-package acceptance"
+    ],
+    "owned_temp_removed": true
+  },
+  "regressions": {
+    "manual-regression": {
+      "task_id": "M1-T02",
+      "success": true,
+      "result": "MANUAL_REGRESSION_PASSED",
+      "child_sha256": "58207461fcc383180774d8e0e7765eb59d29f0ae5dd31a65ae16b6d221983975",
+      "engine_cases": [
+        {
+          "oracle_id": "MAN-01",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-10).pdf",
+              "page_ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                0,
+                10
+              ],
+              "sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-02",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-3).pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - Section (Page 4-6).pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - Section (Page 7-10).pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-03",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-3).pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - Section (Page 4-6).pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - Section (Page 7-10).pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-04",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-3).pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - Section (Page 4-6).pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - Section (Page 7-10).pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-05",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-9).pdf",
+              "page_ids": [
+                1,
+                2,
+                3,
+                4,
+                5,
+                6,
+                7,
+                8,
+                9
+              ],
+              "range": [
+                0,
+                9
+              ],
+              "sha256": "2f978b9c1a77af0ef4fd068fb78ec14a05e7e142928b07b0c044fb9083aa87f7"
+            },
+            {
+              "filename": "02 - Section (Page 10-10).pdf",
+              "page_ids": [
+                10
+              ],
+              "range": [
+                9,
+                10
+              ],
+              "sha256": "abb58de25925926e733ca44d649f6115acf9e9be73f1fabb4959ec563f5430a2"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-06",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-1).pdf",
+              "page_ids": [
+                1
+              ],
+              "range": [
+                0,
+                1
+              ],
+              "sha256": "c1645a9a82fef5973df04c07e060a8d89d9e6e657d8a9e9c0cf101445a59adfc"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "MAN-07",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-08",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-09",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-10",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-11",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-12",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-13",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-14",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-15",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-16",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-17",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-18",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-19",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-20",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-21",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        },
+        {
+          "oracle_id": "MAN-22",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 1
+        }
+      ],
+      "aggregate_case_count": 8,
+      "seeded_property_cases": {
+        "seed": 20261009,
+        "count": 250,
+        "passed": true
+      },
+      "writer_sample_count": 25,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "input_and_neighbor_unchanged": true,
+      "baseline_guards_preserved": true,
+      "historical_bookmark_cases": [],
+      "level2_launcher_reference": {
+        "oracle_id": "BM-03",
+        "passed": true,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "titles": [
+          "Front matter",
+          "A - Opening pages",
+          "A1",
+          "A2",
+          "B - Opening pages",
+          "B1"
+        ],
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "exit_code": 0,
+        "stdout": "[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n",
+        "stderr": ""
+      }
+    },
+    "level1-regression": {
+      "task_id": "M1-T03",
+      "success": true,
+      "result": "LEVEL1_REGRESSION_PASSED",
+      "child_sha256": "a5d08371322e54da0eeae5c47b6e76759b11498da0f205c35d18f785e80e40dd",
+      "engine_cases": [
+        {
+          "oracle_id": "BM-01",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Front matter.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - A.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - B.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "BM-02",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Front matter.pdf",
+              "page_ids": [
+                1,
+                2
+              ],
+              "range": [
+                0,
+                2
+              ],
+              "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+            },
+            {
+              "filename": "02 - A.pdf",
+              "page_ids": [
+                3,
+                4,
+                5,
+                6,
+                7,
+                8
+              ],
+              "range": [
+                2,
+                8
+              ],
+              "sha256": "1ace585468b0db1837eb6e6646fd6133fe76bae84459bc52330cb2ddfd9e55dc"
+            },
+            {
+              "filename": "03 - B.pdf",
+              "page_ids": [
+                9,
+                10,
+                11,
+                12
+              ],
+              "range": [
+                8,
+                12
+              ],
+              "sha256": "8b85ed756139687d06b10da4b2206126b1b0fec4a2ebc1407708e41b80e280e0"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "BM-05",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 55
+        },
+        {
+          "oracle_id": "BM-08",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Front matter.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+            },
+            {
+              "filename": "02 - A.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+            },
+            {
+              "filename": "03 - B.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                6,
+                10
+              ],
+              "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+            }
+          ],
+          "exit_code": 0
+        }
+      ],
+      "aggregate_case_count": 5,
+      "seeded_level1_cases": {
+        "seed": 20261009,
+        "count": 150,
+        "passed": true
+      },
+      "writer_sample_count": 10,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "input_and_neighbor_unchanged": true,
+      "baseline_guards_preserved": true
+    },
+    "level2-regression": {
+      "task_id": "M1-T04",
+      "success": true,
+      "result": "LEVEL2_REGRESSION_PASSED",
+      "child_sha256": "116570c36aa4cc1d115310d6b0a48af28458a3f5ea7afba309f506aa70b62cbd",
+      "engine_cases": [
+        {
+          "oracle_id": "BM-03",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - Front matter.pdf",
+              "page_ids": [
+                1,
+                2
+              ],
+              "range": [
+                0,
+                2
+              ],
+              "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+            },
+            {
+              "filename": "02 - A - Opening pages.pdf",
+              "page_ids": [
+                3
+              ],
+              "range": [
+                2,
+                3
+              ],
+              "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+            },
+            {
+              "filename": "03 - A1.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+            },
+            {
+              "filename": "04 - A2.pdf",
+              "page_ids": [
+                7,
+                8
+              ],
+              "range": [
+                6,
+                8
+              ],
+              "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+            },
+            {
+              "filename": "05 - B - Opening pages.pdf",
+              "page_ids": [
+                9,
+                10
+              ],
+              "range": [
+                8,
+                10
+              ],
+              "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+            },
+            {
+              "filename": "06 - B1.pdf",
+              "page_ids": [
+                11,
+                12
+              ],
+              "range": [
+                10,
+                12
+              ],
+              "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "BM-04",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - A1.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ],
+              "range": [
+                0,
+                3
+              ],
+              "sha256": "d9e11b11538e56bc569610a6eb376978ee925050a763a7425a02010b54e1bf95"
+            },
+            {
+              "filename": "02 - A2.pdf",
+              "page_ids": [
+                4,
+                5,
+                6
+              ],
+              "range": [
+                3,
+                6
+              ],
+              "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+            },
+            {
+              "filename": "03 - B.pdf",
+              "page_ids": [
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ],
+              "range": [
+                6,
+                12
+              ],
+              "sha256": "b176b7ad02bb0092d3b172c2d4824b35dcb0a4ac5a5e572a134871badd5aecaa"
+            }
+          ],
+          "exit_code": 0
+        },
+        {
+          "oracle_id": "BM-06",
+          "passed": true,
+          "outputs": [],
+          "exit_code": 55
+        },
+        {
+          "oracle_id": "BM-07",
+          "passed": true,
+          "outputs": [
+            {
+              "filename": "01 - A - Opening pages.pdf",
+              "page_ids": [
+                1
+              ],
+              "range": [
+                0,
+                1
+              ],
+              "sha256": "b88a174b36b093c37afb16dbb639b01d0e87f5ba078575f1babe14441a6911c8"
+            },
+            {
+              "filename": "02 - A1.pdf",
+              "page_ids": [
+                2,
+                3,
+                4,
+                5
+              ],
+              "range": [
+                1,
+                5
+              ],
+              "sha256": "736127cb52d2e2df615fd81198700dcef540cadd193a2804299331f86c0fbb52"
+            },
+            {
+              "filename": "03 - B.pdf",
+              "page_ids": [
+                6,
+                7,
+                8,
+                9,
+                10
+              ],
+              "range": [
+                5,
+                10
+              ],
+              "sha256": "75873fd362f66df829a1aa2c0af95629e44cd3377d6823e0f11acdeb89052587"
+            }
+          ],
+          "exit_code": 0
+        }
+      ],
+      "aggregate_case_count": 6,
+      "seeded_level2_cases": {
+        "seed": 20261009,
+        "count": 150,
+        "passed": true
+      },
+      "writer_sample_count": 10,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "input_and_neighbor_unchanged": true,
+      "baseline_guards_preserved": true
+    }
+  },
+  "entrypoints": {
+    "probes": [
+      {
+        "id": "PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-0d0ae888d7bb496898ba7cab75e8b106\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-0d0ae888d7bb496898ba7cab75e8b106_Chapters\\WinBookSplit_Log_20261009_074325.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$UserProfile\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-c9d9a4f9179940e3b776fa85fc22a4ab\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-c9d9a4f9179940e3b776fa85fc22a4ab_Chapters\\WinBookSplit_Log_20261009_074327.txt\n\n[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-8a4af3d13b9b42079198bbf3e966908a\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-8a4af3d13b9b42079198bbf3e966908a_Chapters\\WinBookSplit_Log_20261009_074330.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS51-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-01ef6f1787f14962a3697c07c5d4bf09\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-01ef6f1787f14962a3697c07c5d4bf09_Chapters\\WinBookSplit_Log_20261009_074331.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      },
+      {
+        "id": "parallel-PS7-unrelated",
+        "entrypoint": "PowerShell -File",
+        "host": "7.6.5",
+        "shell_executable": "$PS7",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "$UserProfile\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "BM-03",
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1,
+              2
+            ],
+            "range": [
+              0,
+              2
+            ],
+            "sha256": "698cd14cd240270c14a2d6f226b4f4efdaa3ed090e62b0e4b8dc8cd191dd84a5"
+          },
+          {
+            "filename": "02 - A - Opening pages.pdf",
+            "page_ids": [
+              3
+            ],
+            "range": [
+              2,
+              3
+            ],
+            "sha256": "c88893fde62eab5a72f4bf0fee473130bd445d97ffb262b0b7a1287cda28c6f7"
+          },
+          {
+            "filename": "03 - A1.pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "dff512e4cb413568a897dd1298f10731a640958e884c6cd51e1db2c5443af4f2"
+          },
+          {
+            "filename": "04 - A2.pdf",
+            "page_ids": [
+              7,
+              8
+            ],
+            "range": [
+              6,
+              8
+            ],
+            "sha256": "ada133a5f007a7454f897f3ce6c5fcb5bc62e0aa5f19106e5a189e7f581cca2a"
+          },
+          {
+            "filename": "05 - B - Opening pages.pdf",
+            "page_ids": [
+              9,
+              10
+            ],
+            "range": [
+              8,
+              10
+            ],
+            "sha256": "d111d19c8813d22f64f5aab1e9aee639c009879a9ffd7fc0b34db4db83c09cb3"
+          },
+          {
+            "filename": "06 - B1.pdf",
+            "page_ids": [
+              11,
+              12
+            ],
+            "range": [
+              10,
+              12
+            ],
+            "sha256": "c1e7c919109b525c0aac359b70e4e079fe222860b9c3b1b7d3a95f86ba0beea8"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-7ec709728f8e4c97930d291222aca9a6\nSize:        0,01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\n2\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-7ec709728f8e4c97930d291222aca9a6_Chapters\\WinBookSplit_Log_20261009_074333.txt\n\n[*] Found 6 sections based on Level 2 bookmarks.\n    [Writing] 01 - Front matter.pdf\n    [Writing] 02 - A - Opening pages.pdf\n    [Writing] 03 - A1.pdf\n    [Writing] 04 - A2.pdf\n    [Writing] 05 - B - Opening pages.pdf\n    [Writing] 06 - B1.pdf\n\nDone.\n\n",
+        "stderr": "SetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\nSetValueInvocationException: \nLine |\n   3 |  $RawUI.CursorPosition = @{X=0;Y=0}\n     |  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n     | Exception setting \"CursorPosition\": \"The handle is invalid.\"\n"
+      },
+      {
+        "id": "parallel-BAT-unrelated",
+        "entrypoint": "BAT -> actual Windows PowerShell",
+        "host": "5.1.26100.9444",
+        "shell_executable": "$PS51",
+        "controlled_python": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+        "builtin_module_path": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\Modules",
+        "python_path_first": "$M1T05ExternalRoot\\dev-venv\\Scripts",
+        "oracle_id": "MAN-03",
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-3).pdf",
+            "page_ids": [
+              1,
+              2,
+              3
+            ],
+            "range": [
+              0,
+              3
+            ],
+            "sha256": "af684f31b01b945e765126afee4e1307f94cf59eda7e567091230679263fbb04"
+          },
+          {
+            "filename": "02 - Section (Page 4-6).pdf",
+            "page_ids": [
+              4,
+              5,
+              6
+            ],
+            "range": [
+              3,
+              6
+            ],
+            "sha256": "12c2aa6a07f34c2111f9122fdcb6606228fa848c242f8d22280253b015ec2cbe"
+          },
+          {
+            "filename": "03 - Section (Page 7-10).pdf",
+            "page_ids": [
+              7,
+              8,
+              9,
+              10
+            ],
+            "range": [
+              6,
+              10
+            ],
+            "sha256": "5f6d2715459aaa2fb01988575148d29c1536b4a1e57012b02c19ebe66f37c0fa"
+          }
+        ],
+        "input_unchanged": true,
+        "cwd_engine_untouched": true,
+        "owned_neighbor_unchanged": true,
+        "output_location": "<observed-Documents>/wbs-m1-<run-GUID>_Chapters",
+        "exit_code": 0,
+        "stdout": "==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nTarget Book: wbs-m1-a9b18187f2484ac8b98046445390c44b\nSize:        0.01 MB\n\nSelect Splitting Method:\n [1] Level 1 Bookmarks (Auto)\n [2] Level 2 Bookmarks (Auto)\n [M] Manual Entry (Page Numbers)\n\nM\n\nEnter page numbers where new files should START.\n4,7\n==========================================\n      WinBookSplit v2.1 (AZW3 Support)\n==========================================\n\nRunning Processor...\nLog: <observed-Documents>\\wbs-m1-a9b18187f2484ac8b98046445390c44b_Chapters\\WinBookSplit_Log_20261009_074331.txt\n\n[NOTICE] Physical page 1 added to preserve opening pages.\n[*] Manual Split Points (Page #): [1, 4, 7]\n    [Writing] 01 - Section (Page 1-3).pdf\n    [Writing] 02 - Section (Page 4-6).pdf\n    [Writing] 03 - Section (Page 7-10).pdf\n\nDone.\n\n",
+        "stderr": ""
+      }
+    ],
+    "probe_count": 6,
+    "parallel_launch_count": 3,
+    "shared_temp_engine_sentinel_unchanged": true,
+    "owned_document_outputs_removed": true,
+    "method": "Actual -File/BAT, piped prompts, controlled Python PATH, real observed Documents; GUID-owned marker/sentinel directories only. No prompt/path/host shim."
+  },
+  "unchanged_M1_T01_runtime_paths": {
+    "WinBookSplit.ps1": "abc4b2d8d178c197eef89e224fcdb35f088f90b4cd4e4797834dd22f6d07b8df",
+    "WinBookSplit.bat": "e760e8a9ccb933fe7dca179270d8b018cafe7528c4a7b8a21514487a0342359b",
+    "README.md": "7dc9716b3274a1c1bfa4c00a494cbaff10ea2dd01add2c850305e8455d53739e",
+    "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+    "WinBookSplit_icon.png": "df68b594e45dced01f0b2eab0af23e7601e1c4ea42d023cd28d1b82d2a375159",
+    "WinBookSplit_poster.png": "e05a5cb155a7b06124fcc9afaa43e7f5402f5b204bab679c4c6072a195abcbaa",
+    "WinBookSplit_icon.ico": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+  },
+  "before_fix": {
+    "plan_reproduction": {
+      "source_head": "828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c",
+      "source_sha256": {
+        "engine/winbooksplit_engine.py": "d3a49a3c1d4dac3ca6cf5d0d2342d62abede1fc9852607d1e941146dbf3de11e",
+        "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108"
+      },
+      "script_sha256": "ec01aabc9f273f31fea197a15606ffc6cc06d1c4fc396951e966e7331829dcad",
+      "python": "3.14.8",
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "python_executable": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "content_origin": "Original generated synthetic inputs only; mutable copies are owned by this reproduction",
+      "claim": "Pre-change gaps, not acceptance passes",
+      "planner_injection_cases": [
+        {
+          "mode": "manual",
+          "defect": "gap",
+          "injected_ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              4,
+              10
+            ]
+          ],
+          "return": "normal",
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-3).pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "filename": "02 - Section (Page 5-10).pdf",
+              "page_ids": [
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "logs": [
+            "[*] Manual Split Points (Page #): [1, 5]",
+            "    [Writing] 01 - Section (Page 1-3).pdf",
+            "    [Writing] 02 - Section (Page 5-10).pdf"
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "mode": "manual",
+          "defect": "zero-sections",
+          "injected_ranges": [],
+          "return": "normal",
+          "outputs": [],
+          "flattened_page_ids": [],
+          "logs": [
+            "[*] Manual Split Points (Page #): []"
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "mode": "1",
+          "defect": "gap",
+          "injected_ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              4,
+              10
+            ]
+          ],
+          "return": "normal",
+          "outputs": [
+            {
+              "filename": "01 - Synthetic.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "filename": "02 - Synthetic.pdf",
+              "page_ids": [
+                5,
+                6,
+                7,
+                8,
+                9,
+                10
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "logs": [
+            "[*] Found 2 sections based on Level 1 bookmarks.",
+            "    [Writing] 01 - Synthetic.pdf",
+            "    [Writing] 02 - Synthetic.pdf"
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "mode": "1",
+          "defect": "zero-sections",
+          "injected_ranges": [],
+          "return": "normal",
+          "outputs": [],
+          "flattened_page_ids": [],
+          "logs": [
+            "[*] Found 0 sections based on Level 1 bookmarks."
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "mode": "2",
+          "defect": "gap",
+          "injected_ranges": [
+            [
+              0,
+              3
+            ],
+            [
+              4,
+              12
+            ]
+          ],
+          "return": "normal",
+          "outputs": [
+            {
+              "filename": "01 - Synthetic.pdf",
+              "page_ids": [
+                1,
+                2,
+                3
+              ]
+            },
+            {
+              "filename": "02 - Synthetic.pdf",
+              "page_ids": [
+                5,
+                6,
+                7,
+                8,
+                9,
+                10,
+                11,
+                12
+              ]
+            }
+          ],
+          "flattened_page_ids": [
+            1,
+            2,
+            3,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10,
+            11,
+            12
+          ],
+          "logs": [
+            "[*] Found 2 sections based on Level 2 bookmarks.",
+            "    [Writing] 01 - Synthetic.pdf",
+            "    [Writing] 02 - Synthetic.pdf"
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        },
+        {
+          "mode": "2",
+          "defect": "zero-sections",
+          "injected_ranges": [],
+          "return": "normal",
+          "outputs": [],
+          "flattened_page_ids": [],
+          "logs": [
+            "[*] Found 0 sections based on Level 2 bookmarks."
+          ],
+          "input_unchanged": true,
+          "neighbor_unchanged": true
+        }
+      ],
+      "changed_source_after_preview": {
+        "preview_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "preview_filenames": [
+          "01 - Front matter.pdf",
+          "02 - A.pdf",
+          "03 - B.pdf"
+        ],
+        "old_source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "changed_source_sha256": "4a2174427cfdb9348a58b7355b321e53fdb2655f88a06fa5badadb208f5f0e83",
+        "return": "normal",
+        "outputs": [
+          {
+            "filename": "01 - Front matter.pdf",
+            "page_ids": [
+              1
+            ]
+          },
+          {
+            "filename": "02 - Replacement A.pdf",
+            "page_ids": [
+              2,
+              3,
+              4,
+              5,
+              6,
+              7,
+              8
+            ]
+          },
+          {
+            "filename": "03 - Replacement B.pdf",
+            "page_ids": [
+              9,
+              10
+            ]
+          }
+        ],
+        "logs": [
+          "[*] Found 3 sections based on Level 1 bookmarks.",
+          "    [Writing] 01 - Front matter.pdf",
+          "    [Writing] 02 - Replacement A.pdf",
+          "    [Writing] 03 - Replacement B.pdf"
+        ],
+        "preview_matches_execution": false
+      },
+      "old_plan_shapes": {
+        "manual": [
+          "notices",
+          "ranges",
+          "starts"
+        ],
+        "level1": [
+          "bookmarks",
+          "entries",
+          "mode",
+          "ranges",
+          "total_pages",
+          "warnings"
+        ],
+        "level2": [
+          "bookmarks",
+          "entries",
+          "mode",
+          "ranges",
+          "total_pages",
+          "warnings"
+        ]
+      },
+      "shared_api_present": {
+        "prepare_split": false,
+        "execute_prepared": false,
+        "validate_plan": false,
+        "preview_data": false
+      },
+      "original_generated_inputs_unchanged": true,
+      "owned_temp_cleaned": true,
+      "engine_unchanged_during_reproduction": true
+    },
+    "output_safety_reproduction": {
+      "source_head": "828b232b6a25b2c67c65fc3e31d2f3f7cb30a38c",
+      "engine_sha256": "d3a49a3c1d4dac3ca6cf5d0d2342d62abede1fc9852607d1e941146dbf3de11e",
+      "script_sha256": "927a6131177193721b81ef08b6053b40f1a28f29cf3ee2216f163233b7a85109",
+      "python": "3.14.8",
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "python_executable": "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "claim": "Pre-change defects, not safety acceptance passes",
+      "content_origin": "Only generated synthetic inputs; clobber targets are this probe's mutable owned copies",
+      "source_output_alias": {
+        "return": "normal",
+        "before_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "after_sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131",
+        "source_changed": true,
+        "output_page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "logs": [
+          "[NOTICE] One section; no internal split.",
+          "[*] Manual Split Points (Page #): [1]",
+          "    [Writing] 01 - Section (Page 1-10).pdf"
+        ]
+      },
+      "existing_planned_chapter": {
+        "return": "normal",
+        "before_sha256": "790d63fb166a1bef24b84bd88c03d5597ee5c84eae0c5a15b8940177ae8071dc",
+        "after_sha256": "df41c50299d14b9031ab57e6d680a2de83c51fa87f507c2a350c8892257cd131",
+        "sentinel_overwritten": true,
+        "output_page_ids": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "logs": [
+          "[NOTICE] One section; no internal split.",
+          "[*] Manual Split Points (Page #): [1]",
+          "    [Writing] 01 - Section (Page 1-10).pdf"
+        ]
+      },
+      "original_generated_input_unchanged": true,
+      "owned_temp_cleaned": true,
+      "engine_unchanged_during_reproduction": true
+    },
+    "plan_raw_sha256": "af09a0ebdb30bb7b069899f41a7beccbdf91dd7892620463d9ec59c39b76a235",
+    "output_safety_raw_sha256": "94e884fa788062a3af767e1b1bbe5aed6f7aa6c51832221325a96ed9e215aecc"
+  },
+  "targeted_final_unit_receipt": {
+    "command": [
+      "$M1T05ExternalRoot\\dev-venv\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "$Repo\\tests\\python\\test_plan.py"
+    ],
+    "cwd": "$M1T05ExternalRoot",
+    "exit_code": 0,
+    "source_sha256": {
+      "engine/winbooksplit_engine.py": "232632f1b1ba8cb296b22f94317281d990b4461be58397741b591ab0f5762c04",
+      "tests/python/test_plan.py": "d95d6ea40db35df1a9c062ab0d0b7f13521053d86e0a347d9460cb5620fedfbb",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108"
+    },
+    "source_after_sha256": {
+      "engine/winbooksplit_engine.py": "232632f1b1ba8cb296b22f94317281d990b4461be58397741b591ab0f5762c04",
+      "tests/python/test_plan.py": "d95d6ea40db35df1a9c062ab0d0b7f13521053d86e0a347d9460cb5620fedfbb",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108"
+    },
+    "source_unchanged_during_run": true,
+    "python": "3.14.8",
+    "pypdf": "6.19.0",
+    "reportlab": "5.0.1",
+    "test_count": 18,
+    "stdout": "",
+    "stderr": "test_ac028_all_modes_execute_the_previewed_entries_without_replanning (__main__.PreparedPlanTests.test_ac028_all_modes_execute_the_previewed_entries_without_replanning) ... ok\ntest_ac029_replaced_or_deleted_source_paths_still_execute_original_snapshot (__main__.PreparedPlanTests.test_ac029_replaced_or_deleted_source_paths_still_execute_original_snapshot) ... ok\ntest_all_modes_reject_injected_gap_or_empty_plans_before_any_writer (__main__.PreparedPlanTests.test_all_modes_reject_injected_gap_or_empty_plans_before_any_writer) ... ok\ntest_existing_planned_output_is_refused_before_any_slice_and_preserves_neighbor (__main__.PreparedPlanTests.test_existing_planned_output_is_refused_before_any_slice_and_preserves_neighbor) ... ok\ntest_modified_private_snapshot_is_rejected_before_preview_or_writer (__main__.PreparedPlanTests.test_modified_private_snapshot_is_rejected_before_preview_or_writer) ... ok\ntest_plain_or_forged_prepared_objects_are_rejected_before_writer (__main__.PreparedPlanTests.test_plain_or_forged_prepared_objects_are_rejected_before_writer) ... ok\ntest_preparation_and_preview_are_deeply_read_only_and_never_write_chapters (__main__.PreparedPlanTests.test_preparation_and_preview_are_deeply_read_only_and_never_write_chapters) ... ok\ntest_source_output_alias_is_refused_before_writer_and_source_bytes_stay_unchanged (__main__.PreparedPlanTests.test_source_output_alias_is_refused_before_writer_and_source_bytes_stay_unchanged) ... ok\ntest_unknown_or_unhashable_modes_are_rejected_before_source_probe_or_writer (__main__.PreparedPlanTests.test_unknown_or_unhashable_modes_are_rejected_before_source_probe_or_writer) ... ok\ntest_writer_exclusive_creation_cannot_clobber_a_file_appearing_after_preflight (__main__.PreparedPlanTests.test_writer_exclusive_creation_cannot_clobber_a_file_appearing_after_preflight) ... ok\ntest_ac027_complete_partitions_have_derived_ranges_and_coverage (__main__.SharedPlanValidationTests.test_ac027_complete_partitions_have_derived_ranges_and_coverage) ... ok\ntest_ac027_gap_overlap_empty_negative_reversed_and_overflow_ranges_are_rejected (__main__.SharedPlanValidationTests.test_ac027_gap_overlap_empty_negative_reversed_and_overflow_ranges_are_rejected) ... ok\ntest_cached_ranges_cannot_disagree_with_entries (__main__.SharedPlanValidationTests.test_cached_ranges_cannot_disagree_with_entries) ... ok\ntest_invalid_mode_or_missing_entries_cannot_validate (__main__.SharedPlanValidationTests.test_invalid_mode_or_missing_entries_cannot_validate) ... ok\ntest_page_counts_and_boundaries_require_integers_excluding_booleans (__main__.SharedPlanValidationTests.test_page_counts_and_boundaries_require_integers_excluding_booleans) ... ok\ntest_seeded_complete_partitions_preserve_each_physical_index_exactly_once (__main__.SharedPlanValidationTests.test_seeded_complete_partitions_preserve_each_physical_index_exactly_once) ... ok\ntest_sequence_and_safe_case_insensitive_unique_filenames_are_required (__main__.SharedPlanValidationTests.test_sequence_and_safe_case_insensitive_unique_filenames_are_required) ... ok\ntest_validation_detaches_and_deep_freezes_the_callers_mutable_data (__main__.SharedPlanValidationTests.test_validation_detaches_and_deep_freezes_the_callers_mutable_data) ... ok\n\n----------------------------------------------------------------------\nRan 18 tests in 0.435s\n\nOK\n",
+    "content_origin": "Generated synthetic PDFs and owned mutable source copies only; no private input",
+    "acceptance_ids": [
+      "AC-027",
+      "AC-028",
+      "AC-029"
+    ],
+    "common_validator_regression": "All six injected gap/empty logical planner results reject with invalid_plan/exit1 before writer; no new files and input/neighbors preserved",
+    "scope_limit": "Unit/callable writer acceptance, not launcher/Explorer/Calibre/transaction/release certification",
+    "raw_sha256": "577a5c47c38936222f97899aeaacd30d32231e1f02e657fecc64f4f91941b51f"
+  },
+  "targeted_route_receipts": [
+    {
+      "receipt": "m1t05-plan-targeted-01.json",
+      "raw_sha256": "38ac0d0dcf005645833b3fab1de3bace6aab7f8483da7f732d137bde0899393a",
+      "success": true,
+      "observed_at": "2026-10-09T05:34:11.669316+00:00",
+      "source_digest": "5b13c4325bc8306ef788ec9a04cfe4fae574e495b4f59f84ddd12376e72a2bc5",
+      "source_unchanged": true,
+      "native_exit_codes": [
+        0
+      ]
+    },
+    {
+      "receipt": "m1t05-plan-targeted-02.json",
+      "raw_sha256": "7b8ce73f08573f9482e9ab0a1b5ec1f9f75a402b8877a4cf9548c7978baf8a59",
+      "success": true,
+      "observed_at": "2026-10-09T05:36:36.814838+00:00",
+      "source_digest": "6e6bc2e8812aa0b470aa458b01c8fbf6cb7a083965813d1128f80ffa0cfcb458",
+      "source_unchanged": true,
+      "native_exit_codes": [
+        0
+      ]
+    },
+    {
+      "receipt": "m1t05-plan-targeted-03.json",
+      "raw_sha256": "17ed8f3e62c45e8f9980d400e9089e57be87944d8f27951eaa89c5311c8f964f",
+      "success": true,
+      "observed_at": "2026-10-09T05:39:03.198768+00:00",
+      "source_digest": "a73aab92a2da713799d6ecbc818a383493e254f2c1866f13fa370ccd2dcca959",
+      "source_unchanged": true,
+      "native_exit_codes": [
+        0
+      ]
+    },
+    {
+      "receipt": "m1t05-plan-targeted-04.json",
+      "raw_sha256": "002730c7cbd7b295967401e7f2c88df8f596b4d8d20554062a208ec8b8c6a5fb",
+      "success": true,
+      "observed_at": "2026-10-09T05:41:15.586207+00:00",
+      "source_digest": "73f7c3848cf35dcd3444cdd5af861231e81efe775d9afff298eac22abc2defae",
+      "source_unchanged": true,
+      "native_exit_codes": [
+        0
+      ]
+    }
+  ],
+  "earlier_observations": [
+    {
+      "scope": "External setup capture",
+      "exit_code": 1,
+      "reason": "Root redirection precreated environment.json, which the verifier exclusively creates. Failed log retained; correct rerun passed without dependency changes.",
+      "log_sha256": "b0b31dbbcb02d18804464c7cf81e95ccd4059698a14f33200033022b78238e3f"
+    },
+    {
+      "scope": "Earlier unit consistency capture",
+      "capture_wrapper_exit": 1,
+      "native_unit_exit": 0,
+      "test_count": 16,
+      "source_unchanged_during_run": false,
+      "reason": "Production finalization changed during the receipt capture; passing 16 native tests do not certify that changing source. Stable 18-test receipt supersedes it.",
+      "raw_sha256": "d6b2da83f9bb2fd6b982e7dde55130f413f0f93c2ebd3370969158a74fc789c0"
+    },
+    {
+      "scope": "First full before final report-completeness correction",
+      "success": true,
+      "source_digest": "a73aab92a2da713799d6ecbc818a383493e254f2c1866f13fa370ccd2dcca959",
+      "raw_sha256": "e03cc0bde64e107ebf6a9ac22b9ac9bba77cc17e4d46792a089d4308745c7b85",
+      "reason": "Passed seven stages/105 tests; final runner subsequently made ordinary parity content evidence mandatory. Final full uses the corrected digest."
+    }
+  ],
+  "draft_PR_checkpoint": {
+    "observed_at": "2026-10-09T05:45:52.3897604+00:00",
+    "metadata": {
+      "baseRefName": "main",
+      "headRefName": "codex/winbooksplit-v1-m1",
+      "headRefOid": "3b3e97ec0551e9ed1ac72db5bcf98fe67ca1daaf",
+      "isDraft": true,
+      "number": 9,
+      "state": "OPEN",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/pull/9"
+    }
+  },
+  "review": {
+    "independent_read_only_source_harness_raw_receipt_review": "PASSED",
+    "submitted_GitHub_review": "NOT CLAIMED",
+    "CI": "NOT RUN"
+  },
+  "not_run": [
+    "interactive preview UI/confirmation",
+    "full ordinary discovery and all launcher/error paths",
+    "Explorer",
+    "Calibre conversion",
+    "complete output transactions/rollback/publication",
+    "rendered fidelity and PDF feature policy",
+    "clean OS/extracted-package tests",
+    "CI",
+    "release/tag/download"
+  ],
+  "next_task": "M1-T06"
+}
