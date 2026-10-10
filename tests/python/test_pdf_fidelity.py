@@ -41,7 +41,9 @@ def authored_pdf(path, *, malformed=False, metadata_bad=False, catalog=False, hi
     writer.add_outline_item("Child A", 1, parent=parent)
     parent = writer.add_outline_item("Chapter B 日本", 2)
     writer.add_outline_item("Child B", 3, parent=parent)
-    writer.add_named_destination("inside-A", 0)
+    # Author the tested coordinate explicitly; upstream defaults may change.
+    writer.add_named_destination_array("inside-A", ArrayObject([
+        writer.pages[0].indirect_reference, NameObject("/FitH"), FloatObject(826)]))
     writer.add_named_destination("outside-A", 3)
     rect = lambda: ArrayObject([FloatObject(v) for v in (10, 10, 80, 30)])
     def link(page, name, destination, action=False):
