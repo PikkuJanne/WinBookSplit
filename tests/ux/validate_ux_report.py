@@ -146,6 +146,8 @@ def validate_application_case(row):
              and not any(process.get(key) for key in ("StartError", "StopError", "StreamError", "ResultError")),
              "Actual engine job/tree/EOF proof incomplete")
     if not unavailable:
+        need(plans == [event for event in interactions if event.get("stage") == "plan_ready"],
+             "Displayed/logged plan differs from the captured engine interaction")
         need(process.get("InputWriterStopped") is True and not process.get("InteractionError") and not process.get("InputError")
              and type(process.get("InteractionCount")) is int and process["InteractionCount"] == len(interactions)
              and type(process.get("QueuedReplyCount")) is int and process["QueuedReplyCount"] == len(replies)
@@ -203,13 +205,23 @@ def validate_application_case(row):
     if kind == "fallback-cancel":
         need(final.get("status") == "cancelled" and final.get("code") == "cancelled" and rows[0].get("status") == "no_plan"
              and rows[0].get("exit_code") == process.get("ExitCode") == 5 and plans == []
-             and [reply.get("action") for reply in replies] == ["cancel"], "Fallback cancellation lost its original failed attempt")
+             and rows[0].get("code") == "no_bookmarks" and rows[0].get("mode") == final.get("mode") == "1"
+             and rows[0].get("written_count") == final.get("written_count") == 0
+             and rows[0].get("execution") is None and final.get("final_directory") is None and row.get("publication") is None
+             and len(interactions) == 1 and interactions[0].get("stage") == "no_plan"
+             and interactions[0].get("result") == rows[0] and interactions[0].get("fallback_modes") == rows[0].get("fallback_modes") == ["manual"]
+             and [reply.get("action") for reply in replies] == ["cancel"] and "Done." not in row["stdout"] and "Output: " not in row["stdout"],
+             "Fallback cancellation lost or relabelled its original failed attempt")
     elif kind in CANCELLED:
         need(len(plans) == 1 and final.get("written_count") == 0 and final.get("final_directory") is None
              and row.get("publication") is None and "Done." not in row["stdout"], "Cancelled plan published or announced success")
         if kind != "pending-timeout":
-            need(rows[0].get("status") == "cancelled" and rows[0].get("exit_code") == 130
-                 and replies[-1].get("action") == "cancel", "Confirmation cancellation was not preserved")
+            need(final.get("status") == rows[0].get("status") == "cancelled"
+                 and final.get("code") == rows[0].get("code") == "processing_cancelled"
+                 and final.get("mode") == rows[0].get("mode") == plans[0].get("mode")
+                 and rows[0].get("exit_code") == 130 and rows[0].get("written_count") == 0
+                 and rows[0].get("execution") is None and replies[-1].get("action") == "cancel",
+                 "Confirmation cancellation status/code/mode/zero-output was not preserved")
     elif kind == "preview":
         need(final.get("status") == "preview" and final.get("code") == rows[0].get("code") == "preview_complete"
              and rows[0].get("status") == "preview" and rows[0].get("execution") is None and rows[0].get("written_count") == 0
@@ -254,10 +266,19 @@ def validate_application_case(row):
                 need(all(planned.get(key) == written.get(key) for key in ("sequence", "title", "filename", "start", "end", "parent_id", "reason", "warnings")),
                      "Writer changed confirmed title/filename/boundary metadata")
             need(plan["source_identity"] == execution.get("source_identity"), "Writer changed captured reader identity")
-        need(execution.get("mode") == mode and execution.get("total_pages") == ranges[-1][1]
+        need(execution.get("mode") == rows[0].get("mode") == final.get("mode") == mode
+             and execution.get("total_pages") == ranges[-1][1]
              and execution.get("coverage") == {"complete": True, "covered_pages": ranges[-1][1], "section_count": len(ranges)}
              and [[entry.get("start"), entry.get("end")] for entry in execution.get("outputs", [])] == ranges
-             and execution.get("written_count") == final["written_count"] == len(ranges), "Executed coverage/count differs")
+             and execution.get("written_count") == rows[0].get("written_count") == final["written_count"] == len(ranges),
+             "Executed mode/coverage/count differs from the terminal result")
+        if kind == "noninteractive":
+            identity = execution.get("source_identity", {})
+            observed_source = row["source_observations_before"]["source"]
+            need(identity.get("binding") == "reader_snapshot"
+                 and identity.get("path") == identity.get("resolved_path") == row["input_path"]
+                 and identity.get("sha256") == observed_source["sha256"] and identity.get("size_bytes") == observed_source["size_bytes"],
+                 "NonInteractive execution differs from the actual immutable source")
         published = row.get("publication")
         need(isinstance(published, dict) and published.get("manifest") == execution.get("manifest")
              and isinstance(published.get("manifest_raw"), str) and json.loads(published["manifest_raw"]) == execution["manifest"]
@@ -269,12 +290,28 @@ def validate_application_case(row):
              and execution["manifest"].get("status") == "complete"
              and published.get("members") == sorted([".WinBookSplit-owner.json", "WinBookSplit_Manifest.json", *[entry["filename"] for entry in execution["outputs"]]]),
              "Actual manifest/member fields contradict execution")
+        need(isinstance(execution.get("final_directory"), str) and bool(execution["final_directory"])
+             and Path(execution["final_directory"]).parent == Path(row["output_base"])
+             and final.get("final_directory") == execution["final_directory"]
+             and [line[len("Output: "):] for line in row["stdout"].splitlines() if line.startswith("Output: ")] == [execution["final_directory"]],
+             "Final outcome/human output directory differs from the actual execution")
         need(f"Chapters written: {len(ranges)}; physical pages: {ranges[-1][1]}; every page exactly once." in row["stdout"],
              "Truthful final physical count summary missing")
     if plans:
         mode = plans[0]["mode"]
         plan = validate_plan_event(plans[0], mode, row["output_base"])
         cli.coverage(plan, expected_ranges(kind))
+        identity = plan["source_identity"]
+        captured = [event.get("source_identity") for event in interactions if event.get("stage") in {"input_ready", "working_pdf_ready"}]
+        need(all(item == identity for item in captured), "Held plan changed its prepared reader between interaction stages")
+        if kind.startswith("ebook-"):
+            identity = plan.get("original_ebook_identity", {})
+            need(captured and all(event.get("original_ebook_identity") == identity for event in interactions if event.get("stage") == "input_ready"),
+                 "Held plan changed its captured original ebook")
+        observed_source = row["source_observations_before"]["source"]
+        need(identity.get("path") == identity.get("resolved_path") == row["input_path"]
+             and identity.get("sha256") == observed_source["sha256"] and identity.get("size_bytes") == observed_source["size_bytes"],
+             "Held plan differs from the actual immutable source")
         hold = row.get("hold")
         need(isinstance(hold, dict) and f"Physical PDF pages: {plan['total_pages']}" in hold["stdout"]
              and "Output base: " + row["output_base"] in hold["stdout"]
@@ -301,7 +338,9 @@ def validate_working_case(row):
     events = [json.loads(line[len("[WBS-INTERACTION] "):]) for line in row["stdout"].splitlines() if line.startswith("[WBS-INTERACTION] ")]
     need(events == row.get("events") and [event.get("stage") for event in events] == ["input_ready", "working_pdf_ready", "plan_ready"]
          and [event.get("sequence") for event in events] == [1, 2, 3]
-         and all(event.get("session") == "b" * 32 and event.get("protocol") == "winbooksplit.interaction" and event.get("version") == 1 for event in events),
+         and all(event.get("session") == "b" * 32 and event.get("protocol") == "winbooksplit.interaction"
+                 and type(event.get("version")) is int and event["version"] == 1 and type(event.get("sequence")) is int
+                 and event.get("mode") == "manual" for event in events),
          "Working PDF event sequence/protocol differs")
     working, identity = events[1]["working_pdf"], row.get("working_identity")
     need(working.get("binding") == "working_pdf_copy" and isinstance(identity, dict) and identity.get("sha256") == working.get("sha256")
@@ -313,11 +352,29 @@ def validate_working_case(row):
          "Original conversion cleanup was not completed before working copy")
     result = row.get("terminal_result")
     need([json.loads(line) for line in row["stdout"].splitlines() if line.startswith("{")] == [result]
-         and result.get("protocol") == "winbooksplit.result" and result.get("status") == "cancelled"
-         and result.get("exit_code") == row["exit_code"] == 130 and result.get("execution") is None
-         and result.get("written_count") == 0 and result.get("diagnostic", {}).get("working_pdf_cleanup", {}).get("cleanup_complete") is True,
+         and isinstance(result, dict) and result.get("protocol") == "winbooksplit.result"
+         and type(result.get("version")) is int and result["version"] == 1 and result.get("mode") == "manual"
+         and result.get("status") == "cancelled" and result.get("code") == "processing_cancelled"
+         and type(result.get("exit_code")) is int and result["exit_code"] == row["exit_code"] == 130 and result.get("execution") is None
+         and type(result.get("written_count")) is int and result["written_count"] == 0
+         and result.get("diagnostic", {}).get("working_pdf") == working
+         and result.get("diagnostic", {}).get("working_pdf_cleanup", {}).get("cleanup_complete") is True,
          "Working PDF cancellation/cleanup terminal result differs")
-    validate_plan_event(events[-1], "manual", events[-1]["plan"]["output_naming"]["resolved_base"])
+    command = row["command"]
+    need("--interactive" in command and command[command.index("--interactive") + 1] == "b" * 32,
+         "Working PDF native session argv differs")
+    index = command.index("--interactive")
+    plan = validate_plan_event(events[-1], "manual", command[index - 3])
+    cli.coverage(plan, expected_ranges("ebook-manual-" + row["format"]))
+    titles, reasons = expected_entries("ebook-manual-" + row["format"])
+    need(plan["source_identity"] == events[0].get("source_identity") == events[1].get("source_identity")
+         and [entry.get("title") for entry in plan["entries"]] == titles and [entry.get("reason") for entry in plan["entries"]] == reasons,
+         "Working PDF plan changed its captured reader or authored manual ranges")
+    original = plan.get("original_ebook_identity", {})
+    need(original == events[0].get("original_ebook_identity")
+         and original.get("path") == original.get("resolved_path") == command[index - 4]
+         and original.get("sha256") == row["source_before"].get("sha256") and original.get("size_bytes") == row["source_before"].get("size_bytes"),
+         "Working PDF plan changed its actual original ebook")
 
 
 def validate_ux_report(report, requested_shells, calibre):

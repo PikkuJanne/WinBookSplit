@@ -77,9 +77,111 @@ def reseal(case):
     lines += ["[OPERATION-OUTCOME] " + compact(case["outcome"])]
     case["console_log"] = "\r\n".join(lines) + "\r\n"
     case["console_log_sha256"] = sha256(case["console_log"].encode()).hexdigest()
-    case["stdout"] = "[OUTCOME] " + compact(case["outcome"]) + "\r\n"
+    case["stdout"] = case.get("stdout_prefix", "") + "[OUTCOME] " + compact(case["outcome"]) + "\r\n"
     for name in ("stdout", "stderr"):
         case[name + "_sha256"] = sha256(case[name].encode()).hexdigest()
+
+
+
+def canonical(event):
+    event["plan_json"] = json.dumps(event["plan"], sort_keys=True, ensure_ascii=True, separators=(",", ":"))
+    event["plan_sha256"] = sha256(event["plan_json"].encode()).hexdigest()
+
+
+def synthetic_success():
+    case = synthetic_cancel()
+    event = case["plan_events"][0]
+    plan = event["plan"]
+    folder = case["output_base"] + "/published"
+    outputs = deepcopy(plan["entries"])
+    manifest = {"run_id": "e" * 32, "final_directory": folder, "mode": "2", "total_pages": 12,
+                "source_identity": deepcopy(plan["source_identity"]), "coverage": deepcopy(plan["coverage"]),
+                "written_count": 5, "outputs": outputs, "status": "complete"}
+    execution = {**deepcopy(manifest), "manifest": deepcopy(manifest)}
+    result = case["engine_records"][0]
+    result.update(status="success", code="split_complete", exit_code=0, written_count=5, execution=execution)
+    case["outcome"].update(status="success", code="split_complete", exit_code=0, written_count=5, final_directory=folder)
+    case.update(id="PS51-nested-confirm", kind="nested-confirm", exit_code=0, stdin_utf8="Y\nN\n")
+    case["process_summaries"][0]["ExitCode"] = 0
+    case["interaction_replies"][0].update(action="execute", plan_sha256=event["plan_sha256"])
+    raw = compact(manifest)
+    case["publication"] = {"manifest": deepcopy(manifest), "manifest_raw": raw,
+                           "manifest_sha256": sha256(raw.encode()).hexdigest(),
+                           "members": sorted([".WinBookSplit-owner.json", "WinBookSplit_Manifest.json", *[entry["filename"] for entry in outputs]]),
+                           "content_sha256": case["expected_content_sha256"]}
+    case["stdout_prefix"] = "Done.\nOutput: " + folder + "\nChapters written: 5; physical pages: 12; every page exactly once.\n"
+    reseal(case)
+    return case
+
+
+def synthetic_noninteractive():
+    case = synthetic_success()
+    case.update(id="PS51-noninteractive", kind="noninteractive", stdin_utf8="", hold=None,
+                plan_events=[], interaction_events=[], interaction_replies=[])
+    case["parameters"].append("-NonInteractive")
+    case["command"] = [case["shell_executable"], "-NoProfile", "-NonInteractive", "-File",
+                       "C:/synthetic/WinBookSplit.ps1", *case["parameters"]]
+    case["process_summaries"][0].update(InteractionCount=0, QueuedReplyCount=0, ReplyCount=0)
+    reseal(case)
+    return case
+
+
+def synthetic_fallback():
+    case = synthetic_cancel()
+    result = case["engine_records"][0]
+    result.update(mode="1", status="no_plan", code="no_bookmarks", exit_code=5, fallback_modes=["manual"])
+    case["outcome"].update(mode="1", code="cancelled")
+    case.update(id="PS51-fallback-cancel", kind="fallback-cancel", hold=None, plan_events=[])
+    case["process_summaries"][0]["ExitCode"] = 5
+    case["interaction_events"] = [{"protocol": "winbooksplit.interaction", "version": 1, "session": "a" * 32,
+                                   "sequence": 1, "stage": "no_plan", "mode": "1", "result": deepcopy(result), "fallback_modes": ["manual"]}]
+    reseal(case)
+    return case
+
+
+def reseal_working(case):
+    case["stdout"] = "".join("[WBS-INTERACTION] " + compact(event) + "\n" for event in case["events"])
+    case["stdout"] += compact(case["terminal_result"]) + "\n"
+    for name in ("stdout", "stderr"):
+        case[name + "_sha256"] = sha256(case[name].encode()).hexdigest()
+
+
+def synthetic_working(fmt):
+    original_path, base = "C:/synthetic/source." + fmt, "C:/synthetic/out"
+    captured = {"path": base + "/converted.pdf", "resolved_path": base + "/converted.pdf",
+                "binding": "reader_snapshot", "sha256": "a" * 64, "size_bytes": 20}
+    original = {"path": original_path, "resolved_path": original_path, "binding": "ebook_snapshot", "sha256": "b" * 64, "size_bytes": 10}
+    ranges = validator.expected_ranges("ebook-manual-" + fmt)
+    titles, reasons = validator.expected_entries("ebook-manual-" + fmt)
+    entries = [{"sequence": number, "title": title, "reason": reason, "start": start, "end": end,
+                "filename": f"{number:02d} - {title}.pdf", "parent_id": None, "warnings": []}
+               for number, ((start, end), title, reason) in enumerate(zip(ranges, titles, reasons), 1)]
+    plan = {"mode": "manual", "total_pages": ranges[-1][1], "entries": entries, "ranges": ranges,
+            "source_identity": deepcopy(captured), "original_ebook_identity": deepcopy(original), "output_naming": {"resolved_base": base},
+            "coverage": {"complete": True, "covered_pages": ranges[-1][1], "section_count": 3}}
+    header = {"protocol": "winbooksplit.interaction", "version": 1, "session": "b" * 32, "mode": "manual"}
+    working = {"path": base + "/working.pdf", "binding": "working_pdf_copy", "sha256": "a" * 64,
+               "size_bytes": 20, "page_count": ranges[-1][1]}
+    events = [{**header, "sequence": 1, "stage": "input_ready", "source_identity": deepcopy(captured),
+               "original_ebook_identity": deepcopy(original), "conversion": {"workspace_cleanup": {"cleanup_complete": True, "retained_staging": None}}},
+              {**header, "sequence": 2, "stage": "working_pdf_ready", "source_identity": deepcopy(captured), "working_pdf": working},
+              {**header, "sequence": 3, "stage": "plan_ready", "plan": plan}]
+    canonical(events[-1])
+    result = {"protocol": "winbooksplit.result", "version": 1, "mode": "manual", "status": "cancelled",
+              "code": "processing_cancelled", "exit_code": 130, "written_count": 0, "execution": None,
+              "diagnostic": {"working_pdf": deepcopy(working), "working_pdf_cleanup": {"cleanup_complete": True}}}
+    observed = {"sha256": "b" * 64, "size_bytes": 10, "device": 1, "inode": 1, "attributes": 32}
+    case = {"id": "engine-working-" + fmt, "format": fmt, "viewer_opened": False,
+            "command": ["C:/synthetic/python.exe", "C:/synthetic/winbooksplit_engine.py", original_path, base, "manual", "", "--interactive", "b" * 32],
+            "events": events, "terminal_result": result, "working_identity": {"sha256": "a" * 64, "size_bytes": 20},
+            "working_content_sha256": ["c" * 64] * ranges[-1][1], "reference_content_sha256": ["c" * 64] * ranges[-1][1],
+            "working_readable_before_starts": True, "working_identity_unchanged_at_plan": True,
+            "working_pdf_absent_after": True, "working_directory_absent_after": True,
+            "source_before": observed, "source_after": deepcopy(observed), "output_members_after": ["prior-output.pdf"],
+            "actual_process": True, "pid": 1234, "exit_code": 130, "timed_out": False, "streams_complete": True,
+            "elapsed_seconds": 1, "timeout_seconds": 90, "cwd": "C:/synthetic", "stderr": ""}
+    reseal_working(case)
+    return case
 
 
 class UxReceiptTests(unittest.TestCase):
@@ -128,6 +230,161 @@ class UxReceiptTests(unittest.TestCase):
             reseal(changed)
             with self.assertRaises(ValueError):
                 validator.validate_application_case(changed)
+
+    def test_final_confirmation_cancellation_status_and_zero_output_cannot_be_relabelled(self):
+        for kind, answer in (("confirm-cancel", "C\n"), ("confirm-blank", "\n"), ("confirm-eof", "")):
+            case = synthetic_cancel()
+            case.update(kind=kind, id="PS51-" + kind, stdin_utf8=answer)
+            validator.validate_application_case(case)
+            mutations = [lambda row: row["outcome"].update(status="success"),
+                         lambda row: row["outcome"].update(status="failed"),
+                         lambda row: row["outcome"].update(status="timeout"),
+                         lambda row: row["engine_records"][0].update(written_count=1),
+                         lambda row: row["engine_records"][0].update(execution={"written_count": 1, "outputs": ["fabricated"]}),
+                         lambda row: (row["outcome"].update(mode="manual"), row["engine_records"][0].update(mode="manual"))]
+            for index, mutation in enumerate(mutations):
+                changed = deepcopy(case)
+                mutation(changed)
+                reseal(changed)
+                with self.subTest(kind=kind, mutation=index), self.assertRaises(ValueError):
+                    validator.validate_application_case(changed)
+
+    def test_final_and_engine_confirmation_cancellation_codes_cannot_claim_success(self):
+        for kind, answer in (("confirm-cancel", "C\n"), ("confirm-blank", "\n"), ("confirm-eof", "")):
+            case = synthetic_cancel()
+            case.update(kind=kind, id="PS51-" + kind, stdin_utf8=answer)
+            validator.validate_application_case(case)
+            for scope in ("outcome", "engine_records"):
+                for code in ("split_complete", "preview_complete", "cancelled", "processor_cancelled", "no_bookmarks"):
+                    changed = deepcopy(case)
+                    target = changed["outcome"] if scope == "outcome" else changed["engine_records"][0]
+                    target["code"] = code
+                    reseal(changed)
+                    with self.subTest(kind=kind, scope=scope, code=code), self.assertRaises(ValueError):
+                        validator.validate_application_case(changed)
+
+    def test_success_terminal_count_and_mode_match_the_held_execution(self):
+        case = synthetic_success()
+        validator.validate_application_case(case)
+        for mutation in ("count", "mode"):
+            changed = deepcopy(case)
+            if mutation == "count":
+                changed["engine_records"][0]["written_count"] = 1
+            else:
+                changed["engine_records"][0]["mode"] = "manual"
+                changed["outcome"]["mode"] = "manual"
+            reseal(changed)
+            with self.subTest(mutation=mutation), self.assertRaisesRegex(ValueError, "mode/coverage/count"):
+                validator.validate_application_case(changed)
+
+    def test_noninteractive_executed_source_matches_the_actual_input_observation(self):
+        case = synthetic_noninteractive()
+        validator.validate_application_case(case)
+        for field, value in (("sha256", "f" * 64), ("size_bytes", 11), ("path", "C:/synthetic/foreign.pdf")):
+            changed = deepcopy(case)
+            execution = changed["engine_records"][0]["execution"]
+            execution["source_identity"][field] = value
+            execution["manifest"]["source_identity"][field] = value
+            publication = changed["publication"]
+            publication["manifest"]["source_identity"][field] = value
+            publication["manifest_raw"] = compact(publication["manifest"])
+            publication["manifest_sha256"] = sha256(publication["manifest_raw"].encode()).hexdigest()
+            reseal(changed)
+            with self.subTest(field=field), self.assertRaisesRegex(ValueError, "actual immutable source"):
+                validator.validate_application_case(changed)
+
+    def test_consistently_resealed_publication_cannot_leave_the_confirmed_output_base(self):
+        case = synthetic_success()
+        validator.validate_application_case(case)
+        changed = deepcopy(case)
+        old = changed["outcome"]["final_directory"]
+        folder = "C:/synthetic/foreign/published"
+        execution = changed["engine_records"][0]["execution"]
+        changed["outcome"]["final_directory"] = folder
+        execution["final_directory"] = execution["manifest"]["final_directory"] = folder
+        publication = changed["publication"]
+        publication["manifest"]["final_directory"] = folder
+        publication["manifest_raw"] = compact(publication["manifest"])
+        publication["manifest_sha256"] = sha256(publication["manifest_raw"].encode()).hexdigest()
+        changed["stdout_prefix"] = changed["stdout_prefix"].replace(old, folder)
+        reseal(changed)
+        with self.assertRaisesRegex(ValueError, "output directory"):
+            validator.validate_application_case(changed)
+
+    def test_success_final_and_displayed_output_directory_bind_to_execution(self):
+        case = synthetic_success()
+        validator.validate_application_case(case)
+        for mutate in (lambda row: row["outcome"].update(final_directory="C:/synthetic/foreign"),
+                       lambda row: row.update(stdout_prefix=row["stdout_prefix"].replace("/published", "/foreign")),
+                       lambda row: row.update(stdout_prefix=row["stdout_prefix"] + "Output: C:/synthetic/foreign\n")):
+            changed = deepcopy(case)
+            mutate(changed)
+            reseal(changed)
+            with self.assertRaisesRegex(ValueError, "output directory"):
+                validator.validate_application_case(changed)
+
+    def test_fallback_cancel_preserves_the_exact_no_plan_attempt_without_output(self):
+        case = synthetic_fallback()
+        validator.validate_application_case(case)
+        for mutate in (lambda row: row["engine_records"][0].update(code="split_complete"),
+                       lambda row: row["interaction_events"][0]["result"].update(code="split_complete"),
+                       lambda row: row["interaction_events"][0]["result"].update(message="different attempt"),
+                       lambda row: row["engine_records"][0].update(written_count=1),
+                       lambda row: row["engine_records"][0].update(execution={"written_count": 1}),
+                       lambda row: row["outcome"].update(final_directory="C:/synthetic/foreign"),
+                       lambda row: row.update(stdout_prefix="Done.\n")):
+            changed = deepcopy(case)
+            mutate(changed)
+            reseal(changed)
+            with self.assertRaisesRegex(ValueError, "original failed attempt"):
+                validator.validate_application_case(changed)
+
+    def test_logged_plan_and_captured_source_remain_bound_after_resealing(self):
+        case = synthetic_cancel()
+        validator.validate_application_case(case)
+        for change_raw_event in (False, True):
+            changed = deepcopy(case)
+            changed["plan_events"][0]["plan"]["source_identity"]["sha256"] = "f" * 64
+            canonical(changed["plan_events"][0])
+            if change_raw_event:
+                changed["interaction_events"] = deepcopy(changed["plan_events"])
+            reseal(changed)
+            with self.subTest(raw_event_resealed=change_raw_event), self.assertRaises(ValueError):
+                validator.validate_application_case(changed)
+
+    def test_working_pdf_terminal_protocol_and_zero_output_are_strict(self):
+        for fmt in ("epub", "azw3"):
+            case = synthetic_working(fmt)
+            validator.validate_working_case(case)
+            for field, value in (("version", 2), ("version", True), ("mode", "2"), ("code", "split_complete"),
+                                 ("written_count", False), ("written_count", 1), ("exit_code", True), ("execution", {})):
+                changed = deepcopy(case)
+                changed["terminal_result"][field] = value
+                reseal_working(changed)
+                with self.subTest(fmt=fmt, field=field, value=value), self.assertRaisesRegex(ValueError, "terminal result"):
+                    validator.validate_working_case(changed)
+
+    def test_working_pdf_plan_requires_same_captured_source_and_complete_manual_coverage(self):
+        for fmt in ("epub", "azw3"):
+            case = synthetic_working(fmt)
+            validator.validate_working_case(case)
+            for mutation in ("source", "partial", "original", "destination", "working_identity"):
+                changed = deepcopy(case)
+                plan = changed["events"][-1]["plan"]
+                if mutation == "source":
+                    plan["source_identity"]["sha256"] = "f" * 64
+                elif mutation == "partial":
+                    plan.update(entries=plan["entries"][:1], ranges=[[0, 1]], coverage={"complete": False, "covered_pages": 1, "section_count": 1})
+                elif mutation == "original":
+                    plan["original_ebook_identity"]["sha256"] = "f" * 64
+                elif mutation == "destination":
+                    plan["output_naming"]["resolved_base"] = "C:/synthetic/foreign"
+                else:
+                    changed["terminal_result"]["diagnostic"]["working_pdf"]["sha256"] = "f" * 64
+                canonical(changed["events"][-1])
+                reseal_working(changed)
+                with self.subTest(fmt=fmt, mutation=mutation), self.assertRaises(ValueError):
+                    validator.validate_working_case(changed)
 
     def test_raw_console_or_duplicate_outcome_cannot_be_substituted(self):
         case = synthetic_cancel()
