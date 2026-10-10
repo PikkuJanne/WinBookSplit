@@ -7,6 +7,12 @@ import math
 import ntpath
 from pathlib import PureWindowsPath
 import re
+import importlib.util
+from pathlib import Path
+
+spec = importlib.util.spec_from_file_location("wbs_runtime_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
+interactions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(interactions)
 
 
 HOSTS = ("PS51", "PS7")
@@ -451,7 +457,7 @@ def success_case(case: dict, calibre_path: str) -> None:
     argv = invocation.get("arguments")
     require(type(argv) is list and all(type(value) is str for value in argv) and argv[:4] == ["-I", "-B", "-X", "utf8"],
             "success: actual isolated UTF-8 engine argv missing")
-    require(len(argv) >= 9 and argv[7:9] == ["manual", "2,3"], "success: authored manual control differs")
+    require(len(argv) >= 11 and argv[7:9] == ["manual", ""], "success: authored prompted manual control differs")
     same_path(argv[4], ntpath.join(ntpath.dirname(case["command"][-1]), "a", "engine", "winbooksplit_engine.py"),
               "success: shipped copied engine")
     same_path(argv[5], case["source_path"], "success: engine source")
@@ -460,6 +466,11 @@ def success_case(case: dict, calibre_path: str) -> None:
     for excluded in (ntpath.dirname(path(case["source_path"], "source")), path(case["cwd"], "cwd")):
         require(not origin.startswith(excluded + "\\"), "success: shadowed pypdf origin")
     writer = writer_parity(case)
+    require(case.get("interaction", {}).get("engine_invocations") == [invocation], "Runtime interaction used a different invocation")
+    interactions.validate(case.get("interaction"), case.get("process_summaries"), ["input_ready", "plan_ready"],
+                          ["starts", "execute"], starts="2,3", execution=writer)
+    require(case.get("stdin_utf8") == ("M\nN\n2,3\nY\nN\n\n" if case["source_format"] != "pdf" else "M\n2,3\nY\nN\n\n"),
+            "Runtime actual explicit confirmation answers differ")
     frame = mapping(case.get("engine_record"), "actual engine result")
     require(frame.get("protocol") == "winbooksplit.result" and type(frame.get("version")) is int and
             frame["version"] == 1 and frame.get("status") == "success" and frame.get("code") == "split_complete" and
@@ -468,7 +479,7 @@ def success_case(case: dict, calibre_path: str) -> None:
             frame["written_count"] == case.get("written_count") == writer["written_count"],
             "success: actual protocol/writer/count parity differs")
     if case["source_format"] == "pdf":
-        require("Converter" in selected and selected["Converter"] is None and len(argv) == 9,
+        require("Converter" in selected and selected["Converter"] is None and len(argv) == 11,
                 "PDF: converter must remain unprobed")
         flag(case["decoy_marker_observation"], "converter_version_absent")
     else:
@@ -476,9 +487,9 @@ def success_case(case: dict, calibre_path: str) -> None:
         converter_source = "explicit" if case["kind"] == "explicit-portable" else "PATH"
         require(case.get("expected_converter_source") == chosen["Source"] == converter_source,
                 "success: converter selection priority differs")
-        require(len(argv) == 13 and argv[9] == "--calibre-path" and argv[11:] == ["--conversion-timeout", "1800"],
+        require(len(argv) == 15 and argv[11] == "--calibre-path" and argv[13:] == ["--conversion-timeout", "1800"],
                 "success: engine conversion argv differs")
-        same_path(argv[10], chosen["Path"], "success: same converter used")
+        same_path(argv[12], chosen["Path"], "success: same converter used")
         original = mapping(writer.get("original_ebook_identity"), "original ebook identity")
         require(original.get("binding") == "ebook_snapshot", "success: original ebook binding missing")
         conversion = mapping(writer.get("conversion"), "actual conversion")

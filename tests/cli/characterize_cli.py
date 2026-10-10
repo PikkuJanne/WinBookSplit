@@ -46,13 +46,13 @@ def identity(path):
             "inode": details.st_ino, "attributes": details.st_file_attributes}
 
 
-def run_unavailable_stdin(command, cwd, environment, timeout=60):
-    """DEVNULL is deliberately unavailable; both streams drain concurrently."""
+def run_unavailable_stdin(command, cwd, environment, timeout=60, consent=None):
+    """DEVNULL for scripted calls; one NoPause-only control gives explicit consent."""
     started, clock = datetime.now(timezone.utc).isoformat(), time.monotonic()
-    child = subprocess.Popen(command, cwd=cwd, env=environment, stdin=subprocess.DEVNULL,
+    child = subprocess.Popen(command, cwd=cwd, env=environment, stdin=subprocess.DEVNULL if consent is None else subprocess.PIPE,
                              stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     try:
-        stdout, stderr = child.communicate(timeout=timeout)
+        stdout, stderr = child.communicate(input=consent, timeout=timeout)
     except subprocess.TimeoutExpired as error:
         # A failing no-prompt contract is not cleanup authority. Preserve this
         # bounded, authored workspace if the process/tree cannot be proved stopped.
@@ -60,7 +60,8 @@ def run_unavailable_stdin(command, cwd, environment, timeout=60):
             child.terminate()  # Retained native process handle; no PID-name/tree lookup.
         raise history.EntryPointFailure("CLI unexpectedly waited; descendant stop unproved, workspace retained",
                                         cleanup_safe=False, pid=child.pid) from error
-    return {"command": command, "cwd": str(cwd), "stdin": "DEVNULL", "started_at": started,
+    return {"command": command, "cwd": str(cwd), "stdin": "DEVNULL" if consent is None else "PIPE",
+            "stdin_utf8": None if consent is None else consent.decode("utf-8"), "started_at": started,
             "finished_at": datetime.now(timezone.utc).isoformat(), "elapsed_seconds": time.monotonic() - clock,
             "timeout_seconds": timeout, "timed_out": False, "pid": child.pid, "exit_code": child.returncode,
             "stdout": stdout.decode("utf-8", errors="strict"), "stderr": stderr.decode("utf-8", errors="strict"),
@@ -171,7 +172,8 @@ def application_case(work, host, kind, generator, ebook_sources, references, cal
     if kind == "help":
         command = [host["shell_executable"], "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "RemoteSigned", "-File", str(ROOT / "tests/cli/Probe-Help.ps1")]
     else:
-        command = [host["shell_executable"], "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "RemoteSigned", "-File", str(app / "WinBookSplit.ps1"), *arguments]
+        command = [host["shell_executable"], "-NoProfile", *([] if kind == "execute-manual-nopause" else ["-NonInteractive"]),
+                   "-ExecutionPolicy", "RemoteSigned", "-File", str(app / "WinBookSplit.ps1"), *arguments]
     with paths.read_only_source(source):
         before = {"source": identity(source), "neighbor": identity(neighbor), "prior": identity(prior)}
         expected = content = None
@@ -185,7 +187,8 @@ def application_case(work, host, kind, generator, ebook_sources, references, cal
                 require([[entry["start"], entry["end"]] for entry in expected["entries"]] == validator.RANGES[mode], "Independent exact PDF CLI plan changed")
         LAST_CASE = {"id": host["id"] + "-" + kind, "command": command, "cwd": str(cwd),
                      "input_path": str(source), "output_base": str(base), "source_observations_before": before}
-        observed = run_unavailable_stdin(command, cwd, environment, timeout=90)
+        observed = run_unavailable_stdin(command, cwd, environment, timeout=90,
+                                        consent=b"Y\nN\n" if kind == "execute-manual-nopause" else None)
         LAST_CASE.update(observed)
         record = {"id": host["id"] + "-" + kind, "kind": kind, "host_version": host["host_version"],
             "shell_executable": host["shell_executable"], "actual_process": True, "parameters": arguments,
@@ -279,7 +282,7 @@ def characterize(work, shells, calibre):
         "fixture_provenance": fixture_report, "real_conversion_references": references,
         "environment": {"python": sys.version, "python_executable": sys.executable, "pypdf": history.pypdf.__version__},
         "not_run": ["human Explorer/key presses", "release package", "clean OS"],
-        "limits": ["Actual host CLI processes with DEVNULL stdin and copied shipped application; not GUI or release-package acceptance.",
+        "limits": ["Actual host CLI processes with DEVNULL stdin except the NoPause-only explicit-consent PIPE control; copied shipped application, not GUI or release-package acceptance.",
                    "Only authored synthetic PDFs and offline EPUB/genuine Calibre-generated AZW3 are processed."]}
 
 

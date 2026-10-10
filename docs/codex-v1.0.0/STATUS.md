@@ -1,5 +1,26 @@
 # Project status
 
+M3-T04 scoped acceptance and implementation C2 checkpoint are verified. Public evidence E receives a separate external normal-push/clean-live receipt after commit.
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2 are reviewed/merged. M3 scoped acceptance is complete through **M3-T04**; draft PR20 holds T04 work for reviewed integration.
+Next action: **M3-T05 — Produce useful local manifests and redacted diagnostics**.
+Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+Final implementation C2 **32b64bbd2884e76e3f0128403217d21f7018ec57**, tree **a4a3a4e039937ebee121de32c0047aa5f41b901a**, is clean/live SYNCED only at **2026-10-10T04:41:41.349780+00:00**. Fresh scoped PR **https://github.com/PikkuJanne/WinBookSplit/pull/20**; live main/check state **PR20 OPEN draft at headC2 32b64bbd2884e76e3f0128403217d21f7018ec57/base main b316cd9eee8d2fade933b31e2bbf60be1ec99e2c; merge CLEAN, no GitHub review decision/check rollup; main unprotected with no required checks, check-runs0/combined status pending with0 statuses/actions0/releases0/tags0; no CI pass inferred**. E gets its own actual external/thread receipt after normal push.
+
+[T04 evidence](evidence/M3-T04-ux.md) and [machine record](evidence/M3-T04-ux.json) document AC-060/061/062 and the explicit method limits. Full 17-stage clean C1 `cd9b4c359a042d6ef3fc8900cb3cf0f373bbe01f`/106digest `97a09181887d5b9ed0d80ea08b73e60bf063ca0eac80ddd7bd1a312a5770c4ee` actual result/counts: **PASS clean C1 full 17-stage: outer native 0,258 Python/88 Pester each/72 CLI/70 launcher/28 UX, unchanged source and owned cleanup**. Final clean C2 affected Python/actual PS51+PS7 UX counts/source stability: **PASS clean C2 268 Python tests and native 28 UX controls (26 app + 2 engine), both outer0, exact frozen source unchanged/owned cleanup**. Test-only delta raw proof104/106 unchanged plus all 12 app files unchanged: **PASS exact two test files changed,104/106 unchanged and 12/12 app bytes identical; C2 Git/raw map matches**. Do not describe this as a full C2 run.
+
+Interactive runs display and confirm one immutable physical-page plan. Ebook manual O requests the real generated working PDF before starts and keeps its identity through confirmation. Opener04 native 0 produced3 PDFs/3pages with exact source/neighbor/prior preservation and cleanup, then requested the real final folder through unmocked literal Invoke-Item. Signal07 four actual PS51/PS7 pending-plan Ctrl+C/Break controls exited 130 with zero replies/output and proven child/EOF/input-writer shutdown. Their 12 actual app bytes match C1; final C2 app equivalence is recorded separately.
+
+Opening acceptance uses actual native Windows requests and authored file/lifecycle/content proof. A prior opener02 Firefox title was listed; later Computer Use Firefox URL policy blocked inspection, so computer use stopped. No current rendered PDF, screenshot or Explorer visual pass. Earlier failed receipts/partial workspaces are preserved with explicit unknown/unsealed limits.
+
+Human M3-T01 testing stays absolutely done; closed historical receipts/default substitutions are unchanged and never relabeled as current/future package results. No release/tag, CI/package/fidelity or clean-OS certification. Preserve the historical status sections below this prefix.
+
+Targeted02 earlier passed 28 actual controls on exact C1 raw bytes (26 host-app rows plus 2 direct-engine working-copy rows). Preview corrections have 4 actual focused controls and8 synthetic negatives; timeout correction has4 synthetic negatives. C1 fake-accept receipt mutations and final C2 validator/unit guards are test-oracle evidence, not application/GUI failures or native reruns; final C2 affected 268 Python tests/native 28 UX controls and source delta pass; final public byte hashes are recorded separately in the external review receipt. The full02 outer argv is `-I -B tests/run_tests.py` from the repository; child tests use the runner-owned unrelated workspace.
+
+## Historical checkpoint through M3-T03
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 reviewed/merged; M3 is complete through **M3-T03**.
 Next action: **M3-T04 — Show plans and converted-PDF page guidance**.

@@ -1,64 +1,55 @@
-# Next session — M3-T04
+# Next session — M3-T05
 
-Next action: **M3-T04 — Show plans and converted-PDF page guidance**. Stop at this task boundary.
-M3-T03 C `302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8` is clean/live **SYNCED**
-at `2026-10-09T18:47:27.008501+00:00` on codex/winbooksplit-v1-m3. E receives
-its actual external/thread receipt after normal push. PR18 merged at main
-`56d9d4a9556520b8b92426f44f74fe7faceb4d7b`; use scoped [draft PR19](https://github.com/PikkuJanne/WinBookSplit/pull/19).
-Recheck actual live branch/main/PR/protection/CI/tags/releases. Recorded receipts
-are historical observations, never reset targets. Preserve unrelated edits.
+M3-T04 scoped acceptance and clean/live implementation C2 checkpoint are verified. Public evidence E receives its own separate external normal-push/clean-live receipt after commit.
 
-Read AGENTS.md, STATUS.md, this file, TASKS.json, SCOPE_AND_DECISIONS.md,
-tasks/M3-T04.md, specs/CLI_AND_UX.md, specs/SPLIT_CONTRACT.md,
-specs/PROCESS_AND_PATHS.md, specs/OUTPUT_AND_CONVERSION.md, SECURITY.md,
-TESTING.md and GITHUB_WORKFLOW.md. Inspect Git/origin/branch/worktree and live remote.
-No force push, hard reset, auto-stash, broad cleanup or interim release.
+Next action: **M3-T05 — Produce useful local manifests and redacted diagnostics**. Stop at this task boundary.
+Final T04 C2 **32b64bbd2884e76e3f0128403217d21f7018ec57**, tree **a4a3a4e039937ebee121de32c0047aa5f41b901a**, clean/live SYNCED at **2026-10-10T04:41:41.349780+00:00** on codex/winbooksplit-v1-m3. Fresh continuation PR **https://github.com/PikkuJanne/WinBookSplit/pull/20** and live main/protection/check snapshot **PR20 OPEN draft at headC2 32b64bbd2884e76e3f0128403217d21f7018ec57/base main b316cd9eee8d2fade933b31e2bbf60be1ec99e2c; merge CLEAN, no GitHub review decision/check rollup; main unprotected with no required checks, check-runs0/combined status pending with0 statuses/actions0/releases0/tags0; no CI pass inferred**. E receives a separate actual external/thread receipt after normal push. Recorded receipts are historical observations, never reset targets.
 
-M3-T03 completed AC-057/058/059 with the clean-C sixteen-stage gate:235 Python,
-71 Pester per supported host,72 native CLI and70 native launcher controls, real
-Calibre EPUB/genuine AZW3 and all inherited regressions. All96 raw paths match C;
-digest `63bed7c22f00e655016b018dde3394b8535fb1ad2af06d8181d4ec0e1b5e9eec`.
-See evidence/M3-T03-launcher.md/json for commands, runtime versions, raw receipt
-hashes, preserved failures, declared native BAT test seams, actual Explorer method,
-success console-tail limits and independent reviews.
+Read AGENTS.md, STATUS.md, NEXT_SESSION.md, TASKS.json, SCOPE_AND_DECISIONS.md,
+tasks/M3-T05.md, specs/CLI_AND_UX.md, SECURITY.md, TESTING.md and GITHUB_WORKFLOW.md.
+Inspect actual Git/origin/branch/worktree and fresh live remote/PR/protection/checks.
+Preserve unrelated edits. No force push, hard reset, auto-stash, broad cleanup,
+settings/visibility change, private-document upload or interim release.
 
-Actual Explorer tests use12 exact app files and assistant-operated guarded native
-mouse/console events; they are not human/clean-OS/package/fidelity tests. Five UI
-successes produced15PDFs/25pages, no-input cancel130 and two-file drop rejection2.
-Preserve retained authored UI logs/output and failed/unknown workspaces. The owned
-temporary Calibre copy was sealed and moved outside known discovery, restoring
-absence. One extra full02-authored directory was accounted from saved stderr/name
-metadata only; never adopt or delete it through broad scanning.
+T04 evidence/M3-T04-ux.md/json records AC-060/061/062. Full 17-stage ran on clean C1
+`cd9b4c359a042d6ef3fc8900cb3cf0f373bbe01f`/106 raw paths/digest `97a09181887d5b9ed0d80ea08b73e60bf063ca0eac80ddd7bd1a312a5770c4ee`:
+**PASS: clean C1 full 17-stage, outer native 0; 258 Python tests/88 Pester tests each/72 CLI controls/70 launcher controls/28 UX controls; source unchanged and owned workspace removed**. Final clean C2
+affected Python+actual both-host UX reports: **PASS clean C2 268 Python tests and native 28 UX controls, both outer0 and source unchanged/owned cleanup**.
+Raw Git comparison proves only two test paths changed,104/106 unchanged and
+all 12 app files unchanged: **PASS104/106 unchanged plus12/12 app files unchanged, exact C2 Git/raw binding**. This is the final proof
+assembly; do not invent a full C2 matrix. R1 `a0135fe7bf746719c92fdd487f215cbdec2be00b` has separate166-test
+mechanical-only conversion/completion extraction evidence.
 
-Current-build human testing stays complete in M3-T01-human.md/json. Its historical
-Explorer kit has two explicit copied PS defaults, OutputDirectory/CalibrePath;
-source hashes are clarified without changing any closed human pass or retry.
-Do not reopen those tests or infer exact current/future package certification.
+Preserve one immutable captured-reader plan, exact displayed plan hash and explicit
+consent before writing; physical coverage/front matter/parent opening/childless
+fallback notices; no silent manual-token/default fallback. Ebook manual O uses
+the actual generated PDF before physical starts and keeps the same owned copy
+through confirmation. Opener04 native 0 has3 PDFs/3 physical pages and truthful final
+directory/count; both unmocked literal native opening requests passed without
+launch error. Signal07 PS51/PS7 Ctrl+C/Break all130, zero consent/output, owned
+tree/EOF/input-writer stop. Computer Use stopped at Firefox browser URL policy;
+native request/file lifecycle proof does not assert rendered PDF/Explorer visual
+visibility. Retain all failed/unsealed/partial authored workspaces and method limits.
 
-T04 owns AC-060/061/062: display the existing immutable shared plan before interactive
-writes with physical ranges/title/filenames/count/destination/coverage and opening/
-front-matter/parent/fallback notices; require explicit confirmation; show generated
-PDF numbering and opt-in working-PDF availability for ebook manual entry; truthful
-final folder/count and opt-in output opening. Reuse existing preparation/execution;
-prove preview/write parity and exact coverage instead of adding a second planner.
-Keep no-Level2/no-outline fallback explicit. NonInteractive/Preview never prompt,
-open windows or pause, and no-plan failure never announces success.
+Keep T03 BAT literal argv/multiple-input rejection/source EOF cancellation and
+strict menu/fallback controls; T02 dependency-independent Version and no-write
+Preview; NonInteractive never prompts, falls back, opens windows or pauses.
+Retain finalization-before-success, stdout/stderr/native outcome mapping,
+bounded concurrent session drains/nonce/sequence/count binding, owned jobs,
+rooted cancellation handler, immutable inputs, safe naming/no overwrite and
+known-identity cleanup. Human M3-T01 checks remain absolutely closed; never ask
+for retesting or relabel them as current/package certification.
 
-Preserve T03 BAT literal argv/multiple-input rejection/all-format messages;
-no-input blank/exact C/EOF cancels before dependency/output/log setup. Initial menu
-accepts exact trimmed1/2/M/C only; invalid/blank reprompt. Fallback exact M/Y,
-offered1,N/C remains; EOF cancels. Never evaluate prompted path/bookmark text.
-Preserve T02 explicit complete method validation, canonical1.0.0-dev, independent
-Version and strict no-write Preview using the same immutable plan; ebook conversion
-is disclosed and safely cleaned. NoPause controls exit pauses independently.
+M3-T05 owns useful local UTF8 manifests and bounded readable logs with accurate
+versions/settings/identities/ranges/warnings/outcomes and stdout/stderr categories;
+explicit redacted diagnostic export or a safe documented summary; redaction and
+finalization-failure tests; M3 review/checkpoint. No automatic upload. Reuse the
+existing tool; no generalized platform. This handoff contains no T05 implementation.
+Fidelity/CI/exact package/public v1.0.0 remain open; signing optional.
 
-Retain final outcome mapping/attempt fallback, finalization-before-success,
-incomplete6 retained publication, concurrent bounded drains/result records,
-non-breakaway owned jobs/EOF-tree proofs, rooted Ctrl+C handler, source immutability,
-safe names/no overwrite and identity-bound known-object cleanup. Outer interruption
-has no engine ledger and retains stages. Package Outcomes.json and Process.ps1.
-No framework replacement. Signing remains optional; fidelity/CI/package/release open.
+Reproduce scoped defects, run affected tests, independently review source/raw/public
+evidence, stage only intended C/E paths, commit/push normally and compare clean
+HEAD to fresh live branch. A failed/unknown push is UNKNOWN/UNSYNCED. Keep E's
+own sync receipt external after push rather than adding its future hash to E.
 
-Use verified external tools/receipts; reproduce changes, run affected tests, review
-source/raw/public evidence, stage only intended C/E paths, commit/push normally and
-verify clean local HEAD equals fresh live feature branch. Final v1.0.0 is in progress.
+Preserve the additional targeted01 timeout-oracle failure, targeted02 actual28 pre-clean-gate result, Preview 4 native / 8 synthetic and timeout 4 synthetic review distinctions. C1 synthetic fake-accept findings led to test-only C2 cancellation/status/code/count/mode/NI-source/destination guards. Final candidate03 pure 14 / retained 28 / negative 14, exact104/106+12/12 source delta, clean-C2 268 Python tests/native 28 UX controls pass; implementation C2 checkpoint and raw review passed; final public byte hashes are recorded separately. Do not relabel pure resealed receipt controls as native or visual tests. Public command templates preserve actual flags/order; outer full02 repository cwd and test-child unrelated cwd are separate.

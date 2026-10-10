@@ -291,7 +291,8 @@ class Cases:
             with paths.read_only_source(source):
                 readonly_observed = bool(source.lstat().st_file_attributes & 1)
                 try:
-                    process = history.run_entrypoint(command, cwd, environment=environment, stdin="M\n2,3\n\n", timeout=120)
+                    answers = "" if expected_failure else ("M\nN\n2,3\nY\nN\n\n" if ebook else "M\n2,3\nY\nN\n\n")
+                    process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=120)
                 except history.EntryPointFailure as error:
                     cleanup_safe = error.cleanup_safe
                     raise
@@ -331,7 +332,7 @@ class Cases:
                 require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == "3.14.8"
                         and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.19.0", "Selected actual interpreter differs from case")
                 require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:4] == ["-I", "-B", "-X", "utf8"]
-                        and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", "2,3"], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
+                        and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", ""], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
                 require(selected["Details"]["isolated"] is True and selected["Details"]["dont_write_bytecode"] is True
                         and selected["Details"]["gil_disabled"] is False and selected["Details"]["bits"] == 64,
                         "Runtime probe did not verify required isolation/regular architecture")
@@ -356,6 +357,11 @@ class Cases:
                     "writer_result": execution, "engine_record": frames[0], "written_count": execution["written_count"],
                     "selected_interpreter_used_for_engine": True, "all_physical_pages_preserved": True, **checked}
                 record["independent_source_page_content_sha256"] = original_content
+                interaction = launchers.interactions.capture(text)
+                summaries = prefixed_json(text, "[PROCESS] ")
+                launchers.interactions.validate(interaction, summaries, ["input_ready", "plan_ready"],
+                    ["starts", "execute"], starts="2,3", execution=execution)
+                record.update(interaction=interaction, process_summaries=summaries)
                 if launcher_control is not None:
                     listings = [item for item in selected["Attempts"] if item["Source"] == "py_launcher_listing" and item["Accepted"] is True]
                     require(len(listings) == 1 and listings[0]["Path"] == str(launcher_control)
@@ -382,7 +388,7 @@ class Cases:
                     "conversion_path": str(conversion_marker), "conversion_absent": not conversion_marker.exists()},
                 decoys_unchanged=True, decoy_execution_marker_absent=True, module_import_marker_absent=True,
                 controlled_PATH=environment["PATH"], controlled_PYTHONPATH=environment.get("PYTHONPATH"),
-                application_path_sha256=application_hashes, copied_application_unchanged=True, **process)
+                application_path_sha256=application_hashes, copied_application_unchanged=True, stdin_utf8=answers, **process)
         finally:
             if cleanup_safe:
                 if execution is not None and members is not None:

@@ -41,7 +41,7 @@ function Assert-SplitPreviewSourceIdentity {
 }
 
 function Assert-SplitPreviewPlan {
-    param($Plan, [string]$Mode)
+    param($Plan, [string]$Mode, [bool]$Interactive = $false, [bool]$KeepConvertedPdf = $false)
     if ($null -eq $Plan) { throw 'Missing preview plan.' }
     foreach ($field in @('mode', 'total_pages', 'source_identity', 'entries', 'ranges', 'normalized_inputs',
                          'notices', 'warnings', 'coverage', 'output_naming')) {
@@ -108,13 +108,98 @@ function Assert-SplitPreviewPlan {
         Assert-SplitPreviewSourceIdentity $Plan.original_ebook_identity 'ebook_snapshot'
         $generated = $Plan.conversion.generated_pdf_identity
         Assert-SplitPreviewSourceIdentity $generated 'reader_snapshot'
-        if ($Plan.keep_converted_pdf -isnot [bool] -or $Plan.keep_converted_pdf -or
+        if ($Plan.keep_converted_pdf -isnot [bool] -or
+            $Plan.keep_converted_pdf -ne ($Interactive -and $KeepConvertedPdf) -or
             -not (Test-SplitInteger $generated.page_count) -or $generated.page_count -ne $Plan.total_pages -or
             $generated.path -cne $Plan.source_identity.path -or $generated.resolved_path -cne $Plan.source_identity.resolved_path -or
             $generated.sha256 -cne $Plan.source_identity.sha256 -or $generated.size_bytes -ne $Plan.source_identity.size_bytes -or
             $Plan.conversion.workspace_cleanup.cleanup_complete -isnot [bool] -or
             -not $Plan.conversion.workspace_cleanup.cleanup_complete -or
             $null -ne $Plan.conversion.workspace_cleanup.retained_staging) { throw 'Invalid converted preview source or cleanup.' }
+    }
+}
+
+function ConvertFrom-WinBookSplitInteraction {
+    param([string]$Json, [string]$Session, [int]$Sequence, [string]$Mode)
+    $event = $Json | ConvertFrom-Json -ErrorAction Stop
+    if ($event -is [array] -or $event.protocol -isnot [string] -or
+        $event.protocol -cne 'winbooksplit.interaction' -or
+        -not (Test-SplitInteger $event.version) -or $event.version -ne 1 -or
+        $event.session -isnot [string] -or $event.session -cne $Session -or
+        -not (Test-SplitInteger $event.sequence) -or $event.sequence -ne $Sequence -or
+        $event.mode -isnot [string] -or $event.mode -cne $Mode -or
+        $event.stage -isnot [string] -or
+        $event.stage -cnotin @('input_ready', 'working_pdf_ready', 'plan_ready', 'no_plan')) {
+        throw 'Invalid interactive engine event, session, sequence or mode.'
+    }
+    return $event
+}
+
+function Test-WinBookSplitJsonEqual {
+    param($Left, $Right)
+    if ($null -eq $Left -or $null -eq $Right) { return ($null -eq $Left -and $null -eq $Right) }
+    if ($Left -is [array] -or $Right -is [array]) {
+        if ($Left -isnot [array] -or $Right -isnot [array] -or $Left.Count -ne $Right.Count) { return $false }
+        for ($index = 0; $index -lt $Left.Count; $index++) {
+            if (-not (Test-WinBookSplitJsonEqual $Left[$index] $Right[$index])) { return $false }
+        }
+        return $true
+    }
+    if ($Left.GetType() -eq [Management.Automation.PSCustomObject] -or
+        $Right.GetType() -eq [Management.Automation.PSCustomObject]) {
+        if ($Left.GetType() -ne [Management.Automation.PSCustomObject] -or
+            $Right.GetType() -ne [Management.Automation.PSCustomObject]) { return $false }
+        $names = @($Left.PSObject.Properties.Name)
+        if ($names.Count -ne @($Right.PSObject.Properties.Name).Count) { return $false }
+        foreach ($name in $names) {
+            if ($Right.PSObject.Properties.Name -cnotcontains $name -or
+                -not (Test-WinBookSplitJsonEqual $Left.$name $Right.$name)) { return $false }
+        }
+        return $true
+    }
+    if ((Test-SplitInteger $Left) -and (Test-SplitInteger $Right)) { return ($Left -eq $Right) }
+    return ($Left.GetType() -eq $Right.GetType() -and $Left -ceq $Right)
+}
+
+function Assert-WinBookSplitInteractionPlan {
+    param($Event, [string]$Mode, [string]$InputFile, [string]$OutputBase, [bool]$KeepConvertedPdf)
+    if ($Event.plan_json -isnot [string] -or $Event.plan_sha256 -isnot [string] -or
+        $Event.plan_sha256 -cnotmatch '^[0-9a-f]{64}$') { throw 'Missing exact interactive plan identity.' }
+    $sha = [Security.Cryptography.SHA256]::Create()
+    try { $actual = -join ($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($Event.plan_json)) | ForEach-Object { $_.ToString('x2') }) }
+    finally { $sha.Dispose() }
+    if ($actual -cne $Event.plan_sha256) { throw 'The interactive plan digest does not match its displayed data.' }
+    $plan = $Event.plan_json | ConvertFrom-Json -ErrorAction Stop
+    if (-not (Test-WinBookSplitJsonEqual $plan $Event.plan)) {
+        throw 'The interactive plan representations disagree.'
+    }
+    Assert-SplitPreviewPlan -Plan $plan -Mode $Mode -Interactive $true -KeepConvertedPdf $KeepConvertedPdf
+    $source = $plan.source_identity
+    if ($plan.PSObject.Properties.Name -ccontains 'original_ebook_identity' -and
+        $null -ne $plan.original_ebook_identity) { $source = $plan.original_ebook_identity }
+    if (-not [StringComparer]::OrdinalIgnoreCase.Equals($source.path, $InputFile) -or
+        -not [StringComparer]::OrdinalIgnoreCase.Equals($plan.output_naming.resolved_base, $OutputBase)) {
+        throw 'The interactive plan does not belong to the selected source and destination.'
+    }
+    return $plan
+}
+
+function Assert-WinBookSplitConfirmedExecution {
+    param($Plan, $Result)
+    if ($Result.status -cnotin @('success', 'incomplete')) { return }
+    $execution = $Result.execution
+    if ($null -eq $Plan -or $execution.mode -cne $Plan.mode -or
+        $execution.total_pages -ne $Plan.total_pages -or $execution.written_count -ne $Plan.entries.Count) {
+        throw 'The output does not match the confirmed plan.'
+    }
+    foreach ($field in @('path', 'resolved_path', 'sha256', 'size_bytes', 'binding')) {
+        if ($execution.source_identity.$field -cne $Plan.source_identity.$field) { throw 'The output source differs from the confirmed plan.' }
+    }
+    for ($index = 0; $index -lt $Plan.entries.Count; $index++) {
+        $expected, $actual = $Plan.entries[$index], $execution.outputs[$index]
+        foreach ($field in @('sequence', 'title', 'start', 'end', 'parent_id', 'reason', 'filename')) {
+            if ($actual.$field -cne $expected.$field) { throw ('The output differs from the confirmed plan: ' + $field) }
+        }
     }
 }
 
@@ -252,7 +337,7 @@ function Resolve-WinBookSplitInputChoice {
     if ($NonInteractive -or $Preview) {
         throw (New-WinBookSplitFailure 'invalid_arguments' 'Supply one literal PDF, EPUB or AZW3 InputFile.')
     }
-    $choice = Read-Host 'Enter the literal path to one PDF, EPUB or AZW3 (blank or C cancels)'
+    $choice = Read-WinBookSplitSessionLine $null 'Enter the literal path to one PDF, EPUB or AZW3 (blank or C cancels)'
     if ([string]::IsNullOrWhiteSpace($choice) -or $choice.Trim() -ieq 'C') {
         throw (New-WinBookSplitFailure 'cancelled' 'Input selection was cancelled before processing.')
     }
@@ -278,7 +363,7 @@ function Get-WinBookSplitInitialDecision {
 
 function Read-WinBookSplitInitialDecision {
     do {
-        $choice = Read-Host 'Enter selection (1, 2, M or C)'
+        $choice = Read-WinBookSplitSessionLine $null 'Enter selection (1, 2, M or C)'
         if ($null -eq $choice) { throw (New-WinBookSplitFailure 'cancelled' 'Method selection ended before processing.') }
         $decision = Get-WinBookSplitInitialDecision -Choice $choice
         if ($decision.decision -eq 'invalid') { Write-Host 'Choose exactly 1, 2, M or C.' }

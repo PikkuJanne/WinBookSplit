@@ -28,7 +28,7 @@ Cannot combine with KeepConvertedPdf. Preview never prompts or retries another m
 Never prompt, pause, clear the console, open dialogs/Explorer or attempt a fallback.
 Supply InputFile, Mode and the selected level or starts; no usable plan returns 5.
 .PARAMETER NoPause
-Suppress exit pauses; interactive method/fallback prompts still apply.
+Suppress exit pauses; interactive method, plan confirmation and open choices still apply.
 .PARAMETER Version
 Print the canonical development version and exit 0 without input or dependencies.
 Cannot combine with processing parameters.
@@ -139,7 +139,7 @@ function Complete-WinBookSplitConsoleLog {
 
 function Wait-WinBookSplitExit {
     if (-not $NonInteractive -and -not $Preview -and -not $NoPause) {
-        try { $null = Read-Host 'Press Enter to exit' }
+        try { $null = Read-WinBookSplitSessionLine $null 'Press Enter to exit' }
         catch { Write-Host ('Cannot pause the console: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Yellow }
     }
 }
@@ -155,13 +155,23 @@ function ConvertTo-WinBookSplitDisplayText {
 }
 
 function Show-WinBookSplitPlan {
-    param($Plan)
+    param($Plan, [bool]$PreviewOnly = $true, $WorkingPdf = $null)
+    Write-Host 'Split plan:' -ForegroundColor Cyan
     $originalPath = $Plan.source_identity.path
     if ($null -ne $Plan.original_ebook_identity) { $originalPath = $Plan.original_ebook_identity.path }
     Write-Host ('Source: ' + (ConvertTo-WinBookSplitDisplayText $originalPath))
     if ($null -ne $Plan.conversion) {
-        Write-Host ('Generated PDF: ' + (ConvertTo-WinBookSplitDisplayText $Plan.conversion.generated_pdf_identity.path))
-        Write-Host 'Temporary ebook conversion was cleaned; no converted PDF is retained.'
+        if ($null -ne $WorkingPdf) {
+            Write-Host ('Working generated PDF: ' + (ConvertTo-WinBookSplitDisplayText $WorkingPdf.path))
+            Write-Host 'The working PDF remains available through page selection and confirmation.'
+        }
+        else {
+            Write-Host ('Generated PDF: ' + (ConvertTo-WinBookSplitDisplayText $Plan.conversion.generated_pdf_identity.path))
+            Write-Host 'This conversion path was cleaned; the captured PDF remains in memory.'
+        }
+        Write-Host 'Ranges use physical pages in the generated PDF, not ebook locations.'
+        if ($Plan.PSObject.Properties.Name -contains 'keep_converted_pdf' -and $Plan.keep_converted_pdf) { Write-Host 'Full generated PDF: retained with successful chapter output.' }
+        else { Write-Host 'Full generated PDF: not retained after this operation.' }
     }
     Write-Host ('Physical PDF pages: ' + $Plan.total_pages)
     $method = 'Manual'
@@ -172,6 +182,7 @@ function Show-WinBookSplitPlan {
         Write-Host ('{0}. {1} | physical pages {2}-{3} | {4} | {5}' -f $entry.sequence,
             (ConvertTo-WinBookSplitDisplayText $entry.title), ($entry.start + 1), $entry.end,
             (ConvertTo-WinBookSplitDisplayText $entry.filename), (ConvertTo-WinBookSplitDisplayText $entry.reason))
+        if ($null -ne $entry.parent_id) { Write-Host ('   Parent: ' + (ConvertTo-WinBookSplitDisplayText $entry.parent_id)) }
     }
     foreach ($notice in $Plan.notices) { Write-Host ('Notice: ' + (ConvertTo-WinBookSplitDisplayText $notice)) }
     foreach ($warning in $Plan.warnings) {
@@ -180,7 +191,200 @@ function Show-WinBookSplitPlan {
     }
     Write-Host ('Coverage: every physical page exactly once; {0} pages, {1} sections.' -f
         $Plan.coverage.covered_pages, $Plan.coverage.section_count)
-    Write-Host 'Preview only: no chapter PDFs were written.'
+    if ($PreviewOnly) { Write-Host 'Preview only: no chapter PDFs were written.' }
+    else { Write-Host 'No chapter PDFs have been written. Confirm this plan to create the sections above.' }
+}
+
+function Read-WinBookSplitSessionLine {
+    param($Session, [string]$Prompt)
+    Write-Host ($Prompt + ': ') -NoNewline
+    $pending = Start-WinBookSplitConsoleLine
+    while (-not $pending.Completed) {
+        if ($null -ne $Session -and $Session.Completed) {
+            $pending.AbandonForExit()
+            $script:abandonedConsoleInput = $true
+            throw (New-WinBookSplitFailure 'processor_cancelled' 'The engine ended while awaiting console input.')
+        }
+        Start-Sleep -Milliseconds 20
+    }
+    Write-Host ''
+    if ($pending.Error) { throw (New-WinBookSplitFailure 'processor_protocol_failed' ('Cannot read console input: ' + $pending.Error)) }
+    return $pending.Value
+}
+
+function Read-WinBookSplitManualStarts {
+    param($Session, $Event, [string]$SuppliedStarts)
+    Write-Host ('Physical PDF pages: ' + $Event.total_pages)
+    if ($inputExt -ne '.pdf') { Write-Host 'Use physical page numbers in the generated PDF, not ebook locations.' -ForegroundColor Yellow }
+    if ($Event.manual_starts_supplied) { return $SuppliedStarts }
+    Write-Host 'Enter page numbers where new files should START.' -ForegroundColor Yellow
+    return Read-WinBookSplitSessionLine $Session 'Pages (comma separated; blank or C cancels)'
+}
+
+function Assert-WinBookSplitWorkingPdf {
+    param($Event)
+    $working = $Event.working_pdf
+    Assert-SplitPreviewSourceIdentity $Event.source_identity 'reader_snapshot'
+    if ($null -eq $working -or $working.binding -cne 'working_pdf_copy' -or
+        $working.run_id -isnot [string] -or $working.run_id -cnotmatch '^[0-9a-f]{32}$' -or
+        $working.path -isnot [string] -or $working.owned_directory -isnot [string] -or
+        -not [StringComparer]::OrdinalIgnoreCase.Equals($working.owned_directory,
+            [IO.Path]::Combine($outputDir, '.WinBookSplit-stage-' + $working.run_id)) -or
+        -not [StringComparer]::OrdinalIgnoreCase.Equals($working.path,
+            [IO.Path]::Combine($working.owned_directory, 'WinBookSplit_Working.pdf')) -or
+        -not (Test-SplitInteger $Event.total_pages) -or $Event.total_pages -lt 1 -or
+        -not (Test-SplitInteger $working.page_count) -or $working.page_count -ne $Event.total_pages -or
+        $working.sha256 -cne $Event.source_identity.sha256 -or
+        $working.size_bytes -ne $Event.source_identity.size_bytes) { throw 'Invalid owned working PDF identity.' }
+    $null = Resolve-WinBookSplitOutputBase -Path $working.owned_directory
+    $item = Get-Item -LiteralPath $working.path -ErrorAction Stop
+    if ($item.PSIsContainer -or ($item.Attributes -band [IO.FileAttributes]::ReparsePoint) -or
+        $item.Length -ne $working.size_bytes) {
+        throw 'The requested working PDF differs from the captured source.'
+    }
+    $stream, $sha = $null, $null
+    try {
+        $stream = [IO.File]::Open($working.path, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+        $sha = [Security.Cryptography.SHA256]::Create()
+        $actualHash = [BitConverter]::ToString($sha.ComputeHash($stream)).Replace('-', '').ToLowerInvariant()
+    }
+    finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+        if ($null -ne $sha) { $sha.Dispose() }
+    }
+    if ($actualHash -cne $working.sha256) { throw 'The requested working PDF differs from the captured source.' }
+    return $working
+}
+
+function Invoke-WinBookSplitInteractiveEngine {
+    param([string[]]$Arguments, [string]$SessionId, [string]$InitialMode, [string]$SuppliedStarts)
+    $session = Start-WinBookSplitProcessSession -Path $pythonExe -Arguments $Arguments `
+        -WorkingDirectory ([IO.Path]::GetDirectoryName($enginePath)) -TimeoutSeconds $ProcessTimeout
+    $sequence, $currentMode, $nextStage = 0, $InitialMode, 'initial'
+    $workingPdf = $null
+    $capturedSource, $capturedPages = $null, $null
+    $script:confirmedPlan, $script:interactionFailure = $null, $null
+    $script:interactionStopRequested = $false
+    $script:noPlanCancelled = $false
+    try {
+        while (-not $session.Completed) {
+            $raw = $session.TryReadRequest()
+            if ($null -eq $raw) { Start-Sleep -Milliseconds 20; continue }
+            $sequence++
+            $event = ConvertFrom-WinBookSplitInteraction $raw $SessionId $sequence $currentMode
+            $reply = [ordered]@{ protocol = 'winbooksplit.interaction'; version = 1;
+                session = $SessionId; sequence = $sequence; action = 'cancel' }
+            switch -CaseSensitive ($event.stage) {
+                'input_ready' {
+                    if ($currentMode -cne 'manual' -or $nextStage -cne 'initial' -or
+                        $event.can_request_working_pdf -isnot [bool] -or
+                        $event.can_request_working_pdf -ne ($inputExt -ne '.pdf') -or
+                        $event.manual_starts_supplied -isnot [bool] -or
+                        $event.manual_starts_supplied -ne (-not [string]::IsNullOrEmpty($SuppliedStarts)) -or
+                        -not (Test-SplitInteger $event.total_pages) -or $event.total_pages -lt 1) {
+                        throw 'Unexpected manual preparation event.'
+                    }
+                    Assert-SplitPreviewSourceIdentity $event.source_identity 'reader_snapshot'
+                    if ($inputExt -eq '.pdf' -and
+                        -not [StringComparer]::OrdinalIgnoreCase.Equals($event.source_identity.path, $InputFile)) {
+                        throw 'The prepared PDF differs from the selected input.'
+                    }
+                    $capturedSource, $capturedPages = $event.source_identity, $event.total_pages
+                    $open = 'N'
+                    if ($event.can_request_working_pdf) {
+                        Assert-SplitPreviewSourceIdentity $event.original_ebook_identity 'ebook_snapshot'
+                        if (-not [StringComparer]::OrdinalIgnoreCase.Equals($event.original_ebook_identity.path, $InputFile)) {
+                            throw 'The manual ebook identity differs from the selected input.'
+                        }
+                        Write-Host ('Converted PDF: ' + $event.total_pages + ' physical pages. Use these numbers, not ebook locations.') -ForegroundColor Yellow
+                        do {
+                            $open = Read-WinBookSplitSessionLine $session 'Open the generated PDF? [O] open, [N] continue, [C] cancel'
+                            if ($null -eq $open -or [string]::IsNullOrWhiteSpace($open)) { $open = 'C' }
+                            $open = $open.Trim().ToUpperInvariant()
+                            if ($open -cnotin @('O', 'N', 'C')) { Write-Host 'Choose exactly O, N or C.' }
+                        } while ($open -cnotin @('O', 'N', 'C'))
+                    }
+                    if ($open -ceq 'O') { $reply.action = 'request_working_pdf'; $nextStage = 'working' }
+                    elseif ($open -ceq 'N') {
+                        $starts = Read-WinBookSplitManualStarts $session $event $SuppliedStarts
+                        if (-not [string]::IsNullOrWhiteSpace($starts) -and $starts.Trim() -ine 'C') {
+                            $reply.action = 'starts'; $reply.starts = $starts; $nextStage = 'plan'
+                        }
+                    }
+                }
+                'working_pdf_ready' {
+                    if ($nextStage -cne 'working' -or $currentMode -cne 'manual') { throw 'Unexpected working PDF event.' }
+                    if ($event.total_pages -ne $capturedPages -or
+                        -not (Test-WinBookSplitJsonEqual $event.source_identity $capturedSource)) {
+                        throw 'The working PDF source changed after manual preparation.'
+                    }
+                    $workingPdf = Assert-WinBookSplitWorkingPdf $event
+                    Write-Host ('Working generated PDF: ' + (ConvertTo-WinBookSplitDisplayText $workingPdf.path))
+                    try { Invoke-Item -LiteralPath $workingPdf.path -ErrorAction Stop }
+                    catch { Write-Host ('Cannot open the PDF viewer: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Yellow }
+                    $event | Add-Member -NotePropertyName manual_starts_supplied -NotePropertyValue (-not [string]::IsNullOrEmpty($SuppliedStarts))
+                    $starts = Read-WinBookSplitManualStarts $session $event $SuppliedStarts
+                    if (-not [string]::IsNullOrWhiteSpace($starts) -and $starts.Trim() -ine 'C') {
+                        $reply.action = 'starts'; $reply.starts = $starts; $nextStage = 'plan'
+                    }
+                }
+                'plan_ready' {
+                    if (($currentMode -ceq 'manual' -and $nextStage -cne 'plan') -or
+                        ($currentMode -cne 'manual' -and $nextStage -cne 'initial')) { throw 'Unexpected plan confirmation event.' }
+                    $plan = Assert-WinBookSplitInteractionPlan $event $currentMode $InputFile $outputDir ([bool]$KeepConvertedPdf)
+                    if ($null -ne $capturedSource -and
+                        (-not (Test-WinBookSplitJsonEqual $plan.source_identity $capturedSource) -or
+                         $plan.total_pages -ne $capturedPages)) { throw 'The plan differs from the captured manual PDF.' }
+                    Show-WinBookSplitPlan -Plan $plan -PreviewOnly $false -WorkingPdf $workingPdf
+                    $script:consoleLogWriter.WriteLine('[PLAN] ' + $raw)
+                    do {
+                        $choice = Read-WinBookSplitSessionLine $session 'Create these chapter PDFs? [Y] yes, [C] cancel'
+                        if ($null -eq $choice -or [string]::IsNullOrWhiteSpace($choice)) { $choice = 'C' }
+                        $choice = $choice.Trim().ToUpperInvariant()
+                        if ($choice -cnotin @('Y', 'C')) { Write-Host 'Choose exactly Y or C.' }
+                    } while ($choice -cnotin @('Y', 'C'))
+                    if ($choice -ceq 'Y') {
+                        $script:confirmedPlan = $plan
+                        $reply.action = 'execute'; $reply.plan_sha256 = $event.plan_sha256
+                    }
+                    $nextStage = 'terminal'
+                }
+                'no_plan' {
+                    if ($nextStage -cne 'initial' -or $currentMode -ceq 'manual') { throw 'Unexpected no-plan event.' }
+                    $noPlan = ConvertFrom-SplitResult -Stdout ($event.result | ConvertTo-Json -Depth 100 -Compress) -ExitCode 5 -Mode $currentMode
+                    if (($event.fallback_modes | ConvertTo-Json -Compress) -cne ($noPlan.fallback_modes | ConvertTo-Json -Compress)) { throw 'Fallback choices disagree.' }
+                    $decision = Get-SplitDecision -Result $noPlan
+                    Write-Host (ConvertTo-WinBookSplitDisplayText $decision.message) -ForegroundColor Yellow
+                    do {
+                        $prompt = 'Choose [M] manual or [C] cancel'
+                        if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
+                        $choice = Read-WinBookSplitSessionLine $session $prompt
+                        if ($null -eq $choice) { $choice = 'C' }
+                        $decision = Get-SplitDecision -Result $noPlan -Choice $choice
+                        $script:consoleLogWriter.WriteLine("[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)")
+                        if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
+                    } while ($decision.decision -in @('pending', 'invalid'))
+                    if ($decision.decision -ceq 'retry') {
+                        $currentMode = $decision.retry_mode; $SuppliedStarts = ''
+                        $reply.action = 'retry'; $reply.mode = $currentMode
+                    }
+                    else { $script:noPlanCancelled = $true; $nextStage = 'terminal' }
+                }
+            }
+            $script:consoleLogWriter.WriteLine('[INTERACTION-REPLY] ' + ($reply | ConvertTo-Json -Compress))
+            $session.SendReply(($reply | ConvertTo-Json -Compress))
+        }
+    }
+    catch {
+        $script:interactionFailure = $_.Exception
+        $script:interactionStopRequested = -not $session.Completed
+        $session.Cancel()
+    }
+    finally {
+        $session.Dispose()
+        $script:interactiveMode = $currentMode
+    }
+    return $session.Result
 }
 
 # --- Validation ---
@@ -314,20 +518,27 @@ catch {
 $enginePath = Join-Path $PSScriptRoot 'engine\winbooksplit_engine.py'
 
 # --- Execution Function ---
-function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
+function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false, [bool]$Interactive = $false) {
     $script:lastEngineResult = $null
     $script:consoleRecordError = $null
     # -I ignores PYTHON* environment settings. -X utf8 explicitly applies to
     # isolated Python as well as the UTF-8 environment inherited by Calibre.
     $engineArguments = @('-I', '-B', '-X', 'utf8', $enginePath, $InputFile, $outputDir, $mode, $manualData)
     if ($PlanOnly) { $engineArguments += '--preview' }
+    if ($Interactive) { $sessionId = [Guid]::NewGuid().ToString('N'); $engineArguments += @('--interactive', $sessionId) }
     if ($InputFile -match '\.(epub|azw3)$') {
         $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
         if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
     }
     $script:consoleLogWriter.WriteLine('[ENGINE] ' + (@{ path = $pythonExe; arguments = @($engineArguments) } | ConvertTo-Json -Compress))
-    $script:lastProcessResult = Invoke-WinBookSplitProcess -Path $pythonExe -Arguments $engineArguments `
-        -WorkingDirectory ([IO.Path]::GetDirectoryName($enginePath)) -TimeoutSeconds $ProcessTimeout
+    if ($Interactive) {
+        $script:lastProcessResult = Invoke-WinBookSplitInteractiveEngine $engineArguments $sessionId $mode $manualData
+        $mode = $script:interactiveMode
+    }
+    else {
+        $script:lastProcessResult = Invoke-WinBookSplitProcess -Path $pythonExe -Arguments $engineArguments `
+            -WorkingDirectory ([IO.Path]::GetDirectoryName($enginePath)) -TimeoutSeconds $ProcessTimeout
+    }
     $transport = $script:lastProcessResult
     # Classify this attempt before logging. A secondary log error cannot hide
     # its cancellation/failure or the location of completed engine output.
@@ -336,10 +547,17 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
     if (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or $transport.StopError) {
         $shutdownMessage = 'Shutdown could not be proved complete; any incomplete output is retained. ' + $transport.StopError
     }
-    if ($transport.Cancelled) { $attemptFailure = New-WinBookSplitFailure 'processor_cancelled' ('Engine processing was cancelled. ' + $shutdownMessage) }
+    if ($Interactive -and $null -ne $script:interactionFailure -and $script:interactionStopRequested -and
+        -not $script:abandonedConsoleInput -and
+        -not $transport.TimedOut) {
+        $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' ($script:interactionFailure.Message + ' ' + $shutdownMessage)
+    }
+    elseif ($transport.Cancelled) { $attemptFailure = New-WinBookSplitFailure 'processor_cancelled' ('Engine processing was cancelled. ' + $shutdownMessage) }
     elseif ($transport.TimedOut) { $attemptFailure = New-WinBookSplitFailure 'processor_timeout' ('Engine processing exceeded ProcessTimeout (' + $ProcessTimeout + ' seconds), including pipe EOF. ' + $shutdownMessage) }
     else {
-        foreach ($name in @('StartError', 'StopError', 'StreamError', 'ResultError')) {
+        $errorFields = @('StartError', 'StopError', 'StreamError', 'ResultError')
+        if ($Interactive) { $errorFields += @('InteractionError', 'InputError') }
+        foreach ($name in $errorFields) {
             if ($transport.$name) {
                 $failureCode = 'processor_protocol_failed'
                 if ($name -eq 'StartError') { $failureCode = 'processor_start_failed' }
@@ -347,7 +565,8 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
                 break
             }
         }
-        if ($null -eq $attemptFailure -and (-not $transport.ParentStopped -or -not $transport.DescendantsStopped -or
+        if ($null -eq $attemptFailure -and (($Interactive -and -not $transport.InputWriterStopped) -or
+            -not $transport.ParentStopped -or -not $transport.DescendantsStopped -or
             -not $transport.StreamsComplete -or $null -eq $transport.ExitCode)) {
             $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' 'The engine process tree and streams did not complete safely.'
         }
@@ -358,7 +577,10 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
         -not $transport.StreamError -and -not $transport.ResultError) {
         # A handle/handler close error can follow a fully validated publication.
         # Keep its location while preserving the primary transport failure.
-        try { $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode -Preview $PlanOnly }
+        try {
+            $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode -Preview $PlanOnly
+            if ($Interactive) { Assert-WinBookSplitConfirmedExecution $script:confirmedPlan $script:lastEngineResult }
+        }
         catch {
             if ($null -eq $attemptFailure) { $attemptFailure = New-WinBookSplitFailure 'processor_protocol_failed' $_.Exception.Message }
         }
@@ -369,6 +591,12 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false) {
         'StreamsComplete', 'JobAssigned', 'StartError', 'StopError', 'StreamError', 'ResultError',
         'StdoutTotalBytes', 'StderrTotalBytes', 'StdoutTruncated', 'StderrTruncated', 'ElapsedSeconds')) {
         $summary[$name] = $transport.$name
+    }
+    if ($Interactive) {
+        foreach ($name in @('InteractionError', 'InputError', 'InputWriterStopped', 'InteractionCount',
+                             'InteractionTotalBytes', 'QueuedReplyCount', 'ReplyCount', 'ReplyTotalBytes')) {
+            $summary[$name] = $transport.$name
+        }
     }
     $summary['ResultRecordCount'] = @($transport.ResultRecords).Count
     $script:consoleLogWriter.WriteLine('[PROCESS] ' + ($summary | ConvertTo-Json -Compress))
@@ -423,6 +651,8 @@ $script:lastEngineResult = $null
 $script:consoleRecordError = $null
 $requestedMode = $Mode
 $mode = ''
+$script:abandonedConsoleInput = $false
+$script:interactiveMode = ''
 try {
 
 # 1. Initial TUI, shows original book metadata
@@ -463,13 +693,8 @@ $selection = Read-WinBookSplitInitialDecision
 if ($selection.decision -eq 'cancel') { throw (New-WinBookSplitFailure 'cancelled' 'Method selection was cancelled before processing.') }
 $mode = $selection.mode
 
-# 2. Manual Input Prompt
+# Manual starts are requested only after the supervised engine captures the PDF.
 $manualInput = ""
-if ($mode -eq "manual") {
-    Write-Host ""
-    Write-Host "Enter page numbers where new files should START." -ForegroundColor Yellow
-    $manualInput = Read-Host "Pages (comma separated)"
-}
 }
 
 # 3. Execution
@@ -481,30 +706,11 @@ else {
 }
 Write-Host ""
 
-    $result = Run-PythonSplitter -mode $mode -manualData $manualInput -PlanOnly ([bool]$Preview)
-    while (-not $NonInteractive -and -not $Preview -and $result.status -ceq 'no_plan') {
-        $decision = Get-SplitDecision -Result $result
-        Write-Host (ConvertTo-WinBookSplitDisplayText $decision.message) -ForegroundColor Yellow
-        do {
-            $prompt = 'Choose [M] manual or [C] cancel'
-            if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
-            $retry = Read-Host $prompt
-            # A closed redirected stream is cancellation, not a blank answer to retry.
-            if ($null -eq $retry) { $retry = 'C' }
-            $decision = Get-SplitDecision -Result $result -Choice $retry
-            $script:consoleLogWriter.WriteLine("[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)")
-            if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
-        } while ($decision.decision -in @('pending', 'invalid'))
-        if ($decision.decision -eq 'cancel') {
-            $outcome = New-WinBookSplitOutcome -Status 'cancelled' -Code 'cancelled' -Message 'Splitting was cancelled before a fallback attempt.' -Mode $mode -EngineResult $result
-            break
-        }
-        $mode = $decision.retry_mode
-        $manualInput = ''
-        if ($mode -eq 'manual') {
-            $manualInput = Read-Host 'Pages (comma separated)'
-        }
-        $result = Run-PythonSplitter -mode $mode -manualData $manualInput -PlanOnly ([bool]$Preview)
+    $interactive = -not $NonInteractive -and -not $Preview
+    $result = Run-PythonSplitter -mode $mode -manualData $manualInput -PlanOnly ([bool]$Preview) -Interactive $interactive
+    if ($interactive) { $mode = $script:interactiveMode }
+    if ($interactive -and $script:noPlanCancelled) {
+        $outcome = New-WinBookSplitOutcome -Status 'cancelled' -Code 'cancelled' -Message 'Splitting was cancelled before a fallback attempt.' -Mode $mode -EngineResult $result
     }
     if ($null -eq $outcome) {
         $outcome = New-WinBookSplitOutcome -Status $result.status -Code $result.code -Message (Get-SplitDecision -Result $result).message -Mode $mode -EngineResult $result
@@ -512,6 +718,7 @@ Write-Host ""
 }
 catch {
     $failure = $_.Exception
+    if (-not [string]::IsNullOrEmpty($script:interactiveMode)) { $mode = $script:interactiveMode }
     $failureCode = 'processor_protocol_failed'
     if ($failure.Data.Contains('Code')) { $failureCode = [string]$failure.Data['Code'] }
     $failureStatus = 'failed'
@@ -545,6 +752,8 @@ catch {
         $script:consoleLogWriter = $null
     }
 }
+# Cancellation can finish while a no-newline interactive prompt is pending.
+Write-Host ''
 Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
 if ($outcome.status -ceq 'preview') {
     Show-WinBookSplitPlan -Plan $result.plan
@@ -554,7 +763,21 @@ elseif ($outcome.status -ceq 'success') {
         if ($warning.code -ceq 'output_handle_close_failed') { Write-Host ('[WARNING] ' + (ConvertTo-WinBookSplitDisplayText $warning.message)) -ForegroundColor Yellow }
     }
     Write-Host ('Output: ' + (ConvertTo-WinBookSplitDisplayText $outcome.final_directory)) -ForegroundColor Cyan
+    Write-Host ('Chapters written: {0}; physical pages: {1}; every page exactly once.' -f
+        $outcome.written_count, $result.execution.coverage.covered_pages) -ForegroundColor Cyan
     Write-Host 'Done.' -ForegroundColor Cyan
+    if (-not $NonInteractive -and -not $Preview) {
+        do {
+            $openFolder = Read-WinBookSplitSessionLine $null 'Open output folder? [O] open, [N] finish'
+            if ($null -eq $openFolder -or [string]::IsNullOrWhiteSpace($openFolder)) { $openFolder = 'N' }
+            $openFolder = $openFolder.Trim().ToUpperInvariant()
+            if ($openFolder -cnotin @('O', 'N')) { Write-Host 'Choose exactly O or N.' }
+        } while ($openFolder -cnotin @('O', 'N'))
+        if ($openFolder -ceq 'O') {
+            try { Invoke-Item -LiteralPath $outcome.final_directory -ErrorAction Stop }
+            catch { Write-Host ('Cannot open the output folder: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Yellow }
+        }
+    }
 }
 else {
     $outcomeColor = 'Red'
@@ -564,7 +787,7 @@ else {
 }
 $exitCode = $outcome.exit_code
 Write-Host ""
-if ($exitCode -ne 130) {
+if ($exitCode -ne 130 -and -not $script:abandonedConsoleInput) {
     Wait-WinBookSplitExit
 }
 exit $exitCode

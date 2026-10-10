@@ -48,9 +48,10 @@ Place these together (e.g. C:\Tools\WinBookSplit\):
    - Type 2 for Level 2 (Sub-chapters/sections).
    - Type M for Manual Mode (if you already know your page cuts).
    - Type C to cancel before processing.
-4. Press Enter.
+4. For manual ebook splitting, wait for conversion, then choose O to open the generated PDF or N to continue. Enter physical pages from that PDF; ebook locations and printed page labels are different. The requested working PDF stays available through page entry and confirmation.
 5. If the selected bookmark plan is unavailable, choose an offered fallback: M for manual, 1 for Level 1 when offered, or C to cancel. Y/N remain exact manual/cancel compatibility answers. Invalid menu or fallback answers reprompt.
-6. Find your organized chapter folder in your Documents folder.
+6. Review the complete plan: titles, physical ranges, filenames, parent/opening/front-matter notices, output base and coverage. Type Y to create these chapter PDFs, or C to cancel. Blank or closed confirmation input cancels. The exact displayed plan is used for writing.
+7. The completed summary names the actual folder and chapter/page counts. Choose O to open that folder, or N to finish. Neither the PDF viewer nor Explorer opens automatically.
 
 You can also double-click WinBookSplit.bat and enter the literal path to one
 supported book. A pasted path may have paired outer double quotes. Blank input
@@ -80,7 +81,7 @@ Get-Help .\WinBookSplit.ps1 -Full
 Auto requires `-BookmarkLevel 1` or `2`; Manual requires `-StartPages` and cannot
 use a bookmark level. Auto with start pages, missing choices and unrecognized
 arguments fail before dependency discovery or file writes. `-NoPause` suppresses
-exit pauses while retaining interactive method/fallback prompts.
+exit pauses while retaining interactive method, confirmation and open choices.
 
 `-Preview` requires a complete method and prints source identities, physical page
 ranges, filenames, warnings, output base and complete coverage. PDF preview writes
@@ -121,7 +122,8 @@ The console and log report the selected executable, versions and pypdf origin.
 Each engine attempt runs in an owned Windows job. Both UTF-8 streams are drained
 to EOF; console diagnostics retain the last 64 KiB per stream and report any
 truncation. The structured result is kept separately. `-ProcessTimeout` sets the
-whole attempt deadline in seconds (1..172800); its default is at least one hour
+whole attempt deadline in seconds (1..172800), including time awaiting interactive
+page entry or confirmation; its default is at least one hour
 and 30 minutes longer than `-ConversionTimeout`. Timeout or cancellation stops
 only this attempt's process tree and returns a failure. Interrupted staging
 directories are retained for inspection because the console does not own the
@@ -161,8 +163,11 @@ The batch launcher can use the application `.venv` and trusted converter PATH.
 Explicit path and retention options are available through PowerShell above.
 The acceptance books contain only original local resources. Calibre and pypdf
 run with your privileges; these checks do not provide a document sandbox or
-establish behavior for ebooks with remote resources. Interactive preview/confirmation
-and the final release workflow remain pending.
+establish behavior for ebooks with remote resources. Interactive confirmation
+keeps one captured PDF and uses the exact shared plan. A requested working PDF
+is removed using only this run's owned ledger after execution or cancellation;
+cleanup failures retain the workspace and are reported. The final release workflow
+remains pending.
 
 Input and output paths are handled literally. Directories used as input files,
 non-filesystem providers and unreadable files are rejected with a nonzero exit.

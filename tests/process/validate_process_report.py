@@ -7,6 +7,13 @@ import math
 import ntpath
 from pathlib import PureWindowsPath
 import re
+from hashlib import sha256
+import importlib.util
+from pathlib import Path
+
+spec = importlib.util.spec_from_file_location("wbs_process_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
+interactions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(interactions)
 
 ACCEPTANCE = ["AC-046", "AC-047", "AC-048", "AC-049"]
 HOSTS = ("PS51", "PS7")
@@ -258,9 +265,16 @@ def validate_process_report(report, shell_paths):
         for field in ("StartError", "StreamError", "StopError", "ResultError"):
             require(field in summary and summary[field] is None, "Application supervisor failed: " + field)
         streams = {**summary, "Stdout": case.get("logged_stdout"), "Stderr": case.get("logged_stderr")}
+        require(case.get("interaction", {}).get("engine_invocations") == [case.get("engine_invocation")], "Application interaction argv differs")
         for field in ("Stdout", "Stderr"):
             stream(streams, field)
         if case["kind"] in {"flood", "fast-tail"}:
+            interactions.require_noninteractive(case.get("interaction"), [summary])
+            require(case.get("stdin_utf8") == "" and ("-Mode Manual -StartPages '2,3' -NonInteractive -NoPause" in case.get("wrapper_text", "") if host != "BAT" else
+                    case.get("controlled_modifications") == ["copied PS complete noninteractive terminal-frame choices"]),
+                    "Fake terminal-frame control did not declare complete noninteractive choices")
+            require(isinstance(case.get("wrapper_text"), str) and case.get("wrapper_sha256") == sha256(case["wrapper_text"].encode("utf-8")).hexdigest(),
+                    "Actual noninteractive wrapper raw bytes/hash differ")
             require(case.get("exit_code") == 2 and case.get("written_count") == 0 and case.get("outputs") == []
                     and case.get("engine_record", {}).get("code") == "invalid_start_pages", "App lost native failure or announced output")
             receipt = case.get("child_receipt")
@@ -276,6 +290,10 @@ def validate_process_report(report, shell_paths):
             stream(streams, "Stdout", expected_stdout)
             stream(streams, "Stderr", expected_stderr)
         else:
+            interactions.validate(case.get("interaction"), [summary], ["plan_ready"], ["execute"],
+                                  execution=case.get("engine_record", {}).get("execution"))
+            require(case.get("stdin_utf8") == "1\nY\nN\n\n" and case.get("controlled_modifications") == [],
+                    "Real Unicode control did not explicitly confirm its plan")
             require(case.get("exit_code") == 0 and case.get("written_count") == 3 and len(case.get("outputs", [])) == 3, "Real Unicode PDF outputs missing")
             flags(case, "manifest_validated", "complete_page_content", "unicode_titles_preserved", "unicode_log_preserved", "source_readonly_observed")
             flags(case, "destination_bound_preview")

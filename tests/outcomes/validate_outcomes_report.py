@@ -3,6 +3,11 @@
 from pathlib import Path
 import json
 import re
+import importlib.util
+
+spec = importlib.util.spec_from_file_location("wbs_outcomes_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
+interactions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(interactions)
 
 ACCEPTANCE = ["AC-050", "AC-051", "AC-052"]
 EXPECTED = {"original-failure": 6, "fallback-success": 0, "fallback-failure": 2,
@@ -113,6 +118,8 @@ def validate_case(case):
     rows = case.get("engine_records")
     transports = case.get("process_summaries")
     need(isinstance(rows, list) and isinstance(transports, list), "Operation attempt evidence missing")
+    need(all(isinstance(frame, dict) and frame.get("protocol") == "winbooksplit.result" and type(frame.get("version")) is int
+        and frame["version"] == 1 for frame in rows), "Actual terminal engine protocol/version differs")
     abrupt = {"engine-cancel", "engine-timeout", "conversion-cancel", "engine-ctrlc", "conversion-ctrlc"}
     ordinary = set(EXPECTED) - abrupt - {"startup-dependency", "fallback-success", "fallback-failure", "fallback-cancel"}
     if kind in ordinary:
@@ -136,22 +143,34 @@ def validate_case(case):
             need(isinstance(value, dict) and all(value.get(field) is True for field in ("ParentStopped", "DescendantsStopped", "StreamsComplete", "JobAssigned"))
                 and type(value.get("Pid")) is int and value["Pid"] > 0, "Native owned-tree/EOF proof missing")
     if kind.startswith("fallback-"):
-        need(len(rows) == (1 if kind == "fallback-cancel" else 2)
-            and rows[0].get("protocol") == "winbooksplit.result" and type(rows[0].get("version")) is int
-            and rows[0]["version"] == 1 and rows[0].get("mode") == "1" and rows[0].get("status") == "no_plan"
-            and rows[0].get("code") == "no_bookmarks" and rows[0].get("exit_code") == 5
-            and rows[0].get("written_count") == 0 and rows[0].get("execution") is None
-            and rows[0].get("fallback_modes") == ["manual"]
-            and len(transports) == len(rows), "Actual initial fallback no-plan missing")
+        events = case.get("interaction", {}).get("requests", [])
+        need(events and events[0].get("stage") == "no_plan", "Actual nonterminal fallback request absent")
+        initial = events[0].get("result", {})
+        need(len(rows) == len(transports) == 1 and initial.get("protocol") == "winbooksplit.result" and type(initial.get("version")) is int
+            and initial["version"] == 1 and initial.get("mode") == "1" and initial.get("status") == "no_plan"
+            and initial.get("code") == "no_bookmarks" and initial.get("exit_code") == 5
+            and initial.get("written_count") == 0 and initial.get("execution") is None
+            and initial.get("fallback_modes") == ["manual"], "Actual initial fallback no-plan missing")
         if kind != "fallback-cancel":
-            need(rows[1] == outcome.get("engine_result") and rows[1].get("mode") == "manual"
-                and rows[1].get("exit_code") == EXPECTED[kind]
-                and all(rows[1].get(field) == outcome.get(field) for field in ("status", "code", "exit_code", "mode")),
+            need(rows[0] == outcome.get("engine_result") and rows[0].get("mode") == "manual"
+                and rows[0].get("exit_code") == EXPECTED[kind]
+                and all(rows[0].get(field) == outcome.get(field) for field in ("status", "code", "exit_code", "mode")),
                 "Outcome selected initial failure rather than final attempted fallback")
         else:
-            need(outcome.get("engine_result") == rows[0], "Fallback cancellation lost actual initial failure")
+            need(outcome.get("engine_result") == rows[0] == initial, "Fallback cancellation lost actual initial failure")
         need(all(process.get("ExitCode") == frame.get("exit_code") and process.get("ResultRecordCount") == 1
             for process, frame in zip(transports, rows)), "Fallback native/result frame binding differs")
+    if kind != "startup-dependency":
+        if not kind.startswith("fallback-") and kind != "log-finalize":
+            interactions.require_noninteractive(case.get("interaction"), transports)
+            need(case.get("stdin_utf8") == "", "Noninteractive fault control supplied fabricated consent")
+        else:
+            stages = ["no_plan"] if kind == "fallback-cancel" else ["no_plan", "input_ready"] if kind == "fallback-failure" else \
+                ["no_plan", "input_ready", "plan_ready"] if kind == "fallback-success" else ["input_ready", "plan_ready"]
+            actions = ["cancel"] if kind == "fallback-cancel" else ["retry", "starts"] if kind == "fallback-failure" else \
+                ["retry", "starts", "execute"] if kind == "fallback-success" else ["starts", "execute"]
+            interactions.validate(case.get("interaction"), transports, stages, actions,
+                starts="2,no" if kind == "fallback-failure" else "2,3", execution=outcome.get("engine_result", {}).get("execution"))
     if kind in INTERRUPTED:
         observations = case.get("pid_observations")
         need(isinstance(observations, list) and len(observations) == 2 and len({row.get("pid") for row in observations}) == 2

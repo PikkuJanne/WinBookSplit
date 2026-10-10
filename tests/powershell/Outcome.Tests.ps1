@@ -222,6 +222,62 @@ Describe 'M3 explicit plan-only engine protocol' -Tag 'AC-054', 'AC-055', 'AC-05
     }
 }
 
+Describe 'M3 displayed plan and confirmation binding' -Tag 'AC-060', 'AC-061', 'AC-062' {
+    BeforeAll {
+        function New-AuthoredInteraction {
+            $plan = New-AuthoredPreviewPlan
+            $json = $plan | ConvertTo-Json -Depth 100 -Compress
+            $sha = [Security.Cryptography.SHA256]::Create()
+            try { $digest = -join ($sha.ComputeHash([Text.Encoding]::UTF8.GetBytes($json)) | ForEach-Object { $_.ToString('x2') }) }
+            finally { $sha.Dispose() }
+            return [pscustomobject]@{ protocol='winbooksplit.interaction'; version=1; session=('b'*32);
+                sequence=1; mode='manual'; stage='plan_ready'; plan=$plan; plan_json=$json; plan_sha256=$digest }
+        }
+    }
+    It 'rejects wrong session, sequence, mode, protocol and stage before any reply' {
+        $event=New-AuthoredInteraction
+        $json=$event | ConvertTo-Json -Depth 100 -Compress
+        (ConvertFrom-WinBookSplitInteraction $json ('b'*32) 1 'manual').stage | Should-Be -Expected 'plan_ready'
+        foreach ($change in @(@('session',('c'*32)), @('sequence',2), @('mode','1'), @('version',2),
+                              @('protocol','WinBookSplit.interaction'), @('stage','write_now'))) {
+            $bad=$json | ConvertFrom-Json
+            $bad.($change[0])=$change[1]
+            { ConvertFrom-WinBookSplitInteraction ($bad | ConvertTo-Json -Depth 100 -Compress) ('b'*32) 1 'manual' } | Should-Throw
+        }
+    }
+    It 'requires an exact digest and equivalent plan data with the selected source and destination' {
+        $event=New-AuthoredInteraction
+        $source=$event.plan.source_identity.path
+        (Assert-WinBookSplitInteractionPlan $event 'manual' $source $WorkRoot $false).coverage.covered_pages | Should-Be -Expected 10
+        $event.plan_sha256='c'*64
+        { Assert-WinBookSplitInteractionPlan $event 'manual' $source $WorkRoot $false } | Should-Throw
+        $event=New-AuthoredInteraction
+        $event.plan.entries[0].title='Different displayed title'
+        { Assert-WinBookSplitInteractionPlan $event 'manual' $source $WorkRoot $false } | Should-Throw
+        $event=New-AuthoredInteraction
+        { Assert-WinBookSplitInteractionPlan $event 'manual' (Join-Path $WorkRoot 'other.pdf') $WorkRoot $false } | Should-Throw
+        { Assert-WinBookSplitInteractionPlan $event 'manual' $source (Join-Path $WorkRoot 'other') $false } | Should-Throw
+    }
+    It 'compares JSON objects independently of property order without accepting changed values' {
+        $left='{"a":1,"b":[true,"x",null]}' | ConvertFrom-Json
+        $right='{"b":[true,"x",null],"a":1}' | ConvertFrom-Json
+        Test-WinBookSplitJsonEqual $left $right | Should-BeTrue
+        $right.b[1]='X'
+        Test-WinBookSplitJsonEqual $left $right | Should-BeFalse
+    }
+    It 'requires every completed output to match the confirmed immutable entries and source' {
+        $plan=New-AuthoredPreviewPlan
+        $execution=[pscustomobject]@{ mode='manual'; total_pages=10; written_count=3;
+            source_identity=$plan.source_identity; outputs=$plan.entries }
+        $result=New-AuthoredResult 'success' 'split_complete' 0 $execution
+        Assert-WinBookSplitConfirmedExecution $plan $result
+        $result=$result | ConvertTo-Json -Depth 100 -Compress | ConvertFrom-Json
+        $result.execution.outputs[0].start=1
+        { Assert-WinBookSplitConfirmedExecution $plan $result } | Should-Throw
+        { Assert-WinBookSplitConfirmedExecution $null $result } | Should-Throw
+    }
+}
+
 Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
     It 'maps every documented code with the actual host JSON integer representation' {
         $expected = @{

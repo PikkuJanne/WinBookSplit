@@ -16,6 +16,9 @@ spec = importlib.util.spec_from_file_location("wbs_current_launcher_manual", ROO
 manual = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(manual)
 history, require = manual.history, manual.require
+spec = importlib.util.spec_from_file_location("wbs_current_interaction_receipts", ROOT / "tests/manual/interaction_receipts.py")
+interactions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(interactions)
 
 
 def exact_line(stdout, prefix):
@@ -120,7 +123,7 @@ def launchers(work, fixtures, generator, shells, cases):
         environment["PATH"] = os.pathsep.join((str(Path(sys.executable).parent), str(ps51.parent),
                                                str(system_root / "System32"), str(system_root)))
         environment["PSModulePath"] = str(host.parent / "Modules")
-        stdin = "M\n4,7\n\n" if oracle_id == "MAN-03" else "2\n\n"
+        stdin = "M\n4,7\nY\nN\n\n" if oracle_id == "MAN-03" else "2\nY\nN\n\n"
         if batch:
             require(not any(character in str(ROOT / "WinBookSplit.bat") + str(source)
                             for character in ' %!&|<>^"'), "Generated batch paths must remain safe ASCII")
@@ -154,6 +157,12 @@ def launchers(work, fixtures, generator, shells, cases):
             owner = json.loads((log.parent / ".WinBookSplit-console-owner.json").read_text(encoding="utf-8"))
             require(owner == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Console marker differs")
             log_validated = True
+            log_text = log.read_text(encoding="utf-8")
+            interaction = interactions.capture(log_text)
+            summaries = [json.loads(line[len("[PROCESS] "):]) for line in log_text.splitlines() if line.startswith("[PROCESS] ")]
+            interactions.validate(interaction, summaries,
+                ["input_ready", "plan_ready"] if oracle_id == "MAN-03" else ["plan_ready"],
+                ["starts", "execute"] if oracle_id == "MAN-03" else ["execute"], starts="4,7", execution=execution)
             require(source_hash == history.file_digest(source) and decoy_hash == history.file_digest(decoy)
                     and (parent_sentinel / ".wbs-m1-neighbor.txt").read_bytes() == b"Original synthetic Documents neighbor\n", "Launcher modified input/neighbor")
             version = history.run([str(host), "-NoProfile", "-Command", "$PSVersionTable.PSVersion.ToString()"], cwd, environment=environment)
@@ -163,6 +172,7 @@ def launchers(work, fixtures, generator, shells, cases):
                     "builtin_module_path": environment["PSModulePath"], "python_path_first": str(Path(sys.executable).parent),
                     "oracle_id": oracle_id, "outputs": actual, "input_unchanged": True, "cwd_engine_untouched": True,
                     "owned_neighbor_unchanged": True, "run_id": execution["run_id"], "manifest_validated": True,
+                    "stdin_utf8": stdin, "interaction": interaction, "process_summaries": summaries,
                     "output_location": "<observed-Documents>/<owned-input-GUID>_<timestamp>_<run-GUID>",
                     **{key: value.replace(str(documents), "<observed-Documents>") if isinstance(value, str) else value
                        for key, value in result.items()}}
