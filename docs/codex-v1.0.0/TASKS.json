@@ -791,7 +791,7 @@
         "Clear rejection tests",
         "Accurate limitations"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M4-T01"
       ],
@@ -800,8 +800,11 @@
         "AC-071",
         "AC-072"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M4-T02-document-policy.md",
+        "evidence/M4-T02-document-policy.json"
+      ],
+      "implementation_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

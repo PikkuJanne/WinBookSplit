@@ -1,0 +1,4053 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T02",
+  "observed_at": "2026-10-10T11:08:09.087605+00:00",
+  "result": "M4_T02_DOCUMENT_POLICY_AND_COMMITTED_COMPOSITE_ACCEPTANCE_PASSED",
+  "success": true,
+  "implementation_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+  "acceptance": {
+    "AC-070": "PASS: actual encrypted user/empty-user-owner native rejections before plan/output, preview no-write and metadata-only exports; separate guarded callable tests assert Encryption.read/verify/decrypt uncalled.",
+    "AC-071": "PASS: actual AcroForm/XFA/widgets/signature/catalog-actions/JavaScript/attachments/associated-file/portfolio/3D/media rejection; ordinary/page-AA exclusion positives retain full physical partition and visible warnings. Copied-resource/inheritance edges have separate reproduced and fixed callable controls.",
+    "AC-072": "PASS: actual malformed/truncated/zero-page/deep-outline/page-tree-cycle bounded native6 failure, finite deadline and shutdown proof; callable raw-tree/snapshot/graph limits and generated unsupported7 versus malformed4 retain cleanup diagnostics."
+  },
+  "source": {
+    "pre_task_main": "da9b0b978b1f27740a4eb42641ec4bce09f2dac5",
+    "final_checkpoint_C3": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "final_tree_C3": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+    "production_checkpoint_C2": "e0b7aa0cfa65a86e56caa3bafed8ab2457a21656",
+    "production_tree_C2": "17369a390faf7cccc838b277b7da73b702e7d30d",
+    "earlier_C1": "8f68f231d5bc8473ead50f85c69666a471058eb3",
+    "tested_raw_path_count": 133,
+    "tested_paths_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/PDF_FIDELITY.md": "e1ff255d0854623efbb080f9f362450ffa3018e3974ddddee584721cd53d506c",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "16fb708b7e005d5381f11d638dc6d5c25cad2acfb9dff8f07db72d9d33d2f9b9",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "b7704df5acc2012f5265052a9394b2ddfa08b434a4840853974988c333eda0a9",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "ffb26733059e9660a7446d8978fd2612c337cd75f3ba28fd8971901ec2513d2e",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "77973bc67e6d52024ae039a69605bc0d09e2ef5debf3307350322278541f791d",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "2df02f831ce770cb66883dab3ffe1b388057c2ef87cb747786bce664afecc317",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+      "tests/manual/current_launchers.py": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "87b82d00a67f07ab02a1389fe983d9993fb7d948927836625b0f6071ee31fad7",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "8dd475ca4296456c2cb9e0217a90efa2d26b0aab369d4d68aee22c87c507069f",
+      "tests/process/characterize_process.py": "a93219d507bad90749d6a6df2b5039b77db2e0540e1c7d136d1ca76f30993a51",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "4f604fc86cd44cbf887548a3b80bcf3d6c242307cf8c6fdba90b00378f2e28f5",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "81420f47052c000d6edfd15a297d7759d84c19ed68a5753ec88b7246ef07c513",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fidelity_receipt.py": "2be045b71e0135f0705fa7a9bfa5bf06e12e63079c889e9f9fa6daade8360819",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_pdf_fidelity.py": "bb27d37582ddaa504f015a90fbfc49ee7a8afe09d8658bad1354f68f1c28b77b",
+      "tests/python/test_pdf_policy.py": "762b14f5b216b421ffd94539b588af215f9244a8ec5b8e192d0f8d9438b76d4f",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "b37dd0a1981827a5930913d5375cbdbebb986488dc6d6b21705016fe66abb9f1",
+      "tests/python/test_runtime_receipt.py": "45e9ce6fb2707531d9b70b65edbcb6a7953e5e45cd888a0e00d46faffffdd9c6",
+      "tests/python/test_support_receipt.py": "98c5bb1487866895433a42e82de52276682826492931f59349fa8902fd588141",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "2826511706ff06a8cbe1c0f65a61a9cb26d96dd5337e949fd973c2b6b472a68e",
+      "tests/run_tests.py": "37bb666119b5a75816c409bed7e33b89fa9f9beed7c04732586cc72d80f3fd75",
+      "tests/runtime/characterize_runtime.py": "f9993557e9ed890521e6ac58bfd84ba6202858e651d46b210514dd3fe82e6b25",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "6474fcd4a37372921aa165282eb6cebf7d368c5ae8bbb78591dd1d9485fdc44e",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "862126572dccee50c19113220b0b857822883eb01bb23c0a31327e892f723e6c",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a"
+    },
+    "C2_full_source_unchanged": true,
+    "every_final_raw_path_matches_C3_Git_blob": true,
+    "C2_C3_source_delta": {
+      "task_id": "M4-T02",
+      "observed_at": "2026-10-10T10:56:29.898223+00:00",
+      "baseline_commit_C2": "e0b7aa0cfa65a86e56caa3bafed8ab2457a21656",
+      "final_commit_C3": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+      "final_tree_C3": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+      "baseline_digest_C2": "49e3bb63faccd184df28310bcf14bee401e02abc8dc65726c5dab3ce5e569378",
+      "final_digest_C3": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+      "raw_path_count": 133,
+      "unchanged_raw_path_count": 131,
+      "changed_paths": [
+        {
+          "path": "tests/document_policy/validate_document_policy_report.py",
+          "C2_sha256": "bdd2236a702218fddfe5720c4e7602989643987727395f8fbb0074e0e6232883",
+          "C3_sha256": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831"
+        },
+        {
+          "path": "tests/python/test_document_policy_receipt.py",
+          "C2_sha256": "c915bfcb1e8a99e1621b6eab1046092c955db7734d241b0ec8fdaf0d6bc8719e",
+          "C3_sha256": "81420f47052c000d6edfd15a297d7759d84c19ed68a5753ec88b7246ef07c513"
+        }
+      ],
+      "application_path_count": 15,
+      "all_application_paths_raw_identical": true,
+      "application_path_sha256": {
+        "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a",
+        "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+        "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+        "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+        "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+        "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+        "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+        "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+        "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+        "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+        "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+        "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+        "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+      },
+      "all_C2_and_C3_maps_match_their_own_Git_blobs": true,
+      "scope": "Only strict policy receipt validator and its synthetic units changed; no runtime, launcher, other suite or package input changed."
+    },
+    "retained_C2_full_source_digest": "49e3bb63faccd184df28310bcf14bee401e02abc8dc65726c5dab3ce5e569378",
+    "retained_C2_full_tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/PDF_FIDELITY.md": "e1ff255d0854623efbb080f9f362450ffa3018e3974ddddee584721cd53d506c",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "16fb708b7e005d5381f11d638dc6d5c25cad2acfb9dff8f07db72d9d33d2f9b9",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "b7704df5acc2012f5265052a9394b2ddfa08b434a4840853974988c333eda0a9",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "ffb26733059e9660a7446d8978fd2612c337cd75f3ba28fd8971901ec2513d2e",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "bdd2236a702218fddfe5720c4e7602989643987727395f8fbb0074e0e6232883",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "77973bc67e6d52024ae039a69605bc0d09e2ef5debf3307350322278541f791d",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "2df02f831ce770cb66883dab3ffe1b388057c2ef87cb747786bce664afecc317",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+      "tests/manual/current_launchers.py": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "87b82d00a67f07ab02a1389fe983d9993fb7d948927836625b0f6071ee31fad7",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "8dd475ca4296456c2cb9e0217a90efa2d26b0aab369d4d68aee22c87c507069f",
+      "tests/process/characterize_process.py": "a93219d507bad90749d6a6df2b5039b77db2e0540e1c7d136d1ca76f30993a51",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "4f604fc86cd44cbf887548a3b80bcf3d6c242307cf8c6fdba90b00378f2e28f5",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "c915bfcb1e8a99e1621b6eab1046092c955db7734d241b0ec8fdaf0d6bc8719e",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fidelity_receipt.py": "2be045b71e0135f0705fa7a9bfa5bf06e12e63079c889e9f9fa6daade8360819",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_pdf_fidelity.py": "bb27d37582ddaa504f015a90fbfc49ee7a8afe09d8658bad1354f68f1c28b77b",
+      "tests/python/test_pdf_policy.py": "762b14f5b216b421ffd94539b588af215f9244a8ec5b8e192d0f8d9438b76d4f",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "b37dd0a1981827a5930913d5375cbdbebb986488dc6d6b21705016fe66abb9f1",
+      "tests/python/test_runtime_receipt.py": "45e9ce6fb2707531d9b70b65edbcb6a7953e5e45cd888a0e00d46faffffdd9c6",
+      "tests/python/test_support_receipt.py": "98c5bb1487866895433a42e82de52276682826492931f59349fa8902fd588141",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "2826511706ff06a8cbe1c0f65a61a9cb26d96dd5337e949fd973c2b6b472a68e",
+      "tests/run_tests.py": "37bb666119b5a75816c409bed7e33b89fa9f9beed7c04732586cc72d80f3fd75",
+      "tests/runtime/characterize_runtime.py": "f9993557e9ed890521e6ac58bfd84ba6202858e651d46b210514dd3fe82e6b25",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "6474fcd4a37372921aa165282eb6cebf7d368c5ae8bbb78591dd1d9485fdc44e",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "862126572dccee50c19113220b0b857822883eb01bb23c0a31327e892f723e6c",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a"
+    },
+    "application_files": 15,
+    "changed_application_files_from_baseline": [
+      "engine/winbooksplit_conversion.py",
+      "engine/winbooksplit_engine.py"
+    ],
+    "entrypoint_BAT_and_PowerShell_unchanged": true
+  },
+  "runtime": {
+    "schema_version": 1,
+    "task_id": "M4-T02",
+    "implementation_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "implementation_tree": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+    "tested_paths_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "windows": {
+      "caption": "Microsoft Windows 11 Pro",
+      "architecture": "64-bit",
+      "build": "26300",
+      "ubr": 9457,
+      "display_version": "26H2",
+      "version": "10.0.26300",
+      "build_with_ubr": "26300.9457"
+    },
+    "developer_python": "3.14.8",
+    "machine": "AMD64",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    },
+    "shell_hosts": [
+      {
+        "host_id": "PS51",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "imports": {
+          "Pester": "6.2.0",
+          "PSScriptAnalyzer": "1.25.0"
+        },
+        "source_stage": "shell-0",
+        "stored_child_sha256": "d22e0aa9aa8185b553fb22e4ba1b567492b801d3eadeb1a23afddce7174748ff"
+      },
+      {
+        "host_id": "PS7",
+        "version": "7.6.5",
+        "edition": "Core",
+        "imports": {
+          "Pester": "6.2.0",
+          "PSScriptAnalyzer": "1.25.0"
+        },
+        "source_stage": "shell-1",
+        "stored_child_sha256": "a83a18b3378d1d3a19e5a944b7d2b16eba24e2875ac419294546727fd82446e8"
+      }
+    ],
+    "calibre": {
+      "version": "9.15.0",
+      "actual_version_probe_native_exit": 0
+    },
+    "renderers": {
+      "Poppler": {
+        "version": "26.07.0",
+        "actual_version_probe_native_exit": 0
+      },
+      "PDFium": {
+        "python": "3.12.14",
+        "pypdfium2": "5.13.0",
+        "pdfium": "153.0.7999.0",
+        "actual_version_probe_native_exit": 0
+      }
+    },
+    "provenance": {
+      "full_report": {
+        "file": "full01.json",
+        "bytes": 36083404,
+        "sha256": "ca209f009be9f9be15ff90584549b30eb540184e0d27fa03e4e15f1b6280a1c5"
+      },
+      "workstation_runtime": {
+        "file": "workstation-runtime01.json",
+        "bytes": 1225,
+        "sha256": "afdafcdd17bd889e6db259fd7d5c7a4d345128dcdf3dd3438fb0a36229193bdd"
+      },
+      "conversion_stored_child_sha256": "248f22adc9f804070bcf4835cffa3d1fcc224980d139ad7f15530855f3a0815b",
+      "fidelity_stored_child_sha256": "48a7beeedd3368588812d8214038ad54a38f8f75d0cb80fb2062b68ad1c86dfb"
+    },
+    "runtime_observed_source_commit": "e0b7aa0cfa65a86e56caa3bafed8ab2457a21656",
+    "runtime_observed_source_tree": "17369a390faf7cccc838b277b7da73b702e7d30d",
+    "runtime_observed_source_digest": "49e3bb63faccd184df28310bcf14bee401e02abc8dc65726c5dab3ce5e569378",
+    "application_bytes_identical_to_final_C3": true,
+    "scope": "Versions are projected from actual completed C2 full receipts, with fresh C3 Python/policy corroboration added below. No new probes, GUI/human or package test.",
+    "fresh_C3_runtime_corroboration": {
+      "python_report": {
+        "file": "python-C301.json",
+        "bytes": 102504,
+        "sha256": "eccb165ab9016abe4b6da259fb0e847880eef6948ecf3221172249b6242ce875"
+      },
+      "policy_report": {
+        "file": "document-policy01.json",
+        "bytes": 3330194,
+        "sha256": "22d8de0123acb50d464d535ecfbf7326156ce50ac4834cc828be99b82e3d834a"
+      },
+      "numeric_versions_and_isolation_match": true
+    }
+  },
+  "committed_full": {
+    "report": {
+      "file": "full01.json",
+      "bytes": 36083404,
+      "sha256": "ca209f009be9f9be15ff90584549b30eb540184e0d27fa03e4e15f1b6280a1c5"
+    },
+    "command_receipt": {
+      "file": "full-command01.json",
+      "bytes": 1586,
+      "sha256": "15d5897c99831eb3b0223f9276d71a10bffdc57884df47e53ccd5bea24f2ec16"
+    },
+    "native_exit_code": 1,
+    "standalone_full_run_passed": false,
+    "stage_count": 20,
+    "passed_stage_count": 18,
+    "verification_description": "committed composite: C2 full01 FAILED/native1 with18/20 stages passed; final test-only C3 Python/document-policy/process PASS/native0",
+    "source_commit": "e0b7aa0cfa65a86e56caa3bafed8ab2457a21656",
+    "source_tree": "17369a390faf7cccc838b277b7da73b702e7d30d",
+    "source_digest": "49e3bb63faccd184df28310bcf14bee401e02abc8dc65726c5dab3ce5e569378",
+    "python_methods": 366,
+    "shells": [
+      {
+        "stage": "shell-0",
+        "native_exit_code": 0,
+        "pester": {
+          "passed": 112,
+          "failed": 0,
+          "total": 112,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "child_report_sha256": "d22e0aa9aa8185b553fb22e4ba1b567492b801d3eadeb1a23afddce7174748ff"
+      },
+      {
+        "stage": "shell-1",
+        "native_exit_code": 0,
+        "pester": {
+          "passed": 112,
+          "not_run": 0,
+          "failed": 0,
+          "total": 112,
+          "result": "Passed",
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "child_report_sha256": "a83a18b3378d1d3a19e5a944b7d2b16eba24e2875ac419294546727fd82446e8"
+      }
+    ],
+    "stages": [
+      {
+        "name": "stdlib-unittest",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": null,
+        "child_report_sha256": null,
+        "list_counts": {},
+        "scalar_counts": {}
+      },
+      {
+        "name": "shell-0",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": null,
+        "child_report_sha256": "d22e0aa9aa8185b553fb22e4ba1b567492b801d3eadeb1a23afddce7174748ff",
+        "list_counts": {},
+        "scalar_counts": {}
+      },
+      {
+        "name": "shell-1",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": null,
+        "child_report_sha256": "a83a18b3378d1d3a19e5a944b7d2b16eba24e2875ac419294546727fd82446e8",
+        "list_counts": {},
+        "scalar_counts": {}
+      },
+      {
+        "name": "manual-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "MANUAL_REGRESSION_PASSED",
+        "child_report_sha256": "9ac83a8f881b327cdaecb7f5c78feda12cd42a1606eafb35d49445c07e362695",
+        "list_counts": {
+          "engine_cases": 22,
+          "extra_cli_cases": 8,
+          "sampled_writer_cases": 25,
+          "historical_bookmark_cases": 0
+        },
+        "scalar_counts": {
+          "engine_case_count": 22
+        }
+      },
+      {
+        "name": "level1-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "LEVEL1_REGRESSION_PASSED",
+        "child_report_sha256": "7de4344ae6b956290f40edcde2d800dca0553936055b23e24b00921a6fb98196",
+        "list_counts": {
+          "engine_cases": 4,
+          "normalization_cases": 5,
+          "sampled_writer_cases": 10
+        },
+        "scalar_counts": {
+          "engine_case_count": 4
+        }
+      },
+      {
+        "name": "level2-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "LEVEL2_REGRESSION_PASSED",
+        "child_report_sha256": "ecb4bffc3989b383d49ce12517d780eb0d0ffa5ec1b082b039db2fbf43d6c94e",
+        "list_counts": {
+          "engine_cases": 4,
+          "hierarchy_cases": 6,
+          "sampled_writer_cases": 10
+        },
+        "scalar_counts": {
+          "engine_case_count": 4
+        }
+      },
+      {
+        "name": "shared-plan-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "SHARED_PLAN_REGRESSION_PASSED",
+        "child_report_sha256": "bb86bc7974e6590249cd235144089141d54d4c954165c6ff10f4e5b0b14c9a8a",
+        "list_counts": {
+          "structural_cases": 9,
+          "preview_cases": 2,
+          "parity_cases": 3,
+          "source_cases": 2
+        },
+        "scalar_counts": {}
+      },
+      {
+        "name": "diagnostic-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "DIAGNOSTIC_REGRESSION_PASSED",
+        "child_report_sha256": "2e44e574e8183b68a11f5d21d09b6837f2c427df3de704b7f5150928cb6fd050",
+        "list_counts": {
+          "engine_cases": 23,
+          "shell_cases": 2
+        },
+        "scalar_counts": {
+          "engine_case_count": 23
+        }
+      },
+      {
+        "name": "output-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "OUTPUT_TRANSACTION_REGRESSION_PASSED",
+        "child_report_sha256": "356eab49fb7981d218df65708f3d18d11d9e07da0a74d3a61abf7cc18e0cd948",
+        "list_counts": {
+          "repeat_cases": 4,
+          "concurrent_cases": 4,
+          "failure_cases": 5,
+          "cleanup_cases": 8
+        },
+        "scalar_counts": {}
+      },
+      {
+        "name": "path-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "PATH_REGRESSION_PASSED",
+        "child_report_sha256": "6931710f0bf2cd4ee83c554e52dcc6ff3c00c346aad3361a9261e1300997702f",
+        "list_counts": {
+          "host_cases": 2,
+          "literal_cases": 3,
+          "rejection_cases": 8,
+          "chapter_cases": 3,
+          "destination_failure_cases": 5
+        },
+        "scalar_counts": {}
+      },
+      {
+        "name": "conversion-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "CONVERSION_REGRESSION_PASSED",
+        "child_report_sha256": "248f22adc9f804070bcf4835cffa3d1fcc224980d139ad7f15530855f3a0815b",
+        "list_counts": {
+          "host_cases": 2,
+          "real_cases": 8,
+          "direct_api_cases": 2,
+          "invalid_converter_cases": 8
+        },
+        "scalar_counts": {}
+      },
+      {
+        "name": "runtime-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "RUNTIME_REGRESSION_PASSED",
+        "child_report_sha256": "46e29962df59090741ee7fae668b6d24f17b97cf6ca4bf0d6cf769aca80e909e",
+        "list_counts": {
+          "host_cases": 2,
+          "python_failure_cases": 10,
+          "python_selection_cases": 8,
+          "shadow_cases": 2,
+          "pdf_without_calibre_cases": 2,
+          "converter_failure_cases": 6,
+          "converter_success_cases": 5
+        },
+        "scalar_counts": {
+          "case_count": 33
+        }
+      },
+      {
+        "name": "process-regression",
+        "native_exit_code": 1,
+        "timed_out": false,
+        "child_result": "MISSING_CHILD_RECEIPT",
+        "child_report_sha256": null,
+        "list_counts": {},
+        "scalar_counts": {}
+      },
+      {
+        "name": "outcome-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "OUTCOME_REGRESSION_PASSED",
+        "child_report_sha256": "35ca80c566f93b3520dd1541a5e19d4d091bc6ca8135cfc08ff30ded849d39d6",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 51
+        },
+        "scalar_counts": {
+          "case_count": 51
+        }
+      },
+      {
+        "name": "cli-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "CLI_REGRESSION_PASSED",
+        "child_report_sha256": "fc77e614d79030e0de4f24edd955949d43c24dd292cb98977803ed29e1649c23",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 72
+        },
+        "scalar_counts": {
+          "case_count": 72
+        }
+      },
+      {
+        "name": "launcher-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "LAUNCHER_REGRESSION_PASSED",
+        "child_report_sha256": "9e660d2ac4b663cdd6c737f5aa2745425c56f3eeb722f3d40ae03fe0e36e797d",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 70
+        },
+        "scalar_counts": {
+          "case_count": 70
+        }
+      },
+      {
+        "name": "ux-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "UX_REGRESSION_PASSED",
+        "child_report_sha256": "964d3c09c08a2dc25ed4a9eff94586ff53c0a44ccc282356f09c092430a27881",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 26,
+          "working_pdf_cases": 2
+        },
+        "scalar_counts": {
+          "case_count": 28
+        }
+      },
+      {
+        "name": "support-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "SUPPORT_REGRESSION_PASSED",
+        "child_report_sha256": "8f9ee5cb08a4de1144f43d6910c000e0488b2c6be6608f02694b765f6df5cbd9",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 32,
+          "export_cases": 34
+        },
+        "scalar_counts": {
+          "case_count": 66
+        }
+      },
+      {
+        "name": "fidelity-regression",
+        "native_exit_code": 0,
+        "timed_out": false,
+        "child_result": "FIDELITY_REGRESSION_PASSED",
+        "child_report_sha256": "48a7beeedd3368588812d8214038ad54a38f8f75d0cb80fb2062b68ad1c86dfb",
+        "list_counts": {
+          "host_cases": 2,
+          "cases": 8
+        },
+        "scalar_counts": {
+          "case_count": 8
+        }
+      },
+      {
+        "name": "document-policy-regression",
+        "native_exit_code": 1,
+        "timed_out": false,
+        "child_result": "DOCUMENT_POLICY_REGRESSION_FAILED",
+        "child_report_sha256": "50f7869a0c81ba74b8bb57fe38ab9c65770282be8fd1720d0d7b3a3c6b18b3b8",
+        "list_counts": {
+          "completed_cases": 25,
+          "completed_export_cases": 1
+        },
+        "scalar_counts": {}
+      }
+    ],
+    "synthetic_input_unchanged": true,
+    "owned_outer_workspace_removed": false,
+    "retention_reason": "Failed document-policy child reports cleanup_safe false; preserve original authored workspace and authenticated diagnostics.",
+    "raw_harness_task_id_note": "The reused generic runner retains task_id M0-T04 and NOT_ASSERTED legacy acceptance placeholders; this summary binds the actual C2 full and strict T02 child outcomes."
+  },
+  "document_policy": {
+    "child_report_sha256": "402f734ae8deeda1c012a3785a51e62e2ab8d6ec8ce128eac7a9dc504b8830e0",
+    "case_count": 75,
+    "application_case_count": 73,
+    "export_case_count": 2,
+    "PS51_application_controls": 30,
+    "PS7_application_controls": 30,
+    "BAT_application_controls": 13,
+    "native_exit_counts_including_exports": {
+      "0": 11,
+      "6": 12,
+      "7": 52
+    },
+    "fixture_count": 25,
+    "fixture_ids": [
+      "acroform",
+      "catalog-aa",
+      "catalog-associated-file",
+      "catalog-javascript",
+      "catalog-openaction",
+      "deep-outline",
+      "embedded-attachment",
+      "encrypted-owner-empty",
+      "encrypted-user",
+      "malformed-header",
+      "ordinary",
+      "orphan-signature",
+      "orphan-widget",
+      "page-3d",
+      "page-aa-exclusion",
+      "page-associated-file",
+      "page-fileattachment",
+      "page-tree-cycle",
+      "portfolio",
+      "rich-media",
+      "signature-perms",
+      "signature-widget",
+      "truncated",
+      "xfa",
+      "zero-pages"
+    ],
+    "strict_receipt_validation_passed": true,
+    "owned_temp_removed": true,
+    "source_unchanged": true,
+    "report": {
+      "file": "document-policy01.json",
+      "bytes": 3330194,
+      "sha256": "22d8de0123acb50d464d535ecfbf7326156ce50ac4834cc828be99b82e3d834a"
+    },
+    "command_receipt": {
+      "file": "document-policy-command01.json",
+      "bytes": 1095,
+      "sha256": "10f1a5f3cfc778b96453429355219748c7605de3ba47ceaa1e20d3a5c627be82"
+    },
+    "source_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "source_tree": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+    "source_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "outer_native_exit_code": 0,
+    "owned_outer_workspace_removed": true,
+    "public_case_matrix_file": "See document-policy-C3-public-matrix01.json raw seal; summarized in Markdown.",
+    "rejected_preview_no_writes": true,
+    "ordinary_rejections_allow_only_authenticated_console_log_and_failure_manifest": true,
+    "deep_outline_exact_warning": {
+      "code": "outline_limit",
+      "source_order": null,
+      "depth": 65,
+      "message": "The outline tree exceeds the traversal limit."
+    },
+    "all_other_rejected_policy_fixture_warnings": [],
+    "no_plan_interaction_fallback_chapter_stage_or_working_PDF_on_rejection": true,
+    "source_neighbor_prior_and_settings_unchanged": true
+  },
+  "independently_audited_public_native_policy_matrix": {
+    "schema_version": 1,
+    "task_id": "M4-T02",
+    "result": "DOCUMENT_POLICY_NATIVE_MATRIX_VERIFIED",
+    "source_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "source_path_count": 133,
+    "source_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "native_child_raw_sha256": "402f734ae8deeda1c012a3785a51e62e2ab8d6ec8ce128eac7a9dc504b8830e0",
+    "parent_full_aggregate_report_success": false,
+    "case_count": 75,
+    "application_case_count": 73,
+    "export_case_count": 2,
+    "skips": 0,
+    "native_exit_counts": {
+      "0": 11,
+      "6": 12,
+      "7": 52
+    },
+    "fixture_count": 25,
+    "fixture_ids": [
+      "acroform",
+      "catalog-aa",
+      "catalog-associated-file",
+      "catalog-javascript",
+      "catalog-openaction",
+      "deep-outline",
+      "embedded-attachment",
+      "encrypted-owner-empty",
+      "encrypted-user",
+      "malformed-header",
+      "ordinary",
+      "orphan-signature",
+      "orphan-widget",
+      "page-3d",
+      "page-aa-exclusion",
+      "page-associated-file",
+      "page-fileattachment",
+      "page-tree-cycle",
+      "portfolio",
+      "rich-media",
+      "signature-perms",
+      "signature-widget",
+      "truncated",
+      "xfa",
+      "zero-pages"
+    ],
+    "actual_hosts": [
+      {
+        "id": "PS51",
+        "version": "5.1.26100.9444"
+      },
+      {
+        "id": "PS7",
+        "version": "7.6.5"
+      }
+    ],
+    "cases": [
+      {
+        "id": "PS51-ordinary-manual",
+        "fixture_id": "ordinary",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-ordinary-level1",
+        "fixture_id": "ordinary",
+        "mode": "1",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-ordinary-level2",
+        "fixture_id": "ordinary",
+        "mode": "2",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 4
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 4,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-page-aa-exclusion",
+        "fixture_id": "page-aa-exclusion",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-encrypted-user",
+        "fixture_id": "encrypted-user",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-encrypted-owner-empty",
+        "fixture_id": "encrypted-owner-empty",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-acroform",
+        "fixture_id": "acroform",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-xfa",
+        "fixture_id": "xfa",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-signature-widget",
+        "fixture_id": "signature-widget",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-signature-perms",
+        "fixture_id": "signature-perms",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-orphan-widget",
+        "fixture_id": "orphan-widget",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-orphan-signature",
+        "fixture_id": "orphan-signature",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-catalog-openaction",
+        "fixture_id": "catalog-openaction",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-catalog-aa",
+        "fixture_id": "catalog-aa",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-catalog-javascript",
+        "fixture_id": "catalog-javascript",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-embedded-attachment",
+        "fixture_id": "embedded-attachment",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-portfolio",
+        "fixture_id": "portfolio",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-page-fileattachment",
+        "fixture_id": "page-fileattachment",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-page-3d",
+        "fixture_id": "page-3d",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-rich-media",
+        "fixture_id": "rich-media",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-catalog-associated-file",
+        "fixture_id": "catalog-associated-file",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-page-associated-file",
+        "fixture_id": "page-associated-file",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-malformed-header",
+        "fixture_id": "malformed-header",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "read_error",
+          "code": "unreadable_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-truncated",
+        "fixture_id": "truncated",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "read_error",
+          "code": "unreadable_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-zero-pages",
+        "fixture_id": "zero-pages",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-deep-outline",
+        "fixture_id": "deep-outline",
+        "mode": "1",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "invalid_input",
+            "code": "invalid_outline",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_outline",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-page-tree-cycle",
+        "fixture_id": "page-tree-cycle",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS51-encrypted-user-preview",
+        "fixture_id": "encrypted-user",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": true,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "none; Preview no write",
+        "rejected_source_binding": null,
+        "interaction_evidence": "no request or prompt in captured stdout; no persisted log",
+        "passed": true
+      },
+      {
+        "id": "PS51-encrypted-owner-empty-preview",
+        "fixture_id": "encrypted-owner-empty",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": true,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "none; Preview no write",
+        "rejected_source_binding": null,
+        "interaction_evidence": "no request or prompt in captured stdout; no persisted log",
+        "passed": true
+      },
+      {
+        "id": "PS51-xfa-interactive",
+        "fixture_id": "xfa",
+        "mode": "manual",
+        "host": "PS51",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "PS7-ordinary-manual",
+        "fixture_id": "ordinary",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-ordinary-level1",
+        "fixture_id": "ordinary",
+        "mode": "1",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-ordinary-level2",
+        "fixture_id": "ordinary",
+        "mode": "2",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 4
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 4,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-page-aa-exclusion",
+        "fixture_id": "page-aa-exclusion",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-encrypted-user",
+        "fixture_id": "encrypted-user",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-encrypted-owner-empty",
+        "fixture_id": "encrypted-owner-empty",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-acroform",
+        "fixture_id": "acroform",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-xfa",
+        "fixture_id": "xfa",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-signature-widget",
+        "fixture_id": "signature-widget",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-signature-perms",
+        "fixture_id": "signature-perms",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-orphan-widget",
+        "fixture_id": "orphan-widget",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-orphan-signature",
+        "fixture_id": "orphan-signature",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-catalog-openaction",
+        "fixture_id": "catalog-openaction",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-catalog-aa",
+        "fixture_id": "catalog-aa",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-catalog-javascript",
+        "fixture_id": "catalog-javascript",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-embedded-attachment",
+        "fixture_id": "embedded-attachment",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-portfolio",
+        "fixture_id": "portfolio",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-page-fileattachment",
+        "fixture_id": "page-fileattachment",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-page-3d",
+        "fixture_id": "page-3d",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-rich-media",
+        "fixture_id": "rich-media",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-catalog-associated-file",
+        "fixture_id": "catalog-associated-file",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-page-associated-file",
+        "fixture_id": "page-associated-file",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-malformed-header",
+        "fixture_id": "malformed-header",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "read_error",
+          "code": "unreadable_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-truncated",
+        "fixture_id": "truncated",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "read_error",
+          "code": "unreadable_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-zero-pages",
+        "fixture_id": "zero-pages",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-deep-outline",
+        "fixture_id": "deep-outline",
+        "mode": "1",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "invalid_input",
+            "code": "invalid_outline",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_outline",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-page-tree-cycle",
+        "fixture_id": "page-tree-cycle",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "ordinary engine argv, no interaction frames or counters claiming activity",
+        "passed": true
+      },
+      {
+        "id": "PS7-encrypted-user-preview",
+        "fixture_id": "encrypted-user",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": true,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "none; Preview no write",
+        "rejected_source_binding": null,
+        "interaction_evidence": "no request or prompt in captured stdout; no persisted log",
+        "passed": true
+      },
+      {
+        "id": "PS7-encrypted-owner-empty-preview",
+        "fixture_id": "encrypted-owner-empty",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": true,
+        "preview": true,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "none; Preview no write",
+        "rejected_source_binding": null,
+        "interaction_evidence": "no request or prompt in captured stdout; no persisted log",
+        "passed": true
+      },
+      {
+        "id": "PS7-xfa-interactive",
+        "fixture_id": "xfa",
+        "mode": "manual",
+        "host": "PS7",
+        "entrypoint": "shipped PowerShell entrypoint",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-ordinary-manual",
+        "fixture_id": "ordinary",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "success",
+            "code": "split_complete",
+            "exit_code": 0
+          }
+        ],
+        "actual_result": {
+          "status": "success",
+          "code": "split_complete",
+          "exit_code": 0,
+          "written_count": 2
+        },
+        "no_plan_and_execution": false,
+        "reopened_output_count": 2,
+        "physical_output_pages": 4,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": null,
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-encrypted-user",
+        "fixture_id": "encrypted-user",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-encrypted-owner-empty",
+        "fixture_id": "encrypted-owner-empty",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-acroform",
+        "fixture_id": "acroform",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-signature-perms",
+        "fixture_id": "signature-perms",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-orphan-widget",
+        "fixture_id": "orphan-widget",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-orphan-signature",
+        "fixture_id": "orphan-signature",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-catalog-openaction",
+        "fixture_id": "catalog-openaction",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-embedded-attachment",
+        "fixture_id": "embedded-attachment",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-page-associated-file",
+        "fixture_id": "page-associated-file",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-page-3d",
+        "fixture_id": "page-3d",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "unsupported",
+            "code": "unsupported_document",
+            "exit_code": 7
+          }
+        ],
+        "actual_result": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-malformed-header",
+        "fixture_id": "malformed-header",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "read_error",
+            "code": "unreadable_document",
+            "exit_code": 6
+          },
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "read_error",
+          "code": "unreadable_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      },
+      {
+        "id": "BAT-zero-pages",
+        "fixture_id": "zero-pages",
+        "mode": "manual",
+        "host": "BAT",
+        "entrypoint": "shipped BAT with declared copied PS dependency/output/pause defaults",
+        "non_interactive": false,
+        "preview": false,
+        "expected_results": [
+          {
+            "status": "invalid_input",
+            "code": "invalid_document",
+            "exit_code": 6
+          }
+        ],
+        "actual_result": {
+          "status": "invalid_input",
+          "code": "invalid_document",
+          "exit_code": 6,
+          "written_count": 0
+        },
+        "no_plan_and_execution": true,
+        "reopened_output_count": 0,
+        "physical_output_pages": 0,
+        "read_only_source_observed": true,
+        "source_neighbor_prior_unchanged": true,
+        "settings_unchanged": true,
+        "exact_owned_output_cleanup": true,
+        "diagnostics": "authenticated finalized log and local run manifest",
+        "rejected_source_binding": "metadata_only",
+        "interaction_evidence": "exact interactive nonce/session and request/reply totals",
+        "passed": true
+      }
+    ],
+    "exports": [
+      {
+        "id": "PS51-unsupported-export",
+        "application_case_id": "PS51-encrypted-owner-empty",
+        "native_exit_code": 0,
+        "summary_plan": null,
+        "summary_outcome": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "fixed_allowlist_only": true,
+        "owned_export_removed": true,
+        "passed": true
+      },
+      {
+        "id": "PS7-unsupported-export",
+        "application_case_id": "PS7-encrypted-owner-empty",
+        "native_exit_code": 0,
+        "summary_plan": null,
+        "summary_outcome": {
+          "status": "unsupported",
+          "code": "unsupported_document",
+          "exit_code": 7,
+          "written_count": 0
+        },
+        "fixed_allowlist_only": true,
+        "owned_export_removed": true,
+        "passed": true
+      }
+    ],
+    "input_resource_and_cleanup_outcomes": {
+      "unsupported_inputs": "52 authored encrypted/forms/signature/catalog/attachment/media controls reject7 without extraction plan, chapter/stage/final publication, working PDF or fallback",
+      "malformed_inputs": "12 authored corrupt/zero/deep-outline/cyclic-page-tree controls fail6 within recorded deadlines",
+      "ordinary_inputs": "9 successes preserve the shared physical plan and reopened first/last page identities/content;22chapters/36physical output pages",
+      "persisted_failures": "metadata_only source identity with null hash and null plan; owned console diagnostics permitted",
+      "Preview": "4 encrypted no-write rejections",
+      "processes": "non-Preview engine job, parent/descendant shutdown and complete dual streams verified; actual app/export native results and stream hashes verified for all controls",
+      "cleanup": "read-only source/neighbor/prior identities and host settings unchanged; exact authenticated output cleanup and owned temporary removal",
+      "bounded_resource_limits": "snapshot/page-tree/feature limits separately covered by source-bound19in-process policy unit methods; no giant-file stress claim"
+    },
+    "crypto_evidence_scope": "Source-bound interception unit asserts Encryption.read/verify and PdfReader.decrypt uncalled across all modes, Preview, interactive and converted-byte validation. Native matrix independently observes both encrypted structures rejected7; native results alone do not instrument crypto calls.",
+    "limits": [
+      "Generated original inert fixtures only; no private input, signature-validity, action execution, GUI, human, clean-OS, sandbox, CI or release-package claim.",
+      "Matrix audit revalidates captured native evidence and raw source; it is not a new native rerun.",
+      "Full aggregate/native outer completion and live PR state are separate parent observations."
+    ],
+    "source_gate": "clean C3 targeted document-policy, native outer0",
+    "original_failed_full_preserved": true,
+    "full_green_claim": false,
+    "source_delta": {
+      "changed_oracle_unit_paths": 2,
+      "unaffected_paths": 131,
+      "application15_identical_C2": true
+    }
+  },
+  "implementation": [
+    "PolicyPdfReader rejects at encryption hook before encryption parsing/password verification/decryption; both direct and generated PDFs share bounded capture and raw feature preflight.",
+    "Raw page-tree types/kids/counts, cycles/aliases and limits are checked before flattening; copied resource graphs and inherited values are inspected without executing actions.",
+    "Chapter writer uses captured effective page values to preserve inherited fonts, page boxes and rotation without mutating source.",
+    "Generated unsupported7 versus malformed4 preserve conversion and owned cleanup diagnostics; existing secondary cleanup4 precedence retains the primary reason.",
+    "No launcher or shared partition/ownership redesign."
+  ],
+  "limits": [
+    "Automated local Windows controls, callable/synthetic units, renderer comparisons and agent image inspections have distinct scope; human M3-T01 remains absolutely closed.",
+    "Policy stage has 73 native application controls plus two native local exports; BAT uses shipped bytes and exactly three disclosed copied PowerShell parameter defaults for Python/output/NoPause.",
+    "Signature fixtures detect authored structures; no actual signature authenticity verification or preservation.",
+    "No password arguments, prompt or storage; encryption hook units assert encryption parsing, verification and decryption are uncalled.",
+    "Snapshot/graph limits are tested with reduced-cap controls and finite pathological fixtures; no actual 512-MiB or 100,000-page stress pass.",
+    "Parser/graph limits do not establish fixed RSS, universal PDF compatibility, complete hostile-document defense, sanitization or a security sandbox.",
+    "The final 8pt authored labels render completely. Baseline 12pt fixtures and original PNGs remain immutable; Poppler font-substitution stderr warnings were preserved with native0 renders.",
+    "Independent inherited-page source/chapter comparisons cover four same-renderer pixel pairs across Poppler and PDFium plus agent inspection, not an extra native application or human run.",
+    "No CI, new human/GUI/viewer, clean-machine/Windows10/ARM/UNC, release package/signing/tag/assets/download or public v1.0.0 completion."
+  ],
+  "commands_with_private_paths_replaced_by_runtime_roles": [
+    "developer-python -I -B <absolute-repository>/tests/run_tests.py --layer full --tool-root <isolated-shell-tools> --shell-path <absolute-PS51> --shell-path <absolute-PS7> --calibre-path <actual-Calibre> --renderer-path <developer-Poppler> --secondary-python-path <developer-PDFium-Python> --report <new-external-full01.json>",
+    "developer-python -I -B <absolute-repository>/tests/run_tests.py --layer python --report <new-external-python-C301.json>",
+    "developer-python -I -B <absolute-repository>/tests/run_tests.py --layer document-policy --shell-path <absolute-PS51> --shell-path <absolute-PS7> --report <new-external-document-policy01.json>",
+    "developer-python -I -B <absolute-repository>/tests/run_tests.py --layer process --shell-path <absolute-PS51> --shell-path <absolute-PS7> --report <new-external-process01.json>",
+    "developer-python -I -B -m unittest discover -s tests/python -p test_pdf_fidelity.py -v",
+    "developer-python -I -B -m unittest discover -s tests/python -p test_conversion.py -v",
+    "developer-python -I -B -X utf8 <external-run-policy-focus06.py> (19 actual callable methods, exact source hashes)",
+    "developer-python -I -B -m unittest discover -s tests/python -p test_document_policy_receipt.py -v (12 historical synthetic methods; corrected C3 focus has14)",
+    "developer-python -I -B -m unittest discover -s <absolute-repository>/tests/python -p test_runner.py -v (36 callable runner methods)",
+    "developer-Poppler -png -r 120 -f <1 or 4> -l <same> -singlefile <authored-final-ordinary.pdf> <external-render-prefix>",
+    "developer-python -B tools/codex-handoff/validate_plan.py (structural handoff validation; rerun for E)",
+    "developer-python -B tools/codex-handoff/check_sync.py --repo . (fresh C2/C3 receipts; E gets a later external receipt)"
+  ],
+  "retained_failures_and_reproductions": [
+    "baseline-document-policy01: 25 actual direct-engine controls against immutable main application bytes; owner-empty and all16 nonencrypted unsupported structures previously succeeded. Both constructors actually verified the empty password; no fixture secrets recorded.",
+    "Copied page/catalog resource references reproduced hidden outside-chapter object cloning; all four ordinary/interactive controls reject7 after the fix.",
+    "Typed/untyped generic URI copied resources were structurally retained before the action fix; initial raw substring test was false due PDF escaping, so the independent structural receipt is the reliable reproduction.",
+    "The inherited-resource leak probe did not reproduce the hypothesized leak; the inherited-page fidelity probe instead reproduced success0 with missing fonts/text/crop/rotation. C2 corrects the actual defect and preserves its failed receipt.",
+    "engine-policy-units03 failed with three fixture-construction errors; corrected subsequent callable fixtures pass. Initial noninteger count fixture serialized as an integer and was corrected to4.5.",
+    "policy-receipt-focused01/02 failed one synthetic mode assertion; corrected03/04 pass all12. These are oracle failures, not native app defects.",
+    "python-preC01 aggregate FAILED/native1 despite350 passing unit methods: source-change guard was false while implementation/test files were being finalized. It is not a final clean-source pass.",
+    "Historical M4-T01 full01 remains FAILED/native1,18/19 passed, process stage Native exit status changed without a child receipt; unknown case/cause. Same-C process retry passed35. Current C2 verification neither erases nor diagnoses that earlier failure.",
+    "Original C2 full01 remains FAILED/native1 with18/20 passes and its outer workspace retained. The policy oracle incorrectly forbade the existing deep-outline outline_limit warning despite correct invalid_outline6/no chapter or plan. C3 corrects only that validator and its synthetic units. The process failure identifies PS51 detached-pipe missing its authored PID receipt; the underlying cause and actual case status remain unknown. Fresh C3 process01 passes35 controls. Canonical coverage selects17 unchanged C2 stages plus3 fresh C3 routes; no successful standalone full run is claimed."
+  ],
+  "independent_review": {
+    "final_production": {
+      "file": "independent-production-policy-review01.json",
+      "bytes": 50779,
+      "sha256": "e4d918e80ba9d26fda901c0724307c8d65ff445d6b3b58aa109afc817e609131"
+    },
+    "final_raw_full_or_composite": {
+      "file": "independent-C2-C3-composite-review01.json",
+      "bytes": 42084,
+      "sha256": "134069c51969941cfaa7d803a5f7274df225c714038eaddac56967344c0586ac"
+    },
+    "native_policy_child": {
+      "file": "document-policy-C3-independent-audit01.json",
+      "bytes": 11154,
+      "sha256": "387f5d8204b64f082f12d7f4bf35dba5d71ba0c670894b2334fd29a5937b22ca"
+    }
+  },
+  "workflow": {
+    "branch": "codex/winbooksplit-v1-m4",
+    "upstream": "origin/codex/winbooksplit-v1-m4",
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "C2_clean_live_SYNCED_observed_at": "2026-10-10T10:20:20.193031+00:00",
+    "C2_push_and_sync_receipts": [
+      {
+        "file": "push-C201.json",
+        "bytes": 681,
+        "sha256": "8310821456e5ea229498664008e36839cf570a123adfaca3d6b8d10ac610a7e7"
+      },
+      {
+        "file": "sync-C201.json",
+        "bytes": 1246,
+        "sha256": "d71b58d06e5f38fe38fe6d79c605f806010ce30df0e2471c2b60b02c5df224e3"
+      }
+    ],
+    "C3_clean_live_SYNCED_observed_at": "2026-10-10T10:56:10.792221+00:00",
+    "C3_push_and_sync_receipts": [
+      {
+        "file": "push-C301.json",
+        "bytes": 681,
+        "sha256": "949a2f160deb0525ff2a60c91a772a505a9186895f74f966c37de6d0ed2d7fa7"
+      },
+      {
+        "file": "sync-C301.json",
+        "bytes": 1246,
+        "sha256": "f4a8ebeb81727746a7cf1ed5916aae2c3a454c8afb372cc4ea09e2b628415cf1"
+      }
+    ],
+    "PR22_was_user_merged_into_baseline_main": true,
+    "new_scoped_draft_PR": "https://github.com/PikkuJanne/WinBookSplit/pull/23",
+    "PR23_observed_head_C2_base_main": {
+      "file": "live-PR23-C201.json",
+      "bytes": 1104,
+      "sha256": "0c6143ab0a5184b5dc94109e97744f8baf1b3589ac1977488484446293e7b4f3"
+    },
+    "PR23_observed_head_C3_base_main": {
+      "file": "live-PR23-C301.json",
+      "bytes": 1106,
+      "sha256": "f9b3265ab7b957cb9f5ec5f75e9782f269d2739f5d0c58072698caa704b25d0b"
+    },
+    "fresh_pre_E_PR_head_and_checks": {
+      "file": "live-PR23-preE01.json",
+      "bytes": 1105,
+      "sha256": "4f9dfda28847198b2ae153a2938c38c3b6259f8692c62262f9b1ed7eddae4204"
+    },
+    "fresh_pre_E_remote_refs": {
+      "file": "live-refs-preE01.json",
+      "bytes": 791,
+      "sha256": "de300aff668926366d3e48214d5753f5d88f2b75ca8198a988b1881a047bfe01"
+    },
+    "fresh_pre_E_protection": {
+      "file": "live-protection-preE01.json",
+      "bytes": 6208,
+      "sha256": "46e6769def79ffc196b3fa8f286bf1c792e00f4bd2056bafa2d95ace2ff9c58d"
+    },
+    "fresh_pre_E_actions": {
+      "file": "live-workflows-preE01.json",
+      "bytes": 611,
+      "sha256": "677bae647f11ba16e40fb05a8d1f75c66d639a82769373c7d223bf2da99bcbb3"
+    },
+    "fresh_pre_E_releases": {
+      "file": "live-releases-preE01.json",
+      "bytes": 569,
+      "sha256": "9fbe2133e1e96fdd080454d6c1df1c176cfeff283470acf7257b91b4817d9ae2"
+    },
+    "M4_T05_owns_cumulative_CI_review_and_integration": true,
+    "E_own_SHA_push_and_sync": "Recorded externally/in thread/PR only after the actual E commit and normal push; no self or future SHA claimed."
+  },
+  "raw_receipt_ledger": [
+    {
+      "file": "baseline-document-policy01.json",
+      "bytes": 304936,
+      "sha256": "b82c797ec343f9ddb0c7b5e9a86c1355e87c103dc0caf4a92166e38114d48545"
+    },
+    {
+      "file": "commit-C01.json",
+      "bytes": 1243,
+      "sha256": "2672beb9b8bb13563da4063205a813b3ebe992b2c6eed385a24ba2d24ed472aa"
+    },
+    {
+      "file": "commit-C201.json",
+      "bytes": 792,
+      "sha256": "826823470ecce6e815aa3bee2ec2c5194ee4c6b320d6dbd637e819047289a66e"
+    },
+    {
+      "file": "commit-C301.json",
+      "bytes": 792,
+      "sha256": "6d081b2d40875e1b309764128dbfd7aad4a582b05d69dd4f24edd6b301454dd3"
+    },
+    {
+      "file": "copied-resource-action-reproduction01.json",
+      "bytes": 1139,
+      "sha256": "da752c426417a94767fad44c0f22e75e1d2cc9018f7b04799a069bc13f65afd8"
+    },
+    {
+      "file": "copied-resource-action-structural01.json",
+      "bytes": 619,
+      "sha256": "dfd59d836d20f1e3559325b7979f4e664f69f96756de28fa6c8b53b6eed2ffc3"
+    },
+    {
+      "file": "create-PR01.json",
+      "bytes": 864,
+      "sha256": "dff8198be3650de858d743ae8cc9b9515f9e8ee0b6c1abc863dbfaf6a6be9246"
+    },
+    {
+      "file": "diff-C3-cached01.json",
+      "bytes": 666,
+      "sha256": "50ffef21e0d5451aeafc766df8c9ddb70ae026a6a69e5facdd7a32564a1f3e4c"
+    },
+    {
+      "file": "document-policy-C3-independent-audit01.json",
+      "bytes": 11154,
+      "sha256": "387f5d8204b64f082f12d7f4bf35dba5d71ba0c670894b2334fd29a5937b22ca"
+    },
+    {
+      "file": "document-policy-C3-public-matrix01.json",
+      "bytes": 83616,
+      "sha256": "f5b6c18d65f68bab11ddfee1814b72e734fa0874964d96a73f942cbdd3008ccb"
+    },
+    {
+      "file": "document-policy-command01.json",
+      "bytes": 1095,
+      "sha256": "10f1a5f3cfc778b96453429355219748c7605de3ba47ceaa1e20d3a5c627be82"
+    },
+    {
+      "file": "document-policy-route-handoff01.json",
+      "bytes": 4494,
+      "sha256": "55d12e20e62e2641547334fb7239336a28e760713164ed386e814a55087af09f"
+    },
+    {
+      "file": "document-policy01.json",
+      "bytes": 3330194,
+      "sha256": "22d8de0123acb50d464d535ecfbf7326156ce50ac4834cc828be99b82e3d834a"
+    },
+    {
+      "file": "engine-policy-units-and-review02.json",
+      "bytes": 6899,
+      "sha256": "fe63c8addfac58d18e65f9370fb1fe608bd966cb077dddeaa15e5b608209a916"
+    },
+    {
+      "file": "engine-policy-units03.json",
+      "bytes": 8409,
+      "sha256": "4c4b862998343f22fbe576cdc8e80d8ff502023022d168ef37435e1e4c02eef4"
+    },
+    {
+      "file": "engine-policy-units04.json",
+      "bytes": 5816,
+      "sha256": "dacd2ae717081b28364e7e6d8011b0d56b0774d89c2985e420195b5df39cd332"
+    },
+    {
+      "file": "engine-policy-units05.json",
+      "bytes": 6075,
+      "sha256": "ba886993a6d26424e5c911a63c0c8651ad1fd07dc03c748924b6bdf302660f3e"
+    },
+    {
+      "file": "engine-policy-units06.json",
+      "bytes": 6575,
+      "sha256": "bb92e8f44c75d78030855d591df842de995c6fe860d3883f9f5fc15771e3345f"
+    },
+    {
+      "file": "fetch-start01.json",
+      "bytes": 661,
+      "sha256": "84e0f5830f4ee3fc6ce8997f058d4b036d8504f2f6acf99008d9880464ab8803"
+    },
+    {
+      "file": "ff-feature01.json",
+      "bytes": 627,
+      "sha256": "a7b0106a72db5111287424a75981dba093710b9ec8ddeab7235ad00d5bbfcbb6"
+    },
+    {
+      "file": "final-fixture-render-page101.json",
+      "bytes": 2195,
+      "sha256": "aeaa0b58c8330a1b067d8f65e1151f6130c638aa3ac0c96fbbee6e1da51ab030"
+    },
+    {
+      "file": "final-fixture-render-page401.json",
+      "bytes": 2195,
+      "sha256": "b0b6059397d9dd91cec9ff48047168684ca1212e05e19fbc680edf566421e280"
+    },
+    {
+      "file": "fixture-render-page101.json",
+      "bytes": 2194,
+      "sha256": "9820b564696998b5526fa13600dab0ae5a1d8bcc85ee731f42d2b2764413bff3"
+    },
+    {
+      "file": "fixture-render-page401.json",
+      "bytes": 2194,
+      "sha256": "10693efd053ddec2ff4f0901664117e7e1e548778760cc6cce26b44b3e3bc5f4"
+    },
+    {
+      "file": "focused-conversion01.json",
+      "bytes": 4364,
+      "sha256": "d556ab448f951194fa4ff6b447ec41c19841bbb2b751ad3adadfea3a33fce22f"
+    },
+    {
+      "file": "focused-python01.json",
+      "bytes": 3045,
+      "sha256": "b9ba1a1365c5079ee00695b930cdcb7b03719283c4c067e661445cb74dcd907a"
+    },
+    {
+      "file": "full-command01.json",
+      "bytes": 1586,
+      "sha256": "15d5897c99831eb3b0223f9276d71a10bffdc57884df47e53ccd5bea24f2ec16"
+    },
+    {
+      "file": "full01.json",
+      "bytes": 36083404,
+      "sha256": "ca209f009be9f9be15ff90584549b30eb540184e0d27fa03e4e15f1b6280a1c5"
+    },
+    {
+      "file": "independent-acceptance-evidence-plan01.json",
+      "bytes": 8678,
+      "sha256": "e16a8ad9ce24e3de164c4b220203f39c836e3340b234d20932eb855a5bdbe7dd"
+    },
+    {
+      "file": "independent-baseline-policy-boundary-review01.json",
+      "bytes": 10927,
+      "sha256": "2ef635afa3de6d3959675f300cf2d0e3952f4d63fc775aba4e65a7cef06db60e"
+    },
+    {
+      "file": "independent-C2-C3-composite-review01.json",
+      "bytes": 42084,
+      "sha256": "134069c51969941cfaa7d803a5f7274df225c714038eaddac56967344c0586ac"
+    },
+    {
+      "file": "independent-copied-page-resource-boundary01.json",
+      "bytes": 2683,
+      "sha256": "1a6100356e11e45e3c3603229f5469e80c7caa3ef1446600f192414c045736a4"
+    },
+    {
+      "file": "independent-copied-resource-boundary-fixed02.json",
+      "bytes": 10638,
+      "sha256": "aa1856503635bd66a439caaeac0a033ee51991851ccc6958dc68d79cbdd98b13"
+    },
+    {
+      "file": "independent-copied-resource-boundary-reproduction01.json",
+      "bytes": 8090,
+      "sha256": "a365685b004d87c0487da812ac3b5df9d1001894116bed7961909fbde12b7a71"
+    },
+    {
+      "file": "independent-document-preflight-design01.json",
+      "bytes": 7831,
+      "sha256": "2216f9532cb4ec2b9ae87320bacb304726af9885bd98220806a3decb4c782fc1"
+    },
+    {
+      "file": "independent-failed-C2-full-policy-review01.json",
+      "bytes": 11273,
+      "sha256": "3ba869a487b0361f05c40b7b48f9b78af8ad05486982b3cec63d385fe223a685"
+    },
+    {
+      "file": "independent-failed-full-sealing-helper-failure01.json",
+      "bytes": 1096,
+      "sha256": "d16159e54cbbce2d40ee1d5631e720f30ba724076c9ea67962e5fb2ed65ee981"
+    },
+    {
+      "file": "independent-inherited-boundary-and-fidelity-fixed05.json",
+      "bytes": 34393,
+      "sha256": "68cf055efc46380602e4b889c6efb4a133e446829fec4ec78d53000342e32c4d"
+    },
+    {
+      "file": "independent-inherited-fidelity-reproduction04.json",
+      "bytes": 9604,
+      "sha256": "1fa22c893f930be7b50d18d9926b79d2c0250ae95e791c424aa8173c05bad726"
+    },
+    {
+      "file": "independent-inherited-render-fixed05.json",
+      "bytes": 23889,
+      "sha256": "70947989ada675b2162288268230b096f2f71d06408c1405a11ea76224f891a0"
+    },
+    {
+      "file": "independent-inherited-resource-boundary-reproduction03.json",
+      "bytes": 2722,
+      "sha256": "d51eb4375c0f10ae46298b841293766375e890968a571e9b2496be6abd04dcd7"
+    },
+    {
+      "file": "independent-process-failed-full-review02.json",
+      "bytes": 5988,
+      "sha256": "64494a797114791944e2cd185da239d51cd0a67dc154a90363617d5a8f54f4b6"
+    },
+    {
+      "file": "independent-process-observability-review01.json",
+      "bytes": 10090,
+      "sha256": "5d685a44cae2d20e5a7e80d191debe92d4f14dff149f64f1d6b0fa1cf3651752"
+    },
+    {
+      "file": "independent-production-policy-review01.json",
+      "bytes": 50779,
+      "sha256": "e4d918e80ba9d26fda901c0724307c8d65ff445d6b3b58aa109afc817e609131"
+    },
+    {
+      "file": "live-actions-pre-evidence01.json",
+      "bytes": 720,
+      "sha256": "8150cb8ca9b291e6997a22e1e7ee25bf1d6774b12c7556a84d5c921457f69a25"
+    },
+    {
+      "file": "live-main-pre-evidence01.json",
+      "bytes": 698,
+      "sha256": "da138dafe1eeea5b34c7e20d036cdf75a37fd8b733213f7af7316fdc8b7d1559"
+    },
+    {
+      "file": "live-PR23-C201.json",
+      "bytes": 1104,
+      "sha256": "0c6143ab0a5184b5dc94109e97744f8baf1b3589ac1977488484446293e7b4f3"
+    },
+    {
+      "file": "live-PR23-C301.json",
+      "bytes": 1106,
+      "sha256": "f9b3265ab7b957cb9f5ec5f75e9782f269d2739f5d0c58072698caa704b25d0b"
+    },
+    {
+      "file": "live-PR23-preE01.json",
+      "bytes": 1105,
+      "sha256": "4f9dfda28847198b2ae153a2938c38c3b6259f8692c62262f9b1ed7eddae4204"
+    },
+    {
+      "file": "live-protection-preE01.json",
+      "bytes": 6208,
+      "sha256": "46e6769def79ffc196b3fa8f286bf1c792e00f4bd2056bafa2d95ace2ff9c58d"
+    },
+    {
+      "file": "live-PRs-pre-full01.json",
+      "bytes": 718,
+      "sha256": "3a56813dd9e2bbd586000636b92a3f21e475e4dacad734a9e812d9f907ba9985"
+    },
+    {
+      "file": "live-refs-pre-full01.json",
+      "bytes": 791,
+      "sha256": "d4974bf1fba289617b833299438eec279338b7dfa102759e84468939a948d7b0"
+    },
+    {
+      "file": "live-refs-preE01.json",
+      "bytes": 791,
+      "sha256": "de300aff668926366d3e48214d5753f5d88f2b75ca8198a988b1881a047bfe01"
+    },
+    {
+      "file": "live-releases-pre-evidence01.json",
+      "bytes": 663,
+      "sha256": "f744e3041b783f2914becbaaaef299059a4412ff06471469be4f900a7a27375d"
+    },
+    {
+      "file": "live-releases-preE01.json",
+      "bytes": 569,
+      "sha256": "9fbe2133e1e96fdd080454d6c1df1c176cfeff283470acf7257b91b4817d9ae2"
+    },
+    {
+      "file": "live-workflows-preE01.json",
+      "bytes": 611,
+      "sha256": "677bae647f11ba16e40fb05a8d1f75c66d639a82769373c7d223bf2da99bcbb3"
+    },
+    {
+      "file": "policy-final-fixture-independent-read01.json",
+      "bytes": 6023,
+      "sha256": "64a6ee5ae1154f09aa93e78f291a5efce45832511b103d153595fc869561a15c"
+    },
+    {
+      "file": "policy-outline-oracle-fixed-review01.json",
+      "bytes": 3883,
+      "sha256": "e4c2df7883ea9522d0a5adffb982d8f40261a1b2be4e6c501212f0a788c84a62"
+    },
+    {
+      "file": "policy-outline-oracle-reproduction01.json",
+      "bytes": 6580,
+      "sha256": "ccd752c93e53d4d1af144c81da965c732946fe74747bb42f4bac50f8be5f56a4"
+    },
+    {
+      "file": "policy-receipt-focused01.json",
+      "bytes": 5562,
+      "sha256": "1863c2b7c3eb61a4b3905dde82915a904f129f3f4a5beeff54734b00b685c824"
+    },
+    {
+      "file": "policy-receipt-focused02.json",
+      "bytes": 5562,
+      "sha256": "9f63ddfcc53004402f7bb03584eeb126a6b2c9dbb303b0e513ca715e11a3be98"
+    },
+    {
+      "file": "policy-receipt-focused03.json",
+      "bytes": 3625,
+      "sha256": "cfd71da825799913bc0d83863c494c1501b5ac1126643add5d7d03e372a73f14"
+    },
+    {
+      "file": "policy-receipt-focused04.json",
+      "bytes": 3625,
+      "sha256": "a238dc808f5c16a294bfa1052e9d3f5b6ed286d0b47e11b4d80ffe22691f27db"
+    },
+    {
+      "file": "policy-receipt-focused05.json",
+      "bytes": 4027,
+      "sha256": "40ea9e19198402d4e7b7277b91c4f14a39dac4914b53d1fc7f4d8af76dd5bbaf"
+    },
+    {
+      "file": "process-command01.json",
+      "bytes": 1071,
+      "sha256": "0f921600deee7bc720532b4ed9c1a13842b3036634bbfbfdda3e3a20ed8f67fd"
+    },
+    {
+      "file": "process01.json",
+      "bytes": 3472708,
+      "sha256": "7b4e25da741ce7b713ced6e365e5fa9fbecb6a51624c1f4cd05806d6a814f04c"
+    },
+    {
+      "file": "public-evidence-draft01.json",
+      "bytes": 23891,
+      "sha256": "077167c5c45530d780e549efab330b3aa971fa960d797481bb9036c71383dbd6"
+    },
+    {
+      "file": "public-runtime-final01.json",
+      "bytes": 3268,
+      "sha256": "a8831c671accd2bec0100c99187f18cffd965ead2f9ef18d8a3d5c6c49df297a"
+    },
+    {
+      "file": "pull-main01.json",
+      "bytes": 2772,
+      "sha256": "50a856b9e0064112c2f2f94db734ce2b12777fb84123ef0c1c68bb766c90b076"
+    },
+    {
+      "file": "push-baseline01.json",
+      "bytes": 681,
+      "sha256": "9cafc5d3cacdbed345736ba02251a9f714f866f669c2778bc4d9af66145c6424"
+    },
+    {
+      "file": "push-C01.json",
+      "bytes": 681,
+      "sha256": "7983a485893568d3f94702dd352c7411b2217c8d3b29c94c82c22fbce9f31782"
+    },
+    {
+      "file": "push-C201.json",
+      "bytes": 681,
+      "sha256": "8310821456e5ea229498664008e36839cf570a123adfaca3d6b8d10ac610a7e7"
+    },
+    {
+      "file": "push-C301.json",
+      "bytes": 681,
+      "sha256": "949a2f160deb0525ff2a60c91a772a505a9186895f74f966c37de6d0ed2d7fa7"
+    },
+    {
+      "file": "python-C3-command01.json",
+      "bytes": 849,
+      "sha256": "6c43f8c4baea885263081894e5d7885a216d6ff754ebbadedad8fcb1e8d371d1"
+    },
+    {
+      "file": "python-C301.json",
+      "bytes": 102504,
+      "sha256": "eccb165ab9016abe4b6da259fb0e847880eef6948ecf3221172249b6242ce875"
+    },
+    {
+      "file": "python-preC-command01.json",
+      "bytes": 853,
+      "sha256": "e837951b4e6bf6e23bcc9d894641ac9da71dcf39689486f8c5d9af7477ad9cd3"
+    },
+    {
+      "file": "python-preC01.json",
+      "bytes": 98813,
+      "sha256": "004b2512465b07fd6e39e5a0104528536fafd2d2c6395302594bc24173b5168e"
+    },
+    {
+      "file": "runner-unit-command01.json",
+      "bytes": 7712,
+      "sha256": "34e6741a8e54a219c03ffac141e337b6529e2094671f40ee735ab08d92622de4"
+    },
+    {
+      "file": "source-C2-C3-delta01.json",
+      "bytes": 2924,
+      "sha256": "26a2888d576a4f4aef9d0502a8c3df544338b4cf1c190740d30f5047dfbb7e79"
+    },
+    {
+      "file": "source-C2-proof01.json",
+      "bytes": 14957,
+      "sha256": "dd40a81a50faf7dbb85049a1ab2ff428b0626c76aa5d2803eb34749724c2f372"
+    },
+    {
+      "file": "source-C3-proof01.json",
+      "bytes": 14705,
+      "sha256": "bd823cc26c72b9b473bdbce2b401f3074b63b6c506627e018d79435f57f6f91b"
+    },
+    {
+      "file": "stage-C01.json",
+      "bytes": 1192,
+      "sha256": "f0a528061968a902c1192ce444396af463a9a26cf832e692f301c01828b099ea"
+    },
+    {
+      "file": "stage-C201.json",
+      "bytes": 701,
+      "sha256": "033fb0138c6581d66fa24adb1d14ab76b512c09fbd80db6559c1c936ea3104c3"
+    },
+    {
+      "file": "stage-C301.json",
+      "bytes": 674,
+      "sha256": "1086a0d1af6399211fae86d7ad05c4daf077ec1005c2c491fb3f94a85eadabc0"
+    },
+    {
+      "file": "switch-feature01.json",
+      "bytes": 697,
+      "sha256": "880024303f4553fbff49395f23a2197cd42305a06cd53a62ab398b2b15904c5c"
+    },
+    {
+      "file": "switch-main01.json",
+      "bytes": 718,
+      "sha256": "eccae4c6c58a450c1e2b8dc3785e6809afaea57ccc28d78e3c4d638410357b9b"
+    },
+    {
+      "file": "sync-baseline01.json",
+      "bytes": 1211,
+      "sha256": "11cc744fa9e2a272ca0f85d9ec665ad2bbb96396d5904338e6b2d782199753c5"
+    },
+    {
+      "file": "sync-C101.json",
+      "bytes": 1246,
+      "sha256": "3c0dff281e39e9bac0617980cfe4b840569d08c53df9764bd4a03a1284e2384b"
+    },
+    {
+      "file": "sync-C201.json",
+      "bytes": 1246,
+      "sha256": "d71b58d06e5f38fe38fe6d79c605f806010ce30df0e2471c2b60b02c5df224e3"
+    },
+    {
+      "file": "sync-C301.json",
+      "bytes": 1246,
+      "sha256": "f4a8ebeb81727746a7cf1ed5916aae2c3a454c8afb372cc4ea09e2b628415cf1"
+    },
+    {
+      "file": "sync-main01.json",
+      "bytes": 1191,
+      "sha256": "30e5365bacc1aeba7bc6dd0dbef360334e39fe88dd73101872644cb4ea94351f"
+    },
+    {
+      "file": "validate-preC01.json",
+      "bytes": 861,
+      "sha256": "3403a5f703f519f4705e46e7e54512ce81f2565704576f9de54ca79469f4f859"
+    },
+    {
+      "file": "workstation-runtime01.json",
+      "bytes": 1225,
+      "sha256": "afdafcdd17bd889e6db259fd7d5c7a4d345128dcdf3dd3438fb0a36229193bdd"
+    }
+  ],
+  "fresh_C3_python": {
+    "report": {
+      "file": "python-C301.json",
+      "bytes": 102504,
+      "sha256": "eccb165ab9016abe4b6da259fb0e847880eef6948ecf3221172249b6242ce875"
+    },
+    "command_receipt": {
+      "file": "python-C3-command01.json",
+      "bytes": 849,
+      "sha256": "6c43f8c4baea885263081894e5d7885a216d6ff754ebbadedad8fcb1e8d371d1"
+    },
+    "native_exit_code": 0,
+    "method_count": 368,
+    "source_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "source_tree": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+    "source_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "source_and_synthetic_input_unchanged": true,
+    "owned_outer_workspace_removed": true
+  },
+  "canonical_distinct_route_coverage": {
+    "count": 20,
+    "retained_C2_routes": 17,
+    "fresh_C3_routes": [
+      "python",
+      "document-policy",
+      "process"
+    ],
+    "retained_C2_python_still_passed_but_superseded_for_final_coverage": true,
+    "meaning": "Reviewed test-only delta; all15 runtime files identical. Source maps remain distinct; no final C3 full run claimed."
+  },
+  "affected_process_retry": {
+    "report": {
+      "file": "process01.json",
+      "bytes": 3472708,
+      "sha256": "7b4e25da741ce7b713ced6e365e5fa9fbecb6a51624c1f4cd05806d6a814f04c"
+    },
+    "command": {
+      "file": "process-command01.json",
+      "bytes": 1071,
+      "sha256": "0f921600deee7bc720532b4ed9c1a13842b3036634bbfbfdda3e3a20ed8f67fd"
+    },
+    "native_exit_code": 0,
+    "source_commit": "e633c3a7181e27fcf03dbca8a2864fc71564235b",
+    "source_tree": "c78feabc816b077f641707dbb44d6fb7ed165ce5",
+    "source_digest": "3f0c0447d0f78cc610c100f5dbc5add3be5c8c217c91d91f77be9042caafc4d3",
+    "source_unchanged": true,
+    "owned_outer_workspace_removed": true,
+    "case_count": 35,
+    "supervisor_controls": 26,
+    "fake_engine_transport_controls": 6,
+    "real_PDF_controls": 3,
+    "child_report_sha256": "2510a87c6d902b014fafb5ccc21496a2d6e80daad7fadb1442ea2e329ee6e9ef",
+    "scope": "Fresh actual native affected retry; failed full01 stays failed."
+  }
+}
