@@ -129,13 +129,7 @@ def remove_diagnostic(base, frame):
     diagnostic = frame.get("diagnostic")
     if diagnostic is None:
         return
-    if isinstance(diagnostic, dict) and set(diagnostic) == {"parser_warnings"}:
-        parser = diagnostic["parser_warnings"]
-        require(isinstance(parser, dict) and set(parser) == {"records", "total_count", "suppressed_count", "message_truncated_count"}
-            and isinstance(parser["records"], list) and all(type(parser[key]) is int and parser[key] >= 0
-                for key in ("total_count", "suppressed_count", "message_truncated_count"))
-            and parser["total_count"] == len(parser["records"]) + parser["suppressed_count"]
-            and parser["message_truncated_count"] <= len(parser["records"]), "Parser-only diagnostic categories/counts invalid")
+    if manual.parser_only_diagnostic(diagnostic):
         return  # Bounded parser records contain no owned directory or cleanup path.
     require(diagnostic["cleanup_complete"] is True and diagnostic["retained_staging"] is None
             and diagnostic["cleanup_error"] is None, "Ordinary converter failure retained a workspace")

@@ -47,7 +47,28 @@ def _unique_json(raw):
     return json.loads(raw, object_pairs_hook=pairs)
 
 
-def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None, source_observation=None, allow_unfinalized=False):
+def confirmed_console_plan(text):
+    """A displayed plan becomes confirmed only through its exact execute reply."""
+    plans = [_unique_json(line[len("[PLAN] "):]) for line in text.splitlines() if line.startswith("[PLAN] ")]
+    replies = [_unique_json(line[len("[INTERACTION-REPLY] "):]) for line in text.splitlines() if line.startswith("[INTERACTION-REPLY] ")]
+    execute = [reply for reply in replies if reply.get("action") == "execute"]
+    if not execute:
+        return None
+    _console_need(len(execute) == 1, "Local console has conflicting execute confirmations")
+    reply = execute[0]
+    matches = [event for event in plans if all(event.get(key) == reply.get(key) for key in ("protocol", "version", "session", "sequence"))
+               and event.get("stage") == "plan_ready" and event.get("plan_sha256") == reply.get("plan_sha256")]
+    _console_need(len(matches) == 1 and reply.get("protocol") == "winbooksplit.interaction" and type(reply.get("version")) is int
+        and reply["version"] == 1 and type(reply.get("sequence")) is int and reply["sequence"] > 0
+        and re.fullmatch(r"[0-9a-f]{32}", reply.get("session", "")), "Local console execute reply does not bind one displayed plan")
+    event = matches[0]
+    canonical = event.get("plan_json")
+    _console_need(isinstance(canonical, str) and sha256(canonical.encode("utf-8")).hexdigest() == event["plan_sha256"]
+        and _unique_json(canonical) == event.get("plan"), "Local console confirmed plan digest/data differ")
+    return event["plan"]
+
+
+def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None, source_observation=None, allow_unfinalized=False, log_text=None):
     """Pure receipt checks; actual native bytes/held cleanup are separate proofs."""
     need = _console_need
     need(isinstance(receipt, dict) and isinstance(outcome, dict) and receipt.get("log_sha256") == log_sha256
@@ -71,6 +92,10 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
              and item["inode"] > 0 and re.fullmatch(r"[0-9a-f]{64}", item.get("sha256", "")), "Local console file identity invalid")
     need(identities["console.log"]["sha256"] == log_sha256 and identities["console.log"]["size_bytes"] == receipt.get("log_size_bytes"),
          "Local console actual length/hash differ")
+    if log_text is not None:
+        need(isinstance(log_text, str) and sha256(log_text.encode("utf-8")).hexdigest() == log_sha256
+            and len(log_text.encode("utf-8")) == receipt["log_size_bytes"]
+            and receipt.get("confirmed_plan") == confirmed_console_plan(log_text), "Local console raw consent/plan binding differs")
     if state == "unfinalized":
         need(allow_unfinalized and outcome.get("exit_code") == 6 and outcome.get("status") == "incomplete"
              and receipt.get("run_manifest") is None and receipt.get("run_manifest_raw") is None
@@ -145,7 +170,6 @@ def authenticate_console_manifest(log, outcome=None, *, source_path=None, source
     owner = _unique_json(raw[".WinBookSplit-console-owner.json"])
     require(owner == {"run_id": directory.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Local console marker differs")
     footers = [_unique_json(line[len("[OPERATION-OUTCOME] "):]) for line in raw["console.log"].splitlines() if line.startswith("[OPERATION-OUTCOME] ")]
-    plans = [_unique_json(line[len("[PLAN] "):])["plan"] for line in raw["console.log"].splitlines() if line.startswith("[PLAN] ")]
     footer = footers[-1] if footers else None
     require(outcome is not None or footer is not None, "Local console lacks an authoritative operation outcome")
     outcome = footer if outcome is None else outcome
@@ -153,11 +177,11 @@ def authenticate_console_manifest(log, outcome=None, *, source_path=None, source
     receipt = {"state": "unfinalized" if absent else "finalized", "members": sorted(names), "owner": owner,
                "directory_identity": {"device": directory_details.st_dev, "inode": directory_details.st_ino},
                "file_identities": identities, "log_sha256": identities["console.log"]["sha256"], "log_size_bytes": identities["console.log"]["size_bytes"],
-               "operation_outcome": footer, "confirmed_plan": plans[-1] if plans else None,
+               "operation_outcome": footer, "confirmed_plan": confirmed_console_plan(raw["console.log"]),
                "run_manifest": _unique_json(manifest_raw) if manifest_raw is not None else None, "run_manifest_raw": manifest_raw,
                "run_manifest_sha256": identities["WinBookSplit_Run.json"]["sha256"] if manifest_raw is not None else None}
     validate_console_evidence(receipt, outcome, receipt["log_sha256"], source_path=source_path,
-                              source_observation=source_observation, allow_unfinalized=allow_unfinalized)
+                              source_observation=source_observation, allow_unfinalized=allow_unfinalized, log_text=raw["console.log"])
     return receipt
 
 

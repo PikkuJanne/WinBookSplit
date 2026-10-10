@@ -155,6 +155,86 @@ class ConsoleManifestTests(unittest.TestCase):
             remove.assert_not_called()
         self.assertTrue(self.source.exists())
 
+    def test_parser_only_base_check_preserves_files_and_rejects_unowned_members(self):
+        parser = {"records": [{"code": "pypdf_parser_warning", "category": "pdf_parser", "severity": "WARNING",
+            "message": "incorrect startxref pointer(1)", "truncated": False}],
+            "total_count": 1, "suppressed_count": 0, "message_truncated_count": 0}
+        frame = {"protocol": "winbooksplit.result", "execution": None, "diagnostic": {"parser_warnings": parser}}
+        preserved = {self.source.name, self.directory.name}
+        before = {path: path.read_bytes() for path in (self.source, *self.directory.iterdir())}
+        conversion.manual.check_base_members(self.base, frame, preserved)
+        foreign = self.base / "foreign.txt"
+        foreign.write_bytes(b"No parser warning owns or authorizes this file\n")
+        with self.assertRaisesRegex(RuntimeError, "Unexpected output-base members"):
+            conversion.manual.check_base_members(self.base, frame, preserved)
+        for diagnostic in ({"parser_warnings": parser, "foreign_path": str(foreign)},
+                {"parser_warnings": {**parser, "suppressed_count": 1}},
+                {"parser_warnings": {**parser, "records": [{**parser["records"][0], "category": "foreign"}]}}):
+            with self.subTest(diagnostic=diagnostic), self.assertRaises((KeyError, ValueError, RuntimeError)):
+                conversion.manual.check_base_members(self.base, {**frame, "diagnostic": diagnostic}, preserved)
+        self.assertEqual(foreign.read_bytes(), b"No parser warning owns or authorizes this file\n")
+        self.assertEqual({path: path.read_bytes() for path in before}, before)
+
+    def held_plan(self):
+        plan = {"schema_version": 1, "mode": "2", "total_pages": 3, "section_count": 1,
+            "source_identity": {"path": str(self.source), **self.observed, "binding": "reader_snapshot"},
+            "normalized_inputs": {"mode": "2", "manual_starts": None}, "output_base": str(self.base),
+            "entries": [{"start": 0, "end": 3, "title": "Authored Å 日本", "filename": "01 - Authored.pdf"}],
+            "coverage": {"start": 0, "end": 3, "page_count": 3}, "warnings": []}
+        canonical = json.dumps(plan, ensure_ascii=False, sort_keys=True, separators=(",", ":"))
+        event = {"protocol": "winbooksplit.interaction", "version": 1, "session": "a" * 32, "sequence": 1,
+            "stage": "plan_ready", "plan": plan, "plan_json": canonical, "plan_sha256": sha256(canonical.encode()).hexdigest()}
+        reply = {key: event[key] for key in ("protocol", "version", "session", "sequence", "plan_sha256")}
+        reply["action"] = "execute"
+        return plan, event, reply
+
+    def publish_held_plan(self, event, reply=None):
+        self.outcome = {**self.outcome, "mode": "2", "status": "timeout", "code": "processor_timeout", "exit_code": 130}
+        self.text = "[PLAN] " + json.dumps(event, ensure_ascii=False) + "\r\n"
+        if reply is not None:
+            self.text += "[INTERACTION-REPLY] " + json.dumps(reply, ensure_ascii=False) + "\r\n"
+        self.text += "[OPERATION-OUTCOME] " + json.dumps(self.outcome) + "\r\n"
+        self.log.write_bytes(self.text.encode())
+        self.receipt = fixture.make(self.outcome, sha256(self.text.encode()).hexdigest(), log_text=self.text,
+            plan=event["plan"], source_path=str(self.source), source_observation=self.observed)
+        self.publish(self.receipt)
+
+    def test_displayed_unconfirmed_plan_keeps_metadata_only_record(self):
+        plan, event, _ = self.held_plan()
+        self.publish_held_plan(event)
+        observed = self.authenticate()
+        self.assertIsNone(observed["confirmed_plan"])
+        self.assertIsNone(observed["run_manifest"]["plan"])
+        self.assertEqual(observed["run_manifest"]["source_identity"]["binding"], "metadata_only")
+        self.assertIsNone(observed["run_manifest"]["source_identity"]["sha256"])
+        before = {path.name: path.read_bytes() for path in self.directory.iterdir()}
+        forged = deepcopy(self.receipt)
+        forged["run_manifest"].update(plan=plan, source_identity=plan["source_identity"])
+        forged["run_manifest"]["settings"]["normalized_inputs"] = plan["normalized_inputs"]
+        fixture.reseal(forged)
+        self.publish(forged)
+        with self.assertRaisesRegex(ValueError, "prepared/confirmed plan"):
+            self.authenticate()
+        self.publish(self.receipt)
+        self.assertEqual({path.name: path.read_bytes() for path in self.directory.iterdir()}, before)
+
+    def test_exact_execute_reply_confirms_plan_and_resealed_wrong_bindings_fail(self):
+        plan, event, reply = self.held_plan()
+        self.publish_held_plan(event, reply)
+        self.assertEqual(self.authenticate()["confirmed_plan"], plan)
+        for change in (lambda r: r.update(session="b" * 32), lambda r: r.update(sequence=2),
+                lambda r: r.update(plan_sha256="0" * 64), lambda r: r.update(version=True)):
+            wrong = deepcopy(reply)
+            change(wrong)
+            self.publish_held_plan(event, wrong)
+            with self.subTest(reply=wrong), self.assertRaisesRegex(ValueError, "execute reply"):
+                self.authenticate()
+        duplicate = "[PLAN] " + json.dumps(event) + "\n" + ("[INTERACTION-REPLY] " + json.dumps(reply) + "\n") * 2
+        with self.assertRaisesRegex(ValueError, "conflicting execute"):
+            console.confirmed_console_plan(duplicate)
+        self.publish_held_plan(event, reply)
+        self.authenticate()
+
 
 if __name__ == "__main__":
     unittest.main()

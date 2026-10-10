@@ -18,10 +18,13 @@ def make(outcome, log_hash, *, log_text=None, plan=None, source_path="C:/synthet
               "file_identities": identities, "log_sha256": log_hash, "log_size_bytes": length,
               "operation_outcome": deepcopy(outcome), "confirmed_plan": deepcopy(plan),
               "run_manifest": None, "run_manifest_raw": None, "run_manifest_sha256": None}
+    if log_text is not None and not any(json.loads(line[len("[INTERACTION-REPLY] "):]).get("action") == "execute"
+        for line in log_text.splitlines() if line.startswith("[INTERACTION-REPLY] ")):
+        result["confirmed_plan"] = None
     if unfinalized:
         return result
     frame = outcome.get("engine_result") or {}
-    plan = frame.get("plan") or plan
+    plan = frame.get("plan") or result["confirmed_plan"]
     observed = source_observation or {"size_bytes": 10, "sha256": "a" * 64}
     source = (plan.get("original_ebook_identity", plan.get("source_identity")) if plan else
               {"path": source_path, "size_bytes": observed["size_bytes"], "last_write_utc": "2026-10-10T00:00:00Z",
