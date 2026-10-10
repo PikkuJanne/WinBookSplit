@@ -1,0 +1,1896 @@
+{
+  "schema_version": 1,
+  "task_id": "M5-T03",
+  "observed_at": "2026-10-10T20:50:52.974125+00:00",
+  "client_date": "2026-10-10",
+  "client_timezone": "Europe/Berlin",
+  "tester": "User directly in this chat; separate name not supplied.",
+  "task_status": "done",
+  "AC-088": "PASS under D13: completed G01-G03 plus all four R01-R04 reported outcomes and authenticated processing evidence; no retired GUI pass.",
+  "rows": {
+    "G01": {
+      "status": "PASS",
+      "basis": "User-confirmed G01 actions/folder opening/visible markers combined with independently authenticated matching authored source/publication/log.",
+      "user_reported_checks": {
+        "actual_Explorer_G01": true,
+        "method_level1": true,
+        "plan_confirmed_Y": true,
+        "output_open_opt_in_O": true,
+        "folder_opened": true,
+        "first_last_visible_markers_confirmed": true,
+        "split_success_reported": true
+      },
+      "paths_binding": "User did not paste paths; narrow authored-prefix lookup and exact source hash/path/plan/finalized outcome linkage identified the run. Absolute local paths stay external.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G01",
+        "success": true,
+        "report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "d9313711282a4a94a4002de5b6e49ab7",
+        "console_run_id": "816ccf8e592d49c988e5bf245be787ef",
+        "manifest_sha256": "e25e380d23d9b01029f29bcc6dac9c31c1f844f45d152a8f98766e3c17e82129",
+        "console_log_sha256": "aa7702d4eaa48f774c733d066dc5ef027fd8a6e4cd161a7e23ebb5484cc3b85c",
+        "run_manifest_sha256": "52a2fc05f4fa75e4b968f4c09f69eecdc100ea5b5d6fb511c1e8e6bc0caa7b70",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 4,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              9,
+              11
+            ],
+            [
+              12,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            2,
+            6,
+            3,
+            1
+          ]
+        },
+        "human_reported": {
+          "source": "Direct user chat report as relayed by parent task",
+          "split_report": "Special-name PDF split PASS",
+          "followup_reply": "Yes",
+          "followup_scope": "G01 Level 1 via 1 then Y then O, folder opened, first/last PDFs displayed WBS001/WBS002/WBS012"
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              2
+            ],
+            "page_count": 2,
+            "sha256": "9241cbf989ae62838cb806eaac89da64f092f3fade07e302c616a471edc78fdb",
+            "bytes": 2823
+          },
+          {
+            "sequence": 2,
+            "physical_pages": [
+              3,
+              8
+            ],
+            "page_count": 6,
+            "sha256": "e743f1b1f3ca255809ad9e542bd3f0a7a62a833407fc06ef7c58c156e2ec7861",
+            "bytes": 5472
+          },
+          {
+            "sequence": 3,
+            "physical_pages": [
+              9,
+              11
+            ],
+            "page_count": 3,
+            "sha256": "298c3c6eca9509dd516f329078b052cb4896fdb870dbbcd003761d7ded05ae3c",
+            "bytes": 3484
+          },
+          {
+            "sequence": 4,
+            "physical_pages": [
+              12,
+              12
+            ],
+            "page_count": 1,
+            "sha256": "b8e0645c9354a33e59df52e33cffb4422fb6c945f0a2a60916aa5367b109a837",
+            "bytes": 2174
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 22,
+        "passes": 22,
+        "scope": "Read-only exact named source/output/console and pinned BAT/PS, no application/UI/render execution."
+      }
+    },
+    "G02": {
+      "status": "PASS",
+      "basis": "User reported exact 'G02 PASS' for the prepared checklist; matching source/Level2 publication/log/physical pages independently audited.",
+      "user_report": {
+        "message": "G02 PASS",
+        "scope": "Reported PASS for G02 by reference to the supplied checklist.",
+        "checklist_sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+        "attribution_limit": "No separately restated detailed marker strings, output count, runtime, N behavior or every-page human inspection."
+      },
+      "paths_binding": "User did not paste paths; one new narrowly selected authored publication was bound through exact source hash/path, confirmed Level2 plan and finalized matching outcome. Absolute paths stay external.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G02",
+        "success": true,
+        "report_sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "124bdf4710db401bb4a2e08393fef39d",
+        "console_run_id": "1791aa930f2a4f8f8a8ac5f07143914e",
+        "manifest_sha256": "8416ece8d8f9fb10f303b3f0474491e48df52cf888e40042bae7d3e86df12011",
+        "console_log_sha256": "b386b59f5dbeca4072ff73f6baba0e573d73c6d5c03a54f17681d03034fdc27b",
+        "run_manifest_sha256": "5ff12417877baaf239e78503d646f9876a034ea6256cbb1282f991f3d41505b0",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 7,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              9,
+              10
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              12,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            2,
+            1,
+            3,
+            2,
+            2,
+            1,
+            1
+          ],
+          "previous_G01_publication_and_console_preserved_since_saved_snapshot": true
+        },
+        "human_reported": {
+          "source": "Direct user chat report, preserved by parent task",
+          "message": "G02 PASS",
+          "detailed_viewer_observations_reported": false,
+          "receipt_file": "human-G02-report01.json",
+          "receipt_sha256": "b537f28d4568a5fb5661b00611aec83c16c92b1030ca2d33d85a0120ce8a6322",
+          "reported_result": "PASS for the prepared G02 checklist row, reported by reference to the previously supplied steps.",
+          "checklist": {
+            "file": "EXPLORER_STEPS.md",
+            "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+            "procedure": "New authored PDF drop onto same candidate BAT; 2 then Y then N; inspect seven ranges and representative boundaries; observe no automatic opening after N."
+          },
+          "attribution_limit": "The short report does not separately restate detailed marker strings, output count, runtime, N behavior or every-page inspection. Files cannot independently prove GUI/viewer behavior."
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "prior_G01_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 6,
+          "console_file_count": 3,
+          "total_file_count": 9,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G01-audit01.json",
+          "prior_report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              2
+            ],
+            "page_count": 2,
+            "sha256": "9241cbf989ae62838cb806eaac89da64f092f3fade07e302c616a471edc78fdb",
+            "bytes": 2823
+          },
+          {
+            "sequence": 2,
+            "physical_pages": [
+              3,
+              3
+            ],
+            "page_count": 1,
+            "sha256": "d8b05cf301f55ee8c8615d246591d1cbb173497777285f05e60e6b0e9fb59f26",
+            "bytes": 2192
+          },
+          {
+            "sequence": 3,
+            "physical_pages": [
+              4,
+              6
+            ],
+            "page_count": 3,
+            "sha256": "41cc0f5986c2133aa93ef264685367f51f089f84269fafd2a80a3ae779025b3d",
+            "bytes": 3484
+          },
+          {
+            "sequence": 4,
+            "physical_pages": [
+              7,
+              8
+            ],
+            "page_count": 2,
+            "sha256": "b33a71b774dce11bad328702bee7a0c363c11b5965f58ab2bd996430e0ae8a96",
+            "bytes": 2818
+          },
+          {
+            "sequence": 5,
+            "physical_pages": [
+              9,
+              10
+            ],
+            "page_count": 2,
+            "sha256": "60712fef8970e92c79486331f8d6db5d2435fdc09a8e532c4070557b96b3e62d",
+            "bytes": 2857
+          },
+          {
+            "sequence": 6,
+            "physical_pages": [
+              11,
+              11
+            ],
+            "page_count": 1,
+            "sha256": "039f8900337a20600db2f7913557718f5240c9ae410fe01625d184928adfe300",
+            "bytes": 2157
+          },
+          {
+            "sequence": 7,
+            "physical_pages": [
+              12,
+              12
+            ],
+            "page_count": 1,
+            "sha256": "b8e0645c9354a33e59df52e33cffb4422fb6c945f0a2a60916aa5367b109a837",
+            "bytes": 2174
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 46,
+        "passes": 46,
+        "receipt": {
+          "file": "human-G02-spot-review01.json",
+          "bytes": 8366,
+          "sha256": "efc221f1ef0e033cd697829346ee8503bcf9f3ffda75a426bde9332edd7b6afa"
+        },
+        "scope": "Read-only exact named authored source/output/console and pinned BAT/PS; seven prior G01 sealed hashes preserved; no application/UI/render execution."
+      }
+    },
+    "G03": {
+      "status": "PASS",
+      "basis": "User reported exact 'G03 PASS' for the prepared checklist; matching manual-start1 whole-document output/log independently audited.",
+      "user_report": {
+        "message": "G03 PASS",
+        "scope": "Checklist-row PASS by reference to supplied steps; no separately restated detailed viewer observations."
+      },
+      "paths_binding": "One new authored-prefix publication bound locally through exact source/hash/confirmed manual plan/finalized outcome; user did not paste paths.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G03",
+        "success": true,
+        "report_sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "d1c450520d26441cbe8a0a07b3375cbd",
+        "console_run_id": "a6b6d6ef882047ee9ee0f17d92c363f5",
+        "manifest_sha256": "442f3e6637fdf68c882432a6ce647c6e9d8ee52780328674b27bfc1db5c48f45",
+        "console_log_sha256": "b259ac139860c268092ab9baa660a4c23bd9e65be41f07424a59d5224d6a46fa",
+        "run_manifest_sha256": "eaf2ec650ccdf5909b8bb9b95c5f55fa8e4a44462fba5f04c216d3787f9fe9f3",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 1,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            12
+          ],
+          "manual_start_pages": [
+            1
+          ],
+          "whole_document_notice_logged": true,
+          "whole_document_notice": "One section; no internal split.",
+          "previous_G01_publication_and_console_preserved_since_saved_snapshot": true,
+          "previous_G02_publication_and_console_preserved_since_saved_snapshot": true,
+          "prior_total_preserved_file_count": 21
+        },
+        "human_reported": {
+          "source": "Direct user chat report, preserved by parent task",
+          "message": "G03 PASS",
+          "detailed_viewer_observations_reported": false,
+          "receipt_file": "human-G03-report01.json",
+          "receipt_sha256": "bb9da341723d701d335e41d30dd51043aa78e9159ba7d60ad7ccc2129b3f9caf",
+          "reported_result": "PASS for the prepared G03 checklist row, reported by reference to the previously supplied steps.",
+          "checklist": {
+            "file": "EXPLORER_STEPS.md",
+            "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+            "procedure": "New authored PDF drop onto same candidate BAT; M then1 thenY thenN; explicit whole-document notice, one range1-12 and one12-page PDF."
+          },
+          "attribution_limit": "No separately restated detailed marker strings, runtime, N behavior or every-page human inspection. Files cannot independently prove GUI/viewer behavior."
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "prior_G01_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 6,
+          "console_file_count": 3,
+          "total_file_count": 9,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G01-audit01.json",
+          "prior_report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+        },
+        "prior_G02_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 9,
+          "console_file_count": 3,
+          "total_file_count": 12,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G02-audit01.json",
+          "prior_report_sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              12
+            ],
+            "page_count": 12,
+            "sha256": "acc0efef76a87eaf3a483131063d6f3797a7faa33538102f2f71209604fadded",
+            "bytes": 9490
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 116,
+        "passes": 116,
+        "receipt": {
+          "file": "human-G03-spot-review01.json",
+          "bytes": 26787,
+          "sha256": "c43744e9d4e725025f6cb2d500ca37a222a4ff77d1bd59995f83d1d91067ebbe"
+        },
+        "scope": "Read-only exact named source/output/console; all21 prior G01/G02 members preserved; no app/UI/render execution."
+      }
+    },
+    "G04": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Multiple manual starts within combined no-input/no-outline fallback run."
+      }
+    },
+    "G05": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-manual-4-7-add-page1",
+          "PS7-manual-4-7-add-page1"
+        ]
+      }
+    },
+    "G06": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-invalid-token",
+          "PS7-invalid-token"
+        ]
+      }
+    },
+    "G07": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Actual no-outline manual fallback."
+      }
+    },
+    "G08": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-selected-level-fallback",
+          "PS7-redirected-selected-level-fallback"
+        ]
+      }
+    },
+    "G09": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R02",
+        "coverage": "Actual authored EPUB drop/conversion/visual check."
+      }
+    },
+    "G10": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R03",
+        "coverage": "Genuine AZW3 drop/manual split/generated-PDF open/physical-page guidance."
+      }
+    },
+    "G11": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-malformed-epub",
+          "PS7-malformed-epub"
+        ]
+      }
+    },
+    "G12": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Actual no-input launcher selection of quoted authored path."
+      }
+    },
+    "G13": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-input-cancel",
+          "PS7-redirected-input-cancel"
+        ]
+      }
+    },
+    "G14": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R04",
+        "coverage": "Actual two-file drop rejection."
+      }
+    },
+    "G15": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-plan-cancel",
+          "PS7-redirected-plan-cancel"
+        ]
+      }
+    },
+    "G16": {
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_same_mode_and_completed_human_repeat",
+        "cases": [
+          "PS51-repeat-manual-old-output",
+          "PS7-repeat-manual-old-output"
+        ],
+        "human_scope": "G01/G02/G03 are three actual runs of the same authored PDF in different modes, with distinct publications and all21 prior G01/G02 files preserved at G03; no additional human same-mode-repeat claim."
+      }
+    }
+  },
+  "commands": [
+    "DEV -I -B record_human_G01_report.py (preserved actual chat report/confirmation separately)",
+    "DEV -I -B run_audit_human_G01.py (read-only retained G01 artefacts, actual outer0, both streams complete)",
+    "Independent exact-directory spot review (read-only,22/22)",
+    "DEV -I -B record_human_G02_report.py (preserved exact G02 PASS by reference to the prepared checklist)",
+    "DEV -I -B run_audit_human_G02.py (read-only exact G02/G01 artifacts; actual outer0 and complete streams)",
+    "Independent exact-directory G02 spot review (read-only,46/46)",
+    "DEV -I -B record_human_G03_report.py",
+    "DEV -I -B run_audit_human_G03.py (read-only; outer0, complete streams)",
+    "Independent exact-directory G03 spot review116/116",
+    "DEV -I -B record_smoke_consolidation01.py (direct user authority and route mapping)",
+    "DEV -I -B record_consolidated_human_report01.py (exact user R01-R04 PASS report and sealed short guide)",
+    "DEV -I -B run_audit_consolidated_human.py (read-only actual4publications; primary outer0/fullstreams/stopped)",
+    "DEV -I -B independent-final-human-spot01.py (retained FAILED external PDF-only argv oracle; no app invocation)",
+    "DEV -I -B independent-final-human-spot02.py (fresh independent read-only9080/9080; exact expected ebook argv tail)"
+  ],
+  "raw_evidence": [
+    {
+      "file": "human-G01-report01.json",
+      "bytes": 1917,
+      "sha256": "be983939ea848f6ea1d8714817187afadd2ac7c95319a975b4445945448f3a92"
+    },
+    {
+      "file": "human-G01-audit01.json",
+      "bytes": 596971,
+      "sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+    },
+    {
+      "file": "human-G01-audit01-public.json",
+      "bytes": 3436,
+      "sha256": "fb5ea9cfcd2fea4684601beeaf9c76445e6389f93ed0115407214ea7c3889a8c"
+    },
+    {
+      "file": "human-G01-audit01-command.json",
+      "bytes": 1540,
+      "sha256": "52821d4f4dd4251b35db6ff06abdbce2e9ce73d1d36f2fef3bec328d1dd11337"
+    },
+    {
+      "file": "human-G01-audit01-outer.stdout.bin",
+      "bytes": 102,
+      "sha256": "8c4fe25fb70de4545bcabeda3dad41bb84efbf7469a8a6caab774205faec3704"
+    },
+    {
+      "file": "human-G01-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G01.py",
+      "bytes": 19578,
+      "sha256": "1e6dfd133cd855dcc9b1bee475bd94cb55c288e68cc1df1e1f3346204d36a56e"
+    },
+    {
+      "file": "run_audit_human_G01.py",
+      "bytes": 896,
+      "sha256": "dcc25ea8d4d9e4f0cb6a82f034a1ce09da9d8cc3ba4f97f149c8defbb993783c"
+    },
+    {
+      "file": "record_human_G01_report.py",
+      "bytes": 2167,
+      "sha256": "5c5f3d6a4783190030498669c0948faa1c64cdb1e62184afa6a7a7f8ead93736"
+    },
+    {
+      "file": "human-G02-report01.json",
+      "bytes": 1492,
+      "sha256": "b537f28d4568a5fb5661b00611aec83c16c92b1030ca2d33d85a0120ce8a6322"
+    },
+    {
+      "file": "human-G02-audit01.json",
+      "bytes": 643192,
+      "sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120"
+    },
+    {
+      "file": "human-G02-audit01-public.json",
+      "bytes": 5544,
+      "sha256": "75f55041b9d89638a7950e266854b75a13d256bb14110f8cadbde575a40afe73"
+    },
+    {
+      "file": "human-G02-audit01-command.json",
+      "bytes": 1543,
+      "sha256": "f042fea495f820f1f6a99fe6eb3545edab3899fc65852556639a339ce4c7f7bb"
+    },
+    {
+      "file": "human-G02-audit01-outer.stdout.bin",
+      "bytes": 103,
+      "sha256": "577c281c576cded93b47a35b264ccc46aeedb6688452e3b43c6382a4024fca02"
+    },
+    {
+      "file": "human-G02-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G02.py",
+      "bytes": 22851,
+      "sha256": "86d6c4cb4d188a4d5c98c796f2a721ff7a60e790272ae677bd1f68e97a62582a"
+    },
+    {
+      "file": "run_audit_human_G02.py",
+      "bytes": 896,
+      "sha256": "01cc706257e95870b3685c7e0adf596da0bcfae8643770c59869203b8ebc5911"
+    },
+    {
+      "file": "record_human_G02_report.py",
+      "bytes": 1908,
+      "sha256": "55f06a58b73c54db5566e075efb1ec4d7a35197ad4f3c7cd3636a07f06f81e92"
+    },
+    {
+      "file": "human-G02-spot-review01.json",
+      "bytes": 8366,
+      "sha256": "efc221f1ef0e033cd697829346ee8503bcf9f3ffda75a426bde9332edd7b6afa"
+    },
+    {
+      "file": "derive_human_G02_audit.py",
+      "bytes": 5883,
+      "sha256": "33fc52f9a744a6cf11d6e63ede876b7bda3daae03d3b99f6edd71a0306b5999f"
+    },
+    {
+      "file": "human-G02-derivation01-failure.json",
+      "bytes": 609,
+      "sha256": "9d20123279b766c5c94815031ef3a49720b0e0abc4499c1157c0107478870e94"
+    },
+    {
+      "file": "repair_human_G02_derivation.py",
+      "bytes": 1570,
+      "sha256": "c684905b04595596385ca0a0a14630273e94073dd8dd23df84fd3cbfdb389b31"
+    },
+    {
+      "file": "derive_human_G02_audit02.py",
+      "bytes": 5960,
+      "sha256": "a007ccc73d844a9aea9b186df7f81da73e29e7c9ec56058e6306b5d4690c51da"
+    },
+    {
+      "file": "human-G03-report01.json",
+      "bytes": 1437,
+      "sha256": "bb9da341723d701d335e41d30dd51043aa78e9159ba7d60ad7ccc2129b3f9caf"
+    },
+    {
+      "file": "human-G03-audit01.json",
+      "bytes": 543325,
+      "sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d"
+    },
+    {
+      "file": "human-G03-audit01-public.json",
+      "bytes": 4739,
+      "sha256": "2a06e6d7556b15f8f08423fcc0c19c0e28025dfe1ad9087e80dc25c6a35fdcee"
+    },
+    {
+      "file": "human-G03-audit01-command.json",
+      "bytes": 1539,
+      "sha256": "d08e07ee6f83002a5d65480832348b7a5c99d7a4a5b9554294f331513c4e0729"
+    },
+    {
+      "file": "human-G03-audit01-outer.stdout.bin",
+      "bytes": 100,
+      "sha256": "3b83dfd757f74280c482066b1007e43277eed130922e13ebbf1bf644f7082a94"
+    },
+    {
+      "file": "human-G03-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G03.py",
+      "bytes": 26370,
+      "sha256": "f08714c3fc7bf584055c12d7f5ca4d8c73382f8f7696e264e63a3db02cfe1fd6"
+    },
+    {
+      "file": "run_audit_human_G03.py",
+      "bytes": 896,
+      "sha256": "6ce6cd46e80b93b5fc100357403eaae6b68f15ddb244bb8c41ab1771e534a995"
+    },
+    {
+      "file": "record_human_G03_report.py",
+      "bytes": 1853,
+      "sha256": "5fb66e93ddfe66eb8a12a552137fb74aad78829ab0ab03616624fae50c7fba18"
+    },
+    {
+      "file": "human-G03-spot-review01.json",
+      "bytes": 26787,
+      "sha256": "c43744e9d4e725025f6cb2d500ca37a222a4ff77d1bd59995f83d1d91067ebbe"
+    },
+    {
+      "file": "derive_human_G03_audit.py",
+      "bytes": 7302,
+      "sha256": "8e1d9c30933661bb7e6ad8b1a012dfaa6b924d13473d79cab60265bdd3417e5f"
+    },
+    {
+      "file": "human-G03-metadata-probe01-failure.json",
+      "bytes": 1087,
+      "sha256": "548a2d7650918c6bfc3615ae278d0501478371af247c281999ad4e7c1a6e5df9"
+    },
+    {
+      "file": "smoke-consolidation01.json",
+      "bytes": 3471,
+      "sha256": "2bb529f914574c6c1f0bcd8922284c57d82c1fd8bd2bb886b8f92e1130ca001b"
+    },
+    {
+      "file": "record_smoke_consolidation01.py",
+      "bytes": 3413,
+      "sha256": "4174d98f3dafa10d31efb206ccecf4883e4da82b6f72ea17d2cb758aafaedaf2"
+    },
+    {
+      "file": "EXPLORER_SHORT_STEPS.md",
+      "bytes": 2832,
+      "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
+    },
+    {
+      "file": "record_consolidated_human_report01.py",
+      "bytes": 3123,
+      "sha256": "4768201dc8f7e6762ee6da689d9791dd709f3a242663ed737e300bbbd3f94403"
+    },
+    {
+      "file": "consolidated-human-report01.json",
+      "bytes": 2959,
+      "sha256": "6a4c8b6327555d408045e083f338d3921bdcd5c29efac87298ee568b3a97e38f"
+    },
+    {
+      "file": "audit_consolidated_human.py",
+      "bytes": 28757,
+      "sha256": "25cd85185bd4e6ae61ad22bfd89390b9935baaf3c2799989b541ef5e0896a81c"
+    },
+    {
+      "file": "run_audit_consolidated_human.py",
+      "bytes": 923,
+      "sha256": "82c80b14b018961258b3e67737cf1518004380c0565d7a14c76be10bc17e7fa0"
+    },
+    {
+      "file": "consolidated-human-audit01.json",
+      "bytes": 2951391,
+      "sha256": "58a5f7a6e92d52e0a9f235d75ae764d45319450fc77fd2d7363bef45bd228437"
+    },
+    {
+      "file": "consolidated-human-audit01-public.json",
+      "bytes": 14645,
+      "sha256": "12f17f8bae5cc2aaeb37f4e7c519366a0d7a29051670728b2e28955f762a76fb"
+    },
+    {
+      "file": "consolidated-human-audit01-command.json",
+      "bytes": 1688,
+      "sha256": "d8b89c7dc27c778b6706c13db2ec5ddcb33ba6828922c0c9ccd160666e9b977a"
+    },
+    {
+      "file": "consolidated-human-audit01-outer.stdout.bin",
+      "bytes": 204,
+      "sha256": "64572f5176a94d0390e76ab9430d62e65b0f0e929a5eaf18e916198a7e8a98d5"
+    },
+    {
+      "file": "consolidated-human-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "independent-final-human-spot01.py",
+      "bytes": 31656,
+      "sha256": "e559aee6c0e5950f3b47e0d64ddfb37de8799239811e62362c67bcddcaa1430e"
+    },
+    {
+      "file": "independent-final-human-spot01.json",
+      "bytes": 425391,
+      "sha256": "7facacec04e4af3cfd97b30b7a2a2d72371b14cfb768be341bf23d5ffc8b9b1b"
+    },
+    {
+      "file": "independent-final-human-spot02.py",
+      "bytes": 31776,
+      "sha256": "8e8f230875444e53ad96798efebdc6d4df4db220cedf2331da593fa9a6a941af"
+    },
+    {
+      "file": "independent-final-human-spot02.json",
+      "bytes": 966869,
+      "sha256": "8f18085517f13be916570b4ec8fd45a12c5fee2edcc92da8fccc53bfcefdb813"
+    },
+    {
+      "file": "independent-final-human-spot02-public.json",
+      "bytes": 15284,
+      "sha256": "76cc59633d33b50b55d25cac552bcf00ed50d758190659160b15e9cdf28fdb7a"
+    }
+  ],
+  "unchanged_canonical_native_report": {
+    "sha256": "b17b0d77a685c4846e7ff7df5766a7fe2d197140d2330b8d1dc2d5fad33dd05b",
+    "cases": 38,
+    "native_operations": 72
+  },
+  "limits": [
+    "No directly observed outer BAT native exit or captured R04 argv/process tree/stdout/stderr; R04 is user-reported actual checklist outcome.",
+    "No new app invocation/render/GUI automation/full suite/cleanup during the read-only final audits.",
+    "Detailed runtime/count/content checks are derived; actual UI/viewer results rely on exact user reports by reference to the sealed guides.",
+    "Historical M3 human testing absolutely closed; original unrun G04-G16 SUPERSEDED and retired variants native-only.",
+    "No clean OS, M5-T04 security review, M5-T05 integration or M6 release claim."
+  ],
+  "git": {
+    "previous_clean_live_checkpoint": "e7b92dffe607cd4e7074ea5da4562d8a8e3ad410",
+    "previous_clean_live_observed_at": "2026-10-10T20:45:34.518303+00:00",
+    "implementation_commit_role": "Historical synchronized evidence/guide checkpoint bookkeeping anchor; tested candidate source remains a282cf4412494063b91f2a71cb21b283731569f1",
+    "PR": "https://github.com/PikkuJanne/WinBookSplit/pull/29",
+    "scope": "Scoped draft retained; no merge. Final evidence commit actual push/clean-live receipt follows externally after it happens."
+  },
+  "next": "M5-T04 — Perform the release security and dependency review; not started in this task.",
+  "retained_G02_external_preparation_trial": {
+    "status": "FAILED syntax preparation; retained separately from successful G02 read-only audit",
+    "scope": "External script derivation only; no application or audit attempted",
+    "reason": "SyntaxError: parenthesis not closed at generated source line239, detected by ast.parse before saving derived script",
+    "cause": "Inserted previous-G01 stability predicate inadvertently nested original need() without closing it",
+    "narrow_correction": "Join original stability expression into same predicate; retain original generator and no changed assertions",
+    "no_application_or_audit_execution_from_failed_trial": true,
+    "failure_receipt": {
+      "file": "human-G02-derivation01-failure.json",
+      "bytes": 609,
+      "sha256": "9d20123279b766c5c94815031ef3a49720b0e0abc4499c1157c0107478870e94"
+    }
+  },
+  "consolidated_human_route": {
+    "decision_id": "D13",
+    "authority": [
+      "We need to combine or cut some tests, as I will not go through a 16 step test program",
+      "Or automate"
+    ],
+    "decision_receipt": {
+      "file": "smoke-consolidation01.json",
+      "bytes": 3471,
+      "sha256": "2bb529f914574c6c1f0bcd8922284c57d82c1fd8bd2bb886b8f92e1130ca001b"
+    },
+    "original_guide_preserved": {
+      "file": "EXPLORER_STEPS.md",
+      "bytes": 10701,
+      "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311"
+    },
+    "current_guide": {
+      "file": "EXPLORER_SHORT_STEPS.md",
+      "bytes": 2832,
+      "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
+    },
+    "editable_results": "EXPLORER_SHORT_RESULTS.md; mutable/unsealed",
+    "rows": {
+      "R01": {
+        "status": "PASS",
+        "procedure": "Double-click without input; quoted no-outline PDF selection, Auto1/manual fallback, starts1,4,7, confirm/decline-open.",
+        "basis": "Actual checklist-row outcome reported by user; matching source/plan/output/log/dependency records independently authenticated. UI/viewer observations remain user-reported.",
+        "primary_audit_reference": "consolidated_human_route.final_audit"
+      },
+      "R02": {
+        "status": "PASS",
+        "procedure": "Real EPUB drop/Auto1/convert/first-last viewer check.",
+        "basis": "Actual checklist-row outcome reported by user; matching source/plan/output/log/dependency records independently authenticated. UI/viewer observations remain user-reported.",
+        "primary_audit_reference": "consolidated_human_route.final_audit"
+      },
+      "R03": {
+        "status": "PASS",
+        "procedure": "Genuine AZW3 drop/manual/generated-PDF open/physical-page guidance/starts1,2,3/final TOC.",
+        "basis": "Actual checklist-row outcome reported by user; matching source/plan/output/log/dependency records independently authenticated. UI/viewer observations remain user-reported.",
+        "primary_audit_reference": "consolidated_human_route.final_audit"
+      },
+      "R04": {
+        "status": "PASS",
+        "procedure": "Two authored files dropped together; explicit rejection/no processing.",
+        "basis": "Actual two-file rejection/no-processing checklist outcome reported by user; pinned BAT rejects before PowerShell, with no expected application log. No captured argv/process-absence/native-exit claim.",
+        "primary_audit_reference": "consolidated_human_route.final_audit"
+      }
+    },
+    "native_only_variants": [
+      "page1 addition",
+      "invalid tokens",
+      "selected-level fallback",
+      "malformed conversion",
+      "input cancel",
+      "plan cancel",
+      "same-mode repeat"
+    ],
+    "human_repeat_scope": "G01/G02/G03 are three actual runs of the same authored PDF in different modes, with distinct publications and all21 prior G01/G02 files preserved at G03; no additional human same-mode-repeat claim.",
+    "limits": [
+      "Original unrun G04-G16 rows become SUPERSEDED, never PASS.",
+      "Removed cancellation/conversion-failure/normalization/selected-level/same-mode-repeat variants have native evidence only.",
+      "Actual Explorer/console gestures and viewer observations are not inferred from CLI or artifact checks.",
+      "Safety expectations and acceptance IDs remain; native failures/results remain retained.",
+      "No application/runtime/package/CI/tag/release gate is waived."
+    ],
+    "user_report": {
+      "message": "**R01 PASS**, R02 PASS, R03 PASS, R04 PASS",
+      "receipt": {
+        "file": "consolidated-human-report01.json",
+        "bytes": 2959,
+        "sha256": "6a4c8b6327555d408045e083f338d3921bdcd5c29efac87298ee568b3a97e38f"
+      },
+      "tester": "User directly in this chat; separate name not supplied.",
+      "client_date": "2026-10-10",
+      "client_timezone": "Europe/Berlin",
+      "basis": "Each explicit named row PASS is reported by reference to the sealed short guide; detailed observations were not separately restated.",
+      "attribution_limit": "Short row reports do not separately restate prompt strings, viewer/page markers, physical page counts, runtimes or native exit codes. Actual UI/viewer outcomes rely on the user report by reference to the supplied guide; artifacts cannot independently prove GUI actions."
+    },
+    "final_audit": {
+      "protocol": "winbooksplit.consolidated-human-readonly-audit-public",
+      "version": 1,
+      "task_id": "M5-T03",
+      "success": true,
+      "report_sha256": "58a5f7a6e92d52e0a9f235d75ae764d45319450fc77fd2d7363bef45bd228437",
+      "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+      "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+      "human_reported": {
+        "message": "**R01 PASS**, R02 PASS, R03 PASS, R04 PASS",
+        "reported_results": {
+          "R01": "PASS by reference to the prepared short-guide procedure.",
+          "R02": "PASS by reference to the prepared short-guide procedure.",
+          "R03": "PASS by reference to the prepared short-guide procedure.",
+          "R04": "PASS by reference to the prepared short-guide procedure."
+        },
+        "receipt_file": "consolidated-human-report01.json",
+        "receipt_sha256": "6a4c8b6327555d408045e083f338d3921bdcd5c29efac87298ee568b3a97e38f",
+        "checklist": {
+          "file": "EXPLORER_SHORT_STEPS.md",
+          "bytes": 2832,
+          "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
+        },
+        "attribution_limit": "Short row reports do not separately restate prompt strings, viewer/page markers, physical page counts, runtimes or native exit codes. Actual UI/viewer outcomes rely on the user report by reference to the supplied guide; artifacts cannot independently prove GUI actions."
+      },
+      "proof_limits": {
+        "native_BAT_exit_captured": false,
+        "GUI_or_viewer_proved_by_artifacts": false,
+        "R04_is_user_report_only": true,
+        "R04_no_invented_receipt_or_absence_claim": true,
+        "working_pdf_artifacts_prove_request_and_preparation_not_successful_viewer_display": true,
+        "child_native_transport_status_is_authenticated_application_attestation": true
+      },
+      "rows": {
+        "R01": {
+          "artifact_audit": "PASS",
+          "derived_checks": {
+            "output_count": 3,
+            "physical_page_count": 12,
+            "output_page_counts": [
+              3,
+              3,
+              6
+            ],
+            "physical_ranges": [
+              [
+                1,
+                3
+              ],
+              [
+                4,
+                6
+              ],
+              [
+                7,
+                12
+              ]
+            ],
+            "finalized_owner_manifest_log_authenticated": true,
+            "all_physical_pages_exactly_once_in_order": true,
+            "all_content_text_boxes_rotation_and_hashes_match_reference": true,
+            "supported_links_match_reference": true,
+            "cross_chapter_links_omitted_with_warning_count": 0,
+            "isolated_application_venv_runtime_verified": true,
+            "logged_child_native_exit_code": 0,
+            "logged_job_parent_descendants_streams_writer_complete": true,
+            "initial_level1_no_plan5_authenticated": true,
+            "manual_fallback_retry_and_starts_verified": true
+          },
+          "run_id": "2633bf1bd2874834ab0d9debdce16c3f",
+          "source_sha256": "8ce1dd6812643a6fb8cdfab482cb23ed1f93c466d61cef087787e98f812d68a9",
+          "manifest_sha256": "3b6ed97a2659651339db3d5f2c4774f353e83462d7fcf65ef5c370d31541125a",
+          "console_log_sha256": "8b0ba66ee41b442f06c4cab46cf221cedb78a49bd7b2bc289c05d23387bc47ba",
+          "run_manifest_sha256": "8a8547ea33e2326db6e8f5142ae6cfe88b898631b08a8cac241d3faac3e95811",
+          "runtime_versions": {
+            "powershell": "5.1.26100.9444",
+            "python": "3.14.8",
+            "pypdf": "6.19.0",
+            "calibre": null
+          },
+          "warnings": {
+            "planning": [],
+            "parser": [],
+            "parser_suppressed_count": 0,
+            "parser_message_truncated_count": 0
+          },
+          "outputs": [
+            {
+              "sequence": 1,
+              "sha256": "8336e80b9525255f8409621fbc83a87ca8ba9bf3237b359dc0a6c24d8d631b56",
+              "bytes": 3235,
+              "page_count": 3
+            },
+            {
+              "sequence": 2,
+              "sha256": "5b677c992549da0e066c9eae86d15179d7715c7c76bf95625e37688eb5cf8e4c",
+              "bytes": 3242,
+              "page_count": 3
+            },
+            {
+              "sequence": 3,
+              "sha256": "03267d1cb763972140ba7ade6312b4e0d2350026f2ac559d441dbe9d946707ce",
+              "bytes": 5232,
+              "page_count": 6
+            }
+          ]
+        },
+        "EXTRA_AZW3_AUTO": {
+          "artifact_audit": "PASS",
+          "derived_checks": {
+            "output_count": 3,
+            "physical_page_count": 4,
+            "output_page_counts": [
+              1,
+              1,
+              2
+            ],
+            "physical_ranges": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                4
+              ]
+            ],
+            "finalized_owner_manifest_log_authenticated": true,
+            "all_physical_pages_exactly_once_in_order": true,
+            "all_content_text_boxes_rotation_and_hashes_match_reference": true,
+            "supported_links_match_reference": true,
+            "cross_chapter_links_omitted_with_warning_count": 2,
+            "isolated_application_venv_runtime_verified": true,
+            "logged_child_native_exit_code": 0,
+            "logged_job_parent_descendants_streams_writer_complete": true,
+            "known_location_calibre_verified": true,
+            "conversion_native0_and_full_streams_verified": true,
+            "conversion_cleanup_verified": true
+          },
+          "run_id": "10aa82825d1648f1b65e0745a13e94b3",
+          "source_sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0",
+          "manifest_sha256": "24339dac1402e5cffba06a61a1c6e96d43ff99e92b57bd9d90518aebb5c34cf6",
+          "console_log_sha256": "b25cdfc2b7c2556093877aa1e4dfbb9954fae5649b26c3e47639b37cc5d7b273",
+          "run_manifest_sha256": "06c2ebbad0b301785d32430f450335f3317ace898da9ee1d96aebd4f648a496f",
+          "runtime_versions": {
+            "powershell": "5.1.26100.9444",
+            "python": "3.14.8",
+            "pypdf": "6.19.0",
+            "calibre": "9.15.0"
+          },
+          "warnings": {
+            "planning": [
+              {
+                "code": "cross_chapter_link_dropped",
+                "source_order": null,
+                "depth": null,
+                "message": "Count: 2. Internal links to pages outside this chapter are omitted."
+              }
+            ],
+            "parser": [],
+            "parser_suppressed_count": 0,
+            "parser_message_truncated_count": 0
+          },
+          "outputs": [
+            {
+              "sequence": 1,
+              "sha256": "f52510aa06ce714e79cf3c81f3cef346c24de16ce7d6ad5fb072e32aaf564d46",
+              "bytes": 47395,
+              "page_count": 1
+            },
+            {
+              "sequence": 2,
+              "sha256": "19372271a143c4bc088e7a9473b26125a5b603b789af1d82bd71e3c7f8ec530b",
+              "bytes": 47437,
+              "page_count": 1
+            },
+            {
+              "sequence": 3,
+              "sha256": "e4d2396257b84576306a321305df0e895ba936cd50bdd52fd43adcc7717ee603",
+              "bytes": 50796,
+              "page_count": 2
+            }
+          ]
+        },
+        "R02": {
+          "artifact_audit": "PASS",
+          "derived_checks": {
+            "output_count": 3,
+            "physical_page_count": 3,
+            "output_page_counts": [
+              1,
+              1,
+              1
+            ],
+            "physical_ranges": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                3
+              ]
+            ],
+            "finalized_owner_manifest_log_authenticated": true,
+            "all_physical_pages_exactly_once_in_order": true,
+            "all_content_text_boxes_rotation_and_hashes_match_reference": true,
+            "supported_links_match_reference": true,
+            "cross_chapter_links_omitted_with_warning_count": 0,
+            "isolated_application_venv_runtime_verified": true,
+            "logged_child_native_exit_code": 0,
+            "logged_job_parent_descendants_streams_writer_complete": true,
+            "known_location_calibre_verified": true,
+            "conversion_native0_and_full_streams_verified": true,
+            "conversion_cleanup_verified": true,
+            "actual_first_last_authored_page_markers_verified": true
+          },
+          "run_id": "3fcc19ff9ae44d51bb8622354add0cdd",
+          "source_sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c",
+          "manifest_sha256": "d25f740281453a1f668dbf94ffaa778d87f429474ad2e10424880601c1a6a277",
+          "console_log_sha256": "5efb0f4a36c6a99f7afe75244c94dbe37be8450848cec0016450192aedb9dfb2",
+          "run_manifest_sha256": "f1047a2141bf3f719192ff707945367e0da91c5758d7728b5492950a8c6fda59",
+          "runtime_versions": {
+            "powershell": "5.1.26100.9444",
+            "python": "3.14.8",
+            "pypdf": "6.19.0",
+            "calibre": "9.15.0"
+          },
+          "warnings": {
+            "planning": [],
+            "parser": [],
+            "parser_suppressed_count": 0,
+            "parser_message_truncated_count": 0
+          },
+          "outputs": [
+            {
+              "sequence": 1,
+              "sha256": "50d4b41a2aa7abbcf3edc6eb161bc090cb24c747f38c3270279a32a95ac73fc3",
+              "bytes": 44530,
+              "page_count": 1
+            },
+            {
+              "sequence": 2,
+              "sha256": "8bb891199f09728a71b360559b6afcaad3dc9267dd52284fa8f1dd0914c58acf",
+              "bytes": 44572,
+              "page_count": 1
+            },
+            {
+              "sequence": 3,
+              "sha256": "7b950fcd136691fb7a07c283a199c9c28a5577f49dabde00e3fd917e0c1fa0eb",
+              "bytes": 44554,
+              "page_count": 1
+            }
+          ]
+        },
+        "R03": {
+          "artifact_audit": "PASS",
+          "derived_checks": {
+            "output_count": 3,
+            "physical_page_count": 4,
+            "output_page_counts": [
+              1,
+              1,
+              2
+            ],
+            "physical_ranges": [
+              [
+                1,
+                1
+              ],
+              [
+                2,
+                2
+              ],
+              [
+                3,
+                4
+              ]
+            ],
+            "finalized_owner_manifest_log_authenticated": true,
+            "all_physical_pages_exactly_once_in_order": true,
+            "all_content_text_boxes_rotation_and_hashes_match_reference": true,
+            "supported_links_match_reference": true,
+            "cross_chapter_links_omitted_with_warning_count": 2,
+            "isolated_application_venv_runtime_verified": true,
+            "logged_child_native_exit_code": 0,
+            "logged_job_parent_descendants_streams_writer_complete": true,
+            "known_location_calibre_verified": true,
+            "conversion_native0_and_full_streams_verified": true,
+            "conversion_cleanup_verified": true,
+            "request_working_pdf_and_materialized_copy_logged": true,
+            "working_pdf_physical_pages": 4,
+            "actual_final_output_last_page_TOC_verified": true,
+            "external_viewer_display_independently_proved": false
+          },
+          "run_id": "5ccbf7c0e99e435d87ff61e94ee4feab",
+          "source_sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0",
+          "manifest_sha256": "ea596a4e5e10db0140982b07a57e1363048c1623dff67c4a6173f6ccdd02d183",
+          "console_log_sha256": "0e045545e48b43fdca05fdaacbdab763b6e3593598c8405f7f22a54c497f2357",
+          "run_manifest_sha256": "a3a14362639e82841decc509a24cb71acd8e0481dfbe13dba5d4b7809e598cae",
+          "runtime_versions": {
+            "powershell": "5.1.26100.9444",
+            "python": "3.14.8",
+            "pypdf": "6.19.0",
+            "calibre": "9.15.0"
+          },
+          "warnings": {
+            "planning": [
+              {
+                "code": "cross_chapter_link_dropped",
+                "source_order": null,
+                "depth": null,
+                "message": "Count: 2. Internal links to pages outside this chapter are omitted."
+              }
+            ],
+            "parser": [],
+            "parser_suppressed_count": 0,
+            "parser_message_truncated_count": 0
+          },
+          "outputs": [
+            {
+              "sequence": 1,
+              "sha256": "0e19ec000876711f9e99f9ee7b26eefea3eee11fbaf74a69af6162505aa26279",
+              "bytes": 47427,
+              "page_count": 1
+            },
+            {
+              "sequence": 2,
+              "sha256": "7dd03e1f9660dcf6c6a42834f39c287018d07c96cef339eca25c2eae2392e799",
+              "bytes": 47469,
+              "page_count": 1
+            },
+            {
+              "sequence": 3,
+              "sha256": "ddd79c309afe64cf1db12ae52c2bf6c23f75aaa79bae818af88fe04a928710f7",
+              "bytes": 50824,
+              "page_count": 2
+            }
+          ]
+        },
+        "R04": {
+          "row": "R04",
+          "user_reported": "PASS by reference to supplied short guide",
+          "artifact_audit": "REPORT_ONLY",
+          "no_child_log_or_native_BAT_receipt_assumed": true,
+          "no_absence_of_unrelated_publications_claim": true
+        }
+      },
+      "extra_auto_artifact_label": "Additional authored AZW3 Auto Level1 success; no separately reported extra human row",
+      "prior_preservation": {
+        "G01": {
+          "prior_report_file": "human-G01-audit01.json",
+          "prior_report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e",
+          "prior_public_sha256": "fb5ea9cfcd2fea4684601beeaf9c76445e6389f93ed0115407214ea7c3889a8c",
+          "prior_command_sha256": "52821d4f4dd4251b35db6ff06abdbce2e9ce73d1d36f2fef3bec328d1dd11337",
+          "output_file_count": 6,
+          "console_file_count": 3,
+          "total_file_count": 9,
+          "all_filenames_hash_bytes_identities_unchanged": true,
+          "unchanged_during_this_audit": true
+        },
+        "G02": {
+          "prior_report_file": "human-G02-audit01.json",
+          "prior_report_sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120",
+          "prior_public_sha256": "75f55041b9d89638a7950e266854b75a13d256bb14110f8cadbde575a40afe73",
+          "prior_command_sha256": "f042fea495f820f1f6a99fe6eb3545edab3899fc65852556639a339ce4c7f7bb",
+          "output_file_count": 9,
+          "console_file_count": 3,
+          "total_file_count": 12,
+          "all_filenames_hash_bytes_identities_unchanged": true,
+          "unchanged_during_this_audit": true
+        },
+        "G03": {
+          "prior_report_file": "human-G03-audit01.json",
+          "prior_report_sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d",
+          "prior_public_sha256": "2a06e6d7556b15f8f08423fcc0c19c0e28025dfe1ad9087e80dc25c6a35fdcee",
+          "prior_command_sha256": "d08e07ee6f83002a5d65480832348b7a5c99d7a4a5b9554294f331513c4e0729",
+          "output_file_count": 3,
+          "console_file_count": 3,
+          "total_file_count": 6,
+          "all_filenames_hash_bytes_identities_unchanged": true,
+          "unchanged_during_this_audit": true
+        }
+      },
+      "prior_preserved_member_count": 27,
+      "preservation": {
+        "candidate_both28_payloads": true,
+        "all_fixtures": true,
+        "package_assets_and_canonical_raw_streams_renders_publications": true,
+        "all27_prior_human_members_and_nine_receipt_seals": true,
+        "both_runtime_dependency_trees": true,
+        "full_original_and_copied_converter_trees": true
+      },
+      "actual_publication_count": 4,
+      "actual_output_count": 12,
+      "actual_physical_page_count": 23
+    },
+    "independent_final_review": {
+      "receipt": {
+        "file": "independent-final-human-spot02.json",
+        "bytes": 966869,
+        "sha256": "8f18085517f13be916570b4ec8fd45a12c5fee2edcc92da8fccc53bfcefdb813"
+      },
+      "checks_passed": 9080,
+      "failed": 0,
+      "scope": "Read-only exact authored run/source/package/dependency/preservation checks; GUI and outer BAT exits are not inferred.",
+      "public_summary": {
+        "R04": {
+          "artifact_or_outer_exit_receipt_available": false,
+          "human_reported": "PASS by reference to supplied short-guide multiple-file BAT rejection procedure.",
+          "no_unrelated_processing_proved_from_narrow_lookup": false,
+          "separate_native_exit_code": null
+        },
+        "actual_converter": {
+          "basename": "ebook-convert.exe",
+          "bytes": 36104,
+          "executable_matches_portable": true,
+          "fixed_file_version": "9.15.0.0",
+          "logged_actual_version": "9.15.0",
+          "role": "installed_known_location",
+          "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+          "whole_installation_equality_asserted": false
+        },
+        "actual_new_chapter_count": 12,
+        "actual_successful_new_run_count": 4,
+        "all27_prior_G01_G03_member_names_bytes_and_file_directory_identities_unchanged": true,
+        "candidate_assets": {
+          "SHA256SUMS.txt": {
+            "bytes": 178,
+            "sha256": "44d5b0f822a19c27929772d16647914fd8701a030572ab4d0dc1f4fb7a7ad39b"
+          },
+          "WinBookSplit-v1.0.0.zip": {
+            "bytes": 413958,
+            "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+          },
+          "release-manifest.json": {
+            "bytes": 11546,
+            "sha256": "125bc2b38bdc6ebcdbb08136a2ea9d7c79375b7849ed1d6fd47e5864496f437d"
+          }
+        },
+        "candidate_payload_preserved_file_counts": {
+          "app51": 28,
+          "app7": 28
+        },
+        "checks": {
+          "actual_audit_command_native_exit_observed": 0,
+          "failed": 0,
+          "passed": 9080,
+          "separate_outer_application_bat_exit_proved": false
+        },
+        "disposition": "PASS independent exact artifact/content/runtime/preservation review; human observations separately attributed.",
+        "exact_new_physical_pages_checked": 23,
+        "full_receipt": {
+          "auditor_script_sha256": "8e8f230875444e53ad96798efebdc6d4df4db220cedf2331da593fa9a6a941af",
+          "basename": "independent-final-human-spot02.json",
+          "bytes": 966869,
+          "sha256": "8f18085517f13be916570b4ec8fd45a12c5fee2edcc92da8fccc53bfcefdb813"
+        },
+        "human_report": {
+          "attribution_limit": "Short row reports do not separately restate prompt strings, viewer/page markers, physical page counts, runtimes or native exit codes. Actual UI/viewer outcomes rely on the user report by reference to the supplied guide; artifacts cannot independently prove GUI actions.",
+          "basename": "consolidated-human-report01.json",
+          "bytes": 2959,
+          "exact_message": "**R01 PASS**, R02 PASS, R03 PASS, R04 PASS",
+          "sha256": "6a4c8b6327555d408045e083f338d3921bdcd5c29efac87298ee568b3a97e38f"
+        },
+        "observed_utc": "2026-10-10T20:48:55.254050+00:00",
+        "prepared_app51_dependencies": {
+          "preserved_file_count": 1019,
+          "snapshot_sha256": "ea5c48bbfd8c303ca71e3eebbbea94f5c197e45bb09395bbed228a930607709a",
+          "unchanged_since_G03": true
+        },
+        "prior_preserved_member_count": 27,
+        "prior_report_seals": {
+          "G01": {
+            "basename": "human-G01-audit01.json",
+            "sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e",
+            "size_bytes": 596971
+          },
+          "G02": {
+            "basename": "human-G02-audit01.json",
+            "sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120",
+            "size_bytes": 643192
+          },
+          "G03": {
+            "basename": "human-G03-audit01.json",
+            "sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d",
+            "size_bytes": 543325
+          }
+        },
+        "projected_utc": "2026-10-10T20:50:18.922438+00:00",
+        "proof_limits": [
+          "Exact user reports supply Explorer/drop/no-input/viewer/rejection observations by reference to supplied guide; no independently captured GUI or outer BAT native exit receipt.",
+          "Extra AZW3 automatic success is separately classified actual artifact evidence; no additional detailed human PASS is attributed.",
+          "Every reopened physical page/content/geometry/rotation agrees with authored source or existing native-conversion reference; no renderer or app was rerun.",
+          "Installed converter executable equality and actual logged version do not prove entire installation equality, a new dependency installation, or a clean Windows/Sandbox installation.",
+          "Only exact authorized authored paths were read. Raw logs and personal paths remain external."
+        ],
+        "retained_failed_auditor_attempt": {
+          "auditor_script_sha256": "e559aee6c0e5950f3b47e0d64ddfb37de8799239811e62362c67bcddcaa1430e",
+          "basename": "independent-final-human-spot01.json",
+          "bytes": 425391,
+          "classification": "External auditor incorrectly required PDF-only argv length for an ebook invocation. Original script and receipt retained. No application defect or rerun.",
+          "failed": 1,
+          "failed_check": "extra_AZW3_Auto1 exact known candidate engine transport argv",
+          "fresh02_correction": "Keep all candidate source/session/isolated runtime argv bindings; accept exactly the ebook suffix --calibre-path binding the actual installed known-location executable and --conversion-timeout 1800.",
+          "passed": 4306,
+          "sha256": "7facacec04e4af3cfd97b30b7a2a2d72371b14cfb768be341bf23d5ffc8b9b1b",
+          "success": false
+        },
+        "rows": [
+          {
+            "case": "R01",
+            "confirmed_plan_sha256": "aafd63288c0d0a7d3a8981f6fa7c1dc020a1cf918a4c6c833fda2d4ee09cd42a",
+            "console_run_id": "82a7fdcb06ac43f2b520b72735c8893c",
+            "conversion_generated_pdf_sha256": null,
+            "converter_source": null,
+            "exact_pages_checked": 12,
+            "log_bytes": 22495,
+            "log_sha256": "8b0ba66ee41b442f06c4cab46cf221cedb78a49bd7b2bc289c05d23387bc47ba",
+            "mode": "manual",
+            "outer_launcher_native_exit_proved": false,
+            "output_page_counts": [
+              3,
+              3,
+              6
+            ],
+            "outputs": [
+              {
+                "basename": "01 - Section (Page 1-3).pdf",
+                "bytes": 3235,
+                "page_count": 3,
+                "range": [
+                  0,
+                  3
+                ],
+                "sha256": "8336e80b9525255f8409621fbc83a87ca8ba9bf3237b359dc0a6c24d8d631b56"
+              },
+              {
+                "basename": "02 - Section (Page 4-6).pdf",
+                "bytes": 3242,
+                "page_count": 3,
+                "range": [
+                  3,
+                  6
+                ],
+                "sha256": "5b677c992549da0e066c9eae86d15179d7715c7c76bf95625e37688eb5cf8e4c"
+              },
+              {
+                "basename": "03 - Section (Page 7-12).pdf",
+                "bytes": 5232,
+                "page_count": 6,
+                "range": [
+                  6,
+                  12
+                ],
+                "sha256": "03267d1cb763972140ba7ade6312b4e0d2350026f2ac559d441dbe9d946707ce"
+              }
+            ],
+            "physical_pages": 12,
+            "publication_manifest_sha256": "3b6ed97a2659651339db3d5f2c4774f353e83462d7fcf65ef5c370d31541125a",
+            "publication_run_id": "2633bf1bd2874834ab0d9debdce16c3f",
+            "ranges": [
+              [
+                0,
+                3
+              ],
+              [
+                3,
+                6
+              ],
+              [
+                6,
+                12
+              ]
+            ],
+            "reply_actions": [
+              "retry",
+              "starts",
+              "execute"
+            ],
+            "run_manifest_sha256": "8a8547ea33e2326db6e8f5142ae6cfe88b898631b08a8cac241d3faac3e95811",
+            "runtime_source": "application_venv",
+            "runtime_versions": {
+              "calibre": null,
+              "powershell": "5.1.26100.9444",
+              "pypdf": "6.19.0",
+              "python": "3.14.8"
+            },
+            "source_basename": "No outline.pdf",
+            "source_sha256": "8ce1dd6812643a6fb8cdfab482cb23ed1f93c466d61cef087787e98f812d68a9",
+            "success": true,
+            "viewer_open_proved_by_artifacts": false,
+            "working_pdf_request_logged": false
+          },
+          {
+            "case": "extra_AZW3_Auto1",
+            "confirmed_plan_sha256": "7081324830334a808c373c4eb9e0132e11974b00211fa44924d2883477d35873",
+            "console_run_id": "8ce76f500f9d4b74b88040216b66d207",
+            "conversion_generated_pdf_sha256": "a62ae5dace59e817ec0f9288b6c70491bf8f44eaab522e5c34faab2ba68363ac",
+            "converter_source": "known_location",
+            "exact_pages_checked": 4,
+            "log_bytes": 76757,
+            "log_sha256": "b25cdfc2b7c2556093877aa1e4dfbb9954fae5649b26c3e47639b37cc5d7b273",
+            "mode": "1",
+            "outer_launcher_native_exit_proved": false,
+            "output_page_counts": [
+              1,
+              1,
+              2
+            ],
+            "outputs": [
+              {
+                "basename": "01 - Chapter One.pdf",
+                "bytes": 47395,
+                "page_count": 1,
+                "range": [
+                  0,
+                  1
+                ],
+                "sha256": "f52510aa06ce714e79cf3c81f3cef346c24de16ce7d6ad5fb072e32aaf564d46"
+              },
+              {
+                "basename": "02 - Chapter Two.pdf",
+                "bytes": 47437,
+                "page_count": 1,
+                "range": [
+                  1,
+                  2
+                ],
+                "sha256": "19372271a143c4bc088e7a9473b26125a5b603b789af1d82bd71e3c7f8ec530b"
+              },
+              {
+                "basename": "03 - Chapter Three.pdf",
+                "bytes": 50796,
+                "page_count": 2,
+                "range": [
+                  2,
+                  4
+                ],
+                "sha256": "e4d2396257b84576306a321305df0e895ba936cd50bdd52fd43adcc7717ee603"
+              }
+            ],
+            "physical_pages": 4,
+            "publication_manifest_sha256": "24339dac1402e5cffba06a61a1c6e96d43ff99e92b57bd9d90518aebb5c34cf6",
+            "publication_run_id": "10aa82825d1648f1b65e0745a13e94b3",
+            "ranges": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                4
+              ]
+            ],
+            "reply_actions": [
+              "execute"
+            ],
+            "run_manifest_sha256": "06c2ebbad0b301785d32430f450335f3317ace898da9ee1d96aebd4f648a496f",
+            "runtime_source": "application_venv",
+            "runtime_versions": {
+              "calibre": "9.15.0",
+              "powershell": "5.1.26100.9444",
+              "pypdf": "6.19.0",
+              "python": "3.14.8"
+            },
+            "source_basename": "Book.azw3",
+            "source_sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0",
+            "success": true,
+            "viewer_open_proved_by_artifacts": false,
+            "working_pdf_request_logged": false
+          },
+          {
+            "case": "R02",
+            "confirmed_plan_sha256": "0e588cc7ff47d9e298c05cb3553cdfa6d6fdf0a312c6805207a6ff2b87f0c4ca",
+            "console_run_id": "b44fc4d88cc74a5cbcbe30fa845319a4",
+            "conversion_generated_pdf_sha256": "d218e75253bb75daa72d0af44b0b78afd46515ba925f3b7e70e4747a377307e0",
+            "converter_source": "known_location",
+            "exact_pages_checked": 3,
+            "log_bytes": 66632,
+            "log_sha256": "5efb0f4a36c6a99f7afe75244c94dbe37be8450848cec0016450192aedb9dfb2",
+            "mode": "1",
+            "outer_launcher_native_exit_proved": false,
+            "output_page_counts": [
+              1,
+              1,
+              1
+            ],
+            "outputs": [
+              {
+                "basename": "01 - Chapter One.pdf",
+                "bytes": 44530,
+                "page_count": 1,
+                "range": [
+                  0,
+                  1
+                ],
+                "sha256": "50d4b41a2aa7abbcf3edc6eb161bc090cb24c747f38c3270279a32a95ac73fc3"
+              },
+              {
+                "basename": "02 - Chapter Two.pdf",
+                "bytes": 44572,
+                "page_count": 1,
+                "range": [
+                  1,
+                  2
+                ],
+                "sha256": "8bb891199f09728a71b360559b6afcaad3dc9267dd52284fa8f1dd0914c58acf"
+              },
+              {
+                "basename": "03 - Chapter Three.pdf",
+                "bytes": 44554,
+                "page_count": 1,
+                "range": [
+                  2,
+                  3
+                ],
+                "sha256": "7b950fcd136691fb7a07c283a199c9c28a5577f49dabde00e3fd917e0c1fa0eb"
+              }
+            ],
+            "physical_pages": 3,
+            "publication_manifest_sha256": "d25f740281453a1f668dbf94ffaa778d87f429474ad2e10424880601c1a6a277",
+            "publication_run_id": "3fcc19ff9ae44d51bb8622354add0cdd",
+            "ranges": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                3
+              ]
+            ],
+            "reply_actions": [
+              "execute"
+            ],
+            "run_manifest_sha256": "f1047a2141bf3f719192ff707945367e0da91c5758d7728b5492950a8c6fda59",
+            "runtime_source": "application_venv",
+            "runtime_versions": {
+              "calibre": "9.15.0",
+              "powershell": "5.1.26100.9444",
+              "pypdf": "6.19.0",
+              "python": "3.14.8"
+            },
+            "source_basename": "Book.epub",
+            "source_sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c",
+            "success": true,
+            "viewer_open_proved_by_artifacts": false,
+            "working_pdf_request_logged": false
+          },
+          {
+            "case": "R03",
+            "confirmed_plan_sha256": "822f7c6a0c40b73a83b78760a2cdaa9cb44137fa5ed833c4514336c439e5b65f",
+            "console_run_id": "4370c1f441c245d4909543f76bf961aa",
+            "conversion_generated_pdf_sha256": "3c035c5abb0996d68a96d425c2017efea3ebd37441dbd7a9270e1f82249c41ea",
+            "converter_source": "known_location",
+            "exact_pages_checked": 4,
+            "log_bytes": 79703,
+            "log_sha256": "0e045545e48b43fdca05fdaacbdab763b6e3593598c8405f7f22a54c497f2357",
+            "mode": "manual",
+            "outer_launcher_native_exit_proved": false,
+            "output_page_counts": [
+              1,
+              1,
+              2
+            ],
+            "outputs": [
+              {
+                "basename": "01 - Section (Page 1-1).pdf",
+                "bytes": 47427,
+                "page_count": 1,
+                "range": [
+                  0,
+                  1
+                ],
+                "sha256": "0e19ec000876711f9e99f9ee7b26eefea3eee11fbaf74a69af6162505aa26279"
+              },
+              {
+                "basename": "02 - Section (Page 2-2).pdf",
+                "bytes": 47469,
+                "page_count": 1,
+                "range": [
+                  1,
+                  2
+                ],
+                "sha256": "7dd03e1f9660dcf6c6a42834f39c287018d07c96cef339eca25c2eae2392e799"
+              },
+              {
+                "basename": "03 - Section (Page 3-4).pdf",
+                "bytes": 50824,
+                "page_count": 2,
+                "range": [
+                  2,
+                  4
+                ],
+                "sha256": "ddd79c309afe64cf1db12ae52c2bf6c23f75aaa79bae818af88fe04a928710f7"
+              }
+            ],
+            "physical_pages": 4,
+            "publication_manifest_sha256": "ea596a4e5e10db0140982b07a57e1363048c1623dff67c4a6173f6ccdd02d183",
+            "publication_run_id": "5ccbf7c0e99e435d87ff61e94ee4feab",
+            "ranges": [
+              [
+                0,
+                1
+              ],
+              [
+                1,
+                2
+              ],
+              [
+                2,
+                4
+              ]
+            ],
+            "reply_actions": [
+              "request_working_pdf",
+              "starts",
+              "execute"
+            ],
+            "run_manifest_sha256": "a3a14362639e82841decc509a24cb71acd8e0481dfbe13dba5d4b7809e598cae",
+            "runtime_source": "application_venv",
+            "runtime_versions": {
+              "calibre": "9.15.0",
+              "powershell": "5.1.26100.9444",
+              "pypdf": "6.19.0",
+              "python": "3.14.8"
+            },
+            "source_basename": "Book.azw3",
+            "source_sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0",
+            "success": true,
+            "viewer_open_proved_by_artifacts": false,
+            "working_pdf_request_logged": true
+          }
+        ],
+        "schema_version": 1,
+        "scope": "External read-only exact four additional pairs plus27 prior human members, authored canonical inputs/references,28-member payloads, original assets and prepared app51 dependencies. No other private-folder traversal, UI/application/converter invocation, render, cleanup, settings or source edits.",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "success": true,
+        "task_id": "M5-T03"
+      }
+    },
+    "completion_scope": "G01-G03 and R01-R04 PASS under D13. Original G04-G16 remain SUPERSEDED; removed variants remain native-only. The additional AZW3 Auto run is audited artifact evidence, not another user-reported GUI row."
+  },
+  "retained_G03_metadata_probe_trial": {
+    "status": "FAILED external Unicode stdout display; separate successful UTF8 re-read/audit.",
+    "receipt": {
+      "file": "human-G03-metadata-probe01-failure.json",
+      "bytes": 1087,
+      "sha256": "548a2d7650918c6bfc3615ae278d0501478371af247c281999ad4e7c1a6e5df9"
+    },
+    "limit": "Retrospective preparation receipt, not captured separate native stdout/stderr; original tool output retained. No application/audit/UI invocation or file change from this trial."
+  },
+  "retained_final_independent_review_trial": {
+    "status": "FAILED external auditor-only assertion; separate fresh independent02 PASS",
+    "passed_before_failure": 4306,
+    "failed": 1,
+    "failed_check": "extra_AZW3_Auto1 exact known candidate engine transport argv",
+    "cause": "PDF-only exact engine argv length11 rejected expected extra Calibre path and conversion timeout arguments on ebook runs.",
+    "correction": "Retain all engine/source/output/session argv predicates; require exactly --calibre-path bound known-location converter and --conversion-timeout1800 tail for ebooks, or empty tail for PDF.",
+    "application_defect_or_rerun": false,
+    "failure_receipt": {
+      "file": "independent-final-human-spot01.json",
+      "bytes": 425391,
+      "sha256": "7facacec04e4af3cfd97b30b7a2a2d72371b14cfb768be341bf23d5ffc8b9b1b"
+    },
+    "original_script": {
+      "file": "independent-final-human-spot01.py",
+      "bytes": 31656,
+      "sha256": "e559aee6c0e5950f3b47e0d64ddfb37de8799239811e62362c67bcddcaa1430e"
+    },
+    "fresh_receipt": {
+      "file": "independent-final-human-spot02.json",
+      "bytes": 966869,
+      "sha256": "8f18085517f13be916570b4ec8fd45a12c5fee2edcc92da8fccc53bfcefdb813"
+    },
+    "fresh_script": {
+      "file": "independent-final-human-spot02.py",
+      "bytes": 31776,
+      "sha256": "8e8f230875444e53ad96798efebdc6d4df4db220cedf2331da593fa9a6a941af"
+    }
+  }
+}

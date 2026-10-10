@@ -998,7 +998,7 @@
       "goal": "Catch dependencies on the development checkout and validate the actual user workflow.",
       "actions": [
         "Build an unreleased candidate and extract into a clean unrelated path with fresh venv and controlled dependency resolution.",
-        "Run both supported PowerShell hosts and real Explorer no/input/multiple/Unicode/manual/auto/fallback scenarios.",
+        "Run both supported PowerShell hosts and real Explorer no/input/multiple/Unicode/manual/auto/fallback scenarios using the user-authorized D13 consolidated human route; retain explicit native-only labels for retired GUI variants.",
         "Run real EPUB and AZW3 conversions and inspect representative rendered slices.",
         "Record candidate hash, exact environment and human outcomes; do not label skipped checks passed."
       ],
@@ -1012,7 +1012,7 @@
         "Cross-host/Explorer/Calibre results",
         "Actionable defect list"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M5-T02"
       ],
@@ -1021,8 +1021,14 @@
         "AC-088",
         "AC-089"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M5-T03-candidate.md",
+        "evidence/M5-T03-candidate.json",
+        "evidence/M5-T03-manual-smoke.md",
+        "evidence/M5-T03-human-smoke.md",
+        "evidence/M5-T03-human-smoke.json"
+      ],
+      "implementation_commit": "e7b92dffe607cd4e7074ea5da4562d8a8e3ad410",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
