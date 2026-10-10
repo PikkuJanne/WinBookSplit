@@ -828,7 +828,7 @@
         "Invariant tests",
         "Cross-host error evidence"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M4-T02"
       ],
@@ -837,8 +837,11 @@
         "AC-074",
         "AC-075"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M4-T03-fault-regression.md",
+        "evidence/M4-T03-fault-regression.json"
+      ],
+      "implementation_commit": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

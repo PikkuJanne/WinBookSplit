@@ -1,5 +1,14 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped implementation and acceptance are complete through **M4-T03**.
+Next action: **M4-T04 — Test real EPUB and AZW3 conversion**. Stop at that task boundary.
+
+Clean C **d12beb8f4b20a9f62f76c109a2f948629fb7ec81**, tree **ab9a9b06740a08875c126f97a9d8488493bef171**, passes targeted **4/4** and full **21/21**, each native 0: **422 Python methods**, **112/112 Pester per actual PS5.1/PS7**, no skips. All 146 mapped raw files equal Git, digest **805d3373e4dbc525b9feeb8c2b32d6cffce33f2d9bcc74807fcb7dc37d11fec1**; all 15 app files are byte-identical to merged PR23 main **adfb8bd29353d43c6a124ce2bf5bdafea542f31c**. AC-073/074/075 pass combined real mid-write isolation, independent seeded ownership and complete same-source native cross-host error suites. See [T03 evidence](evidence/M4-T03-fault-regression.md) and [machine record](evidence/M4-T03-fault-regression.json).
+
+Normally pushed C was clean/live SYNCED at **2026-10-10T12:08:50.186784+00:00**. [Draft PR24](https://github.com/PikkuJanne/WinBookSplit/pull/24) is scoped to T03; M4-T05 owns cumulative CI/review/integration. E's actual push/equality receipt follows externally after its commit, without a future/self SHA. Fresh successful workspaces were removed only after verified shutdown/ownership; failed isolation/pre-C and historical reports remain retained. Their exact limits and UNKNOWN historical worker/process causes stay recorded. Human M3-T01 remains absolutely closed. No new human/GUI, CI, clean-machine, package or public release completion is claimed.
+
+## Historical checkpoint through M4-T02
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped implementation and acceptance are complete through **M4-T02**.
 Next action: **M4-T03 — Expand regression and fault-injection coverage**. Stop at that task boundary.
 
