@@ -975,7 +975,7 @@
         "Provenance/checksum generation",
         "Package-content tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M5-T01"
       ],
@@ -984,8 +984,11 @@
         "AC-085",
         "AC-086"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M5-T02-package.md",
+        "evidence/M5-T02-package.json"
+      ],
+      "implementation_commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

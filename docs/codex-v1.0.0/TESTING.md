@@ -1,5 +1,23 @@
 # Test strategy and evidence
 
+## M5-T02 package checks
+
+`tools/release/build_package.py` builds/independently verifies an explicit
+commit's 28-file allowlist and three external assets. See its README for the
+actual CLI recipe, byte provenance, complete dependency paths, noncircular
+hashes, exclusive outputs and incomplete-build marker. Package unit/integration
+controls in `tests/python/test_release_package.py` use owned real Git repositories
+and forged asset hashes; the shared Python route discovers them automatically.
+The source guard includes release tools and their allowlist. The Python child
+uses a bounded 600-second deadline; historical failed 300-second M5-T01 evidence
+is retained, with no old timeout reclassified as a pass.
+
+AC-084/085/086 require an actual committed-candidate build, full member inspection,
+independent Git/file/archive/manifest/checksum comparisons and missing/version/
+unsafe-member negatives. Repeated actual builds establish reproducibility only
+for the recorded tools. This task does not satisfy M5-T03 or M6's separate
+extracted-candidate Explorer/Windows/Calibre, final asset or download gates.
+
 ## Test layers
 
 Characterize existing behavior in M0 with generated safe inputs, then convert findings into regression tests. Python unit tests cover parser/bookmark normalization/plan invariants and filename rules. Integration tests create PDFs with actual pypdf, execute the engine, reopen slices and verify page identity/order. Pester covers PowerShell binding, paths, discovery, child process handling and exit propagation. Real Windows tests cover launcher/Explorer, encoding, cancellation, filesystem behavior and actual EPUB/AZW3 conversion.

@@ -77,5 +77,5 @@ guarantee SmartScreen acceptance. A future public release must provide its
 actual tested ZIP, manifest and checksums before this becomes release verification.
 
 Return to [usage examples](../README.md#scripted-examples). The older dependency
-decisions and observations remain in [the historical setup record](codex-v1.0.0/SUPPORT_AND_SETUP.md).
-Development setup and tests are documented separately in [tests/README.md](../tests/README.md).
+decisions and observations remain in [the historical source setup record](https://github.com/PikkuJanne/WinBookSplit/blob/main/docs/codex-v1.0.0/SUPPORT_AND_SETUP.md).
+Development setup and tests are documented separately in [the source repository](https://github.com/PikkuJanne/WinBookSplit/blob/main/tests/README.md).

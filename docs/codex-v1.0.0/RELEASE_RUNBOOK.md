@@ -12,6 +12,12 @@ Freeze a clean tested **release commit R** on main. Record R, its tree/payload i
 
 ## Gate B: deliberate package from R
 
+The M5-T02 builder/validator is `tools/release/build_package.py`, with explicit
+`tools/release/payload.json` membership and the source recipe in
+`tools/release/README.md`. Use its committed tooling bytes and pass R as a full
+commit ID. Its successful candidate build establishes package integrity only;
+it does not authorize skipping Gate A, exact-asset Gate C or publication checks.
+
 Implement/reuse a small package builder that accepts an explicit source commit and allowlists runtime files. Include entry points, extracted Python engine, any required PowerShell helpers, canonical version, requirements/setup instructions, README, LICENSE, actual third-party notices and useful icon(s). Exclude `.git`, `.venv`, tests, handoff docs/tools, caches, logs, textbooks, credentials, converter work files, developer-only scripts and the large poster unless deliberately justified. Do not ZIP the working directory indiscriminately or assume source-archive downloads are a ready-to-run distribution.
 
 Build `WinBookSplit-v1.0.0.zip` from R in a clean controlled build directory. Build `release-manifest.json` identifying R, version, dependency set, allowlisted ZIP paths and per-file hashes, archive hash/size, and builder/tool versions. Exclude self-hashes: a manifest never includes its own hash inside itself. Create `SHA256SUMS.txt` listing the ZIP and release-manifest (and other explicit assets, if any), not SHA256SUMS itself. Hash the actual final bytes after all metadata/signing operations. Pin file ordering and archive timestamps where practical; otherwise promise a repeatable recipe and per-file provenance rather than untested byte-reproducibility.

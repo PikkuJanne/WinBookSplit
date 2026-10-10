@@ -16,7 +16,7 @@ nonzero statuses. Paths and document text must not become shell commands.
 Reproduce a bug before fixing it; keep mechanical refactors separate from behavior.
 
 Use the existing tests and pinned isolated developer setup described in
-[tests/README.md](tests/README.md). Run checks affected by the change and retain
+[tests/README.md in the source repository](https://github.com/PikkuJanne/WinBookSplit/blob/main/tests/README.md). Run checks affected by the change and retain
 actual commands, versions, source identity, outcomes and skipped scopes.
 Unit/syntax results are not end-to-end Windows, Calibre, GUI or package results.
 Generated fixtures belong in the test recipe, not private-document check-ins.
