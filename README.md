@@ -218,6 +218,11 @@ created directory; this does not claim arbitrary long-path or UNC support.
    - Records the exact page ranges, titles found, and any errors encountered during binary extraction.
 
 **Limitations / When not to use**
+- PDF fidelity and navigation: chapters receive safe title/source-author metadata
+  and a start bookmark. Local links are remapped only within each chapter;
+  unavailable cross-chapter destinations are dropped with visible warnings.
+  See [PDF fidelity and navigation](docs/PDF_FIDELITY.md) for static annotations,
+  metadata limits and the generated structure/render test scope.
 - Scanned Images: If the PDF is just photos of pages with no OCR or metadata, "Auto-Mode" will fail. Use Manual Mode instead.
 - Encrypted PDFs: Files with strict Owner Passwords may prevent the script from extracting pages.
 - Complex Outlines: Some PDFs have broken bookmark links, the script skips these to prevent creating corrupt or empty output files.

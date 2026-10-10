@@ -143,6 +143,7 @@ def source_manifest() -> dict[str, str]:
         "tests/launcher/README.md",
         "tests/ux/README.md",
         "tests/support/README.md",
+        "tests/fidelity/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -1058,6 +1059,14 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validator = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(validator)
             validator.validate_support_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
+        elif kind == "fidelity":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_fidelity_receipt_validator", ROOT / "tests/fidelity/validate_fidelity_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_fidelity_report(child, step.get("requested_shell_paths", []),
+                                               step.get("requested_renderer_path", ""),
+                                               step.get("requested_secondary_python_path", ""))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1516,6 +1525,23 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "support")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"fidelity", "full"}:
+            child_report = work / "fidelity-regression.json"
+            render_directory = args.report.with_name(args.report.stem + "-renders")
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/fidelity/characterize_fidelity.py"),
+                       "--report", str(child_report), "--renderer-path", str(args.renderer_path),
+                       "--secondary-python-path", str(args.secondary_python_path),
+                       "--render-directory", str(render_directory)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "fidelity-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_renderer_path": str(args.renderer_path),
+                    "requested_secondary_python_path": str(args.secondary_python_path),
+                    "render_directory": str(render_directory),
+                    "meaning": "Generated PDF text/image/geometry/annotation structure, metadata and navigation; actual native splits and same-renderer pixel comparison with two developer renderers",
+                    **run_command(command, work, environment=environment, timeout=600)}
+            attach_child_report(step, child_report, "fidelity")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1535,10 +1561,12 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/cli/launcher/full acceptance")
+    parser.add_argument("--renderer-path", type=Path, help="Absolute developer Poppler pdftoppm for fidelity/full")
+    parser.add_argument("--secondary-python-path", type=Path, help="Absolute isolated developer Python with PDFium for fidelity/full")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
                         help="Absolute actual powershell.exe/pwsh.exe; repeat for both hosts")
     parser.add_argument("--failure-probe", choices=("native", "python", "pester"))
@@ -1563,16 +1591,22 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
             raise ValueError("Diagnostics, paths, conversion, runtime, process, outcomes, CLI, launcher and UX require both explicit distinct supported shell hosts")
         if not args.failure_probe and args.layer in {"conversion", "runtime", "cli", "launcher", "ux", "support", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
                 raise ValueError("Conversion/runtime/cli/launcher/full requires the existing absolute actual pinned --calibre-path")
             args.calibre_path = args.calibre_path.resolve()
+        if not args.failure_probe and args.layer in {"fidelity", "full"}:
+            for name in ("renderer_path", "secondary_python_path"):
+                path = getattr(args, name)
+                if path is None or not path.is_absolute() or not path.is_file():
+                    raise ValueError("Fidelity/full requires existing absolute --renderer-path and --secondary-python-path")
+                setattr(args, name, path.resolve())
         report = execute(args)
         with args.report.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(report, stream, indent=2, ensure_ascii=True)

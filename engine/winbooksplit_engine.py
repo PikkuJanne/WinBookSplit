@@ -9,6 +9,7 @@ import stat
 import uuid
 import importlib.util
 import time
+import math
 import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
@@ -36,8 +37,9 @@ def result_exit_code(code):
 
 
 try:
-    from pypdf import PdfReader, PdfWriter
-    from pypdf.generic import IndirectObject, NullObject
+    from pypdf import PageObject, PdfReader, PdfWriter, __version__ as PYPDF_VERSION
+    from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, IndirectObject, NameObject,
+                               NullObject, TextStringObject)
 except ImportError as error:
     if __name__ != "__main__":
         raise
@@ -255,7 +257,7 @@ def _pdf_object(value):
     return value.get_object() if isinstance(value, IndirectObject) else value
 
 
-def _preflight_bookmark_trees(reader):
+def _preflight_bookmark_trees(reader, *, include_outline=True):
     """Bound only outline/name-tree retrieval before pypdf's recursive parsing."""
     catalog = getattr(reader, "root_object", None)
     if catalog is None:  # Callable normalization also accepts synthetic readers.
@@ -264,7 +266,7 @@ def _preflight_bookmark_trees(reader):
         raise _outline_failure("malformed_outline", "The PDF catalog is not a dictionary.")
     named = {}
     roots = []
-    if "/Outlines" in catalog:
+    if include_outline and "/Outlines" in catalog:
         root = _pdf_object(catalog["/Outlines"])
         if not isinstance(root, NullObject):
             if not isinstance(root, dict):
@@ -553,7 +555,10 @@ def plan_level2(reader, total_pages):
 
 def log_bookmark_warnings(warnings):
     for warning in warnings:
-        log(f"[WARNING] {warning['code']} (outline {warning['source_order']}, depth {warning['depth']}): {warning['message']}")
+        if warning["source_order"] is None and warning["depth"] is None:
+            log(f"[WARNING] {warning['code']}: {warning['message']}")
+        else:
+            log(f"[WARNING] {warning['code']} (outline {warning['source_order']}, depth {warning['depth']}): {warning['message']}")
 
 
 class PlanError(ValueError):
@@ -636,6 +641,189 @@ class PreparedSplit:
     _binding: tuple
 
 
+MAX_PDF_ANNOTATIONS = 10000
+STATIC_ANNOTATIONS = {"/Text", "/Highlight", "/Square"}
+ANNOTATION_ACTIONS = {"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread", "/URI", "/Sound", "/Movie", "/Hide",
+                      "/Named", "/SubmitForm", "/ResetForm", "/ImportData", "/JavaScript", "/SetOCGState",
+                      "/Rendition", "/Trans", "/GoTo3DView"}
+ANNOTATION_FIELDS = {"/Type", "/Subtype", "/Rect", "/Contents", "/NM", "/M", "/F", "/C", "/CA", "/BS",
+                     "/Border", "/AP", "/AS", "/T", "/Open", "/Name", "/Subj", "/QuadPoints", "/InkList",
+                     "/L", "/LE", "/IC", "/RD", "/IT", "/CL", "/Rotate", "/DA", "/Q", "/DS", "/RC",
+                     "/CreationDate", "/State", "/StateModel", "/Vertices"}
+DESTINATION_FITS = {"/Fit": 0, "/FitB": 0, "/FitH": 1, "/FitV": 1, "/FitBH": 1, "/FitBV": 1, "/XYZ": 3, "/FitR": 4}
+FIDELITY_MESSAGES = {
+    "cross_chapter_link_dropped": "Internal links to pages outside this chapter are omitted.",
+    "navigation_link_dropped": "Malformed, unresolved or unsupported link/page actions are omitted.",
+    "annotation_dropped": "Annotations outside the permitted static annotation subset are omitted.",
+    "annotation_relation_dropped": "Unpreserved annotation attributes and popup/reply relationships are omitted.",
+    "article_navigation_dropped": "Document article-thread navigation is omitted.",
+    "metadata_omitted": "Unreadable or non-text source author/title metadata is omitted.",
+    "metadata_normalized": "Source author/title metadata is bounded and has unsafe controls removed."}
+
+
+def _metadata_text(value):
+    if type(value) not in {str, TextStringObject}:
+        return None
+    return " ".join("".join(char for char in value if unicodedata.category(char) not in
+                            {"Cc", "Cf", "Cs", "Zl", "Zp"}).split())[:256].strip()
+
+
+def _source_metadata(reader):
+    metadata, counts = {}, {}
+    try:
+        original = getattr(reader, "metadata", None) or {}
+        for field in ("/Author", "/Title"):
+            if field not in original:
+                continue
+            value = _pdf_object(original[field])
+            safe = _metadata_text(value)
+            if not safe:
+                counts["metadata_omitted"] = counts.get("metadata_omitted", 0) + 1
+            else:
+                metadata[field] = safe
+                if safe != value:
+                    counts["metadata_normalized"] = counts.get("metadata_normalized", 0) + 1
+    except Exception:
+        counts["metadata_omitted"] = counts.get("metadata_omitted", 0) + 1
+    return metadata, counts
+
+
+def _destination_details(reader, value, named):
+    value = _pdf_object(value)
+    if isinstance(value, str):
+        value = _pdf_object(named.get(value))
+    if isinstance(value, dict):
+        value = _pdf_object(value.get("/D"))
+    if not isinstance(value, (list, tuple)) or len(value) < 2:
+        return None
+    reference, fit = value[:2]
+    if not isinstance(reference, IndirectObject) or reference.pdf is not reader or not isinstance(fit, str) or fit not in DESTINATION_FITS \
+            or len(value) != DESTINATION_FITS[fit] + 2:
+        return None
+    page = reader.get_page_number(reference.get_object())
+    if type(page) is not int or not 0 <= page < len(reader.pages) or reader.pages[page].indirect_reference != reference:
+        return None
+    args = []
+    for raw in value[2:]:
+        raw = _pdf_object(raw)
+        if isinstance(raw, NullObject):
+            if fit == "/FitR":
+                return None
+            args.append(None)
+        elif isinstance(raw, (int, float)) and not isinstance(raw, bool) and math.isfinite(raw):
+            args.append(float(raw))
+        else:
+            return None
+    return page, str(fit), args
+
+
+def _inert_annotation_value(value):
+    """Bound cloning of permitted annotation fields; reject hidden page/catalog refs."""
+    pending, seen, count = [(value, 0)], set(), 0
+    while pending:
+        item, depth = pending.pop()
+        item = _pdf_object(item)
+        count += 1
+        if count > MAX_PDF_ANNOTATIONS or depth > MAX_OUTLINE_DEPTH:
+            return False
+        if isinstance(item, (dict, list)):
+            if id(item) in seen:
+                continue
+            seen.add(id(item))
+            if isinstance(item, dict):
+                kind = item.get("/Type")
+                action = item.get("/S")
+                if (isinstance(kind, str) and kind in {"/Page", "/Pages", "/Catalog", "/Action"}) \
+                        or (isinstance(action, str) and action in ANNOTATION_ACTIONS) \
+                        or any(key in item for key in ("/AA", "/A", "/JS", "/Next")):
+                    return False
+                pending.extend((child, depth + 1) for child in item.values())
+            else:
+                pending.extend((child, depth + 1) for child in item)
+    return True
+
+
+def _finite_coordinates(value, *, multiple):
+    value = _pdf_object(value)
+    return isinstance(value, (list, tuple)) and 0 < len(value) <= MAX_PDF_ANNOTATIONS \
+        and len(value) % multiple == 0 and all(isinstance(_pdf_object(item), (int, float))
+            and not isinstance(_pdf_object(item), bool) and math.isfinite(_pdf_object(item)) for item in value)
+
+
+def _chapter_annotations(reader, start, end, named):
+    """Describe only the permitted static subset and local destinations, without mutation."""
+    records, counts, examined = [], {}, 0
+    def warn(code):
+        counts[code] = counts.get(code, 0) + 1
+    for page_index in range(start, end):
+        page = reader.pages[page_index]
+        if not isinstance(page, dict):
+            continue  # Existing callable planner fixtures have synthetic pages.
+        if "/B" in page:
+            warn("article_navigation_dropped")
+        if "/AA" in page:
+            warn("navigation_link_dropped")
+        annotations = _pdf_object(page.get("/Annots", []))
+        if not isinstance(annotations, list):
+            warn("annotation_dropped")
+            continue
+        for raw in annotations:
+            examined += 1
+            if examined > MAX_PDF_ANNOTATIONS:
+                raise PlanError("invalid_document", "PDF annotations exceed the bounded inspection limit.")
+            annotation = _pdf_object(raw)
+            if not isinstance(annotation, dict):
+                warn("annotation_dropped")
+                continue
+            subtype, destination = annotation.get("/Subtype"), None
+            rect = _pdf_object(annotation.get("/Rect"))
+            if not isinstance(rect, (list, tuple)) or len(rect) != 4 or not _finite_coordinates(rect, multiple=4) \
+                    or (subtype == "/Highlight" and not _finite_coordinates(annotation.get("/QuadPoints"), multiple=8)):
+                warn("annotation_dropped")
+                continue
+            projected = {key: value for key, value in annotation.items() if key in ANNOTATION_FIELDS}
+            if subtype == "/Link":
+                action = _pdf_object(annotation.get("/A"))
+                if "/AA" in annotation or ("/A" in annotation and "/Dest" in annotation) or \
+                        ("/A" in annotation and (not isinstance(action, dict) or action.get("/S") != "/GoTo" or "/Next" in action)):
+                    warn("navigation_link_dropped")
+                    continue
+                destination = _destination_details(reader, action.get("/D") if isinstance(action, dict) else annotation.get("/Dest"), named)
+                if destination is None:
+                    warn("navigation_link_dropped")
+                    continue
+                if not start <= destination[0] < end:
+                    warn("cross_chapter_link_dropped")
+                    continue
+            elif not isinstance(subtype, str) or subtype not in STATIC_ANNOTATIONS or "/A" in annotation or "/AA" in annotation:
+                warn("annotation_dropped")
+                continue
+            if not _inert_annotation_value(projected):
+                warn("annotation_dropped")
+                continue
+            if set(annotation) - ANNOTATION_FIELDS - {"/P", "/Dest", "/A"}:
+                warn("annotation_relation_dropped")
+            records.append((page_index - start, projected, destination))
+    return records, counts, examined
+
+
+def _add_fidelity_warnings(reader, data):
+    named = _preflight_bookmark_trees(reader, include_outline=False)
+    _, totals = _source_metadata(reader)
+    examined = 0
+    for entry in data["entries"]:
+        _, counts, count = _chapter_annotations(reader, entry["start"], entry["end"], named)
+        examined += count
+        if examined > MAX_PDF_ANNOTATIONS:
+            raise PlanError("invalid_document", "PDF annotations exceed the bounded inspection limit.")
+        for code, amount in sorted(counts.items()):
+            entry["warnings"].append({"code": code, "source_order": None, "depth": None,
+                "message": f"Chapter {entry['sequence']}: {amount}. " + FIDELITY_MESSAGES[code]})
+            totals[code] = totals.get(code, 0) + amount
+    data["warnings"].extend({"code": code, "source_order": None, "depth": None,
+        "message": f"Count: {amount}. " + FIDELITY_MESSAGES[code]} for code, amount in sorted(totals.items()))
+
+
 def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_bytes=None, _conversion_metadata=None,
                   _captured_reader=None):
     """Probe and plan without chapter writes; pypdf captures path inputs in memory."""
@@ -675,6 +863,7 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
         data.update(original_ebook_identity=original, conversion=conversion,
                     keep_converted_pdf=_conversion_metadata["keep_converted_pdf"])
         naming_source = original["path"]
+    _add_fidelity_warnings(reader, data)
     plan = validate_plan({**data, "source_identity": source})
     if output_base is not None:
         naming = _output_naming(output_base, naming_source)
@@ -1544,7 +1733,32 @@ def write_slice(reader, start, end, out_path, on_created=None):
     log(f"    [Writing] {os.path.basename(out_path)}")
     writer = PdfWriter()
     for p in range(start, end):
-        writer.add_page(reader.pages[p])
+        # A shallow view prevents pypdf's automatic link pairing from inspecting
+        # the links that this writer explicitly rebuilds. Never edit the source.
+        page = PageObject(reader, reader.pages[p].indirect_reference)
+        page.pop("/Annots", None)
+        page.pop("/B", None)
+        page.pop("/AA", None)
+        writer.add_page(page, excluded_keys=("/Annots", "/B", "/AA"))
+    named = _preflight_bookmark_trees(reader, include_outline=False)
+    records, _, _ = _chapter_annotations(reader, start, end, named)
+    for page_index, projected, destination in records:
+        annotation = DictionaryObject(projected).clone(writer)
+        if destination is not None:
+            target, fit, args = destination
+            annotation[NameObject("/Dest")] = ArrayObject([writer.pages[target - start].indirect_reference, NameObject(fit),
+                *(NullObject() if arg is None else FloatObject(arg) for arg in args)])
+        writer.add_annotation(page_index, annotation)
+    title = _metadata_text(re.sub(r"^[0-9]+ - ", "", os.path.splitext(os.path.basename(out_path))[0])) or "Chapter"
+    original, _ = _source_metadata(reader)
+    metadata = {"/Title": title, "/Creator": "WinBookSplit",
+                "/Producer": f"WinBookSplit {_outcome_contract['application_version']} (pypdf {PYPDF_VERSION})"}
+    if "/Author" in original:
+        metadata["/Author"] = original["/Author"]
+    if "/Title" in original:
+        metadata["/Subject"] = "Source: " + original["/Title"]
+    writer.add_metadata(metadata)
+    writer.add_outline_item(title, 0)
     with open(out_path, "xb") as f:
         if on_created is not None:
             on_created(out_path, f)

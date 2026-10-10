@@ -65,6 +65,19 @@ Describe 'Explicit allowlisted support diagnostic export' {
         $bytes=[IO.File]::ReadAllBytes($destination)
         ($bytes[0] -eq 239 -and $bytes[1] -eq 187 -and $bytes[2] -eq 191) | Should -BeFalse
     }
+    It 'exports only fixed PDF fidelity warning tokens without private metadata or annotation text' {
+        foreach ($row in @(@('cross_chapter_link_dropped','navigation'),@('navigation_link_dropped','navigation'),
+                @('article_navigation_dropped','navigation'),@('annotation_dropped','annotation'),
+                @('annotation_relation_dropped','annotation'),@('metadata_omitted','metadata'),@('metadata_normalized','metadata'))) {
+            $fixture=New-SupportFixture
+            $fixture.warnings.planning=@(@{ code=$row[0]; message=$secret; source_order=0; depth=0; title=$secret; author=$secret })
+            $summary=Export-WinBookSplitSupportSummary (Write-SupportFixture $fixture) (New-SupportDestination)
+            $summary.warnings.planning.Count | Should -Be 1
+            $summary.warnings.planning[0].code | Should -BeExactly $row[0]
+            $summary.warnings.planning[0].category | Should -BeExactly $row[1]
+            ($summary | ConvertTo-Json -Depth 32 -Compress) | Should -Not -Match $secret
+        }
+    }
     It 'preserves failed cancelled no-plan and incomplete zero-count outcomes without fabricating success' {
         foreach ($row in @(@('failed','invalid_document',6),@('cancelled','cancelled',130),@('timeout','processor_timeout',130),@('incomplete','console_finalize_failed',6),@('no_plan','no_bookmarks',5),@('invalid_input','invalid_document',6),@('read_error','unreadable_document',6),@('write_error','output_write_failed',6),@('error','source_changed',6),@('unsupported','unsupported_document',7))) {
             $fixture=New-SupportFixture; $fixture.plan=$null

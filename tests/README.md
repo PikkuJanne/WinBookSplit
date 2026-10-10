@@ -12,8 +12,10 @@ $ToolRoot = 'C:\Tools\WinBookSplit-test-tools'
 $PS51 = 'C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe'
 $PS7 = 'C:\Program Files\PowerShell\7\pwsh.exe'
 $Calibre = 'C:\Tools\Calibre\ebook-convert.exe'
+$Renderer = 'C:\Tools\Poppler\pdftoppm.exe'
+$RendererPython = 'C:\Tools\PDFium-dev\python.exe'
 $Report = Join-Path $env:TEMP ('WinBookSplit-tests-' + [guid]::NewGuid().ToString('N') + '.json')
-& $TestPython -I -B $Runner --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --report $Report
+& $TestPython -I -B $Runner --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --renderer-path $Renderer --secondary-python-path $RendererPython --report $Report
 if ($LASTEXITCODE -ne 0) { throw 'Local verification failed; inspect the report' }
 ```
 
@@ -21,6 +23,14 @@ Substitute actual absolute interpreter/tool/host paths. Every report must be a
 new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
 the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
+
+M4-T01 adds `--layer fidelity` as the nineteenth full stage. Fidelity/full
+requires both supported shell paths, the absolute development-only Poppler
+`pdftoppm` executable and an isolated development Python with `pypdfium2`.
+The application does not require either renderer. See `fidelity/README.md` for
+generated fixtures, structural checks, exact same-renderer pixel comparisons
+and preserved external PNGs for agent visual inspection. This is automated
+native Windows evidence; it does not reopen or certify human testing.
 
 Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
 for targeted checks. `--layer cli` requires both actual supported hosts and the

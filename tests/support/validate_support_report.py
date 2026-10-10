@@ -378,15 +378,24 @@ def validate_summary(summary, manifest):
     need(all(isinstance(warnings[key], list) for key in ('planning', 'parser'))
          and all(type(warnings[key]) is int and 0 <= warnings[key] <= 2147483647
                  for key in ('parser_suppressed_count', 'parser_message_truncated_count')), 'Support warning arrays/counters are untyped')
-    need(warnings['planning'] == [{'code': item['code'], 'category': 'output' if item['code'] == 'output_handle_close_failed' else 'bookmark'} for item in manifest['warnings']['planning']]
+    planning_categories = {
+        **dict.fromkeys(('invalid_destination', 'external_destination', 'destination_error', 'duplicate_destination', 'outline_reordered',
+                         'duplicate_parent_subtree', 'invalid_parent_subtree', 'child_outside_parent', 'malformed_outline', 'outline_cycle',
+                         'outline_limit'), 'bookmark'),
+        'output_handle_close_failed': 'output',
+        'cross_chapter_link_dropped': 'navigation', 'navigation_link_dropped': 'navigation', 'article_navigation_dropped': 'navigation',
+        'annotation_dropped': 'annotation', 'annotation_relation_dropped': 'annotation',
+        'metadata_omitted': 'metadata', 'metadata_normalized': 'metadata',
+    }
+    need(isinstance(manifest['warnings']['planning'], list)
+         and all(isinstance(item, dict) and isinstance(item.get('code'), str) and item['code'] in planning_categories
+                 for item in manifest['warnings']['planning']), 'Support warning projection includes an unknown selected token')
+    need(warnings['planning'] == [{'code': item['code'], 'category': planning_categories[item['code']]} for item in manifest['warnings']['planning']]
          and warnings['parser'] == [{key: item[key] for key in ('code', 'category', 'severity')} for item in manifest['warnings']['parser']]
          and all(warnings[key] == manifest['warnings'][key] for key in ('parser_suppressed_count', 'parser_message_truncated_count')),
          'Support warnings copied document details or altered categories/counts')
-    planning_codes = {'invalid_destination', 'external_destination', 'destination_error', 'duplicate_destination', 'outline_reordered',
-                      'duplicate_parent_subtree', 'invalid_parent_subtree', 'child_outside_parent', 'malformed_outline', 'outline_cycle',
-                      'outline_limit', 'output_handle_close_failed'}
     need(len(warnings['planning']) <= 4096 and len(warnings['parser']) <= 64
-         and all(item.get('code') in planning_codes for item in warnings['planning'])
+         and all(item.get('code') in planning_categories for item in warnings['planning'])
          and all(item.get('category') == 'pdf_parser' and item.get('code') in {'pypdf_parser_warning', 'pypdf_parser_error'}
                  and item.get('severity') == ('WARNING' if item['code'] == 'pypdf_parser_warning' else 'ERROR') for item in warnings['parser']),
          'Support warning projection includes an unknown or contradictory selected token')
