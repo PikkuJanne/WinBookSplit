@@ -275,13 +275,14 @@ def application_case(work, host, kind, generator, ebooks, references, calibre):
                "source_observations_before": before, "source_observations_after": {name: cli.identity(item) for name, item in (("source", source), ("neighbor", neighbor), ("prior", prior))},
                "hold": hold, "outcome": final, "engine_records": results, "process_summaries": transports,
                "console_log": text, "console_log_sha256": log_hash, "plan_events": plans, "interaction_replies": replies,
+               "console_evidence": launchers.authenticate_console_manifest(log, final,
+                   source_path=source, source_observation=before["source"]) if log is not None else None,
                "terminal_evidence_source": "stdout_outcome" if kind == "preview" else "console_log",
                "interaction_events": interactions,
                "expected_content_sha256": content, "publication": published, **observed}
         LAST_CASE = row
         if log is not None:
-            marker = {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}
-            launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", marker)
+            launchers.remove_console_directory(log, base, final, source_path=source, source_observation=before["source"])
         row.update(source_observations_after_cleanup={name: cli.identity(item) for name, item in (("source", source), ("neighbor", neighbor), ("prior", prior))},
                    application_unchanged=copied == {name: cli.digest(app / name) for name in copied},
                    output_members_after_cleanup=sorted(item.name for item in base.iterdir()), passed=True)

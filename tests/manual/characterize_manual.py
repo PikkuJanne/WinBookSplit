@@ -134,6 +134,26 @@ def published_outputs(base, generator, evidence):
     return records
 
 
+def parser_only_diagnostic(diagnostic):
+    """Recognize bounded parser records, which carry no owned cleanup path."""
+    if not isinstance(diagnostic, dict) or set(diagnostic) != {"parser_warnings"}:
+        return False
+    parser = diagnostic["parser_warnings"]
+    require(isinstance(parser, dict) and set(parser) == {"records", "total_count", "suppressed_count", "message_truncated_count"}
+        and isinstance(parser["records"], list) and len(parser["records"]) <= 64
+        and all(type(parser[key]) is int and parser[key] >= 0 for key in ("total_count", "suppressed_count", "message_truncated_count"))
+        and parser["total_count"] == len(parser["records"]) + parser["suppressed_count"]
+        and parser["message_truncated_count"] == sum(record.get("truncated") is True for record in parser["records"] if isinstance(record, dict)),
+        "Parser-only diagnostic categories/counts invalid")
+    for record in parser["records"]:
+        require(isinstance(record, dict) and set(record) == {"code", "category", "severity", "message", "truncated"}
+            and record["category"] == "pdf_parser" and type(record["truncated"]) is bool and isinstance(record["message"], str)
+            and len(record["message"].encode("utf-8")) <= 2048
+            and (record["code"], record["severity"]) in {("pypdf_parser_warning", "WARNING"), ("pypdf_parser_error", "ERROR")},
+            "Parser-only diagnostic record invalid")
+    return True
+
+
 def check_base_members(base, evidence, preserved=()):
     """Only an explicit final child or an explicit failed-record child is new."""
     result = result_record(evidence)
@@ -142,6 +162,8 @@ def check_base_members(base, evidence, preserved=()):
     if execution is not None:
         allowed.add(published_directory(base, evidence).name)
     failure = result.get("diagnostic")
+    if parser_only_diagnostic(failure):
+        failure = None
     if failure is not None:
         require(isinstance(failure, dict), "Failure ownership receipt required")
         record_path = Path(failure["record_path"])

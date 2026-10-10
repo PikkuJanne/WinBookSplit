@@ -127,7 +127,7 @@ def sha256(data: bytes) -> str:
 def source_manifest() -> dict[str, str]:
     """Hash actual checked-out bytes; avoid circular evidence/status hashes."""
     paths = [ROOT / name for name in (
-        "WinBookSplit.bat", "WinBookSplit.ps1", "README.md", "LICENSE", ".gitignore",
+        "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
         "requirements.txt", "requirements-dev.txt",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
         "tests/extraction/README.md", "tests/manual/README.md", "tests/bookmarks/README.md",
@@ -142,6 +142,7 @@ def source_manifest() -> dict[str, str]:
         "tests/cli/README.md",
         "tests/launcher/README.md",
         "tests/ux/README.md",
+        "tests/support/README.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -1051,6 +1052,12 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validator = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(validator)
             validator.validate_ux_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
+        elif kind == "support":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_support_receipt_validator", ROOT / "tests/support/validate_support_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_support_report(child, step.get("requested_shell_paths", []), step.get("requested_calibre_path", ""))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1497,6 +1504,18 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "ux")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"support", "full"}:
+            child_report = work / "support-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/support/characterize_support.py"),
+                       "--report", str(child_report), "--calibre-path", str(args.calibre_path)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "support-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_calibre_path": str(args.calibre_path),
+                    "meaning": "Actual UTF-8 run manifests, categorized warnings, local redacted export and retained-output finalization faults on both hosts",
+                    **run_command(command, work, environment=environment, timeout=600)}
+            attach_child_report(step, child_report, "support")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1516,7 +1535,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/cli/launcher/full acceptance")
@@ -1544,13 +1563,13 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
             raise ValueError("Diagnostics, paths, conversion, runtime, process, outcomes, CLI, launcher and UX require both explicit distinct supported shell hosts")
-        if not args.failure_probe and args.layer in {"conversion", "runtime", "cli", "launcher", "ux", "full"}:
+        if not args.failure_probe and args.layer in {"conversion", "runtime", "cli", "launcher", "ux", "support", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
                 raise ValueError("Conversion/runtime/cli/launcher/full requires the existing absolute actual pinned --calibre-path")
             args.calibre_path = args.calibre_path.resolve()

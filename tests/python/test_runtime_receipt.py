@@ -16,6 +16,9 @@ SPEC.loader.exec_module(validator)
 SPEC = importlib.util.spec_from_file_location("wbs_runtime_synthetic_session", ROOT / "tests/python/session_receipt_fixture.py")
 session_fixture = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(session_fixture)
+SPEC = importlib.util.spec_from_file_location("wbs_runtime_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(console_fixture)
 SHELLS = [r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", r"C:\synthetic\PS7\pwsh.exe"]
 CALIBRE = r"C:\synthetic\Calibre\ebook-convert.exe"
 CONTENT = ["c" * 64, "d" * 64, "e" * 64]
@@ -23,7 +26,8 @@ APP_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine
              "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
              "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
              "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
-             "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py")
+             "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+             "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
 
 
 def native_probe(stdout, exit_code=0):
@@ -236,6 +240,10 @@ def valid_report():
                 case["process_summaries"] = [{"InteractionError": None, "InputError": None, "InputWriterStopped": True,
                     "QueuedReplyCount": 2, "InteractionCount": 2, "ReplyCount": 2}]
                 case["stdin_utf8"] = "M\nN\n2,3\nY\nN\n\n" if ebook else "M\n2,3\nY\nN\n\n"
+                final = {"protocol": "winbooksplit.outcome", "version": 1, "mode": "manual", "status": "success",
+                    "code": "split_complete", "exit_code": 0, "written_count": 3, "final_directory": writer["final_directory"], "engine_result": case["engine_record"]}
+                case["console_evidence"] = console_fixture.make(final, "c" * 64,
+                    plan=case["interaction"]["displayed_plans"][-1]["plan"])
             report[field].append(case)
     report["positive_decoy_controls"] = {
         "native": {"command": [r"C:\synthetic\Stub.exe", "--version"], "cwd": r"C:\synthetic", "stdout": "", "stderr": "",

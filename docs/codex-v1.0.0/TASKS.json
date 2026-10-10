@@ -717,7 +717,7 @@
         "Redacted support summary",
         "M3 review/checkpoint"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M3-T04"
       ],
@@ -726,8 +726,11 @@
         "AC-064",
         "AC-065"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M3-T05-diagnostics.md",
+        "evidence/M3-T05-diagnostics.json"
+      ],
+      "implementation_commit": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

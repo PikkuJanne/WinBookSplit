@@ -1,5 +1,24 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2 are integrated. M3 implementation and scoped acceptance are complete through **M3-T05**.
+Next action: **M4-T01 — Preserve tested PDF page fidelity and metadata**. Stop at that task boundary.
+
+T05 final implementation/test checkpoint C3 **4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2**, tree **6e5b85d5096606d007b95556d741de9c3a979275**, passed clean diagnostics verification.
+PASS scoped targeted/affected verification: clean C2 Python/shell/UX and clean C3 diagnostics, native exit 0; 305 Python tests, 111 Pester tests per actual host and 28 UX controls. Retained C1 actual passes include 72 CLI, 70 launcher and 66 support controls. All 15 application files are raw-identical across C1/C2/C3. The original 18-stage full run remains FAIL/native exit 1 (14 passed/4 failed); a C2 diagnostics probe also failed before its C3 fixture correction. No standalone successful full run is claimed.
+All 118 C3 mapped raw paths match Git; source digest **0b15b47be7948b2a01ca24b7b1893343130ece3e24cd778583348edc1b61c46f**. The separate C2 map binds its passed stages. Actual native evidence uses Windows PowerShell 5.1.26100.9444, PowerShell 7.6.5 and real Calibre 9.15.0. These are automated local Windows checks, not CI or GUI certification. Independent review and retained-row audits justify the narrowly affected reruns; tests changed, application bytes did not.
+
+C3 was pushed normally and fresh clean/live **SYNCED** on `codex/winbooksplit-v1-m3` at **2026-10-10T08:22:53.189257+00:00**. Origin remains https://github.com/PikkuJanne/WinBookSplit.git.
+[PR21](https://github.com/PikkuJanne/WinBookSplit/pull/21) is the reviewed M3 integration vehicle. E's own push, ordinary merge and final main synchronization are recorded separately in external/thread/PR receipts after those actions, without inventing future hashes. Inspect live PR/main before new work.
+
+[T05 evidence](evidence/M3-T05-diagnostics.md) and [machine record](evidence/M3-T05-diagnostics.json) cover AC-063/064/065. Runs retain bounded UTF8 logs and manifests with accurate versions/settings/identity/ranges/warnings/outcomes. Explicit local export omits private free text and identifiers and never uploads. Finalization failure retains engine output, becomes incomplete6 after successful processing, and preserves primary failure/cancellation130. Preview and early preflight remain no-write.
+
+Target05 passed 66 controls on its separate precommit map (32 application/34 export, zero skips). C1 repeated all 66 support controls on clean committed bytes. The failed C1 full run exposed only test setup/parser-only/plan-confirmation adapters; C2 corrects those. Its later diagnostic probe failed because the AST subset omitted a shipped helper; C3 corrects that probe. All affected stages pass with their exact source maps. Failed raw receipts/workspaces remain preserved. Cumulative M3 production review has no remaining blocker, and the shared planner/ownership declarations remain unchanged. Pure audits and copied-code fault controls retain their disclosed limits.
+
+Human M3-T01 testing stays absolutely closed; historical receipts remain unchanged. No new human/Explorer/viewer/rendered PDF, clean OS, Windows10/ARM/UNC, CI, package/signing, tag/assets/download or public v1.0.0 completion is claimed. Fidelity/metadata/navigation, unsupported-feature policy, broader conversion/CI and exact release closure remain future tasks. No release/tag or repository setting change was performed here.
+
+## Historical checkpoint through M3-T04
+
 M3-T04 scoped acceptance and implementation C2 checkpoint are verified. Public evidence E receives a separate external normal-push/clean-live receipt after commit.
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.

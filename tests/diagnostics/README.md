@@ -45,3 +45,32 @@ The central validator refuses missing or malformed promised evidence. Historic
 fixture/oracle/extraction inputs and earlier receipts stay unchanged. Full app
 cancel/retry/batch interaction, Explorer, Calibre, complete output transactions
 and the extracted release package remain separate checks.
+
+## Diagnostic export checks
+
+`tests/powershell/Support.Tests.ps1` exercises the shipped support helper under
+Windows PowerShell 5.1 and PowerShell 7. The fixtures are authored JSON records;
+they contain synthetic private paths, titles, filenames, messages, identities,
+arguments, and secret strings. These checks do not use private books or send
+data anywhere.
+
+The checks prove that a valid finalized record produces only the support
+allowlist, retains its physical page partition and outcome, and leaves the
+original bytes and modification time unchanged. Failed, cancelled, timed out,
+and incomplete records keep their non-success outcomes. Malicious selected
+fields, contradictory success counts, invalid ranges, unknown root schemas,
+unfinished records, duplicate JSON keys, invalid UTF-8, unpaired Unicode, and
+oversize input fail before an export is created.
+
+The file controls also cover existing destinations, direct and case aliases,
+hardlinks, source and destination junction ancestors, relative paths, alternate
+data streams, missing parent directories, and a competing source writer. Test
+workspaces contain only authored fixtures. The surrounding test runner owns
+their lifetime; the export helper never removes the source or an existing file.
+
+These are helper tests, not an application run, viewer test, or release package
+test. The separate native support harness checks exports from actual successful,
+failed, and cancelled application runs and records native exit codes on both
+PowerShell hosts.
+
+See [the local diagnostic export instructions](../../docs/SUPPORT_DIAGNOSTICS.md).

@@ -83,6 +83,9 @@ try {
         (Join-Path -Path $repository -ChildPath 'tests\Invoke-ShellTests.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Runtime.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Process.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Logging.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Support.ps1'),
+        (Join-Path -Path $repository -ChildPath 'Export-WinBookSplitDiagnostics.ps1'),
         (Join-Path -Path $repository -ChildPath 'tests\PSScriptAnalyzerSettings.psd1')
     ) + @((Get-ChildItem -LiteralPath (Join-Path -Path $repository -ChildPath 'tests\powershell') -File) |
         Where-Object { $_.Extension -in @('.ps1', '.psm1') } | ForEach-Object { $_.FullName })
@@ -126,6 +129,11 @@ try {
         }
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Launcher.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
+        }
+        foreach ($testName in @('Logging.Tests.ps1', 'Support.Tests.ps1')) {
+            $containers += New-PesterContainer -Path (Join-Path $repository ('tests\powershell\' + $testName)) -Data @{
+                RepositoryRoot = $repository; WorkRoot = $work
+            }
         }
     }
     $config.Run.Container = $containers

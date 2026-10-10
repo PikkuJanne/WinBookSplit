@@ -8,6 +8,9 @@ import importlib.util
 spec = importlib.util.spec_from_file_location("wbs_outcomes_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
 interactions = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(interactions)
+spec = importlib.util.spec_from_file_location("wbs_outcomes_console_validation", Path(__file__).resolve().parents[2] / "tests/manual/current_launchers.py")
+console = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console)
 
 ACCEPTANCE = ["AC-050", "AC-051", "AC-052"]
 EXPECTED = {"original-failure": 6, "fallback-success": 0, "fallback-failure": 2,
@@ -21,7 +24,8 @@ HEX = re.compile(r"[0-9a-f]{64}")
 APPLICATION = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py",
-    "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py"}
+    "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+    "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1"}
 OUTCOMES = {"original-failure": ("read_error", "unreadable_document"),
     "fallback-success": ("success", "split_complete"), "fallback-failure": ("invalid_input", "invalid_start_pages"),
     "fallback-cancel": ("cancelled", "cancelled"), "startup-dependency": ("failed", "runtime_invalid"),
@@ -139,6 +143,7 @@ def validate_case(case):
             and case.get("output_members_before_cleanup") == ["prior-output.pdf"], "Dependency refusal touched operation output")
     else:
         need(transports and isinstance(case.get("log_sha256"), str) and HEX.fullmatch(case["log_sha256"]), "Actual native/log observations absent")
+        console.validate_console_evidence(case.get("console_evidence"), outcome, case.get("log_sha256"), allow_unfinalized=kind == "log-finalize")
         for value in transports:
             need(isinstance(value, dict) and all(value.get(field) is True for field in ("ParentStopped", "DescendantsStopped", "StreamsComplete", "JobAssigned"))
                 and type(value.get("Pid")) is int and value["Pid"] > 0, "Native owned-tree/EOF proof missing")

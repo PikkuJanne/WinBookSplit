@@ -299,6 +299,14 @@ native stdin controls. Native exit observers must attach real process handles
 before completion; an unobserved exit remains unknown. No new human result,
 clean-OS/package, CI or rendered-fidelity claim follows from these tests.
 
+## Current M3-T05 local support diagnostics
+
+`--layer support` is stage 18 of full and requires both actual supported PowerShell hosts and pinned real Calibre. See `tests/support/README.md`. Its 66 native controls inspect successful/failed/cancelled/incomplete UTF8 manifests and closed bounded logs, real parser/bookmark warnings, explicit local redacted export, immutable sources and ownership-bound cleanup. The 32 application and 34 export controls include 12 disclosed copied-code finalizer faults and authored secret-bearing records; they are not human/GUI/upload tests.
+
+Physical ranges/output manifests must agree with the captured plan and reopened page content. A completed split plus diagnostic failure is incomplete6 with retained output; primary failure/cancellation130 survive. The final log footer must match the authoritative outcome when usable. Pending publication never becomes an export input. Source/neighbor/prior/policy identities and no-overwrite/alias/reparse guards are required. Unknown or contradictory receipt claims fail closed.
+
+Focused Logging/Support Pester and Python logger/strict-receipt/identity mutation controls are narrower proofs. Preserve failing reports/workspaces; pure retained-row revalidation is not a native rerun. A test-only fix may use reviewed exact production-byte equality plus affected native reruns and explicit retained passing evidence; do not relabel a failed full run as passed. M3-T05 records that precise combination. Human M3-T01 stays closed. Rendered fidelity, broader feature/conversion policy, CI and the exact release package remain separate tasks.
+
 ## CI
 
 Use a modest Windows workflow for static checks and automated tests, with explicit separate `powershell` and `pwsh` host executions. Configure dependency/tool installation reproducibly, validate current actions/runner support before pinning, and expose test results on failure. Isolate a real Calibre integration job or verified local release evidence when runner installation is not suitable. CI cannot be claimed to have run a human Explorer check. Do not disable failed jobs to make release green.

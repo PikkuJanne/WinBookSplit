@@ -339,6 +339,7 @@ Describe 'M3 actual application functions under authored transport and log contr
         $script:enginePath=Join-Path $RepositoryRoot 'engine\winbooksplit_engine.py'
         $script:InputFile=Join-Path $WorkRoot 'authored-input.pdf'
         $script:outputDir=$WorkRoot; $script:pythonExe=$TestPython; $script:ProcessTimeout=30
+        $script:KeepConvertedPdf=$false
         $script:consoleLogWriter=New-AuthoredFailingWriter
     }
     It 'renders child receipt-like lines safely while saving stdout and stderr byte-for-byte as text' {

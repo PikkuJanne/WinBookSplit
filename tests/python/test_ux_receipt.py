@@ -12,6 +12,9 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("wbs_ux_unit_validator", ROOT / "tests/ux/validate_ux_report.py")
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)
+spec = importlib.util.spec_from_file_location("wbs_ux_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console_fixture)
 
 
 def compact(value):
@@ -34,7 +37,7 @@ def synthetic_cancel():
     reply = {"protocol": "winbooksplit.interaction", "version": 1, "session": "a" * 32, "sequence": 1, "action": "cancel"}
     result = {"protocol": "winbooksplit.result", "version": 1, "mode": "2", "status": "cancelled",
               "code": "processing_cancelled", "exit_code": 130, "written_count": 0, "execution": None,
-              "diagnostic": None, "warnings": [], "fallback_modes": []}
+              "diagnostic": None, "warnings": [], "fallback_modes": [], "plan": deepcopy(plan)}
     final = {"protocol": "winbooksplit.outcome", "version": 1, "mode": "2", "status": "cancelled", "code": "processing_cancelled",
              "exit_code": 130, "written_count": 0, "final_directory": None, "engine_result": result}
     process = {"JobAssigned": True, "ParentStopped": True, "DescendantsStopped": True, "StreamsComplete": True,
@@ -77,6 +80,9 @@ def reseal(case):
     lines += ["[OPERATION-OUTCOME] " + compact(case["outcome"])]
     case["console_log"] = "\r\n".join(lines) + "\r\n"
     case["console_log_sha256"] = sha256(case["console_log"].encode()).hexdigest()
+    case["console_evidence"] = console_fixture.make(case["outcome"], case["console_log_sha256"],
+        log_text=case["console_log"], plan=case["plan_events"][-1]["plan"] if case["plan_events"] else None,
+        source_path=case["input_path"], source_observation=case["source_observations_before"]["source"])
     case["stdout"] = case.get("stdout_prefix", "") + "[OUTCOME] " + compact(case["outcome"]) + "\r\n"
     for name in ("stdout", "stderr"):
         case[name + "_sha256"] = sha256(case[name].encode()).hexdigest()
@@ -130,6 +136,7 @@ def synthetic_fallback():
     case = synthetic_cancel()
     result = case["engine_records"][0]
     result.update(mode="1", status="no_plan", code="no_bookmarks", exit_code=5, fallback_modes=["manual"])
+    result.pop("plan")
     case["outcome"].update(mode="1", code="cancelled")
     case.update(id="PS51-fallback-cancel", kind="fallback-cancel", hold=None, plan_events=[])
     case["process_summaries"][0]["ExitCode"] = 5

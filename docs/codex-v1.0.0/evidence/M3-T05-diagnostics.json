@@ -1,0 +1,1133 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T05",
+  "observed_at": "2026-10-10T08:27:45.799745+00:00",
+  "result": "M3_T05_TARGETED_AND_AFFECTED_ACCEPTANCE_PASSED",
+  "success": true,
+  "implementation_commit": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+  "acceptance": {
+    "AC-063": "PASS_ACTUAL_NATIVE: both actual hosts validate UTF8 successful, failed, cancelled and incomplete local manifests/logs; primary failure and130 preserved; completed PDFs retained after finalization failures.",
+    "AC-064": "PASS_ACTUAL_NATIVE: explicit local export omits authored private paths/titles/content/credentials/arguments/environment, preserves originals and refuses unsafe destinations/records. Source review confirms no automatic upload.",
+    "AC-065": "PASS_ACTUAL_NATIVE: real incorrect-startxref parser warnings and invalid bookmark warning are categorized, visible and recorded with correct plans/physical coverage; scoped capture units verify bounds and logger restoration."
+  },
+  "source": {
+    "base_commit": "aaebfbb1f063f73bd9ec14eefc652470ef4f264e",
+    "pre_M3_main": "85916466ef45f25243806fd6d380bf9c3dcee5d4",
+    "production_commit_C1": "47b878e8a4520ea6846c9c8e1446d609da544228",
+    "production_tree_C1": "2955c87225fff7ffe6eec82eb4d91ae90b74cccf",
+    "implementation_commit_C3": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+    "implementation_tree_C3": "6e5b85d5096606d007b95556d741de9c3a979275",
+    "tested_raw_path_count": 118,
+    "tested_paths_digest": "0b15b47be7948b2a01ca24b7b1893343130ece3e24cd778583348edc1b61c46f",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "ca4cc51da7688a7d5bb309cad5d58e2c32a6cddb49585f79768cb4f7121236b0",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_engine.py": "447954ed1a3db8532bc84e2cdd9861c8ab908f766191c994821a28f1ecd00b03",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "5748d500a1eee17d04cb3a980a49a3a320392cb04e15101127c99c30fd14592b",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "b7704df5acc2012f5265052a9394b2ddfa08b434a4840853974988c333eda0a9",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "ffb26733059e9660a7446d8978fd2612c337cd75f3ba28fd8971901ec2513d2e",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "2df02f831ce770cb66883dab3ffe1b388057c2ef87cb747786bce664afecc317",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+      "tests/manual/current_launchers.py": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "87b82d00a67f07ab02a1389fe983d9993fb7d948927836625b0f6071ee31fad7",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "db2ecf7f8f1fb414ee95b00f4d7faab82fdc9d0d438c151aa855c2e066ae7af7",
+      "tests/process/characterize_process.py": "a93219d507bad90749d6a6df2b5039b77db2e0540e1c7d136d1ca76f30993a51",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "4f604fc86cd44cbf887548a3b80bcf3d6c242307cf8c6fdba90b00378f2e28f5",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "daa0f9706098299b705467a084887acbf9fbedb45d88ccda4e651d113f8ae5ab",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "8cff1dd9e8323a725f7a0f07158f9c28f681256002f95b0fc3bb08762a52b4a3",
+      "tests/python/test_runtime_receipt.py": "45e9ce6fb2707531d9b70b65edbcb6a7953e5e45cd888a0e00d46faffffdd9c6",
+      "tests/python/test_support_receipt.py": "1c583ed203b9144a89b2d56961719d93a0a5a334fe1959222eeca6c947f47591",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "97c781ae0133cd945dd012d86684a34f712d6376dc1bd01147fc0a3338adace2",
+      "tests/run_tests.py": "2d4c84e53cffc941f10b55f8af446448e1b5c80b099af56b90cabfc4450af980",
+      "tests/runtime/characterize_runtime.py": "f9993557e9ed890521e6ac58bfd84ba6202858e651d46b210514dd3fe82e6b25",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "6474fcd4a37372921aa165282eb6cebf7d368c5ae8bbb78591dd1d9485fdc44e",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "d02233e3f3274969764994d3a20c89cac832987ba6307aabe51d71813774110f",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a"
+    },
+    "app_path_sha256": {
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "ca4cc51da7688a7d5bb309cad5d58e2c32a6cddb49585f79768cb4f7121236b0",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_engine.py": "447954ed1a3db8532bc84e2cdd9861c8ab908f766191c994821a28f1ecd00b03",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    "git_raw_matches_worktree": true,
+    "all_recorded_gate_source_maps_unchanged": true,
+    "C1_to_C3": {
+      "application_bytes_unchanged": true,
+      "only_test_paths_changed": true,
+      "changed_paths": [
+        {
+          "path": "tests/conversion/characterize_conversion.py",
+          "before_sha256": "2641c25a937a44f194baaba429227401d99118eb354ff19f2195bf459051cb16",
+          "after_sha256": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+          "application_path": false
+        },
+        {
+          "path": "tests/diagnostics/Probe-Diagnostics.ps1",
+          "before_sha256": "c073756dc82f14bf3001f3c93d2ceed7a78fe2dd6f1c57c22602d814d706fb5d",
+          "after_sha256": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+          "application_path": false
+        },
+        {
+          "path": "tests/manual/characterize_manual.py",
+          "before_sha256": "2e5cf59d3a6b9a070261d20e2a6e36c14c8e5143c1eebf0e350bd530b0d1b8c2",
+          "after_sha256": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+          "application_path": false
+        },
+        {
+          "path": "tests/manual/current_launchers.py",
+          "before_sha256": "cfbe4ab4aebceef139ffc3c36a08726160bab1d58ddc3f2b2a176f8c05948feb",
+          "after_sha256": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+          "application_path": false
+        },
+        {
+          "path": "tests/powershell/Outcome.Tests.ps1",
+          "before_sha256": "93e88a5721b635fba251bc47ae0cbb7d70019a1ba11171a39c0bf498933a767e",
+          "after_sha256": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+          "application_path": false
+        },
+        {
+          "path": "tests/python/console_receipt_fixture.py",
+          "before_sha256": "e0aa3d8f5b022d81a9629a641f9c69261c88e65048ce38d47232db2b461ed599",
+          "after_sha256": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+          "application_path": false
+        },
+        {
+          "path": "tests/python/test_console_manifest.py",
+          "before_sha256": "d16463ddfcdd122c53b814f5ef5697928207f88262a02ae5d43270927c42e89f",
+          "after_sha256": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+          "application_path": false
+        },
+        {
+          "path": "tests/python/test_ux_receipt.py",
+          "before_sha256": "216e5aa805869bc992d4facce3071776813fe3ebfaea596b024f677e5e99b7fa",
+          "after_sha256": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+          "application_path": false
+        },
+        {
+          "path": "tests/ux/validate_ux_report.py",
+          "before_sha256": "6b5063d6b950e508bc7625b2f9bf6d3516e8db3f44271a47962fed5724b049bc",
+          "after_sha256": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+          "application_path": false
+        }
+      ],
+      "reviewed_affected_layers": [
+        "python",
+        "shell",
+        "diagnostics",
+        "ux"
+      ],
+      "coverage_reason": "Exact C1/C2/C3 application15 raw-byte equality; C1-to-C3 nine test paths only; C2-to-C3 only one Probe AST helper-list line. Independent final validators accept all13 retained passing C1 child receipts and actual clean C2 Python305/shell111each/UX28 plus clean C3 diagnostics23/bothhosts. Original fullC1 and C2diagnostics failures stay failed; pure revalidation is not a native rerun. No changed relevant Python/Pester/UX/app/oracle bytes after their C2 passes, and the changed Probe executes under both real C3 diagnostics hosts. No additional native rerun required by independent source/coverage review."
+    },
+    "targeted_precommit_digest": "a80bd06f249b46462069a36a6a80ca09bfa6d9b5d95c1cc1e1af650dfb9c1208",
+    "targeted_to_C1_delta": "13/15 application paths byte-identical; exporter and Support helper are exact CRLF-to-LF changes. Six test paths changed (one EOL-only; five strict oracle/fixture/cleanup fixes). Target05 is not relabeled as clean-C native proof; C1 support66 supplies that proof."
+  },
+  "environment": {
+    "os": "Windows 11 Pro x64",
+    "build": "26300.9457",
+    "display_version": "26H2",
+    "powershell_51": "5.1.26100.9444",
+    "powershell_7": "7.6.5",
+    "dotnet_ps51": "4.0.30319.42000",
+    "dotnet_ps7": "10.0.11",
+    "python": "3.14.8 x64",
+    "pypdf": "6.19.0",
+    "calibre": "9.15.0",
+    "calibre_executable_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+    "pester": "6.2.0",
+    "psscriptanalyzer": "1.25.0",
+    "reportlab": "5.0.1",
+    "pillow": "12.3.0",
+    "charset_normalizer": "3.5.2",
+    "global_execution_policy_changed": false
+  },
+  "original_full_attempt": {
+    "success": false,
+    "native_exit_code": 1,
+    "stage_count": 18,
+    "passed_stage_count": 14,
+    "failed_stage_count": 4,
+    "stages": [
+      {
+        "name": "stdlib-unittest",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "python_test_count": 302
+      },
+      {
+        "name": "shell-0",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 1,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "74a1e2555d0f6abde3ca571dcba9d2925c16f6e1130ed19984a055f0f290ef12",
+        "pester": {
+          "failed": 1,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 110,
+          "result": "Failed",
+          "skipped": 0,
+          "total": 111
+        },
+        "child_success": false
+      },
+      {
+        "name": "shell-1",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 1,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "1e04de2a79226c6af9afbc4e3b9a2bfd996d4a33df4ff8cd88faf6fefcc1efc0",
+        "pester": {
+          "failed": 1,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 110,
+          "result": "Failed",
+          "skipped": 0,
+          "total": 111
+        },
+        "child_success": false
+      },
+      {
+        "name": "manual-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "fdbd5d27c9a780d48fde7d45855256a6dc0079bb76718da299a69e1fdc52800d",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "level1-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "08e9237c08b11ff6f6784dc03e29d7ca49b4559a380a64704dea1de89118a18f",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "level2-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "aa5193ef2317cf47774449199d79b31463bdaf02038ebb753f9f534568d3ea90",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "shared-plan-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "ed75d78e840fe18039203eda33d99f64d2fc63e232f080881ae02659c69eb4ca",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "diagnostic-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 1,
+        "timed_out": false
+      },
+      {
+        "name": "output-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "1b627300a79f28bcd7cdccadcf158d6f1ee3a2481beb5679f8d47204cb04f786",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "path-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "97a5d15685fd34edb0592f21f9f7e1d1ba92167c744b89fd5234ad518a31361e",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "conversion-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "9b9a76d3fe4af20901b7dfe041279fd7628ebbbae44a5fea7de13e6a70c30dc1",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "runtime-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "66f3da16b21b843925c802abd48dd306d01da5c6b18f62cdfadef91152136c4e",
+        "case_count": 33,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "process-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "69046ebc96312d5dbfce257fbce040d40bab1f1a8dedf5f684f72c81e9641b4f",
+        "case_count": 35,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "outcome-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "40bfd39aaae3acf1dff500a2b9f745cd0aa1c8036c143ca466639010a33e4e8f",
+        "case_count": 51,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "cli-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "d4d03afdcbafa109b673d9ae61cc8fe8c458a9e4e159f153f0bae49cb778c038",
+        "case_count": 72,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "launcher-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "8ddbac80d3eaf9e5e5d776df3d8123e5f48a50c0bd0644d206339cb96f015086",
+        "case_count": 70,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "ux-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 1,
+        "timed_out": false
+      },
+      {
+        "name": "support-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "1636a23474648739b150923dad3fefc7a9413cff7f46994ce849b234cabe719c",
+        "case_count": 66,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      }
+    ],
+    "source_unchanged": true,
+    "synthetic_input_unchanged": true,
+    "owned_work_directory_removed": false,
+    "retained_workspace_reason": "Failed UX adapter could not authorize cleanup; original authored outer/UX workspace retained.",
+    "failures": [
+      "Both Pester hosts110/111: successful terminal-plan mocked branch lacked initialized KeepConvertedPdf.",
+      "Diagnostic helper assumed every diagnostic owned record_path; parser-only warnings do not.",
+      "UX helper treated a displayed pending plan as confirmed despite zero execute replies."
+    ]
+  },
+  "intermediate_diagnostics_C2": {
+    "success": false,
+    "native_exit_code": 1,
+    "parent_receipt": "affected-diagnostics01.json",
+    "meaning": "Actual C2 probe failed after parser-only handling progressed: its trusted AST function list omitted ConvertTo-WinBookSplitDisplayText. C3 adds that shipped helper to the probe only. Failed receipt preserved."
+  },
+  "affected_verification": [
+    {
+      "layer": "python",
+      "parent_receipt": "affected-python01.json",
+      "native_exit_code": 0,
+      "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+      "source_binding": "source-C2-after-affected01.json",
+      "source_unchanged": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "stages": [
+        {
+          "name": "stdlib-unittest",
+          "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+          "parent_receipt": "affected-python01.json",
+          "exit_code": 0,
+          "timed_out": false,
+          "python_test_count": 305
+        }
+      ]
+    },
+    {
+      "layer": "shell",
+      "parent_receipt": "affected-shell01.json",
+      "native_exit_code": 0,
+      "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+      "source_binding": "source-C2-after-affected01.json",
+      "source_unchanged": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "stages": [
+        {
+          "name": "shell-0",
+          "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+          "parent_receipt": "affected-shell01.json",
+          "exit_code": 0,
+          "timed_out": false,
+          "raw_child_receipt_sha256": "7076094beb6b4fcf82d24d813927ad9164f751b842728508cfcdc242e03ae873",
+          "pester": {
+            "failed": 0,
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 111,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 111
+          },
+          "child_success": true
+        },
+        {
+          "name": "shell-1",
+          "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+          "parent_receipt": "affected-shell01.json",
+          "exit_code": 0,
+          "timed_out": false,
+          "raw_child_receipt_sha256": "78ac190700569959d2590188417b13ae24cc7e56516a04473d837a9e37334aa8",
+          "pester": {
+            "failed": 0,
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 111,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 111
+          },
+          "child_success": true
+        }
+      ]
+    },
+    {
+      "layer": "diagnostics",
+      "parent_receipt": "affected-diagnostics02.json",
+      "native_exit_code": 0,
+      "source_commit": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+      "source_binding": "source-C3-after-diagnostics01.json",
+      "source_unchanged": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "stages": [
+        {
+          "name": "diagnostic-regression",
+          "source_commit": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+          "parent_receipt": "affected-diagnostics02.json",
+          "exit_code": 0,
+          "timed_out": false,
+          "raw_child_receipt_sha256": "249d0648722aae61af93e40516b2f32ba8316c134c779f69281e875d5ab8c3ad",
+          "child_success": true,
+          "source_unchanged": true,
+          "owned_temp_removed": true
+        }
+      ]
+    },
+    {
+      "layer": "ux",
+      "parent_receipt": "affected-ux01.json",
+      "native_exit_code": 0,
+      "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+      "source_binding": "source-C2-after-affected01.json",
+      "source_unchanged": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "stages": [
+        {
+          "name": "ux-regression",
+          "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+          "parent_receipt": "affected-ux01.json",
+          "exit_code": 0,
+          "timed_out": false,
+          "raw_child_receipt_sha256": "6c4dfbcc6e42cb2ffe699208004036b1f5b9cba2cb47dcb6b79f314891f32c54",
+          "case_count": 28,
+          "child_success": true,
+          "source_unchanged": true,
+          "owned_temp_removed": true
+        }
+      ]
+    }
+  ],
+  "combined_coverage": {
+    "success": true,
+    "stage_count": 18,
+    "stages": [
+      {
+        "name": "stdlib-unittest",
+        "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+        "parent_receipt": "affected-python01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "python_test_count": 305
+      },
+      {
+        "name": "shell-0",
+        "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+        "parent_receipt": "affected-shell01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "7076094beb6b4fcf82d24d813927ad9164f751b842728508cfcdc242e03ae873",
+        "pester": {
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 111,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 111
+        },
+        "child_success": true
+      },
+      {
+        "name": "shell-1",
+        "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+        "parent_receipt": "affected-shell01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "78ac190700569959d2590188417b13ae24cc7e56516a04473d837a9e37334aa8",
+        "pester": {
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 111,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 111
+        },
+        "child_success": true
+      },
+      {
+        "name": "manual-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "fdbd5d27c9a780d48fde7d45855256a6dc0079bb76718da299a69e1fdc52800d",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "level1-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "08e9237c08b11ff6f6784dc03e29d7ca49b4559a380a64704dea1de89118a18f",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "level2-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "aa5193ef2317cf47774449199d79b31463bdaf02038ebb753f9f534568d3ea90",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "shared-plan-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "ed75d78e840fe18039203eda33d99f64d2fc63e232f080881ae02659c69eb4ca",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "diagnostic-regression",
+        "source_commit": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+        "parent_receipt": "affected-diagnostics02.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "249d0648722aae61af93e40516b2f32ba8316c134c779f69281e875d5ab8c3ad",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "output-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "1b627300a79f28bcd7cdccadcf158d6f1ee3a2481beb5679f8d47204cb04f786",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "path-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "97a5d15685fd34edb0592f21f9f7e1d1ba92167c744b89fd5234ad518a31361e",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "conversion-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "9b9a76d3fe4af20901b7dfe041279fd7628ebbbae44a5fea7de13e6a70c30dc1",
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "runtime-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "66f3da16b21b843925c802abd48dd306d01da5c6b18f62cdfadef91152136c4e",
+        "case_count": 33,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "process-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "69046ebc96312d5dbfce257fbce040d40bab1f1a8dedf5f684f72c81e9641b4f",
+        "case_count": 35,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "outcome-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "40bfd39aaae3acf1dff500a2b9f745cd0aa1c8036c143ca466639010a33e4e8f",
+        "case_count": 51,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "cli-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "d4d03afdcbafa109b673d9ae61cc8fe8c458a9e4e159f153f0bae49cb778c038",
+        "case_count": 72,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "launcher-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "8ddbac80d3eaf9e5e5d776df3d8123e5f48a50c0bd0644d206339cb96f015086",
+        "case_count": 70,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "ux-regression",
+        "source_commit": "140ad802f238a1dfd0be8227d3ece41d49d19c67",
+        "parent_receipt": "affected-ux01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "6c4dfbcc6e42cb2ffe699208004036b1f5b9cba2cb47dcb6b79f314891f32c54",
+        "case_count": 28,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      },
+      {
+        "name": "support-regression",
+        "source_commit": "47b878e8a4520ea6846c9c8e1446d609da544228",
+        "parent_receipt": "full01.json",
+        "exit_code": 0,
+        "timed_out": false,
+        "raw_child_receipt_sha256": "1636a23474648739b150923dad3fefc7a9413cff7f46994ce849b234cabe719c",
+        "case_count": 66,
+        "child_success": true,
+        "source_unchanged": true,
+        "owned_temp_removed": true
+      }
+    ],
+    "meaning": "Actual retained C1 passes plus clean C2 Python/shell/UX and clean C3 diagnostics, with reviewed test-only source deltas. This is not a standalone successful full18 run on C1, C2 or C3.",
+    "application_bytes_identical_C1_C2_C3": true,
+    "original_full_attempt_remains_failed": true
+  },
+  "targeted_native": {
+    "native_exit_code": 0,
+    "controls": 66,
+    "application_controls": 32,
+    "export_controls": 34,
+    "skips": 0,
+    "source_unchanged": true,
+    "owned_cleanup": "PASS",
+    "copied_code_fault_controls": 12,
+    "finalized_manifests": 22,
+    "console_logs": 28,
+    "redacted_summaries": 12,
+    "published_chapter_pdfs": 40
+  },
+  "focused": {
+    "logging_pester_each_host": 6,
+    "support_pester_each_host": 17,
+    "warning_python_methods": 10,
+    "support_receipt_python_methods": 14,
+    "retained_targeted_66_audit": "PASS_PURE_RECEIPT_REVALIDATION_NOT_NATIVE_RERUN"
+  },
+  "review": {
+    "cumulative_M3": "PASS_NO_REMAINING_PRODUCTION_BLOCKER",
+    "clean_C1_binding": "PASS_ALL118_RAW_PATHS_AND15_APP_PATHS",
+    "C3_source_delta": "PASS_TEST_ONLY_APP15_RAW_BYTES_UNCHANGED",
+    "planner_ownership_declarations_unchanged_AST": 11,
+    "advisory_source_label_correction": "The original independent audit retained an inherited Clean-C3 advisory list; the additive contract explicitly binds Python/shell/UX to their actual C2 passes and diagnostics to C3, without relabeling native evidence or requesting unchanged gates."
+  },
+  "checkpoint_C3": {
+    "status": "SYNCED",
+    "observed_at": "2026-10-10T08:22:53.189257+00:00",
+    "branch": "codex/winbooksplit-v1-m3",
+    "local_head": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+    "remote_head": "4ee8d87a9c6c07ea2bdf09f22ab85cf80f9838c2",
+    "worktree_clean": true,
+    "pr": "https://github.com/PikkuJanne/WinBookSplit/pull/21",
+    "evidence_and_merge_receipt": "E own push, ordinary PR merge and final live-main sync are recorded externally after those actions, without self-referential future hashes."
+  },
+  "preserved_defects_and_attempts": [
+    "Baseline both-host success lacked run manifest/export; baseline real parser warning was suppressed by CLI.",
+    "Logging01/02 exposed nonenforcing metadata-only leases and native rename zero-termination; corrected actual both-host6 controls pass.",
+    "Ordered helper reproduced marker-before-lease junction redirection; corrected both-host helper controls pass. No whole-app concurrency certification is inferred.",
+    "Support01 oracle wrongly required an input writer for closed stdin; support02 oracle omitted actual read_error; support03 inherited cleanup assumed parser-only diagnostics had cleanup_complete. All failed receipts remain failed.",
+    "Support04 reproduced mismatch between final OUTCOME and log after fallback manifest failure; corrected final footer order; target05 and clean C1 support66 controls pass.",
+    "Test-only same-byte cleanup replacement identity gap reproduced and fixed; three resealed receipt contradictions reproduced and now reject. Pure controls are not native reruns.",
+    "FullC1 failed four stages. C2 fixes test setup/parser-only/confirmation adapters only. A subsequent actual diagnostics probe failed because its AST subset omitted the shipped display helper; C3 adds that helper to the probe. Affected native reruns and unchanged app15 byte proof close these test defects. Failed original receipts remain failed.",
+    "Detailed initial PS51 Pester wrapper omitted the runner per-host PSModulePath and failed before tests; corrected-environment repro sealed both actual110/111 failures before the fixture fix.",
+    "First support helper privacy assertion matched an allowed count field; test assertion corrected. Initial warning assertion used object identity after freeze; changed to semantic equality. Earlier source-seal guard refused changed Main; fresh review binds corrected bytes."
+  ],
+  "not_claimed": [
+    "Standalone successful full18 on C1, C2 or C3",
+    "New human testing (M3-T01 stays closed)",
+    "Explorer/viewer or rendered PDF checks in T05",
+    "CI run or required-check pass",
+    "Windows10/ARM/UNC/clean OS certification",
+    "Release package, signing, tag/assets/download or public v1.0.0 completion",
+    "Private-document or network-upload test",
+    "Broader Calibre/PDF feature compatibility"
+  ],
+  "next_task": "M4-T01 \u2014 Preserve tested PDF page fidelity and metadata",
+  "raw_receipt_ledger": {
+    "full01.json": {
+      "bytes": 32840779,
+      "sha256": "17ec486562f25863407830087078418185aca5fb18a2378cf3c5c2f02ce91caa"
+    },
+    "full-command01.json": {
+      "bytes": 1297,
+      "sha256": "155fbe11d96e979b5076bd7147127f3e491e72d536f95c2ab79f1b923c49ecbb"
+    },
+    "source-C-before-full01.json": {
+      "bytes": 14616,
+      "sha256": "8b9604905e2e9c879bb6c3188cb7cbc76ce6717de747fe227c0a3d39e06ac478"
+    },
+    "source-C-after-failed-full01.json": {
+      "bytes": 14616,
+      "sha256": "b640621627f84b26a732858247a48f38e6edd53a7b797dfdfcba9cecca44bf43"
+    },
+    "push-C-command01.json": {
+      "bytes": 644,
+      "sha256": "5ccd11e2f0547296db198d5ecababd3ad3214188c63d4be362400a174d910096"
+    },
+    "sync-C-command01.json": {
+      "bytes": 1246,
+      "sha256": "bc4861ce126c10e1292e29f2bb9ecf8591f697083a0ad9da9ef8188411d7d47f"
+    },
+    "push-C3-command01.json": {
+      "bytes": 644,
+      "sha256": "ce760dd91797a8128dc65322e41902cbd4fa594235f0f1fe01c0a88d44c5c47a"
+    },
+    "sync-C3-command01.json": {
+      "bytes": 1246,
+      "sha256": "3807220417a4d4978d9be8f31aaa6b289ee3055db0de09e847de9f6a1e91aab1"
+    },
+    "source-C2-before-affected01.json": {
+      "bytes": 14616,
+      "sha256": "7c375eb53c2ccbf43d3e48f6a6901d7ea6cc69181ab9c578c454f073e9f6ad3a"
+    },
+    "source-C2-after-affected01.json": {
+      "bytes": 14616,
+      "sha256": "64e32ac618791c346ab550b9d934bf63fc68567c3ee1bcc80ad3029e1b5b9b58"
+    },
+    "source-C1-to-C2-delta01.json": {
+      "bytes": 4664,
+      "sha256": "5ac0a49ae7e5f700ac32f8924c3a915aa104514f0942613c55c8c5a413c7b411"
+    },
+    "source-C3-before-diagnostics01.json": {
+      "bytes": 14616,
+      "sha256": "0184e913d3f8845a36ddef2c03cc53e5b09153f77f2396e83774d802acad0238"
+    },
+    "source-C3-after-diagnostics01.json": {
+      "bytes": 14616,
+      "sha256": "76fb35b43fa65159508def14239f2a281e170a4f82d6fa0c216a1a75eff534fc"
+    },
+    "source-C1-to-C3-delta01.json": {
+      "bytes": 4947,
+      "sha256": "cba4f200fafcf8e1763ec85d286e7d12ee73eedb11f2f5a6d92460e3ef8e6b88"
+    },
+    "affected-diagnostics01.json": {
+      "bytes": 16848,
+      "sha256": "d38503d035ebca565fe286ee806cceab1376e3fdeeea717bd0bd1a37fc700d1a"
+    },
+    "affected-diagnostics-command01.json": {
+      "bytes": 1101,
+      "sha256": "bd3d906af4c72bc1414fb72a3e2b566c48762b9743c82d9d53afc42c94709355"
+    },
+    "affected-selection01.json": {
+      "bytes": 2144,
+      "sha256": "908e45455fe7281e4e69ef81ca690742471de569aff98b76c62bc38cc493d717"
+    },
+    "environment-command01.json": {
+      "bytes": 1945,
+      "sha256": "42040fbe463244c831dae74b801c696f241b8a5385b5044dbc9e33c031c53c77"
+    },
+    "frozen-source01.json": {
+      "bytes": 14703,
+      "sha256": "aac58b83e8306d23c07335b424e6f493f576e3955256f38882c20406dab19791"
+    },
+    "frozen-source-C2-01.json": {
+      "bytes": 13388,
+      "sha256": "411950a09230a953375c0edc8aaacb76078a1f180baedd0d3b02b6d3e3783970"
+    },
+    "frozen-source-C3-01.json": {
+      "bytes": 13082,
+      "sha256": "b283e62f1a7172873cc36f6837d6a0d967d2132479ab70ae988bdd294e7129f7"
+    },
+    "logging-PS51-command04.json": {
+      "bytes": 1869,
+      "sha256": "ef80ad15019819d155d03d7cd7a9522d7340abbc656c8c7c297b45eeec8e9d89"
+    },
+    "logging-PS7-command04.json": {
+      "bytes": 1937,
+      "sha256": "9f0ad5e09be09d1cdf73f27bfb45044475f97173ae57f7c081269aeddc674fdf"
+    },
+    "support-acceptance/baseline-support01.json": {
+      "bytes": 62275,
+      "sha256": "b8ed4d8770aea49df49669b3702bf2d257ef16e2c51e7a89739d22d3daf4a917"
+    },
+    "support-acceptance/support-first01.json": {
+      "bytes": 121996,
+      "sha256": "da4c43255ebd69bdc1c407612387fdab33f359ef2d1ac3d86f030469418be238"
+    },
+    "support-acceptance/support-second01.json": {
+      "bytes": 742433,
+      "sha256": "5f9baa3745ee9a69bde279e6e4553bdbc911de7c99289f117f0f1e2dd912e13b"
+    },
+    "support-acceptance/support-third01.json": {
+      "bytes": 950457,
+      "sha256": "f6a4b4aeafab3b917963e63f03355883c0f82d628309de5ecc9c00d2580ded3d"
+    },
+    "support-acceptance/support-fourth01.json": {
+      "bytes": 1255003,
+      "sha256": "e5f3ed6cd1044f93c124f7c6c9195e2e6b743c02390787e68fadbe4942c63e99"
+    },
+    "support-acceptance/support-fifth01.json": {
+      "bytes": 4524382,
+      "sha256": "f6b874c49e4c3d5beb9591a5da37d96f9b34f3fa9166062f42eb7896df8d7310"
+    },
+    "support-acceptance/support-fifth-independent-audit01.json": {
+      "bytes": 4290,
+      "sha256": "ba49f465218da7f293c48f10c993072569d5d7052d5232e541acad70eef74f57"
+    },
+    "support-acceptance/support-final-oracle-review01.json": {
+      "bytes": 20208,
+      "sha256": "dbfc7d989c05b927ba4dc5ee476585fef4283bf16ded8fb433dc88fdab41359a"
+    },
+    "support-acceptance/finalization-footer-reproduction01.json": {
+      "bytes": 30606,
+      "sha256": "5ec45c6cbca301bb8337e74be873567f677990e55486935240d7397d9863912e"
+    },
+    "support-acceptance/support-fullC01-independent-audit01.json": {
+      "bytes": 18746,
+      "sha256": "131987f928c023ac48c99def74e489c3ac6f343325b23dc0cf25378c558eaa12"
+    },
+    "support-acceptance/support-fullC01-ux-confirmation-detail01.json": {
+      "bytes": 568,
+      "sha256": "c37300e57d58e0aa182bf14defdf6fb5944712b8c33eed7edb21a7082bca8f13"
+    },
+    "engine-warnings/baseline01.json": {
+      "bytes": 4294,
+      "sha256": "869b67b82ea97d9f96eb8980edad520216fd001e525ce643096a2e5a994528d6"
+    },
+    "engine-warnings/engine-adapter-handoff06.json": {
+      "bytes": 10514,
+      "sha256": "091bbc3a9e108c73e89e93f51ead0a0a0446b3975fa669c3aafb72b5872e7fd1"
+    },
+    "engine-warnings/authenticated-identity-gap05.json": {
+      "bytes": 921,
+      "sha256": "93e32681fd963a85bd213edaa41c4015e43f6d8f6fdba83c470c1b67074c9b3c"
+    },
+    "engine-warnings/adapter-python06.json": {
+      "bytes": 23254,
+      "sha256": "c2d097a3a95da2db94135f30e4ec26eb2fa51837e0d926181c7f7ad1687a503d"
+    },
+    "support/implementation-handoff03.json": {
+      "bytes": 3163,
+      "sha256": "5a4d8c71240906438525f0e7f7f770fd616a4d918dc554e0cd914937a7f3d349"
+    },
+    "support/production-source-review04.json": {
+      "bytes": 4144,
+      "sha256": "b9b90d5ab756916f3dcfacbf41b0817ae8b4bcacf267264578d63097c847427f"
+    },
+    "support/cumulative-M3-production-review02.json": {
+      "bytes": 20485,
+      "sha256": "ee8820374c9a1e05940d25f4152d4eb28a1e39b2602b6000407136c592b622e7"
+    },
+    "support/cumulative-M3-production-C-review01.json": {
+      "bytes": 54103,
+      "sha256": "d7ce2c44750e642815e975f6967ec9e3c611ae2be2be328078f8376b551effe4"
+    },
+    "affected-python01.json": {
+      "bytes": 89336,
+      "sha256": "55fa91460e3d439b3b36e0a248f43c2a1c66c9725f746c5b986e2e9e866341c4"
+    },
+    "affected-python-command01.json": {
+      "bytes": 861,
+      "sha256": "6341a80a7ed57e461678d177a4b07c666a5ab96d73aba800b2432601d7757391"
+    },
+    "affected-shell01.json": {
+      "bytes": 98434,
+      "sha256": "30fbeb823b4ed548ba0db5e23cef99abd4ea158c301f0e8767127790bfccf626"
+    },
+    "affected-shell-command01.json": {
+      "bytes": 1207,
+      "sha256": "331601c3dbac49deb20793e6342ff38d4f80806af3e4541e7ba7279b5bf3fae3"
+    },
+    "affected-diagnostics02.json": {
+      "bytes": 431285,
+      "sha256": "2d43ec36ba6860949e9a0de4cf80c2a48b65eaf191e500662b66ec7852799c2b"
+    },
+    "affected-diagnostics-command02.json": {
+      "bytes": 1101,
+      "sha256": "fffbf48932e512234b52960a2fea174ccf7164232bd48fe132a6befc59313686"
+    },
+    "affected-ux01.json": {
+      "bytes": 4732474,
+      "sha256": "5f962c0b684a0378951caaa4b0c54d7709b1dc161abc2c360bdd042c77bdf8e9"
+    },
+    "affected-ux-command01.json": {
+      "bytes": 1184,
+      "sha256": "b38eba32096c4285c6f435d52f7357d611f3d53a1c0be1a2a77b6085c9bd8045"
+    },
+    "retained-C1-under-C2-validation01.json": {
+      "bytes": 8643,
+      "sha256": "693790fcbd1c49f952e42a63cfc2b23ce46f9e95270174fb158a2888da7df927"
+    },
+    "C01-production-security-and-C02-coverage-review02.json": {
+      "bytes": 8516,
+      "sha256": "44cf349a2a18dbb4931c32ba3507c22069af885aaef3ca462b04ce05c8dfbfd0"
+    },
+    "final-C03-evidence-independent-audit01.json": {
+      "bytes": 19431,
+      "sha256": "a323102b99144217622e6c76cf2c62776fbab319e71eabb4ab3171d16ab71f57"
+    },
+    "final-C03-evidence-live-detail01.json": {
+      "bytes": 2169,
+      "sha256": "24f9f0b1c382b57d89418cbd64e4d6e32e4246425e052d3c20d3a7b0c5f3689b"
+    },
+    "final-C03-coverage-contract-correction01.json": {
+      "bytes": 3757,
+      "sha256": "af72752291a612f5a61a59a08d81cb510cd65b2c5c15acf32d3ca26b5a754d8c"
+    },
+    "engine-warnings/full01-adapter-reproduction01.json": {
+      "bytes": 3646,
+      "sha256": "32d8bedc79c79d5cef5b77d40b2883621f408cdd284198e6af2480cf928a55fe"
+    },
+    "engine-warnings/adapters-c2-check01.json": {
+      "bytes": 13709,
+      "sha256": "f1b5fe58d92e63de2112d23c5309192684e09f284976d614e8b2d34e5547e924"
+    },
+    "engine-warnings/engine-adapter-handoff07.json": {
+      "bytes": 5223,
+      "sha256": "4bafded1d677ba538653bae43682a986d6b63a37a87e632fef6336891ab41171"
+    },
+    "engine-warnings/diagnostics-ast-C2-reproduction01.json": {
+      "bytes": 11406,
+      "sha256": "fb45b299a16901e18c76fe0bc7d6611d8782a0f9a3d2e380f9d187ddfe6ce404"
+    },
+    "support/full-pester-C1-failure-review01.json": {
+      "bytes": 8620,
+      "sha256": "5b50a94e9511cf5eac2ca8978a50d84dbc5419cbeb374c63ffb40a5486a96695"
+    },
+    "support/outcome-test-default-fix01.json": {
+      "bytes": 2404,
+      "sha256": "e734af5b22740d08969710b8e082bb690d2914cb34dfaeae4d363b8ae1e94a15"
+    },
+    "support/full-pester-test-fix-verification03.json": {
+      "bytes": 19497,
+      "sha256": "4cace783ced8876d6188b928ad78845e12263f1e04ba9b896217f7773949025b"
+    }
+  }
+}

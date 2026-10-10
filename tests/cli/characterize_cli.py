@@ -211,7 +211,9 @@ def application_case(work, host, kind, generator, ebook_sources, references, cal
             log, rows, transports, log_hash = console_records(observed["stdout"], base)
             # Preview intentionally uses memory logging; its validated final frame
             # is the authoritative plan receipt, not a fabricated disk log.
-            record.update(engine_records=rows, process_summaries=transports, log_sha256=log_hash)
+            record.update(engine_records=rows, process_summaries=transports, log_sha256=log_hash,
+                console_evidence=launchers.authenticate_console_manifest(log, final_outcome,
+                    source_path=source, source_observation=before["source"]) if log is not None else None)
             if kind in validator.PREVIEWS:
                 require(isinstance(frame, dict) and frame.get("status") == "preview", "CLI preview did not return an explicit engine preview frame")
                 plan = frame.get("plan")
@@ -244,8 +246,7 @@ def application_case(work, host, kind, generator, ebook_sources, references, cal
             if frame is not None:
                 conversion.remove_diagnostic(base, frame)
         if log is not None:
-            marker = {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}
-            launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", marker)
+            launchers.remove_console_directory(log, base, final_outcome, source_path=source, source_observation=before["source"])
         after = {"source": identity(source), "neighbor": identity(neighbor), "prior": identity(prior)}
         require(before == record["source_observations_after"] == after, "CLI changed source/neighbor/prior identity, attributes or bytes")
         require({item.name for item in base.iterdir()} == {prior.name}, "CLI or known cleanup left unexplained output members")

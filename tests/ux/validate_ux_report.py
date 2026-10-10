@@ -123,6 +123,7 @@ def validate_application_case(row):
     text = row.get("console_log")
     if kind == "preview":
         need(text is None and row.get("console_log_sha256") is None and row.get("terminal_evidence_source") == "stdout_outcome"
+             and row.get("console_evidence") is None
              and all(row.get(name) == [] for name in ("engine_records", "process_summaries", "plan_events", "interaction_replies", "interaction_events"))
              and "Log: " not in row["stdout"], "Preview fabricated a persisted console/transport record")
         need(isinstance(final.get("engine_result"), dict), "Preview stdout outcome omitted its strict engine result")
@@ -132,6 +133,8 @@ def validate_application_case(row):
     else:
         need(isinstance(text, str) and row.get("console_log_sha256") == sha256(text.encode("utf-8")).hexdigest()
              and row.get("terminal_evidence_source", "console_log") == "console_log", "Actual console log/hash differs")
+        cli.console.validate_console_evidence(row.get("console_evidence"), final, row.get("console_log_sha256"),
+            source_path=row["input_path"], source_observation=row["source_observations_before"]["source"], log_text=text)
         plans = [json.loads(line[len("[PLAN] "):]) for line in text.splitlines() if line.startswith("[PLAN] ")]
         replies = [json.loads(line[len("[INTERACTION-REPLY] "):]) for line in text.splitlines() if line.startswith("[INTERACTION-REPLY] ")]
         interactions = [json.loads(line[len("[WBS-INTERACTION] "):]) for line in text.splitlines() if line.startswith("[WBS-INTERACTION] ")]

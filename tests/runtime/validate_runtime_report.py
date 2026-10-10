@@ -13,6 +13,9 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location("wbs_runtime_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
 interactions = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(interactions)
+spec = importlib.util.spec_from_file_location("wbs_runtime_console_validation", Path(__file__).resolve().parents[2] / "tests/manual/current_launchers.py")
+console = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console)
 
 
 HOSTS = ("PS51", "PS7")
@@ -333,7 +336,8 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
                       "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
                       "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                       "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
-                      "engine/winbooksplit_job.py"}
+                      "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+                      "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1"}
     require(set(application) == expected_files and
             all(application[name] == source_map.get(name) for name in expected_files),
             "case: copied application differs from tested bytes")
@@ -472,6 +476,10 @@ def success_case(case: dict, calibre_path: str) -> None:
     require(case.get("stdin_utf8") == ("M\nN\n2,3\nY\nN\n\n" if case["source_format"] != "pdf" else "M\n2,3\nY\nN\n\n"),
             "Runtime actual explicit confirmation answers differ")
     frame = mapping(case.get("engine_record"), "actual engine result")
+    evidence = case.get("console_evidence")
+    console.validate_console_evidence(evidence, evidence.get("operation_outcome") if isinstance(evidence, dict) else None,
+        evidence.get("log_sha256") if isinstance(evidence, dict) else None)
+    require(evidence["operation_outcome"].get("engine_result") == frame, "Runtime run record differs from actual engine frame")
     require(frame.get("protocol") == "winbooksplit.result" and type(frame.get("version")) is int and
             frame["version"] == 1 and frame.get("status") == "success" and frame.get("code") == "split_complete" and
             type(frame.get("exit_code")) is int and frame["exit_code"] == 0 and frame.get("mode") == "manual" and

@@ -38,7 +38,8 @@ history, require = manual.history, manual.require
 APPLICATION = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
-    "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py")
+    "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+    "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
 
 
 def digest(path):
@@ -273,6 +274,8 @@ def application_case(work, host, kind, generator, *, batch=False):
                 {"location": location, "path": str(target), "exists": target.exists()}
                 for location, target in zip(("wrapper_cwd", "engine_cwd", "book_directory"), injection_markers)],
             "engine_record": frame, "provisional_outcome": provisional_outcome, "final_outcome": final_outcome, **process}
+        record["console_evidence"] = launchers.authenticate_console_manifest(log, final_outcome,
+            source_path=source, source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
         require(len(raw) < 400000 and "\ufffd" not in text, "Actual application log unbounded or mojibake")
         if kind == "unicode-hostile":
             require(process["exit_code"] == 0 and frame["status"] == "success", "Actual Unicode/title split failed")
@@ -305,7 +308,8 @@ def application_case(work, host, kind, generator, *, batch=False):
                 launchers.remove_known_directory(Path(execution["final_directory"]), base, members, ".WinBookSplit-owner.json",
                     {"schema_version": 1, "kind": "run", "run_id": execution["run_id"]})
             if log is not None and owner is not None:
-                launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", owner)
+                launchers.remove_console_directory(log, base, source_path=source,
+                    source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
     require(record is not None and not log.parent.exists() and (execution is None or not Path(execution["final_directory"]).exists()), "Owned application outputs remained")
     record["owned_outputs_removed"] = True
     return record

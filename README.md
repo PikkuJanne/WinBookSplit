@@ -7,7 +7,7 @@ A "drop-and-forget" PDF/AZW3/EPUB decomposition tool for technical manuals, text
 - Recursive Extraction: Deep-crawls the PDF outline tree to find chapter starts and titles often missed by basic splitters.
 - Smart Fallback: Automatically detects flat PDFs without bookmarks and triggers a TUI prompt for manual page entry.
 - Organized Output: Cleans Windows-invalid title characters, keeps Unicode, and widens numbering to the section count (01, 02... or 001...120).
-- Detailed Logging: Generates a verbose report in the output folder tracking every bookmark match, skipped page, and extraction range.
+- Local Diagnostics: Writes a bounded UTF-8 console log and run manifest with versions, settings, source identities, page ranges, warnings and the final outcome.
 - PDF Output: Publishes a new validated run folder under Documents or the explicit output base; earlier runs and source PDFs remain unchanged.
 
 **Requirements**
@@ -27,6 +27,8 @@ Place these together (e.g. C:\Tools\WinBookSplit\):
   - Keep the shipped Python and PowerShell helpers beside the launchers.
 - WinBookSplit.bat
   - Simple launcher: enables drag-and-drop functionality for PDF, AZW3, and EPUB files.
+- Export-WinBookSplitDiagnostics.ps1
+  - Explicitly creates a redacted local support summary from a finalized run manifest.
 - pypdf
   - The engine: Install the hashed requirements with the selected interpreter's `-m pip` during explicit setup.
 - Calibre (ebook-convert.exe) 
@@ -77,6 +79,24 @@ are pages of the generated PDF. Every input page is preserved exactly once.
 .\WinBookSplit.ps1 -Version
 Get-Help .\WinBookSplit.ps1 -Full
 ```
+
+Each processing run has a unique `.WinBookSplit-console-<run-id>` directory
+under its output base. The printed `Log:` path identifies `console.log`; its
+neighbor `WinBookSplit_Run.json` records the final outcome, including failures
+and cancellation after setup. Preview and early validation/preflight create no
+disk diagnostics. Local records contain private paths and document titles.
+
+To prepare a support summary, explicitly choose the finalized manifest and a
+new local destination. The export keeps approved versions, outcome codes, page
+ranges and warning categories; it omits paths, titles, messages, hashes,
+credentials and command/environment details. It never uploads anything.
+
+```powershell
+.\Export-WinBookSplitDiagnostics.ps1 -ManifestPath 'D:\Reading\.WinBookSplit-console-<run-id>\WinBookSplit_Run.json' -OutputPath 'D:\Reading\support-summary.json'
+```
+
+See [local diagnostics and export details](docs/SUPPORT_DIAGNOSTICS.md), including
+log bounds and incomplete finalization records.
 
 Auto requires `-BookmarkLevel 1` or `2`; Manual requires `-StartPages` and cannot
 use a bookmark level. Auto with start pages, missing choices and unrecognized

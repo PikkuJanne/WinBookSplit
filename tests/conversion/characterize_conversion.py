@@ -129,6 +129,8 @@ def remove_diagnostic(base, frame):
     diagnostic = frame.get("diagnostic")
     if diagnostic is None:
         return
+    if manual.parser_only_diagnostic(diagnostic):
+        return  # Bounded parser records contain no owned directory or cleanup path.
     require(diagnostic["cleanup_complete"] is True and diagnostic["retained_staging"] is None
             and diagnostic["cleanup_error"] is None, "Ordinary converter failure retained a workspace")
     target = Path(diagnostic["record_path"])
@@ -323,12 +325,15 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                 ["input_ready", "plan_ready"] if success else [],
                 ["starts", "execute"] if success else [], starts="2,3", execution=execution)
             record.update(interaction=interaction, process_summaries=summaries)
+            record["console_evidence"] = launchers.authenticate_console_manifest(log, source_path=source,
+                source_observation={"sha256": before[str(source)], "size_bytes": source.stat().st_size})
     finally:
         if cleanup_safe:
             if execution is not None and members is not None:
                 remove_publication(base, execution, members)
             if log is not None and marker is not None:
-                launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", marker)
+                launchers.remove_console_directory(log, base, source_path=source,
+                    source_observation={"sha256": before[str(source)], "size_bytes": source.stat().st_size})
     if not batch:
         require(not any(base.iterdir()), "Conversion left unexplained output-base members")
     require(log is None or not log.parent.exists(), "Owned conversion console remains")
