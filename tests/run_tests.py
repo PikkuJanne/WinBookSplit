@@ -145,6 +145,7 @@ def source_manifest() -> dict[str, str]:
         "tests/support/README.md",
         "tests/fidelity/README.md",
         "tests/document_policy/README.md",
+        "tests/faults/README.md",
         "docs/PDF_POLICY.md",
         "docs/PDF_FIDELITY.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
@@ -1076,6 +1077,13 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             validator = importlib.util.module_from_spec(spec)
             spec.loader.exec_module(validator)
             validator.validate_document_policy_report(child, step.get("requested_shell_paths", []), cleanup_complete=True)
+        elif kind == "faults":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_faults_receipt_validator", ROOT / "tests/faults/validate_faults_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_faults_report(child, step.get("requested_shell_paths", []), cleanup_complete=True,
+                                             expected_source_sha256=step.get("requested_source_sha256"))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1231,8 +1239,10 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             if step["exit_code"] == 0:
                 step["exit_code"] = 126
                 step["evidence_error"] = "Child report claims failure despite process success"
-    except (OSError, ValueError) as error:
+    except Exception as error:
         step["evidence_error"] = str(error)
+        if kind in {"process", "faults"}:
+            step["cleanup_safe"] = False
         if step["exit_code"] == 0:
             step["exit_code"] = 126
 
@@ -1429,7 +1439,7 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "output")
             steps.append(step)
-        if not args.failure_probe and args.layer in {"paths", "full"}:
+        if not args.failure_probe and args.layer in {"paths", "faults", "full"}:
             child_report = work / "path-regression.json"
             command = [sys.executable, "-I", "-B", str(ROOT / "tests/paths/characterize_paths.py"),
                        "--report", str(child_report)]
@@ -1464,7 +1474,7 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "runtime")
             steps.append(step)
-        if not args.failure_probe and args.layer in {"process", "full"}:
+        if not args.failure_probe and args.layer in {"process", "faults", "full"}:
             child_report = work / "process-regression.json"
             command = [sys.executable, "-I", "-B", str(ROOT / "tests/process/characterize_process.py"),
                        "--report", str(child_report)]
@@ -1475,7 +1485,7 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "process")
             steps.append(step)
-        if not args.failure_probe and args.layer in {"outcomes", "full"}:
+        if not args.failure_probe and args.layer in {"outcomes", "faults", "full"}:
             child_report = work / "outcome-regression.json"
             command = [sys.executable, "-I", "-B", str(ROOT / "tests/outcomes/characterize_outcomes.py"),
                        "--report", str(child_report)]
@@ -1562,6 +1572,18 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "document-policy")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"faults", "full"}:
+            child_report = work / "fault-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/faults/characterize_faults.py"),
+                       "--report", str(child_report)]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "fault-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_source_sha256": before,
+                    "meaning": "Overlapped mid-write failure isolation, independent seeded page ownership and native captured-source binding; paths/process/outcomes supply required cross-host error routes",
+                    **run_command(command, work, environment=environment, timeout=600)}
+            attach_child_report(step, child_report, "faults")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1581,7 +1603,7 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/cli/launcher/full acceptance")
@@ -1611,11 +1633,11 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
             raise ValueError("This integration layer requires both explicit distinct supported shell hosts")
         if not args.failure_probe and args.layer in {"conversion", "runtime", "cli", "launcher", "ux", "support", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():

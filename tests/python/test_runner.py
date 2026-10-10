@@ -976,11 +976,47 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual(document_policy[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
         for flag in ("--calibre-path", "--renderer-path", "--secondary-python-path"):
             self.assertNotIn(flag, document_policy[0])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy"])
-        self.assertEqual([step["name"] for step in report["steps"][-17:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression"])
-        self.assertEqual(len(report["steps"]), 20)
+        faults = [command for command in commands if str(ROOT / "tests/faults/characterize_faults.py") in command]
+        self.assertEqual(len(faults), 1)
+        self.assertEqual(faults[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults"])
+        self.assertEqual([step["name"] for step in report["steps"][-18:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression", "fault-regression"])
+        self.assertEqual(len(report["steps"]), 21)
         self.assertTrue(report["success"])
+
+    def test_faults_target_runs_each_required_cross_host_route_once_and_keeps_native_failure(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="faults", failure_probe=None, shell_path=hosts)
+        kinds = ("paths", "process", "outcomes", "faults")
+        expected_names = ["path-regression", "process-regression", "outcome-regression", "fault-regression"]
+        for failure in (None, *expected_names):
+            with self.subTest(failure=failure):
+                commands = []
+
+                def command(argv, cwd, **kwargs):
+                    commands.append(argv)
+                    failing = failure is not None and any(failure.replace("-regression", "") in item for item in argv)
+                    # Paths and outcomes use plural directory/script names.
+                    if failure == "path-regression":
+                        failing = str(ROOT / "tests/paths/characterize_paths.py") in argv
+                    elif failure == "outcome-regression":
+                        failing = str(ROOT / "tests/outcomes/characterize_outcomes.py") in argv
+                    elif failure == "fault-regression":
+                        failing = str(ROOT / "tests/faults/characterize_faults.py") in argv
+                    return {"exit_code": 19 if failing else 0, "stdout": "synthetic identity\n", "stderr": ""}
+
+                with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                        patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+                    report = runner.execute(args)
+                self.assertEqual([step["name"] for step in report["steps"]], expected_names)
+                self.assertEqual([call.args[2] for call in attach.call_args_list], list(kinds))
+                for step in report["steps"]:
+                    self.assertEqual(step["requested_shell_paths"], list(map(str, hosts)))
+                self.assertEqual(report["steps"][-1]["requested_source_sha256"], {"synthetic": "hash"})
+                self.assertEqual(report["success"], failure is None)
+                self.assertEqual(sum(step["exit_code"] != 0 for step in report["steps"]), int(failure is not None))
+                self.assertEqual(len([argv for argv in commands if "--report" in argv]), 4)
 
     def test_document_policy_target_forwards_only_both_hosts_and_propagates_native_failure(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]

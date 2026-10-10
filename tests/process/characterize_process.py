@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 from datetime import datetime, timezone
 from hashlib import sha256
 import importlib.util
@@ -40,6 +41,52 @@ APPLICATION = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
     "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
     "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
+OBSERVABILITY = {}
+
+
+def owned_artifact(path):
+    """Capture only this fixture's exact authored file, with a bounded raw copy."""
+    result = {"path": str(path), "available": path.is_file() and not history.is_reparse(path)}
+    if not result["available"]:
+        return result
+    details = path.stat()
+    result.update(size_bytes=details.st_size, created_ns=details.st_ctime_ns, modified_ns=details.st_mtime_ns)
+    if details.st_size > 16 * 1024 * 1024:
+        result["capture_error"] = "Authored evidence exceeds the 16 MiB raw capture bound"
+        return result
+    raw = path.read_bytes()
+    result.update(sha256=sha256(raw).hexdigest(), raw_text=raw.decode("utf-8", errors="strict"))
+    return result
+
+
+def attempt(stage, record):
+    OBSERVABILITY.update(failure_stage=stage, last_case=record)
+
+
+def failure_exit_code(error):
+    return 130 if isinstance(error, KeyboardInterrupt) else \
+        error.code if isinstance(error, SystemExit) and type(error.code) is int and error.code != 0 else 1
+
+
+def failure_receipt(error, directory):
+    source_error = None
+    try:
+        after = runner.source_manifest()
+    except (OSError, ValueError) as source_failure:
+        after, source_error = {}, str(source_failure)
+    before = OBSERVABILITY.get("tested_path_sha256", {})
+    return {"schema_version": 1, "task_id": "M2-T05", "result": "PROCESS_REGRESSION_FAILED", "success": False,
+        "exit_code": failure_exit_code(error), "error": str(error), "error_type": type(error).__name__, "cleanup_safe": False,
+        "workspace_retained": str(directory), "owned_temp_removed": not directory.exists(),
+        "observed_at": datetime.now(timezone.utc).isoformat(),
+        "tested_path_sha256": before, "source_after_sha256": after, "source_unchanged": bool(before) and before == after,
+        "source_after_error": source_error,
+        "failure_stage": OBSERVABILITY.get("failure_stage", "setup"), "last_case": OBSERVABILITY.get("last_case"),
+        "host_cases": OBSERVABILITY.get("host_cases", []), "native_host_evidence": OBSERVABILITY.get("native_host_evidence", []),
+        "completed_native_cases": OBSERVABILITY.get("completed_native_cases", []),
+        "completed_application_cases": OBSERVABILITY.get("completed_application_cases", []),
+        "unrelated_process_observation": OBSERVABILITY.get("unrelated_process_observation"),
+        "scope": "Failed attempt evidence, never a process PASS or proof of the historical failure cause"}
 
 
 def digest(path):
@@ -102,29 +149,54 @@ def native_cases(work, hosts, unrelated):
                    str(ROOT / "tests/process/Probe-Process.ps1"), "-PayloadPath", str(payload_path), "-ReportPath", str(report_path)]
         environment = history.clean_environment(directory)
         environment["PSModulePath"] = str(Path(host["shell_executable"]).parent / "Modules")
-        process = history.run_entrypoint(command, directory, environment=environment, stdin="", timeout=55)
+        capture = {"host_id": host["id"], "command": command, "cwd": str(directory),
+            "payload": owned_artifact(payload_path), "process": None, "native_report": None}
+        OBSERVABILITY.setdefault("native_host_evidence", []).append(capture)
+        attempt("native_host", {"host_id": host["id"], "command": command, "cwd": str(directory), "passed": False})
+        try:
+            process = history.run_entrypoint(command, directory, environment=environment, stdin="", timeout=55)
+        except history.EntryPointFailure as error:
+            capture.update(native_report=owned_artifact(report_path), supervision_error={
+                "error_type": type(error).__name__, "message": str(error), "tracked_parent_pid": error.pid,
+                "raw_streams_available": False, "native_exit_available": False,
+                "inner_tree_shutdown_proved": False})
+            raise
+        capture.update(process=process, native_report=owned_artifact(report_path))
+        host.update(native_process=process)
         if process["exit_code"] != 0 or not report_path.is_file():
             raise history.EntryPointFailure("Native process host failed; inner owned-tree state unproved: " + repr(process), cleanup_safe=False, pid=None)
         try:
             observed = json.loads(report_path.read_text(encoding="utf-8"))
             for candidate in observed["cases"]:
+                attempt("native_case", {**candidate, "passed": False, "command": command, "cwd": str(directory)})
                 if any(candidate["process"].get(field) is not True for field in ("ParentStopped", "DescendantsStopped", "StreamsComplete")):
                     raise ValueError("Native owned-tree or stream stop unproved: " + candidate["id"])
         except (OSError, ValueError, TypeError, KeyError) as error:
             raise history.EntryPointFailure("Native receipt cannot prove tree/stream stop: " + str(error), cleanup_safe=False, pid=None) from error
         require(observed["host_version"] == host["host_version"] and observed["stored_policies"] == host["stored_policies"], "Native host evidence differs")
         for case in observed["cases"]:
-            case.update(passed=True, python=sys.executable, command=command, host_version=host["host_version"], shell_executable=host["shell_executable"],
+            case.update(passed=False, python=sys.executable, command=command, host_version=host["host_version"], shell_executable=host["shell_executable"],
                         cwd=str(directory), unrelated_process_alive=unrelated.poll() is None and running(unrelated.pid))
+            attempt("native_case", case)
             if case["kind"] in {"timeout-tree", "cancel-tree", "inherited-pipe", "detached-pipe"}:
                 case["pid_observations"] = [{"role": "launched", "pid": case["process"]["Pid"], "running": running(case["process"]["Pid"])}]
                 for suffix in ("parent", "child"):
                     target = directory / (case["kind"] + "-" + suffix + ".json")
-                    require(target.is_file(), "Owned tree never reached authored PID control: " + str(target))
-                    pid = json.loads(target.read_text(encoding="utf-8"))["pid"]
-                    case["pid_observations"].append({"role": "authored_" + suffix, "pid": pid, "running": running(pid), "receipt_sha256": digest(target)})
-            validator.native(case, host["id"])
+                    captured = owned_artifact(target)
+                    observation = {"role": "authored_" + suffix, "receipt": captured}
+                    case["pid_observations"].append(observation)
+                    if captured["available"] and "raw_text" in captured:
+                        pid = json.loads(captured["raw_text"])["pid"]
+                        require(type(pid) is int and pid > 0, "Authored PID receipt has no positive integer PID")
+                        observation.update(pid=pid, running=running(pid), receipt_sha256=captured["sha256"])
+                for item in case["pid_observations"][1:]:
+                    require(item["receipt"]["available"] and "raw_text" in item["receipt"],
+                        "Owned tree never reached authored PID control: " + item["receipt"]["path"])
+            candidate = {**case, "passed": True}
+            validator.native(candidate, host["id"])
+            case["passed"] = True
             records.append(case)
+            OBSERVABILITY.setdefault("completed_native_cases", []).append(deepcopy(case))
         host.update(native_process=process, native_receipt_sha256=digest(report_path))
     return records
 
@@ -213,16 +285,22 @@ def application_case(work, host, kind, generator, *, batch=False):
         require(expected_names == [entry["filename"] for entry in preview["entries"]], "Bound preview filenames differ from independently shortened original Unicode titles")
     execution = log = owner = None
     members = None
-    cleanup_safe = True
+    cleanup_safe = False
     record = None
+    attempt("application_case", {"id": label, "kind": kind, "passed": False, "command": command,
+        "cwd": str(cwd), "input_path": str(source), "output_base": str(base), "source_sha256_before": source_hash,
+        "neighbor_sha256_before": neighbor_hash, "application_hashes": copied, "actual_process": None})
     try:
         try:
             with paths.read_only_source(source):
                 read_only = bool(source.lstat().st_file_attributes & 1)
                 process = history.run_entrypoint(command, cwd, environment=environment,
                     stdin="1\nY\nN\n\n" if kind == "unicode-hostile" else "", timeout=90)
+            OBSERVABILITY["last_case"].update(process, actual_process=True)
         except history.EntryPointFailure as error:
-            cleanup_safe = error.cleanup_safe
+            OBSERVABILITY["last_case"]["supervision_error"] = {
+                "error_type": type(error).__name__, "message": str(error), "tracked_parent_pid": error.pid,
+                "raw_streams_available": False, "native_exit_available": False, "inner_tree_shutdown_proved": False}
             raise
         log = launchers.exact_line(process["stdout"], "Log: ")
         require(log.parent.parent == base and log.name == "console.log" and not history.is_reparse(log.parent), "Actual console ownership escaped base")
@@ -230,6 +308,8 @@ def application_case(work, host, kind, generator, *, batch=False):
         require(owner == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Actual console ownership marker differs")
         raw = log.read_bytes()
         text = raw.decode("utf-8", errors="strict")
+        OBSERVABILITY["last_case"].update(console_log=text, log_sha256=sha256(raw).hexdigest(),
+            source_sha256_after=digest(source), neighbor_sha256_after=digest(neighbor))
         frames = [json.loads(line) for line in text.splitlines() if line.startswith('{')]
         require(len(frames) == 1, "Actual engine record missing or duplicated in console log")
         frame = frames[0]
@@ -274,6 +354,7 @@ def application_case(work, host, kind, generator, *, batch=False):
                 {"location": location, "path": str(target), "exists": target.exists()}
                 for location, target in zip(("wrapper_cwd", "engine_cwd", "book_directory"), injection_markers)],
             "engine_record": frame, "provisional_outcome": provisional_outcome, "final_outcome": final_outcome, **process}
+        attempt("application_case", {**record, "passed": False, "console_log": text})
         record["console_evidence"] = launchers.authenticate_console_manifest(log, final_outcome,
             source_path=source, source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
         require(len(raw) < 400000 and "\ufffd" not in text, "Actual application log unbounded or mojibake")
@@ -302,6 +383,7 @@ def application_case(work, host, kind, generator, *, batch=False):
             suffix = "FINAL_STDERR_" + validator.UNICODE if kind == "flood" else "FINAL_STDERR_NO_NEWLINE_" + validator.UNICODE
             require(suffix in text, "Actual engine final stderr tail lost")
             record.update(child_receipt=receipt, outputs=[], written_count=0, final_stderr_preserved=True, failure_outcome_preserved=True)
+        cleanup_safe = True
     finally:
         if cleanup_safe:
             if execution is not None and members is not None:
@@ -312,6 +394,7 @@ def application_case(work, host, kind, generator, *, batch=False):
                     source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
     require(record is not None and not log.parent.exists() and (execution is None or not Path(execution["final_directory"]).exists()), "Owned application outputs remained")
     record["owned_outputs_removed"] = True
+    OBSERVABILITY.setdefault("completed_application_cases", []).append(deepcopy(record))
     return record
 
 
@@ -319,8 +402,10 @@ def characterize(work, shells):
     require(os.name == "nt" and len(shells) == 2, "Actual Windows plus both supported hosts required")
     manual.trusted_original_sources()
     before = runner.source_manifest()
+    OBSERVABILITY["tested_path_sha256"] = before
     probe = host_probe(work)
     hosts = [paths.host_observation(shell, work, probe) for shell in shells]
+    OBSERVABILITY["host_cases"] = hosts
     require({host["id"] for host in hosts} == {"PS51", "PS7"}, "Actual distinct supported hosts required")
     # A venv executable may be a launcher shim. Use the actual ordinary pinned
     # base executable and verify authored os.getpid against the retained PID.
@@ -333,6 +418,7 @@ def characterize(work, shells):
         cwd=work, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     unrelated_record = {"command": unrelated_command, "executable": str(unrelated_executable), "executable_sha256": digest(unrelated_executable),
         "retained_pid": unrelated.pid, "retained_popen_handle": True}
+    OBSERVABILITY["unrelated_process_observation"] = unrelated_record
     try:
         deadline = time.monotonic() + 5
         ready = None
@@ -378,6 +464,7 @@ def characterize(work, shells):
         "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
         "machine_settings_unchanged": True, "unrelated_process_removed": unrelated.poll() is not None,
         "unrelated_process_observation": unrelated_record,
+        "native_host_evidence": OBSERVABILITY.get("native_host_evidence", []),
         "tested_path_sha256": before, "immutable_original_commit": history.ORIGINAL_COMMIT,
         "environment": {"python": sys.version, "python_executable": sys.executable, "pypdf": history.pypdf.__version__},
         "not_run": ["human Ctrl+C/Explorer", "clean OS", "release package", "arbitrary unsupported encoding"],
@@ -388,6 +475,7 @@ def characterize(work, shells):
 
 
 def main():
+    OBSERVABILITY.clear()
     sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
     sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
     parser = argparse.ArgumentParser(description=__doc__)
@@ -403,28 +491,27 @@ def main():
         directory = Path(temporary.name).resolve()
         try:
             report = characterize(directory, [path.resolve() for path in args.shell_path])
-        except history.EntryPointFailure as error:
-            if not error.cleanup_safe:
-                temporary._finalizer.detach()
-                print("Unproved tree stop; owned process workspace retained: " + str(directory), file=sys.stderr)
-            else:
-                temporary.cleanup()
-            raise
-        except BaseException:
+            report["owned_temp_removed"] = False
+            validator.validate_process_report(report, [str(path.resolve()) for path in args.shell_path], cleanup_complete=False)
             temporary.cleanup()
+            report["owned_temp_removed"] = not directory.exists()
+            validator.validate_process_report(report, [str(path.resolve()) for path in args.shell_path])
+        except BaseException as error:
+            temporary._finalizer.detach()
+            failed = failure_receipt(error, directory)
+            with report_path.open("x", encoding="utf-8", newline="\n") as stream:
+                json.dump(failed, stream, indent=2, ensure_ascii=True)
+                stream.write("\n")
+            print("Failed process attempt; owned workspace retained: " + str(directory), file=sys.stderr)
             raise
-        else:
-            temporary.cleanup()
-        report["owned_temp_removed"] = not directory.exists()
-        validator.validate_process_report(report, [str(path.resolve()) for path in args.shell_path])
         with report_path.open("x", encoding="utf-8", newline="\n") as stream:
             json.dump(report, stream, indent=2, ensure_ascii=True)
             stream.write("\n")
         print("Process acceptance passed: 26 actual supervisor controls and nine PS51/PS7/unchanged BAT application controls")
         return 0
-    except (OSError, RuntimeError, ValueError, subprocess.TimeoutExpired) as error:
+    except BaseException as error:
         print("Process acceptance failed: " + str(error), file=sys.stderr)
-        return 1
+        return failure_exit_code(error)
 
 
 if __name__ == "__main__":
