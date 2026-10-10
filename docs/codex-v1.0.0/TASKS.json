@@ -1052,7 +1052,7 @@
         "Full regression evidence",
         "Resolved blocker register"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M5-T03"
       ],
@@ -1061,8 +1061,11 @@
         "AC-091",
         "AC-092"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M5-T04-security.md",
+        "evidence/M5-T04-security.json"
+      ],
+      "implementation_commit": "81e584e1d4ca791b0622987a11621c17f566f2fa",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
