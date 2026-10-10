@@ -27,7 +27,7 @@ EXPECTED = {kind: 0 if kind in EXECUTIONS | PREVIEWS | {"version", "help"} else 
 RANGES = {"manual": [[0, 2], [2, 4], [4, 6]], "1": [[0, 2], [2, 4], [4, 6]], "2": [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 6]]}
 PARAMETERS = {"InputFile", "OutputDirectory", "Mode", "BookmarkLevel", "StartPages", "Preview", "NonInteractive",
               "NoPause", "Version", "PythonPath", "CalibrePath", "KeepConvertedPdf"}
-APPLICATION = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
+APPLICATION = {"VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
     "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
@@ -119,13 +119,13 @@ def validate_case(case):
         and case["source_observations_before"]["source"]["attributes"] & 1, "Source/neighbor/prior changed or read-only control absent")
     need(case.get("output_members_before") == case.get("output_members_after_cleanup") == ["prior-output.pdf"], "Cleanup reached prior output or retained unexplained members")
     app = case.get("application_sha256")
-    expected_app = {"WinBookSplit.ps1", "engine/WinBookSplit.Outcomes.json"} if kind == "version" else APPLICATION
+    expected_app = {"WinBookSplit.ps1", "VERSION"} if kind == "version" else APPLICATION
     need(hashes(app) and set(app) == expected_app and case.get("application_members") == sorted(app), "Copied shipped application scope/hash missing")
     if kind in {"version", "help"}:
         need(case.get("outcome") is None and case.get("engine_records") == [] and case.get("process_summaries") == []
             and case.get("log_sha256") is None and case.get("console_evidence") is None and case.get("output_members_after") == ["prior-output.pdf"], "Version/help performed processing or wrote output")
         if kind == "version":
-            need(parameters == ["-Version"] and case["stdout"].strip() == "WinBookSplit 1.0.0-dev" and not case["stderr"], "Dependency-independent canonical version missing")
+            need(parameters == ["-Version"] and case["stdout"].strip() == "WinBookSplit 1.0.0" and not case["stderr"], "Dependency-independent canonical version missing")
         else:
             help_receipt = case.get("help")
             need(isinstance(help_receipt, dict) and help_receipt.get("host_version") == version

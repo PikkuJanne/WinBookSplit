@@ -45,8 +45,11 @@ operation and retains the validated final attempted engine result. Explicit
 fallback cancellation returns 130; timeout has a distinct `timeout` status/code.
 No missing, conflicting or zero-output engine result can become success.
 M3-T02 supplies validated explicit parameter combinations, dependency-independent
-Version and no-prompt NonInteractive/Preview. The shipped outcome map also holds
-the canonical development version `1.0.0-dev`; final 1.0.0 is set at M5-T05.
+Version and no-prompt NonInteractive/Preview. At that historical checkpoint the
+outcome map held the development application label `1.0.0-dev`. M5-T01 replaces
+it with root `VERSION`, the sole application-version source, set to `1.0.0` for
+the unpublished candidate as required by AC-083. Outcome/result/run schema
+versions remain `1`; M5-T05 revalidates version consistency before publication.
 Auto requires BookmarkLevel and rejects StartPages; Manual requires StartPages and
 rejects BookmarkLevel. Explicit methods, NonInteractive and Preview need complete
 choices. Version rejects processing arguments. PowerShell invocation/type-binding
@@ -86,7 +89,7 @@ controls retention in successful output. After success and log finalization,
 the actual folder, positive chapter count and physical coverage are printed;
 O explicitly opens that folder, N or EOF finishes. Open failures are shown.
 
-Completion names the actual final folder, section count and page coverage; zero-output execution fails. Offer to open the completed folder only interactively. A converted input keeps its original ebook name in diagnostics. Use readable text without requiring color/ANSI. Show progress by stage/section rather than an invented ETA. Logs and UTF-8 JSON run manifests include version, resolved dependency versions, run ID, mode, original/generated source identity, page count, ranges, output names, warnings and final outcome. Save paths locally; a redacted diagnostic export strips user/profile paths, document titles/content, credentials and command environment. No telemetry or automatic upload.
+Completion names the actual final folder, section count and page coverage; zero-output execution fails. Offer to open the completed folder only interactively. A converted input keeps its original ebook name in diagnostics. Use readable text without requiring color/ANSI. Show progress by stage/section rather than an invented ETA. UTF-8 JSON run manifests include application version, resolved dependency versions, run ID, mode, original/generated source identity, page count, ranges, output names, warnings and final outcome. The separate bounded console log captures the operation's records and final outcome. Save paths locally; a redacted diagnostic export strips user/profile paths, document titles/content, credentials and command environment. No telemetry or automatic upload.
 
 ## M1-T06 diagnostic checkpoint
 

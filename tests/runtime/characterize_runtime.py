@@ -22,7 +22,7 @@ PYTHON_SELECTION_KINDS = {"explicit-literal", "app-venv", "multiple-path", "py-l
 CONVERTER_FAILURE_KINDS = {"missing", "wrong-version", "book-cwd-decoys"}
 CONVERTER_SUCCESS_KINDS = {"explicit-portable", "path-portable"}
 ACCEPTANCE_IDS = ["AC-043", "AC-044", "AC-045"]
-APPLICATION_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
+APPLICATION_FILES = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                      "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                      "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
                      "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",

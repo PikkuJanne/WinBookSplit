@@ -102,10 +102,10 @@ class CliReceiptTests(unittest.TestCase):
 
     def test_version_requires_helper_free_application_and_exact_canonical_output(self):
         case = synthetic_case("version")
-        app = {name: "b" * 64 for name in ("WinBookSplit.ps1", "engine/WinBookSplit.Outcomes.json")}
+        app = {name: "b" * 64 for name in ("WinBookSplit.ps1", "VERSION")}
         case.update(application_sha256=app, application_members=sorted(app), outcome=None, exit_code=0, parameters=["-Version"])
         case["command"] = case["command"][:5] + ["-Version"]
-        seal_stdout(case, "WinBookSplit 1.0.0-dev\n")
+        seal_stdout(case, "WinBookSplit 1.0.0\n")
         validator.validate_case(case)
         for field, value in (("outcome", {}), ("log_sha256", "a" * 64), ("application_sha256", {name: "b" * 64 for name in validator.APPLICATION})):
             changed = deepcopy(case)

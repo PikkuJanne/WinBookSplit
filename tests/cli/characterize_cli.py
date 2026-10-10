@@ -150,9 +150,9 @@ def application_case(work, host, kind, generator, ebook_sources, references, cal
         # Only the PS entry point/version contract exist; no engine/helpers,
         # application venv, Python/Calibre candidates or input are available.
         for name in process_tests.APPLICATION:
-            if name not in {"WinBookSplit.ps1", "engine/WinBookSplit.Outcomes.json"}:
+            if name not in {"WinBookSplit.ps1", "VERSION"}:
                 (app / name).unlink()
-        copied = {name: copied[name] for name in ("WinBookSplit.ps1", "engine/WinBookSplit.Outcomes.json")}
+        copied = {name: copied[name] for name in ("WinBookSplit.ps1", "VERSION")}
     fmt = "epub" if kind in {"preview-epub", "execute-epub-keep", "missing-calibre"} else "azw3" if kind == "preview-azw3" else "pdf"
     source = books / ("Book Åä 日本 [1] & (O'Neil) $(literal)." + fmt)
     if fmt == "pdf":

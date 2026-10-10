@@ -22,7 +22,7 @@ SPEC.loader.exec_module(console_fixture)
 SHELLS = [r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", r"C:\synthetic\PS7\pwsh.exe"]
 CALIBRE = r"C:\synthetic\Calibre\ebook-convert.exe"
 CONTENT = ["c" * 64, "d" * 64, "e" * 64]
-APP_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
+APP_FILES = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
              "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
              "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
              "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",

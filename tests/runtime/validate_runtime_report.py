@@ -331,7 +331,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
             integer(observed.get(field), "original." + field, 1)
         integer(observed.get("attributes"), "original.attributes")
     application = mapping(case.get("application_path_sha256"), "copied source hashes")
-    expected_files = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
+    expected_files = {"VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                       "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                       "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
                       "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
@@ -553,7 +553,7 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
         flag(child, field)
     require(child.get("immutable_original_commit") == ORIGINAL_COMMIT, "runtime: immutable historical guard identity")
     source_map = mapping(child.get("tested_path_sha256"), "tested source map")
-    required_source = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
+    required_source = {"VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                        "engine/WinBookSplit.Runtime.ps1", "tests/runtime/characterize_runtime.py",
                        "tests/runtime/validate_runtime_report.py", "tests/runtime/README.md",
                        "tests/python/test_runtime_receipt.py", "tests/baseline/expected_original.json",

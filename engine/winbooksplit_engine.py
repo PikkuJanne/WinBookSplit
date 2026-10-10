@@ -36,6 +36,33 @@ def result_exit_code(code):
     return value
 
 
+def _read_application_version(path):
+    """Read only bounded ASCII version bytes from the shipped root VERSION."""
+    try:
+        with Path(path).open("rb") as stream:
+            data = stream.read(35)
+        if len(data) > 34 or re.fullmatch(
+                rb"(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})(?:\r?\n)?", data) is None:
+            raise ValueError("Invalid version bytes.")
+        return data.rstrip(b"\r\n").decode("ascii")
+    except (OSError, ValueError) as error:
+        raise ValueError("Missing or malformed shipped application VERSION.") from error
+
+
+try:
+    APPLICATION_VERSION = _read_application_version(Path(__file__).resolve().parent.parent / "VERSION")
+except ValueError as error:
+    if __name__ != "__main__":
+        raise
+    version_exit = result_exit_code("processor_protocol_failed")
+    print(json.dumps({"protocol": "winbooksplit.result", "version": 1,
+        "mode": sys.argv[3] if len(sys.argv) > 3 else "", "status": "error",
+        "code": "processor_protocol_failed", "message": str(error), "warnings": [],
+        "fallback_modes": [], "exit_code": version_exit, "written_count": 0,
+        "execution": None, "diagnostic": None}, ensure_ascii=True))
+    raise SystemExit(version_exit) from error
+
+
 try:
     from pypdf import PageObject, PdfReader, PdfWriter, __version__ as PYPDF_VERSION
     from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, IndirectObject, NameObject,
@@ -1766,7 +1793,7 @@ def write_slice(reader, start, end, out_path, on_created=None):
     title = _metadata_text(re.sub(r"^[0-9]+ - ", "", os.path.splitext(os.path.basename(out_path))[0])) or "Chapter"
     original, _ = _source_metadata(reader)
     metadata = {"/Title": title, "/Creator": "WinBookSplit",
-                "/Producer": f"WinBookSplit {_outcome_contract['application_version']} (pypdf {PYPDF_VERSION})"}
+                "/Producer": f"WinBookSplit {APPLICATION_VERSION} (pypdf {PYPDF_VERSION})"}
     if "/Author" in original:
         metadata["/Author"] = original["/Author"]
     if "/Title" in original:

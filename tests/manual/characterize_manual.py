@@ -198,7 +198,7 @@ def observe(engine, source, output, cwd, mode, manual_data=None):
 
 def characterize(work, shells):
     sources = trusted_original_sources()  # Keep immutable test/input raw-byte guards.
-    paths = (*history.BASELINE_PATHS, "engine/winbooksplit_engine.py",
+    paths = ("VERSION", *history.BASELINE_PATHS, "engine/winbooksplit_engine.py",
              "tests/extraction/characterize_extraction.py", "tests/manual/characterize_manual.py")
     before = {path: history.file_digest(ROOT / path) for path in paths}
     engine = load_module("wbs_manual_engine", ENGINE)

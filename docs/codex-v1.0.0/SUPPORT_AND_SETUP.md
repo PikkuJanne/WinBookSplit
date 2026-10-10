@@ -1,5 +1,11 @@
 # Frozen support and dependency plan
 
+**Historical planning and evidence record.** For current end-user setup and the
+implemented support scope, use [docs/SETUP.md](../SETUP.md) and
+[README](../../README.md). The dated observations and old example recipes below
+are retained as history; they are not new acceptance results or the current
+end-user command inventory.
+
 Decision date: 8 October 2026 (Europe/Berlin), M0-T03, AC-007/AC-008.
 This is the v1.0.0 implementation/test target. At M0 the original application
 still contained the reproduced defects; dependency installation alone was no fix.
@@ -72,7 +78,7 @@ If any dependency bytes are later redistributed, review their actual licenses
 and notices in M5 before packaging; requirements files alone do not redistribute
 the packages.
 
-## Isolated setup (explicit user/developer action)
+## Historical isolated-setup recipe (explicit user/developer action)
 
 Obtain regular x64 Python 3.14.8 from [its official release page][S10]. Use an
 explicit interpreter path. With the already installed Python manager, a local
@@ -111,11 +117,14 @@ if ($LASTEXITCODE -ne 0) { throw 'Runtime import check failed' }
 ```
 
 Inspect the printed paths: pypdf must come from this venv, never from a book
-directory or unrelated interpreter. Network access occurs only for explicit
+directory or unrelated interpreter. Dependency downloads occur during explicit
 setup. A reviewed wheelhouse can be prepared with the same requirements and
 `pip download --require-hashes --only-binary=:all:` and then installed using
 `--no-index --find-links <absolute-wheelhouse>` in place of `--index-url`.
-Normal document processing must remain offline and never auto-install.
+Normal document processing never auto-installs dependencies or uploads documents
+through WinBookSplit. This is not OS network isolation for Calibre/plugins or
+external ebook resources; prefer self-contained ebooks. The later bounded
+loopback observation is documented in [ebook support](../EBOOK_SUPPORT.md).
 
 M2-T04 implements explicit `-PythonPath`, application-local `.venv`, validated
 read-only `py.exe -0p` listing, then trusted PATH discovery. The chosen interpreter

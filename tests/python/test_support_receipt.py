@@ -69,7 +69,7 @@ def synthetic_success():
            'publication': {'manifest': manifest, 'manifest_raw': compact(manifest), 'manifest_sha256': validator.digest(compact(manifest)),
                            'content_sha256': ['d' * 64] * 6,
                            'members': ['.WinBookSplit-owner.json', 'WinBookSplit_Manifest.json', '1.pdf', '2.pdf', '3.pdf']}}
-    row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': '1.0.0-dev', 'run_id': 'e' * 32,
+    row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': '1.0.0', 'run_id': 'e' * 32,
         'started_utc': '2026-10-10T00:00:00+00:00', 'finished_utc': '2026-10-10T00:00:01+00:00', 'diagnostics_finalized': True,
         'runtime_versions': {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.19.0', 'calibre': None},
         'settings': {'mode': 'manual', 'input_kind': 'pdf', 'preview': False, 'non_interactive': True, 'no_pause': False,
@@ -82,7 +82,7 @@ def synthetic_success():
 
 
 def summary(manifest):
-    return {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': '1.0.0-dev',
+    return {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': '1.0.0',
             'runtime_versions': {**deepcopy(manifest['runtime_versions']), 'powershell': '5.1'},
             'settings': {key: manifest['settings'][key] for key in validator.SCALAR_SETTINGS},
             'plan': None if manifest['plan'] is None else {key: deepcopy(manifest['plan'][key]) for key in ('total_pages', 'ranges', 'coverage')},
