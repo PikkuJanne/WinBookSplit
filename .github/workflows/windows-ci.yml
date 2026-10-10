@@ -1,0 +1,125 @@
+name: Windows CI
+
+on:
+  push:
+    branches: [main, 'codex/**']
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: windows-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  windows-regression:
+    name: Python and PowerShell regression
+    runs-on: windows-2025
+    timeout-minutes: 20
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout tested source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        env:
+          GIT_CONFIG_COUNT: '1'
+          GIT_CONFIG_KEY_0: core.autocrlf
+          GIT_CONFIG_VALUE_0: 'false'
+        with:
+          persist-credentials: false
+          clean: false
+          set-safe-directory: false
+          fetch-depth: 0
+
+      - name: Create owned report directory
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          if (Test-Path -LiteralPath $CiRoot) { throw 'CI directory already exists' }
+          $null = New-Item -ItemType Directory -Path (Join-Path $CiRoot 'reports')
+
+      - name: Set up exact regular x64 Python
+        id: python-setup
+        uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.14.8'
+          architecture: x64
+          freethreaded: false
+          allow-prereleases: false
+
+      - name: Install hash-pinned development dependencies in a fresh venv
+        id: dependencies
+        run: |
+          python -I -B -c "import struct,sys; assert sys.version_info[:3] == (3,14,8) and struct.calcsize('P') == 8"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiVenv = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci\venv'
+          python -I -B -m venv $CiVenv
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiPython = Join-Path $CiVenv 'Scripts\python.exe'
+          & $CiPython -I -B -m pip install --isolated --disable-pip-version-check --require-hashes --only-binary=:all: -r requirements-dev.txt
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $CiPython -I -B -m pip check
+          exit $LASTEXITCODE
+
+      - name: Bootstrap exact isolated shell tools
+        id: modules
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          & $CiPython -I -B tools/ci/bootstrap.py --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\tools-bootstrap.json')
+          exit $LASTEXITCODE
+
+      - name: Check committed package prerequisites without building a package
+        if: ${{ !cancelled() && steps.python-setup.outcome == 'success' }}
+        run: |
+          $CiCommit = (& git rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiReport = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci\reports\package-inputs.json'
+          python -I -B tools/ci/check_package_inputs.py --repo $env:GITHUB_WORKSPACE --commit $CiCommit --report $CiReport
+          exit $LASTEXITCODE
+
+      - name: Python regression through the shared runner
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          & $CiPython -I -B tests/run_tests.py --layer python --report (Join-Path $CiRoot 'reports\python.json')
+          exit $LASTEXITCODE
+
+      - name: Windows PowerShell 5.1 syntax, scoped analysis and Pester
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' && steps.modules.outcome == 'success' }}
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          $CiShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+          & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps51.json')
+          exit $LASTEXITCODE
+
+      - name: PowerShell 7 syntax, scoped analysis and Pester
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' && steps.modules.outcome == 'success' }}
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          $CiShell = (Get-Command pwsh -CommandType Application -ErrorAction Stop).Source
+          & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps7.json')
+          exit $LASTEXITCODE
+
+      - name: Preserve only declared synthetic test and prerequisite reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: windows-ci-reports
+          path: |
+            ${{ runner.temp }}/WinBookSplit-ci/reports/tools-bootstrap.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/package-inputs.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/python.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/shell-ps51.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/shell-ps7.json
+          retention-days: 14
+          include-hidden-files: false
+          overwrite: false
+          if-no-files-found: warn

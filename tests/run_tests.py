@@ -129,6 +129,7 @@ def source_manifest() -> dict[str, str]:
     paths = [ROOT / name for name in (
         "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
         "requirements.txt", "requirements-dev.txt",
+        ".github/workflows/windows-ci.yml", "tools/ci/README.md",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",
         "tests/extraction/README.md", "tests/manual/README.md", "tests/bookmarks/README.md",
         "tests/plans/README.md",
@@ -153,7 +154,7 @@ def source_manifest() -> dict[str, str]:
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
-    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff"):
+    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci"):
         paths.extend(path for path in directory.rglob("*")
                      if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json", ".cs"}
                      and "__pycache__" not in path.parts)

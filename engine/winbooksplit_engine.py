@@ -736,8 +736,8 @@ def _inert_annotation_value(value):
                 continue
             seen.add(id(item))
             if isinstance(item, dict):
-                kind = item.get("/Type")
-                action = item.get("/S")
+                kind = _pdf_object(item.get("/Type"))
+                action = _pdf_object(item.get("/S"))
                 if (isinstance(kind, str) and kind in {"/Page", "/Pages", "/Catalog", "/Action"}) \
                         or (isinstance(action, str) and action in ANNOTATION_ACTIONS) \
                         or any(key in item for key in ("/AA", "/A", "/JS", "/Next")):
@@ -780,7 +780,7 @@ def _chapter_annotations(reader, start, end, named):
             if not isinstance(annotation, dict):
                 warn("annotation_dropped")
                 continue
-            subtype, destination = annotation.get("/Subtype"), None
+            subtype, destination = _pdf_object(annotation.get("/Subtype")), None
             rect = _pdf_object(annotation.get("/Rect"))
             if not isinstance(rect, (list, tuple)) or len(rect) != 4 or not _finite_coordinates(rect, multiple=4) \
                     or (subtype == "/Highlight" and not _finite_coordinates(annotation.get("/QuadPoints"), multiple=8)):
@@ -790,7 +790,7 @@ def _chapter_annotations(reader, start, end, named):
             if subtype == "/Link":
                 action = _pdf_object(annotation.get("/A"))
                 if "/AA" in annotation or ("/A" in annotation and "/Dest" in annotation) or \
-                        ("/A" in annotation and (not isinstance(action, dict) or action.get("/S") != "/GoTo" or "/Next" in action)):
+                        ("/A" in annotation and (not isinstance(action, dict) or _pdf_object(action.get("/S")) != "/GoTo" or "/Next" in action)):
                     warn("navigation_link_dropped")
                     continue
                 destination = _destination_details(reader, action.get("/D") if isinstance(action, dict) else annotation.get("/Dest"), named)

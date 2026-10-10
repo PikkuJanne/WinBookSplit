@@ -47,7 +47,7 @@ class OutputTransactionTests(unittest.TestCase):
         cls.inputs = fixtures.generate_fixtures(cls.work / "fixtures")
 
     def setUp(self):
-        self.base = self.work / self._testMethodName
+        self.base = self.work / ('case-' + uuid.uuid4().hex[:12])
         self.base.mkdir()
         self.neighbor = self.base / "unrelated-synthetic-neighbor.txt"
         self.neighbor.write_bytes(b"Original synthetic output-base neighbor\n")

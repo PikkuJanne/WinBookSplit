@@ -233,8 +233,12 @@ Shared-plan checks exercise the callable preview and captured-source writer.
 Full UX/Explorer, expanded Calibre compatibility and conversion from the
 extracted release package remain separate mandatory later checks. The local
 conversion route covers the two original fixtures on the pinned converter.
-CI installation and workflow
-execution belong to M4-T05; this local scaffold does not claim a CI run.
+The Windows CI workflow uses this same runner for the Python layer and separate
+shell-layer invocations under Windows PowerShell 5.1 and PowerShell 7. It uses
+isolated pinned tools and checks immutable package source prerequisites. See
+`../tools/ci/README.md` for invocation details, permissions and exact scope.
+Hosted Windows Server checks do not certify the local Windows 11 full route,
+human observations, real Calibre conversions or an extracted release package.
 
 M3-T04 adds `--layer ux` as stage 17 of the full route. Actual PS5.1/PS7 processes
 hold the displayed plan before consent, verify no chapter reservation, then
