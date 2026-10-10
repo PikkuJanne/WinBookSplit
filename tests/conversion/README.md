@@ -26,8 +26,13 @@ missing-converter failure. It supplies scripted manual starts `2,3`; conversion
 uses exactly `--output-profile tablet`. These fixtures demonstrate the reviewed
 profile's actual behavior without claiming that it improves every ebook layout.
 The BAT failure must contain the actual `converter_not_found` dependency record
-and exact-version guidance, return 1, and create no console or engine result.
+and exact-version guidance, return 3, and create no console or engine result.
 It preserves the source and neighbor; successful discovery is tested separately.
+Only this negative case redirects child `LOCALAPPDATA` to a fresh empty owned
+directory, leaving the parent's environment and real per-user Calibre unchanged.
+Both fixed system Calibre paths must actually be absent; the test fails clearly
+if this missing-dependency premise cannot be established. No installation is
+altered and no mandatory assertion is skipped.
 
 The EPUB yields three physical pages. The genuine AZW3 has three chapters plus
 an inline table of contents and yields four physical pages. All pages, including

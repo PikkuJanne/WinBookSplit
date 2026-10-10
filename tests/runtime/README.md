@@ -19,6 +19,13 @@ The real unsupported control is the observed installed Python 3.14.7, or an
 explicit `WBS_TEST_UNSUPPORTED_PYTHON` path to that exact real version. Its version
 is probed before the cases; a stub cannot replace this control.
 
+Missing/decoy converter cases alone redirect child `LOCALAPPDATA` to a fresh
+empty owned directory, so a real per-user Calibre installation cannot satisfy
+their absence premise. Both fixed system Calibre paths must actually be absent;
+otherwise these controls fail clearly without modifying any installation.
+Parent environment, explicit wrong-version rejection and positive discovery
+cases remain unchanged; no mandatory assertion is skipped.
+
 Failures must occur before console/stage/output creation and conversion, preserve
 the exact source/neighbor identities, and report actual candidate probe/reason plus
 exact setup targets. Success records read the application's actual prefixed
