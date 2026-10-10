@@ -32,6 +32,16 @@ generated fixtures, structural checks, exact same-renderer pixel comparisons
 and preserved external PNGs for agent visual inspection. This is automated
 native Windows evidence; it does not reopen or certify human testing.
 
+M4-T02 adds `--layer document-policy` as the twentieth full stage. The targeted
+route requires both explicit supported shell paths and needs no converter or
+renderer flags. It uses authored PDFs to check encrypted/unsupported-feature
+rejection, bounded malformed-input failure and ordinary positive controls under
+actual hosts and BAT. A strict independent child validator binds native status,
+source and output preservation, finalized diagnostics and owned cleanup. See
+`document_policy/README.md` for the exact matrix and evidence limits. API/unit
+guards and synthetic receipt mutations remain distinct from native acceptance;
+this route does not reopen human or GUI testing.
+
 Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
 for targeted checks. `--layer cli` requires both actual supported hosts and the
 real pinned Calibre executable; it adds M3-T02 CLI acceptance as stage 15 of full.

@@ -14,6 +14,205 @@ import time
 from types import MappingProxyType
 
 from pypdf import PdfReader
+from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject, NumberObject
+
+
+MAX_PDF_SNAPSHOT_BYTES = 512 * 1024 * 1024
+MAX_PDF_PAGE_TREE_DEPTH = 64
+MAX_PDF_PAGE_TREE_NODES = 200000
+MAX_PDF_PAGES = 100000
+MAX_PDF_FEATURE_DEPTH = 128
+MAX_PDF_FEATURE_NODES = 200000
+PDF_ACTION_TYPES = frozenset({"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread", "/URI", "/Sound", "/Movie", "/Hide",
+    "/Named", "/SubmitForm", "/ResetForm", "/ImportData", "/JavaScript", "/SetOCGState", "/Rendition", "/Trans", "/GoTo3DView"})
+STATIC_ANNOTATION_FIELDS = frozenset({"/Type", "/Subtype", "/Rect", "/Contents", "/NM", "/M", "/F", "/C", "/CA", "/BS",
+    "/Border", "/AP", "/AS", "/T", "/Open", "/Name", "/Subj", "/QuadPoints", "/InkList", "/L", "/LE", "/IC",
+    "/RD", "/IT", "/CL", "/Rotate", "/DA", "/Q", "/DS", "/RC", "/CreationDate", "/State", "/StateModel", "/Vertices"})
+
+
+class PdfPolicyError(ValueError):
+    """Fixed local policy failures; never interpolate document-controlled text."""
+    def __init__(self, code, message):
+        super().__init__(message)
+        self.code = code
+
+
+def _unsupported_pdf(message):
+    raise PdfPolicyError("unsupported_document", message)
+
+
+def _invalid_pdf(message):
+    raise PdfPolicyError("invalid_document", message)
+
+
+def _pdf_value(value):
+    return value.get_object() if isinstance(value, IndirectObject) else value
+
+
+def _bounded_pdf_snapshot(stream):
+    if isinstance(stream, (str, os.PathLike)):
+        with open(stream, "rb") as source:
+            data = source.read(MAX_PDF_SNAPSHOT_BYTES + 1)
+    else:
+        position = stream.tell()
+        try:
+            stream.seek(0)
+            data = stream.read(MAX_PDF_SNAPSHOT_BYTES + 1)
+        finally:
+            stream.seek(position)
+    if not isinstance(data, bytes):
+        _invalid_pdf("A PDF input must be a binary byte snapshot.")
+    if len(data) > MAX_PDF_SNAPSHOT_BYTES:
+        _invalid_pdf("The PDF exceeds the supported 512 MiB input limit.")
+    return BytesIO(data)
+
+
+def _preflight_page_tree(catalog):
+    """Validate every raw child before pypdf can flatten or skip a damaged one."""
+    if "/Pages" not in catalog:
+        _invalid_pdf("The PDF catalog has no page tree.")
+    pending = [(catalog.get("/Pages"), 0, False)]
+    visited, counts, pages = set(), {}, []
+    while pending:
+        value, depth, finish = pending.pop()
+        node = _pdf_value(value)
+        if not isinstance(node, DictionaryObject):
+            _invalid_pdf("Every PDF page-tree child must be a dictionary.")
+        identity = id(node)
+        if finish:
+            kids = _pdf_value(node.get("/Kids"))
+            count = sum(counts[id(_pdf_value(kid))] for kid in kids)
+            if _pdf_value(node.get("/Count")) != count:
+                _invalid_pdf("The PDF page-tree count disagrees with its physical children.")
+            counts[identity] = count
+            continue
+        if identity in visited:
+            _invalid_pdf("The PDF page tree repeats a page or contains a cycle.")
+        visited.add(identity)
+        if depth > MAX_PDF_PAGE_TREE_DEPTH or len(visited) > MAX_PDF_PAGE_TREE_NODES:
+            _invalid_pdf("The PDF page tree exceeds the supported traversal limit.")
+        kind = node.get("/Type")
+        if kind == "/Page":
+            if "/Kids" in node:
+                _invalid_pdf("A physical PDF page cannot have page-tree children.")
+            pages.append(node)
+            if len(pages) > MAX_PDF_PAGES:
+                _invalid_pdf("The PDF exceeds the supported 100000 physical-page limit.")
+            counts[identity] = 1
+        elif kind == "/Pages":
+            kids, count = _pdf_value(node.get("/Kids")), _pdf_value(node.get("/Count"))
+            if not isinstance(kids, ArrayObject) or not isinstance(count, (int, NumberObject)) or isinstance(count, bool) or count < 0:
+                _invalid_pdf("The PDF page tree has invalid children or a noninteger page count.")
+            if len(kids) > MAX_PDF_PAGE_TREE_NODES:
+                _invalid_pdf("The PDF page tree exceeds the supported traversal limit.")
+            pending.append((node, depth, True))
+            pending.extend((kid, depth + 1, False) for kid in reversed(kids))
+        else:
+            _invalid_pdf("The PDF page tree contains an object that is not a physical page or page branch.")
+    if not pages:
+        _invalid_pdf("The PDF must contain at least one physical page.")
+    return pages
+
+
+def _preflight_pdf_features(reader):
+    catalog = reader.root_object
+    if not isinstance(catalog, DictionaryObject) or catalog.get("/Type") != "/Catalog":
+        _invalid_pdf("The PDF catalog is not a valid document dictionary.")
+    for key, message in (
+        ("/AcroForm", "Interactive AcroForm/XFA documents are not supported."),
+        ("/Perms", "Signed or permission-signature documents are not supported."),
+        ("/Collection", "PDF portfolios are not supported."),
+        ("/OpenAction", "Document opening actions or destinations are not supported."),
+        ("/AA", "Document-level additional actions are not supported."),
+        ("/AF", "Associated or embedded document attachments are not supported."),
+    ):
+        if key in catalog:
+            _unsupported_pdf(message)
+    names = _pdf_value(catalog.get("/Names"))
+    if isinstance(names, DictionaryObject) and any(key in names for key in ("/JavaScript", "/EmbeddedFiles")):
+        _unsupported_pdf("Document scripts and embedded-file name trees are not supported.")
+    pages = _preflight_page_tree(catalog)
+    physical_page_ids = {id(page) for page in pages}
+    forbidden_annotations = ("/Widget", "/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D")
+    projected_annotations, examined_annotations = [], 0
+    for page in pages:
+        if "/AF" in page:
+            _unsupported_pdf("Associated page attachments are not supported.")
+        annotations = _pdf_value(page.get("/Annots"))
+        if isinstance(annotations, ArrayObject):
+            if len(annotations) > MAX_PDF_FEATURE_NODES:
+                _invalid_pdf("PDF annotations exceed the supported inspection limit.")
+            for reference in annotations:
+                examined_annotations += 1
+                if examined_annotations > MAX_PDF_FEATURE_NODES:
+                    _invalid_pdf("PDF annotations exceed the supported inspection limit.")
+                annotation = _pdf_value(reference)
+                if isinstance(annotation, DictionaryObject) and (
+                    annotation.get("/Subtype") in forbidden_annotations or annotation.get("/FT") == "/Sig"
+                    or annotation.get("/Type") == "/Sig" or "/AF" in annotation or "/EF" in annotation
+                ):
+                    _unsupported_pdf("Interactive widgets, signatures, attachments and multimedia annotations are not supported.")
+                if isinstance(annotation, DictionaryObject):
+                    projected_annotations.extend(value for key, value in annotation.items() if key in STATIC_ANNOTATION_FIELDS)
+    # Ordinary PDF graphs have Parent/P cycles. Repeated graph nodes are visited
+    # once; only the physical page tree above rejects repeats. Do not decode
+    # content/image streams or execute actions to identify these structures.
+    pending = [(catalog, 0, False, False)] + [(value, 0, True, True) for value in projected_annotations]
+    visited = set()
+    while pending:
+        value, depth, annotation_projection, copied_page_value = pending.pop()
+        node = _pdf_value(value)
+        if not isinstance(node, (DictionaryObject, ArrayObject)):
+            continue
+        identity = (id(node), annotation_projection, copied_page_value)
+        if identity in visited:
+            continue
+        visited.add(identity)
+        if len(visited) > MAX_PDF_FEATURE_NODES or depth > MAX_PDF_FEATURE_DEPTH:
+            _invalid_pdf("The PDF object graph exceeds the supported inspection limit.")
+        if isinstance(node, DictionaryObject):
+            kind = node.get("/Type")
+            # These projected values are dropped wholesale by the existing inert
+            # annotation guard; do not traverse their excluded document backlinks.
+            if annotation_projection and kind in ("/Page", "/Pages", "/Catalog", "/Action"):
+                continue
+            if copied_page_value and kind in ("/Page", "/Pages", "/Catalog"):
+                _unsupported_pdf("Copied page resources cannot reference document catalogs or physical page trees.")
+            if kind in ("/Sig", "/EmbeddedFile") or node.get("/FT") == "/Sig" or "/EF" in node or "/AF" in node:
+                _unsupported_pdf("Signatures and embedded or associated attachments are not supported.")
+            if not annotation_projection and (kind == "/Action" or isinstance(node.get("/S"), str)
+                    and node.get("/S") in PDF_ACTION_TYPES or "/JS" in node):
+                _unsupported_pdf("Active document or resource actions are not supported.")
+            # The existing planner bounds outline/destination retrieval. The
+            # existing writer rebuilds annotations and excludes page AA/articles;
+            # their tested warnings remain separate from catalog policy.
+            skipped = set()
+            if node is catalog:
+                skipped.update({"/Outlines", "/Dests"})
+            if node is names:
+                skipped.add("/Dests")
+            if id(node) in physical_page_ids:
+                skipped.update({"/Parent", "/Annots", "/AA", "/B"})
+            if len(node) > MAX_PDF_FEATURE_NODES:
+                _invalid_pdf("A PDF dictionary exceeds the supported inspection limit.")
+            pending.extend((child, depth + 1, annotation_projection, copied_page_value or id(node) in physical_page_ids)
+                           for key, child in node.items() if key not in skipped)
+        else:
+            if len(node) > MAX_PDF_FEATURE_NODES:
+                _invalid_pdf("A PDF array exceeds the supported inspection limit.")
+            pending.extend((child, depth + 1, annotation_projection, copied_page_value) for child in node)
+
+
+class PolicyPdfReader(PdfReader):
+    """Pinned pypdf reader guard shared by direct and converted PDF inputs."""
+    def _handle_encryption(self, password):
+        # pypdf6.19 otherwise reads encryption and tries verify(b'') in __init__.
+        # Reject at its hook before Encryption.read/verify/decrypt is reached.
+        _unsupported_pdf("Encrypted PDFs are not supported. No decryption is attempted.")
+
+    def __init__(self, stream, strict=False):
+        super().__init__(_bounded_pdf_snapshot(stream), strict=strict, root_object_recovery_limit=4096)
+        _preflight_pdf_features(self)
 
 
 CONVERTED_FILENAME = "WinBookSplit_Converted.pdf"
@@ -181,9 +380,7 @@ def _validate_pdf(data, path):
     if not data:
         raise ConversionError("conversion_output_invalid", "Calibre produced no nonempty PDF.")
     try:
-        reader = PdfReader(BytesIO(data))
-        if reader.is_encrypted:
-            raise ValueError("Encrypted converted PDFs are not supported.")
+        reader = PolicyPdfReader(BytesIO(data))
         count = len(reader.pages)
         if count < 1:
             raise ValueError("The converted PDF contains no pages.")
@@ -195,6 +392,9 @@ def _validate_pdf(data, path):
         return {"path": path, "resolved_path": os.path.realpath(path), "sha256": sha256(data).hexdigest(),
                 "size_bytes": len(data), "page_count": count, "binding": "reader_snapshot",
                 "page_content_sha256": contents}
+    except PdfPolicyError as error:
+        code = "unsupported_document" if error.code == "unsupported_document" else "conversion_output_invalid"
+        raise ConversionError(code, str(error)) from error
     except Exception as error:
         raise ConversionError("conversion_output_invalid", "Cannot validate the converted PDF: " + str(error)) from error
 
@@ -258,7 +458,10 @@ def convert_ebook(source_path, converter_path, output_base, *, new_run, timeout_
             raise
         run.seal_file(path)
         run.assert_owned()
-        data = Path(path).read_bytes()
+        try:
+            data = _bounded_pdf_snapshot(path).getvalue()
+        except PdfPolicyError as error:
+            raise ConversionError("conversion_output_invalid", str(error)) from error
         generated = _validate_pdf(data, path)
         source_guard.assert_unchanged()
         after, after_fingerprint = _source_snapshot(source_path)

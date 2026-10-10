@@ -53,6 +53,16 @@ except ImportError as error:
     raise SystemExit(dependency_exit) from error
 
 
+# Use the existing shipped conversion helper's checked reader for all PDF
+# sources. Resolve its exact sibling; book/CWD modules never participate.
+_pdf_policy_spec = importlib.util.spec_from_file_location(
+    "_winbooksplit_pdf_reader", Path(__file__).resolve().with_name("winbooksplit_conversion.py"))
+_pdf_policy = importlib.util.module_from_spec(_pdf_policy_spec)
+sys.modules[_pdf_policy_spec.name] = _pdf_policy
+_pdf_policy_spec.loader.exec_module(_pdf_policy)
+PdfReader = _pdf_policy.PolicyPdfReader
+
+
 def log(msg): print(msg)
 
 
@@ -643,13 +653,8 @@ class PreparedSplit:
 
 MAX_PDF_ANNOTATIONS = 10000
 STATIC_ANNOTATIONS = {"/Text", "/Highlight", "/Square"}
-ANNOTATION_ACTIONS = {"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread", "/URI", "/Sound", "/Movie", "/Hide",
-                      "/Named", "/SubmitForm", "/ResetForm", "/ImportData", "/JavaScript", "/SetOCGState",
-                      "/Rendition", "/Trans", "/GoTo3DView"}
-ANNOTATION_FIELDS = {"/Type", "/Subtype", "/Rect", "/Contents", "/NM", "/M", "/F", "/C", "/CA", "/BS",
-                     "/Border", "/AP", "/AS", "/T", "/Open", "/Name", "/Subj", "/QuadPoints", "/InkList",
-                     "/L", "/LE", "/IC", "/RD", "/IT", "/CL", "/Rotate", "/DA", "/Q", "/DS", "/RC",
-                     "/CreationDate", "/State", "/StateModel", "/Vertices"}
+ANNOTATION_ACTIONS = _pdf_policy.PDF_ACTION_TYPES
+ANNOTATION_FIELDS = _pdf_policy.STATIC_ANNOTATION_FIELDS
 DESTINATION_FITS = {"/Fit": 0, "/FitB": 0, "/FitH": 1, "/FitV": 1, "/FitBH": 1, "/FitBV": 1, "/XYZ": 3, "/FitR": 4}
 FIDELITY_MESSAGES = {
     "cross_chapter_link_dropped": "Internal links to pages outside this chapter are omitted.",
@@ -835,6 +840,10 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
         raise PlanError("invalid_prepared_split", "Use one captured reader or byte snapshot, not both.")
     reader = _captured_reader if _captured_reader is not None else \
         PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
+    if _captured_reader is not None:
+        if reader.is_encrypted:
+            _pdf_policy._unsupported_pdf("Encrypted PDFs are not supported. No decryption is attempted.")
+        _pdf_policy._preflight_pdf_features(reader)
     pages = len(reader.pages)
     if mode == "manual":
         raw = plan_manual_starts(manual_data, pages)
@@ -1408,7 +1417,9 @@ def _planning_failure(mode, error):
     elif isinstance(error, BookmarkPlanError) and error.code in {
             "no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"}:
         status, code = "no_plan", error.code
-    elif isinstance(error, (ManualPlanError, BookmarkPlanError, PlanError)):
+    elif getattr(error, "code", None) == "unsupported_document":
+        status, code = "unsupported", "unsupported_document"
+    elif isinstance(error, (ManualPlanError, BookmarkPlanError, PlanError, _pdf_policy.PdfPolicyError)):
         code = error.code
         status = "invalid_input" if code in {"invalid_document", "invalid_outline",
                                              "invalid_start_pages", "invalid_mode"} else "error"
@@ -1450,13 +1461,13 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
     except KeyboardInterrupt:
         return _split_result(mode, "cancelled", "processing_cancelled", "PDF preparation was cancelled.")
     except Exception as error:
-        if getattr(error, "code", "").startswith("conversion_") or getattr(error, "code", "") == "converter_not_found":
+        if getattr(error, "code", "").startswith("conversion_") or getattr(error, "code", "") == "converter_not_found" or getattr(error, "conversion", None):
             conversion = getattr(error, "conversion", None)
             _log_conversion(conversion)
             diagnostic = getattr(error, "diagnostic", None)
             if conversion:
                 diagnostic = {**(diagnostic or {}), "conversion": conversion}
-            return _split_result(mode, "error", error.code, str(error), diagnostic=diagnostic)
+            return _split_result(mode, "unsupported" if error.code == "unsupported_document" else "error", error.code, str(error), diagnostic=diagnostic)
         return _planning_failure(mode, error)
     return _complete_prepared_split(prepared, output_dir, preview=preview)
 
@@ -1690,11 +1701,11 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
         result = _split_result(mode, "cancelled", "processing_cancelled", "Interactive PDF preparation was cancelled.")
     except Exception as error:
         code = getattr(error, "code", "unreadable_document")
-        if code.startswith("conversion_") or code == "converter_not_found":
+        if code.startswith("conversion_") or code == "converter_not_found" or getattr(error, "conversion", None):
             conversion = getattr(error, "conversion", None)
             _log_conversion(conversion)
             diagnostic = {**(getattr(error, "diagnostic", None) or {}), **({"conversion": conversion} if conversion else {})}
-            result = _split_result(mode, "error", code, str(error), diagnostic=diagnostic)
+            result = _split_result(mode, "unsupported" if code == "unsupported_document" else "error", code, str(error), diagnostic=diagnostic)
         else:
             result = _planning_failure(mode, error)
             if getattr(error, "diagnostic", None):

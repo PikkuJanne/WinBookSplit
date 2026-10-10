@@ -1,6 +1,7 @@
 """Harness regressions only; these are not corrected-engine acceptance tests."""
 
 import importlib.util
+import io
 from copy import deepcopy
 import json
 import os
@@ -970,11 +971,139 @@ class RunnerTests(unittest.TestCase):
                             ("--render-directory", args.report.with_name("full-renders"))):
             self.assertEqual(fidelity[0][fidelity[0].index(flag) + 1], str(value))
         self.assertEqual(fidelity[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity"])
-        self.assertEqual([step["name"] for step in report["steps"][-16:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression"])
-        self.assertEqual(len(report["steps"]), 19)
+        document_policy = [command for command in commands if str(ROOT / "tests/document_policy/characterize_document_policy.py") in command]
+        self.assertEqual(len(document_policy), 1)
+        self.assertEqual(document_policy[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        for flag in ("--calibre-path", "--renderer-path", "--secondary-python-path"):
+            self.assertNotIn(flag, document_policy[0])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy"])
+        self.assertEqual([step["name"] for step in report["steps"][-17:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression"])
+        self.assertEqual(len(report["steps"]), 20)
         self.assertTrue(report["success"])
+
+    def test_document_policy_target_forwards_only_both_hosts_and_propagates_native_failure(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="document-policy", failure_probe=None, shell_path=hosts)
+        for native_exit in (0, 17):
+            with self.subTest(native_exit=native_exit):
+                commands = []
+
+                def command(argv, cwd, **kwargs):
+                    commands.append(argv)
+                    return {"exit_code": native_exit if str(ROOT / "tests/document_policy/characterize_document_policy.py") in argv else 0,
+                            "stdout": "synthetic identity\n", "stderr": ""}
+
+                with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                        patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+                    report = runner.execute(args)
+                native = [argv for argv in commands if str(ROOT / "tests/document_policy/characterize_document_policy.py") in argv]
+                self.assertEqual(len(native), 1)
+                self.assertEqual(native[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+                for flag in ("--calibre-path", "--renderer-path", "--secondary-python-path"):
+                    self.assertNotIn(flag, native[0])
+                self.assertEqual([step["name"] for step in report["steps"]], ["document-policy-regression"])
+                self.assertEqual(report["steps"][0]["requested_shell_paths"], list(map(str, hosts)))
+                self.assertEqual([call.args[2] for call in attach.call_args_list], ["document-policy"])
+                self.assertEqual(report["success"], native_exit == 0)
+
+    def test_document_policy_readme_and_policy_are_bound_in_source_manifest(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-policy-runner-source-") as directory:
+            root = Path(directory)
+            content = {"tests/document_policy/README.md": b"Authored route\n", "docs/PDF_POLICY.md": b"Declared policy\n"}
+            for name, data in content.items():
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(data)
+            with patch.object(runner, "ROOT", root):
+                before = runner.source_manifest()
+                self.assertEqual(before, {name: runner.sha256(data) for name, data in content.items()})
+                (root / "docs/PDF_POLICY.md").write_bytes(b"Changed declared policy\n")
+                self.assertNotEqual(runner.manifest_digest(before), runner.manifest_digest(runner.source_manifest()))
+
+    def test_document_policy_main_requires_distinct_existing_hosts_without_converter_or_renderer(self):
+        # Only argument validation is exercised; these empty authored files are
+        # never launched and do not stand in for actual supported host evidence.
+        with tempfile.TemporaryDirectory(prefix="wbs-policy-runner-args-") as directory:
+            work = Path(directory).resolve()
+            hosts = [work / "ps51.exe", work / "pwsh.exe"]
+            for host in hosts:
+                host.write_bytes(b"")
+            for supplied in ([], [hosts[0]], [hosts[0], hosts[0]], [work / "missing.exe", hosts[1]], hosts):
+                with self.subTest(hosts=supplied):
+                    destination = work / "report.json"
+                    argv = [str(SCRIPT), "--layer", "document-policy", "--report", str(destination)]
+                    for host in supplied:
+                        argv.extend(["--shell-path", str(host)])
+                    synthetic = {"success": True, "steps": [{"exit_code": 0}]}
+                    with patch.object(sys, "argv", argv), patch.object(runner, "execute", return_value=synthetic) as execute, \
+                            patch.object(sys, "stdout", io.StringIO()), patch.object(sys, "stderr", io.StringIO()):
+                        code = runner.main()
+                    if supplied == hosts:
+                        self.assertEqual(code, 0)
+                        self.assertEqual(execute.call_args.args[0].shell_path, hosts)
+                        self.assertIsNone(execute.call_args.args[0].calibre_path)
+                        self.assertIsNone(execute.call_args.args[0].renderer_path)
+                        self.assertIsNone(execute.call_args.args[0].secondary_python_path)
+                        self.assertTrue(destination.is_file())
+                    else:
+                        self.assertEqual(code, 1)
+                        execute.assert_not_called()
+                        self.assertFalse(destination.exists())
+
+    def test_document_policy_attachment_calls_strict_validator_with_cleanup_required(self):
+        # This proves runner delegation/error propagation only. Native receipt
+        # content/contradiction tests live with the independent policy validator.
+        hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]
+        child = {"schema_version": 1, "success": True, "exit_code": 0}
+        calls = []
+
+        def validate(data, requested, *, cleanup_complete):
+            calls.append((data, requested, cleanup_complete))
+            if data.get("reject"):
+                raise ValueError("Synthetic strict rejection")
+
+        validator = SimpleNamespace(validate_document_policy_report=validate)
+        spec = SimpleNamespace(loader=SimpleNamespace(exec_module=lambda module: None))
+        with tempfile.TemporaryDirectory(prefix="wbs-policy-runner-validator-") as directory:
+            path = Path(directory) / "report.json"
+            with patch.object(importlib.util, "spec_from_file_location", return_value=spec) as load, \
+                    patch.object(importlib.util, "module_from_spec", return_value=validator):
+                path.write_text(json.dumps(child), encoding="utf-8")
+                step = {"exit_code": 0, "requested_shell_paths": hosts}
+                runner.attach_child_report(step, path, "document-policy")
+                self.assertEqual(load.call_args.args[1], ROOT / "tests/document_policy/validate_document_policy_report.py")
+                self.assertEqual(calls, [(child, hosts, True)])
+                self.assertEqual(step["evidence"], child)
+                self.assertNotIn("failed_evidence", step)
+                for native in (0, 7):
+                    rejected = {**child, "reject": True, "cleanup_safe": False}
+                    path.write_text(json.dumps(rejected), encoding="utf-8")
+                    step = {"exit_code": native, "requested_shell_paths": hosts}
+                    runner.attach_child_report(step, path, "document-policy")
+                    self.assertEqual(step["exit_code"], 126 if native == 0 else native)
+                    self.assertNotIn("evidence", step)
+                    self.assertEqual(step["failed_evidence"], rejected)
+                    self.assertFalse(step["cleanup_safe"])
+                    self.assertIn("evidence_error", step)
+
+    def test_document_policy_absent_malformed_and_partial_receipts_fail_closed(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-policy-runner-receipt-") as directory:
+            path = Path(directory) / "report.json"
+            partial = {"schema_version": 1, "task_id": "M4-T02", "success": False,
+                       "exit_code": 1, "cleanup_safe": False, "cases": []}
+            for raw in (None, "not JSON", json.dumps(partial)):
+                if raw is not None:
+                    path.write_text(raw, encoding="utf-8")
+                step = {"exit_code": 0, "requested_shell_paths": ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]}
+                runner.attach_child_report(step, path, "document-policy")
+                self.assertEqual(step["exit_code"], 126)
+                self.assertIn("evidence_error", step)
+                self.assertNotIn("evidence", step)
+                if raw is not None and raw.startswith("{"):
+                    self.assertEqual(step["failed_evidence"], partial)
+                    self.assertEqual(step["failed_evidence_sha256"], runner.sha256(path.read_bytes()))
+                    self.assertFalse(step["cleanup_safe"])
 
     def test_support_target_forwards_both_hosts_and_real_converter(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]

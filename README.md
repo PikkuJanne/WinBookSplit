@@ -16,6 +16,11 @@ A "drop-and-forget" PDF/AZW3/EPUB decomposition tool for technical manuals, text
 - Regular x64 CPython 3.14.8 and plain pypdf 6.19.0
 - Calibre 9.15.0 for AZW3/EPUB; PDF-only processing does not require Calibre
 
+Encrypted PDFs (including empty-opening-password encryption), interactive forms,
+signatures and detected active/embedded-document features are rejected before
+chapter output. See [supported inputs and limits](docs/PDF_POLICY.md) and
+[PDF page fidelity](docs/PDF_FIDELITY.md).
+
 **Nice to have**
 - A basic understanding of your PDF's internal structure so you can decide between splitting by main chapters (Level 1) or sub-sections (Level 2) :)
 

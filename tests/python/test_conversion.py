@@ -196,9 +196,10 @@ class ConversionHelperTests(unittest.TestCase):
             with self.subTest(action=action, template_sha=sha256(template).hexdigest()):
                 self.action = action
                 self.template.write_bytes(template)
+                expected_code = "unsupported_document" if (action == "valid" and PdfReader(BytesIO(template)).is_encrypted) else "conversion_output_invalid"
                 with self.assertRaises(conversion.ConversionError) as caught:
                     self.convert()
-                self.assertEqual(caught.exception.code, "conversion_output_invalid")
+                self.assertEqual(caught.exception.code, expected_code)
                 self.assertEqual(caught.exception.conversion["exit_code"], 0)
                 self.assertIn("without newline", caught.exception.conversion["stderr_tail"])
                 self.assertEqual(caught.exception.conversion["original_source_identity"]["sha256"],
@@ -206,7 +207,7 @@ class ConversionHelperTests(unittest.TestCase):
                 self.assertTrue(caught.exception.diagnostic["cleanup_complete"])
                 record = Path(caught.exception.diagnostic["record_path"])
                 saved = json.loads(record.read_text(encoding="utf-8"))
-                self.assertEqual(saved["code"], "conversion_output_invalid")
+                self.assertEqual(saved["code"], expected_code)
                 self.assertEqual(saved["conversion"]["exit_code"], 0)
                 self.assert_cleaned()
 
