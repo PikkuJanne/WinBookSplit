@@ -22,6 +22,16 @@ Suggested final behavior examples, to be executable-tested before documentation:
 
 ## Preview
 
+M3-T03 keeps the existing batch launcher and console menu. Drop exactly one
+PDF/EPUB/AZW3, or double-click and enter its literal path. The no-input prompt
+accepts paired outer quotes from Explorer's Copy as path; blank or exact C cancels
+before discovery/writes with mapped 130. Two or more supplied dropped arguments
+are rejected by BAT with 2 before PowerShell starts. Initial method choices are
+exact trimmed 1/2/M/C, case-insensitive for letters; invalid or blank answers
+reprompt without selecting a default. Existing exact fallback M/Y, offered 1 and
+N/C behavior is retained. Prompted text uses UTF-8 and is never evaluated as shell
+syntax. NonInteractive/Preview still reject missing input without prompting.
+
 Show original source, generated PDF where applicable, PDF physical page count, selected mode/level, numbered title/filename, physical inclusive start-end, section count, output base, warnings and exact page coverage. Confirm before interactive writes. `-Preview` prints a plan only and exits without chapter outputs; temporary conversion for ebook analysis is disclosed and cleaned safely. `-NonInteractive` never prompts, opens a file/Explorer, clears useful redirected output, or pauses. Missing selected bookmarks fails with an actionable code; no silent fallback. Manual input labels explicitly say physical PDF pages, not printed page numbers.
 
 ## Exit codes

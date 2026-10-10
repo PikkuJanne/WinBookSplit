@@ -1,14 +1,22 @@
 @echo off
+setlocal DisableDelayedExpansion
 :: WinBookSplit Launcher
-:: Drag and Drop a PDF onto this file to start.
+:: Drop one PDF, EPUB or AZW3, or double-click to enter its literal path.
 
+if not "%~2"=="" goto WinBookSplitMultipleFiles
+:: Only absent or quoted-empty argument 2 can reach this raw-presence check.
+if not "%2"=="" goto WinBookSplitMultipleFiles
+
+:: Paths stay quoted data; the script prompts when no file was dropped.
 if "%~1"=="" (
-    echo No file dropped. Please drag a PDF file onto this batch file.
-    pause
-    exit /b
+    PowerShell -NoProfile -ExecutionPolicy Bypass -File "%~dp0WinBookSplit.ps1"
+) else (
+    PowerShell -NoProfile -ExecutionPolicy Bypass -File "%~dp0WinBookSplit.ps1" "%~1"
 )
-
-:: Launch PowerShell script with the dropped file path
-PowerShell -NoProfile -ExecutionPolicy Bypass -File "%~dp0WinBookSplit.ps1" "%~1"
 set "WinBookSplitExitCode=%ERRORLEVEL%"
 exit /b %WinBookSplitExitCode%
+
+:WinBookSplitMultipleFiles
+echo Please select one PDF, EPUB or AZW3 file at a time. Multiple files are not supported.
+pause
+exit /b 2

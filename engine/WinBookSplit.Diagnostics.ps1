@@ -1,4 +1,4 @@
-# Pure protocol and decision functions; dot-sourcing never starts processing.
+# Protocol and console decision helpers; dot-sourcing never starts processing.
 $script:splitOutcomeContract = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'WinBookSplit.Outcomes.json') -Raw -Encoding UTF8 | ConvertFrom-Json -ErrorAction Stop
 if ($script:splitOutcomeContract.schema_version -ne 1 -or $null -eq $script:splitOutcomeContract.codes) {
     throw 'Invalid shipped outcome contract.'
@@ -243,6 +243,47 @@ function ConvertFrom-SplitResult {
             $result.fallback_modes[$index] -cne $expectedFallback[$index]) { throw 'Invalid fallback choice.' }
     }
     return $result
+}
+
+function Resolve-WinBookSplitInputChoice {
+    param([AllowNull()][AllowEmptyString()][string]$InputFile,
+          [bool]$NonInteractive = $false, [bool]$Preview = $false)
+    if (-not [string]::IsNullOrWhiteSpace($InputFile)) { return $InputFile }
+    if ($NonInteractive -or $Preview) {
+        throw (New-WinBookSplitFailure 'invalid_arguments' 'Supply one literal PDF, EPUB or AZW3 InputFile.')
+    }
+    $choice = Read-Host 'Enter the literal path to one PDF, EPUB or AZW3 (blank or C cancels)'
+    if ([string]::IsNullOrWhiteSpace($choice) -or $choice.Trim() -ieq 'C') {
+        throw (New-WinBookSplitFailure 'cancelled' 'Input selection was cancelled before processing.')
+    }
+    # Explorer's Copy as path includes quotes; remove only a paired outer set.
+    # Do not expand variables, wildcards or shell text in the supplied path.
+    if ($choice.Length -ge 2 -and $choice[0] -eq '"' -and $choice[$choice.Length - 1] -eq '"') {
+        $choice = $choice.Substring(1, $choice.Length - 2)
+    }
+    return $choice
+}
+
+function Get-WinBookSplitInitialDecision {
+    param([AllowNull()][AllowEmptyString()][string]$Choice = '')
+    $decision, $mode = 'invalid', $null
+    switch ($Choice.Trim().ToUpperInvariant()) {
+        '1' { $decision, $mode = 'select', '1' }
+        '2' { $decision, $mode = 'select', '2' }
+        'M' { $decision, $mode = 'select', 'manual' }
+        'C' { $decision = 'cancel' }
+    }
+    return [pscustomobject]@{ decision = $decision; mode = $mode }
+}
+
+function Read-WinBookSplitInitialDecision {
+    do {
+        $choice = Read-Host 'Enter selection (1, 2, M or C)'
+        if ($null -eq $choice) { throw (New-WinBookSplitFailure 'cancelled' 'Method selection ended before processing.') }
+        $decision = Get-WinBookSplitInitialDecision -Choice $choice
+        if ($decision.decision -eq 'invalid') { Write-Host 'Choose exactly 1, 2, M or C.' }
+    } while ($decision.decision -eq 'invalid')
+    return $decision
 }
 
 function Get-SplitDecision {

@@ -9,7 +9,8 @@ EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Previe
 Requires regular Windows x64 CPython 3.14.8 and pypdf 6.19.0; ebooks also require
 Calibre 9.15.0. See docs/codex-v1.0.0/SUPPORT_AND_SETUP.md for explicit setup.
 .PARAMETER InputFile
-One literal local PDF, EPUB or AZW3 source file. Required except with Version.
+One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
+prompted; blank or C cancels. Required for NonInteractive and Preview.
 .PARAMETER OutputDirectory
 Existing output base. Each execution publishes a unique new child. Defaults to Documents.
 .PARAMETER Mode
@@ -78,6 +79,7 @@ param (
 
 # Machine outcomes and path diagnostics use UTF-8 through every launcher.
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
 
 # --- Configuration ---
 $AppName = "WinBookSplit"
@@ -206,6 +208,7 @@ try {
     }
     elseif ($hasStarts -or $hasLevel -or $NonInteractive -or $Preview) { throw 'Supply Mode and its BookmarkLevel or StartPages.' }
     if ($Preview -and $KeepConvertedPdf) { throw 'Preview cannot retain a converted PDF; omit KeepConvertedPdf.' }
+    $InputFile = Resolve-WinBookSplitInputChoice -InputFile $InputFile -NonInteractive ([bool]$NonInteractive) -Preview ([bool]$Preview)
     $inputItem = Resolve-WinBookSplitInput -Path $InputFile
     $InputFile = $inputItem.FullName
     if ($KeepConvertedPdf -and [IO.Path]::GetExtension($InputFile) -ieq '.pdf') { throw 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.' }
@@ -214,10 +217,15 @@ try {
     $outputDir = Resolve-WinBookSplitOutputBase -Path $requestedBase
 }
 catch {
-    $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'invalid_arguments' -Message $_.Exception.Message
-    Write-Host ("[!] Error: " + (ConvertTo-WinBookSplitDisplayText $outcome.message)) -ForegroundColor Red
+    $validationCode, $validationStatus = 'invalid_arguments', 'failed'
+    if ($_.Exception.Data.Contains('Code') -and $_.Exception.Data['Code'] -eq 'cancelled') {
+        $validationCode, $validationStatus = 'cancelled', 'cancelled'
+    }
+    $outcome = New-WinBookSplitOutcome -Status $validationStatus -Code $validationCode -Message $_.Exception.Message
+    if ($outcome.status -ceq 'cancelled') { Write-Host (ConvertTo-WinBookSplitDisplayText $outcome.message) -ForegroundColor Yellow }
+    else { Write-Host ("[!] Error: " + (ConvertTo-WinBookSplitDisplayText $outcome.message)) -ForegroundColor Red }
     Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
-    Wait-WinBookSplitExit
+    if ($outcome.exit_code -ne 130) { Wait-WinBookSplitExit }
     exit $outcome.exit_code
 }
 
@@ -448,11 +456,12 @@ Write-Host "Select Splitting Method:" -ForegroundColor White
 Write-Host " [1] Level 1 Bookmarks (Auto)" -ForegroundColor Cyan
 Write-Host " [2] Level 2 Bookmarks (Auto)" -ForegroundColor Cyan
 Write-Host " [M] Manual Entry (Page Numbers)" -ForegroundColor Magenta
+Write-Host " [C] Cancel" -ForegroundColor Gray
 Write-Host ""
 
-$selection = Read-Host "Enter selection"
-
-if ($selection -match "m|M") { $mode = "manual" } elseif ($selection -eq "1" -or $selection -eq "2") { $mode = $selection } else { $mode = "1" }
+$selection = Read-WinBookSplitInitialDecision
+if ($selection.decision -eq 'cancel') { throw (New-WinBookSplitFailure 'cancelled' 'Method selection was cancelled before processing.') }
+$mode = $selection.mode
 
 # 2. Manual Input Prompt
 $manualInput = ""
@@ -480,6 +489,8 @@ Write-Host ""
             $prompt = 'Choose [M] manual or [C] cancel'
             if ($decision.fallback_modes -contains '1') { $prompt = 'Choose [1] Level 1, [M] manual or [C] cancel' }
             $retry = Read-Host $prompt
+            # A closed redirected stream is cancellation, not a blank answer to retry.
+            if ($null -eq $retry) { $retry = 'C' }
             $decision = Get-SplitDecision -Result $result -Choice $retry
             $script:consoleLogWriter.WriteLine("[DECISION] $($decision.decision); retry mode: $($decision.retry_mode)")
             if ($decision.decision -in @('pending', 'invalid')) { Write-Host 'Choose one of the displayed options.' }
@@ -500,18 +511,20 @@ Write-Host ""
     }
 }
 catch {
-    Write-Host ('[!] Processor failure: ' + (ConvertTo-WinBookSplitDisplayText $_.Exception.Message)) -ForegroundColor Red
     $failure = $_.Exception
     $failureCode = 'processor_protocol_failed'
     if ($failure.Data.Contains('Code')) { $failureCode = [string]$failure.Data['Code'] }
     $failureStatus = 'failed'
-    if ($failureCode -eq 'processor_cancelled') { $failureStatus = 'cancelled' }
+    if ($failureCode -in @('cancelled', 'processor_cancelled')) { $failureStatus = 'cancelled' }
     elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
     elseif ($null -ne $script:lastEngineResult -and $script:lastEngineResult.status -ceq 'success') {
         $failureStatus = 'incomplete'
         if (-not $failure.Data.Contains('Code')) { $failureCode = 'console_finalize_failed' }
     }
     $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $failure.Message -Mode $mode -EngineResult $script:lastEngineResult
+    if ($outcome.status -cnotin @('cancelled', 'timeout')) {
+        Write-Host ('[!] Processor failure: ' + (ConvertTo-WinBookSplitDisplayText $failure.Message)) -ForegroundColor Red
+    }
 }
 if ($script:consoleRecordError -and -not $outcome.message.Contains($script:consoleRecordError)) { $outcome.message += '; ' + $script:consoleRecordError }
 try { Complete-WinBookSplitConsoleLog -Outcome $outcome }
@@ -544,7 +557,9 @@ elseif ($outcome.status -ceq 'success') {
     Write-Host 'Done.' -ForegroundColor Cyan
 }
 else {
-    Write-Host (ConvertTo-WinBookSplitDisplayText $outcome.message) -ForegroundColor Red
+    $outcomeColor = 'Red'
+    if ($outcome.status -cin @('cancelled', 'timeout')) { $outcomeColor = 'Yellow' }
+    Write-Host (ConvertTo-WinBookSplitDisplayText $outcome.message) -ForegroundColor $outcomeColor
     if ($null -ne $outcome.final_directory) { Write-Host ('Completed engine output retained: ' + (ConvertTo-WinBookSplitDisplayText $outcome.final_directory)) -ForegroundColor Yellow }
 }
 $exitCode = $outcome.exit_code

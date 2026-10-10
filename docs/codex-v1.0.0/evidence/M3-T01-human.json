@@ -11,7 +11,21 @@
     "tested_paths_digest": "ac6c5b910891ef8a86f078db43b2677f66cd515022dd17251ed10bbc9b3d87a0",
     "all_tested_paths_match_current": true,
     "observed_merged_main": "981894db7a91d7c2d3f0e3af258323ddeef38106",
-    "no_shipped_runtime_changes": true
+    "no_shipped_runtime_changes": true,
+    "historical_explorer_copy_controls": {
+      "kind": "two_parameter_default_byte_substitutions_in_owned_copy",
+      "parameters": [
+        "OutputDirectory",
+        "CalibrePath"
+      ],
+      "original_ps_sha256": "ea6be0eba97d1915b7f96e7cce83ffe6eab2d8e311d04e3522b17b83373d2378",
+      "controlled_copy_ps_sha256": "f6e6f59d8dc26f2f07b1e7880551e8297753a1cb8b9e075d6f6431acb780614f",
+      "copied_ps_bytes_equal_original": false,
+      "bat_engine_supporting_runtime_bytes_unchanged": true,
+      "provenance_receipt": "explorer-kit-provenance.json",
+      "provenance_sha256": "761620ef028448733f0cf58cef7b9e21e11905ceea20199917bf9035fb25da53",
+      "scope": "Historical Explorer kit only; human passes remain closed at their recorded source. No new-source/package pass."
+    }
   },
   "environment": {
     "windows": "Windows 11 x64, build 26300.9457, 26H2",

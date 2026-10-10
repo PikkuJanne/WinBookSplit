@@ -1,0 +1,1286 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T03",
+  "observed_at": "2026-10-09T19:23:56.1420409+00:00",
+  "result": "PASS_AC057_AC058_AC059",
+  "success": true,
+  "implementation_commit": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
+  "acceptance": {
+    "AC-057": "PASS: actual Explorer individual PDF/EPUB/genuine AZW3 drops, exact literal arguments and native BAT/PS0; reopened outputs have complete physical coverage.",
+    "AC-058": "PASS: actual Explorer double-click choose finishes3PDF/6pages/native0; repeated double-click source cancellation captures cancelled130/zero output/no extra pause.",
+    "AC-059": "PASS: actual Explorer two-file drop rejects2 before PS; maybe and Q each reprompt in actual initial and fallback menus before explicit manual success."
+  },
+  "source": {
+    "base_commit": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
+    "base_tree": "5de6ef93ffc04e33ac45de24c2ea946c335c51e7",
+    "tested_path_count": 96,
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/WinBookSplit.Diagnostics.ps1": "943d2e4e4f4e6c34259cfff801df69ac5c99e49e3e210058514dfc2ca3ed7b8f",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "e4497b6613f6a2c328eaa5867a9c328c67e35503f438fe31fdfcd82223d509eb",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_engine.py": "700190c5b920ef7415c99ccd039b68486486bc0589ba5b8bda09d85aed509a92",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "af24d8ee1de844628390f9cc918b3deed1bffe9a5e12e33b736bdd16ec6bf6e1",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "a579502d1d94f6b4c035fe2b1a064beef578c06e6798c8f4b279ff0c1367d00d",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "e9043ee051a39be66373573313e27cc22ce1e32fc9ad759403bb92fd7996d628",
+      "tests/cli/validate_cli_report.py": "3f76417b0e4c75f5b3dfb67151fe431f4d25496e078ed4dd47d07ba703edd12d",
+      "tests/conversion/characterize_conversion.py": "ea292d87f6d5f88a79f0c8a216847b57d421f05f2c0919ca282f6c7675cf8b8e",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "c073756dc82f14bf3001f3c93d2ceed7a78fe2dd6f1c57c22602d814d706fb5d",
+      "tests/diagnostics/README.md": "0aa6ed356bc8522a8ecf596d7cd50429afe9759bbc1fc0274ceff00de8a82d5e",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "8d84ede12f8522ecf3a321b0d912e502b35170452af3f99eaaa3fb7d1a26d9b1",
+      "tests/launcher/characterize_launcher.py": "bb3c386c658ff8602b630956c71cd8cdcf62578531463b2bd921fe538b37a641",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "728c1f113938cd37b1991502536f85c653bb6effbfd8ad075899dc99251efca9",
+      "tests/manual/characterize_manual.py": "2e5cf59d3a6b9a070261d20e2a6e36c14c8e5143c1eebf0e350bd530b0d1b8c2",
+      "tests/manual/current_launchers.py": "fb2b5d75a611c3bbcac7c6edef27767663836641d67fba61fb07ca6fd097293d",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "bffbb09fb6ecb3691b20d6c08cb5cdec0dbf883bfb57b3432a4132589956cfdf",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "5de295b7d5477b803c1d30db850f69c08ce4d32819d2d8731f03be2491cdc1be",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "d75be51ca3bb01b7cae6b8a37792ca9dfdc57f1e6b25dca9dd4647dfee3936bd",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "c65ac0f58c2df8a43fd85c5ba401e4fc0485a201498db637c667b68571ac5e3b",
+      "tests/powershell/Outcome.Tests.ps1": "9680a195344051d62b475c50b8d3bc68f52e4759b5607f0967fa6f70eff3b70b",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/process/characterize_process.py": "a566cf14a4a4cdc3e7050531ff732502c29f362fbc5a65831c292ccabbd950a6",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "a71527fcee2e7f7f1c4e220c3b36e1a0c3a329e3281552f40615c87fb6ec4ba4",
+      "tests/process/validate_process_report.py": "7fc4049274140eab85e7cae7e007169d5d44e65a55abe65ad7ae033a321af067",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_conversion.py": "daa0f9706098299b705467a084887acbf9fbedb45d88ccda4e651d113f8ae5ab",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_launcher_receipt.py": "ee2865fd64c9d238512838423a7a71b457f6378a38ae81e338e0640db2378bf8",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "31216d09e6e9baa4f0d05ae9ed85dc6f6529e30a7c5f9b2db367aae14eeb6993",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "35e885c471fced83d4844cdb929ca9ecb798330d90708f167e69f59cc5baa1da",
+      "tests/python/test_runtime_receipt.py": "3388bae8565b49a246a31133d39a56b5ef82589137169d95079742b6b959a1f3",
+      "tests/README.md": "cc4cdc5dbb052f83e05edff776ddd6c03a0040ecf9eefdff0c6fd97dfd280d75",
+      "tests/run_tests.py": "e65664d9a5ae8be7fccce6d9e9b8481e41605ea4a23e105f79bbfd45aa623d79",
+      "tests/runtime/characterize_runtime.py": "a136f6a7436bbf357cdb6b120f816e30cdfba2c58c10dc7aaafc2e6734fa0f1b",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "5fa42fc57609c07debd67aafdc25237090a8b93646bc0abb418f73f89e217be2",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "4f1e6d1cea9bf004c5ecf3abcb576589552367f9f34577c365dfb7f48631059c"
+    },
+    "tested_paths_digest": "63bed7c22f00e655016b018dde3394b8535fb1ad2af06d8181d4ec0e1b5e9eec",
+    "all_raw_paths_equal_committed_git_blobs": true,
+    "source_unchanged_during_full_gate": true,
+    "exact_application_UI_path_count": 12,
+    "UI_manifest_historical_commit": "9fd447721d7b484140d71f655be8159c36ccd0df",
+    "UI_all12_bytes_also_match_C4": true,
+    "UI_current_C4_binding_receipt": "ui-application-current-C4-binding.json",
+    "UI_entrypoint_parameter_substitutions": false,
+    "source_review_receipt": "final-source-review.json",
+    "source_review_result": "No blocking findings; reviewer disclosed own Launcher.Tests.ps1 authorship."
+  },
+  "environment": {
+    "recorded_platform": "Windows-11-10.0.26300-SP0",
+    "windows_registry_metadata": {
+      "ProductName": "Windows 10 Pro",
+      "DisplayVersion": "26H2",
+      "CurrentBuildNumber": "26300",
+      "UBR": 9457,
+      "EditionID": "Professional"
+    },
+    "OS_identification": "Windows 11 x64 build26300.9457,26H2; registry ProductName keeps legacy Windows10Pro label, not a Windows10 test claim.",
+    "python": "regular GIL x64 CPython3.14.8",
+    "pins": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    },
+    "powershell51": "5.1.26100.9444",
+    "powershell7": "7.6.5",
+    "calibre": "real portable9.15.0",
+    "Pester": "6.2.0",
+    "PSScriptAnalyzer": "1.25.0",
+    "developer_venv": "Fresh binary-only hash-pinned requirements-dev installation; pip check and import origins verified.",
+    "shell_tools": "66 original tool hashes plus3 metadata hashes verified; no stored policy/global PATH/elevation change.",
+    "actual_UI_calibre": "Verified existing runtime copied without overwrite into absent per-user known location for exact-default UI; afterward relocated intact outside discovery.1345 files/662902308bytes/83directories, including empty locale directory; independent hashes/native identities pass.",
+    "not_clean_OS_or_package": true
+  },
+  "commands": [
+    {
+      "command": "<dev-venv>\\Scripts\\python.exe -I -B <repo>\\tests\\run_tests.py --layer full --tool-root <tool-root> --shell-path <PS51> --shell-path <PS7> --calibre-path <calibre-original>\\ebook-convert.exe --report <evidence-root>\\full-final03.json",
+      "scope": "The complete full gate was launched by Run-FinalGate03.ps1 from unrelated <evidence-root>; exact command retained externally.",
+      "native_aggregate_exit": 0
+    },
+    {
+      "command": "<dev-venv>\\Scripts\\python.exe -I -B <evidence-root>\\audit-full03.py",
+      "scope": "Read-only strict raw/child report audit; no app/converter launched",
+      "result": "PASS"
+    },
+    {
+      "command": "Computer Use actual Explorer double-click/drop; external guarded Drag-UiKitFiles.py and Send-UiConsoleAnswer.py where required; Observe-UiExit.ps1 retained native handles",
+      "scope": "Assistant automated actual Windows interactions; not human testing, mock UI or redirected-input native controls",
+      "result": "7 observed rows verified"
+    }
+  ],
+  "automated_native": {
+    "full_receipt": "full-final03.json",
+    "strict_audit_receipt": "full-final03-audit.json",
+    "native_zero_stages": 16,
+    "strict_child_reports_revalidated": 15,
+    "python_tests": 235,
+    "Pester_each_actual_host": 71,
+    "CLI_cases": 72,
+    "launcher_cases": 70,
+    "launcher_host_partition": {
+      "PS51": 21,
+      "PS7": 21,
+      "BAT": 28
+    },
+    "skipped_tests": 0,
+    "synthetic_input_unchanged": true,
+    "known_owned_suite_removed": true,
+    "scope": "All16 native/unit/shell/inherited regression stages pass. Direct PS controls use exact copies; successful BAT controls declare copied OutputDirectory/PythonPath/CalibrePath/NoPause defaults; extra-argv controls use declared exact LF+BOM PS sentinel. Not Explorer evidence by themselves.",
+    "detail_audit_receipt": "full-final03-audit-details-corrected.json",
+    "actual_outer_native_exit_code": 0,
+    "outer_native_observed_at": "2026-10-09T19:20:16Z",
+    "launcher_native_exit_histogram": {
+      "0": 40,
+      "2": 3,
+      "130": 27
+    },
+    "CLI_native_exit_histogram": {
+      "0": 26,
+      "2": 36,
+      "3": 4,
+      "5": 6
+    },
+    "expected_negative_cases_are_not_skips": true
+  },
+  "actual_explorer": {
+    "mode": "manual_windows",
+    "operator": "assistant",
+    "actual_windows_ui": true,
+    "source": "Exact12 shipped app files and authored4 source inputs in external kit; ordinary Windows file attributes/identity/content preserved.",
+    "method": "Computer Use Explorer observations/double-click/selection; guarded native mouse OLE gestures and console input events where Sky lacked held-drag and Windows Terminal targeting support.",
+    "technical_limitation_not_approval_rejection": true,
+    "skill_guidance_override": "Scoped to manifest-bound authored kit, retained creation-identity app handles, twice-observed current prompt and one fixed answer+Enter, observed Explorer geometry/foreground/idle keys and bounded owned mouse release. No arbitrary shell input, UIA/COM dispatch, settings or security bypass.",
+    "cases": [
+      {
+        "id": "Explorer-doubleclick-choose",
+        "action": "Computer Use Explorer double-click BAT; literal authored PDF path; menu1; exit Enter",
+        "native_exits": {
+          "batch_parent": 0,
+          "powershell_child": 0
+        },
+        "publication": {
+          "written_count": 3,
+          "total_physical_pages": 6,
+          "outputs": [
+            {
+              "filename": "01 - Parent Å 日本 [1] & $(literal).pdf",
+              "range": [
+                0,
+                2
+              ],
+              "page_count": 2,
+              "sha256": "c714a32332910f092f71840ee606e68537c361ed1bf88fafeb260589f4abe997",
+              "size_bytes": 2094,
+              "physical_content_sha256": [
+                "3130963869cab590456f54be4adadf288c776ee31ab06e7b3e35cf44f41fc2aa",
+                "23243a73c28c1d4e7fdf027cef6116205160126ebdecf972ad30f4c069113053"
+              ],
+              "text_sha256": [
+                "5efbaa5712ecd298ce9c7a2c1791e567a8de5774d23915c74ef6ffa11d268fa2",
+                "e0303bd95695f067c08ed02e5e4305b141a6943f173839dc742b89ddbdad1c4e"
+              ]
+            },
+            {
+              "filename": "02 - Parent Two.pdf",
+              "range": [
+                2,
+                4
+              ],
+              "page_count": 2,
+              "sha256": "78a0420d4ea5e5640287c320f028ebae41fe5d2b24d10348e98cc2105f8f240c",
+              "size_bytes": 2096,
+              "physical_content_sha256": [
+                "284afe4456abe7a931f33dadf4befa2e4012eabb35fd2df7d6709500e6b79383",
+                "971559e2c32bc26510f36d1d0bb971a5146999cb2d7a47f37044eb68430585c0"
+              ],
+              "text_sha256": [
+                "50c938df1cc6b426c41e1a7308baeedea243ad60ff5539bbd8d281984dc4fd23",
+                "96960b53bbf5033f2f811b22466baf4a9fff90335b382e4babd95a86db41ad70"
+              ]
+            },
+            {
+              "filename": "03 - Parent Three.pdf",
+              "range": [
+                4,
+                6
+              ],
+              "page_count": 2,
+              "sha256": "d25ce3b0810e0d81cfdd985a892cd71c58cd0fbeb234b890079c16308158369c",
+              "size_bytes": 2096,
+              "physical_content_sha256": [
+                "c11c78d26fa32eb579ae8a1dcfaebb21dba2ffaf770ad951aea5515be968bc6d",
+                "8b07473e3ae89f620bdd78150865576887c976d466675c4baa00c8a01719a20b"
+              ],
+              "text_sha256": [
+                "ccb7fa784c03980b7c303929e44a059fa86a11f595041d7f4f2d5fe953b12455",
+                "62eb6d9a89a9e8ba688c9c1afd5f537ccd37d33e0809c961aa018ea3be219bd8"
+              ]
+            }
+          ],
+          "manifest_sha256": "8ecd966ca86454b3735faf66f2ae442e6cd26e6190a7c8e5b5c61188487f1885",
+          "operation_log_sha256": "aba98a9783449f4d2461b0786ac9152f0842189fffd5219fc59a10ec1a1ea2bc",
+          "authoritative_final_stdout_OUTCOME_fully_captured": false
+        },
+        "review_receipt": "ui-doubleclick-verification-v2.json",
+        "mode_answer_capture_failure_preserved": true
+      },
+      {
+        "id": "Explorer-doubleclick-cancel",
+        "action": "Computer Use Explorer double-click BAT; exact C at source prompt",
+        "native_exits": {
+          "batch_parent": 130,
+          "powershell_child": 130
+        },
+        "final_stdout_outcome": {
+          "protocol": "winbooksplit.outcome",
+          "version": 1,
+          "status": "cancelled",
+          "code": "cancelled",
+          "message": "Input selection was cancelled before processing.",
+          "exit_code": 130,
+          "mode": "",
+          "written_count": 0,
+          "final_directory": null,
+          "engine_result": null
+        },
+        "final_stdout_outcome_fully_captured": true,
+        "no_dependency_engine_or_exit_pause": true,
+        "review_receipt": "ui-doubleclick-cancel-verification.json"
+      },
+      {
+        "id": "Explorer-invalid-menu-and-fallback",
+        "action": "Computer Use Explorer double-click BAT; literal flat PDF; maybe,Q reprompt at menu;1;maybe,Q reprompt at fallback;M;1,3,5",
+        "native_exits": {
+          "batch_parent": 0,
+          "powershell_child": 0
+        },
+        "publication": {
+          "written_count": 3,
+          "total_physical_pages": 6,
+          "outputs": [
+            {
+              "filename": "01 - Section (Page 1-2).pdf",
+              "range": [
+                0,
+                2
+              ],
+              "page_count": 2,
+              "sha256": "c714a32332910f092f71840ee606e68537c361ed1bf88fafeb260589f4abe997",
+              "size_bytes": 2094,
+              "physical_content_sha256": [
+                "3130963869cab590456f54be4adadf288c776ee31ab06e7b3e35cf44f41fc2aa",
+                "23243a73c28c1d4e7fdf027cef6116205160126ebdecf972ad30f4c069113053"
+              ],
+              "text_sha256": [
+                "5efbaa5712ecd298ce9c7a2c1791e567a8de5774d23915c74ef6ffa11d268fa2",
+                "e0303bd95695f067c08ed02e5e4305b141a6943f173839dc742b89ddbdad1c4e"
+              ]
+            },
+            {
+              "filename": "02 - Section (Page 3-4).pdf",
+              "range": [
+                2,
+                4
+              ],
+              "page_count": 2,
+              "sha256": "78a0420d4ea5e5640287c320f028ebae41fe5d2b24d10348e98cc2105f8f240c",
+              "size_bytes": 2096,
+              "physical_content_sha256": [
+                "284afe4456abe7a931f33dadf4befa2e4012eabb35fd2df7d6709500e6b79383",
+                "971559e2c32bc26510f36d1d0bb971a5146999cb2d7a47f37044eb68430585c0"
+              ],
+              "text_sha256": [
+                "50c938df1cc6b426c41e1a7308baeedea243ad60ff5539bbd8d281984dc4fd23",
+                "96960b53bbf5033f2f811b22466baf4a9fff90335b382e4babd95a86db41ad70"
+              ]
+            },
+            {
+              "filename": "03 - Section (Page 5-6).pdf",
+              "range": [
+                4,
+                6
+              ],
+              "page_count": 2,
+              "sha256": "d25ce3b0810e0d81cfdd985a892cd71c58cd0fbeb234b890079c16308158369c",
+              "size_bytes": 2096,
+              "physical_content_sha256": [
+                "c11c78d26fa32eb579ae8a1dcfaebb21dba2ffaf770ad951aea5515be968bc6d",
+                "8b07473e3ae89f620bdd78150865576887c976d466675c4baa00c8a01719a20b"
+              ],
+              "text_sha256": [
+                "ccb7fa784c03980b7c303929e44a059fa86a11f595041d7f4f2d5fe953b12455",
+                "62eb6d9a89a9e8ba688c9c1afd5f537ccd37d33e0809c961aa018ea3be219bd8"
+              ]
+            }
+          ],
+          "manifest_sha256": "ab8d3336f35d9e8d031af81d2a58f95931fb8381278d1695bc46f26676791be7",
+          "operation_log_sha256": "c799d5d08193016e069a81c58b00917eda2ab4c5a3b20ba52144379c9df97b42",
+          "authoritative_final_stdout_OUTCOME_fully_captured": false
+        },
+        "answers": [
+          {
+            "name": "ui-invalid-source-answer.json",
+            "sha256": "54442a93199a63b666a1b44342bfcab8abf76198978b719e7b50ac55100573e7",
+            "answer": "<ui-kit>\\04 - Flat.pdf",
+            "transition": "menu-prompt"
+          },
+          {
+            "name": "ui-invalid-menu-maybe-answer.json",
+            "sha256": "f8b036db3c1665efc3866311b853f0b333db5cfbc2c3fde7c1949315049db66d",
+            "answer": "maybe",
+            "transition": "menu-prompt"
+          },
+          {
+            "name": "ui-invalid-menu-Q-answer.json",
+            "sha256": "6ad01b9ea7ffb57889ba47889a7105be08abe57456e7f54d1691d911e3b80d6e",
+            "answer": "Q",
+            "transition": "menu-prompt"
+          },
+          {
+            "name": "ui-invalid-auto-answer.json",
+            "sha256": "d848be8f4d9c66037cdf09a536f6f71ba635ebdd3248d24982f22c52ddb532b3",
+            "answer": "1",
+            "transition": "fallback-manual"
+          },
+          {
+            "name": "ui-invalid-fallback-maybe-answer.json",
+            "sha256": "7657320ada2b3292ef622c4e63b5dae2b43314778145f3be17c512eb6658b23b",
+            "answer": "maybe",
+            "transition": "fallback-manual"
+          },
+          {
+            "name": "ui-invalid-fallback-Q-answer.json",
+            "sha256": "ffdf9b3c59efc07f8d7dce0027c9619f84678b4b49548cbb597bce2c961a6292",
+            "answer": "Q",
+            "transition": "fallback-manual"
+          },
+          {
+            "name": "ui-invalid-fallback-manual-answer.json",
+            "sha256": "772729c36726bcff048bbda35cbb63fd62b6e4c7f61f2c8905120240e7142d80",
+            "answer": "M",
+            "transition": "manual-prompt"
+          },
+          {
+            "name": "ui-invalid-manual-starts-answer.json",
+            "sha256": "6c02e97fcf446a575e4f61fd8956f6c163a7af1e63b21c150d680905de6329a4",
+            "answer": "1,3,5",
+            "transition": "exit-prompt"
+          },
+          {
+            "name": "ui-invalid-final-exit-answer.json",
+            "sha256": "1d5d4d214751babb6be0ee3abdfa31b768a5b204d6fd6b076cc223d371572c4e",
+            "answer": "",
+            "transition": "exit"
+          }
+        ],
+        "initial_no_bookmarks_exit": 5,
+        "final_manual_retry_exit": 0,
+        "review_receipt": "ui-invalid-verification.json"
+      },
+      {
+        "id": "Explorer-pdf",
+        "operator": "assistant",
+        "input_method": "guarded_native_mouse_drag_then_guarded_native_console_answers",
+        "native_exits": {
+          "batch_parent": 0,
+          "powershell_child": 0
+        },
+        "actual_Explorer_parent": true,
+        "exact_literal_cmd_and_PS_argv": true,
+        "source_name": "01 - PDF Å [1] & 100% !.pdf",
+        "source_sha256": "05a1c771c4677abd181daaf52795e75b406cecae1017f78c291c2844c361a629",
+        "written_count": 3,
+        "physical_pages": 6,
+        "outputs": [
+          {
+            "filename": "01 - Parent Å 日本 [1] & $(literal).pdf",
+            "range": [
+              0,
+              2
+            ],
+            "page_count": 2,
+            "sha256": "c714a32332910f092f71840ee606e68537c361ed1bf88fafeb260589f4abe997",
+            "size_bytes": 2094,
+            "page_content_sha256": [
+              "3130963869cab590456f54be4adadf288c776ee31ab06e7b3e35cf44f41fc2aa",
+              "23243a73c28c1d4e7fdf027cef6116205160126ebdecf972ad30f4c069113053"
+            ],
+            "text_sha256": [
+              "5efbaa5712ecd298ce9c7a2c1791e567a8de5774d23915c74ef6ffa11d268fa2",
+              "e0303bd95695f067c08ed02e5e4305b141a6943f173839dc742b89ddbdad1c4e"
+            ]
+          },
+          {
+            "filename": "02 - Parent Two.pdf",
+            "range": [
+              2,
+              4
+            ],
+            "page_count": 2,
+            "sha256": "78a0420d4ea5e5640287c320f028ebae41fe5d2b24d10348e98cc2105f8f240c",
+            "size_bytes": 2096,
+            "page_content_sha256": [
+              "284afe4456abe7a931f33dadf4befa2e4012eabb35fd2df7d6709500e6b79383",
+              "971559e2c32bc26510f36d1d0bb971a5146999cb2d7a47f37044eb68430585c0"
+            ],
+            "text_sha256": [
+              "50c938df1cc6b426c41e1a7308baeedea243ad60ff5539bbd8d281984dc4fd23",
+              "96960b53bbf5033f2f811b22466baf4a9fff90335b382e4babd95a86db41ad70"
+            ]
+          },
+          {
+            "filename": "03 - Parent Three.pdf",
+            "range": [
+              4,
+              6
+            ],
+            "page_count": 2,
+            "sha256": "d25ce3b0810e0d81cfdd985a892cd71c58cd0fbeb234b890079c16308158369c",
+            "size_bytes": 2096,
+            "page_content_sha256": [
+              "c11c78d26fa32eb579ae8a1dcfaebb21dba2ffaf770ad951aea5515be968bc6d",
+              "8b07473e3ae89f620bdd78150865576887c976d466675c4baa00c8a01719a20b"
+            ],
+            "text_sha256": [
+              "ccb7fa784c03980b7c303929e44a059fa86a11f595041d7f4f2d5fe953b12455",
+              "62eb6d9a89a9e8ba688c9c1afd5f537ccd37d33e0809c961aa018ea3be219bd8"
+            ]
+          }
+        ],
+        "manifest_sha256": "c076f1838f9fd1fe6ec8e36c8163e29d31b91540ae47b5009369411203d6bc0c",
+        "log_sha256": "e2c2bf9db3113761aab089bff9dd2aa99e34047e5377a1036c86a99cdc08f4ef",
+        "conversion": null,
+        "authoritative_final_stdout_OUTCOME_fully_captured": false,
+        "review_receipt": "ui-drop-verification-v9.json"
+      },
+      {
+        "id": "Explorer-epub",
+        "operator": "assistant",
+        "input_method": "guarded_native_mouse_drag_then_guarded_native_console_answers",
+        "native_exits": {
+          "batch_parent": 0,
+          "powershell_child": 0
+        },
+        "actual_Explorer_parent": true,
+        "exact_literal_cmd_and_PS_argv": true,
+        "source_name": "02 - EPUB Å [1] & 100% !.epub",
+        "source_sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c",
+        "written_count": 3,
+        "physical_pages": 3,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "range": [
+              0,
+              1
+            ],
+            "page_count": 1,
+            "sha256": "f422ca4445c4337e94bfcf4f98fd4d0fd62402f3f553ee309b40f7a09585028a",
+            "size_bytes": 44083,
+            "page_content_sha256": [
+              "89bc1680f49d8d9a8309c08cc85fb5641b06bf2b1ebdc5c9b4ca0e5b5e70cc63"
+            ],
+            "text_sha256": [
+              "38fdd6545558fd3d4e66318bd1c057def968827ab3c5f4be14b9ac40c67cc9a1"
+            ]
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "range": [
+              1,
+              2
+            ],
+            "page_count": 1,
+            "sha256": "fc1f052617e178805a8eba946cc25474d6f5569406870e1d3f7d5b8e6037878a",
+            "size_bytes": 44125,
+            "page_content_sha256": [
+              "b53110a68a2bc6dce156015a7c3815dba7dafac8d723668e0978d36810050e5c"
+            ],
+            "text_sha256": [
+              "438f8ccd740c7f85e8e95d1ff13aa37486917dccaf063fb1fc738980d0da65a9"
+            ]
+          },
+          {
+            "filename": "03 - Section (Page 3-3).pdf",
+            "range": [
+              2,
+              3
+            ],
+            "page_count": 1,
+            "sha256": "78ca6095d560a5b3a26fe141ead41b8dae8b407af684194677e29c7c5823fb5d",
+            "size_bytes": 44103,
+            "page_content_sha256": [
+              "f08ff570935a603f62b601ed676ce4661e1b78032b840baa85cd5d9d9955194e"
+            ],
+            "text_sha256": [
+              "f9e3abb92337c406c0975391297e0d9b24e542f3f26109b8ce6c78b2aba4b113"
+            ]
+          }
+        ],
+        "manifest_sha256": "55b1bfa0e160494f0bc5803b085003387acb77225b557e0753ff79f8e98d4375",
+        "log_sha256": "2b697d601855458c588b7056119b525578f30f4296e75fdc6e4251a11c705ba7",
+        "conversion": {
+          "converter_path": "<calibre-standard>\\ebook-convert.exe",
+          "source": "known_location",
+          "version": "9.15.0",
+          "exit_code": 0,
+          "generated_identity": {
+            "path": "<output-base>\\.WinBookSplit-stage-d8ce67e199844a98a2617cabc94b16a3\\WinBookSplit_Converted.pdf",
+            "resolved_path": "<output-base>\\.WinBookSplit-stage-d8ce67e199844a98a2617cabc94b16a3\\WinBookSplit_Converted.pdf",
+            "sha256": "e101fdb01506bb657504b7b10c7e93dc1e7b1cbf2df77d398dbe8dcdd81b5c88",
+            "size_bytes": 58264,
+            "page_count": 3,
+            "binding": "reader_snapshot",
+            "page_content_sha256": [
+              "89bc1680f49d8d9a8309c08cc85fb5641b06bf2b1ebdc5c9b4ca0e5b5e70cc63",
+              "b53110a68a2bc6dce156015a7c3815dba7dafac8d723668e0978d36810050e5c",
+              "f08ff570935a603f62b601ed676ce4661e1b78032b840baa85cd5d9d9955194e"
+            ]
+          },
+          "workspace_cleanup": {
+            "cleanup_complete": true,
+            "retained_staging": null
+          },
+          "actual_known_generated_and_stage_absent": true,
+          "original_ebook_sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+        },
+        "authoritative_final_stdout_OUTCOME_fully_captured": false,
+        "review_receipt": "ui-drop-verification-v9.json"
+      },
+      {
+        "id": "Explorer-azw3",
+        "operator": "assistant",
+        "input_method": "guarded_native_mouse_drag_then_guarded_native_console_answers",
+        "native_exits": {
+          "batch_parent": 0,
+          "powershell_child": 0
+        },
+        "actual_Explorer_parent": true,
+        "exact_literal_cmd_and_PS_argv": true,
+        "source_name": "03 - AZW3 Å [1] & 100% !.azw3",
+        "source_sha256": "ecb5b1f17abc427b73da48901163e76678c46e9b837e45d0130a36b64a4871c1",
+        "written_count": 3,
+        "physical_pages": 4,
+        "outputs": [
+          {
+            "filename": "01 - Section (Page 1-1).pdf",
+            "range": [
+              0,
+              1
+            ],
+            "page_count": 1,
+            "sha256": "6d00dfca2cf9d3306ae5e075ce54f123a1bcd4d5ccb85130ebbd550095164d00",
+            "size_bytes": 46948,
+            "page_content_sha256": [
+              "89bc1680f49d8d9a8309c08cc85fb5641b06bf2b1ebdc5c9b4ca0e5b5e70cc63"
+            ],
+            "text_sha256": [
+              "38fdd6545558fd3d4e66318bd1c057def968827ab3c5f4be14b9ac40c67cc9a1"
+            ]
+          },
+          {
+            "filename": "02 - Section (Page 2-2).pdf",
+            "range": [
+              1,
+              2
+            ],
+            "page_count": 1,
+            "sha256": "d8a559d40911c557c76b605a7c261abb0c5310f8811f51e36efcf190c4f4229e",
+            "size_bytes": 46990,
+            "page_content_sha256": [
+              "b53110a68a2bc6dce156015a7c3815dba7dafac8d723668e0978d36810050e5c"
+            ],
+            "text_sha256": [
+              "438f8ccd740c7f85e8e95d1ff13aa37486917dccaf063fb1fc738980d0da65a9"
+            ]
+          },
+          {
+            "filename": "03 - Section (Page 3-4).pdf",
+            "range": [
+              2,
+              4
+            ],
+            "page_count": 2,
+            "sha256": "39d5f28e3fe99e03196e4dcf123817d2ff186d8f58cf364c46fce8a1845f5462",
+            "size_bytes": 57697,
+            "page_content_sha256": [
+              "f08ff570935a603f62b601ed676ce4661e1b78032b840baa85cd5d9d9955194e",
+              "4e78e711df7d8b010bc8eb5596f1414afb7cf1bb670837f50294a437d0df6aa1"
+            ],
+            "text_sha256": [
+              "f9e3abb92337c406c0975391297e0d9b24e542f3f26109b8ce6c78b2aba4b113",
+              "7cfe5c6dac0a2ee87aae4bfeda540b178c7cb7392dfb48a6789cb90d7c23c646"
+            ]
+          }
+        ],
+        "manifest_sha256": "054c2659c24401f357c985dde8f8f09493005d536c8464d86bea2a1a642c029a",
+        "log_sha256": "43e99c7d44882ec99dba7e04b0bab800230a3121fbe0b9d2d951c2750fa7613e",
+        "conversion": {
+          "converter_path": "<calibre-standard>\\ebook-convert.exe",
+          "source": "known_location",
+          "version": "9.15.0",
+          "exit_code": 0,
+          "generated_identity": {
+            "path": "<output-base>\\.WinBookSplit-stage-0074b1db0b5c46bb848cdd515ad3cf26\\WinBookSplit_Converted.pdf",
+            "resolved_path": "<output-base>\\.WinBookSplit-stage-0074b1db0b5c46bb848cdd515ad3cf26\\WinBookSplit_Converted.pdf",
+            "sha256": "16665c9f689c0e89dfde4494b391a4ad15eaa21c3663575f4bbb1031a8cca2ec",
+            "size_bytes": 65222,
+            "page_count": 4,
+            "binding": "reader_snapshot",
+            "page_content_sha256": [
+              "89bc1680f49d8d9a8309c08cc85fb5641b06bf2b1ebdc5c9b4ca0e5b5e70cc63",
+              "b53110a68a2bc6dce156015a7c3815dba7dafac8d723668e0978d36810050e5c",
+              "f08ff570935a603f62b601ed676ce4661e1b78032b840baa85cd5d9d9955194e",
+              "4e78e711df7d8b010bc8eb5596f1414afb7cf1bb670837f50294a437d0df6aa1"
+            ]
+          },
+          "workspace_cleanup": {
+            "cleanup_complete": true,
+            "retained_staging": null
+          },
+          "actual_known_generated_and_stage_absent": true,
+          "original_ebook_sha256": "ecb5b1f17abc427b73da48901163e76678c46e9b837e45d0130a36b64a4871c1"
+        },
+        "authoritative_final_stdout_OUTCOME_fully_captured": false,
+        "review_receipt": "ui-drop-verification-v9.json"
+      },
+      {
+        "id": "Explorer-two-files",
+        "operator": "assistant",
+        "input_method": "Sky_actual_two_file_selection_guarded_native_drag_and_guarded_pause_Enter",
+        "native_exit": 2,
+        "actual_Explorer_parent": true,
+        "only_cmd_and_dedicated_helper_in_attached_console": true,
+        "shipped_BAT_extra_arg_branch_precedes_PS": true,
+        "no_processing_or_Done_or_dependency_output": true,
+        "review_receipt": "ui-drop-verification-v9.json"
+      }
+    ],
+    "successful_publications": 5,
+    "written_PDFs": 15,
+    "physical_pages": 25,
+    "full_success_stdout_OUTCOME_frame_captured": false,
+    "success_capture_limit": "Only final console rows/tail retained after long success JSON prefix scrolled out; native0, Done, exact saved provisional log outcome, manifest and reopened output content support success. No complete final stdout-frame equality claim.",
+    "UI_prior_guard": "Known choose and flat output/log file hashes and native identities remained unchanged. Baseline Documents guard recorded child names only, without reading private contents.",
+    "metadata_delta": "Five UI publications add ten owned entries. One separate earlier full02 run9250fc8bd2924da48dad30834074d699 is attributed through parsed saved raw stderr/OUTCOME and name metadata only; not opened/adopted/deleted.",
+    "retention": "Authored UI evidence outputs/logs and recorded failed marked workspaces retained. No cleanup of unknown interrupted workspaces was performed. Temporary copied Calibre known location is absent after sealed same-volume relocation; original portable converter unchanged.",
+    "current_known_UI_file_recheck": "Read-only scope clarification verifies all35 known files across five UI runs against their v9 hash/size/native identity snapshots. Earlier saved identity comparison covered choose/flat; final v9 drop review compared hashes/size/sealed members/content and recorded current identities."
+  },
+  "earlier_attempts": [
+    {
+      "receipt": "launcher-prechange.json",
+      "outcome": "Baseline no-input PDF-only pause/exit0; two files silently first; invalid initial choices defaulted or selected manual."
+    },
+    {
+      "receipt": "launcher-edge-prechange.json",
+      "outcome": "Baseline initial stdin EOF already cancelled130; fallback EOF spun to6s outer deadline/unknown descendant cleanup retained; quoted-empty2nd+3rd argument reached PS sentinel73."
+    },
+    {
+      "receipts": [
+        "launcher-first.json",
+        "launcher-second.json",
+        "launcher-third.json"
+      ],
+      "outcome": "Failed harness oracles for redirected PS51 prompt, pre-menu cancellation log lookup and fallback label; original raw failures/workspaces preserved."
+    },
+    {
+      "receipts": [
+        "python-targeted01.json",
+        "shell-targeted01.json"
+      ],
+      "outcome": "Native stages passed but aggregates failed because source changed during development; not frozen full passes."
+    },
+    {
+      "attempt": "full-final01",
+      "outcome": "Interrupted native1, no final report; workspace/shutdown outcome UNKNOWN, no cleanup/pass claimed."
+    },
+    {
+      "receipt": "full-final02.json",
+      "outcome": "FAIL:12 native-zero stages, conversion/runtime absence controls contaminated by temporary UI Calibre known location, source changed, launcher BAT host PATH missing9009. Earlier cleanup=false; original owned workspace retained."
+    },
+    {
+      "receipts": [
+        "sentinel-newline-reproduction.json",
+        "sentinel-newline-fix-verification.json",
+        "bat-path-reproduction.json"
+      ],
+      "outcome": "Test-only BOM/LF byte and supported-host PATH defects reproduced and fixed in C3/C4; app bytes unchanged since9fd."
+    },
+    {
+      "receipts": [
+        "ui-doubleclick-mode-answer.json",
+        "ui-doubleclick-verification.json"
+      ],
+      "outcome": "Actual answer was written but post-answer capture failed. Later exit snapshot/native0/reopened disk/log proved app success; original helper/review failure not relabeled."
+    },
+    {
+      "receipts": [
+        "ui-drop-verification-v2.json",
+        "ui-drop-verification-v3.json",
+        "ui-drop-verification-v4.json",
+        "ui-drop-verification-v5.json",
+        "ui-drop-verification-v6.json",
+        "ui-drop-verification-v7.json",
+        "ui-drop-verification-v8.json",
+        "ui-drop-verification.json"
+      ],
+      "outcome": "Read-only reviewer oracles failed before correction: metadata delta initially omitted contemporaneous full02 output, escaped path matching, absent dependency JSON stdout label, and inherited PSModulePath casing/autoload oracles. Original failed audits retained; final successful audit is distinct."
+    },
+    {
+      "receipts": [
+        "full-final03-audit-details.json",
+        "full-final03-audit-details-corrected.json"
+      ],
+      "outcome": "The original additive audit overescaped only the trusted root native-observer stdout transcription; corrected additive audit records exact CRLF/hash. Primary full report/audit and native results unchanged; superseded bytes retained."
+    }
+  ],
+  "historical_human": {
+    "complete": true,
+    "reference": "M3-T01-human.md/json",
+    "no_checks_reopened": true,
+    "scope": "Closed human results retain recordedE9983191/Cb8c6ed0 sources and original failure/retries. Minimal clarification records two owned-copy PS default byte substitutions; not exact currentT03/package testing."
+  },
+  "review": {
+    "source": "final-source-review.json",
+    "native_receipt": "full-final03-audit.json",
+    "UI_current_C4_binding": "ui-application-current-C4-binding.json",
+    "Explorer": [
+      "ui-doubleclick-verification-v2.json",
+      "ui-doubleclick-cancel-verification.json",
+      "ui-invalid-verification.json",
+      "ui-drop-verification-v9.json"
+    ],
+    "calibre_relocation": "ui-calibre-relocation-audit.json",
+    "public_evidence": "Independent review is recorded externally before E commit; no GitHub submitted approval or CI pass claimed.",
+    "UI_file_guard_scope": "ui-drop-review-scope-clarification.json",
+    "native_detail_receipt": "full-final03-audit-details-corrected.json"
+  },
+  "git": {
+    "repository": "PikkuJanne/WinBookSplit",
+    "branch": "codex/winbooksplit-v1-m3",
+    "implementation_C_sync": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-09T20:47:27.008501+02:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m3",
+      "local_head": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
+      "worktree_clean": true,
+      "remote_head": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "live_pre_E_metadata_receipt": "live-github-pre-E.json",
+    "observed_main_after_PR18_merge": "56d9d4a9556520b8b92426f44f74fe7faceb4d7b",
+    "PR18": "Merged2026-10-09T18:06:15Z; continuation draft PR19 actually created2026-10-09T19:22:40Z before documentation E push.",
+    "evidence_checkpoint": "E contains only documentation/evidence/closed historical clarification. Its actual clean/live SHA and new PR are recorded externally after normal push; no self-referential E hash.",
+    "continuation_PR_at_creation": {
+      "baseRefName": "main",
+      "createdAt": "2026-10-09T19:22:40Z",
+      "headRefName": "codex/winbooksplit-v1-m3",
+      "headRefOid": "302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8",
+      "isDraft": true,
+      "number": 19,
+      "state": "OPEN",
+      "statusCheckRollup": [],
+      "url": "https://github.com/PikkuJanne/WinBookSplit/pull/19"
+    }
+  },
+  "raw_receipts": [
+    {
+      "name": "C4-sync.json",
+      "sha256": "a39651f2db366c77c0274f90f94a9d90e343d52b67ed8f4486e25662ca1f431f",
+      "size_bytes": 495
+    },
+    {
+      "name": "Drag-UiKitFiles.py",
+      "sha256": "f69b8241d7bd08b5d0fe8db0b877cc93a6a08e5c77098cb69f2d772934a3eb13",
+      "size_bytes": 18798
+    },
+    {
+      "name": "Observe-UiExit.ps1",
+      "sha256": "d0413715cf7aec6a91850697ba82516ce75c13af3db9e6ea131c85f81f458ce2",
+      "size_bytes": 8651
+    },
+    {
+      "name": "PR19-created.json",
+      "sha256": "f18b7c1a3a9e254c7256b1d60dfde1b683d0cff15dd20631d49cc3b0b5cb18ba",
+      "size_bytes": 441
+    },
+    {
+      "name": "Run-FinalGate03.ps1",
+      "sha256": "9606b978c655b38fe7b81bd36dd261cbed090a63c7866c99eea53ba4e893c002",
+      "size_bytes": 1577
+    },
+    {
+      "name": "Send-UiConsoleAnswer.py",
+      "sha256": "30578558bf760968c7393a77cd66c9222db72f8907f8ac588f7a07cbfc13364e",
+      "size_bytes": 24845
+    },
+    {
+      "name": "bat-path-reproduction.json",
+      "sha256": "4c5160d21d06685043b3577a5796565d6b203edbaa0f947090c9716b04e8aaa0",
+      "size_bytes": 825
+    },
+    {
+      "name": "environment.json",
+      "sha256": "2c0bcdbd6edc492c2b73239f95772763ffd9b1dbbb49ec1da406a3290ffe6d56",
+      "size_bytes": 18145
+    },
+    {
+      "name": "final-source-review.json",
+      "sha256": "21924b96ed2e1de3309935e2a92e96da4fa5816bfb30d45e24739e8d3b162966",
+      "size_bytes": 33409
+    },
+    {
+      "name": "full-final02-audit.json",
+      "sha256": "37b3888191acfd928305b746b828b8ed0ae2919433df71e4010bd5456bcad7db",
+      "size_bytes": 7355
+    },
+    {
+      "name": "full-final02.json",
+      "sha256": "d6e6b60b418fcccb5916f2d2967a9b2d8c3a2b1121cf1121ed68c7dc214360c7",
+      "size_bytes": 9314899
+    },
+    {
+      "name": "full-final03-audit-details-corrected.json",
+      "sha256": "44f52612d774bfc119d176bdaf71cab126b036174e90c81e81125c0898fd014e",
+      "size_bytes": 7885
+    },
+    {
+      "name": "full-final03-audit-details.json",
+      "sha256": "2e997a10e293aa0afeeb4e8c19bfdab0300e527dd9018c7015c61f0246341797",
+      "size_bytes": 7285
+    },
+    {
+      "name": "full-final03-audit.json",
+      "sha256": "b19a6a6477e3ba45c15e8baca84cc1ceb57443bed65c1a1ca4eb0a0379872eff",
+      "size_bytes": 5558
+    },
+    {
+      "name": "full-final03.json",
+      "sha256": "b59ecc8d89829b10846e86fed8cab5a253497756dd7bb9d5a18f73a7de206704",
+      "size_bytes": 12130257
+    },
+    {
+      "name": "launcher-edge-prechange.json",
+      "sha256": "948964aeea0867bc56bae90f6104fd8fd2b29132ac61235256d2e16813280a33",
+      "size_bytes": 23382
+    },
+    {
+      "name": "launcher-first.json",
+      "sha256": "5c0305573cbec3e592a83772c2e3060927e9ec8989b827d9ff39a598dc64b950",
+      "size_bytes": 24276
+    },
+    {
+      "name": "launcher-prechange.json",
+      "sha256": "99d496e1796e2978b3e1e89dc456f741b27fdcb596cbcb85c54234abd5fd510b",
+      "size_bytes": 68594
+    },
+    {
+      "name": "launcher-second.json",
+      "sha256": "a2d20180c222c7bf69424cf6dea88bed43add701f697d8e6b50443f58153a9e6",
+      "size_bytes": 443950
+    },
+    {
+      "name": "launcher-third.json",
+      "sha256": "87d8988216c380f30d2414266112e517b91584abb620733d78d8173a23294d22",
+      "size_bytes": 590027
+    },
+    {
+      "name": "live-github-pre-E.json",
+      "sha256": "0edbcc990e751b54b4459b697808084a19c97366bba237e89ca7a51d68e193ab",
+      "size_bytes": 1904
+    },
+    {
+      "name": "materialized-C4.json",
+      "sha256": "348c22dfb572d3d68643afa75f3f58ed9ff46c9efcc6b51a3e7724ac59fb16c4",
+      "size_bytes": 11181
+    },
+    {
+      "name": "python-targeted01.json",
+      "sha256": "62743e514079c3062edc2dae47c3841d3baf86eb705df113914dfffab27e2714",
+      "size_bytes": 73300
+    },
+    {
+      "name": "sentinel-newline-fix-verification.json",
+      "sha256": "c375e181fe1d8657afeb7bf51cbfd72bcee2b29059908c849fc3143a2d60af11",
+      "size_bytes": 2991
+    },
+    {
+      "name": "sentinel-newline-reproduction.json",
+      "sha256": "4609ba2b8abeb178ddb0b1c8309070028196b217b38bc1bfdcfdd83b4c4c59de",
+      "size_bytes": 432
+    },
+    {
+      "name": "shell-targeted01.json",
+      "sha256": "92161a503a514707bb30f69c6f2ddef7a767834eea01acfeb73a1721bbcca1f9",
+      "size_bytes": 74780
+    },
+    {
+      "name": "sky-events-before-native-drag.json",
+      "sha256": "86aba9f22dfd3255803546f749251b64639ef29f5026f21531878cbd8c8ad777",
+      "size_bytes": 2663
+    },
+    {
+      "name": "sky-events-final.json",
+      "sha256": "f8b036bd58e1ea3ddf8f1a140ab4fa3841c71fb46a12223d888f65e785a89e26",
+      "size_bytes": 2954
+    },
+    {
+      "name": "ui-application-current-C4-binding.json",
+      "sha256": "a4e359d33e6f1a30ad87dc19e36746be229d11536af81e58924c6ef82cd24dea",
+      "size_bytes": 2450
+    },
+    {
+      "name": "ui-azw3-drop-exit.json",
+      "sha256": "76d38a028fa0051e331c0585a8b2ed99c23104af433b46f001e7fec3b6b72e55",
+      "size_bytes": 2391
+    },
+    {
+      "name": "ui-azw3-drop-final-answer.json",
+      "sha256": "0319ed52f1a0dacd7605729422605826c403717208ae68e048e46a92cf6c66fc",
+      "size_bytes": 16852
+    },
+    {
+      "name": "ui-azw3-drop-mode-answer.json",
+      "sha256": "45f1129c1a86ade1a3bdc6d7e7f81bf2ee4e50623b4ba7d4d7dbd78eced9f357",
+      "size_bytes": 8949
+    },
+    {
+      "name": "ui-azw3-drop-starts-answer.json",
+      "sha256": "8c8f8ff53196b32b3dde073489e71a0f235f996504e485561996dba9df9fe997",
+      "size_bytes": 13205
+    },
+    {
+      "name": "ui-azw3-native-drag.json",
+      "sha256": "4b882a44210cdcc1df0a3728aa9c03bf74c9c9c1c18d42dae5444a8db23d55d0",
+      "size_bytes": 13879
+    },
+    {
+      "name": "ui-calibre-before-relocation.json",
+      "sha256": "1b4c81cb06fd225e0be16c0d7e7f2ad3b2f1bd2832087213c35263db17a0c396",
+      "size_bytes": 476507
+    },
+    {
+      "name": "ui-calibre-relocation-audit.json",
+      "sha256": "6bb05cee67c34788fb73725cb4d805cff36a5ff54ee836984fffd67e0edc868e",
+      "size_bytes": 1502
+    },
+    {
+      "name": "ui-calibre-relocation.json",
+      "sha256": "926625029b1b83e65511ff3c8e3d5321f7207e73c316b521008d896771a5bea5",
+      "size_bytes": 739
+    },
+    {
+      "name": "ui-calibre-setup.json",
+      "sha256": "5ed0af386e81026e34d2d0e40d1115cb8a57269c0697bc9365b7a8c5cb8a0b3f",
+      "size_bytes": 151431
+    },
+    {
+      "name": "ui-doubleclick-cancel-answer.json",
+      "sha256": "9de932cbdc85f8deb35cba4d956f8046bcbf188ea8aa7686965695980be862f8",
+      "size_bytes": 4752
+    },
+    {
+      "name": "ui-doubleclick-cancel-exit.json",
+      "sha256": "f15feb7fb82fa3fa1613331a03799a5d03d016ce24d1f6adb178c07d64a35886",
+      "size_bytes": 2256
+    },
+    {
+      "name": "ui-doubleclick-cancel-verification.json",
+      "sha256": "5aefb2af8334e961ed8d28dd83be0c7dc3a175a387a09df2186020eb47dd73c8",
+      "size_bytes": 8071
+    },
+    {
+      "name": "ui-doubleclick-choose-exit.json",
+      "sha256": "701f560e1c01b0ec8885d9d9161b29b5e8b28a67eda1843a1a6398984f837b2b",
+      "size_bytes": 2247
+    },
+    {
+      "name": "ui-doubleclick-exit-answer.json",
+      "sha256": "6176230156ba199b5fb96ff041f3e35c68fdfa19b858ff277a2ff967789ff319",
+      "size_bytes": 17386
+    },
+    {
+      "name": "ui-doubleclick-mode-answer.json",
+      "sha256": "02c3a0edd0b9610c587823f3ed3049039b10cfbc962cc72f424f72696024da63",
+      "size_bytes": 5944
+    },
+    {
+      "name": "ui-doubleclick-source-answer.json",
+      "sha256": "33f70c096f668300131b9a8670d532023eacb7dfe5d6f6c590e0ac3ebb279a10",
+      "size_bytes": 5698
+    },
+    {
+      "name": "ui-doubleclick-verification-v2.json",
+      "sha256": "423db016482c435043b33c21f11564391b0fb45f8a5cefa714c5339df0bef1d5",
+      "size_bytes": 19768
+    },
+    {
+      "name": "ui-doubleclick-verification.json",
+      "sha256": "deae5d140ca6aeea9af4fd85c4e0e38eb96641a3bdaf30f5a7314a6b8200d648",
+      "size_bytes": 6111
+    },
+    {
+      "name": "ui-drop-review-scope-clarification.json",
+      "sha256": "c7f272f77a1b332e277eaa62d59348cfba7e19d011f5f7f1e41c4378fad335b1",
+      "size_bytes": 1463
+    },
+    {
+      "name": "ui-drop-verification-v2.json",
+      "sha256": "238a1901dff10cd9045a354f2f908329cae710685733137522ed9edd78178f55",
+      "size_bytes": 57222
+    },
+    {
+      "name": "ui-drop-verification-v3.json",
+      "sha256": "57365e20216c96f90f39d01671e995806204118cff284222e72b9ccae35cb5d0",
+      "size_bytes": 57549
+    },
+    {
+      "name": "ui-drop-verification-v4.json",
+      "sha256": "ad5a10ac43dba389749c54e47fdf9c5537ee1c16e190fa9ebb8c4113540739bd",
+      "size_bytes": 57625
+    },
+    {
+      "name": "ui-drop-verification-v5.json",
+      "sha256": "e606d49bfb98934a0c9c9c700cbc73be4ee4eaaede60b6b1ec97354923ec478c",
+      "size_bytes": 57602
+    },
+    {
+      "name": "ui-drop-verification-v6.json",
+      "sha256": "9b3d3778b9f7b7478b727b0b21128b0fd5c8b371fb22598abba0c521fbe68bd9",
+      "size_bytes": 57494
+    },
+    {
+      "name": "ui-drop-verification-v7.json",
+      "sha256": "af37fb4450d47badd27dad0413533354a6ec5dcf37d63dea17ea538c3333d9d4",
+      "size_bytes": 74114
+    },
+    {
+      "name": "ui-drop-verification-v8.json",
+      "sha256": "b39b3f47044e3bcbe6719e4d43381e29978067f8fc1f2683cdb4b7ca24593a44",
+      "size_bytes": 74114
+    },
+    {
+      "name": "ui-drop-verification-v9.json",
+      "sha256": "ab8cdbaae6c68c7a78388c9e345253faf8e73bb51bde9c9a6d3161b4c68d53c9",
+      "size_bytes": 82074
+    },
+    {
+      "name": "ui-drop-verification.json",
+      "sha256": "c818f18d29a9e3370e78e18c253cab3b30c4d4e39d3a4c64087ee48e60ad1233",
+      "size_bytes": 56824
+    },
+    {
+      "name": "ui-epub-drop-exit.json",
+      "sha256": "b0843dac00e3abe8279476ebc8c43ffc73610302a18153aca9ccf06e11695a58",
+      "size_bytes": 2391
+    },
+    {
+      "name": "ui-epub-drop-final-answer.json",
+      "sha256": "a1bb3f118a9c4bc56ea71305eb35500901b1c262e80b4b9e2ccdcb71845e3d06",
+      "size_bytes": 17056
+    },
+    {
+      "name": "ui-epub-drop-mode-answer.json",
+      "sha256": "be0c8ff33410daac931e9a4a6e28616a14ef98f28b9a403c77ada36ddf59bfce",
+      "size_bytes": 8949
+    },
+    {
+      "name": "ui-epub-drop-starts-answer.json",
+      "sha256": "6cecff612a9532f7bfc27b65d18c671fa479507d0d7d5234aecc218ddfadc271",
+      "size_bytes": 13316
+    },
+    {
+      "name": "ui-epub-native-drag.json",
+      "sha256": "61419c5f7ee7209fe4d99deb287ee4cf6f8bd56ee965ad33a8b9c9264af54de5",
+      "size_bytes": 13879
+    },
+    {
+      "name": "ui-frozen-C.json",
+      "sha256": "def345d8cc0fb29d769a8b1eef68de685248df3e47e8fd44de5eeaed45f4c2c6",
+      "size_bytes": 6196
+    },
+    {
+      "name": "ui-invalid-auto-answer.json",
+      "sha256": "d848be8f4d9c66037cdf09a536f6f71ba635ebdd3248d24982f22c52ddb532b3",
+      "size_bytes": 7223
+    },
+    {
+      "name": "ui-invalid-fallback-Q-answer.json",
+      "sha256": "ffdf9b3c59efc07f8d7dce0027c9619f84678b4b49548cbb597bce2c961a6292",
+      "size_bytes": 6599
+    },
+    {
+      "name": "ui-invalid-fallback-exit.json",
+      "sha256": "4800a65ef5898a9096a9e0fe5254acc2294548cbf7e54513e9dba9101d972d37",
+      "size_bytes": 2252
+    },
+    {
+      "name": "ui-invalid-fallback-manual-answer.json",
+      "sha256": "772729c36726bcff048bbda35cbb63fd62b6e4c7f61f2c8905120240e7142d80",
+      "size_bytes": 7034
+    },
+    {
+      "name": "ui-invalid-fallback-maybe-answer.json",
+      "sha256": "7657320ada2b3292ef622c4e63b5dae2b43314778145f3be17c512eb6658b23b",
+      "size_bytes": 5975
+    },
+    {
+      "name": "ui-invalid-final-exit-answer.json",
+      "sha256": "1d5d4d214751babb6be0ee3abdfa31b768a5b204d6fd6b076cc223d371572c4e",
+      "size_bytes": 17193
+    },
+    {
+      "name": "ui-invalid-manual-starts-answer.json",
+      "sha256": "6c02e97fcf446a575e4f61fd8956f6c163a7af1e63b21c150d680905de6329a4",
+      "size_bytes": 12276
+    },
+    {
+      "name": "ui-invalid-menu-Q-answer.json",
+      "sha256": "6ad01b9ea7ffb57889ba47889a7105be08abe57456e7f54d1691d911e3b80d6e",
+      "size_bytes": 8531
+    },
+    {
+      "name": "ui-invalid-menu-maybe-answer.json",
+      "sha256": "f8b036db3c1665efc3866311b853f0b333db5cfbc2c3fde7c1949315049db66d",
+      "size_bytes": 7926
+    },
+    {
+      "name": "ui-invalid-source-answer.json",
+      "sha256": "54442a93199a63b666a1b44342bfcab8abf76198978b719e7b50ac55100573e7",
+      "size_bytes": 5795
+    },
+    {
+      "name": "ui-invalid-verification.json",
+      "sha256": "c57d1836896c63c11a069f0e5a96603190dc7bc010836a1e42795aa999c8e39c",
+      "size_bytes": 21329
+    },
+    {
+      "name": "ui-output-before.json",
+      "sha256": "ebbd29385d71ab8e5a6ac33fe6042e777ddc7a23773eec71594544c3177fccbc",
+      "size_bytes": 285
+    },
+    {
+      "name": "ui-pdf-drop-exit.json",
+      "sha256": "e3ea7afd4a8f7086b94559d7d6f27ad4ee47f3cef279681d921734e362f15b34",
+      "size_bytes": 2385
+    },
+    {
+      "name": "ui-pdf-drop-final-answer.json",
+      "sha256": "4e9b90c94d230e7a08bb202d3b3c6c044444a81ab9e662559c352d6432a2c2b6",
+      "size_bytes": 17533
+    },
+    {
+      "name": "ui-pdf-drop-mode-answer.json",
+      "sha256": "7984a1037a170cb2a314a1b7c82ec58bfcd2114f7633ce9f732c40babd969ea5",
+      "size_bytes": 12512
+    },
+    {
+      "name": "ui-pdf-native-drag.json",
+      "sha256": "710beb87546210b76e7561ef9129ff7c943d4ce30f920db208c949ce7658f971",
+      "size_bytes": 13877
+    },
+    {
+      "name": "ui-setup.json",
+      "sha256": "36d3f6a6e7632a6c4a0b1cfb4a7e3a81d902670fba0dea539595b53997ed8efc",
+      "size_bytes": 4794
+    },
+    {
+      "name": "ui-two-file-drop-exit.json",
+      "sha256": "5ff697994c86dfbaef5258c053c3cfaf19ff3a605eb9315561c428d07aa9295c",
+      "size_bytes": 1568
+    },
+    {
+      "name": "ui-two-file-native-drag.json",
+      "sha256": "e8065a785036516e5113e671ba1b57bbfccdd2ae201f3350debdae3876e2adf6",
+      "size_bytes": 13919
+    },
+    {
+      "name": "ui-two-file-pause-answer.json",
+      "sha256": "60f64a5b6835c5cb988aca4a710343118df48f674e40c3ad433763698d989222",
+      "size_bytes": 2793
+    },
+    {
+      "name": "ui-two-file-pause-inspect.json",
+      "sha256": "5a31c6c6cc7e06cf8333fbe6e64e25ad7f710680df226b10b32edacbc0c26a5b",
+      "size_bytes": 2581
+    },
+    {
+      "name": "ui-two-file-selection.json",
+      "sha256": "0f9afc4a6b58c99ea2eb24394c242428b1090f4b97a0a194a737d2789801cb70",
+      "size_bytes": 788
+    },
+    {
+      "name": "windows-environment.json",
+      "sha256": "a25f610f08b9c48355e18701877f5f7f78f608b01719422b41fc9e8025a038e4",
+      "size_bytes": 152
+    }
+  ],
+  "limits": [
+    "No new human-testing claim; assistant-operated Explorer acceptance is separate from historical closed human checks.",
+    "No rendered PDF fidelity, clean OS, exact extracted package, CI or release certification. No private books/documents processed or uploaded.",
+    "Current1.0.0-dev and unsigned status retained; no tag/interim release. M3-T04 owns interactive plan confirmation/converted-PDF guidance/output opening."
+  ],
+  "next_task": "M3-T04"
+}

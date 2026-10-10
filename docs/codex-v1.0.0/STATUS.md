@@ -1,6 +1,58 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2 reviewed/merged; M3 is complete through **M3-T03**.
+Next action: **M3-T04 — Show plans and converted-PDF page guidance**.
+Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
+Origin: https://github.com/PikkuJanne/WinBookSplit.git.
+Implementation C `302b063322b7ef341cfc7b7a1f7aa3cb9d5fcea8` is clean/live **SYNCED**
+at `2026-10-09T18:47:27.008501+00:00`. E receives its own actual external/thread
+receipt after normal push. PR18 merged at main
+`56d9d4a9556520b8b92426f44f74fe7faceb4d7b`; use the new scoped T03 continuation
+[draft PR19](https://github.com/PikkuJanne/WinBookSplit/pull/19) and recheck live
+main/branch/PR/protection/CI rather than reusing merged PR18.
+No release or tag was created. Current-build human testing remains complete,
+including both fresh BAT Ctrl+C retries in M3-T01-human.md/json.
+
+## M3-T03 evidence and limits
+
+[Launcher evidence](evidence/M3-T03-launcher.md) and
+[machine record](evidence/M3-T03-launcher.json) satisfy AC-057/058/059. BAT rejects
+multiple inputs before PS, supports PDF/EPUB/AZW3 and preserves literal argv/native
+exit. Double-click offers a literal path prompt; blank/exact C/EOF cancel130 before
+dependencies/output. Exact menu1/2/M/C and existing fallback choices reprompt invalid
+answers; fallback EOF cancels. No implicit first-file/default selection remains.
+
+Frozen clean-C unrelated-CWD sixteen-stage full gate passed 235 Python tests,
+71 Pester tests per actual PS5.1/PS7 host, 72 native CLI controls, 70 native launcher
+controls and all inherited regressions, including real Calibre9.15.0 EPUB/genuine
+AZW3. All96 raw tested paths match C, digest
+`63bed7c22f00e655016b018dde3394b8535fb1ad2af06d8181d4ec0e1b5e9eec`.
+Zero skips; source/prior/neighbor/settings and known owned suite cleanup pass.
+Independent source/strict-receipt/actual-Explorer/public evidence review passed;
+earlier failed receipts remain preserved; no cleanup/pass is claimed for interrupted unknown work.
+
+Actual assistant-operated Explorer PDF/EPUB/AZW3 drops, double-click choose/cancel,
+two-file rejection and invalid menu/fallback checks passed on12 exact application
+files. Five success runs produced15PDFs/25physical pages with reopened content and
+complete coverage; native BAT/PS0, cancellation130 and rejection2 were observed.
+Guarded native mouse/console events were needed for technical Computer Use targeting/
+held-drag limits. They are disclosed automation, not new human results. Successful
+console snapshots retain tails rather than full final OUTCOME frames; native exits,
+Done, saved provisional logs/manifests and reopened files support those UI outcomes.
+The native BAT supplement separately declares copied PS default substitutions.
+
+Temporary UI Calibre known-location setup was restored by sealed same-volume move;
+all1,345 file hashes/native identities are preserved outside discovery. One extra
+authored full02 output is accounted through archived stderr/name metadata only.
+No broad/private Documents scan or cleanup. M3-T01 human evidence only clarifies
+its two historical owned-copy PS parameter-default substitutions; no check reopens.
+Interactive plan confirmation, generated-PDF manual guidance and optional output
+opening belong to M3-T04. PDF fidelity, CI, exact package and public v1.0.0 remain open.
+
+## Historical checkpoint through M3-T02
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 reviewed/merged; M3 is complete through **M3-T02**.
 Next action: **M3-T03 — Polish launcher and menu behavior**.
 Branch/upstream: codex/winbooksplit-v1-m3 / origin/codex/winbooksplit-v1-m3.
