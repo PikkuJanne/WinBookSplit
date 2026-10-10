@@ -13,7 +13,7 @@ BeforeAll {
     }
     $versionWork = Join-Path $WorkRoot ('version-' + [guid]::NewGuid().ToString('N'))
     $null = New-Item -ItemType Directory -Path $versionWork
-    $versionPath = Join-Path $versionWork 'VERSION'
+    $script:versionPath = Join-Path $versionWork 'VERSION'
 }
 
 Describe 'Canonical application VERSION' -Tag 'AC-082', 'AC-083' {
