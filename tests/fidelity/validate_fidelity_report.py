@@ -9,7 +9,7 @@ import sys
 
 ROOT = Path(__file__).resolve().parents[2]
 HEX = re.compile(r'[0-9a-f]{64}\Z')
-APPLICATION = ('WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
+APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
     'engine/WinBookSplit.Runtime.ps1', 'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Diagnostics.ps1',
     'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1',
     'engine/WinBookSplit.Outcomes.json', 'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py',
@@ -182,7 +182,7 @@ def validate_output(row, output, entry, expected):
     metadata = output.get('metadata')
     source_title = TITLE + (' image-only' if row['kind'] == 'scanned' else '')
     need(isinstance(metadata, dict) and metadata.get('/Title') == chapter and metadata.get('/Author') == AUTHOR
-         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == 'WinBookSplit 1.0.0-dev (pypdf 6.19.0)'
+         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == 'WinBookSplit 1.0.0 (pypdf 6.19.0)'
          and metadata.get('/Subject') == 'Source: ' + source_title and '/AuthoredPrivateField' not in metadata,
          'Chapter/source metadata incorrect or original private metadata copied')
     need(output.get('outline') == [{'title': chapter, 'page': 0}], 'Useful chapter-start bookmark differs from safe chapter label/page0')

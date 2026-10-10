@@ -208,7 +208,7 @@ def actual_hosts(work, shells, cases):
 
 def characterize(work, shells):
     manual.trusted_original_sources()
-    paths = (*history.BASELINE_PATHS, "WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Diagnostics.ps1",
+    paths = ("VERSION", *history.BASELINE_PATHS, "WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Diagnostics.ps1",
              "tests/run_tests.py", "tests/python/test_runner.py", "tests/README.md", "tests/diagnostics/README.md",
              "tests/diagnostics/characterize_diagnostics.py", "tests/diagnostics/Probe-Diagnostics.ps1",
              "tests/bookmarks/characterize_level2.py", "tests/plans/characterize_plan.py", "tests/manual/characterize_manual.py")

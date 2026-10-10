@@ -127,7 +127,9 @@ def sha256(data: bytes) -> str:
 def source_manifest() -> dict[str, str]:
     """Hash actual checked-out bytes; avoid circular evidence/status hashes."""
     paths = [ROOT / name for name in (
-        "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
+        "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
+        "CHANGELOG.md", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md", "SECURITY.md", "docs/SETUP.md",
+        "docs/SUPPORT_DIAGNOSTICS.md", "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
         "requirements.txt", "requirements-dev.txt",
         ".github/workflows/windows-ci.yml", "tools/ci/README.md",
         "tests/README.md", "tests/fixtures/README.md", "tests/baseline/README.md",

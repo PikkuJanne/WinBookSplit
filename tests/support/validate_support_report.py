@@ -17,7 +17,7 @@ APPLICATION_KINDS = ('success-pdf', 'success-epub', 'success-azw3', 'failed-pdf'
                      'log-fault-cancelled', 'manifest-fault-cancelled', 'preview', 'preflight')
 EXPORT_KINDS = ('success', 'failed', 'cancelled', 'incomplete', 'no-plan', 'redacted', 'existing', 'same-path', 'hardlink',
                 'relative-input', 'relative-output', 'duplicate-keys', 'invalid-utf8', 'wrong-protocol', 'reparse-output', 'pending-manifest', 'selected-secret')
-APPLICATION = ('WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
+APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
                'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Diagnostics.ps1', 'engine/WinBookSplit.Runtime.ps1',
                'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1', 'engine/WinBookSplit.Outcomes.json',
                'engine/winbooksplit_engine.py', 'engine/winbooksplit_windows.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_job.py')
@@ -138,7 +138,7 @@ def validate_run_manifest(manifest, row):
     final = row['outcome']
     need(isinstance(manifest, dict) and manifest.get('protocol') == 'winbooksplit.run'
          and type(manifest.get('version')) is int and manifest['version'] == 1
-         and manifest.get('application_version') == '1.0.0-dev'
+         and manifest.get('application_version') == '1.0.0'
          and isinstance(manifest.get('run_id'), str) and re.fullmatch('[0-9a-f]{32}', manifest['run_id']), 'Run manifest protocol/version/run identity invalid')
     need(set(manifest) == {'protocol', 'version', 'run_id', 'application_version', 'started_utc', 'finished_utc', 'diagnostics_finalized',
          'runtime_versions', 'settings', 'source_identity', 'plan', 'engine_result', 'outcome', 'warnings', 'log'}, 'Run manifest schema differs')
@@ -334,7 +334,7 @@ def validate_summary(summary, manifest):
          and manifest.get('diagnostics_finalized') is True, 'Export source is not a finalized run manifest')
     need(isinstance(summary, dict) and set(summary) == {'protocol', 'version', 'application_version', 'runtime_versions',
          'settings', 'plan', 'outcome', 'warnings', 'log'} and summary['protocol'] == 'winbooksplit.support'
-         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == '1.0.0-dev',
+         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == '1.0.0',
          'Support summary root whitelist/protocol invalid')
     versions = {**manifest['runtime_versions'], 'powershell': '5.1' if manifest['runtime_versions']['powershell'].startswith('5.1.') else '7'}
     need(summary['runtime_versions'] == versions and set(summary['runtime_versions']) == {'powershell', 'python', 'pypdf', 'calibre'},

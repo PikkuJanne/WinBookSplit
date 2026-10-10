@@ -70,8 +70,9 @@ BeforeAll {
 }
 
 Describe 'M3 explicit plan-only engine protocol' -Tag 'AC-054', 'AC-055', 'AC-056' {
-    It 'pins one development application version in the shipped contract' {
-        $script:splitOutcomeContract.application_version | Should-Be -Expected '1.0.0-dev'
+    It 'keeps application version separate from the outcome protocol contract' {
+        @($script:splitOutcomeContract.PSObject.Properties.Name) -contains 'application_version' | Should-Be -Expected $false
+        (Get-Content -LiteralPath (Join-Path $RepositoryRoot 'VERSION') -Raw).Trim() | Should-Be -Expected '1.0.0'
         Get-SplitExitCode 'preview_complete' | Should-Be -Expected 0
     }
     It 'accepts a complete ordered preview only when explicitly requested' {

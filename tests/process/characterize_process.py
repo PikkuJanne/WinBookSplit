@@ -36,7 +36,7 @@ conversion = load("wbs_process_content", ROOT / "tests/conversion/characterize_c
 runner = load("wbs_process_runner", ROOT / "tests/run_tests.py")
 validator = load("wbs_process_validator", ROOT / "tests/process/validate_process_report.py")
 history, require = manual.history, manual.require
-APPLICATION = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
+APPLICATION = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
     "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",

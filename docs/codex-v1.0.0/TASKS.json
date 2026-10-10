@@ -940,7 +940,7 @@
         "Canonical version/changelog",
         "License/notices"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M4-T05"
       ],
@@ -948,8 +948,11 @@
         "AC-082",
         "AC-083"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M5-T01-documentation.md",
+        "evidence/M5-T01-documentation.json"
+      ],
+      "implementation_commit": "a5a68b6530d6b75c1222a71a737090f95fe23fe3",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

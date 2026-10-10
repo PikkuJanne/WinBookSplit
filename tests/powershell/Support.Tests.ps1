@@ -8,7 +8,7 @@ BeforeAll {
     $secret = 'PRIVATE_SENTINEL_7c4c_path_title_message_token'
     function New-SupportFixture {
         return [ordered]@{
-            protocol='winbooksplit.run'; version=1; run_id=('a'*32); application_version='1.0.0-dev'
+            protocol='winbooksplit.run'; version=1; run_id=('a'*32); application_version='1.0.0'
             started_utc='2026-10-10T00:00:00.0000000Z'; finished_utc='2026-10-10T00:00:01.0000000Z'; diagnostics_finalized=$true
             runtime_versions=[ordered]@{ powershell='5.1.26100.9444'; python='3.14.8'; pypdf='6.19.0'; calibre=$null }
             settings=[ordered]@{ mode='manual'; input_kind='pdf'; preview=$false; non_interactive=$true; no_pause=$true; keep_converted_pdf=$false

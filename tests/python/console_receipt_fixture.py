@@ -31,7 +31,7 @@ def make(outcome, log_hash, *, log_text=None, plan=None, source_path="C:/synthet
                "sha256": None, "binding": "metadata_only"})
     parser = (frame.get("diagnostic") or {}).get("parser_warnings") or {}
     manifest = {"protocol": "winbooksplit.run", "version": 1, "run_id": run_id,
-        "application_version": "1.0.0-dev", "started_utc": "2026-10-10T00:00:00Z", "finished_utc": "2026-10-10T00:00:01Z",
+        "application_version": "1.0.0", "started_utc": "2026-10-10T00:00:00Z", "finished_utc": "2026-10-10T00:00:01Z",
         "diagnostics_finalized": True, "runtime_versions": {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.19.0", "calibre": None},
         "settings": {"mode": outcome.get("mode"), "input_kind": "pdf", "preview": False, "non_interactive": False,
             "no_pause": True, "keep_converted_pdf": False, "conversion_timeout": 1800, "process_timeout": 3600,

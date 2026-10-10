@@ -15,7 +15,7 @@ import sys
 
 
 RUNTIME_PATHS = (
-    "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "requirements.txt",
+    "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "requirements.txt",
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1",
@@ -24,7 +24,8 @@ RUNTIME_PATHS = (
 )
 # Current user/support source prerequisites, not the future M5 package payload.
 SUPPORT_PATHS = (
-    "README.md", "LICENSE", "WinBookSplit_icon.ico", "docs/PDF_POLICY.md",
+    "README.md", "LICENSE", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md", "SECURITY.md",
+    "docs/SETUP.md", "WinBookSplit_icon.ico", "docs/PDF_POLICY.md",
     "docs/PDF_FIDELITY.md", "docs/EBOOK_SUPPORT.md", "docs/SUPPORT_DIAGNOSTICS.md",
     "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
 )
@@ -106,6 +107,9 @@ def _sibling_call(node: ast.AST) -> str | None:
     return node.args[0].value
 
 
+ROOT_VERSION_EXPRESSION = ast.dump(ast.parse("Path(__file__).resolve().parent.parent / 'VERSION'", mode="eval").body)
+
+
 def _python_dependencies(text: str, path: str) -> set[str]:
     try:
         tree = ast.parse(text, filename=path)
@@ -113,6 +117,10 @@ def _python_dependencies(text: str, path: str) -> set[str]:
         raise InputError("invalid_python_input", path) from error
     dependencies = set()
     for node in ast.walk(tree):
+        if isinstance(node, ast.BinOp) and isinstance(node.right, ast.Constant) and node.right.value == "VERSION":
+            if path != "engine/winbooksplit_engine.py" or ast.dump(node) != ROOT_VERSION_EXPRESSION:
+                raise InputError("unresolved_runtime_dependency", path)
+            dependencies.add("VERSION")
         modules = [alias.name for alias in node.names] if isinstance(node, ast.Import) else \
             [node.module or ""] if isinstance(node, ast.ImportFrom) else []
         for name in modules:
@@ -124,6 +132,10 @@ def _python_dependencies(text: str, path: str) -> set[str]:
             elif root not in sys.stdlib_module_names and root != "pypdf":
                 raise InputError("undeclared_runtime_dependency", path)
         if isinstance(node, ast.Call):
+            if isinstance(node.func, ast.Name) and node.func.id == "_read_application_version":
+                if path != "engine/winbooksplit_engine.py" or len(node.args) != 1 or node.keywords or ast.dump(node.args[0]) != ROOT_VERSION_EXPRESSION:
+                    raise InputError("unresolved_runtime_dependency", path)
+                dependencies.add("VERSION")
             sibling = _sibling_call(node)
             if sibling is not None:
                 dependencies.add(_dependency(path, sibling))
@@ -164,6 +176,8 @@ def _python_dependencies(text: str, path: str) -> set[str]:
             if isinstance(item, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
                 scope(item, bindings)
     scope(tree, {})
+    if path == "engine/winbooksplit_engine.py" and "VERSION" not in dependencies:
+        raise InputError("unresolved_runtime_dependency", path)
     return dependencies
 
 
@@ -204,6 +218,8 @@ def validate_inputs(repo: Path, commit: str) -> dict:
     for path in sorted(INPUT_PATHS):
         mode, oid = entries[path]
         size = int(git(repo, "cat-file", "-s", oid).decode("ascii").strip())
+        if path == "VERSION" and not 0 < size <= 34:
+            raise InputError("invalid_application_version", path)
         if not 0 < size <= MAX_FILE_BYTES:
             raise InputError("invalid_input_size", path)
         data = git(repo, "cat-file", "blob", oid)
@@ -212,6 +228,10 @@ def validate_inputs(repo: Path, commit: str) -> dict:
         blobs[path] = data
         files.append({"path": path, "scope": "runtime" if path in RUNTIME_PATHS else "support_source",
                       "git_mode": mode, "git_blob": oid, "bytes": size, "sha256": sha256(data).hexdigest()})
+    if len(blobs["VERSION"]) > 34 or re.fullmatch(
+            rb"(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})(?:\r?\n)?", blobs["VERSION"]) is None:
+        raise InputError("invalid_application_version", "VERSION")
+    application_version = blobs["VERSION"].rstrip(b"\r\n").decode("ascii")
     requirements = [line.strip() for line in _text(blobs["requirements.txt"], "requirements.txt").splitlines()
                     if line.strip() and not line.lstrip().startswith("#")]
     if requirements != [RUNTIME_REQUIREMENT]:
@@ -221,8 +241,17 @@ def validate_inputs(repo: Path, commit: str) -> dict:
         if path.endswith(".py"):
             dependencies[path] = sorted(_python_dependencies(_text(blobs[path], path), path))
         elif path.endswith(".ps1"):
-            dependencies[path] = sorted({_dependency(path, match.group(2).replace("\\", "/"))
-                                         for match in JOIN_SIBLING.finditer(_text(blobs[path], path))})
+            text = _text(blobs[path], path)
+            needed = {_dependency(path, match.group(2).replace("\\", "/")) for match in JOIN_SIBLING.finditer(text)}
+            if path == "WinBookSplit.ps1":
+                if "Join-Path $Root 'VERSION'" not in text or "Get-WinBookSplitApplicationVersion -Root $PSScriptRoot" not in text:
+                    raise InputError("unresolved_runtime_dependency", path)
+                needed.add("VERSION")
+            if path == "engine/WinBookSplit.Support.ps1":
+                if "[IO.Directory]::GetParent($PSScriptRoot).FullName" not in text or "[IO.Path]::Combine($Root, 'VERSION')" not in text:
+                    raise InputError("unresolved_runtime_dependency", path)
+                needed.add("VERSION")
+            dependencies[path] = sorted(needed)
     bat = _text(blobs["WinBookSplit.bat"], "WinBookSplit.bat")
     references = re.findall(r"%~dp0([^\"\r\n]+)", bat, re.IGNORECASE)
     if not references or any(reference != "WinBookSplit.ps1" for reference in references):
@@ -231,6 +260,7 @@ def validate_inputs(repo: Path, commit: str) -> dict:
     canonical = json.dumps(files, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")
     return {"schema_version": 1, "check": "package_source_inputs", "success": True, "exit_code": 0,
             "source_commit": commit, "source_tree": tree, "input_sha256": sha256(canonical).hexdigest(),
+            "application_version": application_version,
             "runtime_count": len(RUNTIME_PATHS), "support_source_count": len(SUPPORT_PATHS),
             "files": files, "runtime_sibling_dependencies": dependencies,
             "scope": "Committed source prerequisites only; no package build, release readiness or private-data scan.",

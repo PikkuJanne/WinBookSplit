@@ -130,7 +130,7 @@ try {
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Launcher.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
-        foreach ($testName in @('Logging.Tests.ps1', 'Support.Tests.ps1')) {
+        foreach ($testName in @('Logging.Tests.ps1', 'Support.Tests.ps1', 'Version.Tests.ps1')) {
             $containers += New-PesterContainer -Path (Join-Path $repository ('tests\powershell\' + $testName)) -Data @{
                 RepositoryRoot = $repository; WorkRoot = $work
             }

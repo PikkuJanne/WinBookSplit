@@ -18,7 +18,7 @@ RANGES = {"epub": [[0, 1], [1, 2], [2, 3]], "azw3": [[0, 1], [1, 2], [2, 4]]}
 GEOMETRY = {"media_box": [0.0, 0.0, 612.0, 792.0], "crop_box": [0.0, 0.0, 612.0, 792.0], "rotation": 0}
 MEMBERS = {"mimetype", "META-INF/container.xml", "OEBPS/content.opf", "OEBPS/nav.xhtml", "OEBPS/toc.ncx",
            "OEBPS/style.css", *(f"OEBPS/chapter{n}.xhtml" for n in range(1, 4))}
-APPLICATION = ("WinBookSplit.ps1", "WinBookSplit.bat", "Export-WinBookSplitDiagnostics.ps1", "requirements.txt",
+APPLICATION = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "Export-WinBookSplitDiagnostics.ps1", "requirements.txt",
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Diagnostics.ps1",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_conversion.py",

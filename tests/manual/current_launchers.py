@@ -108,7 +108,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
          "Local manifest raw bytes/hash differ")
     need(record.get("protocol") == "winbooksplit.run" and type(record.get("version")) is int and record["version"] == 1
          and record.get("run_id") == owner["run_id"] and record.get("diagnostics_finalized") is True
-         and record.get("application_version") == "1.0.0-dev" and record.get("outcome") == outcome
+         and record.get("application_version") == "1.0.0" and record.get("outcome") == outcome
          and record.get("engine_result") == outcome.get("engine_result"), "Local run protocol/owner/outcome differs")
     for key in ("started_utc", "finished_utc"):
         need(isinstance(record.get(key), str), "Local run timestamp missing")

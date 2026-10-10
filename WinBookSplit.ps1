@@ -7,7 +7,7 @@ Without Mode, select a method interactively. Scripted calls supply Mode plus
 BookmarkLevel or StartPages. NonInteractive and Preview require complete choices.
 EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Preview.
 Requires regular Windows x64 CPython 3.14.8 and pypdf 6.19.0; ebooks also require
-Calibre 9.15.0. See docs/codex-v1.0.0/SUPPORT_AND_SETUP.md for explicit setup.
+Calibre 9.15.0. See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
 prompted; blank or C cancels. Required for NonInteractive and Preview.
@@ -30,7 +30,7 @@ Supply InputFile, Mode and the selected level or starts; no usable plan returns 
 .PARAMETER NoPause
 Suppress exit pauses; interactive method, plan confirmation and open choices still apply.
 .PARAMETER Version
-Print the canonical development version and exit 0 without input or dependencies.
+Print the canonical VERSION and exit 0 without input or dependencies.
 Cannot combine with processing parameters.
 .PARAMETER PythonPath
 Explicit trusted absolute Python executable. Otherwise use validated discovery.
@@ -43,13 +43,13 @@ Converter deadline in seconds, 1 through 86400; default 1800.
 .PARAMETER ProcessTimeout
 Engine/tree/stream deadline in seconds, 1 through 172800; default at least 3600.
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf'
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Manual -StartPages '1,4,7' -NonInteractive
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
 .EXAMPLE
 .\WinBookSplit.ps1 -Version
 .NOTES
@@ -83,9 +83,34 @@ param (
 
 # --- Configuration ---
 $AppName = "WinBookSplit"
-$versionContract = Get-Content -LiteralPath (Join-Path $PSScriptRoot 'engine\WinBookSplit.Outcomes.json') -Raw -Encoding UTF8 | ConvertFrom-Json -ErrorAction Stop
-$ver = $versionContract.application_version
-if ($ver -isnot [string] -or $ver -cnotmatch '^\d+\.\d+\.\d+(?:-[a-z0-9.]+)?$') { throw 'Invalid shipped application version.' }
+function Get-WinBookSplitApplicationVersion {
+    param([Parameter(Mandatory = $true)][string]$Root)
+    $stream = $null
+    try {
+        $stream = [IO.File]::Open((Join-Path $Root 'VERSION'), [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+        $bytes = New-Object byte[] 35
+        $count = 0
+        while ($count -lt $bytes.Length) {
+            $read = $stream.Read($bytes, $count, $bytes.Length - $count)
+            if ($read -eq 0) { break }
+            $count += $read
+        }
+        $text = [Text.Encoding]::ASCII.GetString($bytes, 0, $count)
+        if ($count -gt 34 -or -not [regex]::IsMatch($text, '\A(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})(?:\r?\n)?\z')) {
+            throw 'Invalid version bytes.'
+        }
+        return $text.TrimEnd([char[]]"`r`n")
+    } catch {
+        throw 'Missing or malformed shipped application VERSION.'
+    } finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+    }
+}
+try { $ver = Get-WinBookSplitApplicationVersion -Root $PSScriptRoot }
+catch {
+    [Console]::Error.WriteLine('Missing or malformed shipped application VERSION.')
+    exit 6
+}
 # Version precedes every input check, helper load and runtime probe.
 if ($Version -and $PSBoundParameters.Count -eq 1 -and $args.Count -eq 0) {
     Write-Output ($AppName + ' ' + $ver)

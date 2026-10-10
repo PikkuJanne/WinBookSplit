@@ -155,7 +155,7 @@ class PdfFidelityTests(unittest.TestCase):
                     self.assertEqual(reader.metadata.author, "Authored author Å 日本")
                     self.assertEqual(reader.metadata.subject, "Source: Authored source Å 日本")
                     self.assertEqual(reader.metadata.creator, "WinBookSplit")
-                    self.assertEqual(reader.metadata.producer, "WinBookSplit 1.0.0-dev (pypdf 6.19.0)")
+                    self.assertEqual(reader.metadata.producer, "WinBookSplit 1.0.0 (pypdf 6.19.0)")
                     self.assertEqual(len(reader.outline), 1)
                     self.assertEqual(reader.outline[0].title, expected)
                     self.assertEqual(reader.get_destination_page_number(reader.outline[0]), 0)

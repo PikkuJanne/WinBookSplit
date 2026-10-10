@@ -26,6 +26,7 @@ INVALID_MANUAL_COUNT = 160
 MALFORMED_COUNT = 48
 WRITER_COUNT = 12
 SOURCE_PATHS = (
+    'VERSION',
     'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py',
     'engine/winbooksplit_job.py', 'engine/winbooksplit_windows.py',
     'engine/WinBookSplit.Outcomes.json', 'tests/fixtures/generate_pdf_fixtures.py',

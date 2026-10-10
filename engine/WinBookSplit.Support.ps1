@@ -176,6 +176,30 @@ function Get-WinBookSplitSupportToken {
     return [string]$Value
 }
 
+function Get-WinBookSplitSupportApplicationVersion {
+    param([string]$Root = ([IO.Directory]::GetParent($PSScriptRoot).FullName))
+    $stream = $null
+    try {
+        $stream = [IO.File]::Open(([IO.Path]::Combine($Root, 'VERSION')), [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
+        $bytes = New-Object byte[] 35
+        $count = 0
+        while ($count -lt $bytes.Length) {
+            $read = $stream.Read($bytes, $count, $bytes.Length - $count)
+            if ($read -eq 0) { break }
+            $count += $read
+        }
+        $text = [Text.Encoding]::ASCII.GetString($bytes, 0, $count)
+        if ($count -gt 34 -or -not [regex]::IsMatch($text, '\A(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})\.(?:0|[1-9][0-9]{0,9})(?:\r?\n)?\z')) {
+            throw 'Invalid version bytes.'
+        }
+        return $text.TrimEnd([char[]]"`r`n")
+    } catch {
+        throw 'Missing or malformed shipped application VERSION.'
+    } finally {
+        if ($null -ne $stream) { $stream.Dispose() }
+    }
+}
+
 function ConvertTo-WinBookSplitSupportSummary {
     param([Parameter(Mandatory = $true)]$Manifest)
     Initialize-WinBookSplitSupport
@@ -186,7 +210,7 @@ function ConvertTo-WinBookSplitSupportSummary {
     if ($Manifest['diagnostics_finalized'] -isnot [bool] -or $Manifest['diagnostics_finalized'] -ne $true) { throw 'Diagnostic manifest is not finalized.' }
     $contractPath = Join-Path $PSScriptRoot 'WinBookSplit.Outcomes.json'
     $contract = [WinBookSplitSupport.StrictJson]::Parse([IO.File]::ReadAllText($contractPath, [Text.Encoding]::UTF8))
-    $canonicalVersion = Get-WinBookSplitSupportToken $contract['application_version'] @('1.0.0-dev','1.0.0')
+    $canonicalVersion = Get-WinBookSplitSupportApplicationVersion
     $null = Get-WinBookSplitSupportToken (Get-WinBookSplitSupportField $Manifest 'application_version') @($canonicalVersion)
     $runId = Get-WinBookSplitSupportField $Manifest 'run_id'
     if ($runId -isnot [string] -or $runId -cnotmatch '^[a-f0-9]{32}$') { throw 'Invalid diagnostic run identity.' }

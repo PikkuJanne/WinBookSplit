@@ -1,8 +1,9 @@
 # Export a local support summary
 
 After processing setup, an application run keeps a bounded UTF-8 `console.log`
-in its unique console folder. Successful diagnostic finalization publishes its
-neighbor `WinBookSplit_Run.json`, including the actual failed or cancelled
+in a unique `.WinBookSplit-console-<run-id>` folder under Documents or the selected
+output base. The console prints the log's path. Successful diagnostic finalization
+publishes its neighbor `WinBookSplit_Run.json`, including the actual failed or cancelled
 outcome when processing did not succeed. These original files can contain book
 paths, chapter titles, error messages, and other local details. Keep them under
 your control.
@@ -31,16 +32,18 @@ summary uses the fixed PowerShell buckets described below.
 
 To create a separate redacted summary, choose the finalized
 `WinBookSplit_Run.json` and a new local destination file. Run the shipped command
-from Windows PowerShell 5.1 or PowerShell 7, using absolute paths:
+from the application directory in Windows PowerShell 5.1 or the tested PowerShell
+7 host. Replace the illustrative absolute input and destination paths below:
 
 ```powershell
-& 'C:\Tools\WinBookSplit\Export-WinBookSplitDiagnostics.ps1' `
-    -ManifestPath 'C:\LocalRuns\ChosenRun\WinBookSplit_Run.json' `
-    -OutputPath 'C:\LocalRuns\ChosenSupportSummary.json'
+.\Export-WinBookSplitDiagnostics.ps1 `
+    -ManifestPath 'C:\LocalRuns\.WinBookSplit-console-0123456789abcdef0123456789abcdef\WinBookSplit_Run.json' `
+    -OutputPath 'C:\LocalRuns\SupportSummary.json'
 ```
 
-These paths are examples. The destination directory must already exist. The
-command creates the destination exclusively and never overwrites an existing
+Select the finalized manifest beside your own printed `console.log` path; the
+example run ID does not identify an existing run. The destination directory must
+already exist. The command creates the destination exclusively and never overwrites an existing
 file. Success returns native exit code `0`; a rejected export returns `2` and
 a fixed error message. No export is automatic, and nothing is uploaded or sent
 over the network.
@@ -60,6 +63,11 @@ PowerShell versions are validated as bounded supported numeric versions and
 reduced to the fixed `5.1` or `7` bucket; build text is omitted. Python, pypdf,
 and Calibre version text must match the shipped trusted version allowlist.
 Unknown versions are rejected instead of copied into the summary.
+
+The run's `application_version` must match the export command's canonical root
+`VERSION`. Use the same trusted candidate for processing and export. Historical
+`1.0.0-dev` manifests do not match the current `1.0.0` candidate and are rejected;
+do not edit a local manifest to make it pass.
 
 Only version `1` of the finalized `winbooksplit.run` schema is accepted, with
 `diagnostics_finalized` set to Boolean `true`. Pending records are rejected.

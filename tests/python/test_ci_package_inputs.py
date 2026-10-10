@@ -51,16 +51,63 @@ class PackageInputTests(unittest.TestCase):
     def test_current_committed_inputs_and_helper_closure_are_bound(self):
         result = checker.validate_inputs(self.repo, self.commit)
         self.assertTrue(result["success"])
-        self.assertEqual((result["runtime_count"], result["support_source_count"]), (15, 8))
+        self.assertEqual((result["runtime_count"], result["support_source_count"]), (16, 13))
         self.assertEqual(result["source_commit"], self.commit)
         self.assertEqual(result["source_tree"], self.git("rev-parse", "HEAD^{tree}"))
         self.assertFalse(result["working_tree_inputs_used"])
         self.assertFalse(result["package_built"])
         self.assertEqual({row["path"] for row in result["files"]}, set(checker.INPUT_PATHS))
+        self.assertEqual(result["application_version"], "1.0.0")
         dependencies = result["runtime_sibling_dependencies"]
+        for consumer in ("WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Support.ps1"):
+            self.assertIn("VERSION", dependencies[consumer])
         self.assertIn("engine/winbooksplit_conversion.py", dependencies["engine/winbooksplit_engine.py"])
         self.assertIn("engine/winbooksplit_job.py", dependencies["engine/winbooksplit_conversion.py"])
         self.assertIn("engine/WinBookSplit.Support.ps1", dependencies["Export-WinBookSplitDiagnostics.ps1"])
+
+    def test_committed_version_is_required_and_rejects_malformed_or_oversized_bytes(self):
+        version = self.repo / "VERSION"
+        for data in (b"1.0.0-dev\n", b"01.0.0", b"1.0.0\n\n", b"\xef\xbb\xbf1.0.0", b"", b"x" * 100000):
+            with self.subTest(data=data[:40]):
+                version.write_bytes(data)
+                self.rejected("invalid_application_version", self.commit_all())
+        version.unlink()
+        missing_commit = self.commit_all()
+        version.write_bytes(b"1.0.0\n")
+        # An untracked valid version cannot rescue its missing committed input.
+        self.rejected("missing_input", missing_commit)
+
+    def test_exact_committed_version_is_reported_and_working_tree_version_is_not_adopted(self):
+        version = self.repo / "VERSION"
+        for data in (b"1.0.0", b"1.0.0\n", b"1.0.0\r\n"):
+            with self.subTest(data=data):
+                version.write_bytes(data)
+                commit = self.commit_all()
+                result = checker.validate_inputs(self.repo, commit)
+                self.assertEqual(result["application_version"], "1.0.0")
+                version.write_bytes(b"999.9.9\n")
+                self.assertEqual(result, checker.validate_inputs(self.repo, commit))
+
+    def test_root_version_consumers_cannot_switch_to_a_private_or_sibling_version(self):
+        engine = self.repo / "engine/winbooksplit_engine.py"
+        original = engine.read_text(encoding="utf-8")
+        for expression in ('Path("C:/private/VERSION")', 'Path(__file__).resolve().with_name("VERSION")',
+                           'Path(__file__).resolve().parent / "VERSION"'):
+            with self.subTest(expression=expression):
+                engine.write_text(original.replace('Path(__file__).resolve().parent.parent / "VERSION"', expression), encoding="utf-8")
+                self.rejected("unresolved_runtime_dependency", self.commit_all())
+        engine.write_text(original, encoding="utf-8")
+        support = self.repo / "engine/WinBookSplit.Support.ps1"
+        support.write_text(support.read_text(encoding="utf-8").replace("[IO.Directory]::GetParent($PSScriptRoot).FullName", "'C:/private'"), encoding="utf-8")
+        self.rejected("unresolved_runtime_dependency", self.commit_all())
+        support.write_bytes((ROOT / "engine/WinBookSplit.Support.ps1").read_bytes())
+        main = self.repo / "WinBookSplit.ps1"
+        original_main = main.read_text(encoding="utf-8")
+        for old, new in (("Join-Path $Root 'VERSION'", "Join-Path $Root 'PRIVATE_VERSION'"),
+                         ("Get-WinBookSplitApplicationVersion -Root $PSScriptRoot", "Get-WinBookSplitApplicationVersion -Root 'C:/private'")):
+            with self.subTest(main_binding=old):
+                main.write_text(original_main.replace(old, new), encoding="utf-8")
+                self.rejected("unresolved_runtime_dependency", self.commit_all())
 
     def test_dirty_and_untracked_bytes_are_never_adopted_or_reported(self):
         before = checker.validate_inputs(self.repo, self.commit)

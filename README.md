@@ -1,249 +1,180 @@
-# WinBookSplit — Automated PDF/AZW3/EPUB Chapter Slicer & Organizer (PowerShell + Python)
-A "drop-and-forget" PDF/AZW3/EPUB decomposition tool for technical manuals, textbooks, and heavy documentation. Large PDFs are often unwieldy for e-readers or quick reference, this script treats a PDF like a modular project—dropping a massive book in and getting a clean, organized folder of individual chapters out. It combines recursive metadata parsing with a manual override to ensure every book is manageable. I use it to modularize my Cybersecurity manuals and CS textbooks for focused study sessions.
+# WinBookSplit
 
-**Synopsis**
-- Hybrid Modes: Auto-Discovery (Level 1/2 Bookmarks) and Manual Slicing (Custom page ranges).
-- Multi-Format Support: Automatically detects AZW3/EPUB files and converts them to PDF using Calibre before processing.
-- Recursive Extraction: Deep-crawls the PDF outline tree to find chapter starts and titles often missed by basic splitters.
-- Smart Fallback: Automatically detects flat PDFs without bookmarks and triggers a TUI prompt for manual page entry.
-- Organized Output: Cleans Windows-invalid title characters, keeps Unicode, and widens numbering to the section count (01, 02... or 001...120).
-- Local Diagnostics: Writes a bounded UTF-8 console log and run manifest with versions, settings, source identities, page ranges, warnings and the final outcome.
-- PDF Output: Publishes a new validated run folder under Documents or the explicit output base; earlier runs and source PDFs remain unchanged.
+Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
+physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
+installed Calibre, then use the same splitter. The source file is unchanged.
 
-**Requirements**
-- Windows 11 x64; Windows 10 remains unverified
-- Windows PowerShell 5.1 or the tested PowerShell 7.6.5
-- Regular x64 CPython 3.14.8 and plain pypdf 6.19.0
-- Calibre 9.15.0 for AZW3/EPUB; PDF-only processing does not require Calibre
+This is the **1.0.0 release candidate**, not a published release or a tested
+release ZIP. [VERSION](VERSION) is the application version source. The older
+`2.1` banner was development naming, not an earlier public semantic version.
 
-Encrypted PDFs (including empty-opening-password encryption), interactive forms,
-signatures and detected active/embedded-document features are rejected before
-chapter output. See [supported inputs and limits](docs/PDF_POLICY.md) and
-[PDF page fidelity](docs/PDF_FIDELITY.md).
+## Requirements and formats
 
-**Nice to have**
-- A basic understanding of your PDF's internal structure so you can decide between splitting by main chapters (Level 1) or sub-sections (Level 2) :)
+| Component | Supported and tested scope |
+| --- | --- |
+| Windows | Windows 11 x64 with ordinary local filesystem paths |
+| PowerShell | Windows PowerShell 5.1; PowerShell 7.6.5 on the local Windows 11 setup |
+| Python | Regular GIL CPython **3.14.8 x64**, with plain **pypdf 6.19.0** |
+| Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
 
-**Files**
-Place these together (e.g. C:\Tools\WinBookSplit\):
-- WinBookSplit.ps1
-  - Main script: handles the console menu and invokes the shipped Python engine.
-- engine directory
-  - Keep the shipped Python and PowerShell helpers beside the launchers.
-- WinBookSplit.bat
-  - Simple launcher: enables drag-and-drop functionality for PDF, AZW3, and EPUB files.
-- Export-WinBookSplitDiagnostics.ps1
-  - Explicitly creates a redacted local support summary from a finalized run manifest.
-- pypdf
-  - The engine: Install the hashed requirements with the selected interpreter's `-m pip` during explicit setup.
-- Calibre (ebook-convert.exe) 
-  - External engine: Required for ebooks; select a trusted executable with `-CalibrePath`, or use a validated standard/PATH installation.
+Automated CI also exercises Windows Server 2025 with PowerShell 5.1 and 7.6.6;
+that is separate from the Windows 11 document and launcher checks. Windows 10,
+ARM, 32-bit/free-threaded Python, other Python/pypdf/Calibre versions, Linux,
+macOS, network paths and arbitrary long paths are outside the support claim.
+No renderer or developer test package is required to use the application.
 
-**Installation**
-1. Copy the script files to a folder of your choice, e.g.: C:\Tools\WinBookSplit\
-2. Follow [the isolated setup instructions](docs/codex-v1.0.0/SUPPORT_AND_SETUP.md) to prepare a fresh application `.venv` with the exact Python/pypdf pins. Installation is an explicit setup action; processing never installs packages.
-3. Install Calibre 9.15.0 separately if you process ebooks.
-4. (Optional) Create a desktop shortcut to WinBookSplit.bat and name it something friendly: "Book Splitter"
+| Input | Behavior and output |
+| --- | --- |
+| Ordinary unencrypted PDF | Copies selected page content/resources to chapter PDFs; image-only scans work with manual starts |
+| EPUB | Calibre converts it to a working PDF; chapters use that PDF's physical pages and outline |
+| Genuine, unencrypted AZW3/KF8 | Same conversion flow; layout and page count can differ from EPUB |
 
-**Usage**
+Automatic modes require actual outline destinations. There is no OCR, inferred
+chapter detection, native ebook output, password interface or DRM removal.
+Encrypted PDFs are rejected even when an empty password would open them.
+Forms/XFA, signed PDFs and unsupported active document features are rejected or
+handled by the narrow documented exclusions. See [PDF policy](docs/PDF_POLICY.md),
+[fidelity and navigation](docs/PDF_FIDELITY.md) and [ebook conversion](docs/EBOOK_SUPPORT.md).
+These checks do not make the application a document sanitizer or security sandbox.
 
-**Recommended: Drag-and-Drop**
-1. Drag one file (PDF, AZW3, or EPUB) onto the WinBookSplit.bat icon. Multiple files are rejected.
-2. For AZW3/EPUB, Calibre generates and validates a PDF in an owned temporary workspace after you choose a split mode.
-3. A window will open showing the book details and asking for a Mode:
-   - Type 1 for Level 1 (Main Chapters).
-   - Type 2 for Level 2 (Sub-chapters/sections).
-   - Type M for Manual Mode (if you already know your page cuts).
-   - Type C to cancel before processing.
-4. For manual ebook splitting, wait for conversion, then choose O to open the generated PDF or N to continue. Enter physical pages from that PDF; ebook locations and printed page labels are different. The requested working PDF stays available through page entry and confirmation.
-5. If the selected bookmark plan is unavailable, choose an offered fallback: M for manual, 1 for Level 1 when offered, or C to cancel. Y/N remain exact manual/cancel compatibility answers. Invalid menu or fallback answers reprompt.
-6. Review the complete plan: titles, physical ranges, filenames, parent/opening/front-matter notices, output base and coverage. Type Y to create these chapter PDFs, or C to cancel. Blank or closed confirmation input cancels. The exact displayed plan is used for writing.
-7. The completed summary names the actual folder and chapter/page counts. Choose O to open that folder, or N to finish. Neither the PDF viewer nor Explorer opens automatically.
+## Set up once
 
-You can also double-click WinBookSplit.bat and enter the literal path to one
-supported book. A pasted path may have paired outer double quotes. Blank input
-or C cancels with exit 130 before dependency discovery or file writes. Paths are
-not expanded as commands, variables or wildcards. NonInteractive and Preview
-still require InputFile and never open this prompt. The batch launcher uses the
-script beside itself, including when launched from another working directory.
+Keep the entry points and `engine` folder together. Follow [setup](docs/SETUP.md)
+to create a fresh application `.venv` using the exact Python/pypdf pins. Install
+Calibre separately for ebooks. Processing never installs dependencies or changes
+global execution policy. The application and scripts are unsigned; setup explains
+checksum verification and what it can establish.
 
-**Command line**
-Run from a PowerShell prompt:
-.\WinBookSplit.ps1 -InputFile "C:\Path\To\MyBook.azw3"
-You will see the same interactive menu and the same verbose log output.
+## Use the console
 
-For scripting, supply a complete method and `-NonInteractive`. It never prompts,
-pauses, opens a dialog/Explorer, clears the console or changes modes after a
-no-bookmark failure. Manual starts refer to physical PDF pages; for ebooks these
-are pages of the generated PDF. Every input page is preserved exactly once.
+Drop **one** supported file onto `WinBookSplit.bat`, or double-click the BAT and
+enter a literal source path. The BAT uses Windows PowerShell 5.1. Multiple dropped
+files are rejected. The PowerShell entry point can also run in either tested shell.
+
+Choose `1` for Level 1 bookmarks, `2` for Level 2 bookmarks or `M` for manual
+starts. `C` or closed input cancels. Invalid or blank method choices are explained
+and requested again; blank source-path or plan-confirmation input cancels. If an
+automatic mode has no usable plan, explicitly choose another mode or cancel.
+
+Manual starts are **one-based physical PDF page numbers**, such as `1,4,7`;
+they are not printed page labels or page ranges. Every comma-separated token must
+be an ASCII decimal integer in the document. Starts are sorted and deduplicated
+with a notice; page 1 is included. Every physical page is covered exactly once.
+Level 2 sections stay inside their Level 1 parent; front matter and parent opening
+pages are retained.
+
+For an ebook, conversion finishes before manual page entry. You may request the
+working PDF with `O`, continue with `N`, or cancel with `C`. Use its physical pages,
+including any generated table-of-contents page. Review the complete plan, then
+type `Y` to create chapters or `C` to cancel. After success, `O` requests opening
+the output folder and `N` finishes. Opening uses the current Windows association;
+WinBookSplit does not supply a PDF viewer.
+
+## Scripted examples
+
+Run these examples from the application directory in PowerShell. Replace the
+example absolute paths with your own ordinary local files and an **already-existing**
+output base (`C:\LocalRuns`). `Manual.pdf` needs at least seven pages and usable
+Level 2 bookmarks for the preview example; the EPUB needs usable Level 1 bookmarks.
+The AZW3 example needs at least three converted physical pages.
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Manual -StartPages '1,4,7' -NonInteractive
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
 .\WinBookSplit.ps1 -Version
+```
+
+```powershell
 Get-Help .\WinBookSplit.ps1 -Full
 ```
 
-Each processing run has a unique `.WinBookSplit-console-<run-id>` directory
-under its output base. The printed `Log:` path identifies `console.log`; its
-neighbor `WinBookSplit_Run.json` records the final outcome, including failures
-and cancellation after setup. Preview and early validation/preflight create no
-disk diagnostics. Local records contain private paths and document titles.
-
-To prepare a support summary, explicitly choose the finalized manifest and a
-new local destination. The export keeps approved versions, outcome codes, page
-ranges and warning categories; it omits paths, titles, messages, hashes,
-credentials and command/environment details. It never uploads anything.
+Interactive PDF selection and confirmation:
 
 ```powershell
-.\Export-WinBookSplitDiagnostics.ps1 -ManifestPath 'D:\Reading\.WinBookSplit-console-<run-id>\WinBookSplit_Run.json' -OutputPath 'D:\Reading\support-summary.json'
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
 ```
 
-See [local diagnostics and export details](docs/SUPPORT_DIAGNOSTICS.md), including
-log bounds and incomplete finalization records.
-
-Auto requires `-BookmarkLevel 1` or `2`; Manual requires `-StartPages` and cannot
-use a bookmark level. Auto with start pages, missing choices and unrecognized
-arguments fail before dependency discovery or file writes. `-NoPause` suppresses
-exit pauses while retaining interactive method, confirmation and open choices.
-
-`-Preview` requires a complete method and prints source identities, physical page
-ranges, filenames, warnings, output base and complete coverage. PDF preview writes
-no files. Ebook preview requires real temporary Calibre conversion; its owned
-workspace is cleaned before the plan returns. No chapter or converted PDF is
-published, so Preview cannot combine with `-KeepConvertedPdf`. The generated PDF
-path shown in the plan records its temporary origin and is no longer available.
-
-`-Version` works from any directory without Python/Calibre and prints the canonical
-development version `1.0.0-dev`; the project has no published release yet. Version
-is an independent invocation and cannot combine with processing parameters.
-Application exits are 0 (execution/preview/version), 2 (input/arguments/path),
-3 (dependency), 4 (conversion), 5 (no requested bookmark plan), 6 (PDF/output),
-7 (unsupported features), and 130 (cancel/timeout, with a distinct recorded reason).
-PowerShell invocation/binding errors before the script runs use the host's status.
-
-For PDF runs, an existing directory can be selected as the output base:
+Create manual chapters without prompts:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile "C:\Books\Book [1].PDF" -OutputDirectory "D:\Reading"
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
 ```
 
-Use `-PythonPath` to select a trusted absolute interpreter path explicitly:
+Inspect a Level 2 plan without publishing chapter PDFs or disk diagnostics:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile "C:\Books\Book.pdf" -PythonPath "C:\Tools\WinBookSplit\.venv\Scripts\python.exe"
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
 ```
 
-Before creating console records, converting or splitting, the application checks
-regular Windows x64 CPython 3.14.8 and imports pypdf 6.19.0 with that exact
-interpreter. Selection prefers `-PythonPath`, the application `.venv`, then
-validated launcher/PATH candidates. An invalid explicit selection or
-existing broken `.venv` fails with setup guidance; it never silently substitutes
-another runtime. The engine uses the same absolute path with `-I -B`, excluding
-book/current-directory modules, user site packages and Python environment hooks.
-The console and log report the selected executable, versions and pypdf origin.
-
-Each engine attempt runs in an owned Windows job. Both UTF-8 streams are drained
-to EOF; console diagnostics retain the last 64 KiB per stream and report any
-truncation. The structured result is kept separately. `-ProcessTimeout` sets the
-whole attempt deadline in seconds (1..172800), including time awaiting interactive
-page entry or confirmation; its default is at least one hour
-and 30 minutes longer than `-ConversionTimeout`. Timeout or cancellation stops
-only this attempt's process tree and returns a failure. Interrupted staging
-directories are retained for inspection because the console does not own the
-engine's cleanup ledger.
-
-For EPUB/AZW3, select an existing converter explicitly when needed:
+Convert an EPUB, split Level 1 sections and retain the full converted PDF:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile "C:\Books\Book.epub" -OutputDirectory "D:\Reading" -CalibrePath "C:\Calibre\ebook-convert.exe" -KeepConvertedPdf
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
 ```
 
-Each conversion uses `--output-profile tablet`, the compatibility option tested
-with Calibre 9.15.0. The original ebook and any neighboring PDF remain unchanged.
-See [EPUB/AZW3 support notes](docs/EBOOK_SUPPORT.md) for generated physical-page
-numbering, outline/manual selection, retained full PDFs and tested resource limits.
-The engine requires a fresh, nonempty, readable PDF with physical pages before
-planning the split. Both converter streams are drained; the log keeps up to the
-last 64 KiB of each stream and reports truncation. `-ConversionTimeout` limits
-each attempt in seconds (default 1800, range 1–86400); timeout or cancellation
-stops the owned converter process tree before cleanup.
+Create AZW3 chapters from converted physical start pages:
 
-`-KeepConvertedPdf` stores `WinBookSplit_Converted.pdf` inside the successful
-chapter folder. Its hash and page count are recorded separately from chapter
-outputs in `WinBookSplit_Manifest.json`. Without the switch, the temporary full
-PDF is removed after its validated bytes are captured in memory; no full PDF is
-published. The manifest distinguishes the original ebook from that PDF snapshot.
-Conversion errors return a nonzero status. Normal failure cleanup removes only
-known owned files and leaves a separate failure record; unexpected/replaced files
-are preserved with a reported cleanup failure. A hard stop can leave a marked
-stage; do not delete other runs or input files when inspecting it.
+```powershell
+.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.azw3' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,2,3' -NonInteractive
+```
 
-Calibre is resolved and version-checked only for ebooks. A trusted absolute
-`-CalibrePath` can select a nonstandard installation; automatic discovery checks
-standard locations and safe absolute PATH entries. Empty/relative entries and
-executables next to the book or in an unrelated current directory are excluded.
-Discovery also refuses reparse paths, short-path aliases and automatic hard-linked
-executables. Use an ordinary long absolute executable path or the prepared venv.
-The batch launcher can use the application `.venv` and trusted converter PATH.
-Explicit path and retention options are available through PowerShell above.
-The acceptance books contain only original local resources. Calibre and pypdf
-run with your privileges; these checks do not provide a document sandbox or
-establish behavior for ebooks with remote resources. Interactive confirmation
-keeps one captured PDF and uses the exact shared plan. A requested working PDF
-is removed using only this run's owned ledger after execution or cancellation;
-cleanup failures retain the workspace and are reported. The final release workflow
-remains pending.
+`-Mode Auto` requires `-BookmarkLevel 1` or `2`; `-Mode Manual` requires
+`-StartPages`. `-NonInteractive` requires complete choices and never prompts,
+pauses, opens files/folders, clears the console or retries another mode.
+`-NoPause` suppresses only the final pause; interactive decisions still apply.
+`-Preview` also requires complete choices. Ebook preview performs temporary
+conversion and cleanup; it cannot be combined with `-KeepConvertedPdf`.
 
-Input and output paths are handled literally. Directories used as input files,
-non-filesystem providers and unreadable files are rejected with a nonzero exit.
-Titles with no usable text get stable `Section 1`-style names. Destination-aware
-preparation shortens titles and the run-folder stem before writing; preview and
-execution retain the same filenames. A destination that cannot hold chapters
-and diagnostic records is rejected with a request for a shorter output base.
-The current budget is 259 UTF-16 units for a complete file path and 247 for a
-created directory; this does not claim arbitrary long-path or UNC support.
+Use `-OutputDirectory` for an **existing output base**, `-PythonPath` for an
+explicit trusted absolute Python executable, or `-CalibrePath` for the trusted
+absolute `ebook-convert.exe`. An invalid explicit path or broken application
+`.venv` fails instead of silently selecting another runtime. `-ConversionTimeout`
+is 1–86400 seconds (default 1800); `-ProcessTimeout` is 1–172800 seconds
+(default the larger of 3600 and conversion timeout plus 1800). Both process
+streams are bounded and drained; cancellation/deadlines preserve a nonzero result.
+`-Version` needs no document or installed runtime and cannot be mixed with processing
+parameters. Full help lists every parameter.
 
-**What it actually does (step-by-step)**
-1. Checks & Conversion
-   - Verifies the input file and checks for Python/pypdf.
-   - If the input is AZW3/EPUB, it invokes Calibre’s ebook-convert to generate a source PDF.
-2. Analysis (TUI)
-   - Probes the PDF metadata for an internal Outline (bookmarks).
-   - Shows the user the book title and total page count before processing.
-3. Construct Logic
-   - Auto-Mode: Recursively maps chapter titles to page indices.
-   - Manual Mode: Parses user-provided page numbers into start/end indices.
-   - Sanitization: Replaces illegal Windows characters in titles (e.g., "?" or ":") with underscores.
-4. Processing
-   - Runs the shipped Python engine and its validated split plan.
-   - Executes pypdf to create new, optimized PDF slices for every detected section.
-   - Shows real-time "Writing..." progress in the console.
-5. Logging
-   - Generates a WinBookSplit_Log.txt in the output folder.
-   - Records the exact page ranges, titles found, and any errors encountered during binary extraction.
+## Outputs and troubleshooting
 
-**Limitations / When not to use**
-- PDF fidelity and navigation: chapters receive safe title/source-author metadata
-  and a start bookmark. Local links are remapped only within each chapter;
-  unavailable cross-chapter destinations are dropped with visible warnings.
-  See [PDF fidelity and navigation](docs/PDF_FIDELITY.md) for static annotations,
-  metadata limits and the generated structure/render test scope.
-- Scanned Images: If the PDF is just photos of pages with no OCR or metadata, "Auto-Mode" will fail. Use Manual Mode instead.
-- Encrypted PDFs: Files with strict Owner Passwords may prevent the script from extracting pages.
-- Complex Outlines: Some PDFs have broken bookmark links, the script skips these to prevent creating corrupt or empty output files.
-- Conversion Artifacts: Bookmarks can sometimes be lost or altered during AZW3 to PDF conversion. Use Manual Mode if the outline is missing after conversion.
+Execution creates a unique new run directory under Documents, or the selected
+output base. Chapter names have ordered numeric prefixes and safe Windows title
+labels. Existing output, neighboring files and the source are not overwritten.
+Chapters are reopened and counted before publication. A successful run contains
+`WinBookSplit_Manifest.json`; ebook retention adds `WinBookSplit_Converted.pdf`
+separately from the chapter count. Complete PDF metadata, outlines, signatures,
+annotations and cross-chapter links are not preserved generally; review the
+documented fidelity limits and warnings.
 
-**Troubleshooting**
-- "Calibre not found" 
-  - Select trusted Calibre 9.15.0 `ebook-convert.exe` with `-CalibrePath`, or provide a validated standard/PATH installation. PDF-only processing skips this check.
-- "AUTO-SPLIT FAILED: No Bookmarks Found"
-  - The PDF has no internal Table of Contents metadata. Type "Y" when prompted to enter page numbers manually.
-- "Python not found"
-  - Select regular Windows x64 CPython 3.14.8 with `-PythonPath`, or follow the isolated setup instructions for the application `.venv`.
-- "ModuleNotFoundError: No module named 'pypdf'"
-  - Use the exact selected interpreter's `-m pip install --require-hashes --only-binary=:all: -r requirements.txt` during explicit setup; avoid an unrelated `pip` command.
+After setup, a separate `.WinBookSplit-console-<run-id>` directory under the
+output base holds `console.log` and, when finalized, `WinBookSplit_Run.json`.
+Preview and early validation/dependency failures create no disk diagnostics.
+Local records can contain paths, titles, messages and source identities. Keep
+them private; use the [explicit redacted support export](docs/SUPPORT_DIAGNOSTICS.md)
+when reporting a problem. No upload or export is automatic.
 
-**Intent & License**
-Personal helper for modularizing heavy technical documentation and CS textbooks. "I just want to read Chapter 5 on my tablet without loading a 500MB PDF." Provided as-is, without warranty. Use at your own risk. Feel free to modify the logic to fit your specific study workflow.
+| Application exit | Meaning |
+| --- | --- |
+| 0 | Successful execution, validated preview or version query |
+| 2 | Invalid input, arguments or path |
+| 3 | Dependency setup failure |
+| 4 | Ebook conversion failure |
+| 5 | No usable plan at the requested bookmark level |
+| 6 | PDF/output failure, including incomplete diagnostic finalization |
+| 7 | Unsupported document feature |
+| 130 | Cancellation or deadline |
+
+PowerShell errors before the script runs use the host's own status. Missing or
+malformed `VERSION` returns 6 before input or dependency processing; restore the
+complete trusted application rather than inventing a replacement version. A success
+followed by failed diagnostic finalization returns 6, retains completed chapters
+and omits `Done.` Inspect the outcome rather than assuming any files mean success.
+For a no-bookmark PDF, use valid manual starts. For unreadable or unsupported input,
+retain the original and inspect the stated reason. For missing dependencies, use
+[setup](docs/SETUP.md); do not disable policy, install globally or accept an
+untrusted runtime just to suppress an error.
+
+WinBookSplit runs with your account's privileges. It does not upload documents,
+add telemetry or auto-install packages. Ebook resources and Calibre plugins are
+not isolated by an OS network sandbox; prefer self-contained ebooks. See
+[security reporting](SECURITY.md), [contributing](CONTRIBUTING.md),
+[changes](CHANGELOG.md) and [third-party notices](THIRD_PARTY_NOTICES.md).
+WinBookSplit is provided under the [MIT license](LICENSE), without warranty.

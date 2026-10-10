@@ -21,7 +21,7 @@ EXPECTED = {"original-failure": 6, "fallback-success": 0, "fallback-failure": 2,
 ENGINE_FAULTS = {"output-write", "manifest-finalize", "publish-rename", "cleanup-refusal", "engine-cancel", "engine-timeout", "engine-ctrlc"}
 INTERRUPTED = {"engine-cancel", "engine-timeout", "conversion-cancel", "conversion-timeout", "engine-ctrlc", "conversion-ctrlc"}
 HEX = re.compile(r"[0-9a-f]{64}")
-APPLICATION = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
+APPLICATION = {"VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
     "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py",
     "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",

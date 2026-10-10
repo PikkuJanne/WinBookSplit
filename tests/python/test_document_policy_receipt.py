@@ -81,7 +81,7 @@ def synthetic_rejection(*, preview=False):
 
 def synthetic_export(application):
     manifest = application['console_evidence']['run_manifest']
-    summary = {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': '1.0.0-dev',
+    summary = {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': '1.0.0',
         'runtime_versions': {**deepcopy(manifest['runtime_versions']), 'powershell': '5.1'},
         'settings': {key: manifest['settings'][key] for key in guard.support.SCALAR_SETTINGS}, 'plan': None,
         'outcome': {key: manifest['outcome'][key] for key in ('status', 'code', 'exit_code', 'written_count')},

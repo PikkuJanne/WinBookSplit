@@ -1,6 +1,5 @@
 {
   "schema_version": 1,
-  "application_version": "1.0.0-dev",
   "codes": {
     "split_complete": 0,
     "preview_complete": 0,
