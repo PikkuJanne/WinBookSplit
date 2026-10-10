@@ -44,4 +44,4 @@ Warnings appear in preview/results and local run records. The explicit support
 export includes only fixed warning categories and codes; author, chapter title,
 annotation text and paths remain excluded. Source documents are immutable.
 
-[The recorded fidelity checks](codex-v1.0.0/evidence/M4-T01-fidelity.md) cover authored cases under both supported PowerShell hosts, structural checks, two renderer comparisons and separate agent image inspection. Evidence preserves a failed full run and a successful same-source affected retry as composite coverage. It does not claim a successful standalone full suite, new human/viewer test or release-package certification.
+[The recorded source fidelity checks](https://github.com/PikkuJanne/WinBookSplit/blob/main/docs/codex-v1.0.0/evidence/M4-T01-fidelity.md) cover authored cases under both supported PowerShell hosts, structural checks, two renderer comparisons and separate agent image inspection. Evidence preserves a failed full run and a successful same-source affected retry as composite coverage. It does not claim a successful standalone full suite, new human/viewer test or release-package certification.

@@ -26,8 +26,9 @@ an installed Python/Windows/Calibre system.
 
 Developer-only fixture packages, renderers, shell test modules and GitHub Actions
 are not required for application use and are not bundled as application payload.
-Their dependencies and verification are described in [tests/README.md](tests/README.md)
-and [tools/ci/README.md](tools/ci/README.md).
+Their dependencies and verification are described in the source repository's
+[tests/README.md](https://github.com/PikkuJanne/WinBookSplit/blob/main/tests/README.md)
+and [tools/ci/README.md](https://github.com/PikkuJanne/WinBookSplit/blob/main/tools/ci/README.md).
 
 No third-party runtime binary, wheel or vendored library is presently
 redistributed in this repository. Before distributing

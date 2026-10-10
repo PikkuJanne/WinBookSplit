@@ -137,6 +137,25 @@ class PackageInputTests(unittest.TestCase):
             self.assertEqual(Path(redirected.stdout.decode("utf-8").strip()).resolve(), foreign.resolve())
             self.assertEqual(checker.validate_inputs(self.repo, self.commit), baseline)
 
+    def test_replace_ref_cannot_substitute_bytes_for_the_explicit_commit(self):
+        baseline = checker.validate_inputs(self.repo, self.commit)
+        (self.repo / "VERSION").write_bytes(b"2.0.0\n")
+        replacement = self.commit_all()
+        self.git("replace", self.commit, replacement)
+        for inherited in (None, "0"):
+            with self.subTest(inherited_no_replace_objects=inherited):
+                with patch.dict(os.environ):
+                    if inherited is None:
+                        os.environ.pop("GIT_NO_REPLACE_OBJECTS", None)
+                    else:
+                        os.environ["GIT_NO_REPLACE_OBJECTS"] = inherited
+                    # Git disables replacements when this variable is present,
+                    # even when its inherited value is the string "0".
+                    expected_version = "2.0.0" if inherited is None else "1.0.0"
+                    self.assertEqual(self.git("show", self.commit + ":VERSION"), expected_version)
+                    # Provenance must still identify the original committed bytes.
+                    self.assertEqual(checker.validate_inputs(self.repo, self.commit), baseline)
+
     def test_missing_committed_helper_is_not_rescued_by_working_file(self):
         path = "engine/winbooksplit_job.py"
         self.git("rm", "--cached", "--", path)

@@ -59,6 +59,9 @@ def safe_relative(path: str) -> bool:
 
 def git(repo: Path, *args: str) -> bytes:
     environment = {key: value for key, value in os.environ.items() if key.upper() not in REPOSITORY_ENV_KEYS}
+    # A replacement ref must not substitute a tree/blob behind the recorded SHA.
+    # Always pin this after copying the inherited environment.
+    environment["GIT_NO_REPLACE_OBJECTS"] = "1"
     try:
         process = subprocess.run(["git", "-C", str(repo), *args], stdin=subprocess.DEVNULL,
                                  stdout=subprocess.PIPE, stderr=subprocess.PIPE,

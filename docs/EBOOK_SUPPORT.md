@@ -46,8 +46,8 @@ tested PDF renderer, not network isolation for every plugin/process or a securit
 sandbox. Avoid ebooks requiring external resources. Calibre and pypdf run with
 the user's privileges.
 
-See [the automated route](../tests/ebooks/README.md),
-[task evidence](codex-v1.0.0/evidence/M4-T04-ebook-conversion.md) and
+See [the automated source route](https://github.com/PikkuJanne/WinBookSplit/blob/main/tests/ebooks/README.md),
+[source task evidence](https://github.com/PikkuJanne/WinBookSplit/blob/main/docs/codex-v1.0.0/evidence/M4-T04-ebook-conversion.md) and
 [Calibre's conversion command documentation](https://manual.calibre-ebook.com/generated/en/ebook-convert.html).
 Current online documentation may describe a newer Calibre; the route records
 the actual installed version and format-specific local help. Render comparisons,

@@ -150,13 +150,14 @@ def source_manifest() -> dict[str, str]:
         "tests/document_policy/README.md",
         "tests/faults/README.md",
         "tests/ebooks/README.md",
+        "tools/release/README.md",
         "docs/PDF_POLICY.md",
         "docs/PDF_FIDELITY.md",
         "docs/EBOOK_SUPPORT.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
-    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci"):
+    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci", ROOT / "tools/release"):
         paths.extend(path for path in directory.rglob("*")
                      if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json", ".cs"}
                      and "__pycache__" not in path.parts)
@@ -1357,7 +1358,7 @@ def execute(args: argparse.Namespace) -> dict:
         elif not args.failure_probe and args.layer in {"python", "full"}:
             steps.append({"name": "stdlib-unittest",
                           **run_command([sys.executable, "-I", "-B", str(SCRIPT),
-                                         "--_python-child"], work, environment=environment)})
+                                         "--_python-child"], work, environment=environment, timeout=600)})
         if args.layer in {"shell", "full"} or args.failure_probe == "pester":
             for index, shell in enumerate(args.shell_path):
                 shell_work = work / f"shell-{index}"
