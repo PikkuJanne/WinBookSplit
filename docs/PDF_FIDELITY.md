@@ -25,8 +25,7 @@ Additional page actions are omitted with `navigation_link_dropped`; their page
 references are not copied into another chapter.
 
 Tested static `/Text`, `/Highlight` and `/Square` annotations retain their
-appearance data. Unsupported
-or malformed annotations and excluded relationships produce categorized
+appearance data. Unsupported or malformed annotations and excluded relationships produce categorized
 warnings. Popup/reply relationships and document actions are not a general
 preservation promise. Interactive forms, signatures, attachments, portfolios
 and active document behavior are outside this fidelity claim. Do not depend on
@@ -43,3 +42,5 @@ The application does not require either renderer.
 Warnings appear in preview/results and local run records. The explicit support
 export includes only fixed warning categories and codes; author, chapter title,
 annotation text and paths remain excluded. Source documents are immutable.
+
+[The recorded fidelity checks](codex-v1.0.0/evidence/M4-T01-fidelity.md) cover authored cases under both supported PowerShell hosts, structural checks, two renderer comparisons and separate agent image inspection. Evidence preserves a failed full run and a successful same-source affected retry as composite coverage. It does not claim a successful standalone full suite, new human/viewer test or release-package certification.
