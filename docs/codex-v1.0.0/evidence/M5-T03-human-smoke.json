@@ -1,0 +1,263 @@
+{
+  "schema_version": 1,
+  "task_id": "M5-T03",
+  "observed_at": "2026-10-10T19:51:07.981489+00:00",
+  "client_date": "2026-10-10",
+  "client_timezone": "Europe/Berlin",
+  "tester": "User directly in this chat; separate name not supplied.",
+  "task_status": "blocked",
+  "AC-088": "BLOCKED; G01 PASS, G02-G16 NOT RUN",
+  "rows": {
+    "G01": {
+      "status": "PASS",
+      "basis": "User-confirmed G01 actions/folder opening/visible markers combined with independently authenticated matching authored source/publication/log.",
+      "user_reported_checks": {
+        "actual_Explorer_G01": true,
+        "method_level1": true,
+        "plan_confirmed_Y": true,
+        "output_open_opt_in_O": true,
+        "folder_opened": true,
+        "first_last_visible_markers_confirmed": true,
+        "split_success_reported": true
+      },
+      "paths_binding": "User did not paste paths; narrow authored-prefix lookup and exact source hash/path/plan/finalized outcome linkage identified the run. Absolute local paths stay external.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G01",
+        "success": true,
+        "report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "d9313711282a4a94a4002de5b6e49ab7",
+        "console_run_id": "816ccf8e592d49c988e5bf245be787ef",
+        "manifest_sha256": "e25e380d23d9b01029f29bcc6dac9c31c1f844f45d152a8f98766e3c17e82129",
+        "console_log_sha256": "aa7702d4eaa48f774c733d066dc5ef027fd8a6e4cd161a7e23ebb5484cc3b85c",
+        "run_manifest_sha256": "52a2fc05f4fa75e4b968f4c09f69eecdc100ea5b5d6fb511c1e8e6bc0caa7b70",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 4,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              8
+            ],
+            [
+              9,
+              11
+            ],
+            [
+              12,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            2,
+            6,
+            3,
+            1
+          ]
+        },
+        "human_reported": {
+          "source": "Direct user chat report as relayed by parent task",
+          "split_report": "Special-name PDF split PASS",
+          "followup_reply": "Yes",
+          "followup_scope": "G01 Level 1 via 1 then Y then O, folder opened, first/last PDFs displayed WBS001/WBS002/WBS012"
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              2
+            ],
+            "page_count": 2,
+            "sha256": "9241cbf989ae62838cb806eaac89da64f092f3fade07e302c616a471edc78fdb",
+            "bytes": 2823
+          },
+          {
+            "sequence": 2,
+            "physical_pages": [
+              3,
+              8
+            ],
+            "page_count": 6,
+            "sha256": "e743f1b1f3ca255809ad9e542bd3f0a7a62a833407fc06ef7c58c156e2ec7861",
+            "bytes": 5472
+          },
+          {
+            "sequence": 3,
+            "physical_pages": [
+              9,
+              11
+            ],
+            "page_count": 3,
+            "sha256": "298c3c6eca9509dd516f329078b052cb4896fdb870dbbcd003761d7ded05ae3c",
+            "bytes": 3484
+          },
+          {
+            "sequence": 4,
+            "physical_pages": [
+              12,
+              12
+            ],
+            "page_count": 1,
+            "sha256": "b8e0645c9354a33e59df52e33cffb4422fb6c945f0a2a60916aa5367b109a837",
+            "bytes": 2174
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 22,
+        "passes": 22,
+        "scope": "Read-only exact named source/output/console and pinned BAT/PS, no application/UI/render execution."
+      }
+    },
+    "G02": {
+      "status": "NOT RUN"
+    },
+    "G03": {
+      "status": "NOT RUN"
+    },
+    "G04": {
+      "status": "NOT RUN"
+    },
+    "G05": {
+      "status": "NOT RUN"
+    },
+    "G06": {
+      "status": "NOT RUN"
+    },
+    "G07": {
+      "status": "NOT RUN"
+    },
+    "G08": {
+      "status": "NOT RUN"
+    },
+    "G09": {
+      "status": "NOT RUN"
+    },
+    "G10": {
+      "status": "NOT RUN"
+    },
+    "G11": {
+      "status": "NOT RUN"
+    },
+    "G12": {
+      "status": "NOT RUN"
+    },
+    "G13": {
+      "status": "NOT RUN"
+    },
+    "G14": {
+      "status": "NOT RUN"
+    },
+    "G15": {
+      "status": "NOT RUN"
+    },
+    "G16": {
+      "status": "NOT RUN"
+    }
+  },
+  "commands": [
+    "DEV -I -B record_human_G01_report.py (preserved actual chat report/confirmation separately)",
+    "DEV -I -B run_audit_human_G01.py (read-only retained G01 artefacts, actual outer0, both streams complete)",
+    "Independent exact-directory spot review (read-only,22/22)"
+  ],
+  "raw_evidence": [
+    {
+      "file": "human-G01-report01.json",
+      "bytes": 1917,
+      "sha256": "be983939ea848f6ea1d8714817187afadd2ac7c95319a975b4445945448f3a92"
+    },
+    {
+      "file": "human-G01-audit01.json",
+      "bytes": 596971,
+      "sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+    },
+    {
+      "file": "human-G01-audit01-public.json",
+      "bytes": 3436,
+      "sha256": "fb5ea9cfcd2fea4684601beeaf9c76445e6389f93ed0115407214ea7c3889a8c"
+    },
+    {
+      "file": "human-G01-audit01-command.json",
+      "bytes": 1540,
+      "sha256": "52821d4f4dd4251b35db6ff06abdbce2e9ce73d1d36f2fef3bec328d1dd11337"
+    },
+    {
+      "file": "human-G01-audit01-outer.stdout.bin",
+      "bytes": 102,
+      "sha256": "8c4fe25fb70de4545bcabeda3dad41bb84efbf7469a8a6caab774205faec3704"
+    },
+    {
+      "file": "human-G01-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G01.py",
+      "bytes": 19578,
+      "sha256": "1e6dfd133cd855dcc9b1bee475bd94cb55c288e68cc1df1e1f3346204d36a56e"
+    },
+    {
+      "file": "run_audit_human_G01.py",
+      "bytes": 896,
+      "sha256": "dcc25ea8d4d9e4f0cb6a82f034a1ce09da9d8cc3ba4f97f149c8defbb993783c"
+    },
+    {
+      "file": "record_human_G01_report.py",
+      "bytes": 2167,
+      "sha256": "5c5f3d6a4783190030498669c0948faa1c64cdb1e62184afa6a7a7f8ead93736"
+    }
+  ],
+  "unchanged_canonical_native_report": {
+    "sha256": "b17b0d77a685c4846e7ff7df5766a7fe2d197140d2330b8d1dc2d5fad33dd05b",
+    "cases": 38,
+    "native_operations": 72
+  },
+  "limits": [
+    "No directly observed outer BAT native exit",
+    "No new app invocation/render/GUI automation/full suite/cleanup",
+    "Human confirms specified markers/procedure only; full output/runtime checks are independently derived",
+    "Historical M3 human testing absolutely closed",
+    "No G02-G16 or completed AC-088/task/release claim"
+  ],
+  "git": {
+    "previous_clean_live_checkpoint": "735c1d06bb59e9681ee5bbbf534d30400adf6101",
+    "PR": "https://github.com/PikkuJanne/WinBookSplit/pull/29",
+    "scope": "Partial draft, no merge. Own actual commit/push/sync receipt follows externally/thread after it happens."
+  },
+  "next": "G02 actual Level2 drop/confirm/decline-open/representative-boundary check; then G03-G16."
+}

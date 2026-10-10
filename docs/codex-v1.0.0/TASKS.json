@@ -1024,7 +1024,9 @@
       "evidence_paths": [
         "evidence/M5-T03-candidate.md",
         "evidence/M5-T03-candidate.json",
-        "evidence/M5-T03-manual-smoke.md"
+        "evidence/M5-T03-manual-smoke.md",
+        "evidence/M5-T03-human-smoke.md",
+        "evidence/M5-T03-human-smoke.json"
       ],
       "implementation_commit": null,
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
