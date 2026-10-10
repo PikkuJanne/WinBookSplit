@@ -49,6 +49,25 @@ def encoded(writer):
     return stream.getvalue()
 
 
+def inherited_writer():
+    writer = authored_writer()
+    pages = list(writer.pages)
+    font = writer._add_object(dictionary(Type=NameObject("/Font"), Subtype=NameObject("/Type1"),
+        BaseFont=NameObject("/Helvetica")))
+    tree = writer._pages.get_object()
+    tree[NameObject("/Resources")] = dictionary(Font=dictionary(F1=font))
+    tree[NameObject("/MediaBox")] = ArrayObject([NumberObject(n) for n in (0, 0, 240, 340)])
+    tree[NameObject("/CropBox")] = ArrayObject([NumberObject(n) for n in (10, 10, 180, 280)])
+    tree[NameObject("/Rotate")] = NumberObject(90)
+    for index, page in enumerate(pages, 1):
+        for key in ("/Resources", "/MediaBox", "/CropBox", "/Rotate"):
+            page.pop(key, None)
+        content = DecodedStreamObject()
+        content.set_data(f"BT /F1 12 Tf 20 250 Td (ORIGINAL_INHERITED_PAGE_{index:02}) Tj ET\n".encode())
+        page[NameObject("/Contents")] = writer._add_object(content)
+    return writer
+
+
 def signature_structure():
     # This is a detection fixture, never a cryptographic-validity assertion.
     return dictionary(Type=NameObject("/Sig"), Contents=TextStringObject("Original inert signature marker"))
@@ -228,6 +247,56 @@ class PdfPolicyTests(unittest.TestCase):
         copied = PdfReader(first).pages[0]["/Resources"]["/OriginalAuthoredResource"]
         self.assertEqual(copied["/S"], "/Transparency")
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
+
+    def test_inherited_font_text_boxes_rotation_and_captured_pages_are_preserved(self):
+        source = self.source(inherited_writer(), "ordinary-inherited-fields")
+        original = source.read_bytes()
+        raw = PdfReader(source)
+        self.assertTrue(all(not any(key in reference.get_object() for key in
+            ("/Resources", "/MediaBox", "/CropBox", "/Rotate"))
+            for reference in raw.root_object["/Pages"]["/Kids"]))
+        def page_snapshot(page):
+            return (page.get_contents().get_data(), tuple(page.mediabox), tuple(page.cropbox),
+                page.get("/Rotate"), page["/Resources"]["/Font"]["/F1"].get_object())
+        for mode in ("manual", "1", "2"):
+            with self.subTest(mode=mode):
+                output = self.work / ("inherited-" + mode)
+                output.mkdir()
+                neighbor = output / "original-neighbor.txt"
+                neighbor.write_bytes(b"Preserve original inherited-field output neighbor\n")
+                with redirect_stdout(StringIO()):
+                    prepared = engine.prepare_split(source, mode, "1,3", output_base=output)
+                    captured_before = [page_snapshot(page) for page in prepared._reader.pages]
+                    execution = engine.execute_split(prepared, output)
+                self.assertEqual(captured_before, [page_snapshot(page) for page in prepared._reader.pages])
+                pages = [page for item in execution["outputs"]
+                    for page in PdfReader(Path(execution["final_directory"]) / item["filename"]).pages]
+                self.assertEqual(len(pages), 4)
+                for index, page in enumerate(pages, 1):
+                    self.assertEqual(page.extract_text().strip(), f"ORIGINAL_INHERITED_PAGE_{index:02}")
+                    self.assertEqual(tuple(page.mediabox), (0, 0, 240, 340))
+                    self.assertEqual(tuple(page.cropbox), (10, 10, 180, 280))
+                    self.assertEqual(page["/Rotate"], 90)
+                    self.assertEqual(page["/Resources"]["/Font"]["/F1"]["/BaseFont"], "/Helvetica")
+                self.assertEqual(neighbor.read_bytes(), b"Preserve original inherited-field output neighbor\n")
+        self.assertEqual(source.read_bytes(), original)
+
+    def test_inherited_copied_resources_reject_document_backlinks_and_actions(self):
+        for kind in ("physical-page", "page-tree", "catalog", "typed-action", "uri", "remote"):
+            with self.subTest(kind=kind):
+                writer = inherited_writer()
+                target = {"physical-page": writer.pages[3].indirect_reference,
+                    "page-tree": writer._pages, "catalog": writer.root_object.indirect_reference,
+                    "typed-action": writer._add_object(dictionary(Type=NameObject("/Action"))),
+                    "uri": writer._add_object(dictionary(S=NameObject("/URI"),
+                        URI=TextStringObject("https://example.invalid/original-inert-inherited-fixture"))),
+                    "remote": writer._add_object(dictionary(S=NameObject("/GoToR"),
+                        F=TextStringObject("original-inert-never-open.pdf")))}[kind]
+                writer._pages.get_object()[NameObject("/Resources")] = dictionary(OriginalAuthoredResource=target)
+                source = self.source(writer, "inherited-resource-" + kind)
+                with patch.object(engine, "OutputRun", side_effect=AssertionError("Policy must precede output reservation")) as reserve:
+                    self.assert_rejected_before_writer(source)
+                reserve.assert_not_called()
 
     def test_malformed_raw_children_counts_and_aliases_are_not_silently_skipped(self):
         def mutate(writer, kind):

@@ -1747,6 +1747,9 @@ def write_slice(reader, start, end, out_path, on_created=None):
         # A shallow view prevents pypdf's automatic link pairing from inspecting
         # the links that this writer explicitly rebuilds. Never edit the source.
         page = PageObject(reader, reader.pages[p].indirect_reference)
+        # The held flattened view includes effective inherited resources/boxes/
+        # rotation; the original indirect dictionary may omit these attributes.
+        page.update(reader.pages[p])
         page.pop("/Annots", None)
         page.pop("/B", None)
         page.pop("/AA", None)

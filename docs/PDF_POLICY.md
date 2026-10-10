@@ -25,6 +25,8 @@ The following detected structures return `unsupported_document`, exit **7**:
 - Page resources or other copied page fields that reference a document catalog
   or physical page tree. Such references can otherwise clone pages outside the
   selected chapter into hidden output objects.
+  The scan includes Resources, MediaBox, CropBox and Rotate supplied by validated
+  page-tree ancestors; the writer uses their effective captured page values.
 
 Presence of a listed catalog feature is conservatively rejected even if its
 value is empty. There is no promise to preserve a signature or interactive form.

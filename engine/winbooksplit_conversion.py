@@ -23,6 +23,7 @@ MAX_PDF_PAGE_TREE_NODES = 200000
 MAX_PDF_PAGES = 100000
 MAX_PDF_FEATURE_DEPTH = 128
 MAX_PDF_FEATURE_NODES = 200000
+INHERITED_PAGE_FIELDS = frozenset({"/Resources", "/MediaBox", "/CropBox", "/Rotate"})
 PDF_ACTION_TYPES = frozenset({"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread", "/URI", "/Sound", "/Movie", "/Hide",
     "/Named", "/SubmitForm", "/ResetForm", "/ImportData", "/JavaScript", "/SetOCGState", "/Rendition", "/Trans", "/GoTo3DView"})
 STATIC_ANNOTATION_FIELDS = frozenset({"/Type", "/Subtype", "/Rect", "/Contents", "/NM", "/M", "/F", "/C", "/CA", "/BS",
@@ -111,7 +112,7 @@ def _preflight_page_tree(catalog):
             _invalid_pdf("The PDF page tree contains an object that is not a physical page or page branch.")
     if not pages:
         _invalid_pdf("The PDF must contain at least one physical page.")
-    return pages
+    return pages, visited
 
 
 def _preflight_pdf_features(reader):
@@ -131,7 +132,7 @@ def _preflight_pdf_features(reader):
     names = _pdf_value(catalog.get("/Names"))
     if isinstance(names, DictionaryObject) and any(key in names for key in ("/JavaScript", "/EmbeddedFiles")):
         _unsupported_pdf("Document scripts and embedded-file name trees are not supported.")
-    pages = _preflight_page_tree(catalog)
+    pages, page_tree_ids = _preflight_page_tree(catalog)
     physical_page_ids = {id(page) for page in pages}
     forbidden_annotations = ("/Widget", "/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D")
     projected_annotations, examined_annotations = [], 0
@@ -195,7 +196,8 @@ def _preflight_pdf_features(reader):
                 skipped.update({"/Parent", "/Annots", "/AA", "/B"})
             if len(node) > MAX_PDF_FEATURE_NODES:
                 _invalid_pdf("A PDF dictionary exceeds the supported inspection limit.")
-            pending.extend((child, depth + 1, annotation_projection, copied_page_value or id(node) in physical_page_ids)
+            pending.extend((child, depth + 1, annotation_projection, copied_page_value or id(node) in physical_page_ids
+                            or id(node) in page_tree_ids and key in INHERITED_PAGE_FIELDS)
                            for key, child in node.items() if key not in skipped)
         else:
             if len(node) > MAX_PDF_FEATURE_NODES:
