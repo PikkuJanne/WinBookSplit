@@ -220,16 +220,16 @@ class PdfFidelityTests(unittest.TestCase):
         self.assertTrue({"metadata_omitted", "metadata_normalized"} <= {item["code"] for item in result["warnings"]})
         self.assertEqual(engine._metadata_text("Å日本\ud800\u200b\x00"), "Å日本")
 
-    def test_catalog_articles_and_annotation_backlinks_are_not_wholesale_copied(self):
+    def test_catalog_opening_action_is_rejected_before_output(self):
         source = authored_pdf(self.work / "catalog.pdf", catalog=True)
-        result, outputs = self.run_job(source=source)
-        first = outputs[0][1]
-        self.assertNotIn("/OpenAction", first.root_object)
-        self.assertNotIn("/Lang", first.root_object)
-        self.assertNotIn("/B", first.pages[0])
-        self.assertNotIn("/IRT", annotations(first)["static-square"][1])
-        self.assertEqual(len(serialized_pages(first)), 2)
-        self.assertTrue({"article_navigation_dropped", "annotation_relation_dropped"} <= {item["code"] for item in result["warnings"]})
+        original = source.read_bytes()
+        with patch.object(engine, "OutputRun") as reserve, patch.object(engine, "write_slice") as write, redirect_stdout(StringIO()):
+            result = engine.run_split(source, self.output, "1")
+        self.assertEqual((result["status"], result["code"], result["exit_code"]), ("unsupported", "unsupported_document", 7))
+        self.assertEqual(result["written_count"], 0)
+        reserve.assert_not_called()
+        write.assert_not_called()
+        self.assertEqual(source.read_bytes(), original)
 
     def test_annotation_inspection_limit_fails_before_output_and_preserves_input(self):
         with patch.object(engine, "MAX_PDF_ANNOTATIONS", 1), patch.object(engine, "OutputRun") as reserve, \

@@ -28,8 +28,9 @@ Tested static `/Text`, `/Highlight` and `/Square` annotations retain their
 appearance data. Unsupported or malformed annotations and excluded relationships produce categorized
 warnings. Popup/reply relationships and document actions are not a general
 preservation promise. Interactive forms, signatures, attachments, portfolios
-and active document behavior are outside this fidelity claim. Do not depend on
-the splitter to preserve them or to sanitize untrusted documents.
+and active document behavior are rejected as described in the
+[supported-input policy](PDF_POLICY.md). Do not depend on the splitter to preserve
+them or to sanitize untrusted documents.
 
 The acceptance fixtures are original generated documents containing text,
 vectors, embedded images, genuine image-only pages, rotations, crop boxes,
