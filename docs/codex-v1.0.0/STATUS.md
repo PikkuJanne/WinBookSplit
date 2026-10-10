@@ -1,5 +1,17 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS. M0–M4 are integrated; scoped M5 implementation/acceptance is complete through **M5-T01**. Next action: **M5-T02 — Build an allowlisted release package**, AC-084/085/086. Stop at that task boundary.
+
+Final C2 **a5a68b6530d6b75c1222a71a737090f95fe23fe3**, tree **a1db91b16cf239404bbe40a708ffc6da32c6a5bc**, has 171 exact Git/raw mapped files, digest **59adcc0cd0d2c0de49fc0fb0108346dc0346ba2e95e441695332c44e61fc8154**. Root VERSION is 1.0.0, one bounded trusted value for banner/Producer/run/support, with protocol 1 unchanged. Current README/help/setup/output/dependency limits, changelog/legacy naming/MIT/notices/security/unsigned/checksum statements are corrected. See [T01 evidence](evidence/M5-T01-documentation.md) and [machine record](evidence/M5-T01-documentation.json).
+
+Actual C2 source archives passed **30/30** separate documented examples on both hosts, with two fresh runtime-only venvs, 14 publications/42 chapters/four previews and ten agent PNG views. Fresh C2 unchanged Python child suite passed **483/0 skips** under an external 600-second cap; fresh shell passed **116/116 per host/0 skips**. Retained original C1 CLI 72/support 66/fidelity 10 passes bind to C2's 170 unchanged mapped files/all 16 runtime files; no standalone full 22 or local outer Python-runner retry pass is inferred. Final [branch](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38072286908) and [PR](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38072289461) CI passed 483 Python/116 Pester per host with exact artifacts audited. Local Windows 11/PS 7.6.5/real Calibre/render scope is distinct from hosted Server 2025/PS 7.6.6.
+
+C2 is already normally pushed and clean/live SYNCED at **2026-10-10T17:34:44.226627+00:00** on `codex/winbooksplit-v1-m5`; [draft PR27](https://github.com/PikkuJanne/WinBookSplit/pull/27) holds scoped work. Cumulative M5 review/merge belongs to M5-T05. E's own SHA/sync follows externally after its actual commit; inspect fresh live state next time. Main remains the prior M4 evidence checkpoint at start; no M5 merge/package/tag/release is claimed.
+
+All failed/intermediate receipts remain retained: omitted VERSION checker edge, first signature-module shadowing trial, C1 Python 300-second deadline, C1 local/hosted scaffold warning and external pure-auditor intermediate assumptions. C2 only changes the scoped test variable; all assertions remain. Human M3-T01 is absolutely closed. No new human/GUI/clean OS/full 22/release-package/publication/anonymous-download/OS network isolation certification is made.
+
+## Historical checkpoint through M4-T05
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS. M0/M1/M2/M3/M4 are reviewed and integrated. Scoped acceptance is complete through **M4-T05**.
 Next action: **M5-T01 — Correct user docs, licensing and versioning**, AC-082/083. Stop at that boundary.
 
