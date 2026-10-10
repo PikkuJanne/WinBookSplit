@@ -901,7 +901,10 @@ class RunnerTests(unittest.TestCase):
     def test_full_selects_all_current_regressions_and_forwards_integration_hosts_and_converter(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
         args = SimpleNamespace(layer="full", failure_probe=None, shell_path=hosts,
-                               tool_root=Path("C:/trusted/tool-root"), calibre_path=Path("C:/trusted/ebook-convert.exe"))
+                               tool_root=Path("C:/trusted/tool-root"), calibre_path=Path("C:/trusted/ebook-convert.exe"),
+                               renderer_path=Path("C:/trusted/pdftoppm.exe"),
+                               secondary_python_path=Path("C:/trusted/renderer-python.exe"),
+                               report=Path("C:/trusted/full.json"))
         commands = []
 
         def successful_command(argv, cwd, **kwargs):
@@ -961,10 +964,16 @@ class RunnerTests(unittest.TestCase):
         support = [command for command in commands if str(ROOT / "tests/support/characterize_support.py") in command]
         self.assertEqual(len(support), 1)
         self.assertEqual(support[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support"])
-        self.assertEqual([step["name"] for step in report["steps"][-15:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression"])
-        self.assertEqual(len(report["steps"]), 18)
+        fidelity = [command for command in commands if str(ROOT / "tests/fidelity/characterize_fidelity.py") in command]
+        self.assertEqual(len(fidelity), 1)
+        for flag, value in (("--renderer-path", args.renderer_path), ("--secondary-python-path", args.secondary_python_path),
+                            ("--render-directory", args.report.with_name("full-renders"))):
+            self.assertEqual(fidelity[0][fidelity[0].index(flag) + 1], str(value))
+        self.assertEqual(fidelity[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity"])
+        self.assertEqual([step["name"] for step in report["steps"][-16:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression"])
+        self.assertEqual(len(report["steps"]), 19)
         self.assertTrue(report["success"])
 
     def test_support_target_forwards_both_hosts_and_real_converter(self):

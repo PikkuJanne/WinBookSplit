@@ -246,6 +246,28 @@ class SupportReceiptTests(unittest.TestCase):
             with self.assertRaises(ValueError):
                 validator.validate_summary(resealed, manifest)
 
+    def test_fidelity_warning_categories_are_explicit_and_unknown_tokens_reject(self):
+        categories = {'cross_chapter_link_dropped': 'navigation', 'navigation_link_dropped': 'navigation',
+                      'article_navigation_dropped': 'navigation', 'annotation_dropped': 'annotation',
+                      'annotation_relation_dropped': 'annotation', 'metadata_omitted': 'metadata',
+                      'metadata_normalized': 'metadata'}
+        manifest = synthetic_success()['run_manifest']
+        manifest['warnings']['planning'] = [{'code': code, 'source_order': None, 'depth': None,
+                                            'message': 'MOCK_PRIVATE_WARNING_TEXT'} for code in categories]
+        clean = summary(manifest)
+        clean['warnings']['planning'] = [{'code': code, 'category': category} for code, category in categories.items()]
+        validator.validate_summary(clean, manifest)
+        for index, code in enumerate(categories):
+            bad = deepcopy(clean)
+            bad['warnings']['planning'][index]['category'] = 'bookmark'
+            with self.subTest(code=code), self.assertRaises(ValueError):
+                validator.validate_summary(validator.strict_json(compact(bad)), manifest)
+        # Input and summary agree on the unknown token; fixed schema still rejects it.
+        manifest['warnings']['planning'][0]['code'] = 'unknown_navigation_token'
+        clean['warnings']['planning'][0]['code'] = 'unknown_navigation_token'
+        with self.assertRaisesRegex(ValueError, 'unknown selected token'):
+            validator.validate_summary(validator.strict_json(compact(clean)), validator.strict_json(compact(manifest)))
+
     def test_duplicate_and_nonfinite_json_are_rejected(self):
         for raw in ('{"protocol":"a","protocol":"b"}', '{"count":NaN}'):
             with self.assertRaises(ValueError):

@@ -265,10 +265,13 @@ function ConvertTo-WinBookSplitSupportSummary {
     $planning = Get-WinBookSplitSupportField $warnings 'planning'; $parser = Get-WinBookSplitSupportField $warnings 'parser'
     if ($planning -isnot [array] -or $planning.Count -gt 4096 -or $parser -isnot [array] -or $parser.Count -gt 64) { throw 'Invalid diagnostic warning collection.' }
     $cleanPlanning = @(); $cleanParser = @()
-    $bookmarkCodes = @('invalid_destination','external_destination','destination_error','duplicate_destination','outline_reordered','duplicate_parent_subtree','invalid_parent_subtree','child_outside_parent','malformed_outline','outline_cycle','outline_limit','output_handle_close_failed')
+    $bookmarkCodes = @('invalid_destination','external_destination','destination_error','duplicate_destination','outline_reordered','duplicate_parent_subtree','invalid_parent_subtree','child_outside_parent','malformed_outline','outline_cycle','outline_limit','output_handle_close_failed','cross_chapter_link_dropped','navigation_link_dropped','annotation_dropped','annotation_relation_dropped','article_navigation_dropped','metadata_omitted','metadata_normalized')
     foreach ($warning in $planning) {
         $warningCode = Get-WinBookSplitSupportToken (Get-WinBookSplitSupportField $warning 'code') $bookmarkCodes
         $category = 'bookmark'; if ($warningCode -ceq 'output_handle_close_failed') { $category = 'output' }
+        if ($warningCode -cin @('cross_chapter_link_dropped','navigation_link_dropped','article_navigation_dropped')) { $category = 'navigation' }
+        if ($warningCode -cin @('annotation_dropped','annotation_relation_dropped')) { $category = 'annotation' }
+        if ($warningCode -cin @('metadata_omitted','metadata_normalized')) { $category = 'metadata' }
         $cleanPlanning += [ordered]@{ category=$category; code=$warningCode }
     }
     foreach ($warning in $parser) {

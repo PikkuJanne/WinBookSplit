@@ -753,7 +753,7 @@
         "Render/structure evidence",
         "Navigation limit documentation"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M3-T05"
       ],
@@ -763,8 +763,11 @@
         "AC-068",
         "AC-069"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M4-T01-fidelity.md",
+        "evidence/M4-T01-fidelity.json"
+      ],
+      "implementation_commit": "84ff807461409392ff2743480e9a175d0da5398e",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

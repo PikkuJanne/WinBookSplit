@@ -1,6 +1,24 @@
 # Project status
 
 Project: WinBookSplit first public v1.0.0; IN PROGRESS.
+M0/M1/M2/M3 are integrated. Scoped M4 implementation and acceptance are complete through **M4-T01**, using explicitly composite targeted and affected evidence.
+Next action: **M4-T02 — Enforce unsupported-document policy**. Stop at that task boundary.
+
+Implementation C **84ff807461409392ff2743480e9a175d0da5398e**, tree **2557b20d76d89c9b06c4bd2d8407766dfbe7cdbb**, has 19 passing layer observations on the same source through a composite: full01 **FAILED**, outer native1, with 18/19 stages passing; a fresh process01 retry passed native0 with 26 supervisor and nine application controls. **No successful standalone full-suite run is claimed.** The failed process stage recorded `Native exit status changed` without a child receipt; its case and cause remain unknown. Both raw reports remain immutable.
+
+The passing full01 layers include **330 Python methods; 112/112 on PowerShell 5.1.26100.9444; 112/112 on PowerShell 7.6.5**, no skipped/not-run Pester methods, actual CLI/launcher/UX/support controls **72/70/28/66**, both supported hosts and real Calibre 9.15.0. All 125 mapped Git/raw source paths match C; digest **ea70ee9eae682e6a5b73086a94531bf84a1148d8a945edfe259d0366662f6418**. The full and focused retry reports preserve source/synthetic-input stability and owned outer cleanup. Independent final source/raw/composite review is complete as recorded.
+
+AC-066/067/068/069 passed actual native fidelity: eight app controls and two exports, 20 reopened chapters/44 output-page observations and 176 retained PNGs per fidelity run, with matching same-renderer Poppler/PDFium comparisons. The assistant inspected six representative targeted02 source/output pairs (12 PNGs). This is local automated Windows and agent image evidence; human M3-T01 testing remains absolutely closed.
+
+The writer preserves tested text/vector/image/geometry and static Text/Highlight/Square appearances, rebases tested local destinations, warns on omitted navigation/annotations, and sets bounded chapter/source metadata and a first-page bookmark. [Fidelity limits](../PDF_FIDELITY.md), [T01 evidence](evidence/M4-T01-fidelity.md) and [machine record](evidence/M4-T01-fidelity.json) state the exact scope. M4-T02 owns broader encrypted/forms/signature/active-document policy. No sanitizer/catalog-preservation promise is made.
+
+C was pushed normally and clean/live SYNCED at **2026-10-10T09:08:27.953349Z** on `codex/winbooksplit-v1-m4`. [Draft PR #22](https://github.com/PikkuJanne/WinBookSplit/pull/22) is the M4 integration vehicle. Main remains verified pre-task `f0c86a8908ee854f78b029a1c0046d05b1f8fb06`. M4-T05 owns cumulative review, CI and milestone merge. The documentation checkpoint's own normal push/live receipt follows its actual commit; no future/self SHA is invented here.
+
+Original baseline and intermediate guard reproductions, failed target01 and its retained workspace, additive focused-recorder count correction, failed full01 and successful process01 remain distinct. The original process failure has no attributed cause; carry it into M4-T05's broader CI/review. Historical M3 failed evidence is preserved. No private documents, new human/GUI/viewer test, clean-machine/Win10/ARM/UNC certification, CI, package/signing, tag/assets/download or public v1.0.0 completion is claimed.
+
+## Historical checkpoint through M3-T05
+
+Project: WinBookSplit first public v1.0.0; IN PROGRESS.
 M0/M1/M2 are integrated. M3 implementation and scoped acceptance are complete through **M3-T05**.
 Next action: **M4-T01 — Preserve tested PDF page fidelity and metadata**. Stop at that task boundary.
 
