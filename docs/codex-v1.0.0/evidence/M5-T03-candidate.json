@@ -3,16 +3,16 @@
   "task_id": "M5-T03",
   "observed_at": "2026-10-10T19:24:00.830017+00:00",
   "timezone": "Europe/Berlin",
-  "task_status": "blocked",
-  "scope": "Canonical automated native/Calibre/output/agent-render evidence; no human claims from that driver. Additive G01-G03 reports/output audits and user-authorized D13 four-flow human route are referenced separately.",
+  "task_status": "done",
+  "scope": "Canonical automated native/Calibre/output/agent-render evidence retained unchanged; additive G01-G03 and R01-R04 actual human reports and authenticated audits close the user-authorized D13 route.",
   "acceptance": {
     "AC-087": {
       "status": "PASS",
       "scope": "Fresh candidate-only extraction and runtime-only venv per actual supported host; controlled dependency paths and unrelated CWD."
     },
     "AC-088": {
-      "status": "BLOCKED",
-      "scope": "Actual Explorer drops/no-input/multiple/Unicode/manual/auto/fallback/repeat and viewer/output opt-in still require current candidate human outcomes. Native redirected controls do not substitute."
+      "status": "PASS",
+      "scope": "Actual G01-G03/R01-R04 user outcomes under D13, independently authenticated processing source/plan/outputs/logs/dependencies; R04 has user-reported pre-PowerShell rejection and no captured BAT receipt. Retired variants remain native-only."
     },
     "AC-089": {
       "status": "PASS",
@@ -157,7 +157,7 @@
         "sha256": "dd3a6dbb6d975759ddc9a6a97ab4b50f21f9c1591cc9bf71adbd7f3330f8e381"
       },
       {
-        "name": "Input & [\u00c5_\u65e5\u672c] manual.pdf",
+        "name": "Input & [Å_日本] manual.pdf",
         "bytes": 10560,
         "sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830"
       },
@@ -199,7 +199,7 @@
     ],
     "pdf_definition": {
       "pages": 12,
-      "title": "Authored M5-T03 \u00c5 \u65e5\u672c front matter and parent fallback",
+      "title": "Authored M5-T03 Å 日本 front matter and parent fallback",
       "outline": [
         {
           "title": "Parent A",
@@ -1620,14 +1620,7 @@
       "sha256": "4e3282a39baefc62d976083283849aff8f4a1dbda7abcdeb8e1cd9ddda45e866"
     }
   },
-  "blockers": [
-    {
-      "id": "AC-088",
-      "action": "Complete four D13 actual human flows R01-R04 in EXPLORER_SHORT_STEPS.md; authenticate emitted authored outputs/logs. Original G04-G16 are SUPERSEDED, never PASS; native-only variants retained.",
-      "reason": "Mandatory real Explorer actions cannot be replaced by PS wrappers. Computer Use skill rules prohibit terminal UI automation.",
-      "historical_M3_human_testing": "Absolutely closed; no reopening."
-    }
-  ],
+  "blockers": [],
   "commands": [
     "DEV -I -B record_command.py --receipt build-candidate-main01.json --timeout 120 -- DEV -I -B tools/release/build_package.py build --repo ROOT --commit C --output EXTERNAL/candidate-main01",
     "DEV -I -B prove_source.py EXTERNAL/source-proof-main01.json",
@@ -1643,7 +1636,7 @@
     "DEV -I -B run_default_discovery_preflight01.py (4additionalactualdefault-discovery previews/native0)"
   ],
   "not_claimed": [
-    "Human GUI/viewer results from canonical native controls; removed original G04-G16 variants; pending consolidated R01-R04. G01-G03 reports and output audits recorded separately.",
+    "GUI/viewer observations inferred from canonical native controls or hashes; retired original G04-G16 variants; captured outer BAT/R04 process receipts. Actual current human reports are recorded separately.",
     "Clean OS installation, Sandbox or VM",
     "New shared full22/unit/Pester suite or local CI rerun",
     "M5-T04 security/dependency review or M5-T05 acceptance integration",
@@ -1876,7 +1869,7 @@
       }
     ]
   },
-  "next_task": "M5-T03 / AC-088 actual Explorer outcome capture and audit; do not advance to M5-T04.",
+  "next_task": "M5-T04 — Perform the release security and dependency review; not started in this task.",
   "human_preparation": {
     "observed_at": "2026-10-10T19:34:23.522079+00:00",
     "scope": "Separate authorized dependency preparation and four default-discovery previews following user request for clear steps; no actual Explorer/human outcomes.",
@@ -2043,18 +2036,41 @@
     "original_checklist": "EXPLORER_CHECKLIST.md, EXPLORER_STEPS.md and EXPLORER_RESULTS.md are preserved historical preparation; current D13 instructions/results are EXPLORER_SHORT_STEPS.md and EXPLORER_SHORT_RESULTS.md."
   },
   "current_human_progress": {
-    "observed_at": "2026-10-10T20:34:06.764959+00:00",
+    "observed_at": "2026-10-10T20:50:52.974125+00:00",
     "record": "M5-T03-human-smoke.json",
-    "G01": "PASS",
-    "G02": "PASS",
-    "G03": "PASS",
-    "remaining": "R01-R04 NOT RUN; AC-088/task BLOCKED; original G04-G16 SUPERSEDED, not PASS",
+    "completed": {
+      "G01": "PASS",
+      "G02": "PASS",
+      "G03": "PASS",
+      "R01": "PASS",
+      "R02": "PASS",
+      "R03": "PASS",
+      "R04": "PASS"
+    },
+    "remaining": "No current D13 human rows pending; original G04-G16 remain SUPERSEDED, never PASS.",
     "decision_id": "D13",
     "guide": {
       "file": "EXPLORER_SHORT_STEPS.md",
       "bytes": 2832,
       "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
     },
-    "scope": "Direct user-authorized consolidation; original reports/native evidence preserved; no GUI inference from native-only variants."
+    "final_audit": {
+      "file": "consolidated-human-audit01-public.json",
+      "bytes": 14645,
+      "sha256": "12f17f8bae5cc2aaeb37f4e7c519366a0d7a29051670728b2e28955f762a76fb"
+    },
+    "independent_review": {
+      "file": "independent-final-human-spot02.json",
+      "bytes": 966869,
+      "sha256": "8f18085517f13be916570b4ec8fd45a12c5fee2edcc92da8fccc53bfcefdb813"
+    },
+    "scope": "Exact user row reports plus read-only matching artifact audit; no automated GUI/native BAT inference."
+  },
+  "final_task_checkpoint": {
+    "previous_clean_live_checkpoint": "e7b92dffe607cd4e7074ea5da4562d8a8e3ad410",
+    "previous_clean_live_observed_at": "2026-10-10T20:45:34.518303+00:00",
+    "implementation_commit_role": "Historical synchronized evidence/guide checkpoint bookkeeping anchor; tested candidate source remains a282cf4412494063b91f2a71cb21b283731569f1",
+    "PR": "https://github.com/PikkuJanne/WinBookSplit/pull/29",
+    "scope": "Scoped draft retained; no merge. Final evidence commit actual push/clean-live receipt follows externally after it happens."
   }
 }

@@ -2,7 +2,7 @@
 
 Not executed until filled with actual observations. Copy under evidence/.
 
-Current M5-T03 uses the user-authorized **D13** route in `TESTING.md` and task notes: completed G01-G03 plus four mandatory remaining flows R01-R04. Use the current consolidated matrix in `evidence/M5-T03-manual-smoke.md` / machine human record. Original unrun G04-G16 are SUPERSEDED, never PASS; retired cancellation/error/normalization/fallback/same-mode-repeat GUI variants retain native coverage only. Keep each template cell's native/human/superseded scope explicit. This routing note does not fabricate observations or waive package/CI/release gates.
+Current M5-T03 uses the user-authorized **D13** route in `TESTING.md` and task notes: completed G01-G03 plus four mandatory R01-R04 flows, now all PASS in the actual human record. Use the current consolidated matrix in `evidence/M5-T03-manual-smoke.md` / machine human record. Original unrun G04-G16 are SUPERSEDED, never PASS; retired cancellation/error/normalization/fallback/same-mode-repeat GUI variants retain native coverage only. Keep each template cell's native/human/superseded scope explicit. This routing note does not fabricate observations or waive package/CI/release gates.
 
 Artifact ZIP name + SHA-256:
 Release source commit:
