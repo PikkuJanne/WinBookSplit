@@ -902,7 +902,7 @@
         "Actual run URLs/results",
         "M4 merged checkpoint"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M4-T04"
       ],
@@ -911,8 +911,11 @@
         "AC-080",
         "AC-081"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M4-T05-windows-ci.md",
+        "evidence/M4-T05-windows-ci.json"
+      ],
+      "implementation_commit": "123bb3e9bb1ad6e15e3bf6e060f35fc8a7f15cb4",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

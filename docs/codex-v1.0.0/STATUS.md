@@ -1,5 +1,16 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS. M0/M1/M2/M3/M4 are reviewed and integrated. Scoped acceptance is complete through **M4-T05**.
+Next action: **M5-T01 — Correct user docs, licensing and versioning**, AC-082/083. Stop at that boundary.
+
+Final C2 **123bb3e9bb1ad6e15e3bf6e060f35fc8a7f15cb4**, tree **5e2cf8cc5bee820f97c500ffb376cd8fea595c59**, maps 161 exact Git/raw files, digest **268e6530bf3ce4a7c72cef6bbc4587802d9d357dbb7b91cb689f92beb3dd778f**. Actual [branch CI](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38063779891) and [PR CI](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38063782954) pass 475 Python methods/zero skips and syntax/scoped analysis/112 Pester checks per explicit hosted PS5.1/PS7. Local C1 full 22/22 passed; final local coverage retains 21 byte-identical native stages plus fresh 475 Python methods on C2 after one fixture setup line changed. All 15 runtime files are identical C1/C2. See [T05 evidence](evidence/M4-T05-windows-ci.md) and [machine record](evidence/M4-T05-windows-ci.json).
+
+Least-privilege CI uses full pinned actions, hash-pinned isolated tools and exactly five report-only artifacts; it builds no package or release. Cumulative review reproduced and corrected an indirect PDF feature-name gap using existing bounded helpers, preserving strict physical type checks and complete physical-page plans. Both first hosted runs remain failed and retained; the narrower fixture correction preserves all transaction/long-path assertions. Legacy analyzer findings remain observations. Human M3-T01 stays absolutely closed; older unknown process causes stay UNKNOWN.
+
+[PR26](https://github.com/PikkuJanne/WinBookSplit/pull/26) ordinarily merged at **2026-10-10T15:37:42Z** as **1e2e3c95db9e25ea8b9f867d596be105e5bc2c90**. Clean/live main equality observed **2026-10-10T15:38:26.772958+00:00**. Final E's own actual commit/push/live receipt and main CI follow externally after they happen; no self/future hash is embedded. No private documents, settings/protection bypass, force/delete, package/signing/tag/assets/download or public release completion is claimed.
+
+## Historical checkpoint through M4-T04
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped implementation and acceptance are complete through **M4-T04**.
 Next action: **M4-T05 — Add least-privilege Windows CI**, AC-079/080/081. Stop at that boundary.
 
