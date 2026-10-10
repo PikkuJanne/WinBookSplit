@@ -64,7 +64,7 @@ $tokens = $null
 $errors = $null
 $ast = [Management.Automation.Language.Parser]::ParseFile($payload.application, [ref]$tokens, [ref]$errors)
 if (@($errors).Count -ne 0) { throw 'Application syntax errors.' }
-foreach ($functionName in @('New-WinBookSplitFailure', 'Run-PythonSplitter')) {
+foreach ($functionName in @('New-WinBookSplitFailure', 'Run-PythonSplitter', 'ConvertTo-WinBookSplitDisplayText')) {
     $functions = @($ast.FindAll({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
                                 $node.Name -ceq $functionName }, $true))
     if ($functions.Count -ne 1) { throw ('Exactly one trusted execution function is required: ' + $functionName) }
