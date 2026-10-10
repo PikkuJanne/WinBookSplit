@@ -46,8 +46,17 @@ M4-T03 adds `--layer faults`. Its targeted route runs the existing paths,
 process and outcomes suites once, followed by combined mid-write isolation,
 independent seeded page-owner invariants and native captured-source controls.
 It requires both actual supported hosts and no converter or renderer flags.
-Full now contains 21 stages; the existing error suites are not repeated within
+That task brought full to 21 stages; the existing error suites are not repeated within
 the new stage. See `faults/README.md` for counts, scope and retained failures.
+
+M4-T04 adds `--layer ebooks`: the existing conversion stage followed by the new
+ebook stage. Full includes the new stage once as number 22. Supply both actual
+supported hosts, the pinned Calibre executable and developer Poppler renderer;
+PDFium is required only by fidelity/full. See `ebooks/README.md` for real Auto1
+TOC, retained full-PDF and every-page rendering checks, genuine format identity,
+real malformed-ebook failures, and the limited loopback resource canary. Raw
+ebook/PDF/PNG/command artifacts remain outside Git. Agent visual inspection is
+separate from automated comparisons and closed human testing.
 
 Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
 for targeted checks. `--layer cli` requires both actual supported hosts and the

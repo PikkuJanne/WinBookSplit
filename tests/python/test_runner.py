@@ -979,11 +979,44 @@ class RunnerTests(unittest.TestCase):
         faults = [command for command in commands if str(ROOT / "tests/faults/characterize_faults.py") in command]
         self.assertEqual(len(faults), 1)
         self.assertEqual(faults[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults"])
-        self.assertEqual([step["name"] for step in report["steps"][-18:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression", "fault-regression"])
-        self.assertEqual(len(report["steps"]), 21)
+        ebooks = [command for command in commands if str(ROOT / "tests/ebooks/characterize_ebooks.py") in command]
+        self.assertEqual(len(ebooks), 1)
+        for flag, value in (("--renderer-path", args.renderer_path), ("--calibre-path", args.calibre_path),
+                            ("--render-directory", args.report.with_name("full-ebook-renders"))):
+            self.assertEqual(ebooks[0][ebooks[0].index(flag) + 1], str(value))
+        self.assertEqual(ebooks[0][-4:], ["--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"])
+        self.assertEqual([step["name"] for step in report["steps"][-19:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression", "fault-regression", "ebook-regression"])
+        self.assertEqual(len(report["steps"]), 22)
         self.assertTrue(report["success"])
+
+    def test_ebooks_target_binds_both_routes_and_preserves_either_native_failure(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="ebooks", failure_probe=None, shell_path=hosts,
+                               calibre_path=Path("C:/trusted/ebook-convert.exe"),
+                               renderer_path=Path("C:/trusted/pdftoppm.exe"),
+                               report=Path("C:/external/ebooks.json"))
+        for failure in (None, "conversion", "ebooks"):
+            with self.subTest(failure=failure):
+                commands = []
+                def command(argv, cwd, **kwargs):
+                    commands.append(argv)
+                    failed = failure is not None and str(ROOT / ("tests/conversion/characterize_conversion.py"
+                                     if failure == "conversion" else "tests/ebooks/characterize_ebooks.py")) in argv
+                    return {"exit_code": 19 if failed else 0, "stdout": "synthetic identity\n", "stderr": ""}
+                with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                        patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+                    report = runner.execute(args)
+                self.assertEqual([step["name"] for step in report["steps"]], ["conversion-regression", "ebook-regression"])
+                self.assertEqual([call.args[2] for call in attach.call_args_list], ["conversion", "ebooks"])
+                self.assertEqual(report["success"], failure is None)
+                self.assertEqual(sum(step["exit_code"] != 0 for step in report["steps"]), int(failure is not None))
+                self.assertEqual(report["steps"][-1]["requested_source_sha256"], {"synthetic": "hash"})
+                self.assertEqual(report["steps"][-1]["requested_shell_paths"], list(map(str, hosts)))
+                ebook_command = [argv for argv in commands if str(ROOT / "tests/ebooks/characterize_ebooks.py") in argv][0]
+                self.assertEqual(ebook_command[ebook_command.index("--render-directory") + 1],
+                                 str(args.report.with_name("ebooks-ebook-renders")))
 
     def test_faults_target_runs_each_required_cross_host_route_once_and_keeps_native_failure(self):
         hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
@@ -1594,6 +1627,26 @@ class RunnerTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             runner.new_external_path(ROOT / "must-not-create.json")
         self.assertFalse((ROOT / "must-not-create.json").exists())
+
+    def test_unverifiable_ebook_report_never_authorizes_outer_cleanup(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-ebook-receipt-") as directory:
+            path = Path(directory) / "child.json"
+            for data in (None, b"{bad-json", b'{"schema_version":1,"success":true}'):
+                with self.subTest(receipt=data):
+                    if data is not None:
+                        path.write_bytes(data)
+                    step = {"exit_code": 0}
+                    runner.attach_child_report(step, path, "ebooks")
+                    self.assertEqual(step["exit_code"], 126)
+                    self.assertIs(step["cleanup_safe"], False)
+                    self.assertNotIn("evidence", step)
+                    self.assertIn("evidence_error", step)
+            with patch.object(runner.tempfile, "TemporaryDirectory") as temporary:
+                temporary.return_value.name = directory
+                with runner.owned_evidence_workspace([step]):
+                    pass
+                temporary.return_value._finalizer.detach.assert_called_once()
+                temporary.return_value.cleanup.assert_not_called()
 
     def test_shell_bootstrap_passes_paths_as_data(self):
         with tempfile.TemporaryDirectory(prefix="wbs-shell-data-") as directory:

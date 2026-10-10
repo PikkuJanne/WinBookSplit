@@ -162,6 +162,8 @@ For EPUB/AZW3, select an existing converter explicitly when needed:
 
 Each conversion uses `--output-profile tablet`, the compatibility option tested
 with Calibre 9.15.0. The original ebook and any neighboring PDF remain unchanged.
+See [EPUB/AZW3 support notes](docs/EBOOK_SUPPORT.md) for generated physical-page
+numbering, outline/manual selection, retained full PDFs and tested resource limits.
 The engine requires a fresh, nonempty, readable PDF with physical pages before
 planning the split. Both converter streams are drained; the log keeps up to the
 last 64 KiB of each stream and reports truncation. `-ConversionTimeout` limits

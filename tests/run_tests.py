@@ -146,8 +146,10 @@ def source_manifest() -> dict[str, str]:
         "tests/fidelity/README.md",
         "tests/document_policy/README.md",
         "tests/faults/README.md",
+        "tests/ebooks/README.md",
         "docs/PDF_POLICY.md",
         "docs/PDF_FIDELITY.md",
+        "docs/EBOOK_SUPPORT.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
@@ -1084,6 +1086,15 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
             spec.loader.exec_module(validator)
             validator.validate_faults_report(child, step.get("requested_shell_paths", []), cleanup_complete=True,
                                              expected_source_sha256=step.get("requested_source_sha256"))
+        elif kind == "ebooks":
+            import importlib.util
+            spec = importlib.util.spec_from_file_location("wbs_ebooks_receipt_validator", ROOT / "tests/ebooks/validate_ebooks_report.py")
+            validator = importlib.util.module_from_spec(spec)
+            spec.loader.exec_module(validator)
+            validator.validate_ebooks_report(child, step.get("requested_shell_paths", []),
+                                             step.get("requested_calibre_path", ""),
+                                             step.get("requested_renderer_path", ""), cleanup_complete=True,
+                                             expected_source_sha256=step.get("requested_source_sha256"))
         elif kind == "plan":
             validate_plan_report(child)
         elif kind == "shell":
@@ -1241,7 +1252,7 @@ def attach_child_report(step: dict, path: Path, kind: str) -> None:
                 step["evidence_error"] = "Child report claims failure despite process success"
     except Exception as error:
         step["evidence_error"] = str(error)
-        if kind in {"process", "faults"}:
+        if kind in {"process", "faults", "ebooks"}:
             step["cleanup_safe"] = False
         if step["exit_code"] == 0:
             step["exit_code"] = 126
@@ -1318,10 +1329,10 @@ def execute(args: argparse.Namespace) -> dict:
                         "packages": package_versions()},
         "steps": [],
         "conversion_scope": "Actual original offline EPUB/AZW3 conversion and retained/default PDF cases under both requested hosts"
-                            if not args.failure_probe and args.layer in {"conversion", "full"}
+                            if not args.failure_probe and args.layer in {"conversion", "ebooks", "full"}
                             else "NOT_ASSERTED: this layer does not execute the real Calibre conversion acceptance route",
         "not_run": ["interactive preview UI", "in-person console interaction",
-                    "human Explorer drag/drop", "unsupported ebooks/remote-resource behavior/DRM",
+                    "human Explorer drag/drop", "arbitrary ebooks/DRM/system-wide network isolation",
                     "release-package checks"],
     }
     steps = report["steps"]
@@ -1450,7 +1461,7 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment)}
             attach_child_report(step, child_report, "paths")
             steps.append(step)
-        if not args.failure_probe and args.layer in {"conversion", "full"}:
+        if not args.failure_probe and args.layer in {"conversion", "ebooks", "full"}:
             child_report = work / "conversion-regression.json"
             command = [sys.executable, "-I", "-B", str(ROOT / "tests/conversion/characterize_conversion.py"),
                        "--report", str(child_report), "--calibre-path", str(args.calibre_path)]
@@ -1584,6 +1595,21 @@ def execute(args: argparse.Namespace) -> dict:
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "faults")
             steps.append(step)
+        if not args.failure_probe and args.layer in {"ebooks", "full"}:
+            child_report = work / "ebook-regression.json"
+            command = [sys.executable, "-I", "-B", str(ROOT / "tests/ebooks/characterize_ebooks.py"),
+                       "--report", str(child_report), "--calibre-path", str(args.calibre_path),
+                       "--renderer-path", str(args.renderer_path),
+                       "--render-directory", str(args.report.parent / (args.report.stem + "-ebook-renders"))]
+            for shell in args.shell_path:
+                command.extend(["--shell-path", str(shell)])
+            step = {"name": "ebook-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
+                    "requested_calibre_path": str(args.calibre_path), "requested_renderer_path": str(args.renderer_path),
+                    "requested_source_sha256": before,
+                    "meaning": "Real EPUB/genuine AZW3 Auto1 TOC and every-page render fidelity, malformed converter failures and bounded loopback request observation with image blocking",
+                    **run_command(command, work, environment=environment, timeout=900)}
+            attach_child_report(step, child_report, "ebooks")
+            steps.append(step)
         if args.failure_probe:
             # Deliberately execute success after failure. Aggregate status is
             # computed from every step, never from LASTEXITCODE/final command.
@@ -1603,11 +1629,11 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
-    parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/runtime/cli/launcher/full acceptance")
-    parser.add_argument("--renderer-path", type=Path, help="Absolute developer Poppler pdftoppm for fidelity/full")
+    parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/ebooks/runtime/cli/launcher/full acceptance")
+    parser.add_argument("--renderer-path", type=Path, help="Absolute developer Poppler pdftoppm for fidelity/ebooks/full")
     parser.add_argument("--secondary-python-path", type=Path, help="Absolute isolated developer Python with PDFium for fidelity/full")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
                         help="Absolute actual powershell.exe/pwsh.exe; repeat for both hosts")
@@ -1633,16 +1659,20 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults"} and args.shell_path:
+        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
             raise ValueError("This integration layer requires both explicit distinct supported shell hosts")
-        if not args.failure_probe and args.layer in {"conversion", "runtime", "cli", "launcher", "ux", "support", "full"}:
+        if not args.failure_probe and args.layer in {"conversion", "ebooks", "runtime", "cli", "launcher", "ux", "support", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
                 raise ValueError("Conversion/runtime/cli/launcher/full requires the existing absolute actual pinned --calibre-path")
             args.calibre_path = args.calibre_path.resolve()
+        if not args.failure_probe and args.layer == "ebooks":
+            if args.renderer_path is None or not args.renderer_path.is_absolute() or not args.renderer_path.is_file():
+                raise ValueError("Ebooks requires the existing absolute developer --renderer-path")
+            args.renderer_path = args.renderer_path.resolve()
         if not args.failure_probe and args.layer in {"fidelity", "full"}:
             for name in ("renderer_path", "secondary_python_path"):
                 path = getattr(args, name)
