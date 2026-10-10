@@ -21,7 +21,7 @@ Added only development fixture/characterization code, documentation and safe gen
 
 - Windows platform probe: `Windows-11-10.0.26300-SP0`; registry build `26300`, UBR `9457`, DisplayVersion `26H2`. This is the existing workstation, not a clean OS installation.
 - Orchestrating PowerShell: 7.6.5. Actual early launcher probes use `powershell.exe`, Windows PowerShell 5.1; exact version is captured in the JSON report.
-- Explicit bundled Python: `C:/Users/jtvuo/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe`, 3.12.14, MSC v.1944 64 bit.
+- Explicit bundled Python: `<BundledPython>`, 3.12.14, MSC v.1944 64 bit. The identifying local path remains only in the external raw receipt; redacted during M5-T04.
 - pypdf 6.10.0 and ReportLab 4.4.9 from that bundled runtime; children use `-I`. No global dependency installation occurred.
 - Poppler `pdftoppm` 26.07.0 from the bundled native runtime.
 - Default PATH Python remains 3.14.7 without the inspected pypdf dependency; it was not used for fixture/engine execution. No Calibre conversion was run. M0-T03 must select supported versions using current primary sources and real tests; these development observations do not freeze that matrix.
@@ -33,7 +33,7 @@ Added only development fixture/characterization code, documentation and safe gen
 | Actual command/check | Exit / observed outcome |
 | --- | --- |
 | `& $FixturePython -I tests/baseline/characterize_original.py --launcher-probes --report $ReportPath` | 0: 14 original engine cases and 2 launcher boundary probes reproduced. Every PDF slice reopened and its exact page IDs/ranges checked. |
-| Same command with absolute script path, from `C:/Users/jtvuo/AppData/Local/Temp` | 0: same tested-source digest, fixture/provenance bytes and all original observations; no dependency on current directory. |
+| Same command with absolute script path, from `<UserTemp>` | 0: same tested-source digest, fixture/provenance bytes and all original observations; no dependency on current directory. |
 | Same command on clean C, new external report | 0: same source/provenance/result comparisons after committing C; actual C recorded in that external report. |
 | Same command with an existing report path | 1: `Report path already exists`; prior report preserved. |
 | Generator CLI `--output-dir <new owned directory>` | 0; 10/12-page fixtures reopened with exact IDs and outline trees. |

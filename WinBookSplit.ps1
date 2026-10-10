@@ -6,7 +6,7 @@ Preserves every physical PDF page using the existing Python/pypdf planner.
 Without Mode, select a method interactively. Scripted calls supply Mode plus
 BookmarkLevel or StartPages. NonInteractive and Preview require complete choices.
 EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Preview.
-Requires regular Windows x64 CPython 3.14.8 and pypdf 6.19.0; ebooks also require
+Requires regular Windows x64 CPython 3.14.8 and pypdf 6.20.0; ebooks also require
 Calibre 9.15.0. See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is

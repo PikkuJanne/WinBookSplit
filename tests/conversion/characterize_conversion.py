@@ -238,6 +238,17 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
     system = Path(os.environ["SystemRoot"])
     ps51 = system / "System32/WindowsPowerShell/v1.0/powershell.exe"
     environment = history.clean_environment(cwd)
+    parent_local_app_data = os.environ.get("LOCALAPPDATA")
+    isolated_local_app_data = None
+    if batch:
+        # The missing-converter case must not discover the user's real install.
+        require(all(not path.exists() for path in (
+            Path("C:/Program Files/Calibre2/ebook-convert.exe"),
+            Path("C:/Program Files (x86)/Calibre2/ebook-convert.exe"))),
+            "Missing-converter fixture requires both fixed system Calibre paths absent; do not alter an installed converter")
+        isolated_local_app_data = cwd / "empty-local-app-data"
+        isolated_local_app_data.mkdir()
+        environment["LOCALAPPDATA"] = str(isolated_local_app_data)
     environment.update(PATH=os.pathsep.join((str(Path(sys.executable).parent), str(ps51.parent), str(system / "System32"), str(system))),
                        PSModulePath=str(shell.parent / "Modules"), WBS_CONVERSION_SCRIPT=str(ROOT / "WinBookSplit.ps1"),
                        WBS_CONVERSION_INPUT=str(source), WBS_CONVERSION_BASE=str(base), WBS_CONVERSION_CALIBRE=str(calibre),
@@ -314,6 +325,13 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                               console_record_absent=True, engine_invocation_record_absent=True,
                               dependency_success_record_absent=True, conversion_started=False,
                               written_count=0, setup_guidance_verified=True)
+                require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
+                        and not isolated_local_app_data.is_junction() and not any(isolated_local_app_data.iterdir())
+                        and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
+                        "Missing-converter child isolation or parent environment changed")
+                record["converter_absence_environment"] = {
+                    "child_local_app_data_isolated": True, "owned_directory_ordinary_and_empty": True,
+                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
         require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
         record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
                       input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)

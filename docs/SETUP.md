@@ -1,8 +1,8 @@
 # Set up WinBookSplit
 
 The application targets Windows 11 x64, Windows PowerShell 5.1 and the tested
-PowerShell 7.6.5 host. Use regular GIL CPython **3.14.8 x64** and plain
-**pypdf 6.19.0**. EPUB/AZW3 inputs also require Windows x64 **Calibre 9.15.0**.
+PowerShell 7.6.6 host. Use regular GIL CPython **3.14.8 x64** and plain
+**pypdf 6.20.0**. EPUB/AZW3 inputs also require Windows x64 **Calibre 9.15.0**.
 Other versions and platforms are not part of this support claim. Developer
 renderers, Pester and fixture packages are not application requirements.
 
@@ -36,7 +36,7 @@ $RuntimePython = Join-Path $RuntimeVenv 'Scripts\python.exe'
 if ($LASTEXITCODE -ne 0) { throw 'Runtime dependency installation failed' }
 & $RuntimePython -I -m pip --isolated --disable-pip-version-check check
 if ($LASTEXITCODE -ne 0) { throw 'Runtime dependency check failed' }
-& $RuntimePython -I -c "import sys,pypdf; assert sys.prefix != sys.base_prefix; assert pypdf.__version__ == '6.19.0'; print(sys.executable); print(pypdf.__file__)"
+& $RuntimePython -I -c "import sys,pypdf; assert sys.prefix != sys.base_prefix; assert pypdf.__version__ == '6.20.0'; print(sys.executable); print(pypdf.__file__)"
 if ($LASTEXITCODE -ne 0) { throw 'Runtime import check failed' }
 ```
 

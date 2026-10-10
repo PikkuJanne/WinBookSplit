@@ -214,8 +214,8 @@ class PackageInputTests(unittest.TestCase):
         self.rejected("launcher_dependency_changed", self.commit_all())
 
     def test_runtime_requirement_rejects_unpinned_dev_extra_url_and_include(self):
-        for line in ("pypdf==6.19.0", checker.RUNTIME_REQUIREMENT + "\nreportlab==5.0.1",
-                     "-r requirements-dev.txt", "pypdf[crypto]==6.19.0", "https://example.invalid/private.whl"):
+        for line in ("pypdf==6.20.0", checker.RUNTIME_REQUIREMENT + "\nreportlab==5.0.1",
+                     "-r requirements-dev.txt", "pypdf[crypto]==6.20.0", "https://example.invalid/private.whl"):
             with self.subTest(line=line):
                 (self.repo / "requirements.txt").write_text(line + "\n", encoding="utf-8")
                 self.rejected("runtime_dependency_pin_changed", self.commit_all())

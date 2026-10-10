@@ -133,7 +133,7 @@ def probe(record, *, success: bool) -> dict:
 def runtime(record) -> dict:
     record = mapping(record, "selected runtime")
     path(record.get("Path"), "runtime.Path")
-    require(record.get("Version") == "3.14.8" and record.get("PypdfVersion") == "6.19.0",
+    require(record.get("Version") == "3.14.8" and record.get("PypdfVersion") == "6.20.0",
             "runtime: exact supported versions required")
     require(record.get("Source") in {"explicit", "application_venv", "py_launcher", "PATH"},
             "runtime: unknown selection provenance")
@@ -148,7 +148,7 @@ def runtime(record) -> dict:
     details = mapping(record.get("Details"), "runtime.Details")
     expected = {"protocol": "winbooksplit.runtime", "schema_version": 1,
                 "version": "3.14.8", "implementation": "cpython", "platform": "win32",
-                "machine": "AMD64", "bits": 64, "pypdf_version": "6.19.0"}
+                "machine": "AMD64", "bits": 64, "pypdf_version": "6.20.0"}
     for field, value in expected.items():
         require(type(details.get(field)) is type(value) and details[field] == value,
                 f"runtime.Details.{field}: exact scalar evidence required")
@@ -403,7 +403,7 @@ def failure_case(case: dict) -> None:
         flag(case, "converter_version_marker_absent")
         flag(case["decoy_marker_observation"], "converter_version_absent")
         require(all(fragment in case["stdout"] for fragment in
-                    ("3.14.8", "6.19.0", "-PythonPath", "-I -m pip", "requirements.txt", case["candidate_path"])),
+                    ("3.14.8", "6.20.0", "-PythonPath", "-I -m pip", "requirements.txt", case["candidate_path"])),
                 "failure: exact-interpreter setup guidance missing")
         if case["kind"] != "missing":
             require(attempts[0].get("Probe") is not None, "failure: actual incompatible candidate probe missing")
@@ -433,7 +433,7 @@ def failure_case(case: dict) -> None:
                             "failure: missing-pypdf control mislabeled")
                 else:
                     require(details.get("version") == "3.14.8" and details.get("pypdf_version") == "9.99.0" and
-                            "pypdf 6.19.0" in message, "failure: altered owned pypdf control mislabeled")
+                            "pypdf 6.20.0" in message, "failure: altered owned pypdf control mislabeled")
         else:
             require(attempts[0].get("Probe") is None, "failure: missing interpreter was executed")
     else:
@@ -577,7 +577,7 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
         require(host["exit_code"] == 0 and type(host.get("host_major")) is int and
                 host["host_major"] == (5 if identifier == "PS51" else 7), "host: actual version/status missing")
         version = text(host.get("host_version"), "host version")
-        require(version.startswith("5.1.") if identifier == "PS51" else version == "7.6.5", "host: mislabeled version")
+        require(version.startswith("5.1.") if identifier == "PS51" else version == "7.6.6", "host: mislabeled version")
         require(type(host.get("syntax_error_count")) is int and host["syntax_error_count"] == 0 and
                 host.get("syntax_checked") == ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1",
                     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1"], "host: required syntax observations missing")

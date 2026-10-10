@@ -217,7 +217,7 @@ function ConvertTo-WinBookSplitSupportSummary {
     $runtime = Get-WinBookSplitSupportField $Manifest 'runtime_versions'
     Assert-WinBookSplitSupportKeys $runtime @('powershell','python','pypdf','calibre') @('powershell','python','pypdf','calibre')
     $versions = [ordered]@{}
-    $pins = @{ python=@('3.14.8'); pypdf=@('6.19.0'); calibre=@('9.15.0') }
+    $pins = @{ python=@('3.14.8'); pypdf=@('6.20.0'); calibre=@('9.15.0') }
     foreach ($name in @('powershell','python','pypdf','calibre')) {
         $value = Get-WinBookSplitSupportField $runtime $name
         $versions[$name] = $null

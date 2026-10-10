@@ -22,6 +22,9 @@ publication and anonymous asset verification have their own later gates.
   conservative unsupported-PDF rejection and the exact dependency pins.
 - Adds authored regression fixtures, strict source-bound receipts and scoped
   Windows CI. Those checks are distinct from release-package certification.
+- Resolves the BAT shell from the Windows system location and fails clearly
+  when it is missing; CWD/PATH shell decoys cannot replace it. Current security
+  pins use pypdf 6.20.0 and PowerShell 7.6.6.
 
 ## Historical development naming
 

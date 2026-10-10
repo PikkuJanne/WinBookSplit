@@ -218,7 +218,7 @@ def validate_isolation_report(report, expected_source=None, *, cleanup_complete=
     need(isinstance(nonce, str) and re.fullmatch(r"[0-9a-f]{32}", nonce), "Missing authored overlap control nonce")
     good, bad = by_id["overlap-success"], by_id["overlap-mid-write"]
     environment = report.get("environment", {})
-    need(environment.get("python_version") == "3.14.8" and environment.get("pypdf_version") == "6.19.0"
+    need(environment.get("python_version") == "3.14.8" and environment.get("pypdf_version") == "6.20.0"
          and isinstance(environment.get("python_executable"), str) and Path(environment["python_executable"]).is_absolute(), "Pinned actual interpreter/parser identity missing")
     work = Path(report.get("workspace", ""))
     engine, worker = report.get("engine_path"), report.get("worker_path")

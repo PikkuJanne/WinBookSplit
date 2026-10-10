@@ -37,7 +37,7 @@ def synthetic_output():
               'pages': [actual], 'expected_pages': [deepcopy(source)],
               'inventory': {'all_page_object_count': 1, 'serialized_content_marker_ids': [1], 'all_image_decoded_sha256': ['2' * 64]},
               'metadata': {'/Title': 'Chapter', '/Author': guard.AUTHOR, '/Creator': 'WinBookSplit',
-                           '/Producer': 'WinBookSplit 1.0.0 (pypdf 6.19.0)', '/Subject': 'Source: ' + guard.TITLE},
+                           '/Producer': 'WinBookSplit 1.0.0 (pypdf 6.20.0)', '/Subject': 'Source: ' + guard.TITLE},
               'outline': [{'title': 'Chapter', 'page': 0}], 'catalog_keys': ['/Type', '/Pages', '/Outlines'],
               'annotations': [{'page': 0, 'name': 'forward-0', 'P_matches_page': True, 'source_relations_absent': True, 'unsupported_action_absent': True}],
               'renders': deepcopy(rendered)}

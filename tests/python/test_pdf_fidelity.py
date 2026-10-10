@@ -41,7 +41,9 @@ def authored_pdf(path, *, malformed=False, metadata_bad=False, catalog=False, hi
     writer.add_outline_item("Child A", 1, parent=parent)
     parent = writer.add_outline_item("Chapter B 日本", 2)
     writer.add_outline_item("Child B", 3, parent=parent)
-    writer.add_named_destination("inside-A", 0)
+    # Author the tested coordinate explicitly; upstream defaults may change.
+    writer.add_named_destination_array("inside-A", ArrayObject([
+        writer.pages[0].indirect_reference, NameObject("/FitH"), FloatObject(826)]))
     writer.add_named_destination("outside-A", 3)
     rect = lambda: ArrayObject([FloatObject(v) for v in (10, 10, 80, 30)])
     def link(page, name, destination, action=False):
@@ -155,7 +157,7 @@ class PdfFidelityTests(unittest.TestCase):
                     self.assertEqual(reader.metadata.author, "Authored author Å 日本")
                     self.assertEqual(reader.metadata.subject, "Source: Authored source Å 日本")
                     self.assertEqual(reader.metadata.creator, "WinBookSplit")
-                    self.assertEqual(reader.metadata.producer, "WinBookSplit 1.0.0 (pypdf 6.19.0)")
+                    self.assertEqual(reader.metadata.producer, "WinBookSplit 1.0.0 (pypdf 6.20.0)")
                     self.assertEqual(len(reader.outline), 1)
                     self.assertEqual(reader.outline[0].title, expected)
                     self.assertEqual(reader.get_destination_page_number(reader.outline[0]), 0)

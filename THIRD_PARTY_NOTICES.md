@@ -14,8 +14,8 @@ Their upstream license terms continue to apply to those installations.
 | Component used by WinBookSplit | Upstream license and primary source |
 | --- | --- |
 | CPython 3.14.8 | [PSF License Version 2 and incorporated-software notices](https://docs.python.org/3.14/license.html) |
-| pypdf 6.19.0 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.19.0/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.19.0/pyproject.toml) |
-| PowerShell 7.6.5 | [MIT license, Microsoft Corporation](https://github.com/PowerShell/PowerShell/blob/v7.6.5/LICENSE.txt) |
+| pypdf 6.20.0 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.20.0/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.20.0/pyproject.toml) |
+| PowerShell 7.6.6 | [MIT license, Microsoft Corporation](https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt) |
 | Calibre 9.15.0, for EPUB/AZW3 | [GNU GPL version 3](https://github.com/kovidgoyal/calibre/blob/v9.15.0/LICENSE) |
 
 Windows PowerShell 5.1 is a Windows component governed by the applicable Windows

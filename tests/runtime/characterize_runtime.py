@@ -197,6 +197,17 @@ class Cases:
         native_marker, module_marker, decoy_marker = case / "native-called.txt", case / "module-called.txt", case / "decoy-called.txt"
         listing_marker, launcher_control = case / "listing-called.txt", None
         environment = history.clean_environment(case)
+        parent_local_app_data = os.environ.get("LOCALAPPDATA")
+        isolated_local_app_data = None
+        if category == "converter_failure" and kind in {"missing", "book-cwd-decoys"}:
+            # Only these absence controls hide an actual per-user installation.
+            require(all(not path.exists() for path in (
+                Path("C:/Program Files/Calibre2/ebook-convert.exe"),
+                Path("C:/Program Files (x86)/Calibre2/ebook-convert.exe"))),
+                "Missing-converter fixture requires both fixed system Calibre paths absent; do not alter an installed converter")
+            isolated_local_app_data = case / "empty-local-app-data"
+            isolated_local_app_data.mkdir()
+            environment["LOCALAPPDATA"] = str(isolated_local_app_data)
         environment.update(PSModulePath=str(shell.parent / "Modules"), WBS_RUNTIME_APP=str(app / "WinBookSplit.ps1"),
             WBS_RUNTIME_BAT=str(app / "WinBookSplit.bat"), WBS_RUNTIME_INPUT=str(source), WBS_RUNTIME_BASE=str(base),
             WBS_VERSION_MARKER=str(version_marker), WBS_CONVERSION_MARKER=str(conversion_marker),
@@ -311,7 +322,7 @@ class Cases:
                         and "[ENGINE] " not in process["stdout"] and "[DEPENDENCY] " not in process["stdout"], "Dependency failure announced processing/success")
                 require(not conversion_marker.exists(), "Dependency rejection started conversion")
                 if category == "python_failure":
-                    require(not version_marker.exists() and "3.14.8" in process["stdout"] and "6.19.0" in process["stdout"], "Python failure attempted converter or omitted exact setup targets")
+                    require(not version_marker.exists() and "3.14.8" in process["stdout"] and "6.20.0" in process["stdout"], "Python failure attempted converter or omitted exact setup targets")
                 else:
                     require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"], "Converter failure omitted actionable exact setup guidance")
                 record = {"dependency_error": errors[0], "candidate_path": candidate if category == "python_failure" else str(converter_path) if converter_path else None,
@@ -331,7 +342,7 @@ class Cases:
                 require(len(dependency) == len(invocation) == len(frames) == 1 and frames[0]["status"] == "success", "Missing actual dependency/execution records")
                 selected = dependency[0]["Runtime"]
                 require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == "3.14.8"
-                        and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.19.0", "Selected actual interpreter differs from case")
+                        and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.20.0", "Selected actual interpreter differs from case")
                 require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:4] == ["-I", "-B", "-X", "utf8"]
                         and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", ""], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
                 require(selected["Details"]["isolated"] is True and selected["Details"]["dont_write_bytecode"] is True
@@ -378,6 +389,14 @@ class Cases:
             require(decoy_hashes == {path: digest(Path(path)) for path in decoy_hashes}
                     and not decoy_marker.exists() and not module_marker.exists(), "Untrusted dependency decoy executed/imported or changed")
             require(application_hashes == {name: digest(app / name) for name in APPLICATION_FILES}, "Copied application source changed while running")
+            if isolated_local_app_data is not None:
+                require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
+                        and not isolated_local_app_data.is_junction() and not any(isolated_local_app_data.iterdir())
+                        and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
+                        "Missing-converter child isolation or parent environment changed")
+                record["converter_absence_environment"] = {
+                    "child_local_app_data_isolated": True, "owned_directory_ordinary_and_empty": True,
+                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
             record.update(id=identifier, category=category, kind=kind, passed=True, actual_process=True,
                 shell_executable=str(shell), command=command, cwd=str(cwd), output_base=str(base),
                 source_path=str(source), source_format=source.suffix[1:], source_read_only_attribute_observed=readonly_observed,

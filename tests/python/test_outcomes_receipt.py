@@ -24,7 +24,7 @@ def fixture():
     """A transparent invented receipt for validator tests, never runtime evidence."""
     root = Path(tempfile.gettempdir()).resolve() / "synthetic-outcome-receipt"
     shells = [str(root / "powershell.exe"), str(root / "pwsh.exe")]
-    versions = {"PS51": "5.1.26100.9444", "PS7": "7.6.5"}
+    versions = {"PS51": "5.1.26100.9444", "PS7": "7.6.6"}
     hosts = [{"id": host, "shell_executable": shells[index], "host_version": versions[host],
         "stored_policies": [], "policies_after": [], "syntax_error_count": 0}
         for index, host in enumerate(("PS51", "PS7"))]

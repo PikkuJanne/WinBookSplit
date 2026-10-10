@@ -28,6 +28,16 @@ D13. For the current M5-T03 candidate, the user-authorized consolidated human ro
 
 ## Change record
 
+2026-10-10 — D07 security pin amendment during user-selected M5-T04. Current
+maintainer advisory GHSA-7mh2-4gg2-979f includes pypdf 6.19.0 and fixes it in
+6.20.0; Microsoft PowerShell announcements 98/99 include 7.6.5 and fix the
+7.6 branch in 7.6.6. Select plain hash-pinned pypdf 6.20.0 and isolated official
+PowerShell 7.6.6 for renewed Windows acceptance, preserving CPython 3.14.8,
+Calibre 9.15.0 and historical evidence. This is scoped blocker remediation
+under the user's ordinary-change authority; support platforms, acceptance IDs,
+human-route decisions and final release gates stay unchanged. All affected
+runtime/package/dependency acceptance must be renewed before completion.
+
 For a changed default add date, decision ID, evidence, user-impact, acceptance-case changes, and authority. No new public version or website task may be introduced under 'small improvement'. A blocked test is not a reason to silently redefine the finish line.
 
 2026-10-10 — D07/D08/D10 version-source clarification for M5-T01, under the user's selected-task and delegated scoped-change authority. AC-083 requires the candidate's consistent final `1.0.0` now, so root `VERSION` replaces the historical outcome-map `1.0.0-dev` application label in this task. The outcome/result/run schema versions remain `1`. M5-T05 revalidates the canonical version and cumulative scope; it does not introduce a second version source. `1.0.0` identifies the unpublished candidate, not a tag, release or verified package. The legacy `2.1` banner was development naming, not evidence of an earlier public release. No acceptance cases, public release version, publication gates or support scope change. Evidence belongs to the M5-T01 checkpoint.

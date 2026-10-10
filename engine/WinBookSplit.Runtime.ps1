@@ -256,7 +256,7 @@ try:
     assert r['isolated'] and r['dont_write_bytecode'], 'Isolated flags are missing.'
     import pypdf
     r.update(pypdf_version=pypdf.__version__, pypdf_path=str(pathlib.Path(pypdf.__file__).resolve()))
-    assert r['pypdf_version']=='6.19.0' and importlib.metadata.version('pypdf')=='6.19.0', 'Expected pypdf 6.19.0 exactly.'
+    assert r['pypdf_version']=='6.20.0' and importlib.metadata.version('pypdf')=='6.20.0', 'Expected pypdf 6.20.0 exactly.'
     roots=[pathlib.Path(sysconfig.get_paths()[key]).resolve() for key in ('purelib','platlib')]
     origin=pathlib.Path(r['pypdf_path'])
     assert origin.is_file() and any(origin.is_relative_to(root) for root in roots), 'Unexpected pypdf import origin.'
@@ -300,7 +300,7 @@ raise SystemExit(0 if r['ok'] else 1)
             $record.gil_disabled -isnot [bool] -or $record.gil_disabled -or
             $record.isolated -isnot [bool] -or -not $record.isolated -or
             $record.dont_write_bytecode -isnot [bool] -or -not $record.dont_write_bytecode -or
-            $record.pypdf_version -cne '6.19.0' -or
+            $record.pypdf_version -cne '6.20.0' -or
             -not ([IO.Path]::GetFullPath($record.executable).Equals($path, [StringComparison]::OrdinalIgnoreCase))) {
             throw ('Incompatible interpreter/dependency: ' + $record.message)
         }
@@ -321,7 +321,7 @@ function Resolve-WinBookSplitRuntime {
           [string]$DocumentPath, [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 10)
     $root = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
     $attempts = New-Object 'System.Collections.Generic.List[object]'
-    $setup = "Use regular Windows x64 CPython 3.14.8 and pypdf 6.19.0. Set -PythonPath or create a fresh application .venv; installation is an explicit setup action."
+    $setup = "Use regular Windows x64 CPython 3.14.8 and pypdf 6.20.0. Set -PythonPath or create a fresh application .venv; installation is an explicit setup action."
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         $selected = Test-WinBookSplitPythonCandidate $PythonPath 'explicit' $root $attempts $TimeoutSeconds
         if ($selected) { return $selected }

@@ -45,10 +45,10 @@ def selected_runtime(executable, source):
     details = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": True,
                "executable": executable, "version": "3.14.8", "implementation": "cpython",
                "platform": "win32", "machine": "AMD64", "bits": 64, "gil_disabled": False,
-               "isolated": True, "dont_write_bytecode": True, "pypdf_version": "6.19.0",
+               "isolated": True, "dont_write_bytecode": True, "pypdf_version": "6.20.0",
                "pypdf_path": origin, "message": "Supported interpreter and pypdf imported in isolation."}
     probe = native_probe(json.dumps(details) + "\r\n")
-    return {"Path": executable, "Version": "3.14.8", "Source": source, "PypdfVersion": "6.19.0",
+    return {"Path": executable, "Version": "3.14.8", "Source": source, "PypdfVersion": "6.20.0",
             "PypdfPath": origin, "Details": details, "Probe": probe, "Arguments": ["-I", "-B"],
             "Attempts": [{"Path": executable, "Source": source, "Accepted": True,
                           "Message": details["message"], "Probe": deepcopy(probe)}]}
@@ -100,7 +100,7 @@ def valid_report():
     policies = [{"scope": name, "policy": "Undefined"} for name in
                 ("MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine")]
     hosts = []
-    for name, shell, major, version in zip(("PS51", "PS7"), SHELLS, (5, 7), ("5.1.26100.9444", "7.6.5")):
+    for name, shell, major, version in zip(("PS51", "PS7"), SHELLS, (5, 7), ("5.1.26100.9444", "7.6.6")):
         observed = {"host_major": major, "host_version": version, "syntax_error_count": 0,
                     "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1",
                                        "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1"],
@@ -175,7 +175,7 @@ def valid_report():
                     detail = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": False,
                               "version": "3.14.7" if kind == "wrong-version" else "3.14.8",
                               "message": "Expected CPython 3.14.8 exactly." if kind == "wrong-version" else
-                              "No module named 'pypdf'" if kind == "missing-pypdf" else "Expected pypdf 6.19.0 exactly."}
+                              "No module named 'pypdf'" if kind == "missing-pypdf" else "Expected pypdf 6.20.0 exactly."}
                     if kind == "wrong-pypdf":
                         detail["pypdf_version"] = "9.99.0"
                     bad_probe = None if kind == "missing" else native_probe(
@@ -189,7 +189,7 @@ def valid_report():
                                  "Message": "Excluded automatic candidate", "Probe": None} for filename in case["decoy_sha256"]]
                 error = {"Code": "runtime_invalid" if category == "python_failure" else
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
-                guidance = ("3.14.8 6.19.0 -PythonPath -I -m pip requirements.txt " + candidate if category == "python_failure"
+                guidance = ("3.14.8 6.20.0 -PythonPath -I -m pip requirements.txt " + candidate if category == "python_failure"
                             else "Calibre 9.15.0 -CalibrePath")
                 case.update(dependency_error=error, candidate_path=candidate, exit_code=3,
                             stdout="Dependency preflight failed " + guidance + "\n[DEPENDENCY-ERROR] " + json.dumps(error) + "\n",

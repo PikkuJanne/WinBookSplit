@@ -115,7 +115,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
     started, finished = (datetime.fromisoformat(record[key]) for key in ("started_utc", "finished_utc"))
     need(started.tzinfo is not None and finished.tzinfo is not None and started <= finished, "Local run timestamps invalid")
     versions, settings, logged = record.get("runtime_versions", {}), record.get("settings", {}), record.get("log", {})
-    need(versions.get("python") == "3.14.8" and versions.get("pypdf") == "6.19.0"
+    need(versions.get("python") == "3.14.8" and versions.get("pypdf") == "6.20.0"
          and isinstance(versions.get("powershell"), str) and versions["powershell"].startswith(("5.1.", "7."))
          and versions.get("calibre") in {None, "9.15.0"}, "Local run runtime versions differ")
     need(settings.get("mode") == outcome.get("mode") and settings.get("input_kind") in {"pdf", "epub", "azw3"}
