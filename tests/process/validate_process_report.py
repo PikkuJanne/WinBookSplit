@@ -53,6 +53,125 @@ def exact_cases(records, expected):
     return {item["id"]: item for item in records}
 
 
+def artifact(record, *, available=True):
+    require(type(record) is dict and type(record.get("available")) is bool, "Authored raw artifact availability missing")
+    path(record.get("path"))
+    require(record["available"] is available, "Authored artifact availability contradicts observed readiness")
+    if not available:
+        require(not any(key in record for key in ("sha256", "raw_text", "size_bytes")), "Missing artifact invented raw evidence")
+        return None
+    for key in ("size_bytes", "created_ns", "modified_ns"):
+        require(type(record.get(key)) is int and record[key] >= 0, "Authored raw artifact stat missing")
+    raw = record.get("raw_text")
+    require(type(raw) is str and record["size_bytes"] <= 16 * 1024 * 1024
+            and len(raw.encode("utf-8")) == record["size_bytes"], "Authored raw artifact length differs")
+    digest(record.get("sha256"))
+    require(sha256(raw.encode("utf-8")).hexdigest() == record["sha256"], "Authored raw artifact hash differs")
+    return raw
+
+
+def native_host_capture(capture, host, *, complete=True):
+    require(type(capture) is dict and capture.get("host_id") == host["id"], "Native host capture identity differs")
+    command = capture.get("command")
+    cwd = path(capture.get("cwd"))
+    require(type(command) is list and len(command) == 11 and path(command[0]) == path(host["shell_executable"])
+        and command[1:6] == ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "RemoteSigned", "-File"]
+        and ntpath.basename(path(command[6])) == "probe-process.ps1"
+        and command[7::2] == ["-PayloadPath", "-ReportPath"]
+        and ntpath.dirname(path(command[8])) == cwd == ntpath.dirname(path(command[10])), "Native host exact argv/cwd missing")
+    require(path(capture.get("payload", {}).get("path")) == path(command[8]), "Native payload path differs")
+    payload = json.loads(artifact(capture.get("payload")))
+    require(path(payload.get("work")) == cwd and type(payload.get("cases")) is list
+        and [item.get("id") for item in payload["cases"]] == [host["id"] + "-" + kind for kind in KINDS],
+        "Native authored payload/case set differs")
+    require(ntpath.basename(path(payload.get("helper"))) == "winbooksplit.process.ps1"
+        and ntpath.basename(path(payload.get("diagnostics"))) == "winbooksplit.diagnostics.ps1", "Native helper source scope differs")
+    path(payload.get("python"))
+    for item, expected_kind in zip(payload["cases"], KINDS):
+        kind = item["kind"]
+        arguments = item.get("arguments")
+        require(kind == expected_kind and type(arguments) is list and len(arguments) >= 6
+            and arguments[:4] == ["-I", "-B", "-X", "utf8"]
+            and ntpath.basename(path(arguments[4])) == "native_child.py" and arguments[5] == kind,
+            "Native authored child/kind argv differs")
+        if kind == "arguments":
+            require(arguments[6:] == ARGUMENTS, "Native literal argument recipe differs")
+        elif kind in {"timeout-tree", "cancel-tree", "inherited-pipe", "detached-pipe"}:
+            require([path(value) for value in arguments[6:]] == [ntpath.join(cwd, kind + "-parent.json"), ntpath.join(cwd, kind + "-child.json")],
+                "Native authored PID readiness path scope differs")
+        else:
+            require(len(arguments) == 6, "Native child received undeclared extra arguments")
+        require(type(item.get("timeout")) in (int, float)
+                and item.get("timeout") == (1.0 if kind in {"timeout-tree", "inherited-pipe", "detached-pipe"} else 8.0)
+                and item.get("cancel") is (kind == "cancel-tree"), "Native readiness/deadline recipe changed")
+    process = capture.get("process")
+    if not complete and process is None:
+        error = capture.get("supervision_error")
+        require(type(error) is dict and error.get("native_exit_available") is False
+            and error.get("raw_streams_available") is False and error.get("inner_tree_shutdown_proved") is False,
+            "Unproved native supervision invented exit/streams/shutdown")
+        return None
+    require(type(process) is dict and type(process.get("exit_code")) is int
+        and type(process.get("stdout")) is str and type(process.get("stderr")) is str,
+        "Actual native host exit/streams missing")
+    raw_report = capture.get("native_report")
+    require(path(raw_report.get("path")) == path(command[10]), "Native raw receipt path differs")
+    if not complete and raw_report.get("available") is False:
+        artifact(raw_report, available=False)
+        return None
+    native_report = json.loads(artifact(raw_report))
+    if complete:
+        require(process["exit_code"] == 0 and native_report.get("host_version") == host["host_version"]
+            and native_report.get("stored_policies") == host["stored_policies"], "Native raw host failed or changed settings")
+    return native_report
+
+
+def validate_failed_process_report(report):
+    """A retained failed attempt is evidence; this guard never turns it into PASS."""
+    require(type(report) is dict and report.get("schema_version") == 1 and report.get("task_id") == "M2-T05"
+        and report.get("result") == "PROCESS_REGRESSION_FAILED" and report.get("success") is False
+        and type(report.get("exit_code")) is int and report["exit_code"] != 0,
+        "Wrong failed process receipt type/status")
+    require(report.get("cleanup_safe") is False and report.get("owned_temp_removed") is False,
+        "Failed process evidence must remain retained without cleanup authority")
+    path(report.get("workspace_retained"))
+    require(type(report.get("error")) is str and (bool(report["error"]) or report.get("error_type") == "KeyboardInterrupt")
+        and type(report.get("error_type")) is str,
+        "Failed assertion/error missing")
+    before, after = report.get("tested_path_sha256"), report.get("source_after_sha256")
+    require(type(before) is dict and type(after) is dict and type(report.get("source_unchanged")) is bool
+        and report["source_unchanged"] is (bool(before) and before == after), "Failed source observation contradicts maps")
+    for value in [*before.values(), *after.values()]:
+        digest(value)
+    stage, case = report.get("failure_stage"), report.get("last_case")
+    require(stage in {"setup", "native_host", "native_case", "application_case"}, "Failed stage missing")
+    if stage == "setup":
+        return
+    require(type(case) is dict and case.get("passed") is False and type(case.get("command")) is list
+        and bool(case["command"]), "Failed attempted case/argv missing")
+    path(case.get("cwd"))
+    if stage in {"native_host", "native_case"}:
+        hosts = {item["id"]: item for item in report.get("host_cases", [])}
+        captures = report.get("native_host_evidence")
+        require(type(captures) is list and bool(captures), "Failed native raw host evidence missing")
+        host_id = case.get("host_id") if stage == "native_host" else case.get("id", "").split("-")[0]
+        require(host_id in hosts, "Failed actual host missing")
+        matching = [item for item in captures if item.get("host_id") == host_id]
+        require(len(matching) == 1, "Failed native host capture not unique")
+        observed = native_host_capture(matching[0], hosts[host_id], complete=False)
+        require(case["command"] == matching[0]["command"], "Failed case argv differs from actual host")
+        if stage == "native_case":
+            require(type(observed) is dict, "Failed native case lacks actual raw result")
+            matching_case = [item for item in observed.get("cases", []) if item.get("id") == case.get("id")]
+            require(len(matching_case) == 1 and all(case.get(key) == value for key, value in matching_case[0].items()),
+                "Failed native case exit/streams/arguments differ from raw receipt")
+            for item in case.get("pid_observations", []):
+                if "receipt" in item:
+                    raw = artifact(item["receipt"], available=item["receipt"]["available"])
+                    if raw is not None:
+                        require(json.loads(raw).get("pid") == item.get("pid"), "Failed authored readiness PID differs")
+
+
 def expected_frame(message="authored process failure"):
     return {"protocol": "winbooksplit.result", "version": 1, "mode": "manual", "status": "invalid_input",
         "code": "invalid_start_pages", "message": message, "warnings": [], "fallback_modes": [],
@@ -198,12 +317,14 @@ def native(case, host):
         require(elapsed < 3, "Owned-tree stop exceeded bounded grace")
 
 
-def validate_process_report(report, shell_paths):
+def validate_process_report(report, shell_paths, *, cleanup_complete=True):
     require(type(report) is dict and report.get("schema_version") == 1 and report.get("task_id") == "M2-T05"
             and report.get("result") == "PROCESS_REGRESSION_PASSED" and report.get("exit_code") == 0,
             "Wrong process receipt type/status")
     flags(report, "success", "source_unchanged", "baseline_guards_preserved", "input_and_neighbor_unchanged",
-          "machine_settings_unchanged", "owned_temp_removed", "unrelated_process_removed")
+          "machine_settings_unchanged", "unrelated_process_removed")
+    require(report.get("owned_temp_removed") is True if cleanup_complete else type(report.get("owned_temp_removed")) is bool,
+            "Owned temporary cleanup proof missing")
     require(report.get("acceptance_ids") == ACCEPTANCE, "Exact acceptance IDs required")
     require(type(report.get("tested_path_sha256")) is dict and bool(report["tested_path_sha256"]), "Missing source digest")
     require({"engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json", "WinBookSplit.ps1", "WinBookSplit.bat",
@@ -239,6 +360,19 @@ def validate_process_report(report, shell_paths):
         require(host.get("stored_policies") == host.get("policies_after") and type(host.get("stored_policies")) is list and host["stored_policies"], "Stored execution policies changed or missing")
         require(host.get("exit_code") == 0, "Actual process host failed")
     cases = exact_cases(report.get("native_cases"), [host + "-" + kind for host in HOSTS for kind in KINDS])
+    captures = report.get("native_host_evidence")
+    require(type(captures) is list and len(captures) == 2 and {item.get("host_id") for item in captures} == set(HOSTS),
+        "Both complete raw native host receipts required")
+    for capture in captures:
+        host = hosts[capture["host_id"]]
+        raw = native_host_capture(capture, host)
+        raw_cases = exact_cases(raw.get("cases"), [host["id"] + "-" + kind for kind in KINDS])
+        require(host.get("native_process") == capture["process"] and host.get("native_receipt_sha256") == capture["native_report"]["sha256"],
+            "Raw native host evidence differs from stored host record")
+        for identifier, raw_case in raw_cases.items():
+            require(all(cases[identifier].get(key) == value for key, value in raw_case.items())
+                and cases[identifier].get("command") == capture["command"] and path(cases[identifier].get("cwd")) == path(capture["cwd"]),
+                "Native case status/streams/argv differ from the raw host receipt")
     for host in HOSTS:
         for kind in KINDS:
             native(cases[host + "-" + kind], host)

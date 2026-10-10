@@ -3,7 +3,14 @@
 from copy import deepcopy
 import importlib.util
 import json
+import io
+import os
 from pathlib import Path
+import sys
+import tempfile
+from types import SimpleNamespace
+from unittest.mock import patch
+from contextlib import redirect_stdout, redirect_stderr
 import unittest
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -35,6 +42,125 @@ def complete_application_case():
 
 
 class ProcessReceiptTests(unittest.TestCase):
+    def test_failed_readiness_preserves_raw_native_case_and_missing_pid_observation(self):
+        if os.name != "nt":
+            self.skipTest("The existing runner validates actual Windows executable paths")
+        spec = importlib.util.spec_from_file_location("wbs_process_failure_unit", ROOT / "tests/process/characterize_process.py")
+        harness = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = harness
+        spec.loader.exec_module(harness)
+        shell51 = Path(os.environ["SystemRoot"]) / "System32/WindowsPowerShell/v1.0/powershell.exe"
+        with tempfile.TemporaryDirectory(prefix="wbs-pure-failure-") as outside:
+            root = Path(outside)
+            second = root / "synthetic-host.exe"
+            second.write_bytes(b"No child is executed by this pure unit\n")
+            report_path = root / "failure.json"
+            retained = []
+            host = {"id": "PS51", "shell_executable": str(shell51), "host_version": "5.1.26100.9444",
+                "stored_policies": [{"scope": "CurrentUser", "policy": "Undefined"}]}
+            raw_case = complete_fast_case()
+            raw_case.update(id="PS51-detached-pipe", kind="detached-pipe", arguments=["authored"])
+            raw_case.pop("passed")
+            raw_case.pop("unrelated_process_alive")
+            raw_case["process"].update(ExitCode=0, TimedOut=True, Stdout="", Stderr="", StdoutTotalBytes=0, StderrTotalBytes=0)
+
+            def fake_host(command, cwd, **options):
+                (cwd / "native-report.json").write_text(json.dumps({"host_version": host["host_version"],
+                    "stored_policies": host["stored_policies"], "cases": [raw_case]}), encoding="utf-8")
+                (cwd / "detached-pipe-parent.json").write_text(json.dumps({"pid": 1234}), encoding="utf-8")
+                return {"exit_code": 0, "stdout": "authored host tail", "stderr": "authored host stderr"}
+
+            def fail(directory, shells):
+                retained.append(directory)
+                harness.OBSERVABILITY.update(tested_path_sha256={"authored.py": "a" * 64}, host_cases=[host])
+                harness.native_cases(directory, [host], SimpleNamespace(pid=99, poll=lambda: None))
+
+            class Capture(io.StringIO):
+                def reconfigure(self, **options):
+                    pass
+
+            argv = ["characterize_process.py", "--report", str(report_path), "--shell-path", str(shell51),
+                "--shell-path", str(second)]
+            with patch.object(sys, "argv", argv), patch.object(harness, "characterize", fail), \
+                    patch.object(harness.history, "run_entrypoint", fake_host), \
+                    patch.object(harness.runner, "source_manifest", return_value={"authored.py": "a" * 64}), \
+                    patch.object(harness, "running", side_effect=lambda pid: pid == 99), \
+                    redirect_stdout(Capture()), redirect_stderr(Capture()):
+                self.assertEqual(harness.main(), 1)
+            report = json.loads(report_path.read_text(encoding="utf-8"))
+            try:
+                self.assertTrue(retained[0].is_dir())
+                self.assertTrue((retained[0] / "PS51-native/native-report.json").is_file())
+                self.assertEqual(report["last_case"]["process"], raw_case["process"])
+                self.assertEqual(report["last_case"]["command"], report["native_host_evidence"][0]["command"])
+                self.assertFalse(report["last_case"]["pid_observations"][-1]["receipt"]["available"])
+                validator.validate_failed_process_report(report)
+                for mutate in (lambda r: r.update(success=True), lambda r: r.update(owned_temp_removed=True),
+                        lambda r: r.update(native_host_evidence=[]), lambda r: r["last_case"]["process"].update(ExitCode=23),
+                        lambda r: r["last_case"]["pid_observations"][-1]["receipt"].update(available=True),
+                        lambda r: r["native_host_evidence"][0]["native_report"].update(sha256="b" * 64)):
+                    changed = deepcopy(report)
+                    mutate(changed)
+                    with self.subTest(mutate=mutate), self.assertRaises(ValueError):
+                        validator.validate_failed_process_report(changed)
+            finally:
+                # Only exact authored ordinary JSON members exist; no process was started.
+                for member in (retained[0] / "PS51-native").iterdir():
+                    self.assertTrue(member.is_file())
+                    member.unlink()
+                (retained[0] / "PS51-native").rmdir()
+                retained[0].rmdir()
+
+    def test_raw_artifact_rejects_resealed_length_and_absent_file_claims(self):
+        raw = '{"pid":1234}'
+        record = {"path": "C:/authored/child.json", "available": True, "size_bytes": len(raw.encode()),
+            "created_ns": 1, "modified_ns": 1, "raw_text": raw, "sha256": validator.sha256(raw.encode()).hexdigest()}
+        self.assertEqual(validator.artifact(record), raw)
+        for mutate in (lambda r: r.update(size_bytes=True), lambda r: r.update(size_bytes=1),
+                lambda r: r.update(raw_text=raw + " "), lambda r: r.update(sha256="c" * 64)):
+            changed = deepcopy(record)
+            mutate(changed)
+            with self.subTest(mutate=mutate), self.assertRaises(ValueError):
+                validator.artifact(changed)
+        with self.assertRaises(ValueError):
+            validator.artifact({"path": record["path"], "available": False, "raw_text": raw}, available=False)
+
+    def test_failed_main_control_exit_codes_match_written_receipt(self):
+        spec = importlib.util.spec_from_file_location("wbs_process_control_exit_unit", ROOT / "tests/process/characterize_process.py")
+        harness = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = harness
+        spec.loader.exec_module(harness)
+
+        class Capture(io.StringIO):
+            def reconfigure(self, **options):
+                pass
+
+        with tempfile.TemporaryDirectory(prefix="wbs-pure-control-") as outside:
+            root = Path(outside)
+            shells = [root / "first-host.exe", root / "second-host.exe"]
+            for shell in shells:
+                shell.write_bytes(b"Authored parser precondition, never executed\n")
+            for number, (error, code) in enumerate(((KeyboardInterrupt(), 130), (SystemExit(19), 19), (TypeError("authored failure"), 1))):
+                target = root / (str(number) + ".json")
+                retained = []
+
+                def fail(directory, actual_shells):
+                    retained.append(directory)
+                    harness.OBSERVABILITY["tested_path_sha256"] = {"authored.py": "a" * 64}
+                    raise error
+
+                argv = ["characterize_process.py", "--report", str(target), "--shell-path", str(shells[0]), "--shell-path", str(shells[1])]
+                with patch.object(sys, "argv", argv), patch.object(harness, "characterize", fail), \
+                        patch.object(harness.runner, "source_manifest", return_value={"authored.py": "a" * 64}), \
+                        redirect_stdout(Capture()), redirect_stderr(Capture()):
+                    self.assertEqual(harness.main(), code)
+                record = json.loads(target.read_text(encoding="utf-8"))
+                self.assertEqual(record["exit_code"], code)
+                self.assertEqual(record["error_type"], type(error).__name__)
+                validator.validate_failed_process_report(record)
+                self.assertTrue(retained[0].is_dir())
+                retained[0].rmdir()  # Exact empty authored directory; no child was started.
+
     def test_finalizer_footer_is_separate_from_exact_unterminated_stderr(self):
         case = complete_application_case()
         expected_stderr = b"E" * (2 * 1024 * 1024) + b"\nFINAL_STDERR_" + validator.UNICODE.encode("utf-8")

@@ -42,6 +42,13 @@ source and output preservation, finalized diagnostics and owned cleanup. See
 guards and synthetic receipt mutations remain distinct from native acceptance;
 this route does not reopen human or GUI testing.
 
+M4-T03 adds `--layer faults`. Its targeted route runs the existing paths,
+process and outcomes suites once, followed by combined mid-write isolation,
+independent seeded page-owner invariants and native captured-source controls.
+It requires both actual supported hosts and no converter or renderer flags.
+Full now contains 21 stages; the existing error suites are not repeated within
+the new stage. See `faults/README.md` for counts, scope and retained failures.
+
 Use `--layer python`, `--layer shell`, `--layer manual`, `--layer bookmarks`, `--layer level2`, `--layer plan`, `--layer diagnostics`, `--layer output`, `--layer paths`, `--layer conversion`, `--layer runtime`, `--layer process` or `--layer outcomes`
 for targeted checks. `--layer cli` requires both actual supported hosts and the
 real pinned Calibre executable; it adds M3-T02 CLI acceptance as stage 15 of full.
@@ -71,7 +78,7 @@ and owned cleanup. When hosts are requested, the report must also contain all
 six successful entrypoint records, including three concurrent launches.
 It accepts the two `--shell-path` options for the controlled actual entrypoint
 probes; omit them for a focused Python check and record entrypoint checks as not
-run. The thirteen-stage full layer runs this manual regression route, corrected
+run. The full layer runs this manual regression route, corrected
 Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions,
 path acceptance, real conversion, dependency preflight and process supervision after the units and both shell stages.
 Conversion/runtime/full requires an explicit absolute converter with the pinned Calibre

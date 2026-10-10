@@ -1,0 +1,949 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T03",
+  "observed_at": "2026-10-10T12:50:30.566610+00:00",
+  "result": "FAULT_REGRESSION_AND_CLEAN_COMMIT_ACCEPTANCE_PASSED",
+  "success": true,
+  "implementation_commit": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+  "acceptance": {
+    "AC-073": "PASS: two prior publications, two real held stages, partial second-write failure, preserved successful stage/source/neighbors/priors, later repeat and authenticated cleanup.",
+    "AC-074": "PASS: independent seeded physical-page ownership, explicit invalid rejection and reopened actual callable outputs.",
+    "AC-075": "PASS: same-source actual PS5.1/PS7 path/process/outcome suites plus declared captured-source adapter controls; no host skipped."
+  },
+  "source": {
+    "task_id": "M4-T03",
+    "observed_at": "2026-10-10T12:08:37.675225+00:00",
+    "commit": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+    "tree": "ab9a9b06740a08875c126f97a9d8488493bef171",
+    "baseline_main": "adfb8bd29353d43c6a124ce2bf5bdafea542f31c",
+    "worktree_clean": true,
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/PDF_FIDELITY.md": "e1ff255d0854623efbb080f9f362450ffa3018e3974ddddee584721cd53d506c",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "16fb708b7e005d5381f11d638dc6d5c25cad2acfb9dff8f07db72d9d33d2f9b9",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "b7704df5acc2012f5265052a9394b2ddfa08b434a4840853974988c333eda0a9",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "ffb26733059e9660a7446d8978fd2612c337cd75f3ba28fd8971901ec2513d2e",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+      "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+      "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+      "tests/faults/invariants.py": "26894e609a776457cab61996e6a9a4b8c7d73a0a771e5097d3ab1ad6224f2893",
+      "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+      "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+      "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+      "tests/faults/validate_isolation.py": "fcddb6a816244243841196da9e62019b391909643a354a50e5ba38cc27e37653",
+      "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "77973bc67e6d52024ae039a69605bc0d09e2ef5debf3307350322278541f791d",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "2df02f831ce770cb66883dab3ffe1b388057c2ef87cb747786bce664afecc317",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+      "tests/manual/current_launchers.py": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "87b82d00a67f07ab02a1389fe983d9993fb7d948927836625b0f6071ee31fad7",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "8dd475ca4296456c2cb9e0217a90efa2d26b0aab369d4d68aee22c87c507069f",
+      "tests/process/characterize_process.py": "cc19b7f0017dd5fe55e778fbe2bcf11b4fb9aabfa94078cf6f11d71d4639a47a",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_cross_host_receipt.py": "3607028fe64acbc8b1fba0d8fbd853934af4c6f6207c859722caad90468f4d56",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "81420f47052c000d6edfd15a297d7759d84c19ed68a5753ec88b7246ef07c513",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+      "tests/python/test_fault_isolation.py": "a71a77d76c66448c831851baa11ba35cae2deef2fda3cb0918f956048a5c398e",
+      "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+      "tests/python/test_fidelity_receipt.py": "2be045b71e0135f0705fa7a9bfa5bf06e12e63079c889e9f9fa6daade8360819",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_pdf_fidelity.py": "bb27d37582ddaa504f015a90fbfc49ee7a8afe09d8658bad1354f68f1c28b77b",
+      "tests/python/test_pdf_policy.py": "762b14f5b216b421ffd94539b588af215f9244a8ec5b8e192d0f8d9438b76d4f",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+      "tests/python/test_runner.py": "6d02cb92cdaa50386bfc88daa5ec2dbe3590d6a49e38d6b6bb2ace04570a8064",
+      "tests/python/test_runtime_receipt.py": "45e9ce6fb2707531d9b70b65edbcb6a7953e5e45cd888a0e00d46faffffdd9c6",
+      "tests/python/test_support_receipt.py": "98c5bb1487866895433a42e82de52276682826492931f59349fa8902fd588141",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "6c5332b121d3028cb54a0a7c1ddad9a9e75070646bd5807ed91781d1c5fb80ce",
+      "tests/run_tests.py": "ba5d3659bdb35362355b4589241bb5a602bc6571e01de40477ab7613be74a48e",
+      "tests/runtime/characterize_runtime.py": "f9993557e9ed890521e6ac58bfd84ba6202858e651d46b210514dd3fe82e6b25",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "6474fcd4a37372921aa165282eb6cebf7d368c5ae8bbb78591dd1d9485fdc44e",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "862126572dccee50c19113220b0b857822883eb01bb23c0a31327e892f723e6c",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a"
+    },
+    "raw_path_count": 146,
+    "tested_paths_digest": "805d3373e4dbc525b9feeb8c2b32d6cffce33f2d9bcc74807fcb7dc37d11fec1",
+    "every_raw_path_matches_Git_blob": true,
+    "changed_paths": [
+      "tests/README.md",
+      "tests/faults/README.md",
+      "tests/faults/characterize_faults.py",
+      "tests/faults/characterize_isolation.py",
+      "tests/faults/cross_host.py",
+      "tests/faults/invariants.py",
+      "tests/faults/validate_cross_host_report.py",
+      "tests/faults/validate_faults_report.py",
+      "tests/faults/validate_isolation.py",
+      "tests/faults/worker.py",
+      "tests/process/characterize_process.py",
+      "tests/process/validate_process_report.py",
+      "tests/python/test_cross_host_receipt.py",
+      "tests/python/test_fault_invariants.py",
+      "tests/python/test_fault_isolation.py",
+      "tests/python/test_faults_receipt.py",
+      "tests/python/test_process_receipt.py",
+      "tests/python/test_runner.py",
+      "tests/run_tests.py"
+    ],
+    "application_path_count": 15,
+    "all_application_paths_raw_identical_to_baseline": true,
+    "application_path_sha256": {
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+    }
+  },
+  "implementation_sync": {
+    "receipt": {
+      "file": "sync-C01.json",
+      "bytes": 1206,
+      "sha256": "38d785339a11d9a9d9e471e96ce0e15f35bb9f94b5ed5ff04334803e876cfb60"
+    },
+    "observation": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-10T12:08:50.186784+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m4",
+      "local_head": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+      "worktree_clean": true,
+      "remote_head": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    },
+    "workstation": {
+      "caption": "Microsoft Windows 11 Pro",
+      "architecture": "64-bit",
+      "version": "10.0.26300",
+      "display_version": "26H2",
+      "build": "26300",
+      "ubr": 9457,
+      "powershell": "5.1.26100.9444"
+    },
+    "developer_tools": {
+      "calibre": {
+        "version": "9.15.0",
+        "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+        "size_bytes": 36104
+      },
+      "poppler": {
+        "name": "Poppler",
+        "version": "26.07.0",
+        "sha256": "e5b4da7d158cc7428d2ccb4eda1779d6566c067b24df01a0bc09f665659e4ac3"
+      },
+      "pdfium": {
+        "name": "PDFium",
+        "python": "3.12.14",
+        "pypdfium2": "5.13.0",
+        "pdfium": "153.0.7999.0",
+        "python_sha256": "10d845f50a2af64e3500bb2fcb348b5bc98a75d8ddada63e45ba1da6a1fc79d1",
+        "module_sha256": "60dbc29c44daabffe8e463b5ee7e55e2199461a430c19fd4ec56e2487cb6fef0",
+        "native_library_sha256": {
+          "pdfium.dll": "524ecbe6a7d49103909b1ed39fe512d2d4e612e35dac1336c9274371d20c5d90"
+        }
+      },
+      "shell_modules": [
+        {
+          "name": "Pester",
+          "version": "6.2.0"
+        },
+        {
+          "name": "PSScriptAnalyzer",
+          "version": "1.25.0"
+        }
+      ]
+    }
+  },
+  "verification": {
+    "targeted_route": {
+      "layer": "faults",
+      "stages": 4,
+      "exit_code": 0,
+      "report": {
+        "file": "faults01.json",
+        "bytes": 12310776,
+        "sha256": "a22f1464195a35304972a26f805ccad43311ceb545c85b5731f2a271e567bf8c"
+      },
+      "command": {
+        "file": "faults-command01.json",
+        "bytes": 1012,
+        "sha256": "3e769749c308db7efb4eaaa15ba4956e38b157aef70e65f8ed9e6d058423e97c"
+      }
+    },
+    "full_route": {
+      "layer": "full",
+      "stages": 21,
+      "exit_code": 0,
+      "report": {
+        "file": "full01.json",
+        "bytes": 46974808,
+        "sha256": "9886d78bc4d5c322afc308c4b4fe7fcef1c1784f330e1b7466ccd908110ca776"
+      },
+      "command": {
+        "file": "full-command01.json",
+        "bytes": 1498,
+        "sha256": "15e498b84f4d4fbbf701488ce2a779c4b98b131166288448a1671f32c8a1c667"
+      },
+      "python_methods": 422
+    },
+    "native_cross_host": {
+      "supervisor_controls": 26,
+      "process_apps": 9,
+      "outcome_apps": 51,
+      "path_apps": 11,
+      "captured_source_apps": 4,
+      "distinct_controls_per_route": 101
+    },
+    "seeded_invariants": {
+      "seed": 20261010074,
+      "accepted_plan_count": 720,
+      "invalid_manual_count": 160,
+      "malformed_outline_count": 96,
+      "writer_sample_count": 12,
+      "engine_native_exit_claimed": false
+    },
+    "writer_observations": {
+      "chapters": 86,
+      "physical_pages": 168
+    },
+    "isolation_roles": [
+      "prior-repeat-1",
+      "prior-repeat-2",
+      "overlap-mid-write",
+      "overlap-success",
+      "repeat-after"
+    ],
+    "source_synthetic_input_and_owned_cleanup": true,
+    "shell_reports": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop"
+        },
+        "pester": {
+          "passed": 112,
+          "total": 112,
+          "failed": 0,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_containers": 0,
+          "result": "Passed"
+        },
+        "syntax": {
+          "success": true,
+          "scope": "Actual shell syntax checks passed; raw details remain external.",
+          "script_count": 18
+        },
+        "analysis_scope": "Scaffold analysis; legacy findings remain disclosed by the raw report.",
+        "scaffold_script_count": 17,
+        "legacy_application_static_observations": {
+          "Information": 3,
+          "Warning": 68
+        },
+        "legacy_application_static_clean_claim": false
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core"
+        },
+        "pester": {
+          "passed": 112,
+          "total": 112,
+          "failed": 0,
+          "skipped": 0,
+          "not_run": 0,
+          "failed_containers": 0,
+          "result": "Passed"
+        },
+        "syntax": {
+          "success": true,
+          "scope": "Actual shell syntax checks passed; raw details remain external.",
+          "script_count": 18
+        },
+        "analysis_scope": "Scaffold analysis; legacy findings remain disclosed by the raw report.",
+        "scaffold_script_count": 17,
+        "legacy_application_static_observations": {
+          "Warning": 68,
+          "Information": 3
+        },
+        "legacy_application_static_clean_claim": false
+      }
+    ],
+    "stage_results": [
+      {
+        "name": "stdlib-unittest",
+        "exit_code": 0,
+        "evidence_sha256": null,
+        "stdout_sha256": "1273e72c7ff3745f34145a8b2e511031051882591e2ed7e4b24486ee21c0f7a9",
+        "stderr_sha256": "444cde75736f625a462a8f994e28d44973737f8ad9da9fee8f8617e0a91fdde8"
+      },
+      {
+        "name": "shell-0",
+        "exit_code": 0,
+        "evidence_sha256": "0d00b99e7592d85949f27e45866fc34de9abf7318938817a521f92fac18920a5",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "018966bf53cb60e3be45739d0b615e36ec0cd64fb2dc331e24320ce44f76ddff"
+      },
+      {
+        "name": "shell-1",
+        "exit_code": 0,
+        "evidence_sha256": "d6206902d853302a85776030148fa5094ea0e19e545e12632f0b9e876641d251",
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "manual-regression",
+        "exit_code": 0,
+        "evidence_sha256": "3b547e985b452a4f1aca04c65e38d49a16e3df3b0746c63cbd366145fda58019",
+        "stdout_sha256": "fabc54ebc1658650f8f5f93f002f834518faa76355f62ab83db612731cf36747",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "level1-regression",
+        "exit_code": 0,
+        "evidence_sha256": "f2ee05d0522dd2951ac93d04d811ef6bddb421f7a20d5e2803ea1970b30779f6",
+        "stdout_sha256": "e8d14c5f8d9e8d2ee8c68ddefc726f292a71fd03dd6f0644cddfc0f2264e957b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "level2-regression",
+        "exit_code": 0,
+        "evidence_sha256": "cba81603963a89908065fc75277566f0f86db5e31c4ae5c3ae5da8e78ee456c4",
+        "stdout_sha256": "b8e0f3b00ac520e47bfe48f03b2210adae7db399061d899924313cdd7bc5819e",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "shared-plan-regression",
+        "exit_code": 0,
+        "evidence_sha256": "4fa789843bc5113e7ea40aad3d7e4977afd285829e1ee6949b07d17e851a3eb8",
+        "stdout_sha256": "9bb59687727203e5bbcee5db57daafcc6048323523e2d60023994ef478209e1b",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "diagnostic-regression",
+        "exit_code": 0,
+        "evidence_sha256": "bb3e2f37043a4de5bdc73c7cf54a47a840d53855572523903ddd05285806f8ec",
+        "stdout_sha256": "3c2232272859f695083ba2bbf9b2ffd0750b8257214ae90fedb38fcf9934bbf8",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "output-regression",
+        "exit_code": 0,
+        "evidence_sha256": "8cd073eeec16ca255884b719b18274ad13372e0fe3402f20ee6068dd85f97785",
+        "stdout_sha256": "1a447277d2b9192b2a235273f7494411285690480b4d1b2070eb698458e8aabc",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "path-regression",
+        "exit_code": 0,
+        "evidence_sha256": "0925eeaec8a54c69744b8bde2900954b7da4b29c4981cf04490980f3788fa748",
+        "stdout_sha256": "696c91d26a5f5cf4995024c76cc4997f24685269c5a79a868e3598f23fa2caf3",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "conversion-regression",
+        "exit_code": 0,
+        "evidence_sha256": "c7d8bb145c27d0808788495db47151180f156c04e0da140c0f5cdf059886442e",
+        "stdout_sha256": "3896d63776692359ccf36aac8403f98948bf093a2caedd0e27421a1f9bc6042f",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "runtime-regression",
+        "exit_code": 0,
+        "evidence_sha256": "020035bc7a2fe302334848b5c06229ea9b217e8aa7f9b92018c748e88881f6ef",
+        "stdout_sha256": "a7230d2fb67806dddca0a915ebd57f905ec77fa42c7c2909e4ebb54eccf53719",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "process-regression",
+        "exit_code": 0,
+        "evidence_sha256": "529382c9dcb6879cbd9e9b4aa23b5421af9f6add7e6a642175169444bcc12234",
+        "stdout_sha256": "931243aadebc9c0aaab57d3426d1a1e35d8c9962fb25679c986efa782e194e31",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "outcome-regression",
+        "exit_code": 0,
+        "evidence_sha256": "49fb0d7ea5e23f1cbb96f583b39cc6dd87135c1a042035aed049245a6dea41c0",
+        "stdout_sha256": "357481461c092d34359e77ca1435c855e46af6912e074d281f459eac1c437a86",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "cli-regression",
+        "exit_code": 0,
+        "evidence_sha256": "4b65d5978a8f4d5b28213e98bdf03e19ce2a3c4f4111d2c648ef10dc42b41600",
+        "stdout_sha256": "29a9cc2bd94ff4aed3f8c55b5d720e02cb591e477f33e0714ce6d78b9185d2b9",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "launcher-regression",
+        "exit_code": 0,
+        "evidence_sha256": "cf7892709bb28d8c1291357bf09b76d971cdc93ef9937d5bf77757b0105579fa",
+        "stdout_sha256": "e52cd9775f7616e21c1a5d554944680c6c78ad733b6323046e886783c0182ca6",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "ux-regression",
+        "exit_code": 0,
+        "evidence_sha256": "8c7a08c49f908c4e2a730561174ac83be363f56cdfc4639baafa45dd58b68825",
+        "stdout_sha256": "17c32662196340dd88eb5ba734e85ae26dab51cb384d966cbf11f6163b5554de",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "support-regression",
+        "exit_code": 0,
+        "evidence_sha256": "13992893df1466288f7af2a7633f30e64dea749d6f1be786b2e2582a3e9b72db",
+        "stdout_sha256": "c75e6bc75b3b340c380dbc0760014ee12f272f73a512f1612158a0b5af5dbcfd",
+        "stderr_sha256": "52d39665925b5dac761399c07d702b7641c90442b7cb0f8a18fc029aba0d82f2"
+      },
+      {
+        "name": "fidelity-regression",
+        "exit_code": 0,
+        "evidence_sha256": "0ca235437b4072c521c1859c5fd49835eee8bcf3e58b572c10c5f829e927ac6d",
+        "stdout_sha256": "178b62d975299d1c999fc19618606695fac14c2e795d56509bcbdfe977262436",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "document-policy-regression",
+        "exit_code": 0,
+        "evidence_sha256": "e097fd61ea6629003003e110a20d05bdc1d4ace29163775c3170dfdb61698a4a",
+        "stdout_sha256": "862c6a68a1bbfb7a39eea27065a7d117d7bd1fbe178008c2d6b51ab2dd05e2de",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "name": "fault-regression",
+        "exit_code": 0,
+        "evidence_sha256": "db05d03dd736461c93a513598eb3ae2c40c495c28dff1cf32aa686caff278e0f",
+        "stdout_sha256": "c743e113d56fb68326567eb0bac4073969d13a4d8459c37bd3b87bf913dcdde0",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ]
+  },
+  "commands": [
+    "<pinned developer Python> -I -B tests/run_tests.py --layer faults --shell-path <actual PS5.1> --shell-path <actual PS7> --report <new external JSON>",
+    "<pinned developer Python> -I -B tests/run_tests.py --layer full --tool-root <pinned Pester/PSSA> --shell-path <actual PS5.1> --shell-path <actual PS7> --calibre-path <actual Calibre> --renderer-path <actual Poppler> --secondary-python-path <actual PDFium Python> --report <new external JSON>",
+    "<pinned developer Python> -B tools/codex-handoff/validate_plan.py",
+    "git -c core.autocrlf=false add -- <explicit scoped paths>; git -c core.autocrlf=false commit; git push origin HEAD",
+    "<pinned developer Python> -B tools/codex-handoff/check_sync.py --repo ."
+  ],
+  "command_projection": "Readable local-path placeholders above; exact actual argv/native streams are archived in sealed external command receipts.",
+  "historical_and_intermediate": [
+    "Original isolation-target01 failed native1 at a readiness PID assertion; the Windows venv launcher and actual worker IDs differed. Its raw report/workspace remain retained.",
+    "Only test infrastructure changed. The subsequent owned Windows job, worker identity acknowledgement, exact membership/native exit and stopped-tree checks correct that harness issue. Old worker termination cause/status remain UNKNOWN; later PID absence is not a shutdown proof.",
+    "Combined preC01 failed native1 because the receipt mislabeled the saved engine API success return None as a native code and assumed worker/launcher PID equality. The actual app returned0/two original-page outputs. Its workspace/raws remain retained; preC02 records corrected API/SystemExit semantics and fresh observed parent linkage.",
+    "Synthetic baseline readiness/retention/cleanup probes and any failed or mixed-version assertions remain distinct from native acceptance.",
+    "M4-T01 and M4-T02 failed full reports, unknown historical process causes and later passing retries remain immutable; this new full result does not relabel them."
+  ],
+  "not_run": [
+    "New human/Explorer/viewer tests: M3-T01 remains absolutely closed",
+    "Physical disk exhaustion/power loss/crash recovery",
+    "CI (M4-T05)",
+    "Clean OS/Windows10/ARM/UNC certification",
+    "Exact release package/signing/tag/assets/download/public v1.0.0"
+  ],
+  "limits": [
+    "Finite seeded and authored-fault controls do not certify arbitrary hostile documents or a same-account security sandbox.",
+    "Four copied-engine adapter cases use the unchanged saved real planner/writer; only their processing copy is mutated after capture.",
+    "Callable planner/writer, synthetic oracle, native Windows, automated render and agent image observations remain distinct.",
+    "All raw PDFs/paths/commands/stream evidence stay outside Git; no private documents were processed."
+  ],
+  "raw_evidence_seals": [
+    {
+      "file": "source-C-proof01.json",
+      "bytes": 18653,
+      "sha256": "472bbf4c33a2b5f7a692cd92c8373644305148f55b2c6a79e184783c32e3d897"
+    },
+    {
+      "file": "sync-C01.json",
+      "bytes": 1206,
+      "sha256": "38d785339a11d9a9d9e471e96ce0e15f35bb9f94b5ed5ff04334803e876cfb60"
+    },
+    {
+      "file": "validate-C01.json",
+      "bytes": 826,
+      "sha256": "2bbe4b52840c57dbe203f0d62323a93868df6d428c168aa22bb266166191399c"
+    },
+    {
+      "file": "workstation-runtime01.json",
+      "bytes": 1238,
+      "sha256": "68ae7bb038c512964c651ac3708218d477d580643da1da871ba55424ed7c76ec"
+    },
+    {
+      "file": "full01.json",
+      "bytes": 46974808,
+      "sha256": "9886d78bc4d5c322afc308c4b4fe7fcef1c1784f330e1b7466ccd908110ca776"
+    },
+    {
+      "file": "full-command01.json",
+      "bytes": 1498,
+      "sha256": "15e498b84f4d4fbbf701488ce2a779c4b98b131166288448a1671f32c8a1c667"
+    },
+    {
+      "file": "faults01.json",
+      "bytes": 12310776,
+      "sha256": "a22f1464195a35304972a26f805ccad43311ceb545c85b5731f2a271e567bf8c"
+    },
+    {
+      "file": "faults-command01.json",
+      "bytes": 1012,
+      "sha256": "3e769749c308db7efb4eaaa15ba4956e38b157aef70e65f8ed9e6d058423e97c"
+    },
+    {
+      "file": "independent-faults-C-review02.json",
+      "bytes": 22639,
+      "sha256": "12fd3c30042a9528decab331209b2a4fc88c58ddde4cf550d794ee06b36f4d94"
+    },
+    {
+      "file": "public-runtime-faults02.json",
+      "bytes": 2361,
+      "sha256": "e7565b19f67359fe96b7cb82e62dc5d3df42a1cd12a2d818730e59d56db6fb6f"
+    },
+    {
+      "file": "isolation-handoff01.json",
+      "bytes": 5632,
+      "sha256": "bb94cd93113b9e4f5f41fe883b8500ca360592c3170deac20c64822691b279c4"
+    },
+    {
+      "file": "isolation-visual-review02.json",
+      "bytes": 2024,
+      "sha256": "af146786124d9641c622ce7074deba4215868cf427e6226edf9e59ce845ea0c9"
+    },
+    {
+      "file": "independent-isolation-C01-review.json",
+      "bytes": 6621,
+      "sha256": "885e6e38329898b7f693462e99fdf0430bedee6ccb0b2693929233032a9cc049"
+    },
+    {
+      "file": "isolation-target01.json",
+      "bytes": 101609,
+      "sha256": "63d57064694b7fc167c58dd069f562b7b302bd8f4b1853a25347c568951b4c43"
+    },
+    {
+      "file": "isolation-target01-command.json",
+      "bytes": 32468,
+      "sha256": "1b665a3923ef84051c39ca361d312853cce396fe1ec9d575a7a2ac604fc7dde9"
+    },
+    {
+      "file": "isolation-target02.json",
+      "bytes": 186959,
+      "sha256": "bcec71efcf6ee1e6fbcf412fcd83a2842977caceebfeec2933a5cffa4ee185e7"
+    },
+    {
+      "file": "isolation-target02-command.json",
+      "bytes": 32650,
+      "sha256": "f2174819d4cb8538914b7f276826c3c93210bd7ab763a250b31b32f383269317"
+    },
+    {
+      "file": "cross-host-process-focused03.json",
+      "bytes": 8977,
+      "sha256": "079752ec57770dbc3e54b29369ed0784c658c3755e296a760e84fe3e9eef834f"
+    },
+    {
+      "file": "cross-host-preC02-independent-review01.json",
+      "bytes": 4208,
+      "sha256": "3b27c1d49d2d1d8df16c756ea9c922b403d3819c66f3faf524a9c08726bcf3c4"
+    },
+    {
+      "file": "AC075-targeted-C-independent-review01.json",
+      "bytes": 20393,
+      "sha256": "6968295d28f18a201a60981f10670aa5f23c0e0dc98da916ca40ae1ec310906d"
+    },
+    {
+      "file": "cross-host-preC01-harness-reproduction01.json",
+      "bytes": 1877,
+      "sha256": "662a56c7132fd027e2821a315d78e2213606c19c8950f288e0dfe0211432a580"
+    },
+    {
+      "file": "fault-receipt-focus02.json",
+      "bytes": 5304,
+      "sha256": "83b211ef9117809665e429250805ded84cc7da4b8035a33d7b54af3a57103ccb"
+    },
+    {
+      "file": "fault-stage-preC01.json",
+      "bytes": 2334194,
+      "sha256": "a5458bd86db8e9a7241cd3f0c14626b11dcb2a8edd6a69569d90534b3719fd3d"
+    },
+    {
+      "file": "fault-stage-preC-command01.json",
+      "bytes": 1009,
+      "sha256": "4706469a02832e7630ff45e7d0f25bcc156d6c6cc26739d0c65d3f6788dee0ec"
+    },
+    {
+      "file": "fault-stage-preC02.json",
+      "bytes": 2772110,
+      "sha256": "3dc2b1a39bdacb8372e32ff39f81d53cd425a0cb048ec83fbac159e162edfad9"
+    },
+    {
+      "file": "fault-stage-preC-command02.json",
+      "bytes": 1029,
+      "sha256": "18127b2d5f6a08023bceb47c8703b8a86d03e88f9da400325fef4df4f9cd66ee"
+    },
+    {
+      "file": "preC-failure-independent-review01.json",
+      "bytes": 3391,
+      "sha256": "de0101c987709ca320aaa523d2af419bc1409d37ce155a8957e53bcfa415935c"
+    },
+    {
+      "file": "preC-adapter-fix-review01.json",
+      "bytes": 4404,
+      "sha256": "373f17184a1155aad6f0dbfbde1fb50c4bfcab93748bbf104057e8a3825ed4f4"
+    },
+    {
+      "file": "fault-retention-reproduction01.json",
+      "bytes": 18163,
+      "sha256": "1717bc09f5da9508dcadcb7d6abfc225d764b7db597817138df6801f2575b0cb"
+    },
+    {
+      "file": "fault-retention-first-probe-correction01.json",
+      "bytes": 827,
+      "sha256": "b64b9919b2af5bc307113fbf966da61de9209760eef9762abc2554d620f03a3e"
+    },
+    {
+      "file": "fault-retention-second-probe-failure01.json",
+      "bytes": 1025,
+      "sha256": "77219f1fed0bf945bc77b7c72c51561fbe3ea14b2695cc70ca8ec9eb8edf3298"
+    },
+    {
+      "file": "fault-retention-fixed-review01.json",
+      "bytes": 3122,
+      "sha256": "601b6792d8c707d9d20cd5245e4d1268ef9456c5f6df6c6ea526a1e7793f00d1"
+    },
+    {
+      "file": "focused-capture-failure01.json",
+      "bytes": 714,
+      "sha256": "47cba217987751613b8ec7f8ecebb3a8758490f9d97eae855aed277335613575"
+    },
+    {
+      "file": "independent-faults-C-review-attempt01-failure.json",
+      "bytes": 1531,
+      "sha256": "f7c4491346f66526f844c4a9aa7ab2c6e6de439fc7f6b8e4c048a5e6fd5739b3"
+    },
+    {
+      "file": "runtime-projection-attempt01-failure.json",
+      "bytes": 1228,
+      "sha256": "280893ca652bdcc9b9ffaaa0c8a5d1ef7338ffb4b5a58b4fae2ed504e0324715"
+    },
+    {
+      "file": "stage-C01.json",
+      "bytes": 1313,
+      "sha256": "6792c8e3ce74dddf03ed569f44ebda18cbddfcb71e9d4b1bb5118ddc79cb0149"
+    },
+    {
+      "file": "stage-C02.json",
+      "bytes": 604,
+      "sha256": "e731707d27f2340d692f9c5d80178a15297e9b022ac932c24f10678824f36081"
+    },
+    {
+      "file": "public-writer-prereview01.json",
+      "bytes": 2672,
+      "sha256": "43b54bc697722911a671ad91e872991cf015624e5496e600a52deab043176039"
+    },
+    {
+      "file": "public-writer-prereview02.json",
+      "bytes": 4493,
+      "sha256": "a5bf65936d67ec8ce64bf0df61cd20d40a265f1a1fdc09c7def2c8dd69112e31"
+    },
+    {
+      "file": "pdf-artifact-marker01.json",
+      "bytes": 909,
+      "sha256": "7a853b93471fcc19058de17cdb01014fe7cb210494aacff8b9819e67b89b9164"
+    },
+    {
+      "file": "live-PR24-C01.json",
+      "bytes": 902,
+      "sha256": "72b1c7dded10eda172a84b3ef7ba299771ec33a3b6daba70b433d2cda7de5dfd"
+    },
+    {
+      "file": "live-main-C01.json",
+      "bytes": 6202,
+      "sha256": "a90bbec91ce0adc02b29a4de15cc3723b1ef64f0d25f718c1e35b3ec4fb26e45"
+    },
+    {
+      "file": "live-actions-C01.json",
+      "bytes": 612,
+      "sha256": "a3e0b1bd0b424247dab2feab6b79338a40afd59072a052f4f01442c0e03152d7"
+    },
+    {
+      "file": "live-releases-C01.json",
+      "bytes": 570,
+      "sha256": "7269b8e1c9335816fdf9863ffcdc0bd1afdd4dc40ad26d6c8cd6f2bde2d8db56"
+    },
+    {
+      "file": "independent-full-C-review01.json",
+      "bytes": 37297,
+      "sha256": "0b2dc084b411dcaca7e604791a7724df6be0ee004a63a804fb0126145d55cef6"
+    },
+    {
+      "file": "public-runtime-full01.json",
+      "bytes": 2816,
+      "sha256": "d4842caa3fb74f072d2ed323c5a6af68694b1e07a9777b1e3023292a62e38550"
+    },
+    {
+      "file": "public-draft-semantic-review02.json",
+      "bytes": 3507,
+      "sha256": "7fbf59d06746d317adfaa9f947ec2cefead35e99d01873231d569e418d348722"
+    },
+    {
+      "file": "public-build-command01.json",
+      "bytes": 987,
+      "sha256": "25223c46d80c26b83085f82084faa063b0befe1f561089d28561d9ac1f415e8e"
+    }
+  ],
+  "reviewed_at": "2026-10-10T12:52:47.038725+00:00",
+  "independent_reviews": [
+    {
+      "scope": "Targeted strict source/raw acceptance",
+      "receipt": {
+        "file": "independent-faults-C-review02.json",
+        "bytes": 22639,
+        "sha256": "12fd3c30042a9528decab331209b2a4fc88c58ddde4cf550d794ee06b36f4d94"
+      }
+    },
+    {
+      "scope": "Clean-C full strict source/raw acceptance; 21 stages and every child validated",
+      "receipt": {
+        "file": "independent-full-C-review01.json",
+        "bytes": 37297,
+        "sha256": "0b2dc084b411dcaca7e604791a7724df6be0ee004a63a804fb0126145d55cef6"
+      }
+    },
+    {
+      "scope": "AC-073 targeted isolation and bounded pre-C visual/failure wording",
+      "receipt": {
+        "file": "independent-isolation-C01-review.json",
+        "bytes": 6621,
+        "sha256": "885e6e38329898b7f693462e99fdf0430bedee6ccb0b2693929233032a9cc049"
+      }
+    },
+    {
+      "scope": "AC-075 targeted native status, stream, shutdown and cleanup evidence",
+      "receipt": {
+        "file": "AC075-targeted-C-independent-review01.json",
+        "bytes": 20393,
+        "sha256": "6968295d28f18a201a60981f10670aa5f23c0e0dc98da916ca40ae1ec310906d"
+      }
+    },
+    {
+      "scope": "Exact draft and conditional handoff semantic/privacy review",
+      "receipt": {
+        "file": "public-draft-semantic-review02.json",
+        "bytes": 3507,
+        "sha256": "7fbf59d06746d317adfaa9f947ec2cefead35e99d01873231d569e418d348722"
+      }
+    }
+  ],
+  "runtime_independent_projection": {
+    "schema_version": 1,
+    "task_id": "M4-T03",
+    "implementation_commit": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+    "implementation_tree": "ab9a9b06740a08875c126f97a9d8488493bef171",
+    "tested_paths_digest": "805d3373e4dbc525b9feeb8c2b32d6cffce33f2d9bcc74807fcb7dc37d11fec1",
+    "windows": {
+      "caption": "Microsoft Windows 11 Pro",
+      "architecture": "64-bit",
+      "build": "26300",
+      "ubr": 9457,
+      "display_version": "26H2",
+      "version": "10.0.26300",
+      "build_with_ubr": "26300.9457"
+    },
+    "developer_python": "3.14.8",
+    "machine": "AMD64",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    },
+    "shell_hosts": [
+      {
+        "host_id": "PS51",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "imports": {
+          "Pester": "6.2.0",
+          "PSScriptAnalyzer": "1.25.0"
+        },
+        "source_stage": "shell-0",
+        "stored_child_sha256": "0d00b99e7592d85949f27e45866fc34de9abf7318938817a521f92fac18920a5"
+      },
+      {
+        "host_id": "PS7",
+        "version": "7.6.5",
+        "edition": "Core",
+        "imports": {
+          "Pester": "6.2.0",
+          "PSScriptAnalyzer": "1.25.0"
+        },
+        "source_stage": "shell-1",
+        "stored_child_sha256": "d6206902d853302a85776030148fa5094ea0e19e545e12632f0b9e876641d251"
+      }
+    ],
+    "calibre": {
+      "version": "9.15.0",
+      "actual_version_probe_native_exit": 0
+    },
+    "renderers": {
+      "Poppler": {
+        "version": "26.07.0",
+        "actual_version_probe_native_exit": 0
+      },
+      "PDFium": {
+        "python": "3.12.14",
+        "pypdfium2": "5.13.0",
+        "pdfium": "153.0.7999.0",
+        "actual_version_probe_native_exit": 0
+      }
+    },
+    "provenance": {
+      "full_report": {
+        "file": "full01.json",
+        "bytes": 46974808,
+        "sha256": "9886d78bc4d5c322afc308c4b4fe7fcef1c1784f330e1b7466ccd908110ca776"
+      },
+      "workstation_runtime": {
+        "file": "workstation-runtime01.json",
+        "bytes": 1238,
+        "sha256": "68ae7bb038c512964c651ac3708218d477d580643da1da871ba55424ed7c76ec"
+      },
+      "conversion_stored_child_sha256": "c7d8bb145c27d0808788495db47151180f156c04e0da140c0f5cdf059886442e",
+      "fidelity_stored_child_sha256": "0ca235437b4072c521c1859c5fd49835eee8bcf3e58b572c10c5f829e927ac6d"
+    },
+    "runtime_observed_source_commit": "d12beb8f4b20a9f62f76c109a2f948629fb7ec81",
+    "runtime_observed_source_tree": "ab9a9b06740a08875c126f97a9d8488493bef171",
+    "runtime_observed_source_digest": "805d3373e4dbc525b9feeb8c2b32d6cffce33f2d9bcc74807fcb7dc37d11fec1",
+    "scope": "Actual completed clean-C full environment/host/module/converter/renderer/workstation receipts; no new runtime probes or human/GUI checks.",
+    "application_bytes_identical_to_pre_task_baseline": true
+  },
+  "publication_scope": "Six task evidence/status/handoff files only; final public byte review and actual E commit/push/live receipt follow externally."
+}
