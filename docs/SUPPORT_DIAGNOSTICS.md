@@ -22,9 +22,10 @@ also fails, the retained file remains unpublished. A pending filename is always
 rejected by the export command. Existing files are never overwritten.
 
 Preview and early validation or dependency preflight create no disk diagnostics.
-When cancellation occurs before the engine captures a plan, the local source
-identity is explicitly `metadata_only` with no invented hash. Once captured,
-the local plan records the processed source identity and the exact page ranges.
+When no validated terminal plan or explicitly confirmed plan is available,
+the record uses a null plan and `metadata_only` source identity with no invented
+hash. A displayed pending plan alone is not confirmation. An available validated
+terminal or confirmed plan records the processed source identity and exact ranges.
 Full local runtime versions remain in the original manifest; the redacted
 summary uses the fixed PowerShell buckets described below.
 
