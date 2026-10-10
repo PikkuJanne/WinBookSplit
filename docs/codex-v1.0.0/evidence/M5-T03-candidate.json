@@ -4,7 +4,7 @@
   "observed_at": "2026-10-10T19:24:00.830017+00:00",
   "timezone": "Europe/Berlin",
   "task_status": "blocked",
-  "scope": "Canonical automated native/Calibre/output/agent-render evidence on isolated existing Windows. No human claims from that driver; additive G01 confirmation and G02 reported checklist PASS with output audits are referenced separately; G03-G16 pending.",
+  "scope": "Canonical automated native/Calibre/output/agent-render evidence; no human claims from that driver. Additive G01-G03 reports/output audits and user-authorized D13 four-flow human route are referenced separately.",
   "acceptance": {
     "AC-087": {
       "status": "PASS",
@@ -1623,7 +1623,7 @@
   "blockers": [
     {
       "id": "AC-088",
-      "action": "Return remaining actual EXPLORER_STEPS.md G03-G16 outcomes in editable EXPLORER_RESULTS.md or chat, bound to final run02 candidate/runtime/input identities and exact emitted authored run/log paths. G01 and G02 PASS are recorded separately in M5-T03-human-smoke.json.",
+      "action": "Complete four D13 actual human flows R01-R04 in EXPLORER_SHORT_STEPS.md; authenticate emitted authored outputs/logs. Original G04-G16 are SUPERSEDED, never PASS; native-only variants retained.",
       "reason": "Mandatory real Explorer actions cannot be replaced by PS wrappers. Computer Use skill rules prohibit terminal UI automation.",
       "historical_M3_human_testing": "Absolutely closed; no reopening."
     }
@@ -1643,7 +1643,7 @@
     "DEV -I -B run_default_discovery_preflight01.py (4additionalactualdefault-discovery previews/native0)"
   ],
   "not_claimed": [
-    "Actual Explorer or human PDF viewer testing from the canonical automated driver; additive G01 confirmation/G02 checklist report and output audits are recorded separately in M5-T03-human-smoke.json; G03-G16 pending",
+    "Human GUI/viewer results from canonical native controls; removed original G04-G16 variants; pending consolidated R01-R04. G01-G03 reports and output audits recorded separately.",
     "Clean OS installation, Sandbox or VM",
     "New shared full22/unit/Pester suite or local CI rerun",
     "M5-T04 security/dependency review or M5-T05 acceptance integration",
@@ -2040,14 +2040,21 @@
       "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311"
     },
     "editable_results": "EXPLORER_RESULTS.md; NOT RUN template, intentionally mutable and not hash-sealed until actual user outcomes arrive.",
-    "original_checklist": "EXPLORER_CHECKLIST.md retained as superseded historical preparation; use current STEPS/RESULTS."
+    "original_checklist": "EXPLORER_CHECKLIST.md, EXPLORER_STEPS.md and EXPLORER_RESULTS.md are preserved historical preparation; current D13 instructions/results are EXPLORER_SHORT_STEPS.md and EXPLORER_SHORT_RESULTS.md."
   },
   "current_human_progress": {
-    "observed_at": "2026-10-10T20:14:49.951368+00:00",
+    "observed_at": "2026-10-10T20:34:06.764959+00:00",
     "record": "M5-T03-human-smoke.json",
     "G01": "PASS",
     "G02": "PASS",
-    "remaining": "G03-G16 NOT RUN; AC-088/task still BLOCKED",
-    "scope": "Additive user reports plus read-only matching output audits; G01 preserved; original automated/raw reports unchanged."
+    "G03": "PASS",
+    "remaining": "R01-R04 NOT RUN; AC-088/task BLOCKED; original G04-G16 SUPERSEDED, not PASS",
+    "decision_id": "D13",
+    "guide": {
+      "file": "EXPLORER_SHORT_STEPS.md",
+      "bytes": 2832,
+      "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
+    },
+    "scope": "Direct user-authorized consolidation; original reports/native evidence preserved; no GUI inference from native-only variants."
   }
 }

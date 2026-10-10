@@ -998,7 +998,7 @@
       "goal": "Catch dependencies on the development checkout and validate the actual user workflow.",
       "actions": [
         "Build an unreleased candidate and extract into a clean unrelated path with fresh venv and controlled dependency resolution.",
-        "Run both supported PowerShell hosts and real Explorer no/input/multiple/Unicode/manual/auto/fallback scenarios.",
+        "Run both supported PowerShell hosts and real Explorer no/input/multiple/Unicode/manual/auto/fallback scenarios using the user-authorized D13 consolidated human route; retain explicit native-only labels for retired GUI variants.",
         "Run real EPUB and AZW3 conversions and inspect representative rendered slices.",
         "Record candidate hash, exact environment and human outcomes; do not label skipped checks passed."
       ],

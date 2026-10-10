@@ -791,7 +791,7 @@
       "task_id": "M5-T03",
       "mode": "manual_windows",
       "scenario": "Complete Explorer candidate workflow",
-      "procedure": "Perform the manual smoke template on actual candidate.",
+      "procedure": "Perform the manual smoke template on actual candidate through user-authorized D13: completed G01-G03 plus four mandatory R01-R04 flows; preserve native-only labels for retired GUI variants and original evidence.",
       "expected": "PDF/EPUB/AZW3, no/multi-input, unicode, auto/manual/fallback and repeat-run outcomes captured; no skipped pass.",
       "required": true
     },

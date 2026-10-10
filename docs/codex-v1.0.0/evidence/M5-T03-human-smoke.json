@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "task_id": "M5-T03",
-  "observed_at": "2026-10-10T20:14:49.951368+00:00",
+  "observed_at": "2026-10-10T20:34:06.764959+00:00",
   "client_date": "2026-10-10",
   "client_timezone": "Europe/Berlin",
   "tester": "User directly in this chat; separate name not supplied.",
   "task_status": "blocked",
-  "AC-088": "BLOCKED; G01 and G02 PASS, G03-G16 NOT RUN",
+  "AC-088": "BLOCKED; G01-G03 PASS; D13 consolidated R01-R04 NOT RUN; original G04-G16 SUPERSEDED, not PASS",
   "rows": {
     "G01": {
       "status": "PASS",
@@ -349,46 +349,261 @@
       }
     },
     "G03": {
-      "status": "NOT RUN"
+      "status": "PASS",
+      "basis": "User reported exact 'G03 PASS' for the prepared checklist; matching manual-start1 whole-document output/log independently audited.",
+      "user_report": {
+        "message": "G03 PASS",
+        "scope": "Checklist-row PASS by reference to supplied steps; no separately restated detailed viewer observations."
+      },
+      "paths_binding": "One new authored-prefix publication bound locally through exact source/hash/confirmed manual plan/finalized outcome; user did not paste paths.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G03",
+        "success": true,
+        "report_sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "d1c450520d26441cbe8a0a07b3375cbd",
+        "console_run_id": "a6b6d6ef882047ee9ee0f17d92c363f5",
+        "manifest_sha256": "442f3e6637fdf68c882432a6ce647c6e9d8ee52780328674b27bfc1db5c48f45",
+        "console_log_sha256": "b259ac139860c268092ab9baa660a4c23bd9e65be41f07424a59d5224d6a46fa",
+        "run_manifest_sha256": "eaf2ec650ccdf5909b8bb9b95c5f55fa8e4a44462fba5f04c216d3787f9fe9f3",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 1,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            12
+          ],
+          "manual_start_pages": [
+            1
+          ],
+          "whole_document_notice_logged": true,
+          "whole_document_notice": "One section; no internal split.",
+          "previous_G01_publication_and_console_preserved_since_saved_snapshot": true,
+          "previous_G02_publication_and_console_preserved_since_saved_snapshot": true,
+          "prior_total_preserved_file_count": 21
+        },
+        "human_reported": {
+          "source": "Direct user chat report, preserved by parent task",
+          "message": "G03 PASS",
+          "detailed_viewer_observations_reported": false,
+          "receipt_file": "human-G03-report01.json",
+          "receipt_sha256": "bb9da341723d701d335e41d30dd51043aa78e9159ba7d60ad7ccc2129b3f9caf",
+          "reported_result": "PASS for the prepared G03 checklist row, reported by reference to the previously supplied steps.",
+          "checklist": {
+            "file": "EXPLORER_STEPS.md",
+            "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+            "procedure": "New authored PDF drop onto same candidate BAT; M then1 thenY thenN; explicit whole-document notice, one range1-12 and one12-page PDF."
+          },
+          "attribution_limit": "No separately restated detailed marker strings, runtime, N behavior or every-page human inspection. Files cannot independently prove GUI/viewer behavior."
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "prior_G01_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 6,
+          "console_file_count": 3,
+          "total_file_count": 9,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G01-audit01.json",
+          "prior_report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+        },
+        "prior_G02_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 9,
+          "console_file_count": 3,
+          "total_file_count": 12,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G02-audit01.json",
+          "prior_report_sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              12
+            ],
+            "page_count": 12,
+            "sha256": "acc0efef76a87eaf3a483131063d6f3797a7faa33538102f2f71209604fadded",
+            "bytes": 9490
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 116,
+        "passes": 116,
+        "receipt": {
+          "file": "human-G03-spot-review01.json",
+          "bytes": 26787,
+          "sha256": "c43744e9d4e725025f6cb2d500ca37a222a4ff77d1bd59995f83d1d91067ebbe"
+        },
+        "scope": "Read-only exact named source/output/console; all21 prior G01/G02 members preserved; no app/UI/render execution."
+      }
     },
     "G04": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Multiple manual starts within combined no-input/no-outline fallback run."
+      }
     },
     "G05": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-manual-4-7-add-page1",
+          "PS7-manual-4-7-add-page1"
+        ]
+      }
     },
     "G06": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-invalid-token",
+          "PS7-invalid-token"
+        ]
+      }
     },
     "G07": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Actual no-outline manual fallback."
+      }
     },
     "G08": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-selected-level-fallback",
+          "PS7-redirected-selected-level-fallback"
+        ]
+      }
     },
     "G09": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R02",
+        "coverage": "Actual authored EPUB drop/conversion/visual check."
+      }
     },
     "G10": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R03",
+        "coverage": "Genuine AZW3 drop/manual split/generated-PDF open/physical-page guidance."
+      }
     },
     "G11": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-malformed-epub",
+          "PS7-malformed-epub"
+        ]
+      }
     },
     "G12": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R01",
+        "coverage": "Actual no-input launcher selection of quoted authored path."
+      }
     },
     "G13": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-input-cancel",
+          "PS7-redirected-input-cancel"
+        ]
+      }
     },
     "G14": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "R04",
+        "coverage": "Actual two-file drop rejection."
+      }
     },
     "G15": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_only",
+        "cases": [
+          "PS51-redirected-plan-cancel",
+          "PS7-redirected-plan-cancel"
+        ]
+      }
     },
     "G16": {
-      "status": "NOT RUN"
+      "status": "SUPERSEDED",
+      "reason": "User-authorized D13 consolidation; this original unrun GUI variant is not claimed PASS.",
+      "replacement": {
+        "route": "native_same_mode_and_completed_human_repeat",
+        "cases": [
+          "PS51-repeat-manual-old-output",
+          "PS7-repeat-manual-old-output"
+        ],
+        "human_scope": "G01/G02/G03 are three actual runs of the same authored PDF in different modes, with distinct publications and all21 prior G01/G02 files preserved at G03; no additional human same-mode-repeat claim."
+      }
     }
   },
   "commands": [
@@ -397,7 +612,11 @@
     "Independent exact-directory spot review (read-only,22/22)",
     "DEV -I -B record_human_G02_report.py (preserved exact G02 PASS by reference to the prepared checklist)",
     "DEV -I -B run_audit_human_G02.py (read-only exact G02/G01 artifacts; actual outer0 and complete streams)",
-    "Independent exact-directory G02 spot review (read-only,46/46)"
+    "Independent exact-directory G02 spot review (read-only,46/46)",
+    "DEV -I -B record_human_G03_report.py",
+    "DEV -I -B run_audit_human_G03.py (read-only; outer0, complete streams)",
+    "Independent exact-directory G03 spot review116/116",
+    "DEV -I -B record_smoke_consolidation01.py (direct user authority and route mapping)"
   ],
   "raw_evidence": [
     {
@@ -514,6 +733,81 @@
       "file": "derive_human_G02_audit02.py",
       "bytes": 5960,
       "sha256": "a007ccc73d844a9aea9b186df7f81da73e29e7c9ec56058e6306b5d4690c51da"
+    },
+    {
+      "file": "human-G03-report01.json",
+      "bytes": 1437,
+      "sha256": "bb9da341723d701d335e41d30dd51043aa78e9159ba7d60ad7ccc2129b3f9caf"
+    },
+    {
+      "file": "human-G03-audit01.json",
+      "bytes": 543325,
+      "sha256": "df7b8fa08a91938845f4f3ff84fcb4fe5e9a8bc26d54da3d0da090ffaac7a08d"
+    },
+    {
+      "file": "human-G03-audit01-public.json",
+      "bytes": 4739,
+      "sha256": "2a06e6d7556b15f8f08423fcc0c19c0e28025dfe1ad9087e80dc25c6a35fdcee"
+    },
+    {
+      "file": "human-G03-audit01-command.json",
+      "bytes": 1539,
+      "sha256": "d08e07ee6f83002a5d65480832348b7a5c99d7a4a5b9554294f331513c4e0729"
+    },
+    {
+      "file": "human-G03-audit01-outer.stdout.bin",
+      "bytes": 100,
+      "sha256": "3b83dfd757f74280c482066b1007e43277eed130922e13ebbf1bf644f7082a94"
+    },
+    {
+      "file": "human-G03-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G03.py",
+      "bytes": 26370,
+      "sha256": "f08714c3fc7bf584055c12d7f5ca4d8c73382f8f7696e264e63a3db02cfe1fd6"
+    },
+    {
+      "file": "run_audit_human_G03.py",
+      "bytes": 896,
+      "sha256": "6ce6cd46e80b93b5fc100357403eaae6b68f15ddb244bb8c41ab1771e534a995"
+    },
+    {
+      "file": "record_human_G03_report.py",
+      "bytes": 1853,
+      "sha256": "5fb66e93ddfe66eb8a12a552137fb74aad78829ab0ab03616624fae50c7fba18"
+    },
+    {
+      "file": "human-G03-spot-review01.json",
+      "bytes": 26787,
+      "sha256": "c43744e9d4e725025f6cb2d500ca37a222a4ff77d1bd59995f83d1d91067ebbe"
+    },
+    {
+      "file": "derive_human_G03_audit.py",
+      "bytes": 7302,
+      "sha256": "8e1d9c30933661bb7e6ad8b1a012dfaa6b924d13473d79cab60265bdd3417e5f"
+    },
+    {
+      "file": "human-G03-metadata-probe01-failure.json",
+      "bytes": 1087,
+      "sha256": "548a2d7650918c6bfc3615ae278d0501478371af247c281999ad4e7c1a6e5df9"
+    },
+    {
+      "file": "smoke-consolidation01.json",
+      "bytes": 3471,
+      "sha256": "2bb529f914574c6c1f0bcd8922284c57d82c1fd8bd2bb886b8f92e1130ca001b"
+    },
+    {
+      "file": "record_smoke_consolidation01.py",
+      "bytes": 3413,
+      "sha256": "4174d98f3dafa10d31efb206ccecf4883e4da82b6f72ea17d2cb758aafaedaf2"
+    },
+    {
+      "file": "EXPLORER_SHORT_STEPS.md",
+      "bytes": 2832,
+      "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
     }
   ],
   "unchanged_canonical_native_report": {
@@ -524,16 +818,16 @@
   "limits": [
     "No directly observed outer BAT native exit",
     "No new app invocation/render/GUI automation/full suite/cleanup",
-    "G01 specified procedure/markers and G02 checklist row PASS are user reports; full output/runtime checks are independently derived. G02 has no separately restated detailed viewer observation.",
+    "G01 explicit procedure/marker confirmation and G02/G03 checklist-row PASS are user reports; detailed output/runtime checks are derived independently.",
     "Historical M3 human testing absolutely closed",
-    "No G03-G16 or completed AC-088/task/release claim"
+    "No R01-R04, completed AC-088/task, removed GUI variants or release claim"
   ],
   "git": {
-    "previous_clean_live_checkpoint": "491f53591b318bf6e0f1cf5e5589fef1225a9288",
+    "previous_clean_live_checkpoint": "b7213e9ebe76fa69da55c92ceb884470924831bc",
     "PR": "https://github.com/PikkuJanne/WinBookSplit/pull/29",
     "scope": "Partial draft, no merge. Own actual commit/push/sync receipt follows externally/thread after it happens."
   },
-  "next": "G03 actual Manual1 whole-document drop/explicit notice/confirm/decline-open; then G04-G16.",
+  "next": "R01 of four D13 human flows; use EXPLORER_SHORT_STEPS.md. Original16-row program retired.",
   "retained_G02_external_preparation_trial": {
     "status": "FAILED syntax preparation; retained separately from successful G02 read-only audit",
     "scope": "External script derivation only; no application or audit attempted",
@@ -546,5 +840,72 @@
       "bytes": 609,
       "sha256": "9d20123279b766c5c94815031ef3a49720b0e0abc4499c1157c0107478870e94"
     }
+  },
+  "consolidated_human_route": {
+    "decision_id": "D13",
+    "authority": [
+      "We need to combine or cut some tests, as I will not go through a 16 step test program",
+      "Or automate"
+    ],
+    "decision_receipt": {
+      "file": "smoke-consolidation01.json",
+      "bytes": 3471,
+      "sha256": "2bb529f914574c6c1f0bcd8922284c57d82c1fd8bd2bb886b8f92e1130ca001b"
+    },
+    "original_guide_preserved": {
+      "file": "EXPLORER_STEPS.md",
+      "bytes": 10701,
+      "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311"
+    },
+    "current_guide": {
+      "file": "EXPLORER_SHORT_STEPS.md",
+      "bytes": 2832,
+      "sha256": "e6abcfd6b3e17d05040c89b3b33964aa4e86af4cff7b255a6d3d83c73833974e"
+    },
+    "editable_results": "EXPLORER_SHORT_RESULTS.md; mutable/unsealed",
+    "rows": {
+      "R01": {
+        "status": "NOT RUN",
+        "procedure": "Double-click without input; quoted no-outline PDF selection, Auto1/manual fallback, starts1,4,7, confirm/decline-open."
+      },
+      "R02": {
+        "status": "NOT RUN",
+        "procedure": "Real EPUB drop/Auto1/convert/first-last viewer check."
+      },
+      "R03": {
+        "status": "NOT RUN",
+        "procedure": "Genuine AZW3 drop/manual/generated-PDF open/physical-page guidance/starts1,2,3/final TOC."
+      },
+      "R04": {
+        "status": "NOT RUN",
+        "procedure": "Two authored files dropped together; explicit rejection/no processing."
+      }
+    },
+    "native_only_variants": [
+      "page1 addition",
+      "invalid tokens",
+      "selected-level fallback",
+      "malformed conversion",
+      "input cancel",
+      "plan cancel",
+      "same-mode repeat"
+    ],
+    "human_repeat_scope": "G01/G02/G03 are three actual runs of the same authored PDF in different modes, with distinct publications and all21 prior G01/G02 files preserved at G03; no additional human same-mode-repeat claim.",
+    "limits": [
+      "Original unrun G04-G16 rows become SUPERSEDED, never PASS.",
+      "Removed cancellation/conversion-failure/normalization/selected-level/same-mode-repeat variants have native evidence only.",
+      "Actual Explorer/console gestures and viewer observations are not inferred from CLI or artifact checks.",
+      "Safety expectations and acceptance IDs remain; native failures/results remain retained.",
+      "No application/runtime/package/CI/tag/release gate is waived."
+    ]
+  },
+  "retained_G03_metadata_probe_trial": {
+    "status": "FAILED external Unicode stdout display; separate successful UTF8 re-read/audit.",
+    "receipt": {
+      "file": "human-G03-metadata-probe01-failure.json",
+      "bytes": 1087,
+      "sha256": "548a2d7650918c6bfc3615ae278d0501478371af247c281999ad4e7c1a6e5df9"
+    },
+    "limit": "Retrospective preparation receipt, not captured separate native stdout/stderr; original tool output retained. No application/audit/UI invocation or file change from this trial."
   }
 }

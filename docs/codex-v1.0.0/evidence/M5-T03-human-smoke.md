@@ -1,6 +1,6 @@
 # M5-T03 — Current Explorer progress
 
-**G01 and G02 PASS; AC-088/M5-T03 still BLOCKED. G03-G16 remain NOT RUN.** This is an additive human progress record, separate from the immutable canonical 38-case native report and the failed historical trials. Date: 2026-10-10, Europe/Berlin; tester: the user directly in this chat, with no separate name supplied. See [machine record](M5-T03-human-smoke.json) and [smoke matrix](M5-T03-manual-smoke.md).
+**G01-G03 PASS; AC-088/M5-T03 still BLOCKED on four consolidated flows R01-R04.** The user explicitly requested fewer tests or automation (D13). Original unrun G04-G16 are SUPERSEDED, never PASS. Canonical native evidence and completed human reports remain separate. Date:2026-10-10 Europe/Berlin; tester:user directly in this chat, no separate name supplied. See [machine record](M5-T03-human-smoke.json) and [smoke matrix](M5-T03-manual-smoke.md).
 
 The user reported: “Input & [Å_日本] manual.pdf split successfully. PASS.” The user then answered “Yes” to whether this was G01 (Level1, `1 → Y → O`), the output folder opened and the first/last PDFs showed `WBS-PAGE-001/002` and `WBS-PAGE-012`. This records user-confirmed procedure/visible markers; runtime versions, output counts and complete coverage are independently audited findings rather than additional user claims.
 
@@ -31,4 +31,16 @@ The first external auditor-derivation trial failed its syntax check before savin
 
 The prior G01 checkpoint `491f53591b318bf6e0f1cf5e5589fef1225a9288` was already clean/live synchronized at this G02 continuation's start. This additive documentation checkpoint's own actual commit/push/live receipt follows externally after it occurs. Canonical38-case/72-operation native evidence and original G01 evidence/seals remain unchanged; no new app invocation, renderer, cleanup, full-suite run, merge or release occurred.
 
-Next: **G03**, drop the same authored PDF onto the same BAT, then enter `M → 1 → Y → N`, each followed by Enter. Check the explicit whole-document notice and one range `1-12` before confirming. Retain Output/Log paths and confirm one12-page PDF. Then continue G04-G16. Preserve both G01 and G02 source/log/output for G16's repeat comparison.
+## G03 and user-authorized shorter route
+
+The user reported exactly **“G03 PASS”** for the supplied Manual1 checklist. The authenticated actual log records **“One section; no internal split.”**, starts `[1]`, confirmed range `[0,12)` and one12-page PDF. Every output page's expected text/content/boxes/rotation matches the authored source; hashes/manifests/finalized log/runtime/child outcome agree. The separate read-only audit passes native0 and an independent spot review passes **116/116**. All **21** previous G01/G02 output/log files match their saved memberships/hashes/bytes/identities. G03's short report supplies no separately restated detailed viewer or BAT-exit claim.
+
+The first external metadata-printing probe failed with cp1252 `UnicodeEncodeError`; an explicit UTF8 re-read succeeded. Its retained receipt is retrospective, not a captured separate stdout/stderr receipt. No app/audit/UI invocation or file mutation occurred in that probe. The derived auditor passed syntax preparation before its successful separate native0 read-only execution.
+
+The user then requested: “We need to combine or cut some tests, as I will not go through a 16 step test program”, followed by “Or automate”. **D13** changes the human evidence route to four remaining checks, while retaining native safety coverage and all acceptance IDs. The original guide/results and G01/G02 records/seals remain unchanged. Original G04-G16 are SUPERSEDED rather than passed; cancellation/conversion-failure/normalization/selected-level/same-mode-repeat variants have native evidence only. Human repeat evidence is three actual same-input runs in different modes with prior outputs preserved; it is not an additional same-mode GUI repeat.
+
+**R01-R04 remain NOT RUN.** Current local guide/results: `EXPLORER_SHORT_STEPS.md` / `EXPLORER_SHORT_RESULTS.md`. R01 combines no-input selection, no-outline fallback and multiple manual starts; R02 tests EPUB; R03 tests genuine AZW3/manual/generated-PDF open; R04 tests two-file rejection. Automatic artifact audits do not establish UI/viewer actions. Computer Use guidance forbids terminal UI automation; no workaround was used. M3 human testing remains closed and package/CI/release gates remain intact.
+
+The prior G02 checkpoint `b7213e9ebe76fa69da55c92ceb884470924831bc` was clean/live synchronized at this continuation's start. This checkpoint's own actual commit/push/live receipt follows externally after it happens. No runtime/package change, full-suite rerun, merge or release occurred.
+
+Next: **R01**. Double-click the same BAT, select the quoted authored `No outline.pdf` path, then answer `1 → M → 1,4,7 → Y → N`, each followed by Enter. Expect an explicit no-outline/manual fallback and three ranges `1-3 / 4-6 / 7-12`. Retain Output/Log paths. The assistant verifies every output page, dependencies and previous-run preservation.
