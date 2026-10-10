@@ -1012,7 +1012,7 @@
         "Cross-host/Explorer/Calibre results",
         "Actionable defect list"
       ],
-      "status": "todo",
+      "status": "blocked",
       "depends_on": [
         "M5-T02"
       ],
@@ -1021,7 +1021,11 @@
         "AC-088",
         "AC-089"
       ],
-      "evidence_paths": [],
+      "evidence_paths": [
+        "evidence/M5-T03-candidate.md",
+        "evidence/M5-T03-candidate.json",
+        "evidence/M5-T03-manual-smoke.md"
+      ],
       "implementation_commit": null,
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },

@@ -1,0 +1,2045 @@
+{
+  "schema_version": 1,
+  "task_id": "M5-T03",
+  "observed_at": "2026-10-10T19:24:00.830017+00:00",
+  "timezone": "Europe/Berlin",
+  "task_status": "blocked",
+  "scope": "Actual extracted unpublished ZIP automated native/Calibre/output/agent-render evidence on an isolated current workstation. Mandatory actual Explorer/user interactions NOT RUN.",
+  "acceptance": {
+    "AC-087": {
+      "status": "PASS",
+      "scope": "Fresh candidate-only extraction and runtime-only venv per actual supported host; controlled dependency paths and unrelated CWD."
+    },
+    "AC-088": {
+      "status": "BLOCKED",
+      "scope": "Actual Explorer drops/no-input/multiple/Unicode/manual/auto/fallback/repeat and viewer/output opt-in still require current candidate human outcomes. Native redirected controls do not substitute."
+    },
+    "AC-089": {
+      "status": "PASS",
+      "scope": "All physical output pages reopened and compared; first/last output PNGs from PDF/EPUB/genuine AZW3 match independent same-renderer references; separate agent visual views. No human viewer claim."
+    }
+  },
+  "start": {
+    "branch": "codex/winbooksplit-v1-m5",
+    "starting_clean_local_live_head": "925f0eceae9d5b5266cef2487057c517f06c1bbb",
+    "observed_PR28_state": "MERGED",
+    "main_at_start": "a282cf4412494063b91f2a71cb21b283731569f1",
+    "reconciliation": "Clean ordinary fetch and fast-forward to user-merged main. No reset/stash/history rewrite."
+  },
+  "tested_source": {
+    "commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+    "tree": "01c081dcb74df7017ebee08345242c753dc8cad5",
+    "mapped_files": 175,
+    "mapped_sha256": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+    "mapped_raw_equal_git": true,
+    "runtime_paths": 16,
+    "payload_paths": 28,
+    "payload_sha256": "e511be767306327ef0ee81f36c164d88fc43869e85cefb11282c43c4b3990cf2",
+    "all_28_payload_and_16_runtime_unchanged_from_T02": true,
+    "historical_unmapped_newline_differences_preserved": [
+      "docs/codex-v1.0.0/evidence/M0-T01-handoff.md",
+      "docs/codex-v1.0.0/evidence/M0-T01-live-audit.json",
+      "docs/codex-v1.0.0/evidence/M1-T05-plan.json",
+      "docs/codex-v1.0.0/evidence/M1-T05-plan.md",
+      "docs/codex-v1.0.0/evidence/M1-T06-diagnostics.json",
+      "docs/codex-v1.0.0/evidence/M1-T06-diagnostics.md",
+      "docs/codex-v1.0.0/evidence/M2-T01-output.json",
+      "docs/codex-v1.0.0/evidence/M2-T01-output.md",
+      "docs/codex-v1.0.0/evidence/M2-T02-paths.json",
+      "docs/codex-v1.0.0/evidence/M2-T02-paths.md",
+      "docs/codex-v1.0.0/evidence/M2-T03-conversion.json",
+      "docs/codex-v1.0.0/evidence/M2-T03-conversion.md",
+      "docs/codex-v1.0.0/evidence/M3-T01-outcomes.json",
+      "docs/codex-v1.0.0/evidence/M3-T01-outcomes.md",
+      "docs/codex-v1.0.0/evidence/M3-T03-launcher.json",
+      "docs/codex-v1.0.0/evidence/M4-T03-fault-regression.json",
+      "docs/codex-v1.0.0/evidence/M4-T03-fault-regression.md",
+      "docs/codex-v1.0.0/specs/OUTPUT_AND_CONVERSION.md",
+      "docs/codex-v1.0.0/specs/PROCESS_AND_PATHS.md",
+      "docs/codex-v1.0.0/specs/SPLIT_CONTRACT.md",
+      "docs/codex-v1.0.0/tasks/M1-T05.md",
+      "docs/codex-v1.0.0/tasks/M1-T06.md",
+      "tests/powershell/README.md"
+    ]
+  },
+  "assets": {
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "44d5b0f822a19c27929772d16647914fd8701a030572ab4d0dc1f4fb7a7ad39b"
+    },
+    "WinBookSplit-v1.0.0.zip": {
+      "bytes": 413958,
+      "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+    },
+    "release-manifest.json": {
+      "bytes": 11546,
+      "sha256": "125bc2b38bdc6ebcdbb08136a2ea9d7c79375b7849ed1d6fd47e5864496f437d"
+    }
+  },
+  "environment": {
+    "isolation_claim": "Existing workstation only; no clean OS/Sandbox/VM smoke claim.",
+    "os_architecture": "64-bit",
+    "os_cim_caption": "Microsoft Windows 11 Pro",
+    "os_cim_version": "10.0.26300",
+    "poppler": "26.07.0",
+    "powershell51": "5.1.26100.9444",
+    "powershell7": "7.6.5",
+    "registry_ProductName": "Windows 10 Pro",
+    "registry_UBR": 9457,
+    "registry_build": "26300",
+    "registry_display_version": "26H2",
+    "registry_product_name_limit": "Historical registry label differs from Windows11 CIM caption; recorded verbatim.",
+    "sandbox_optional_feature_state": "UNKNOWN",
+    "sandbox_query_result": "Get-WindowsOptionalFeature requested operation requires elevation; no elevation/enabling/settings attempted.",
+    "unintended_inventory_side_effect": "py list reported Python install manager automatically updated to26.4; prior manager version UNKNOWN. No runtime installation or scoped setup certification follows; explicit executable paths used afterwards.",
+    "windows_sandbox_executable_exists": true
+  },
+  "fresh_runtime": {
+    "python": "3.14.8",
+    "regular_GIL_AMD64": true,
+    "pypdf": "6.19.0",
+    "venv_count": 2,
+    "only_installed_distributions": [
+      "pip",
+      "pypdf"
+    ],
+    "imports_outside_checkout": true,
+    "observed_packages_per_host": [
+      [
+        [
+          "pip",
+          "26.2.1"
+        ],
+        [
+          "pypdf",
+          "6.19.0"
+        ]
+      ],
+      [
+        [
+          "pip",
+          "26.2.1"
+        ],
+        [
+          "pypdf",
+          "6.19.0"
+        ]
+      ]
+    ],
+    "calibre": "9.15.0",
+    "hosts": [
+      "5.1.26100.9444",
+      "7.6.5"
+    ],
+    "poppler": "26.07.0",
+    "selection": "application_venv Python, explicit Calibre; controlled PATH contains only shell/Windows inbox; process-local shell inbox modules.",
+    "setup": "Actual extracted docs/SETUP.md block with literal path substitutions; explicit hash-pinned pip setup/check. Processing does not install dependencies."
+  },
+  "fixtures": {
+    "authored_original": true,
+    "license": "MIT",
+    "private_inputs": false,
+    "remote_resources": false,
+    "inputs": [
+      {
+        "name": "Book.azw3",
+        "bytes": 12844,
+        "sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0"
+      },
+      {
+        "name": "Book.epub",
+        "bytes": 3244,
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+      },
+      {
+        "name": "Book.pdf",
+        "bytes": 65,
+        "sha256": "dd3a6dbb6d975759ddc9a6a97ab4b50f21f9c1591cc9bf71adbd7f3330f8e381"
+      },
+      {
+        "name": "Input & [\u00c5_\u65e5\u672c] manual.pdf",
+        "bytes": 10560,
+        "sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830"
+      },
+      {
+        "name": "Malformed.azw3",
+        "bytes": 53,
+        "sha256": "4598cf98179e5f623cffcf1323b678c434a322672f473c06bc26659a1ffc423d"
+      },
+      {
+        "name": "Malformed.epub",
+        "bytes": 53,
+        "sha256": "79153d8b4f8d73fcd6f70c251e280c3b16b2d572fb296741970f636a01b0f82b"
+      },
+      {
+        "name": "No outline.pdf",
+        "bytes": 9091,
+        "sha256": "8ce1dd6812643a6fb8cdfab482cb23ed1f93c466d61cef087787e98f812d68a9"
+      },
+      {
+        "name": "Parent-only selected-level fallback.pdf",
+        "bytes": 9752,
+        "sha256": "50283d7163543a35bc21e99ead432a94e98b0349b074126a16761104f8e5c31d"
+      },
+      {
+        "name": "authored-ebook-assets/fixture-provenance.json",
+        "bytes": 5256,
+        "sha256": "a0e930796cdbbbcce3ada66842aab644c39a736347abd9c48a97503a546322fa"
+      },
+      {
+        "name": "authored-ebook-assets/original-three-chapters.azw3",
+        "bytes": 12844,
+        "sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0"
+      },
+      {
+        "name": "authored-ebook-assets/original-three-chapters.epub",
+        "bytes": 3244,
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+      }
+    ],
+    "pdf_definition": {
+      "pages": 12,
+      "title": "Authored M5-T03 \u00c5 \u65e5\u672c front matter and parent fallback",
+      "outline": [
+        {
+          "title": "Parent A",
+          "start_page": 3,
+          "children": [
+            {
+              "title": "Child A1",
+              "start_page": 4,
+              "children": []
+            },
+            {
+              "title": "Child A2",
+              "start_page": 7,
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "Parent B",
+          "start_page": 9,
+          "children": [
+            {
+              "title": "Child B1",
+              "start_page": 11,
+              "children": []
+            }
+          ]
+        },
+        {
+          "title": "Childless Parent C",
+          "start_page": 12,
+          "children": []
+        }
+      ]
+    },
+    "parent_only_definition": {
+      "pages": 12,
+      "title": "Authored selected-level fallback fixture",
+      "outline": [
+        {
+          "title": "Parent A",
+          "start_page": 3,
+          "children": []
+        },
+        {
+          "title": "Parent B",
+          "start_page": 9,
+          "children": []
+        },
+        {
+          "title": "Childless Parent C",
+          "start_page": 12,
+          "children": []
+        }
+      ]
+    },
+    "ebook_files": [
+      {
+        "name": "original-three-chapters.epub",
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c",
+        "size_bytes": 3244,
+        "format": "epub",
+        "origin": "authored-epub"
+      },
+      {
+        "name": "original-three-chapters.azw3",
+        "sha256": "1ef643ffa931d3ef988191fe3e54f36c24dc8c12e89913d647d2e011a1dec6d0",
+        "size_bytes": 12844,
+        "format": "azw3",
+        "origin": "actual-calibre-conversion"
+      }
+    ],
+    "physical_reference_pages": {
+      "pdf": 12,
+      "flat": 12,
+      "parents": 12,
+      "epub": 3,
+      "azw3": 4
+    },
+    "development_helpers": [
+      {
+        "source_path": "tests/fixtures/generate_pdf_fixtures.py",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "sha256": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+        "bytes": 9088,
+        "scope": "unchanged development fixture helper, external to candidate"
+      },
+      {
+        "source_path": "tests/conversion/generate_ebook_fixtures.py",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "sha256": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+        "bytes": 7432,
+        "scope": "unchanged development fixture helper, external to candidate"
+      },
+      {
+        "source_path": "tests/support/validate_support_report.py",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "sha256": "eda0c6628fc28b6cf601cdaa3c5e488f6a531d8b6dddd69a7e9773894eaeb687",
+        "bytes": 40071,
+        "scope": "unchanged development fixture helper, external to candidate"
+      },
+      {
+        "source_path": "tests/manual/current_launchers.py",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "sha256": "cefba19e4d3d39ceeee3f4f5db610f5a83d22d002a3b0a694e0739d3431f2fb2",
+        "bytes": 12399,
+        "scope": "pure original read-only receipt checks; cleanup functions excluded"
+      }
+    ]
+  },
+  "native": {
+    "processing_cases": 38,
+    "passes": 38,
+    "actual_native_operations": 72,
+    "outer_native_exit": 0,
+    "authenticated_finalized_logs": 30,
+    "failure_or_cancel_cases": 12,
+    "exit_histogram": {
+      "0": 26,
+      "2": 2,
+      "5": 2,
+      "130": 4,
+      "4": 4
+    },
+    "publications": 22,
+    "chapter_PDFs": 74,
+    "reopened_output_pages": 230,
+    "preview_cases": 4,
+    "support_exports": 2,
+    "dependency_free_Version_hosts": 2,
+    "policy_before_after_equal": true,
+    "cases": [
+      {
+        "id": "PS51-manual-whole",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 1,
+        "expected_ranges": [
+          [
+            0,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 4815,
+        "stdout_sha256": "a755c9e1e90f675fd2f85816cdca39a6c6a9f356461153f8e891310bae621da0",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-manual-1-4-7",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6193,
+        "stdout_sha256": "1eef7804afff1b25ebdcd7d4dbf3639526b3cd2f8d27393dcafb86deaf7f8931",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-manual-4-7-add-page1",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6301,
+        "stdout_sha256": "9a4b0682b1eb3050d2cc34bec15ed83782999798aa161b436516c760871428d7",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-manual-sort-dedupe",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6366,
+        "stdout_sha256": "992d807b5764810b2dd04d8416271060e4f6a4c460b7a4d3e629968e21b6570b",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-auto-level1",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 4,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 8408,
+        "stdout_sha256": "9e2539899958f38e4bd848561033b5d0f3002cebcbef40e857253be086b5a7e4",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-auto-level2",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 7,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 10896,
+        "stdout_sha256": "7506b5b2c66daab66d5378cc7eeed2a49a22356926b8a11f1a77427f1adce551",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-preview-level1",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "preview",
+        "code": "preview_complete",
+        "written_count": 0,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 4683,
+        "stdout_sha256": "447f69ed8445f7271a06e087c14855bc06c19f7fa03af85ce5901141315a22db",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-preview-level2",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "preview",
+        "code": "preview_complete",
+        "written_count": 0,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 5674,
+        "stdout_sha256": "85f57b70b93acc03debe09372a2b4b10a78cf2e3a1cc01373b51b42ec97a2fbf",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-invalid-token",
+        "host": "PS51",
+        "expected_exit": 2,
+        "actual_native_exit": 2,
+        "status": "failed",
+        "code": "invalid_arguments",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 521,
+        "stdout_sha256": "598c7c7d4ec6e11daa94b49b79e5015c5308ed53f466fbfcdeb5e694a97b9eba",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-no-outline-failure",
+        "host": "PS51",
+        "expected_exit": 5,
+        "actual_native_exit": 5,
+        "status": "no_plan",
+        "code": "no_bookmarks",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "flat",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 1324,
+        "stdout_sha256": "3fcd7e0489bff38ee78c5ba03808ee119f41f2cdaf17ee9001bf37687b82646a",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-redirected-plan-cancel",
+        "host": "PS51",
+        "expected_exit": 130,
+        "actual_native_exit": 130,
+        "status": "cancelled",
+        "code": "processing_cancelled",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 3314,
+        "stdout_sha256": "5bbe50145861d6b50192b65bbc7d0d2cc3f20e432699e7bfb91f1364a4032484",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-redirected-manual-fallback",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "flat",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6890,
+        "stdout_sha256": "85d051b8f8de4bd8799812b65a6ece9eea60b182f00c463cddf56eeea1a6a065",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-redirected-selected-level-fallback",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 4,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "parents",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 8647,
+        "stdout_sha256": "2fffd862f6f0ee90460afface749cdfe3329edf0946bf0a609e3f0bce44690fa",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-redirected-input-cancel",
+        "host": "PS51",
+        "expected_exit": 130,
+        "actual_native_exit": 130,
+        "status": "cancelled",
+        "code": "cancelled",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 480,
+        "stdout_sha256": "fc33e4c2da6e48a2f1d9003effa8f047b1f776c353008fbd88a3061a37c0b895",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-repeat-manual-old-output",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6193,
+        "stdout_sha256": "957ceb951375c29c6b37887f79483d76a09ccd01a72b6bf948305c2ddaae6012",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-real-epub",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "physical_page_count": 3,
+        "source_format": "epub",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 21543,
+        "stdout_sha256": "499074f6739245a10d3e6c8e98f909b4bba83a6889637b4c940c25eb403e9429",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-genuine-azw3",
+        "host": "PS51",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "physical_page_count": 4,
+        "source_format": "azw3",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 24175,
+        "stdout_sha256": "e48aa52d5876792990593873a28bffe9443db1b0289e7c397dce2db6c6ec9f6d",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": [
+          "cross_chapter_link_dropped"
+        ]
+      },
+      {
+        "id": "PS51-malformed-epub",
+        "host": "PS51",
+        "expected_exit": 4,
+        "actual_native_exit": 4,
+        "status": "error",
+        "code": "conversion_failed",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "epub",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6522,
+        "stdout_sha256": "64e98eefd97689774e7d939c2141a0768682a36971086460d8e2db21f200c281",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS51-malformed-azw3",
+        "host": "PS51",
+        "expected_exit": 4,
+        "actual_native_exit": 4,
+        "status": "error",
+        "code": "conversion_failed",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "azw3",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 5972,
+        "stdout_sha256": "07430330888cc4cb500018335b77303c2258acbeddd48e8a2d747d82451060cf",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-manual-whole",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 1,
+        "expected_ranges": [
+          [
+            0,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 4780,
+        "stdout_sha256": "0c14ba898406bd2a866a84a2ae644de42f6e10bb8bda260ae9efd5a5663eccf6",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-manual-1-4-7",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6158,
+        "stdout_sha256": "03a71cae55a7483e6de92383db3de9ae5e94477268a6c79c0248e80b57402ad1",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-manual-4-7-add-page1",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6266,
+        "stdout_sha256": "bead0928be0e6d20cf7b552c207fd898996ba378151ce1076fbe639305677657",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-manual-sort-dedupe",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6331,
+        "stdout_sha256": "b790a14e09b33e4d34337d66c9b9191b3af41c59c5008e4f03ec83bb6bf436cf",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-auto-level1",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 4,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 8373,
+        "stdout_sha256": "1ddb0be59176f17c54530c5e94fdff67f6f46347342e6eee35ce6fb17b0a72c6",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-auto-level2",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 7,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 10861,
+        "stdout_sha256": "497c9292defb6688fb86911ea4ed4fe2570cfd2ac89eb2a56cadc1a3877ae2aa",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-preview-level1",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "preview",
+        "code": "preview_complete",
+        "written_count": 0,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 4694,
+        "stdout_sha256": "f77b5f21a869510e332f43fc0ef654a59238d55f186d020815737d9f0baf4679",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-preview-level2",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "preview",
+        "code": "preview_complete",
+        "written_count": 0,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 5694,
+        "stdout_sha256": "9e347fe60b7ad35c77ba2f02d4859b76f462b9876951b5673b8fec02824f2109",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-invalid-token",
+        "host": "PS7",
+        "expected_exit": 2,
+        "actual_native_exit": 2,
+        "status": "failed",
+        "code": "invalid_arguments",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 527,
+        "stdout_sha256": "91dca7e0cbafa4a4d00b9fb95d9958a285e07c1365298d65554514c586147ca1",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-no-outline-failure",
+        "host": "PS7",
+        "expected_exit": 5,
+        "actual_native_exit": 5,
+        "status": "no_plan",
+        "code": "no_bookmarks",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "flat",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 1342,
+        "stdout_sha256": "83860fae8b888c18d761dd0e2921129b11e92ce36b3e6ab7ed96c9e5e53754bc",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-redirected-plan-cancel",
+        "host": "PS7",
+        "expected_exit": 130,
+        "actual_native_exit": 130,
+        "status": "cancelled",
+        "code": "processing_cancelled",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 3327,
+        "stdout_sha256": "94f0e2950b4f45efbc08814240f51e89e3556f27a6d010d34182aa4d7427f2fd",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-redirected-manual-fallback",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "flat",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6921,
+        "stdout_sha256": "43fd77aed553175c3ee30a508f8411d6202f334e60cdcdfcc93716e723edbb6d",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-redirected-selected-level-fallback",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 4,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            11
+          ],
+          [
+            11,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "parents",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 8676,
+        "stdout_sha256": "8a371785259571a729207ca348ba7fb1b45f111927bad5ecfd5f5892adf69360",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-redirected-input-cancel",
+        "host": "PS7",
+        "expected_exit": 130,
+        "actual_native_exit": 130,
+        "status": "cancelled",
+        "code": "cancelled",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 487,
+        "stdout_sha256": "f5dc9e219d36db6b156bf2dc13f762f6b41cb9704e0e9adda8ab12ba1cee7668",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-repeat-manual-old-output",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            12
+          ]
+        ],
+        "physical_page_count": 12,
+        "source_format": "pdf",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6158,
+        "stdout_sha256": "e1ad8491edc490ad66c8b98dd5b953c542429547af2095746cf82fee70b1738d",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-real-epub",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ],
+        "physical_page_count": 3,
+        "source_format": "epub",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 21449,
+        "stdout_sha256": "4851742dc85d713eb3638e981b3d081f233996bffb26ac34fac4a9b08ca56f2d",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-genuine-azw3",
+        "host": "PS7",
+        "expected_exit": 0,
+        "actual_native_exit": 0,
+        "status": "success",
+        "code": "split_complete",
+        "written_count": 3,
+        "expected_ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "physical_page_count": 4,
+        "source_format": "azw3",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 23750,
+        "stdout_sha256": "def262d2191ec69e86373f8eab89ef8fbe54af36429f98a931e5e87899385a34",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": [
+          "cross_chapter_link_dropped"
+        ]
+      },
+      {
+        "id": "PS7-malformed-epub",
+        "host": "PS7",
+        "expected_exit": 4,
+        "actual_native_exit": 4,
+        "status": "error",
+        "code": "conversion_failed",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "epub",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 6522,
+        "stdout_sha256": "22cc8ac09d6600f990d97759180b5664e69eaa427fe2ad8406c36f44ee5d30d2",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      },
+      {
+        "id": "PS7-malformed-azw3",
+        "host": "PS7",
+        "expected_exit": 4,
+        "actual_native_exit": 4,
+        "status": "error",
+        "code": "conversion_failed",
+        "written_count": 0,
+        "expected_ranges": null,
+        "physical_page_count": null,
+        "source_format": "azw3",
+        "source_unchanged": true,
+        "candidate_unchanged": true,
+        "prior_outputs_unchanged": true,
+        "stdout_bytes": 5971,
+        "stdout_sha256": "0742f22007fe78f656cec16c9fb2ad393f2cc805ae480e110c71ec1c83bbeb12",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "warning_codes": []
+      }
+    ]
+  },
+  "render": {
+    "retained_PNGs": 18,
+    "source_output_pixel_comparisons": 12,
+    "agent_visual_receipt": {
+      "file": "visual-review-main01.json",
+      "bytes": 4068,
+      "sha256": "5f2f56a00dbe348b13a601ba20dcf241b6d3848532f17751ceb6a258effb3349"
+    },
+    "renderer_binary_sha256": "e5b4da7d158cc7428d2ccb4eda1779d6566c067b24df01a0bc09f665659e4ac3",
+    "explicit_version_probe": {
+      "file": "renderer-version-main01.json",
+      "bytes": 787,
+      "sha256": "7102a7d9ce3c1f0d3f2f509d481a1371e834dd62feb3a19506bb0feddc0e96e7"
+    },
+    "observations": "Readable authored physical IDs/chapter text and AZW3 generated fourth physical TOC page retained; conversion format differences are reference-bound, not inferred omissions.",
+    "preserved_font_diagnostics": [
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-reference-pdf-first",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      },
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-reference-pdf-last",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      },
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-PS51-pdf-first",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      },
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-PS51-pdf-last",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      },
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-PS7-pdf-first",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      },
+      {
+        "kind": "render-font-diagnostic",
+        "native_exit_code": 0,
+        "native_id": "render-PS7-pdf-last",
+        "stderr_bytes": 1289,
+        "stderr_sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8"
+      }
+    ]
+  },
+  "reviews": {
+    "asset_checks": 518,
+    "native_audit_checks": 65818,
+    "native_audit": {
+      "file": "independent-native-audit-main02.json",
+      "bytes": 5733868,
+      "sha256": "b77d4ffcc3259ea7b45ae700281990875b52cc8088922808c0abfa841120043e"
+    },
+    "driver_gap": "First driver allowed missing success logs; final driver requires one finalized log and independent audit authenticates actual logs/manifests.",
+    "GitHub_approval_claim": false
+  },
+  "retained_failed_trial": {
+    "report": {
+      "file": "automated-candidate01.json",
+      "bytes": 6007273,
+      "sha256": "ef4fdbe967927523cd32188eb31f4403813c286083c51fa0cbcba3935772beeb"
+    },
+    "outer": {
+      "file": "automated-candidate01-command.json",
+      "bytes": 2899,
+      "sha256": "5f1d849a964c7794d44d9b29c03bcb6c016039260024e009675d0093bb61238a"
+    },
+    "native_exit": 1,
+    "completed_processing_cases": 17,
+    "failing_case": "PS51-malformed-epub",
+    "reason": "External oracle rejected supported diagnostic-only .WinBookSplit-failed directory despite actual app4/written0/no final or execution/owned cleanup.",
+    "reproduction": {
+      "file": "driver01-oracle-reproduction.json",
+      "bytes": 46651,
+      "sha256": "7fe014b66561387de3aa09d1faed0bd5235b0d211f9de30285ce02f69ce63899"
+    },
+    "narrow_correction": {
+      "file": "driver02-predicate-review.json",
+      "bytes": 9058,
+      "sha256": "885e8163043295190119546668a39127be05111b933aa393bc094886b651fe43"
+    },
+    "disposition": "Original driver/raw report/workspace retained; fresh run02 passes, original run01 remains FAILED."
+  },
+  "retained_failed_audit": {
+    "report": {
+      "file": "independent-native-audit-main01.json",
+      "bytes": 4670,
+      "sha256": "acf15c1ebbea2f59a249ebc00ae8cd7b8d259e2c08706512113e3c201cf47ec6"
+    },
+    "reason": "Auditor compared raw CRLF log text with the driver read_text universal-newline LF projection; all raw hashes/byte lengths matched.",
+    "narrow_correction": "Auditor02 compares explicitly normalized text while preserving every raw stream/log hash/byte-length assertion. Original auditor01 remains FAILED.",
+    "corrected_script": {
+      "file": "independent-native-audit-main02.py",
+      "bytes": 47890,
+      "sha256": "4e3282a39baefc62d976083283849aff8f4a1dbda7abcdeb8e1cd9ddda45e866"
+    }
+  },
+  "blockers": [
+    {
+      "id": "AC-088",
+      "action": "Return actual EXPLORER_STEPS.md G01-G16 outcomes in editable EXPLORER_RESULTS.md or chat, bound to final run02 candidate/runtime/input identities and exact emitted authored run/log paths.",
+      "reason": "Mandatory real Explorer actions cannot be replaced by PS wrappers. Computer Use skill rules prohibit terminal UI automation.",
+      "historical_M3_human_testing": "Absolutely closed; no reopening."
+    }
+  ],
+  "commands": [
+    "DEV -I -B record_command.py --receipt build-candidate-main01.json --timeout 120 -- DEV -I -B tools/release/build_package.py build --repo ROOT --commit C --output EXTERNAL/candidate-main01",
+    "DEV -I -B prove_source.py EXTERNAL/source-proof-main01.json",
+    "DEV -I -B independent-candidate-assets-audit.py",
+    "DEV -I -B run_extracted_candidate01.py (FAILED/native1, retained)",
+    "DEV -I -B reproduce_driver01_failure.py (read-only existing report/oracle reproduction)",
+    "DEV -I -B run_extracted_candidate02.py (PASS/native0, fresh retained extraction/venvs)",
+    "DEV -I -B independent-native-audit-main01.py (FAILED audit text oracle; retained)",
+    "DEV -I -B independent-native-audit-main02.py (PASS read-only retained-artefact audit)",
+    "DEV -I -B record_renderer_version.py (explicit Poppler-only -v probe/native0)",
+    "view_image on exact retained PNGs, as enumerated in visual receipt",
+    "DEV -I -B prepare_explorer_calibre.py (exclusive existing application copy/byte verification)",
+    "DEV -I -B run_default_discovery_preflight01.py (4additionalactualdefault-discovery previews/native0)"
+  ],
+  "not_claimed": [
+    "Actual current Explorer or human PDF viewer testing",
+    "Clean OS installation, Sandbox or VM",
+    "New shared full22/unit/Pester suite or local CI rerun",
+    "M5-T04 security/dependency review or M5-T05 acceptance integration",
+    "M6 final asset acceptance, signing, tag, release, publication or anonymous download",
+    "OS network isolation"
+  ],
+  "git": {
+    "candidate_source_already_live_on_main": true,
+    "starting_main_CI_observation": {
+      "run": 38078153689,
+      "conclusion": "success",
+      "head": "a282cf4412494063b91f2a71cb21b283731569f1",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38078153689",
+      "scope": "Observed workflow metadata; no new artifact/source audit inferred in T03."
+    },
+    "evidence_commit": "Own actual SHA/push/live receipt follows externally after committing; no self/future hash."
+  },
+  "raw_evidence": {
+    "location_role": "EXTERNAL = retained M5-T03 local workspace, outside checkout. Only basename/size/SHA and safe projections are committed.",
+    "receipts": [
+      {
+        "file": "automated-candidate01-command.json",
+        "bytes": 2899,
+        "sha256": "5f1d849a964c7794d44d9b29c03bcb6c016039260024e009675d0093bb61238a"
+      },
+      {
+        "file": "automated-candidate01-outer.stderr.bin",
+        "bytes": 146,
+        "sha256": "30392c895ee08400dcaba2b89582ac77c05d70e434ae3586647c1a6e0e8aaec3"
+      },
+      {
+        "file": "automated-candidate01-outer.stdout.bin",
+        "bytes": 497,
+        "sha256": "17b681268addf1699ad56b5fe496c734a5ce69c03939274eb8419311ed1c4434"
+      },
+      {
+        "file": "automated-candidate01.json",
+        "bytes": 6007273,
+        "sha256": "ef4fdbe967927523cd32188eb31f4403813c286083c51fa0cbcba3935772beeb"
+      },
+      {
+        "file": "automated-candidate02-command.json",
+        "bytes": 3668,
+        "sha256": "ffac473e2dd0582f40874b6ec1f9c1cc8f6079086bcc392a501dea4fad811e68"
+      },
+      {
+        "file": "automated-candidate02-outer.stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "automated-candidate02-outer.stdout.bin",
+        "bytes": 1358,
+        "sha256": "1ca5369d8a24ca78f67ed76b4f54d21673dd2ad93bb8c4dcaf382d95a51aef8a"
+      },
+      {
+        "file": "automated-candidate02.json",
+        "bytes": 13215388,
+        "sha256": "b17b0d77a685c4846e7ff7df5766a7fe2d197140d2330b8d1dc2d5fad33dd05b"
+      },
+      {
+        "file": "build-candidate-main01.json",
+        "bytes": 69191,
+        "sha256": "66bd1f0e639ee57b847a2bb0a4099bcc23b1290326b81e242dbf4e6dbbb95aad"
+      },
+      {
+        "file": "default-discovery-preflight01-command.json",
+        "bytes": 1738,
+        "sha256": "c85801b63606f1947b66b66430b5ca90002b13df757893234c728f6a1b813276"
+      },
+      {
+        "file": "default-discovery-preflight01-outer.stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "default-discovery-preflight01-outer.stdout.bin",
+        "bytes": 254,
+        "sha256": "cadf61393d7a720a58e0c321c9609340bba9d10406719bac3e3055b54d9b144c"
+      },
+      {
+        "file": "default-discovery-preflight01.json",
+        "bytes": 2242347,
+        "sha256": "53b5f45e1e57168b9d6d78ac1e983fbe49321c5829bc161f4ae68304473ea0bc"
+      },
+      {
+        "file": "default_discovery_preflight.py",
+        "bytes": 12033,
+        "sha256": "5c88bf99dbfe0c5f857a170ad3a0151638cf78ddd1230ca93794dbf1c5719fbb"
+      },
+      {
+        "file": "driver01-oracle-reproduction.json",
+        "bytes": 46651,
+        "sha256": "7fe014b66561387de3aa09d1faed0bd5235b0d211f9de30285ce02f69ce63899"
+      },
+      {
+        "file": "driver02-predicate-review.json",
+        "bytes": 9058,
+        "sha256": "885e8163043295190119546668a39127be05111b933aa393bc094886b651fe43"
+      },
+      {
+        "file": "explorer-calibre-copy01.json",
+        "bytes": 1145924,
+        "sha256": "2388c52e1501c7cf6aaa667334c6116ca2befd3ee981b4efcde5d7945e22ad2a"
+      },
+      {
+        "file": "EXPLORER_CHECKLIST.md",
+        "bytes": 6686,
+        "sha256": "7128e0269b761a782d2b34b5119f8294e75209365c6ace4f419ff78a581df3f9"
+      },
+      {
+        "file": "EXPLORER_STEPS.md",
+        "bytes": 10701,
+        "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311"
+      },
+      {
+        "file": "extracted_candidate_driver.py",
+        "bytes": 38632,
+        "sha256": "d0788a2df387a5c7e56fad68a5c1b6c8d37a473331a47a0b5bc7b2271c2676d1"
+      },
+      {
+        "file": "extracted_candidate_driver02.py",
+        "bytes": 43085,
+        "sha256": "41acc52323f990fcd1cb0195088e6c099ee5dd4df98f088f00a3bbc8ee24c470"
+      },
+      {
+        "file": "independent-candidate-assets-audit-main01.json",
+        "bytes": 87406,
+        "sha256": "64686ffa15237b832b1e13c1ad188b4dff0809cf5ad3b6ae2c53cce38bed0d38"
+      },
+      {
+        "file": "independent-candidate-assets-audit.py",
+        "bytes": 17001,
+        "sha256": "2e527e251ac8573c1f74ae4eb00e7069dcfa00d387ab7d8c01657d46c8f62140"
+      },
+      {
+        "file": "independent-native-audit-main01.json",
+        "bytes": 4670,
+        "sha256": "acf15c1ebbea2f59a249ebc00ae8cd7b8d259e2c08706512113e3c201cf47ec6"
+      },
+      {
+        "file": "independent-native-audit-main01.py",
+        "bytes": 47857,
+        "sha256": "75ce7183883836235ce13d275689c56fba4fee909614356ffaf119d755b05210"
+      },
+      {
+        "file": "independent-native-audit-main02.json",
+        "bytes": 5733868,
+        "sha256": "b77d4ffcc3259ea7b45ae700281990875b52cc8088922808c0abfa841120043e"
+      },
+      {
+        "file": "independent-native-audit-main02.py",
+        "bytes": 47890,
+        "sha256": "4e3282a39baefc62d976083283849aff8f4a1dbda7abcdeb8e1cd9ddda45e866"
+      },
+      {
+        "file": "inventory-unintended-manager-update01.json",
+        "bytes": 2846,
+        "sha256": "4ed00b3f56b04ab84a8d42102b4f7e7fafad354a63e5ff94f6fc02c18aff29ef"
+      },
+      {
+        "file": "prepare_explorer_calibre.py",
+        "bytes": 4218,
+        "sha256": "f4952e112fba5a571bf95091789268928d5149f07f138e635c4a2270c6af6020"
+      },
+      {
+        "file": "record_renderer_version.py",
+        "bytes": 1307,
+        "sha256": "9214e250de13ea9c1e6181f0f09460c70e0c7a258df8a56fd0dfb6cd7a6fb69d"
+      },
+      {
+        "file": "renderer-version-main01.json",
+        "bytes": 787,
+        "sha256": "7102a7d9ce3c1f0d3f2f509d481a1371e834dd62feb3a19506bb0feddc0e96e7"
+      },
+      {
+        "file": "reproduce_driver01_failure.py",
+        "bytes": 2905,
+        "sha256": "faba29367d54e8fe2cdf3754bd1b1382faf0bc9922ffc4bbcfc090eac6d87d42"
+      },
+      {
+        "file": "review_driver02_predicate.py",
+        "bytes": 1990,
+        "sha256": "3337cba07a93e8ae3754c80fd1643f4556e9c60298c99cf558266e2e12717e2e"
+      },
+      {
+        "file": "run_default_discovery_preflight01.py",
+        "bytes": 967,
+        "sha256": "9707950d4543d51bd6f077fedf9c48514e8a9940444d91b12979d3299f82ddbf"
+      },
+      {
+        "file": "run_extracted_candidate01.py",
+        "bytes": 1608,
+        "sha256": "62c12e85692e97bf1392d9d795a4834a9892aba5938af9a3ee2d5126d0df68fb"
+      },
+      {
+        "file": "run_extracted_candidate02.py",
+        "bytes": 1612,
+        "sha256": "2d87ebd6976f371673bbfcfd7706b0d0c4cd4d5d7759ab9e03f3889154aa5782"
+      },
+      {
+        "file": "source-proof-main01.json",
+        "bytes": 88011,
+        "sha256": "35a3c6d80f1256a8de8271c59fad1e26a132f8122c6232ed091bb102ecf08c02"
+      },
+      {
+        "file": "update_public_preparation.py",
+        "bytes": 6083,
+        "sha256": "22073cb704a4e432fde2afcfef87b27a0046d3cbae452dc88ff92d196dbd043a"
+      },
+      {
+        "file": "visual-review-main01.json",
+        "bytes": 4068,
+        "sha256": "5f2f56a00dbe348b13a601ba20dcf241b6d3848532f17751ceb6a258effb3349"
+      },
+      {
+        "file": "write_handoff.py",
+        "bytes": 7237,
+        "sha256": "a461383a852a56581f15abb46574a97903f80ae8960e6d4d3a937373c3fbb5af"
+      },
+      {
+        "file": "write_partial_checkpoint.py",
+        "bytes": 13170,
+        "sha256": "fbdfb096676eecf1df523893670ed626ed0df6298a59b5ec6bca13cf6f187e07"
+      },
+      {
+        "file": "write_visual_review.py",
+        "bytes": 2606,
+        "sha256": "4cc519e31fab5e078dfba07614470ddbc076ea92254be52620b0ee148bc83c02"
+      }
+    ]
+  },
+  "next_task": "M5-T03 / AC-088 actual Explorer outcome capture and audit; do not advance to M5-T04.",
+  "human_preparation": {
+    "observed_at": "2026-10-10T19:34:23.522079+00:00",
+    "scope": "Separate authorized dependency preparation and four default-discovery previews following user request for clear steps; no actual Explorer/human outcomes.",
+    "exclusive_known_location_copy": {
+      "source_role": "Existing trusted portable Calibre application subtree; library/settings siblings excluded",
+      "target_role": "Previously absent supported per-user LOCALAPPDATA/Programs/Calibre known location",
+      "files": 1345,
+      "directories": 83,
+      "bytes": 662902308,
+      "source_unchanged": true,
+      "all_bytes_verified": true,
+      "no_overwrite_reparse_or_hardlink": true,
+      "no_installer_registry_PATH_or_policy_change": true,
+      "byte_manifest_sha256": "3d08635b078eccca6b7c56a5325cf3e713aaf6cdfbe346aa4395b4263190f5db",
+      "converter_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "receipt": {
+        "file": "explorer-calibre-copy01.json",
+        "bytes": 1145924,
+        "sha256": "2388c52e1501c7cf6aaa667334c6116ca2befd3ee981b4efcde5d7945e22ad2a"
+      }
+    },
+    "default_discovery_preflight": {
+      "cases": 4,
+      "passes": 4,
+      "outer_native_exit": 0,
+      "canonical_38_case_report_unchanged": true,
+      "full_source_and_copied_converter_unchanged": true,
+      "report": {
+        "file": "default-discovery-preflight01.json",
+        "bytes": 2242347,
+        "sha256": "53b5f45e1e57168b9d6d78ac1e983fbe49321c5829bc161f4ae68304473ea0bc"
+      },
+      "outer": {
+        "file": "default-discovery-preflight01-command.json",
+        "bytes": 1738,
+        "sha256": "c85801b63606f1947b66b66430b5ca90002b13df757893234c728f6a1b813276"
+      },
+      "rows": [
+        {
+          "id": "PS51-default-epub-preview",
+          "host": "PS51",
+          "actual_native_exit": 0,
+          "status": "preview",
+          "physical_pages": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "known_location_verified": true,
+          "application_venv_verified": true,
+          "reference_content_matched": true,
+          "no_publication_diagnostics_or_stage": true,
+          "stdout_bytes": 10548,
+          "stdout_sha256": "ab42e40f035d4d73541166e36797e090ccd91ddce30ef42f6ee7a4cc150414eb",
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": "PS51-default-azw3-preview",
+          "host": "PS51",
+          "actual_native_exit": 0,
+          "status": "preview",
+          "physical_pages": 4,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "known_location_verified": true,
+          "application_venv_verified": true,
+          "reference_content_matched": true,
+          "no_publication_diagnostics_or_stage": true,
+          "stdout_bytes": 11966,
+          "stdout_sha256": "1f1c65bbabf70e52d2bb4f0c3cc106e44385968b46dab32ba33e9f243c606b63",
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": "PS7-default-epub-preview",
+          "host": "PS7",
+          "actual_native_exit": 0,
+          "status": "preview",
+          "physical_pages": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "known_location_verified": true,
+          "application_venv_verified": true,
+          "reference_content_matched": true,
+          "no_publication_diagnostics_or_stage": true,
+          "stdout_bytes": 10540,
+          "stdout_sha256": "0269921927256128af6fc1f51f069311fc26890813de422ff3ff77a4a49da534",
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        {
+          "id": "PS7-default-azw3-preview",
+          "host": "PS7",
+          "actual_native_exit": 0,
+          "status": "preview",
+          "physical_pages": 4,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "known_location_verified": true,
+          "application_venv_verified": true,
+          "reference_content_matched": true,
+          "no_publication_diagnostics_or_stage": true,
+          "stdout_bytes": 11849,
+          "stdout_sha256": "288ee5dbd56f24373e15bd39b37fdcc9e24fa8bcd1061ee6fdd6caf55fc1789a",
+          "stderr_bytes": 0,
+          "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "additive_scope": "Four additional preview cases; do not relabel canonical38cases/72operations or human acceptance."
+    },
+    "instructions": {
+      "file": "EXPLORER_STEPS.md",
+      "bytes": 10701,
+      "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311"
+    },
+    "editable_results": "EXPLORER_RESULTS.md; NOT RUN template, intentionally mutable and not hash-sealed until actual user outcomes arrive.",
+    "original_checklist": "EXPLORER_CHECKLIST.md retained as superseded historical preparation; use current STEPS/RESULTS."
+  }
+}
