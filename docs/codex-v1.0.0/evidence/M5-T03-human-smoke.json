@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
   "task_id": "M5-T03",
-  "observed_at": "2026-10-10T19:51:07.981489+00:00",
+  "observed_at": "2026-10-10T20:14:49.951368+00:00",
   "client_date": "2026-10-10",
   "client_timezone": "Europe/Berlin",
   "tester": "User directly in this chat; separate name not supplied.",
   "task_status": "blocked",
-  "AC-088": "BLOCKED; G01 PASS, G02-G16 NOT RUN",
+  "AC-088": "BLOCKED; G01 and G02 PASS, G03-G16 NOT RUN",
   "rows": {
     "G01": {
       "status": "PASS",
@@ -145,7 +145,208 @@
       }
     },
     "G02": {
-      "status": "NOT RUN"
+      "status": "PASS",
+      "basis": "User reported exact 'G02 PASS' for the prepared checklist; matching source/Level2 publication/log/physical pages independently audited.",
+      "user_report": {
+        "message": "G02 PASS",
+        "scope": "Reported PASS for G02 by reference to the supplied checklist.",
+        "checklist_sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+        "attribution_limit": "No separately restated detailed marker strings, output count, runtime, N behavior or every-page human inspection."
+      },
+      "paths_binding": "User did not paste paths; one new narrowly selected authored publication was bound through exact source hash/path, confirmed Level2 plan and finalized matching outcome. Absolute paths stay external.",
+      "audit": {
+        "protocol": "winbooksplit.human-output-readonly-audit-public",
+        "version": 1,
+        "task_id": "M5-T03",
+        "row": "G02",
+        "success": true,
+        "report_sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120",
+        "source_sha256": "b96c858519a581277a543b5bc94a14b5fa850153a763f8e8b5d700c1c41ee830",
+        "source_commit": "a282cf4412494063b91f2a71cb21b283731569f1",
+        "zip_sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645",
+        "run_id": "124bdf4710db401bb4a2e08393fef39d",
+        "console_run_id": "1791aa930f2a4f8f8a8ac5f07143914e",
+        "manifest_sha256": "8416ece8d8f9fb10f303b3f0474491e48df52cf888e40042bae7d3e86df12011",
+        "console_log_sha256": "b386b59f5dbeca4072ff73f6baba0e573d73c6d5c03a54f17681d03034fdc27b",
+        "run_manifest_sha256": "5ff12417877baaf239e78503d646f9876a034ea6256cbb1282f991f3d41505b0",
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.19.0",
+          "calibre": null
+        },
+        "runtime_source": "application_venv",
+        "derived_checks": {
+          "finalized_log_authenticated": true,
+          "actual_output_owner_and_manifest_authenticated": true,
+          "displayed_plan_exactly_confirmed": true,
+          "runtime_application_venv_isolated": true,
+          "logged_child_process_shutdown_complete": true,
+          "all12_physical_pages_exactly_once_in_order": true,
+          "all_output_hashes_and_content_boxes_rotation_match_source": true,
+          "output_count": 7,
+          "physical_page_count": 12,
+          "physical_ranges": [
+            [
+              1,
+              2
+            ],
+            [
+              3,
+              3
+            ],
+            [
+              4,
+              6
+            ],
+            [
+              7,
+              8
+            ],
+            [
+              9,
+              10
+            ],
+            [
+              11,
+              11
+            ],
+            [
+              12,
+              12
+            ]
+          ],
+          "output_page_counts": [
+            2,
+            1,
+            3,
+            2,
+            2,
+            1,
+            1
+          ],
+          "previous_G01_publication_and_console_preserved_since_saved_snapshot": true
+        },
+        "human_reported": {
+          "source": "Direct user chat report, preserved by parent task",
+          "message": "G02 PASS",
+          "detailed_viewer_observations_reported": false,
+          "receipt_file": "human-G02-report01.json",
+          "receipt_sha256": "b537f28d4568a5fb5661b00611aec83c16c92b1030ca2d33d85a0120ce8a6322",
+          "reported_result": "PASS for the prepared G02 checklist row, reported by reference to the previously supplied steps.",
+          "checklist": {
+            "file": "EXPLORER_STEPS.md",
+            "sha256": "2a14cdd57a6c59a38dda2f82269429ed38600d1d2f469de3d96f0c7562161311",
+            "procedure": "New authored PDF drop onto same candidate BAT; 2 then Y then N; inspect seven ranges and representative boundaries; observe no automatic opening after N."
+          },
+          "attribution_limit": "The short report does not separately restate detailed marker strings, output count, runtime, N behavior or every-page inspection. Files cannot independently prove GUI/viewer behavior."
+        },
+        "proof_limits": {
+          "native_bat_exit_proved": false,
+          "explorer_action_proved_by_log": false,
+          "viewer_or_open_folder_proved_by_files": false,
+          "human_observations_source": "User report",
+          "logged_child_native_status_is_application_attestation": true,
+          "no_pre_human_output_snapshot": "Output hashes authenticated now; no invented pre-human snapshot"
+        },
+        "prior_G01_preservation": {
+          "output_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "console_filenames_hash_bytes_match_prior_saved_snapshot": true,
+          "file_and_directory_identities_match": true,
+          "all_files_unchanged_since_prior_saved_snapshot": true,
+          "output_file_count": 6,
+          "console_file_count": 3,
+          "total_file_count": 9,
+          "unchanged_during_this_readonly_audit": true,
+          "prior_report_file": "human-G01-audit01.json",
+          "prior_report_sha256": "5f6aa628c8a41f29ec46496cd51f9e36252ac38fae20802748e17a76bae6455e"
+        },
+        "candidate28_payload_matches_canonical": true,
+        "source_matches_canonical": true,
+        "output_log_dependency_files_unchanged_during_readonly_audit": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "physical_pages": [
+              1,
+              2
+            ],
+            "page_count": 2,
+            "sha256": "9241cbf989ae62838cb806eaac89da64f092f3fade07e302c616a471edc78fdb",
+            "bytes": 2823
+          },
+          {
+            "sequence": 2,
+            "physical_pages": [
+              3,
+              3
+            ],
+            "page_count": 1,
+            "sha256": "d8b05cf301f55ee8c8615d246591d1cbb173497777285f05e60e6b0e9fb59f26",
+            "bytes": 2192
+          },
+          {
+            "sequence": 3,
+            "physical_pages": [
+              4,
+              6
+            ],
+            "page_count": 3,
+            "sha256": "41cc0f5986c2133aa93ef264685367f51f089f84269fafd2a80a3ae779025b3d",
+            "bytes": 3484
+          },
+          {
+            "sequence": 4,
+            "physical_pages": [
+              7,
+              8
+            ],
+            "page_count": 2,
+            "sha256": "b33a71b774dce11bad328702bee7a0c363c11b5965f58ab2bd996430e0ae8a96",
+            "bytes": 2818
+          },
+          {
+            "sequence": 5,
+            "physical_pages": [
+              9,
+              10
+            ],
+            "page_count": 2,
+            "sha256": "60712fef8970e92c79486331f8d6db5d2435fdc09a8e532c4070557b96b3e62d",
+            "bytes": 2857
+          },
+          {
+            "sequence": 6,
+            "physical_pages": [
+              11,
+              11
+            ],
+            "page_count": 1,
+            "sha256": "039f8900337a20600db2f7913557718f5240c9ae410fe01625d184928adfe300",
+            "bytes": 2157
+          },
+          {
+            "sequence": 7,
+            "physical_pages": [
+              12,
+              12
+            ],
+            "page_count": 1,
+            "sha256": "b8e0645c9354a33e59df52e33cffb4422fb6c945f0a2a60916aa5367b109a837",
+            "bytes": 2174
+          }
+        ]
+      },
+      "independent_spot_review": {
+        "checks": 46,
+        "passes": 46,
+        "receipt": {
+          "file": "human-G02-spot-review01.json",
+          "bytes": 8366,
+          "sha256": "efc221f1ef0e033cd697829346ee8503bcf9f3ffda75a426bde9332edd7b6afa"
+        },
+        "scope": "Read-only exact named authored source/output/console and pinned BAT/PS; seven prior G01 sealed hashes preserved; no application/UI/render execution."
+      }
     },
     "G03": {
       "status": "NOT RUN"
@@ -193,7 +394,10 @@
   "commands": [
     "DEV -I -B record_human_G01_report.py (preserved actual chat report/confirmation separately)",
     "DEV -I -B run_audit_human_G01.py (read-only retained G01 artefacts, actual outer0, both streams complete)",
-    "Independent exact-directory spot review (read-only,22/22)"
+    "Independent exact-directory spot review (read-only,22/22)",
+    "DEV -I -B record_human_G02_report.py (preserved exact G02 PASS by reference to the prepared checklist)",
+    "DEV -I -B run_audit_human_G02.py (read-only exact G02/G01 artifacts; actual outer0 and complete streams)",
+    "Independent exact-directory G02 spot review (read-only,46/46)"
   ],
   "raw_evidence": [
     {
@@ -240,6 +444,76 @@
       "file": "record_human_G01_report.py",
       "bytes": 2167,
       "sha256": "5c5f3d6a4783190030498669c0948faa1c64cdb1e62184afa6a7a7f8ead93736"
+    },
+    {
+      "file": "human-G02-report01.json",
+      "bytes": 1492,
+      "sha256": "b537f28d4568a5fb5661b00611aec83c16c92b1030ca2d33d85a0120ce8a6322"
+    },
+    {
+      "file": "human-G02-audit01.json",
+      "bytes": 643192,
+      "sha256": "57e703d5cf2355f354d592f318eddf979040d39fd711fc38949d8d82990b4120"
+    },
+    {
+      "file": "human-G02-audit01-public.json",
+      "bytes": 5544,
+      "sha256": "75f55041b9d89638a7950e266854b75a13d256bb14110f8cadbde575a40afe73"
+    },
+    {
+      "file": "human-G02-audit01-command.json",
+      "bytes": 1543,
+      "sha256": "f042fea495f820f1f6a99fe6eb3545edab3899fc65852556639a339ce4c7f7bb"
+    },
+    {
+      "file": "human-G02-audit01-outer.stdout.bin",
+      "bytes": 103,
+      "sha256": "577c281c576cded93b47a35b264ccc46aeedb6688452e3b43c6382a4024fca02"
+    },
+    {
+      "file": "human-G02-audit01-outer.stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "file": "audit_human_G02.py",
+      "bytes": 22851,
+      "sha256": "86d6c4cb4d188a4d5c98c796f2a721ff7a60e790272ae677bd1f68e97a62582a"
+    },
+    {
+      "file": "run_audit_human_G02.py",
+      "bytes": 896,
+      "sha256": "01cc706257e95870b3685c7e0adf596da0bcfae8643770c59869203b8ebc5911"
+    },
+    {
+      "file": "record_human_G02_report.py",
+      "bytes": 1908,
+      "sha256": "55f06a58b73c54db5566e075efb1ec4d7a35197ad4f3c7cd3636a07f06f81e92"
+    },
+    {
+      "file": "human-G02-spot-review01.json",
+      "bytes": 8366,
+      "sha256": "efc221f1ef0e033cd697829346ee8503bcf9f3ffda75a426bde9332edd7b6afa"
+    },
+    {
+      "file": "derive_human_G02_audit.py",
+      "bytes": 5883,
+      "sha256": "33fc52f9a744a6cf11d6e63ede876b7bda3daae03d3b99f6edd71a0306b5999f"
+    },
+    {
+      "file": "human-G02-derivation01-failure.json",
+      "bytes": 609,
+      "sha256": "9d20123279b766c5c94815031ef3a49720b0e0abc4499c1157c0107478870e94"
+    },
+    {
+      "file": "repair_human_G02_derivation.py",
+      "bytes": 1570,
+      "sha256": "c684905b04595596385ca0a0a14630273e94073dd8dd23df84fd3cbfdb389b31"
+    },
+    {
+      "file": "derive_human_G02_audit02.py",
+      "bytes": 5960,
+      "sha256": "a007ccc73d844a9aea9b186df7f81da73e29e7c9ec56058e6306b5d4690c51da"
     }
   ],
   "unchanged_canonical_native_report": {
@@ -250,14 +524,27 @@
   "limits": [
     "No directly observed outer BAT native exit",
     "No new app invocation/render/GUI automation/full suite/cleanup",
-    "Human confirms specified markers/procedure only; full output/runtime checks are independently derived",
+    "G01 specified procedure/markers and G02 checklist row PASS are user reports; full output/runtime checks are independently derived. G02 has no separately restated detailed viewer observation.",
     "Historical M3 human testing absolutely closed",
-    "No G02-G16 or completed AC-088/task/release claim"
+    "No G03-G16 or completed AC-088/task/release claim"
   ],
   "git": {
-    "previous_clean_live_checkpoint": "735c1d06bb59e9681ee5bbbf534d30400adf6101",
+    "previous_clean_live_checkpoint": "491f53591b318bf6e0f1cf5e5589fef1225a9288",
     "PR": "https://github.com/PikkuJanne/WinBookSplit/pull/29",
     "scope": "Partial draft, no merge. Own actual commit/push/sync receipt follows externally/thread after it happens."
   },
-  "next": "G02 actual Level2 drop/confirm/decline-open/representative-boundary check; then G03-G16."
+  "next": "G03 actual Manual1 whole-document drop/explicit notice/confirm/decline-open; then G04-G16.",
+  "retained_G02_external_preparation_trial": {
+    "status": "FAILED syntax preparation; retained separately from successful G02 read-only audit",
+    "scope": "External script derivation only; no application or audit attempted",
+    "reason": "SyntaxError: parenthesis not closed at generated source line239, detected by ast.parse before saving derived script",
+    "cause": "Inserted previous-G01 stability predicate inadvertently nested original need() without closing it",
+    "narrow_correction": "Join original stability expression into same predicate; retain original generator and no changed assertions",
+    "no_application_or_audit_execution_from_failed_trial": true,
+    "failure_receipt": {
+      "file": "human-G02-derivation01-failure.json",
+      "bytes": 609,
+      "sha256": "9d20123279b766c5c94815031ef3a49720b0e0abc4499c1157c0107478870e94"
+    }
+  }
 }

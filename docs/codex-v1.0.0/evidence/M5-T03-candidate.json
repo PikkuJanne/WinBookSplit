@@ -4,7 +4,7 @@
   "observed_at": "2026-10-10T19:24:00.830017+00:00",
   "timezone": "Europe/Berlin",
   "task_status": "blocked",
-  "scope": "Canonical automated native/Calibre/output/agent-render evidence on isolated existing Windows. No human claims from that driver; additive current G01 human confirmation/output audit is referenced separately, with G02-G16 pending.",
+  "scope": "Canonical automated native/Calibre/output/agent-render evidence on isolated existing Windows. No human claims from that driver; additive G01 confirmation and G02 reported checklist PASS with output audits are referenced separately; G03-G16 pending.",
   "acceptance": {
     "AC-087": {
       "status": "PASS",
@@ -1623,7 +1623,7 @@
   "blockers": [
     {
       "id": "AC-088",
-      "action": "Return remaining actual EXPLORER_STEPS.md G02-G16 outcomes in editable EXPLORER_RESULTS.md or chat, bound to final run02 candidate/runtime/input identities and exact emitted authored run/log paths. G01 PASS is recorded separately in M5-T03-human-smoke.json.",
+      "action": "Return remaining actual EXPLORER_STEPS.md G03-G16 outcomes in editable EXPLORER_RESULTS.md or chat, bound to final run02 candidate/runtime/input identities and exact emitted authored run/log paths. G01 and G02 PASS are recorded separately in M5-T03-human-smoke.json.",
       "reason": "Mandatory real Explorer actions cannot be replaced by PS wrappers. Computer Use skill rules prohibit terminal UI automation.",
       "historical_M3_human_testing": "Absolutely closed; no reopening."
     }
@@ -1643,7 +1643,7 @@
     "DEV -I -B run_default_discovery_preflight01.py (4additionalactualdefault-discovery previews/native0)"
   ],
   "not_claimed": [
-    "Actual Explorer or human PDF viewer testing from the canonical automated driver; additive human-confirmed G01 is recorded separately in M5-T03-human-smoke.json, with G02-G16 pending",
+    "Actual Explorer or human PDF viewer testing from the canonical automated driver; additive G01 confirmation/G02 checklist report and output audits are recorded separately in M5-T03-human-smoke.json; G03-G16 pending",
     "Clean OS installation, Sandbox or VM",
     "New shared full22/unit/Pester suite or local CI rerun",
     "M5-T04 security/dependency review or M5-T05 acceptance integration",
@@ -2043,10 +2043,11 @@
     "original_checklist": "EXPLORER_CHECKLIST.md retained as superseded historical preparation; use current STEPS/RESULTS."
   },
   "current_human_progress": {
-    "observed_at": "2026-10-10T19:51:07.981489+00:00",
+    "observed_at": "2026-10-10T20:14:49.951368+00:00",
     "record": "M5-T03-human-smoke.json",
     "G01": "PASS",
-    "remaining": "G02-G16 NOT RUN; AC-088/task still BLOCKED",
-    "scope": "Additive actual user-confirmed G01 report plus read-only artefact audit; original automated observations/raw reports unchanged."
+    "G02": "PASS",
+    "remaining": "G03-G16 NOT RUN; AC-088/task still BLOCKED",
+    "scope": "Additive user reports plus read-only matching output audits; G01 preserved; original automated/raw reports unchanged."
   }
 }
