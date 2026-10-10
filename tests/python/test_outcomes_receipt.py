@@ -14,6 +14,9 @@ spec.loader.exec_module(validator)
 spec = importlib.util.spec_from_file_location("wbs_outcome_synthetic_session", ROOT / "tests/python/session_receipt_fixture.py")
 session_fixture = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(session_fixture)
+spec = importlib.util.spec_from_file_location("wbs_outcomes_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console_fixture)
 DIGEST = "a" * 64
 
 
@@ -140,6 +143,10 @@ def fixture():
             if kind.endswith("ctrlc"):
                 row["console_signal"] = {"actual_native_console_signal": True, "hidden_private_console": True,
                     "signal_sent": True, "forced_target_stop": False, "controller_ignore_restored": True}
+            if kind != "startup-dependency":
+                plans = row["interaction"].get("displayed_plans", [])
+                row["console_evidence"] = console_fixture.make(outcome, row["log_sha256"],
+                    plan=plans[-1]["plan"] if plans else None, unfinalized=kind == "log-finalize")
             cases.append(row)
     report = {"schema_version": 1, "task_id": "M3-T01", "result": "OUTCOME_REGRESSION_PASSED", "success": True,
         "exit_code": 0, "acceptance_ids": ["AC-050", "AC-051", "AC-052"], "source_unchanged": True,

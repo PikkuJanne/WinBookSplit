@@ -27,7 +27,8 @@ APPLICATION_FILES = ("WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                      "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
                      "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
-                     "engine/winbooksplit_job.py")
+                     "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+                     "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
 
 
 def load(name, path):
@@ -362,6 +363,8 @@ class Cases:
                 launchers.interactions.validate(interaction, summaries, ["input_ready", "plan_ready"],
                     ["starts", "execute"], starts="2,3", execution=execution)
                 record.update(interaction=interaction, process_summaries=summaries)
+                record["console_evidence"] = launchers.authenticate_console_manifest(log,
+                    source_path=source, source_observation=originals[str(source)])
                 if launcher_control is not None:
                     listings = [item for item in selected["Attempts"] if item["Source"] == "py_launcher_listing" and item["Accepted"] is True]
                     require(len(listings) == 1 and listings[0]["Path"] == str(launcher_control)
@@ -395,8 +398,7 @@ class Cases:
                     launchers.remove_known_directory(Path(execution["final_directory"]), base, members, ".WinBookSplit-owner.json",
                         {"schema_version": 1, "kind": "run", "run_id": execution["run_id"]})
                 if log is not None and console_owner is not None:
-                    launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"},
-                        ".WinBookSplit-console-owner.json", console_owner)
+                    launchers.remove_console_directory(log, base, source_path=source, source_observation=originals[str(source)])
         if not batch:
             require(not any(base.iterdir()), "Known runtime outputs or unknown base members remain")
         record["owned_outputs_removed"] = True

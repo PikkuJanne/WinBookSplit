@@ -384,7 +384,7 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
     require({path.name for path in base.iterdir()} == owned_children, "Failure left undisclosed/final-looking/unexpected output")
     record = {"id": label, "kind": kind, "passed": True, "actual_process": True,
         "shell_executable": host["shell_executable"], "host_version": host["host_version"], "batch": batch,
-        "command": command, "cwd": str(cwd), "output_base": str(base), "outcome": outcome,
+        "command": command, "cwd": str(cwd), "output_base": str(base), "input_path": str(source), "outcome": outcome,
         "engine_records": frames, "process_summaries": transports, "application_source_sha256": copied,
         "controlled_application_sha256": actual, "controlled_modifications": modifications,
         "batch_bytes_unchanged": digest(app / "WinBookSplit.bat") == copied["WinBookSplit.bat"],
@@ -401,6 +401,8 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
         "output_members_before_cleanup": sorted(owned_children), "stdin_utf8": stdin,
         "wrapper_text": wrapper.read_bytes().decode("utf-8"), "wrapper_sha256": digest(wrapper),
         "interaction": launchers.interactions.capture(log_text), **observed}
+    record["console_evidence"] = launchers.authenticate_console_manifest(log, outcome,
+        source_path=source, source_observation=originals[str(source)], allow_unfinalized=kind == "log-finalize") if log else None
     if kind != "startup-dependency":
         if noninteractive:
             launchers.interactions.require_noninteractive(record["interaction"], transports)
@@ -427,8 +429,8 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
             members = {".WinBookSplit-owner.json", Path(fault["output"]).name}
         marked_remove(stage, base, members)
     if log:
-        owner = {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}
-        launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", owner)
+        launchers.remove_console_directory(log, base, outcome, source_path=source,
+            source_observation=originals[str(source)], allow_unfinalized=kind == "log-finalize")
     after_cleanup = {str(path): source_identity(path) for path in (source, neighbor, prior)}
     require({item.name for item in base.iterdir()} == {prior.name} and originals == after_cleanup, "Harness cleanup reached unrelated file")
     record.update(owned_application_outputs_removed=True, post_cleanup_source_neighbor_prior_unchanged=True,

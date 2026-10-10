@@ -209,3 +209,14 @@ controls request an owned working copy and verify its availability and cleanup.
 Actual PDF viewer and Explorer observations are separate recorded Windows checks,
 not inferred from launch calls. See `ux/README.md`. Completed M3-T01 human testing
 remains historical and closed.
+
+M3-T05 adds `--layer support` as stage 18 of the full route. Both explicit
+supported PowerShell hosts inspect actual UTF-8 local run manifests, finalized
+bounded log bytes, captured versions/settings/source identities and final
+outcomes. Authored parser and bookmark warnings must remain categorized and
+visible. The explicit local exporter is checked with real run records and mock
+private paths, titles, content and secrets, plus literal no-overwrite/alias and
+invalid-record controls. Disclosed copied finalizer failures verify retained
+chapter output and preservation of primary failure/cancellation codes. See
+`support/README.md` for the native matrix and strict receipt checks; this route
+does not reopen human testing or claim GUI, upload, CI or release evidence.

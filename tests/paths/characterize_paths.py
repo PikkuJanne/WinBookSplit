@@ -277,6 +277,8 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
                 ["input_ready", "plan_ready"] if expected_success else [],
                 ["starts", "execute"] if expected_success else [], starts="4,7", execution=execution)
             record.update(interaction=interaction, process_summaries=summaries)
+            record["console_evidence"] = launchers.authenticate_console_manifest(log, source_path=source,
+                source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
         if expected_success:
             record.update(source_read_only_attribute_observed=bool(source.lstat().st_file_attributes & stat.FILE_ATTRIBUTE_READONLY),
                           no_replanning_observation="supported-by-direct-api-and-shared-plan-controls")
@@ -285,8 +287,8 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
             if run_validated:
                 remove_run(base, execution)
             if log is not None and marker is not None:
-                launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"},
-                                                 ".WinBookSplit-console-owner.json", marker)
+                launchers.remove_console_directory(log, base, source_path=source,
+                    source_observation={"sha256": source_hash, "size_bytes": source.stat().st_size})
     require(final is None or not final.exists(), "Owned literal final remains")
     require(log is None or not log.parent.exists(), "Owned literal console remains")
     record["owned_outputs_removed"] = True

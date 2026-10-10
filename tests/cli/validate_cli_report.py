@@ -5,6 +5,11 @@ import json
 import math
 from pathlib import Path
 import re
+import importlib.util
+
+spec = importlib.util.spec_from_file_location("wbs_cli_console_validation", Path(__file__).resolve().parents[2] / "tests/manual/current_launchers.py")
+console = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console)
 
 ACCEPTANCE = ["AC-053", "AC-054", "AC-055", "AC-056"]
 EXECUTIONS = {"execute-manual", "execute-auto1", "execute-auto2", "execute-manual-nopause", "execute-epub-keep"}
@@ -25,7 +30,8 @@ PARAMETERS = {"InputFile", "OutputDirectory", "Mode", "BookmarkLevel", "StartPag
 APPLICATION = {"WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
-    "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py"}
+    "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
+    "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1"}
 HEX = re.compile(r"[0-9a-f]{64}")
 
 
@@ -117,7 +123,7 @@ def validate_case(case):
     need(hashes(app) and set(app) == expected_app and case.get("application_members") == sorted(app), "Copied shipped application scope/hash missing")
     if kind in {"version", "help"}:
         need(case.get("outcome") is None and case.get("engine_records") == [] and case.get("process_summaries") == []
-            and case.get("log_sha256") is None and case.get("output_members_after") == ["prior-output.pdf"], "Version/help performed processing or wrote output")
+            and case.get("log_sha256") is None and case.get("console_evidence") is None and case.get("output_members_after") == ["prior-output.pdf"], "Version/help performed processing or wrote output")
         if kind == "version":
             need(parameters == ["-Version"] and case["stdout"].strip() == "WinBookSplit 1.0.0-dev" and not case["stderr"], "Dependency-independent canonical version missing")
         else:
@@ -136,6 +142,7 @@ def validate_case(case):
     if kind in EARLY_ARGUMENTS | DEPENDENCIES:
         need(frame is None and case["engine_records"] == [] and case["process_summaries"] == []
             and case["log_sha256"] is None and case["output_members_after"] == ["prior-output.pdf"], "Early refusal reached engine, log or writes")
+        need(case.get("console_evidence") is None, "Early refusal invented a run record")
         need(final["written_count"] == 0 and final.get("final_directory") is None, "Early refusal fabricated publication")
         need("[DEPENDENCY]" not in case["stdout"] and "[ENGINE]" not in case["stdout"], "Early refusal selected processing")
         if kind in EARLY_ARGUMENTS:
@@ -157,6 +164,7 @@ def validate_case(case):
         need(plan["entries"] == case.get("expected_entries") and plan.get("output_naming", {}).get("resolved_base") == case.get("output_base")
             and case["output_members_after"] == ["prior-output.pdf"] and case["log_sha256"] is None,
             "Preview differs from bound filenames/ranges or wrote files")
+        need(case.get("console_evidence") is None, "Preview invented a persisted run record")
         need("Preview only:" in case["stdout"] and "Done." not in case["stdout"] and "Output: " not in case["stdout"], "Plan-only disclosure missing or false completion")
         if kind in {"preview-epub", "preview-azw3"}:
             generated = plan.get("conversion", {}).get("generated_pdf_identity", {})
@@ -169,6 +177,8 @@ def validate_case(case):
             need(plan.get("original_ebook_identity", {}).get("sha256") == case["source_observations_before"]["source"]["sha256"], "Ebook preview forgot original immutable source")
         return
     transports = case.get("process_summaries")
+    console.validate_console_evidence(case.get("console_evidence"), final, case.get("log_sha256"),
+        source_path=case.get("input_path"), source_observation=case["source_observations_before"]["source"])
     need(case.get("engine_records") == [frame] and isinstance(transports, list) and len(transports) == 1
         and all(transports[0].get(field) is True for field in ("JobAssigned", "ParentStopped", "DescendantsStopped", "StreamsComplete"))
         and transports[0].get("ExitCode") == EXPECTED[kind] and transports[0].get("ResultRecordCount") == 1

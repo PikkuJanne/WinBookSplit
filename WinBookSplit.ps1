@@ -106,6 +106,7 @@ function Draw-Header {
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Diagnostics.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Runtime.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Process.ps1')
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Logging.ps1')
 
 function New-WinBookSplitFailure {
     param([string]$Code, [string]$Message)
@@ -131,10 +132,57 @@ function New-WinBookSplitOutcome {
 
 function Complete-WinBookSplitConsoleLog {
     param([Parameter(Mandatory = $true)]$Outcome)
-    $script:consoleLogWriter.WriteLine('[OPERATION-OUTCOME] ' + ($Outcome | ConvertTo-Json -Depth 100 -Compress))
+    $script:closedConsoleLogWriter = $script:consoleLogWriter
+    $script:consoleLogWriter.WriteFinal('[OPERATION-OUTCOME] ' + ($Outcome | ConvertTo-Json -Depth 100 -Compress))
     $script:consoleLogWriter.Flush()
     $script:consoleLogWriter.Dispose()
     $script:consoleLogWriter = $null
+    if (-not $Preview) {
+        $manifest = New-WinBookSplitRunRecord -Outcome $Outcome
+        Write-WinBookSplitRunManifest -Directory $consoleDir -Manifest $manifest -Leases $script:consoleRecordLeases
+    }
+}
+
+function New-WinBookSplitRunRecord {
+    param([Parameter(Mandatory = $true)]$Outcome)
+    $engine = $Outcome.engine_result
+    $plan = $null
+    if ($null -ne $engine -and $engine.PSObject.Properties.Name -contains 'plan' -and $null -ne $engine.plan) { $plan = $engine.plan }
+    elseif ($null -ne $script:confirmedPlan) { $plan = $script:confirmedPlan }
+    $identity = $script:sourceObservation
+    $normalized = $null
+    if ($null -ne $plan) {
+        $identity = $plan.source_identity
+        if ($plan.PSObject.Properties.Name -contains 'original_ebook_identity') { $identity = $plan.original_ebook_identity }
+        $normalized = $plan.normalized_inputs
+    }
+    $planning = @(); $parser = @(); $suppressed = 0; $truncated = 0
+    if ($null -ne $engine) {
+        $planning = @($engine.warnings)
+        if ($null -ne $engine.diagnostic -and $engine.diagnostic.PSObject.Properties.Name -contains 'parser_warnings') {
+            $parser = @($engine.diagnostic.parser_warnings.records)
+            $suppressed = $engine.diagnostic.parser_warnings.suppressed_count
+            $truncated = $engine.diagnostic.parser_warnings.message_truncated_count
+        }
+    }
+    $calibreVersion = $null
+    if ($null -ne $converter) { $calibreVersion = $converter.Version }
+    return [pscustomobject][ordered]@{
+        protocol = 'winbooksplit.run'; version = 1; run_id = $consoleRunId; application_version = $ver
+        started_utc = $script:runStartedUtc; finished_utc = [DateTime]::UtcNow.ToString('o')
+        diagnostics_finalized = $true
+        runtime_versions = [ordered]@{ powershell = $PSVersionTable.PSVersion.ToString(); python = $runtime.Version;
+            pypdf = $runtime.PypdfVersion; calibre = $calibreVersion }
+        settings = [ordered]@{ mode = $Outcome.mode; input_kind = $inputExt.Substring(1); preview = [bool]$Preview;
+            non_interactive = [bool]$NonInteractive; no_pause = [bool]$NoPause; keep_converted_pdf = [bool]$KeepConvertedPdf;
+            conversion_timeout = $ConversionTimeout; process_timeout = $ProcessTimeout; normalized_inputs = $normalized }
+        source_identity = $identity; plan = $plan; engine_result = $engine; outcome = $Outcome
+        warnings = [ordered]@{ planning = $planning; parser = $parser; parser_suppressed_count = $suppressed;
+            parser_message_truncated_count = $truncated }
+        log = [ordered]@{ filename = 'console.log'; max_bytes = $script:closedConsoleLogWriter.MaxBytes;
+            body_limit_bytes = $script:closedConsoleLogWriter.BodyLimitBytes;
+            bytes_written = $script:closedConsoleLogWriter.BytesWritten; limit_reached = $script:closedConsoleLogWriter.LimitReached }
+    }
 }
 
 function Wait-WinBookSplitExit {
@@ -475,27 +523,50 @@ $fileSize = "{0:N2} MB" -f ((Get-Item -LiteralPath $InputFile -ErrorAction Stop)
 $markerStream = $null
 $logStream = $null
 $script:consoleLogWriter = $null
+$script:closedConsoleLogWriter = $null
+$script:consoleRecordLeases = @()
+$script:confirmedPlan = $null
+$script:runStartedUtc = [DateTime]::UtcNow.ToString('o')
 $consoleDir = $null
 try {
+    $sourceItem = Get-Item -LiteralPath $InputFile -Force -ErrorAction Stop
+    $script:sourceObservation = [pscustomobject]@{ path = $InputFile; size_bytes = $sourceItem.Length;
+        last_write_utc = $sourceItem.LastWriteTimeUtc.ToString('o'); binding = 'metadata_only'; sha256 = $null }
     if ($Preview) {
         # Retain the same bounded transport/diagnostic path without disk logs.
-        $script:consoleLogWriter = New-Object IO.StringWriter
+        $script:consoleLogWriter = New-WinBookSplitLogWriter -Stream ([IO.MemoryStream]::new())
+        $script:closedConsoleLogWriter = $script:consoleLogWriter
     }
     else {
+    $script:consoleRecordLeases = New-WinBookSplitRecordLeases -Directory $outputDir -IncludeMarker $false
+    foreach ($lease in $script:consoleRecordLeases) { $lease.AssertUnchanged() }
     $consoleReservation = New-WinBookSplitConsoleDirectory -Base $outputDir
     $consoleRunId = $consoleReservation.run_id
     $consoleDir = $consoleReservation.path
+    $script:consoleRecordLeases.Add([WinBookSplitLogging.PathLease]::new($consoleDir, $true))
+    foreach ($lease in $script:consoleRecordLeases) { $lease.AssertUnchanged() }
     $consoleMarker = [IO.Path]::Combine($consoleDir, '.WinBookSplit-console-owner.json')
     $markerStream = [IO.File]::Open($consoleMarker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+    $createdMarkerLease = $null; $sealedMarkerLease = $null
     try {
+        $createdMarkerLease = [WinBookSplitLogging.PathLease]::new($consoleMarker, $false)
+        $createdMarkerLease.AssertSameHandle($markerStream.SafeFileHandle)
         $markerBytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $consoleRunId; kind = 'console' } | ConvertTo-Json -Compress))
         $markerStream.Write($markerBytes, 0, $markerBytes.Length)
+        $markerStream.Flush($true); $markerStream.Dispose(); $markerStream = $null
+        $sealedMarkerLease = [WinBookSplitLogging.PathLease]::new($consoleMarker, $false, $false, $true)
+        $createdMarkerLease.AssertSameLease($sealedMarkerLease)
+        $script:consoleRecordLeases.Add($sealedMarkerLease); $sealedMarkerLease = $null
     }
-    finally { if ($null -ne $markerStream) { $markerStream.Dispose(); $markerStream = $null } }
+    finally {
+        if ($null -ne $markerStream) { $markerStream.Dispose(); $markerStream = $null }
+        if ($null -ne $createdMarkerLease) { $createdMarkerLease.Dispose() }
+        if ($null -ne $sealedMarkerLease) { $sealedMarkerLease.Dispose() }
+    }
     $logFile = [IO.Path]::Combine($consoleDir, 'console.log')
     $logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
-    $script:consoleLogWriter = [IO.StreamWriter]::new($logStream, [Text.UTF8Encoding]::new($false))
-    $script:consoleLogWriter.AutoFlush = $true
+    $script:consoleLogWriter = New-WinBookSplitLogWriter -Stream $logStream -Path $logFile
+    $script:closedConsoleLogWriter = $script:consoleLogWriter
     }
 }
 catch {
@@ -506,6 +577,7 @@ catch {
             catch { $setupMessage += '; Cannot close a console stream: ' + $_.Exception.Message }
         }
     }
+    foreach ($lease in $script:consoleRecordLeases) { $lease.Dispose() }
     Write-Host ('[!] Error: Cannot prepare console records: ' + (ConvertTo-WinBookSplitDisplayText $setupMessage)) -ForegroundColor Red
     if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + (ConvertTo-WinBookSplitDisplayText $consoleDir)) -ForegroundColor Gray }
     $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'console_setup_failed' -Message $setupMessage
@@ -579,6 +651,9 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false, [bool
         # Keep its location while preserving the primary transport failure.
         try {
             $script:lastEngineResult = ConvertFrom-SplitResult -Stdout ($transport.ResultRecords -join "`n") -ExitCode $transport.ExitCode -Mode $mode -Preview $PlanOnly
+            if ($script:lastEngineResult.PSObject.Properties.Name -contains 'plan' -and $null -ne $script:lastEngineResult.plan) {
+                Assert-SplitPreviewPlan -Plan $script:lastEngineResult.plan -Mode $mode -Interactive $true -KeepConvertedPdf ([bool]$KeepConvertedPdf)
+            }
             if ($Interactive) { Assert-WinBookSplitConfirmedExecution $script:confirmedPlan $script:lastEngineResult }
         }
         catch {
@@ -612,21 +687,6 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false, [bool
         # Raw Write preserves blank lines and a final unterminated line.
         $script:consoleLogWriter.Write($text)
         $script:consoleLogWriter.WriteLine()
-        $display = $text
-        if ($name -eq 'Stdout') {
-            $display = $transport.HumanStdout
-        }
-        if ($display.Length -gt 0) {
-            $color = 'Green'; if ($name -eq 'Stderr') { $color = 'Red' }
-            # Preserve raw streams in the log. Render each human line safely,
-            # including a child line which resembles an application receipt.
-            $displayLines = foreach ($line in [regex]::Split($display, '\r\n|\r|\n')) {
-                $safeLine = ConvertTo-WinBookSplitDisplayText $line
-                if ($safeLine -cmatch '^(\[OUTCOME\] |Log: )') { $safeLine = '[PROCESS] ' + $safeLine }
-                $safeLine
-            }
-            Write-Host ($displayLines -join "`n") -ForegroundColor $color
-        }
     }
     # A result survives even when subsequent human output evicts it from the
     # bounded stdout tail. Its separate cap fails explicitly on oversized JSON.
@@ -638,6 +698,20 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false, [bool
         $script:consoleRecordError = 'Cannot record engine diagnostics: ' + $_.Exception.Message
         if ($null -eq $attemptFailure -and ($null -eq $script:lastEngineResult -or $script:lastEngineResult.exit_code -eq 0)) {
             $attemptFailure = New-WinBookSplitFailure 'console_finalize_failed' $script:consoleRecordError
+        }
+    }
+    # A disk-record failure must not hide either drained process stream.
+    foreach ($name in @('Stdout', 'Stderr')) {
+        $display = $transport.$name
+        if ($name -eq 'Stdout') { $display = $transport.HumanStdout }
+        if ($display.Length -gt 0) {
+            $color = 'Green'; if ($name -eq 'Stderr') { $color = 'Red' }
+            $displayLines = foreach ($line in [regex]::Split($display, '\r\n|\r|\n')) {
+                $safeLine = ConvertTo-WinBookSplitDisplayText $line
+                if ($safeLine -cmatch '^(\[OUTCOME\] |Log: )') { $safeLine = '[PROCESS] ' + $safeLine }
+                $safeLine
+            }
+            Write-Host ($displayLines -join "`n") -ForegroundColor $color
         }
     }
     if ($null -ne $attemptFailure) { throw $attemptFailure }
@@ -736,7 +810,7 @@ catch {
 if ($script:consoleRecordError -and -not $outcome.message.Contains($script:consoleRecordError)) { $outcome.message += '; ' + $script:consoleRecordError }
 try { Complete-WinBookSplitConsoleLog -Outcome $outcome }
 catch {
-    $finalizeMessage = 'Cannot finalize the console log: ' + $_.Exception.Message
+    $finalizeMessage = 'Cannot finalize local run diagnostics: ' + $_.Exception.Message
     $finalizeStatus = 'failed'
     if ($outcome.status -ceq 'success') { $finalizeStatus = 'incomplete' }
     if ($outcome.exit_code -ne 0) {
@@ -751,7 +825,26 @@ catch {
         catch { $outcome.message += '; Cannot close the console log: ' + $_.Exception.Message }
         $script:consoleLogWriter = $null
     }
+    if ($null -ne $script:closedConsoleLogWriter) {
+        try { $script:closedConsoleLogWriter.AppendCorrection('[OPERATION-OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress)) }
+        catch { $outcome.message += '; Cannot record the final diagnostic failure: ' + $_.Exception.Message }
+    }
+    if (-not $Preview -and -not (Test-Path -LiteralPath ([IO.Path]::Combine($consoleDir, 'WinBookSplit_Run.pending.json'))) -and
+        -not (Test-Path -LiteralPath ([IO.Path]::Combine($consoleDir, 'WinBookSplit_Run.json')))) {
+        try { Write-WinBookSplitRunManifest -Directory $consoleDir -Manifest (New-WinBookSplitRunRecord -Outcome $outcome) -Leases $script:consoleRecordLeases }
+        catch {
+            $outcome.message += '; Cannot preserve a finalized failure manifest: ' + $_.Exception.Message
+            # The fallback failure changes the authoritative outcome after the
+            # first correction. Record that final outcome when the log is usable.
+            if ($null -ne $script:closedConsoleLogWriter) {
+                try { $script:closedConsoleLogWriter.AppendCorrection('[OPERATION-OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress)) }
+                catch { $outcome.message += '; Cannot record the final manifest failure: ' + $_.Exception.Message }
+            }
+        }
+    }
 }
+if ($null -ne $script:closedConsoleLogWriter) { $script:closedConsoleLogWriter.CloseLease() }
+foreach ($lease in $script:consoleRecordLeases) { $lease.Dispose() }
 # Cancellation can finish while a no-newline interactive prompt is pending.
 Write-Host ''
 Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))

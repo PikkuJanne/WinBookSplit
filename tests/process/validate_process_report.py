@@ -14,6 +14,9 @@ from pathlib import Path
 spec = importlib.util.spec_from_file_location("wbs_process_interaction_validation", Path(__file__).resolve().parents[2] / "tests/manual/interaction_receipts.py")
 interactions = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(interactions)
+spec = importlib.util.spec_from_file_location("wbs_process_console_validation", Path(__file__).resolve().parents[2] / "tests/manual/current_launchers.py")
+console = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console)
 
 ACCEPTANCE = ["AC-046", "AC-047", "AC-048", "AC-049"]
 HOSTS = ("PS51", "PS7")
@@ -254,6 +257,7 @@ def validate_process_report(report, shell_paths):
         require(case.get("batch_unchanged") is True if host == "BAT" else case.get("batch_unchanged") is None, "BAT preservation claim missing or misplaced")
         require(type(case.get("log_size_bytes")) is int and 0 < case["log_size_bytes"] < 400000, "Application log unbounded")
         digest(case.get("log_sha256"))
+        console.validate_console_evidence(case.get("console_evidence"), case.get("final_outcome"), case.get("log_sha256"))
         summary = case.get("process_summary")
         require(type(summary) is dict, "Actual application supervisor summary missing")
         flags(summary, "ParentStopped", "DescendantsStopped", "StreamsComplete", "JobAssigned")

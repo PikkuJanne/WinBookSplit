@@ -15,6 +15,9 @@ spec.loader.exec_module(validator)
 spec = importlib.util.spec_from_file_location("wbs_launcher_unit_runner", ROOT / "tests/run_tests.py")
 runner = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(runner)
+spec = importlib.util.spec_from_file_location("wbs_launcher_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console_fixture)
 
 
 def seal(row):
@@ -51,7 +54,9 @@ def cancelled_case(kind="source-c"):
         row["log_sha256"] = "c" * 64
         row["console_operation_outcomes"] = [deepcopy(row["outcome"])]
         row["console_log_scope"] = {"path": str(Path("C:/synthetic/o/.WinBookSplit-console-" + "f" * 32 + "/console.log")),
-            "owner": {"run_id": "f" * 32, "kind": "console"}, "members": [".WinBookSplit-console-owner.json", "console.log"], "sha256": "c" * 64}
+            "owner": {"run_id": "f" * 32, "kind": "console"}, "members": sorted(validator.cli.console.CONSOLE_MEMBERS), "sha256": "c" * 64}
+        row["console_evidence"] = console_fixture.make(row["outcome"], row["log_sha256"], source_path=source,
+            source_observation=identities["source"], run_id="f" * 32)
     return seal(row)
 
 

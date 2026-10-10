@@ -155,10 +155,12 @@ def validate_case(row):
     scope = row.get("console_log_scope")
     need(isinstance(scope, dict) and row.get("console_operation_outcomes") == [final]
          and scope.get("sha256") == row.get("log_sha256") and HEX.fullmatch(scope.get("sha256", ""))
-         and scope.get("members") == [".WinBookSplit-console-owner.json", "console.log"]
+         and scope.get("members") == sorted(cli.console.CONSOLE_MEMBERS)
          and Path(scope.get("path", "")).parent.parent == Path(row["output_base"])
          and scope.get("owner") == {"run_id": Path(scope["path"]).parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}
          and re.fullmatch(r"\.WinBookSplit-console-[0-9a-f]{32}", Path(scope["path"]).parent.name), "Exact owned log/final operation footer proof absent")
+    cli.console.validate_console_evidence(row.get("console_evidence"), final, row.get("log_sha256"),
+        source_path=row["input_path"], source_observation=row["source_observations_before"]["source"])
     if kind in {"menu-cancel", "menu-eof"}:
         need(final.get("status") == "cancelled" and final.get("code") == "cancelled" and final["written_count"] == 0
              and final.get("engine_result") is None and final.get("final_directory") is None and rows == transports == []

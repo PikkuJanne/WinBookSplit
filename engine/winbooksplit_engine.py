@@ -17,6 +17,8 @@ from dataclasses import dataclass
 from hashlib import sha256
 from io import BytesIO
 from types import MappingProxyType
+from functools import wraps
+from threading import RLock, get_ident
 
 # Both entrypoints consume this shipped contract; unknown outcomes fail closed.
 with Path(__file__).resolve().with_name("WinBookSplit.Outcomes.json").open(encoding="utf-8") as _contract_stream:
@@ -50,6 +52,91 @@ except ImportError as error:
 
 
 def log(msg): print(msg)
+
+
+PARSER_WARNING_LIMIT = 64
+PARSER_WARNING_MESSAGE_BYTES = 2048
+_parser_warning_lock = RLock()
+
+
+class _ParserWarningCapture(logging.Handler):
+    """Bound this run's pypdf diagnostics without changing shared plan data."""
+    def __init__(self):
+        super().__init__(logging.WARNING)
+        self.owner = get_ident()
+        self.records, self.total_count, self.suppressed_count, self.message_truncated_count = [], 0, 0, 0
+
+    def __enter__(self):
+        # Logging configuration belongs to the process. Serialize our callable
+        # capture scopes, and forward other threads through the prior setup.
+        _parser_warning_lock.acquire()
+        self.logger = logging.getLogger("pypdf")
+        self.previous = (self.logger.level, self.logger.disabled, self.logger.propagate, self.logger.handlers)
+        self.previous_effective_level = self.logger.getEffectiveLevel()
+        self.forward_handlers = list(self.logger.handlers)
+        ancestor = self.logger.parent if self.logger.propagate else None
+        while ancestor is not None:
+            self.forward_handlers.extend(ancestor.handlers)
+            ancestor = ancestor.parent if ancestor.propagate else None
+        self.previous_last_resort = logging.lastResort
+        self.logger.handlers = [self]
+        self.logger.propagate, self.logger.disabled = False, False
+        self.logger.setLevel(logging.WARNING)
+        return self
+
+    def __exit__(self, error_type, error, traceback):
+        try:
+            level, disabled, propagate, handlers = self.previous
+            self.logger.handlers, self.logger.propagate, self.logger.disabled = handlers, propagate, disabled
+            self.logger.setLevel(level)
+            if self.suppressed_count:
+                print(f"[PYPDF WARNING] {self.suppressed_count} additional parser diagnostics omitted after {PARSER_WARNING_LIMIT} records.", file=sys.stderr)
+        finally:
+            _parser_warning_lock.release()
+
+    def emit(self, record):
+        if record.thread != self.owner:
+            # Do not adopt another callable/document's messages into this run.
+            if record.levelno < self.previous_effective_level or record.name == "pypdf" and self.previous[1]:
+                return
+            for handler in self.forward_handlers:
+                if record.levelno >= handler.level:
+                    handler.handle(record)
+            if not self.forward_handlers and self.previous_last_resort is not None and record.levelno >= self.previous_last_resort.level:
+                self.previous_last_resort.handle(record)
+            return
+        self.total_count += 1
+        if len(self.records) >= PARSER_WARNING_LIMIT:
+            self.suppressed_count += 1
+            return
+        raw = record.getMessage().encode("utf-8", errors="backslashreplace")
+        truncated = len(raw) > PARSER_WARNING_MESSAGE_BYTES
+        message = raw[:PARSER_WARNING_MESSAGE_BYTES].decode("utf-8", errors="ignore")
+        severity = "ERROR" if record.levelno >= logging.ERROR else "WARNING"
+        self.message_truncated_count += int(truncated)
+        self.records.append({"code": "pypdf_parser_error" if severity == "ERROR" else "pypdf_parser_warning",
+                             "category": "pdf_parser", "severity": severity, "message": message, "truncated": truncated})
+        # Structured messages retain local Unicode/control text. Console text
+        # remains one categorized line, including document-authored newlines.
+        display = re.sub(r"[\x00-\x1f\x7f-\x9f\u2028\u2029]", lambda match: f"\\u{ord(match.group()):04x}", message)
+        print(f"[PYPDF {severity}] {display}" + (" [message truncated]" if truncated else ""), file=sys.stderr)
+
+    def attach(self, result):
+        if not self.total_count:
+            return result
+        diagnostic = result.get("diagnostic") or {}
+        return _freeze({**result, "diagnostic": {**diagnostic, "parser_warnings": {
+            "records": self.records, "total_count": self.total_count, "suppressed_count": self.suppressed_count,
+            "message_truncated_count": self.message_truncated_count}}})
+
+
+def _capture_parser_warnings(function):
+    @wraps(function)
+    def captured(*args, **kwargs):
+        with _ParserWarningCapture() as capture:
+            result = function(*args, **kwargs)
+        return capture.attach(result)
+    return captured
 
 
 class ManualPlanError(ValueError):
@@ -1154,6 +1241,7 @@ def _log_conversion(conversion):
             log(f"[CONVERTER {stream}] {line}")
 
 
+@_capture_parser_warnings
 def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False, conversion_timeout=1800, preview=False):
     """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
@@ -1214,16 +1302,16 @@ def _complete_prepared_split(prepared, output_dir, *, preview=False):
         if execution.get("post_publication_warnings"):
             return _split_result(mode, "incomplete", "output_handle_close_failed",
                 "Chapter PDFs were published, but output handles could not be finalized; the completed folder is retained.",
-                (*plan["warnings"], *execution["post_publication_warnings"]), execution)
+                (*plan["warnings"], *execution["post_publication_warnings"]), execution, plan=plan)
         return _split_result(mode, "success", "split_complete", "PDF split completed.",
-                             (*plan["warnings"], *execution.get("post_publication_warnings", ())), execution)
+                             (*plan["warnings"], *execution.get("post_publication_warnings", ())), execution, plan=plan)
     except KeyboardInterrupt:
-        return _split_result(mode, "cancelled", "processing_cancelled", "PDF processing was cancelled.", plan["warnings"])
+        return _split_result(mode, "cancelled", "processing_cancelled", "PDF processing was cancelled.", plan["warnings"], plan=plan)
     except PlanError as error:
         return _split_result(mode, "write_error" if error.code == "output_write_failed" else "error",
-                             error.code, str(error), plan["warnings"], diagnostic=getattr(error, "diagnostic", None))
+                             error.code, str(error), plan["warnings"], diagnostic=getattr(error, "diagnostic", None), plan=plan)
     except Exception as error:
-        return _split_result(mode, "write_error", "output_write_failed", str(error), plan["warnings"])
+        return _split_result(mode, "write_error", "output_write_failed", str(error), plan["warnings"], plan=plan)
 
 
 INTERACTION_PREFIX = "[WBS-INTERACTION] "
@@ -1315,15 +1403,16 @@ def _finish_working_pdf(run, identity, result):
         if result["status"] == "success":
             return _split_result(result["mode"], "incomplete", "output_handle_close_failed", message,
                                  (*result["warnings"], {"code": "output_handle_close_failed", "message": message}),
-                                 result["execution"], diagnostic)
+                                 result["execution"], diagnostic, plan=result.get("plan"))
         return _freeze({**result, "message": message, "diagnostic": diagnostic})
     return _freeze({**result, "diagnostic": diagnostic})
 
 
+@_capture_parser_warnings
 def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, session, calibre_path=None,
                           keep_converted_pdf=False, conversion_timeout=1800, input_stream=None, output_stream=None):
     """Keep one captured reader and each explicitly chosen plan in this process."""
-    working, working_identity, result, metadata = None, None, None, None
+    working, working_identity, result, metadata, known_plan = None, None, None, None, None
     input_stream = sys.stdin.buffer if input_stream is None else input_stream
     output_stream = sys.stdout if output_stream is None else output_stream
     try:
@@ -1383,6 +1472,7 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
                 prepared = prepare_split(pdf_path, mode, manual_data, output_base=output_dir,
                                          _conversion_metadata=metadata, _captured_reader=reader)
                 plan = preview_plan(prepared)
+                known_plan = plan
             except (ManualPlanError, BookmarkPlanError, PlanError) as error:
                 result = _planning_failure(mode, error)
                 if result["status"] != "no_plan":
@@ -1401,7 +1491,7 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
             reply = exchange.request("plan_ready", mode, plan=plan, plan_json=canonical, plan_sha256=digest)
             action = _interactive_action(reply, {"execute", "cancel"})
             if action == "cancel":
-                result = _split_result(mode, "cancelled", "processing_cancelled", "The displayed split plan was cancelled.", plan["warnings"])
+                result = _split_result(mode, "cancelled", "processing_cancelled", "The displayed split plan was cancelled.", plan["warnings"], plan=plan)
                 break
             if reply["plan_sha256"] != digest:
                 raise PlanError("invalid_arguments", "Execution must confirm the exact displayed plan.")
@@ -1420,6 +1510,8 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
             result = _planning_failure(mode, error)
             if getattr(error, "diagnostic", None):
                 result = _freeze({**result, "diagnostic": error.diagnostic})
+    if known_plan is not None and "plan" not in result:
+        result = _freeze({**result, "plan": known_plan})
     return _finish_working_pdf(working, working_identity, result)
 
 
@@ -1461,7 +1553,6 @@ def write_slice(reader, start, end, out_path, on_created=None):
 
 def main():
     # Preserve CLI configuration while keeping callable imports free of it.
-    logging.getLogger("pypdf").setLevel(logging.ERROR)
     sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace", line_buffering=True)
     sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
     mode = sys.argv[3] if len(sys.argv) > 3 else ""

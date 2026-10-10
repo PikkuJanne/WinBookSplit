@@ -958,11 +958,51 @@ class RunnerTests(unittest.TestCase):
         ux = [command for command in commands if str(ROOT / "tests/ux/characterize_ux.py") in command]
         self.assertEqual(len(ux), 1)
         self.assertEqual(ux[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
-        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux"])
-        self.assertEqual([step["name"] for step in report["steps"][-14:]],
-                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression"])
-        self.assertEqual(len(report["steps"]), 17)
+        support = [command for command in commands if str(ROOT / "tests/support/characterize_support.py") in command]
+        self.assertEqual(len(support), 1)
+        self.assertEqual(support[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support"])
+        self.assertEqual([step["name"] for step in report["steps"][-15:]],
+                         ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression"])
+        self.assertEqual(len(report["steps"]), 18)
         self.assertTrue(report["success"])
+
+    def test_support_target_forwards_both_hosts_and_real_converter(self):
+        hosts = [Path("C:/trusted/ps51.exe"), Path("C:/trusted/pwsh.exe")]
+        args = SimpleNamespace(layer="support", failure_probe=None, shell_path=hosts,
+                               tool_root=None, calibre_path=Path("C:/trusted/ebook-convert.exe"))
+        commands = []
+        def command(argv, cwd, **kwargs):
+            commands.append(argv)
+            return {"exit_code": 0, "stdout": "synthetic identity\n", "stderr": ""}
+        with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                patch.object(runner, "run_command", side_effect=command), patch.object(runner, "attach_child_report") as attach:
+            report = runner.execute(args)
+        native = [argv for argv in commands if str(ROOT / "tests/support/characterize_support.py") in argv]
+        self.assertEqual(len(native), 1)
+        self.assertEqual(native[0][-6:], ["--calibre-path", str(args.calibre_path), "--shell-path", str(hosts[0]), "--shell-path", str(hosts[1])])
+        self.assertEqual([step["name"] for step in report["steps"]], ["support-regression"])
+        self.assertEqual([call.args[2] for call in attach.call_args_list], ["support"])
+        self.assertTrue(report["success"])
+
+    def test_support_absent_malformed_and_retained_failure_receipts_fail_closed(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-support-receipt-") as directory:
+            path = Path(directory) / "support.json"
+            for raw in (None, "not JSON", json.dumps({"schema_version": 1, "task_id": "M3-T05", "success": False,
+                            "exit_code": 1, "cleanup_safe": False, "workspace_retained": "C:/synthetic/retained"})):
+                if raw is not None:
+                    path.write_text(raw, encoding="utf-8")
+                step = {"exit_code": 0, "requested_shell_paths": ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"],
+                        "requested_calibre_path": "C:/trusted/ebook-convert.exe"}
+                runner.attach_child_report(step, path, "support")
+                self.assertEqual(step["exit_code"], 126)
+                self.assertIn("evidence_error", step)
+                if raw is not None and raw.startswith("{"):
+                    self.assertFalse(step["cleanup_safe"])
+                    self.assertIn("failed_evidence", step)
+                    native_failure = {**step, "exit_code": 7}
+                    runner.attach_child_report(native_failure, path, "support")
+                    self.assertEqual(native_failure["exit_code"], 7)
 
     def test_diagnostic_evidence_requires_categories_zero_outputs_both_hosts_and_all_decisions(self):
         hosts = ["C:/trusted/ps51.exe", "C:/trusted/pwsh.exe"]

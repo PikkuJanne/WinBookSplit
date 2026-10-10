@@ -185,7 +185,7 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
                 require(marker_path.is_file() and not marker_path.lstat().st_file_attributes & 1024
                     and json.loads(marker_path.read_text(encoding="utf-8")) == {"run_id": child.name.removeprefix(".WinBookSplit-console-"), "kind": "console"},
                     "Pre-engine cancellation console ownership differs")
-                require({item.name for item in child.iterdir()} == {marker_path.name, "console.log"}, "Unexpected pre-engine cancellation log member")
+                require({item.name for item in child.iterdir()} == launchers.CONSOLE_MEMBERS, "Unexpected pre-engine cancellation log member")
                 log = child / "console.log"
                 require(log.is_file() and not log.lstat().st_file_attributes & 1024, "Cancellation log is not an ordinary file")
                 log_text = log.read_text(encoding="utf-8")
@@ -224,8 +224,10 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
             record["console_decisions"] = [line[len("[DECISION] "):] for line in log_text.splitlines() if line.startswith("[DECISION] ")]
             require(record["console_operation_outcomes"] == [record["outcome"]], "Owned console footer differs from final native outcome")
             record["console_log_scope"] = {"path": str(log), "owner": marker,
-                "members": sorted((".WinBookSplit-console-owner.json", "console.log")), "sha256": digest(log)}
-            launchers.remove_known_directory(log.parent, base, {".WinBookSplit-console-owner.json", "console.log"}, ".WinBookSplit-console-owner.json", marker)
+                "members": sorted(launchers.CONSOLE_MEMBERS), "sha256": digest(log)}
+            record["console_evidence"] = launchers.authenticate_console_manifest(log, record["outcome"],
+                source_path=source, source_observation=before["source"])
+            launchers.remove_console_directory(log, base, record["outcome"], source_path=source, source_observation=before["source"])
         after = {"source": identity(source), "neighbor": identity(neighbor), "prior": identity(prior)}
         require(before == record["source_observations_after"] == after and extra_before == record["additional_inputs_after"], "Launcher changed source/neighbor/prior/additional identities")
         require({item.name for item in base.iterdir()} == {prior.name}, "Launcher cleanup left unexplained output members")
