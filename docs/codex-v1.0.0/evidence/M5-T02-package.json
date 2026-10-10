@@ -1,0 +1,3572 @@
+{
+  "schema_version": 1,
+  "task_id": "M5-T02",
+  "observed_at": "2026-10-10T18:49:41.856870+00:00",
+  "timezone": "Europe/Berlin",
+  "scope": "Explicit-commit unpublished package integrity, authored package negatives, affected local regression and actual hosted CI. No extracted-candidate Windows/Explorer/Calibre or public release acceptance.",
+  "acceptance": {
+    "AC-084": "PASS: actual C build and independent295-check audit of exact28-file/all16-runtime allowlist, helper/dependency paths, safe member metadata and Git bytes; generated decoys/untracked/dev/handoff inputs excluded.",
+    "AC-085": "PASS: exact C/tree/Git modes/blob IDs, per-file/archive/manifest hashes, independent two checksum lines and byte-identical repeated three-asset builds; external manifest never hashes itself and checksum file never lists itself.",
+    "AC-086": "PASS:25 authored real-Git/package methods include missing engine, bad version/allowlist, dirty tools, unsafe/duplicate/nonregular/encrypted/compressed members, forged hashes, source binding, no overwrite and ZIP64 rejection before parser construction."
+  },
+  "start": {
+    "local_branch": "codex/winbooksplit-v1-m5",
+    "local_live_head": "b5fec13c7a8cf4be8f741f33139c9ddf80f598e0",
+    "observed_merged_PR27": "https://github.com/PikkuJanne/WinBookSplit/pull/27",
+    "starting_live_main": "d720fdf7a2edad584f7e8521d3e75737c4938f96",
+    "reconciliation": "Clean fast-forward to actual merged main; no reset or discarded work."
+  },
+  "implementation": {
+    "commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+    "tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+    "mapped_path_count": 175,
+    "source_sha256": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+    "mapped_all_raw_equal_git": true,
+    "source_manifest": {
+      ".github/workflows/windows-ci.yml": "1c77e2d97327b6f9622e03f31d1527861dc15e504beea953e1bee9a44f34cea2",
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "CHANGELOG.md": "6c805c902ac7cb4b31f0e2884a8f1f87af3ed3bd2edb30401c4634f1acccfac4",
+      "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md": "61e52dd9aa722081bfe227b2620a01a4c878f20bad9b574b2ffcc8a382babeb2",
+      "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+      "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "docs/SETUP.md": "8aa385e5dd69104d4219634191be26cd8f2e90a6ca845f7eba0a56d1ad4bcd6d",
+      "docs/SUPPORT_DIAGNOSTICS.md": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "9e50757a2f8489a3dcd19ac4f25cf21bc3095b0663b91c624e30771ed30a643d",
+      "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine/winbooksplit_engine.py": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "37ff70ffe91bd827ecfcd03e7c6828e7c333ccf8580f3dfa98f0b12a1b016022",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "SECURITY.md": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "fc6963ddb05d0f833209ad6d85f2f3e5a68326cb6fe9745c9f695313efda2eac",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "cb6116d424c19a050ab4b2d7d93f717d37d28586fef7a6ad912a6faa753844f4",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "4dbca24a35901f38eb56b5b150678757738b8792c95a15a6f66fe0be798c4620",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/ebooks/assets.py": "8acc47de906ea95f4d33aaaa37120bff7dcecb99be2a22b194bfbe953143a647",
+      "tests/ebooks/behavior.py": "3924609fb339425ecd097dc7f4786ecd6b13e552ccbba962e0b4690b04102098",
+      "tests/ebooks/characterize_ebooks.py": "5b03c9f6569faeec575de31a5bd9436ee09bb2c3f23a31878fab8497701a0143",
+      "tests/ebooks/README.md": "af53b9225a39e7e1f21419e53778ac0b7e238875f0f73200fb7efae8fab12ac3",
+      "tests/ebooks/validate_ebooks_report.py": "1913ca3f7434a27f592f56a8dc0bda7fb02a5da2335e1f65aea50dc7c4165651",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+      "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+      "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+      "tests/faults/invariants.py": "dc8a0473f5aa2ab0d6f430e8f78615ed5b8e1175a5db500f8b296d2a7a04f464",
+      "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+      "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+      "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+      "tests/faults/validate_isolation.py": "fcddb6a816244243841196da9e62019b391909643a354a50e5ba38cc27e37653",
+      "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "486fa7cf3a5c224086fba824d4701bd2392fa01249218f4a9b253dae0960e880",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "9b319c2c885a40f7ef5ec8277488a0da90f0ebac0f51127e599c1a6eeeba98c3",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "47161ff84f71a28385528f44ff535adce66586bfe497b64466040459cec31561",
+      "tests/manual/current_launchers.py": "4fe4732ebf8434f6a2ce302964fb253ea115df55b09841e60e61d8e042b27694",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "0b27dd568fdcf111f41c18fbd8f426f5ea2c4d8a6fa81ac13f023cf869b7ed42",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "8487b2029868f1a0677f3558496dbfb8c2ab68d5781cc69ceaf9fdbb12d3db71",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "0c9bd086bf7e4ccfe59e8a18ca166919131b4a9742f4c13ac28b8d9c72278805",
+      "tests/powershell/Version.Tests.ps1": "b864fca1aa73b24ffdea0f39612bbbeaec87fa1451d5cfb5279375a803f51fda",
+      "tests/process/characterize_process.py": "3fb88adc729f854fa05a63804be5955969d39291f7cd9db987358d8e617a432e",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "0d96edb895ff1fa327161182d5f269b21d1d4b0d22cd422998778ce3fe69729f",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_ci_bootstrap.py": "eb86780f732ceee84f9cc283713fc6bc97f5ac395b1239d9f23ead3ccb176810",
+      "tests/python/test_ci_package_inputs.py": "c369398d1af026089c3ee15d7d2aadc969d348285253a3ca1fcbdafb58811564",
+      "tests/python/test_cli_receipt.py": "19426cae55a58e6206145275a06f82a808ff53f7b5bcf39ec0a12f001c991605",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_cross_host_receipt.py": "3607028fe64acbc8b1fba0d8fbd853934af4c6f6207c859722caad90468f4d56",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "4b1cfb99a72bfde75062ee5aeec23b8308aec53315406ba635341235b80e5f6a",
+      "tests/python/test_ebook_assets.py": "a936dfdc3dec656f2db989a9629306b698069483d37e1f3a4f4fec85fcde09a5",
+      "tests/python/test_ebook_behavior.py": "d73c76eb333c05e8837dfdddc9163c3633d4ef7e70812efc646df4864878c5e1",
+      "tests/python/test_ebooks_receipt.py": "6d83abadb5fec9c31718bac88332d96b94dd1ab3c7114ed1c0514bea95d420bf",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+      "tests/python/test_fault_isolation.py": "a71a77d76c66448c831851baa11ba35cae2deef2fda3cb0918f956048a5c398e",
+      "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+      "tests/python/test_fidelity_receipt.py": "ed26969094c99c0e40418395bec1176353698daf30b97da34cc4e3dd5ae8c3bf",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "300c89f7ff76020cad6ae9b972a2aa2d45e13db791dec31526261f88c0d16eb6",
+      "tests/python/test_pdf_fidelity.py": "ad07d2572dfac8909e099f0896576cd8c89c013148dba4f81f60d9c8ed839219",
+      "tests/python/test_pdf_policy.py": "beda241f2cc0a4a7d42adc57e699c468a513b3077d9546394603321b3dffd074",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+      "tests/python/test_release_package.py": "384c5a6aac7d19334d95216ccafa2898e7611f35007a8a8799d45e607ed32cb3",
+      "tests/python/test_runner.py": "c22e57ba773ac741e4fcdd83960955ed32c687fc45a5587e82134eef7b4d1afc",
+      "tests/python/test_runtime_receipt.py": "17e3783471af4f54e95132135c8fd311af6da211acbf2dc095144280ca2ad9a3",
+      "tests/python/test_support_receipt.py": "4d50186978c4d8dc61a3bec836eb6b9b3ed43fde1f32fab5a74367b3b6ab5ff1",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_version.py": "fa874217ff89e7fdb8266c80f977b80ec969467f2773e5d8f9fcc1084445224d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "94c28d85ff7e3244085e63d678c3f68db0dce767cba9fdd7d481d43671968300",
+      "tests/run_tests.py": "6773a1e5368771e3482f46afc21699f96df88d7728b6f522aacadfa6c4b32245",
+      "tests/runtime/characterize_runtime.py": "403ba5bb5cf0d22f8f16a2daa984b2cf7cbe62e834325fa04b883d734d74b4c0",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "05b6a5da55adde4e36de6e74829ecb8d5e24a901ff9c6ff2304ae9e4173b7fb6",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "eda0c6628fc28b6cf601cdaa3c5e488f6a531d8b6dddd69a7e9773894eaeb687",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "THIRD_PARTY_NOTICES.md": "27652b10facfa35eec055e3a728195593db0a06b4b9b19b4f96a78c1bed4761a",
+      "tools/ci/bootstrap.py": "47ea20b6d4a543bca4390201fb9e45b37ca02983223fefd7abb3ef7640bbb2ce",
+      "tools/ci/check_package_inputs.py": "615cd86b3c2895928005e5ddbe2bdfada634926261e992d6e4562ad440fd5da0",
+      "tools/ci/README.md": "fe5fae98e1385ebc1629b83e0da5bbc6ea6576007862254316b5ca0a573349e8",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "tools/release/build_package.py": "76be8cef53e080a8b1e48c7176aa7c091459a8e8cb65f533956543bcabd19dc0",
+      "tools/release/payload.json": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1",
+      "tools/release/README.md": "16be0345569ce7b61c240acbd2fce6f1d07cc205394be04fc7aaedeb9d4cd060",
+      "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "991c5e87bf66ff987708bc4a4d4e8f7e1c09c788fd3333d0c0958b01132d9f2c"
+    },
+    "all16_runtime_unchanged_from_starting_main": {
+      "Export-WinBookSplitDiagnostics.ps1": true,
+      "VERSION": true,
+      "WinBookSplit.bat": true,
+      "WinBookSplit.ps1": true,
+      "engine/WinBookSplit.Diagnostics.ps1": true,
+      "engine/WinBookSplit.Logging.ps1": true,
+      "engine/WinBookSplit.Outcomes.json": true,
+      "engine/WinBookSplit.Paths.ps1": true,
+      "engine/WinBookSplit.Process.ps1": true,
+      "engine/WinBookSplit.Runtime.ps1": true,
+      "engine/WinBookSplit.Support.ps1": true,
+      "engine/winbooksplit_conversion.py": true,
+      "engine/winbooksplit_engine.py": true,
+      "engine/winbooksplit_job.py": true,
+      "engine/winbooksplit_windows.py": true,
+      "requirements.txt": true
+    },
+    "historical_unmapped_raw_differences": {
+      "count": 23,
+      "line_endings_only": true,
+      "scope": "Initial overbroad all-tracked raw-equality auditor stopped on historical CRLF files; source175/payload28/tools3 are exact Git bytes. Historical files preserved."
+    }
+  },
+  "package": {
+    "assets": [
+      {
+        "file": "WinBookSplit-v1.0.0.zip",
+        "bytes": 413958,
+        "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+      },
+      {
+        "file": "release-manifest.json",
+        "bytes": 11546,
+        "sha256": "f6822612e10100ef6cf40bc36a7c96f977c57a702ca620703d31032e0a595c48"
+      },
+      {
+        "file": "SHA256SUMS.txt",
+        "bytes": 178,
+        "sha256": "7a26bbdca856cd060962662ccdc6dbd4e992e7625bea490c69bd0eb9d2d77f72"
+      }
+    ],
+    "manifest": {
+      "application": "WinBookSplit",
+      "archive": {
+        "bytes": 413958,
+        "name": "WinBookSplit-v1.0.0.zip",
+        "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+      },
+      "builder": {
+        "archive_recipe": {
+          "compression": "ZIP_STORED",
+          "creator_system": "Unix",
+          "directory_entries": false,
+          "mode": "100644",
+          "order": "path Unicode ascending",
+          "timestamp": [
+            1980,
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "files": [
+          {
+            "bytes": 14790,
+            "git_blob": "eb6220adc6282de9be7c93774aa239988f736f5f",
+            "git_mode": "100644",
+            "path": "tools/release/build_package.py",
+            "sha256": "76be8cef53e080a8b1e48c7176aa7c091459a8e8cb65f533956543bcabd19dc0"
+          },
+          {
+            "bytes": 913,
+            "git_blob": "09944a21ecd5a1b457ea9d4464c72af244452c04",
+            "git_mode": "100644",
+            "path": "tools/release/payload.json",
+            "sha256": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1"
+          },
+          {
+            "bytes": 16625,
+            "git_blob": "83e5537c91a6b226f273e33123c544ce14501628",
+            "git_mode": "100644",
+            "path": "tools/ci/check_package_inputs.py",
+            "sha256": "615cd86b3c2895928005e5ddbe2bdfada634926261e992d6e4562ad440fd5da0"
+          }
+        ],
+        "git": "git version 2.56.0.windows.1",
+        "python": "3.14.8",
+        "version": "1"
+      },
+      "dependencies": {
+        "calibre": {
+          "bundled": false,
+          "required_for": [
+            "epub",
+            "azw3"
+          ],
+          "version": "9.15.0"
+        },
+        "powershell": {
+          "bundled": false,
+          "supported": [
+            "Windows PowerShell 5.1",
+            "PowerShell 7.6.5"
+          ]
+        },
+        "pypdf": {
+          "bundled": false,
+          "requirement": "pypdf==6.19.0 --hash=sha256:7e5d6e730e7dae87d560a2cee218b852f6498c8be61966f3cd02ead971e48d14",
+          "version": "6.19.0"
+        },
+        "python": {
+          "architecture": "x64",
+          "bundled": false,
+          "flavor": "regular GIL CPython",
+          "version": "3.14.8"
+        },
+        "windows": {
+          "bundled": false,
+          "supported": "Windows 11 x64"
+        }
+      },
+      "files": [
+        {
+          "bytes": 1838,
+          "git_blob": "99a2f687b3e581bb99db9f9282bd9393be539473",
+          "git_mode": "100644",
+          "path": "CHANGELOG.md",
+          "scope": "support_source",
+          "sha256": "6c805c902ac7cb4b31f0e2884a8f1f87af3ed3bd2edb30401c4634f1acccfac4"
+        },
+        {
+          "bytes": 1839,
+          "git_blob": "ae6ca5a934283bec164b0f1aa6928396c1c9a15c",
+          "git_mode": "100644",
+          "path": "CONTRIBUTING.md",
+          "scope": "support_source",
+          "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+        },
+        {
+          "bytes": 863,
+          "git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a",
+          "git_mode": "100644",
+          "path": "Export-WinBookSplitDiagnostics.ps1",
+          "scope": "runtime",
+          "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+        },
+        {
+          "bytes": 1070,
+          "git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "git_mode": "100644",
+          "path": "LICENSE",
+          "scope": "support_source",
+          "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+        },
+        {
+          "bytes": 9378,
+          "git_blob": "ee4f7b3b515f3a50d66c0252b48f27a98e04afb9",
+          "git_mode": "100644",
+          "path": "README.md",
+          "scope": "support_source",
+          "sha256": "37ff70ffe91bd827ecfcd03e7c6828e7c333ccf8580f3dfa98f0b12a1b016022"
+        },
+        {
+          "bytes": 2093,
+          "git_blob": "794acc27265d18b56847ace75d7e150f15ff3708",
+          "git_mode": "100644",
+          "path": "SECURITY.md",
+          "scope": "support_source",
+          "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+        },
+        {
+          "bytes": 2461,
+          "git_blob": "6d066a5d839330d5abb9bcb9535d5502b735d79b",
+          "git_mode": "100644",
+          "path": "THIRD_PARTY_NOTICES.md",
+          "scope": "support_source",
+          "sha256": "27652b10facfa35eec055e3a728195593db0a06b4b9b19b4f96a78c1bed4761a"
+        },
+        {
+          "bytes": 6,
+          "git_blob": "3eefcb9dd5b38e2c1dc061052455dd97bcd51e6c",
+          "git_mode": "100644",
+          "path": "VERSION",
+          "scope": "runtime",
+          "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+        },
+        {
+          "bytes": 808,
+          "git_blob": "d1bd36dbe2dcad595235ccba1ee9fd80300a9c0c",
+          "git_mode": "100644",
+          "path": "WinBookSplit.bat",
+          "scope": "runtime",
+          "sha256": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0"
+        },
+        {
+          "bytes": 53754,
+          "git_blob": "b54716e649840b7f9efad0a614f5e683b1f36b23",
+          "git_mode": "100644",
+          "path": "WinBookSplit.ps1",
+          "scope": "runtime",
+          "sha256": "991c5e87bf66ff987708bc4a4d4e8f7e1c09c788fd3333d0c0958b01132d9f2c"
+        },
+        {
+          "bytes": 21645,
+          "git_blob": "fc57139965435f3ace0dc76d450e403a70adb8b8",
+          "git_mode": "100644",
+          "path": "WinBookSplit_icon.ico",
+          "scope": "support_source",
+          "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+        },
+        {
+          "bytes": 3352,
+          "git_blob": "12cd8ea2230884951233b7c36eb06541359f8419",
+          "git_mode": "100644",
+          "path": "docs/EBOOK_SUPPORT.md",
+          "scope": "support_source",
+          "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+        },
+        {
+          "bytes": 3344,
+          "git_blob": "c7f348f935090452cb72892e722244f95e452621",
+          "git_mode": "100644",
+          "path": "docs/PDF_FIDELITY.md",
+          "scope": "support_source",
+          "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+        },
+        {
+          "bytes": 4143,
+          "git_blob": "ca765694e9f1bf4a6e64ff94ab836a7f910cee35",
+          "git_mode": "100644",
+          "path": "docs/PDF_POLICY.md",
+          "scope": "support_source",
+          "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+        },
+        {
+          "bytes": 5158,
+          "git_blob": "ccb492a220d5c41f2eb1e35216cb01b4d5dc1b52",
+          "git_mode": "100644",
+          "path": "docs/SETUP.md",
+          "scope": "support_source",
+          "sha256": "8aa385e5dd69104d4219634191be26cd8f2e90a6ca845f7eba0a56d1ad4bcd6d"
+        },
+        {
+          "bytes": 5262,
+          "git_blob": "51f125069767430ab3d3f929d7a7dd3b2ee71b5c",
+          "git_mode": "100644",
+          "path": "docs/SUPPORT_DIAGNOSTICS.md",
+          "scope": "support_source",
+          "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed"
+        },
+        {
+          "bytes": 25458,
+          "git_blob": "62d6733cef4480b023b492db29da61f0e16a9f12",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Diagnostics.ps1",
+          "scope": "runtime",
+          "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+        },
+        {
+          "bytes": 13060,
+          "git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Logging.ps1",
+          "scope": "runtime",
+          "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+        },
+        {
+          "bytes": 1581,
+          "git_blob": "7acc3498b6ea420f31042fb94f12f2ab8b5f01a0",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Outcomes.json",
+          "scope": "runtime",
+          "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+        },
+        {
+          "bytes": 4142,
+          "git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Paths.ps1",
+          "scope": "runtime",
+          "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+        },
+        {
+          "bytes": 40377,
+          "git_blob": "c72ef43d81684adfc38a82b0c5c74cfd6fa78c28",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Process.ps1",
+          "scope": "runtime",
+          "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf"
+        },
+        {
+          "bytes": 27945,
+          "git_blob": "be8232b68aadeae7a67ec39d1e121d44b1755287",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Runtime.ps1",
+          "scope": "runtime",
+          "sha256": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e"
+        },
+        {
+          "bytes": 26774,
+          "git_blob": "1c6d5e88d1921bfc0fef9ad2d06ef7c61a898f4b",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Support.ps1",
+          "scope": "runtime",
+          "sha256": "9e50757a2f8489a3dcd19ac4f25cf21bc3095b0663b91c624e30771ed30a643d"
+        },
+        {
+          "bytes": 27985,
+          "git_blob": "c4be44b33a2ae7712d702ed7e353f58845361016",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_conversion.py",
+          "scope": "runtime",
+          "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+        },
+        {
+          "bytes": 100090,
+          "git_blob": "fe5ca3cdea3e17365a0fed5327ea4a1ddb8817b7",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_engine.py",
+          "scope": "runtime",
+          "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa"
+        },
+        {
+          "bytes": 14965,
+          "git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_job.py",
+          "scope": "runtime",
+          "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+        },
+        {
+          "bytes": 10933,
+          "git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_windows.py",
+          "scope": "runtime",
+          "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+        },
+        {
+          "bytes": 236,
+          "git_blob": "0d6ae5fef931f92c330c76b66eb240fe5418eed3",
+          "git_mode": "100644",
+          "path": "requirements.txt",
+          "scope": "runtime",
+          "sha256": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d"
+        }
+      ],
+      "payload_sha256": "e511be767306327ef0ee81f36c164d88fc43869e85cefb11282c43c4b3990cf2",
+      "runtime_sibling_dependencies": {
+        "Export-WinBookSplitDiagnostics.ps1": [
+          "engine/WinBookSplit.Support.ps1"
+        ],
+        "WinBookSplit.bat": [
+          "WinBookSplit.ps1"
+        ],
+        "WinBookSplit.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Diagnostics.ps1",
+          "engine/WinBookSplit.Logging.ps1",
+          "engine/WinBookSplit.Paths.ps1",
+          "engine/WinBookSplit.Process.ps1",
+          "engine/WinBookSplit.Runtime.ps1",
+          "engine/winbooksplit_engine.py"
+        ],
+        "engine/WinBookSplit.Diagnostics.ps1": [
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/WinBookSplit.Logging.ps1": [],
+        "engine/WinBookSplit.Paths.ps1": [],
+        "engine/WinBookSplit.Process.ps1": [],
+        "engine/WinBookSplit.Runtime.ps1": [
+          "engine/WinBookSplit.Process.ps1"
+        ],
+        "engine/WinBookSplit.Support.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/winbooksplit_conversion.py": [
+          "engine/winbooksplit_job.py"
+        ],
+        "engine/winbooksplit_engine.py": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json",
+          "engine/winbooksplit_conversion.py",
+          "engine/winbooksplit_windows.py"
+        ],
+        "engine/winbooksplit_job.py": [],
+        "engine/winbooksplit_windows.py": []
+      },
+      "schema_version": 1,
+      "scope": "Unpublished package provenance; Windows/Explorer/Calibre acceptance and release gates remain separate.",
+      "signed": false,
+      "source_commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+      "source_tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+      "version": "1.0.0"
+    },
+    "commands": [
+      {
+        "command": "DEV -I -B ROOT/tools/release/build_package.py build --repo ROOT --commit 3785d731e66692c462b3c50cafaef67aaa7f524c --output EXTERNAL/candidate-C01",
+        "native_exit": 0,
+        "source_unchanged": true,
+        "receipt": {
+          "file": "build-C-command01.json",
+          "bytes": 68677,
+          "sha256": "416fa48748261eb190d636a572358348cd4b5566f76a47a392be7999bb86c1a1"
+        }
+      },
+      {
+        "command": "DEV -I -B ROOT/tools/release/build_package.py build --repo ROOT --commit 3785d731e66692c462b3c50cafaef67aaa7f524c --output EXTERNAL/repeat-C01",
+        "native_exit": 0,
+        "source_unchanged": true,
+        "receipt": {
+          "file": "build-repeat-C-command01.json",
+          "bytes": 68674,
+          "sha256": "468aff48261e452e591787553df88dc658488208e784b83baf1cddd37610d0f8"
+        }
+      },
+      {
+        "command": "DEV -I -B ROOT/tools/release/build_package.py verify --repo ROOT --commit 3785d731e66692c462b3c50cafaef67aaa7f524c --output EXTERNAL/candidate-C01",
+        "native_exit": 0,
+        "source_unchanged": true,
+        "receipt": {
+          "file": "verify-C-command01.json",
+          "bytes": 68678,
+          "sha256": "42f10614c4d4d6f03b0b1839de0df9a7c26cb6c08effedeca89e514bd1eb4e0c"
+        }
+      }
+    ],
+    "repeated_assets_byte_identical": true,
+    "independent_audit": {
+      "schema_version": 1,
+      "audit": "independent_normal_artifact",
+      "started_utc": "2026-10-10T18:38:06.897311+00:00",
+      "finished_utc": "2026-10-10T18:38:10.629961+00:00",
+      "source_commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+      "source_tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+      "success": true,
+      "passed_checks": 295,
+      "failed_checks": 0,
+      "errors": [],
+      "skipped_package_integrity_checks": [],
+      "scope": "Read-only normal package integrity/repeatability audit. No builds, extraction, adversarial fixtures, application execution, Windows/Explorer/Calibre smoke, publication or final release acceptance.",
+      "checks": [
+        {
+          "check": "explicit lowercase full commit identity",
+          "passed": true
+        },
+        {
+          "check": "selected development Python version",
+          "passed": true
+        },
+        {
+          "check": "receipt is new and external",
+          "passed": true
+        },
+        {
+          "check": "ordinary source root",
+          "passed": true
+        },
+        {
+          "check": "source commit resolves exactly",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob LICENSE",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash LICENSE",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob README.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash README.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob VERSION",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash VERSION",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob tools/ci/check_package_inputs.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash tools/ci/check_package_inputs.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob tools/release/build_package.py",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash tools/release/build_package.py",
+          "passed": true
+        },
+        {
+          "check": "ordinary Git blob tools/release/payload.json",
+          "passed": true
+        },
+        {
+          "check": "Git blob object hash tools/release/payload.json",
+          "passed": true
+        },
+        {
+          "check": "28 payload and 3 builder source files present",
+          "passed": true
+        },
+        {
+          "check": "manually enumerated payload equals committed allowlist",
+          "passed": true
+        },
+        {
+          "check": "canonical VERSION source is 1.0.0",
+          "passed": true
+        },
+        {
+          "check": "exact hashed runtime dependency",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped VERSION",
+          "passed": true
+        },
+        {
+          "check": "batch literal sibling dependency",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "PowerShell root VERSION closure",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "PowerShell support VERSION closure",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "no relative Python import engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "all referenced runtime files are shipped engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "only pypdf is external Python runtime dependency",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link CHANGELOG.md -> README.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link CHANGELOG.md -> THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link CONTRIBUTING.md -> docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link CONTRIBUTING.md -> SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> VERSION",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link README.md -> LICENSE",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> LICENSE",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link SECURITY.md -> docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link THIRD_PARTY_NOTICES.md -> LICENSE",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link THIRD_PARTY_NOTICES.md -> docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link docs/PDF_FIDELITY.md -> PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link docs/PDF_POLICY.md -> PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "shipped relative documentation link docs/SETUP.md -> ../README.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 exact asset membership",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 ordinary asset WinBookSplit-v1.0.0.zip",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 ordinary asset release-manifest.json",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 ordinary asset SHA256SUMS.txt",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 canonical external manifest",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 exact manifest top-level fields",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 version/source commit/tree manifest",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 all 28 source blob/mode/file records",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 payload digest",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 complete actual dependency map",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 three builder source records",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 actual build runtime",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 external dependency declaration",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 unsigned status and bounded scope",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 exact archive size/hash",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 exactly two noncircular checksum lines",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 no manifest own hash field",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 exact ordinary EOCD metadata",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 sorted exact 28-member allowlist",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata LICENSE",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source LICENSE",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata README.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source README.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata VERSION",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source VERSION",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 safe normal member metadata requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 byte-for-byte member equals explicit Git source requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 member CRC validation",
+          "passed": true
+        },
+        {
+          "check": "candidate-C01 declared archive recipe",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 exact asset membership",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 ordinary asset WinBookSplit-v1.0.0.zip",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 ordinary asset release-manifest.json",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 ordinary asset SHA256SUMS.txt",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 canonical external manifest",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 exact manifest top-level fields",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 version/source commit/tree manifest",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 all 28 source blob/mode/file records",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 payload digest",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 complete actual dependency map",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 three builder source records",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 actual build runtime",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 external dependency declaration",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 unsigned status and bounded scope",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 exact archive size/hash",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 exactly two noncircular checksum lines",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 no manifest own hash field",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 exact ordinary EOCD metadata",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 sorted exact 28-member allowlist",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source CHANGELOG.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source CONTRIBUTING.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source Export-WinBookSplitDiagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata LICENSE",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source LICENSE",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata README.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source README.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source SECURITY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source THIRD_PARTY_NOTICES.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata VERSION",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source VERSION",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source WinBookSplit.bat",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source WinBookSplit.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source WinBookSplit_icon.ico",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source docs/EBOOK_SUPPORT.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source docs/PDF_FIDELITY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source docs/PDF_POLICY.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source docs/SETUP.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source docs/SUPPORT_DIAGNOSTICS.md",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Diagnostics.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Logging.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Outcomes.json",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Paths.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Process.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Runtime.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/WinBookSplit.Support.ps1",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_conversion.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_engine.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_job.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source engine/winbooksplit_windows.py",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 safe normal member metadata requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 byte-for-byte member equals explicit Git source requirements.txt",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 member CRC validation",
+          "passed": true
+        },
+        {
+          "check": "repeat-C01 declared archive recipe",
+          "passed": true
+        },
+        {
+          "check": "all three assets byte-identical between actual normal builds",
+          "passed": true
+        },
+        {
+          "check": "no dev/handoff/private document member names",
+          "passed": true
+        }
+      ],
+      "files": [
+        {
+          "path": "CHANGELOG.md",
+          "git_blob": "99a2f687b3e581bb99db9f9282bd9393be539473",
+          "git_mode": "100644",
+          "bytes": 1838,
+          "sha256": "6c805c902ac7cb4b31f0e2884a8f1f87af3ed3bd2edb30401c4634f1acccfac4",
+          "scope": "support_source"
+        },
+        {
+          "path": "CONTRIBUTING.md",
+          "git_blob": "ae6ca5a934283bec164b0f1aa6928396c1c9a15c",
+          "git_mode": "100644",
+          "bytes": 1839,
+          "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+          "scope": "support_source"
+        },
+        {
+          "path": "Export-WinBookSplitDiagnostics.ps1",
+          "git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a",
+          "git_mode": "100644",
+          "bytes": 863,
+          "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+          "scope": "runtime"
+        },
+        {
+          "path": "LICENSE",
+          "git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "git_mode": "100644",
+          "bytes": 1070,
+          "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+          "scope": "support_source"
+        },
+        {
+          "path": "README.md",
+          "git_blob": "ee4f7b3b515f3a50d66c0252b48f27a98e04afb9",
+          "git_mode": "100644",
+          "bytes": 9378,
+          "sha256": "37ff70ffe91bd827ecfcd03e7c6828e7c333ccf8580f3dfa98f0b12a1b016022",
+          "scope": "support_source"
+        },
+        {
+          "path": "SECURITY.md",
+          "git_blob": "794acc27265d18b56847ace75d7e150f15ff3708",
+          "git_mode": "100644",
+          "bytes": 2093,
+          "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71",
+          "scope": "support_source"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "git_blob": "6d066a5d839330d5abb9bcb9535d5502b735d79b",
+          "git_mode": "100644",
+          "bytes": 2461,
+          "sha256": "27652b10facfa35eec055e3a728195593db0a06b4b9b19b4f96a78c1bed4761a",
+          "scope": "support_source"
+        },
+        {
+          "path": "VERSION",
+          "git_blob": "3eefcb9dd5b38e2c1dc061052455dd97bcd51e6c",
+          "git_mode": "100644",
+          "bytes": 6,
+          "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+          "scope": "runtime"
+        },
+        {
+          "path": "WinBookSplit.bat",
+          "git_blob": "d1bd36dbe2dcad595235ccba1ee9fd80300a9c0c",
+          "git_mode": "100644",
+          "bytes": 808,
+          "sha256": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+          "scope": "runtime"
+        },
+        {
+          "path": "WinBookSplit.ps1",
+          "git_blob": "b54716e649840b7f9efad0a614f5e683b1f36b23",
+          "git_mode": "100644",
+          "bytes": 53754,
+          "sha256": "991c5e87bf66ff987708bc4a4d4e8f7e1c09c788fd3333d0c0958b01132d9f2c",
+          "scope": "runtime"
+        },
+        {
+          "path": "WinBookSplit_icon.ico",
+          "git_blob": "fc57139965435f3ace0dc76d450e403a70adb8b8",
+          "git_mode": "100644",
+          "bytes": 21645,
+          "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196",
+          "scope": "support_source"
+        },
+        {
+          "path": "docs/EBOOK_SUPPORT.md",
+          "git_blob": "12cd8ea2230884951233b7c36eb06541359f8419",
+          "git_mode": "100644",
+          "bytes": 3352,
+          "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+          "scope": "support_source"
+        },
+        {
+          "path": "docs/PDF_FIDELITY.md",
+          "git_blob": "c7f348f935090452cb72892e722244f95e452621",
+          "git_mode": "100644",
+          "bytes": 3344,
+          "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+          "scope": "support_source"
+        },
+        {
+          "path": "docs/PDF_POLICY.md",
+          "git_blob": "ca765694e9f1bf4a6e64ff94ab836a7f910cee35",
+          "git_mode": "100644",
+          "bytes": 4143,
+          "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+          "scope": "support_source"
+        },
+        {
+          "path": "docs/SETUP.md",
+          "git_blob": "ccb492a220d5c41f2eb1e35216cb01b4d5dc1b52",
+          "git_mode": "100644",
+          "bytes": 5158,
+          "sha256": "8aa385e5dd69104d4219634191be26cd8f2e90a6ca845f7eba0a56d1ad4bcd6d",
+          "scope": "support_source"
+        },
+        {
+          "path": "docs/SUPPORT_DIAGNOSTICS.md",
+          "git_blob": "51f125069767430ab3d3f929d7a7dd3b2ee71b5c",
+          "git_mode": "100644",
+          "bytes": 5262,
+          "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed",
+          "scope": "support_source"
+        },
+        {
+          "path": "engine/WinBookSplit.Diagnostics.ps1",
+          "git_blob": "62d6733cef4480b023b492db29da61f0e16a9f12",
+          "git_mode": "100644",
+          "bytes": 25458,
+          "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Logging.ps1",
+          "git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611",
+          "git_mode": "100644",
+          "bytes": 13060,
+          "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Outcomes.json",
+          "git_blob": "7acc3498b6ea420f31042fb94f12f2ab8b5f01a0",
+          "git_mode": "100644",
+          "bytes": 1581,
+          "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Paths.ps1",
+          "git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c",
+          "git_mode": "100644",
+          "bytes": 4142,
+          "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Process.ps1",
+          "git_blob": "c72ef43d81684adfc38a82b0c5c74cfd6fa78c28",
+          "git_mode": "100644",
+          "bytes": 40377,
+          "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Runtime.ps1",
+          "git_blob": "be8232b68aadeae7a67ec39d1e121d44b1755287",
+          "git_mode": "100644",
+          "bytes": 27945,
+          "sha256": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/WinBookSplit.Support.ps1",
+          "git_blob": "1c6d5e88d1921bfc0fef9ad2d06ef7c61a898f4b",
+          "git_mode": "100644",
+          "bytes": 26774,
+          "sha256": "9e50757a2f8489a3dcd19ac4f25cf21bc3095b0663b91c624e30771ed30a643d",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/winbooksplit_conversion.py",
+          "git_blob": "c4be44b33a2ae7712d702ed7e353f58845361016",
+          "git_mode": "100644",
+          "bytes": 27985,
+          "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/winbooksplit_engine.py",
+          "git_blob": "fe5ca3cdea3e17365a0fed5327ea4a1ddb8817b7",
+          "git_mode": "100644",
+          "bytes": 100090,
+          "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/winbooksplit_job.py",
+          "git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f",
+          "git_mode": "100644",
+          "bytes": 14965,
+          "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+          "scope": "runtime"
+        },
+        {
+          "path": "engine/winbooksplit_windows.py",
+          "git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a",
+          "git_mode": "100644",
+          "bytes": 10933,
+          "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+          "scope": "runtime"
+        },
+        {
+          "path": "requirements.txt",
+          "git_blob": "0d6ae5fef931f92c330c76b66eb240fe5418eed3",
+          "git_mode": "100644",
+          "bytes": 236,
+          "sha256": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+          "scope": "runtime"
+        }
+      ],
+      "builder_files": [
+        {
+          "path": "tools/release/build_package.py",
+          "git_blob": "eb6220adc6282de9be7c93774aa239988f736f5f",
+          "git_mode": "100644",
+          "bytes": 14790,
+          "sha256": "76be8cef53e080a8b1e48c7176aa7c091459a8e8cb65f533956543bcabd19dc0"
+        },
+        {
+          "path": "tools/release/payload.json",
+          "git_blob": "09944a21ecd5a1b457ea9d4464c72af244452c04",
+          "git_mode": "100644",
+          "bytes": 913,
+          "sha256": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1"
+        },
+        {
+          "path": "tools/ci/check_package_inputs.py",
+          "git_blob": "83e5537c91a6b226f273e33123c544ce14501628",
+          "git_mode": "100644",
+          "bytes": 16625,
+          "sha256": "615cd86b3c2895928005e5ddbe2bdfada634926261e992d6e4562ad440fd5da0"
+        }
+      ],
+      "runtime_sibling_dependencies": {
+        "WinBookSplit.bat": [
+          "WinBookSplit.ps1"
+        ],
+        "WinBookSplit.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Diagnostics.ps1",
+          "engine/WinBookSplit.Logging.ps1",
+          "engine/WinBookSplit.Paths.ps1",
+          "engine/WinBookSplit.Process.ps1",
+          "engine/WinBookSplit.Runtime.ps1",
+          "engine/winbooksplit_engine.py"
+        ],
+        "Export-WinBookSplitDiagnostics.ps1": [
+          "engine/WinBookSplit.Support.ps1"
+        ],
+        "engine/WinBookSplit.Runtime.ps1": [
+          "engine/WinBookSplit.Process.ps1"
+        ],
+        "engine/WinBookSplit.Process.ps1": [],
+        "engine/WinBookSplit.Diagnostics.ps1": [
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/WinBookSplit.Paths.ps1": [],
+        "engine/WinBookSplit.Logging.ps1": [],
+        "engine/WinBookSplit.Support.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/winbooksplit_engine.py": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json",
+          "engine/winbooksplit_conversion.py",
+          "engine/winbooksplit_windows.py"
+        ],
+        "engine/winbooksplit_conversion.py": [
+          "engine/winbooksplit_job.py"
+        ],
+        "engine/winbooksplit_windows.py": [],
+        "engine/winbooksplit_job.py": []
+      },
+      "builds": [
+        {
+          "label": "candidate-C01",
+          "assets": [
+            {
+              "name": "WinBookSplit-v1.0.0.zip",
+              "bytes": 413958,
+              "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+            },
+            {
+              "name": "release-manifest.json",
+              "bytes": 11546,
+              "sha256": "f6822612e10100ef6cf40bc36a7c96f977c57a702ca620703d31032e0a595c48"
+            },
+            {
+              "name": "SHA256SUMS.txt",
+              "bytes": 178,
+              "sha256": "7a26bbdca856cd060962662ccdc6dbd4e992e7625bea490c69bd0eb9d2d77f72"
+            }
+          ],
+          "member_count": 28,
+          "runtime_count": 16,
+          "support_count": 12
+        },
+        {
+          "label": "repeat-C01",
+          "assets": [
+            {
+              "name": "WinBookSplit-v1.0.0.zip",
+              "bytes": 413958,
+              "sha256": "1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645"
+            },
+            {
+              "name": "release-manifest.json",
+              "bytes": 11546,
+              "sha256": "f6822612e10100ef6cf40bc36a7c96f977c57a702ca620703d31032e0a595c48"
+            },
+            {
+              "name": "SHA256SUMS.txt",
+              "bytes": 178,
+              "sha256": "7a26bbdca856cd060962662ccdc6dbd4e992e7625bea490c69bd0eb9d2d77f72"
+            }
+          ],
+          "member_count": 28,
+          "runtime_count": 16,
+          "support_count": 12
+        }
+      ],
+      "runtime": {
+        "python": "3.14.8",
+        "git": "git version 2.56.0.windows.1",
+        "platform": "Windows-11-10.0.26300-SP0",
+        "audit_script_sha256": "5a63e2c06c6fec8002cd42c12aec0e91c07f1984987738c585b4089e436a5266"
+      },
+      "audit_process_native_exit": 0,
+      "raw_receipt_sha256": "dab959ab90870c7dfdd5bca6109a334a68a8d17269e2fe403369141fe4e4014b",
+      "raw_receipt_location": "Retained externally; local absolute paths omitted from this projection.",
+      "command_recipe": [
+        "Python 3.14.8 -I -B independent-normal-artifact-audit.py --repo <Git-root> --commit 3785d731e66692c462b3c50cafaef67aaa7f524c --candidate <candidate-C01> --repeat <repeat-C01> --receipt <new-external-receipt>",
+        "git -C <Git-root> rev-parse --show-toplevel",
+        "git -C <Git-root> rev-parse --verify <explicit-commit>^{commit}",
+        "git -C <Git-root> rev-parse <explicit-commit>^{tree}",
+        "git -C <Git-root> ls-tree -r -z <explicit-commit> -- <28-payload-paths> <3-builder-paths>",
+        "git -C <Git-root> cat-file blob <each-source-blob>",
+        "git -C <Git-root> --version",
+        "git -C <Git-root> ls-remote --heads --tags origin"
+      ]
+    },
+    "location_role": "EXTERNAL/candidate-C01 and EXTERNAL/repeat-C01 outside checkout; artifacts not committed or uploaded."
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_isolated": true,
+    "python_no_bytecode": true,
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    }
+  },
+  "local_python": {
+    "entrypoint": "DEV -I -B ROOT/tests/run_tests.py --layer python --report EXTERNAL/python-C01.json",
+    "method_count": 509,
+    "suite_seconds": 487.219,
+    "skipped": 0,
+    "native_exit": 0,
+    "child_native_exit": 0,
+    "timeout_seconds": 600,
+    "source_unchanged": true,
+    "synthetic_input_unchanged": true,
+    "owned_work_directory_removed": true,
+    "report": {
+      "file": "python-C01.json",
+      "bytes": 133226,
+      "sha256": "cb5f1f69b8eb43c735b6478ee64acb8ed0713c05db86abad56422aad35de7f52"
+    }
+  },
+  "local_shell": {
+    "entrypoint": "DEV -I -B ROOT/tests/run_tests.py --layer shell --tool-root TOOLS --shell-path PS51 --shell-path PS7 --report EXTERNAL/shell-C01.json",
+    "native_exit": 0,
+    "source_unchanged": true,
+    "hosts": [
+      {
+        "host": {
+          "version": "5.1.26100.9444",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "pester": {
+          "passed": 116,
+          "failed": 0,
+          "total": 116,
+          "result": "Passed",
+          "not_run": 0,
+          "skipped": 0,
+          "failed_containers": 0
+        },
+        "exit_code": 0,
+        "syntax_scoped_gate_success": true,
+        "evidence_sha256": "45f009be207c490626c9e767c008f90ee7ebbbaa885b3f5fa7a7db5cb979b962",
+        "scope": "Local shell harness, syntax and static checks; no application success-path, Explorer or Calibre acceptance."
+      },
+      {
+        "host": {
+          "version": "7.6.5",
+          "edition": "Core",
+          "clr": "10.0.11",
+          "execution_policy": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "RemoteSigned"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ]
+        },
+        "pester": {
+          "not_run": 0,
+          "total": 116,
+          "result": "Passed",
+          "failed_containers": 0,
+          "passed": 116,
+          "failed": 0,
+          "skipped": 0
+        },
+        "exit_code": 0,
+        "syntax_scoped_gate_success": true,
+        "evidence_sha256": "760a116cd4ee2382fedba4effcd641765793a25f1aaacef16b0201793971a546",
+        "scope": "Local shell harness, syntax and static checks; no application success-path, Explorer or Calibre acceptance."
+      }
+    ],
+    "tools": {
+      "Pester": "6.2.0",
+      "PSScriptAnalyzer": "1.25.0"
+    },
+    "report": {
+      "file": "shell-C01.json",
+      "bytes": 105297,
+      "sha256": "88d9a07d66b3f837fcc8f58f449136092d89eab5530396a2371708a91ba7efe1"
+    }
+  },
+  "focused_package": {
+    "entrypoint": "DEV -I -B -m unittest discover -s ROOT/tests/python -p test_release_package.py -v",
+    "methods": 25,
+    "skipped": 0,
+    "native_exit": 0,
+    "suite_seconds": 173.282,
+    "scope": "Public source/build/CLI routes plus actual _validate asset-only negatives bound to an independently read immutable real-Git source snapshot; no mocked checksum acceptance."
+  },
+  "prerequisite_reproduction": {
+    "description": "Real Git replacement ref supplied replacement VERSION/tree behind original recorded commit; inherited absence reproduced before fix. Pin GIT_NO_REPLACE_OBJECTS=1 in reused checker.",
+    "initial_test_assumption": "Raw Git treats any present GIT_NO_REPLACE_OBJECTS value, including string0, as disabled; first incorrect fixture expectation retained, corrected before production fix.",
+    "corrected_before_fix_native_exit": 1,
+    "after_fix_methods": 16,
+    "after_fix_native_exit": 0,
+    "after_fix_skipped": 0,
+    "preliminary_runtime": "Actual base CPython3.14.7 stdlib/Git2.56.0 only, separately probed; final supported3.14.8 shared suite includes all16 methods."
+  },
+  "retained_trials": [
+    {
+      "trial": "package-tests01",
+      "status": "INTERRUPTED",
+      "native_tool_status": -1,
+      "completed_methods": 5,
+      "reason": "Repeated unchanged Git reads optimized only in asset-negative fixture routing; no suite pass claimed."
+    },
+    {
+      "trial": "package-tests02",
+      "status": "INTERRUPTED",
+      "native_tool_status": -1,
+      "completed_methods": 19,
+      "reason": "Small ZIP64 metadata test identified missing early format refusal; corrected before C, no suite pass claimed."
+    },
+    {
+      "trial": "termination-audit first observation",
+      "status": "CORRECTED",
+      "reason": "Broad predicate matched its own shell; corrected exact Python/Git ownership audits show zero remaining matching owned processes."
+    },
+    {
+      "trial": "all-tracked source auditor",
+      "status": "FAILED",
+      "reason": "Initial all297 raw-equality scope included historical CRLF handoff files. Narrow current175-source/payload/tool exactness passes;23 historical differences independently verified line-ending-only and preserved."
+    }
+  ],
+  "hosted_ci": {
+    "schema_version": 1,
+    "audit": "independent_hosted_ci",
+    "success": true,
+    "source_commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+    "source_tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+    "source_path_count": 175,
+    "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+    "source_manifest": {
+      ".github/workflows/windows-ci.yml": "1c77e2d97327b6f9622e03f31d1527861dc15e504beea953e1bee9a44f34cea2",
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "CHANGELOG.md": "6c805c902ac7cb4b31f0e2884a8f1f87af3ed3bd2edb30401c4634f1acccfac4",
+      "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "37ff70ffe91bd827ecfcd03e7c6828e7c333ccf8580f3dfa98f0b12a1b016022",
+      "SECURITY.md": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71",
+      "THIRD_PARTY_NOTICES.md": "27652b10facfa35eec055e3a728195593db0a06b4b9b19b4f96a78c1bed4761a",
+      "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "991c5e87bf66ff987708bc4a4d4e8f7e1c09c788fd3333d0c0958b01132d9f2c",
+      "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+      "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "docs/SETUP.md": "8aa385e5dd69104d4219634191be26cd8f2e90a6ca845f7eba0a56d1ad4bcd6d",
+      "docs/SUPPORT_DIAGNOSTICS.md": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md": "61e52dd9aa722081bfe227b2620a01a4c878f20bad9b574b2ffcc8a382babeb2",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "9e50757a2f8489a3dcd19ac4f25cf21bc3095b0663b91c624e30771ed30a643d",
+      "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine/winbooksplit_engine.py": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/Invoke-ShellTests.ps1": "9b319c2c885a40f7ef5ec8277488a0da90f0ebac0f51127e599c1a6eeeba98c3",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/README.md": "94c28d85ff7e3244085e63d678c3f68db0dce767cba9fdd7d481d43671968300",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/characterize_cli.py": "fc6963ddb05d0f833209ad6d85f2f3e5a68326cb6fe9745c9f695313efda2eac",
+      "tests/cli/validate_cli_report.py": "cb6116d424c19a050ab4b2d7d93f717d37d28586fef7a6ad912a6faa753844f4",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/diagnostics/characterize_diagnostics.py": "4dbca24a35901f38eb56b5b150678757738b8792c95a15a6f66fe0be798c4620",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/ebooks/README.md": "af53b9225a39e7e1f21419e53778ac0b7e238875f0f73200fb7efae8fab12ac3",
+      "tests/ebooks/assets.py": "8acc47de906ea95f4d33aaaa37120bff7dcecb99be2a22b194bfbe953143a647",
+      "tests/ebooks/behavior.py": "3924609fb339425ecd097dc7f4786ecd6b13e552ccbba962e0b4690b04102098",
+      "tests/ebooks/characterize_ebooks.py": "5b03c9f6569faeec575de31a5bd9436ee09bb2c3f23a31878fab8497701a0143",
+      "tests/ebooks/validate_ebooks_report.py": "1913ca3f7434a27f592f56a8dc0bda7fb02a5da2335e1f65aea50dc7c4165651",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+      "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+      "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+      "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+      "tests/faults/invariants.py": "dc8a0473f5aa2ab0d6f430e8f78615ed5b8e1175a5db500f8b296d2a7a04f464",
+      "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+      "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+      "tests/faults/validate_isolation.py": "fcddb6a816244243841196da9e62019b391909643a354a50e5ba38cc27e37653",
+      "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "486fa7cf3a5c224086fba824d4701bd2392fa01249218f4a9b253dae0960e880",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/manual/characterize_manual.py": "47161ff84f71a28385528f44ff535adce66586bfe497b64466040459cec31561",
+      "tests/manual/current_launchers.py": "4fe4732ebf8434f6a2ce302964fb253ea115df55b09841e60e61d8e042b27694",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/validate_outcomes_report.py": "0b27dd568fdcf111f41c18fbd8f426f5ea2c4d8a6fa81ac13f023cf869b7ed42",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "8487b2029868f1a0677f3558496dbfb8c2ab68d5781cc69ceaf9fdbb12d3db71",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "0c9bd086bf7e4ccfe59e8a18ca166919131b4a9742f4c13ac28b8d9c72278805",
+      "tests/powershell/Version.Tests.ps1": "b864fca1aa73b24ffdea0f39612bbbeaec87fa1451d5cfb5279375a803f51fda",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/characterize_process.py": "3fb88adc729f854fa05a63804be5955969d39291f7cd9db987358d8e617a432e",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+      "tests/python/console_receipt_fixture.py": "0d96edb895ff1fa327161182d5f269b21d1d4b0d22cd422998778ce3fe69729f",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_ci_bootstrap.py": "eb86780f732ceee84f9cc283713fc6bc97f5ac395b1239d9f23ead3ccb176810",
+      "tests/python/test_ci_package_inputs.py": "c369398d1af026089c3ee15d7d2aadc969d348285253a3ca1fcbdafb58811564",
+      "tests/python/test_cli_receipt.py": "19426cae55a58e6206145275a06f82a808ff53f7b5bcf39ec0a12f001c991605",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_cross_host_receipt.py": "3607028fe64acbc8b1fba0d8fbd853934af4c6f6207c859722caad90468f4d56",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "4b1cfb99a72bfde75062ee5aeec23b8308aec53315406ba635341235b80e5f6a",
+      "tests/python/test_ebook_assets.py": "a936dfdc3dec656f2db989a9629306b698069483d37e1f3a4f4fec85fcde09a5",
+      "tests/python/test_ebook_behavior.py": "d73c76eb333c05e8837dfdddc9163c3633d4ef7e70812efc646df4864878c5e1",
+      "tests/python/test_ebooks_receipt.py": "6d83abadb5fec9c31718bac88332d96b94dd1ab3c7114ed1c0514bea95d420bf",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+      "tests/python/test_fault_isolation.py": "a71a77d76c66448c831851baa11ba35cae2deef2fda3cb0918f956048a5c398e",
+      "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+      "tests/python/test_fidelity_receipt.py": "ed26969094c99c0e40418395bec1176353698daf30b97da34cc4e3dd5ae8c3bf",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "300c89f7ff76020cad6ae9b972a2aa2d45e13db791dec31526261f88c0d16eb6",
+      "tests/python/test_pdf_fidelity.py": "ad07d2572dfac8909e099f0896576cd8c89c013148dba4f81f60d9c8ed839219",
+      "tests/python/test_pdf_policy.py": "beda241f2cc0a4a7d42adc57e699c468a513b3077d9546394603321b3dffd074",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+      "tests/python/test_release_package.py": "384c5a6aac7d19334d95216ccafa2898e7611f35007a8a8799d45e607ed32cb3",
+      "tests/python/test_runner.py": "c22e57ba773ac741e4fcdd83960955ed32c687fc45a5587e82134eef7b4d1afc",
+      "tests/python/test_runtime_receipt.py": "17e3783471af4f54e95132135c8fd311af6da211acbf2dc095144280ca2ad9a3",
+      "tests/python/test_support_receipt.py": "4d50186978c4d8dc61a3bec836eb6b9b3ed43fde1f32fab5a74367b3b6ab5ff1",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_version.py": "fa874217ff89e7fdb8266c80f977b80ec969467f2773e5d8f9fcc1084445224d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/run_tests.py": "6773a1e5368771e3482f46afc21699f96df88d7728b6f522aacadfa6c4b32245",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/characterize_runtime.py": "403ba5bb5cf0d22f8f16a2daa984b2cf7cbe62e834325fa04b883d734d74b4c0",
+      "tests/runtime/validate_runtime_report.py": "05b6a5da55adde4e36de6e74829ecb8d5e24a901ff9c6ff2304ae9e4173b7fb6",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/validate_support_report.py": "eda0c6628fc28b6cf601cdaa3c5e488f6a531d8b6dddd69a7e9773894eaeb687",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/ci/README.md": "fe5fae98e1385ebc1629b83e0da5bbc6ea6576007862254316b5ca0a573349e8",
+      "tools/ci/bootstrap.py": "47ea20b6d4a543bca4390201fb9e45b37ca02983223fefd7abb3ef7640bbb2ce",
+      "tools/ci/check_package_inputs.py": "615cd86b3c2895928005e5ddbe2bdfada634926261e992d6e4562ad440fd5da0",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "tools/release/README.md": "16be0345569ce7b61c240acbd2fce6f1d07cc205394be04fc7aaedeb9d4cd060",
+      "tools/release/build_package.py": "76be8cef53e080a8b1e48c7176aa7c091459a8e8cb65f533956543bcabd19dc0",
+      "tools/release/payload.json": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1"
+    },
+    "started_utc": "2026-10-10T18:49:25.196359+00:00",
+    "runtime": {
+      "python": "3.14.8",
+      "audit_script_sha256": "790b4f3d8586abce2d2a8f8df6ab95465e8a0d8accd96be0221015bc2ed60e43"
+    },
+    "checks": [
+      {
+        "check": "independent C01 source proof and normal package audit passed",
+        "passed": true
+      },
+      {
+        "check": "native Git audit query",
+        "passed": true
+      },
+      {
+        "check": "native Git audit query",
+        "passed": true
+      },
+      {
+        "check": "extra source-only prerequisite Git blob",
+        "passed": true
+      },
+      {
+        "check": "native Git audit query",
+        "passed": true
+      },
+      {
+        "check": "branch actual successful run and head SHA",
+        "passed": true
+      },
+      {
+        "check": "branch exact single successful hosted job",
+        "passed": true
+      },
+      {
+        "check": "branch every actual workflow step passed",
+        "passed": true
+      },
+      {
+        "check": "branch declared artifact only",
+        "passed": true
+      },
+      {
+        "check": "branch ZIP byte hash equals API and download receipt",
+        "passed": true
+      },
+      {
+        "check": "branch exact five report-only members",
+        "passed": true
+      },
+      {
+        "check": "branch report ZIP CRCs valid",
+        "passed": true
+      },
+      {
+        "check": "branch ordinary JSON report member package-inputs.json",
+        "passed": true
+      },
+      {
+        "check": "branch retained report equals downloaded ZIP package-inputs.json",
+        "passed": true
+      },
+      {
+        "check": "branch ordinary JSON report member tools-bootstrap.json",
+        "passed": true
+      },
+      {
+        "check": "branch retained report equals downloaded ZIP tools-bootstrap.json",
+        "passed": true
+      },
+      {
+        "check": "branch ordinary JSON report member shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch retained report equals downloaded ZIP shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch ordinary JSON report member python.json",
+        "passed": true
+      },
+      {
+        "check": "branch retained report equals downloaded ZIP python.json",
+        "passed": true
+      },
+      {
+        "check": "branch ordinary JSON report member shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch retained report equals downloaded ZIP shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch exact checkout commit API/tree binding",
+        "passed": true
+      },
+      {
+        "check": "branch tested checkout is C01",
+        "passed": true
+      },
+      {
+        "check": "branch package prerequisite conclusion",
+        "passed": true
+      },
+      {
+        "check": "branch exact 29 prerequisite Git/blob/mode/bytes records",
+        "passed": true
+      },
+      {
+        "check": "branch prerequisite digest and actual runtime paths",
+        "passed": true
+      },
+      {
+        "check": "branch real isolated tools bootstrap passed",
+        "passed": true
+      },
+      {
+        "check": "branch pinned isolated module Pester",
+        "passed": true
+      },
+      {
+        "check": "branch pinned isolated module PSScriptAnalyzer",
+        "passed": true
+      },
+      {
+        "check": "branch source identity unchanged python.json",
+        "passed": true
+      },
+      {
+        "check": "branch native outcomes and ownership python.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual isolated pinned Python/dev environment python.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual Python method count and zero skips",
+        "passed": true
+      },
+      {
+        "check": "branch source identity unchanged shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch native outcomes and ownership shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual isolated pinned Python/dev environment shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch successful native shell child shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual 116 Pester checks with zero skips shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch complete passing syntax/scoped gates shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual hosted shell version shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch exact pinned shell imports shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "branch source identity unchanged shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch native outcomes and ownership shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual isolated pinned Python/dev environment shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch successful native shell child shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual 116 Pester checks with zero skips shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch complete passing syntax/scoped gates shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch actual hosted shell version shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "branch exact pinned shell imports shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual successful run and head SHA",
+        "passed": true
+      },
+      {
+        "check": "pr exact single successful hosted job",
+        "passed": true
+      },
+      {
+        "check": "pr every actual workflow step passed",
+        "passed": true
+      },
+      {
+        "check": "pr declared artifact only",
+        "passed": true
+      },
+      {
+        "check": "pr ZIP byte hash equals API and download receipt",
+        "passed": true
+      },
+      {
+        "check": "pr exact five report-only members",
+        "passed": true
+      },
+      {
+        "check": "pr report ZIP CRCs valid",
+        "passed": true
+      },
+      {
+        "check": "pr ordinary JSON report member tools-bootstrap.json",
+        "passed": true
+      },
+      {
+        "check": "pr retained report equals downloaded ZIP tools-bootstrap.json",
+        "passed": true
+      },
+      {
+        "check": "pr ordinary JSON report member package-inputs.json",
+        "passed": true
+      },
+      {
+        "check": "pr retained report equals downloaded ZIP package-inputs.json",
+        "passed": true
+      },
+      {
+        "check": "pr ordinary JSON report member python.json",
+        "passed": true
+      },
+      {
+        "check": "pr retained report equals downloaded ZIP python.json",
+        "passed": true
+      },
+      {
+        "check": "pr ordinary JSON report member shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr retained report equals downloaded ZIP shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr ordinary JSON report member shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr retained report equals downloaded ZIP shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr exact checkout commit API/tree binding",
+        "passed": true
+      },
+      {
+        "check": "pr tested synthetic merge includes C01 parent",
+        "passed": true
+      },
+      {
+        "check": "pr package prerequisite conclusion",
+        "passed": true
+      },
+      {
+        "check": "pr exact 29 prerequisite Git/blob/mode/bytes records",
+        "passed": true
+      },
+      {
+        "check": "pr prerequisite digest and actual runtime paths",
+        "passed": true
+      },
+      {
+        "check": "pr real isolated tools bootstrap passed",
+        "passed": true
+      },
+      {
+        "check": "pr pinned isolated module Pester",
+        "passed": true
+      },
+      {
+        "check": "pr pinned isolated module PSScriptAnalyzer",
+        "passed": true
+      },
+      {
+        "check": "pr source identity unchanged python.json",
+        "passed": true
+      },
+      {
+        "check": "pr native outcomes and ownership python.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual isolated pinned Python/dev environment python.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual Python method count and zero skips",
+        "passed": true
+      },
+      {
+        "check": "pr source identity unchanged shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr native outcomes and ownership shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual isolated pinned Python/dev environment shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr successful native shell child shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual 116 Pester checks with zero skips shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr complete passing syntax/scoped gates shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual hosted shell version shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr exact pinned shell imports shell-ps51.json",
+        "passed": true
+      },
+      {
+        "check": "pr source identity unchanged shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr native outcomes and ownership shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual isolated pinned Python/dev environment shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr successful native shell child shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual 116 Pester checks with zero skips shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr complete passing syntax/scoped gates shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr actual hosted shell version shell-ps7.json",
+        "passed": true
+      },
+      {
+        "check": "pr exact pinned shell imports shell-ps7.json",
+        "passed": true
+      }
+    ],
+    "errors": [],
+    "runs": [
+      {
+        "label": "branch",
+        "run_id": 38076575517,
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38076575517",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+        "run_attempt": 1,
+        "checkout_commit": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+        "checkout_tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+        "checkout_parents": [
+          "d720fdf7a2edad584f7e8521d3e75737c4938f96"
+        ],
+        "checkout_tree_equals_C": true,
+        "artifact_id": 11678481942,
+        "artifact_name": "windows-ci-reports",
+        "artifact_zip_sha256": "27a673d142a8eaf1791365dc0cdd4d5050cc989f7d2c25f88cba13215b4726e0",
+        "artifact_api_digest": "sha256:27a673d142a8eaf1791365dc0cdd4d5050cc989f7d2c25f88cba13215b4726e0",
+        "report_members": [
+          "package-inputs.json",
+          "python.json",
+          "shell-ps51.json",
+          "shell-ps7.json",
+          "tools-bootstrap.json"
+        ],
+        "report_hashes": [
+          {
+            "name": "package-inputs.json",
+            "bytes": 9877,
+            "sha256": "fe12555f46d52da42874f502c22333869aa5585a9983b003e0cf88a341644124"
+          },
+          {
+            "name": "python.json",
+            "bytes": 133214,
+            "sha256": "84f522c5696ff63269957fa7caf182a570e4199219cc90914f11935011f74230"
+          },
+          {
+            "name": "shell-ps51.json",
+            "bytes": 63335,
+            "sha256": "9c80be4a992d6526e3447372a0fb2e78993a429748759854069baffb9eb0d3fd"
+          },
+          {
+            "name": "shell-ps7.json",
+            "bytes": 62384,
+            "sha256": "0951211d68907477b8b57e6a7c51aa801de193c1b5923fe2e726612311f51a9c"
+          },
+          {
+            "name": "tools-bootstrap.json",
+            "bytes": 10038,
+            "sha256": "22569304529716dc74275376c439f285c7250176814a97e866efcdcdc26b177e"
+          }
+        ],
+        "workflow_steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout tested source",
+            "conclusion": "success"
+          },
+          {
+            "name": "Create owned report directory",
+            "conclusion": "success"
+          },
+          {
+            "name": "Set up exact regular x64 Python",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install hash-pinned development dependencies in a fresh venv",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bootstrap exact isolated shell tools",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check committed package prerequisites without building a package",
+            "conclusion": "success"
+          },
+          {
+            "name": "Python regression through the shared runner",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+            "conclusion": "success"
+          },
+          {
+            "name": "PowerShell 7 syntax, scoped analysis and Pester",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve only declared synthetic test and prerequisite reports",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Set up exact regular x64 Python",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout tested source",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ],
+        "package_prerequisites": {
+          "native_exit": 0,
+          "runtime_count": 16,
+          "support_source_count": 13,
+          "version": "1.0.0",
+          "input_sha256": "8c05098eb3251e88cf0af2653b6affdb26b8cd77ae129c606131d047a333b27b",
+          "package_built": false
+        },
+        "shells": [
+          {
+            "report": "shell-ps51.json",
+            "host_version": "5.1.26100.33438",
+            "host_edition": "Desktop",
+            "native_exit": 0,
+            "child_native_exit": 0,
+            "pester": {
+              "passed": 116,
+              "failed": 0,
+              "total": 116,
+              "result": "Passed",
+              "not_run": 0,
+              "skipped": 0,
+              "failed_containers": 0
+            },
+            "syntax_files": 19,
+            "syntax_errors": 0,
+            "scoped_analysis_files": 18,
+            "scoped_analysis_findings": 0,
+            "legacy_application_findings": 71,
+            "legacy_application_analysis_acceptance_pass": false,
+            "source_path_count": 175,
+            "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+            "source_unchanged": true
+          },
+          {
+            "report": "shell-ps7.json",
+            "host_version": "7.6.6",
+            "host_edition": "Core",
+            "native_exit": 0,
+            "child_native_exit": 0,
+            "pester": {
+              "not_run": 0,
+              "passed": 116,
+              "failed": 0,
+              "failed_containers": 0,
+              "total": 116,
+              "result": "Passed",
+              "skipped": 0
+            },
+            "syntax_files": 19,
+            "syntax_errors": 0,
+            "scoped_analysis_files": 18,
+            "scoped_analysis_findings": 0,
+            "legacy_application_findings": 71,
+            "legacy_application_analysis_acceptance_pass": false,
+            "source_path_count": 175,
+            "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+            "source_unchanged": true
+          }
+        ],
+        "downloads_native_exit": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "python": {
+          "methods": 509,
+          "seconds": 269.614,
+          "skipped": 0,
+          "native_exit": 0,
+          "source_path_count": 175,
+          "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+          "source_unchanged": true,
+          "synthetic_input_unchanged": true,
+          "owned_workspace_removed": true,
+          "python": "3.14.8",
+          "platform": "Windows-2025Server-10.0.26100-SP0",
+          "packages": {
+            "pypdf": "6.19.0",
+            "reportlab": "5.0.1",
+            "Pillow": "12.3.0",
+            "charset-normalizer": "3.5.2"
+          }
+        }
+      },
+      {
+        "label": "pr",
+        "run_id": 38076586544,
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38076586544",
+        "status": "completed",
+        "conclusion": "success",
+        "head_sha": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+        "run_attempt": 1,
+        "checkout_commit": "003721b77f4e2a4a6562ddd80c1ff609e9b44816",
+        "checkout_tree": "89a0448bf942acaef232d2b21ce3e14cc8288112",
+        "checkout_parents": [
+          "d720fdf7a2edad584f7e8521d3e75737c4938f96",
+          "3785d731e66692c462b3c50cafaef67aaa7f524c"
+        ],
+        "checkout_tree_equals_C": true,
+        "artifact_id": 11679336890,
+        "artifact_name": "windows-ci-reports",
+        "artifact_zip_sha256": "362251326b1d5df8193ba058d8c6ce8462c524aaed243ceae6e7ecdd25636935",
+        "artifact_api_digest": "sha256:362251326b1d5df8193ba058d8c6ce8462c524aaed243ceae6e7ecdd25636935",
+        "report_members": [
+          "package-inputs.json",
+          "python.json",
+          "shell-ps51.json",
+          "shell-ps7.json",
+          "tools-bootstrap.json"
+        ],
+        "report_hashes": [
+          {
+            "name": "package-inputs.json",
+            "bytes": 9877,
+            "sha256": "677544cda61cf4ff18925855a410c532bf239e89fde68df382bc4d3b15df50a7"
+          },
+          {
+            "name": "python.json",
+            "bytes": 133214,
+            "sha256": "1c1ee9c2e35ecd19d5e3cbc725aee12730f487ecf3df7c5edefa54d7b9fb1b53"
+          },
+          {
+            "name": "shell-ps51.json",
+            "bytes": 63335,
+            "sha256": "3e10cfae5952ce7cb8d0aa10324f1600f62c2a5b28deb7da4850592c6111ef88"
+          },
+          {
+            "name": "shell-ps7.json",
+            "bytes": 62384,
+            "sha256": "4b00a069e2ab2a8d7d93c55fa7553fcc214712054ba5186c5235070697bf8252"
+          },
+          {
+            "name": "tools-bootstrap.json",
+            "bytes": 10038,
+            "sha256": "303aea07ab5f4c3cf720d0d0c69eb9c598716fc02de7fa755d8d51dd2dcdb615"
+          }
+        ],
+        "workflow_steps": [
+          {
+            "name": "Set up job",
+            "conclusion": "success"
+          },
+          {
+            "name": "Checkout tested source",
+            "conclusion": "success"
+          },
+          {
+            "name": "Create owned report directory",
+            "conclusion": "success"
+          },
+          {
+            "name": "Set up exact regular x64 Python",
+            "conclusion": "success"
+          },
+          {
+            "name": "Install hash-pinned development dependencies in a fresh venv",
+            "conclusion": "success"
+          },
+          {
+            "name": "Bootstrap exact isolated shell tools",
+            "conclusion": "success"
+          },
+          {
+            "name": "Check committed package prerequisites without building a package",
+            "conclusion": "success"
+          },
+          {
+            "name": "Python regression through the shared runner",
+            "conclusion": "success"
+          },
+          {
+            "name": "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+            "conclusion": "success"
+          },
+          {
+            "name": "PowerShell 7 syntax, scoped analysis and Pester",
+            "conclusion": "success"
+          },
+          {
+            "name": "Preserve only declared synthetic test and prerequisite reports",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Set up exact regular x64 Python",
+            "conclusion": "success"
+          },
+          {
+            "name": "Post Checkout tested source",
+            "conclusion": "success"
+          },
+          {
+            "name": "Complete job",
+            "conclusion": "success"
+          }
+        ],
+        "package_prerequisites": {
+          "native_exit": 0,
+          "runtime_count": 16,
+          "support_source_count": 13,
+          "version": "1.0.0",
+          "input_sha256": "8c05098eb3251e88cf0af2653b6affdb26b8cd77ae129c606131d047a333b27b",
+          "package_built": false
+        },
+        "shells": [
+          {
+            "report": "shell-ps51.json",
+            "host_version": "5.1.26100.33438",
+            "host_edition": "Desktop",
+            "native_exit": 0,
+            "child_native_exit": 0,
+            "pester": {
+              "passed": 116,
+              "failed": 0,
+              "total": 116,
+              "result": "Passed",
+              "not_run": 0,
+              "skipped": 0,
+              "failed_containers": 0
+            },
+            "syntax_files": 19,
+            "syntax_errors": 0,
+            "scoped_analysis_files": 18,
+            "scoped_analysis_findings": 0,
+            "legacy_application_findings": 71,
+            "legacy_application_analysis_acceptance_pass": false,
+            "source_path_count": 175,
+            "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+            "source_unchanged": true
+          },
+          {
+            "report": "shell-ps7.json",
+            "host_version": "7.6.6",
+            "host_edition": "Core",
+            "native_exit": 0,
+            "child_native_exit": 0,
+            "pester": {
+              "skipped": 0,
+              "not_run": 0,
+              "passed": 116,
+              "failed": 0,
+              "total": 116,
+              "result": "Passed",
+              "failed_containers": 0
+            },
+            "syntax_files": 19,
+            "syntax_errors": 0,
+            "scoped_analysis_files": 18,
+            "scoped_analysis_findings": 0,
+            "legacy_application_findings": 71,
+            "legacy_application_analysis_acceptance_pass": false,
+            "source_path_count": 175,
+            "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+            "source_unchanged": true
+          }
+        ],
+        "downloads_native_exit": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "python": {
+          "methods": 509,
+          "seconds": 298.612,
+          "skipped": 0,
+          "native_exit": 0,
+          "source_path_count": 175,
+          "source_digest": "97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0",
+          "source_unchanged": true,
+          "synthetic_input_unchanged": true,
+          "owned_workspace_removed": true,
+          "python": "3.14.8",
+          "platform": "Windows-2025Server-10.0.26100-SP0",
+          "packages": {
+            "pypdf": "6.19.0",
+            "reportlab": "5.0.1",
+            "Pillow": "12.3.0",
+            "charset-normalizer": "3.5.2"
+          }
+        }
+      }
+    ],
+    "scope": "Read-only audit of two completed GitHub Windows CI runs and their exact five declared report members. Hosted Server 2025/Python/Pester/syntax/scoped analysis evidence only; no local Windows/Explorer/Calibre, package execution, publication, full 22-stage run or final release acceptance inferred.",
+    "finished_utc": "2026-10-10T18:49:25.383453+00:00",
+    "passed_checks": 95,
+    "failed_checks": 0,
+    "raw_receipt_sha256": "b9e1c857a4b6f1ec1dfaa34fe38fd366bb39a1ee2c76ec8ca22851e68d68365c",
+    "raw_receipt_location": "Retained externally; local absolute command paths omitted.",
+    "audit_native_exit": 0
+  },
+  "git": {
+    "branch": "codex/winbooksplit-v1-m5",
+    "draft_PR": "https://github.com/PikkuJanne/WinBookSplit/pull/28",
+    "implementation_sync": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-10T18:38:14.346131+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m5",
+      "local_head": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+      "worktree_clean": true,
+      "remote_head": "3785d731e66692c462b3c50cafaef67aaa7f524c",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "evidence_checkpoint_own_sync": "External/thread/PR receipt after actual E commit/push; no future/self SHA embedded."
+  },
+  "not_run": [
+    "M5-T03 extracted-candidate actual Explorer/Windows/Calibre acceptance",
+    "new human M3-T01 tests (absolutely closed)",
+    "standalone full22 local route",
+    "clean OS/VM/Windows10/ARM/UNC certification",
+    "M5-T04 dependency/advisory/security gate",
+    "signing/tag/release/upload/publication/anonymous-download or final-asset acceptance"
+  ],
+  "raw_evidence": {
+    "location_role": "EXTERNAL = retained M5-T02 evidence directory outside checkout; actual argv/raw streams/fixture process audits stay local.",
+    "receipts": [
+      {
+        "file": "audit-hosted-ci-C01.py",
+        "bytes": 17324,
+        "sha256": "790b4f3d8586abce2d2a8f8df6ab95465e8a0d8accd96be0221015bc2ed60e43"
+      },
+      {
+        "file": "build-C-command01.json",
+        "bytes": 68677,
+        "sha256": "416fa48748261eb190d636a572358348cd4b5566f76a47a392be7999bb86c1a1"
+      },
+      {
+        "file": "build-repeat-C-command01.json",
+        "bytes": 68674,
+        "sha256": "468aff48261e452e591787553df88dc658488208e784b83baf1cddd37610d0f8"
+      },
+      {
+        "file": "check_historical_line_endings.py",
+        "bytes": 1338,
+        "sha256": "c6dac57383b1205fb44698865f9cb7fb50aad784507f3b9a3662235b725f8e37"
+      },
+      {
+        "file": "download-declared-ci-reports-C01.py",
+        "bytes": 4572,
+        "sha256": "8444cd4ef99972ee7f1d015376719273a8e14bc0a77e0a2d05594208bb034883"
+      },
+      {
+        "file": "historical-line-endings-C01.json",
+        "bytes": 7471,
+        "sha256": "e7194cf79e57d9fdfa47ef0da1fb249efc4815f7b2db1582a892c18af9f17229"
+      },
+      {
+        "file": "independent-ci-source-C01.json",
+        "bytes": 100231,
+        "sha256": "4101a533824f639bc8bc44b1fe0cc9cf13a8f14514c84b96b987335b793e1bf6"
+      },
+      {
+        "file": "independent-hosted-ci-C01-public.json",
+        "bytes": 41999,
+        "sha256": "a72ba53898946db8b4c0f8a17f9c4c50eb3f717a39e8fca06afbb25358153f9a"
+      },
+      {
+        "file": "independent-hosted-ci-C01.json",
+        "bytes": 43240,
+        "sha256": "b9e1c857a4b6f1ec1dfaa34fe38fd366bb39a1ee2c76ec8ca22851e68d68365c"
+      },
+      {
+        "file": "independent-normal-artifact-audit-C01-public.json",
+        "bytes": 45738,
+        "sha256": "a44fa0f621916a442c56b921c1249ee01aca98b9dbfbaa260fd6903832b34115"
+      },
+      {
+        "file": "independent-normal-artifact-audit-C01.json",
+        "bytes": 65442,
+        "sha256": "dab959ab90870c7dfdd5bca6109a334a68a8d17269e2fe403369141fe4e4014b"
+      },
+      {
+        "file": "independent-normal-artifact-audit.py",
+        "bytes": 18724,
+        "sha256": "5a63e2c06c6fec8002cd42c12aec0e91c07f1984987738c585b4089e436a5266"
+      },
+      {
+        "file": "package-tests01.exit.txt",
+        "bytes": 2,
+        "sha256": "1bad6b8cf97131fceab8543e81f7757195fbb1d36b376ee994ad1cf17699c464"
+      },
+      {
+        "file": "package-tests01.interruption.json",
+        "bytes": 308,
+        "sha256": "fa1096f5f886171c5644ea780fb2670d32459acda837a06fe8c34b364ab471cd"
+      },
+      {
+        "file": "package-tests01.stderr.txt",
+        "bytes": 1118,
+        "sha256": "dc33f962864a579f72afffe188805ea7cb324ce4daeeccafd9708ec4661d5fe1"
+      },
+      {
+        "file": "package-tests01.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "package-tests01.termination-audit.json",
+        "bytes": 505,
+        "sha256": "e2c58c4fd741c0855dbcb723f76767ca6b0e8b202c1ff41d37f9fa660037c2ed"
+      },
+      {
+        "file": "package-tests01.termination-audit02.json",
+        "bytes": 683,
+        "sha256": "9ebb0368e813fcc504898498e898e0a863ba8212bad34a2a0673e5c002338c6b"
+      },
+      {
+        "file": "package-tests02.interruption.json",
+        "bytes": 305,
+        "sha256": "e3aead63732a59883add427d1b12d7cb2aa2af06bef724f152e02db7ec2099b8"
+      },
+      {
+        "file": "package-tests02.result.json",
+        "bytes": 110,
+        "sha256": "354834b20242134dfb070bd0df421971110bf7fa1bc0be4dc8ff3dc24791ce8c"
+      },
+      {
+        "file": "package-tests02.stderr.txt",
+        "bytes": 3696,
+        "sha256": "9416d5bef15d773004787697c7eb75247e6d3abd09bf48f083965787e897090f"
+      },
+      {
+        "file": "package-tests02.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "package-tests02.termination-audit02.json",
+        "bytes": 681,
+        "sha256": "b37f87a1ae133e182684af6e8b72bead9bd536d98a3ce00c88bfd714103d0d74"
+      },
+      {
+        "file": "package-tests03.result.json",
+        "bytes": 109,
+        "sha256": "5ff2cfc8a47bbf7cac4f0837bd2b36978a6ea10c08612318cfe9eeb4ffb7938f"
+      },
+      {
+        "file": "package-tests03.stderr.txt",
+        "bytes": 4679,
+        "sha256": "22539be682781afd94795e1833bb499b84b8d7cbda1bb280c95022c6619121bb"
+      },
+      {
+        "file": "package-tests03.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "file": "project-independent-artifact-audit.py",
+        "bytes": 2238,
+        "sha256": "8adc8c912476092beec7818307d265b34ac191f75751edfa4e18e5936b447323"
+      },
+      {
+        "file": "prove-ci-source-C01.py",
+        "bytes": 3842,
+        "sha256": "da1731a5d0b9195e4f6b170a974d0b0cbc0552141103b002729e8e9a25616807"
+      },
+      {
+        "file": "prove_source.py",
+        "bytes": 2936,
+        "sha256": "ad3ad25a7afe45a4ffcab414b722e7e99bd68d38ac97181aa145231844de5b38"
+      },
+      {
+        "file": "push-C-command01.json",
+        "bytes": 68410,
+        "sha256": "b3c1026f9e679ed5f7bb6253513a17a74ee257085153366b3511de92bdeb68d9"
+      },
+      {
+        "file": "python-C-command01.json",
+        "bytes": 68566,
+        "sha256": "25f7a7cd314f639545cd7f4a07dc8bd3fc4a26d201359da2f93d45143a797cea"
+      },
+      {
+        "file": "python-C01.json",
+        "bytes": 133226,
+        "sha256": "cb5f1f69b8eb43c735b6478ee64acb8ed0713c05db86abad56422aad35de7f52"
+      },
+      {
+        "file": "record_command.py",
+        "bytes": 2952,
+        "sha256": "97eadcbfc3cf0e242c3f27c0f8dfc2186e96d6a27c09d1e3117268814e842ba0"
+      },
+      {
+        "file": "runner-target01.json",
+        "bytes": 75314,
+        "sha256": "954ba89dcc7e02bb775ece74a395100518ebc784e40cb32709aa6b3fba035cfd"
+      },
+      {
+        "file": "shell-C-command01.json",
+        "bytes": 68865,
+        "sha256": "2aa8cd093dbec9c53e17b09d04b388bb731c7bb6d901c7da23efa3494024b5e0"
+      },
+      {
+        "file": "shell-C01.json",
+        "bytes": 105297,
+        "sha256": "88d9a07d66b3f837fcc8f58f449136092d89eab5530396a2371708a91ba7efe1"
+      },
+      {
+        "file": "source-proof-C02.json",
+        "bytes": 87523,
+        "sha256": "7c3bcd0db49303b227d6bfecc334e828d83cbeb4060c7fd5ca16187f580b86b7"
+      },
+      {
+        "file": "sync-C-command01.json",
+        "bytes": 68991,
+        "sha256": "fb5e4bd0e4f4cf65521e37a84549b0f07ff9f09f9cfbc7439bdc39d56ccb7716"
+      },
+      {
+        "file": "verify-C-command01.json",
+        "bytes": 68678,
+        "sha256": "42f10614c4d4d6f03b0b1839de0df9a7c26cb6c08effedeca89e514bd1eb4e0c"
+      },
+      {
+        "file": "write_checkpoint.py",
+        "bytes": 25087,
+        "sha256": "20c4ad12d00942727e881d4989dd08fc63502adf62961809f34d227084bbf78e"
+      }
+    ]
+  },
+  "next_task": "M5-T03",
+  "blockers": []
+}

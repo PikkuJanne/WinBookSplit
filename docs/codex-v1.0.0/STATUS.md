@@ -1,5 +1,17 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped acceptance is complete through **M5-T02**. Next action: **M5-T03 — Verify the extracted candidate in a clean Windows setup**, AC-087/088/089. Stop at that boundary.
+
+Implementation C **3785d731e66692c462b3c50cafaef67aaa7f524c**, tree **89a0448bf942acaef232d2b21ce3e14cc8288112**, has 175 exact mapped Git/raw files, digest **97aa8a37e04db67a56e86935d04666d8a3ecd62d2964a785ab07ba17607ea4e0**. The explicit-commit builder/validator ships 28 allowed files/all 16 runtime paths, external provenance and noncircular checksums; source replacement refs, unsafe ZIP metadata/ZIP64, rehashed tampering, missing/version inputs and overwrites fail. All 16 runtime bytes are unchanged from starting merged main. See [T02 evidence](evidence/M5-T02-package.md) and [machine record](evidence/M5-T02-package.json).
+
+Actual C candidate ZIP **413958 bytes**, SHA256 **1f29981128c5fa74d17faca9e97d67f2605f008e80068d1f76809cbb79218645**; both builds' ZIP/manifest/sums are byte-identical. Independent normal artifact audit 295/295 passes. Final focused package 25/25, clean C shared Python 509/zero skips, shell 116/116 per actual host/zero skips and [branch CI](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38076575517)/[PR CI](https://github.com/PikkuJanne/WinBookSplit/actions/runs/38076586544) pass with actual artifacts/source audited. Local Windows 11/PS 7.6.5 remains distinct from hosted Server 2025/PS 7.6.6.
+
+PR27 was already merged into live main **d720fdf7a2edad584f7e8521d3e75737c4938f96** at start. Clean milestone branch fast-forwarded normally. C was pushed and clean/live SYNCED at **2026-10-10T18:38:14.346131+00:00**; [draft PR28](https://github.com/PikkuJanne/WinBookSplit/pull/28) holds T02. E's own actual push/live receipt follows externally after commit. M5-T05 owns remaining cumulative integration; no T02 merge/tag/release is claimed.
+
+Interrupted trials, corrected fixture assumptions/ownership predicate, original replacement-ref/ZIP64 findings and overbroad historical-CRLF audit remain retained. All 175 relevant raw files match Git; 23 older unmapped newline-only differences are preserved. No old failure/unknown cause is relabeled. Human M3-T01 stays absolutely closed. Candidate assets remain external/unpublished/unsigned; no new extracted Windows/Explorer/Calibre/clean OS/full22/final-asset/publication/anonymous-download acceptance is claimed.
+
+## Historical checkpoint through M5-T01
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS. M0–M4 are integrated; scoped M5 implementation/acceptance is complete through **M5-T01**. Next action: **M5-T02 — Build an allowlisted release package**, AC-084/085/086. Stop at that task boundary.
 
 Final C2 **a5a68b6530d6b75c1222a71a737090f95fe23fe3**, tree **a1db91b16cf239404bbe40a708ffc6da32c6a5bc**, has 171 exact Git/raw mapped files, digest **59adcc0cd0d2c0de49fc0fb0108346dc0346ba2e95e441695332c44e61fc8154**. Root VERSION is 1.0.0, one bounded trusted value for banner/Producer/run/support, with protocol 1 unchanged. Current README/help/setup/output/dependency limits, changelog/legacy naming/MIT/notices/security/unsigned/checksum statements are corrected. See [T01 evidence](evidence/M5-T01-documentation.md) and [machine record](evidence/M5-T01-documentation.json).
