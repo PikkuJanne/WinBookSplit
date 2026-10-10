@@ -1,0 +1,1239 @@
+{
+  "schema_version": 1,
+  "task_id": "M4-T04",
+  "observed_at": "2026-10-10T14:10:50.414868+00:00",
+  "result": "REAL_EBOOK_CONVERSION_AND_CLEAN_COMMIT_ACCEPTANCE_PASSED",
+  "success": true,
+  "implementation_commit": "5214bb230590b27d9399d22b80c1f0b5fead2d74",
+  "acceptance": {
+    "AC-076": "PASS: actual original EPUB3 TOC, complete readable generated/chapter PDFs, every physical page and immutable inputs under both hosts.",
+    "AC-077": "PASS: independently generated actual unencrypted KF8 AZW3, separate PDF conversions and complete readable native Auto1 splits under both hosts.",
+    "AC-078": "PASS within recorded scope: installed dependencies, closed original resources, exact tablet argv/local help, real malformed failures, retained/default/manual controls and bounded loopback observations. No system-wide network isolation claim."
+  },
+  "source": {
+    "commit": "5214bb230590b27d9399d22b80c1f0b5fead2d74",
+    "tree": "5adb04ede4f8a852fc3dbe0a60858d9040be1d0e",
+    "baseline_main": "d360bfbff007dc6b5ed49a9e352f5079977b4f22",
+    "worktree_clean": true,
+    "raw_mapped_files": 155,
+    "tested_paths_digest": "4709450a19fe13bbdd121b7f4c73eb4adf94a2d94f5d293050b5bbf863b9e418",
+    "tested_path_sha256": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/EBOOK_SUPPORT.md": "2cdb60a97e0d8a580a5a4dbca996447aedf79b6752e94f17e787401c888d5e99",
+      "docs/PDF_FIDELITY.md": "e1ff255d0854623efbb080f9f362450ffa3018e3974ddddee584721cd53d506c",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "4b7d8ee2e392316371fbe394dc689e2b4686510ab58d7e94bda2aeaaefdbab5d",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "b7704df5acc2012f5265052a9394b2ddfa08b434a4840853974988c333eda0a9",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "ffb26733059e9660a7446d8978fd2612c337cd75f3ba28fd8971901ec2513d2e",
+      "tests/conversion/characterize_conversion.py": "1f2c16ef20ae3d820179fe4b2c45d43f165e90312aae7c9ca175a59b6c5e5335",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/ebooks/assets.py": "8acc47de906ea95f4d33aaaa37120bff7dcecb99be2a22b194bfbe953143a647",
+      "tests/ebooks/behavior.py": "3924609fb339425ecd097dc7f4786ecd6b13e552ccbba962e0b4690b04102098",
+      "tests/ebooks/characterize_ebooks.py": "5b03c9f6569faeec575de31a5bd9436ee09bb2c3f23a31878fab8497701a0143",
+      "tests/ebooks/README.md": "af53b9225a39e7e1f21419e53778ac0b7e238875f0f73200fb7efae8fab12ac3",
+      "tests/ebooks/validate_ebooks_report.py": "59d3d975c1e1fa394b5098b7ff0768d28d380550a68867f7c19a089eca83e1db",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+      "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+      "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+      "tests/faults/invariants.py": "26894e609a776457cab61996e6a9a4b8c7d73a0a771e5097d3ab1ad6224f2893",
+      "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+      "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+      "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+      "tests/faults/validate_isolation.py": "fcddb6a816244243841196da9e62019b391909643a354a50e5ba38cc27e37653",
+      "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "77973bc67e6d52024ae039a69605bc0d09e2ef5debf3307350322278541f791d",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "2df02f831ce770cb66883dab3ffe1b388057c2ef87cb747786bce664afecc317",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "619c56f4e2f9a5f7302e0b02455e8314ebafc2be9eccd82b4eefbe16c3914a20",
+      "tests/manual/current_launchers.py": "55dba6c169a69b93d5ffd341630c65e517151abcf250431bb1dff70726c0bb09",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "87b82d00a67f07ab02a1389fe983d9993fb7d948927836625b0f6071ee31fad7",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "a350efc971fdbea18bef88d7dbf2f44f5d507204de64237ae2d785a5e0bc8b19",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "8dd475ca4296456c2cb9e0217a90efa2d26b0aab369d4d68aee22c87c507069f",
+      "tests/process/characterize_process.py": "cc19b7f0017dd5fe55e778fbe2bcf11b4fb9aabfa94078cf6f11d71d4639a47a",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "d5103a435e6c285006f4c379edef64e5d996598257b079d96d80c847c7238117",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_cross_host_receipt.py": "3607028fe64acbc8b1fba0d8fbd853934af4c6f6207c859722caad90468f4d56",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "81420f47052c000d6edfd15a297d7759d84c19ed68a5753ec88b7246ef07c513",
+      "tests/python/test_ebook_assets.py": "a936dfdc3dec656f2db989a9629306b698069483d37e1f3a4f4fec85fcde09a5",
+      "tests/python/test_ebook_behavior.py": "d73c76eb333c05e8837dfdddc9163c3633d4ef7e70812efc646df4864878c5e1",
+      "tests/python/test_ebooks_receipt.py": "6d83abadb5fec9c31718bac88332d96b94dd1ab3c7114ed1c0514bea95d420bf",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+      "tests/python/test_fault_isolation.py": "a71a77d76c66448c831851baa11ba35cae2deef2fda3cb0918f956048a5c398e",
+      "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+      "tests/python/test_fidelity_receipt.py": "2be045b71e0135f0705fa7a9bfa5bf06e12e63079c889e9f9fa6daade8360819",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "e03ac5b50588cccff5746dbe4771c812b0f4ae33da0a22a15baa17da9a2c4f28",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_pdf_fidelity.py": "bb27d37582ddaa504f015a90fbfc49ee7a8afe09d8658bad1354f68f1c28b77b",
+      "tests/python/test_pdf_policy.py": "762b14f5b216b421ffd94539b588af215f9244a8ec5b8e192d0f8d9438b76d4f",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+      "tests/python/test_runner.py": "1c6a25226dd905d05fecd2fca0c04dea67dc2ef450fe584287c207c827f4215f",
+      "tests/python/test_runtime_receipt.py": "45e9ce6fb2707531d9b70b65edbcb6a7953e5e45cd888a0e00d46faffffdd9c6",
+      "tests/python/test_support_receipt.py": "98c5bb1487866895433a42e82de52276682826492931f59349fa8902fd588141",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "01ef8c74ae3af427b07cff1310ee69f032c1489b642af93ffcf605a90782ade5",
+      "tests/run_tests.py": "020e262d3b633420de378fc2577c3e12dd65406cb95c7241e77fb770f5711b64",
+      "tests/runtime/characterize_runtime.py": "f9993557e9ed890521e6ac58bfd84ba6202858e651d46b210514dd3fe82e6b25",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "6474fcd4a37372921aa165282eb6cebf7d368c5ae8bbb78591dd1d9485fdc44e",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "862126572dccee50c19113220b0b857822883eb01bb23c0a31327e892f723e6c",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a"
+    },
+    "mapped_files_equal_git": true,
+    "application_paths_count": 15,
+    "application_unchanged": true,
+    "application_sha256": {
+      "WinBookSplit.ps1": "cb147c9398fbdc1b56c3ec3c3ba9523666b291e1318520cf27e55219486ae53a",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Support.ps1": "0ca6a786abbae0dced24c5155e35507d286efcc02b0a9f0dd5964ce08b937d19",
+      "engine/winbooksplit_engine.py": "ea1ecb19df5df83a8b7dfdbf761751c8c36edf134aa318024ed6d94218667b53",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "engine/winbooksplit_conversion.py": "4cfc49980562f8beb8bdc006dbe79e9bffba50cd12e07f1d016681e85fee6f5d",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    "changed_paths": [
+      "README.md",
+      "docs/EBOOK_SUPPORT.md",
+      "tests/README.md",
+      "tests/ebooks/README.md",
+      "tests/ebooks/assets.py",
+      "tests/ebooks/behavior.py",
+      "tests/ebooks/characterize_ebooks.py",
+      "tests/ebooks/validate_ebooks_report.py",
+      "tests/python/test_ebook_assets.py",
+      "tests/python/test_ebook_behavior.py",
+      "tests/python/test_ebooks_receipt.py",
+      "tests/python/test_runner.py",
+      "tests/run_tests.py"
+    ]
+  },
+  "implementation_sync": {
+    "observation": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-10T14:01:17.184045+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "codex/winbooksplit-v1-m4",
+      "local_head": "5214bb230590b27d9399d22b80c1f0b5fead2d74",
+      "worktree_clean": true,
+      "remote_head": "5214bb230590b27d9399d22b80c1f0b5fead2d74",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "receipt": {
+      "file": "sync-C01.json",
+      "bytes": 1211,
+      "sha256": "937d31aaddf0999325e0d53a3a8f1edd1ae5703dbb2afb15182e4500adb17fa3"
+    }
+  },
+  "environment": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "packages": {
+      "pypdf": "6.19.0",
+      "reportlab": "5.0.1",
+      "Pillow": "12.3.0",
+      "charset-normalizer": "3.5.2"
+    },
+    "workstation": "Windows 11 Pro x64 26H2 build26300.9457",
+    "hosts": [
+      {
+        "id": "PS51",
+        "version": "5.1.26100.9444",
+        "syntax_errors": 0,
+        "stored_execution_policies_unchanged": true
+      },
+      {
+        "id": "PS7",
+        "version": "7.6.5",
+        "syntax_errors": 0,
+        "stored_execution_policies_unchanged": true
+      }
+    ],
+    "calibre": {
+      "version": "9.15.0",
+      "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
+    },
+    "renderer": {
+      "version": "26.07.0",
+      "sha256": "e5b4da7d158cc7428d2ccb4eda1779d6566c067b24df01a0bc09f665659e4ac3"
+    }
+  },
+  "verification": {
+    "python": {
+      "exit_code": 0,
+      "methods": 453,
+      "skips": 0,
+      "report": {
+        "file": "python-C01.json",
+        "bytes": 120623,
+        "sha256": "9d3eddab0da3116692b944ccc2af76e37b0130c18cefcc0977e9270d9af3f109"
+      },
+      "command": {
+        "file": "python-C-command01.json",
+        "bytes": 813,
+        "sha256": "4be0368f9bf6ee6a32c56044d81f7480e957d87904e6a0de32d72e23bacbc11e"
+      }
+    },
+    "ebooks": {
+      "exit_code": 0,
+      "stages": 2,
+      "stage_names": [
+        "conversion-regression",
+        "ebook-regression"
+      ],
+      "report": {
+        "file": "ebooks-C01.json",
+        "bytes": 6211326,
+        "sha256": "d5d5620929c906376d5fdba072fdb564217eb475e4c02368ca1feff8b99f4fb2"
+      },
+      "command": {
+        "file": "ebooks-C-command01.json",
+        "bytes": 1301,
+        "sha256": "c7689098a2307289eaa0d023cdeaa19a4783a181597a778b8decb4494c5395a8"
+      },
+      "new_application_cases": 10,
+      "retained_cases": 4,
+      "malformed_cases": 4,
+      "canary_cases": 2,
+      "retained_full_physical_pages": 14,
+      "normal_chapters": 12,
+      "canary_full_physical_pages": 6,
+      "canary_chapters": 6,
+      "reference_pdfs": 4,
+      "reference_physical_pages": 14,
+      "persistent_artifact_files": 58,
+      "persistent_pngs": 54,
+      "cases": [
+        {
+          "id": "PS51-epub-auto1-keep",
+          "host_id": "PS51",
+          "host_version": "5.1.26100.9444",
+          "input_kind": "epub",
+          "kind": "retained",
+          "exit_code": 0,
+          "page_count": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        },
+        {
+          "id": "PS51-azw3-auto1-keep",
+          "host_id": "PS51",
+          "host_version": "5.1.26100.9444",
+          "input_kind": "azw3",
+          "kind": "retained",
+          "exit_code": 0,
+          "page_count": 4,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        },
+        {
+          "id": "PS51-epub-malformed",
+          "host_id": "PS51",
+          "host_version": "5.1.26100.9444",
+          "input_kind": "epub",
+          "kind": "malformed",
+          "exit_code": 4,
+          "outcome": "conversion_failed",
+          "chapter_publication": false
+        },
+        {
+          "id": "PS51-azw3-malformed",
+          "host_id": "PS51",
+          "host_version": "5.1.26100.9444",
+          "input_kind": "azw3",
+          "kind": "malformed",
+          "exit_code": 4,
+          "outcome": "conversion_failed",
+          "chapter_publication": false
+        },
+        {
+          "id": "PS7-epub-auto1-keep",
+          "host_id": "PS7",
+          "host_version": "7.6.5",
+          "input_kind": "epub",
+          "kind": "retained",
+          "exit_code": 0,
+          "page_count": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        },
+        {
+          "id": "PS7-azw3-auto1-keep",
+          "host_id": "PS7",
+          "host_version": "7.6.5",
+          "input_kind": "azw3",
+          "kind": "retained",
+          "exit_code": 0,
+          "page_count": 4,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        },
+        {
+          "id": "PS7-epub-malformed",
+          "host_id": "PS7",
+          "host_version": "7.6.5",
+          "input_kind": "epub",
+          "kind": "malformed",
+          "exit_code": 4,
+          "outcome": "conversion_failed",
+          "chapter_publication": false
+        },
+        {
+          "id": "PS7-azw3-malformed",
+          "host_id": "PS7",
+          "host_version": "7.6.5",
+          "input_kind": "azw3",
+          "kind": "malformed",
+          "exit_code": 4,
+          "outcome": "conversion_failed",
+          "chapter_publication": false
+        },
+        {
+          "id": "PS51-epub-canary",
+          "host_id": "PS51",
+          "host_version": "5.1.26100.9444",
+          "input_kind": "epub",
+          "kind": "canary",
+          "exit_code": 0,
+          "page_count": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        },
+        {
+          "id": "PS7-epub-canary",
+          "host_id": "PS7",
+          "host_version": "7.6.5",
+          "input_kind": "epub",
+          "kind": "canary",
+          "exit_code": 0,
+          "page_count": 3,
+          "ranges": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              2
+            ],
+            [
+              2,
+              3
+            ]
+          ],
+          "chapter_count": 3,
+          "every_page_same_renderer_equal": true
+        }
+      ],
+      "references": {
+        "epub": {
+          "tablet": {
+            "page_count": 3,
+            "outline": [
+              {
+                "title": "Chapter One",
+                "page": 0,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Two",
+                "page": 1,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Three",
+                "page": 2,
+                "depth": 0
+              }
+            ],
+            "options": [
+              "--output-profile",
+              "tablet"
+            ],
+            "pdf_sha256": "48a04171d7dffb886823c5e324335d0a02fac8176387c5b5ea9b992fb4bfbb01",
+            "all_page_png_sha256": [
+              "7e39f01ca1162dc8d01ecd7a307ccadb66e596add72dba51c40f6a541b23ad57",
+              "7df59da933ee4649e9c70b5bab6d891853b065961ad53f6a1266b6f6424fe80b",
+              "0fd5255955a08fc9b7cca324bbb41031b0defafc80fbd67e6df3e402b7008bad"
+            ]
+          },
+          "default": {
+            "page_count": 3,
+            "outline": [
+              {
+                "title": "Chapter One",
+                "page": 0,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Two",
+                "page": 1,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Three",
+                "page": 2,
+                "depth": 0
+              }
+            ],
+            "options": [],
+            "pdf_sha256": "0002ae14d8cf41eb8e669fb1c2efabbc86c5746664110749bf3653b80fc89dda",
+            "all_page_png_sha256": [
+              "7e39f01ca1162dc8d01ecd7a307ccadb66e596add72dba51c40f6a541b23ad57",
+              "7df59da933ee4649e9c70b5bab6d891853b065961ad53f6a1266b6f6424fe80b",
+              "0fd5255955a08fc9b7cca324bbb41031b0defafc80fbd67e6df3e402b7008bad"
+            ]
+          }
+        },
+        "azw3": {
+          "tablet": {
+            "page_count": 4,
+            "outline": [
+              {
+                "title": "Chapter One",
+                "page": 0,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Two",
+                "page": 1,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Three",
+                "page": 2,
+                "depth": 0
+              }
+            ],
+            "options": [
+              "--output-profile",
+              "tablet"
+            ],
+            "pdf_sha256": "034830fbb6468bb5dc0dd223ed7e8cbd3e46f4dd913c70a6fe195ca7701656c0",
+            "all_page_png_sha256": [
+              "7e39f01ca1162dc8d01ecd7a307ccadb66e596add72dba51c40f6a541b23ad57",
+              "7df59da933ee4649e9c70b5bab6d891853b065961ad53f6a1266b6f6424fe80b",
+              "0fd5255955a08fc9b7cca324bbb41031b0defafc80fbd67e6df3e402b7008bad",
+              "179445771109c55d3fb3d05acd84f6c01a501e9f17b414353335b9901e90b2da"
+            ]
+          },
+          "default": {
+            "page_count": 4,
+            "outline": [
+              {
+                "title": "Chapter One",
+                "page": 0,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Two",
+                "page": 1,
+                "depth": 0
+              },
+              {
+                "title": "Chapter Three",
+                "page": 2,
+                "depth": 0
+              }
+            ],
+            "options": [],
+            "pdf_sha256": "f5b1110bc769fb843823b972b504ebe96b24097cd7c30e3ab4cf5a3237fd9c35",
+            "all_page_png_sha256": [
+              "7e39f01ca1162dc8d01ecd7a307ccadb66e596add72dba51c40f6a541b23ad57",
+              "7df59da933ee4649e9c70b5bab6d891853b065961ad53f6a1266b6f6424fe80b",
+              "0fd5255955a08fc9b7cca324bbb41031b0defafc80fbd67e6df3e402b7008bad",
+              "179445771109c55d3fb3d05acd84f6c01a501e9f17b414353335b9901e90b2da"
+            ]
+          }
+        }
+      },
+      "input_neighbor_prior_source_tool_stability": true,
+      "owned_cleanup": true
+    },
+    "inherited_conversion_scope": "Fresh inherited stage:8 actual EPUB/AZW3 Manual retained/default executions under both hosts;2 separate callable prepare/preview-to-execute parity controls and declined working-PDF opening;8 declared fake-invalid output controls;one BAT missing converter. No application Preview/plan-only or viewer interaction claim. Exact rows/statuses remain in sealed raw report.",
+    "full_route": "NOT_RUN: new orchestration has 22 stages; historical T03 21-stage full PASS remains separate.",
+    "pester": "NOT_RUN in T04: 15 production paths unchanged; historical T03 actual112/112 per host is separate.",
+    "agent_visual_review": {
+      "file": "clean-C-agent-visual-review01.json",
+      "bytes": 13555,
+      "sha256": "b6ed6e5ca70dde87c9c56e4c539467a4e59775a71fffed961114462319042ba4"
+    },
+    "independent_native_review": {
+      "file": "clean-C-native-independent-review01.json",
+      "bytes": 21113,
+      "sha256": "3849ee52911924f0c49ff4cdc9a4e788a4f61a4d9ecad48054349313f67328b0"
+    }
+  },
+  "fixture_provenance": {
+    "authored_original": true,
+    "license": "MIT",
+    "private_documents": false,
+    "format_checks": {
+      "epub": {
+        "format": "epub",
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c",
+        "size_bytes": 3244,
+        "epub_version": "3.0",
+        "mimetype_first_uncompressed": true,
+        "spine": [
+          "c1",
+          "c2",
+          "c3"
+        ],
+        "navigation": [
+          {
+            "title": "Chapter One",
+            "href": "chapter1.xhtml"
+          },
+          {
+            "title": "Chapter Two",
+            "href": "chapter2.xhtml"
+          },
+          {
+            "title": "Chapter Three",
+            "href": "chapter3.xhtml"
+          }
+        ],
+        "members": {
+          "META-INF/container.xml": {
+            "size_bytes": 223,
+            "sha256": "07cd3f1ead14fea75c2305950b4640154ea828a47df768cffabd2ce4a45aecd1"
+          },
+          "OEBPS/chapter1.xhtml": {
+            "size_bytes": 482,
+            "sha256": "80542122c096f302259d11cd0923fe5996ec8b4b791d5a9616ea6af9a2376981"
+          },
+          "OEBPS/chapter2.xhtml": {
+            "size_bytes": 482,
+            "sha256": "7e12b8e09473ecc740842773eeb667e39fce69d8e60956c376e56ad6c7efbfae"
+          },
+          "OEBPS/chapter3.xhtml": {
+            "size_bytes": 486,
+            "sha256": "ec1fce7f0b26d3d63ca6fd8a2222caab12c26f798626dfb06913af08d9473a74"
+          },
+          "OEBPS/content.opf": {
+            "size_bytes": 1092,
+            "sha256": "66de071f3588ff9be199924559c807d5ec203f9524076d1ebefb602b7c210573"
+          },
+          "OEBPS/nav.xhtml": {
+            "size_bytes": 383,
+            "sha256": "2d8a4a77995bed2b59753ad02ea62b802412da36a903a1eca8843127a44bb256"
+          },
+          "OEBPS/style.css": {
+            "size_bytes": 110,
+            "sha256": "b8b4d4f6655e450f84b9bb2ba674cdffa85167a5116fab7c2bf3df915f6c7a6e"
+          },
+          "OEBPS/toc.ncx": {
+            "size_bytes": 650,
+            "sha256": "531268ee1d462abb078c7009dc9896c6b1ac84e2f2a2b195f7fe273388771ad8"
+          },
+          "mimetype": {
+            "size_bytes": 20,
+            "sha256": "e468e350d1143eb648f60c7b0bd6031101ec0544a361ca74ecef256ac901f48b"
+          }
+        },
+        "local_references": [
+          {
+            "from": "META-INF/container.xml",
+            "reference": "OEBPS/content.opf",
+            "target": "OEBPS/content.opf"
+          },
+          {
+            "from": "OEBPS/chapter1.xhtml",
+            "reference": "style.css",
+            "target": "OEBPS/style.css"
+          },
+          {
+            "from": "OEBPS/chapter2.xhtml",
+            "reference": "style.css",
+            "target": "OEBPS/style.css"
+          },
+          {
+            "from": "OEBPS/chapter3.xhtml",
+            "reference": "style.css",
+            "target": "OEBPS/style.css"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "chapter1.xhtml",
+            "target": "OEBPS/chapter1.xhtml"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "chapter2.xhtml",
+            "target": "OEBPS/chapter2.xhtml"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "chapter3.xhtml",
+            "target": "OEBPS/chapter3.xhtml"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "nav.xhtml",
+            "target": "OEBPS/nav.xhtml"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "style.css",
+            "target": "OEBPS/style.css"
+          },
+          {
+            "from": "OEBPS/content.opf",
+            "reference": "toc.ncx",
+            "target": "OEBPS/toc.ncx"
+          },
+          {
+            "from": "OEBPS/nav.xhtml",
+            "reference": "chapter1.xhtml",
+            "target": "OEBPS/chapter1.xhtml"
+          },
+          {
+            "from": "OEBPS/nav.xhtml",
+            "reference": "chapter2.xhtml",
+            "target": "OEBPS/chapter2.xhtml"
+          },
+          {
+            "from": "OEBPS/nav.xhtml",
+            "reference": "chapter3.xhtml",
+            "target": "OEBPS/chapter3.xhtml"
+          },
+          {
+            "from": "OEBPS/toc.ncx",
+            "reference": "chapter1.xhtml",
+            "target": "OEBPS/chapter1.xhtml"
+          },
+          {
+            "from": "OEBPS/toc.ncx",
+            "reference": "chapter2.xhtml",
+            "target": "OEBPS/chapter2.xhtml"
+          },
+          {
+            "from": "OEBPS/toc.ncx",
+            "reference": "chapter3.xhtml",
+            "target": "OEBPS/chapter3.xhtml"
+          }
+        ],
+        "external_references": [],
+        "scripts_or_active_content": false,
+        "resource_scope": "closed-authored-family"
+      },
+      "azw3": {
+        "format": "azw3",
+        "sha256": "dda5b0f1e82fe4cc6ae94e869a707e91144db6384f6dacc8204b769984209dc4",
+        "size_bytes": 12844,
+        "palmdb_identity": "BOOKMOBI",
+        "record_count": 18,
+        "record_offsets": [
+          224,
+          9124,
+          10558,
+          10560,
+          10808,
+          11084,
+          11160,
+          11404,
+          11712,
+          11944,
+          12152,
+          12172,
+          12428,
+          12668,
+          12708,
+          12752,
+          12788,
+          12840
+        ],
+        "record_zero_size_bytes": 8900,
+        "record_zero_sha256": "6c278148c9e816e746416360d1fb751cbcb73ae280e61443299bc99132104166",
+        "mobi_header_length": 264,
+        "mobi_version": 8,
+        "encryption_type": 0,
+        "not_zip": true,
+        "scope": "bounded-generated-standalone-KF8-fixture"
+      }
+    },
+    "generation": "Actual pinned Calibre EPUB -> AZW3 --output-profile tablet; literal argv, native0 and streams archived externally.",
+    "input_options": [
+      "--output-profile",
+      "tablet"
+    ],
+    "configuration_scope": "New owned process-local config/cache/temp; inherited values restored; no installed/user settings edited."
+  },
+  "canary": {
+    "scope": "Two exclusively owned live loopback resources; no OS network denial, all-egress capture or arbitrary-plugin guarantee.",
+    "positive_requests": 4,
+    "conversion_requests": 0,
+    "listener_stopped": true,
+    "image_behavior": "Actual Calibre renderer diagnostic reports blocking the canary image URL in each native host case.",
+    "css_behavior": "No request to the exact declared CSS endpoint observed; no CSS blocking diagnostic or cause inference claimed."
+  },
+  "commands": [
+    "<pinned developer Python> -I -B tests/run_tests.py --layer python --report <new external JSON>",
+    "<pinned developer Python> -I -B tests/run_tests.py --layer ebooks --shell-path <actual PS5.1> --shell-path <actual PS7> --calibre-path <actual Calibre9.15> --renderer-path <actual Poppler26.07> --report <new external JSON>",
+    "<pinned developer Python> -B tools/codex-handoff/validate_plan.py",
+    "git -c core.autocrlf=false add -- <exact intended paths>; git -c core.autocrlf=false commit; git push origin HEAD",
+    "<pinned developer Python> -B tools/codex-handoff/check_sync.py --repo ."
+  ],
+  "command_projection": "Actual literal argv/native status, times, streams and local paths remain in sealed external raw command receipts. Public projections substitute local-path roles.",
+  "failed_and_intermediate": [
+    "First asset unit trial native1: new fixture closure checker accepted escaped CSS URLs and inline style resources; corrected authored-family checker rejects them. Exact tested worktree digest was not captured and remains UNKNOWN; known base d360 is not substituted.",
+    "Independent resealed receipt trials exposed bool aliases for page zero/geometry and foreign failure/config paths. Guard-only fixes and new negative mutations precede C; original counterexamples retained.",
+    "Positive converter byte counts originally allowed contradictory empty/oversize tails. Typed bounds and existing mutation controls now reject these contradictions.",
+    "Initial newline helper assumed all existing files CRLF and stopped; its native status was masked by the following shell diff and is UNKNOWN. Corrected wrapper captures native0.",
+    "First C raw proof failed because branch checkout converted16 unchanged inherited LF files to CRLF. Literal raw restoration changed only line endings to actual C blobs. First restore helper and second proof still reported failure until index stat refresh; final C proof03 is clean/exact. No source commit change or app defect.",
+    "PS5.1 policy baseline autoload was partial; correction02 native1 used unsupported module parameter, correction03 actualnative0 explicitly imports the shipped module. No policy change.",
+    "Focused behavior recorder labeled FAIL because of an LF-only summary match despite actualnative0/3methods and stable source. Additive independent raw review records the actual result; original label remains.",
+    "Initial synthetic receipt resealer trial native1 had11methods/one KeyError run_id when a mutation set execution={}; traceback remains only in task tool history and is disclosed additively in asset-receipt-units01.json. No independent raw file/hash or exact source digest exists; those identities remain UNKNOWN.",
+    "Earlier baseline PDFs, canary converter probe and focused units are pre-C observations with their own source scope, never relabeled final native application acceptance.",
+    "Historical T01/T02 full failures and T03 first isolation/combined trial failures remain immutable; unknown historical process causes stay UNKNOWN. New passes do not diagnose them."
+  ],
+  "not_run": [
+    "New human/GUI/Explorer/viewer interaction (M3-T01 absolutely closed)",
+    "22-stage full route and fresh Pester in T04",
+    "Windows10/ARM/UNC or clean-machine installation",
+    "CI/protection/cumulative merge (M4-T05)",
+    "Arbitrary ebooks/plugins/DRM/native ebook output",
+    "OS network disconnected or all-egress sandbox",
+    "Package/signing/tag/release/assets/anonymous download"
+  ],
+  "repository": {
+    "branch": "codex/winbooksplit-v1-m4",
+    "pull_request": "https://github.com/PikkuJanne/WinBookSplit/pull/25",
+    "baseline": "User merged PR24 to main d360bfbff007dc6b5ed49a9e352f5079977b4f22; reconciled using normal fast-forward and push.",
+    "evidence_checkpoint_receipt": "E own commit/push/live receipt is external/thread/PR after its actual commit; no future or self SHA."
+  },
+  "next_task": "M4-T05",
+  "raw_receipts": [
+    {
+      "file": "asset-receipt-units01.json",
+      "bytes": 7739,
+      "sha256": "ec9e1dd57d25e406cafd25ad309fce6b8827c56390affa8c1b3e7739b9ae0a56"
+    },
+    {
+      "file": "asset-receipt-units02.json",
+      "bytes": 7740,
+      "sha256": "9c9a37b8d7d43a9412e3e941016da7cc67d591fa3474b2624dcd154503529c19"
+    },
+    {
+      "file": "asset-receipt-units03.json",
+      "bytes": 5333,
+      "sha256": "4e1e53301a9668aeb768d53f8521d461162ebc127864cbda7f7ebe5b8e701e90"
+    },
+    {
+      "file": "asset-units-reproduction01.json",
+      "bytes": 5087,
+      "sha256": "8b38b032b3bb26bb99fe3251c260581d7ef8f8679d15280f38730bf9be667426"
+    },
+    {
+      "file": "baseline-agent-visual-review01.json",
+      "bytes": 3235,
+      "sha256": "55eb39293613cf963e5356f0d14ea903085cbee4388d5d2b2ebe13897342821b"
+    },
+    {
+      "file": "baseline-assets01.json",
+      "bytes": 94485,
+      "sha256": "aef9f0be5d06949c4dbba4191864ed07eb2440638ac1a95823ea49e29fa7025f"
+    },
+    {
+      "file": "baseline-calibre-version01.json",
+      "bytes": 730,
+      "sha256": "767ec938a166d485c6cf89ffc6a69c5ce61463af1ecdf281f3d167ddb49098c4"
+    },
+    {
+      "file": "baseline-command01.json",
+      "bytes": 1317,
+      "sha256": "a2d63047963bd5eec3bd4b924003894bc1e0df2fb06b8f1ba808c7dacd809461"
+    },
+    {
+      "file": "baseline-developer-python01.json",
+      "bytes": 2455,
+      "sha256": "7e9984fe76b9555d29b0487047562b425ae37cb6f6709bf5e92b20c176b13e9e"
+    },
+    {
+      "file": "baseline-host-PS51-01.json",
+      "bytes": 1823,
+      "sha256": "8fae68c15cdd6cc66f3045b361203d21a751db1bfdbf9853c201b3f57a3d4bbc"
+    },
+    {
+      "file": "baseline-host-PS51-policy02.json",
+      "bytes": 2008,
+      "sha256": "556b9e2330454d8d78fd430391974356414860b3db353ccbb2666e1612e1ab26"
+    },
+    {
+      "file": "baseline-host-PS51-policy03.json",
+      "bytes": 2785,
+      "sha256": "695990a487e5056950a47cb38ff1b0d921492454dc783d21b286858ce64df41f"
+    },
+    {
+      "file": "baseline-host-PS7-01.json",
+      "bytes": 1592,
+      "sha256": "6f48b2191c948afce44e2861adde588895f7332a86a95f41f872e8eca5cf5a0f"
+    },
+    {
+      "file": "baseline-live-feature01.json",
+      "bytes": 6358,
+      "sha256": "f407cd0b5568920a60cd3e3686ea00b76b3154822155332d368e2eff076ec457"
+    },
+    {
+      "file": "baseline-live-main01.json",
+      "bytes": 6256,
+      "sha256": "d2e0b33d29a5e15fa7cc9567c37343e6cef21a0fe4ede5c7c7ad00445ee67e59"
+    },
+    {
+      "file": "baseline-live-PR24-merged01.json",
+      "bytes": 1144,
+      "sha256": "91e0511941e07a451deddd8b63e19f5b49c4b5af5f7b6087198f13ace13cd4c1"
+    },
+    {
+      "file": "baseline-live-refs01.json",
+      "bytes": 803,
+      "sha256": "e5622f73f1c944d253e68b1bd659cb9a81561c58decb0bc7330029996d780551"
+    },
+    {
+      "file": "baseline-live-releases01.json",
+      "bytes": 618,
+      "sha256": "95f3b40a0a7ff92d705f1ef1f73cc89595d2b4f0fa71332eade8ee21e0a3c18d"
+    },
+    {
+      "file": "baseline-live-rulesets01.json",
+      "bytes": 618,
+      "sha256": "3b5ece7c52d2f6308c47109bd4e859ed5b65c9e2aaebf845183bb3460c07f149"
+    },
+    {
+      "file": "baseline-live-runs01.json",
+      "bytes": 660,
+      "sha256": "1b0d0b1933a654474b2586fca58e661701f39beab279c05fb947d97832194cdd"
+    },
+    {
+      "file": "baseline-live-tags01.json",
+      "bytes": 614,
+      "sha256": "b19df2f4c35d56e7d7e3018c8e6970d9977447c32a29fa6df246f6c26bc3b939"
+    },
+    {
+      "file": "baseline-live-workflows01.json",
+      "bytes": 649,
+      "sha256": "9993137567e8e0234101b2cb833eba0771e1721f829e78d71b15ba034fcadb2b"
+    },
+    {
+      "file": "baseline-local-branch01.json",
+      "bytes": 610,
+      "sha256": "7a89b4ca8f307cdfed5e31adcc01621e91c633ddb2ddad3dc0a4135bac15ab16"
+    },
+    {
+      "file": "baseline-local-head01.json",
+      "bytes": 619,
+      "sha256": "03942b5a57c656ff0a87e210a2deaeabccb663c275d1eb6c02140b79f9ecdd8e"
+    },
+    {
+      "file": "baseline-local-origin01.json",
+      "bytes": 639,
+      "sha256": "3e8c06d75f74646052176c785a635d2bf756f4b06b59fc9a109518ba7e294119"
+    },
+    {
+      "file": "baseline-local-status01.json",
+      "bytes": 699,
+      "sha256": "31d60288176194d72620e675ddb5fa808b11350616ea3d2ed60ab249e46a8a87"
+    },
+    {
+      "file": "baseline-local-tree01.json",
+      "bytes": 626,
+      "sha256": "adc12e6e2317378e348ed27f8f2edc53104fbd3d3688ca83db1fdb404f79cbd0"
+    },
+    {
+      "file": "baseline-local-upstream01.json",
+      "bytes": 665,
+      "sha256": "36c9a53a1552773afb67aedfbdce10ef40c5cec48c22883fe75724dfb1eaa1b6"
+    },
+    {
+      "file": "baseline-poppler-version01.json",
+      "bytes": 831,
+      "sha256": "37a8c8954e9db8f7450c39c1f93a0c6d783582f60d100f544c9843f3d06c5746"
+    },
+    {
+      "file": "baseline-runtime-independent-observations01.json",
+      "bytes": 7284,
+      "sha256": "7a94a3c68c4beba99f549ec91418a48be3276778e09d36e80a350657fa508981"
+    },
+    {
+      "file": "baseline-runtime-independent-review01.json",
+      "bytes": 9848,
+      "sha256": "2758bab3a1bdf342b965d561ce0dc2b9bd716c89027a15e3b6e489d0d7bbd0c7"
+    },
+    {
+      "file": "baseline-workstation01.json",
+      "bytes": 1284,
+      "sha256": "66ab159bc0e149f3c7cc6be17a8465351f92830fddc0c0ef553b83746f5f98d6"
+    },
+    {
+      "file": "baseline-worktrees01.json",
+      "bytes": 729,
+      "sha256": "245d0eb11211c30372a4fe65762216c7fc112ea9ec32ba109d4b5fc718b88f0c"
+    },
+    {
+      "file": "canary-probe01.json",
+      "bytes": 17578,
+      "sha256": "2e80d7883a6a2487ee6c88b40324d83d4035652c7b4d2ace6272329c39d5b99a"
+    },
+    {
+      "file": "clean-C-agent-visual-review01.json",
+      "bytes": 13555,
+      "sha256": "b6ed6e5ca70dde87c9c56e4c539467a4e59775a71fffed961114462319042ba4"
+    },
+    {
+      "file": "clean-C-native-independent-review01.json",
+      "bytes": 21113,
+      "sha256": "3849ee52911924f0c49ff4cdc9a4e788a4f61a4d9ecad48054349313f67328b0"
+    },
+    {
+      "file": "commit-C01.json",
+      "bytes": 1249,
+      "sha256": "5abb3af1f9cbeb0e10b7350d4c5cb30778d5b0a911a0c15ae7db9e7f389357c5"
+    },
+    {
+      "file": "create-PR01.json",
+      "bytes": 859,
+      "sha256": "7c0ff5f9132a1b2bf1cc045f2ca979a17406f596dbece0dd3b4a39fb900bacbb"
+    },
+    {
+      "file": "ebooks-C-command01.json",
+      "bytes": 1301,
+      "sha256": "c7689098a2307289eaa0d023cdeaa19a4783a181597a778b8decb4494c5395a8"
+    },
+    {
+      "file": "ebooks-C01.json",
+      "bytes": 6211326,
+      "sha256": "d5d5620929c906376d5fdba072fdb564217eb475e4c02368ca1feff8b99f4fb2"
+    },
+    {
+      "file": "engine-assets-handoff01.json",
+      "bytes": 2642,
+      "sha256": "22cc874c7357fbb5e2ddfcdf62706cefeee004e3fdf6f7c74a7bf8d3cb9d7520"
+    },
+    {
+      "file": "fetch01.json",
+      "bytes": 624,
+      "sha256": "78c830b40589be89b71c30e550b2bc5a81315d5f57992383df74e620e4dbbbde"
+    },
+    {
+      "file": "ff-m401.json",
+      "bytes": 590,
+      "sha256": "533441c98a286821c5ec0511a4f93a3f66fe0362b2cdf532b5a6caf1da978fa7"
+    },
+    {
+      "file": "final-source-independent-review01.json",
+      "bytes": 7995,
+      "sha256": "ae7496c6d2a597c1f7ae38ce4f19346cc5f937359ca6cfd5f8b3cc06f368c16b"
+    },
+    {
+      "file": "focused-behavior01-independent-detail.json",
+      "bytes": 1370,
+      "sha256": "af1558d815966ecf85755c07a80aba3ce3ae40b08246b734a3456641071ed232"
+    },
+    {
+      "file": "focused-behavior01.json",
+      "bytes": 2548,
+      "sha256": "569346f912c55e18e66830daf6b338a0e7e8881ea00eca826f030dce943811bb"
+    },
+    {
+      "file": "live-main-C01.json",
+      "bytes": 936,
+      "sha256": "21bad59f74fe990b688b75bcab356eb4e6175cdd8d38261343b077badf2fdb67"
+    },
+    {
+      "file": "live-PR25-C01.json",
+      "bytes": 1130,
+      "sha256": "48306eb0fa6903f0ef1cce5b40e73df45630735204c2bb2e4e1ecdf9be444868"
+    },
+    {
+      "file": "normalize-newlines-command02.json",
+      "bytes": 674,
+      "sha256": "6a240a3d97f6987d7eb7a6ee77896a0b66ab7c3a2eb0431bc3efcd9a22cfa667"
+    },
+    {
+      "file": "normalize-newlines-command03.json",
+      "bytes": 664,
+      "sha256": "f1cc33267e7efd3479196ab9d47bbdc3415b2afb51ebf4ffff71cabeb3c04cb7"
+    },
+    {
+      "file": "pdf-artifact-marker01.json",
+      "bytes": 892,
+      "sha256": "b8b91916ebe6aab4d91bbae22ced9c569cbdd97bb147cd4d8e861d8f5977b9fb"
+    },
+    {
+      "file": "pre-C-observations01.json",
+      "bytes": 1733,
+      "sha256": "a0753f5ca8fd0214536f23f6d546295277a834668efccda24be7ce351eeee7f1"
+    },
+    {
+      "file": "primitive-source-independent-review01.json",
+      "bytes": 7535,
+      "sha256": "bc3042d94589734b09e09d5aee5681bbb051491d98a9723080e89e03e51be64d"
+    },
+    {
+      "file": "pull-main01.json",
+      "bytes": 3237,
+      "sha256": "a5bc84f647efcf5742fa565ff7f827cca120758bc9d02179da4c638bd746c0f4"
+    },
+    {
+      "file": "push-baseline01.json",
+      "bytes": 644,
+      "sha256": "58cb448a592e2cfaeb7200a0bdbd03d92e98d3d6d0f7aafabf4db2181b4d02dd"
+    },
+    {
+      "file": "push-C01.json",
+      "bytes": 681,
+      "sha256": "2a86c14368a079404246939c8881dc51c7b826b8bd0a951e0f1f0ffc5588f598"
+    },
+    {
+      "file": "python-C-command01.json",
+      "bytes": 813,
+      "sha256": "4be0368f9bf6ee6a32c56044d81f7480e957d87904e6a0de32d72e23bacbc11e"
+    },
+    {
+      "file": "python-C01.json",
+      "bytes": 120623,
+      "sha256": "9d3eddab0da3116692b944ccc2af76e37b0130c18cefcc0977e9270d9af3f109"
+    },
+    {
+      "file": "receipt-contradiction-reproduction01.json",
+      "bytes": 445252,
+      "sha256": "5f860305f8ef96221c3823ded4e9cfdd53f7223a03464119747a916a6fa5b320"
+    },
+    {
+      "file": "receipt-ownership-reproduction02.json",
+      "bytes": 243987,
+      "sha256": "8398668df974445d8e049a4694e595f58a67650a52939bdd1595d78cd85b4112"
+    },
+    {
+      "file": "restore-checkout-raw-bytes-command01.json",
+      "bytes": 945,
+      "sha256": "7c0bf67c0c262785f225c5e7ce4b03401113ae0e83cf3709f75b8050ae68be45"
+    },
+    {
+      "file": "source-C-proof-command01.json",
+      "bytes": 1123,
+      "sha256": "f6a9e033f88aeb70d9d86ef17f56c6854f8cc5c1ba9d5f1f6f1e45747b23243c"
+    },
+    {
+      "file": "source-C-proof-command02.json",
+      "bytes": 1123,
+      "sha256": "7c9f048b2839d4a07bb5d73733c441ecf6b65e62405da237278a09c9c75e9d5f"
+    },
+    {
+      "file": "source-C-proof-command03.json",
+      "bytes": 1122,
+      "sha256": "c14ec8ba22d0f2e7887109d18300a45c2cfed92ea7f9cde5ee391d8e16281500"
+    },
+    {
+      "file": "source-C-proof01.json",
+      "bytes": 29759,
+      "sha256": "c5fbe431c3807e0edd73d16d326053dece48448afbb8eec44026263af7af0945"
+    },
+    {
+      "file": "source-C-proof02.json",
+      "bytes": 30366,
+      "sha256": "8153d9cb256ccb47f6ed549c84e4f6d45f18b38cd46bf1582c028d277488cdb7"
+    },
+    {
+      "file": "source-C-proof03.json",
+      "bytes": 29742,
+      "sha256": "8012b4549227dc013174a03ce792a0bd23cd29f6491cbc14830a255c9a0753cb"
+    },
+    {
+      "file": "switch-m401.json",
+      "bytes": 660,
+      "sha256": "5ac3b75bd05120be8459b81215eb2284567c0ac9ef30a917e0d25c9c246038fa"
+    },
+    {
+      "file": "switch-main01.json",
+      "bytes": 718,
+      "sha256": "39aa6e378db98461671722a10d64593b7da922195c005d6944edc395b10e2eb1"
+    },
+    {
+      "file": "sync-baseline01.json",
+      "bytes": 1211,
+      "sha256": "cb163a9ee8db4835c00ac4756be6176a077574ebbb9f78879cbd5a434618b644"
+    },
+    {
+      "file": "sync-C01.json",
+      "bytes": 1211,
+      "sha256": "937d31aaddf0999325e0d53a3a8f1edd1ae5703dbb2afb15182e4500adb17fa3"
+    }
+  ]
+}

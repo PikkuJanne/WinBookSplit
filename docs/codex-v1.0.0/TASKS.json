@@ -865,7 +865,7 @@
         "EPUB/AZW3 integration evidence",
         "Conversion support notes"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M4-T03"
       ],
@@ -874,8 +874,11 @@
         "AC-077",
         "AC-078"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M4-T04-ebook-conversion.md",
+        "evidence/M4-T04-ebook-conversion.json"
+      ],
+      "implementation_commit": "5214bb230590b27d9399d22b80c1f0b5fead2d74",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

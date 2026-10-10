@@ -1,5 +1,16 @@
 # Project status
 
+Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped implementation and acceptance are complete through **M4-T04**.
+Next action: **M4-T05 — Add least-privilege Windows CI**, AC-079/080/081. Stop at that boundary.
+
+Clean C **5214bb230590b27d9399d22b80c1f0b5fead2d74**, tree **5adb04ede4f8a852fc3dbe0a60858d9040be1d0e**, passes **453 Python methods**, zero skips, and fresh **2/2 ebooks stages**, native0 under actual PS5.1/PS7 with real Calibre9.15/Poppler26.07. All155 mapped raw files equal Git, digest **4709450a19fe13bbdd121b7f4c73eb4adf94a2d94f5d293050b5bbf863b9e418**; all15 application paths remain byte-identical to user-merged PR24 main **d360bfbff007dc6b5ed49a9e352f5079977b4f22**. AC-076/077/078 pass original EPUB3/TOC, genuine generated KF8 AZW3, every physical page/render, immutable originals/prior publications, actual malformed failures and bounded installed-resource/profile behavior. See [T04 evidence](evidence/M4-T04-ebook-conversion.md) and [machine record](evidence/M4-T04-ebook-conversion.json).
+
+C normally pushed and clean/live SYNCED at **2026-10-10T14:01:17.184045+00:00**. [Draft PR25](https://github.com/PikkuJanne/WinBookSplit/pull/25) is scoped to T04. E's own actual push/live receipt follows externally after commit, without a future/self hash. No new full22/Pester result is claimed; historical T03 full21/21 remains separate. Actual canary image blocking and zero exact loopback image/CSS requests do not establish OS network isolation. Independent source/native/public review and agent render inspection are recorded separately from absolutely closed human M3-T01 testing.
+
+M4-T05 owns real least-privilege Windows CI, cumulative review and main integration/sync. All failed/intermediate receipts and historical unknown causes remain intact. No new human/GUI, CI, clean-machine, package or public release completion is claimed.
+
+## Historical checkpoint through M4-T03
+
 Project: WinBookSplit first public v1.0.0; IN PROGRESS. Scoped implementation and acceptance are complete through **M4-T03**.
 Next action: **M4-T04 — Test real EPUB and AZW3 conversion**. Stop at that task boundary.
 
