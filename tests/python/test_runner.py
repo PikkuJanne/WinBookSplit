@@ -1090,6 +1090,29 @@ class RunnerTests(unittest.TestCase):
                 (root / "docs/PDF_POLICY.md").write_bytes(b"Changed declared policy\n")
                 self.assertNotEqual(runner.manifest_digest(before), runner.manifest_digest(runner.source_manifest()))
 
+    def test_ci_workflow_helpers_and_readme_are_bound_in_source_manifest(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-ci-runner-source-") as directory:
+            root = Path(directory)
+            content = {
+                ".github/workflows/windows-ci.yml": b"Authored workflow\n",
+                "tools/ci/README.md": b"Declared CI scope\n",
+                "tools/ci/bootstrap.py": b"Pinned isolated bootstrap\n",
+                "tools/ci/check_package_inputs.py": b"Immutable input checks\n",
+            }
+            for name, data in content.items():
+                target = root / name
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_bytes(data)
+            with patch.object(runner, "ROOT", root):
+                before = runner.source_manifest()
+                self.assertEqual(before, {name: runner.sha256(data) for name, data in content.items()})
+                for name, data in content.items():
+                    with self.subTest(name=name):
+                        target = root / name
+                        target.write_bytes(data + b"Changed\n")
+                        self.assertNotEqual(runner.manifest_digest(before), runner.manifest_digest(runner.source_manifest()))
+                        target.write_bytes(data)
+
     def test_document_policy_main_requires_distinct_existing_hosts_without_converter_or_renderer(self):
         # Only argument validation is exercised; these empty authored files are
         # never launched and do not stand in for actual supported host evidence.

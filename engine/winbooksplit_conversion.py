@@ -149,8 +149,8 @@ def _preflight_pdf_features(reader):
                     _invalid_pdf("PDF annotations exceed the supported inspection limit.")
                 annotation = _pdf_value(reference)
                 if isinstance(annotation, DictionaryObject) and (
-                    annotation.get("/Subtype") in forbidden_annotations or annotation.get("/FT") == "/Sig"
-                    or annotation.get("/Type") == "/Sig" or "/AF" in annotation or "/EF" in annotation
+                    _pdf_value(annotation.get("/Subtype")) in forbidden_annotations or _pdf_value(annotation.get("/FT")) == "/Sig"
+                    or _pdf_value(annotation.get("/Type")) == "/Sig" or "/AF" in annotation or "/EF" in annotation
                 ):
                     _unsupported_pdf("Interactive widgets, signatures, attachments and multimedia annotations are not supported.")
                 if isinstance(annotation, DictionaryObject):
@@ -172,17 +172,18 @@ def _preflight_pdf_features(reader):
         if len(visited) > MAX_PDF_FEATURE_NODES or depth > MAX_PDF_FEATURE_DEPTH:
             _invalid_pdf("The PDF object graph exceeds the supported inspection limit.")
         if isinstance(node, DictionaryObject):
-            kind = node.get("/Type")
+            kind = _pdf_value(node.get("/Type"))
             # These projected values are dropped wholesale by the existing inert
             # annotation guard; do not traverse their excluded document backlinks.
             if annotation_projection and kind in ("/Page", "/Pages", "/Catalog", "/Action"):
                 continue
             if copied_page_value and kind in ("/Page", "/Pages", "/Catalog"):
                 _unsupported_pdf("Copied page resources cannot reference document catalogs or physical page trees.")
-            if kind in ("/Sig", "/EmbeddedFile") or node.get("/FT") == "/Sig" or "/EF" in node or "/AF" in node:
+            if kind in ("/Sig", "/EmbeddedFile") or _pdf_value(node.get("/FT")) == "/Sig" or "/EF" in node or "/AF" in node:
                 _unsupported_pdf("Signatures and embedded or associated attachments are not supported.")
-            if not annotation_projection and (kind == "/Action" or isinstance(node.get("/S"), str)
-                    and node.get("/S") in PDF_ACTION_TYPES or "/JS" in node):
+            action = _pdf_value(node.get("/S"))
+            if not annotation_projection and (kind == "/Action" or isinstance(action, str)
+                    and action in PDF_ACTION_TYPES or "/JS" in node):
                 _unsupported_pdf("Active document or resource actions are not supported.")
             # The existing planner bounds outline/destination retrieval. The
             # existing writer rebuilds annotations and excludes page AA/articles;

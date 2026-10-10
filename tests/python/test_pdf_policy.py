@@ -248,6 +248,122 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertEqual(copied["/S"], "/Transparency")
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
 
+    def test_indirect_feature_names_are_rejected_before_reservation_and_conversion_acceptance(self):
+        cases = [("resource", "/Type", value) for value in ("/Action", "/Sig", "/EmbeddedFile")]
+        cases += [("resource", "/S", value) for value in ("/URI", "/GoToR", "/JavaScript")]
+        cases += [("resource", "/FT", "/Sig"), ("annotation", "/FT", "/Sig"), ("annotation", "/Type", "/Sig")]
+        cases += [("annotation", "/Subtype", value) for value in
+            ("/Widget", "/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D")]
+        for index, (context, field, value) in enumerate(cases):
+            with self.subTest(context=context, field=field, value=value):
+                writer = authored_writer()
+                feature = DictionaryObject({NameObject(field): writer._add_object(NameObject(value)),
+                    NameObject("/URI"): TextStringObject("https://example.invalid/authored-inert-never-opened")})
+                if context == "resource":
+                    writer.pages[0][NameObject("/Resources")] = dictionary(OriginalResource=writer._add_object(feature))
+                else:
+                    feature[NameObject("/Rect")] = ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)])
+                    writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(feature)])
+                source = self.source(writer, "indirect-feature-" + str(index))
+                with patch.object(engine, "OutputRun", side_effect=AssertionError("Policy must precede reservation")) as reserve:
+                    result = self.assert_rejected_before_writer(source)
+                self.assertEqual(result["status"], "unsupported")
+                reserve.assert_not_called()
+                with self.assertRaises(policy.ConversionError) as converted:
+                    policy._validate_pdf(source.read_bytes(), str(source))
+                self.assertEqual(converted.exception.code, "unsupported_document")
+
+    def test_indirect_projected_action_page_and_catalog_names_are_warned_and_dropped(self):
+        for field, value in (("/Type", "/Action"), ("/S", "/URI"), ("/S", "/GoToR"),
+                ("/Type", "/Page"), ("/Type", "/Pages"), ("/Type", "/Catalog")):
+            with self.subTest(field=field, value=value):
+                writer = authored_writer()
+                feature = DictionaryObject({NameObject(field): writer._add_object(NameObject(value)),
+                    NameObject("/OriginalSentinel"): TextStringObject("AUTHORED_PROJECTED_FEATURE_NEVER_EXECUTED"),
+                    NameObject("/Contents"): writer.pages[3]["/Contents"]})
+                appearance = DecodedStreamObject()
+                appearance.set_data(b"q 0 0 20 20 re S Q\n")
+                appearance.update(dictionary(Type=NameObject("/XObject"), Subtype=NameObject("/Form"),
+                    BBox=ArrayObject([NumberObject(n) for n in (0, 0, 20, 20)]),
+                    Resources=dictionary(OriginalFeature=writer._add_object(feature))))
+                annotation = dictionary(Type=NameObject("/Annot"), Subtype=NameObject("/Square"),
+                    Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]), AP=dictionary(N=writer._add_object(appearance)))
+                writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
+                source = self.source(writer, "indirect-projection-" + field[1:] + value[1:])
+                original = source.read_bytes()
+                output = self.work / ("projected-" + field[1:] + value[1:])
+                output.mkdir()
+                with redirect_stdout(StringIO()):
+                    prepared = engine.prepare_split(source, "manual", "1,3", output_base=output)
+                    self.assertIn("annotation_dropped", {warning["code"] for warning in prepared.plan["warnings"]})
+                    execution = engine.execute_split(prepared, output)
+                chapter_pages = []
+                for item in execution["outputs"]:
+                    reader = PdfReader(Path(execution["final_directory"]) / item["filename"])
+                    chapter_pages.extend(reader.pages)
+                    self.assertTrue(all(not page.get("/Annots") for page in reader.pages))
+                    page_objects = 0
+                    for generation, objects in reader.xref.items():
+                        for identity in objects:
+                            if identity == 0:
+                                continue
+                            obj = reader.get_object(identity)
+                            if isinstance(obj, DictionaryObject):
+                                self.assertNotIn("/OriginalSentinel", obj)
+                                if obj.get("/Type") == "/Page":
+                                    page_objects += 1
+                    self.assertEqual(page_objects, len(reader.pages))
+                self.assertEqual([page.get_contents().get_data() for page in chapter_pages],
+                    [b"% ORIGINAL_POLICY_PAGE_" + str(n).encode() + b"\n" for n in range(1, 5)])
+                self.assertEqual(source.read_bytes(), original)
+
+    def test_ordinary_indirect_static_goto_and_transparency_names_preserve_fidelity(self):
+        # Preserve existing physical-tree validity; this repair does not broaden it.
+        for location in ("catalog", "tree", "leaf"):
+            invalid = authored_writer()
+            target, kind = {"catalog": (invalid.root_object, "/Catalog"),
+                "tree": (invalid._pages.get_object(), "/Pages"), "leaf": (invalid.pages[0], "/Page")}[location]
+            target[NameObject("/Type")] = invalid._add_object(NameObject(kind))
+            with self.subTest(invalid_location=location), \
+                    patch.object(engine, "OutputRun", side_effect=AssertionError("Invalid tree must precede reservation")) as reserve:
+                self.assert_rejected_before_writer(self.source(invalid, "indirect-physical-type-" + location), "invalid_document")
+            reserve.assert_not_called()
+        writer = authored_writer()
+        transparency = dictionary(Type=writer._add_object(NameObject("/Group")), S=writer._add_object(NameObject("/Transparency")))
+        writer.pages[0][NameObject("/Resources")] = dictionary(OriginalGroup=writer._add_object(transparency))
+        appearance = DecodedStreamObject()
+        appearance.set_data(b"q 0 0 20 20 re S Q\n")
+        appearance.update(dictionary(Type=writer._add_object(NameObject("/XObject")),
+            Subtype=writer._add_object(NameObject("/Form")), BBox=ArrayObject([NumberObject(n) for n in (0, 0, 20, 20)])))
+        rectangle = ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)])
+        square = dictionary(Type=writer._add_object(NameObject("/Annot")), Subtype=writer._add_object(NameObject("/Square")),
+            Rect=rectangle, AP=dictionary(N=writer._add_object(appearance)))
+        link = dictionary(Type=writer._add_object(NameObject("/Annot")), Subtype=writer._add_object(NameObject("/Link")),
+            Rect=rectangle, A=dictionary(S=writer._add_object(NameObject("/GoTo")),
+                D=ArrayObject([writer.pages[1].indirect_reference, NameObject("/FitH"), NumberObject(123)])))
+        writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(square), writer._add_object(link)])
+        source = self.source(writer, "ordinary-indirect-names")
+        original = source.read_bytes()
+        with redirect_stdout(StringIO()):
+            result = engine.run_split(source, self.output, "manual", "1,3")
+        self.assertEqual(result["exit_code"], 0)
+        self.assertEqual(result["written_count"], 2)
+        self.assertNotIn("annotation_dropped", {warning["code"] for warning in result["warnings"]})
+        all_pages = [page for item in result["execution"]["outputs"]
+            for page in PdfReader(Path(result["execution"]["final_directory"]) / item["filename"]).pages]
+        self.assertEqual(len(all_pages), 4)
+        self.assertEqual([page.get_contents().get_data() for page in all_pages],
+            [b"% ORIGINAL_POLICY_PAGE_" + str(n).encode() + b"\n" for n in range(1, 5)])
+        first = PdfReader(Path(result["execution"]["final_directory"]) / result["execution"]["outputs"][0]["filename"])
+        page = first.pages[0]
+        self.assertEqual(page["/Resources"]["/OriginalGroup"]["/S"], "/Transparency")
+        annotations = [reference.get_object() for reference in page["/Annots"]]
+        self.assertEqual(annotations[0]["/Subtype"], "/Square")
+        self.assertEqual(annotations[0]["/AP"]["/N"].get_data(), b"q 0 0 20 20 re S Q\n")
+        self.assertEqual(annotations[1]["/Subtype"], "/Link")
+        self.assertEqual(annotations[1]["/Dest"], ArrayObject([first.pages[1].indirect_reference, NameObject("/FitH"), FloatObject(123)]))
+        self.assertEqual(source.read_bytes(), original)
+
     def test_inherited_font_text_boxes_rotation_and_captured_pages_are_preserved(self):
         source = self.source(inherited_writer(), "ordinary-inherited-fields")
         original = source.read_bytes()
