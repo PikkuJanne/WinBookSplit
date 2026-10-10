@@ -24,7 +24,7 @@ bundled isolated Codex runtime, not the default Python missing pypdf; this does
 not select the supported application dependency matrix.
 
 ```powershell
-$FixturePython = 'C:/Users/jtvuo/.cache/codex-runtimes/codex-primary-runtime/dependencies/python/python.exe'
+$FixturePython = '<absolute bundled Python path>'
 $ReportPath = Join-Path $env:TEMP ('WinBookSplit-baseline-' + [guid]::NewGuid().ToString('N') + '.json')
 & $FixturePython -I .\tests\baseline\characterize_original.py --launcher-probes --report $ReportPath
 if ($LASTEXITCODE -ne 0) { throw 'Baseline characterization failed' }

@@ -138,7 +138,7 @@ def model():
                    interpreter_boot={"protocol": "winbooksplit.test.isolation", "version": 1, "phase": "interpreter-held",
                        "nonce": nonce, "role": row["id"], "pid": row["pid"], "parent_pid": row["pid"] + 1000,
                        "python_executable": python, "python_version": "3.14.8", "python_prefix": str(drive / "synthetic-venv"),
-                       "python_base_prefix": str(drive / "synthetic-base"), "pypdf_version": "6.19.0", "pypdf_path": str(drive / "synthetic-pypdf/__init__.py")})
+                       "python_base_prefix": str(drive / "synthetic-base"), "pypdf_version": "6.20.0", "pypdf_path": str(drive / "synthetic-pypdf/__init__.py")})
     return {"schema_version": 1, "task_id": "M4-T03", "result": "RUN_ISOLATION_REGRESSION_PASSED", "success": True,
             "exit_code": 0, "acceptance_ids": ["AC-073"], "source_unchanged": True, "tested_path_sha256": source_map,
             "source_before": deepcopy(source_map), "source_after": deepcopy(source_map), "fixture": fixture,

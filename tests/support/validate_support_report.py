@@ -162,7 +162,7 @@ def validate_run_manifest(manifest, row):
          and type(settings.get('process_timeout')) is int and settings['conversion_timeout'] == 1800
          and settings['process_timeout'] == 3600, 'Normalized run settings differ from literal native arguments')
     runtime = manifest.get('runtime_versions')
-    need(runtime == {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.19.0',
+    need(runtime == {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.20.0',
                      'calibre': '9.15.0' if row['input_kind'] != 'pdf' else None}, 'Run manifest versions differ from resolved runtimes')
     original = row['source_observations_before']['source']
     source = manifest.get('source_identity')
@@ -339,7 +339,7 @@ def validate_summary(summary, manifest):
     versions = {**manifest['runtime_versions'], 'powershell': '5.1' if manifest['runtime_versions']['powershell'].startswith('5.1.') else '7'}
     need(summary['runtime_versions'] == versions and set(summary['runtime_versions']) == {'powershell', 'python', 'pypdf', 'calibre'},
          'Support runtime whitelist differs')
-    need(versions['powershell'] in {'5.1', '7'} and versions['python'] == '3.14.8' and versions['pypdf'] == '6.19.0'
+    need(versions['powershell'] in {'5.1', '7'} and versions['python'] == '3.14.8' and versions['pypdf'] == '6.20.0'
          and versions['calibre'] in {'9.15.0', None}
          and re.fullmatch(r'(?:5\.1|7)\.\d+(?:\.\d+){0,2}', manifest['runtime_versions']['powershell']),
          'Support runtime includes an unsupported or private token')
@@ -451,7 +451,7 @@ def validate_support_report(report, shells, calibre, *, cleanup_complete=True):
          == {str(Path(shell).resolve()).casefold() for shell in shells}, 'Actual supported distinct requested hosts missing')
     for host in hosts:
         need(host.get('passed') is True and host.get('exit_code') == 0 and host.get('host_major') == (5 if host['id'] == 'PS51' else 7)
-             and host.get('host_version') == ('5.1.26100.9444' if host['id'] == 'PS51' else '7.6.5')
+             and host.get('host_version') == ('5.1.26100.9444' if host['id'] == 'PS51' else '7.6.6')
              and host.get('stored_policies') == host.get('policies_after'), 'Native host version/syntax/settings evidence differs')
     tested = report.get('tested_path_sha256')
     need(isinstance(tested, dict) and bool(tested) and all(name in tested for name in APPLICATION)

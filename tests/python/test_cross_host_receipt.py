@@ -35,7 +35,7 @@ def file_record(path, *, hashed="a", inode=1):
 def host_record(host="PS51"):
     policy = [{"scope": "CurrentUser", "policy": "Undefined"}]
     return {"id": host, "passed": True, "shell_executable": "C:/" + host + "/" + ("powershell.exe" if host == "PS51" else "pwsh.exe"),
-        "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.5", "host_major": 5 if host == "PS51" else 7,
+        "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.6", "host_major": 5 if host == "PS51" else 7,
         "stored_policies": policy, "policies_after": deepcopy(policy), "exit_code": 0}
 
 

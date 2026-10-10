@@ -6,6 +6,12 @@ implemented support scope, use [docs/SETUP.md](../SETUP.md) and
 are retained as history; they are not new acceptance results or the current
 end-user command inventory.
 
+M5-T04 supersedes the initial pypdf 6.19.0 and PowerShell 7.6.5 targets with
+hash-pinned pypdf 6.20.0 and separately installed PowerShell 7.6.6 after current
+vendor security advisories. CPython 3.14.8 and Calibre 9.15.0 stay selected.
+Historical observations below retain their original versions and outcomes;
+current acceptance is recorded in `evidence/M5-T04-security.md/json`.
+
 Decision date: 8 October 2026 (Europe/Berlin), M0-T03, AC-007/AC-008.
 This is the v1.0.0 implementation/test target. At M0 the original application
 still contained the reproduced defects; dependency installation alone was no fix.

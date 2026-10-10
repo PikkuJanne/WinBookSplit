@@ -13,8 +13,8 @@ release ZIP. [VERSION](VERSION) is the application version source. The older
 | Component | Supported and tested scope |
 | --- | --- |
 | Windows | Windows 11 x64 with ordinary local filesystem paths |
-| PowerShell | Windows PowerShell 5.1; PowerShell 7.6.5 on the local Windows 11 setup |
-| Python | Regular GIL CPython **3.14.8 x64**, with plain **pypdf 6.19.0** |
+| PowerShell | Windows PowerShell 5.1; PowerShell 7.6.6 on the local Windows 11 setup |
+| Python | Regular GIL CPython **3.14.8 x64**, with plain **pypdf 6.20.0** |
 | Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
 
 Automated CI also exercises Windows Server 2025 with PowerShell 5.1 and 7.6.6;

@@ -133,7 +133,7 @@ def complete_diagnostic_report(hosts):
                                   "fallback_modes": case["diagnostic"]["fallback_modes"]})
             categories.append({"id": case["id"], "passed": True, "parsed_result": deepcopy(case["diagnostic"]), "decisions": decisions})
         shells.append({"shell_executable": host, "passed": True, "exit_code": 0, "host_major": 5 if index == 0 else 7,
-                       "host_version": "5.1.1234.1" if index == 0 else "7.6.5", "category_cases": categories,
+                       "host_version": "5.1.1234.1" if index == 0 else "7.6.6", "category_cases": categories,
                        "protocol_cases": [{"id": name, "passed": True, "rejected": True} for name in sorted(runner.DIAGNOSTIC_PROTOCOL_IDS)],
                        "native_argument_probe": {"passed": True, "exit_code": 0, "actual_arguments": runner.DIAGNOSTIC_NATIVE_ARGUMENTS},
                        "stream_probe": {"passed": True, "exit_code": 2, "stdout_length": 200000, "stderr_length": 200000,
@@ -220,7 +220,7 @@ def complete_paths_report(hosts):
         return case
 
     host_cases = [{"id": identifier, "passed": True, "shell_executable": host, "host_major": major,
-                   "host_version": "5.1.1234.1" if major == 5 else "7.6.5", "exit_code": 0,
+                   "host_version": "5.1.1234.1" if major == 5 else "7.6.6", "exit_code": 0,
                    "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1"], "syntax_error_count": 0}
                   for identifier, host, major in zip(("PS51", "PS7"), hosts, (5, 7), strict=True)]
     for host in host_cases:
@@ -354,7 +354,7 @@ def complete_conversion_report(hosts, calibre):
             "version_observation": {"exit_code": 0, "stdout": "ebook-convert.exe (calibre 9.15.0)"}},
             "fixture_provenance": provenance, "reference_conversions": references,
             "host_cases": [{"id": host, "passed": True, "shell_executable": hosts[index], "host_major": 5 if host == "PS51" else 7,
-                            "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.5", "exit_code": 0, "syntax_error_count": 0,
+                            "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.6", "exit_code": 0, "syntax_error_count": 0,
                             "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"],
                             "stored_policies": policies, "policies_after": policies} for index, host in enumerate(("PS51", "PS7"))],
             "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,

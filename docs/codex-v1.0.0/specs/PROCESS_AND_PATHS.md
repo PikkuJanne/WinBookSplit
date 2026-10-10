@@ -6,6 +6,13 @@ Move the existing Python implementation into `engine/winbooksplit_engine.py` wit
 
 ## Runtime discovery
 
+M5-T04 current amendment: the plain pypdf pin is 6.20.0 and the tested PS7
+target is 7.6.6, replacing the initial versions below after vendor advisories.
+BAT resolves inbox Windows PowerShell by its absolute Windows system path;
+missing inbox shell fails with exit 3 without CWD/PATH fallback. Existing
+process-scoped policy, literal arguments and child exit propagation remain.
+The M0/M2 checkpoint descriptions retain their historical observations.
+
 A version command must work without document/dependency discovery. Before any conversion/writes, find a usable Python interpreter and successfully import the pinned/tested pypdf from that interpreter. Prefer an explicit `-PythonPath`, the documented application-local venv, then validated launcher/PATH candidates. Never run an arbitrary `python.exe` next to an untrusted book. Use `python -m pip` with that exact interpreter in setup instructions, not ambiguous `pip`. Offline processing must not auto-install or alter global packages.
 
 Choose/test minimum and selected Python versions during M0; helper Python 3.10+ is not automatically the application support matrix. Keep runtime and developer dependency files separate. Pin a reviewed working dependency set; document how it was chosen and how to update it safely. Check current package/runtime advisories before release without labeling an unperformed scan 'passed'. User installation/network access is an explicit setup action. Source [S3] documents current pypdf installation requirements; do not assume 'all Python 3'.

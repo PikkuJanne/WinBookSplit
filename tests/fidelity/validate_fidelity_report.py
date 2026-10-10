@@ -182,7 +182,7 @@ def validate_output(row, output, entry, expected):
     metadata = output.get('metadata')
     source_title = TITLE + (' image-only' if row['kind'] == 'scanned' else '')
     need(isinstance(metadata, dict) and metadata.get('/Title') == chapter and metadata.get('/Author') == AUTHOR
-         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == 'WinBookSplit 1.0.0 (pypdf 6.19.0)'
+         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == 'WinBookSplit 1.0.0 (pypdf 6.20.0)'
          and metadata.get('/Subject') == 'Source: ' + source_title and '/AuthoredPrivateField' not in metadata,
          'Chapter/source metadata incorrect or original private metadata copied')
     need(output.get('outline') == [{'title': chapter, 'page': 0}], 'Useful chapter-start bookmark differs from safe chapter label/page0')
