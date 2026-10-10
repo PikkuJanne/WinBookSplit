@@ -1,0 +1,1179 @@
+{
+  "schema_version": 1,
+  "task_id": "M3-T04",
+  "observed_at": "2026-10-10T04:45:37.601998+00:00",
+  "result": "M3_T04_SCOPED_ACCEPTANCE_PASSED",
+  "success": true,
+  "implementation_commit": "32b64bbd2884e76e3f0128403217d21f7018ec57",
+  "acceptance": {
+    "AC-060": "ACTUAL_NATIVE_OBSERVATIONS_PASS: both supported hosts display exact5-section12-page nested physical plan including front matter, parent opening and childless fallback; immutable confirmed plan/hash matches reopened outputs.",
+    "AC-061": "ACTUAL_NATIVE_OPENING_REQUEST_AND_FILE_LIFECYCLE_PASS: opener04 unmocked literal Windows working-PDF request, real3-page file available through physical starts/confirmation, exact plan/output/content and owned cleanup; C1/C2 all12 app bytes identical. No rendered viewer proof.",
+    "AC-062": "ACTUAL_NATIVE_OBSERVATIONS_PASS: readable real success count/destination and opt-in native folder request, strict native cancel/failure/no-plan/NI/Preview behavior. Signals07 four native130 zero-output cancellations. No Explorer visual proof."
+  },
+  "source": {
+    "full_gate_commit_C1": "cd9b4c359a042d6ef3fc8900cb3cf0f373bbe01f",
+    "full_gate_tree_C1": "2ea85a67d9a4c74b9e899f6cc05fb66f69de31ba",
+    "full_gate_raw_path_count": 106,
+    "full_gate_tested_path_sha256_C1": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_engine.py": "ef8071839008cfa1d2256c825054527b557f2775c6226963f8ffac7ae5823c2d",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "6d71deebc26bb26a65e6e3101e30cec3bd34ed588b1ed98af1553c756960c10c",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "3d1188d642c5c196202ca404ca1301474d6c7bd8c7b0ebe30cc0ad9c3bd0e34b",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "9784e740c941869e45a8b66dd8bbe5973129e6e65acfbe1766e60bd6c550694e",
+      "tests/conversion/characterize_conversion.py": "015dbbb411f07665238dcdea5b08d24778c24e48f5d7cb4701480900f515cb87",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "c073756dc82f14bf3001f3c93d2ceed7a78fe2dd6f1c57c22602d814d706fb5d",
+      "tests/diagnostics/README.md": "0aa6ed356bc8522a8ecf596d7cd50429afe9759bbc1fc0274ceff00de8a82d5e",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "cb9a470bc779d7da788af98381a53aef7b9818e1da4c57ca355cf3f24a8b949f",
+      "tests/launcher/characterize_launcher.py": "f76086bcb5c8232af111030a56608c1eb1c255ad689eb6d7dc469379967b7181",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "664541ab9b630396c22d8670a6799482b6e2e83a5756fda8cfbde14c25457992",
+      "tests/manual/characterize_manual.py": "2e5cf59d3a6b9a070261d20e2a6e36c14c8e5143c1eebf0e350bd530b0d1b8c2",
+      "tests/manual/current_launchers.py": "cdf056f50e7df4d354fbac4e9b68f2549598a68a1dc329b40c70f22957394d53",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "4717ac3247d39b6e83cc7af6570ea255a377132e21220d8af8284204bf076024",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "186d7dddee79a82f7f1270fee65f85524e370ee30b01469be781183e2a56c6ee",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "6cb94171a1a89107963249151cae8fb67b5783363b613c57167b01c210de0eb7",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Outcome.Tests.ps1": "93e88a5721b635fba251bc47ae0cbb7d70019a1ba11171a39c0bf498933a767e",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/process/characterize_process.py": "e90a0cf763bfc5244586f92970bd6501c8f8e47ee02e2915651f715133c5f722",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "295dc0880ba691be1365df1f6a692baadb6bde24a0b3760b9c07ca7a4dfa3b6c",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_conversion.py": "daa0f9706098299b705467a084887acbf9fbedb45d88ccda4e651d113f8ae5ab",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "ee2865fd64c9d238512838423a7a71b457f6378a38ae81e338e0640db2378bf8",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "fa74c2c9adf8b8855469619442ed308a41b42a9eef0064a9c6d0e643ee8fbd9a",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "d0767d73bb42853f3d3afa7c97cb78e4a0c08537542ed03ffea035db81efcc06",
+      "tests/python/test_runtime_receipt.py": "06f9099ce661fc7abb7dc5f4fd411cb08b16520d15e9f014e3802fce16f66b61",
+      "tests/python/test_ux_receipt.py": "7e4beb97c51dbad141fc9fdf04c1273c4e95d03f9e4a0dbfbb14882df9a76b81",
+      "tests/README.md": "835df7137cdbc3d33b6731f2c959efd041455f5a08d1b9efc2203ab2f53d6853",
+      "tests/run_tests.py": "44bfb6f79529088f9961b6ca63f14956811a0e9f517cea26d0a021edd2aaa1aa",
+      "tests/runtime/characterize_runtime.py": "72e1126799b52fc90364672bb91add3b98bd81c73b86051f6ad4a8401b338155",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "d04f18f917fe7a1f8232c5190f2e00e51d9b29729e56075d1337aa001862c409",
+      "tests/ux/characterize_ux.py": "6921e4d3a16223f551d29e264ddf4eb336e0aacab00eb74d7fd1f4f4b2a3772e",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "670a018d06a2c65732f971f57e69cd6fce7e05654a1690141e22e042e8fa2e93",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "f4e67d04b1853fa8ca0163065410bcc740d889c51577de2d5df1f188af586b41"
+    },
+    "full_gate_tested_paths_digest_C1": "97a09181887d5b9ed0d80ea08b73e60bf063ca0eac80ddd7bd1a312a5770c4ee",
+    "full_gate_source_unchanged": true,
+    "full_gate_all_raw_paths_equal_C1_git_blobs": true,
+    "final_commit_C2": "32b64bbd2884e76e3f0128403217d21f7018ec57",
+    "final_tree_C2": "a4a3a4e039937ebee121de32c0047aa5f41b901a",
+    "final_raw_path_count_C2": 106,
+    "final_tested_path_sha256_C2": {
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "f4f6be3582eaf648ee223de317c73480959a32773724e159e89b512a3fbc8095",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_engine.py": "ef8071839008cfa1d2256c825054527b557f2775c6226963f8ffac7ae5823c2d",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "6d71deebc26bb26a65e6e3101e30cec3bd34ed588b1ed98af1553c756960c10c",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "293288b4186836c451337f9d109cde94142a85729ff30c92e6deb58fef19e5cd",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "3d1188d642c5c196202ca404ca1301474d6c7bd8c7b0ebe30cc0ad9c3bd0e34b",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "9784e740c941869e45a8b66dd8bbe5973129e6e65acfbe1766e60bd6c550694e",
+      "tests/conversion/characterize_conversion.py": "015dbbb411f07665238dcdea5b08d24778c24e48f5d7cb4701480900f515cb87",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "45b8670b934573f19e19bd9773c8b5c182cd01c0526e16ee7e6df24560ddfb09",
+      "tests/diagnostics/characterize_diagnostics.py": "cbc708441cbefd4ad4d43198490bdf5a57d98b2dc897f516b50d66b9ef6eafac",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "c073756dc82f14bf3001f3c93d2ceed7a78fe2dd6f1c57c22602d814d706fb5d",
+      "tests/diagnostics/README.md": "0aa6ed356bc8522a8ecf596d7cd50429afe9759bbc1fc0274ceff00de8a82d5e",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "cb9a470bc779d7da788af98381a53aef7b9818e1da4c57ca355cf3f24a8b949f",
+      "tests/launcher/characterize_launcher.py": "f76086bcb5c8232af111030a56608c1eb1c255ad689eb6d7dc469379967b7181",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "664541ab9b630396c22d8670a6799482b6e2e83a5756fda8cfbde14c25457992",
+      "tests/manual/characterize_manual.py": "2e5cf59d3a6b9a070261d20e2a6e36c14c8e5143c1eebf0e350bd530b0d1b8c2",
+      "tests/manual/current_launchers.py": "cdf056f50e7df4d354fbac4e9b68f2549598a68a1dc329b40c70f22957394d53",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "4717ac3247d39b6e83cc7af6570ea255a377132e21220d8af8284204bf076024",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "186d7dddee79a82f7f1270fee65f85524e370ee30b01469be781183e2a56c6ee",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "6cb94171a1a89107963249151cae8fb67b5783363b613c57167b01c210de0eb7",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Outcome.Tests.ps1": "93e88a5721b635fba251bc47ae0cbb7d70019a1ba11171a39c0bf498933a767e",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "3d0612c2d56bde48d1a68003a379166d923a798151ffb2a5d5ccc4240d02a7ba",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/process/characterize_process.py": "e90a0cf763bfc5244586f92970bd6501c8f8e47ee02e2915651f715133c5f722",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "295dc0880ba691be1365df1f6a692baadb6bde24a0b3760b9c07ca7a4dfa3b6c",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_cli_receipt.py": "184ea688dc35dd8d9929b2c956ea8ea8505285c5dd290e208521e822d9b2a68b",
+      "tests/python/test_conversion.py": "daa0f9706098299b705467a084887acbf9fbedb45d88ccda4e651d113f8ae5ab",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "ee2865fd64c9d238512838423a7a71b457f6378a38ae81e338e0640db2378bf8",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "fa74c2c9adf8b8855469619442ed308a41b42a9eef0064a9c6d0e643ee8fbd9a",
+      "tests/python/test_output.py": "7092208e459844c6e5e9b174564a0b12fa4a6a7d5e5d4f3e594afb0d0e45097b",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "eb79244152a5c810e2b8064b902ec4ae228a515c6fc65d7bd31c36de16f94366",
+      "tests/python/test_runner.py": "d0767d73bb42853f3d3afa7c97cb78e4a0c08537542ed03ffea035db81efcc06",
+      "tests/python/test_runtime_receipt.py": "06f9099ce661fc7abb7dc5f4fd411cb08b16520d15e9f014e3802fce16f66b61",
+      "tests/python/test_ux_receipt.py": "8da267f75f33a033228348259864d44cf97a1c4eecaf0ddd7d393f610e5d350c",
+      "tests/README.md": "835df7137cdbc3d33b6731f2c959efd041455f5a08d1b9efc2203ab2f53d6853",
+      "tests/run_tests.py": "44bfb6f79529088f9961b6ca63f14956811a0e9f517cea26d0a021edd2aaa1aa",
+      "tests/runtime/characterize_runtime.py": "72e1126799b52fc90364672bb91add3b98bd81c73b86051f6ad4a8401b338155",
+      "tests/runtime/README.md": "28460fd846a24afeb6e3c567751da9d470817ce68ba437700d4de5ae10408b21",
+      "tests/runtime/validate_runtime_report.py": "d04f18f917fe7a1f8232c5190f2e00e51d9b29729e56075d1337aa001862c409",
+      "tests/ux/characterize_ux.py": "6921e4d3a16223f551d29e264ddf4eb336e0aacab00eb74d7fd1f4f4b2a3772e",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "7552177291953820ae6afb3b432e6aeae5356fca541a579f72e8243f7f58617c",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "WinBookSplit.ps1": "f4e67d04b1853fa8ca0163065410bcc740d889c51577de2d5df1f188af586b41"
+    },
+    "final_tested_paths_digest_C2": "f40cc1c22671997434ee29c5b8810c467f4b3c37908684ca3a6203468277ee11",
+    "test_only_delta": {
+      "state": "VERIFIED_EXACT_C1_C2_RAW_DELTA",
+      "changed_path_count": 2,
+      "changed_paths": [
+        "tests/python/test_ux_receipt.py",
+        "tests/ux/validate_ux_report.py"
+      ],
+      "unchanged_of_106": 104,
+      "all12_application_paths_unchanged": true,
+      "comparison_receipt": "C2-source-and-C1-revalidation01.json"
+    },
+    "proof_assembly": "The seventeen-stage full matrix belongs to clean C1. Final C2 adds only the identified validator/unit-test changes; clean C2 affected Python and supported-host native UX reports plus the104/106 and12/12 raw Git comparisons close that test-only delta. Do not claim a full C2 matrix that was not run.",
+    "runtime_supplement_app_path_count": 12,
+    "runtime_supplement_app_path_sha256": {
+      "WinBookSplit.ps1": "f4e67d04b1853fa8ca0163065410bcc740d889c51577de2d5df1f188af586b41",
+      "WinBookSplit.bat": "0e42d39ac8153ada224758cd98684ab52c30ab1017bd2cfbc11489aff5635ec0",
+      "requirements.txt": "26ff6677f991374d11c3b23ff211657817ccb60bb873249707c05f29aae7845d",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Runtime.ps1": "37ff781ffc41f2a15a4208cbcb31e13a296c5f2e3e11e0f20a5025dfba220e6e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Outcomes.json": "e53b118dd59d36413a87122b3ddcf82ce654f2f01135b5657e2c6e2d2f0b14ab",
+      "engine/winbooksplit_engine.py": "ef8071839008cfa1d2256c825054527b557f2775c6226963f8ffac7ae5823c2d",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "engine/winbooksplit_conversion.py": "830249b688f97df60d36d7c588e89a826bdeede7063f15ce2a1c0cd0d9039362",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    "runtime_supplement_binding": "Signals07/opener04 ran before C1 commit; all twelve actual copied app bytes match C1 and C2. Full17 is clean C1; affected Python/native UX are clean C2.",
+    "mechanical_refactor_R1": {
+      "commit": "a0135fe7bf746719c92fdd487f215cbdec2be00b",
+      "tree": "8d34eb67d8eded94d2a3cfe807ae2ae0b2cbb3cd",
+      "scope": "Baseline conversion/completion block extraction only; exact isolated snapshot passed166 old-module tests. AST/block comparison establishes unchanged executable extracted blocks. This is separate mechanical evidence, not feature/full-gate acceptance."
+    }
+  },
+  "environment": {
+    "python": "3.14.8",
+    "pypdf": "6.19.0",
+    "Calibre": "9.15.0 real pinned executable",
+    "Windows_and_supported_host_versions": {
+      "platform": "Windows-11-10.0.26300-SP0",
+      "Windows_PowerShell": "5.1.26100.9444",
+      "PowerShell": "7.6.5",
+      "scope": "Versions in completed C1 full02; no fresh OS or package certification."
+    },
+    "scope": "Actual Windows workstation; no clean-OS or release-package certification.",
+    "windows": {
+      "caption": "Microsoft Windows 11 Pro",
+      "version": "10.0.26300",
+      "architecture": "64-bit",
+      "display_version": "26H2",
+      "build_number": "26300",
+      "update_build_revision": 9457,
+      "edition": "Professional",
+      "registry_product_name": "Windows 10 Pro",
+      "scope": "Fresh read-only metadata after gates on the same workstation; legacy registry ProductName retained, not a Windows 10 test claim."
+    },
+    "shell_details": [
+      {
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "clr": "4.0.30319.42000",
+        "Pester": "6.2.0",
+        "PSScriptAnalyzer": "1.25.0",
+        "syntax_files": 13,
+        "syntax_error_count": 0,
+        "scaffold_files": 12,
+        "scaffold_finding_count": 0,
+        "legacy_application_observation_count": 70,
+        "legacy_application_observation_severity": {
+          "Information": 3,
+          "Warning": 67
+        },
+        "legacy_application_analysis_is_acceptance_pass": false
+      },
+      {
+        "version": "7.6.5",
+        "edition": "Core",
+        "clr": "10.0.11",
+        "Pester": "6.2.0",
+        "PSScriptAnalyzer": "1.25.0",
+        "syntax_files": 13,
+        "syntax_error_count": 0,
+        "scaffold_files": 12,
+        "scaffold_finding_count": 0,
+        "legacy_application_observation_count": 70,
+        "legacy_application_observation_severity": {
+          "Warning": 67,
+          "Information": 3
+        },
+        "legacy_application_analysis_is_acceptance_pass": false
+      }
+    ]
+  },
+  "commands": [
+    {
+      "scope": "REDACTED EXACT LAUNCH TEMPLATE; actual flags/order, repository launch cwd and completed per-step owned unrelated cwd are separately sealed.",
+      "purpose": "C1 unrelated-cwd seventeen-stage full gate",
+      "template": "\"<python-runtime>\" -I -B tests/run_tests.py --layer full --tool-root \"<isolated-shell-modules>\" --shell-path \"<Windows-PowerShell51>\" --shell-path \"<PowerShell7>\" --calibre-path \"<real-Calibre-ebook-convert>\" --report \"<new-external-report>\"",
+      "cwd": "<repository>",
+      "actual_receipt": "full02.json + full02-outer-completion.json + full02-command-metadata01.json",
+      "argv_template": [
+        "<python-runtime>",
+        "-I",
+        "-B",
+        "tests/run_tests.py",
+        "--layer",
+        "full",
+        "--tool-root",
+        "<isolated-shell-modules>",
+        "--shell-path",
+        "<Windows-PowerShell51>",
+        "--shell-path",
+        "<PowerShell7>",
+        "--calibre-path",
+        "<real-Calibre-ebook-convert>",
+        "--report",
+        "<new-external-report>"
+      ],
+      "cwd_provenance": "Root's actual repository launch description; Win32_Process command metadata does not expose cwd.",
+      "runner_child_test_cwd": "<runner-owned-unrelated-workspace>; actual shell children use its shell-0/shell-1 subdirectories, all other seventeen-stage children use the workspace root.",
+      "launch_argv_metadata_receipt": "full02-command-metadata01.json"
+    },
+    {
+      "scope": "REDACTED PUBLIC TEMPLATE OF ACTUAL OPENER04 ARGV; complete original bytes remain external",
+      "purpose": "Actual unmocked working-PDF and output-directory native requests",
+      "template": "\"<Windows-PowerShell51>\" -NoProfile -ExecutionPolicy RemoteSigned -File \"<owned-app>/WinBookSplit.ps1\" -InputFile \"<authored-epub>\" -OutputDirectory \"<owned-output-base>\" -PythonPath \"<python-runtime>\" -CalibrePath \"<real-Calibre-ebook-convert>\" -NoPause",
+      "stdin_utf8": "M\nO\n1,2,3\nY\nO\n",
+      "actual_receipt": "opener04-native-result.json",
+      "argv_template": [
+        "<Windows-PowerShell51>",
+        "-NoProfile",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<owned-app>/WinBookSplit.ps1",
+        "-InputFile",
+        "<authored-epub>",
+        "-OutputDirectory",
+        "<owned-output-base>",
+        "-PythonPath",
+        "<python-runtime>",
+        "-CalibrePath",
+        "<real-Calibre-ebook-convert>",
+        "-NoPause"
+      ],
+      "cwd": "<owned-opener-kit>/cwd",
+      "verification": "RemoteSigned and every positional flag/order/cwd/input are read directly from actual opener04 native-result; no policy flag is inferred."
+    },
+    {
+      "scope": "REDACTED PUBLIC TEMPLATE ONLY; external helper is an authored native test controller",
+      "purpose": "Four guarded pending-session native control-event cases",
+      "template": "\"<python-runtime>\" -B \"<external-Probe-PendingSessionSignal.py>\" \"<new-owned-signal-workspace-label>\"",
+      "actual_receipt": "pending-session-signals-07.json"
+    },
+    {
+      "scope": "REDACTED EXACT ACTUAL C2 AFFECTED OUTER ARGV/CWD; not a new command execution",
+      "commands": [
+        {
+          "purpose": "Clean C2 python",
+          "argv_template": [
+            "<python-runtime>",
+            "-I",
+            "-B",
+            "tests/run_tests.py",
+            "--layer",
+            "python",
+            "--report",
+            "<new-external-report>"
+          ],
+          "cwd": "<repository>",
+          "actual_outer_receipt": "python-post-review01-outer.json",
+          "native_outer_exit": 0,
+          "child_test_cwd": "<runner-owned-unrelated-workspace>; sealed per-step report"
+        },
+        {
+          "purpose": "Clean C2 ux",
+          "argv_template": [
+            "<python-runtime>",
+            "-I",
+            "-B",
+            "tests/run_tests.py",
+            "--layer",
+            "ux",
+            "--tool-root",
+            "<isolated-shell-modules>",
+            "--shell-path",
+            "<Windows-PowerShell51>",
+            "--shell-path",
+            "<PowerShell7>",
+            "--calibre-path",
+            "<real-Calibre-ebook-convert>",
+            "--report",
+            "<new-external-report>"
+          ],
+          "cwd": "<repository>",
+          "actual_outer_receipt": "ux-post-review01-outer.json",
+          "native_outer_exit": 0,
+          "child_test_cwd": "<runner-owned-unrelated-workspace>; sealed per-step report"
+        }
+      ]
+    }
+  ],
+  "automated_native": {
+    "full_C1": {
+      "raw_receipt": {
+        "name": "full02.json",
+        "size_bytes": 16891033,
+        "sha256": "d251dc56d1c5fdf705c4b5038ad29e1244aba8cf8a73b41ba5cdf1378b6f2d80"
+      },
+      "outer_native_exit": 0,
+      "actual_stage_count": 17,
+      "stage_results": [
+        {
+          "name": "stdlib-unittest",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "shell-0",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "shell-1",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "manual-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "level1-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "level2-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "shared-plan-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "diagnostic-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "output-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "path-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "conversion-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "runtime-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "process-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "outcome-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "cli-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "launcher-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        },
+        {
+          "name": "ux-regression",
+          "native_exit_code": 0,
+          "timed_out": false
+        }
+      ],
+      "Python_tests": 258,
+      "Pester_each_host": [
+        88,
+        88
+      ],
+      "CLI_launcher_UX_cases": {
+        "CLI": 72,
+        "launcher": 70,
+        "UX": 28,
+        "UX_host_app_rows": 26,
+        "UX_direct_engine_rows": 2,
+        "native_exit_histograms": {
+          "CLI_application": {
+            "0": 26,
+            "2": 36,
+            "3": 4,
+            "5": 6
+          },
+          "launcher_application": {
+            "0": 40,
+            "2": 3,
+            "130": 27
+          },
+          "UX_application": {
+            "0": 16,
+            "130": 10
+          },
+          "UX_direct_engine": {
+            "130": 2
+          },
+          "scope": "Exact observed native row exits, including expected failure/cancel controls; gate and each child stage exit0."
+        }
+      },
+      "failures_skips_not_run": {
+        "failures": 0,
+        "Python_skipped": 0,
+        "Pester_skipped_each_host": [
+          0,
+          0
+        ],
+        "Pester_not_run_each_host": [
+          0,
+          0
+        ]
+      },
+      "source_unchanged_and_owned_cleanup": {
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true
+      },
+      "strict_child_reports_revalidated": 16,
+      "proof_limit": "Full seventeen-stage matrix belongs to clean C1, not the later test-only C2."
+    },
+    "affected_C2": {
+      "Python_report": {
+        "name": "python-post-review01.json",
+        "size_bytes": 81018,
+        "sha256": "6643c41c1229f49c5d0df4521d308b84aee86446326819f47af233366f6c53d4"
+      },
+      "Python_tests": 268,
+      "Python_seconds": 30.138,
+      "Python_failures_errors_skips": 0,
+      "UX_report": {
+        "name": "ux-post-review01.json",
+        "size_bytes": 2431350,
+        "sha256": "b3c3678489c5c39e2dc0886e29c30ff1a99a04d45e2586200cc2bdb3256cfca1"
+      },
+      "UX_native_cases": 28,
+      "UX_host_app_rows": 26,
+      "UX_direct_engine_working_pdf_rows": 2,
+      "application_native_exit_histogram": {
+        "0": 16,
+        "130": 10
+      },
+      "direct_engine_native_exit_histogram": {
+        "130": 2
+      },
+      "native_exits": {
+        "Python_outer": 0,
+        "UX_outer": 0,
+        "Python_stage": 0,
+        "UX_stage": 0
+      },
+      "clean_frozen_C2_source": {
+        "commit": "32b64bbd2884e76e3f0128403217d21f7018ec57",
+        "tree": "a4a3a4e039937ebee121de32c0047aa5f41b901a",
+        "raw_paths": 106,
+        "digest": "f40cc1c22671997434ee29c5b8810c467f4b3c37908684ca3a6203468277ee11",
+        "source_unchanged": true,
+        "owned_workspaces_removed": true,
+        "source_comparison": "C2-source-and-C1-revalidation01.json"
+      }
+    },
+    "pending_plan_cancellation": {
+      "case_count": 4,
+      "hosts": [
+        "Windows PowerShell51",
+        "PowerShell7"
+      ],
+      "signals_each_host": [
+        "Ctrl+C",
+        "Ctrl+Break"
+      ],
+      "application_native_exits": [
+        130,
+        130,
+        130,
+        130
+      ],
+      "plan": {
+        "physical_pages": 4,
+        "sections": 2
+      },
+      "consent_replies": 0,
+      "chapter_pdfs": 0,
+      "sole_standalone_outcome_equals_footer": true,
+      "owned_process_tree_pipe_eof_input_writer_stopped": true,
+      "input_prior_identities_preserved": true,
+      "review": "pending-session-signals-final07-review.json"
+    },
+    "declared_test_seams": "Authored fault/deadline/terminal-frame controls intentionally substitute engine records and complete noninteractive choices, including declared copied-PS BAT defaults where required. Their exact argv/seam hashes and no-fabricated-consent proofs remain in raw receipts; they are transport/protocol controls. Real PDF/ebook and opener cases use the actual engine/converter.",
+    "earlier_targeted_C1": {
+      "native_control_count": 28,
+      "host_app_rows": 26,
+      "direct_engine_working_pdf_rows": 2,
+      "source_digest": "97a09181887d5b9ed0d80ea08b73e60bf063ca0eac80ddd7bd1a312a5770c4ee",
+      "source_unchanged": true,
+      "receipt": "ux-targeted02.json",
+      "limit": "Actual pre-clean-commit targeted run on exact C1 raw bytes; not the final full gate or GUI/rendered opening proof."
+    }
+  },
+  "manual_windows": {
+    "canonical_acceptance_mode": "manual_windows",
+    "method": "Assistant-authored native process/input observations and independent receipt/source/file-content review; historical human controls are closed.",
+    "actual_native_opening": {
+      "receipt": "opener04-native-complete.json",
+      "native_application_exit": 0,
+      "stdin_utf8": "M\nO\n1,2,3\nY\nO\n",
+      "unmocked_literal_requests": [
+        "Invoke-Item -LiteralPath working-PDF",
+        "Invoke-Item -LiteralPath successful-final-directory"
+      ],
+      "no_launch_error_or_stderr": true,
+      "physical_working_pdf_pages": 3,
+      "working_pdf_bytes": 58264,
+      "same_working_identity_through_confirmation": true,
+      "working_and_conversion_owned_dirs_absent_after_success": true,
+      "chapter_pdfs": 3,
+      "physical_pages": 3,
+      "markers": [
+        "WBS-PAGE-001",
+        "WBS-PAGE-002",
+        "WBS-PAGE-003"
+      ],
+      "outputs_match_plan_manifest_content_hashes_and_original_ebook": true,
+      "source_neighbor_prior_unchanged": true,
+      "review": "actual-native-opener04-independent-review-v2.json"
+    },
+    "visual_scope": "An earlier opener02 Sky listWindows exposed a Firefox title. Subsequent Firefox getWindow hit Computer Use browser URL policy; computer use stopped. Current opener04 proves actual Windows native opening requests and authored file/lifecycle/content only. No rendered-PDF screenshot, viewer-content or Explorer-window visual pass is claimed.",
+    "application_instrumentation": "None in opener04; its12 app hashes equal C1. No mocked Invoke-Item or fake viewer/Explorer result."
+  },
+  "earlier_attempts": [
+    "Baseline reproduction is old b316cd9 behavior, four actual cases, never a current feature pass.",
+    "Inherited smoke01 preserved real mixed-reader EOF cancellation; smoke02 passed15 selected development controls and is not the final full matrix.",
+    "Signals01/02 helper rejected an additional private conhost before signaling. Retained parent handle was stopped; descendant shutdown/cleanup is not adopted as a pass.",
+    "Signals03 partial run has no completed aggregate: a legitimate engine-cancelled record tripped the helper's old zero-record expectation; Break also interrupted the controller. Retain partial workspace and claim no aggregate/cleanup pass.",
+    "Signals04/05 are prior app-byte observations; use fresh07 as primary C-bound cancellation evidence.",
+    "Signals06 all four applications exited130, but PS51 Ctrl+C appended OUTCOME to its pending prompt. Strict3/4; failed receipt/review retained. Root's line-boundary fix preceded fresh07 strict4/4.",
+    "Opener01 actual Get-FileHash unavailability reached application log outcome6 and no viewer. Native app exit was not separately captured; helper failure is not that exit receipt.",
+    "Opener02 helper AttributeError ux.digest occurred after Done; native application exit was not properly sealed. Prior Sky listWindows Firefox title belongs only to this attempt, with no screenshot/04 visual claim.",
+    "Opener03 failed before app launch: locale-default reading of UTF8 creator text transcribed the authored source path incorrectly. Root command-chunk/helper-source provenance receipt exists; original stderr bytes were not separately saved. No native app pass.",
+    "Full01 failed both shell stages (one optional-Diagnostic StrictMode test per actual host) and the UX stage whose old harness demanded a persisted log for no-write Preview. Source/helper fixes and Preview stdout-only receipt rules preceded clean-C full02; full01 remains failed.",
+    "Mechanical isolated snapshot construction had prior UTF8/Git-setup failures; only the exact R1 snapshot's actual166 old-module unit success is adopted for the mechanical refactor, not final feature acceptance.",
+    "UX targeted01 failed the old pending-timeout oracle when a legitimate graceful engine-cancelled frame raced supervisor shutdown. Actual130/processor_timeout/stopped tree was preserved. The narrow corrected oracle accepts zero or one cancelled/no-output frame; four explicitly synthetic positive-output/different-frame/reply mutations are rejected.",
+    "UX targeted02 subsequently passed28 actual controls (26 supported-host app rows plus2 direct-engine working-copy lifetime rows) on unchanged106 raw bytes matching C1 digest. It preceded the clean-C1 full02 gate and does not replace that full gate.",
+    "Preview-focused correction has4 actual PS51/PS7 Preview/NI controls,8 explicitly synthetic Preview receipt mutations, and a separate actual PS51 no-log reproduction. Preview deliberately has no persisted console/transport file; native stdout outcome/embedded plan/streams are authoritative, while NI still requires its real disk log and output proofs. No viewer/Explorer pass is inferred.",
+    "C1 cancellation/other-branch resealed data mutations exposed receipt-oracle blind spots, not actual application failures. The external two-file C2 candidate first adds status/code/output/mode guards. Additional pure candidate reviews exposed terminal-count/mode, NI immutable-source binding and destination binding gaps. Final candidate03 has14 pure methods,28 retained actual rows revalidated and14 resealed contradictions rejected; fresh clean-C2 Python268 and actual UX28 pass; no external synthetic test is relabeled as a native rerun.",
+    "Evidence checkpoint validation initially returned native2 because root used repository-relative TASKS evidence paths. They were corrected to the existing evidence-directory-relative convention; the actual repeated structural validation returned native0/VALID. Both raw receipts remain preserved. This is documentation metadata, not an application gate failure."
+  ],
+  "historical_human": {
+    "state": "CLOSED",
+    "meaning": "User said human testing is absolutely done. Keep M3-T01 historical checks and disclosed owned-kit defaults unchanged. No new human ask and no current-C/package relabeling."
+  },
+  "review": {
+    "source_protocol_and_current_supplements": "SEALED_WITH_SCOPE_LIMITS",
+    "final_full02_and_C2_raw_review": {
+      "result": "PASS",
+      "C1_full": "full02-independent-audit01.json + full02-independent-detail01.json",
+      "C1_C2_source_and_strict_C1_revalidation": "C2-source-and-C1-revalidation01.json",
+      "fresh_C2": "post-review-C2-independent-audit01.json",
+      "scope": "Read-only source/receipt audits; pure candidate negatives and native tests kept separate. Full17 C1 plus affected C2; no fullC2 claim."
+    },
+    "public_evidence_privacy_review": "External independent final public review records these public file hashes separately after generation; no self-referential public or future E commit hash.",
+    "Preview_and_timeout_oracles": {
+      "actual_focused_controls": 4,
+      "synthetic_Preview_mutations": 8,
+      "synthetic_timeout_mutations": 4,
+      "native_and_synthetic_kept_separate": true,
+      "receipts": [
+        "ux-preview-focused01.json",
+        "ux-preview-no-log-reproduction01.json",
+        "ux-timeout-oracle-review01.json"
+      ]
+    },
+    "C2_receipt_oracle_delta": {
+      "scope": "Only validator/unit test changes; no application or viewer/Explorer change.",
+      "C1_fake_accept_reproductions": [
+        "cancel-status-C01-review.json",
+        "other-ux-branches-C01-review.json"
+      ],
+      "additional_candidate_fake_accept_reproductions": [
+        "C02-extra-receipt-review01.json",
+        "C02-extra-destination-review01.json"
+      ],
+      "final_consolidated_guard_review": {
+        "candidate_patch_sha256": "8080b4e1735c2c7c6dbc3fdb20f97d3ce5b3306d8a3915f4203e5de1e1e20dd6",
+        "candidate_file_sha256": {
+          "tests/ux/validate_ux_report.py": "7552177291953820ae6afb3b432e6aeae5356fca541a579f72e8243f7f58617c",
+          "tests/python/test_ux_receipt.py": "8da267f75f33a033228348259864d44cf97a1c4eecaf0ddd7d393f610e5d350c"
+        },
+        "pure_unit_methods": 14,
+        "pure_failures_errors_skips": 0,
+        "retained_actual_rows_revalidated": 28,
+        "synthetic_resealed_contradictions_rejected": 14,
+        "reviews": [
+          "candidate-review03.json",
+          "C02-candidate03-independent-review.json"
+        ],
+        "scope": "External candidate03 pure tests and revalidation of retained actual C1 rows; no fresh C2 native test or applied-source claim."
+      },
+      "final_affected_native_and_Python_reports": [
+        "python-post-review01.json",
+        "ux-post-review01.json"
+      ]
+    }
+  },
+  "git": {
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "branch": "codex/winbooksplit-v1-m3",
+    "C2_verified_sync_timestamp": "2026-10-10T04:41:41.349780+00:00",
+    "C2_sync_receipt": "C2-live-sync01.json",
+    "fresh_continuation_PR": {
+      "url": "https://github.com/PikkuJanne/WinBookSplit/pull/20",
+      "state": "OPEN",
+      "draft": true,
+      "head_at_snapshot": "32b64bbd2884e76e3f0128403217d21f7018ec57",
+      "base_main_at_snapshot": "b316cd9eee8d2fade933b31e2bbf60be1ec99e2c",
+      "merge_state": "CLEAN",
+      "GitHub_review_decision": "",
+      "status_check_rollup": [],
+      "observed_at": "2026-10-10T04:42:27.283427+00:00"
+    },
+    "live_main": {
+      "commit": "b316cd9eee8d2fade933b31e2bbf60be1ec99e2c",
+      "protected": false,
+      "required_status_contexts": [],
+      "required_status_checks": []
+    },
+    "evidence_E": "Its actual normal push/clean-live receipt is recorded externally after commit; no self-referential E hash claim.",
+    "live_C2_checks": {
+      "check_runs": {
+        "check_runs": [],
+        "total_count": 0
+      },
+      "combined_status": {
+        "state": "pending",
+        "statuses": [],
+        "total_count": 0
+      },
+      "scope": "Empty checks and pending combined state do not establish a CI pass."
+    },
+    "live_actions_releases_tags": {
+      "actions": [],
+      "releases": [],
+      "tags": [],
+      "scope": "Actual empty snapshots at C2; no release/tag/CI certification."
+    }
+  },
+  "raw_receipts": [
+    {
+      "name": "baseline-native-ux-reproduction.json",
+      "size_bytes": 212673,
+      "sha256": "f7b8fbb74a3ec59076003c83c23be6620ea56c2029a24cf0f5e7f652873e4977"
+    },
+    {
+      "name": "inherited-smoke-01.json",
+      "size_bytes": 56630,
+      "sha256": "f30da368913332afabb50e430a27b191acec19d375e3408787aed23b31437d1d"
+    },
+    {
+      "name": "inherited-smoke-02.json",
+      "size_bytes": 868281,
+      "sha256": "a499eb7bc119c754b7773d983b48f275ac26aa25493de67ade37ff628297d459"
+    },
+    {
+      "name": "pending-session-signals-01.json",
+      "size_bytes": 35201,
+      "sha256": "46152e5cd61ea5ef468fa77e3b938b1be09d71508aa8a4c4ab950d9ebccbc124"
+    },
+    {
+      "name": "pending-session-signals-02.json",
+      "size_bytes": 46173,
+      "sha256": "6448c3fbddd5b971146a33591cc00004487d9884a2ab0f88fb9d39d444850ea5"
+    },
+    {
+      "name": "pending-session-signals-04.json",
+      "size_bytes": 184365,
+      "sha256": "e62f333a1ae6bd51f3b36c0952166d8052f7e8e78d4acc978fa0826b59d84328"
+    },
+    {
+      "name": "pending-session-signals-05.json",
+      "size_bytes": 46358,
+      "sha256": "8835a787feef12506d07f94fe173d0a526d36e946d40f678fad62275d6494bb5"
+    },
+    {
+      "name": "pending-session-signals-06.json",
+      "size_bytes": 183656,
+      "sha256": "a0321a8c5d824cba8f617d2baedc25b23019ebae4cb9f9700d59233c0a742257"
+    },
+    {
+      "name": "pending-session-signals-attempt06-review.json",
+      "size_bytes": 4655,
+      "sha256": "d6e33a158d7df82f65c76ec09c4a6a0c66359813e6880653573a0b5401816cfe"
+    },
+    {
+      "name": "pending-session-signals-07.json",
+      "size_bytes": 184743,
+      "sha256": "71e7a7eac089822350a98ba3a4bfa5e2c643afa90ea77b1779ff45dfe5b3c158"
+    },
+    {
+      "name": "pending-session-signals-final07-review.json",
+      "size_bytes": 9440,
+      "sha256": "655cdcd32243d180ba39026db37f4065117fab8fc707021612341dcba5bb0c5a"
+    },
+    {
+      "name": "signal-app-freeze07.json",
+      "size_bytes": 1902,
+      "sha256": "9b5263f6d91ed3893655ac6acb15576ec690ff921669c0cc0674f9b085937857"
+    },
+    {
+      "name": "actual-viewer01-failure.json",
+      "size_bytes": 20058,
+      "sha256": "46bc80d450fd9fef598fe19186b216ddde02948eee22d14c2d6de367193a49e5"
+    },
+    {
+      "name": "opener02-helper-failure.json",
+      "size_bytes": 19961,
+      "sha256": "c03d393431dc048f7316d86e450ba1f04fee7164c44044a0cdfb3faa99553762"
+    },
+    {
+      "name": "actual-viewer03-prelaunch-failure.json",
+      "size_bytes": 1095,
+      "sha256": "5d241c23e0b5022daf09c27117ee5facd23893772662aff094e298003d38cf54"
+    },
+    {
+      "name": "opener04-viewer-ready.json",
+      "size_bytes": 4834,
+      "sha256": "0d2ec8d21b3d8d7b052a361a2d37d8ee74f7e31407b57c3a46d2926aef0c98fa"
+    },
+    {
+      "name": "opener04-confirmation-ready.json",
+      "size_bytes": 23395,
+      "sha256": "25dda49f89c858fd24d510b263d14331cd7cb90bce70e2207220bb36e37515d3"
+    },
+    {
+      "name": "opener04-output-ready.json",
+      "size_bytes": 33030,
+      "sha256": "50e048febf85d990757f2beb50403038e3052e70349e20c85f8652c7332954dc"
+    },
+    {
+      "name": "opener04-native-result.json",
+      "size_bytes": 18952,
+      "sha256": "ece7692bdbdf8710a6a12f9d796f7d10910e53d0ededb7508ee03e5e5df06d40"
+    },
+    {
+      "name": "opener04-native-complete.json",
+      "size_bytes": 105502,
+      "sha256": "ba9e0e0e3db281130b4b949a76be49dfc7333a95a6019eef31c9c44743044e76"
+    },
+    {
+      "name": "actual-native-opener04-independent-review-v2.json",
+      "size_bytes": 9374,
+      "sha256": "4971c1dac38a9aa94c8b4758dd9218481e9250ce692042e4a7b75f27d071117c"
+    },
+    {
+      "name": "full01.json",
+      "size_bytes": 15529849,
+      "sha256": "9901211412fbee0e83ca8399ba1e258da1c377dcfb1895b008bade5274e3ef85"
+    },
+    {
+      "name": "implementation-commit.json",
+      "size_bytes": 11905,
+      "sha256": "15ad05c5a58c5af605bd5f0421c2e8746df29f51ddea220cd1bdfddd421f2cad"
+    },
+    {
+      "name": "mechanical-r1-commit.json",
+      "size_bytes": 694,
+      "sha256": "4319f59fd42d9c45982f21aa91c29acf9d91c12fa4c9b7063759d9a0bbf157c0"
+    },
+    {
+      "name": "mechanical-construction.json",
+      "size_bytes": 1271,
+      "sha256": "9df376d62a414e5752a992eb5e788056e399faaf2fb09e7973d98ab4bb266365"
+    },
+    {
+      "name": "mechanical-unit-report03.json",
+      "size_bytes": 2702,
+      "sha256": "543cb98d14a12d67494db56f0a88993858730cfc3c29dd7f32df76c09cbaed71"
+    },
+    {
+      "name": "full02-command-metadata01.json",
+      "size_bytes": 7452,
+      "sha256": "6896d4c74bc6a05a7bda8c68b9b90b87fcf2267c973a210f60b480ca6a1cf690"
+    },
+    {
+      "name": "ux-targeted01.json",
+      "size_bytes": 1151663,
+      "sha256": "61ffa1e85b572b3419725f976937e03bc2aab9149c85f50472644cd3b6235416"
+    },
+    {
+      "name": "ux-targeted02.json",
+      "size_bytes": 2431102,
+      "sha256": "36e1a258607301081bf45a88c42db34404a9acd02ddb582b36d7b50f2d054965"
+    },
+    {
+      "name": "ux-targeted02-independent-review.json",
+      "size_bytes": 5157,
+      "sha256": "746fc56e7be66d09ba54543d22f316cb630d660cc201ac169dd9406e6bf05519"
+    },
+    {
+      "name": "ux-preview-focused01.json",
+      "size_bytes": 176739,
+      "sha256": "abd7f1060cb944e6ca50bdb4d333f9fef6867665a9bcac33a19b219317a19e1f"
+    },
+    {
+      "name": "ux-preview-no-log-reproduction01.json",
+      "size_bytes": 18064,
+      "sha256": "8cadbb95a079d3cf742e404b018a85a420010a4b81ebded8776dbb91f055c197"
+    },
+    {
+      "name": "ux-timeout-oracle-review01.json",
+      "size_bytes": 1660,
+      "sha256": "53c7091374de9e6e7109239f27b2ee093ac6c75ec870a8258dbc15299c0b8e0b"
+    },
+    {
+      "name": "postfix-source02-review.json",
+      "size_bytes": 3471,
+      "sha256": "af612496bc3eee669c3254da0f0024ac3ab2dba42f302eab932405c8bca6a3bc"
+    },
+    {
+      "name": "pester-diagnostic01-review.json",
+      "size_bytes": 2308,
+      "sha256": "49b4376332f6e8e073cd313f624cfcb3acc560b92eec8379ccfb6eafebd0b39f"
+    },
+    {
+      "name": "cancel-status-C01-review.json",
+      "size_bytes": 2521,
+      "sha256": "9fadf1bd5612293997bd9b807a6738c9d46b0616187775ee9694d4324f88db5f"
+    },
+    {
+      "name": "other-ux-branches-C01-review.json",
+      "size_bytes": 605808,
+      "sha256": "3286d2dcd2e389a6824238a8db19ad6ef6094c4891e97c495f3779960029ae8c"
+    },
+    {
+      "name": "cancel-guard-C02-candidate.json",
+      "size_bytes": 3721,
+      "sha256": "4a3cabc94b77711d45cca4e9c919a2d2db1c27f7bc1683287127c69d1de3a9a7"
+    },
+    {
+      "name": "C02-extra-receipt-review01.json",
+      "size_bytes": 1054,
+      "sha256": "0afbbf33301e5882c86bc1db25262eade35cb2db68a578fae927c94ca5361623"
+    },
+    {
+      "name": "C02-extra-destination-review01.json",
+      "size_bytes": 531,
+      "sha256": "da84f5d20dc386f5912e61c257c786341c28a6699a2d30c00420c966a566605f"
+    },
+    {
+      "name": "full02.json",
+      "size_bytes": 16891033,
+      "sha256": "d251dc56d1c5fdf705c4b5038ad29e1244aba8cf8a73b41ba5cdf1378b6f2d80"
+    },
+    {
+      "name": "full02-outer-completion.json",
+      "size_bytes": 807,
+      "sha256": "83e2b114b22d2c0c45625d26f78f92ddbd44ff04dab50ecfe2806ea7377ed2cf"
+    },
+    {
+      "name": "full02-independent-audit01.json",
+      "size_bytes": 11868,
+      "sha256": "4ef7c0614dec0fe50888d46d863effe343d4441c5cb1ad555c3f3bc57fd8f1e8"
+    },
+    {
+      "name": "full02-independent-detail01.json",
+      "size_bytes": 5639,
+      "sha256": "d0f866cbb2bde50bda3105073ced4d297dea0f2fe7c26f7dfda2b63b71f13ed6"
+    },
+    {
+      "name": "candidate-review03.json",
+      "size_bytes": 9784,
+      "sha256": "17582bb284441a349dc000f78201452c18aa0e0ee980cbdadef9983729f92be2"
+    },
+    {
+      "name": "C02-candidate03-independent-review.json",
+      "size_bytes": 6196,
+      "sha256": "d7213fdfe0ff8a896379e8260d9c1b12847a398b4fd226a4a4b47dc2f3619895"
+    },
+    {
+      "name": "C2-patch-apply01.json",
+      "size_bytes": 642,
+      "sha256": "0c4b4cbd511559d25ec874e6e26415e4f2938f4393edf6d35c10461b12e3fd2d"
+    },
+    {
+      "name": "implementation-C2-commit.json",
+      "size_bytes": 729,
+      "sha256": "a8315778065f111e5878e14e8b00db328ef957418da7781ab2f61c001982d6bc"
+    },
+    {
+      "name": "C2-source-and-C1-revalidation01.json",
+      "size_bytes": 17539,
+      "sha256": "704806e80e2905f578ffeefce9290efa3244e211b920d537c1398a4e10ad9a72"
+    },
+    {
+      "name": "python-post-review01.json",
+      "size_bytes": 81018,
+      "sha256": "6643c41c1229f49c5d0df4521d308b84aee86446326819f47af233366f6c53d4"
+    },
+    {
+      "name": "python-post-review01-outer.json",
+      "size_bytes": 833,
+      "sha256": "125c062689a295190cedf92ce1a479e809d4844674eaeba4cda567d4790902d2"
+    },
+    {
+      "name": "ux-post-review01.json",
+      "size_bytes": 2431350,
+      "sha256": "b3c3678489c5c39e2dc0886e29c30ff1a99a04d45e2586200cc2bdb3256cfca1"
+    },
+    {
+      "name": "ux-post-review01-outer.json",
+      "size_bytes": 1280,
+      "sha256": "1c15ddb9582bbae2313866ce8706270b6567159e23e7e1b69547bcf0c1210a0d"
+    },
+    {
+      "name": "environment-final01.json",
+      "size_bytes": 1213,
+      "sha256": "1e8e629d996cfa5685298e04ca40bf714dfa3f384618f63c97580461a777ec1e"
+    },
+    {
+      "name": "post-review-C2-independent-audit01.json",
+      "size_bytes": 4948,
+      "sha256": "ed2da510e6a54860e5d58a46582cc748fa6949cda6963e27c5339d0cdbf7b735"
+    },
+    {
+      "name": "C2-normal-push01.json",
+      "size_bytes": 644,
+      "sha256": "98b487dbd4090ae7bda5af6610e5252c5827cc6443532eeb5bf2d905895be16d"
+    },
+    {
+      "name": "C2-live-sync01.json",
+      "size_bytes": 1211,
+      "sha256": "fe2a7f104360a3e2426838c36d46e86ff4e3eebe430236adcb5a357a33297fc6"
+    },
+    {
+      "name": "draft-PR-create01.json",
+      "size_bytes": 876,
+      "sha256": "23a8204597e8a00ed586f1959586cf8c62207b53dcea99e15055c4c2e9a8bf7f"
+    },
+    {
+      "name": "draft-PR-inspect-C2.json",
+      "size_bytes": 1186,
+      "sha256": "be05117d6e81f8de9609482f299ba16774dfd523577efca7d5cb1f6360d93825"
+    },
+    {
+      "name": "github-main-C2.json",
+      "size_bytes": 842,
+      "sha256": "f7075d30c0c2ac03ab7380e13cccacd361a631eec8149649641ef14512741180"
+    },
+    {
+      "name": "github-checkruns-C2.json",
+      "size_bytes": 744,
+      "sha256": "9dace63d728505a51d33d9fa17c22dd986e9128b20c3d3b595142446bf4e9a5e"
+    },
+    {
+      "name": "github-status-C2.json",
+      "size_bytes": 760,
+      "sha256": "27051f11c9018290fb5fc95dc261f7d989d92df965b93e0370eae8b62f969fa4"
+    },
+    {
+      "name": "github-actions-C2.json",
+      "size_bytes": 640,
+      "sha256": "f5172abbe178cb9b26847eaca5f9077e711ceeeb6b94a75799a7b73ff98d9bd9"
+    },
+    {
+      "name": "github-releases-C2.json",
+      "size_bytes": 622,
+      "sha256": "ee58766f0b94802f9bced12e65f1c23fb29efa0dcb6e1060ba47ad5f5e7c0640"
+    },
+    {
+      "name": "github-tags-C2.json",
+      "size_bytes": 604,
+      "sha256": "1cd525334e3b8fbc5a8453c1a61815ebee5b2f12831abf69b21938a88f7f0ef0"
+    },
+    {
+      "name": "live-refs-C2.json",
+      "size_bytes": 754,
+      "sha256": "dbfe270102db4a53a6175d031983b9bb8f063d3b59a21040c67df4de44dc44ee"
+    },
+    {
+      "name": "E-plan-validation01.json",
+      "size_bytes": 729,
+      "sha256": "0ca8716e2022dd0272ad7f3202796ceb3ab369c0fabffddf46d68d6710e1a7af"
+    },
+    {
+      "name": "E-plan-validation02.json",
+      "size_bytes": 826,
+      "sha256": "0d1e1f262c97fa1f01cee569f51e737d8bf4498c9b55954763c133fa97b82dd2"
+    }
+  ],
+  "limits": [
+    "No new human, rendered viewer/Explorer visual, clean-OS, exact release package, fidelity or CI certification.",
+    "Raw local absolute paths/runtime locations stay external; public commands above are explicitly redacted templates, not new execution receipts.",
+    "Failed and partial authored workspaces remain preserved; no broad cleanup or retrospective unknown-content claim.",
+    "Canonical task done requires actual C1 full02, affected clean C2 reports/delta proof, source/raw/public reviews and verified checkpoint. Only the actual scoped observations and completed checkpoint recorded here are adopted as passes."
+  ],
+  "next_task": "M3-T05 \u2014 Produce useful local manifests and redacted diagnostics",
+  "raw_receipts_pending": [],
+  "checkpoint_metadata_validation": {
+    "initial_validator_exit": 2,
+    "initial_receipt": "E-plan-validation01.json",
+    "cause": "TASKS evidence_paths must be relative to docs/codex-v1.0.0; root initially supplied repository-relative paths.",
+    "corrected_paths": [
+      "evidence/M3-T04-ux.md",
+      "evidence/M3-T04-ux.json"
+    ],
+    "recheck_validator_exit": 0,
+    "recheck_status": "VALID",
+    "recheck_receipt": "E-plan-validation02.json",
+    "scope": "Structural consistency only; unchanged implementation/runtime gates remain separately bound to C1/C2."
+  }
+}

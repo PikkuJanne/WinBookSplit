@@ -680,7 +680,7 @@
         "Ebook manual guidance",
         "Preview/write parity UX tests"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M3-T03"
       ],
@@ -689,8 +689,11 @@
         "AC-061",
         "AC-062"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M3-T04-ux.md",
+        "evidence/M3-T04-ux.json"
+      ],
+      "implementation_commit": "32b64bbd2884e76e3f0128403217d21f7018ec57",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
