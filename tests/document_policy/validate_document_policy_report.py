@@ -110,7 +110,12 @@ def validate_result(frame, kind):
              and frame['written_count'] == len(RANGES[mode_for(kind)]) and isinstance(frame.get('execution'), dict)
              and isinstance(frame.get('plan'), dict), 'Ordinary input lost exact positive publication')
     diagnostic = frame.get('diagnostic')
-    need(expected == 0 or frame['warnings'] == [], 'Preflight rejection falsely planned/warned chapter extraction')
+    if kind == 'deep-outline':
+        need(frame['warnings'] == [{'code': 'outline_limit', 'source_order': None, 'depth': 65,
+             'message': 'The outline tree exceeds the traversal limit.'}],
+             'Authored deep outline lost its exact bounded traversal warning')
+    else:
+        need(expected == 0 or frame['warnings'] == [], 'Preflight rejection falsely planned/warned chapter extraction')
     need(diagnostic is None or isinstance(diagnostic, dict) and not any(key in diagnostic for key in
          ('working_pdf', 'working_pdf_cleanup', 'conversion', 'retained_staging', 'owned_members', 'stage_identity')),
          'PDF preflight acquired conversion/staging/working-PDF ownership')

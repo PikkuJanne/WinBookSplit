@@ -104,6 +104,23 @@ def synthetic_export(application):
     return row
 
 
+def synthetic_deep_outline():
+    row = synthetic_rejection()
+    row.update(id='PS51-deep-outline', kind='deep-outline', fixture_kind='deep-outline', mode='1', exit_code=6)
+    frame = row['outcome']['engine_result']
+    frame.update(mode='1', status='invalid_input', code='invalid_outline', exit_code=6,
+        warnings=[{'code': 'outline_limit', 'source_order': None, 'depth': 65,
+                   'message': 'The outline tree exceeds the traversal limit.'}])
+    row['outcome'].update(mode='1', status='invalid_input', code='invalid_outline', exit_code=6)
+    row['process_summaries'][0]['ExitCode'] = 6
+    row['parameters'][7:10] = ['Auto', '-BookmarkLevel', '1']
+    row['command'] = [row['shell_executable'], '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'RemoteSigned',
+        '-File', str(Path(row['input_path']).parent.parent / 'a/WinBookSplit.ps1'), *row['parameters']]
+    row['interaction']['engine_invocations'][0]['arguments'][7:] = ['1', '']
+    reseal(row)
+    return row
+
+
 class DocumentPolicyReceiptTests(unittest.TestCase):
     def test_metadata_only_rejection_and_no_write_preview_are_valid_synthetic_controls(self):
         for preview in (False, True):
@@ -195,10 +212,34 @@ class DocumentPolicyReceiptTests(unittest.TestCase):
         guard.validate_result(frame, 'truncated')
         frame.update(status='invalid_input', code='invalid_document')
         guard.validate_result(frame, 'zero-pages')
-        frame.update(code='invalid_outline', mode='1')
+        frame.update(code='invalid_outline', mode='1', warnings=[{'code': 'outline_limit', 'source_order': None,
+            'depth': 65, 'message': 'The outline tree exceeds the traversal limit.'}])
         guard.validate_result(frame, 'deep-outline')
         with self.assertRaises(ValueError):
             guard.validate_result(frame, 'encrypted-user')
+
+    def test_resealed_deep_outline_fixed_warning_is_valid_without_publication(self):
+        guard.validate_case(synthetic_deep_outline())
+
+    def test_resealed_deep_outline_warning_contradictions_are_rejected(self):
+        for values in ({'code': 'navigation_link_dropped'}, {'depth': 64}, {'source_order': 1},
+                       {'message': 'The outline was silently truncated.'}):
+            row = synthetic_deep_outline()
+            row['outcome']['engine_result']['warnings'][0].update(values)
+            reseal(row)
+            with self.subTest(values=values), self.assertRaisesRegex(ValueError, 'exact bounded traversal warning'):
+                guard.validate_case(row)
+        for warnings in ([], [synthetic_deep_outline()['outcome']['engine_result']['warnings'][0]] * 2):
+            row = synthetic_deep_outline()
+            row['outcome']['engine_result']['warnings'] = deepcopy(warnings)
+            reseal(row)
+            with self.subTest(warnings=warnings), self.assertRaisesRegex(ValueError, 'exact bounded traversal warning'):
+                guard.validate_case(row)
+        row = synthetic_rejection()
+        row['outcome']['engine_result']['warnings'] = deepcopy(synthetic_deep_outline()['outcome']['engine_result']['warnings'])
+        reseal(row)
+        with self.assertRaisesRegex(ValueError, 'Preflight rejection falsely planned/warned chapter extraction'):
+            guard.validate_case(row)
 
     def test_declared_batch_seam_changes_only_three_parameter_defaults(self):
         source = b'param(\r\n[string]$OutputDirectory,\r\n[string]$PythonPath,\r\n[switch]$NoPause,\r\n[switch]$NonInteractive\r\n)\r\nWrite-Host "authored"\r\n'
