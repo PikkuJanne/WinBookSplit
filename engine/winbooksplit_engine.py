@@ -602,6 +602,16 @@ def prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_pa
         raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
     if not isinstance(keep_converted_pdf, bool):
         raise PlanError("invalid_prepared_split", "Intermediate retention must be an explicit Boolean.")
+    converted = _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout)
+    metadata = {"original_ebook_identity": converted.original_source_identity,
+                "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
+    return prepare_split(converted.generated_pdf_identity["path"], mode, manual_data,
+                         output_base=output_base, _pdf_bytes=converted.pdf_bytes,
+                         _conversion_metadata=metadata)
+
+
+def _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout):
+    """Share the existing converter and its completed safe cleanup with the UI."""
     path = Path(__file__).resolve().with_name("winbooksplit_conversion.py")
     spec = importlib.util.spec_from_file_location("_winbooksplit_conversion", path)
     module = importlib.util.module_from_spec(spec)
@@ -613,11 +623,7 @@ def prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_pa
                               new_run=OutputRun, record_failure=_failed_run,
                               timeout_seconds=conversion_timeout)
     _log_conversion(converted.conversion)
-    metadata = {"original_ebook_identity": converted.original_source_identity,
-                "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
-    return prepare_split(converted.generated_pdf_identity["path"], mode, manual_data,
-                         output_base=output_base, _pdf_bytes=converted.pdf_bytes,
-                         _conversion_metadata=metadata)
+    return converted
 
 
 def _check_prepared(prepared):
@@ -1159,7 +1165,7 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
                 return _split_result(mode, "invalid_input", "invalid_arguments",
                                      "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
             prepared = prepare_split(input_path, mode, manual_data, output_base=output_dir)
-        plan = preview_plan(prepared)
+        preview_plan(prepared)
     except KeyboardInterrupt:
         return _split_result(mode, "cancelled", "processing_cancelled", "PDF preparation was cancelled.")
     except Exception as error:
@@ -1171,6 +1177,12 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
                 diagnostic = {**(diagnostic or {}), "conversion": conversion}
             return _split_result(mode, "error", error.code, str(error), diagnostic=diagnostic)
         return _planning_failure(mode, error)
+    return _complete_prepared_split(prepared, output_dir, preview=preview)
+
+
+def _complete_prepared_split(prepared, output_dir, *, preview=False):
+    """Finish one held job, using the same writer/outcome path for either UI."""
+    plan, mode = prepared.plan, prepared.plan["mode"]
     try:
         log_bookmark_warnings(plan["warnings"])
         if mode == "manual":
