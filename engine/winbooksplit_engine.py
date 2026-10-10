@@ -549,13 +549,17 @@ class PreparedSplit:
     _binding: tuple
 
 
-def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_bytes=None, _conversion_metadata=None):
+def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_bytes=None, _conversion_metadata=None,
+                  _captured_reader=None):
     """Probe and plan without chapter writes; pypdf captures path inputs in memory."""
     if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
         raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
     if _pdf_bytes is not None and not isinstance(_pdf_bytes, bytes):
         raise PlanError("invalid_prepared_split", "Converted PDF input must be a captured byte snapshot.")
-    reader = PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
+    if _captured_reader is not None and _pdf_bytes is not None:
+        raise PlanError("invalid_prepared_split", "Use one captured reader or byte snapshot, not both.")
+    reader = _captured_reader if _captured_reader is not None else \
+        PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
     pages = len(reader.pages)
     if mode == "manual":
         raw = plan_manual_starts(manual_data, pages)
@@ -1222,6 +1226,203 @@ def _complete_prepared_split(prepared, output_dir, *, preview=False):
         return _split_result(mode, "write_error", "output_write_failed", str(error), plan["warnings"])
 
 
+INTERACTION_PREFIX = "[WBS-INTERACTION] "
+INTERACTION_LIMIT_BYTES = 8388608
+INTERACTION_REPLY_LIMIT_BYTES = 65536
+
+
+class _InteractiveExchange:
+    """One private parent/child handshake; document text is never a command."""
+    def __init__(self, session, input_stream, output_stream):
+        if not isinstance(session, str) or re.fullmatch(r"[0-9a-f]{32}", session) is None:
+            raise PlanError("invalid_arguments", "Interactive processing requires a 32-character session nonce.")
+        self.session, self.sequence = session, 0
+        self.input, self.output = input_stream, output_stream
+
+    def request(self, stage, mode, **payload):
+        self.sequence += 1
+        event = {"protocol": "winbooksplit.interaction", "version": 1,
+                 "session": self.session, "sequence": self.sequence, "stage": stage,
+                 "mode": mode, **payload}
+        # ASCII escapes keep even authored line separators inside one UTF-8 frame.
+        line = INTERACTION_PREFIX + serialize_result(event) + "\n"
+        if len(line.encode("utf-8")) > INTERACTION_LIMIT_BYTES:
+            raise PlanError("invalid_prepared_split", "The interactive plan exceeds the bounded event limit.")
+        self.output.write(line)
+        self.output.flush()
+        raw = self.input.readline(INTERACTION_REPLY_LIMIT_BYTES + 1)
+        if not raw:
+            return {"action": "cancel"}
+        if isinstance(raw, str):
+            raw = raw.encode("utf-8", "strict")
+        if len(raw) > INTERACTION_REPLY_LIMIT_BYTES or not raw.endswith(b"\n"):
+            raise PlanError("invalid_arguments", "Interactive replies require one bounded complete JSON line.")
+        def unique_pairs(pairs):
+            result = {}
+            for key, value in pairs:
+                if key in result:
+                    raise ValueError("Duplicate reply field.")
+                result[key] = value
+            return result
+        try:
+            reply = json.loads(raw.decode("utf-8", "strict"), object_pairs_hook=unique_pairs,
+                               parse_constant=lambda value: (_ for _ in ()).throw(ValueError(value)))
+        except (UnicodeError, ValueError) as error:
+            raise PlanError("invalid_arguments", "Invalid interactive reply: " + str(error)) from error
+        if not isinstance(reply, dict) or reply.get("protocol") != "winbooksplit.interaction" or \
+                type(reply.get("version")) is not int or reply["version"] != 1 or \
+                reply.get("session") != self.session or \
+                type(reply.get("sequence")) is not int or reply["sequence"] != self.sequence or \
+                not isinstance(reply.get("action"), str):
+            raise PlanError("invalid_arguments", "Interactive reply session, sequence or action is invalid.")
+        allowed = {"protocol", "version", "session", "sequence", "action", "starts", "mode", "plan_sha256"}
+        if set(reply) - allowed:
+            raise PlanError("invalid_arguments", "Unknown interactive reply fields.")
+        return reply
+
+
+def _interactive_action(reply, allowed):
+    action = reply["action"]
+    if action not in allowed:
+        raise PlanError("invalid_arguments", "The interactive action is not available at this stage.")
+    expected = {"action"} if "session" not in reply else {"protocol", "version", "session", "sequence", "action"}
+    expected |= {"starts"} if action == "starts" else {"mode"} if action == "retry" else \
+        {"plan_sha256"} if action == "execute" else set()
+    if set(reply) != expected:
+        raise PlanError("invalid_arguments", "The interactive action has missing or contradictory fields.")
+    return action
+
+
+def _finish_working_pdf(run, identity, result):
+    if run is None:
+        return result
+    cleanup_error, close_error = None, None
+    try:
+        if not run.cleanup():
+            raise OSError("The working PDF workspace remains after cleanup.")
+    except (Exception, KeyboardInterrupt) as error:
+        cleanup_error = str(error) or "Working PDF cleanup was interrupted."
+    try:
+        run.close()
+    except (Exception, KeyboardInterrupt) as error:
+        close_error = str(error) or "Working PDF handle close was interrupted."
+    cleanup = {"cleanup_complete": cleanup_error is None, "retained_staging": run.stage if cleanup_error else None,
+               "cleanup_error": cleanup_error, "close_error": close_error}
+    diagnostic = {**(result["diagnostic"] or {}), "working_pdf": identity, "working_pdf_cleanup": cleanup}
+    if cleanup_error or close_error:
+        message = result["message"] + "; Cannot safely finalize the working PDF: " + \
+            "; ".join(item for item in (cleanup_error, close_error) if item)
+        if result["status"] == "success":
+            return _split_result(result["mode"], "incomplete", "output_handle_close_failed", message,
+                                 (*result["warnings"], {"code": "output_handle_close_failed", "message": message}),
+                                 result["execution"], diagnostic)
+        return _freeze({**result, "message": message, "diagnostic": diagnostic})
+    return _freeze({**result, "diagnostic": diagnostic})
+
+
+def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, session, calibre_path=None,
+                          keep_converted_pdf=False, conversion_timeout=1800, input_stream=None, output_stream=None):
+    """Keep one captured reader and each explicitly chosen plan in this process."""
+    working, working_identity, result, metadata = None, None, None, None
+    input_stream = sys.stdin.buffer if input_stream is None else input_stream
+    output_stream = sys.stdout if output_stream is None else output_stream
+    try:
+        exchange = _InteractiveExchange(session, input_stream, output_stream)
+        if not isinstance(mode, str) or mode not in {"manual", "1", "2"} or not isinstance(keep_converted_pdf, bool):
+            raise PlanError("invalid_arguments", "Choose a valid interactive mode and explicit retention Boolean.")
+        is_ebook = Path(input_path).suffix.lower() in {".epub", ".azw3"}
+        if not is_ebook and keep_converted_pdf:
+            raise PlanError("invalid_arguments", "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
+        pdf_path = input_path
+        if is_ebook:
+            converted = _convert_ebook_snapshot(input_path, output_dir, calibre_path, conversion_timeout)
+            pdf_path = converted.generated_pdf_identity["path"]
+            metadata = {"original_ebook_identity": converted.original_source_identity,
+                        "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
+            reader = PdfReader(BytesIO(converted.pdf_bytes))
+        else:
+            reader = PdfReader(input_path)
+        pages, data = len(reader.pages), reader.stream.getvalue()
+        if pages < 1:
+            raise PlanError("invalid_document", "The PDF must contain at least one physical page.")
+        source = {"path": os.path.abspath(os.fspath(pdf_path)), "resolved_path": os.path.realpath(pdf_path),
+                  "sha256": sha256(data).hexdigest(), "size_bytes": len(data), "binding": "reader_snapshot"}
+        while True:
+            if mode == "manual":
+                payload = {"total_pages": pages, "source_identity": source, "can_request_working_pdf": is_ebook,
+                           "manual_starts_supplied": isinstance(manual_data, str) and bool(manual_data)}
+                if metadata is not None:
+                    payload.update(original_ebook_identity=metadata["original_ebook_identity"],
+                                   conversion=metadata["conversion"])
+                reply = exchange.request("input_ready", mode, **payload)
+                action = _interactive_action(reply, {"starts", "request_working_pdf", "cancel"})
+                if action == "request_working_pdf":
+                    if not is_ebook:
+                        raise PlanError("invalid_arguments", "A working converted PDF is available only for ebooks.")
+                    working = OutputRun(output_dir, input_path)
+                    working.write_owned("WinBookSplit_Working.pdf", data)
+                    path = os.path.join(working.stage, "WinBookSplit_Working.pdf")
+                    observed = _validate_output(path, {"start": 0, "end": pages})
+                    if observed["sha256"] != source["sha256"] or observed["size_bytes"] != len(data):
+                        raise PlanError("output_validation_failed", "The working PDF differs from the captured reader.")
+                    working_identity = {"path": path, "resolved_path": os.path.realpath(path),
+                                        "binding": "working_pdf_copy", "run_id": working.run_id,
+                                        "owned_directory": working.stage, **observed}
+                    reply = exchange.request("working_pdf_ready", mode, total_pages=pages,
+                                             source_identity=source, working_pdf=working_identity)
+                    action = _interactive_action(reply, {"starts", "cancel"})
+                if action == "cancel":
+                    result = _split_result(mode, "cancelled", "processing_cancelled", "Manual page selection was cancelled.")
+                    break
+                if not isinstance(reply["starts"], str):
+                    raise PlanError("invalid_arguments", "Manual starts must remain a literal string.")
+                manual_data = reply["starts"]
+            try:
+                if sha256(reader.stream.getvalue()).hexdigest() != source["sha256"] or len(reader.pages) != pages:
+                    raise PlanError("source_changed", "The captured PDF changed during manual selection.")
+                prepared = prepare_split(pdf_path, mode, manual_data, output_base=output_dir,
+                                         _conversion_metadata=metadata, _captured_reader=reader)
+                plan = preview_plan(prepared)
+            except (ManualPlanError, BookmarkPlanError, PlanError) as error:
+                result = _planning_failure(mode, error)
+                if result["status"] != "no_plan":
+                    break
+                reply = exchange.request("no_plan", mode, result=result, fallback_modes=result["fallback_modes"])
+                action = _interactive_action(reply, {"retry", "cancel"})
+                if action == "cancel":
+                    break
+                if not isinstance(reply["mode"], str) or reply["mode"] not in result["fallback_modes"]:
+                    raise PlanError("invalid_arguments", "The requested fallback mode is not offered.")
+                mode, manual_data = reply["mode"], None
+                continue
+            canonical = json.dumps(json.loads(serialize_result(plan)), sort_keys=True, ensure_ascii=True,
+                                   separators=(",", ":"))
+            digest = sha256(canonical.encode("utf-8")).hexdigest()
+            reply = exchange.request("plan_ready", mode, plan=plan, plan_json=canonical, plan_sha256=digest)
+            action = _interactive_action(reply, {"execute", "cancel"})
+            if action == "cancel":
+                result = _split_result(mode, "cancelled", "processing_cancelled", "The displayed split plan was cancelled.", plan["warnings"])
+                break
+            if reply["plan_sha256"] != digest:
+                raise PlanError("invalid_arguments", "Execution must confirm the exact displayed plan.")
+            result = _complete_prepared_split(prepared, output_dir)
+            break
+    except KeyboardInterrupt:
+        result = _split_result(mode, "cancelled", "processing_cancelled", "Interactive PDF preparation was cancelled.")
+    except Exception as error:
+        code = getattr(error, "code", "unreadable_document")
+        if code.startswith("conversion_") or code == "converter_not_found":
+            conversion = getattr(error, "conversion", None)
+            _log_conversion(conversion)
+            diagnostic = {**(getattr(error, "diagnostic", None) or {}), **({"conversion": conversion} if conversion else {})}
+            result = _split_result(mode, "error", code, str(error), diagnostic=diagnostic)
+        else:
+            result = _planning_failure(mode, error)
+            if getattr(error, "diagnostic", None):
+                result = _freeze({**result, "diagnostic": error.diagnostic})
+    return _finish_working_pdf(working, working_identity, result)
+
+
 def serialize_result(result):
     """JSON cannot encode frozen mappings directly; detach only for serialization."""
     def thaw(value):
@@ -1235,13 +1436,17 @@ def serialize_result(result):
 
 def split_pdf(input_path, output_dir, mode, manual_data=None, **conversion_options):
     result = run_split(input_path, output_dir, mode, manual_data, **conversion_options)
+    _print_split_result(result)
+    return result["plan"] if result["status"] == "preview" else result["execution"]
+
+
+def _print_split_result(result):
     if result["status"] not in {"success", "preview"}:
         log_bookmark_warnings(result["warnings"])
         log(f"[ERROR] {result['code']}: {result['message']}")
     log(serialize_result(result))
     if result["exit_code"]:
         raise SystemExit(result["exit_code"])
-    return result["plan"] if result["status"] == "preview" else result["execution"]
 
 def write_slice(reader, start, end, out_path, on_created=None):
     log(f"    [Writing] {os.path.basename(out_path)}")
@@ -1276,8 +1481,9 @@ def main():
             elif option == "--preview" and "preview" not in options:
                 options["preview"] = True
                 index += 1
-            elif option in {"--calibre-path", "--conversion-timeout"} and index + 1 < len(extras):
-                key = "calibre_path" if option == "--calibre-path" else "conversion_timeout"
+            elif option in {"--calibre-path", "--conversion-timeout", "--interactive"} and index + 1 < len(extras):
+                key = {"--calibre-path": "calibre_path", "--conversion-timeout": "conversion_timeout",
+                       "--interactive": "session"}[option]
                 if key in options:
                     raise ValueError("Repeated processing option.")
                 value = extras[index + 1]
@@ -1285,15 +1491,23 @@ def main():
                     if not re.fullmatch(r"[0-9]+", value) or not 1 <= int(value) <= 86400:
                         raise ValueError("Conversion timeout must be 1 through 86400 seconds.")
                     value = int(value)
+                if key == "session" and re.fullmatch(r"[0-9a-f]{32}", value) is None:
+                    raise ValueError("Interactive processing requires a 32-character session nonce.")
                 options[key] = value
                 index += 2
             else:
                 raise ValueError("Unknown or incomplete processing option.")
+        if "session" in options and options.get("preview"):
+            raise ValueError("Preview cannot start an interactive processing session.")
     except ValueError as error:
         result = _split_result(mode, "invalid_input", "invalid_arguments", str(error))
         log(serialize_result(result))
         return result["exit_code"]
-    split_pdf(sys.argv[1], sys.argv[2], mode, manual_data, **options)
+    if "session" in options:
+        result = run_interactive_split(sys.argv[1], sys.argv[2], mode, manual_data, **options)
+        _print_split_result(result)
+    else:
+        split_pdf(sys.argv[1], sys.argv[2], mode, manual_data, **options)
 
 
 if __name__ == "__main__":

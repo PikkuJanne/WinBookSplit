@@ -249,11 +249,12 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
     before = {str(path): history.file_digest(path) for path in (source, neighbor)}
     log = marker = execution = members = None
     cleanup_safe = True
+    answers = "M\nN\n2,3\nY\nN\n\n" if fake_kind is None and not batch else "M\n"
     try:
         with paths.read_only_source(source):
             readonly_observed = bool(source.lstat().st_file_attributes & 1)
             try:
-                process = history.run_entrypoint(command, cwd, environment=environment, stdin="M\n2,3\n\n", timeout=120)
+                process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=120)
             except history.EntryPointFailure as error:
                 cleanup_safe = error.cleanup_safe
                 raise
@@ -313,7 +314,15 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                               written_count=0, setup_guidance_verified=True)
         require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
         record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
-                      input_unchanged=True, neighbor_unchanged=True, **process)
+                      input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)
+        if log is not None:
+            text = log.read_text(encoding="utf-8")
+            interaction = launchers.interactions.capture(text)
+            summaries = [json.loads(line[len("[PROCESS] "):]) for line in text.splitlines() if line.startswith("[PROCESS] ")]
+            launchers.interactions.validate(interaction, summaries,
+                ["input_ready", "plan_ready"] if success else [],
+                ["starts", "execute"] if success else [], starts="2,3", execution=execution)
+            record.update(interaction=interaction, process_summaries=summaries)
     finally:
         if cleanup_safe:
             if execution is not None and members is not None:

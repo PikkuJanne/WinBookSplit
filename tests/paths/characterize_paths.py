@@ -206,6 +206,7 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
     final, execution, log, marker = None, None, None, None
     cleanup_safe, run_validated = True, False
     process = None
+    answers = "M\n4,7\nY\nN\n\n" if expected_success else "M\n"
     try:
         try:
             if locked:
@@ -216,10 +217,10 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
                         lock_verified = True
                     else:
                         raise RuntimeError("Actual exclusive source lock did not prevent a reader")
-                    process = history.run_entrypoint(command, cwd, environment=environment, stdin="M\n4,7\n\n", timeout=60)
+                    process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=60)
             else:
                 lock_verified = False
-                process = history.run_entrypoint(command, cwd, environment=environment, stdin="M\n4,7\n\n", timeout=60)
+                process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=60)
         except history.EntryPointFailure as error:
             cleanup_safe = error.cleanup_safe
             raise
@@ -267,7 +268,15 @@ def launcher_case(identifier, shell, source, base, cwd, generator, engine, wrapp
         require(source_hash is None or history.file_digest(source) == source_hash, "Launcher changed the literal input")
         require(neighbor is None or neighbor.read_bytes() == b"Only this external owned base may be used\n", "Launcher changed an output-base neighbor")
         record.update(id=identifier, shell_executable=str(shell), actual_process=True, command=command, cwd=str(cwd),
-                      input_unchanged=True, neighbor_unchanged=True, **process)
+                      input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)
+        if log is not None:
+            text = log.read_text(encoding="utf-8")
+            interaction = launchers.interactions.capture(text)
+            summaries = [json.loads(line[len("[PROCESS] "):]) for line in text.splitlines() if line.startswith("[PROCESS] ")]
+            launchers.interactions.validate(interaction, summaries,
+                ["input_ready", "plan_ready"] if expected_success else [],
+                ["starts", "execute"] if expected_success else [], starts="4,7", execution=execution)
+            record.update(interaction=interaction, process_summaries=summaries)
         if expected_success:
             record.update(source_read_only_attribute_observed=bool(source.lstat().st_file_attributes & stat.FILE_ATTRIBUTE_READONLY),
                           no_replanning_observation="supported-by-direct-api-and-shared-plan-controls")

@@ -199,3 +199,13 @@ extracted release package remain separate mandatory later checks. The local
 conversion route covers the two original fixtures on the pinned converter.
 CI installation and workflow
 execution belong to M4-T05; this local scaffold does not claim a CI run.
+
+M3-T04 adds `--layer ux` as stage 17 of the full route. Actual PS5.1/PS7 processes
+hold the displayed plan before consent, verify no chapter reservation, then
+reopen outputs for exact title/filename/range/page-content parity. Cancel, blank,
+EOF, invalid answers, fallback and pending-input timeout are exercised. Real EPUB
+and AZW3 manual controls use generated physical PDF numbering; direct engine
+controls request an owned working copy and verify its availability and cleanup.
+Actual PDF viewer and Explorer observations are separate recorded Windows checks,
+not inferred from launch calls. See `ux/README.md`. Completed M3-T01 human testing
+remains historical and closed.

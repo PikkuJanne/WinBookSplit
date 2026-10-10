@@ -13,6 +13,9 @@ cli = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(cli)
 need, hashes, identities, exact_cases, HEX = cli.need, cli.hashes, cli.identities, cli.exact_cases, cli.HEX
 APPLICATION = cli.APPLICATION
+spec = importlib.util.spec_from_file_location("wbs_launcher_interaction_validation", ROOT / "tests/manual/interaction_receipts.py")
+interactions = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(interactions)
 ACCEPTANCE = ["AC-058", "AC-059"]
 COMMON = ["source-pdf", "source-quoted-pdf", "source-epub", "source-azw3", "source-blank", "source-c", "source-trimmed-c",
           "menu-level1", "menu-level2", "menu-manual", "menu-cancel", "menu-eof", "menu-invalid-level1", "menu-invalid-manual",
@@ -29,9 +32,9 @@ SENTINEL_SOURCE = "param([string]$InputFile)\n[IO.File]::WriteAllText($env:WBS_L
 
 def recipe(kind, source):
     if kind in {"source-pdf", "source-epub", "source-azw3", "source-delayed-expansion"}:
-        return str(source) + "\n1\n\n", "1"
+        return str(source) + "\n1\nY\nN\n", "1"
     if kind == "source-quoted-pdf":
-        return '"' + str(source) + '"\n1\n\n', "1"
+        return '"' + str(source) + '"\n1\nY\nN\n', "1"
     if kind == "source-blank":
         return "\n", None
     if kind == "source-c":
@@ -41,25 +44,25 @@ def recipe(kind, source):
     if kind in EXTRA:
         return "", None
     if kind in {"menu-level1", "drop-pdf", "drop-epub", "drop-azw3"}:
-        return " 1 \n\n", "1"
+        return " 1 \nY\nN\n", "1"
     if kind == "menu-level2":
-        return " 2 \n\n", "2"
+        return " 2 \nY\nN\n", "2"
     if kind == "menu-manual":
-        return " m \n1,3,5\n\n", "manual"
+        return " m \n1,3,5\nY\nN\n", "manual"
     if kind == "menu-cancel":
         return " c \n", None
     if kind == "menu-eof":
         return "", None
     if kind == "menu-invalid-level1":
-        return "\n".join(INVALID_MENU + [" 1 ", "", ""]), "1"
+        return "\n".join(INVALID_MENU + [" 1 ", "Y", "N", ""]), "1"
     if kind == "menu-invalid-manual":
-        return "manual\nmango\n m \n1,3,5\n\n", "manual"
+        return "manual\nmango\n m \n1,3,5\nY\nN\n", "manual"
     if kind == "fallback-invalid-manual":
-        return "2\n" + "\n".join(INVALID_FALLBACK + [" m ", "1,3,5", "", ""]), "manual"
+        return "2\n" + "\n".join(INVALID_FALLBACK + [" m ", "1,3,5", "Y", "N", ""]), "manual"
     if kind == "fallback-y":
-        return "1\n y \n1,3,5\n\n", "manual"
+        return "1\n y \n1,3,5\nY\nN\n", "manual"
     if kind == "fallback-level1":
-        return "2\n 1 \n\n", "1"
+        return "2\n 1 \nY\nN\n", "1"
     if kind == "fallback-n":
         return "1\n n \n", "1"
     if kind == "fallback-c":
@@ -161,7 +164,7 @@ def validate_case(row):
              and final.get("engine_result") is None and final.get("final_directory") is None and rows == transports == []
              and row.get("final_publication") is None and "Done." not in row["stdout"], "Menu cancel performed a split or falsely succeeded")
         return
-    expected_attempts = 1 if kind in CANCELLED or kind not in FALLBACK else 2
+    expected_attempts = 1
     need(isinstance(rows, list) and len(rows) == expected_attempts and isinstance(transports, list) and len(transports) == expected_attempts
          and final.get("engine_result") == rows[-1] and isinstance(row.get("log_sha256"), str) and HEX.fullmatch(row["log_sha256"]), "Exact actual engine/native/log attempts absent")
     for frame, transport in zip(rows, transports):
@@ -170,10 +173,13 @@ def validate_case(row):
              and all(transport.get(field) is True for field in ("JobAssigned", "ParentStopped", "DescendantsStopped", "StreamsComplete")), "Owned engine stop/stream/result proof absent")
     if kind in FALLBACK:
         first_mode = "2" if kind in {"fallback-invalid-manual", "fallback-level1", "fallback-invalid-cancel"} else "1"
-        need(rows[0].get("status") == "no_plan" and rows[0].get("exit_code") == 5 and rows[0].get("written_count") == 0
-             and rows[0].get("execution") is None and rows[0].get("mode") == first_mode
-             and rows[0].get("code") == ("no_bookmarks_at_level" if first_mode == "2" else "no_bookmarks")
-             and rows[0].get("fallback_modes") == (["1", "manual"] if first_mode == "2" else ["manual"]),
+        events = row.get("interaction", {}).get("requests", [])
+        need(bool(events) and events[0].get("stage") == "no_plan", "Actual nonterminal no-plan request absent")
+        no_plan = events[0].get("result", {})
+        need(no_plan.get("status") == "no_plan" and no_plan.get("exit_code") == 5 and no_plan.get("written_count") == 0
+             and no_plan.get("execution") is None and no_plan.get("mode") == first_mode
+             and no_plan.get("code") == ("no_bookmarks_at_level" if first_mode == "2" else "no_bookmarks")
+             and no_plan.get("fallback_modes") == (["1", "manual"] if first_mode == "2" else ["manual"]),
              "Fallback did not follow actual non-writing requested no-plan")
         final_decision = "cancel; retry mode: " if kind in CANCELLED else "retry; retry mode: " + expected_mode
         decisions = (["invalid; retry mode: ", "invalid; retry mode: ", "pending; retry mode: ",
@@ -181,6 +187,12 @@ def validate_case(row):
         need(row.get("console_decisions") == decisions, "Exact fallback decisions/retry/cancel log differs")
     else:
         need(row.get("console_decisions") == [], "No-plan fallback happened without a requested fallback case")
+    stages = (["no_plan"] if kind in FALLBACK else []) + ([] if kind in CANCELLED else
+        (["input_ready", "plan_ready"] if expected_mode == "manual" else ["plan_ready"]))
+    actions = (["cancel" if kind in CANCELLED else "retry"] if kind in FALLBACK else []) + ([] if kind in CANCELLED else
+        (["starts", "execute"] if expected_mode == "manual" else ["execute"]))
+    interactions.validate(row.get("interaction"), transports, stages, actions, starts="1,3,5",
+        execution=rows[-1].get("execution") if kind not in CANCELLED else None)
     if kind in {"menu-invalid-level1", "menu-invalid-manual"}:
         minimum = len(INVALID_MENU) if kind == "menu-invalid-level1" else 2
         need(row.get("menu_invalid_message_count", 0) == row["stdout"].count("Choose exactly 1, 2, M or C.") >= minimum,

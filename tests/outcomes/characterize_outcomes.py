@@ -59,11 +59,18 @@ def controlled_application(app, kind, *, batch):
     original = process_tests.copy_application(app)
     text = (app / "WinBookSplit.ps1").read_text(encoding="utf-8-sig")
     modifications = []
+    noninteractive = not kind.startswith("fallback-") and kind != "log-finalize"
     if batch:
         for parameter, value in (("OutputDirectory", "$env:WBS_OUTCOME_BASE"),
                 ("PythonPath", "$env:WBS_OUTCOME_PYTHON"), ("CalibrePath", "$env:WBS_OUTCOME_CONVERTER")):
             text = anchored(text, "[string]$" + parameter + ",", "[string]$" + parameter + " = " + value + ",")
             modifications.append("copied parameter default " + parameter)
+        if noninteractive:
+            seam = "# --- Validation ---"
+            text = anchored(text, seam, "$Mode = 'Manual'; $StartPages = '2,3'; $NonInteractive = $true; $NoPause = $true\n"
+                "$PSBoundParameters['Mode'] = $Mode; $PSBoundParameters['StartPages'] = $StartPages\n"
+                "$PSBoundParameters['NonInteractive'] = $true; $PSBoundParameters['NoPause'] = $true\n" + seam)
+            modifications.append("copied PS complete noninteractive fault/deadline choices")
     if kind == "engine-timeout":
         text = anchored(text, "$ProcessTimeout = [Math]::Max(3600, $ConversionTimeout + 1800)", "$ProcessTimeout = 1")
         modifications.append("copied ProcessTimeout default 1 second")
@@ -75,7 +82,7 @@ def controlled_application(app, kind, *, batch):
             "    $authoredCancel = New-Object Threading.CancellationTokenSource\n"
             "    $authoredCancel.CancelAfter(1800)\n"
             "    $script:lastProcessResult = Invoke-WinBookSplitProcess")
-        text = anchored(text, "-TimeoutSeconds $ProcessTimeout\n", "-TimeoutSeconds $ProcessTimeout -CancellationToken $authoredCancel.Token\n    $authoredCancel.Dispose()\n")
+        text = anchored(text, "-TimeoutSeconds $ProcessTimeout\n    }\n    $transport", "-TimeoutSeconds $ProcessTimeout -CancellationToken $authoredCancel.Token\n    $authoredCancel.Dispose()\n    }\n    $transport")
         modifications.append("copied supervisor call cancellation token after 1800ms")
     if kind == "log-finalize":
         start = text.index("function Complete-WinBookSplitConsoleLog")
@@ -268,17 +275,19 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
         WBS_OUTCOME_CONVERTER=str(converter), WBS_OUTCOME_KIND=kind, WBS_OUTCOME_RECEIPT=str(receipt),
         WBS_OUTCOME_CHILD_RECEIPT=str(child_receipt))
     wrapper = directory / ("Invoke.cmd" if batch else "Invoke.ps1")
+    noninteractive = not kind.startswith("fallback-") and kind != "log-finalize"
     if batch:
         wrapper.write_text('@echo off\nsetlocal DisableDelayedExpansion\n"%WBS_OUTCOME_BAT%" "%WBS_OUTCOME_INPUT%"\n', encoding="ascii", newline="\r\n")
         command = [str(system / "System32/cmd.exe"), "/d", "/v:off", "/c", str(wrapper)]
     else:
         wrapper.write_text("[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)\n"
             "& $env:WBS_OUTCOME_APP -InputFile $env:WBS_OUTCOME_INPUT -OutputDirectory $env:WBS_OUTCOME_BASE "
-            "-PythonPath $env:WBS_OUTCOME_PYTHON -CalibrePath $env:WBS_OUTCOME_CONVERTER\nexit $LASTEXITCODE\n", encoding="utf-8")
+            "-PythonPath $env:WBS_OUTCOME_PYTHON -CalibrePath $env:WBS_OUTCOME_CONVERTER"
+            + (" -Mode Manual -StartPages '2,3' -NonInteractive -NoPause" if noninteractive else "") + "\nexit $LASTEXITCODE\n", encoding="utf-8")
         command = [host["shell_executable"], "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(wrapper)]
-    stdin = "M\n2,3\n\n"
+    stdin = "" if noninteractive else "M\n2,3\nY\n"
     if kind.startswith("fallback-"):
-        stdin = "1\n" + {"fallback-success": "M\n2,3\n\n", "fallback-failure": "M\n2,no\n\n", "fallback-cancel": "C\n\n"}[kind]
+        stdin = "1\n" + {"fallback-success": "M\n2,3\nY\nN\n\n", "fallback-failure": "M\n2,no\n", "fallback-cancel": "C\n"}[kind]
     CLEANUP_SAFE = False
     LAST_CASE = {"id": label, "command": command, "cwd": str(cwd), "output_base": str(base)}
     if kind.endswith("ctrlc"):
@@ -320,9 +329,7 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
     require(("Done." in observed["stdout"]) == success and ("Output: " in observed["stdout"]) == success,
         "Completion message disagrees with final operation")
     if kind.startswith("fallback-"):
-        require(len(frames) == (1 if kind == "fallback-cancel" else 2) and frames[0]["status"] == "no_plan", "Fallback did not begin with actual no-plan")
-        if kind != "fallback-cancel":
-            require(frames[1] == outcome["engine_result"] and frames[1]["mode"] == "manual", "Final outcome retained first failure instead of attempted fallback")
+        require(len(frames) == len(transports) == 1 and frames[0] == outcome["engine_result"], "Fallback did not finish one captured engine session")
     final_result = outcome.get("engine_result")
     execution = final_result.get("execution") if isinstance(final_result, dict) else None
     publication = None
@@ -391,7 +398,19 @@ def case(work, host, kind, generator, converter, unrelated, *, batch=False):
         "converter_path": str(converter) if ebook else None, "converter_sha256": digest(converter) if ebook else None,
         "final_publication_validated": publication is not None, "final_completion_truthful": True,
         "log_sha256": digest(log) if log else None, "log_finalizer_failure_visible": "AUTHORED_LOG_FINALIZE_FAILURE" in observed["stdout"],
-        "output_members_before_cleanup": sorted(owned_children), **observed}
+        "output_members_before_cleanup": sorted(owned_children), "stdin_utf8": stdin,
+        "wrapper_text": wrapper.read_bytes().decode("utf-8"), "wrapper_sha256": digest(wrapper),
+        "interaction": launchers.interactions.capture(log_text), **observed}
+    if kind != "startup-dependency":
+        if noninteractive:
+            launchers.interactions.require_noninteractive(record["interaction"], transports)
+        else:
+            stages = ["no_plan"] if kind == "fallback-cancel" else ["no_plan", "input_ready"] if kind == "fallback-failure" else \
+                ["no_plan", "input_ready", "plan_ready"] if kind == "fallback-success" else ["input_ready", "plan_ready"]
+            actions = ["cancel"] if kind == "fallback-cancel" else ["retry", "starts"] if kind == "fallback-failure" else \
+                ["retry", "starts", "execute"] if kind == "fallback-success" else ["starts", "execute"]
+            launchers.interactions.validate(record["interaction"], transports, stages, actions,
+                starts="2,no" if kind == "fallback-failure" else "2,3", execution=execution)
     if execution:
         marked_remove(Path(execution["final_directory"]), base, {".WinBookSplit-owner.json", "WinBookSplit_Manifest.json", *(entry["filename"] for entry in execution["outputs"])})
     if diagnostic_path:

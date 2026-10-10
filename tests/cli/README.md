@@ -8,10 +8,12 @@ real Calibre 9.15.0 executable and a new external report:
 ```
 
 The full route retains all inherited stages and adds CLI acceptance as stage 15.
-Every application process uses `subprocess.DEVNULL` stdin and the actual host's
-`-NonInteractive`. Application `-NonInteractive` is separately exercised; complete
-explicit Manual with only `-NoPause`, and Preview without application
-`-NonInteractive`, prove their independent behavior. PDF manual/Level1/Level2
+Scripted application processes use `subprocess.DEVNULL` stdin and the actual host's
+`-NonInteractive`. The complete Manual `-NoPause`-only control uses an interactive
+host and PIPE input `Y` then `N`, explicitly confirming the displayed plan and
+declining Explorer. It proves NoPause suppresses only the exit pause. Preview
+without application `-NonInteractive` separately proves its no-prompt behavior.
+PDF manual/Level1/Level2
 execution reopens every actual chapter for exact physical identity/order/content,
 filenames, manifest bytes and complete ranges. PDF previews and actual offline
 EPUB/genuine AZW3 previews return the same immutable validated plan with zero

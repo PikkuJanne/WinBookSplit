@@ -11,6 +11,9 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location("wbs_unit_outcomes_validator", ROOT / "tests/outcomes/validate_outcomes_report.py")
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)
+spec = importlib.util.spec_from_file_location("wbs_outcome_synthetic_session", ROOT / "tests/python/session_receipt_fixture.py")
+session_fixture = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(session_fixture)
 DIGEST = "a" * 64
 
 
@@ -38,9 +41,12 @@ def fixture():
             if kind in {"fallback-success", "log-finalize"}:
                 publication = [{"filename": f"{page:02d} - Chapter {page}.pdf", "page_ids": [page],
                     "range": [page - 1, page], "sha256": DIGEST, "size_bytes": 100, "page_count": 1} for page in (1, 2, 3)]
-                outputs = [{"filename": item["filename"], "sha256": DIGEST, "size_bytes": 100, "page_count": 1} for item in publication]
+                outputs = [{"filename": item["filename"], "sha256": DIGEST, "size_bytes": 100, "page_count": 1,
+                    "start": page - 1, "end": page, "title": f"Chapter {page}", "sequence": page} for page, item in enumerate(publication, 1)]
                 manifest = {"status": "complete", "written_count": 3, "outputs": outputs}
                 execution = {"final_directory": str(base / ("Book_20000101-000000_" + "0" * 32)),
+                    "mode": "manual", "total_pages": 3, "source_identity": {"sha256": DIGEST},
+                    "coverage": {"complete": True, "covered_pages": 3, "section_count": 3},
                     "written_count": 3, "outputs": deepcopy(outputs), "manifest": deepcopy(manifest)}
                 engine.update(status="success", code="split_complete", exit_code=0, written_count=3, execution=execution)
                 outcome.update(engine_result=engine, final_directory=execution["final_directory"], written_count=3 if kind == "fallback-success" else 0)
@@ -51,7 +57,7 @@ def fixture():
             if kind.startswith("fallback-"):
                 initial = {"protocol": "winbooksplit.result", "version": 1, "status": "no_plan", "code": "no_bookmarks",
                     "exit_code": 5, "mode": "1", "written_count": 0, "execution": None, "fallback_modes": ["manual"]}
-                records = [initial] + ([] if kind == "fallback-cancel" else [engine])
+                records = [initial] if kind == "fallback-cancel" else [engine]
                 if kind == "fallback-cancel":
                     outcome["engine_result"] = initial
             if kind == "conversion-timeout":
@@ -66,10 +72,6 @@ def fixture():
             elif kind == "log-finalize":
                 transport.update(ExitCode=0, ResultRecordCount=1)
             transports = [] if kind == "startup-dependency" else [deepcopy(transport)]
-            if kind in {"fallback-success", "fallback-failure"}:
-                transports = [deepcopy(transport), deepcopy(transport)]
-                transports[0]["ExitCode"] = 5
-                transports[0]["ResultRecordCount"] = transports[1]["ResultRecordCount"] = 1
             retained = kind in {"cleanup-refusal", "engine-cancel", "engine-timeout", "conversion-cancel", "engine-ctrlc", "conversion-ctrlc"}
             stage = str(base / (".WinBookSplit-stage-" + "0" * 32)) if retained else None
             fault = {"pid": 101, "stage": stage, "members": {}} if kind in validator.ENGINE_FAULTS or kind in validator.INTERRUPTED else None
@@ -117,6 +119,24 @@ def fixture():
                 "post_cleanup_source_observations": deepcopy(identities),
                 "output_members_before_cleanup": ["prior-output.pdf"], "output_members_after_cleanup": ["prior-output.pdf"],
                 "command": [host["shell_executable"], "authored.ps1"], "cwd": str(base.parent), "output_base": str(base)}
+            if kind != "startup-dependency":
+                invocation = {"path": str(root / "python.exe"), "arguments": ["-I", "-B", "-X", "utf8",
+                    str(base.parent / "a/engine/winbooksplit_engine.py"), str(root / "source.pdf"), str(base),
+                    "1" if kind.startswith("fallback-") else "manual", "" if kind.startswith("fallback-") or kind == "log-finalize" else "2,3"]}
+                if kind.startswith("fallback-") or kind == "log-finalize":
+                    invocation["arguments"] += ["--interactive", "f" * 32]
+                    stages = ["no_plan"] if kind == "fallback-cancel" else ["no_plan", "input_ready"] if kind == "fallback-failure" else \
+                        ["no_plan", "input_ready", "plan_ready"] if kind == "fallback-success" else ["input_ready", "plan_ready"]
+                    actions = ["cancel"] if kind == "fallback-cancel" else ["retry", "starts"] if kind == "fallback-failure" else \
+                        ["retry", "starts", "execute"] if kind == "fallback-success" else ["starts", "execute"]
+                    row["interaction"] = session_fixture.make(engine.get("execution"), invocation, stages, actions,
+                        starts="2,no" if kind == "fallback-failure" else "2,3", no_plan=initial if kind.startswith("fallback-") else None)
+                    transports[0].update(InteractionError=None, InputError=None, InputWriterStopped=True,
+                        QueuedReplyCount=len(stages), InteractionCount=len(stages), ReplyCount=len(stages))
+                else:
+                    row["interaction"] = {"engine_invocations": [invocation], "requests": [], "replies": [], "displayed_plans": []}
+                    transports[0].update(InteractionError=None, InteractionCount=0, ReplyCount=0)
+                row["stdin_utf8"] = ""
             if kind.endswith("ctrlc"):
                 row["console_signal"] = {"actual_native_console_signal": True, "hidden_private_console": True,
                     "signal_sent": True, "forced_target_stop": False, "controller_ignore_restored": True}
@@ -287,8 +307,8 @@ class OutcomeReceiptGuards(unittest.TestCase):
         for field, value in (("status", "invented"), ("code", "invalid_mode"), ("exit_code", 17), ("mode", "1")):
             def change(report, key=field, replacement=value):
                 case = next(row for row in report["cases"] if row["id"] == "PS51-fallback-failure")
-                case["engine_records"][1][key] = replacement
-                case["process_summaries"][1]["ExitCode"] = case["engine_records"][1]["exit_code"]
+                case["engine_records"][0][key] = replacement
+                case["process_summaries"][0]["ExitCode"] = case["engine_records"][0]["exit_code"]
                 case["stdout"] = "failure\n[OUTCOME] " + json.dumps(case["outcome"]) + "\n"
             with self.subTest(field=field):
                 self.reject(change)

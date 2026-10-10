@@ -158,6 +158,18 @@ def application_case(work, host, kind, generator, *, batch=False):
     injection_markers = [cwd / "injected.txt", app / "engine/injected.txt", books / "injected.txt"]
     if kind != "unicode-hostile":
         shutil.copyfile(ROOT / "tests/process/fake_engine.py", app / "engine/winbooksplit_engine.py")
+    modifications = []
+    if batch and kind != "unicode-hostile":
+        # Shipped BAT accepts one literal source. This copied PS seam supplies
+        # complete noninteractive choices for terminal-frame transport controls.
+        text = (app / "WinBookSplit.ps1").read_text(encoding="utf-8-sig")
+        seam = "# --- Validation ---"
+        require(text.count(seam) == 1, "Copied noninteractive transport seam changed")
+        text = text.replace(seam, "$Mode = 'Manual'; $StartPages = '2,3'; $NonInteractive = $true; $NoPause = $true\n"
+            "$PSBoundParameters['Mode'] = $Mode; $PSBoundParameters['StartPages'] = $StartPages\n"
+            "$PSBoundParameters['NonInteractive'] = $true; $PSBoundParameters['NoPause'] = $true\n" + seam)
+        (app / "WinBookSplit.ps1").write_text(text, encoding="utf-8-sig")
+        modifications.append("copied PS complete noninteractive terminal-frame choices")
     system = Path(os.environ["SystemRoot"])
     ps51 = system / "System32/WindowsPowerShell/v1.0/powershell.exe"
     environment = history.clean_environment(cwd)
@@ -175,7 +187,8 @@ def application_case(work, host, kind, generator, *, batch=False):
         base = Path(observation["stdout"].strip()).resolve(strict=True)
     else:
         wrapper.write_text("[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)\n"
-            "& $env:WBS_PROCESS_APP -InputFile $env:WBS_PROCESS_INPUT -OutputDirectory $env:WBS_PROCESS_BASE -PythonPath $env:WBS_PROCESS_PYTHON\n"
+            "& $env:WBS_PROCESS_APP -InputFile $env:WBS_PROCESS_INPUT -OutputDirectory $env:WBS_PROCESS_BASE -PythonPath $env:WBS_PROCESS_PYTHON"
+            + (" -Mode Manual -StartPages '2,3' -NonInteractive -NoPause" if kind != "unicode-hostile" else "") + "\n"
             "exit $LASTEXITCODE\n", encoding="utf-8")
         command = [host["shell_executable"], "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(wrapper)]
     expected_names = []
@@ -206,7 +219,7 @@ def application_case(work, host, kind, generator, *, batch=False):
             with paths.read_only_source(source):
                 read_only = bool(source.lstat().st_file_attributes & 1)
                 process = history.run_entrypoint(command, cwd, environment=environment,
-                    stdin="1\n\n" if kind == "unicode-hostile" else "M\n2,3\n\n", timeout=90)
+                    stdin="1\nY\nN\n\n" if kind == "unicode-hostile" else "", timeout=90)
         except history.EntryPointFailure as error:
             cleanup_safe = error.cleanup_safe
             raise
@@ -235,12 +248,24 @@ def application_case(work, host, kind, generator, *, batch=False):
         mode = "1" if kind == "unicode-hostile" else "manual"
         manual_data = "" if mode == "1" else "2,3"
         expected_argv = [str(source), str(base), mode, manual_data]
-        require(invocation[0]["arguments"] == ["-I", "-B", "-X", "utf8", str(app / "engine/winbooksplit_engine.py"), *expected_argv], "Actual engine argv changed literal data")
+        interaction = launchers.interactions.capture(text)
+        full_argv = ["-I", "-B", "-X", "utf8", str(app / "engine/winbooksplit_engine.py"), *expected_argv]
+        if kind == "unicode-hostile":
+            full_argv = launchers.interactions.validate(interaction, summaries, ["plan_ready"], ["execute"], execution=frame["execution"])
+            require(full_argv[:9] == ["-I", "-B", "-X", "utf8", str(app / "engine/winbooksplit_engine.py"), *expected_argv]
+                    and len(full_argv) == 11, "Real interactive engine literal argv differs")
+        else:
+            launchers.interactions.require_noninteractive(interaction, summaries)
+        require(invocation[0]["arguments"] == full_argv, "Actual engine argv changed literal data")
         require(digest(source) == source_hash and digest(neighbor) == neighbor_hash and not any(target.exists() for target in injection_markers), "Actual app changed input/neighbor or evaluated injected data")
         record = {"id": label, "kind": kind, "passed": True, "actual_process": True,
             "shell_executable": host["shell_executable"], "host_version": host["host_version"], "command": command, "cwd": str(cwd),
             "batch_unchanged": digest(app / "WinBookSplit.bat") == copied["WinBookSplit.bat"] if batch else None,
             "application_hashes": copied, "engine_invocation": invocation[0], "expected_argv": expected_argv,
+            "interaction": interaction, "controlled_modifications": modifications,
+            "copied_ps_sha256": digest(app / "WinBookSplit.ps1"),
+            "wrapper_text": wrapper.read_bytes().decode("utf-8"), "wrapper_sha256": digest(wrapper),
+            "stdin_utf8": "1\nY\nN\n\n" if kind == "unicode-hostile" else "",
             "process_summary": summaries[0], "logged_stdout": logged_stdout, "logged_stderr": logged_stderr,
             "input_unchanged": True, "neighbor_unchanged": True, "literal_arguments_preserved": True,
             "log_utf8_roundtrip": text.encode("utf-8") == raw, "log_size_bytes": len(raw), "log_sha256": sha256(raw).hexdigest(),

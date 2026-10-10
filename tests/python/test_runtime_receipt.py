@@ -13,6 +13,9 @@ SPEC = importlib.util.spec_from_file_location("wbs_runtime_receipt_validator",
                                             ROOT / "tests/runtime/validate_runtime_report.py")
 validator = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(validator)
+SPEC = importlib.util.spec_from_file_location("wbs_runtime_synthetic_session", ROOT / "tests/python/session_receipt_fixture.py")
+session_fixture = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(session_fixture)
 SHELLS = [r"C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe", r"C:\synthetic\PS7\pwsh.exe"]
 CALIBRE = r"C:\synthetic\Calibre\ebook-convert.exe"
 CONTENT = ["c" * 64, "d" * 64, "e" * 64]
@@ -213,7 +216,7 @@ def valid_report():
                 converter_source = "explicit" if kind == "explicit-portable" else "PATH" if ebook else None
                 writer = successful_writer(case, ebook)
                 engine_argv = ["-I", "-B", "-X", "utf8", directory + "\\a\\engine\\winbooksplit_engine.py",
-                               source, case["output_base"], "manual", "2,3"]
+                               source, case["output_base"], "manual", "", "--interactive", "f" * 32]
                 if ebook:
                     engine_argv += ["--calibre-path", CALIBRE, "--conversion-timeout", "1800"]
                 case.update(dependency_selection={"Runtime": runtime,
@@ -229,6 +232,10 @@ def valid_report():
                 case["engine_record"] = {"protocol": "winbooksplit.result", "version": 1, "mode": "manual",
                     "status": "success", "code": "split_complete", "exit_code": 0, "written_count": 3,
                     "execution": deepcopy(writer)}
+                case["interaction"] = session_fixture.make(writer, case["engine_invocation"], ["input_ready", "plan_ready"], ["starts", "execute"])
+                case["process_summaries"] = [{"InteractionError": None, "InputError": None, "InputWriterStopped": True,
+                    "QueuedReplyCount": 2, "InteractionCount": 2, "ReplyCount": 2}]
+                case["stdin_utf8"] = "M\nN\n2,3\nY\nN\n\n" if ebook else "M\n2,3\nY\nN\n\n"
             report[field].append(case)
     report["positive_decoy_controls"] = {
         "native": {"command": [r"C:\synthetic\Stub.exe", "--version"], "cwd": r"C:\synthetic", "stdout": "", "stderr": "",

@@ -69,6 +69,23 @@ returns the saved PowerShell exit; a pause cannot replace the operation outcome.
 
 ## Completion, logs and accessibility
 
+M3-T04 confirms every interactive execution, including a complete explicit method
+with NoPause. Exact Y authorizes the displayed plan; C, blank or EOF cancels.
+One supervised engine retains its captured PDF and immutable plan through entry,
+fallback and confirmation. NonInteractive and Preview retain their one-shot,
+no-prompt behavior and unchanged result schema. The process deadline and owned
+job remain active while input is pending.
+
+Manual ebook page entry follows real conversion. O explicitly requests an owned
+working PDF and opens that literal path through the existing PDF association;
+N continues without creating the copy, C cancels. The working copy stays readable
+through confirmation and is cleaned from its exact owned ledger afterward.
+Its bytes/page count match the captured generated PDF, while its live path is
+distinct from the cleaned original conversion path. KeepConvertedPdf separately
+controls retention in successful output. After success and log finalization,
+the actual folder, positive chapter count and physical coverage are printed;
+O explicitly opens that folder, N or EOF finishes. Open failures are shown.
+
 Completion names the actual final folder, section count and page coverage; zero-output execution fails. Offer to open the completed folder only interactively. A converted input keeps its original ebook name in diagnostics. Use readable text without requiring color/ANSI. Show progress by stage/section rather than an invented ETA. Logs and UTF-8 JSON run manifests include version, resolved dependency versions, run ID, mode, original/generated source identity, page count, ranges, output names, warnings and final outcome. Save paths locally; a redacted diagnostic export strips user/profile paths, document titles/content, credentials and command environment. No telemetry or automatic upload.
 
 ## M1-T06 diagnostic checkpoint

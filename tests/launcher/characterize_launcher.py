@@ -218,6 +218,7 @@ def application_case(work, host, kind, generator, ebooks, references, calibre, *
         if log is not None:
             marker = {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}
             log_text = log.read_text(encoding="utf-8")
+            record["interaction"] = launchers.interactions.capture(log_text)
             record["console_operation_outcomes"] = [json.loads(line[len("[OPERATION-OUTCOME] "):])
                 for line in log_text.splitlines() if line.startswith("[OPERATION-OUTCOME] ")]
             record["console_decisions"] = [line[len("[DECISION] "):] for line in log_text.splitlines() if line.startswith("[DECISION] ")]

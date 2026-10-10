@@ -85,19 +85,28 @@ def validate_case(case):
     need(all(case.get(field) is True for field in ("passed", "actual_process", "source_read_only_observed",
         "source_neighbor_prior_unchanged", "application_unchanged", "known_output_cleanup_complete")), "Actual CLI preservation/cleanup proofs absent")
     need(type(case.get("exit_code")) is int and case["exit_code"] == EXPECTED[kind] and case.get("timed_out") is False
-        and case.get("stdin") == "DEVNULL" and type(case.get("pid")) is int and case["pid"] > 0
+        and case.get("stdin") == ("PIPE" if kind == "execute-manual-nopause" else "DEVNULL")
+        and (kind != "execute-manual-nopause" or case.get("stdin_utf8") == "Y\nN\n")
+        and type(case.get("pid")) is int and case["pid"] > 0
         and type(case.get("elapsed_seconds")) in (int, float) and math.isfinite(case["elapsed_seconds"])
         and 0 <= case["elapsed_seconds"] < case.get("timeout_seconds", 0), "Actual native CLI exit/stdin/deadline proof missing")
     command, parameters = case.get("command"), case.get("parameters")
     need(isinstance(command, list) and command and command[0] == case.get("shell_executable")
-        and "-NoProfile" in command and "-NonInteractive" in command and "-File" in command
+        and "-NoProfile" in command and "-File" in command
+        and (("-NonInteractive" in command[:command.index("-File")]) == (kind != "execute-manual-nopause"))
         and isinstance(parameters, list) and all(isinstance(value, str) for value in command + parameters), "Actual literal CLI command missing")
     if kind != "help":
         need(command[command.index("-File") + 2:] == parameters and Path(command[command.index("-File") + 1]).name == "WinBookSplit.ps1", "Native CLI arguments differ from receipt")
     for field in ("stdout", "stderr"):
         need(isinstance(case.get(field), str) and case.get(field + "_sha256") == sha256(case[field].encode("utf-8")).hexdigest(), "Native CLI stream/hash mismatch")
     text = case["stdout"] + case["stderr"]
-    need(not any(fragment in text for fragment in ("Read-Host", "Read and Prompt functionality", "Press Enter to exit", "Open output folder", "[FALLBACK]", "\x1b[2J")), "CLI attempted a prompt, pause, fallback, folder launch or clear")
+    forbidden = ("Read-Host", "Read and Prompt functionality", "Press Enter to exit", "[FALLBACK]", "\x1b[2J")
+    if kind != "execute-manual-nopause":
+        forbidden += ("Open output folder", "Create these chapter PDFs?", "Open the generated PDF?")
+    else:
+        need("Create these chapter PDFs?" in text and "Open output folder?" in text
+             and "No chapter PDFs have been written." in text, "NoPause bypassed interactive confirmation")
+    need(not any(fragment in text for fragment in forbidden), "CLI attempted a forbidden prompt, pause, fallback, folder launch or clear")
     for key in ("source_observations_before", "source_observations_after", "source_observations_after_cleanup"):
         identities(case.get(key))
     need(case["source_observations_before"] == case["source_observations_after"] == case["source_observations_after_cleanup"]

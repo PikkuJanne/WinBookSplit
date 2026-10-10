@@ -7,9 +7,9 @@ BeforeAll {
     $ast=[Management.Automation.Language.Parser]::ParseFile((Join-Path $RepositoryRoot 'WinBookSplit.ps1'), [ref]$tokens, [ref]$errors)
     if (@($errors).Count -ne 0) { throw 'The trusted application has syntax errors.' }
     $functions=@($ast.FindAll({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
-        $node.Name -ceq 'New-WinBookSplitFailure'}, $true))
-    if ($functions.Count -ne 1) { throw 'Expected one trusted application failure constructor.' }
-    . ([scriptblock]::Create($functions[0].Extent.Text))
+        $node.Name -cin @('New-WinBookSplitFailure', 'Read-WinBookSplitSessionLine')}, $true))
+    if ($functions.Count -ne 2) { throw 'Expected trusted failure and console reader functions.' }
+    foreach ($function in $functions) { . ([scriptblock]::Create($function.Extent.Text)) }
     $script:launcherUnicode=([string][char]0x65E5)+[char]0x672C
     function Set-AuthoredLauncherAnswers {
         param([object[]]$Answers)
@@ -41,75 +41,75 @@ Describe 'M3 exact initial method selection' -Tag 'AC-059' {
     }
     It 'reprompts after arbitrary words rather than selecting manual or Level 1' {
         Set-AuthoredLauncherAnswers @('maybe', 'arbitrary', ' 2 ')
-        Mock Read-Host { Get-AuthoredLauncherAnswer }
+        Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
         Mock Write-Host { }
         $decision=Read-WinBookSplitInitialDecision
         $decision.decision | Should-Be -Expected 'select'
         $decision.mode | Should-Be -Expected '2'
         $script:launcherAnswers.Count | Should-Be -Expected 0
-        Should-Invoke -CommandName Read-Host -Times 3 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 3 -Exactly
     }
     It 'reprompts for blank answers and compatibility fallback letters in the initial menu' {
         Set-AuthoredLauncherAnswers @('', ' ', 'Y', 'N', ' m ')
-        Mock Read-Host { Get-AuthoredLauncherAnswer }
+        Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
         Mock Write-Host { }
         $decision=Read-WinBookSplitInitialDecision
         $decision.decision | Should-Be -Expected 'select'
         $decision.mode | Should-Be -Expected 'manual'
-        Should-Invoke -CommandName Read-Host -Times 5 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 5 -Exactly
     }
     It 'returns explicit cancellation after invalid answers without selecting a mode' {
         Set-AuthoredLauncherAnswers @('cancel', ' C ')
-        Mock Read-Host { Get-AuthoredLauncherAnswer }
+        Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
         Mock Write-Host { }
         $decision=Read-WinBookSplitInitialDecision
         $decision.decision | Should-Be -Expected 'cancel'
         ($null -eq $decision.mode) | Should-BeTrue
         Get-SplitExitCode 'cancelled' | Should-Be -Expected 130
-        Should-Invoke -CommandName Read-Host -Times 2 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 2 -Exactly
     }
     It 'maps unavailable interactive input to cancellation rather than an implicit mode' {
-        Mock Read-Host { $null }
+        Mock Read-WinBookSplitSessionLine { $null }
         Mock Write-Host { }
         $failure=$null
         try { $null=Read-WinBookSplitInitialDecision } catch { $failure=$_.Exception }
         ($null -ne $failure) | Should-BeTrue
         $failure.Data['Code'] | Should-Be -Expected 'cancelled'
         Get-SplitExitCode $failure.Data['Code'] | Should-Be -Expected 130
-        Should-Invoke -CommandName Read-Host -Times 1 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 1 -Exactly
     }
 }
 
 Describe 'M3 literal no-input prompt and cancellation' -Tag 'AC-058', 'AC-059' {
     It 'preserves supplied literal input under every noninteractive and preview flag combination without prompting' {
         $literal=Join-Path $WorkRoot "Synthetic [%!] O'Brien & ($script:launcherUnicode) `$(unused).pdf"
-        Mock Read-Host { throw 'A supplied literal input must not prompt.' }
+        Mock Read-WinBookSplitSessionLine { throw 'A supplied literal input must not prompt.' }
         foreach ($flags in @(@($false,$false), @($true,$false), @($false,$true), @($true,$true))) {
             Resolve-WinBookSplitInputChoice -InputFile $literal -NonInteractive $flags[0] -Preview $flags[1] |
                 Should-Be -Expected $literal
         }
-        Should-Invoke -CommandName Read-Host -Times 0 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 0 -Exactly
     }
     It 'takes one literal path answer and never evaluates shell syntax or expands environment text' {
         $literal=Join-Path $WorkRoot ('Synthetic [%TEMP%!] & ('+$script:launcherUnicode+') $(throw unused).epub')
         Set-AuthoredLauncherAnswers @($literal)
-        Mock Read-Host { Get-AuthoredLauncherAnswer }
+        Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
         Mock Write-Host { }
         Resolve-WinBookSplitInputChoice -InputFile '' -NonInteractive $false -Preview $false | Should-Be -Expected $literal
-        Should-Invoke -CommandName Read-Host -Times 1 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 1 -Exactly
     }
     It 'accepts paired outer double quotes from a pasted Explorer path without expanding the path' {
         $literal=Join-Path $WorkRoot ('Synthetic [%TEMP%!] & ('+$script:launcherUnicode+') $(unused).azw3')
         Set-AuthoredLauncherAnswers @('"'+$literal+'"')
-        Mock Read-Host { Get-AuthoredLauncherAnswer }
+        Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
         Mock Write-Host { }
         Resolve-WinBookSplitInputChoice -InputFile '' -NonInteractive $false -Preview $false | Should-Be -Expected $literal
-        Should-Invoke -CommandName Read-Host -Times 1 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 1 -Exactly
     }
     It 'returns cancellation code 130 for blank whitespace C or unavailable path answers' {
         foreach ($answer in @('', ' ', 'C', ' c ', $null)) {
             Set-AuthoredLauncherAnswers @($answer)
-            Mock Read-Host { Get-AuthoredLauncherAnswer }
+            Mock Read-WinBookSplitSessionLine { Get-AuthoredLauncherAnswer }
             Mock Write-Host { }
             $failure=$null
             try { $null=Resolve-WinBookSplitInputChoice -InputFile '' -NonInteractive $false -Preview $false }
@@ -118,10 +118,10 @@ Describe 'M3 literal no-input prompt and cancellation' -Tag 'AC-058', 'AC-059' {
             $failure.Data['Code'] | Should-Be -Expected 'cancelled'
             Get-SplitExitCode $failure.Data['Code'] | Should-Be -Expected 130
         }
-        Should-Invoke -CommandName Read-Host -Times 5 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 5 -Exactly
     }
-    It 'rejects a missing source in NonInteractive or Preview before Read-Host' {
-        Mock Read-Host { throw 'Scripted requests must never prompt.' }
+    It 'rejects a missing source in NonInteractive or Preview before Read-WinBookSplitSessionLine' {
+        Mock Read-WinBookSplitSessionLine { throw 'Scripted requests must never prompt.' }
         foreach ($flags in @(@($true,$false), @($false,$true), @($true,$true))) {
             foreach ($missing in @('', ' ', $null)) {
                 $failure=$null
@@ -132,7 +132,7 @@ Describe 'M3 literal no-input prompt and cancellation' -Tag 'AC-058', 'AC-059' {
                 Get-SplitExitCode $failure.Data['Code'] | Should-Be -Expected 2
             }
         }
-        Should-Invoke -CommandName Read-Host -Times 0 -Exactly
+        Should-Invoke -CommandName Read-WinBookSplitSessionLine -Times 0 -Exactly
     }
 }
 

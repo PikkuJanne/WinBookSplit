@@ -21,15 +21,20 @@ readiness against the retained PID and independently observes alive before/after
 supervision, then stopped after retained-handle termination.
 
 Nine actual whole-application processes use PS5.1, PS7 and unchanged BAT: dual
-flood and fast-tail failure controls substitute only an engine in an owned copied
-application; three real generated Unicode/hostile bookmark PDFs exercise the
-unmodified engine. The copied launchers/helpers retain actual reviewed bytes.
+flood and fast-tail failure controls substitute an engine in an owned copied
+application and supply complete noninteractive Manual `2,3` choices. BAT keeps
+its shipped bytes; these copied PS controls explicitly bind the same choices
+before validation and disclose the modified PS hash. They do not invent a plan
+or confirmation. Three real generated Unicode/hostile bookmark PDFs exercise the
+unmodified engine and explicitly confirm its displayed plan.
 Literal environment-variable wrappers avoid another expansion of supplied BAT
 paths. Native failure must remain nonzero, final stderr must survive, console logs
 remain below 400 KiB, and actual child argv/UTF-8 receipts must match. Logs
 separate the terminal provisional finalizer record from exact raw stream
 tails. That record must equal the sole final stdout outcome and preserve the
 actual native exit and validated engine result; stream byte limits remain exact.
+Interactive receipts bind the session nonce, request/reply counts, displayed
+plan hash, explicit execute reply, and the exact written source/ranges/count.
 Real PDF
 outputs are reopened for all three physical page IDs/content, exact Unicode/title
 filenames, manifests and source/neighbor/read-only preservation. Exact names come
