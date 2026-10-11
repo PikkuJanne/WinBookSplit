@@ -1,0 +1,21 @@
+{
+  "assets": {
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+    },
+    "WinBookSplit-v1.0.1.zip": {
+      "bytes": 885340,
+      "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+    },
+    "release-manifest.json": {
+      "bytes": 15816,
+      "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+    }
+  },
+  "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+  "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+  "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+  "version": "1.0.1"
+}

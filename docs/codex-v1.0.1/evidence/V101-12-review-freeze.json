@@ -1,0 +1,362 @@
+{
+  "schema_version": 1,
+  "task": "V101-12",
+  "status": "DONE",
+  "observed_utc": "2026-10-11T20:26:33.886419+00:00",
+  "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+  "integrated_PR": {
+    "number": 31,
+    "url": "https://github.com/PikkuJanne/WinBookSplit/pull/31",
+    "state": "MERGED",
+    "merged_at": "2026-10-11T20:08:46Z",
+    "merge_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef"
+  },
+  "main_CI": {
+    "result": "PASS",
+    "run": {
+      "conclusion": "success",
+      "id": 38170965005,
+      "status": "completed",
+      "updated_at": "2026-10-11T20:24:06Z",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38170965005"
+    },
+    "counts": {
+      "python": {
+        "seconds": 529.546,
+        "tests_run": 645,
+        "zero_skips": true
+      },
+      "shells": [
+        {
+          "analysis_rows": 26,
+          "host": {
+            "clr": "4.0.30319.42000",
+            "edition": "Desktop",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Unrestricted",
+                "scope": "LocalMachine"
+              }
+            ],
+            "version": "5.1.26100.33438"
+          },
+          "pester": {
+            "failed": 0,
+            "failed_blocks": [],
+            "failed_cases": [],
+            "failed_container_errors": [],
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 192,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 192
+          },
+          "syntax_rows": 27
+        },
+        {
+          "analysis_rows": 26,
+          "host": {
+            "clr": "10.0.12",
+            "edition": "Core",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "LocalMachine"
+              }
+            ],
+            "version": "7.6.6"
+          },
+          "pester": {
+            "failed": 0,
+            "failed_blocks": [],
+            "failed_cases": [],
+            "failed_container_errors": [],
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 192,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 192
+          },
+          "syntax_rows": 27
+        }
+      ],
+      "applications": {
+        "application13": {
+          "cases": [
+            {
+              "id": "manual-front-matter",
+              "status": "PASS"
+            },
+            {
+              "id": "auto-level1",
+              "status": "PASS"
+            },
+            {
+              "id": "auto-level2",
+              "status": "PASS"
+            },
+            {
+              "id": "late-invalid-token",
+              "status": "PASS"
+            },
+            {
+              "id": "no-bookmarks",
+              "status": "PASS"
+            },
+            {
+              "id": "zero-page",
+              "status": "PASS"
+            },
+            {
+              "id": "wrapper-PS5",
+              "status": "PASS"
+            },
+            {
+              "id": "wrapper-PS7",
+              "status": "PASS"
+            }
+          ],
+          "cleanup_safe": true,
+          "hosts": [
+            {
+              "build": "26100",
+              "clr": "4.0.30319.42000",
+              "product_type": 3,
+              "shell_version": "5.1.26100.33438"
+            },
+            {
+              "build": "26100",
+              "clr": "10.0.12",
+              "product_type": 3,
+              "shell_version": "7.6.6"
+            }
+          ],
+          "pypdf": "6.20.0",
+          "python": "3.13.16",
+          "unit_tests": 149,
+          "zero_skips": true
+        },
+        "application14": {
+          "cases": [
+            {
+              "id": "manual-front-matter",
+              "status": "PASS"
+            },
+            {
+              "id": "auto-level1",
+              "status": "PASS"
+            },
+            {
+              "id": "auto-level2",
+              "status": "PASS"
+            },
+            {
+              "id": "late-invalid-token",
+              "status": "PASS"
+            },
+            {
+              "id": "no-bookmarks",
+              "status": "PASS"
+            },
+            {
+              "id": "zero-page",
+              "status": "PASS"
+            },
+            {
+              "id": "wrapper-PS5",
+              "status": "PASS"
+            },
+            {
+              "id": "wrapper-PS7",
+              "status": "PASS"
+            }
+          ],
+          "cleanup_safe": true,
+          "hosts": [
+            {
+              "build": "26100",
+              "clr": "4.0.30319.42000",
+              "product_type": 3,
+              "shell_version": "5.1.26100.33438"
+            },
+            {
+              "build": "26100",
+              "clr": "10.0.12",
+              "product_type": 3,
+              "shell_version": "7.6.6"
+            }
+          ],
+          "pypdf": "6.20.0",
+          "python": "3.14.8",
+          "unit_tests": 149,
+          "zero_skips": true
+        }
+      }
+    },
+    "receipt_file": "V101-12-main-ci.json",
+    "receipt_bytes": 78115,
+    "receipt_sha256": "a70da3a6a48f19b48edde0ffc4cd6d5c10389852c90ab35bbef1fccaefc1a8b1",
+    "collected_raw_receipt_bytes": 79051,
+    "collected_raw_receipt_sha256": "77fdde4eb780796f8819e7a84a6efd0e47a72dcbe2d459901dcf2adc580fee89",
+    "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+    "removed_CR_bytes": 936,
+    "qualification": "Actual completed main source hosted Windows Server evidence; no native workstation or final ZIP promotion."
+  },
+  "freeze": {
+    "result": "PASS_GIT_BOUND_ASSET_BYTE_IDENTITY",
+    "receipt_file": "V101-12-release-freeze.json",
+    "receipt_bytes": 14580,
+    "receipt_sha256": "879fad127f0c8346c17fc07829d7d583ccfa31834b4496b4a9972df198d8e243",
+    "collected_raw_receipt_bytes": 14580,
+    "collected_raw_receipt_sha256": "879fad127f0c8346c17fc07829d7d583ccfa31834b4496b4a9972df198d8e243",
+    "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+    "removed_CR_bytes": 0,
+    "production_expectations": {
+      "receipt_file": "V101-12-production-expectations.json",
+      "receipt_bytes": 765,
+      "receipt_sha256": "94a4d879b8461811b60346e665820d4bae03b2879f862fcb64cf81b9e4520ea6",
+      "collected_raw_receipt_bytes": 765,
+      "collected_raw_receipt_sha256": "94a4d879b8461811b60346e665820d4bae03b2879f862fcb64cf81b9e4520ea6",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 0
+    },
+    "production": {
+      "assets": {
+        "SHA256SUMS.txt": {
+          "bytes": 178,
+          "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+        },
+        "WinBookSplit-v1.0.1.zip": {
+          "bytes": 885340,
+          "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+        },
+        "release-manifest.json": {
+          "bytes": 15816,
+          "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+        }
+      },
+      "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+      "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+      "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+      "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+      "version": "1.0.1"
+    },
+    "package_member_count": 33,
+    "builder_runs": [
+      {
+        "asset_directory_label": "release-R-6f2c2e5-01",
+        "build_exit_code": 0,
+        "verify_exit_code": 0,
+        "build_result": "PACKAGE_PASSED",
+        "verify_result": "PACKAGE_PASSED",
+        "builder_python": "3.14.8"
+      },
+      {
+        "asset_directory_label": "release-R-6f2c2e5-02",
+        "build_exit_code": 0,
+        "verify_exit_code": 0,
+        "build_result": "PACKAGE_PASSED",
+        "verify_result": "PACKAGE_PASSED",
+        "builder_python": "3.14.8"
+      }
+    ],
+    "same_tool_repeatability": "PASS: both three-asset sets have identical bytes; held read inspection confirms Git R payload.",
+    "qualification": "Actual root-executed build and verify twice, reviewed freeze producer and frozen verifier; exact Git R payload. Final native acceptance still required."
+  },
+  "security_refresh": {
+    "result": "PASS_SCOPED_PRIMARY_RECHECK_NO_NEW_MATERIAL_FINDING",
+    "receipt_file": "V101-12-security-refresh.json",
+    "receipt_bytes": 30063,
+    "receipt_sha256": "24393e656803251e6317e08b67625ec0aed43e44dc9ffb607a34a82b349209c6",
+    "collected_raw_receipt_bytes": 30063,
+    "collected_raw_receipt_sha256": "24393e656803251e6317e08b67625ec0aed43e44dc9ffb607a34a82b349209c6",
+    "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+    "removed_CR_bytes": 0,
+    "markdown": {
+      "receipt_file": "V101-12-security-refresh.md",
+      "receipt_bytes": 3563,
+      "receipt_sha256": "6e22e3ae07ea454c8d1f868fba382a9aa68916b8fe998a3618b534730974ad7b",
+      "collected_raw_receipt_bytes": 3563,
+      "collected_raw_receipt_sha256": "6e22e3ae07ea454c8d1f868fba382a9aa68916b8fe998a3618b534730974ad7b",
+      "transform": "bytes.replace(CRLF,LF) only; UTF-8 text unchanged otherwise.",
+      "removed_CR_bytes": 0
+    },
+    "collection": {
+      "first_utc": "2026-10-11T20:10:47.115937+00:00",
+      "last_utc": "2026-10-11T20:10:59.135022+00:00",
+      "fresh_http_requests": 41,
+      "http_200": 41,
+      "failed_requests": 0
+    },
+    "qualification": "41 current primary requests returned HTTP 200; source bodies/artifact hashes match refresh06, no new material finding. Calibre finite static route inference is not a complete binary call graph or security guarantee. Jobs are not memory/disk/network sandboxes. Recheck again at publication."
+  },
+  "review_receipts_sha256": {
+    "task11-review-01/review.json": "914050abd230d73c0bed650ef1cb4216c74e1683c1092ff27e1a462be239db89",
+    "task12-review-01/review.json": "1ac69f7d108d986dfe6daab2bedbdef04fff3a932f7855d3e3dc88abdcc758a9",
+    "task12-delta-review-01/review.json": "e55425c6ff3bd1f8f96dd0bad7cd9a41fa61012fe5d02d5b8d2f6816ead504c0",
+    "task12-closure-delta-review-02/review.json": "c3e8d6672172f247ceddd504ac5ea0934eb9422214eba3fbcff48a7276b16acc",
+    "task12-release-freeze-review-02/review.json": "ad19be6b4eabd7cbf2a040f818444818b0e876207e51e0ce47b6d63d3b7fdb22"
+  },
+  "read_inspection_sha256": "bece9c47329ac050cf5cb77eba4a65322b007655cb7845afb0c22232f0fb9093",
+  "review_qualification": "Separate context; reviewer authored some earlier compatibility/tests. Not an independent security audit.",
+  "historical_evidence": "V101-07 retains its original source checkout scope. Existing 087 failures, receipt normalization correction and all v1.0.0 evidence/tag/assets remain historical and unchanged.",
+  "actual_commands_with_redacted_external_paths": [
+    "bare CPython 3.14.8 -I -B acquire_ci_checkpoint.py 6f2c2e5d4d5fc484bcb1530474f09957e09775ef 38170965005 <fresh external report directory>",
+    "bare CPython 3.14.8 -I -B collect_ci_checkpoint.py 6f2c2e5d4d5fc484bcb1530474f09957e09775ef 38170965005 <same external report directory>",
+    "bare CPython 3.14.8 -I -B tools/release/build_package.py build --repo <ordinary main checkout> --commit 6f2c2e5d4d5fc484bcb1530474f09957e09775ef --output <external release-R-6f2c2e5-01>",
+    "bare CPython 3.14.8 -I -B tools/release/build_package.py verify --repo <ordinary main checkout> --commit 6f2c2e5d4d5fc484bcb1530474f09957e09775ef --output <external release-R-6f2c2e5-01>",
+    "bare CPython 3.14.8 -I -B tools/release/build_package.py build --repo <ordinary main checkout> --commit 6f2c2e5d4d5fc484bcb1530474f09957e09775ef --output <external release-R-6f2c2e5-02>",
+    "bare CPython 3.14.8 -I -B tools/release/build_package.py verify --repo <ordinary main checkout> --commit 6f2c2e5d4d5fc484bcb1530474f09957e09775ef --output <external release-R-6f2c2e5-02>",
+    "bare CPython 3.14.8 -I -B freeze_release_assets.py --repo <ordinary main checkout> --source-commit 6f2c2e5d4d5fc484bcb1530474f09957e09775ef --assets-root <reviewed R three assets> --output <fresh external freeze directory>"
+  ],
+  "acceptance": {
+    "V101-AC-064": "PASS",
+    "V101-AC-065": "PASS",
+    "V101-AC-066": "PASS",
+    "V101-AC-067": "PASS"
+  },
+  "native_final_ZIP": {
+    "Windows10": "NOT_RUN",
+    "Windows11": "NOT_RUN",
+    "ebooks": "NOT_RUN"
+  },
+  "PS7_supplement_import": "NOT_RUN",
+  "public_tag_release_download": "NOT_RUN",
+  "human_sessions_used": 0,
+  "next_task": "V101-13: same frozen ZIP native Windows 11 both Python branches and PS7, then one consolidated Windows 10 kit if authorized native access remains unavailable."
+}

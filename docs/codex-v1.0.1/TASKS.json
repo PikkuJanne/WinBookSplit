@@ -320,8 +320,16 @@
         "V101-AC-066",
         "V101-AC-067"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-12-main-ci.json",
+        "evidence/V101-12-release-freeze.json",
+        "evidence/V101-12-production-expectations.json",
+        "evidence/V101-12-review-freeze.json",
+        "evidence/V101-12-review-freeze.md",
+        "evidence/V101-12-security-refresh.json",
+        "evidence/V101-12-security-refresh.md"
+      ]
     },
     {
       "id": "V101-13",
@@ -342,7 +350,7 @@
         "V101-AC-070",
         "V101-AC-071"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

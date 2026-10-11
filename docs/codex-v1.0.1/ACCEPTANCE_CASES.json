@@ -823,8 +823,16 @@
       "key": "review_complete",
       "expected": "Changed policy/discovery/setup/native handling reviewed; critical/security/correctness blockers resolved with actual test evidence.",
       "verification_kind": "CODE_OR_SOURCE_REVIEW",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-12-main-ci.json",
+        "evidence/V101-12-release-freeze.json",
+        "evidence/V101-12-production-expectations.json",
+        "evidence/V101-12-review-freeze.json",
+        "evidence/V101-12-review-freeze.md",
+        "evidence/V101-12-security-refresh.json",
+        "evidence/V101-12-security-refresh.md"
+      ]
     },
     {
       "id": "V101-AC-065",
@@ -832,8 +840,16 @@
       "key": "integrated_R",
       "expected": "R is a reviewed integrated commit reachable from main with passing required checks, not a stale unmerged branch.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-12-main-ci.json",
+        "evidence/V101-12-release-freeze.json",
+        "evidence/V101-12-production-expectations.json",
+        "evidence/V101-12-review-freeze.json",
+        "evidence/V101-12-review-freeze.md",
+        "evidence/V101-12-security-refresh.json",
+        "evidence/V101-12-security-refresh.md"
+      ]
     },
     {
       "id": "V101-AC-066",
@@ -841,8 +857,16 @@
       "key": "source_package_identity",
       "expected": "ZIP/manifest/checksums and member allowlist are audited against R; no uncommitted bytes or manual ZIP edits.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-12-main-ci.json",
+        "evidence/V101-12-release-freeze.json",
+        "evidence/V101-12-production-expectations.json",
+        "evidence/V101-12-review-freeze.json",
+        "evidence/V101-12-review-freeze.md",
+        "evidence/V101-12-security-refresh.json",
+        "evidence/V101-12-security-refresh.md"
+      ]
     },
     {
       "id": "V101-AC-067",
@@ -850,8 +874,16 @@
       "key": "release_freeze",
       "expected": "Exact source R and asset hashes fixed before final native runs; comparison of different build-toolchains is not required.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-12-main-ci.json",
+        "evidence/V101-12-release-freeze.json",
+        "evidence/V101-12-production-expectations.json",
+        "evidence/V101-12-review-freeze.json",
+        "evidence/V101-12-review-freeze.md",
+        "evidence/V101-12-security-refresh.json",
+        "evidence/V101-12-security-refresh.md"
+      ]
     },
     {
       "id": "V101-AC-068",

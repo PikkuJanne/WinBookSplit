@@ -2,16 +2,16 @@
   "schema_version": 1,
   "target_release": "v1.0.1",
   "phase": "IN_PROGRESS",
-  "current_task": "V101-12",
+  "current_task": "V101-13",
   "baseline_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
-  "work_branch": "codex/v1.0.1-compatibility",
+  "work_branch": "main",
   "last_verified_sync": {
-    "branch": "codex/v1.0.1-compatibility",
-    "commit": "a1d17c3b48cdc6e6aedc7752954ebf84714cb74d",
-    "observed_at": "2026-10-11T19:30:50.600301+00:00"
+    "branch": "main",
+    "commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "observed_at": "2026-10-11T20:26:29.740984+00:00"
   },
-  "release_source_R": null,
-  "accepted_zip_sha256": null,
+  "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "accepted_zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
   "native_windows10": "NOT_RUN",
   "native_windows11": "NOT_RUN",
   "published_release": "NOT_RUN",

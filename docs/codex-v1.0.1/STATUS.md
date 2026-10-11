@@ -1,11 +1,16 @@
-# Status — v1.0.1
+# Status - v1.0.1
 
-V101-01 through V101-11 are DONE in their recorded scopes. Complete corrected
-CI at a1d17c3 passed all three source-bound hosted Windows Server jobs. Earlier
-087 failures remain recorded. V101-12 is IN_PROGRESS: review/integrate normally,
-check actual main and freeze the 1.0.1 release source R and three asset hashes.
+V101-01 through V101-12 are DONE in their recorded scopes. PR 31 integrated R
+`6f2c2e5d4d5fc484bcb1530474f09957e09775ef`; matching main CI 38170965005 passed its complete source-bound Server jobs.
+R tree is `5bc1a6e045e6abfc04689087bb0e25692ab9dd08`. The exact three assets are frozen; the ZIP SHA256 is
+`747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`.
 
-Policy 2 accepts regular Windows x64 Python 3.13.16+ / 3.14.8+ numerically,
-with separate pypdf 6.20.0 / Calibre 9.15.0 controls. No guard was weakened.
-Artwork, BAT and public v1.0.0 remain preserved. Final-ZIP Windows 10/11,
-publication and the human session remain NOT_RUN. Next sync is external.
+V101-13 is IN_PROGRESS. Windows 11 checks on the same final ZIP for both Python minors and PS7 are next.
+Native Windows 10/Windows 11 final ZIP acceptance, final ebook acceptance, public
+publication and owner sessions remain NOT_RUN. Authorized native Windows 10
+access is unavailable; finish independent available-host work before the one
+consolidated owner kit. No existing public v1.0.0 release/tag/assets were changed.
+
+Policy 2 keeps numeric 3.13.16+/3.14.8+ floors and separate pypdf 6.20.0/Calibre 9.15.0
+locks. Artwork/BAT/safety guards remain intact. This nonshipped closure does not
+move R or certify a later checkout. Verify the next sync externally.
