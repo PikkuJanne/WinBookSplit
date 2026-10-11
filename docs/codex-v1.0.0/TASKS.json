@@ -1196,7 +1196,7 @@
         "Final exact-asset Windows evidence",
         "Accepted artifact hash/versions"
       ],
-      "status": "todo",
+      "status": "blocked",
       "depends_on": [
         "M6-T02"
       ],
@@ -1204,8 +1204,11 @@
         "AC-099",
         "AC-100"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M6-T03-final-windows.md",
+        "evidence/M6-T03-final-windows.json"
+      ],
+      "implementation_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

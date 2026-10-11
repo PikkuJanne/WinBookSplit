@@ -1,0 +1,1402 @@
+{
+  "schema_version": 1,
+  "task": "M6-T03",
+  "result": "AUTOMATED_FINAL_ZIP_PASS_EXPLORER_PENDING",
+  "recorded_at_utc": "2026-10-11T05:29:05.065844+00:00",
+  "repository": "PikkuJanne/WinBookSplit",
+  "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "version": "1.0.0",
+  "starting_clean_live_main": "deb563d02e861e565d54e435739bcad96d7f8a41",
+  "acceptance": [
+    {
+      "id": "AC-099",
+      "outcome": "BLOCKED",
+      "completed_scope": "Fresh exact-final ZIP native38case/both-host/path/manual/bookmark/safety/import checks pass.",
+      "missing_action": "Actual final-ZIP Explorer/BAT F01-F07 observations and authenticated corresponding authored artifacts."
+    },
+    {
+      "id": "AC-100",
+      "outcome": "PASS",
+      "scope": "Actual final-ZIP real Calibre EPUB/KF8 AZW3 plus complete output page identities/source safety and rendered samples; rich/image-only supplementary8cases/44page comparisons."
+    }
+  ],
+  "exact_final_asset_Windows_accepted": false,
+  "asset_integrity_unchanged": true,
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.0.zip",
+      "bytes": 414497,
+      "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "repeat_bytes_equal": true
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 11547,
+      "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "repeat_bytes_equal": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "repeat_bytes_equal": true
+    }
+  ],
+  "environment": {
+    "Windows_CIM": {
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.26300",
+      "BuildNumber": "26300",
+      "OSArchitecture": "64-bit"
+    },
+    "Windows_build": "26300.9457",
+    "registry_product_name_note": "Host probe registry ProductName says Windows10Pro; separate actual CIM Caption confirms Microsoft Windows11Pro.",
+    "hosts": {
+      "PS51": "5.1.26100.9444",
+      "PS7": "7.6.6"
+    },
+    "Python": "3.14.8 regular GIL AMD64",
+    "runtime_pypdf": "6.20.0",
+    "runtime_only_distributions": [
+      "pip",
+      "pypdf"
+    ],
+    "Calibre": "9.15.0",
+    "Poppler": "26.07.0",
+    "isolation": "Existing workstation, new final-ZIP extractions/fresh runtime-only venvs, isolated import probes and controlled child paths/unrelated CWD."
+  },
+  "source_audit": {
+    "checks": 247,
+    "success": true,
+    "all176_guarded_R_MAIN_raw_equal": true,
+    "guarded_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "payload_files": 28,
+    "source_record": "M6-T01-release-source.json"
+  },
+  "native_route": {
+    "actual_cases": [
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-manual-whole",
+        "passed": true,
+        "publication_count": 1
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-manual-1-4-7",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-manual-4-7-add-page1",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-manual-sort-dedupe",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-auto-level1",
+        "passed": true,
+        "publication_count": 4
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-auto-level2",
+        "passed": true,
+        "publication_count": 7
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 0,
+        "id": "PS51-preview-level1",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 0,
+        "id": "PS51-preview-level2",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 2,
+        "id": "PS51-invalid-token",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 5,
+        "id": "PS51-no-outline-failure",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 130,
+        "id": "PS51-redirected-plan-cancel",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-redirected-manual-fallback",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-redirected-selected-level-fallback",
+        "passed": true,
+        "publication_count": 4
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 130,
+        "id": "PS51-redirected-input-cancel",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-repeat-manual-old-output",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-real-epub",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS51-genuine-azw3",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 4,
+        "id": "PS51-malformed-epub",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 4,
+        "id": "PS51-malformed-azw3",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-manual-whole",
+        "passed": true,
+        "publication_count": 1
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-manual-1-4-7",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-manual-4-7-add-page1",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-manual-sort-dedupe",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-auto-level1",
+        "passed": true,
+        "publication_count": 4
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-auto-level2",
+        "passed": true,
+        "publication_count": 7
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 0,
+        "id": "PS7-preview-level1",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 0,
+        "id": "PS7-preview-level2",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 2,
+        "id": "PS7-invalid-token",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 5,
+        "id": "PS7-no-outline-failure",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 130,
+        "id": "PS7-redirected-plan-cancel",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-redirected-manual-fallback",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-redirected-selected-level-fallback",
+        "passed": true,
+        "publication_count": 4
+      },
+      {
+        "actual_finalized_log_authenticated": false,
+        "actual_native_exit": 130,
+        "id": "PS7-redirected-input-cancel",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-repeat-manual-old-output",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-real-epub",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 0,
+        "id": "PS7-genuine-azw3",
+        "passed": true,
+        "publication_count": 3
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 4,
+        "id": "PS7-malformed-epub",
+        "passed": true,
+        "publication_count": 0
+      },
+      {
+        "actual_finalized_log_authenticated": true,
+        "actual_native_exit": 4,
+        "id": "PS7-malformed-azw3",
+        "passed": true,
+        "publication_count": 0
+      }
+    ],
+    "architecture": "AMD64",
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b"
+      },
+      "WinBookSplit-v1.0.0.zip": {
+        "bytes": 414497,
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+      },
+      "release-manifest.json": {
+        "bytes": 11547,
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+      }
+    },
+    "calibre_executable_identity": {
+      "attributes": 32,
+      "device": 7216129139090590660,
+      "inode": 281474977417848,
+      "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "size_bytes": 36104
+    },
+    "calibre_version": "9.15.0",
+    "clean_os_claim": false,
+    "complete_receipt_seals": {
+      "audit-native-final01-command.json": {
+        "bytes": 2510,
+        "sha256": "cb9ac36e7d12c7d9116b051b1f3af2d261c51b0a65c8c24da3b5fee31f24baae"
+      },
+      "automated-final01-command.json": {
+        "bytes": 3623,
+        "sha256": "8d5720bd346aae4bde1d3c31417682225ac800d5425eb9f4bd5ad357395b0fbc"
+      },
+      "automated-final01.json": {
+        "bytes": 13157451,
+        "sha256": "b167da0828d8519935c6ef76b3a3e87211f6c516753731d3cd749afdd18a8220"
+      },
+      "independent-native-audit-final01.json": {
+        "bytes": 5733962,
+        "sha256": "663b835f0cff4f0441fd0d612ce9262d60dc5b7ff4cfa498477a6fe2e9315afe"
+      },
+      "native-derivation01.json": {
+        "bytes": 4479,
+        "sha256": "aba9f030196c0ea9103764924e98b7e389be2fc22b7c0eff533d2c96ecec4665"
+      },
+      "native-final-result-seal01.json": {
+        "bytes": 17340,
+        "sha256": "d0ec7b3db34cf3c110b39718852d8f5a92a5717e73823fe959dae5c1a4aea463"
+      },
+      "run-native-final01-command.json": {
+        "bytes": 3480,
+        "sha256": "f4ec9e9d6fa6cff72dbaa2d18bb513d64225d9e45d027f9b39cc6adae89dcf4c"
+      }
+    },
+    "counts": {
+      "actual_expected_nonzero_cases": 12,
+      "actual_native_operations": 72,
+      "actual_processing_cases": 38,
+      "authenticated_conversion_failure_records": 4,
+      "authenticated_finalized_logs": 30,
+      "physical_output_pages": 230,
+      "positive_publications": 22,
+      "previews": 4,
+      "reopened_chapters": 74,
+      "same_renderer_pixel_matches": 12,
+      "support_exports": 2
+    },
+    "derivatives": {
+      "extracted_final_driver01.py": {
+        "bytes": 43295,
+        "sha256": "2dbcae2ace296f8603d72e1600760c4ef740dce32f9b0f7b93a8529cefa25ab9"
+      },
+      "independent-native-audit-final01.py": {
+        "bytes": 48490,
+        "sha256": "7233aa5c6974c8c520b32198c6dd0ae785891807b7b6d5c84cb442e10c921bd4"
+      },
+      "run_extracted_final01.py": {
+        "bytes": 1566,
+        "sha256": "a5d1dd94b31c6f58c1e15a9538cdce3465f4cb3dcd34f06958613123bf28e584"
+      }
+    },
+    "fresh_native_driver_failures": [],
+    "historical_failed_run01_preserved": {
+      "independently_reobserved": true,
+      "outer_native_exit": 1,
+      "reclassified_as_pass": false,
+      "success": false
+    },
+    "historical_route_unchanged": true,
+    "human_or_gui_or_explorer_claim": false,
+    "limits": [
+      "Existing isolated workstation; no clean OS/Sandbox/VM claim.",
+      "All38 processing cases invoke actual PS1 through literal wrappers; no BAT/Explorer drag-drop/human selection or viewer acceptance.",
+      "Actual first/last pixel equality checks do not certify all pages visually or a second renderer.",
+      "Final-asset GUI/Explorer AC-099 remains NOT RUN by this native route; separate exact-asset evidence required.",
+      "Driver01 omitted noninteractive finalized-log assertion and had an overbroad failure-dir predicate. Original run01 remains FAILED/17passed. Driver02 narrowly fixes both; fresh run02 and independent reread require actual finalized logs and exact owned diagnostic-only failure directories. No source/runtime/package edit."
+    ],
+    "native_exit": 0,
+    "prior_five_handoff_seals_match": true,
+    "protocol": "winbooksplit.final-native-projection",
+    "renderer_executable_identity": {
+      "attributes": 32,
+      "device": 7216129139090590660,
+      "inode": 281474977303342,
+      "sha256": "e5b4da7d158cc7428d2ccb4eda1779d6566c067b24df01a0bc09f665659e4ac3",
+      "size_bytes": 64976
+    },
+    "schema_version": 1,
+    "scope": "Exact final-R ZIP isolated current Windows workstation;38 actual PS1 wrapper cases on both hosts, real Calibre conversion, complete physical-page reinspection and representative PNG equality. No UI/BAT/Explorer claim.",
+    "setup_python_executable_identity": {
+      "attributes": 32,
+      "device": 7216129139090590660,
+      "inode": 27303072741045300,
+      "sha256": "434b361fe0c5960d404974feed493db47f2603a1ace2574312104fbed0182c6f",
+      "size_bytes": 106208
+    },
+    "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "strict_failed": 0,
+    "strict_passed": 65819,
+    "success": true,
+    "supported_host_executable_identities": [
+      {
+        "attributes": 32,
+        "device": 7216129139090590660,
+        "inode": 1125899907201044,
+        "sha256": "8bb6fa8c283b4d92120b1ef249a9b311b0f804d4cabbe9981159976c8be76a5e",
+        "size_bytes": 495616
+      },
+      {
+        "attributes": 32,
+        "device": 2492383388551958737,
+        "inode": 281474976751946,
+        "sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+        "size_bytes": 301368
+      }
+    ],
+    "task": "M6-T03",
+    "versions": {
+      "PS51": {
+        "fresh_venv_origin_verified": true,
+        "powershell": "5.1.26100.9444",
+        "pypdf": "6.20.0",
+        "python": "3.14.8",
+        "runtime_only_packages": [
+          [
+            "pip",
+            "26.2.1"
+          ],
+          [
+            "pypdf",
+            "6.20.0"
+          ]
+        ],
+        "unrelated_cwd_and_checkout_import_exclusion_verified": true
+      },
+      "PS7": {
+        "fresh_venv_origin_verified": true,
+        "powershell": "7.6.6",
+        "pypdf": "6.20.0",
+        "python": "3.14.8",
+        "runtime_only_packages": [
+          [
+            "pip",
+            "26.2.1"
+          ],
+          [
+            "pypdf",
+            "6.20.0"
+          ]
+        ],
+        "unrelated_cwd_and_checkout_import_exclusion_verified": true
+      }
+    },
+    "windows": {
+      "CurrentBuild": "26300",
+      "DisplayVersion": "26H2",
+      "EditionID": "Professional",
+      "ProductName": "Windows 10 Pro",
+      "UBR": 9457
+    }
+  },
+  "supplementary_fidelity": {
+    "summary": {
+      "schema_version": 1,
+      "task_id": "M6-T03",
+      "scope": "Supplementary final-ZIP rich/image-only PDF fidelity; native and automated pixels plus separate agent views",
+      "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+      "ZIP_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "result": "FINAL_ZIP_RICH_IMAGE_ONLY_FIDELITY_PASS",
+      "success": true,
+      "native_exit_code": 0,
+      "case_count": 8,
+      "chapter_count": 20,
+      "reopened_output_pages": 44,
+      "exact_source_output_PNG_dimension_RGBA_matches": 44,
+      "retained_PNG_count": 54,
+      "native_operations": 39,
+      "native_status_counts": {
+        "0": 39
+      },
+      "skips": [],
+      "host_versions": {
+        "PS51": "5.1.26100.9444",
+        "PS7": "7.6.6"
+      },
+      "runtime_versions": {
+        "python": "3.14.8",
+        "pypdf": "6.20.0",
+        "installed_distribution_names": [
+          "pip",
+          "pypdf"
+        ]
+      },
+      "isolation": "Fresh final-ZIP extraction and runtime-only venv, controlled host/inbox PATH, unrelated CWD on existing Windows11 workstation; not clean OS",
+      "renderer": "Actual Poppler26.07.0 at72dpi using cropbox; single renderer supplementary coverage",
+      "cases": [
+        {
+          "id": "PS51-rich-manual",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "written_count": 2
+        },
+        {
+          "id": "PS51-rich-1",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "written_count": 2
+        },
+        {
+          "id": "PS51-rich-2",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          "written_count": 4
+        },
+        {
+          "id": "PS51-scanned-manual",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "written_count": 2
+        },
+        {
+          "id": "PS7-rich-manual",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "written_count": 2
+        },
+        {
+          "id": "PS7-rich-1",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              3
+            ],
+            [
+              3,
+              6
+            ]
+          ],
+          "written_count": 2
+        },
+        {
+          "id": "PS7-rich-2",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              1
+            ],
+            [
+              1,
+              3
+            ],
+            [
+              3,
+              4
+            ],
+            [
+              4,
+              6
+            ]
+          ],
+          "written_count": 4
+        },
+        {
+          "id": "PS7-scanned-manual",
+          "passed": true,
+          "physical_ranges_zero_based": [
+            [
+              0,
+              2
+            ],
+            [
+              2,
+              4
+            ]
+          ],
+          "written_count": 2
+        }
+      ],
+      "original_helpers": [
+        {
+          "source_path": "tests/fidelity/generate_fidelity_fixtures.py",
+          "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "bytes": 16449,
+          "sha256": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab"
+        },
+        {
+          "source_path": "tests/fidelity/validate_fidelity_report.py",
+          "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "bytes": 28379,
+          "sha256": "312b7b7c8902697b55cdc6229da2f86de4399a986c2f9b419f0c7ff927f1c1d3"
+        },
+        {
+          "source_path": "tests/manual/current_launchers.py",
+          "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "bytes": 27595,
+          "sha256": "318f9ca06797b84d99d5955ec14bef3bf7323804951509a643f65509ae76f894"
+        }
+      ],
+      "adapter_helpers": [
+        {
+          "file": "pure_console_helpers.py",
+          "bytes": 12399,
+          "sha256": "64e45958a7f5c4435bcbd322b6863788b7b43c4120998549bc6e82c1c32a6760",
+          "preserved_functions": [
+            "_console_need",
+            "_unique_json",
+            "authenticate_console_manifest",
+            "confirmed_console_plan",
+            "validate_console_evidence"
+          ],
+          "scope": "Read-only console receipt validation; original cleanup/application imports excluded"
+        },
+        {
+          "file": "pure_structural_output_oracle.py",
+          "bytes": 5359,
+          "sha256": "cd16af3f0b8bb176f566dfca1a9ad0e7a5d5ac435c3f7068c68eb15b697edd83",
+          "preserved_functions": [
+            "need",
+            "validate_output"
+          ],
+          "scope": "Original exact geometry/content/images/static/nav/serialized resources/metadata/outline oracle; no source-checkout app import"
+        }
+      ],
+      "read_only_audit": {
+        "passed": 275,
+        "failed": 0,
+        "scope": "Retained bytes/AST/native streams/physical outputs/PNG replay; no application or renderer invocation"
+      },
+      "agent_image_views": {
+        "count": 5,
+        "scope": "Actual output PNG view_image samples, rich rotations0/90/180/270/static appearances and final image-onlypage4; no GUI/human result"
+      },
+      "immutability": "All final3assets/extracted28payload/authored inputs/neighbor/prior outputs and host persistent-policy observations unchanged",
+      "render_stderr": {
+        "rich_source": {
+          "bytes": 1333,
+          "sha256": "f5d324aa865c8244b8e630a29a85fe1756704499e115165f921bd74d8658a6ae",
+          "scope": "Historical font diagnostics plus intentionally malformed authored annotation destination warning"
+        },
+        "rich_outputs": {
+          "operations": 16,
+          "each_bytes": 1289,
+          "sha256": "74095b267fcd746d2f088f0aea89f337e472614c4726d4626eb919cbb3107ff8",
+          "scope": "Historical font diagnostics retained; not warning-free rendering"
+        }
+      },
+      "retained_preparation_failures": [
+        {
+          "run": "fidelity-final01",
+          "status": "FAILED",
+          "actual_application_native_exit": 0,
+          "cause": "External harness incorrectly expected sole raw engine frame in console stdout; supported final engine frame is in finalized console log."
+        },
+        {
+          "run": "fidelity-final02",
+          "status": "FAILED",
+          "actual_application_native_exit": 0,
+          "cause": "Stdlib pure-console adapter omitted datetime import used by the unchanged validator."
+        }
+      ],
+      "corrections": "v02 moves sole engine-frame equality to authenticated log; v03 supplies only missing stdlib datetime import. Fresh owned directories/reports per trial; all failed artifacts preserved.",
+      "limits": [
+        "Existing-workstation extraction isolation, not a clean OS.",
+        "No GUI/Explorer/viewer/human observations.",
+        "One actual Poppler renderer, not renewed PDFium coverage.",
+        "All authored fixture pages structurally reopened and rendered; no generalized arbitrary-document fidelity claim.",
+        "Outputs and all evidence are retained; no artifact deletion.",
+        "Retained developer renderer/dependency advisory limits remain as recorded in M5-T04."
+      ],
+      "artifact_seals": [
+        {
+          "file": "run_final_fidelity01.py",
+          "bytes": 24852,
+          "sha256": "ea92b3393b26b02d24a3f46eaa064990792f2df3219b84b788f56f098984e009"
+        },
+        {
+          "file": "run_final_fidelity02.py",
+          "bytes": 24846,
+          "sha256": "09757ecc3c4a892a1123239406ae40077b1e187b6501fcc48f0bad20be23805b"
+        },
+        {
+          "file": "run_final_fidelity03.py",
+          "bytes": 24876,
+          "sha256": "31abe180c1d592fa658e2f660eb984c9c3c38aa19cc525802b86c2e6f2c7bb51"
+        },
+        {
+          "file": "fidelity-final01/final-fidelity-report01.json",
+          "bytes": 153822,
+          "sha256": "dbc9ce6bbfeb56989f1ae269ca76cff6115bfbaf91cff6161808d4f24b1d6e03"
+        },
+        {
+          "file": "fidelity-final02/final-fidelity-report02.json",
+          "bytes": 154896,
+          "sha256": "9a9a45bc12f2a1290c531bd6e7c943f0cced694017df34c4bee90b5d66199195"
+        },
+        {
+          "file": "replay_fidelity_trial02_console03.py",
+          "bytes": 2727,
+          "sha256": "16ce8e937d2c193e291efa138ebcc48bde9ed0b1ad922427ef465d825516888c"
+        },
+        {
+          "file": "fidelity-trial02-console-replay03/replay-receipt03.json",
+          "bytes": 55254,
+          "sha256": "4e2f520440566bd3503713da91f8c0ec983f9843e9d06046c7054c89eda2c5a9"
+        },
+        {
+          "file": "fidelity-final03/final-fidelity-report03.json",
+          "bytes": 1788258,
+          "sha256": "f5ea8f7c474d885743e911b86fd76f9207cc0f144c25d5fb4d381507eca184ed"
+        },
+        {
+          "file": "audit_final_fidelity03.py",
+          "bytes": 9081,
+          "sha256": "14854e57cb2d34490818131a2d1daf7b6abc4b3ecaffd9042c7e873361c10039"
+        },
+        {
+          "file": "fidelity-final03/readonly-fidelity-audit03.json",
+          "bytes": 28578,
+          "sha256": "db7af5760ae1f69e2d3b1cd3316e40ec287cd9e0bd7494df4c313396be23b240"
+        },
+        {
+          "file": "record_fidelity_visual03.py",
+          "bytes": 2267,
+          "sha256": "f8080f7baa1ac12e09c7edd59d0f053189d5b6b1e99fd519fcff0857e728c308"
+        },
+        {
+          "file": "fidelity-final03/agent-visual-inspection03.json",
+          "bytes": 2329,
+          "sha256": "e5d9d65fab0bd1a07d6ebfa4691a522120c790e47e035384aeda79c0fb921f49"
+        }
+      ]
+    },
+    "cases": [
+      {
+        "id": "PS51-rich-manual",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS51-rich-1",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS51-rich-2",
+        "native_exit": 0,
+        "chapters": 4,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS51-scanned-manual",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 4,
+        "ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS7-rich-manual",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS7-rich-1",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS7-rich-2",
+        "native_exit": 0,
+        "chapters": 4,
+        "physical_pages": 6,
+        "ranges": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            3
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            6
+          ]
+        ],
+        "passed": true
+      },
+      {
+        "id": "PS7-scanned-manual",
+        "native_exit": 0,
+        "chapters": 2,
+        "physical_pages": 4,
+        "ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            4
+          ]
+        ],
+        "passed": true
+      }
+    ],
+    "native_operations": 39,
+    "native_exit": 0,
+    "skips": [],
+    "cases_passed": 8,
+    "chapters": 20,
+    "physical_output_pages": 44,
+    "same_renderer_page_matches": 44,
+    "read_only_audit_checks": 275,
+    "second_renderer_renewed": false
+  },
+  "root_image_views": {
+    "method": "Four actual retained output PNGs individually viewed through view_image after successful actual native runs.",
+    "GUI_or_human_or_viewer_test": false,
+    "images": [
+      {
+        "file": "automated-final01/renders/PS51-epub-first.png",
+        "bytes": 25266,
+        "sha256": "7e39f01ca1162dc8d01ecd7a307ccadb66e596add72dba51c40f6a541b23ad57",
+        "observation": "Readable Chapter One/WBS-PAGE-001 and authored prose; no visible clipping."
+      },
+      {
+        "file": "automated-final01/renders/PS7-azw3-last.png",
+        "bytes": 8892,
+        "sha256": "179445771109c55d3fb3d05acd84f6c01a501e9f17b414353335b9901e90b2da",
+        "observation": "Readable Table of Contents with three chapter entries on generated physical last page."
+      },
+      {
+        "file": "fidelity-final03/renders/PS51-rich-manual-output-1-2.png",
+        "bytes": 23203,
+        "sha256": "82932d8c7e420bebda3bae40bf29f5cb4d1c08d365425b8e8a544330c48acda1",
+        "observation": "Authored page002, embedded image, vector strokes and highlight remain visible with expected90degree rotation and crop."
+      },
+      {
+        "file": "fidelity-final03/renders/PS51-scanned-manual-output-2-2.png",
+        "bytes": 6116,
+        "sha256": "e1b81857c5986a686c68b81c8b135889f306544ac713f5805ce06f1b8eb3be41",
+        "observation": "Readable IMAGE-ONLY-PAGE-004 marker and patterned image at expected rotation; no OCR claim."
+      }
+    ]
+  },
+  "Explorer_preparation": {
+    "status": "PREPARATION_PASS_HUMAN_NOT_RUN",
+    "application": "explorer-final01/app51",
+    "inputs": "explorer-final01/inputs",
+    "guide": "explorer-final01/EXPLORER_STEPS.md",
+    "results": "explorer-final01/EXPLORER_RESULTS.md",
+    "setup_native_operations": 12,
+    "setup_native_exits": [
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "human_flows": [
+      {
+        "id": "F01",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F02",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F03",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F04",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F05",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F06",
+        "status": "NOT_RUN"
+      },
+      {
+        "id": "F07",
+        "status": "NOT_RUN"
+      }
+    ],
+    "actual_user_results": null,
+    "runtime_file_seals": 1019,
+    "Python_base_selected_file_inventory": 2437,
+    "known_location_Calibre_application_inventory": 1345,
+    "scope": "Preparation only; no actual application launch/Explorer/viewer observation. Original fixtures/assets/runtime snapshots retained separately."
+  },
+  "UI_automation_constraint": {
+    "skill": "computer-use",
+    "source": "computer-use/26.1007.21434/docs/guidance.md",
+    "instruction": "Do not automate terminal applications such as Windows Terminal, Command Prompt, or Windows PowerShell.",
+    "application": "BAT/console/indirect terminal launch through Explorer requires user participation under this skill."
+  },
+  "current_CI_API_metadata": [
+    {
+      "conclusion": "success",
+      "head_sha": "deb563d02e861e565d54e435739bcad96d7f8a41",
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38101323733",
+      "id": 38101323733,
+      "status": "completed"
+    },
+    {
+      "conclusion": "success",
+      "head_sha": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38097123491",
+      "id": 38097123491,
+      "status": "completed"
+    }
+  ],
+  "CI_scope": "Fresh API metadata only. Prior514Python/116Pester report audits are historical R/T02 evidence; no fresh full/CI invocation here.",
+  "external_receipts": [
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "initial-source-audit01.json",
+      "bytes": 241959,
+      "sha256": "fc85bd44a9dc9afec68221b82e649b270c19ba5cadd3929b14a634c60ee45bb5"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "native-derivation01.json",
+      "bytes": 4479,
+      "sha256": "aba9f030196c0ea9103764924e98b7e389be2fc22b7c0eff533d2c96ecec4665"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "automated-final01.json",
+      "bytes": 13157451,
+      "sha256": "b167da0828d8519935c6ef76b3a3e87211f6c516753731d3cd749afdd18a8220"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "automated-final01-command.json",
+      "bytes": 3623,
+      "sha256": "8d5720bd346aae4bde1d3c31417682225ac800d5425eb9f4bd5ad357395b0fbc"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-native-audit-final01.json",
+      "bytes": 5733962,
+      "sha256": "663b835f0cff4f0441fd0d612ce9262d60dc5b7ff4cfa498477a6fe2e9315afe"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "native-final-result-seal01.json",
+      "bytes": 17340,
+      "sha256": "d0ec7b3db34cf3c110b39718852d8f5a92a5717e73823fe959dae5c1a4aea463"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "native-final-public-summary01.json",
+      "bytes": 13169,
+      "sha256": "473b7bb65ffdf7e5c8a9d82daa69bc1af7046be7c56f4626ab99db3c9cfde986"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "final-fidelity-summary03.json",
+      "bytes": 9228,
+      "sha256": "637a08d0fa5d58eca54e656099d3051c4d5f03cbf71cc7b5af7bedaccea3fcf4"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "fidelity-final01/final-fidelity-report01.json",
+      "bytes": 153822,
+      "sha256": "dbc9ce6bbfeb56989f1ae269ca76cff6115bfbaf91cff6161808d4f24b1d6e03"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "fidelity-final02/final-fidelity-report02.json",
+      "bytes": 154896,
+      "sha256": "9a9a45bc12f2a1290c531bd6e7c943f0cced694017df34c4bee90b5d66199195"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "fidelity-final03/final-fidelity-report03.json",
+      "bytes": 1788258,
+      "sha256": "f5ea8f7c474d885743e911b86fd76f9207cc0f144c25d5fb4d381507eca184ed"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "fidelity-final03/readonly-fidelity-audit03.json",
+      "bytes": 28578,
+      "sha256": "db7af5760ae1f69e2d3b1cd3316e40ec287cd9e0bd7494df4c313396be23b240"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "fidelity-final03/agent-visual-inspection03.json",
+      "bytes": 2329,
+      "sha256": "e5d9d65fab0bd1a07d6ebfa4691a522120c790e47e035384aeda79c0fb921f49"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "root-visual-metadata-review01.json",
+      "bytes": 3828,
+      "sha256": "41d8aaecf4cbf15b3c11b645d89322225d76e570b096082540ea3947105056b4"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "explorer-final01/PREPARATION.json",
+      "bytes": 495385,
+      "sha256": "4ced13555f16d047159a95698d66190e02af48c31d947dee7fd2c2dd9e18ed3c"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "explorer-final01/BEFORE_HUMAN.json",
+      "bytes": 1787983,
+      "sha256": "23ccefe1c9f50ec0a319b0ba9d612b3fe9363c00ae507686891aea470c877c2f"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "explorer-final01/PREPARATION_SEALS.json",
+      "bytes": 1865,
+      "sha256": "37383a00b22131f7670b0e2b9dc5c7c35c648f63a6c587d6482a6e870124b4a3"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "explorer-final01/EXPLORER_STEPS.md",
+      "bytes": 4407,
+      "sha256": "abdc148ae682ba77bc34c732aaff5634b3f59484fa9b660abe476cd4ca487a9b"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-final-asset-review01.json",
+      "bytes": 120363,
+      "sha256": "efb0f30b3266dfdab4bc4b176a19fde0bec3d0ba0249fffdf4cef72a094297c7"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-final-asset-review02.json",
+      "bytes": 196060,
+      "sha256": "65d84b97366bd4c7084c13f39c0a2b546efa3b9fcf0026c9c86b74b460e84f8f"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-final-asset-review02-summary.json",
+      "bytes": 9548,
+      "sha256": "6718e66e6c24012e02a374b71da9a4858c7da6c0f9a2d3d226f2b97778db9b2e"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-review-derivation02.json",
+      "bytes": 913,
+      "sha256": "a9280368f00b03d731f286e95259a79ad2a4c147aafec6bbc69f883fb18b4d27"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "independent-review-seals02.json",
+      "bytes": 1889,
+      "sha256": "92d91317933a174d93619674992b334c892c9284b2b5c1a59debe2a8db0f9960"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "initial-check-sync-from-tool.json",
+      "bytes": 667,
+      "sha256": "ebcda48bb86112b61c609fa158009881cb87f2a23daadc07af6ba11449e96349"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "root-reconciliation-trial01.json",
+      "bytes": 752,
+      "sha256": "ebe9cf35edf4707e5465a88395bbac68663cceb6af298daf71bf34d84aa01e28"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "reconcile_independent_review.py",
+      "bytes": 4159,
+      "sha256": "c736b0cca37b6915a27f4891c81ab38f78906d84c0a5aa465fdee10c0e6a5cb2"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "reconcile_independent_review02.py",
+      "bytes": 5149,
+      "sha256": "010ca4b204f0181602656bc399365fa8ecf2f657dc16ffb5b975614ac139c531"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "pending-docs-native-review01.json",
+      "bytes": 1329,
+      "sha256": "e9edea8fea8566371a6a0e643200bdcf99ae380816bb80f21663d2dc61e58ccc"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T03-20261011",
+      "file": "pending-docs-review01.json",
+      "bytes": 10591,
+      "sha256": "6c10df0028315cdf5c9f41b1f95eedf69fd3cd422f733e13e71a584d4352f782"
+    }
+  ],
+  "preparation_failures": [
+    {
+      "trial": "fidelity-final01",
+      "outcome": "FAILED",
+      "scope": "External harness assumption; actual first PS51 app native0 is partial evidence only."
+    },
+    {
+      "trial": "fidelity-final02",
+      "outcome": "FAILED",
+      "scope": "External pure-console adapter missing datetime; first PS51 app native0 is partial evidence only."
+    },
+    {
+      "trial": "independent-final-asset-review01",
+      "outcome": "FAILED",
+      "scope": "Read-only reviewer premise required DEVNULL for intentional captured redirected PIPE answers. Separate review02 binds only the eight exact expected per-ID PIPE strings/DEVNULL and retains all command/deadline/stream predicates; actual native cases remain passing."
+    },
+    {
+      "trial": "root-independent-review-reconciliation01",
+      "outcome": "FAILED_GUARD_BEFORE_TRACKED_WRITE",
+      "scope": "Public-projection guard rejected absolute paths in supplied independent summary. First Python status was not separately captured (later plan-validator made composing shell native0); assertion traceback retained externally. v02 selects public-safe scalar fields and seals original complete private-local review separately."
+    },
+    {
+      "trial": "pending-docs-native-review01",
+      "outcome": "FAILED",
+      "scope": "Read-only document reviewer incorrectly required the concise fidelity projection to equal the full local summary schema; exact shared scalars and transformed case fields are separately compared in the corrected review. No application rerun or product failure."
+    },
+    {
+      "trial": "pending-docs-review01",
+      "outcome": "FAILED",
+      "scope": "Read-only document review found NEXT_SESSION lacked explicit closed M3/M5 D13 G01-G03/R01-R04 route labels. The handoff now explicitly retains those closures, G04-G16 SUPERSEDED and retired variants native-only. Original failed receipt remains unchanged; a new review is required."
+    }
+  ],
+  "product_defects_found": [],
+  "private_document_inputs": false,
+  "tracked_runtime_build_dependency_test_changes": false,
+  "tag_release_upload_created": false,
+  "limitations": [
+    "AC-099 final Explorer/BAT/console/viewer observations F01-F07 remain NOT RUN; native redirected controls do not certify them.",
+    "Existing Windows11 x64 workstation with fresh extractions/runtime-only venvs/controlled child paths; no clean OS/Sandbox/VM/Windows10/ARM/UNC certification.",
+    "No final-asset BAT outer native exit or human viewer/process-absence evidence is inferred from files or window disappearance.",
+    "Supplementary fidelity uses one actual Poppler26.07 renderer. Prior PDFium/developer advisory limits remain historical; no second-renderer renewal or general arbitrary-document promise.",
+    "Native and renderer stderr remains retained. Authored rich-source render emitted1333bytes of font/malformed-destination diagnostics; sixteen rich-output render operations emitted1289bytes of recorded font diagnostics. Native0 and exact pixel comparisons are not warning-free claims.",
+    "Two supplementary harness preparation trials remain FAILED: frame read from stdout instead of finalized log, then missing datetime in pure adapter. The read-only replay is not an application rerun.",
+    "All historical failures, interruptions, UNKNOWN causes, unavailable scanners/original receipts, default static observations and23older unmapped newline differences remain preserved.",
+    "Completed M3/M5 D13 human routes remain closed; G04-G16 remain SUPERSEDED and retired variants native-only. These separately labeled final-ZIP observations are pending.",
+    "No source-checkout full514/Pester/full22, new workflow request, advisory query, signing, rebuild, tag/draft/release/upload/download occurred here.",
+    "R and all three final assets remain fixed/unsigned. AC101-107 are pending; project publication is incomplete."
+  ],
+  "checkpoint": {
+    "release_source_anchor": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "historical_clean_main": "deb563d02e861e565d54e435739bcad96d7f8a41",
+    "own_commit": null,
+    "own_push_live_sync_receipt": "External/thread after it actually exists; no self/future hash embedded."
+  },
+  "independent_final_review": {
+    "schema_version": 1,
+    "task_id": "M6-T03",
+    "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "status": "PASS_RECORDED_NATIVE_FIDELITY_SCOPE_HUMAN_PENDING",
+    "observed_utc": "2026-10-11T05:27:55.322925+00:00",
+    "success": true,
+    "independently_passed_checks": 1813,
+    "human_results_claimed": false,
+    "outer_BAT_native_exit_claimed": false,
+    "second_renderer_claimed": false,
+    "clean_OS_claimed": false,
+    "scope": "Read-only independent inspection of already completed actual native/fidelity reports, source/static adapters, raw streams, outputPDF/PNG bytes. No application/launcher/UI run by this reviewer. Root task and exact-asset human acceptance remain pending.",
+    "native_diff_review": "All three complete diffs read: final R/root/assets/pypdf6.20/PS7.6.6 and scope bindings only. Retained historical failure audit restores old ROOT/WORK/pypdf6.19 and remains FAILED; case/range/output/log/process/stream/import predicates retained."
+  },
+  "historical_initial_sync": {
+    "method": "Exact actual check_sync.py result copied from earlier tool output; not a new invocation or current dirty-state sync claim.",
+    "receipt": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-11T05:18:33.256228+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "main",
+      "local_head": "deb563d02e861e565d54e435739bcad96d7f8a41",
+      "worktree_clean": true,
+      "remote_head": "deb563d02e861e565d54e435739bcad96d7f8a41",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    }
+  },
+  "preparation_observations": [
+    {
+      "operation": "Read-only optional recursive path-field inspection command",
+      "outcome": "PowerShell ParserError/native1 before Python started; no application/test/source write. Explicit selected-field public projection was used instead."
+    },
+    {
+      "operation": "Git diff/check under inherited newline configuration",
+      "outcome": "LF-to-CRLF advisories only, diff check0; future Git calls use command-local core.autocrlf=false, with no global setting or guarded-source-byte change."
+    },
+    {
+      "operation": "Initial discovery reads",
+      "outcome": "rg reported absent scripts directory and misnamed root helper modules; actual engine paths/specs were read. No acceptance test was attempted by those discovery calls."
+    }
+  ]
+}
