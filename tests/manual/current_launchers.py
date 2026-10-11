@@ -21,6 +21,23 @@ history, require = manual.history, manual.require
 spec = importlib.util.spec_from_file_location("wbs_current_interaction_receipts", ROOT / "tests/manual/interaction_receipts.py")
 interactions = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(interactions)
+spec = importlib.util.spec_from_file_location("wbs_receipt_compatibility", ROOT / "engine/winbooksplit_compatibility.py")
+compatibility = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(compatibility)
+# Parse and hash the same bounded policy bytes, as the production probe does.
+RUNTIME_POLICY, _policy_bytes = compatibility._read_policy()
+RUNTIME_POLICY_SHA256 = sha256(_policy_bytes).hexdigest()
+
+
+def python_version_supported(value):
+    """Check a manifest's version against policy; this alone proves no native identity."""
+    if type(value) is not str or re.fullmatch(r"\d+\.\d+\.\d+", value) is None:
+        return False
+    record = {"version": value, "version_info": [int(part) for part in value.split(".")],
+              "releaselevel": "final", "serial": 0, "implementation": "cpython", "platform": "win32",
+              "machine": "AMD64", "bits": 64, "gil_disabled": False, "isolated": True,
+              "dont_write_bytecode": True, "executable": "C:\\version-only\\python.exe"}
+    return compatibility.validate_interpreter(record, RUNTIME_POLICY)["ok"]
 
 
 def exact_line(stdout, prefix):
@@ -68,7 +85,7 @@ def confirmed_console_plan(text):
     return event["plan"]
 
 
-def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None, source_observation=None, allow_unfinalized=False, log_text=None):
+def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None, source_observation=None, allow_unfinalized=False, log_text=None, expected_python_version=None):
     """Pure receipt checks; actual native bytes/held cleanup are separate proofs."""
     need = _console_need
     need(isinstance(receipt, dict) and isinstance(outcome, dict) and receipt.get("log_sha256") == log_sha256
@@ -115,9 +132,11 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
     started, finished = (datetime.fromisoformat(record[key]) for key in ("started_utc", "finished_utc"))
     need(started.tzinfo is not None and finished.tzinfo is not None and started <= finished, "Local run timestamps invalid")
     versions, settings, logged = record.get("runtime_versions", {}), record.get("settings", {}), record.get("log", {})
-    need(versions.get("python") == "3.14.8" and versions.get("pypdf") == "6.20.0"
+    need(python_version_supported(versions.get("python")) and versions.get("pypdf") == RUNTIME_POLICY["pypdf"]["version"]
          and isinstance(versions.get("powershell"), str) and versions["powershell"].startswith(("5.1.", "7."))
          and versions.get("calibre") in {None, "9.15.0"}, "Local run runtime versions differ")
+    if expected_python_version is not None:
+        need(versions.get("python") == expected_python_version, "Local run Python differs from the selected probe")
     need(settings.get("mode") == outcome.get("mode") and settings.get("input_kind") in {"pdf", "epub", "azw3"}
          and all(type(settings.get(key)) is bool for key in ("preview", "non_interactive", "no_pause", "keep_converted_pdf"))
          and all(type(settings.get(key)) is int and settings[key] > 0 for key in ("conversion_timeout", "process_timeout")),
@@ -149,7 +168,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
          "Local run warnings differ from engine categories")
 
 
-def authenticate_console_manifest(log, outcome=None, *, source_path=None, source_observation=None, allow_unfinalized=False):
+def authenticate_console_manifest(log, outcome=None, *, source_path=None, source_observation=None, allow_unfinalized=False, expected_python_version=None):
     """Read only exact ordinary owned console records; never adopt pending files."""
     directory = log.parent
     require(log.is_absolute() and log.name == "console.log" and directory.resolve(strict=True) == directory
@@ -181,7 +200,8 @@ def authenticate_console_manifest(log, outcome=None, *, source_path=None, source
                "run_manifest": _unique_json(manifest_raw) if manifest_raw is not None else None, "run_manifest_raw": manifest_raw,
                "run_manifest_sha256": identities["WinBookSplit_Run.json"]["sha256"] if manifest_raw is not None else None}
     validate_console_evidence(receipt, outcome, receipt["log_sha256"], source_path=source_path,
-                              source_observation=source_observation, allow_unfinalized=allow_unfinalized, log_text=raw["console.log"])
+                              source_observation=source_observation, allow_unfinalized=allow_unfinalized, log_text=raw["console.log"],
+                              expected_python_version=expected_python_version)
     return receipt
 
 

@@ -1761,5 +1761,151 @@ class RunnerTests(unittest.TestCase):
             self.assertTrue(all(name in os.environ for name in runner.GIT_SELECTORS))
 
 
+class ApplicationRouteTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        spec = importlib.util.spec_from_file_location("wbs_test_application_matrix", ROOT / "tests/compatibility/application_matrix.py")
+        cls.matrix = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.matrix)
+
+    def test_fixed_runtime_only_modules_have_no_developer_fixture_suite(self):
+        self.assertEqual(runner.APPLICATION_UNIT_MODULES, self.matrix.UNIT_MODULES)
+        self.assertEqual(len(set(runner.APPLICATION_UNIT_MODULES)), 9)
+        self.assertNotIn("test_runner", runner.APPLICATION_UNIT_MODULES)
+        self.assertNotIn("test_package_inputs", runner.APPLICATION_UNIT_MODULES)
+
+    def test_missing_required_module_fails_without_discovery_fallback(self):
+        class Stream(io.StringIO):
+            def reconfigure(self, **kwargs):
+                pass
+        output = Stream()
+        original_import = __import__
+
+        def missing(name, *args, **kwargs):
+            if name == runner.APPLICATION_UNIT_MODULES[0]:
+                raise ImportError("controlled required-module failure")
+            return original_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=missing), patch.object(sys, "stdout", output), patch.object(sys, "path", list(sys.path)):
+            status = runner.application_unit_suite()
+        self.assertEqual(status, 1)
+        record = json.loads(output.getvalue().removeprefix("[APPLICATION-UNITS] "))
+        self.assertFalse(record["success"])
+        self.assertEqual(record["tests_run"], 0)
+        self.assertIn("ImportError", record["loading_error"])
+        self.assertEqual(record["modules"], [])
+
+    def test_required_module_skip_is_a_failed_unit_route(self):
+        class Stream(io.StringIO):
+            def reconfigure(self, **kwargs):
+                pass
+        class Skipped(unittest.TestCase):
+            @unittest.skip("controlled runtime-only skip")
+            def test_boundary(self):
+                pass
+        class Loader:
+            errors = []
+            def loadTestsFromModule(self, module):
+                return unittest.defaultTestLoader.loadTestsFromTestCase(Skipped)
+        output = Stream()
+        with patch.object(runner.unittest, "TestLoader", return_value=Loader()), patch.object(sys, "stdout", output), \
+                patch.object(sys, "stderr", Stream()), patch.object(sys, "path", list(sys.path)):
+            status = runner.application_unit_suite()
+        self.assertEqual(status, 1)
+        record = json.loads(output.getvalue().removeprefix("[APPLICATION-UNITS] "))
+        self.assertEqual(record["tests_run"], 9)
+        self.assertEqual(len(record["skipped"]), 9)
+        self.assertFalse(record["success"])
+
+    def test_native_process_requires_whole_tree_input_writer_and_exact_streams(self):
+        good = {"ExitCode": 2, "Pid": 123, "ParentStopped": True, "DescendantsStopped": True,
+                "StreamsComplete": True, "JobAssigned": True, "InputWriterStopped": True,
+                "TimedOut": False, "Cancelled": False, "StdoutTruncated": False, "StderrTruncated": False,
+                "Stdout": "authored å\n", "StdoutTotalBytes": len("authored å\n".encode("utf-8")),
+                "Stderr": "", "StderrTotalBytes": 0,
+                **{key: None for key in ("StartError", "StopError", "StreamError", "ResultError", "InteractionError", "InputError")}}
+        self.assertEqual(self.matrix.validate_process(good), good)
+        for key, value in (("DescendantsStopped", False), ("InputWriterStopped", False), ("StreamsComplete", None),
+                           ("JobAssigned", False), ("TimedOut", True), ("Cancelled", True), ("ExitCode", True),
+                           ("StdoutTruncated", True), ("StdoutTotalBytes", 0), ("StopError", "controlled")):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.matrix.validate_process({**good, key: value})
+
+    def test_unit_receipt_binds_all_modules_counts_runtime_and_no_skips(self):
+        candidate = Path("C:/authored/python.exe")
+        good = {"protocol": "winbooksplit.application-units", "version": 1, "success": True,
+                "required_modules": list(self.matrix.UNIT_MODULES),
+                "modules": [{"name": name, "test_count": 1} for name in self.matrix.UNIT_MODULES],
+                "tests_run": 9, "failures": 0, "errors": 0, "expected_failures": 0, "unexpected_successes": 0,
+                "skipped": [], "loading_error": None, "python_executable": str(candidate), "python_version": "3.13.16",
+                "isolated": True, "no_bytecode": True}
+        self.matrix.validate_units(good, candidate, "3.13.16")
+        for key, value in (("modules", good["modules"][:-1]), ("tests_run", True), ("errors", False),
+                           ("skipped", [{"test": "controlled", "reason": "unsupported"}]),
+                           ("python_version", "3.14.8"), ("python_executable", "C:/other/python.exe"),
+                           ("isolated", False), ("loading_error", "missing module")):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.matrix.validate_units({**good, key: value}, candidate, "3.13.16")
+
+    def test_application_module_startup_failure_preserves_owned_workspace(self):
+        args = SimpleNamespace(application_python_path=Path("C:/authored/python.exe"), shell_path=[], calibre_path=None)
+        with tempfile.TemporaryDirectory() as directory, patch.object(runner.importlib.util, "spec_from_file_location", side_effect=RuntimeError("controlled import failure")):
+            step = runner.application_matrix_step(args, Path(directory))
+        self.assertEqual(step["exit_code"], 1)
+        self.assertFalse(step["cleanup_safe"])
+        self.assertEqual(step["evidence"]["error_type"], "RuntimeError")
+
+    def test_synthetic_candidate_policy_origin_inventory_and_identity_binding(self):
+        compatibility = self.matrix.load("wbs_runner_candidate_policy", ROOT / "engine/winbooksplit_compatibility.py")
+        policy_path = ROOT / "engine/WinBookSplit.Compatibility.json"
+        policy = compatibility.load_policy(policy_path)
+        candidate = Path("C:/authored/python.exe")
+        origin = Path("C:/authored/lib/pypdf/__init__.py")
+        # Later stable patch is a numeric policy test, not an installed-runtime claim.
+        record = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": True, "reason": "supported",
+                  "version": "3.14.10", "version_info": [3, 14, 10], "releaselevel": "final", "serial": 0,
+                  "implementation": "cpython", "platform": "win32", "machine": "AMD64", "bits": 64,
+                  "gil_disabled": False, "isolated": True, "dont_write_bytecode": True, "executable": str(candidate),
+                  "policy_version": policy["policy_version"], "policy_sha256": self.matrix.digest(policy_path),
+                  "pypdf_version": policy["pypdf"]["version"], "pypdf_path": str(origin)}
+        inventory = {"executable": str(candidate), "version": "3.14.10", "isolated": True, "dont_write_bytecode": True,
+                     "purelib": "C:/authored/lib", "platlib": "C:/authored/lib",
+                     "distributions": [{"name": "pypdf", "version": policy["pypdf"]["version"]}]}
+        with patch.object(self.matrix, "ordinary_file", side_effect=lambda value: Path(value)):
+            self.matrix.validate_candidate(record, inventory, candidate, policy, self.matrix.digest(policy_path), compatibility)
+            mutations = [({**record, "policy_sha256": "0" * 64}, inventory),
+                         ({**record, "version": "3.14.2", "version_info": [3, 14, 2]}, {**inventory, "version": "3.14.2"}),
+                         ({**record, "pypdf_path": "C:/outside/pypdf/__init__.py"}, inventory),
+                         (record, {**inventory, "executable": "C:/other/python.exe"}),
+                         (record, {**inventory, "distributions": [*inventory["distributions"], {"name": "Pillow", "version": "12.3.0"}]})]
+            for bad_record, bad_inventory in mutations:
+                with self.subTest(record=bad_record, inventory=bad_inventory), self.assertRaises(ValueError):
+                    self.matrix.validate_candidate(bad_record, bad_inventory, candidate, policy, self.matrix.digest(policy_path), compatibility)
+
+    def test_wrapper_dependency_binds_exact_executable_even_when_versions_match(self):
+        import test_runtime_receipt as fixture
+        candidate = Path(r"C:\authored\runtime14\Scripts\python.exe")
+        selected = fixture.selected_runtime(str(candidate), "explicit")
+        probe = selected["Details"]
+        policy_sha = selected["PolicySha256"]
+        text = "[DEPENDENCY] " + json.dumps({"Runtime": selected, "Converter": None}) + "\n"
+        result = self.matrix.validate_wrapper_runtime(text, candidate, probe, policy_sha,
+                                                     fixture.validator, fixture.validator.console._unique_json)
+        self.assertEqual(result["selected_runtime"], selected)
+        other = fixture.selected_runtime(r"C:\authored\dev14\Scripts\python.exe", "explicit")
+        self.assertEqual(other["Version"], selected["Version"])
+        mutations = ["[DEPENDENCY] " + json.dumps({"Runtime": other, "Converter": None}) + "\n", text + text]
+        for malformed in mutations:
+            with self.subTest(text=malformed), self.assertRaises(ValueError):
+                self.matrix.validate_wrapper_runtime(malformed, candidate, probe, policy_sha,
+                                                     fixture.validator, fixture.validator.console._unique_json)
+        with self.assertRaises(ValueError):
+            self.matrix.validate_wrapper_runtime(text, candidate, {**probe, "message": "Different actual probe"}, policy_sha,
+                                                 fixture.validator, fixture.validator.console._unique_json)
+        with self.assertRaises(ValueError):
+            self.matrix.validate_wrapper_runtime(text, candidate, probe, "0" * 64,
+                                                 fixture.validator, fixture.validator.console._unique_json)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

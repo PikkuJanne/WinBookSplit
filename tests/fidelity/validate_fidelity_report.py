@@ -13,7 +13,9 @@ APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBoo
     'engine/WinBookSplit.Runtime.ps1', 'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Diagnostics.ps1',
     'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1',
     'engine/WinBookSplit.Outcomes.json', 'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py',
-    'engine/winbooksplit_windows.py', 'engine/winbooksplit_job.py')
+    'engine/winbooksplit_windows.py', 'engine/winbooksplit_job.py',
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 MATRIX = [('rich', 'manual'), ('rich', '1'), ('rich', '2'), ('scanned', 'manual')]
 RANGES = {'manual': [[0, 3], [3, 6]], '1': [[0, 3], [3, 6]], '2': [[0, 1], [1, 3], [3, 4], [4, 6]]}
 AUTHOR = 'Authored Å café 日本 source author'

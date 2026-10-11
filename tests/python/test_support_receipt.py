@@ -10,6 +10,9 @@ ROOT = Path(__file__).resolve().parents[2]
 spec = importlib.util.spec_from_file_location('wbs_support_unit_validator', ROOT / 'tests/support/validate_support_report.py')
 validator = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(validator)
+spec = importlib.util.spec_from_file_location('wbs_support_synthetic_runtime', ROOT / 'tests/python/test_runtime_receipt.py')
+runtime_fixture = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(runtime_fixture)
 
 
 def compact(value):
@@ -17,7 +20,8 @@ def compact(value):
 
 
 def seal(row):
-    row['console_log'] = ''.join(compact(item) + '\r\n' for item in row['engine_records'])
+    row['console_log'] = '[DEPENDENCY] ' + compact({'Runtime': row['selected_runtime'], 'Converter': None}) + '\r\n'
+    row['console_log'] += ''.join(compact(item) + '\r\n' for item in row['engine_records'])
     row['console_log'] += ''.join('[PROCESS] ' + compact(item) + '\r\n' for item in row['process_summaries'])
     row['console_log'] += '[OPERATION-OUTCOME] ' + compact(row['outcome']) + '\r\n'
     row['console_log_sha256'] = validator.digest(row['console_log'])
@@ -69,6 +73,12 @@ def synthetic_success():
            'publication': {'manifest': manifest, 'manifest_raw': compact(manifest), 'manifest_sha256': validator.digest(compact(manifest)),
                            'content_sha256': ['d' * 64] * 6,
                            'members': ['.WinBookSplit-owner.json', 'WinBookSplit_Manifest.json', '1.pdf', '2.pdf', '3.pdf']}}
+    python = 'C:/synthetic/env/Scripts/python.exe'
+    row['selected_runtime'] = runtime_fixture.selected_runtime(python, 'explicit')
+    for hashes in ('application_sha256', 'actual_application_sha256'):
+        row[hashes]['engine/WinBookSplit.Compatibility.json'] = validator.console.RUNTIME_POLICY_SHA256
+    row['parameters'] += ['-PythonPath', python]
+    row['command'] += ['-PythonPath', python]
     row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': '1.0.0', 'run_id': 'e' * 32,
         'started_utc': '2026-10-10T00:00:00+00:00', 'finished_utc': '2026-10-10T00:00:01+00:00', 'diagnostics_finalized': True,
         'runtime_versions': {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.20.0', 'calibre': None},
@@ -92,6 +102,13 @@ def summary(manifest):
 
 
 class SupportReceiptTests(unittest.TestCase):
+    def test_synthetic_second_branch_manifest_binds_to_its_full_selected_probe(self):
+        row = synthetic_success()
+        row['selected_runtime'] = runtime_fixture.selected_runtime(row['selected_runtime']['Path'], 'explicit', '3.13.16')
+        row['run_manifest']['runtime_versions']['python'] = '3.13.16'
+        seal(row)
+        validator.validate_application_case(row)
+
     def test_synthetic_positive_binds_raw_log_manifest_and_engine(self):
         row = synthetic_success()
         validator.validate_application_case(row)

@@ -22,7 +22,9 @@ APPLICATION = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "Export-WinBoo
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Diagnostics.ps1",
     "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py", "engine/winbooksplit_conversion.py",
-    "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py")
+    "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py",
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 CALIBRE_SHA256 = "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
 
 

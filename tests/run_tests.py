@@ -29,6 +29,10 @@ import unittest
 ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = Path(__file__).resolve()
 ACCEPTANCE_IDS = ["AC-009", "AC-010"]
+APPLICATION_UNIT_MODULES = (
+    "test_compatibility", "test_filenames", "test_interactive", "test_pdf_policy",
+    "test_pdf_fidelity", "test_conversion", "test_outcomes", "test_version", "test_warnings",
+)
 MANUAL_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(13, 19)]
 MANUAL_ORACLE_IDS = {f"MAN-{number:02}" for number in range(1, 23)}
 MANUAL_EXTRA_IDS = {"comma", "zero", "missing", "fullwidth", "embedded-space", "late-invalid",
@@ -237,6 +241,68 @@ def python_suite() -> int:
                                                top_level_dir=tests)
     result = unittest.TextTestRunner(verbosity=2).run(suite)
     return 0 if result.wasSuccessful() and result.testsRun else 1
+
+
+def application_unit_suite() -> int:
+    """Fixed pypdf/stdlib units; no developer dependency or import/skip fallback."""
+    sys.stdout.reconfigure(encoding="utf-8", errors="backslashreplace")
+    sys.stderr.reconfigure(encoding="utf-8", errors="backslashreplace")
+    sys.path.insert(0, str(ROOT / "tests/python"))
+    loader = unittest.TestLoader()
+    suite = unittest.TestSuite()
+    modules = []
+    failure = None
+    try:
+        for name in APPLICATION_UNIT_MODULES:
+            module = __import__(name)
+            selected = loader.loadTestsFromModule(module)
+            count = selected.countTestCases()
+            if count < 1:
+                raise ValueError("Required application unit module contains no tests: " + name)
+            modules.append({"name": name, "test_count": count})
+            suite.addTests(selected)
+        if loader.errors:
+            raise ValueError("Required application unit loading failed")
+    except Exception as error:
+        failure = type(error).__name__ + ": " + str(error)[:2048]
+    result = unittest.TextTestRunner(verbosity=2).run(suite) if failure is None else None
+    success = bool(sys.flags.isolated) and bool(sys.dont_write_bytecode) \
+        and result is not None and result.wasSuccessful() and result.testsRun > 0 \
+        and not result.skipped and not result.expectedFailures and not result.unexpectedSuccesses
+    record = {"protocol": "winbooksplit.application-units", "version": 1,
+              "python_executable": sys.executable, "python_version": platform.python_version(),
+              "isolated": bool(sys.flags.isolated), "no_bytecode": bool(sys.dont_write_bytecode),
+              "modules": modules, "required_modules": list(APPLICATION_UNIT_MODULES),
+              "tests_run": result.testsRun if result is not None else 0,
+              "failures": len(result.failures) if result is not None else 0,
+              "errors": len(result.errors) if result is not None else 0,
+              "skipped": [{"test": str(test), "reason": reason} for test, reason in result.skipped] if result is not None else [],
+              "expected_failures": len(result.expectedFailures) if result is not None else 0,
+              "unexpected_successes": len(result.unexpectedSuccesses) if result is not None else 0,
+              "loading_error": failure, "success": success,
+              "scope": "Fixed runtime-only units; mocked boundary/API records remain synthetic tests"}
+    print("[APPLICATION-UNITS] " + json.dumps(record, sort_keys=True))
+    return 0 if success else 1
+
+
+def application_matrix_step(args, work):
+    """One layer in this harness, using the existing fixture and native helpers."""
+    path = ROOT / "tests/compatibility/application_matrix.py"
+    try:
+        spec = importlib.util.spec_from_file_location("wbs_application_matrix", path)
+        module = importlib.util.module_from_spec(spec)
+        sys.modules[spec.name] = module
+        spec.loader.exec_module(module)
+        evidence = module.execute_matrix(args.application_python_path, args.shell_path, work,
+                                         calibre=args.calibre_path)
+    except BaseException as error:
+        evidence = {"success": False, "timed_out": False, "error_type": type(error).__name__,
+                    "error": str(error)[:2048], "cleanup_safe": False}
+    safe = evidence.get("success") is True and evidence.get("cleanup_safe") is True
+    return {"name": "application-matrix", "exit_code": 0 if safe else 1,
+            "cleanup_safe": safe, "timed_out": evidence.get("timed_out", False),
+            "meaning": "Actual explicit application runtime; separate developer driver/fixtures; no Explorer or Windows10 claim",
+            "evidence": evidence}
 
 
 def validate_manual_entrypoints(child: dict, requested_shells: list[str]) -> None:
@@ -1387,7 +1453,11 @@ def execute(args: argparse.Namespace) -> dict:
                         "platform": platform.platform(), "machine": platform.machine(),
                         "packages": package_versions()},
         "steps": [],
-        "conversion_scope": "Actual original offline EPUB/AZW3 conversion and retained/default PDF cases under both requested hosts"
+        "conversion_scope": "Requested actual authored EPUB/AZW3 application cases; inspect matrix case receipts"
+                            if args.layer == "application" and args.calibre_path is not None
+                            else "NOT_REQUESTED: application matrix PDF cases only"
+                            if args.layer == "application"
+                            else "Actual original offline EPUB/AZW3 conversion and retained/default PDF cases under both requested hosts"
                             if not args.failure_probe and args.layer in {"conversion", "ebooks", "full"}
                             else "NOT_ASSERTED: this layer does not execute the real Calibre conversion acceptance route",
         "not_run": ["interactive preview UI", "in-person console interaction",
@@ -1413,7 +1483,9 @@ def execute(args: argparse.Namespace) -> dict:
         elif not args.failure_probe and args.layer in {"python", "full"}:
             steps.append({"name": "stdlib-unittest",
                           **run_command([sys.executable, "-I", "-B", str(SCRIPT),
-                                         "--_python-child"], work, environment=environment, timeout=600)})
+                                         "--_python-child"], work, environment=environment, timeout=1200)})
+        if not args.failure_probe and args.layer == "application":
+            steps.append(application_matrix_step(args, work))
         if args.layer in {"shell", "full"} or args.failure_probe == "pester":
             wheelhouse = None
             if not args.failure_probe:
@@ -1696,19 +1768,23 @@ def execute(args: argparse.Namespace) -> dict:
 
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--layer", choices=("python", "shell", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"), default="full")
+    parser.add_argument("--layer", choices=("python", "shell", "application", "baseline", "extraction", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"), default="full")
     parser.add_argument("--report", type=Path, help="New absolute JSON file outside checkout")
     parser.add_argument("--tool-root", type=Path, help="Absolute isolated shell module directory")
     parser.add_argument("--calibre-path", type=Path, help="Actual absolute pinned converter for conversion/ebooks/runtime/cli/launcher/full acceptance")
     parser.add_argument("--renderer-path", type=Path, help="Absolute developer Poppler pdftoppm for fidelity/ebooks/full")
     parser.add_argument("--secondary-python-path", type=Path, help="Absolute isolated developer Python with PDFium for fidelity/full")
+    parser.add_argument("--application-python-path", type=Path, help="Actual runtime-only application interpreter for the application layer; driver remains separate")
     parser.add_argument("--shell-path", type=Path, action="append", default=[],
                         help="Absolute actual powershell.exe/pwsh.exe; repeat for both hosts")
     parser.add_argument("--failure-probe", choices=("native", "python", "pester"))
     parser.add_argument("--_python-child", action="store_true", help=argparse.SUPPRESS)
+    parser.add_argument("--_application-units-child", action="store_true", help=argparse.SUPPRESS)
     args = parser.parse_args()
     if args._python_child:
         return python_suite()
+    if args._application_units_child:
+        return application_unit_suite()
     try:
         if not sys.flags.isolated or not sys.dont_write_bytecode:
             raise ValueError("Invoke the explicit developer Python with -I -B")
@@ -1726,16 +1802,28 @@ def main() -> int:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every shell path must be an existing absolute executable")
             args.shell_path = [shell.resolve() for shell in args.shell_path]
-        elif args.layer in {"extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"} and args.shell_path:
+        elif args.layer in {"application", "extraction", "manual", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"} and args.shell_path:
             if any(not shell.is_absolute() or not shell.is_file() for shell in args.shell_path):
                 raise ValueError("Every integration shell path must be an existing absolute executable")
-            args.shell_path = [shell.resolve() for shell in args.shell_path]
-        if args.layer in {"diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
+            args.shell_path = [shell.absolute() if args.layer == "application" else shell.resolve() for shell in args.shell_path]
+        if args.layer in {"application", "diagnostics", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks", "full"} and (len(args.shell_path) != 2 or len(set(args.shell_path)) != 2):
             raise ValueError("This integration layer requires both explicit distinct supported shell hosts")
         if not args.failure_probe and args.layer in {"conversion", "ebooks", "runtime", "cli", "launcher", "ux", "support", "full"}:
             if args.calibre_path is None or not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
                 raise ValueError("Conversion/runtime/cli/launcher/full requires the existing absolute actual pinned --calibre-path")
             args.calibre_path = args.calibre_path.resolve()
+        if args.layer == "application":
+            if args.application_python_path is None or not args.application_python_path.is_absolute() or not args.application_python_path.is_file():
+                raise ValueError("Application layer requires an existing absolute --application-python-path")
+            # Keep the supplied literal path until the matrix's ancestor and
+            # ordinary-file guards have rejected aliases/reparse points.
+            args.application_python_path = args.application_python_path.absolute()
+            if args.failure_probe:
+                raise ValueError("Application matrix cannot be combined with a harness failure probe")
+            if args.calibre_path is not None:
+                if not args.calibre_path.is_absolute() or not args.calibre_path.is_file():
+                    raise ValueError("Requested application conversion requires the actual absolute locked --calibre-path")
+                args.calibre_path = args.calibre_path.absolute()
         if not args.failure_probe and args.layer == "ebooks":
             if args.renderer_path is None or not args.renderer_path.is_absolute() or not args.renderer_path.is_file():
                 raise ValueError("Ebooks requires the existing absolute developer --renderer-path")

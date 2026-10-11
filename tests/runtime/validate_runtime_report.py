@@ -133,9 +133,10 @@ def probe(record, *, success: bool) -> dict:
 def runtime(record) -> dict:
     record = mapping(record, "selected runtime")
     path(record.get("Path"), "runtime.Path")
-    require(record.get("Version") == "3.14.8" and record.get("PypdfVersion") == "6.20.0",
-            "runtime: exact supported versions required")
-    require(record.get("Source") in {"explicit", "application_venv", "py_launcher", "PATH"},
+    require(console.python_version_supported(record.get("Version")) and
+            record.get("PypdfVersion") == console.RUNTIME_POLICY["pypdf"]["version"],
+            "runtime: policy-supported Python and locked pypdf required")
+    require(record.get("Source") in {"explicit", "application_venv", "py_launcher", "manager", "PATH"},
             "runtime: unknown selection provenance")
     require(record.get("Arguments") == ["-I", "-B"], "runtime: isolated engine flags required")
     origin = path(record.get("PypdfPath"), "runtime.PypdfPath")
@@ -146,31 +147,51 @@ def runtime(record) -> dict:
     require(origin.startswith(ntpath.join(prefix, "lib", "site-packages", "pypdf") + "\\"),
             "runtime: pypdf is outside the selected interpreter's supported library")
     details = mapping(record.get("Details"), "runtime.Details")
+    require(set(details) == {"protocol", "schema_version", "ok", "executable", "version", "version_info",
+            "releaselevel", "serial", "implementation", "platform", "machine", "bits", "gil_disabled", "isolated",
+            "dont_write_bytecode", "policy_version", "policy_sha256", "reason", "message", "pypdf_version", "pypdf_path"},
+            "runtime: full probe record schema differs")
     expected = {"protocol": "winbooksplit.runtime", "schema_version": 1,
-                "version": "3.14.8", "implementation": "cpython", "platform": "win32",
-                "machine": "AMD64", "bits": 64, "pypdf_version": "6.20.0"}
+                "version": record["Version"], "implementation": "cpython", "platform": "win32",
+                "machine": "AMD64", "bits": 64, "pypdf_version": console.RUNTIME_POLICY["pypdf"]["version"],
+                "policy_version": console.RUNTIME_POLICY["policy_version"],
+                "policy_sha256": console.RUNTIME_POLICY_SHA256, "reason": "supported"}
     for field, value in expected.items():
         require(type(details.get(field)) is type(value) and details[field] == value,
                 f"runtime.Details.{field}: exact scalar evidence required")
     for field in ("ok", "isolated", "dont_write_bytecode"):
         flag(details, field)
     flag(details, "gil_disabled", False)
+    require(console.compatibility.validate_interpreter(details, console.RUNTIME_POLICY)["ok"],
+            "runtime: native interpreter identity does not satisfy shipped policy")
+    require(type(record.get("PolicyVersion")) is int and record["PolicyVersion"] == details["policy_version"] and
+            record.get("PolicySha256") == details["policy_sha256"] and record.get("InterpreterOnly") is False,
+            "runtime: selected policy identity or full package probe differs")
     same_path(details.get("executable"), record["Path"], "runtime: actual executable")
     same_path(details.get("pypdf_path"), record["PypdfPath"], "runtime: actual pypdf origin")
     text(details.get("message"), "runtime.Details.message")
     selected_probe = probe(record.get("Probe"), success=True)
     try:
-        observed = json.loads(selected_probe["Stdout"])
+        observed = console._unique_json(selected_probe["Stdout"])
     except (ValueError, TypeError) as error:
         raise ValueError("runtime: probe JSON missing") from error
-    require(type(observed) is dict and observed == details, "runtime: reported details differ from native probe")
+    require(type(observed) is dict and same_json(observed, details), "runtime: reported details differ from native probe")
     attempts = record.get("Attempts")
     require(type(attempts) is list and bool(attempts), "runtime: selection attempts missing")
+    attempts = [mapping(attempt, "runtime attempt") for attempt in attempts]
+    candidates = [attempt for attempt in attempts
+                  if attempt.get("Accepted") is True and attempt.get("Source") == record["Source"]
+                  and path(attempt.get("Path"), "runtime accepted candidate") == path(record["Path"], "runtime selection")]
+    require(len(candidates) == 1 and same_json(candidates[0].get("Probe"), selected_probe) and
+            candidates[0].get("Reason") == "supported", "runtime: accepted candidate provenance/probe differ")
     last = mapping(attempts[-1], "runtime final attempt")
     flag(last, "Accepted")
-    same_path(last.get("Path"), record["Path"], "runtime: accepted attempt")
-    require(last.get("Source") == record["Source"] and last.get("Probe") == selected_probe,
-            "runtime: selection provenance/probe differ")
+    same_path(last.get("Path"), record["Path"], "runtime: final selection")
+    if last.get("Source") == "selection":
+        require(record["Source"] in {"PATH", "manager", "py_launcher"} and last.get("Probe") is None and
+                last.get("Reason") == "supported", "runtime: automatic selection bookkeeping differs")
+    else:
+        require(last == candidates[0], "runtime: explicit/venv authority differs")
     return record
 
 
@@ -337,7 +358,9 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
                       "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                       "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                       "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
-                      "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1"}
+                      "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1",
+                      "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+                      "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1"}
     require(set(application) == expected_files and
             all(application[name] == source_map.get(name) for name in expected_files),
             "case: copied application differs from tested bytes")
@@ -359,7 +382,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
     streams(case, case["id"])
 
 
-def failure_case(case: dict) -> None:
+def failure_case(case: dict, supported_version: str, unsupported_version: str) -> None:
     require(case["exit_code"] == 3, "failure: dependency native status 3 required")
     for field in ("preflight_before_output", "no_success_summary", "setup_guidance_verified"):
         flag(case, field)
@@ -403,8 +426,9 @@ def failure_case(case: dict) -> None:
         flag(case, "converter_version_marker_absent")
         flag(case["decoy_marker_observation"], "converter_version_absent")
         require(all(fragment in case["stdout"] for fragment in
-                    ("3.14.8", "6.20.0", "-PythonPath", "-I -m pip", "requirements.txt", case["candidate_path"])),
-                "failure: exact-interpreter setup guidance missing")
+                    (console.RUNTIME_POLICY["pypdf"]["version"], "-PythonPath", "Setup-WinBookSplit.ps1", ".venv", case["candidate_path"])),
+                "failure: explicit application-local setup guidance missing")
+        require("-I -m pip" not in case["stdout"], "failure: processing guidance suggests an implicit/global package install")
         if case["kind"] != "missing":
             require(attempts[0].get("Probe") is not None, "failure: actual incompatible candidate probe missing")
             actual = attempts[0]["Probe"]
@@ -425,15 +449,26 @@ def failure_case(case: dict) -> None:
                         details.get("ok") is False and actual["ExitCode"] == 1,
                         "failure: actual Python rejection protocol/status differs")
                 message = text(details.get("message"), "actual Python rejection reason")
+                require(type(details.get("policy_version")) is int and
+                        details["policy_version"] == console.RUNTIME_POLICY["policy_version"] and
+                        details.get("policy_sha256") == console.RUNTIME_POLICY_SHA256,
+                        "failure: actual rejected probe policy identity differs")
+                decision = console.compatibility.validate_interpreter(details, console.RUNTIME_POLICY)
                 if case["kind"] == "wrong-version":
-                    require(details.get("version") == "3.14.7" and "3.14.8" in message,
+                    require(details.get("version") == unsupported_version and decision["ok"] is False and
+                            details.get("reason") == decision["reason"] and decision["reason"] in
+                            {"unsupported_python", "python_security_floor", "python_compatibility_floor"},
                             "failure: real unsupported Python control mislabeled")
                 elif case["kind"] == "missing-pypdf":
-                    require(details.get("version") == "3.14.8" and "No module named 'pypdf'" in message,
+                    require(details.get("version") == supported_version and decision["ok"] is True and
+                            details.get("reason") == "missing_pypdf" and "No module named 'pypdf'" in message,
                             "failure: missing-pypdf control mislabeled")
                 else:
-                    require(details.get("version") == "3.14.8" and details.get("pypdf_version") == "9.99.0" and
-                            "pypdf 6.20.0" in message, "failure: altered owned pypdf control mislabeled")
+                    require(details.get("version") == supported_version and decision["ok"] is True and
+                            details.get("reason") == "pypdf_version_mismatch" and "pypdf 6.20.0" in message,
+                            "failure: altered owned pypdf control mislabeled")
+                require("pypdf_version" not in details and "pypdf_path" not in details,
+                        "failure: rejected package/interpreter claims an accepted pypdf")
         else:
             require(attempts[0].get("Probe") is None, "failure: missing interpreter was executed")
     else:
@@ -445,13 +480,15 @@ def failure_case(case: dict) -> None:
             flag(case["decoy_marker_observation"], "converter_version_absent", False)
 
 
-def success_case(case: dict, calibre_path: str) -> None:
+def success_case(case: dict, calibre_path: str, supported_version: str, unsupported_version: str) -> None:
     require(case["exit_code"] == 0, "success: actual native zero required")
     flag(case, "selected_interpreter_used_for_engine")
     flag(case, "all_physical_pages_preserved")
     selected = mapping(case.get("dependency_selection"), "dependency selection")
     selected_runtime = runtime(selected.get("Runtime"))
     same_path(selected_runtime["Path"], case.get("expected_python_path"), "success: expected interpreter")
+    require(case.get("expected_python_version") == selected_runtime["Version"] == supported_version,
+            "success: selected version differs from independently probed application target")
     expected_source = {"explicit-literal": "explicit", "app-venv": "application_venv",
                        "py-launcher-listing": "py_launcher"}.get(case["kind"], "PATH")
     require(case.get("expected_python_source") == selected_runtime["Source"] == expected_source,
@@ -478,7 +515,7 @@ def success_case(case: dict, calibre_path: str) -> None:
     frame = mapping(case.get("engine_record"), "actual engine result")
     evidence = case.get("console_evidence")
     console.validate_console_evidence(evidence, evidence.get("operation_outcome") if isinstance(evidence, dict) else None,
-        evidence.get("log_sha256") if isinstance(evidence, dict) else None)
+        evidence.get("log_sha256") if isinstance(evidence, dict) else None, expected_python_version=selected_runtime["Version"])
     require(evidence["operation_outcome"].get("engine_result") == frame, "Runtime run record differs from actual engine frame")
     require(frame.get("protocol") == "winbooksplit.result" and type(frame.get("version")) is int and
             frame["version"] == 1 and frame.get("status") == "success" and frame.get("code") == "split_complete" and
@@ -516,7 +553,10 @@ def success_case(case: dict, calibre_path: str) -> None:
             require(writer["manifest"].get(field) == writer[field], "ebook manifest parity: " + field)
     if case["kind"] == "multiple-path":
         rejected = [a for a in selected_runtime["Attempts"] if a.get("Source") == "PATH" and a.get("Accepted") is False]
-        require(bool(rejected) and any(a.get("Probe") and "3.14.7" in a["Probe"]["Stdout"] for a in rejected),
+        require(bool(rejected) and any(a.get("Probe") and
+                    json.loads(a["Probe"]["Stdout"]).get("version") == unsupported_version and
+                    json.loads(a["Probe"]["Stdout"]).get("reason") in
+                    {"unsupported_python", "python_security_floor", "python_compatibility_floor"} for a in rejected),
                 "success: earlier incompatible PATH interpreter not observed")
     if case["category"] == "shadow":
         excluded = {path(name, "shadow executable") for name in case["decoy_sha256"] if name.endswith(".exe")}
@@ -542,6 +582,43 @@ def success_case(case: dict, calibre_path: str) -> None:
         digest(control.get("sha256"), "launcher control executable hash")
 
 
+def observed_interpreter(record, *, supported):
+    record = mapping(record, "independent real interpreter observation")
+    streams(record, "independent real interpreter observation")
+    command = record.get("command")
+    root = Path(__file__).resolve().parents[2]
+    expected_tail = ["-I", "-B", str(root / "engine/winbooksplit_compatibility.py"), "--probe"]
+    if not supported:
+        expected_tail.append("--interpreter-only")
+    expected_tail += ["--policy", str(root / "engine/WinBookSplit.Compatibility.json")]
+    require(type(command) is list and command[1:] == expected_tail,
+            "runtime: independent observation did not execute the shipped read-only helper")
+    details = mapping(console._unique_json(record["stdout"]), "independent interpreter record")
+    same_path(command[0], details.get("executable"), "independent interpreter executable")
+    require(details.get("protocol") == "winbooksplit.runtime" and type(details.get("schema_version")) is int and
+            details["schema_version"] == 1 and type(details.get("policy_version")) is int and
+            details["policy_version"] == console.RUNTIME_POLICY["policy_version"] and
+            details.get("policy_sha256") == console.RUNTIME_POLICY_SHA256,
+            "runtime: independent interpreter protocol or policy differs")
+    decision = console.compatibility.validate_interpreter(details, console.RUNTIME_POLICY)
+    require(record["exit_code"] == (0 if supported else 1) and details.get("ok") is supported and
+            decision["ok"] is supported and details.get("reason") == decision["reason"],
+            "runtime: real supported/excluded interpreter control mislabeled")
+    if supported:
+        require(details.get("pypdf_version") == console.RUNTIME_POLICY["pypdf"]["version"],
+                "runtime: independent target is missing the locked package")
+        origin = path(details.get("pypdf_path"), "independently observed pypdf origin")
+        parent = ntpath.dirname(path(details["executable"], "independent target"))
+        prefix = ntpath.dirname(parent) if ntpath.basename(parent) == "scripts" else parent
+        require(origin == ntpath.join(prefix, "lib", "site-packages", "pypdf", "__init__.py"),
+                "runtime: independent target package origin differs")
+    else:
+        require(decision["reason"] in {"unsupported_python", "python_security_floor", "python_compatibility_floor"} and
+                "pypdf_version" not in details and "pypdf_path" not in details,
+                "runtime: exclusion control imported or claimed pypdf")
+    return details
+
+
 def validate_runtime_report(child, requested_shells, calibre_path) -> None:
     child = mapping(child, "runtime child")
     require(type(child.get("schema_version")) is int and child["schema_version"] == 1 and
@@ -562,6 +639,10 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
     for filename, value in source_map.items():
         text(filename, "tested source filename")
         digest(value, "tested source hash")
+    require(source_map.get("engine/WinBookSplit.Compatibility.json") == console.RUNTIME_POLICY_SHA256,
+            "runtime: tested policy differs from the validated shipped bytes")
+    supported = observed_interpreter(child.get("supported_real_python_observation"), supported=True)
+    unsupported = observed_interpreter(child.get("unsupported_real_python_observation"), supported=False)
     require(type(requested_shells) is list and len(requested_shells) == 2 and
             len({path(p, "requested shell") for p in requested_shells}) == 2,
             "runtime: two distinct requested supported hosts required")
@@ -606,9 +687,9 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
         for case in cases.values():
             common_case(case, hosts, source_map)
             if field.endswith("failure_cases"):
-                failure_case(case)
+                failure_case(case, supported["version"], unsupported["version"])
             else:
-                success_case(case, calibre_path)
+                success_case(case, calibre_path, supported["version"], unsupported["version"])
             decoys = case["decoy_sha256"]
             names = [ntpath.basename(filename) for filename in decoys]
             if field == "shadow_cases":
@@ -647,10 +728,6 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
             bool(compilation["command"]), "native control: actual compile failed")
     digest(compilation.get("source_sha256"), "native control source")
     digest(compilation.get("executable_sha256"), "native control executable")
-    unsupported = mapping(child.get("unsupported_real_python_observation"), "unsupported real Python")
-    streams(unsupported, "unsupported real Python")
-    require(unsupported["exit_code"] == 0 and "3.14.7" in unsupported["stdout"],
-            "runtime: real unsupported interpreter control missing")
     reference = mapping(child.get("independent_real_conversion_reference"), "independent conversion")
     reference_process = mapping(reference.get("process"), "independent converter process")
     require(reference_process.get("exit_code") == 0 and type(reference_process.get("argv")) is list and

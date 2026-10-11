@@ -493,8 +493,13 @@
       "key": "real_minor_matrix",
       "expected": "Every advertised Python minor runs actual application tests; at least two pass. Mocked versions are separate policy tests.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-07-regression.md",
+        "evidence/V101-07-regression.json",
+        "evidence/V101-07-review.md"
+      ],
+      "scope_note": "Actual Windows11 source-checkout reference and installed 3.13.16/3.14.8 matrices; future maintenance probes are SYNTHETIC. No final ZIP, native Windows10 or Explorer PASS."
     },
     {
       "id": "V101-AC-040",
@@ -502,8 +507,13 @@
       "key": "reference_regression",
       "expected": "Existing full Python and PS5.1/PS7 reference regression passes with no unexplained removal of safety tests.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-07-regression.md",
+        "evidence/V101-07-regression.json",
+        "evidence/V101-07-review.md"
+      ],
+      "scope_note": "Actual Windows11 source-checkout reference and installed 3.13.16/3.14.8 matrices; future maintenance probes are SYNTHETIC. No final ZIP, native Windows10 or Explorer PASS."
     },
     {
       "id": "V101-AC-041",
@@ -511,8 +521,13 @@
       "key": "dev_separation",
       "expected": "Reference developer wheels/tool pins do not recreate an application exact-Python requirement or get installed into runtime-only environments.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-07-regression.md",
+        "evidence/V101-07-regression.json",
+        "evidence/V101-07-review.md"
+      ],
+      "scope_note": "Actual Windows11 source-checkout reference and installed 3.13.16/3.14.8 matrices; future maintenance probes are SYNTHETIC. No final ZIP, native Windows10 or Explorer PASS."
     },
     {
       "id": "V101-AC-042",
@@ -520,8 +535,13 @@
       "key": "fixtures_reuse",
       "expected": "Synthetic/redistributable fixtures cover page boundaries, metadata policy and conversion; no personal documents enter tests.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-07-regression.md",
+        "evidence/V101-07-regression.json",
+        "evidence/V101-07-review.md"
+      ],
+      "scope_note": "Actual Windows11 source-checkout reference and installed 3.13.16/3.14.8 matrices; future maintenance probes are SYNTHETIC. No final ZIP, native Windows10 or Explorer PASS."
     },
     {
       "id": "V101-AC-043",
@@ -529,8 +549,13 @@
       "key": "maintenance_policy_tests",
       "expected": "Data-driven tests cover both later patches and blocked/security floor cases without claiming all were actually installed.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-07-regression.md",
+        "evidence/V101-07-regression.json",
+        "evidence/V101-07-review.md"
+      ],
+      "scope_note": "Actual Windows11 source-checkout reference and installed 3.13.16/3.14.8 matrices; future maintenance probes are SYNTHETIC. No final ZIP, native Windows10 or Explorer PASS."
     },
     {
       "id": "V101-AC-044",
