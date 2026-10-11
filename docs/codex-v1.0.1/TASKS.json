@@ -73,8 +73,12 @@
         "V101-AC-015",
         "V101-AC-016"
       ],
-      "status": "NOT_STARTED",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-04",

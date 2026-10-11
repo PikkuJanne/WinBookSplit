@@ -82,6 +82,7 @@ try {
     $scaffoldPaths = @(
         (Join-Path -Path $repository -ChildPath 'tests\Invoke-ShellTests.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Runtime.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Compatibility.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Process.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Logging.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Support.ps1'),
@@ -115,6 +116,9 @@ try {
         RepositoryRoot = $repository; ToolRoot = $ToolRoot; WorkRoot = $work
     })
     if (-not $FailureProbe) {
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Compatibility.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
+        }
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Runtime.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }

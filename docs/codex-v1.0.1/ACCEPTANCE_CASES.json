@@ -133,8 +133,12 @@
       "key": "numeric_versions",
       "expected": "Numeric tests cover patch 8, 9 and 10, below/at floor and later stable patches; synthetic future versions are not claimed installed.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-012",
@@ -142,8 +146,12 @@
       "key": "dual_layer_parity",
       "expected": "PowerShell and Python reach the same policy decision; one layer cannot retain the old exact check or trust ok blindly.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-013",
@@ -151,8 +159,12 @@
       "key": "policy_errors",
       "expected": "Malformed/missing policy, wrong types/booleans and unsupported schema fail clearly without broad fallback.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-014",
@@ -160,8 +172,12 @@
       "key": "trust_retained",
       "expected": "Isolated flags, actual executable identity, architecture/GIL checks and package import/distribution origin remain enforced.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-015",
@@ -169,8 +185,12 @@
       "key": "setup_probe",
       "expected": "A compatible bare interpreter with no pypdf can pass interpreter-only setup probing; processing correctly rejects missing pypdf.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-016",
@@ -178,8 +198,12 @@
       "key": "reported_version",
       "expected": "3.14.2 gets the documented policy/security decision rather than an exact 3.14.8 equality rejection; no unsupported promise of safety.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-03-entrypoints.md",
+        "evidence/V101-03-entrypoints.json",
+        "evidence/V101-03-package-review.md"
+      ]
     },
     {
       "id": "V101-AC-017",

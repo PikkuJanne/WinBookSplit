@@ -19,13 +19,15 @@ RUNTIME_PATHS = (
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1",
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py",
+    "engine/winbooksplit_compatibility.py",
     "engine/winbooksplit_conversion.py", "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py",
 )
 # Current user/support source prerequisites, not the future M5 package payload.
 SUPPORT_PATHS = (
     "README.md", "LICENSE", "CHANGELOG.md", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md", "SECURITY.md",
-    "docs/SETUP.md", "WinBookSplit_icon.ico", "docs/PDF_POLICY.md",
+    "docs/SETUP.md", "WinBookSplit.ico", "docs/PDF_POLICY.md",
     "docs/PDF_FIDELITY.md", "docs/EBOOK_SUPPORT.md", "docs/SUPPORT_DIAGNOSTICS.md",
     "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
 )
@@ -126,6 +128,9 @@ def _python_dependencies(text: str, path: str) -> set[str]:
             dependencies.add("VERSION")
         modules = [alias.name for alias in node.names] if isinstance(node, ast.Import) else \
             [node.module or ""] if isinstance(node, ast.ImportFrom) else []
+        if isinstance(node, ast.ImportFrom) and any(alias.name in {"import_module", "__import__"} for alias in node.names):
+            # Dynamic import aliases must not evade the literal-call audit below.
+            raise InputError("unresolved_runtime_dependency", path)
         for name in modules:
             root = name.partition(".")[0]
             if isinstance(node, ast.ImportFrom) and node.level:
@@ -142,9 +147,17 @@ def _python_dependencies(text: str, path: str) -> set[str]:
             sibling = _sibling_call(node)
             if sibling is not None:
                 dependencies.add(_dependency(path, sibling))
-            if isinstance(node.func, ast.Name) and node.func.id == "__import__" or \
+            if isinstance(node.func, ast.Name) and node.func.id in {"__import__", "import_module"} or \
                     isinstance(node.func, ast.Attribute) and node.func.attr == "import_module":
-                raise InputError("unresolved_runtime_dependency", path)
+                # Only the shipped compatibility helper lazily imports the already
+                # locked pypdf package after checking the interpreter. No computed
+                # name, alternate receiver, keyword option or other file is allowed.
+                if not (path == "engine/winbooksplit_compatibility.py"
+                        and isinstance(node.func, ast.Attribute) and node.func.attr == "import_module"
+                        and isinstance(node.func.value, ast.Name) and node.func.value.id == "importlib"
+                        and len(node.args) == 1 and not node.keywords
+                        and isinstance(node.args[0], ast.Constant) and node.args[0].value == "pypdf"):
+                    raise InputError("unresolved_runtime_dependency", path)
 
     def scope(node: ast.AST, inherited: dict[str, str]) -> None:
         bindings = dict(inherited)

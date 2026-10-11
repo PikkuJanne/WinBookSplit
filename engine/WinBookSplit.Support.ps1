@@ -217,7 +217,9 @@ function ConvertTo-WinBookSplitSupportSummary {
     $runtime = Get-WinBookSplitSupportField $Manifest 'runtime_versions'
     Assert-WinBookSplitSupportKeys $runtime @('powershell','python','pypdf','calibre') @('powershell','python','pypdf','calibre')
     $versions = [ordered]@{}
-    $pins = @{ python=@('3.14.8'); pypdf=@('6.20.0'); calibre=@('9.15.0') }
+    . (Join-Path $PSScriptRoot 'WinBookSplit.Compatibility.ps1')
+    $compatibility = Get-WinBookSplitCompatibilityPolicy
+    $pins = @{ pypdf=@($compatibility['pypdf']['version']); calibre=@($compatibility['calibre']['version']) }
     foreach ($name in @('powershell','python','pypdf','calibre')) {
         $value = Get-WinBookSplitSupportField $runtime $name
         $versions[$name] = $null
@@ -226,6 +228,11 @@ function ConvertTo-WinBookSplitSupportSummary {
                 if ($value -isnot [string] -or $value -cnotmatch '^(5\.1\.[0-9]{1,5}\.[0-9]{1,5}|7\.[0-9]{1,5}\.[0-9]{1,5}(\.[0-9]{1,5})?)$') { throw 'Invalid diagnostic runtime version.' }
                 foreach ($component in $value.Split('.')) { if ([long]$component -gt 65535 -or ($component.Length -gt 1 -and $component[0] -eq '0')) { throw 'Invalid diagnostic runtime version.' } }
                 if ($value.StartsWith('5.1.',[StringComparison]::Ordinal)) { $versions[$name]='5.1' } else { $versions[$name]='7' }
+            }
+            elseif ($name -ceq 'python') {
+                $decision = Test-WinBookSplitPythonVersion -Version $value -Policy $compatibility
+                if (-not $decision.Ok) { throw 'Invalid diagnostic Python version for the shipped compatibility policy.' }
+                $versions[$name] = $value
             }
             else { $versions[$name] = Get-WinBookSplitSupportToken $value $pins[$name] }
         }

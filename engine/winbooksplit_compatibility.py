@@ -6,8 +6,15 @@ and process transport remain the responsibility of the existing entry points.
 """
 
 import json
+import importlib
+from importlib import metadata
+import platform
 import re
+import struct
+import sys
+import sysconfig
 from datetime import date
+from hashlib import sha256
 from pathlib import Path
 from urllib.parse import urlsplit
 
@@ -98,7 +105,9 @@ def _validate_policy(policy):
         _require(_text(source["url"], 2048) and _text(source["relevance"]), "Invalid policy source text.")
         try:
             url = urlsplit(source["url"])
+            port = url.port  # Access validates numeric syntax and the TCP port range.
             valid_url = (url.scheme == "https" and bool(url.hostname)
+                         and (port is None or 0 <= port <= 65535)
                          and url.username is None and url.password is None
                          and not any(character.isspace() for character in source["url"]))
         except ValueError:
@@ -158,8 +167,8 @@ def _validate_policy(policy):
     return policy
 
 
-def load_policy(path=None):
-    """Read at most 32 KiB of strict UTF-8 JSON; damaged policy fails closed."""
+def _read_policy(path=None):
+    """Return the policy and exactly the bytes validated, for digest binding."""
     try:
         target = Path(path) if path is not None else Path(__file__).resolve().with_name("WinBookSplit.Compatibility.json")
         with target.open("rb") as stream:
@@ -167,11 +176,16 @@ def load_policy(path=None):
         _require(0 < len(data) <= POLICY_MAX_BYTES, "Compatibility policy is empty or exceeds 32 KiB.")
         policy = json.loads(data.decode("utf-8"), object_pairs_hook=_unique_object,
                             parse_constant=_invalid_constant)
-        return _validate_policy(policy)
+        return _validate_policy(policy), data
     except PolicyError:
         raise
     except (OSError, UnicodeError, ValueError, TypeError, RecursionError) as error:
         raise PolicyError("Missing or malformed shipped compatibility policy.") from error
+
+
+def load_policy(path=None):
+    """Read at most 32 KiB of strict UTF-8 JSON; damaged policy fails closed."""
+    return _read_policy(path)[0]
 
 
 def _result(ok, reason, message):
@@ -202,7 +216,7 @@ def validate_interpreter(record, policy):
         return _result(False, "malformed_runtime", "Runtime identity has malformed scalar fields.")
     if record["releaselevel"] not in ("final", "alpha", "beta", "candidate"):
         return _result(False, "malformed_runtime", "Runtime release level is malformed.")
-    version = _version(record["version"])
+    version = _version(record["version"]) if type(record["version"]) is str else None
     if version is None:
         if type(record["version"]) is str and _UNSTABLE_VERSION.fullmatch(record["version"]):
             return _result(False, "unstable_python", "A stable final Python release is required.")
@@ -237,3 +251,122 @@ def validate_interpreter(record, policy):
         return _result(False, "python_compatibility_floor", "Python " + observed + " is below compatibility floor " + floor + ".")
     return _result(True, "supported", "Python " + observed + " is accepted by compatibility policy "
                    + str(policy["policy_version"]) + ".")
+
+
+def _runtime_identity():
+    return {
+        "protocol": "winbooksplit.runtime", "schema_version": 1, "ok": False,
+        "executable": sys.executable, "version": platform.python_version(),
+        "version_info": list(sys.version_info[:3]), "releaselevel": sys.version_info.releaselevel,
+        "serial": sys.version_info.serial, "implementation": sys.implementation.name,
+        "platform": sys.platform, "machine": platform.machine(), "bits": struct.calcsize("P") * 8,
+        "gil_disabled": bool(sysconfig.get_config_var("Py_GIL_DISABLED")),
+        "isolated": bool(sys.flags.isolated), "dont_write_bytecode": bool(sys.flags.dont_write_bytecode),
+        "policy_version": 0, "policy_sha256": "", "reason": "malformed_runtime", "message": "Runtime probe has not completed.",
+    }
+
+
+class _PackageError(ValueError):
+    def __init__(self, reason, message):
+        super().__init__(message)
+        self.reason = reason
+
+
+def _locked_pypdf(policy):
+    """Import only after interpreter acceptance; retain package and metadata guards."""
+    try:
+        package = importlib.import_module("pypdf")
+        distribution = metadata.distribution("pypdf")
+    except (ImportError, metadata.PackageNotFoundError) as error:
+        raise _PackageError("missing_pypdf", "The locked pypdf package is missing or cannot be imported: " + str(error)) from error
+    locked = policy["pypdf"]["version"]
+    actual = getattr(package, "__version__", None)
+    if type(actual) is not str or actual != locked or distribution.version != locked:
+        raise _PackageError("pypdf_version_mismatch", "Expected locked pypdf " + locked + " in both import and distribution metadata.")
+    try:
+        package_file = getattr(package, "__file__", None)
+        if type(package_file) is not str or not package_file:
+            raise ValueError("Missing package import origin.")
+        origin = Path(package_file).resolve(strict=True)
+        if not origin.is_file():
+            raise ValueError("Package import origin is not a file.")
+        roots = {Path(sysconfig.get_paths()[key]).resolve() for key in ("purelib", "platlib")}
+        if not any(origin.is_relative_to(root) for root in roots):
+            raise ValueError("Package imported outside this interpreter's package roots.")
+        distribution_root = Path(distribution.locate_file("")).resolve(strict=True)
+        if distribution_root not in roots or Path(distribution.locate_file("pypdf/__init__.py")).resolve(strict=True) != origin:
+            raise ValueError("Distribution metadata and imported package roots disagree.")
+        if re.sub(r"[-_.]+", "-", distribution.metadata.get("Name", "")).lower() != "pypdf":
+            raise ValueError("Distribution metadata names a different project.")
+        files = distribution.files
+        if files is None:
+            raise ValueError("Distribution metadata has no file inventory.")
+        metadata_files = [item for item in files if Path(str(item)).name == "METADATA"
+                          and Path(str(item)).parent.name.startswith("pypdf-")
+                          and Path(str(item)).parent.suffix == ".dist-info"]
+        if len(metadata_files) != 1:
+            raise ValueError("Expected one pypdf distribution METADATA origin.")
+        metadata_path = Path(distribution.locate_file(metadata_files[0])).resolve(strict=True)
+        if not metadata_path.is_file() or metadata_path.parent.parent != distribution_root:
+            raise ValueError("Distribution METADATA origin is outside this interpreter's package root.")
+        package_root = origin.parent
+        for name, module in tuple(sys.modules.items()):
+            if name == "pypdf" or name.startswith("pypdf."):
+                module_file = getattr(module, "__file__", None)
+                if type(module_file) is not str or not module_file:
+                    raise ValueError("Missing pypdf module import origin.")
+                module_origin = Path(module_file).resolve(strict=True)
+                if not module_origin.is_file() or not module_origin.is_relative_to(package_root):
+                    raise ValueError("A pypdf module imported outside the selected package.")
+    except (OSError, ValueError, TypeError, KeyError) as error:
+        raise _PackageError("pypdf_origin_invalid", "Unexpected pypdf package or distribution origin: " + str(error)) from error
+    return {"pypdf_version": actual, "pypdf_path": str(origin)}
+
+
+def probe_interpreter(require_pypdf=True, policy_path=None):
+    """Produce one offline identity record; interpreter-only probing imports no pypdf."""
+    record = _runtime_identity()
+    try:
+        policy, policy_bytes = _read_policy(policy_path)
+        record["policy_version"] = policy["policy_version"]
+        record["policy_sha256"] = sha256(policy_bytes).hexdigest()
+    except PolicyError as error:
+        record.update(ok=False, reason="malformed_policy", message=str(error))
+        return record
+    decision = validate_interpreter(record, policy)
+    record.update(decision)
+    if not decision["ok"]:
+        return record
+    if type(require_pypdf) is not bool:
+        record.update(ok=False, reason="malformed_runtime", message="The package probe option must be a boolean.")
+        return record
+    if require_pypdf:
+        try:
+            record.update(_locked_pypdf(policy))
+        except _PackageError as error:
+            record.update(ok=False, reason=error.reason, message=str(error))
+            return record
+        except Exception as error:
+            record.update(ok=False, reason="pypdf_origin_invalid", message="The locked pypdf probe failed: " + str(error))
+            return record
+        record["message"] += " Locked pypdf " + record["pypdf_version"] + " imported from this interpreter's package roots."
+    else:
+        record["message"] += " Interpreter-only probe; pypdf was not imported."
+    return record
+
+
+def main(argv=None):
+    """No setup, discovery or installation side effects; emit exactly one JSON record."""
+    import argparse
+    parser = argparse.ArgumentParser(description="Read-only WinBookSplit interpreter preflight")
+    parser.add_argument("--probe", action="store_true", required=True)
+    parser.add_argument("--interpreter-only", action="store_true")
+    parser.add_argument("--policy", type=str)
+    arguments = parser.parse_args(argv)
+    record = probe_interpreter(require_pypdf=not arguments.interpreter_only, policy_path=arguments.policy)
+    print(json.dumps(record, ensure_ascii=True))
+    return 0 if record["ok"] else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

@@ -58,6 +58,9 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
     }
     It 'hard-fails an existing application venv with no Scripts interpreter' {
         $app=Join-Path $TestDrive 'app'; $null=New-Item -ItemType Directory -Path (Join-Path $app '.venv')
+        $null=New-Item -ItemType Directory -Path (Join-Path $app 'engine')
+        Copy-Item -LiteralPath (Join-Path $RepositoryRoot 'engine\WinBookSplit.Compatibility.json') -Destination (Join-Path $app 'engine')
+        Copy-Item -LiteralPath (Join-Path $RepositoryRoot 'engine\winbooksplit_compatibility.py') -Destination (Join-Path $app 'engine')
         Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur' }
         try { Resolve-WinBookSplitRuntime -ApplicationRoot $app; throw 'Expected venv rejection' }
         catch {

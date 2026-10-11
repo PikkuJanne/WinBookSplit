@@ -51,7 +51,7 @@ class PackageInputTests(unittest.TestCase):
     def test_current_committed_inputs_and_helper_closure_are_bound(self):
         result = checker.validate_inputs(self.repo, self.commit)
         self.assertTrue(result["success"])
-        self.assertEqual((result["runtime_count"], result["support_source_count"]), (16, 13))
+        self.assertEqual((result["runtime_count"], result["support_source_count"]), (19, 13))
         self.assertEqual(result["source_commit"], self.commit)
         self.assertEqual(result["source_tree"], self.git("rev-parse", "HEAD^{tree}"))
         self.assertFalse(result["working_tree_inputs_used"])
@@ -62,6 +62,10 @@ class PackageInputTests(unittest.TestCase):
         for consumer in ("WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Support.ps1"):
             self.assertIn("VERSION", dependencies[consumer])
         self.assertIn("engine/winbooksplit_conversion.py", dependencies["engine/winbooksplit_engine.py"])
+        self.assertIn("engine/winbooksplit_compatibility.py", dependencies["engine/winbooksplit_engine.py"])
+        self.assertIn("engine/WinBookSplit.Compatibility.json", dependencies["engine/winbooksplit_compatibility.py"])
+        self.assertIn("engine/WinBookSplit.Compatibility.ps1", dependencies["engine/WinBookSplit.Runtime.ps1"])
+        self.assertIn("engine/WinBookSplit.Compatibility.json", dependencies["engine/WinBookSplit.Compatibility.ps1"])
         self.assertIn("engine/winbooksplit_job.py", dependencies["engine/winbooksplit_conversion.py"])
         self.assertIn("engine/WinBookSplit.Support.ps1", dependencies["Export-WinBookSplitDiagnostics.ps1"])
 
@@ -174,6 +178,21 @@ class PackageInputTests(unittest.TestCase):
                          "commit", "--quiet", "-m", "Authored nonordinary helper")
                 self.rejected("nonordinary_input", self.git("rev-parse", "HEAD"))
 
+    def test_each_compatibility_file_must_be_committed_despite_a_working_copy(self):
+        for path in ("engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+                     "engine/winbooksplit_compatibility.py"):
+            with self.subTest(path=path):
+                self.git("rm", "--cached", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Authored missing compatibility input")
+                self.assertTrue((self.repo / path).is_file())
+                with self.assertRaises(checker.InputError) as caught:
+                    checker.validate_inputs(self.repo, self.git("rev-parse", "HEAD"))
+                self.assertEqual((caught.exception.code, caught.exception.path), ("missing_input", path))
+                self.git("add", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Restore authored compatibility input")
+
     def test_unsafe_windows_and_traversal_names_are_rejected(self):
         for path in ("../engine/x.py", "/absolute", "C:/file", "engine\\x.py", "engine//x.py",
                      "engine/CON.py", "engine/a.", "engine/a ", "engine/a:b", "engine/a\n.py", "./README.md"):
@@ -212,6 +231,24 @@ class PackageInputTests(unittest.TestCase):
         (self.repo / "WinBookSplit.ps1").write_text(original, encoding="utf-8")
         (self.repo / "WinBookSplit.bat").write_text('@echo off\nPowerShell -File "%~dp0private-helper.ps1"\n', encoding="utf-8")
         self.rejected("launcher_dependency_changed", self.commit_all())
+
+    def test_only_exact_helper_literal_pypdf_dynamic_import_is_allowed(self):
+        helper = self.repo / "engine/winbooksplit_compatibility.py"
+        original = helper.read_text(encoding="utf-8")
+        # The real lazy package probe is accepted; alternate/computed imports are not.
+        self.assertTrue(checker.validate_inputs(self.repo, self.commit)["success"])
+        for addition in ("importlib.import_module('private_helper')", "importlib.import_module('os')",
+                         "importlib.import_module(package_name)", "importlib.import_module('pypdf', package=None)",
+                         "other.import_module('pypdf')", "__import__('pypdf')", "import_module('pypdf')",
+                         "from importlib import import_module as load; load('private_helper')",
+                         "from builtins import __import__ as load; load('private_helper')"):
+            with self.subTest(addition=addition):
+                helper.write_text(original + "\n" + addition + "\n", encoding="utf-8")
+                self.rejected("unresolved_runtime_dependency", self.commit_all())
+        helper.write_text(original, encoding="utf-8")
+        engine = self.repo / "engine/winbooksplit_engine.py"
+        engine.write_text(engine.read_text(encoding="utf-8") + "\nimportlib.import_module('pypdf')\n", encoding="utf-8")
+        self.rejected("unresolved_runtime_dependency", self.commit_all())
 
     def test_runtime_requirement_rejects_unpinned_dev_extra_url_and_include(self):
         for line in ("pypdf==6.20.0", checker.RUNTIME_REQUIREMENT + "\nreportlab==5.0.1",

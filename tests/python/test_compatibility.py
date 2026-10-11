@@ -5,7 +5,11 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import shutil
+import subprocess
+import sys
 import tempfile
+from types import SimpleNamespace
 import unittest
 from unittest.mock import patch
 
@@ -142,11 +146,11 @@ class InterpreterPolicyTests(unittest.TestCase):
         for record in (None, [], True):
             self.assert_reason(record, "malformed_runtime")
 
-    def test_tuple_and_list_version_values_are_compared_numerically(self):
+    def test_runtime_version_string_is_required_beside_numeric_version_info(self):
         for version in ((3, 14, 10), [3, 14, 10]):
             record = synthetic_runtime(14, 10)
             record["version"] = version
-            self.assert_reason(record, "supported")
+            self.assert_reason(record, "malformed_runtime")
 
     def test_candidate_ok_flag_and_package_fields_do_not_override_identity(self):
         record = synthetic_runtime(14, 2)
@@ -285,6 +289,21 @@ class PolicyLoaderTests(unittest.TestCase):
             policy["sources"][0]["url"] = url
             self.assert_rejected(policy)
 
+    def test_empty_credentials_and_invalid_source_ports_fail_closed(self):
+        for url in ("https://@www.python.org/", "https://:@www.python.org/",
+                    "https://www.python.org:bad/", "https://www.python.org:99999/",
+                    "https://www.python.org:65536/", "https://www.python.org:-1/"):
+            with self.subTest(url=url):
+                policy = synthetic_policy()
+                policy["sources"][0]["url"] = url
+                self.assert_rejected(policy)
+        for port in (0, 443, 65535):
+            with self.subTest(valid_port=port):
+                policy = synthetic_policy()
+                policy["sources"][0]["url"] = "https://www.python.org:" + str(port) + "/"
+                self.write(policy)
+                self.assertEqual(compatibility.load_policy(self.path), policy)
+
     def test_package_lock_and_converter_versions_remain_controlled(self):
         for field, value in (("version", "6.20"), ("wheel_sha256", "a" * 63), ("wheel_sha256", "A" * 64)):
             policy = synthetic_policy()
@@ -310,6 +329,252 @@ class PolicyLoaderTests(unittest.TestCase):
             isolated_spec.loader.exec_module(module)
             self.assertTrue(module.validate_interpreter(synthetic_runtime(), synthetic_policy())["ok"])
         self.assertEqual(imports, [])
+
+
+class PackageProbeTests(unittest.TestCase):
+    """Package-boundary failures use explicitly synthetic identities/modules."""
+
+    def setUp(self):
+        self.owned = tempfile.TemporaryDirectory(prefix="wbs-package-probe-unit-")
+        self.addCleanup(self.owned.cleanup)
+        self.work = Path(self.owned.name)
+        self.policy_path = self.work / "policy.json"
+        self.policy_path.write_text(json.dumps(synthetic_policy()), encoding="utf-8")
+        self.packages = self.work / "site-packages"
+        package = self.packages / "pypdf"
+        package.mkdir(parents=True)
+        (package / "__init__.py").write_text("# Synthetic package-origin fixture", encoding="utf-8")
+        dist_info = self.packages / "pypdf-6.20.0.dist-info"
+        dist_info.mkdir()
+        (dist_info / "METADATA").write_text("Name: pypdf\nVersion: 6.20.0\n", encoding="utf-8")
+        self.package = SimpleNamespace(__file__=str(package / "__init__.py"), __version__="6.20.0")
+        self.distribution = SimpleNamespace(version="6.20.0", metadata={"Name": "pypdf"},
+            files=[Path("pypdf-6.20.0.dist-info/METADATA")], locate_file=lambda item: self.packages / str(item))
+        self.identity = synthetic_runtime()
+        self.identity.update(protocol="winbooksplit.runtime", schema_version=1, ok=False,
+                             policy_version=0, policy_sha256="", reason="malformed_runtime", message="Synthetic identity")
+
+    def probe(self, require_pypdf=True):
+        with patch.object(compatibility, "_runtime_identity", return_value=copy.deepcopy(self.identity)), \
+                patch.object(compatibility.importlib, "import_module", return_value=self.package), \
+                patch.object(compatibility.metadata, "distribution", return_value=self.distribution), \
+                patch.object(compatibility.sysconfig, "get_paths", return_value={"purelib": str(self.packages), "platlib": str(self.packages)}), \
+                patch.dict(sys.modules, {"pypdf": self.package}):
+            # A full-suite invocation may already have real pypdf children.
+            # Keep only this test's deliberate synthetic child during its
+            # mocked package probe; patch.dict restores the original modules.
+            for name in tuple(sys.modules):
+                if name.startswith("pypdf.") and name != "pypdf.synthetic_child":
+                    del sys.modules[name]
+            return compatibility.probe_interpreter(require_pypdf, self.policy_path)
+
+    def test_interpreter_only_has_no_package_import_or_package_fields(self):
+        with patch.object(compatibility, "_runtime_identity", return_value=copy.deepcopy(self.identity)), \
+                patch.object(compatibility.importlib, "import_module", side_effect=AssertionError("pypdf import forbidden")) as importer:
+            result = compatibility.probe_interpreter(False, self.policy_path)
+        self.assertTrue(result["ok"])
+        self.assertEqual(result["reason"], "supported")
+        self.assertEqual(result["policy_version"], 1)
+        self.assertRegex(result["policy_sha256"], r"\A[0-9a-f]{64}\Z")
+        self.assertNotIn("pypdf_path", result)
+        self.assertNotIn("pypdf_version", result)
+        importer.assert_not_called()
+
+    def test_unsupported_interpreter_precedes_any_package_import(self):
+        self.identity.update(version="3.14.2", version_info=[3, 14, 2])
+        with patch.object(compatibility, "_runtime_identity", return_value=copy.deepcopy(self.identity)), \
+                patch.object(compatibility.importlib, "import_module", side_effect=AssertionError("pypdf import forbidden")) as importer:
+            result = compatibility.probe_interpreter(True, self.policy_path)
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["reason"], "python_security_floor")
+        importer.assert_not_called()
+
+    def test_missing_locked_package_is_separate_from_interpreter_acceptance(self):
+        with patch.object(compatibility, "_runtime_identity", return_value=copy.deepcopy(self.identity)), \
+                patch.object(compatibility.importlib, "import_module", side_effect=ModuleNotFoundError("Synthetic missing pypdf")):
+            result = compatibility.probe_interpreter(True, self.policy_path)
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["reason"], "missing_pypdf")
+
+    def test_full_package_probe_verifies_import_and_distribution_versions(self):
+        result = self.probe()
+        self.assertTrue(result["ok"], result)
+        self.assertEqual(result["pypdf_version"], "6.20.0")
+        self.assertEqual(Path(result["pypdf_path"]), Path(self.package.__file__))
+        self.package.__version__ = "6.19.0"
+        self.assertEqual(self.probe()["reason"], "pypdf_version_mismatch")
+        self.package.__version__ = "6.20.0"
+        self.distribution.version = "6.19.0"
+        self.assertEqual(self.probe()["reason"], "pypdf_version_mismatch")
+
+    def test_package_file_outside_interpreter_roots_is_rejected(self):
+        outside = self.work / "outside.py"
+        outside.write_text("# Synthetic wrong origin", encoding="utf-8")
+        self.package.__file__ = str(outside)
+        self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+
+    def test_distribution_root_and_metadata_origin_are_checked(self):
+        self.distribution.locate_file = lambda item: self.work / str(item)
+        self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+        self.distribution.locate_file = lambda item: self.packages / str(item)
+        self.distribution.files = None
+        self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+        self.distribution.files = [Path("pypdf-6.20.0.dist-info/METADATA")]
+        self.distribution.metadata = {"Name": "some-other-project"}
+        self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+
+    def test_every_imported_package_submodule_origin_is_checked(self):
+        outside = self.work / "outside.py"
+        outside.write_text("# Synthetic shadow child", encoding="utf-8")
+        with patch.dict(sys.modules, {"pypdf.synthetic_child": SimpleNamespace(__file__=str(outside))}):
+            self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+        with patch.dict(sys.modules, {"pypdf.synthetic_child": SimpleNamespace()}):
+            self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
+
+    def test_bad_or_missing_policy_precedes_package_import(self):
+        self.policy_path.write_text('{"schema_version": true}', encoding="utf-8")
+        with patch.object(compatibility, "_runtime_identity", return_value=copy.deepcopy(self.identity)), \
+                patch.object(compatibility.importlib, "import_module", side_effect=AssertionError("pypdf import forbidden")) as importer:
+            result = compatibility.probe_interpreter(True, self.policy_path)
+            self.assertEqual(result["reason"], "malformed_policy")
+            result = compatibility.probe_interpreter(True, self.work / "missing.json")
+            self.assertEqual(result["reason"], "malformed_policy")
+        importer.assert_not_called()
+
+    def test_nonboolean_probe_option_does_not_skip_package_guard(self):
+        result = self.probe(require_pypdf=0)
+        self.assertFalse(result["ok"])
+        self.assertEqual(result["reason"], "malformed_runtime")
+
+
+class NativeProbeEntrypointTests(unittest.TestCase):
+    """Actual current-interpreter subprocess checks; no synthetic native pass."""
+
+    def setUp(self):
+        self.owned = tempfile.TemporaryDirectory(prefix="wbs-probe-cli-unit-")
+        self.addCleanup(self.owned.cleanup)
+        self.work = Path(self.owned.name)
+
+    def run_cli(self, path, arguments, no_site=False):
+        return subprocess.run([sys.executable, "-I", "-B", *( ["-S"] if no_site else []),
+                               str(path), *arguments], cwd=self.work,
+                              capture_output=True, text=True, encoding="utf-8", timeout=30)
+
+    def one_record(self, child):
+        self.assertEqual(child.stderr, "", child.stderr)
+        lines = child.stdout.splitlines()
+        self.assertEqual(len(lines), 1, child.stdout)
+        return json.loads(lines[0])
+
+    def test_actual_interpreter_only_probe_has_one_record_with_site_disabled(self):
+        child = self.run_cli(MODULE, ["--probe", "--interpreter-only", "--policy",
+                                    str(ROOT / "engine/WinBookSplit.Compatibility.json")], no_site=True)
+        record = self.one_record(child)
+        self.assertEqual(record["version_info"], list(sys.version_info[:3]))
+        self.assertEqual(record["protocol"], "winbooksplit.runtime")
+        self.assertNotIn("pypdf_version", record)
+        self.assertNotIn("pypdf_path", record)
+        decision = compatibility.validate_interpreter(record, compatibility.load_policy())
+        self.assertEqual(record["ok"], decision["ok"])
+        self.assertEqual(child.returncode, 0 if decision["ok"] else 1)
+
+    def test_actual_processing_probe_cannot_pass_without_package(self):
+        child = self.run_cli(MODULE, ["--probe"], no_site=True)
+        record = self.one_record(child)
+        decision = compatibility.validate_interpreter(record, compatibility.load_policy())
+        self.assertFalse(record["ok"])
+        self.assertEqual(record["reason"], "missing_pypdf" if decision["ok"] else decision["reason"])
+        self.assertEqual(child.returncode, 1)
+
+    def prepare_direct_app(self, policy_bytes):
+        app = self.work / "app"
+        app.mkdir()
+        engine_dir = app / "engine"
+        engine_dir.mkdir()
+        for name in ("winbooksplit_engine.py", "winbooksplit_compatibility.py", "WinBookSplit.Outcomes.json"):
+            shutil.copyfile(ROOT / "engine" / name, engine_dir / name)
+        shutil.copyfile(ROOT / "VERSION", app / "VERSION")
+        if policy_bytes is not None:
+            (engine_dir / "WinBookSplit.Compatibility.json").write_bytes(policy_bytes)
+        source = self.work / "authored-input.pdf"
+        source.write_bytes(b"Authored preservation fixture; not a private document")
+        output = self.work / "output"
+        output.mkdir()
+        neighbor = output / "neighbor.txt"
+        neighbor.write_bytes(b"Preserve authored neighbor")
+        return engine_dir / "winbooksplit_engine.py", source, output, neighbor
+
+    def assert_direct_rejection_preserves_inputs(self, policy_bytes, reason, code):
+        engine, source, output, neighbor = self.prepare_direct_app(policy_bytes)
+        source_before, neighbor_before = source.read_bytes(), neighbor.read_bytes()
+        child = self.run_cli(engine, [str(source), str(output), "manual", "1"], no_site=True)
+        record = self.one_record(child)
+        self.assertEqual(child.returncode, 3)
+        self.assertEqual(record["protocol"], "winbooksplit.result")
+        self.assertEqual(record["code"], code)
+        self.assertEqual(record["diagnostic"]["reason"], reason)
+        self.assertEqual(record["written_count"], 0)
+        self.assertIsNone(record["execution"])
+        self.assertEqual(source.read_bytes(), source_before)
+        self.assertEqual(neighbor.read_bytes(), neighbor_before)
+        self.assertEqual(list(output.iterdir()), [neighbor])
+
+    def test_direct_engine_rejects_malformed_policy_before_package_or_document(self):
+        self.assert_direct_rejection_preserves_inputs(b'{"schema_version": true}', "malformed_policy", "runtime_invalid")
+
+    def test_direct_engine_rejects_missing_policy_before_package_or_document(self):
+        self.assert_direct_rejection_preserves_inputs(None, "malformed_policy", "runtime_invalid")
+
+    def test_direct_engine_missing_package_preserves_existing_outcome_contract(self):
+        identity = compatibility._runtime_identity()
+        decision = compatibility.validate_interpreter(identity, compatibility.load_policy())
+        self.assert_direct_rejection_preserves_inputs(
+            (ROOT / "engine/WinBookSplit.Compatibility.json").read_bytes(),
+            "missing_pypdf" if decision["ok"] else decision["reason"],
+            "dependency_missing" if decision["ok"] else "runtime_invalid")
+
+    def assert_direct_shadow_package_rejection(self, package_version):
+        engine, source, output, neighbor = self.prepare_direct_app(
+            (ROOT / "engine/WinBookSplit.Compatibility.json").read_bytes())
+        source_before, neighbor_before = source.read_bytes(), neighbor.read_bytes()
+        shadow = self.work / "controlled-package-shadow"
+        (shadow / "pypdf").mkdir(parents=True)
+        (shadow / "pypdf/__init__.py").write_text(
+            "# Authored package-origin fixture\n__version__=" + repr(package_version) + "\n", encoding="utf-8")
+        # This deliberate subprocess path injection exercises the guard. Normal
+        # processing retains -I and never adds this synthetic shadow directory.
+        wrapper = "import runpy,sys; sys.path.insert(0,sys.argv[1]); target=sys.argv[2]; sys.argv=sys.argv[2:]; runpy.run_path(target,run_name='__main__')"
+        child = subprocess.run([sys.executable, "-I", "-B", "-c", wrapper, str(shadow), str(engine),
+                                str(source), str(output), "manual", "1"], cwd=self.work,
+                               capture_output=True, text=True, encoding="utf-8", timeout=30)
+        record = self.one_record(child)
+        decision = compatibility.validate_interpreter(compatibility._runtime_identity(), compatibility.load_policy())
+        try:
+            compatibility.metadata.distribution("pypdf")
+            metadata_present = True
+        except compatibility.metadata.PackageNotFoundError:
+            metadata_present = False
+        if not decision["ok"]:
+            reason, code = decision["reason"], "runtime_invalid"
+        elif not metadata_present:
+            reason, code = "missing_pypdf", "dependency_missing"
+        else:
+            reason = "pypdf_origin_invalid" if package_version == "6.20.0" else "pypdf_version_mismatch"
+            code = "runtime_invalid"
+        self.assertEqual(child.returncode, 3)
+        self.assertEqual(record["diagnostic"]["reason"], reason)
+        self.assertEqual(record["code"], code)
+        self.assertEqual(record["written_count"], 0)
+        self.assertIsNone(record["execution"])
+        self.assertEqual(source.read_bytes(), source_before)
+        self.assertEqual(neighbor.read_bytes(), neighbor_before)
+        self.assertEqual(list(output.iterdir()), [neighbor])
+
+    def test_direct_engine_rejects_controlled_wrong_package_origin_before_document(self):
+        self.assert_direct_shadow_package_rejection("6.20.0")
+
+    def test_direct_engine_rejects_controlled_wrong_package_version_before_document(self):
+        self.assert_direct_shadow_package_rejection("6.19.0")
 
 
 if __name__ == "__main__":

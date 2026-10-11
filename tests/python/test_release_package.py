@@ -141,7 +141,12 @@ class ReleasePackageTests(unittest.TestCase):
                               timeout=90, check=False, cwd=self.work)
 
     def test_payload_members_and_independent_git_blob_hashes_are_exact(self):
-        self.assertEqual(len(PAYLOAD_PATHS), 28)
+        self.assertEqual(len(PAYLOAD_PATHS), 31)
+        self.assertTrue({"engine/WinBookSplit.Compatibility.ps1",
+                         "engine/WinBookSplit.Compatibility.json",
+                         "engine/winbooksplit_compatibility.py",
+                         "WinBookSplit.ico"}.issubset(PAYLOAD_PATHS))
+        self.assertNotIn("WinBookSplit_icon.ico", PAYLOAD_PATHS)
         with zipfile.ZipFile(self.archive) as archive:
             self.assertEqual(archive.namelist(), list(PAYLOAD_PATHS))
             for info in archive.infolist():
@@ -485,8 +490,8 @@ class ReleasePackageTests(unittest.TestCase):
         self.assertEqual(fields[4], len(PAYLOAD_PATHS))
         central_size, central_offset = fields[5:7]
         central = original[central_offset:central_offset + central_size]
-        # This harmless 56-member fixture demonstrates that ZIP64 can override a
-        # normal EOCD that still advertises the expected 28 members and CD size.
+        # This harmless doubled-member fixture demonstrates that ZIP64 can override a
+        # normal EOCD that still advertises the expected payload count and CD size.
         expanded = central * 2
         record_offset = central_offset + len(expanded)
         record = struct.pack("<4sQ2H2L4Q", b"PK\x06\x06", 44, 45, 45, 0, 0,
