@@ -47,8 +47,12 @@
         "V101-AC-009",
         "V101-AC-010"
       ],
-      "status": "NOT_STARTED",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-03",

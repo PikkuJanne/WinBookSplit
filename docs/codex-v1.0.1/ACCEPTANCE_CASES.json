@@ -68,8 +68,12 @@
       "key": "branch_decision",
       "expected": "All four candidate branches evaluated with concrete inclusion/exclusion reasons; security and Windows binary availability reviewed.",
       "verification_kind": "CODE_OR_SOURCE_REVIEW",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-AC-007",
@@ -77,8 +81,12 @@
       "key": "shared_policy",
       "expected": "One validated policy design is used across setup/probe/PowerShell validation/tests/docs; exact build pins are separate.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-AC-008",
@@ -86,8 +94,12 @@
       "key": "patch_updates",
       "expected": "Later stable maintenance versions inside approved branches are accepted without exact equality or a live online check.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-AC-009",
@@ -95,8 +107,12 @@
       "key": "security_floors",
       "expected": "Each hard floor/exclusion has applicable evidence; recommended latest patch is not silently used as an equality/minimum rule.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-AC-010",
@@ -104,8 +120,12 @@
       "key": "scope_bounds",
       "expected": "Only tested regular stable x64 CPython branches are advertised; 32-bit, ARM, free-threaded and future untested minors are excluded clearly.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-02-security-review.md",
+        "evidence/V101-02-policy.md",
+        "evidence/V101-02-policy.json"
+      ]
     },
     {
       "id": "V101-AC-011",

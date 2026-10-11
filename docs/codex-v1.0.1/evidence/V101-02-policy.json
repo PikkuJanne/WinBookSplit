@@ -1,0 +1,53 @@
+{
+  "task": "V101-02",
+  "observed_at": "2026-10-11T14:06:50.012612+00:00",
+  "observed_source_commit": "45507d427b4238425fa0ffe91982e53d4499385c",
+  "observed_source_tree": "7114363b9e4abc195e5439c9e7d2af4ebaab2a8a",
+  "changed_source_sha256": {
+    "engine/WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+    "engine/winbooksplit_compatibility.py": "a145699b3edc0908fcf7c38c670a297759fd785baa6345805dbd97355e07dc5a",
+    "tests/python/test_compatibility.py": "411ffb638d76bc534649439cb4e87505b3608f5ab4763244ab5730418eabadee",
+    "tests/compatibility/runtime-lock.json": "48d19fc69d2c9fb8831448b1fbd20a71ab7582a8e491c10494d8e4e21f7f3f3a"
+  },
+  "policy_units": {
+    "versions": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "tests_per_version": 26,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "skips": 0,
+    "command": "<runtime>/Scripts/python.exe -I -B -m unittest discover -s <checkout>/tests/python -p test_compatibility.py -v",
+    "scope": "Synthetic policy boundary/malformed-data tests on actual named interpreters"
+  },
+  "native_initial_engine": {
+    "versions": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "pypdf": "6.20.0",
+    "chapters": 6,
+    "reopened_pages": 20,
+    "source_unchanged": true,
+    "report_sha256": "b74253eb77bcc9fcbca4e508c22c551e2bfc831c2a5d7ecf3a21baaa92d82540",
+    "command": "dev14/Scripts/python.exe -I -B policy_native_smoke.py",
+    "scope": "Current direct engine against authored fixture on two actual minor branches, not new resolver/setup/full matrix/final ZIP/Windows10 acceptance."
+  },
+  "provisioning_receipt_sha256": "ec26b61a3207ec35a2a1c67795f472ee0793e21e21a1e000740f8b47e11000ae",
+  "failed_provisioning_receipt_sha256": "9302f32cc7599551d5f9ece89be9ef1eba8fb7d17289759f1048e60cc112b8dd",
+  "shell_tools_bootstrap_sha256": "b7fe994006f23c68ac34d85bea62ad5331dfa6165c914235eda3acfc53c0dfa0",
+  "python_floors": {
+    "3.13": 15,
+    "3.14": 7
+  },
+  "python_recommendations": {
+    "3.13": 16,
+    "3.14": 8
+  },
+  "native_windows10": "NOT_RUN",
+  "final_zip_native_windows11": "NOT_RUN",
+  "next_task": "V101-03"
+}
