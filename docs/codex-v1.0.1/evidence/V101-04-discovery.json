@@ -1,0 +1,342 @@
+{
+  "task": "V101-04",
+  "observed_at": "2026-10-11T16:50:10.634846+02:00",
+  "observed_source_commit": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+  "observed_source_tree": "3b75387aafb3b7c057846e2abef956d2f26f837a",
+  "changed_source_sha256": {
+    "engine/WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+    "tests/Invoke-ShellTests.ps1": "883c5b2a29ffa015d6f62f4418f9704bf8adad6fb5539d3b801ba1384db410d2",
+    "tests/powershell/Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+    "tests/powershell/Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36",
+    "tests/python/test_version.py": "d7e951fb04423814aa97451c45cba14341074b52959ec2eef4d7b4bd4c57f247"
+  },
+  "policy_sha256": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+  "verification": {
+    "schema_version": 1,
+    "scope": "V101-04 controlled parser/ranking/discovery regression and actual existing-Windows11 automatic discovery/application checks. No Windows10 or finalZIP acceptance.",
+    "observed_at": "2026-10-11T16:48:48.231828+02:00",
+    "final_reports": [
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-combined04\\report.json",
+        "sha256": "9affb085baed0219457bdd1d12036abeac1cc9c7738b2f440961d6c194dca28b",
+        "host": "5.1.26100.9444",
+        "head": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+        "tree": "3b75387aafb3b7c057846e2abef956d2f26f837a",
+        "pester": {
+          "failed": 0,
+          "errors": [],
+          "passed": 44,
+          "failed_containers": 0,
+          "skipped": 0,
+          "total": 44,
+          "result": "Passed",
+          "not_run": 0
+        },
+        "status": null,
+        "success": true,
+        "error": null,
+        "source_before": {
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "tests\\powershell\\Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+          "tests\\powershell\\Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36"
+        },
+        "source_after": {
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "tests\\powershell\\Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+          "tests\\powershell\\Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36"
+        }
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS766-combined04\\report.json",
+        "sha256": "1ba950446fff8f2c0f9de347de92fbc9353ddda7743840cad003dc79086c2823",
+        "host": "7.6.6",
+        "head": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+        "tree": "3b75387aafb3b7c057846e2abef956d2f26f837a",
+        "pester": {
+          "passed": 44,
+          "failed": 0,
+          "result": "Passed",
+          "errors": [],
+          "failed_containers": 0,
+          "not_run": 0,
+          "skipped": 0,
+          "total": 44
+        },
+        "status": null,
+        "success": true,
+        "error": null,
+        "source_before": {
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "tests\\powershell\\Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+          "tests\\powershell\\Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36"
+        },
+        "source_after": {
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "tests\\powershell\\Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+          "tests\\powershell\\Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36"
+        }
+      },
+      {
+        "path": "<isolated-work>\\native-discovery-04-02\\report.json",
+        "sha256": "eb796eeb0620fa86d03223f29a24d695f62487ec42ab13428f3096a2139c33e8",
+        "host": null,
+        "head": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+        "tree": "3b75387aafb3b7c057846e2abef956d2f26f837a",
+        "pester": null,
+        "status": "PASS",
+        "success": null,
+        "error": null,
+        "source_before": {
+          "WinBookSplit.ps1": "11adb133e06705cbb1e12ca524adc312141e220acb49830fccd97a34e608160c",
+          "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+          "tests\\fixtures\\generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+          "engine\\WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+          "engine\\WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "engine\\winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+          "engine\\winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+          "engine\\winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+          "engine\\winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+        },
+        "source_after": {
+          "WinBookSplit.ps1": "11adb133e06705cbb1e12ca524adc312141e220acb49830fccd97a34e608160c",
+          "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+          "tests\\fixtures\\generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+          "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+          "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+          "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+          "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+          "engine\\WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+          "engine\\WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+          "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+          "engine\\WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+          "engine\\WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+          "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+          "engine\\winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+          "engine\\winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+          "engine\\winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+          "engine\\winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+        }
+      }
+    ],
+    "final_owned_source_sha256": {
+      "engine/WinBookSplit.Runtime.ps1": "611e1b633aea7ad9458922443209b7f67f10ef7ba7ce4129e7604323e7b18211",
+      "tests/powershell/Discovery.Tests.ps1": "f39a3ef2ed0706e45c07f7b85e1018b53e260befb7556530813c74ef67b324f5",
+      "tests/powershell/Runtime.Tests.ps1": "feefed436632af2f5222f80b8b8dbab23609572892f0bd6f746642186597ea36"
+    },
+    "exact_combined_commands": [
+      [
+        "C:/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\discovery-focused-04-01\\Invoke-CombinedDiscovery.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\discovery-focused-04-01\\PS51-combined04"
+      ],
+      [
+        "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\discovery-focused-04-01\\Invoke-CombinedDiscovery.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\discovery-focused-04-01\\PS766-combined04"
+      ]
+    ],
+    "native_command": [
+      "<isolated-work>\\dev14\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "<isolated-work>\\native-discovery-04-02\\native_discovery_04.py"
+    ],
+    "final_combined_runner_sha256": "59b37941d0be68e6ef3e81eae9834660dfbf9d66888aa92aba852311d4ea3afb",
+    "preserved_failed_preparations_and_runs": [
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\preparation-failure.json",
+        "sha256": "927e9bcd3052437b58425d4c907de1a5d85dd25f04df877b30f4513d97431432",
+        "reason": "Unsigned external runner blocked until process-only Bypass; no tests executed."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-02\\report.json",
+        "sha256": "47775bb80c165ba1f0884c898f3197884746d6745ebbbcd12fd9136226bd4628",
+        "reason": "Initial Pester test helpers incorrectly splatted arguments / a concatenation fixture. Runtime also changed during these runs; no final-source PASS claim."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS766\\report.json",
+        "sha256": "dfc342b945e45be20ddc364aa690683a4fcdaee164cf05cc71346ec28eb97e2e",
+        "reason": "Initial Pester test helpers incorrectly splatted arguments / a concatenation fixture. Runtime also changed during these runs; no final-source PASS claim."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-03\\report.json",
+        "sha256": "c20db2f312ec9febf27ab2fbce5513d88a8c5249bafb694caccec04f0aabb106",
+        "reason": "Initial malformed-listing test array concatenation accidentally added a valid listing. Corrected fixture, no guard change."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-combined\\report.json",
+        "sha256": "68cb5c7c0d16a7ace97bec0c6d29a25219f8016fa32c118b86640b97101b16d7",
+        "reason": "External combined runner preparation failed before Pester execution: Join-Path array substitution or Pester config wrapper append. Failed runner versions retained."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS766-combined\\report.json",
+        "sha256": "8a7ceb6545f81d214e92d7e201dec08dd50e6fc37ce565ac8ff732c31afca574",
+        "reason": "External combined runner preparation failed before Pester execution: Join-Path array substitution or Pester config wrapper append. Failed runner versions retained."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-combined02\\report.json",
+        "sha256": "138cfd584f11c41da5ff141d5098f1e32e98ec7f96d47756c79225cf4736f425",
+        "reason": "External combined runner preparation failed before Pester execution: Join-Path array substitution or Pester config wrapper append. Failed runner versions retained."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS766-combined02\\report.json",
+        "sha256": "53f373f4647386dfc37d4098da084563424a04f4f93a0ce58c60c897fe6cc29d",
+        "reason": "External combined runner preparation failed before Pester execution: Join-Path array substitution or Pester config wrapper append. Failed runner versions retained."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS51-combined03\\report.json",
+        "sha256": "c7289362a13da012d1093273303036ec386718fe6bca8dd663911f2f43939e80",
+        "reason": "Added non-executable text fixture assertions wrongly expected stream completion/job assignment for an unstarted process. Corrected to actual startup failure semantics; production unchanged."
+      },
+      {
+        "path": "<isolated-work>\\discovery-focused-04-01\\PS766-combined03\\report.json",
+        "sha256": "831532c4fbf70c3a44fe0d303023623cfd55d231d0422e32d0627a83a6dfdf79",
+        "reason": "Added non-executable text fixture assertions wrongly expected stream completion/job assignment for an unstarted process. Corrected to actual startup failure semantics; production unchanged."
+      },
+      {
+        "path": "<isolated-work>\\native-discovery-04-01\\report.json",
+        "sha256": "abc3d6cfd7e8ccd060e90a420719e9703f9b2c92a9ee1114a3e4a611fb89ccaa",
+        "reason": "Native first command succeeded; runner compared slash-normalized actual Windows path against an unnormalized expected path. Failed overall report retained; retry uses corrected assertion."
+      }
+    ],
+    "limitations": [
+      "Legacy installed launcher unavailable at both known Windows paths; Legacy and path-only Manager parser outputs are explicitly SYNTHETIC, not native launcher claims.",
+      "Modern manager list is never executed because it writes welcome/cache/log state. Registered physical manager uses exact -0p.",
+      "Final receipt is Windows11 source-checkout acceptance only. Native Windows10, finalZIP, Calibre and Explorer checks remain NOT_RUN in this subtask."
+    ]
+  },
+  "verification_index_sha256": "1a4fa42e50ea3043bedcecd4aabc7a215b82eb11ec068ba0d4605fe87814519e",
+  "native_checkout": {
+    "kind": "NATIVE_AUTOMATED",
+    "records": 7,
+    "os": {
+      "caption": "Microsoft Windows 11 Pro",
+      "version": "10.0.26300",
+      "build": "26300",
+      "architecture": "64-bit"
+    },
+    "python_actual": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "at_floor_manager_python": "3.14.7",
+    "pypdf": "6.20.0",
+    "powershell": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "fixture_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+    "runner_sha256": "80787f5b069fed41c4a79070989e977bea3d4edeea864153a3648a767a6ae0be",
+    "probe_wrapper_sha256": "e64ead6bfe06ef45d4cfddcd69e9bfcfbef16d6ec2ca8839ceeaee8d59f18de7",
+    "automatic_manual_splits": 1,
+    "pdfs": 3,
+    "reopened_markers": 10,
+    "immutable_input_and_neighbor": true,
+    "scope": "Actual checkout discovery/application only. No native Win10, final ZIP, installed legacy-launcher, Calibre or Explorer pass."
+  },
+  "independent_review_sha256": "78465dd421f22cce805be47e525b8cb101b559ebdefa4b13a2125d5b71a23401",
+  "version_fixture": {
+    "command": "<runtime>/Scripts/python.exe -I -B -m unittest discover -s tests/python -p test_version.py -v",
+    "actual_versions": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "tests_each": 5,
+    "status": "PASS",
+    "elapsed_seconds": [
+      0.895,
+      0.784
+    ],
+    "change": "Copy real shipped compatibility helper/policy; retain malformed VERSION, -S missing-package, no source/output access and immutability assertions."
+  },
+  "prior_reference_attempt": {
+    "status": "FAIL",
+    "tests": 559,
+    "failures": 2,
+    "elapsed_seconds": 584.951,
+    "report_sha256": "e3b534d7029dd8713df7db4b700d0ff69fd624b5bbb8a940578e37694d07c0f1",
+    "reasons": [
+      "Old release member-count assertion loaded before its correction",
+      "Version fixture omitted newly required helper/policy"
+    ],
+    "scope": "Both affected corrections passed targeted checks; full stable reference rerun remains V101-07."
+  },
+  "prior_runtime_fixture_attempts": [
+    {
+      "host": "5.1.26100.9444",
+      "passed": 18,
+      "total": 19,
+      "status": "FAIL",
+      "report_sha256": "60a31b547e1650c7bc9248678ae6b8ac0e9bcf4ad2b02d97b6d63bd84c1c0c4a"
+    },
+    {
+      "host": "7.6.6",
+      "passed": 18,
+      "total": 19,
+      "status": "FAIL",
+      "report_sha256": "ea6d7a3a991d2a4a69f509137117330b36a8d87c52faa7e6b7c2e7ffcc8c9a8d"
+    }
+  ],
+  "prior_ci": {
+    "run": 38147504516,
+    "head": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+    "status": "FAIL",
+    "package_prerequisites": "PASS",
+    "ps51": "PASS",
+    "ps7": "PASS",
+    "python": "FAIL",
+    "scope": "Earlier committed source, not the working discovery patch. No overall green CI claim.",
+    "python_tests": 559,
+    "python_failures": 1,
+    "python_elapsed_seconds": 336.123,
+    "failure": "Version fixture omitted compatibility helper/policy; targeted corrected fixture passes each actual minor",
+    "pester_each": 128,
+    "artifact_id": 11704649835,
+    "artifact_sha256": "5d3c5da5ee888cf53415f9f658a3da240d4bb69780aacca5ad05d5afee7fac9d"
+  },
+  "next_task": "V101-05",
+  "native_windows10": "NOT_RUN",
+  "final_zip_windows11": "NOT_RUN"
+}

@@ -211,8 +211,12 @@
       "key": "legacy_listing",
       "expected": "Legacy installed-only launcher listing works and parses concrete executable paths safely.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-018",
@@ -220,8 +224,12 @@
       "key": "manager_listing",
       "expected": "Installed Python manager listing is handled through a verified read-only route, without runtime install triggers.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-019",
@@ -229,8 +237,12 @@
       "key": "unknown_option",
       "expected": "Unknown option -0 does not prevent a subsequent trusted PATH interpreter from succeeding.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-020",
@@ -238,8 +250,12 @@
       "key": "launcher_absent",
       "expected": "No launcher plus a valid direct interpreter works; empty/malformed listings are bounded failures rather than hangs.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-021",
@@ -247,8 +263,12 @@
       "key": "explicit_authority",
       "expected": "Invalid explicit Python or broken existing .venv fails without silently switching runtimes.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-022",
@@ -256,8 +276,12 @@
       "key": "decoys",
       "expected": "Document/CWD decoys, import shadowing and unsafe executable aliases remain excluded; valid unrelated-CWD launch still works.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-023",
@@ -265,8 +289,12 @@
       "key": "discovery_readonly",
       "expected": "Discovery never launches an installer, changes global settings, queries online runtime lists or hangs indefinitely.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-024",
@@ -274,8 +302,12 @@
       "key": "selection_order",
       "expected": "Multiple valid candidates are deduplicated and selected deterministically; diagnostics identify the actual choice.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-AC-025",

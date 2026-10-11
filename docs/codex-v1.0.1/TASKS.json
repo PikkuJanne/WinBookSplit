@@ -101,8 +101,12 @@
         "V101-AC-023",
         "V101-AC-024"
       ],
-      "status": "NOT_STARTED",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-04-discovery.md",
+        "evidence/V101-04-discovery.json",
+        "evidence/V101-04-review.md"
+      ]
     },
     {
       "id": "V101-05",
@@ -126,7 +130,7 @@
         "V101-AC-032",
         "V101-AC-033"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

@@ -2,13 +2,13 @@
   "schema_version": 1,
   "target_release": "v1.0.1",
   "phase": "IN_PROGRESS",
-  "current_task": "V101-04",
+  "current_task": "V101-05",
   "baseline_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
   "work_branch": "codex/v1.0.1-compatibility",
   "last_verified_sync": {
     "branch": "codex/v1.0.1-compatibility",
-    "commit": "dccb460be65d2352b81d43a977b20aaf4ce325f3",
-    "observed_at": "2026-10-11T14:06:53.640177+00:00"
+    "commit": "ff22f2c78bc1dd06d7fe83d2338e75ed309503fd",
+    "observed_at": "2026-10-11T14:31:09.112008+00:00"
   },
   "release_source_R": null,
   "accepted_zip_sha256": null,

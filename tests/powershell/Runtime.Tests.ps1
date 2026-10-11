@@ -80,8 +80,13 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
             $result=Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -DocumentPath (Join-Path $TestDrive 'book\owned.pdf')
             $result.Path | Should-Be -Expected $TestPython
             $result.Source | Should-Be -Expected 'PATH'
-            @($result.Attempts | Where-Object { -not $_.Accepted }).Count | Should-Be -Expected 1
-            $result.Attempts[0].Probe.ParentStopped | Should-BeTrue
+            $badAttempts=@($result.Attempts | Where-Object { $_.Source -eq 'PATH' -and $_.Path -eq (Join-Path $bad 'python.exe') -and -not $_.Accepted })
+            $badAttempts.Count | Should-Be -Expected 1
+            $badAttempts[0].Probe.ParentStopped | Should-BeTrue
+            $badAttempts[0].Probe.DescendantsStopped | Should-BeTrue
+            [string]::IsNullOrWhiteSpace($badAttempts[0].Probe.StartError) | Should-BeFalse
+            ($null -eq $badAttempts[0].Probe.Pid) | Should-BeTrue
+            $badAttempts[0].Probe.JobAssigned | Should-BeFalse
         } finally { $env:PATH=$savedPath; Set-Location -LiteralPath $savedLocation.ProviderPath }
     }
     It 'excludes empty, relative, document and unrelated-CWD automatic candidates' {

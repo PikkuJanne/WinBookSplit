@@ -72,7 +72,8 @@ class ApplicationVersionTests(unittest.TestCase):
     def test_actual_engine_missing_or_bad_version_fails_before_dependency_and_source_access(self):
         app = self.work / "app"
         (app / "engine").mkdir(parents=True)
-        for name in ("winbooksplit_engine.py", "WinBookSplit.Outcomes.json"):
+        for name in ("winbooksplit_engine.py", "WinBookSplit.Outcomes.json",
+                     "winbooksplit_compatibility.py", "WinBookSplit.Compatibility.json"):
             shutil.copyfile(ROOT / "engine" / name, app / "engine" / name)
         source, output = self.work / "absent-input.pdf", self.work / "absent-output"
         sentinel = self.work / "neighbor.txt"
