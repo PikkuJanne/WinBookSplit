@@ -1,0 +1,80 @@
+{
+  "protocol": "winbooksplit.final-zip-ps7",
+  "schema_version": 1,
+  "success": true,
+  "evidence_kind": "NATIVE_AUTOMATED",
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "bindings_sha256": "b68bc61289721e0f8f100a7cd19c3c5c4209268582f958a63c45f6b56b23cb84",
+  "prior_report_sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa",
+  "plan_sha256": "b869556bdaa6101254f4316bda50f8a336b54ef058d5b73cb2594af844162ac0",
+  "process_report_sha256": "4d9e0e802e51814086c3a1275fe3be56050714663400e582de0b3246d3f89784",
+  "ps7": {
+    "powershell_version": "7.6.6",
+    "clr": "10.0.12",
+    "process_bits": 64,
+    "os_bits": 64,
+    "Caption": "Microsoft Windows 11 Pro",
+    "Version": "10.0.26300",
+    "BuildNumber": "26300",
+    "ProductType": 1,
+    "processor_architectures": [
+      9
+    ]
+  },
+  "pwsh_sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+  "runtime_versions": {
+    "python": "3.14.8",
+    "pypdf": "6.20.0"
+  },
+  "cases": [
+    {
+      "id": "version",
+      "status": "PASS",
+      "exit_code": 0,
+      "probe_sha256": "0e8c7892517ee5c0b3fce5050817005686507819fb5d1b45f7485f854b4a20fa"
+    },
+    {
+      "id": "setup-check",
+      "status": "PASS",
+      "exit_code": 0,
+      "probe_sha256": "64d1652bc429cf74f511261cfbdc69ea2e721c6c0d0903200737b32bb2ae2df0"
+    },
+    {
+      "id": "manual",
+      "status": "PASS",
+      "exit_code": 0,
+      "probe_sha256": "5e76f0d6779651dbac12e9bb980afd8cbc630a76c86ff57f8c5c7afba46a3b63"
+    },
+    {
+      "id": "auto2",
+      "status": "PASS",
+      "exit_code": 0,
+      "probe_sha256": "f21d346a078087ef55cbdf8539e1763c15cb5fac940c0331b022ba5c519ca282"
+    }
+  ],
+  "source_unchanged": true,
+  "limits": [
+    "Same authenticated extraction as the inbox5.1 acceptance.",
+    "This supplemental report does not satisfy native Windows10 or repeat ebook/BAT/Explorer cases."
+  ]
+}

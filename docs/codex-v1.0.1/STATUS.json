@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
   "target_release": "v1.0.1",
-  "phase": "IN_PROGRESS",
+  "phase": "BLOCKED",
   "current_task": "V101-13",
   "baseline_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
   "work_branch": "main",
   "last_verified_sync": {
     "branch": "main",
-    "commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
-    "observed_at": "2026-10-11T20:26:29.740984+00:00"
+    "commit": "ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce",
+    "observed_at": "2026-10-11T21:19:46.683110+00:00"
   },
   "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
   "accepted_zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
-  "native_windows10": "NOT_RUN",
-  "native_windows11": "NOT_RUN",
+  "native_windows10": "BLOCKED",
+  "native_windows11": "PASS",
   "published_release": "NOT_RUN",
   "human_sessions_used": 0,
   "blockers": [
-    "Final ZIP native Windows10 access unavailable; prepare one-command kit after independent work"
+    "Native Windows10 22H2 x64 evidence unavailable. Same frozen one-command kit delivered; one redacted native report is required. Publication remains blocked."
   ]
 }

@@ -1,27 +1,17 @@
 # Status - v1.0.1
 
-V101-01 through V101-12 retain their recorded DONE scopes. V101-13 remains
-IN_PROGRESS. Frozen release R and all33 shipped raw bytes/modes/blobs remain
-unchanged. The delivered COMMITTED kit is still sourced from K8611; it needs no
-rebuild for this nonshipped PS7 supplement recipe correction.
+V101-01 through V101-12 are DONE. V101-13 is BLOCKED solely on unavailable
+genuine Windows10 22H2 x64 evidence. R remains `6f2c2e5d4d5fc484bcb1530474f09957e09775ef`; the exact ZIP SHA256 is
+`747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`. All 33 shipped raw/Git
+members remain identical to R/original kit K/current K2. Current K2 `ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce` includes
+nonshipped recipe/test/README corrections and evidence; its complete source-bound
+Server CI passed separately. Original COMMITTED kit K `8611da7ca7a4ca6542daf162e6f992a0012ca24c` is unchanged.
 
-The actual final R ZIP Windows11 kit passed its19 cases under Python3.13.16 and
-3.14.8. The separate PS7 supplement has not passed: attempt02 failed before the
-adapter because lazy StrictJson initialization was missing; attempt03 reached
-Auto2 with invalid `-Mode 2` and missing BookmarkLevel; the application correctly
-rejected the mode first with exit2 and message 'Mode must be Auto or Manual.'.
-Both failures and safe owned-process receipts are retained. The corrected
-recipe supplies `-Mode Auto -BookmarkLevel 2`; the meaningful regression and fixed15 unit
-roster passed on both actual Python branches, zero failures/skips. These checks
-bind K plus exactly three uncommitted tooling/test/README corrections, not a
-clean current-commit or application acceptance pass. PowerShell static checks
-were NOT_RERUN for the units-only invocation.
+Actual final-ZIP Windows11 native all 19 cases passed on both Python minors,
+including EPUB/AZW3. Actual inbox5.1 and four same-extraction PS 7.6.6 cases passed.
+See [evidence](evidence/V101-13-available-host-blocker.md). AC069/071 PASS;
+AC068/070 BLOCKED because Windows10/both-OS ebook evidence is missing.
 
-Historical matching K CI38172686734 passed660 Python tests,192 Pester cases on
-each shell,28 syntax and27 analyzer rows per shell, and149 runtime units plus8
-PDF cases per minor on Windows Server. That pass certifies the old K source;
-the next correction commit requires its own complete CI and fresh PS7 run.
-See [correction evidence](evidence/V101-13-ps7-recipe-correction.md).
-
-Native Windows10 final ZIP acceptance and public publication remain NOT_RUN.
-No human sessions have been requested. Existing v1.0.0 assets/tag are unchanged.
+The measured one-command kit is delivered. Human sessions used: 0. Missing
+Windows10 evidence cannot become PASS; publication/tag/anonymous downloads
+remain NOT_RUN. Existing artwork, BAT and v1.0.0 release assets are unchanged.

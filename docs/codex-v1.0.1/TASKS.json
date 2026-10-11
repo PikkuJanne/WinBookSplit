@@ -350,12 +350,19 @@
         "V101-AC-070",
         "V101-AC-071"
       ],
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "evidence": [
         "evidence/V101-13-tooling-preflight.json",
         "evidence/V101-13-tooling-preflight.md",
         "evidence/V101-13-ps7-recipe-correction.json",
-        "evidence/V101-13-ps7-recipe-correction.md"
+        "evidence/V101-13-ps7-recipe-correction.md",
+        "evidence/V101-13-native-win11-python14.json",
+        "evidence/V101-13-native-win11-python13.json",
+        "evidence/V101-13-native-win11-ps7.json",
+        "evidence/V101-13-K2-ci.json",
+        "evidence/V101-13-kit-delivery.json",
+        "evidence/V101-13-available-host-blocker.json",
+        "evidence/V101-13-available-host-blocker.md"
       ]
     },
     {

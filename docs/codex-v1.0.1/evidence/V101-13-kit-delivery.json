@@ -1,0 +1,19 @@
+{
+  "protocol": "winbooksplit.native-kit-delivery",
+  "schema_version": 1,
+  "observed_utc": "2026-10-11T20:44:00.247579+00:00",
+  "kit_zip_sha256": "330cf372bfbe37a43ff273ce058146443069340245b60f4ad53830402846a162",
+  "bindings_sha256": "b68bc61289721e0f8f100a7cd19c3c5c4209268582f958a63c45f6b56b23cb84",
+  "kit_source_commit": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+  "kit_source_tree": "ff8d9eb99ce7ce45bfa6527d9dd196bbf62208af",
+  "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "release_zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+  "delivered_zip": {
+    "name": "WinBookSplit-v1.0.1-Windows10-Verification-20261011.zip",
+    "bytes": 1263429,
+    "sha256": "330cf372bfbe37a43ff273ce058146443069340245b60f4ad53830402846a162"
+  },
+  "byte_verification": true,
+  "owner_native_run": "NOT_RUN",
+  "owner_command_cmd": "\"%USERPROFILE%\\Downloads\\WinBookSplit-v1.0.1-Windows10-Verification-20261011\\Run-Windows10.cmd\""
+}

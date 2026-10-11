@@ -891,8 +891,16 @@
       "key": "native_win10",
       "expected": "Genuine Windows10 22H2 workstation/VM automated smoke and setup succeed on the exact frozen ZIP; no server/mock substitution.",
       "verification_kind": "NATIVE_AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "BLOCKED",
+      "evidence": [
+        "evidence/V101-13-native-win11-python14.json",
+        "evidence/V101-13-native-win11-python13.json",
+        "evidence/V101-13-native-win11-ps7.json",
+        "evidence/V101-13-K2-ci.json",
+        "evidence/V101-13-kit-delivery.json",
+        "evidence/V101-13-available-host-blocker.json",
+        "evidence/V101-13-available-host-blocker.md"
+      ]
     },
     {
       "id": "V101-AC-069",
@@ -900,8 +908,16 @@
       "key": "native_win11",
       "expected": "Genuine Windows11 final-ZIP smoke, PS5.1 and supported PS7 path succeed with actual environment recorded.",
       "verification_kind": "NATIVE_AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-13-native-win11-python14.json",
+        "evidence/V101-13-native-win11-python13.json",
+        "evidence/V101-13-native-win11-ps7.json",
+        "evidence/V101-13-K2-ci.json",
+        "evidence/V101-13-kit-delivery.json",
+        "evidence/V101-13-available-host-blocker.json",
+        "evidence/V101-13-available-host-blocker.md"
+      ]
     },
     {
       "id": "V101-AC-070",
@@ -909,8 +925,16 @@
       "key": "native_ebooks",
       "expected": "Real EPUB/AZW3 conversion and split/source/output validation are evidenced on both OS families.",
       "verification_kind": "NATIVE_AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "BLOCKED",
+      "evidence": [
+        "evidence/V101-13-native-win11-python14.json",
+        "evidence/V101-13-native-win11-python13.json",
+        "evidence/V101-13-native-win11-ps7.json",
+        "evidence/V101-13-K2-ci.json",
+        "evidence/V101-13-kit-delivery.json",
+        "evidence/V101-13-available-host-blocker.json",
+        "evidence/V101-13-available-host-blocker.md"
+      ]
     },
     {
       "id": "V101-AC-071",
@@ -918,8 +942,16 @@
       "key": "identity_and_limits",
       "expected": "All final native results refer to accepted ZIP/R, and minimal-human/unchanged-Explorer testing limits are truthful.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-13-native-win11-python14.json",
+        "evidence/V101-13-native-win11-python13.json",
+        "evidence/V101-13-native-win11-ps7.json",
+        "evidence/V101-13-K2-ci.json",
+        "evidence/V101-13-kit-delivery.json",
+        "evidence/V101-13-available-host-blocker.json",
+        "evidence/V101-13-available-host-blocker.md"
+      ]
     },
     {
       "id": "V101-AC-072",

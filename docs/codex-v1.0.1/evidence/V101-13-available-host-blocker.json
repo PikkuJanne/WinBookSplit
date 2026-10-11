@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "task": "V101-13",
+  "status": "BLOCKED",
+  "observed_utc": "2026-10-11T21:20:36.784993+00:00",
+  "checkpoint_source": {
+    "commit": "ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce",
+    "tree": "e03a6a1351505bb3818c2c71bc8e79d812646e14",
+    "qualification": "Current K2 adds three nonshipped recipe/test/README corrections and five correction-evidence/docs paths after original K tooling; not a docs-only source revision."
+  },
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "kit": {
+    "archive_sha256": "330cf372bfbe37a43ff273ce058146443069340245b60f4ad53830402846a162",
+    "bindings_sha256": "b68bc61289721e0f8f100a7cd19c3c5c4209268582f958a63c45f6b56b23cb84",
+    "source": {
+      "fixtures_payload_sha256": "f145d82a1e8cf0125c89517969d54f4dcbcc79ee447c2cc34625992f52312e1f",
+      "helpers_payload_sha256": "85aee0e3286d48a5e1e77d51252d1f951ce3febe1838ab229ab52c5664fc2f88",
+      "mode": "COMMITTED",
+      "repository_observation": null,
+      "source_commit": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+      "source_tree": "ff8d9eb99ce7ce45bfa6527d9dd196bbf62208af"
+    }
+  },
+  "linked_and_collected_receipts": {
+    "native14": {
+      "receipt_file": "V101-13-native-win11-python14.json",
+      "receipt_bytes": 10523,
+      "receipt_sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa",
+      "collected_raw_bytes": 10523,
+      "collected_raw_sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 0
+    },
+    "native13": {
+      "receipt_file": "V101-13-native-win11-python13.json",
+      "receipt_bytes": 10524,
+      "receipt_sha256": "64cf7d099bd594930e690d39457894307ce1504807936f50e06caaed7e8bfa5d",
+      "collected_raw_bytes": 10524,
+      "collected_raw_sha256": "64cf7d099bd594930e690d39457894307ce1504807936f50e06caaed7e8bfa5d",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 0
+    },
+    "ps7": {
+      "receipt_file": "V101-13-native-win11-ps7.json",
+      "receipt_bytes": 2672,
+      "receipt_sha256": "263b9e66f4fe6167cac577cb7d9d8a1a47b671670916b59f6d46bef0163cd1d1",
+      "collected_raw_bytes": 2672,
+      "collected_raw_sha256": "263b9e66f4fe6167cac577cb7d9d8a1a47b671670916b59f6d46bef0163cd1d1",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 0
+    },
+    "ci": {
+      "receipt_file": "V101-13-K2-ci.json",
+      "receipt_bytes": 79189,
+      "receipt_sha256": "5d894baec47bf5f15993aa32f5e1ab5d4f2866ee027e96f19a029251d9ac8ee0",
+      "collected_raw_bytes": 80134,
+      "collected_raw_sha256": "ccae66758b9c5aa058ae61ea2973a0c839f7f8804b94b0f7b8b979080636ddd9",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 945
+    },
+    "delivery": {
+      "receipt_file": "V101-13-kit-delivery.json",
+      "receipt_bytes": 986,
+      "receipt_sha256": "6d3eca3eb53a7d03654be24519d3c260d5381a358bba66d2f398cc86ae60f488",
+      "collected_raw_bytes": 986,
+      "collected_raw_sha256": "6d3eca3eb53a7d03654be24519d3c260d5381a358bba66d2f398cc86ae60f488",
+      "transform": "bytes.replace(CRLF,LF) only; parsed JSON values equal.",
+      "removed_CR_bytes": 0
+    }
+  },
+  "actual_native_windows11": {
+    "python14": "PASS_ALL19",
+    "python13": "PASS_ALL19",
+    "PS51": "5.1.26100.9444",
+    "PS7": "7.6.6_FOUR_CASES_PASS"
+  },
+  "actual_current_K2_CI": {
+    "run": {
+      "conclusion": "success",
+      "id": 38174908196,
+      "status": "completed",
+      "updated_at": "2026-10-11T21:16:17Z",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38174908196"
+    },
+    "python": {
+      "seconds": 338.465,
+      "tests_run": 660,
+      "zero_skips": true
+    },
+    "shells": [
+      {
+        "analysis_rows": 27,
+        "host": {
+          "clr": "4.0.30319.42000",
+          "edition": "Desktop",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Unrestricted",
+              "scope": "LocalMachine"
+            }
+          ],
+          "version": "5.1.26100.33438"
+        },
+        "pester": {
+          "failed": 0,
+          "failed_blocks": [],
+          "failed_cases": [],
+          "failed_container_errors": [],
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 192,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 192
+        },
+        "syntax_rows": 28
+      },
+      {
+        "analysis_rows": 27,
+        "host": {
+          "clr": "10.0.12",
+          "edition": "Core",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ],
+          "version": "7.6.6"
+        },
+        "pester": {
+          "failed": 0,
+          "failed_blocks": [],
+          "failed_cases": [],
+          "failed_container_errors": [],
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 192,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 192
+        },
+        "syntax_rows": 28
+      }
+    ],
+    "applications": {
+      "application13": {
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "cleanup_safe": true,
+        "hosts": [
+          {
+            "build": "26100",
+            "clr": "4.0.30319.42000",
+            "product_type": 3,
+            "shell_version": "5.1.26100.33438"
+          },
+          {
+            "build": "26100",
+            "clr": "10.0.12",
+            "product_type": 3,
+            "shell_version": "7.6.6"
+          }
+        ],
+        "pypdf": "6.20.0",
+        "python": "3.13.16",
+        "unit_tests": 149,
+        "zero_skips": true
+      },
+      "application14": {
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "cleanup_safe": true,
+        "hosts": [
+          {
+            "build": "26100",
+            "clr": "4.0.30319.42000",
+            "product_type": 3,
+            "shell_version": "5.1.26100.33438"
+          },
+          {
+            "build": "26100",
+            "clr": "10.0.12",
+            "product_type": 3,
+            "shell_version": "7.6.6"
+          }
+        ],
+        "pypdf": "6.20.0",
+        "python": "3.14.8",
+        "unit_tests": 149,
+        "zero_skips": true
+      }
+    }
+  },
+  "acceptance": {
+    "V101-AC-068": "BLOCKED",
+    "V101-AC-069": "PASS",
+    "V101-AC-070": "BLOCKED",
+    "V101-AC-071": "PASS"
+  },
+  "native_windows10": "BLOCKED_NOT_RUN",
+  "ebooks_Windows11": "PASS_ACTUAL_EPUB_AND_AZW3_BOTH_MINORS",
+  "ebooks_both_OS": "BLOCKED_MISSING_WINDOWS10",
+  "coverage_qualification": "Fixed19 kit includes genuine missing-pypdf native control; no separate wrong-package native kit row. Wrong version/origin guards have historical task06 controlled-native receipts and current runtime-unit/Pester coverage; those are not final-ZIP wrong-package claims.",
+  "history": "Earlier NOT_RUN snapshots, failed rehearsals, C docs CI cancellation and all v1.0.0 assets/evidence remain preserved. Original K CI is historical; current corrected K2 full CI is separate actual source evidence. Server jobs never become native workstation acceptance.",
+  "available_executor_observation": {
+    "source_sha256": "509bfdb6bfd8ba9aa4d8c788ecfd20a077aa59841264275aadb320f677922a61",
+    "observed_utc": "2026-10-11T20:17:03.1905881Z",
+    "enabled_hosts": "Local only",
+    "actual_local_os": {
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.26300",
+      "BuildNumber": "26300",
+      "OSArchitecture": "64-bit",
+      "ProductType": 1
+    },
+    "hypervisor_present": true,
+    "HyperV_CIM": "Invalid namespace",
+    "named_running_VM_host_processes": 0,
+    "qualification": "No authorized accessible Windows10 executor is exposed. HypervisorPresent is not guest identity/access; invalid local namespace and absent named processes do not prove universal/external VM absence."
+  },
+  "preserved_PS7_driver02_failure": {
+    "protocol": "winbooksplit.external-final-zip-ps7-owned-process",
+    "raw_outer_sha256": "0b5fdc5f0098b69f3399463e683ac9302a35925d185a6967fd2d0e5db8422685",
+    "raw_invocation_sha256": "41ce7cc170c1cc0dfcf9d66cfd1432bf9938e23ce7725bf0c2f3e50bd472a628",
+    "native_exit_code": 1,
+    "stop_proof": "Existing native_probe checks PASS",
+    "adapter_result": null,
+    "application_execution": "NOT_STARTED",
+    "reason": "Existing lazy Support.StrictJson reader was not initialized before first JSON read; external driver03 added the existing initializer sequence but later failed its Auto2 recipe; corrected driver04 retains initialization and uses the corrected current helper, no production change."
+  },
+  "preserved_PS7_driver03_failure": {
+    "protocol": "winbooksplit.external-final-zip-ps7-owned-process",
+    "raw_outer_sha256": "129bfe0f2d6f99f487ab8ae0892590ad5ed440174501d04d8a688efe657be966",
+    "raw_invocation_sha256": "e62e794a24bf3154308b37e521344ac1a34506a39a8ee3bf3833955e3e62688a",
+    "native_exit_code": 1,
+    "owned_stop_proof": true,
+    "adapter_result": null,
+    "reason": "Invalid -Mode 2 was correctly rejected by the application before also-missing BookmarkLevel; corrected current helper supplies -Mode Auto -BookmarkLevel 2. Failure remains preserved, not complete PS7 acceptance."
+  },
+  "historical_original_K_CI": {
+    "receipt_raw_sha256": "675dba74b8edf2317227cdc5d96bbcc3be1dff3b560fc8b1f84afac7b36f1c4c",
+    "run": {
+      "conclusion": "success",
+      "id": 38172686734,
+      "status": "completed",
+      "updated_at": "2026-10-11T20:47:46Z",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38172686734"
+    },
+    "source_commit": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+    "source_tree": "ff8d9eb99ce7ce45bfa6527d9dd196bbf62208af",
+    "python": {
+      "seconds": 402.817,
+      "tests_run": 660,
+      "zero_skips": true
+    },
+    "shells": [
+      {
+        "analysis_rows": 27,
+        "host": {
+          "clr": "4.0.30319.42000",
+          "edition": "Desktop",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Unrestricted",
+              "scope": "LocalMachine"
+            }
+          ],
+          "version": "5.1.26100.33438"
+        },
+        "pester": {
+          "failed": 0,
+          "failed_blocks": [],
+          "failed_cases": [],
+          "failed_container_errors": [],
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 192,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 192
+        },
+        "syntax_rows": 28
+      },
+      {
+        "analysis_rows": 27,
+        "host": {
+          "clr": "10.0.12",
+          "edition": "Core",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ],
+          "version": "7.6.6"
+        },
+        "pester": {
+          "failed": 0,
+          "failed_blocks": [],
+          "failed_cases": [],
+          "failed_container_errors": [],
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 192,
+          "result": "Passed",
+          "skipped": 0,
+          "total": 192
+        },
+        "syntax_rows": 28
+      }
+    ],
+    "qualification": "Actual clean original K only, not current corrected K2. Server jobs are not native Windows10/11 acceptance."
+  },
+  "actual_PS7_owned_driver": {
+    "raw_sha256": "e96b0e6dc272840447812d8bac7ca0358bb336e6a11ccacf6f62da1d5d5a0f17",
+    "driver_sha256": "9c4b457b515b3f10c19690687bcf5d729710635732332b6899789a36a2c9dc65",
+    "exit_code": 0,
+    "owned_stop_proof": true
+  },
+  "actual_commands_with_public_placeholders": [
+    {
+      "argv": [
+        "<bareCPython3.14.8>",
+        "-I",
+        "-B",
+        "tools/compatibility/kit_builder.py",
+        "build",
+        "--repository-root",
+        "<main checkout>",
+        "--assets-root",
+        "<frozen R assets>",
+        "--fixture-root",
+        "<authored fixtures>",
+        "--core-path",
+        "<committed native core>",
+        "--oracle-path",
+        "<committed oracle>",
+        "--verifier-path",
+        "<committed frozen verifier>",
+        "--output",
+        "<exclusive final kit01>"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "<inbox powershell>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<kit>/Run-Windows10.ps1",
+        "-ProvisionPrerequisites",
+        "-AllowWindows11DryRun",
+        "-Execution",
+        "AGENT_LAUNCHED"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "<inbox powershell>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<kit>/Run-Windows10.ps1",
+        "-BarePythonPath",
+        "<barePython3.13.16>/python.exe",
+        "-CalibrePath",
+        "<per-user Calibre>/ebook-convert.exe",
+        "-Wheelhouse",
+        "<reviewed wheelhouse>",
+        "-AllowWindows11DryRun",
+        "-Execution",
+        "AGENT_LAUNCHED"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "<actual isolated PS7.6.6>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<fresh external Invoke-Ps7Supplement.ps1>"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "<bareCPython3.14.8>",
+        "-I",
+        "-B",
+        "acquire_ci_checkpoint.py",
+        "ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce",
+        "38174908196",
+        "<fresh CI artifact directory>"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "<bareCPython3.14.8>",
+        "-I",
+        "-B",
+        "collect_ci_checkpoint.py",
+        "ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce",
+        "38174908196",
+        "<same CI artifact directory>"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "command_qualification": "Exact finite argv recipe with private paths replaced by public placeholders; parent-observed native CLI returns plus supplied actual completed reports. SDK driver exit is independently read from its actual pinned outer proof. No command was executed by this writer.",
+  "source_R_KIT_K_current_K2_33_mode_blob_raw_unchanged": true,
+  "original12_kit_helper_bytes_unchanged": true,
+  "human_sessions_used": 0,
+  "Explorer": "UNCHANGED_NO_NEW_MANUAL_SIGNOFF",
+  "owner_request": {
+    "kit_name": "WinBookSplit-v1.0.1-Windows10-Verification-20261011.zip",
+    "after_extract_to_Downloads": "\"%USERPROFILE%\\Downloads\\WinBookSplit-v1.0.1-Windows10-Verification-20261011\\Run-Windows10.cmd\"",
+    "return": "Only the printed native-result.zip; raw local artifacts stay private."
+  },
+  "public_release_tag_anonymous_download": "NOT_RUN",
+  "blocking_next_task": "Run the delivered same-ZIP kit on genuine Windows10 22H2 x64 and return its one redacted report. Verify it before publication."
+}
