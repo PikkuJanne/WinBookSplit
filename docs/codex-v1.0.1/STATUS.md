@@ -1,3 +1,10 @@
 # Status — v1.0.1
 
-V101-01 through V101-07 and V101-09 are DONE in their recorded scopes. All three actual hosted jobs for source03af149 passed; downloaded reports match the committed source bytes and tree. These are Windows Server2025 results, not native workstation acceptance. V101-08 is IN_PROGRESS: finish the reviewed one-command kit and actual Windows11 rehearsal. No R/assets frozen, native Windows10/final-ZIP acceptance or publication. No human request/session used. The committed sync observation names the previous checkpoint; each new push is verified externally.
+V101-01 through V101-09 are DONE in their recorded scopes. The one-command kit
+passed its actual Windows 11 rehearsal and normal committed-byte producer
+check. These unpublished rehearsal assets are distinct from public v1.0.0 and
+the final v1.0.1 ZIP. V101-10 is IN_PROGRESS: existing fidelity, document-policy,
+fault and real ebook checks are running on stable e21ef1a, with current primary
+security review. Hosted e21 CI is running; earlier task09 CI remains historical.
+No release source R/assets frozen, native Windows 10/final-ZIP acceptance,
+publication or human request/session yet. The next push is verified externally.

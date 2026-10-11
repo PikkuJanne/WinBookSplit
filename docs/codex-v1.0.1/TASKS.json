@@ -210,8 +210,11 @@
         "V101-AC-048",
         "V101-AC-049"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-09",
@@ -258,7 +261,7 @@
         "V101-AC-057",
         "V101-AC-058"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

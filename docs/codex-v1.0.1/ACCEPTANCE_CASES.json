@@ -563,8 +563,11 @@
       "key": "kit_integrity",
       "expected": "Harness verifies ZIP/hash/manifest before safe fresh extraction; no zip traversal, duplicate paths or preexisting target overwrite.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-045",
@@ -572,8 +575,11 @@
       "key": "real_host_report",
       "expected": "Report records real OS/ProductType/build, tool versions, code/policy/harness identities and actual exit results.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-046",
@@ -581,8 +587,11 @@
       "key": "automated_smoke",
       "expected": "The prepared kit automates BAT/CLI/setup/manual/bookmark/Unicode/non-overwrite/error/cancellation checks using synthetic fixtures.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-047",
@@ -590,8 +599,11 @@
       "key": "native_ebook_kit",
       "expected": "Kit includes genuine self-authored EPUB and AZW3/KF8 conversion validation without private input or manual PDF counting.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-048",
@@ -599,8 +611,11 @@
       "key": "single_result",
       "expected": "User-launched kit produces one redacted result bundle; raw personal paths remain local and every planned test has an outcome.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-049",
@@ -608,8 +623,11 @@
       "key": "minimal_manual",
       "expected": "No repeated owner guide or screenshot requirement; any unavoidable changed-launcher observation is consolidated into one session.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-08-native-kit.md",
+        "evidence/V101-08-native-kit.json"
+      ]
     },
     {
       "id": "V101-AC-050",
