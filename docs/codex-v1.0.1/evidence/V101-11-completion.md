@@ -6,6 +6,11 @@ passed all three jobs. The [source-bound receipt](V101-11-ci.json) records the
 actual rosters, tools, artifact hashes and independently compared source bytes.
 This is hosted Windows Server evidence, separate from native final-ZIP testing.
 
+The completion record distinguishes the actual collected report's raw hash from
+the linked committed JSON's hash. Review caught Git's CRLF-to-LF transformation;
+936 CR bytes differ, with exactly equal parsed values. Both identities remain
+recorded, and the earlier checkpoint is preserved in Git history.
+
 The [completion record](V101-11-completion.json) binds the documentation/version
 checks and reviews. The 33 package members match the earlier development package
 source exactly. Version is 1.0.1; regular x64 CPython 3.13.16+ and 3.14.8+ use

@@ -222,8 +222,18 @@
       }
     },
     "receipt_file": "V101-11-ci.json",
-    "receipt_bytes": 79051,
-    "receipt_sha256": "5e05e3b3061ada2afcfafc44f3da18d1f7a96d198a9a72bf7bbc8a68c20e2807",
+    "receipt_bytes": 78115,
+    "receipt_sha256": "4c24bc98532fe5ebc48de57222dbb1b24a863fc511f9ae3c5a8e8e0d0128ca9f",
+    "collected_raw_receipt_bytes": 79051,
+    "collected_raw_receipt_sha256": "5e05e3b3061ada2afcfafc44f3da18d1f7a96d198a9a72bf7bbc8a68c20e2807",
+    "committed_receipt_transform": "Git text normalization replaces CRLF with LF only (936 CR bytes removed); parsed report values are identical. Linked receipt_bytes/receipt_sha256 identify the committed Git file, while collected_raw fields retain the actual external acquisition identity.",
+    "receipt_binding_correction_review": {
+      "original_checkpoint": "f65ba5d274b4915f3da97cc8ae29dbcf988b7449",
+      "original_review_result": "CHANGES_REQUESTED",
+      "external_review_sha256": "49d1333d120105473f4d18796f6baa5242844c33b443a31d69e12544ab86092d",
+      "application_files_changed": [],
+      "resolution": "Qualify the collected raw and linked committed receipt identities separately; preserve original report bytes and prior Git checkpoint."
+    },
     "qualification": "Hosted Windows Server evidence. All three complete jobs and twelve report identities match this source. Separate from final-ZIP workstation acceptance."
   },
   "review_receipts_sha256": {
