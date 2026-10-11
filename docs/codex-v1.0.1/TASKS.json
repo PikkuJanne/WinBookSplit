@@ -232,7 +232,9 @@
         "V101-AC-053"
       ],
       "status": "IN_PROGRESS",
-      "evidence": []
+      "evidence": [
+        "evidence/V101-09-ci.md"
+      ]
     },
     {
       "id": "V101-10",
