@@ -1100,6 +1100,10 @@ class RunnerTests(unittest.TestCase):
                 "tools/ci/README.md": b"Declared CI scope\n",
                 "tools/ci/bootstrap.py": b"Pinned isolated bootstrap\n",
                 "tools/ci/check_package_inputs.py": b"Immutable input checks\n",
+                "tools/compatibility/README.md": b"Finite native kit scope\n",
+                "tools/compatibility/kit_builder.py": b"Source-bound native kit producer\n",
+                "tools/compatibility/Invoke-NativeAcceptance.ps1": b"Owned native process harness\n",
+                "tools/compatibility/native_smoke.py": b"Original physical page oracles\n",
             }
             for name, data in content.items():
                 target = root / name

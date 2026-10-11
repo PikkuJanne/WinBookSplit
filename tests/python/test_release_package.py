@@ -30,7 +30,7 @@ checker = importlib.util.module_from_spec(INPUT_SPEC)
 INPUT_SPEC.loader.exec_module(checker)
 
 PAYLOAD_PATHS = tuple(sorted(set(checker.INPUT_PATHS) - {"docs/codex-v1.0.0/SUPPORT_AND_SETUP.md"}))
-BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json", "tools/ci/check_package_inputs.py")
+BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json", "tools/ci/check_package_inputs.py", "tools/release/frozen_assets.py")
 ASSET_NAMES = ("WinBookSplit-v1.0.0.zip", "release-manifest.json", "SHA256SUMS.txt")
 
 

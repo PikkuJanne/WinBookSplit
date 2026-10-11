@@ -155,14 +155,14 @@ def source_manifest() -> dict[str, str]:
         "tests/document_policy/README.md",
         "tests/faults/README.md",
         "tests/ebooks/README.md",
-        "tools/release/README.md",
+        "tools/release/README.md", "tools/compatibility/README.md",
         "docs/PDF_POLICY.md",
         "docs/PDF_FIDELITY.md",
         "docs/EBOOK_SUPPORT.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
     )]
-    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci", ROOT / "tools/release"):
+    for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci", ROOT / "tools/release", ROOT / "tools/compatibility"):
         paths.extend(path for path in directory.rglob("*")
                      if path.is_file() and path.suffix in {".py", ".ps1", ".psm1", ".psd1", ".json", ".cs"}
                      and "__pycache__" not in path.parts)
