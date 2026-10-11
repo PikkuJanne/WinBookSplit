@@ -133,7 +133,8 @@
       "status": "DONE",
       "evidence": [
         "evidence/V101-05-setup.md",
-        "evidence/V101-05-setup.json"
+        "evidence/V101-05-setup.json",
+        "evidence/V101-05-ci.md"
       ]
     },
     {
@@ -155,8 +156,12 @@
         "V101-AC-037",
         "V101-AC-038"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ]
     },
     {
       "id": "V101-07",
@@ -177,7 +182,7 @@
         "V101-AC-042",
         "V101-AC-043"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

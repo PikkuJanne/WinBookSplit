@@ -423,8 +423,13 @@
       "key": "ps51_baseline",
       "expected": "BAT still runs through Windows PowerShell 5.1 and setup/app parse under the real target host.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ],
+      "scope_note": "PASS for available Windows11 inbox5.1 syntax/entry-point execution and unchanged BAT bytes. Native Windows10 portion NOT_RUN, retained for AC068."
     },
     {
       "id": "V101-AC-035",
@@ -432,8 +437,13 @@
       "key": "native_api_audit",
       "expected": "Any Windows-11-only API/assumption is replaced narrowly, with equivalent safety and actual tests.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ],
+      "scope_note": "Static API review; no native Windows10 result."
     },
     {
       "id": "V101-AC-036",
@@ -441,8 +451,13 @@
       "key": "os_detection",
       "expected": "Native evidence uses caption/build/ProductType/architecture, not only ProductName or version 10.0.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ],
+      "scope_note": "PASS actual CIM caption/build/ProductType/architecture recording on Windows11 workstation; not a Windows10 execution claim."
     },
     {
       "id": "V101-AC-037",
@@ -450,8 +465,13 @@
       "key": "actionable_errors",
       "expected": "Missing Python, incompatible/security-floor Python, missing pypdf and wrong-origin packages have distinct useful guidance.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ],
+      "scope_note": "PASS synthetic validator/formatter controls plus actual package/missing-path/full-entry/local-log/support/fallback/native-interruption evidence."
     },
     {
       "id": "V101-AC-038",
@@ -459,8 +479,13 @@
       "key": "version_no_runtime",
       "expected": "Version/help queries work without Python/pypdf/Calibre and no new runtime check breaks them.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-06-diagnostics.md",
+        "evidence/V101-06-diagnostics.json",
+        "evidence/V101-06-api-review.md"
+      ],
+      "scope_note": "PASS actual Main+VERSION-only copy query and actual comment help under both hosts without loading application dependency helpers."
     },
     {
       "id": "V101-AC-039",

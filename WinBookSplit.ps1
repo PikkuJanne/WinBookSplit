@@ -191,14 +191,15 @@ function New-WinBookSplitRunRecord {
             $truncated = $engine.diagnostic.parser_warnings.message_truncated_count
         }
     }
-    $calibreVersion = $null
+    $pythonVersion = $null; $pypdfVersion = $null; $calibreVersion = $null
+    if ($null -ne $runtime) { $pythonVersion = $runtime.Version; $pypdfVersion = $runtime.PypdfVersion }
     if ($null -ne $converter) { $calibreVersion = $converter.Version }
     return [pscustomobject][ordered]@{
         protocol = 'winbooksplit.run'; version = 1; run_id = $consoleRunId; application_version = $ver
         started_utc = $script:runStartedUtc; finished_utc = [DateTime]::UtcNow.ToString('o')
         diagnostics_finalized = $true
-        runtime_versions = [ordered]@{ powershell = $PSVersionTable.PSVersion.ToString(); python = $runtime.Version;
-            pypdf = $runtime.PypdfVersion; calibre = $calibreVersion }
+        runtime_versions = [ordered]@{ powershell = $PSVersionTable.PSVersion.ToString(); python = $pythonVersion;
+            pypdf = $pypdfVersion; calibre = $calibreVersion }
         settings = [ordered]@{ mode = $Outcome.mode; input_kind = $inputExt.Substring(1); preview = [bool]$Preview;
             non_interactive = [bool]$NonInteractive; no_pause = [bool]$NoPause; keep_converted_pdf = [bool]$KeepConvertedPdf;
             conversion_timeout = $ConversionTimeout; process_timeout = $ProcessTimeout; normalized_inputs = $normalized }
@@ -226,6 +227,183 @@ function ConvertTo-WinBookSplitDisplayText {
         param($match)
         '\u{0:x4}' -f [int][char]$match.Value
     })
+}
+
+function Get-WinBookSplitDependencySummary {
+    param([Parameter(Mandatory = $true)][Exception]$Failure,
+          [Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$PythonPath)
+    # Only validated reason codes choose human text. Raw paths, probe streams and
+    # exception messages remain in the local diagnostic record.
+    $reason = 'runtime_probe_failed'; $source = ''; $code = ''; $hasKnownReason = $false
+    if ($Failure.Data.Contains('Code')) { $code = [string]$Failure.Data['Code'] }
+    $knownReasons = @('missing_python', 'unsupported_python', 'python_security_floor',
+        'python_compatibility_floor', 'unsupported_architecture', 'unsupported_flavor',
+        'unstable_python', 'missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid',
+        'malformed_policy', 'malformed_runtime', 'runtime_probe_failed')
+    $reasonPriority = @{ runtime_probe_failed = 0; missing_python = 1; malformed_runtime = 2;
+        unsupported_python = 3; unsupported_architecture = 3; unsupported_flavor = 3; unstable_python = 3;
+        python_compatibility_floor = 4; python_security_floor = 4; missing_pypdf = 5;
+        pypdf_version_mismatch = 5; pypdf_origin_invalid = 5; malformed_policy = 6 }
+    $attempts = @()
+    if ($Failure.Data.Contains('Attempts')) { $attempts = @($Failure.Data['Attempts']) }
+    foreach ($attempt in $attempts) {
+        if ($null -eq $attempt) { continue }
+        if ($attempt.PSObject.Properties.Name -contains 'Source' -and $attempt.Source -is [string] -and
+            $attempt.Source -cin @('explicit', 'application_venv')) { $source = $attempt.Source }
+        if ($attempt.PSObject.Properties.Name -contains 'Reason' -and $attempt.Reason -is [string] -and
+            $attempt.Reason -cin $knownReasons) {
+            $hasKnownReason = $true
+            if ($reasonPriority[$attempt.Reason] -ge $reasonPriority[$reason]) { $reason = $attempt.Reason }
+        }
+    }
+    if ($Failure.Data.Contains('Reason') -and $Failure.Data['Reason'] -is [string] -and
+        $Failure.Data['Reason'] -cin $knownReasons) { $reason = $Failure.Data['Reason'] }
+    if ($code -ceq 'runtime_not_found' -and -not $hasKnownReason -and -not $Failure.Data.Contains('Reason')) { $reason = 'missing_python' }
+
+    $setupPath = [IO.Path]::Combine($ApplicationRoot, 'Setup-WinBookSplit.ps1')
+    $setupCommand = "& '" + $setupPath.Replace("'", "''") + "'"
+    $ownVenv = $false; $preservedBase = $false
+    if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
+        try {
+            $rootPrefix = [IO.Path]::GetFullPath($ApplicationRoot).TrimEnd('\', '/') + '\'
+            $selectedPath = [IO.Path]::GetFullPath($PythonPath)
+            if ($selectedPath.StartsWith($rootPrefix, [StringComparison]::OrdinalIgnoreCase)) {
+                $child = $selectedPath.Substring($rootPrefix.Length).Split([char[]]@('\', '/'))[0]
+                $ownVenv = $child.Equals('.venv', [StringComparison]::OrdinalIgnoreCase)
+                $preservedBase = $child.StartsWith('.WinBookSplit-venv-backup-', [StringComparison]::OrdinalIgnoreCase) -or
+                    $child.StartsWith('.WinBookSplit-incomplete-', [StringComparison]::OrdinalIgnoreCase)
+            }
+        } catch { $preservedBase = $true }
+    }
+    if ($source -ceq 'application_venv' -or $ownVenv) { $setupCommand += ' -Repair' }
+    if ($reason -cin @('missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid') -and
+        $source -ceq 'explicit' -and -not $ownVenv -and -not $preservedBase -and
+        -not [string]::IsNullOrWhiteSpace($PythonPath)) {
+        $setupCommand += " -PythonPath '" + $PythonPath.Replace("'", "''") + "'"
+    }
+    $setupCommand += ' -NonInteractive'
+    $policy = $null
+    try {
+        $trustedRoot = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
+        $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($trustedRoot, 'engine', 'WinBookSplit.Compatibility.json'))
+    } catch { $reason = 'malformed_policy' }
+    $messages = @{
+        missing_python = 'No usable Python interpreter was found.'
+        unsupported_python = 'The selected Python branch is outside the reviewed compatibility policy.'
+        python_security_floor = 'The selected Python is excluded by the reviewed security policy.'
+        python_compatibility_floor = 'The selected Python is below the supported maintenance version.'
+        unsupported_architecture = 'The selected Python is not regular Windows x64 Python.'
+        unsupported_flavor = 'The selected Python is not regular GIL-enabled CPython.'
+        unstable_python = 'The selected Python is not a stable final release.'
+        missing_pypdf = 'The required pypdf package is missing or cannot be imported.'
+        pypdf_version_mismatch = 'The installed pypdf version does not match the application lock.'
+        pypdf_origin_invalid = "The pypdf package did not come from the selected environment's trusted package directory."
+        malformed_policy = 'The shipped compatibility policy is missing or invalid.'
+        malformed_runtime = 'The selected interpreter did not provide a valid isolated runtime identity.'
+        runtime_probe_failed = 'The selected dependency could not be checked safely.'
+    }
+    $message = $messages[$reason]
+    if ($reason -cin @('missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid')) {
+        $lockedVersion = $policy['pypdf']['version']
+        if ($reason -ceq 'missing_pypdf') { $message = 'Required pypdf ' + $lockedVersion + ' is missing or cannot be imported.' }
+        elseif ($reason -ceq 'pypdf_version_mismatch') { $message = 'The installed pypdf version does not match the application lock (' + $lockedVersion + ').' }
+        else { $message = 'Required pypdf ' + $lockedVersion + " did not come from the selected environment's trusted package directory." }
+    }
+    $unsafeStop = $false
+    if ($Failure.Data.Contains('FatalDiscovery') -and $Failure.Data['FatalDiscovery'] -is [bool] -and
+        $Failure.Data['FatalDiscovery']) { $unsafeStop = $true }
+    if ($Failure.Data.Contains('Probe') -and $null -ne $Failure.Data['Probe']) {
+        $attachedProbe = $Failure.Data['Probe']
+        $probeFields = @($attachedProbe.PSObject.Properties.Name)
+        if ($probeFields -cnotcontains 'ParentStopped' -or $probeFields -cnotcontains 'DescendantsStopped' -or
+            $probeFields -cnotcontains 'StopError' -or $attachedProbe.ParentStopped -isnot [bool] -or
+            $attachedProbe.DescendantsStopped -isnot [bool] -or -not $attachedProbe.ParentStopped -or
+            -not $attachedProbe.DescendantsStopped -or
+            ($null -ne $attachedProbe.StopError -and ($attachedProbe.StopError -isnot [string] -or $attachedProbe.StopError.Length -gt 0))) {
+            $unsafeStop = $true
+        }
+    }
+    $action = 'Run this explicit local setup command: ' + $setupCommand
+    if ($unsafeStop -or $code -ceq 'processor_failed') {
+        $reason = 'processor_failed'; $message = 'Safe shutdown of the dependency check could not be verified.'
+        $action = 'Preserve the application and diagnostic files and inspect the full diagnostic record before continuing.'
+    }
+    elseif ($code -ceq 'processor_cancelled') {
+        $reason = 'processor_cancelled'; $message = 'The dependency check was cancelled.'
+        $action = 'Retry when ready; no split output was written.'
+    }
+    elseif ($code -ceq 'processor_timeout') {
+        $reason = 'processor_timeout'; $message = 'The dependency check timed out.'
+        $action = 'Retry with an available trusted interpreter; details are retained in the diagnostic record.'
+    }
+    elseif ($code -ceq 'invalid_arguments') {
+        $reason = 'invalid_arguments'; $message = 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.'
+        $action = 'Remove -KeepConvertedPdf for PDF input and retry.'
+    }
+    elseif ($reason -ceq 'malformed_policy') {
+        $action = 'Extract a fresh trusted application copy before retrying.'
+    }
+    elseif ($code -cin @('converter_invalid', 'converter_not_found')) {
+        $reason = 'converter_unavailable'; $message = 'A compatible trusted Calibre converter was not found.'
+        $action = 'Select trusted Calibre ' + $policy['calibre']['version'] + ' ebook-convert.exe with -CalibrePath, then retry.'
+    }
+    elseif ($reason -cin @('missing_python', 'unsupported_python', 'python_security_floor',
+        'python_compatibility_floor', 'unsupported_architecture', 'unsupported_flavor', 'unstable_python')) {
+        $action = 'Install or select ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ', then run: ' + $setupCommand
+    }
+    return [pscustomobject]@{ Reason = $reason; Message = $message; Action = $action }
+}
+
+function Open-WinBookSplitConsoleRecords {
+    param([Parameter(Mandatory = $true)][string]$Base, [bool]$Preview = $false)
+    $directory = $null; $runId = $null; $logPath = $null
+    $writer = $null; $logStream = $null; $markerStream = $null; $leases = @()
+    try {
+        if ($Preview) { $writer = New-WinBookSplitLogWriter -Stream ([IO.MemoryStream]::new()) }
+        else {
+            $leases = New-WinBookSplitRecordLeases -Directory $Base -IncludeMarker $false
+            foreach ($lease in $leases) { $lease.AssertUnchanged() }
+            $reservation = New-WinBookSplitConsoleDirectory -Base $Base
+            $runId = $reservation.run_id; $directory = $reservation.path
+            $leases.Add([WinBookSplitLogging.PathLease]::new($directory, $true))
+            foreach ($lease in $leases) { $lease.AssertUnchanged() }
+            $marker = [IO.Path]::Combine($directory, '.WinBookSplit-console-owner.json')
+            $markerStream = [IO.File]::Open($marker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+            $createdMarkerLease = $null; $sealedMarkerLease = $null
+            try {
+                $createdMarkerLease = [WinBookSplitLogging.PathLease]::new($marker, $false)
+                $createdMarkerLease.AssertSameHandle($markerStream.SafeFileHandle)
+                $bytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $runId; kind = 'console' } | ConvertTo-Json -Compress))
+                $markerStream.Write($bytes, 0, $bytes.Length)
+                $markerStream.Flush($true); $markerStream.Dispose(); $markerStream = $null
+                $sealedMarkerLease = [WinBookSplitLogging.PathLease]::new($marker, $false, $false, $true)
+                $createdMarkerLease.AssertSameLease($sealedMarkerLease)
+                $leases.Add($sealedMarkerLease); $sealedMarkerLease = $null
+            }
+            finally {
+                if ($null -ne $markerStream) { $markerStream.Dispose(); $markerStream = $null }
+                if ($null -ne $createdMarkerLease) { $createdMarkerLease.Dispose() }
+                if ($null -ne $sealedMarkerLease) { $sealedMarkerLease.Dispose() }
+            }
+            $logPath = [IO.Path]::Combine($directory, 'console.log')
+            $logStream = [IO.File]::Open($logPath, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
+            $writer = New-WinBookSplitLogWriter -Stream $logStream -Path $logPath
+        }
+        return [pscustomobject]@{ Directory = $directory; RunId = $runId; LogPath = $logPath;
+            Writer = $writer; Stream = $logStream; Leases = $leases }
+    }
+    catch {
+        $failure = $_.Exception
+        $cleanupFailures = [Collections.Generic.List[string]]::new()
+        foreach ($stream in @($writer, $logStream, $markerStream)) {
+            if ($null -ne $stream) { try { $stream.Dispose() } catch { $cleanupFailures.Add($_.Exception.Message) } }
+        }
+        if ($null -ne $writer) { try { $writer.CloseLease() } catch { $cleanupFailures.Add($_.Exception.Message) } }
+        foreach ($lease in $leases) { try { $lease.Dispose() } catch { $cleanupFailures.Add($_.Exception.Message) } }
+        if ($null -ne $directory) { $failure.Data['DiagnosticDirectory'] = $directory }
+        if ($cleanupFailures.Count -gt 0) { $failure.Data['DiagnosticCleanup'] = $cleanupFailures -join '; ' }
+        throw $failure
+    }
 }
 
 function Show-WinBookSplitPlan {
@@ -509,11 +687,18 @@ catch {
 
 $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
 
-# Validate dependencies before reserving console records or starting conversion.
+# Validate dependencies before starting conversion or processing.
 # The selected absolute interpreter is also used for every engine attempt.
 $runtime = $null
 $converter = $null
 $converterExe = $null
+$script:consoleLogWriter = $null
+$script:closedConsoleLogWriter = $null
+$script:consoleRecordLeases = @()
+$script:confirmedPlan = $null
+$script:sourceObservation = $null
+$script:runStartedUtc = [DateTime]::UtcNow.ToString('o')
+$consoleDir = $null; $consoleRunId = $null; $logFile = $null
 try {
     $runtime = Resolve-WinBookSplitRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile
     $pythonExe = $runtime.Path
@@ -525,16 +710,69 @@ try {
 }
 catch {
     $preflightFailure = $_.Exception
-    Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $preflightFailure.Message)) -ForegroundColor Red
-    if ($preflightFailure.Data.Contains('Code')) {
-        Write-Host ('[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code']; Attempts = @($preflightFailure.Data['Attempts']); Probe = $preflightFailure.Data['Probe'] } | ConvertTo-Json -Depth 12 -Compress))
-    }
     $failureCode = 'runtime_invalid'
     if ($preflightFailure.Data.Contains('Code')) { $failureCode = [string]$preflightFailure.Data['Code'] }
     $failureStatus = 'failed'
     if ($failureCode -eq 'processor_cancelled') { $failureStatus = 'cancelled' }
     elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
     $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $preflightFailure.Message
+    $dependencyFrame = $null
+    if ($preflightFailure.Data.Contains('Code')) {
+        $dependencyFrame = '[DEPENDENCY-ERROR] ' + (@{ Code = $preflightFailure.Data['Code'];
+            Attempts = @($preflightFailure.Data['Attempts']); Probe = $preflightFailure.Data['Probe'] } | ConvertTo-Json -Depth 12 -Compress)
+    }
+    if ($Preview -or $NonInteractive) {
+        Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $preflightFailure.Message)) -ForegroundColor Red
+        if ($null -ne $dependencyFrame) { Write-Host $dependencyFrame }
+    }
+    else {
+        $summary = Get-WinBookSplitDependencySummary -Failure $preflightFailure -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath
+        $outcome.message = $summary.Message
+        Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $summary.Message)) -ForegroundColor Red
+        Write-Host ('Action: ' + (ConvertTo-WinBookSplitDisplayText $summary.Action)) -ForegroundColor Yellow
+        $diagnosticFailure = $null
+        try {
+            $sourceItem = Get-Item -LiteralPath $InputFile -Force -ErrorAction Stop
+            $script:sourceObservation = [pscustomobject]@{ path = $InputFile; size_bytes = $sourceItem.Length;
+                last_write_utc = $sourceItem.LastWriteTimeUtc.ToString('o'); binding = 'metadata_only'; sha256 = $null }
+            $records = Open-WinBookSplitConsoleRecords -Base $outputDir
+            $consoleDir = $records.Directory; $consoleRunId = $records.RunId; $logFile = $records.LogPath
+            $script:consoleLogWriter = $records.Writer; $script:closedConsoleLogWriter = $records.Writer
+            $script:consoleRecordLeases = $records.Leases
+            $script:consoleLogWriter.WriteLine('[DEPENDENCY-MESSAGE] ' + (ConvertTo-Json -InputObject $preflightFailure.Message -Compress))
+            if ($null -ne $dependencyFrame) { $script:consoleLogWriter.WriteLine($dependencyFrame) }
+            Complete-WinBookSplitConsoleLog -Outcome $outcome
+        }
+        catch {
+            $diagnosticFailure = $_.Exception
+            if ($null -eq $consoleDir -and $diagnosticFailure.Data.Contains('DiagnosticDirectory')) {
+                $consoleDir = $diagnosticFailure.Data['DiagnosticDirectory']
+            }
+        }
+        finally {
+            if ($null -ne $script:consoleLogWriter) {
+                try { $script:consoleLogWriter.Dispose() } catch { $diagnosticFailure = $_.Exception }
+                $script:consoleLogWriter = $null
+            }
+            if ($null -ne $script:closedConsoleLogWriter) {
+                try { $script:closedConsoleLogWriter.CloseLease() } catch { $diagnosticFailure = $_.Exception }
+            }
+            foreach ($lease in $script:consoleRecordLeases) {
+                try { $lease.Dispose() } catch { $diagnosticFailure = $_.Exception }
+            }
+        }
+        if ($null -eq $diagnosticFailure) {
+            Write-Host ('Log: ' + (ConvertTo-WinBookSplitDisplayText $logFile)) -ForegroundColor Gray
+        }
+        else {
+            # Saving diagnostics is secondary: preserve the primary result and
+            # any partial records, then expose the original machine frame.
+            Write-Host 'Local dependency diagnostics could not be saved safely; full details follow.' -ForegroundColor Yellow
+            if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + (ConvertTo-WinBookSplitDisplayText $consoleDir)) -ForegroundColor Gray }
+            Write-Host ('[DEPENDENCY-MESSAGE] ' + (ConvertTo-Json -InputObject $preflightFailure.Message -Compress))
+            if ($null -ne $dependencyFrame) { Write-Host $dependencyFrame }
+        }
+    }
     Write-Host ('[OUTCOME] ' + ($outcome | ConvertTo-Json -Depth 100 -Compress))
     if ($outcome.exit_code -ne 130) { Wait-WinBookSplitExit }
     exit $outcome.exit_code
@@ -546,64 +784,19 @@ $fileSize = "{0:N2} MB" -f ((Get-Item -LiteralPath $InputFile -ErrorAction Stop)
 
 # Console diagnostics have their own exclusive run folder; chapters are
 # published by the engine only after the complete stage has been validated.
-$markerStream = $null
-$logStream = $null
-$script:consoleLogWriter = $null
-$script:closedConsoleLogWriter = $null
-$script:consoleRecordLeases = @()
-$script:confirmedPlan = $null
-$script:runStartedUtc = [DateTime]::UtcNow.ToString('o')
-$consoleDir = $null
 try {
     $sourceItem = Get-Item -LiteralPath $InputFile -Force -ErrorAction Stop
     $script:sourceObservation = [pscustomobject]@{ path = $InputFile; size_bytes = $sourceItem.Length;
         last_write_utc = $sourceItem.LastWriteTimeUtc.ToString('o'); binding = 'metadata_only'; sha256 = $null }
-    if ($Preview) {
-        # Retain the same bounded transport/diagnostic path without disk logs.
-        $script:consoleLogWriter = New-WinBookSplitLogWriter -Stream ([IO.MemoryStream]::new())
-        $script:closedConsoleLogWriter = $script:consoleLogWriter
-    }
-    else {
-    $script:consoleRecordLeases = New-WinBookSplitRecordLeases -Directory $outputDir -IncludeMarker $false
-    foreach ($lease in $script:consoleRecordLeases) { $lease.AssertUnchanged() }
-    $consoleReservation = New-WinBookSplitConsoleDirectory -Base $outputDir
-    $consoleRunId = $consoleReservation.run_id
-    $consoleDir = $consoleReservation.path
-    $script:consoleRecordLeases.Add([WinBookSplitLogging.PathLease]::new($consoleDir, $true))
-    foreach ($lease in $script:consoleRecordLeases) { $lease.AssertUnchanged() }
-    $consoleMarker = [IO.Path]::Combine($consoleDir, '.WinBookSplit-console-owner.json')
-    $markerStream = [IO.File]::Open($consoleMarker, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
-    $createdMarkerLease = $null; $sealedMarkerLease = $null
-    try {
-        $createdMarkerLease = [WinBookSplitLogging.PathLease]::new($consoleMarker, $false)
-        $createdMarkerLease.AssertSameHandle($markerStream.SafeFileHandle)
-        $markerBytes = [Text.Encoding]::UTF8.GetBytes((@{ run_id = $consoleRunId; kind = 'console' } | ConvertTo-Json -Compress))
-        $markerStream.Write($markerBytes, 0, $markerBytes.Length)
-        $markerStream.Flush($true); $markerStream.Dispose(); $markerStream = $null
-        $sealedMarkerLease = [WinBookSplitLogging.PathLease]::new($consoleMarker, $false, $false, $true)
-        $createdMarkerLease.AssertSameLease($sealedMarkerLease)
-        $script:consoleRecordLeases.Add($sealedMarkerLease); $sealedMarkerLease = $null
-    }
-    finally {
-        if ($null -ne $markerStream) { $markerStream.Dispose(); $markerStream = $null }
-        if ($null -ne $createdMarkerLease) { $createdMarkerLease.Dispose() }
-        if ($null -ne $sealedMarkerLease) { $sealedMarkerLease.Dispose() }
-    }
-    $logFile = [IO.Path]::Combine($consoleDir, 'console.log')
-    $logStream = [IO.File]::Open($logFile, [IO.FileMode]::CreateNew, [IO.FileAccess]::Write, [IO.FileShare]::Read)
-    $script:consoleLogWriter = New-WinBookSplitLogWriter -Stream $logStream -Path $logFile
-    $script:closedConsoleLogWriter = $script:consoleLogWriter
-    }
+    $records = Open-WinBookSplitConsoleRecords -Base $outputDir -Preview:$Preview
+    $consoleDir = $records.Directory; $consoleRunId = $records.RunId; $logFile = $records.LogPath
+    $script:consoleLogWriter = $records.Writer; $script:closedConsoleLogWriter = $records.Writer
+    $script:consoleRecordLeases = $records.Leases
 }
 catch {
     $setupMessage = $_.Exception.Message
-    foreach ($stream in @($script:consoleLogWriter, $logStream, $markerStream)) {
-        if ($null -ne $stream) {
-            try { $stream.Dispose() }
-            catch { $setupMessage += '; Cannot close a console stream: ' + $_.Exception.Message }
-        }
-    }
-    foreach ($lease in $script:consoleRecordLeases) { $lease.Dispose() }
+    if ($_.Exception.Data.Contains('DiagnosticDirectory')) { $consoleDir = $_.Exception.Data['DiagnosticDirectory'] }
+    if ($_.Exception.Data.Contains('DiagnosticCleanup')) { $setupMessage += '; Cannot close console resources: ' + $_.Exception.Data['DiagnosticCleanup'] }
     Write-Host ('[!] Error: Cannot prepare console records: ' + (ConvertTo-WinBookSplitDisplayText $setupMessage)) -ForegroundColor Red
     if ($null -ne $consoleDir) { Write-Host ('Reserved console directory retained: ' + (ConvertTo-WinBookSplitDisplayText $consoleDir)) -ForegroundColor Gray }
     $outcome = New-WinBookSplitOutcome -Status 'failed' -Code 'console_setup_failed' -Message $setupMessage

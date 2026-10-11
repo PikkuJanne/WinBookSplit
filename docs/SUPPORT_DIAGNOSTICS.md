@@ -22,12 +22,19 @@ the pending record with `diagnostics_finalized: false`. If that corrective write
 also fails, the retained file remains unpublished. A pending filename is always
 rejected by the export command. Existing files are never overwritten.
 
-Preview and early validation or dependency preflight create no disk diagnostics.
+Preview, early argument validation, and dependency preflight with
+`-NonInteractive` create no disk diagnostics. Ordinary console dependency
+failures show a short reason and an explicit setup action, and retain the full
+failure message and structured probe details in the same local log and manifest.
+If those records cannot be saved safely, the console prints the full diagnostic
+frame and preserves the original failure or cancellation exit code. Any partial
+records remain available; saving diagnostics never starts installation.
 When no validated terminal plan or explicitly confirmed plan is available,
 the record uses a null plan and `metadata_only` source identity with no invented
 hash. A displayed pending plan alone is not confirmation. An available validated
 terminal or confirmed plan records the processed source identity and exact ranges.
-Full local runtime versions remain in the original manifest; the redacted
+Only accepted runtime versions appear in the original manifest; rejected or
+unavailable dependencies have null version fields. The redacted
 summary uses the fixed PowerShell buckets described below.
 
 To create a separate redacted summary, choose the finalized

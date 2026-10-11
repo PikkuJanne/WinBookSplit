@@ -505,9 +505,10 @@ function Get-WinBookSplitPathCandidates {
 }
 
 function New-WinBookSplitDependencyError {
-    param([string]$Code, [string]$Message, $Attempts)
+    param([string]$Code, [string]$Message, $Attempts, [string]$Reason)
     $error = New-Object InvalidOperationException($Message)
     $error.Data['Code'] = $Code; $error.Data['Attempts'] = @($Attempts.ToArray())
+    if (-not [string]::IsNullOrEmpty($Reason)) { $error.Data['Reason'] = $Reason }
     return $error
 }
 
@@ -516,8 +517,10 @@ function Test-WinBookSplitPythonCandidate {
           [double]$TimeoutSeconds, [switch]$InterpreterOnly)
     $probe = $null
     $reason = 'runtime_probe_failed'
+    $pathAccepted = $false
     try {
         $path = Get-WinBookSplitTrustedPath -Path $Path -Automatic:($Source -in @('PATH', 'py_launcher', 'manager', 'registry'))
+        $pathAccepted = $true
         $policyPath = Get-WinBookSplitTrustedPath ([IO.Path]::Combine($ApplicationRoot, 'engine', 'WinBookSplit.Compatibility.json'))
         $policyIdentity = Get-WinBookSplitCompatibilityPolicy -PolicyPath $policyPath -WithIdentity
         $policy = $policyIdentity.Policy
@@ -580,6 +583,11 @@ function Test-WinBookSplitPythonCandidate {
             Details = $record; Probe = $probe; Arguments = @('-I', '-B'); Attempts = @($Attempts.ToArray()) }
     } catch {
         if (Test-WinBookSplitInterruption $_.Exception) { throw }
+        if (-not $pathAccepted) {
+            $pathFailure = $_.Exception
+            while ($pathFailure.InnerException) { $pathFailure = $pathFailure.InnerException }
+            if ($pathFailure -is [IO.FileNotFoundException] -or $pathFailure -is [IO.DirectoryNotFoundException]) { $reason = 'missing_python' }
+        }
         $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Reason = $reason; Message = $_.Exception.Message; Probe = $probe })
         return $null
     }
@@ -591,13 +599,13 @@ function Resolve-WinBookSplitRuntime {
     $root = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
-    catch { throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Shipped compatibility policy is missing or invalid: ' + $_.Exception.Message) $attempts) }
+    catch { throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Shipped compatibility policy is missing or invalid: ' + $_.Exception.Message) $attempts 'malformed_policy') }
     $setup = 'Use ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ' and locked pypdf ' + $policy['pypdf']['version'] + '. Set -PythonPath or run Setup-WinBookSplit.ps1 explicitly to create the application .venv.'
 
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         $selected = Test-WinBookSplitPythonCandidate $PythonPath 'explicit' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Python preflight failed for '$PythonPath': " + $attempts[-1].Message + ' ' + $setup + " For that selected compatible interpreter use & '$($PythonPath.Replace("'", "''"))' -I -m pip install --require-hashes --only-binary=:all: -r '$([IO.Path]::Combine($root, 'requirements.txt').Replace("'", "''"))'.") $attempts)
+        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Python preflight failed for '$PythonPath': " + $attempts[-1].Message + ' ' + $setup) $attempts)
     }
     $venv = [IO.Path]::Combine($root, '.venv')
     $venvExists = $true
@@ -620,7 +628,7 @@ function Resolve-WinBookSplitRuntime {
         }
         $selected = Test-WinBookSplitPythonCandidate $candidate 'application_venv' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' ' + $setup + " After explicitly creating a compatible venv use & '$($candidate.Replace("'", "''"))' -I -m pip install --require-hashes --only-binary=:all: -r '$([IO.Path]::Combine($root, 'requirements.txt').Replace("'", "''"))'.") $attempts)
+        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' Use Setup-WinBookSplit.ps1 -Repair explicitly to repair the application .venv with a compatible base interpreter.') $attempts)
     }
     $selected = Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $policy -TimeoutSeconds $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
     if ($selected) { return $selected }
@@ -657,7 +665,7 @@ function Resolve-WinBookSplitConverter {
     $root = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
-    catch { throw (New-WinBookSplitDependencyError 'converter_invalid' ('Compatibility policy could not be loaded: ' + $_.Exception.Message) $attempts) }
+    catch { throw (New-WinBookSplitDependencyError 'converter_invalid' ('Compatibility policy could not be loaded: ' + $_.Exception.Message) $attempts 'malformed_policy') }
     $guidance = 'Select trusted Calibre ' + $policy['calibre']['version'] + ' ebook-convert.exe with -CalibrePath, a trusted PATH entry, or a standard install; PDF-only processing does not require Calibre.'
     if (-not [string]::IsNullOrWhiteSpace($CalibrePath)) {
         $selected = Test-WinBookSplitConverterCandidate $CalibrePath 'explicit' $root $attempts $TimeoutSeconds
