@@ -1,0 +1,3828 @@
+{
+  "schema_version": 1,
+  "task": "M6-T02",
+  "result": "FINAL_R_PACKAGE_INTEGRITY_FROZEN_PASS",
+  "recorded_at": "2026-10-11T01:10:54.304878+00:00",
+  "repository": "PikkuJanne/WinBookSplit",
+  "version": "1.0.0",
+  "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "current_main_before_bookkeeping": "f5d61e830842f45d88118552baa639abf5823747",
+  "acceptance": [
+    {
+      "id": "AC-097",
+      "outcome": "PASS",
+      "scope": "Two actual explicit-R builds/verify and independent exact ZIP/manifest/member/provenance audit; no private/untracked/development payload"
+    },
+    {
+      "id": "AC-098",
+      "outcome": "PASS",
+      "scope": "Three final actual hashes/sizes and noncircular checksums agree; allthree assets byte-identical across builds and frozen for M6-T03"
+    }
+  ],
+  "final_asset_location": {
+    "workspace": "WinBookSplit-M6-T02-20261011",
+    "directory": "final-R-01",
+    "outside_Git": true
+  },
+  "repeat_asset_location": {
+    "workspace": "WinBookSplit-M6-T02-20261011",
+    "directory": "repeat-R-02",
+    "scope": "Repeatability evidence only; publish/test the fixed final-R-01 set"
+  },
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.0.zip",
+      "bytes": 414497,
+      "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "repeat_bytes_equal": true
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 11547,
+      "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "repeat_bytes_equal": true
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "repeat_bytes_equal": true
+    }
+  ],
+  "final_manifest": {
+    "application": "WinBookSplit",
+    "archive": {
+      "bytes": 414497,
+      "name": "WinBookSplit-v1.0.0.zip",
+      "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+    },
+    "builder": {
+      "archive_recipe": {
+        "compression": "ZIP_STORED",
+        "creator_system": "Unix",
+        "directory_entries": false,
+        "mode": "100644",
+        "order": "path Unicode ascending",
+        "timestamp": [
+          1980,
+          1,
+          1,
+          0,
+          0,
+          0
+        ]
+      },
+      "files": [
+        {
+          "bytes": 14790,
+          "git_blob": "1e63367578f34e7aa79ab76ab9b0677bfcb8eb1c",
+          "git_mode": "100644",
+          "path": "tools/release/build_package.py",
+          "sha256": "3e7437e5f6d4a333392f0f8c505ed817b80e9fe4b9a0e7d94a34aa287c2c5b65"
+        },
+        {
+          "bytes": 913,
+          "git_blob": "09944a21ecd5a1b457ea9d4464c72af244452c04",
+          "git_mode": "100644",
+          "path": "tools/release/payload.json",
+          "sha256": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1"
+        },
+        {
+          "bytes": 16625,
+          "git_blob": "d43dab35074db8a5e086e21d79e8c9671d0761d4",
+          "git_mode": "100644",
+          "path": "tools/ci/check_package_inputs.py",
+          "sha256": "66dec1b8053205df99282cf643458e4af7deb5902e61e4d60e3e8a4ba52ce21c"
+        }
+      ],
+      "git": "git version 2.56.0.windows.1",
+      "python": "3.14.8",
+      "version": "1"
+    },
+    "dependencies": {
+      "calibre": {
+        "bundled": false,
+        "required_for": [
+          "epub",
+          "azw3"
+        ],
+        "version": "9.15.0"
+      },
+      "powershell": {
+        "bundled": false,
+        "supported": [
+          "Windows PowerShell 5.1",
+          "PowerShell 7.6.6"
+        ]
+      },
+      "pypdf": {
+        "bundled": false,
+        "requirement": "pypdf==6.20.0 --hash=sha256:f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+        "version": "6.20.0"
+      },
+      "python": {
+        "architecture": "x64",
+        "bundled": false,
+        "flavor": "regular GIL CPython",
+        "version": "3.14.8"
+      },
+      "windows": {
+        "bundled": false,
+        "supported": "Windows 11 x64"
+      }
+    },
+    "files": [
+      {
+        "bytes": 2040,
+        "git_blob": "bcf2be64f3d066b46e72f74cebb0ba1e3cd3b00e",
+        "git_mode": "100644",
+        "path": "CHANGELOG.md",
+        "scope": "support_source",
+        "sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8"
+      },
+      {
+        "bytes": 1839,
+        "git_blob": "ae6ca5a934283bec164b0f1aa6928396c1c9a15c",
+        "git_mode": "100644",
+        "path": "CONTRIBUTING.md",
+        "scope": "support_source",
+        "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+      },
+      {
+        "bytes": 863,
+        "git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a",
+        "git_mode": "100644",
+        "path": "Export-WinBookSplitDiagnostics.ps1",
+        "scope": "runtime",
+        "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+      },
+      {
+        "bytes": 1070,
+        "git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+        "git_mode": "100644",
+        "path": "LICENSE",
+        "scope": "support_source",
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+      },
+      {
+        "bytes": 9378,
+        "git_blob": "5238d68c0ce2a98e9d5346ba816e24050362b2d2",
+        "git_mode": "100644",
+        "path": "README.md",
+        "scope": "support_source",
+        "sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a"
+      },
+      {
+        "bytes": 2093,
+        "git_blob": "794acc27265d18b56847ace75d7e150f15ff3708",
+        "git_mode": "100644",
+        "path": "SECURITY.md",
+        "scope": "support_source",
+        "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+      },
+      {
+        "bytes": 2461,
+        "git_blob": "11b57809cf1bcd69534ffc798bbcdb2ef77c3188",
+        "git_mode": "100644",
+        "path": "THIRD_PARTY_NOTICES.md",
+        "scope": "support_source",
+        "sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512"
+      },
+      {
+        "bytes": 6,
+        "git_blob": "3eefcb9dd5b38e2c1dc061052455dd97bcd51e6c",
+        "git_mode": "100644",
+        "path": "VERSION",
+        "scope": "runtime",
+        "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+      },
+      {
+        "bytes": 1145,
+        "git_blob": "e47e0d09da554fcf9865d453e4caf65a03839e4a",
+        "git_mode": "100644",
+        "path": "WinBookSplit.bat",
+        "scope": "runtime",
+        "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+      },
+      {
+        "bytes": 53754,
+        "git_blob": "b505b3bb848981f0ff771a18ef74ac09ebf49fa9",
+        "git_mode": "100644",
+        "path": "WinBookSplit.ps1",
+        "scope": "runtime",
+        "sha256": "3fb8923d0014e551416f198f7ce4ed2bbb7c26dd50f7238e8ba6917feed32f8c"
+      },
+      {
+        "bytes": 21645,
+        "git_blob": "fc57139965435f3ace0dc76d450e403a70adb8b8",
+        "git_mode": "100644",
+        "path": "WinBookSplit_icon.ico",
+        "scope": "support_source",
+        "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+      },
+      {
+        "bytes": 3352,
+        "git_blob": "12cd8ea2230884951233b7c36eb06541359f8419",
+        "git_mode": "100644",
+        "path": "docs/EBOOK_SUPPORT.md",
+        "scope": "support_source",
+        "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+      },
+      {
+        "bytes": 3344,
+        "git_blob": "c7f348f935090452cb72892e722244f95e452621",
+        "git_mode": "100644",
+        "path": "docs/PDF_FIDELITY.md",
+        "scope": "support_source",
+        "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+      },
+      {
+        "bytes": 4143,
+        "git_blob": "ca765694e9f1bf4a6e64ff94ab836a7f910cee35",
+        "git_mode": "100644",
+        "path": "docs/PDF_POLICY.md",
+        "scope": "support_source",
+        "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+      },
+      {
+        "bytes": 5158,
+        "git_blob": "fa385a3976c20e0892e03c2978feda921f5dc363",
+        "git_mode": "100644",
+        "path": "docs/SETUP.md",
+        "scope": "support_source",
+        "sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497"
+      },
+      {
+        "bytes": 5262,
+        "git_blob": "51f125069767430ab3d3f929d7a7dd3b2ee71b5c",
+        "git_mode": "100644",
+        "path": "docs/SUPPORT_DIAGNOSTICS.md",
+        "scope": "support_source",
+        "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed"
+      },
+      {
+        "bytes": 25458,
+        "git_blob": "62d6733cef4480b023b492db29da61f0e16a9f12",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Diagnostics.ps1",
+        "scope": "runtime",
+        "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+      },
+      {
+        "bytes": 13060,
+        "git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Logging.ps1",
+        "scope": "runtime",
+        "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+      },
+      {
+        "bytes": 1581,
+        "git_blob": "7acc3498b6ea420f31042fb94f12f2ab8b5f01a0",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Outcomes.json",
+        "scope": "runtime",
+        "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+      },
+      {
+        "bytes": 4142,
+        "git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Paths.ps1",
+        "scope": "runtime",
+        "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+      },
+      {
+        "bytes": 40377,
+        "git_blob": "c72ef43d81684adfc38a82b0c5c74cfd6fa78c28",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Process.ps1",
+        "scope": "runtime",
+        "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf"
+      },
+      {
+        "bytes": 27945,
+        "git_blob": "95f5e9fb80f7eaae1c89e77aadc3ddf60aa8e4a4",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Runtime.ps1",
+        "scope": "runtime",
+        "sha256": "95c7ac0635394f363e01a1dc7da0360d7e95ca871fc230a5f6760184346e99e3"
+      },
+      {
+        "bytes": 26774,
+        "git_blob": "da1f855b48ca60386cc2cb174cc91563be2aba6d",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Support.ps1",
+        "scope": "runtime",
+        "sha256": "12ebcbfef356a764617efe460e9ce135966f2183e585394bb3a1edc13be1f69d"
+      },
+      {
+        "bytes": 27985,
+        "git_blob": "c4be44b33a2ae7712d702ed7e353f58845361016",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_conversion.py",
+        "scope": "runtime",
+        "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+      },
+      {
+        "bytes": 100090,
+        "git_blob": "fe5ca3cdea3e17365a0fed5327ea4a1ddb8817b7",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_engine.py",
+        "scope": "runtime",
+        "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa"
+      },
+      {
+        "bytes": 14965,
+        "git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_job.py",
+        "scope": "runtime",
+        "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+      },
+      {
+        "bytes": 10933,
+        "git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_windows.py",
+        "scope": "runtime",
+        "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      {
+        "bytes": 236,
+        "git_blob": "e52df15535592a5deeb1df2796e3496a62062152",
+        "git_mode": "100644",
+        "path": "requirements.txt",
+        "scope": "runtime",
+        "sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923"
+      }
+    ],
+    "payload_sha256": "70eaa3fcfc16e1d5a25453eab49da2f4f72cd1f7a2b000ae114bf64b1f0b5d8c",
+    "runtime_sibling_dependencies": {
+      "Export-WinBookSplitDiagnostics.ps1": [
+        "engine/WinBookSplit.Support.ps1"
+      ],
+      "WinBookSplit.bat": [
+        "WinBookSplit.ps1"
+      ],
+      "WinBookSplit.ps1": [
+        "VERSION",
+        "engine/WinBookSplit.Diagnostics.ps1",
+        "engine/WinBookSplit.Logging.ps1",
+        "engine/WinBookSplit.Paths.ps1",
+        "engine/WinBookSplit.Process.ps1",
+        "engine/WinBookSplit.Runtime.ps1",
+        "engine/winbooksplit_engine.py"
+      ],
+      "engine/WinBookSplit.Diagnostics.ps1": [
+        "engine/WinBookSplit.Outcomes.json"
+      ],
+      "engine/WinBookSplit.Logging.ps1": [],
+      "engine/WinBookSplit.Paths.ps1": [],
+      "engine/WinBookSplit.Process.ps1": [],
+      "engine/WinBookSplit.Runtime.ps1": [
+        "engine/WinBookSplit.Process.ps1"
+      ],
+      "engine/WinBookSplit.Support.ps1": [
+        "VERSION",
+        "engine/WinBookSplit.Outcomes.json"
+      ],
+      "engine/winbooksplit_conversion.py": [
+        "engine/winbooksplit_job.py"
+      ],
+      "engine/winbooksplit_engine.py": [
+        "VERSION",
+        "engine/WinBookSplit.Outcomes.json",
+        "engine/winbooksplit_conversion.py",
+        "engine/winbooksplit_windows.py"
+      ],
+      "engine/winbooksplit_job.py": [],
+      "engine/winbooksplit_windows.py": []
+    },
+    "schema_version": 1,
+    "scope": "Unpublished package provenance; Windows/Explorer/Calibre acceptance and release gates remain separate.",
+    "signed": false,
+    "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+    "version": "1.0.0"
+  },
+  "signed": false,
+  "asset_integrity_accepted": true,
+  "exact_final_asset_Windows_accepted": false,
+  "runtime": {
+    "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "python_executable_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603",
+    "regular_GIL": true,
+    "machine": "AMD64",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "isolated": true,
+    "no_bytecode": true,
+    "git": "git version 2.56.0.windows.1"
+  },
+  "repeatability": "All three actual assets byte-identical across two builds using the recorded runtime",
+  "frozen_source_record": {
+    "path": "evidence/M6-T01-release-source.json",
+    "sha256": "14a179da156bd5edc936f035055952577b7a68b282ba921862397315840971ab"
+  },
+  "guarded_source": {
+    "path_count": 176,
+    "sha256": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "path_sha256": {
+      ".github/workflows/windows-ci.yml": "1c77e2d97327b6f9622e03f31d1527861dc15e504beea953e1bee9a44f34cea2",
+      ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+      "CHANGELOG.md": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8",
+      "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+      "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "10f7f225b176d832f208f681923e0a4bf7e8c2ce74f079d4b56813ee0324a6d2",
+      "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+      "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md": "f3e5b168f2dcd7ad6e2286b93798b34f238686a9c4d41290db79a295c1812655",
+      "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+      "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "docs/SETUP.md": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497",
+      "docs/SUPPORT_DIAGNOSTICS.md": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed",
+      "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine/WinBookSplit.Runtime.ps1": "95c7ac0635394f363e01a1dc7da0360d7e95ca871fc230a5f6760184346e99e3",
+      "engine/WinBookSplit.Support.ps1": "12ebcbfef356a764617efe460e9ce135966f2183e585394bb3a1edc13be1f69d",
+      "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine/winbooksplit_engine.py": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a",
+      "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+      "requirements.txt": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923",
+      "SECURITY.md": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71",
+      "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+      "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+      "tests/baseline/README.md": "a29f824dbd00fe3ca7d6e4045b967364fa7d9fd8e68455bca5432996de437494",
+      "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+      "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+      "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+      "tests/cli/characterize_cli.py": "fc6963ddb05d0f833209ad6d85f2f3e5a68326cb6fe9745c9f695313efda2eac",
+      "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+      "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+      "tests/cli/validate_cli_report.py": "cb6116d424c19a050ab4b2d7d93f717d37d28586fef7a6ad912a6faa753844f4",
+      "tests/conversion/characterize_conversion.py": "da737a198e9e0465601915f02e230f2ecbaab3354ec2607379a55b54e7783252",
+      "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+      "tests/conversion/README.md": "f379faae20fdda09db30ca825a1e1667d637218535f8d8839061599a9dba1dac",
+      "tests/diagnostics/characterize_diagnostics.py": "4dbca24a35901f38eb56b5b150678757738b8792c95a15a6f66fe0be798c4620",
+      "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+      "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+      "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+      "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+      "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+      "tests/document_policy/validate_document_policy_report.py": "fa881d5ee5ddeb8c51286a34095dc61ec5ab4ef82a6707fdfba62adebfe9e831",
+      "tests/ebooks/assets.py": "8acc47de906ea95f4d33aaaa37120bff7dcecb99be2a22b194bfbe953143a647",
+      "tests/ebooks/behavior.py": "3924609fb339425ecd097dc7f4786ecd6b13e552ccbba962e0b4690b04102098",
+      "tests/ebooks/characterize_ebooks.py": "5b03c9f6569faeec575de31a5bd9436ee09bb2c3f23a31878fab8497701a0143",
+      "tests/ebooks/README.md": "af53b9225a39e7e1f21419e53778ac0b7e238875f0f73200fb7efae8fab12ac3",
+      "tests/ebooks/validate_ebooks_report.py": "1913ca3f7434a27f592f56a8dc0bda7fb02a5da2335e1f65aea50dc7c4165651",
+      "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+      "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+      "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+      "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+      "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+      "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+      "tests/faults/invariants.py": "dc8a0473f5aa2ab0d6f430e8f78615ed5b8e1175a5db500f8b296d2a7a04f464",
+      "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+      "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+      "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+      "tests/faults/validate_isolation.py": "db392396c0bf69dd7b5c7c0b1a7c26d027d6e9bf761fb7f7a89837ae7a2e8e8c",
+      "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+      "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+      "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+      "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+      "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+      "tests/fidelity/validate_fidelity_report.py": "312b7b7c8902697b55cdc6229da2f86de4399a986c2f9b419f0c7ff927f1c1d3",
+      "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+      "tests/Invoke-ShellTests.ps1": "9b319c2c885a40f7ef5ec8277488a0da90f0ebac0f51127e599c1a6eeeba98c3",
+      "tests/launcher/characterize_launcher.py": "fbfa52681cdcdf3170d33386e617f84fc44c37b650a16abc768fe22026ed92a0",
+      "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+      "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+      "tests/manual/characterize_manual.py": "47161ff84f71a28385528f44ff535adce66586bfe497b64466040459cec31561",
+      "tests/manual/current_launchers.py": "318f9ca06797b84d99d5955ec14bef3bf7323804951509a643f65509ae76f894",
+      "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+      "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+      "tests/outcomes/characterize_outcomes.py": "741103b13f90bc8476ee316c357660f7b1acc3159f45f50230a2c800e32a54e3",
+      "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+      "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+      "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+      "tests/outcomes/validate_outcomes_report.py": "0b27dd568fdcf111f41c18fbd8f426f5ea2c4d8a6fa81ac13f023cf869b7ed42",
+      "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+      "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+      "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+      "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+      "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+      "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+      "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+      "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+      "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+      "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+      "tests/powershell/Logging.Tests.ps1": "d3b5f62c923282a22b76e6b7d87671815958b15a4bab0bf7f2eaeaf7351feba5",
+      "tests/powershell/Outcome.Tests.ps1": "8487b2029868f1a0677f3558496dbfb8c2ab68d5781cc69ceaf9fdbb12d3db71",
+      "tests/powershell/Process.Tests.ps1": "1917472606a0fefdb35a0929c1d6d1d4397e0b29b909ab8b23c79f5108897a56",
+      "tests/powershell/Runtime.Tests.ps1": "7d27b9a125c94d4ec50338a4f401134b75cdceee2d401bd8b5ce11d0abd05cae",
+      "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+      "tests/powershell/Support.Tests.ps1": "ca010f3162e3a3f7ec9c78749322e0246dcd81502578af6ad15e67c4ae0e0474",
+      "tests/powershell/Version.Tests.ps1": "b864fca1aa73b24ffdea0f39612bbbeaec87fa1451d5cfb5279375a803f51fda",
+      "tests/process/characterize_process.py": "3fb88adc729f854fa05a63804be5955969d39291f7cd9db987358d8e617a432e",
+      "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+      "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+      "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+      "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+      "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+      "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+      "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+      "tests/python/console_receipt_fixture.py": "28b9a4ce2888b29021f4049eed529cd8c85ac8acda7f057c83ab40a07cdb343e",
+      "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+      "tests/python/test_ci_bootstrap.py": "eb86780f732ceee84f9cc283713fc6bc97f5ac395b1239d9f23ead3ccb176810",
+      "tests/python/test_ci_package_inputs.py": "3993ea7c5c71fee98a7e1d8505696d5c92fb5b2064c195e99d13b9c35395d571",
+      "tests/python/test_cli_receipt.py": "19426cae55a58e6206145275a06f82a808ff53f7b5bcf39ec0a12f001c991605",
+      "tests/python/test_console_manifest.py": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7",
+      "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+      "tests/python/test_cross_host_receipt.py": "0b268aa655a35bab382667638f1cec5d007e64c82f0263a91ae073a853af9529",
+      "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+      "tests/python/test_document_policy_receipt.py": "4b1cfb99a72bfde75062ee5aeec23b8308aec53315406ba635341235b80e5f6a",
+      "tests/python/test_ebook_assets.py": "a936dfdc3dec656f2db989a9629306b698069483d37e1f3a4f4fec85fcde09a5",
+      "tests/python/test_ebook_behavior.py": "d73c76eb333c05e8837dfdddc9163c3633d4ef7e70812efc646df4864878c5e1",
+      "tests/python/test_ebooks_receipt.py": "6d83abadb5fec9c31718bac88332d96b94dd1ab3c7114ed1c0514bea95d420bf",
+      "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+      "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+      "tests/python/test_fault_isolation.py": "8c5a7b6cbcd09b44179421df83b6e9e1576e1a8185de8087b2d9de5d49a72156",
+      "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+      "tests/python/test_fidelity_receipt.py": "e6a0eca9bd2655844a2ebd71e5a06ac65f30bab76ffad1b48bb6349648581e40",
+      "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+      "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+      "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+      "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+      "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+      "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+      "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+      "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+      "tests/python/test_outcomes_receipt.py": "48e557cfb9f631594a2ead8bcda42afc2a952f9e9a70e6aef70bb0825a9dc1dc",
+      "tests/python/test_output.py": "300c89f7ff76020cad6ae9b972a2aa2d45e13db791dec31526261f88c0d16eb6",
+      "tests/python/test_pdf_fidelity.py": "7548abb7af801543321606306afb8c3495ec9fb7d95a91c7891dfcaf26d62f1b",
+      "tests/python/test_pdf_policy.py": "beda241f2cc0a4a7d42adc57e699c468a513b3077d9546394603321b3dffd074",
+      "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+      "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+      "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+      "tests/python/test_release_package.py": "384c5a6aac7d19334d95216ccafa2898e7611f35007a8a8799d45e607ed32cb3",
+      "tests/python/test_release_security.py": "589e3ed8ae3c47fc9171ffaf9f4cac00c4346c467fad7503141ad5c5dd43df09",
+      "tests/python/test_runner.py": "e16ea8bfc70f314a311bac46bb2942b24a2f801093af271bd6f9bc37172db6de",
+      "tests/python/test_runtime_receipt.py": "8cb7b6b84e12eb5b62aa574fa0ff90e3b0c28c4a8bcd15e2e816a7629ce6be60",
+      "tests/python/test_support_receipt.py": "4d41a65e0dab8e2be783cbacc4aa22ea7e59fe0f8cc367c3aa66a2cd04279bcf",
+      "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+      "tests/python/test_version.py": "fa874217ff89e7fdb8266c80f977b80ec969467f2773e5d8f9fcc1084445224d",
+      "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+      "tests/README.md": "94c28d85ff7e3244085e63d678c3f68db0dce767cba9fdd7d481d43671968300",
+      "tests/run_tests.py": "6773a1e5368771e3482f46afc21699f96df88d7728b6f522aacadfa6c4b32245",
+      "tests/runtime/characterize_runtime.py": "e5c7d62a22d7e2580d49e3983cb704dc7fd9a5fdbfdd0d2bac59e291c56353bf",
+      "tests/runtime/README.md": "153a4d3d8bdb7725c771b469a9474c0bb3cf2fe8652554cfd3520bda57de9318",
+      "tests/runtime/validate_runtime_report.py": "b72844bd3a7ff6b26e3d3a721ad590335c75f2c2d1ba790c04b903c8f3135452",
+      "tests/support/characterize_support.py": "b2f7ff3f72941e37cfd18b4cb15e13b72c004286962dfc62e230137d3751129c",
+      "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+      "tests/support/validate_support_report.py": "6848f21358a4400d742fd2eb59ab40afd01a1e386e729f5f7d64a76db9023853",
+      "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+      "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+      "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+      "THIRD_PARTY_NOTICES.md": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512",
+      "tools/ci/bootstrap.py": "47ea20b6d4a543bca4390201fb9e45b37ca02983223fefd7abb3ef7640bbb2ce",
+      "tools/ci/check_package_inputs.py": "66dec1b8053205df99282cf643458e4af7deb5902e61e4d60e3e8a4ba52ce21c",
+      "tools/ci/README.md": "fe5fae98e1385ebc1629b83e0da5bbc6ea6576007862254316b5ca0a573349e8",
+      "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+      "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+      "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+      "tools/release/build_package.py": "3e7437e5f6d4a333392f0f8c505ed817b80e9fe4b9a0e7d94a34aa287c2c5b65",
+      "tools/release/payload.json": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1",
+      "tools/release/README.md": "16be0345569ce7b61c240acbd2fce6f1d07cc205394be04fc7aaedeb9d4cd060",
+      "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+      "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "WinBookSplit.ps1": "3fb8923d0014e551416f198f7ce4ed2bbb7c26dd50f7238e8ba6917feed32f8c"
+    },
+    "all_current_and_R_bytes_unchanged_before_after_tests": true
+  },
+  "source_input_review": {
+    "result": "PASS_FROZEN_SOURCE_INPUTS",
+    "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+    "current_main": "f5d61e830842f45d88118552baa639abf5823747",
+    "current_main_tree": "c719353e0359245397ebb12e242488c3f531945a",
+    "fresh_live_main": "f5d61e830842f45d88118552baa639abf5823747",
+    "observed_at_utc": "2026-10-11T01:06:36.181236+00:00",
+    "payload_sha256": "70eaa3fcfc16e1d5a25453eab49da2f4f72cd1f7a2b000ae114bf64b1f0b5d8c",
+    "builder_inputs_sha256": "41489c5074f187f809b52f8392da852f782cc473a587065fab13291ee33ca074",
+    "source_manifest_canonical_sha256": "fc417dfb7fbcbe3a9c17ef2338631cc323eeffd4ed35b3847a80923b9920d57d",
+    "guarded_source_sha256": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "checks": [
+      {
+        "check": "frozen source record exact reviewed machine bytes",
+        "pass": true
+      },
+      {
+        "check": "prior independent source audit exact retained seal",
+        "pass": true
+      },
+      {
+        "check": "frozen source manifest exact independent object and digest",
+        "pass": true
+      },
+      {
+        "check": "expected clean main before source-only package work",
+        "pass": true
+      },
+      {
+        "check": "origin fetch and push identity",
+        "pass": true
+      },
+      {
+        "check": "fresh live main equals clean local main",
+        "pass": true
+      },
+      {
+        "check": "fixed R remains ancestor and exact tree",
+        "pass": true
+      },
+      {
+        "check": "current main is exactly eight excluded evidence files beyond R",
+        "detail": [
+          "docs/codex-v1.0.0/NEXT_SESSION.md",
+          "docs/codex-v1.0.0/STATUS.md",
+          "docs/codex-v1.0.0/TASKS.json",
+          "docs/codex-v1.0.0/TESTING.md",
+          "docs/codex-v1.0.0/evidence/M6-T01-release-source.json",
+          "docs/codex-v1.0.0/evidence/M6-T01-release-source.md",
+          "docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+          "docs/codex-v1.0.0/tasks/M6-T01.md"
+        ],
+        "pass": true
+      },
+      {
+        "check": "176 guarded committed and current raw bytes exact",
+        "pass": true
+      },
+      {
+        "check": "28 payload plus3 builders exact modes/blob/size/hash and unchanged MAIN/raw",
+        "pass": true
+      },
+      {
+        "check": "all16 runtime dependencies shipped",
+        "pass": true
+      },
+      {
+        "check": "one canonical version1.0.0",
+        "pass": true
+      },
+      {
+        "check": "ongoing release source remains R and final-asset gates pending",
+        "pass": true
+      },
+      {
+        "check": "no tracked changes caused by review",
+        "pass": true
+      }
+    ],
+    "auditor": {
+      "name": "audit-source-inputs-v02.py",
+      "sha256": "897496838ac240137d9e8705ae20a61b245c6b0fb4e76a86d264a9902151926e"
+    },
+    "reviewer_preparation": [
+      {
+        "auditor_bytes": 9349,
+        "auditor_sha256": "e30fea029bc8d7e1a696ce152b9bb18bbc26689ddbd9e2baf0c16f427e83d338",
+        "corrective_method": "Separate v02 explicitly binds all28 payload and3builder rows to R blobs in addition to176 guarded paths.",
+        "native_exit": 1,
+        "operation": "audit-source-inputs.py",
+        "outcome": "KeyError WinBookSplit_icon.ico before final report write:176 guarded runtime/test inputs do not include the shipped icon. No product/build/test outcome affected.",
+        "schema_version": 1,
+        "task": "M6-T02",
+        "tracked_edits": false
+      },
+      {
+        "correction": "Literal subprocess argv HEAD^{tree} succeeded/native0 above; no mutation/build/test occurred.",
+        "operation": "Exploratory PowerShell git rev-parse HEAD^{tree} without quotes",
+        "outcome": "PowerShell interpreted braces and Git reported invalid arguments; no individual native exit retained; enclosing read wrapper0."
+      }
+    ],
+    "scope": "Read-only source proof. Root separately builds assets from fixed R; asset hashes and repeatability are not yet claimed."
+  },
+  "independent_asset_review": {
+    "acceptance_components": [
+      "AC-097",
+      "AC-098"
+    ],
+    "application_or_test_or_build_or_extract_invocations": false,
+    "asset_hashes": [
+      {
+        "bytes": 414497,
+        "directory": "final-R-01",
+        "name": "WinBookSplit-v1.0.0.zip",
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+      },
+      {
+        "bytes": 11547,
+        "directory": "final-R-01",
+        "name": "release-manifest.json",
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+      },
+      {
+        "bytes": 178,
+        "directory": "final-R-01",
+        "name": "SHA256SUMS.txt",
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b"
+      },
+      {
+        "bytes": 414497,
+        "directory": "repeat-R-02",
+        "name": "WinBookSplit-v1.0.0.zip",
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+      },
+      {
+        "bytes": 11547,
+        "directory": "repeat-R-02",
+        "name": "release-manifest.json",
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+      },
+      {
+        "bytes": 178,
+        "directory": "repeat-R-02",
+        "name": "SHA256SUMS.txt",
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b"
+      }
+    ],
+    "auditor": {
+      "name": "audit-final-assets.py",
+      "sha256": "4956991c4aef88379e967a1f16dd5521118f39ddaba849bda54d79462f1e240a"
+    },
+    "blocking_findings": [],
+    "builder_inputs_sha256": "41489c5074f187f809b52f8392da852f782cc473a587065fab13291ee33ca074",
+    "checks": [
+      {
+        "check": "independent source review seal retained",
+        "pass": true
+      },
+      {
+        "check": "R Git tree remains fixed",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: CHANGELOG.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: CONTRIBUTING.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: Export-WinBookSplitDiagnostics.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: LICENSE",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: README.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: SECURITY.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: THIRD_PARTY_NOTICES.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: VERSION",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: WinBookSplit.bat",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: WinBookSplit.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: WinBookSplit_icon.ico",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: docs/EBOOK_SUPPORT.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: docs/PDF_FIDELITY.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: docs/PDF_POLICY.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: docs/SETUP.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: docs/SUPPORT_DIAGNOSTICS.md",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Diagnostics.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Logging.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Outcomes.json",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Paths.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Process.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Runtime.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/WinBookSplit.Support.ps1",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/winbooksplit_conversion.py",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/winbooksplit_engine.py",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/winbooksplit_job.py",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: engine/winbooksplit_windows.py",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: requirements.txt",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: tools/release/build_package.py",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: tools/release/payload.json",
+        "pass": true
+      },
+      {
+        "check": "literal R blob binding: tools/ci/check_package_inputs.py",
+        "pass": true
+      },
+      {
+        "check": "batch blob stream fully consumed",
+        "pass": true
+      },
+      {
+        "check": "final-R-01 ordinary directory and ancestors",
+        "pass": true
+      },
+      {
+        "check": "final-R-01 exact three assets/no incomplete marker",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/WinBookSplit-v1.0.0.zip ordinary file",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/WinBookSplit-v1.0.0.zip frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/release-manifest.json ordinary file",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/release-manifest.json frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/SHA256SUMS.txt ordinary file",
+        "pass": true
+      },
+      {
+        "check": "final-R-01/SHA256SUMS.txt frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02 ordinary directory and ancestors",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02 exact three assets/no incomplete marker",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/WinBookSplit-v1.0.0.zip ordinary file",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/WinBookSplit-v1.0.0.zip frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/release-manifest.json ordinary file",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/release-manifest.json frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/SHA256SUMS.txt ordinary file",
+        "pass": true
+      },
+      {
+        "check": "repeat-R-02/SHA256SUMS.txt frozen SHA256",
+        "pass": true
+      },
+      {
+        "check": "two actual output sets byte identical for all three assets",
+        "pass": true
+      },
+      {
+        "check": "manifest exact independently reconstructed R object and ASCII/LF bytes",
+        "pass": true
+      },
+      {
+        "check": "manifest has no self-hash or checksum self-reference",
+        "pass": true
+      },
+      {
+        "check": "checksum exact two ASCII LF lines for actual final bytes; no circular self-line",
+        "pass": true
+      },
+      {
+        "check": "canonical payload and builder digests equal frozen source record",
+        "pass": true
+      },
+      {
+        "check": "exact sorted28 allowlist with safe paths and no case duplicate",
+        "pass": true
+      },
+      {
+        "check": "private/development/dependency payload excluded by exact allowlist",
+        "pass": true
+      },
+      {
+        "check": "all16 runtime/helper/import dependencies in exact ZIP payload",
+        "pass": true
+      },
+      {
+        "check": "ZIP exact sorted28 membership without duplicate directories/comments",
+        "pass": true
+      },
+      {
+        "check": "all ZIP metadata and local-record bytes equal exact R recipe",
+        "pass": true
+      },
+      {
+        "check": "whole ZIP central/footer exact with no prepended/appended/padding/ZIP64 bytes",
+        "pass": true
+      },
+      {
+        "check": "all shipped relative Markdown links resolve within ZIP",
+        "pass": true
+      },
+      {
+        "check": "exact1.0.0 VERSION and required hash-pinned pypdf",
+        "pass": true
+      },
+      {
+        "check": "new manifest public safe without profile/absolute paths or tokens",
+        "pass": true
+      },
+      {
+        "check": "historical C3 candidate retains its original manifests/checksum seals",
+        "pass": true
+      },
+      {
+        "check": "historical C3 ZIP bytes identical; new R manifest differs only commit/tree and checksums follow",
+        "pass": true
+      },
+      {
+        "check": "all final and repeat asset bytes unchanged at end of read-only audit",
+        "pass": true
+      },
+      {
+        "check": "all31 payload/tool current raw bytes still equal R",
+        "pass": true
+      }
+    ],
+    "command_receipts": [
+      {
+        "argv": [
+          "git",
+          "--no-replace-objects",
+          "rev-parse",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573^{tree}"
+        ],
+        "native_exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdin_sha256": null,
+        "stdout_bytes": 41,
+        "stdout_sha256": "a6196fbe7eda0187189add011e125a9d4a083f127f48e7e5738fa9590fdd2f9b"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-replace-objects",
+          "ls-tree",
+          "-r",
+          "-z",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573"
+        ],
+        "native_exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdin_sha256": null,
+        "stdout_bytes": 27399,
+        "stdout_sha256": "508c657a1b6a62798816af85d38c9a3143e01de15b569c745647b11c26b1c9aa"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-replace-objects",
+          "cat-file",
+          "--batch"
+        ],
+        "native_exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdin_sha256": "3ec55486cd254eb21567b0c74de9ed0ec937468d92a1b242d23de7d1efbc96bf",
+        "stdout_bytes": 445047,
+        "stdout_sha256": "45989c024321aab15930677fd108aac6188a4ceefec22241fc29d09968accf9a"
+      },
+      {
+        "argv": [
+          "git",
+          "--no-replace-objects",
+          "--version"
+        ],
+        "native_exit": 0,
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdin_sha256": null,
+        "stdout_bytes": 29,
+        "stdout_sha256": "a031b30b91db21fe63f22de9306958f84106fc84243c2f8f92918e423ce274e0"
+      }
+    ],
+    "final_directory": "final-R-01",
+    "historical_candidate": {
+      "assets": [
+        {
+          "bytes": 414497,
+          "name": "WinBookSplit-v1.0.0.zip",
+          "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+        },
+        {
+          "bytes": 11547,
+          "name": "release-manifest.json",
+          "sha256": "bdb22885bb68f890338e60cba09932d3ec51fa10048e4c716d2bd792055ed8ab"
+        },
+        {
+          "bytes": 178,
+          "name": "SHA256SUMS.txt",
+          "sha256": "a6613cfe5467b60a8cd93f465c212f4cea1e930abbd45f5ad788f34f1b04d930"
+        }
+      ],
+      "directory": "candidate-C3-01",
+      "source_commit": "81e584e1d4ca791b0622987a11621c17f566f2fa",
+      "workspace": "WinBookSplit-M5-T04-20261010"
+    },
+    "limitations": [
+      "M6-T03 exact-final-ZIP Windows/Calibre/launcher/render acceptance remains pending.",
+      "No tag, draft, publication, signing or anonymous download is claimed.",
+      "Same-environment two actual output sets establish current byte repeatability; no claim covers all future Python/Git versions.",
+      "Root separately retains actual builder/validator/test command streams and its subsequent bookkeeping/checkpoint receipts."
+    ],
+    "manifest": {
+      "application": "WinBookSplit",
+      "archive": {
+        "bytes": 414497,
+        "name": "WinBookSplit-v1.0.0.zip",
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+      },
+      "builder": {
+        "archive_recipe": {
+          "compression": "ZIP_STORED",
+          "creator_system": "Unix",
+          "directory_entries": false,
+          "mode": "100644",
+          "order": "path Unicode ascending",
+          "timestamp": [
+            1980,
+            1,
+            1,
+            0,
+            0,
+            0
+          ]
+        },
+        "files": [
+          {
+            "bytes": 14790,
+            "git_blob": "1e63367578f34e7aa79ab76ab9b0677bfcb8eb1c",
+            "git_mode": "100644",
+            "path": "tools/release/build_package.py",
+            "sha256": "3e7437e5f6d4a333392f0f8c505ed817b80e9fe4b9a0e7d94a34aa287c2c5b65"
+          },
+          {
+            "bytes": 913,
+            "git_blob": "09944a21ecd5a1b457ea9d4464c72af244452c04",
+            "git_mode": "100644",
+            "path": "tools/release/payload.json",
+            "sha256": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1"
+          },
+          {
+            "bytes": 16625,
+            "git_blob": "d43dab35074db8a5e086e21d79e8c9671d0761d4",
+            "git_mode": "100644",
+            "path": "tools/ci/check_package_inputs.py",
+            "sha256": "66dec1b8053205df99282cf643458e4af7deb5902e61e4d60e3e8a4ba52ce21c"
+          }
+        ],
+        "git": "git version 2.56.0.windows.1",
+        "python": "3.14.8",
+        "version": "1"
+      },
+      "dependencies": {
+        "calibre": {
+          "bundled": false,
+          "required_for": [
+            "epub",
+            "azw3"
+          ],
+          "version": "9.15.0"
+        },
+        "powershell": {
+          "bundled": false,
+          "supported": [
+            "Windows PowerShell 5.1",
+            "PowerShell 7.6.6"
+          ]
+        },
+        "pypdf": {
+          "bundled": false,
+          "requirement": "pypdf==6.20.0 --hash=sha256:f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+          "version": "6.20.0"
+        },
+        "python": {
+          "architecture": "x64",
+          "bundled": false,
+          "flavor": "regular GIL CPython",
+          "version": "3.14.8"
+        },
+        "windows": {
+          "bundled": false,
+          "supported": "Windows 11 x64"
+        }
+      },
+      "files": [
+        {
+          "bytes": 2040,
+          "git_blob": "bcf2be64f3d066b46e72f74cebb0ba1e3cd3b00e",
+          "git_mode": "100644",
+          "path": "CHANGELOG.md",
+          "scope": "support_source",
+          "sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8"
+        },
+        {
+          "bytes": 1839,
+          "git_blob": "ae6ca5a934283bec164b0f1aa6928396c1c9a15c",
+          "git_mode": "100644",
+          "path": "CONTRIBUTING.md",
+          "scope": "support_source",
+          "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+        },
+        {
+          "bytes": 863,
+          "git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a",
+          "git_mode": "100644",
+          "path": "Export-WinBookSplitDiagnostics.ps1",
+          "scope": "runtime",
+          "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+        },
+        {
+          "bytes": 1070,
+          "git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+          "git_mode": "100644",
+          "path": "LICENSE",
+          "scope": "support_source",
+          "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+        },
+        {
+          "bytes": 9378,
+          "git_blob": "5238d68c0ce2a98e9d5346ba816e24050362b2d2",
+          "git_mode": "100644",
+          "path": "README.md",
+          "scope": "support_source",
+          "sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a"
+        },
+        {
+          "bytes": 2093,
+          "git_blob": "794acc27265d18b56847ace75d7e150f15ff3708",
+          "git_mode": "100644",
+          "path": "SECURITY.md",
+          "scope": "support_source",
+          "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+        },
+        {
+          "bytes": 2461,
+          "git_blob": "11b57809cf1bcd69534ffc798bbcdb2ef77c3188",
+          "git_mode": "100644",
+          "path": "THIRD_PARTY_NOTICES.md",
+          "scope": "support_source",
+          "sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512"
+        },
+        {
+          "bytes": 6,
+          "git_blob": "3eefcb9dd5b38e2c1dc061052455dd97bcd51e6c",
+          "git_mode": "100644",
+          "path": "VERSION",
+          "scope": "runtime",
+          "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+        },
+        {
+          "bytes": 1145,
+          "git_blob": "e47e0d09da554fcf9865d453e4caf65a03839e4a",
+          "git_mode": "100644",
+          "path": "WinBookSplit.bat",
+          "scope": "runtime",
+          "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+        },
+        {
+          "bytes": 53754,
+          "git_blob": "b505b3bb848981f0ff771a18ef74ac09ebf49fa9",
+          "git_mode": "100644",
+          "path": "WinBookSplit.ps1",
+          "scope": "runtime",
+          "sha256": "3fb8923d0014e551416f198f7ce4ed2bbb7c26dd50f7238e8ba6917feed32f8c"
+        },
+        {
+          "bytes": 21645,
+          "git_blob": "fc57139965435f3ace0dc76d450e403a70adb8b8",
+          "git_mode": "100644",
+          "path": "WinBookSplit_icon.ico",
+          "scope": "support_source",
+          "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+        },
+        {
+          "bytes": 3352,
+          "git_blob": "12cd8ea2230884951233b7c36eb06541359f8419",
+          "git_mode": "100644",
+          "path": "docs/EBOOK_SUPPORT.md",
+          "scope": "support_source",
+          "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+        },
+        {
+          "bytes": 3344,
+          "git_blob": "c7f348f935090452cb72892e722244f95e452621",
+          "git_mode": "100644",
+          "path": "docs/PDF_FIDELITY.md",
+          "scope": "support_source",
+          "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+        },
+        {
+          "bytes": 4143,
+          "git_blob": "ca765694e9f1bf4a6e64ff94ab836a7f910cee35",
+          "git_mode": "100644",
+          "path": "docs/PDF_POLICY.md",
+          "scope": "support_source",
+          "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+        },
+        {
+          "bytes": 5158,
+          "git_blob": "fa385a3976c20e0892e03c2978feda921f5dc363",
+          "git_mode": "100644",
+          "path": "docs/SETUP.md",
+          "scope": "support_source",
+          "sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497"
+        },
+        {
+          "bytes": 5262,
+          "git_blob": "51f125069767430ab3d3f929d7a7dd3b2ee71b5c",
+          "git_mode": "100644",
+          "path": "docs/SUPPORT_DIAGNOSTICS.md",
+          "scope": "support_source",
+          "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed"
+        },
+        {
+          "bytes": 25458,
+          "git_blob": "62d6733cef4480b023b492db29da61f0e16a9f12",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Diagnostics.ps1",
+          "scope": "runtime",
+          "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+        },
+        {
+          "bytes": 13060,
+          "git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Logging.ps1",
+          "scope": "runtime",
+          "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+        },
+        {
+          "bytes": 1581,
+          "git_blob": "7acc3498b6ea420f31042fb94f12f2ab8b5f01a0",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Outcomes.json",
+          "scope": "runtime",
+          "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+        },
+        {
+          "bytes": 4142,
+          "git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Paths.ps1",
+          "scope": "runtime",
+          "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+        },
+        {
+          "bytes": 40377,
+          "git_blob": "c72ef43d81684adfc38a82b0c5c74cfd6fa78c28",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Process.ps1",
+          "scope": "runtime",
+          "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf"
+        },
+        {
+          "bytes": 27945,
+          "git_blob": "95f5e9fb80f7eaae1c89e77aadc3ddf60aa8e4a4",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Runtime.ps1",
+          "scope": "runtime",
+          "sha256": "95c7ac0635394f363e01a1dc7da0360d7e95ca871fc230a5f6760184346e99e3"
+        },
+        {
+          "bytes": 26774,
+          "git_blob": "da1f855b48ca60386cc2cb174cc91563be2aba6d",
+          "git_mode": "100644",
+          "path": "engine/WinBookSplit.Support.ps1",
+          "scope": "runtime",
+          "sha256": "12ebcbfef356a764617efe460e9ce135966f2183e585394bb3a1edc13be1f69d"
+        },
+        {
+          "bytes": 27985,
+          "git_blob": "c4be44b33a2ae7712d702ed7e353f58845361016",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_conversion.py",
+          "scope": "runtime",
+          "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+        },
+        {
+          "bytes": 100090,
+          "git_blob": "fe5ca3cdea3e17365a0fed5327ea4a1ddb8817b7",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_engine.py",
+          "scope": "runtime",
+          "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa"
+        },
+        {
+          "bytes": 14965,
+          "git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_job.py",
+          "scope": "runtime",
+          "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+        },
+        {
+          "bytes": 10933,
+          "git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a",
+          "git_mode": "100644",
+          "path": "engine/winbooksplit_windows.py",
+          "scope": "runtime",
+          "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+        },
+        {
+          "bytes": 236,
+          "git_blob": "e52df15535592a5deeb1df2796e3496a62062152",
+          "git_mode": "100644",
+          "path": "requirements.txt",
+          "scope": "runtime",
+          "sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923"
+        }
+      ],
+      "payload_sha256": "70eaa3fcfc16e1d5a25453eab49da2f4f72cd1f7a2b000ae114bf64b1f0b5d8c",
+      "runtime_sibling_dependencies": {
+        "Export-WinBookSplitDiagnostics.ps1": [
+          "engine/WinBookSplit.Support.ps1"
+        ],
+        "WinBookSplit.bat": [
+          "WinBookSplit.ps1"
+        ],
+        "WinBookSplit.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Diagnostics.ps1",
+          "engine/WinBookSplit.Logging.ps1",
+          "engine/WinBookSplit.Paths.ps1",
+          "engine/WinBookSplit.Process.ps1",
+          "engine/WinBookSplit.Runtime.ps1",
+          "engine/winbooksplit_engine.py"
+        ],
+        "engine/WinBookSplit.Diagnostics.ps1": [
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/WinBookSplit.Logging.ps1": [],
+        "engine/WinBookSplit.Paths.ps1": [],
+        "engine/WinBookSplit.Process.ps1": [],
+        "engine/WinBookSplit.Runtime.ps1": [
+          "engine/WinBookSplit.Process.ps1"
+        ],
+        "engine/WinBookSplit.Support.ps1": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json"
+        ],
+        "engine/winbooksplit_conversion.py": [
+          "engine/winbooksplit_job.py"
+        ],
+        "engine/winbooksplit_engine.py": [
+          "VERSION",
+          "engine/WinBookSplit.Outcomes.json",
+          "engine/winbooksplit_conversion.py",
+          "engine/winbooksplit_windows.py"
+        ],
+        "engine/winbooksplit_job.py": [],
+        "engine/winbooksplit_windows.py": []
+      },
+      "schema_version": 1,
+      "scope": "Unpublished package provenance; Windows/Explorer/Calibre acceptance and release gates remain separate.",
+      "signed": false,
+      "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+      "version": "1.0.0"
+    },
+    "observed_at_utc": "2026-10-11T01:09:27.971546+00:00",
+    "preparation_failures": [],
+    "private_document_input": false,
+    "relative_document_links": [
+      {
+        "from": "CHANGELOG.md",
+        "resolved": "README.md",
+        "shipped": true,
+        "target": "README.md"
+      },
+      {
+        "from": "CHANGELOG.md",
+        "resolved": "THIRD_PARTY_NOTICES.md",
+        "shipped": true,
+        "target": "THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "CONTRIBUTING.md",
+        "resolved": "docs/SUPPORT_DIAGNOSTICS.md",
+        "shipped": true,
+        "target": "docs/SUPPORT_DIAGNOSTICS.md"
+      },
+      {
+        "from": "CONTRIBUTING.md",
+        "resolved": "SECURITY.md",
+        "shipped": true,
+        "target": "SECURITY.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "VERSION",
+        "shipped": true,
+        "target": "VERSION"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/PDF_POLICY.md",
+        "shipped": true,
+        "target": "docs/PDF_POLICY.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/PDF_FIDELITY.md",
+        "shipped": true,
+        "target": "docs/PDF_FIDELITY.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/EBOOK_SUPPORT.md",
+        "shipped": true,
+        "target": "docs/EBOOK_SUPPORT.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/SETUP.md",
+        "shipped": true,
+        "target": "docs/SETUP.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/SUPPORT_DIAGNOSTICS.md",
+        "shipped": true,
+        "target": "docs/SUPPORT_DIAGNOSTICS.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "docs/SETUP.md",
+        "shipped": true,
+        "target": "docs/SETUP.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "SECURITY.md",
+        "shipped": true,
+        "target": "SECURITY.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "CONTRIBUTING.md",
+        "shipped": true,
+        "target": "CONTRIBUTING.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "CHANGELOG.md",
+        "shipped": true,
+        "target": "CHANGELOG.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "THIRD_PARTY_NOTICES.md",
+        "shipped": true,
+        "target": "THIRD_PARTY_NOTICES.md"
+      },
+      {
+        "from": "README.md",
+        "resolved": "LICENSE",
+        "shipped": true,
+        "target": "LICENSE"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "docs/SUPPORT_DIAGNOSTICS.md",
+        "shipped": true,
+        "target": "docs/SUPPORT_DIAGNOSTICS.md"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "CONTRIBUTING.md",
+        "shipped": true,
+        "target": "CONTRIBUTING.md"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "LICENSE",
+        "shipped": true,
+        "target": "LICENSE"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "docs/SETUP.md",
+        "shipped": true,
+        "target": "docs/SETUP.md"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "docs/PDF_POLICY.md",
+        "shipped": true,
+        "target": "docs/PDF_POLICY.md"
+      },
+      {
+        "from": "SECURITY.md",
+        "resolved": "docs/EBOOK_SUPPORT.md",
+        "shipped": true,
+        "target": "docs/EBOOK_SUPPORT.md"
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "resolved": "LICENSE",
+        "shipped": true,
+        "target": "LICENSE"
+      },
+      {
+        "from": "THIRD_PARTY_NOTICES.md",
+        "resolved": "docs/SETUP.md",
+        "shipped": true,
+        "target": "docs/SETUP.md"
+      },
+      {
+        "from": "docs/PDF_FIDELITY.md",
+        "resolved": "docs/PDF_POLICY.md",
+        "shipped": true,
+        "target": "PDF_POLICY.md"
+      },
+      {
+        "from": "docs/PDF_POLICY.md",
+        "resolved": "docs/PDF_FIDELITY.md",
+        "shipped": true,
+        "target": "PDF_FIDELITY.md"
+      },
+      {
+        "from": "docs/SETUP.md",
+        "resolved": "README.md",
+        "shipped": true,
+        "target": "../README.md"
+      }
+    ],
+    "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+    "repeat_directory": "repeat-R-02",
+    "result": "PASS_EXACT_FINAL_ASSETS_AND_FROZEN_HASHES",
+    "runtime": {
+      "implementation": "cpython",
+      "isolated": true,
+      "no_bytecode": true,
+      "version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]"
+    },
+    "schema_version": 1,
+    "scope": "Independent read-only structural and byte audit of existing final/repeat assets. No package creation or extraction occurred in this auditor.",
+    "source_input_review_sha256": "cea19ccba2d1fcb136cead0052d9fa7ae696a4f7c845de64186a5c602c5811ae",
+    "source_manifest_canonical_sha256": "fc417dfb7fbcbe3a9c17ef2338631cc323eeffd4ed35b3847a80923b9920d57d",
+    "task": "M6-T02",
+    "tracked_edits_by_reviewer": false,
+    "zip_members": [
+      {
+        "bytes": 2040,
+        "crc32": 1738023461,
+        "header_offset": 0,
+        "metadata_and_R_bytes_equal": true,
+        "path": "CHANGELOG.md",
+        "sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8"
+      },
+      {
+        "bytes": 1839,
+        "crc32": 1304587466,
+        "header_offset": 2082,
+        "metadata_and_R_bytes_equal": true,
+        "path": "CONTRIBUTING.md",
+        "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+      },
+      {
+        "bytes": 863,
+        "crc32": 443352082,
+        "header_offset": 3966,
+        "metadata_and_R_bytes_equal": true,
+        "path": "Export-WinBookSplitDiagnostics.ps1",
+        "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+      },
+      {
+        "bytes": 1070,
+        "crc32": 3446434063,
+        "header_offset": 4893,
+        "metadata_and_R_bytes_equal": true,
+        "path": "LICENSE",
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+      },
+      {
+        "bytes": 9378,
+        "crc32": 1843816574,
+        "header_offset": 6000,
+        "metadata_and_R_bytes_equal": true,
+        "path": "README.md",
+        "sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a"
+      },
+      {
+        "bytes": 2093,
+        "crc32": 584778672,
+        "header_offset": 15417,
+        "metadata_and_R_bytes_equal": true,
+        "path": "SECURITY.md",
+        "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+      },
+      {
+        "bytes": 2461,
+        "crc32": 2207461508,
+        "header_offset": 17551,
+        "metadata_and_R_bytes_equal": true,
+        "path": "THIRD_PARTY_NOTICES.md",
+        "sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512"
+      },
+      {
+        "bytes": 6,
+        "crc32": 4252936296,
+        "header_offset": 20064,
+        "metadata_and_R_bytes_equal": true,
+        "path": "VERSION",
+        "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+      },
+      {
+        "bytes": 1145,
+        "crc32": 576226933,
+        "header_offset": 20107,
+        "metadata_and_R_bytes_equal": true,
+        "path": "WinBookSplit.bat",
+        "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+      },
+      {
+        "bytes": 53754,
+        "crc32": 51155706,
+        "header_offset": 21298,
+        "metadata_and_R_bytes_equal": true,
+        "path": "WinBookSplit.ps1",
+        "sha256": "3fb8923d0014e551416f198f7ce4ed2bbb7c26dd50f7238e8ba6917feed32f8c"
+      },
+      {
+        "bytes": 21645,
+        "crc32": 1156943420,
+        "header_offset": 75098,
+        "metadata_and_R_bytes_equal": true,
+        "path": "WinBookSplit_icon.ico",
+        "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+      },
+      {
+        "bytes": 3352,
+        "crc32": 1174821371,
+        "header_offset": 96794,
+        "metadata_and_R_bytes_equal": true,
+        "path": "docs/EBOOK_SUPPORT.md",
+        "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+      },
+      {
+        "bytes": 3344,
+        "crc32": 88309060,
+        "header_offset": 100197,
+        "metadata_and_R_bytes_equal": true,
+        "path": "docs/PDF_FIDELITY.md",
+        "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+      },
+      {
+        "bytes": 4143,
+        "crc32": 2146000041,
+        "header_offset": 103591,
+        "metadata_and_R_bytes_equal": true,
+        "path": "docs/PDF_POLICY.md",
+        "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+      },
+      {
+        "bytes": 5158,
+        "crc32": 2373794316,
+        "header_offset": 107782,
+        "metadata_and_R_bytes_equal": true,
+        "path": "docs/SETUP.md",
+        "sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497"
+      },
+      {
+        "bytes": 5262,
+        "crc32": 3996711466,
+        "header_offset": 112983,
+        "metadata_and_R_bytes_equal": true,
+        "path": "docs/SUPPORT_DIAGNOSTICS.md",
+        "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed"
+      },
+      {
+        "bytes": 25458,
+        "crc32": 3328588323,
+        "header_offset": 118302,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Diagnostics.ps1",
+        "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+      },
+      {
+        "bytes": 13060,
+        "crc32": 1503574007,
+        "header_offset": 143825,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Logging.ps1",
+        "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+      },
+      {
+        "bytes": 1581,
+        "crc32": 1036296520,
+        "header_offset": 156946,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Outcomes.json",
+        "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+      },
+      {
+        "bytes": 4142,
+        "crc32": 807063040,
+        "header_offset": 158590,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Paths.ps1",
+        "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+      },
+      {
+        "bytes": 40377,
+        "crc32": 2586711238,
+        "header_offset": 162791,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Process.ps1",
+        "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf"
+      },
+      {
+        "bytes": 27945,
+        "crc32": 2667448185,
+        "header_offset": 203229,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Runtime.ps1",
+        "sha256": "95c7ac0635394f363e01a1dc7da0360d7e95ca871fc230a5f6760184346e99e3"
+      },
+      {
+        "bytes": 26774,
+        "crc32": 2344245154,
+        "header_offset": 231235,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/WinBookSplit.Support.ps1",
+        "sha256": "12ebcbfef356a764617efe460e9ce135966f2183e585394bb3a1edc13be1f69d"
+      },
+      {
+        "bytes": 27985,
+        "crc32": 4234238528,
+        "header_offset": 258070,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/winbooksplit_conversion.py",
+        "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+      },
+      {
+        "bytes": 100090,
+        "crc32": 3195526704,
+        "header_offset": 286118,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/winbooksplit_engine.py",
+        "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa"
+      },
+      {
+        "bytes": 14965,
+        "crc32": 3522584116,
+        "header_offset": 386267,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/winbooksplit_job.py",
+        "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+      },
+      {
+        "bytes": 10933,
+        "crc32": 3142177158,
+        "header_offset": 401288,
+        "metadata_and_R_bytes_equal": true,
+        "path": "engine/winbooksplit_windows.py",
+        "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      {
+        "bytes": 236,
+        "crc32": 2710917438,
+        "header_offset": 412281,
+        "metadata_and_R_bytes_equal": true,
+        "path": "requirements.txt",
+        "sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923"
+      }
+    ]
+  },
+  "actual_source_CI_review": {
+    "schema_version": 1,
+    "task": "M6-T02",
+    "result": "FRESH_FROZEN_R_AND_CURRENT_E_SOURCE_CI_AUDIT_PASS",
+    "success": true,
+    "observed_at": "2026-10-11T01:07:05.486708+00:00",
+    "fixed_release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "required_release_source_CI_run": 38097123491,
+    "current_evidence_main_commit": "f5d61e830842f45d88118552baa639abf5823747",
+    "current_evidence_main_CI_run": 38099129055,
+    "frozen_R_not_replaced_by_E": true,
+    "release_source_ancestor_of_current_evidence_main": true,
+    "R_to_E_changed_paths": [
+      "docs/codex-v1.0.0/NEXT_SESSION.md",
+      "docs/codex-v1.0.0/STATUS.md",
+      "docs/codex-v1.0.0/TASKS.json",
+      "docs/codex-v1.0.0/TESTING.md",
+      "docs/codex-v1.0.0/evidence/M6-T01-release-source.json",
+      "docs/codex-v1.0.0/evidence/M6-T01-release-source.md",
+      "docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+      "docs/codex-v1.0.0/tasks/M6-T01.md"
+    ],
+    "all_eight_changes_excluded_bookkeeping": true,
+    "tested_paths": 176,
+    "tested_paths_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "both_actual_CI_sources_have_identical_guarded_Git_hashes": true,
+    "runs": [
+      {
+        "result": "ACTUAL_EXACT_CANDIDATE_CI_REPORT_AUDIT_PASS",
+        "observed_at": "2026-10-11T01:05:54.138134+00:00",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+        "run_id": 38097123491,
+        "workflow_id": 380583951,
+        "workflow_path": ".github/workflows/windows-ci.yml",
+        "workflow_name": "Windows CI",
+        "sole_job_name_verified": true,
+        "exact_job_step_names_verified": [
+          "Set up job",
+          "Checkout tested source",
+          "Create owned report directory",
+          "Set up exact regular x64 Python",
+          "Install hash-pinned development dependencies in a fresh venv",
+          "Bootstrap exact isolated shell tools",
+          "Check committed package prerequisites without building a package",
+          "Python regression through the shared runner",
+          "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+          "PowerShell 7 syntax, scoped analysis and Pester",
+          "Preserve only declared synthetic test and prerequisite reports",
+          "Post Set up exact regular x64 Python",
+          "Post Checkout tested source",
+          "Complete job"
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38097123491",
+        "status": "completed",
+        "conclusion": "success",
+        "head_branch": "main",
+        "event": "push",
+        "artifact": {
+          "id": 11686317367,
+          "name": "windows-ci-reports",
+          "size_in_bytes": 61446,
+          "digest": "sha256:d7da977ec19257a45a1129fc59b003c281c77f611b6bc02360876969346186a6",
+          "expired": false
+        },
+        "downloaded_archive_sha256": "d7da977ec19257a45a1129fc59b003c281c77f611b6bc02360876969346186a6",
+        "api_and_download_digest_equal": true,
+        "job_log_bytes": 70365,
+        "job_log_sha256": "ef6fd5119f3fca4bafdecfc12247402a58fcee0a0011e07fc9c3efc538ee33f0",
+        "exact_declared_five_reports": true,
+        "report_hashes": [
+          {
+            "name": "package-inputs.json",
+            "bytes": 9878,
+            "sha256": "eb61de36e5f8e0f71a39340ea071f1196f1aaeefca605b8ec31c94a54c674379"
+          },
+          {
+            "name": "python.json",
+            "bytes": 134158,
+            "sha256": "bb67118443dd518642d3c587bde399094b8cfa41edc5145ec7bc19b57e9a0786"
+          },
+          {
+            "name": "tools-bootstrap.json",
+            "bytes": 10038,
+            "sha256": "68b1db15977d1bfb683aa17f419b4c2922727767f9a35e52379dbfc2086171a4"
+          },
+          {
+            "name": "shell-ps51.json",
+            "bytes": 63450,
+            "sha256": "c81bd9bb779a952bc075fd48d7f1bfd41cf2c88c228e0d08ca2bcf8064c712fb"
+          },
+          {
+            "name": "shell-ps7.json",
+            "bytes": 62499,
+            "sha256": "66f66d2872c36140b7523bd686fce2ec1b43db923bf5f88321a2a086a1f8f2a9"
+          }
+        ],
+        "source_maps": [
+          {
+            "report": "python.json",
+            "actual_base_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+            "actual_base_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          },
+          {
+            "report": "shell-ps51.json",
+            "actual_base_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+            "actual_base_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          },
+          {
+            "report": "shell-ps7.json",
+            "actual_base_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+            "actual_base_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          }
+        ],
+        "tested_paths_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+        "python": [
+          {
+            "native_exit": 0,
+            "methods": 514,
+            "skips": 0,
+            "stdout_sha256": "1273e72c7ff3745f34145a8b2e511031051882591e2ed7e4b24486ee21c0f7a9",
+            "stderr_sha256": "74050a1d2d771bc0874b4bab0a7e3c663db03130eecac22907165e586d5cfb15"
+          }
+        ],
+        "shells": [
+          {
+            "report": "shell-ps51.json",
+            "actual_host": {
+              "version": "5.1.26100.33438",
+              "edition": "Desktop",
+              "clr": "4.0.30319.42000",
+              "execution_policy": [
+                {
+                  "policy": "Undefined",
+                  "scope": "MachinePolicy"
+                },
+                {
+                  "policy": "Undefined",
+                  "scope": "UserPolicy"
+                },
+                {
+                  "policy": "RemoteSigned",
+                  "scope": "Process"
+                },
+                {
+                  "policy": "Undefined",
+                  "scope": "CurrentUser"
+                },
+                {
+                  "policy": "Unrestricted",
+                  "scope": "LocalMachine"
+                }
+              ]
+            },
+            "native_exit": 0,
+            "pester": {
+              "passed": 116,
+              "failed": 0,
+              "total": 116,
+              "result": "Passed",
+              "not_run": 0,
+              "skipped": 0,
+              "failed_containers": 0
+            },
+            "syntax_files": 19,
+            "syntax_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "WinBookSplit.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "scaffold_files": 18,
+            "scaffold_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "configured_rules": [
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidGlobalVars",
+              "PSAvoidUsingCmdletAliases",
+              "PSAvoidUsingEmptyCatchBlock",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSUseDeclaredVarsMoreThanAssignments",
+              "PSUsePSCredentialType",
+              "PSUseCompatibleSyntax"
+            ],
+            "scoped_static_errors": 0,
+            "legacy_observations": 71,
+            "legacy_is_acceptance_pass": false,
+            "imports": {
+              "Pester": "6.2.0",
+              "PSScriptAnalyzer": "1.25.0"
+            },
+            "exactly_two_explicit_isolated_import_origins_verified": true,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "018966bf53cb60e3be45739d0b615e36ec0cd64fb2dc331e24320ce44f76ddff"
+          },
+          {
+            "report": "shell-ps7.json",
+            "actual_host": {
+              "version": "7.6.6",
+              "edition": "Core",
+              "clr": "10.0.12",
+              "execution_policy": [
+                {
+                  "scope": "MachinePolicy",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "UserPolicy",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "Process",
+                  "policy": "RemoteSigned"
+                },
+                {
+                  "scope": "CurrentUser",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "LocalMachine",
+                  "policy": "RemoteSigned"
+                }
+              ]
+            },
+            "native_exit": 0,
+            "pester": {
+              "passed": 116,
+              "total": 116,
+              "skipped": 0,
+              "not_run": 0,
+              "failed": 0,
+              "failed_containers": 0,
+              "result": "Passed"
+            },
+            "syntax_files": 19,
+            "syntax_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "WinBookSplit.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "scaffold_files": 18,
+            "scaffold_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "configured_rules": [
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidGlobalVars",
+              "PSAvoidUsingCmdletAliases",
+              "PSAvoidUsingEmptyCatchBlock",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSUseDeclaredVarsMoreThanAssignments",
+              "PSUsePSCredentialType",
+              "PSUseCompatibleSyntax"
+            ],
+            "scoped_static_errors": 0,
+            "legacy_observations": 71,
+            "legacy_is_acceptance_pass": false,
+            "imports": {
+              "Pester": "6.2.0",
+              "PSScriptAnalyzer": "1.25.0"
+            },
+            "exactly_two_explicit_isolated_import_origins_verified": true,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "actual_checkout_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "actual_checkout_tree_verified_through_GitHub_Git_API": true,
+        "package_input_git_rows_verified": 29,
+        "runtime_paths": 16,
+        "support_paths": 13,
+        "canonical_package_input_sha256": "a2d1d06d17c3793089855a742ce6dbbb8e93ee42b22a076c5c1696dbcb7e55ab",
+        "bootstrap_exact_two_pins_and_expanded_file_hash_maps": [
+          {
+            "name": "Pester",
+            "version": "6.2.0",
+            "package_bytes": 465109,
+            "package_sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+            "expanded_files": 21,
+            "expanded_files_sha256": {
+              "[Content_Types].xml": "eac20ec3b3b1668a347669aa5638f85dd32a85e66462220ce2cb588f912ae3c9",
+              "_rels/.rels": "01dcd1684ce15f33e4f047260e00853d95573fadf566025e1ea00d1cd8968beb",
+              "bin/net462/Pester.dll": "7ffd9a3541ed1019900487bac25b2586b8000b066a1e621e9fb0f73344c4aaf0",
+              "bin/net8.0/Pester.dll": "665e421670b0167e62a4c29c2464e30eced69e01f7a3993ec5e1e77ed5b75efd",
+              "en-US/about_Pester.help.txt": "5eb70b28e54b1000cbd9e49dded8bd9c0a8fc29364c450a1b586a6f657e57b01",
+              "en-US/about_PesterConfiguration.help.txt": "254623869fd078771e7f468f53412dc454abf3e73a988325b3617d987574c885",
+              "package/services/metadata/core-properties/nuget.psmdcp": "5d783e2ca531bfafbe431720922412741abe524e615fde02858653b0bc9a6711",
+              "Pester.Format.ps1xml": "b3f9d0e11cbd3ec6944ac37889510a0b70ed79ef56079088d3ee8a8558ad2260",
+              "Pester.nuspec": "615833571dfa42c9adc74478663842b8e110436bf5536339df169beaa5f6f8b4",
+              "Pester.psd1": "ea8445218d46eeb69dd08827d38222f1d23c592966722ecfd0bdc419bf045543",
+              "Pester.psm1": "04633d1fa5e2a28debc7b763b63adad7b477aeea88949fab9161cba04369eb5d",
+              "Pester.ScriptScope.ps1": "e81800adbea80275c85defdc491411dc5fe664441e6397ea347ed43ca4e44535",
+              "PesterConfiguration.Format.ps1xml": "f221b127fbca8ffbc0b065e97daf5376f5c058ceaa7f6f31242e7aec2a900e0c",
+              "schemas/Cobertura/coverage-loose.dtd": "face94d4975a0e7d01b376f9fb2fba298be61a3ca3b108799749df408d4bfefc",
+              "schemas/JaCoCo/report.dtd": "7effc41ffc755dbb2f4626653753ad7d533050f1685260e219951d6e9e5a2a94",
+              "schemas/JUnit4/junit_schema_4.xsd": "db8a5fc7e72267f3983a3470d4fa532a0f9349df4dad699df9e2527b40690b94",
+              "schemas/NUnit25/nunit_schema_2.5.xsd": "19baf3e207534c770ffb6c7d470e84f22a55271f684d29f4ec34c50308d98db7",
+              "schemas/NUnit3/TestDefinitions.xsd": "67e39db6a3251ba20a1bbdec215168b50f95c8055801652f0f760553e6120a82",
+              "schemas/NUnit3/TestFilterDefinitions.xsd": "fbe91c35957f34e3bb2b815edd0445e9cd92dfe5fd2dd734f38b13204f59175d",
+              "schemas/NUnit3/TestResult.xsd": "ce31e0cbd6be23c01a253570cef92c10a5689b8d184d3f3a74f2097703d3fc5b",
+              "ThirdPartyNotices.txt": "d4d74d4e613732974217af5d690b797b40608a4853453cdc538535a2e7026003"
+            }
+          },
+          {
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "package_bytes": 14658674,
+            "package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "expanded_files": 53,
+            "expanded_files_sha256": {
+              ".signature.p7s": "6ac5b29a690659d4217f53c8c9a859e013ca3af21082bb5c62c84c42447cb58a",
+              "[Content_Types].xml": "e31db8af7077c5e513795cc616164fe38309df3347e8167cfd6e0ea24e4f4d4f",
+              "_rels/.rels": "4ba8d6cf6d6d405732c45e1d2fc38eabd4edbfff44e4bcf47867d6a77630f112",
+              "compatibility_profiles/ubuntu_x64_18.04_6.2.4_x64_4.0.30319.42000_core.json": "878362300df6712cb3cbb98dd369331d54d0b5e07092dca7d14c71dd9aab4f04",
+              "compatibility_profiles/ubuntu_x64_18.04_7.0.0_x64_3.1.2_core.json": "cdb761d8e75be72b78157babd233487a79bf689b0b926ba6ae46f5aef3dc2a94",
+              "compatibility_profiles/win-48_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json": "9a99ccc7d25a974190e5352e0f773e24039d2fe831307d666a7502310d7c0907",
+              "compatibility_profiles/win-4_x64_10.0.18362.0_6.2.4_x64_4.0.30319.42000_core.json": "196beb5415dfb8b63e3e3678268f2990e2239401a98b86d89800749504b69b66",
+              "compatibility_profiles/win-4_x64_10.0.18362.0_7.0.0_x64_3.1.2_core.json": "66a64ccee6b4bcb3b68842843693849d2beb88cd1ddde525a1c4f0132f1609bf",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework.json": "10cabb80ec1e5567a96d50f053854c833b7b9701b01ffc1e4700dc115fa2ba4a",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_6.2.4_x64_4.0.30319.42000_core.json": "d889900200c1bed3f098991ccef0c84d48226fdb5be722c1018102819a1a38ad",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_7.0.0_x64_3.1.2_core.json": "00d4fa18798da98b27a047f9cf629c71185e51e37ec627872450d4d2f7c67d87",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json": "01c0d51beb49979d55f52e0dd58cb06bafd8d0553e197b65d4b17955ce97270d",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_6.2.4_x64_4.0.30319.42000_core.json": "7fa1bbbc38a59984f9bb661dd653f64f6116b6661a4efcd70e9dd051c7576f84",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_7.0.0_x64_3.1.2_core.json": "bab82f4bc80c15bf3f2a2ef967c7244aae24acf9984b7910a3d95c0291a62b75",
+              "compatibility_profiles/win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework.json": "60c3f51e87d332989cf0082dd8b785fa412f8b1cd488f7c8417560022e0bcc28",
+              "compatibility_profiles/win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework.json": "fc584750c710acf52d21eaf09b19ef52d54f87c95a67cb6c55fdd46746584153",
+              "en-US/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll-Help.xml": "efb6db773eb0790ddc793e04905eddcb14ae9d070202f74d1b8fc29d3fb604d0",
+              "LICENSE": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+              "Microsoft.PowerShell.CrossCompatibility.dll": "a7c3a149c660c0cd0ac6e15f391d749c2dde918b45ed770fde95e8f4c924b76b",
+              "Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll": "43450722c34b139c1934af56e7e0cc483ea21417eb4e2b8308445fc70890bc18",
+              "Microsoft.Windows.PowerShell.ScriptAnalyzer.dll": "145ba1459672da808757b2bc6c6494926a13d92353ccd6a0354a0d5d8fe14a5f",
+              "Newtonsoft.Json.dll": "99c6184c081fbe1b965c168d109c0112f3f2aa1e97d86601411773c34d3ce6a3",
+              "package/services/metadata/core-properties/7fdaef68c7cf430cb91cb8c15762f473.psmdcp": "34682bef21da66d6dfee0a5c23479c07a5d2af3b6565e48cd6cecdd1ca11c053",
+              "PSScriptAnalyzer.nuspec": "469a21e9b1eac5d58cc2d0222d868b73ad8c7fa556dfe1d4bf52b0dfefedf434",
+              "PSScriptAnalyzer.psd1": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791",
+              "PSScriptAnalyzer.psm1": "b69773fc9080cfb958dc13c95e42a625553e9bca5dcbedc27231e5c183a4e869",
+              "PSv7/Microsoft.PowerShell.CrossCompatibility.dll": "d92cb413e18927bb64d9bac221191fc69cf1659f55c72c27ddf1fe19ef774caf",
+              "PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll": "c8aa9890743a6d9c47ccfee5ec33caaee58c30591454d3ccf379720025a1533c",
+              "PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll": "c377532a1d8d8975e598891602b5c3ed39ab719f589d054eb889d11eb6ccaea3",
+              "PSv7/Pluralize.NET.dll": "eeecdf663a3e854f67bbbb872dc45577e785a581c1ca86ea2ae1d8215b8505d6",
+              "README.md": "113ea1d2fe4f0ce77aa116cf265a2de35f82f881a4e6bd32e35756e08f6786e5",
+              "ScriptAnalyzer.format.ps1xml": "d647e6c1cdfe4052d2382f2d76b899ec596ec71d23d724553b93f74827d49044",
+              "ScriptAnalyzer.types.ps1xml": "34246566553fe97c96a9ffea8aeefee353c1e07e41a72d3bfe9fdf826cc71d2a",
+              "SECURITY.md": "abe73f3d2a40900de478d8d6a9b9c76e7e9bf602309cdd3cee4355f1fcd1b459",
+              "Settings/CmdletDesign.psd1": "520c023182de4f23235af284db33d7e12cbc285aef6e82e45cb76539719140c0",
+              "Settings/CodeFormatting.psd1": "8978821a976903e845dfbb591d2a82ab97cfd39291313b2bdd9bc114fbbdb592",
+              "Settings/CodeFormattingAllman.psd1": "19eae3db753e04223b486f5246f53245e70e5cec342e48dc38d4b67340428f62",
+              "Settings/CodeFormattingOTBS.psd1": "1dadb2ffd5e542cc009645d861b31c8bcb85c1b5ef9dabe7ea0435047d357610",
+              "Settings/CodeFormattingStroustrup.psd1": "e501d3f729ba3bf4275e5c08852db5b1e971930323df14532cad34b500ea5198",
+              "Settings/core-6.1.0-linux-arm.json": "4ac89539ca47eae3eb1d95547efc59894a8a6e062f86d52840da35edf189131b",
+              "Settings/core-6.1.0-linux.json": "a43e4b44e055410dd18742a281a704945aa1f39519b19c344d7cd78f4a4757b5",
+              "Settings/core-6.1.0-macos.json": "70703e205682f5d216320143ed50f9acc9cf4d3655240435fcd109ac504a3b05",
+              "Settings/core-6.1.0-windows.json": "e35c5ab33003a8a4fbbd5aff0f659a920743080f9337c90819d4001c7928720e",
+              "Settings/desktop-2.0-windows.json": "e0dd156000b822ff10a9347ef3ba6a17c00c2136811acea01ef47d6dd1c092a7",
+              "Settings/desktop-3.0-windows.json": "60aae851911741248d3414925cbaf4c59e8743efaf5a5005ed129db257dc4c4f",
+              "Settings/desktop-4.0-windows.json": "d11970a52c011335e3f93dea7f3da887428caf1f12807a803ec65a8068b77ba8",
+              "Settings/desktop-5.1.14393.206-windows.json": "b829ff1493cadd5284c5bc326487107a0617b0b8c3799c5b8dbfcbb78ac8f652",
+              "Settings/DSC.psd1": "c1305c948b6ccc4dad6ae387ba7b9dc71ce7043df78e40b1e9e60485d6f76762",
+              "Settings/PSGallery.psd1": "9e68228af73b868a35c63d1202c21b55aa09e846223ecda8e070a10e4bdbfdd8",
+              "Settings/ScriptFunctions.psd1": "3fa7e84b1c8f8eb104b9ac4de2f12bd9bac588cd56c75456c018711fd79ee6de",
+              "Settings/ScriptingStyle.psd1": "7a78670582d1b8309974131c3377b3a74163b5409ab390518c8a49ba44ff40ab",
+              "Settings/ScriptSecurity.psd1": "13c5674bf0eb873aa909161add076117b1573ee3a13650eae6122b5fa5c8bdab",
+              "ThirdPartyNotices.txt": "2328c49f600036e032cbcca36b850ce4f2ae5db31a67d1485f779be03facf499"
+            }
+          }
+        ],
+        "limitations": [
+          "Hosted Server 2025 report-only regression is distinct from the accepted Windows 11 workstation full/Calibre/Explorer/human evidence.",
+          "Static success is only the exact recorded syntax/scaffold paths and ten configured rules. Default application findings remain observations.",
+          "Expanded module-file hash maps are actual hosted bootstrap declarations validated structurally against the exact package pins; they were not independently reconstructed from new Gallery downloads by this auditor. The guarded source bootstrap validates whole pinned ZIP bytes before extraction, and both native harness reports authenticate exact isolated imports.",
+          "No package built, private input processed, tag, release, exact M6 asset acceptance, publication or anonymous download claimed."
+        ],
+        "role": "frozen_release_source_R",
+        "sealed_actual_audit": {
+          "name": "review-ci-R.json",
+          "bytes": 154878,
+          "sha256": "7cc59cb29fd5cd9bc27deea38b445e771971907dda4fd882666e103af56fcd32"
+        },
+        "immutable_auditor_historical_task_label": "M5-T05",
+        "new_CI_run_requested": false,
+        "bootstrap_scope": "Actual hosted bootstrap maps and pinned import origins are verified in the guarded-source/report scope; no independent Gallery reconstruction was performed."
+      },
+      {
+        "result": "ACTUAL_EXACT_CANDIDATE_CI_REPORT_AUDIT_PASS",
+        "observed_at": "2026-10-11T01:05:56.854281+00:00",
+        "source_commit": "f5d61e830842f45d88118552baa639abf5823747",
+        "source_tree": "c719353e0359245397ebb12e242488c3f531945a",
+        "run_id": 38099129055,
+        "workflow_id": 380583951,
+        "workflow_path": ".github/workflows/windows-ci.yml",
+        "workflow_name": "Windows CI",
+        "sole_job_name_verified": true,
+        "exact_job_step_names_verified": [
+          "Set up job",
+          "Checkout tested source",
+          "Create owned report directory",
+          "Set up exact regular x64 Python",
+          "Install hash-pinned development dependencies in a fresh venv",
+          "Bootstrap exact isolated shell tools",
+          "Check committed package prerequisites without building a package",
+          "Python regression through the shared runner",
+          "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+          "PowerShell 7 syntax, scoped analysis and Pester",
+          "Preserve only declared synthetic test and prerequisite reports",
+          "Post Set up exact regular x64 Python",
+          "Post Checkout tested source",
+          "Complete job"
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38099129055",
+        "status": "completed",
+        "conclusion": "success",
+        "head_branch": "main",
+        "event": "push",
+        "artifact": {
+          "id": 11687380325,
+          "name": "windows-ci-reports",
+          "size_in_bytes": 61447,
+          "digest": "sha256:f33f8e7eaa93b2d07311217578fd0147a182e7e3882ef1d2344ba9e20f06e49a",
+          "expired": false
+        },
+        "downloaded_archive_sha256": "f33f8e7eaa93b2d07311217578fd0147a182e7e3882ef1d2344ba9e20f06e49a",
+        "api_and_download_digest_equal": true,
+        "job_log_bytes": 70461,
+        "job_log_sha256": "c1877a9b428226f153826a288be266033f8c8df552bafbbd492c2693867aeed0",
+        "exact_declared_five_reports": true,
+        "report_hashes": [
+          {
+            "name": "tools-bootstrap.json",
+            "bytes": 10038,
+            "sha256": "552ede34b1a8e13149c440a7198cb92a5eb690f7b713e1dc94b7bf65b80b38b0"
+          },
+          {
+            "name": "package-inputs.json",
+            "bytes": 9878,
+            "sha256": "ef32f013e86136476a44d6ae2f7db03a8fe98b55ffed3ff528f4f6ad8ed27252"
+          },
+          {
+            "name": "python.json",
+            "bytes": 134158,
+            "sha256": "78efa31e58073d3924f36a5ecb32306e0d303e021886835855e8bbc0425fd947"
+          },
+          {
+            "name": "shell-ps51.json",
+            "bytes": 63450,
+            "sha256": "2611cb95be0abad50284264e4583a38709a90ad9f91a3ddae04476e5a288d423"
+          },
+          {
+            "name": "shell-ps7.json",
+            "bytes": 62499,
+            "sha256": "ad9d5c1c8fa916c2bafdf89727039edb90e0ecd316b05b1a466cbc2a0db2e4ea"
+          }
+        ],
+        "source_maps": [
+          {
+            "report": "python.json",
+            "actual_base_commit": "f5d61e830842f45d88118552baa639abf5823747",
+            "actual_base_tree": "c719353e0359245397ebb12e242488c3f531945a",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          },
+          {
+            "report": "shell-ps51.json",
+            "actual_base_commit": "f5d61e830842f45d88118552baa639abf5823747",
+            "actual_base_tree": "c719353e0359245397ebb12e242488c3f531945a",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          },
+          {
+            "report": "shell-ps7.json",
+            "actual_base_commit": "f5d61e830842f45d88118552baa639abf5823747",
+            "actual_base_tree": "c719353e0359245397ebb12e242488c3f531945a",
+            "mapped_paths": 176,
+            "mapped_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+            "all_hashes_independently_match_Git_blobs": true,
+            "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+            "packages": {
+              "pypdf": "6.20.0",
+              "reportlab": "5.0.1",
+              "Pillow": "12.3.0",
+              "charset-normalizer": "3.5.2"
+            },
+            "platform": "Windows-2025Server-10.0.26100-SP0",
+            "machine": "AMD64"
+          }
+        ],
+        "tested_paths_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+        "python": [
+          {
+            "native_exit": 0,
+            "methods": 514,
+            "skips": 0,
+            "stdout_sha256": "1273e72c7ff3745f34145a8b2e511031051882591e2ed7e4b24486ee21c0f7a9",
+            "stderr_sha256": "68f7c572c8516aad680ce5f353b4a9fee9185db8e9341ffe5041d768b6f05f81"
+          }
+        ],
+        "shells": [
+          {
+            "report": "shell-ps51.json",
+            "actual_host": {
+              "version": "5.1.26100.33438",
+              "edition": "Desktop",
+              "clr": "4.0.30319.42000",
+              "execution_policy": [
+                {
+                  "policy": "Undefined",
+                  "scope": "MachinePolicy"
+                },
+                {
+                  "policy": "Undefined",
+                  "scope": "UserPolicy"
+                },
+                {
+                  "policy": "RemoteSigned",
+                  "scope": "Process"
+                },
+                {
+                  "policy": "Undefined",
+                  "scope": "CurrentUser"
+                },
+                {
+                  "policy": "Unrestricted",
+                  "scope": "LocalMachine"
+                }
+              ]
+            },
+            "native_exit": 0,
+            "pester": {
+              "passed": 116,
+              "failed": 0,
+              "total": 116,
+              "result": "Passed",
+              "not_run": 0,
+              "skipped": 0,
+              "failed_containers": 0
+            },
+            "syntax_files": 19,
+            "syntax_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "WinBookSplit.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "scaffold_files": 18,
+            "scaffold_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "configured_rules": [
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidGlobalVars",
+              "PSAvoidUsingCmdletAliases",
+              "PSAvoidUsingEmptyCatchBlock",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSUseDeclaredVarsMoreThanAssignments",
+              "PSUsePSCredentialType",
+              "PSUseCompatibleSyntax"
+            ],
+            "scoped_static_errors": 0,
+            "legacy_observations": 71,
+            "legacy_is_acceptance_pass": false,
+            "imports": {
+              "Pester": "6.2.0",
+              "PSScriptAnalyzer": "1.25.0"
+            },
+            "exactly_two_explicit_isolated_import_origins_verified": true,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "018966bf53cb60e3be45739d0b615e36ec0cd64fb2dc331e24320ce44f76ddff"
+          },
+          {
+            "report": "shell-ps7.json",
+            "actual_host": {
+              "version": "7.6.6",
+              "edition": "Core",
+              "clr": "10.0.12",
+              "execution_policy": [
+                {
+                  "scope": "MachinePolicy",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "UserPolicy",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "Process",
+                  "policy": "RemoteSigned"
+                },
+                {
+                  "scope": "CurrentUser",
+                  "policy": "Undefined"
+                },
+                {
+                  "scope": "LocalMachine",
+                  "policy": "RemoteSigned"
+                }
+              ]
+            },
+            "native_exit": 0,
+            "pester": {
+              "result": "Passed",
+              "skipped": 0,
+              "passed": 116,
+              "failed_containers": 0,
+              "total": 116,
+              "failed": 0,
+              "not_run": 0
+            },
+            "syntax_files": 19,
+            "syntax_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "WinBookSplit.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "scaffold_files": 18,
+            "scaffold_paths": [
+              "Export-WinBookSplitDiagnostics.ps1",
+              "engine/WinBookSplit.Logging.ps1",
+              "engine/WinBookSplit.Process.ps1",
+              "engine/WinBookSplit.Runtime.ps1",
+              "engine/WinBookSplit.Support.ps1",
+              "tests/Invoke-ShellTests.ps1",
+              "tests/PSScriptAnalyzerSettings.psd1",
+              "tests/powershell/FailureProbe.ps1",
+              "tests/powershell/Harness.Tests.ps1",
+              "tests/powershell/HarnessSupport.psm1",
+              "tests/powershell/Launcher.Tests.ps1",
+              "tests/powershell/Logging.Tests.ps1",
+              "tests/powershell/Outcome.Tests.ps1",
+              "tests/powershell/Process.Tests.ps1",
+              "tests/powershell/Runtime.Tests.ps1",
+              "tests/powershell/Session.Tests.ps1",
+              "tests/powershell/Support.Tests.ps1",
+              "tests/powershell/Version.Tests.ps1"
+            ],
+            "configured_rules": [
+              "PSAvoidUsingInvokeExpression",
+              "PSAvoidGlobalVars",
+              "PSAvoidUsingCmdletAliases",
+              "PSAvoidUsingEmptyCatchBlock",
+              "PSAvoidUsingPlainTextForPassword",
+              "PSAvoidUsingConvertToSecureStringWithPlainText",
+              "PSAvoidUsingUsernameAndPasswordParams",
+              "PSUseDeclaredVarsMoreThanAssignments",
+              "PSUsePSCredentialType",
+              "PSUseCompatibleSyntax"
+            ],
+            "scoped_static_errors": 0,
+            "legacy_observations": 71,
+            "legacy_is_acceptance_pass": false,
+            "imports": {
+              "Pester": "6.2.0",
+              "PSScriptAnalyzer": "1.25.0"
+            },
+            "exactly_two_explicit_isolated_import_origins_verified": true,
+            "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+            "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+          }
+        ],
+        "actual_checkout_commit": "f5d61e830842f45d88118552baa639abf5823747",
+        "actual_checkout_tree_verified_through_GitHub_Git_API": true,
+        "package_input_git_rows_verified": 29,
+        "runtime_paths": 16,
+        "support_paths": 13,
+        "canonical_package_input_sha256": "a2d1d06d17c3793089855a742ce6dbbb8e93ee42b22a076c5c1696dbcb7e55ab",
+        "bootstrap_exact_two_pins_and_expanded_file_hash_maps": [
+          {
+            "name": "Pester",
+            "version": "6.2.0",
+            "package_bytes": 465109,
+            "package_sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+            "expanded_files": 21,
+            "expanded_files_sha256": {
+              "[Content_Types].xml": "eac20ec3b3b1668a347669aa5638f85dd32a85e66462220ce2cb588f912ae3c9",
+              "_rels/.rels": "01dcd1684ce15f33e4f047260e00853d95573fadf566025e1ea00d1cd8968beb",
+              "bin/net462/Pester.dll": "7ffd9a3541ed1019900487bac25b2586b8000b066a1e621e9fb0f73344c4aaf0",
+              "bin/net8.0/Pester.dll": "665e421670b0167e62a4c29c2464e30eced69e01f7a3993ec5e1e77ed5b75efd",
+              "en-US/about_Pester.help.txt": "5eb70b28e54b1000cbd9e49dded8bd9c0a8fc29364c450a1b586a6f657e57b01",
+              "en-US/about_PesterConfiguration.help.txt": "254623869fd078771e7f468f53412dc454abf3e73a988325b3617d987574c885",
+              "package/services/metadata/core-properties/nuget.psmdcp": "5d783e2ca531bfafbe431720922412741abe524e615fde02858653b0bc9a6711",
+              "Pester.Format.ps1xml": "b3f9d0e11cbd3ec6944ac37889510a0b70ed79ef56079088d3ee8a8558ad2260",
+              "Pester.nuspec": "615833571dfa42c9adc74478663842b8e110436bf5536339df169beaa5f6f8b4",
+              "Pester.psd1": "ea8445218d46eeb69dd08827d38222f1d23c592966722ecfd0bdc419bf045543",
+              "Pester.psm1": "04633d1fa5e2a28debc7b763b63adad7b477aeea88949fab9161cba04369eb5d",
+              "Pester.ScriptScope.ps1": "e81800adbea80275c85defdc491411dc5fe664441e6397ea347ed43ca4e44535",
+              "PesterConfiguration.Format.ps1xml": "f221b127fbca8ffbc0b065e97daf5376f5c058ceaa7f6f31242e7aec2a900e0c",
+              "schemas/Cobertura/coverage-loose.dtd": "face94d4975a0e7d01b376f9fb2fba298be61a3ca3b108799749df408d4bfefc",
+              "schemas/JaCoCo/report.dtd": "7effc41ffc755dbb2f4626653753ad7d533050f1685260e219951d6e9e5a2a94",
+              "schemas/JUnit4/junit_schema_4.xsd": "db8a5fc7e72267f3983a3470d4fa532a0f9349df4dad699df9e2527b40690b94",
+              "schemas/NUnit25/nunit_schema_2.5.xsd": "19baf3e207534c770ffb6c7d470e84f22a55271f684d29f4ec34c50308d98db7",
+              "schemas/NUnit3/TestDefinitions.xsd": "67e39db6a3251ba20a1bbdec215168b50f95c8055801652f0f760553e6120a82",
+              "schemas/NUnit3/TestFilterDefinitions.xsd": "fbe91c35957f34e3bb2b815edd0445e9cd92dfe5fd2dd734f38b13204f59175d",
+              "schemas/NUnit3/TestResult.xsd": "ce31e0cbd6be23c01a253570cef92c10a5689b8d184d3f3a74f2097703d3fc5b",
+              "ThirdPartyNotices.txt": "d4d74d4e613732974217af5d690b797b40608a4853453cdc538535a2e7026003"
+            }
+          },
+          {
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0",
+            "package_bytes": 14658674,
+            "package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "expanded_files": 53,
+            "expanded_files_sha256": {
+              ".signature.p7s": "6ac5b29a690659d4217f53c8c9a859e013ca3af21082bb5c62c84c42447cb58a",
+              "[Content_Types].xml": "e31db8af7077c5e513795cc616164fe38309df3347e8167cfd6e0ea24e4f4d4f",
+              "_rels/.rels": "4ba8d6cf6d6d405732c45e1d2fc38eabd4edbfff44e4bcf47867d6a77630f112",
+              "compatibility_profiles/ubuntu_x64_18.04_6.2.4_x64_4.0.30319.42000_core.json": "878362300df6712cb3cbb98dd369331d54d0b5e07092dca7d14c71dd9aab4f04",
+              "compatibility_profiles/ubuntu_x64_18.04_7.0.0_x64_3.1.2_core.json": "cdb761d8e75be72b78157babd233487a79bf689b0b926ba6ae46f5aef3dc2a94",
+              "compatibility_profiles/win-48_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json": "9a99ccc7d25a974190e5352e0f773e24039d2fe831307d666a7502310d7c0907",
+              "compatibility_profiles/win-4_x64_10.0.18362.0_6.2.4_x64_4.0.30319.42000_core.json": "196beb5415dfb8b63e3e3678268f2990e2239401a98b86d89800749504b69b66",
+              "compatibility_profiles/win-4_x64_10.0.18362.0_7.0.0_x64_3.1.2_core.json": "66a64ccee6b4bcb3b68842843693849d2beb88cd1ddde525a1c4f0132f1609bf",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_5.1.14393.2791_x64_4.0.30319.42000_framework.json": "10cabb80ec1e5567a96d50f053854c833b7b9701b01ffc1e4700dc115fa2ba4a",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_6.2.4_x64_4.0.30319.42000_core.json": "d889900200c1bed3f098991ccef0c84d48226fdb5be722c1018102819a1a38ad",
+              "compatibility_profiles/win-8_x64_10.0.14393.0_7.0.0_x64_3.1.2_core.json": "00d4fa18798da98b27a047f9cf629c71185e51e37ec627872450d4d2f7c67d87",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_5.1.17763.316_x64_4.0.30319.42000_framework.json": "01c0d51beb49979d55f52e0dd58cb06bafd8d0553e197b65d4b17955ce97270d",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_6.2.4_x64_4.0.30319.42000_core.json": "7fa1bbbc38a59984f9bb661dd653f64f6116b6661a4efcd70e9dd051c7576f84",
+              "compatibility_profiles/win-8_x64_10.0.17763.0_7.0.0_x64_3.1.2_core.json": "bab82f4bc80c15bf3f2a2ef967c7244aae24acf9984b7910a3d95c0291a62b75",
+              "compatibility_profiles/win-8_x64_6.2.9200.0_3.0_x64_4.0.30319.42000_framework.json": "60c3f51e87d332989cf0082dd8b785fa412f8b1cd488f7c8417560022e0bcc28",
+              "compatibility_profiles/win-8_x64_6.3.9600.0_4.0_x64_4.0.30319.42000_framework.json": "fc584750c710acf52d21eaf09b19ef52d54f87c95a67cb6c55fdd46746584153",
+              "en-US/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll-Help.xml": "efb6db773eb0790ddc793e04905eddcb14ae9d070202f74d1b8fc29d3fb604d0",
+              "LICENSE": "646f8936b8ddcd14e13e578ff6857e368780b0d1a4f6066bee89211923a373e2",
+              "Microsoft.PowerShell.CrossCompatibility.dll": "a7c3a149c660c0cd0ac6e15f391d749c2dde918b45ed770fde95e8f4c924b76b",
+              "Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll": "43450722c34b139c1934af56e7e0cc483ea21417eb4e2b8308445fc70890bc18",
+              "Microsoft.Windows.PowerShell.ScriptAnalyzer.dll": "145ba1459672da808757b2bc6c6494926a13d92353ccd6a0354a0d5d8fe14a5f",
+              "Newtonsoft.Json.dll": "99c6184c081fbe1b965c168d109c0112f3f2aa1e97d86601411773c34d3ce6a3",
+              "package/services/metadata/core-properties/7fdaef68c7cf430cb91cb8c15762f473.psmdcp": "34682bef21da66d6dfee0a5c23479c07a5d2af3b6565e48cd6cecdd1ca11c053",
+              "PSScriptAnalyzer.nuspec": "469a21e9b1eac5d58cc2d0222d868b73ad8c7fa556dfe1d4bf52b0dfefedf434",
+              "PSScriptAnalyzer.psd1": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791",
+              "PSScriptAnalyzer.psm1": "b69773fc9080cfb958dc13c95e42a625553e9bca5dcbedc27231e5c183a4e869",
+              "PSv7/Microsoft.PowerShell.CrossCompatibility.dll": "d92cb413e18927bb64d9bac221191fc69cf1659f55c72c27ddf1fe19ef774caf",
+              "PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.BuiltinRules.dll": "c8aa9890743a6d9c47ccfee5ec33caaee58c30591454d3ccf379720025a1533c",
+              "PSv7/Microsoft.Windows.PowerShell.ScriptAnalyzer.dll": "c377532a1d8d8975e598891602b5c3ed39ab719f589d054eb889d11eb6ccaea3",
+              "PSv7/Pluralize.NET.dll": "eeecdf663a3e854f67bbbb872dc45577e785a581c1ca86ea2ae1d8215b8505d6",
+              "README.md": "113ea1d2fe4f0ce77aa116cf265a2de35f82f881a4e6bd32e35756e08f6786e5",
+              "ScriptAnalyzer.format.ps1xml": "d647e6c1cdfe4052d2382f2d76b899ec596ec71d23d724553b93f74827d49044",
+              "ScriptAnalyzer.types.ps1xml": "34246566553fe97c96a9ffea8aeefee353c1e07e41a72d3bfe9fdf826cc71d2a",
+              "SECURITY.md": "abe73f3d2a40900de478d8d6a9b9c76e7e9bf602309cdd3cee4355f1fcd1b459",
+              "Settings/CmdletDesign.psd1": "520c023182de4f23235af284db33d7e12cbc285aef6e82e45cb76539719140c0",
+              "Settings/CodeFormatting.psd1": "8978821a976903e845dfbb591d2a82ab97cfd39291313b2bdd9bc114fbbdb592",
+              "Settings/CodeFormattingAllman.psd1": "19eae3db753e04223b486f5246f53245e70e5cec342e48dc38d4b67340428f62",
+              "Settings/CodeFormattingOTBS.psd1": "1dadb2ffd5e542cc009645d861b31c8bcb85c1b5ef9dabe7ea0435047d357610",
+              "Settings/CodeFormattingStroustrup.psd1": "e501d3f729ba3bf4275e5c08852db5b1e971930323df14532cad34b500ea5198",
+              "Settings/core-6.1.0-linux-arm.json": "4ac89539ca47eae3eb1d95547efc59894a8a6e062f86d52840da35edf189131b",
+              "Settings/core-6.1.0-linux.json": "a43e4b44e055410dd18742a281a704945aa1f39519b19c344d7cd78f4a4757b5",
+              "Settings/core-6.1.0-macos.json": "70703e205682f5d216320143ed50f9acc9cf4d3655240435fcd109ac504a3b05",
+              "Settings/core-6.1.0-windows.json": "e35c5ab33003a8a4fbbd5aff0f659a920743080f9337c90819d4001c7928720e",
+              "Settings/desktop-2.0-windows.json": "e0dd156000b822ff10a9347ef3ba6a17c00c2136811acea01ef47d6dd1c092a7",
+              "Settings/desktop-3.0-windows.json": "60aae851911741248d3414925cbaf4c59e8743efaf5a5005ed129db257dc4c4f",
+              "Settings/desktop-4.0-windows.json": "d11970a52c011335e3f93dea7f3da887428caf1f12807a803ec65a8068b77ba8",
+              "Settings/desktop-5.1.14393.206-windows.json": "b829ff1493cadd5284c5bc326487107a0617b0b8c3799c5b8dbfcbb78ac8f652",
+              "Settings/DSC.psd1": "c1305c948b6ccc4dad6ae387ba7b9dc71ce7043df78e40b1e9e60485d6f76762",
+              "Settings/PSGallery.psd1": "9e68228af73b868a35c63d1202c21b55aa09e846223ecda8e070a10e4bdbfdd8",
+              "Settings/ScriptFunctions.psd1": "3fa7e84b1c8f8eb104b9ac4de2f12bd9bac588cd56c75456c018711fd79ee6de",
+              "Settings/ScriptingStyle.psd1": "7a78670582d1b8309974131c3377b3a74163b5409ab390518c8a49ba44ff40ab",
+              "Settings/ScriptSecurity.psd1": "13c5674bf0eb873aa909161add076117b1573ee3a13650eae6122b5fa5c8bdab",
+              "ThirdPartyNotices.txt": "2328c49f600036e032cbcca36b850ce4f2ae5db31a67d1485f779be03facf499"
+            }
+          }
+        ],
+        "limitations": [
+          "Hosted Server 2025 report-only regression is distinct from the accepted Windows 11 workstation full/Calibre/Explorer/human evidence.",
+          "Static success is only the exact recorded syntax/scaffold paths and ten configured rules. Default application findings remain observations.",
+          "Expanded module-file hash maps are actual hosted bootstrap declarations validated structurally against the exact package pins; they were not independently reconstructed from new Gallery downloads by this auditor. The guarded source bootstrap validates whole pinned ZIP bytes before extraction, and both native harness reports authenticate exact isolated imports.",
+          "No package built, private input processed, tag, release, exact M6 asset acceptance, publication or anonymous download claimed."
+        ],
+        "role": "current_evidence_main_E",
+        "sealed_actual_audit": {
+          "name": "review-ci-current-main.json",
+          "bytes": 154878,
+          "sha256": "e0d8d724bde7351ccc27b30172480386a2cf7393c5915e19bfa853670317bc1d"
+        },
+        "immutable_auditor_historical_task_label": "M5-T05",
+        "new_CI_run_requested": false,
+        "bootstrap_scope": "Actual hosted bootstrap maps and pinned import origins are verified in the guarded-source/report scope; no independent Gallery reconstruction was performed."
+      }
+    ],
+    "tool_provenance": {
+      "schema_version": 1,
+      "task": "M6-T02",
+      "result": "IDENTICAL_REVIEWED_SOURCE_CI_AUDITOR_PREPARED",
+      "observed_at": "2026-10-11T01:05:27.999835+00:00",
+      "fixed_release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "required_R_CI_run": 38097123491,
+      "current_evidence_main_commit": "f5d61e830842f45d88118552baa639abf5823747",
+      "current_evidence_main_CI_run": 38099129055,
+      "tool": {
+        "name": "audit_final_ci_v3.py",
+        "bytes": 18889,
+        "sha256": "cc6f51437c313f10004c284f4de97e3760e37e5f07700c02792efd252e47b22b",
+        "copied_from_workspace": "WinBookSplit-M6-T01-20261011",
+        "identical_bytes_verified": true
+      },
+      "executor": {
+        "implementation": "CPython",
+        "version": "3.14.8",
+        "machine": "AMD64",
+        "python_isolated": true,
+        "python_no_bytecode": true,
+        "binary_name": "python.exe",
+        "binary_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603"
+      },
+      "scope": "Fresh actual GitHub metadata/log/artifact reads; no new workflow, suite, application, native human or package build.",
+      "historical_tool_label": "Identical v3 retains original M5-T05 label; this wrapper records the M6-T02 source-CI re-audit context without relabeling actual tests.",
+      "separate_evidence_scopes": [
+        "Required CI is actual completed R run38097123491; fresh download is a re-audit rather than new test execution.",
+        "Current evidence-main f5d61e83 CI is independently audited on its exact source and distinct tree, without replacing frozen R.",
+        "Retained C3 local full/native/Calibre/render and closed human routes remain historical separate evidence.",
+        "Exact final R ZIP Windows/Calibre, fixed tag and public/download gates remain future M6 tasks."
+      ]
+    },
+    "tool_provenance_reference": {
+      "name": "review-ci-source-tool-provenance.json",
+      "bytes": 1735,
+      "sha256": "f819ea07e011936d6e35a936b415e57aee0d6fe564e089415b148d81856509cb"
+    },
+    "identical_auditor_reference": {
+      "name": "audit_final_ci_v3.py",
+      "bytes": 18889,
+      "sha256": "cc6f51437c313f10004c284f4de97e3760e37e5f07700c02792efd252e47b22b"
+    },
+    "fresh_live_state": {
+      "observed_at": "2026-10-11T01:07:05.487009+00:00",
+      "branch": "main",
+      "local_head": "f5d61e830842f45d88118552baa639abf5823747",
+      "live_main": "f5d61e830842f45d88118552baa639abf5823747",
+      "worktree_clean": true,
+      "local_head_equals_live_main": true,
+      "live_main_still_E": true,
+      "correct_origin_read_verified": true,
+      "remote_tags": [],
+      "open_PR_count": 0,
+      "release_count": 0,
+      "open_PRs": [],
+      "releases": []
+    },
+    "blockers": [],
+    "scope": "Fresh read-only actual CI artifact/log/metadata re-audit on frozen R and distinct already completed evidence-main E. No new suite or workflow was invoked.",
+    "limitations": [
+      "Hosted Server2025 reports are distinct from local retained C3 full/native/Calibre/render and closed historical human evidence.",
+      "Static success is exactly19 syntax paths/18 configured analyzer paths/10 rules per host;71 default observations per host remain nonacceptance.",
+      "Bootstrap expanded-file maps are reported declarations checked against exact pinned package/source behavior and actual isolated imports; no new Gallery package reconstruction is claimed.",
+      "Frozen release source remains R; evidence main E and any later bookkeeping do not become the package source or tag target.",
+      "This CI audit does not build a package or assert exact final ZIP Windows/Calibre acceptance, signing, tag/draft/publication or anonymous downloads."
+    ]
+  },
+  "focused_package_tests": {
+    "methods": 25,
+    "skips": 0,
+    "native_exit": 0,
+    "suite_seconds": 171.517,
+    "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "stderr_sha256": "88e469a38b7f2a9fd1660412ccec7453ca9f9d6441e8f91dc621801da2de9681",
+    "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "current_main": "f5d61e830842f45d88118552baa639abf5823747",
+    "applicable_test_and_builder_bytes_equal_R": true,
+    "scope": "Real-Git package unit tests only; no extracted Windows/Calibre/human/full22 acceptance"
+  },
+  "build_and_test_commands": [
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.056,
+      "observed_at": "2026-10-11T01:06:02.528428+00:00",
+      "stdout_sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 5,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "branch",
+        "--show-current"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.052,
+      "observed_at": "2026-10-11T01:06:02.582558+00:00",
+      "stdout_sha256": "cb34b1ab8a155c8cb2f450d4c0f9d0e10520454023e826a1e22c5bf4b78d055f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 41,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.06,
+      "observed_at": "2026-10-11T01:06:02.643070+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "status",
+        "--porcelain=v1",
+        "-uall"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.054,
+      "observed_at": "2026-10-11T01:06:02.697682+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "merge-base",
+        "--is-ancestor",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "f5d61e830842f45d88118552baa639abf5823747"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.557,
+      "observed_at": "2026-10-11T01:06:03.254958+00:00",
+      "stdout_sha256": "3a5b9b7e81a888ddd24b4a6ffb9b15c078948bd6ed73df19087d06b3f0004738",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 57,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.545,
+      "observed_at": "2026-10-11T01:06:03.803616+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "ls-remote",
+        "origin",
+        "refs/tags/*"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.509,
+      "observed_at": "2026-10-11T01:06:04.314955+00:00",
+      "stdout_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 2,
+      "stderr_bytes": 0,
+      "argv": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases?per_page=100"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.48,
+      "observed_at": "2026-10-11T01:06:04.799001+00:00",
+      "stdout_sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 3,
+      "stderr_bytes": 0,
+      "argv": [
+        "gh",
+        "pr",
+        "list",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--state",
+        "open",
+        "--json",
+        "number"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 2.306,
+      "observed_at": "2026-10-11T01:06:07.108401+00:00",
+      "stdout_sha256": "e06946d10f061aa71ad95fa4a380c8a7bd9a274b4789117cc231dbdacd3cadb1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 487,
+      "stderr_bytes": 0,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-B",
+        "<RepositoryRoot>/tools/codex-handoff/check_sync.py",
+        "--repo",
+        "<RepositoryRoot>"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.056,
+      "observed_at": "2026-10-11T01:06:07.278744+00:00",
+      "stdout_sha256": "3e7437e5f6d4a333392f0f8c505ed817b80e9fe4b9a0e7d94a34aa287c2c5b65",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 14790,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573:tools/release/build_package.py"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.069,
+      "observed_at": "2026-10-11T01:06:07.351891+00:00",
+      "stdout_sha256": "6af91b2df1895b6030addd20700effc22f278e999cda3293dfb5fda3a79fcdc1",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 913,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573:tools/release/payload.json"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.058,
+      "observed_at": "2026-10-11T01:06:07.410835+00:00",
+      "stdout_sha256": "66dec1b8053205df99282cf643458e4af7deb5902e61e4d60e3e8a4ba52ce21c",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 16625,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "--no-replace-objects",
+        "show",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573:tools/ci/check_package_inputs.py"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.05,
+      "observed_at": "2026-10-11T01:06:07.462211+00:00",
+      "stdout_sha256": "a031b30b91db21fe63f22de9306958f84106fc84243c2f8f92918e423ce274e0",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 29,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "--version"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 5.779,
+      "observed_at": "2026-10-11T01:06:13.242798+00:00",
+      "stdout_sha256": "25684a72b04956010fda70752908da1837577963085cdd143589875c86daf66f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 82,
+      "stderr_bytes": 0,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<RepositoryRoot>/tools/release/build_package.py",
+        "build",
+        "--repo",
+        "<RepositoryRoot>",
+        "--commit",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "--output",
+        "<external-M6-T02>/final-R-01"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 5.783,
+      "observed_at": "2026-10-11T01:06:19.026698+00:00",
+      "stdout_sha256": "25684a72b04956010fda70752908da1837577963085cdd143589875c86daf66f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 82,
+      "stderr_bytes": 0,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<RepositoryRoot>/tools/release/build_package.py",
+        "verify",
+        "--repo",
+        "<RepositoryRoot>",
+        "--commit",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "--output",
+        "<external-M6-T02>/final-R-01"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 5.947,
+      "observed_at": "2026-10-11T01:06:24.977180+00:00",
+      "stdout_sha256": "25684a72b04956010fda70752908da1837577963085cdd143589875c86daf66f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 82,
+      "stderr_bytes": 0,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<RepositoryRoot>/tools/release/build_package.py",
+        "build",
+        "--repo",
+        "<RepositoryRoot>",
+        "--commit",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "--output",
+        "<external-M6-T02>/repeat-R-02"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 6.598,
+      "observed_at": "2026-10-11T01:06:31.576141+00:00",
+      "stdout_sha256": "25684a72b04956010fda70752908da1837577963085cdd143589875c86daf66f",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 82,
+      "stderr_bytes": 0,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<RepositoryRoot>/tools/release/build_package.py",
+        "verify",
+        "--repo",
+        "<RepositoryRoot>",
+        "--commit",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "--output",
+        "<external-M6-T02>/repeat-R-02"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 171.753,
+      "observed_at": "2026-10-11T01:09:23.335628+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "88e469a38b7f2a9fd1660412ccec7453ca9f9d6441e8f91dc621801da2de9681",
+      "stdout_bytes": 0,
+      "stderr_bytes": 4679,
+      "argv": [
+        "<trusted-M5-T04-dev-venv>/Scripts/python.exe",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<RepositoryRoot>/tests/python",
+        "-p",
+        "test_release_package.py",
+        "-v"
+      ]
+    },
+    {
+      "native_exit": 0,
+      "duration_seconds": 0.061,
+      "observed_at": "2026-10-11T01:09:23.430634+00:00",
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout_bytes": 0,
+      "stderr_bytes": 0,
+      "argv": [
+        "git",
+        "status",
+        "--porcelain=v1",
+        "-uall"
+      ]
+    }
+  ],
+  "external_receipts": [
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "build-final-assets-receipt.json",
+      "bytes": 86171,
+      "sha256": "fe09a85dff48b69bfb85b72fc815025c5a9487b2d986952f6fe293b47814960f"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "build_final_assets.py",
+      "bytes": 8654,
+      "sha256": "7ec606883a0d9ec0bfe78602a611d9d1f9d8509a7973a2bf229d06c9df6b5b5e"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-source-inputs.json",
+      "bytes": 165105,
+      "sha256": "cea19ccba2d1fcb136cead0052d9fa7ae696a4f7c845de64186a5c602c5811ae"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "audit-source-inputs.py",
+      "bytes": 9349,
+      "sha256": "e30fea029bc8d7e1a696ce152b9bb18bbc26689ddbd9e2baf0c16f427e83d338"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "audit-source-inputs-v02.py",
+      "bytes": 9718,
+      "sha256": "897496838ac240137d9e8705ae20a61b245c6b0fb4e76a86d264a9902151926e"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "source-input-review-trial01.json",
+      "bytes": 555,
+      "sha256": "1f21c3dbc179854f465e2d8fe28ead25fab92ff37df7e5e39fc3a82413d31d7a"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-final-assets.json",
+      "bytes": 35705,
+      "sha256": "8c75992ecc6217ffffc0e8877f9fdaacf1c74ba0cb3de6aebd67636663d9d750"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-ci-source.json",
+      "bytes": 59992,
+      "sha256": "22f81caa9c05a1977d13a1ab68b5893bcbc1410a82217324f00239839a2adf64"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-ci-R.json",
+      "bytes": 154878,
+      "sha256": "7cc59cb29fd5cd9bc27deea38b445e771971907dda4fd882666e103af56fcd32"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-ci-current-main.json",
+      "bytes": 154878,
+      "sha256": "e0d8d724bde7351ccc27b30172480386a2cf7393c5915e19bfa853670317bc1d"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-ci-source-tool-provenance.json",
+      "bytes": 1735,
+      "sha256": "f819ea07e011936d6e35a936b415e57aee0d6fe564e089415b148d81856509cb"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "audit_final_ci_v3.py",
+      "bytes": 18889,
+      "sha256": "cc6f51437c313f10004c284f4de97e3760e37e5f07700c02792efd252e47b22b"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "proposed-release-notes.md",
+      "bytes": 6674,
+      "sha256": "a6ba6bf468e80418b34e3b07bd7f20eb9e453eeaba308c42281c0dadf1232f66"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "review-notes-and-handoff.json",
+      "bytes": 21085,
+      "sha256": "e55e248392901094d70dcf975d21095179ea56281be366619b6fb520cb2aecb1"
+    },
+    {
+      "workspace": "WinBookSplit-M6-T02-20261011",
+      "name": "audit-final-assets.py",
+      "bytes": 15578,
+      "sha256": "4956991c4aef88379e967a1f16dd5521118f39ddaba849bda54d79462f1e240a"
+    }
+  ],
+  "release_notes": {
+    "path": "evidence/M6-T02-release-notes.md",
+    "sha256": "cbb1c240835621980a6f4da9f961ebaae3f23afa3ce7e1439580f8e77871ca97",
+    "prepared_from_R": true,
+    "initial_draft_sha256": "a6ba6bf468e80418b34e3b07bd7f20eb9e453eeaba308c42281c0dadf1232f66",
+    "root_change": "Actual final asset size/hash table added outside ZIP; no product bytes changed"
+  },
+  "notes_and_future_handoff_review": {
+    "M6_T03_proposed_procedure": [
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Start only after M6-T02 has frozen final-R-01 ZIP, manifest and sums. Rehash all three against the AC097/098 record, confirm exact R/tree/payload manifest and unchanged frozen files. Keep the repeat-R-02 build as independent recipe repeatability evidence, not another acceptance target.",
+        "step": 1
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Preserve all M3 physical-control and M5 D13 evidence as closed. Original G04-G16 remain SUPERSEDED; removed GUI variants remain native-only. Do not ask the user to repeat completed historical human tests or restart the original16-row program. New final-asset observations receive their own M6 labels and cannot overwrite historical rows.",
+        "step": 2
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Use fresh absent external extraction/work/report paths on the supported existing Windows11 x64 workstation. Record actual OS edition/build, isolation method, all asset hashes/R, shell/tool executable and module identities, fixture provenance and unrelated working directory. Do not call this a clean OS, Sandbox or VM unless that is the actual method.",
+        "step": 3
+      },
+      {
+        "acceptance_ids": [
+          "AC-099"
+        ],
+        "action": "Independently enumerate ZIP members before extraction: exact28 allowlisted regular members, safe relative paths, no links/duplicate traversal/private/development payload, correct VERSION. Compare every extracted payload byte to the R manifest before setup and again after testing. Run extracted Version under both hosts before runtime setup; require actual1.0.0/native0.",
+        "step": 4
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Create fresh runtime-only application venvs from trusted regular x64 CPython3.14.8, install the shipped hash-pinned plain pypdf6.20.0 requirements explicitly, and authenticate interpreter/pypdf import origins inside each extraction. Use exact inbox Windows PowerShell5.1 and isolated PowerShell7.6.6. Developer fixtures/renderers remain outside application payload. Preserve the existing Calibre9.15.0 application-only installation and private library/settings; no global PATH, registry, policy, elevation or installer change.",
+        "step": 5
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Prepare a separately named and sealed external derivative of the retained38-case M5 driver and strict auditor. Update only the explicit final assets/R paths, work/report paths, current pypdf6.20.0 and PS7.6.6 provenance assertions and any directly evidenced renamed input role. Preserve expected page oracles, negative exits, stream/process bounds, source/output immutability, cleanup ownership, import isolation, allowed failure-diagnostics predicates and both-host case set. Review the diff before running; never mutate historical drivers or blindly run hard-coded old candidate source/assets/pins.",
+        "step": 6
+      },
+      {
+        "acceptance_ids": [
+          "AC-099"
+        ],
+        "action": "Execute the preserved19 native cases on each supported host from the extracted final ZIP: manual whole, starts1,4,7, implicit page1, sort/dedupe, Auto1, Auto2, both previews, invalid token, absent outline, redirected plan/input cancel, manual/selected-level fallback, repeat-output preservation, actual EPUB, genuineAZW3 and malformed ebook failures. Keep these redirected controls native-only. Record every exact argv/native status/stdout/stderr/source seal and actual expected outputs; require no skipped mandatory row.",
+        "step": 7
+      },
+      {
+        "acceptance_ids": [
+          "AC-099"
+        ],
+        "action": "Perform and capture real final-ZIP Explorer/BAT interaction under the applicable D13 consolidated flow structure: special-name PDF/Auto1, nestedAuto2, Manual1/different-mode preservation, no-input/no-outline/manual multiple-start fallback, realEPUB, genuineAZW3/manual/generated-PDF opt-in and two-file rejection. Prefer authorized automation for new M6 observations, label the actual operator and scope, and preserve native-only labels for retired variants. Human/user reports qualify only with actual final hash/environment/procedure/outcome; never infer a viewer display or BAT native exit from artifacts/window disappearance. Missing actual Explorer coverage blocks AC099 with the precise missing action.",
+        "step": 8
+      },
+      {
+        "acceptance_ids": [
+          "AC-100"
+        ],
+        "action": "Use authored self-contained EPUB3/NCX and independently generated genuine unencrypted KF8 AZW3 fixtures, not renamed or mock formats. Record exactCalibre9.15.0 argv/version/native results. Verify new nonempty readable generated PDFs, expected physical pages including generatedTOC, selected outline/manual ranges and every output page identity/order. Hash original input, neighbors and prior outputs before/after; verify complete once-only page coverage and successful owned intermediate cleanup.",
+        "step": 9
+      },
+      {
+        "acceptance_ids": [
+          "AC-100"
+        ],
+        "action": "Render representative first/last boundaries and applicable rotated/cropped/static-annotation/local-link samples from final-ZIP outputs alongside the same authored source or converted reference. Preserve exact same-renderer dimensions/PNG/RGBA comparisons and independently inspect selected retained images. Record renderer versions/developer debt and distinguish automated pixels, agent inspection, actual GUI/viewer observations and closed historical human reports.",
+        "step": 10
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Independently audit retained native streams, command/source hashes, actual dependency paths, finalized logs/manifests, complete physical outputs, failed-case diagnostics and exact final ZIP/payload before/after hashes. A full suite run against the checkout or pure receipt replay alone does not certify the extracted final ZIP. Retain any failure/partial/UNKNOWN outcome instead of relabeling it PASS.",
+        "step": 11
+      },
+      {
+        "acceptance_ids": [
+          "AC-099",
+          "AC-100"
+        ],
+        "action": "Only after actual mandatory GateC outcomes pass, record Windows/Calibre/fidelity evidence and exact accepted ZIP hash in task and ongoing release records. No package rebuild, metadata/signing change or ZIP edit after acceptance without a new hash and restarted acceptance. Stop at T03: fixed-tag/draft T04, public/anonymous-download/downloaded-package-smoke T05 and closure/final-main T06 remain pending.",
+        "step": 12
+      }
+    ],
+    "acceptance_boundaries": {
+      "AC-097": "Pending root actual finalR asset build and independent member/source inspection",
+      "AC-098": "Pending root frozen final asset byte/hash inspection; no package PASS inferred from this note review",
+      "AC-099": "Pending next-task actual finalZIP Windows/both-host/Explorer evidence",
+      "AC-100": "Pending next-task actual finalZIP real EPUB/AZW3 and PDF fidelity",
+      "AC-101_through_AC-107": "Mandatory later release/publication/download/closure gates remain pending"
+    },
+    "blockers": [],
+    "checks": [
+      {
+        "check": "Notes use UTF-8 without BOM and LF only",
+        "passed": true
+      },
+      {
+        "check": "Notes identify frozen R without replacing it with evidence main",
+        "passed": true
+      },
+      {
+        "check": "Exact support and dependency pins match frozen user documents",
+        "passed": true
+      },
+      {
+        "check": "Notes cover intended features without broad platform or format claims",
+        "passed": true
+      },
+      {
+        "check": "Unsigned three-asset and checksum limits are explicit",
+        "passed": true
+      },
+      {
+        "check": "Privacy, supported PDF exclusions and conversion/fidelity limits are explicit",
+        "passed": true
+      },
+      {
+        "check": "No final asset, tag or anonymous download pass is preclaimed",
+        "passed": true
+      },
+      {
+        "check": "All acceptance IDs and scope remain unchanged and required",
+        "passed": true
+      },
+      {
+        "check": "Public note links use existing frozen source commit",
+        "passed": true
+      }
+    ],
+    "current_branch": "main",
+    "current_evidence_main": "f5d61e830842f45d88118552baa639abf5823747",
+    "fresh_live_main": "f5d61e830842f45d88118552baa639abf5823747",
+    "new_application_or_human_execution": false,
+    "no_tracked_edits": true,
+    "observed_at": "2026-10-11T01:07:50.640802+00:00",
+    "preparation_observations": [
+      {
+        "operation": "Read-only discovery of nonexistent tests/packaged path",
+        "outcome": "rg reported missing directory; current tests tree and historical external package route were read instead. No acceptance test attempted."
+      },
+      {
+        "operation": "Read-only external target directory probe",
+        "outcome": "NamedM6-T02 directory was initially absent; ordinary creation preceded the notes write. No source or product failure."
+      }
+    ],
+    "references": [
+      {
+        "bytes": 9378,
+        "path": "README.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 5158,
+        "path": "docs/SETUP.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 4143,
+        "path": "docs/PDF_POLICY.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 3344,
+        "path": "docs/PDF_FIDELITY.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 3352,
+        "path": "docs/EBOOK_SUPPORT.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 2093,
+        "path": "SECURITY.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 1070,
+        "path": "LICENSE",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 2461,
+        "path": "THIRD_PARTY_NOTICES.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 2040,
+        "path": "CHANGELOG.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 6,
+        "path": "VERSION",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 236,
+        "path": "requirements.txt",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 4578,
+        "path": "tools/release/README.md",
+        "read_scope": "Frozen release source documentation and pins",
+        "sha256": "16be0345569ce7b61c240acbd2fce6f1d07cc205394be04fc7aaedeb9d4cd060",
+        "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+      },
+      {
+        "bytes": 83435,
+        "path": "docs/codex-v1.0.0/STATUS.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "05b56ddb8131a9ab0794f183b7c69679c65f1b260a2d042a17fbb50ab4e37f57"
+      },
+      {
+        "bytes": 6183,
+        "path": "docs/codex-v1.0.0/NEXT_SESSION.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "60e6979ea786d2c4610d5d1129be6250cd489424ae9037463f4e152bc3af7428"
+      },
+      {
+        "bytes": 50312,
+        "path": "docs/codex-v1.0.0/TASKS.json",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "cf6a3e532c75d384f23f05202c5c73bae9b29c13e5c0f2dc5c161fd2c2ebbc7f"
+      },
+      {
+        "bytes": 9263,
+        "path": "docs/codex-v1.0.0/SCOPE_AND_DECISIONS.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "427d2b1038e4090c473aedc4e5e88c8e9a68c4708b88628838acc23cd7b4bfbc"
+      },
+      {
+        "bytes": 9780,
+        "path": "docs/codex-v1.0.0/RELEASE_RUNBOOK.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "cd1f103418722275a80206da2655d5bb14899f5c4fd4d338441edb6b2a3a86c9"
+      },
+      {
+        "bytes": 5341,
+        "path": "docs/codex-v1.0.0/GITHUB_WORKFLOW.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "3f2038cf7fc3d0730bee62e54aaa070fbca36439ccef29808a5094b91bd075ee"
+      },
+      {
+        "bytes": 47211,
+        "path": "docs/codex-v1.0.0/TESTING.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "57b8f3054cb71f5955643695aeacbfa0442195f2381ebc8eb9bfd33decf83dc5"
+      },
+      {
+        "bytes": 2514,
+        "path": "docs/codex-v1.0.0/templates/MANUAL_SMOKE.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "6b8f3a6ecbd008b58fa34b33c4da6998b334c5dbf82ff9bdacf647adccb2e9df"
+      },
+      {
+        "bytes": 2051,
+        "path": "docs/codex-v1.0.0/tasks/M6-T02.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "97649898e4c4b0c8be6e35b7f6192e9478671b5eaedbb40a62dd3c421b2515d3"
+      },
+      {
+        "bytes": 2228,
+        "path": "docs/codex-v1.0.0/tasks/M6-T03.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "72e0ce07ff3c9903bc59dbec3aede7aa9a73498ca2beec9a59ef02947b584775"
+      },
+      {
+        "bytes": 41109,
+        "path": "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "10f7f225b176d832f208f681923e0a4bf7e8c2ce74f079d4b56813ee0324a6d2"
+      },
+      {
+        "bytes": 246428,
+        "path": "docs/codex-v1.0.0/evidence/M6-T01-release-source.json",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "14a179da156bd5edc936f035055952577b7a68b282ba921862397315840971ab"
+      },
+      {
+        "bytes": 5377,
+        "path": "docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "8c257ec660a32314ed4137e516846acf27b025add97798413a1e0f2e174c15cc"
+      },
+      {
+        "bytes": 8540,
+        "path": "docs/codex-v1.0.0/evidence/M5-T03-manual-smoke.md",
+        "read_scope": "Current acceptance, handoff and preserved human-route record",
+        "sha256": "e46f00eb565764339c8a08c5971c33a4ac75a58d045cb45d72d9a393eb3b5510"
+      }
+    ],
+    "release_notes": {
+      "bytes": 6674,
+      "encoding": "UTF-8 without BOM; LF",
+      "file": "proposed-release-notes.md",
+      "publication_stage_note": "When real later gates pass, reconcile the prepared/pending opening using actual evidence. Keep source provenance/features/pins/limits truthful; never add a release or download URL before it exists.",
+      "scope": "Prepared draft notes for frozenR; no final-asset/package/Windows/human/tag/publication/download pass asserted",
+      "sha256": "a6ba6bf468e80418b34e3b07bd7f20eb9e453eeaba308c42281c0dadf1232f66"
+    },
+    "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+    "result": "NOTES_AND_HANDOFF_REVIEW_PASS",
+    "retained_historical_route_seals": [
+      {
+        "bytes": 43085,
+        "file": "extracted_candidate_driver02.py",
+        "scope": "Read only; retained historical files must not be edited or rerun blindly",
+        "sha256": "41acc52323f990fcd1cb0195088e6c099ee5dd4df98f088f00a3bbc8ee24c470",
+        "workspace_role": "M5-T03 historical isolated candidate route"
+      },
+      {
+        "bytes": 1612,
+        "file": "run_extracted_candidate02.py",
+        "scope": "Read only; retained historical files must not be edited or rerun blindly",
+        "sha256": "2d87ebd6976f371673bbfcfd7706b0d0c4cd4d5d7759ab9e03f3889154aa5782",
+        "workspace_role": "M5-T03 historical isolated candidate route"
+      },
+      {
+        "bytes": 47890,
+        "file": "independent-native-audit-main02.py",
+        "scope": "Read only; retained historical files must not be edited or rerun blindly",
+        "sha256": "4e3282a39baefc62d976083283849aff8f4a1dbda7abcdeb8e1cd9ddda45e866",
+        "workspace_role": "M5-T03 historical isolated candidate route"
+      },
+      {
+        "bytes": 13215388,
+        "file": "automated-candidate02.json",
+        "scope": "Read only; retained historical files must not be edited or rerun blindly",
+        "sha256": "b17b0d77a685c4846e7ff7df5766a7fe2d197140d2330b8d1dc2d5fad33dd05b",
+        "workspace_role": "M5-T03 historical isolated candidate route"
+      },
+      {
+        "bytes": 5733868,
+        "file": "independent-native-audit-main02.json",
+        "scope": "Read only; retained historical files must not be edited or rerun blindly",
+        "sha256": "b77d4ffcc3259ea7b45ae700281990875b52cc8088922808c0abfa841120043e",
+        "workspace_role": "M5-T03 historical isolated candidate route"
+      }
+    ],
+    "reviewed_acceptance_cases": [
+      {
+        "expected": "Runtime bytes/provenance tied to R, correct ZIP name/version, no untracked/private payload.",
+        "id": "AC-097",
+        "mode": "package_test",
+        "procedure": "Build final explicit assets from R, inspect members/manifest/version.",
+        "required": true,
+        "scenario": "Exact final ZIP from R",
+        "task_id": "M6-T02"
+      },
+      {
+        "expected": "Recorded accepted hash/size and internal hashes agree; no rebuild after acceptance without restarting it.",
+        "id": "AC-098",
+        "mode": "package_test",
+        "procedure": "Hash final ZIP/manifest and create SHA256SUMS; independently verify.",
+        "required": true,
+        "scenario": "Final frozen hashes",
+        "task_id": "M6-T02"
+      },
+      {
+        "expected": "Actual final hash/R environment and all mandatory UI/path/manual/bookmark scenarios passed.",
+        "id": "AC-099",
+        "mode": "manual_windows",
+        "procedure": "Run Gate C on final ZIP, not M5 earlier build, both supported hosts and Explorer.",
+        "required": true,
+        "scenario": "Final exact-asset Windows acceptance",
+        "task_id": "M6-T03"
+      },
+      {
+        "expected": "Both advertised formats verified, complete readable output/source safety; no mock-only certification.",
+        "id": "AC-100",
+        "mode": "calibre_integration",
+        "procedure": "Run actual EPUB/AZW3 conversions and check chapter page identities/rendered samples from final ZIP.",
+        "required": true,
+        "scenario": "Final real ebook and PDF fidelity",
+        "task_id": "M6-T03"
+      }
+    ],
+    "reviewer": "independent-notes-and-handoff-subagent",
+    "schema_version": 1,
+    "scope_limits": [
+      "No tracked edits, application invocation, fixture generation, extraction, runtime setup, conversion, rendering, human action, tag, draft, upload, publication or download by this reviewer.",
+      "Root performs final-R-01 and repeat-R-02 builds externally. This review does not certify those asset bytes before they exist and are independently inspected.",
+      "Closed M3 and M5D13 human evidence remains closed; superseded rows/native-only labels remain unchanged.",
+      "Recorded prior C3 native testing and hosted CI are prerequisites, not substitutes for final ZIP GateC.",
+      "All security scanner/inventory/developer renderer and failed/UNKNOWN historical limitations remain as recorded."
+    ],
+    "task": "M6-T02"
+  },
+  "new_application_or_human_execution": false,
+  "private_document_inputs": false,
+  "tracked_runtime_build_dependency_test_changes": false,
+  "tag_release_upload_created": false,
+  "remaining_tasks": [
+    "M6-T03",
+    "M6-T04",
+    "M6-T05",
+    "M6-T06"
+  ],
+  "limitations": [
+    "R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
+    "R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
+    "Local native full22, real Calibre and render evidence is retained from C3 with all176 relevant Git/raw bytes unchanged; pure receipt revalidation is not a fresh Windows end-to-end run.",
+    "M3 and T03 D13 accepted human routes stay closed. T03 tested older candidate bytes and pins; G04-G16 remain SUPERSEDED. M6-T03 exact final-asset acceptance is still required.",
+    "Existing Windows11 x64 workstation isolation is distinct from a clean OS, Windows10, ARM, UNC or an OS network sandbox.",
+    "Dedicated scanners and complete OS/native-stack inventory were unavailable in T04; developer-only renderer debt and applicability UNKNOWN remain disclosed, not a universal hostile-document security certification.",
+    "T04 primary dependency review dated 2026-10-10 was rehashed. No new advisory query or scanner run occurred in this task.",
+    "Historical failures, interruptions, UNKNOWN causes, missing original auditor/summary bytes, static default observations and unmapped raw newline differences remain intact.",
+    "The clean/live R receipt predates bookkeeping. The evidence checkpoint own commit/push/current sync is recorded externally only after it exists.",
+    "AC097/098 accept package provenance/integrity/frozen bytes; AC099/100 final exact-ZIP Windows/Explorer/real ebook/fidelity acceptance is pending.",
+    "Two actual build sets establish byte repeatability only on this recorded CPython/Git environment, not every toolchain or future environment.",
+    "ZIP bytes equal reviewed C3 payload but final manifest/checksums identify R and differ from C3; neither older human nor source-checkout tests certify this final package.",
+    "Focused25 package tests are real authored-Git unit regressions; no fresh full514/Pester/local full22/application/human/renderer/Calibre execution occurred here.",
+    "Release notes are prepared from R with actual package hashes, unsigned disclosure and pending acceptance/publication context; reconcile only contextual opening after actual later gates pass."
+  ],
+  "checkpoint": {
+    "implementation_anchor": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "historical_main_at_start": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-11T01:06:04.936592+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "main",
+      "local_head": "f5d61e830842f45d88118552baa639abf5823747",
+      "worktree_clean": true,
+      "remote_head": "f5d61e830842f45d88118552baa639abf5823747",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "own_bookkeeping_commit": null,
+    "own_push_live_sync_receipt": "External M6-T02 checkpoint/thread after the normal intended-file commit and push"
+  },
+  "document_review_corrections": [
+    {
+      "observed_at": "2026-10-11T01:12:26.555729+00:00",
+      "reviewers": [
+        "source/assets",
+        "CI",
+        "traceability"
+      ],
+      "finding": "Ongoing release known_limits retained an unattributed T01 no-assets statement after actual T02 builds",
+      "resolution": "Use current T02 recorded limits; package-integrity accepted and final exact-asset Windows/publication remain pending",
+      "native_wording_clarity": "STATUS/NEXT distinguish no application/full-native acceptance from actual native0 builder and unit commands",
+      "source_or_asset_or_test_change": false
+    }
+  ]
+}

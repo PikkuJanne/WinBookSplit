@@ -1159,7 +1159,7 @@
         "release-manifest.json and SHA256SUMS.txt",
         "Final release notes/asset hashes"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M6-T01"
       ],
@@ -1167,8 +1167,13 @@
         "AC-097",
         "AC-098"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M6-T02-final-assets.md",
+        "evidence/M6-T02-final-assets.json",
+        "evidence/M6-T02-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ],
+      "implementation_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template": false,
-  "status": "source_frozen_assets_pending",
+  "status": "assets_frozen_windows_acceptance_pending",
   "repository": "PikkuJanne/WinBookSplit",
   "tag": "v1.0.0",
   "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
@@ -48,49 +48,66 @@
     {
       "name": "WinBookSplit-v1.0.0.zip",
       "public_url": null,
-      "accepted_sha256": null,
+      "accepted_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
       "downloaded_sha256": null,
-      "bytes": null,
-      "anonymous_download_verified": false
+      "bytes": 414497,
+      "anonymous_download_verified": false,
+      "acceptance_scope": "AC097/098 package integrity/frozen hash only; M6-T03 exact-asset Windows acceptance pending",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "WinBookSplit-v1.0.0.zip"
+      }
     },
     {
       "name": "release-manifest.json",
       "public_url": null,
-      "accepted_sha256": null,
+      "accepted_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
       "downloaded_sha256": null,
-      "bytes": null,
-      "anonymous_download_verified": false
+      "bytes": 11547,
+      "anonymous_download_verified": false,
+      "acceptance_scope": "AC097/098 package integrity/frozen hash only; M6-T03 exact-asset Windows acceptance pending",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "release-manifest.json"
+      }
     },
     {
       "name": "SHA256SUMS.txt",
       "public_url": null,
-      "accepted_sha256": null,
+      "accepted_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
       "downloaded_sha256": null,
-      "bytes": null,
-      "anonymous_download_verified": false
+      "bytes": 178,
+      "anonymous_download_verified": false,
+      "acceptance_scope": "AC097/098 package integrity/frozen hash only; M6-T03 exact-asset Windows acceptance pending",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "SHA256SUMS.txt"
+      }
     }
   ],
   "downloaded_windows_smoke": null,
-  "signing_status": "unsigned_planned; disclose_actual_final_assets",
+  "signing_status": "unsigned; final scripts and package manifest identify actual unsigned bytes",
   "closure_commit": null,
   "release_commit_is_ancestor_of_closure": null,
   "payload_unchanged_after_release_commit": null,
   "last_historical_main_sync_receipt": {
     "repository": "PikkuJanne/WinBookSplit",
-    "observed_at": "2026-10-11T00:28:02.550718+00:00",
+    "observed_at": "2026-10-11T01:06:04.936592+00:00",
     "status": "SYNCED",
     "read_only": true,
     "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
     "branch": "main",
-    "local_head": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "local_head": "f5d61e830842f45d88118552baa639abf5823747",
     "worktree_clean": true,
-    "remote_head": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "remote_head": "f5d61e830842f45d88118552baa639abf5823747",
     "reason": "Clean local HEAD equals fresh live branch at observation time"
   },
   "final_current_sync_receipt_location": null,
   "known_limits": [
     "R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
-    "This task freezes source inputs only. No R ZIP, final release-manifest, SHA256SUMS, tag, draft, publication or anonymous download was created.",
     "R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
     "Local native full22, real Calibre and render evidence is retained from C3 with all176 relevant Git/raw bytes unchanged; pure receipt revalidation is not a fresh Windows end-to-end run.",
     "M3 and T03 D13 accepted human routes stay closed. T03 tested older candidate bytes and pins; G04-G16 remain SUPERSEDED. M6-T03 exact final-asset acceptance is still required.",
@@ -98,7 +115,12 @@
     "Dedicated scanners and complete OS/native-stack inventory were unavailable in T04; developer-only renderer debt and applicability UNKNOWN remain disclosed, not a universal hostile-document security certification.",
     "T04 primary dependency review dated 2026-10-10 was rehashed. No new advisory query or scanner run occurred in this task.",
     "Historical failures, interruptions, UNKNOWN causes, missing original auditor/summary bytes, static default observations and unmapped raw newline differences remain intact.",
-    "The clean/live R receipt predates bookkeeping. The evidence checkpoint own commit/push/current sync is recorded externally only after it exists."
+    "The clean/live R receipt predates bookkeeping. The evidence checkpoint own commit/push/current sync is recorded externally only after it exists.",
+    "AC097/098 accept package provenance/integrity/frozen bytes; AC099/100 final exact-ZIP Windows/Explorer/real ebook/fidelity acceptance is pending.",
+    "Two actual build sets establish byte repeatability only on this recorded CPython/Git environment, not every toolchain or future environment.",
+    "ZIP bytes equal reviewed C3 payload but final manifest/checksums identify R and differ from C3; neither older human nor source-checkout tests certify this final package.",
+    "Focused25 package tests are real authored-Git unit regressions; no fresh full514/Pester/local full22/application/human/renderer/Calibre execution occurred here.",
+    "Release notes are prepared from R with actual package hashes, unsigned disclosure and pending acceptance/publication context; reconcile only contextual opening after actual later gates pass."
   ],
   "open_blockers": [],
   "historical_prerequisite_evidence": {
@@ -108,10 +130,23 @@
     "final_asset_acceptance": false
   },
   "pending_release_gates": [
-    "M6-T02 final assets/hashes/notes from R",
     "M6-T03 exact final ZIP Windows/Calibre acceptance",
     "M6-T04 fixed annotated tag and inspected draft",
     "M6-T05 public release/anonymous matching downloads and downloaded-package smoke",
     "M6-T06 durable closure and synchronized final main"
-  ]
+  ],
+  "asset_integrity_evidence": {
+    "path": "evidence/M6-T02-final-assets.json",
+    "sha256": "a62923b8aeefa5db8c8d0418aeceea3e8f3a8e8f4b17409e32d00096bc626bc8",
+    "acceptance_ids": [
+      "AC-097",
+      "AC-098"
+    ],
+    "final_asset_Windows_acceptance_complete": false
+  },
+  "release_notes": {
+    "path": "evidence/M6-T02-release-notes.md",
+    "sha256": "cbb1c240835621980a6f4da9f961ebaae3f23afa3ce7e1439580f8e77871ca97",
+    "status": "prepared; final-asset/publication gates pending"
+  }
 }
