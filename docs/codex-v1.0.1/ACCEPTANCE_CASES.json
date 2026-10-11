@@ -758,8 +758,12 @@
       "key": "public_docs",
       "expected": "Current docs describe actual Windows/Python ranges/floors, setup/check/repair/offline behavior and tested-versus-accepted distinction.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
+      ]
     },
     {
       "id": "V101-AC-060",
@@ -767,8 +771,12 @@
       "key": "version_consistent",
       "expected": "Banner/manifest/package name/setup metadata all agree on 1.0.1; historical v1.0.0 records are not bulk rewritten.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
+      ]
     },
     {
       "id": "V101-AC-061",
@@ -776,8 +784,12 @@
       "key": "package_inputs",
       "expected": "Allowlist includes setup/policy and required runtime files from source; no venv/dev docs/private logs accidentally ship.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
+      ]
     },
     {
       "id": "V101-AC-062",
@@ -785,8 +797,12 @@
       "key": "no_frozen_equality",
       "expected": "Scan confirms active code/docs/setup do not demand one exact Python patch; legitimate build pins/historical records remain labeled.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
+      ]
     },
     {
       "id": "V101-AC-063",
@@ -794,8 +810,12 @@
       "key": "limits_disclosed",
       "expected": "Unsigned status, Windows10 servicing caveat and remaining format/platform limits are accurate.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
+      ]
     },
     {
       "id": "V101-AC-064",

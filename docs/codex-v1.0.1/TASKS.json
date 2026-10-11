@@ -291,12 +291,15 @@
         "V101-AC-062",
         "V101-AC-063"
       ],
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "evidence": [
         "evidence/V101-11-import.md",
         "evidence/V101-11-import.json",
         "evidence/V101-11-fixture-correction.md",
-        "evidence/V101-11-fixture-correction.json"
+        "evidence/V101-11-fixture-correction.json",
+        "evidence/V101-11-completion.md",
+        "evidence/V101-11-completion.json",
+        "evidence/V101-11-ci.json"
       ]
     },
     {
@@ -317,7 +320,7 @@
         "V101-AC-066",
         "V101-AC-067"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {
