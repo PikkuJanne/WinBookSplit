@@ -111,3 +111,7 @@
 | AC-105 | M6-T05 | manual_windows | Downloaded-package smoke |
 | AC-106 | M6-T06 | live_github | Final synchronized main with fixed tag |
 | AC-107 | M6-T06 | release_review | Durable final evidence/report |
+
+## Integrated candidate checkpoint
+
+M5-T05 AC093/094 is closed in recorded scope. All17 improvement mappings and AC001-092 evidence were audited; [closed matrix](evidence/M5-T05-acceptance.json) preserves individual evidence/scopes/limitations. AC095-107 remain pending M6. This catalog still describes requirements, not a newly executed test suite.

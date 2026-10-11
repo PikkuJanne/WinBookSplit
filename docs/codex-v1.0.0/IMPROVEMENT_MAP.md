@@ -23,3 +23,7 @@ All 17 review improvements are mapped. Concrete defaults in SCOPE_AND_DECISIONS.
 | 17 | Version/single published release | M5-T01, M6-T01, M6-T02, M6-T03, M6-T04, M6-T05, M6-T06 |
 
 Deferred by scope: website/deployment, GUI rewrite, native EPUB/AZW3 output, OCR/AI, DRM removal, installers/updaters and paid signing. These are not required to finish the project and must not become hidden M7 work.
+
+## M5-T05 closure
+
+All17 rows were audited against implementation, supported rejection policies and actual evidence on 2026-10-11 (Europe/Berlin). [Closed acceptance matrix](evidence/M5-T05-acceptance.json) records AC001-092 and AC093/094 within their scopes; [review](evidence/M5-T05-acceptance.md) records integrated candidate/current CI. Row17 publication/download/final closure remains M6, AC095-107 pending. Historical reproduction and superseded human rows are not current fresh passes.

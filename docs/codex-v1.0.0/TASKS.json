@@ -1090,7 +1090,7 @@
         "Reviewed merged candidate",
         "M6 handoff"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M5-T04"
       ],
@@ -1098,8 +1098,11 @@
         "AC-093",
         "AC-094"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M5-T05-acceptance.md",
+        "evidence/M5-T05-acceptance.json"
+      ],
+      "implementation_commit": "c7aebc53d47d75b06a5ee0fa89be5bec948fb374",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
