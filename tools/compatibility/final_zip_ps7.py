@@ -180,10 +180,10 @@ def prepare_recipes(args, validated, guards):
             output = cwd/'out';output.mkdir();guards.enter_context(windows.DirectoryGuard(output))
             marker = output/'prior-output.pdf'
             with marker.open('xb') as stream:stream.write(b'Authored prior; preserve exact bytes.\n')
-            mode = 'Manual' if identifier == 'manual' else '2'
+            mode = 'Manual' if identifier == 'manual' else 'Auto'
             arguments = [*base,str(app/'WinBookSplit.ps1'),'-InputFile',str(source),'-OutputDirectory',str(output),
                          '-Mode',mode,'-PythonPath',str(python),'-NonInteractive','-NoPause']
-            if identifier == 'manual':arguments += ['-StartPages','1,4,7']
+            arguments += ['-StartPages','1,4,7'] if identifier == 'manual' else ['-BookmarkLevel','2']
             case.update(arguments=arguments,source_path=str(source),output_base=str(output),prior_members=[marker.name],
                         ranges=[[0,3],[3,6],[6,10]] if identifier == 'manual' else [[0,2],[2,3],[3,6],[6,8],[8,10],[10,12]])
             immutable += [smoke.observation(path) for path in (source,neighbor,marker)]

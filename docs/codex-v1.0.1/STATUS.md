@@ -1,23 +1,27 @@
 # Status - v1.0.1
 
-V101-01 through V101-12 are DONE in their recorded scopes. PR 31 integrated R
-`6f2c2e5d4d5fc484bcb1530474f09957e09775ef`; matching main CI 38170965005 passed its complete source-bound Server jobs.
-R tree is `5bc1a6e045e6abfc04689087bb0e25692ab9dd08`. The exact three assets are frozen; the ZIP SHA256 is
-`747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`.
+V101-01 through V101-12 retain their recorded DONE scopes. V101-13 remains
+IN_PROGRESS. Frozen release R and all33 shipped raw bytes/modes/blobs remain
+unchanged. The delivered COMMITTED kit is still sourced from K8611; it needs no
+rebuild for this nonshipped PS7 supplement recipe correction.
 
-V101-13 is IN_PROGRESS. Windows 11 checks on the same final ZIP for both Python minors and PS7 are next.
-Native Windows 10/Windows 11 final ZIP acceptance, final ebook acceptance, public
-publication and owner sessions remain NOT_RUN. Authorized native Windows 10
-access is unavailable; finish independent available-host work before the one
-consolidated owner kit. No existing public v1.0.0 release/tag/assets were changed.
+The actual final R ZIP Windows11 kit passed its19 cases under Python3.13.16 and
+3.14.8. The separate PS7 supplement has not passed: attempt02 failed before the
+adapter because lazy StrictJson initialization was missing; attempt03 reached
+Auto2 with invalid `-Mode 2` and missing BookmarkLevel; the application correctly
+rejected the mode first with exit2 and message 'Mode must be Auto or Manual.'.
+Both failures and safe owned-process receipts are retained. The corrected
+recipe supplies `-Mode Auto -BookmarkLevel 2`; the meaningful regression and fixed15 unit
+roster passed on both actual Python branches, zero failures/skips. These checks
+bind K plus exactly three uncommitted tooling/test/README corrections, not a
+clean current-commit or application acceptance pass. PowerShell static checks
+were NOT_RERUN for the units-only invocation.
 
-Policy 2 keeps numeric 3.13.16+/3.14.8+ floors and separate pypdf 6.20.0/Calibre 9.15.0
-locks. Artwork/BAT/safety guards remain intact. This nonshipped closure does not
-move R or certify a later checkout. Verify the next sync externally.
+Historical matching K CI38172686734 passed660 Python tests,192 Pester cases on
+each shell,28 syntax and27 analyzer rows per shell, and149 runtime units plus8
+PDF cases per minor on Windows Server. That pass certifies the old K source;
+the next correction commit requires its own complete CI and fresh PS7 run.
+See [correction evidence](evidence/V101-13-ps7-recipe-correction.md).
 
-The five nonshipped PS7 supplement files are imported and their focused tooling
-preflight passed on C plus those five identified uncommitted imports: 15 controls
-per Python branch and scoped parser/analyzer on both actual shells. See
-[tooling evidence](evidence/V101-13-tooling-preflight.md). This is preparation;
-no native final-ZIP or current C full-CI pass is claimed. V101-13 stays
-IN_PROGRESS. The frozen R assets and all33 production members are unchanged.
+Native Windows10 final ZIP acceptance and public publication remain NOT_RUN.
+No human sessions have been requested. Existing v1.0.0 assets/tag are unchanged.

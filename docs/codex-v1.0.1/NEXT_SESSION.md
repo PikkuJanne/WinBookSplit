@@ -1,17 +1,14 @@
 # Next session
 
-Continue V101-13 with frozen R `6f2c2e5d4d5fc484bcb1530474f09957e09775ef` and ZIP SHA256 `747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`.
-Commit/push the ten nonshipped PS7 supplement and tooling-evidence paths,
-then verify clean local/live main. The actual focused checks are already
-recorded; repeat them only if source changes or a concrete failure requires it.
+Verify current clean local/live main and preserve all historical failed PS7
+receipts. Run and collect matching complete CI for the corrected source. Run the
+four existing PS7 supplement cases on the same accepted final R ZIP extraction;
+do not count the unit regression as native application acceptance.
 
-Run the existing19-case native kit on genuine Windows 11 with both actual Python
-3.13.16 and3.14.8 bases, retaining exact package/extraction identities and raw
-receipts. Then run the four reviewed direct PS7 cases on the same accepted
-extraction. These tooling controls are not native application acceptance.
-
-Preserve all failed/history evidence. Native Windows 10 remains NOT_RUN.
-Finish available-host work before the one consolidated owner kit and command
-with one redacted report if authorized native access remains unavailable.
-The unchanged Explorer/BAT path needs no new manual signoff. Do not tag or
-publish before all required native gates pass; final assets/R remain fixed.
+Keep original kit source K8611 distinct from the later corrected tooling source.
+The delivered kit and final33 shipped members remain fixed; no kit rebuild is
+required. Preserve the actual Windows11 native19-case/15-stage/3-control PASS
+results for both minors; aggregate PS7/final Windows11 AC069 remains pending.
+Native Windows10 remains NOT_RUN; finish available-host PS7 checks before the
+one consolidated owner command and return of one redacted report if authorized
+access remains unavailable. Do not tag or publish before required native gates.

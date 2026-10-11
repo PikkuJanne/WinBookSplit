@@ -66,8 +66,25 @@ class Ps7BindingControls(unittest.TestCase):
             self.assertEqual(source.read_bytes(),fixture.read_bytes())
             self.assertEqual(len(PdfReader(source).pages),count)
             self.assertEqual((Path(case['output_base'])/'prior-output.pdf').read_bytes(),b'Authored prior; preserve exact bytes.\n')
-        self.assertEqual(plan['cases'][2]['arguments'][-2:],['-StartPages','1,4,7'])
-        self.assertIn('-PythonPath',plan['cases'][3]['arguments'])
+        # Assert the authored CLI contract independently of the recipe builder.
+        # Context/probe substitutions remain synthetic; no application is launched.
+        manual,auto2=plan['cases'][2:4]
+        for case in (manual,auto2):
+            argv=case['arguments']
+            for flag,value in (('-InputFile',case['source_path']),('-OutputDirectory',case['output_base']),('-PythonPath',str(self.python))):
+                self.assertEqual(argv.count(flag),1)
+                self.assertEqual(argv[argv.index(flag)+1],value)
+            self.assertEqual(argv.count('-Mode'),1)
+            self.assertIn('-NonInteractive',argv);self.assertIn('-NoPause',argv)
+        manual_args=manual['arguments'];auto2_args=auto2['arguments']
+        self.assertEqual(manual_args[manual_args.index('-Mode')+1],'Manual')
+        self.assertEqual(manual_args.count('-StartPages'),1)
+        self.assertEqual(manual_args[manual_args.index('-StartPages')+1],'1,4,7')
+        self.assertNotIn('-BookmarkLevel',manual_args)
+        self.assertEqual(auto2_args[auto2_args.index('-Mode')+1],'Auto')
+        self.assertEqual(auto2_args.count('-BookmarkLevel'),1)
+        self.assertEqual(auto2_args[auto2_args.index('-BookmarkLevel')+1],'2')
+        self.assertNotIn('-StartPages',auto2_args)
 
     def test_prepare_rejects_changed_fixture_before_adoption(self):
         fixture=self.kit/'fixtures/simple-10.pdf';fixture.write_bytes(b'altered')

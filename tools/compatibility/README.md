@@ -44,8 +44,14 @@ its authenticated prior local report. Use the reviewed kit/bindings hash, prior
 report hash, adapter hash and an explicit ordinary PowerShell 7.6.6 executable.
 Do not derive expected pins from an untrusted manifest or substitute another ZIP.
 
+The calling session must authenticate and hold the SDK source files before
+loading Logging, Diagnostics, Process, Support and Invoke-NativeAcceptance.
+Call the existing `Initialize-WinBookSplitLogTypes`,
+`Initialize-WinBookSplitSupport` and `Initialize-WinBookSplitProcess` functions
+in that order. The invocation below assumes this guarded preparation has
+completed in the current session.
+
 ```powershell
-. "$KitRoot/tools/compatibility/Invoke-NativeAcceptance.ps1"
 . "$Repository/tools/compatibility/Invoke-FinalZipPs7.ps1"
 Invoke-FinalZipPs7Acceptance -KitRoot $KitRoot -BindingsSha256 $ReviewedBindingsSha256 `
   -PriorReport $PriorReport -PriorReportSha256 $ReviewedPriorReportSha256 `

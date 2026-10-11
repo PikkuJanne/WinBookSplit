@@ -1,0 +1,132 @@
+{
+  "protocol": "winbooksplit.ps7-recipe-correction-checkpoint",
+  "schema_version": 1,
+  "observed_utc": "2026-10-11T21:01:30.299619+00:00",
+  "source_base": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+  "source_tree": "ff8d9eb99ce7ce45bfa6527d9dd196bbf62208af",
+  "qualification": "Actual K plus exactly three identified uncommitted nonshipped recipe/test/README corrections; not clean current-commit or application acceptance.",
+  "changed_path_sha256": {
+    "tools/compatibility/final_zip_ps7.py": "73ca5b727a49410433cc6f3871bcbe0b2b46ddb6e603ae299393b0a546e37db7",
+    "tests/python/test_final_zip_ps7.py": "cc6f0ef0222a11eb6d5d74fd4f271fe02bc424da4524403ec85cc7d65e21bb2f",
+    "tools/compatibility/README.md": "ebfa3859a2c58ece09889a0fab060fcd4633cc7eec41ee450fb1437b7848f190"
+  },
+  "unit_command": {
+    "argv": [
+      "<DEV>/dev14/Scripts/python.exe",
+      "-I",
+      "-B",
+      "<DEV>/task13-ps7-recipe-verification-prepared-02/run_owned_ps7_tooling.py",
+      "--expected-head",
+      "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+      "--checks",
+      "units",
+      "--output",
+      "<DEV>/task13-ps7-recipe-units-01"
+    ],
+    "native_exit_code": 0,
+    "verifier_sha256": "a160a0906f76b50d6594eca4d320de0a8db669479620a2b86d7d1f829226589d",
+    "preparation_sha256": "7665c7518819fd83396152e0495c57b2588851b44dae839a3b7f2a18c1d4afca"
+  },
+  "unit_report": {
+    "raw_sha256": "f8590790833c926e75eb6f646d80d02fa3b9890b440018bdb658457690b0372a",
+    "raw_bytes": 146285,
+    "source_paths": 203,
+    "source_digest": "a8186bcd6d40ad5581aef0964fb7bb32fbc2e003055d26c4061a70ed701e1518",
+    "source_unchanged": true,
+    "rows": [
+      {
+        "python": "3.13.16",
+        "tests_run": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "native_exit_code": 0,
+        "owned_job_assigned_before_resume": true,
+        "descendants_stopped": true
+      },
+      {
+        "python": "3.14.8",
+        "tests_run": 15,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "native_exit_code": 0,
+        "owned_job_assigned_before_resume": true,
+        "descendants_stopped": true
+      }
+    ],
+    "powerShell_static": "NOT_RERUN",
+    "scope": "Existing fixed15 standard unit roster; mocked receipt controls are SYNTHETIC, authored file/lease tests are native tooling controls."
+  },
+  "historical_K_CI": {
+    "run_id": 38172686734,
+    "receipt_raw_sha256": "675dba74b8edf2317227cdc5d96bbcc3be1dff3b560fc8b1f84afac7b36f1c4c",
+    "source": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+    "classification": "ACTUAL_HOSTED_WINDOWS_SERVER_NOT_NATIVE_WORKSTATION",
+    "python": {
+      "seconds": 402.817,
+      "tests_run": 660,
+      "zero_skips": true
+    },
+    "pester_per_host": 192,
+    "syntax_rows_per_host": 28,
+    "analyzer_rows_per_host": 27,
+    "application_units_per_minor": 149,
+    "application_cases_per_minor": 8,
+    "source_digest": "5b285d48c2bfd7dff45018bb989c5ad6412d95b05b03e4baf9a755e17ba468bb",
+    "qualification": "Historical clean K only; not the three patched working files."
+  },
+  "preserved_PS7_failures": [
+    {
+      "attempt": "02",
+      "result": "FAIL",
+      "reason": "lazy_strict_json_initialization_before_adapter",
+      "outer_sha256": "0b5fdc5f0098b69f3399463e683ac9302a35925d185a6967fd2d0e5db8422685",
+      "invocation_sha256": "41ce7cc170c1cc0dfcf9d66cfd1432bf9938e23ce7725bf0c2f3e50bd472a628",
+      "outer_exit_code": 1,
+      "owned_tree_safely_stopped": true,
+      "application_scope": "NOT_RUN_before_adapter"
+    },
+    {
+      "attempt": "03",
+      "result": "FAIL",
+      "reason": "invalid_mode_and_missing_bookmark_level",
+      "outer_sha256": "129bfe0f2d6f99f487ab8ae0892590ad5ed440174501d04d8a688efe657be966",
+      "invocation_sha256": "e62e794a24bf3154308b37e521344ac1a34506a39a8ee3bf3833955e3e62688a",
+      "outer_exit_code": 1,
+      "owned_tree_safely_stopped": true,
+      "application_scope": "Application_correctly_rejected_Mode2_with_exit_2_before_missing_BookmarkLevel"
+    }
+  ],
+  "reviews": {
+    "prepared_verifier": "68e713d514a110811e9cde6eb4cab88ba25984418afbc0b74f4f89d2a17cef96",
+    "recipe_regression": "311f2b2047ac4df5e70728db7d9d90236087292c71f6da59c4ac2fba1c9b6570"
+  },
+  "review_qualification": "Read reviews of exact drafts; no new standalone independent application audit.",
+  "frozen_release": {
+    "source": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+    "all33_mode_blob_raw_unchanged": true
+  },
+  "delivered_kit": {
+    "source": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+    "bindings_sha256": "b68bc61289721e0f8f100a7cd19c3c5c4209268582f958a63c45f6b56b23cb84",
+    "zip_sha256": "330cf372bfbe37a43ff273ce058146443069340245b60f4ad53830402846a162",
+    "original12_helper_bytes_unchanged": true,
+    "rebuild": "NOT_REQUIRED"
+  },
+  "native_Windows11_kit": {
+    "python14_raw_sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa",
+    "python13_raw_sha256": "64cf7d099bd594930e690d39457894307ce1504807936f50e06caaed7e8bfa5d",
+    "scope": "Root-observed19-case final R ZIP kit passes; separate PS7 supplement remains pending."
+  },
+  "PS7_final_application": "NOT_RUN_AFTER_CORRECTION",
+  "native_Windows10": "NOT_RUN",
+  "publication": "NOT_RUN",
+  "human_sessions": 0,
+  "task13": "IN_PROGRESS"
+}

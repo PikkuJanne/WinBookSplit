@@ -353,7 +353,9 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "evidence/V101-13-tooling-preflight.json",
-        "evidence/V101-13-tooling-preflight.md"
+        "evidence/V101-13-tooling-preflight.md",
+        "evidence/V101-13-ps7-recipe-correction.json",
+        "evidence/V101-13-ps7-recipe-correction.md"
       ]
     },
     {
