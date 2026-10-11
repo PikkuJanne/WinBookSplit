@@ -1,8 +1,20 @@
 """Invented local run records for pure validator units, never native evidence."""
 
+import ast
 from copy import deepcopy
 from hashlib import sha256
 import json
+from pathlib import Path
+import re
+
+ROOT = Path(__file__).resolve().parents[2]
+_version_engine = ROOT / "engine/winbooksplit_engine.py"
+_version_tree = ast.parse(_version_engine.read_text(encoding="utf-8"))
+_version_function = next(node for node in _version_tree.body
+                         if isinstance(node, ast.FunctionDef) and node.name == "_read_application_version")
+_version_namespace = {"Path": Path, "re": re}
+exec(compile(ast.Module(body=[_version_function], type_ignores=[]), str(_version_engine), "exec"), _version_namespace)
+APPLICATION_VERSION = _version_namespace["_read_application_version"](ROOT / "VERSION")
 
 
 def make(outcome, log_hash, *, log_text=None, plan=None, source_path="C:/synthetic/source.pdf",
@@ -31,7 +43,7 @@ def make(outcome, log_hash, *, log_text=None, plan=None, source_path="C:/synthet
                "sha256": None, "binding": "metadata_only"})
     parser = (frame.get("diagnostic") or {}).get("parser_warnings") or {}
     manifest = {"protocol": "winbooksplit.run", "version": 1, "run_id": run_id,
-        "application_version": "1.0.0", "started_utc": "2026-10-10T00:00:00Z", "finished_utc": "2026-10-10T00:00:01Z",
+        "application_version": APPLICATION_VERSION, "started_utc": "2026-10-10T00:00:00Z", "finished_utc": "2026-10-10T00:00:01Z",
         "diagnostics_finalized": True, "runtime_versions": {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.20.0", "calibre": None},
         "settings": {"mode": outcome.get("mode"), "input_kind": "pdf", "preview": False, "non_interactive": False,
             "no_pause": True, "keep_converted_pdf": False, "conversion_timeout": 1800, "process_timeout": 3600,

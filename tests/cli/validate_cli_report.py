@@ -127,7 +127,7 @@ def validate_case(case):
         need(case.get("outcome") is None and case.get("engine_records") == [] and case.get("process_summaries") == []
             and case.get("log_sha256") is None and case.get("console_evidence") is None and case.get("output_members_after") == ["prior-output.pdf"], "Version/help performed processing or wrote output")
         if kind == "version":
-            need(parameters == ["-Version"] and case["stdout"].strip() == "WinBookSplit 1.0.0" and not case["stderr"], "Dependency-independent canonical version missing")
+            need(parameters == ["-Version"] and case["stdout"].strip() == "WinBookSplit " + console.APPLICATION_VERSION and not case["stderr"], "Dependency-independent canonical version missing")
         else:
             help_receipt = case.get("help")
             need(isinstance(help_receipt, dict) and help_receipt.get("host_version") == version

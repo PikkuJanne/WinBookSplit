@@ -24,8 +24,8 @@ SPEC.loader.exec_module(checker)
 ASSET_SPEC = importlib.util.spec_from_file_location("wbs_frozen_assets", ROOT / BUILDER_PATHS[3])
 assets = importlib.util.module_from_spec(ASSET_SPEC)
 ASSET_SPEC.loader.exec_module(assets)
-VERSION = "1.0.0"
-ZIP_NAME = "WinBookSplit-v1.0.0.zip"
+VERSION = "1.0.1"
+ZIP_NAME = "WinBookSplit-v1.0.1.zip"
 ASSET_NAMES = (ZIP_NAME, "release-manifest.json", "SHA256SUMS.txt")
 INCOMPLETE = ".package-incomplete"
 TIMESTAMP = assets.TIMESTAMP
@@ -72,6 +72,24 @@ def _blob(repo: Path, commit: str, path: str) -> tuple[bytes, dict]:
         raise PackageError("builder_blob_size_mismatch")
     return data, {"path": path, "git_blob": oid, "git_mode": mode,
                   "bytes": size, "sha256": sha256(data).hexdigest()}
+
+
+def _policy_metadata(payload: dict[str, bytes]) -> dict:
+    # Only execute the already Git-blob-validated shipped validator, never a
+    # local sibling or a helper from an untrusted asset manifest. The frozen
+    # consumer remains pure stdlib and never executes application payload code.
+    path = "engine/winbooksplit_compatibility.py"
+    namespace = {"__name__": "wbs_bound_release_policy", "__file__": path}
+    try:
+        exec(compile(payload[path], path, "exec"), namespace)
+        policy = json.loads(payload["engine/WinBookSplit.Compatibility.json"].decode("utf-8"),
+                            object_pairs_hook=namespace["_unique_object"],
+                            parse_constant=namespace["_invalid_constant"])
+        namespace["_validate_policy"](policy)
+        return assets.dependency_metadata(payload["engine/WinBookSplit.Compatibility.json"],
+                                          payload["requirements.txt"])
+    except (KeyError, ValueError, TypeError, UnicodeError, RecursionError) as error:
+        raise PackageError("invalid_dependency_policy") from error
 
 
 def _source(repo: Path, commit: str) -> tuple[dict, dict[str, bytes], dict]:
@@ -123,15 +141,7 @@ def _source(repo: Path, commit: str) -> tuple[dict, dict[str, bytes], dict]:
             "source_commit": commit, "source_tree": inputs["source_tree"],
             "payload_sha256": sha256(canonical(files)).hexdigest(), "files": files,
             "runtime_sibling_dependencies": inputs["runtime_sibling_dependencies"],
-            "dependencies": {"windows": {"supported": "Windows 11 x64", "bundled": False},
-                             "powershell": {"supported": ["Windows PowerShell 5.1", "PowerShell 7.6.6"],
-                                            "bundled": False},
-                             "python": {"version": "3.14.8", "architecture": "x64",
-                                        "flavor": "regular GIL CPython", "bundled": False},
-                             "pypdf": {"version": "6.20.0", "requirement": checker.RUNTIME_REQUIREMENT,
-                                       "bundled": False},
-                             "calibre": {"version": "9.15.0", "required_for": ["epub", "azw3"],
-                                         "bundled": False}},
+            "dependencies": _policy_metadata(payload),
             "builder": tool, "signed": False,
             "scope": "Unpublished package provenance; Windows/Explorer/Calibre acceptance and release gates remain separate."}
     return base, payload, tool

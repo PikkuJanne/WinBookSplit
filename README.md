@@ -4,24 +4,45 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This is the **1.0.0 release candidate**, not a published release or a tested
-release ZIP. [VERSION](VERSION) is the application version source. The older
-`2.1` banner was development naming, not an earlier public semantic version.
+This is the **v1.0.1 compatibility update**. The first public release,
+[v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
+published on 11 October 2026. [VERSION](VERSION) is the application version
+source. The older `2.1` banner was development naming, not an earlier public
+semantic version.
 
 ## Requirements and formats
 
-| Component | Supported and tested scope |
+| Component | Compatibility scope |
 | --- | --- |
-| Windows | Windows 11 x64 with ordinary local filesystem paths |
-| PowerShell | Windows PowerShell 5.1; PowerShell 7.6.6 on the local Windows 11 setup |
-| Python | Regular GIL CPython **3.14.8 x64**, with plain **pypdf 6.20.0** |
+| Windows target | Windows 10 **22H2 x64** and Windows 11 x64; ordinary local filesystem paths |
+| PowerShell | Inbox Windows PowerShell **5.1**; **7.6.6** is the tested PowerShell 7 host |
+| Python | Regular GIL Windows x64 CPython **3.13.16 or later stable 3.13 patch**, or **3.14.8 or later stable 3.14 patch** |
+| pypdf | Plain **6.20.0**, controlled by its separate package version and SHA-256 lock |
 | Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
 
-Automated CI also exercises Windows Server 2025 with PowerShell 5.1 and 7.6.6;
-that is separate from the Windows 11 document and launcher checks. Windows 10,
-ARM, 32-bit/free-threaded Python, other Python/pypdf/Calibre versions, Linux,
-macOS, network paths and arbitrary long paths are outside the support claim.
+The exact source-test interpreters are **3.13.16 and 3.14.8**. Later stable
+patches in those two branches are accepted by the shipped policy; acceptance is
+not a claim that each patch has been tested. Windows 11 source checks and
+Windows Server 2025 CI are distinct from final-package Windows 10 acceptance.
+The [release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.1/evidence)
+and [release assets](https://github.com/PikkuJanne/WinBookSplit/releases) identify
+the exact archive and native platform tested. Source-test results alone do not
+certify a final release package.
+
+The [shipped policy](engine/WinBookSplit.Compatibility.json) rejects prereleases,
+free-threaded Python, PyPy, 32-bit/ARM processes and unlisted minor branches,
+including 3.15. The reviewed security floors include the bundled OpenSSL fix
+used by explicit HTTPS setup; earlier 3.13/3.14 patches, including 3.13.15 and
+3.14.7, are excluded. Python 3.11 and 3.12 were evaluated and excluded because the
+applicable Windows security fix is available only in their source releases,
+without a patched official Windows binary. See [setup](docs/SETUP.md#python-policy).
+Linux, macOS, network paths and arbitrary long paths remain outside the scope.
 No renderer or developer test package is required to use the application.
+
+Microsoft's standard Windows 10 support ended on **14 October 2025**.
+Application compatibility does not extend operating-system servicing; see
+[Microsoft's lifecycle notice](https://learn.microsoft.com/en-us/lifecycle/announcements/windows-10-end-of-support).
+WinBookSplit does not require an ESU purchase or change Windows servicing settings.
 
 | Input | Behavior and output |
 | --- | --- |
@@ -39,11 +60,27 @@ These checks do not make the application a document sanitizer or security sandbo
 
 ## Set up once
 
-Keep the entry points and `engine` folder together. Follow [setup](docs/SETUP.md)
-to create a fresh application `.venv` using the exact Python/pypdf pins. Install
-Calibre separately for ebooks. Processing never installs dependencies or changes
-global execution policy. The application and scripts are unsigned; setup explains
-checksum verification and what it can establish.
+Keep the entry points, `VERSION`, requirements and `engine` folder together in
+a writable per-user folder. Install a compatible Python separately, then run
+this command from the application directory:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Setup-WinBookSplit.ps1 -NonInteractive
+```
+
+This execution-policy setting applies only to the new PowerShell process; it
+does not change global execution policy. Enforced organization policy still
+applies. For direct script commands below, use the same
+`powershell.exe -NoProfile -ExecutionPolicy Bypass -File` prefix if your local
+default policy blocks unsigned scripts.
+
+Setup creates an application-local `.venv` and downloads only the hash-locked
+pypdf package from PyPI. Use `-PythonPath` for a concrete trusted base interpreter,
+`-Check` for read-only diagnosis, `-Wheelhouse` for the reviewed offline wheel,
+and explicit `-Repair` for an unhealthy environment. See [setup](docs/SETUP.md)
+for the full commands and preservation behavior. Install Calibre separately for
+ebooks. Processing never installs dependencies or changes global execution
+policy. The application and scripts are unsigned.
 
 ## Use the console
 
@@ -144,12 +181,16 @@ separately from the chapter count. Complete PDF metadata, outlines, signatures,
 annotations and cross-chapter links are not preserved generally; review the
 documented fidelity limits and warnings.
 
-After setup, a separate `.WinBookSplit-console-<run-id>` directory under the
-output base holds `console.log` and, when finalized, `WinBookSplit_Run.json`.
-Preview and early validation/dependency failures create no disk diagnostics.
-Local records can contain paths, titles, messages and source identities. Keep
-them private; use the [explicit redacted support export](docs/SUPPORT_DIAGNOSTICS.md)
-when reporting a problem. No upload or export is automatic.
+Ordinary console runs use a separate `.WinBookSplit-console-<run-id>` directory
+under the output base for `console.log` and, when finalized, `WinBookSplit_Run.json`.
+Dependency failures show a brief reason and one setup action; the local log
+retains technical details. If diagnostics cannot be reserved safely, the failure
+frame stays on the console with the original nonzero status. Preview and early
+NonInteractive dependency failures create no disk diagnostics and retain the
+machine-readable console frames. Local records can contain paths, titles,
+messages and source identities. Keep them private; use the
+[explicit redacted support export](docs/SUPPORT_DIAGNOSTICS.md) when reporting
+a problem. No upload or export is automatic.
 
 | Application exit | Meaning |
 | --- | --- |

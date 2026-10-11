@@ -79,7 +79,7 @@ def synthetic_success():
         row[hashes]['engine/WinBookSplit.Compatibility.json'] = validator.console.RUNTIME_POLICY_SHA256
     row['parameters'] += ['-PythonPath', python]
     row['command'] += ['-PythonPath', python]
-    row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': '1.0.0', 'run_id': 'e' * 32,
+    row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': validator.console.APPLICATION_VERSION, 'run_id': 'e' * 32,
         'started_utc': '2026-10-10T00:00:00+00:00', 'finished_utc': '2026-10-10T00:00:01+00:00', 'diagnostics_finalized': True,
         'runtime_versions': {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.20.0', 'calibre': None},
         'settings': {'mode': 'manual', 'input_kind': 'pdf', 'preview': False, 'non_interactive': True, 'no_pause': False,
@@ -92,7 +92,7 @@ def synthetic_success():
 
 
 def summary(manifest):
-    return {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': '1.0.0',
+    return {'protocol': 'winbooksplit.support', 'version': 1, 'application_version': manifest['application_version'],
             'runtime_versions': {**deepcopy(manifest['runtime_versions']), 'powershell': '5.1'},
             'settings': {key: manifest['settings'][key] for key in validator.SCALAR_SETTINGS},
             'plan': None if manifest['plan'] is None else {key: deepcopy(manifest['plan'][key]) for key in ('total_pages', 'ranges', 'coverage')},
@@ -140,7 +140,8 @@ class SupportReceiptTests(unittest.TestCase):
                 validator.validate_application_case(row)
 
     def test_resealed_export_input_and_summary_cannot_agree_on_false_outcome(self):
-        mutations = [lambda data: data['outcome'].update(status='failed'),
+        mutations = [lambda data: data.update(application_version='0.0.0'),
+                     lambda data: data['outcome'].update(status='failed'),
                      lambda data: data['outcome'].update(written_count=4),
                      lambda data: data.update(plan=None),
                      lambda data: data['outcome'].update(status='cancelled'),

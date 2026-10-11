@@ -1,6 +1,7 @@
 """Current transactional launchers using the unchanged historical process guards."""
 
 from concurrent.futures import ThreadPoolExecutor
+import ast
 import json
 import os
 from pathlib import Path
@@ -14,6 +15,13 @@ from datetime import datetime
 from hashlib import sha256
 
 ROOT = Path(__file__).resolve().parents[2]
+_version_engine = ROOT / "engine/winbooksplit_engine.py"
+_version_tree = ast.parse(_version_engine.read_text(encoding="utf-8"))
+_version_function = next(node for node in _version_tree.body
+                         if isinstance(node, ast.FunctionDef) and node.name == "_read_application_version")
+_version_namespace = {"Path": Path, "re": re}
+exec(compile(ast.Module(body=[_version_function], type_ignores=[]), str(_version_engine), "exec"), _version_namespace)
+APPLICATION_VERSION = _version_namespace["_read_application_version"](ROOT / "VERSION")
 spec = importlib.util.spec_from_file_location("wbs_current_launcher_manual", ROOT / "tests/manual/characterize_manual.py")
 manual = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(manual)
@@ -125,7 +133,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
          "Local manifest raw bytes/hash differ")
     need(record.get("protocol") == "winbooksplit.run" and type(record.get("version")) is int and record["version"] == 1
          and record.get("run_id") == owner["run_id"] and record.get("diagnostics_finalized") is True
-         and record.get("application_version") == "1.0.0" and record.get("outcome") == outcome
+         and record.get("application_version") == APPLICATION_VERSION and record.get("outcome") == outcome
          and record.get("engine_result") == outcome.get("engine_result"), "Local run protocol/owner/outcome differs")
     for key in ("started_utc", "finished_utc"):
         need(isinstance(record.get(key), str), "Local run timestamp missing")

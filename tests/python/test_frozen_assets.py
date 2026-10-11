@@ -115,6 +115,58 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
         self.assertEqual(observed.returncode, 0, observed.stderr)
         self.assertEqual(json.loads(observed.stdout), {"source_commit": self.commit, "count": 33})
 
+    def test_dependency_contract_keeps_policy_ranges_separate_from_build_runtime(self):
+        policy_bytes = self.base_payload["engine/WinBookSplit.Compatibility.json"]
+        policy = json.loads(policy_bytes)
+        contract = self.manifest["dependencies"]
+        self.assertNotIn("version", contract["python"])
+        self.assertEqual(contract["python"]["branches"], policy["python"]["branches"])
+        self.assertEqual(contract["python"]["excluded_branches"], policy["excluded_python_branches"])
+        self.assertEqual(contract["python"]["policy_sha256"], sha256(policy_bytes).hexdigest())
+        self.assertEqual(contract["pypdf"]["wheel_sha256"], policy["pypdf"]["wheel_sha256"])
+        self.assertEqual(contract["calibre"]["version"], policy["calibre"]["version"])
+        self.assertEqual(contract["windows"]["supported"], ["Windows 10 22H2 x64", "Windows 11 x64"])
+        self.assertEqual(self.manifest["builder"]["python"], sys.version.split()[0])
+        self.assertEqual(contract, frozen.dependency_metadata(policy_bytes, self.base_payload["requirements.txt"]))
+        self.verify()
+
+    def test_repinned_manifest_cannot_change_floors_or_restore_single_patch_gate(self):
+        mutations = (
+            lambda value: value["dependencies"]["python"].update(version="3.14.8"),
+            lambda value: value["dependencies"]["python"]["branches"][0].update(
+                security_min_patch=value["dependencies"]["python"]["branches"][0]["security_min_patch"] + 1),
+            lambda value: value["dependencies"]["python"].update(policy_schema_version=True),
+            lambda value: value["dependencies"]["python"]["branches"][0].update(compatibility_min_patch=False),
+            lambda value: value["dependencies"]["python"]["branches"][0].update(security_min_patch=7.0),
+            lambda value: value["dependencies"]["python"]["branches"][0].update(blocked_patches=[9]),
+            lambda value: value["dependencies"]["python"].update(policy_sha256="0" * 64),
+            lambda value: value["dependencies"]["pypdf"].update(wheel_sha256="0" * 64),
+            lambda value: value["dependencies"]["windows"].update(supported=["Windows 11 x64"]),
+            lambda value: value["dependencies"]["calibre"].update(version="9.14.0"))
+        for mutation in mutations:
+            value = deepcopy(self.manifest)
+            mutation(value)
+            self.repin(value)  # Deliberately trusted malformed SYNTHETIC metadata.
+            with self.assertRaisesRegex(frozen.PackageError, "manifest_mismatch"):
+                self.verify()
+        self.repin(deepcopy(self.manifest))
+        self.verify()
+
+    def test_metadata_projection_refuses_boolean_floor_and_split_wheel_pin(self):
+        original = json.loads(self.base_payload["engine/WinBookSplit.Compatibility.json"])
+        mutations = (
+            lambda value: value["python"]["branches"][0].update(security_min_patch=True),
+            lambda value: value["python"].update(bits=True),
+            lambda value: value["python"].update(stable_only=False),
+            lambda value: value["python"].update(gil_disabled=True),
+            lambda value: value["python"]["branches"][0].update(recommended_patch=0),
+            lambda value: value["pypdf"].update(wheel_sha256="0" * 64))
+        for mutation in mutations:
+            value = deepcopy(original)
+            mutation(value)
+            with self.assertRaisesRegex(frozen.PackageError, "invalid_dependency_policy"):
+                frozen.dependency_metadata(json.dumps(value).encode("utf-8"), self.base_payload["requirements.txt"])
+
     def test_external_pins_are_checked_before_json_or_zip_parsing(self):
         for name in fixture.ASSET_NAMES:
             with self.subTest(asset=name):

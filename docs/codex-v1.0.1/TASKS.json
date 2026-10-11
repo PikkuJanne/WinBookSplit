@@ -292,7 +292,10 @@
         "V101-AC-063"
       ],
       "status": "IN_PROGRESS",
-      "evidence": []
+      "evidence": [
+        "evidence/V101-11-import.md",
+        "evidence/V101-11-import.json"
+      ]
     },
     {
       "id": "V101-12",

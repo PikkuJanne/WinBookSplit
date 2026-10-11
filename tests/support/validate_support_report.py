@@ -145,7 +145,7 @@ def validate_run_manifest(manifest, row):
     final = row['outcome']
     need(isinstance(manifest, dict) and manifest.get('protocol') == 'winbooksplit.run'
          and type(manifest.get('version')) is int and manifest['version'] == 1
-         and manifest.get('application_version') == '1.0.0'
+         and manifest.get('application_version') == console.APPLICATION_VERSION
          and isinstance(manifest.get('run_id'), str) and re.fullmatch('[0-9a-f]{32}', manifest['run_id']), 'Run manifest protocol/version/run identity invalid')
     need(set(manifest) == {'protocol', 'version', 'run_id', 'application_version', 'started_utc', 'finished_utc', 'diagnostics_finalized',
          'runtime_versions', 'settings', 'source_identity', 'plan', 'engine_result', 'outcome', 'warnings', 'log'}, 'Run manifest schema differs')
@@ -346,10 +346,11 @@ def validate_application_case(row):
 def validate_summary(summary, manifest):
     need(isinstance(manifest, dict) and manifest.get('protocol') == 'winbooksplit.run'
          and type(manifest.get('version')) is int and manifest['version'] == 1
-         and manifest.get('diagnostics_finalized') is True, 'Export source is not a finalized run manifest')
+         and manifest.get('diagnostics_finalized') is True
+         and manifest.get('application_version') == console.APPLICATION_VERSION, 'Export source is not a finalized run manifest')
     need(isinstance(summary, dict) and set(summary) == {'protocol', 'version', 'application_version', 'runtime_versions',
          'settings', 'plan', 'outcome', 'warnings', 'log'} and summary['protocol'] == 'winbooksplit.support'
-         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == '1.0.0',
+         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == manifest['application_version'] == console.APPLICATION_VERSION,
          'Support summary root whitelist/protocol invalid')
     versions = {**manifest['runtime_versions'], 'powershell': '5.1' if manifest['runtime_versions']['powershell'].startswith('5.1.') else '7'}
     need(summary['runtime_versions'] == versions and set(summary['runtime_versions']) == {'powershell', 'python', 'pypdf', 'calibre'},

@@ -105,17 +105,18 @@ class CliReceiptTests(unittest.TestCase):
         app = {name: "b" * 64 for name in ("WinBookSplit.ps1", "VERSION")}
         case.update(application_sha256=app, application_members=sorted(app), outcome=None, exit_code=0, parameters=["-Version"])
         case["command"] = case["command"][:5] + ["-Version"]
-        seal_stdout(case, "WinBookSplit 1.0.0\n")
+        seal_stdout(case, "WinBookSplit " + validator.console.APPLICATION_VERSION + "\n")
         validator.validate_case(case)
         for field, value in (("outcome", {}), ("log_sha256", "a" * 64), ("application_sha256", {name: "b" * 64 for name in validator.APPLICATION})):
             changed = deepcopy(case)
             changed[field] = value
             with self.subTest(field=field), self.assertRaises(ValueError):
                 validator.validate_case(changed)
-        changed = deepcopy(case)
-        seal_stdout(changed, "WinBookSplit v2.1\n")
-        with self.assertRaises(ValueError):
-            validator.validate_case(changed)
+        for wrong_version in ("v2.1", "0.0.0"):
+            changed = deepcopy(case)
+            seal_stdout(changed, "WinBookSplit " + wrong_version + "\n")
+            with self.subTest(wrong_version=wrong_version), self.assertRaises(ValueError):
+                validator.validate_case(changed)
 
     def test_case_sets_reject_missing_duplicate_extra_receipts(self):
         rows = [{"id": "one"}, {"id": "two"}]

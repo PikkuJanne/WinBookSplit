@@ -1,6 +1,6 @@
 # Export a local support summary
 
-After processing setup, an application run keeps a bounded UTF-8 `console.log`
+An ordinary application run keeps a bounded UTF-8 `console.log`
 in a unique `.WinBookSplit-console-<run-id>` folder under Documents or the selected
 output base. The console prints the log's path. Successful diagnostic finalization
 publishes its neighbor `WinBookSplit_Run.json`, including the actual failed or cancelled
@@ -67,14 +67,15 @@ identities, command arguments, environment values, messages, and arbitrary
 free-text diagnostics. Parser warning messages remain only in the original
 local record; the summary retains known warning or error codes and counts.
 PowerShell versions are validated as bounded supported numeric versions and
-reduced to the fixed `5.1` or `7` bucket; build text is omitted. Python, pypdf,
-and Calibre version text must match the shipped trusted version allowlist.
-Unknown versions are rejected instead of copied into the summary.
+reduced to the fixed `5.1` or `7` bucket; build text is omitted. pypdf and Calibre version text must match their separate package locks.
+Python version text must satisfy the shipped numeric compatibility policy;
+later stable patches in an accepted minor are allowed. Rejected or malformed
+versions are rejected instead of copied into the summary.
 
 The run's `application_version` must match the export command's canonical root
-`VERSION`. Use the same trusted candidate for processing and export. Historical
-`1.0.0-dev` manifests do not match the current `1.0.0` candidate and are rejected;
-do not edit a local manifest to make it pass.
+`VERSION`. Use the same trusted application version for processing and export.
+Earlier `1.0.0`/`1.0.0-dev` records do not match a `1.0.1` exporter and are
+rejected; do not edit a local manifest to make it pass.
 
 Only version `1` of the finalized `winbooksplit.run` schema is accepted, with
 `diagnostics_finalized` set to Boolean `true`. Pending records are rejected.

@@ -6,14 +6,16 @@ This does not relicense third-party components.
 
 ## Separately installed runtime components
 
-The repository and intended small application distribution do not bundle the
-Python interpreter, pypdf wheel, PowerShell installation or Calibre binaries.
-Requirements and executable paths refer to components installed separately.
-Their upstream license terms continue to apply to those installations.
+The application distribution does not bundle a Python interpreter, pypdf wheel,
+PowerShell installation or Calibre binaries. Setup may download the hash-locked
+pypdf wheel into the application-local environment as an explicit user action,
+or use a separately obtained reviewed offline wheel. Requirements and executable
+paths refer to separately installed components. Their upstream license terms
+continue to apply to those installations.
 
 | Component used by WinBookSplit | Upstream license and primary source |
 | --- | --- |
-| CPython 3.14.8 | [PSF License Version 2 and incorporated-software notices](https://docs.python.org/3.14/license.html) |
+| CPython 3.13 and 3.14 (tested 3.13.16 / 3.14.8) | PSF License Version 2 and incorporated-software notices: [3.13](https://docs.python.org/3.13/license.html), [3.14](https://docs.python.org/3.14/license.html) |
 | pypdf 6.20.0 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.20.0/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.20.0/pyproject.toml) |
 | PowerShell 7.6.6 | [MIT license, Microsoft Corporation](https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt) |
 | Calibre 9.15.0, for EPUB/AZW3 | [GNU GPL version 3](https://github.com/kovidgoyal/calibre/blob/v9.15.0/LICENSE) |

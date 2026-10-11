@@ -1,10 +1,31 @@
 # Changelog
 
-## 1.0.0 — release candidate
+## 1.0.1
 
-This version is a candidate under development, not a published release. The
-canonical application version is stored in `VERSION`. Release-package checks,
-publication and anonymous asset verification have their own later gates.
+- Adds the Windows 10 22H2 x64 compatibility target alongside Windows 11, while
+  keeping the BAT/PowerShell console and existing splitter/converter workflow.
+- Replaces exact Python-patch equality with a shared reviewed policy for regular
+  GIL Windows x64 CPython 3.13.16+ and 3.14.8+, within those two minor branches.
+  The exact source-test targets are 3.13.16 and 3.14.8; later stable patches are
+  accepted without claiming each one was tested. The security floors include
+  the bundled OpenSSL fix used by explicit HTTPS setup.
+- Keeps pypdf 6.20.0 and its wheel hash controlled separately, with package origin,
+  isolated imports and existing document/process safety guards retained.
+- Improves bounded read-only discovery, preserves a valid PATH fallback after
+  failed launcher listing, and selects accepted automatic candidates consistently.
+- Adds explicit application-local setup, read-only readiness checks, reviewed
+  offline wheel use and repair with preserved backups and safe rollback.
+- Gives ordinary dependency failures a concise reason and setup action while
+  preserving local technical diagnostics and native nonzero outcomes.
+- Expands automated source regression and CI across two actual Python minors.
+  [Release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.1/evidence)
+  identifies the native final-package scope separately from source/Server checks.
+
+## 1.0.0 — 2026-10-11
+
+Published as [WinBookSplit v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0).
+The canonical application version is stored in `VERSION`. Its historical release
+evidence, tag and published assets remain unchanged.
 
 - Retains the Windows BAT/PowerShell console and single-file drag-and-drop flow,
   with explicit plan confirmation, cancellation and optional opening requests.

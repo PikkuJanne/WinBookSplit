@@ -125,7 +125,7 @@ def validate_archive(archive: bytes, payload: dict[str, bytes]) -> None:
         raise PackageError("zip_recipe_mismatch")
 
 
-def _strict_json(data: bytes) -> dict:
+def _strict_json(data: bytes, *, canonical_required: bool = True) -> dict:
     def pairs(items):
         value = {}
         for key, item in items:
@@ -141,9 +141,77 @@ def _strict_json(data: bytes) -> dict:
         value = json.loads(data.decode("utf-8", errors="strict"), object_pairs_hook=pairs, parse_constant=constant)
     except (UnicodeError, json.JSONDecodeError, RecursionError) as error:
         raise PackageError("invalid_package") from error
-    if type(value) is not dict or data != canonical(value):
+    if type(value) is not dict or canonical_required and data != canonical(value):
         raise PackageError("manifest_mismatch")
     return value
+
+
+def dependency_metadata(policy_bytes: bytes, requirements_bytes: bytes) -> dict:
+    """Project typed, externally bound policy metadata; no runtime acceptance.
+
+    The developer producer separately reuses the shipped strict validator.
+    The frozen consumer checks this closed metadata contract without importing
+    or executing any application payload helper.
+    """
+    if type(policy_bytes) is not bytes or not 0 < len(policy_bytes) <= 32768 \
+            or type(requirements_bytes) is not bytes or not 0 < len(requirements_bytes) <= 4096:
+        raise PackageError("invalid_dependency_policy")
+    try:
+        policy = _strict_json(policy_bytes, canonical_required=False)
+        expected = {"schema_version", "policy_version", "reviewed_on", "python", "pypdf", "calibre",
+                    "excluded_python_branches", "sources"}
+        if set(policy) != expected or type(policy["schema_version"]) is not int or policy["schema_version"] != 1 \
+                or type(policy["policy_version"]) is not int or policy["policy_version"] < 1:
+            raise PackageError("invalid_dependency_policy")
+        python = policy["python"]
+        if type(python) is not dict or set(python) != {"implementation", "platform", "machine", "bits", "stable_only", "gil_disabled", "branches"} \
+                or python["implementation"] != "cpython" or python["platform"] != "win32" or python["machine"] != "AMD64" \
+                or type(python["bits"]) is not int or python["bits"] != 64 or python["stable_only"] is not True \
+                or python["gil_disabled"] is not False or type(python["branches"]) is not list or not python["branches"]:
+            raise PackageError("invalid_dependency_policy")
+        branch_keys = {"major", "minor", "compatibility_min_patch", "security_min_patch", "recommended_patch", "blocked_patches", "security_sources"}
+        seen = set()
+        for branch in python["branches"]:
+            if type(branch) is not dict or set(branch) != branch_keys \
+                    or any(type(branch[key]) is not int or not 0 <= branch[key] <= 1000000 for key in
+                           ("major", "minor", "compatibility_min_patch", "security_min_patch", "recommended_patch")) \
+                    or branch["major"] != 3 or (branch["major"], branch["minor"]) in seen \
+                    or branch["recommended_patch"] < max(branch["compatibility_min_patch"], branch["security_min_patch"]) \
+                    or type(branch["blocked_patches"]) is not list \
+                    or any(type(value) is not int or not 0 <= value <= 1000000 for value in branch["blocked_patches"]) \
+                    or len(branch["blocked_patches"]) != len(set(branch["blocked_patches"])) \
+                    or type(branch["security_sources"]) is not list or not branch["security_sources"] \
+                    or any(type(value) is not str or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]{0,63}", value) for value in branch["security_sources"]):
+                raise PackageError("invalid_dependency_policy")
+            seen.add((branch["major"], branch["minor"]))
+        excluded = policy["excluded_python_branches"]
+        if type(excluded) is not list or any(type(branch) is not dict or set(branch) != {"major", "minor", "reason"} \
+                or any(type(branch[key]) is not int or not 0 <= branch[key] <= 1000000 for key in ("major", "minor")) \
+                or type(branch["reason"]) is not str or not 0 < len(branch["reason"]) <= 1024 for branch in excluded):
+            raise PackageError("invalid_dependency_policy")
+        pypdf, calibre = policy["pypdf"], policy["calibre"]
+        if type(pypdf) is not dict or set(pypdf) != {"version", "wheel_sha256"} \
+                or type(pypdf["version"]) is not str or not VERSION.fullmatch(pypdf["version"]) \
+                or type(pypdf["wheel_sha256"]) is not str or not SHA256.fullmatch(pypdf["wheel_sha256"]) \
+                or type(calibre) is not dict or set(calibre) != {"version"} \
+                or type(calibre["version"]) is not str or not VERSION.fullmatch(calibre["version"]):
+            raise PackageError("invalid_dependency_policy")
+        requirement = "pypdf==" + pypdf["version"] + " --hash=sha256:" + pypdf["wheel_sha256"]
+        lines = [line.strip() for line in requirements_bytes.decode("utf-8-sig", errors="strict").splitlines()
+                 if line.strip() and not line.strip().startswith("#")]
+        if lines != [requirement]:
+            raise PackageError("invalid_dependency_policy")
+        return {
+            "windows": {"supported": ["Windows 10 22H2 x64", "Windows 11 x64"], "bundled": False},
+            "powershell": {"supported": ["Windows PowerShell 5.1", "PowerShell 7.6.6"], "bundled": False},
+            "python": {"architecture": "x64", "flavor": "regular GIL CPython", "bundled": False,
+                       "policy_path": "engine/WinBookSplit.Compatibility.json", "policy_sha256": sha256(policy_bytes).hexdigest(),
+                       "policy_schema_version": policy["schema_version"], "policy_version": policy["policy_version"],
+                       **python, "excluded_branches": excluded},
+            "pypdf": {"version": pypdf["version"], "wheel_sha256": pypdf["wheel_sha256"], "requirement": requirement, "bundled": False},
+            "calibre": {"version": calibre["version"], "required_for": ["epub", "azw3"], "bundled": False}}
+    except (KeyError, TypeError, ValueError, UnicodeError, RecursionError) as error:
+        raise PackageError("invalid_dependency_policy") from error
 
 
 def _bindings(expectations: dict) -> tuple[str, tuple[str, str, str]]:
@@ -225,6 +293,9 @@ def _frozen_payload(archive: bytes, manifest: dict, expectations: dict) -> dict[
     if "VERSION" not in payload or payload["VERSION"].decode("utf-8-sig", errors="strict").strip() != expectations["version"] \
             or "engine/WinBookSplit.Compatibility.json" not in payload \
             or sha256(payload["engine/WinBookSplit.Compatibility.json"]).hexdigest() != expectations["policy_sha256"]:
+        raise PackageError("manifest_mismatch")
+    if "requirements.txt" not in payload or canonical(manifest["dependencies"]) != canonical(dependency_metadata(
+            payload["engine/WinBookSplit.Compatibility.json"], payload["requirements.txt"])):
         raise PackageError("manifest_mismatch")
     return payload
 

@@ -58,7 +58,7 @@ Application exits: 0 execution/preview/version, 2 invalid input/arguments/path,
 3 dependency, 4 conversion, 5 no requested bookmark plan, 6 PDF/output failure,
 7 unsupported features, 130 cancellation/timeout. Native PowerShell invocation
 errors before this script runs use the host's own exit status.
-Author: Janne Vuorela. MIT; unsigned application. Windows 11 x64, PS5.1/PS7.
+Author: Janne Vuorela. MIT; unsigned application. Windows 10 22H2/Windows 11 x64, PS5.1/PS7.
 #>
 
 param (
