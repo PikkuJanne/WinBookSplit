@@ -1,10 +1,10 @@
 # Next session
 
-Continue V101-11 on codex/v1.0.1-compatibility. The reviewed 29-path map is
-imported with VERSION 1.0.1. Commit the narrow implementation, run affected
-current-source units and matching full CI, then record task 11 completion.
-Review/integrate through task 12 and freeze exact source R and three assets.
-Complete both Python minors and PS7 on the exact Windows 11 final ZIP before
-one tested, consolidated Windows 10 command/report request if authorized
-native access remains unavailable. No early owner request or release tag.
-Preserve public v1.0.0 and artwork.
+Continue V101-11. Commit the four narrow test-fixture corrections and recorded
+failures/focused passes, push and verify live sync, then collect complete
+matching CI for the corrected source. Preserve 087's actual FAIL. Close task 11
+only after full corrected checks pass, review/integrate through task 12 and
+freeze exact R/assets. Run both Python minors and PS7 on the same Windows 11
+final ZIP before the one complete Windows 10 command/report request if authorized
+native access remains unavailable. No early owner request, tag or draft.
+Preserve public v1.0.0, artwork and safety guards.

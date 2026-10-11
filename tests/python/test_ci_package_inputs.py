@@ -192,7 +192,7 @@ class PackageInputTests(unittest.TestCase):
                         os.environ["GIT_NO_REPLACE_OBJECTS"] = inherited
                     # Git disables replacements when this variable is present,
                     # even when its inherited value is the string "0".
-                    expected_version = "2.0.0" if inherited is None else "1.0.0"
+                    expected_version = "2.0.0" if inherited is None else baseline["application_version"]
                     self.assertEqual(self.git("show", self.commit + ":VERSION"), expected_version)
                     # Provenance must still identify the original committed bytes.
                     self.assertEqual(checker.validate_inputs(self.repo, self.commit), baseline)

@@ -294,7 +294,9 @@
       "status": "IN_PROGRESS",
       "evidence": [
         "evidence/V101-11-import.md",
-        "evidence/V101-11-import.json"
+        "evidence/V101-11-import.json",
+        "evidence/V101-11-fixture-correction.md",
+        "evidence/V101-11-fixture-correction.json"
       ]
     },
     {
