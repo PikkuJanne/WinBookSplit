@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template": false,
-  "status": "complete_at_verified_external_M6_T06_checkpoint",
+  "status": "complete_project_closed_after_user_authorized_local_cleanup",
   "repository": "PikkuJanne/WinBookSplit",
   "tag": "v1.0.0",
   "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
@@ -157,22 +157,22 @@
     "scope": "Version1.0.0 and authored four-page Manual1,3; fresh anonymous matching ZIP/runtime-only venv on actual Windows11Pro26300.9457. No new BAT/GUI/Calibre/render/full/newhuman claim."
   },
   "signing_status": "unsigned; final scripts and package manifest identify actual unsigned bytes",
-  "closure_commit": null,
-  "release_commit_is_ancestor_of_closure": null,
-  "payload_unchanged_after_release_commit": null,
+  "closure_commit": "4d15589524764c14e4883f22f550d650f07aafb4",
+  "release_commit_is_ancestor_of_closure": true,
+  "payload_unchanged_after_release_commit": true,
   "last_historical_main_sync_receipt": {
     "repository": "PikkuJanne/WinBookSplit",
-    "observed_at": "2026-10-11T08:27:07.466608+00:00",
+    "observed_at": "2026-10-11T08:42:01.085631+00:00",
     "status": "SYNCED",
     "read_only": true,
     "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
     "branch": "main",
-    "local_head": "fc233efabf8c17bb87555b3f526d73ced8421929",
+    "local_head": "4d15589524764c14e4883f22f550d650f07aafb4",
     "worktree_clean": true,
-    "remote_head": "fc233efabf8c17bb87555b3f526d73ced8421929",
+    "remote_head": "4d15589524764c14e4883f22f550d650f07aafb4",
     "reason": "Clean local HEAD equals fresh live branch at observation time"
   },
-  "final_current_sync_receipt_location": "D:/projects/WinBookSplit-M6-T06-20261011/final-checkpoint-receipt.json and this M6-T06 chat final report",
+  "final_current_sync_receipt_location": "Current cleanup chat final report after actual normal commit/push/fresh live verification; historical M6-T06 closure receipt is preserved at evidence/M6-T06-final-checkpoint.json.",
   "known_limits": [
     "Historical through M6-T02: R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
     "Historical through M6-T02: R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
@@ -223,7 +223,8 @@
     "Scripts/package/tag are unsigned; SHA-256 is integrity evidence, not a signing, publisher-authenticity or SmartScreen guarantee.",
     "Historical failures, interruptions, UNKNOWN causes, missing original receipts, scanner/native-stack gaps, developer-only renderer applicability limits, font/destination diagnostics, static observations and newline differences remain preserved. No hostile-document security certification.",
     "Completed M3/M5 D13 human routes remain closed; original unrun G04-G16 remain SUPERSEDED and retired interactions native-only.",
-    "Release R and frozen assets remain fixed. D is excluded documentation closure only; D is not the tested package source. Its own exact SHA/push/clean-live/main/tag/ancestry/payload/CI receipt lives externally after actual operations, avoiding self-reference."
+    "Release R and frozen assets remain fixed. D is excluded documentation closure only; D is not the tested package source. Its own exact SHA/push/clean-live/main/tag/ancestry/payload/CI receipt lives externally after actual operations, avoiding self-reference.",
+    "Later explicit owner-authorized cleanup on 2026-10-11 removed external generated test workspaces/raw reports/failed trials/copied runtimes/fixtures/renders/output files. Committed records/seals remain historical observations, not current raw availability claims. Exact final-D receipt and three accepted release assets were preserved before cleanup; only two empty directory entries remain locked by shared Firefox."
   ],
   "open_blockers": [],
   "historical_prerequisite_evidence": {
@@ -275,10 +276,10 @@
     "R_ancestor_of_existing_main": true,
     "guarded176_payload28_builder3_raw_and_Git_unchanged": true,
     "guarded_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
-    "final_D_ancestry_payload_and_current_sync": "Actual results are in external final-checkpoint-receipt.json after commit/push. Null self-commit-dependent fields avoid an unobserved own-SHA claim."
+    "final_D_ancestry_payload_and_current_sync": "Actual D=4d15589524764c14e4883f22f550d650f07aafb4 results were observed after its commit/push and are now preserved byte-for-byte at evidence/M6-T06-final-checkpoint.json in this later cleanup checkpoint."
   },
   "GateF_evidence": "evidence/M6-T06-closure.json",
-  "final_closure_report": "evidence/M6-T06-closure.md and current M6-T06 chat final report with actual D",
+  "final_closure_report": "evidence/M6-T06-closure.md, evidence/M6-T06-final-checkpoint.json and historical M6-T06 chat final report; later cleanup recorded separately.",
   "final_closure_CI_metadata": [
     {
       "id": 38097123491,
@@ -293,6 +294,57 @@
       "status": "completed",
       "conclusion": "success",
       "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38123924110"
+    },
+    {
+      "id": 38125187709,
+      "head_sha": "4d15589524764c14e4883f22f550d650f07aafb4",
+      "status": "completed",
+      "conclusion": "success",
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38125187709"
     }
-  ]
+  ],
+  "historical_final_D_receipt": {
+    "path": "evidence/M6-T06-final-checkpoint.json",
+    "sha256": "9e4a305ecd7d873b0c1fd93aa534e69737774eb685379291aea106137aab1306",
+    "scope": "Exact historical post-D operations receipt, promoted unchanged before deleting external workspace; this is not this cleanup checkpoint own SHA or CI proof."
+  },
+  "preserved_local_release_assets": [
+    {
+      "path": "D:/projects/WinBookSplit-v1.0.0/WinBookSplit-v1.0.0.zip",
+      "bytes": 414497,
+      "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "exact_copy_rehashed_before_and_after_cleanup": true
+    },
+    {
+      "path": "D:/projects/WinBookSplit-v1.0.0/release-manifest.json",
+      "bytes": 11547,
+      "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "exact_copy_rehashed_before_and_after_cleanup": true
+    },
+    {
+      "path": "D:/projects/WinBookSplit-v1.0.0/SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "exact_copy_rehashed_before_and_after_cleanup": true
+    }
+  ],
+  "local_artifact_record_scope": "assets[].local_artifact retains historical original workspace locations, now deleted under later explicit owner authority. Current exact accepted copies are listed in preserved_local_release_assets.",
+  "post_release_local_cleanup": {
+    "date": "2026-10-11",
+    "project_status": "CLOSED",
+    "owner_request": "Please close the project and delete all local test and temp files.",
+    "evidence": "evidence/LOCAL_CLEANUP-20261011.json",
+    "report": "evidence/LOCAL_CLEANUP-20261011.md",
+    "files_removed": 79516.0,
+    "bytes_removed": 5744323585.0,
+    "target_roots_removed": 153,
+    "original_targets": 154,
+    "remaining_files": 0,
+    "remaining_empty_directory_entries": [
+      "<Projects>/WBS-T04-UI-20261010-02",
+      "<Projects>/WBS-T04-UI-20261010-02/cwd"
+    ],
+    "reason": "Firefox current-working-directory lock; shared viewer window not closed without separate owner approval.",
+    "source_history_release_and_accepted_assets_preserved": true
+  }
 }

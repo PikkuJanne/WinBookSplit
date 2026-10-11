@@ -1,0 +1,1682 @@
+{
+  "schema_version": 1,
+  "action": "User-authorized post-release local cleanup",
+  "user_authorization": "Please close the project and delete all local test and temp files.",
+  "date_local": "2026-10-11",
+  "timezone": "Europe/Berlin",
+  "started_at_utc": "2026-10-11T11:46:44.6427282Z",
+  "finished_at_utc": "2026-10-11T11:49:18.9027926Z",
+  "result": "FILES_REMOVED_EMPTY_DIRECTORY_LOCKED",
+  "cleanup_shell": "7.6.5",
+  "attempted_targets": 154,
+  "deleted_targets": 153,
+  "deleted_files": 79516.0,
+  "deleted_bytes": 5744323585.0,
+  "links_removed_without_following": 19.0,
+  "completed": [
+    {
+      "path": "<Projects>/WinBookSplit-cli-baseline-20261009",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 8,
+      "bytes": 44764,
+      "directories": 3,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-human-20261009",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 1405,
+      "bytes": 20174399,
+      "directories": 267,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M3-T02-20261009",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 1737,
+      "bytes": 73363719,
+      "directories": 212,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M3-T02-review-affbf0ea172b4702ab7ad9c4378e2df8",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 2,
+      "bytes": 3236,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M3-T03-20261009",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 2050,
+      "bytes": 70506751,
+      "directories": 272,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M3-T04-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 1262,
+      "bytes": 72839603,
+      "directories": 338,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M3-T05-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 1326,
+      "bytes": 389718890,
+      "directories": 920,
+      "reparse_links_removed_without_following": 11,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M4-T01-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 595,
+      "bytes": 81959013,
+      "directories": 57,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M4-T02-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 551,
+      "bytes": 86640813,
+      "directories": 107,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M4-T03-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 553,
+      "bytes": 137012278,
+      "directories": 75,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M4-T04-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 209,
+      "bytes": 9848694,
+      "directories": 53,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M4-T05-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 911,
+      "bytes": 497096664,
+      "directories": 171,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M5-T01-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 4067,
+      "bytes": 130218398,
+      "directories": 541,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M5-T02-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 82,
+      "bytes": 3235143,
+      "directories": 7,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M5-T03-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 4052,
+      "bytes": 405024366,
+      "directories": 575,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M5-T04-20261010",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 6375,
+      "bytes": 670603410,
+      "directories": 700,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M5-T05-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 64,
+      "bytes": 1935540,
+      "directories": 3,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T01-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 55,
+      "bytes": 2103670,
+      "directories": 2,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T02-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 72,
+      "bytes": 4093512,
+      "directories": 5,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T03-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 8178,
+      "bytes": 411964325,
+      "directories": 1060,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T04-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 112,
+      "bytes": 890797,
+      "directories": 34,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T05-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 2391,
+      "bytes": 28235557,
+      "directories": 589,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T06-20261011",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 287,
+      "bytes": 1453327,
+      "directories": 92,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T06-20261011-independent",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 75,
+      "bytes": 31635487,
+      "directories": 25,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WinBookSplit-M6-T06-20261011-independent-document-review",
+      "role": "project-test-workspace",
+      "basis": "Independent project-owned generated task/test workspace inventory",
+      "files": 38,
+      "bytes": 658061,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WBS-T03-UI-20261009",
+      "role": "project-test-workspace",
+      "basis": "Generated isolated M3-T03 UI kit, linked by historical Documents engine source and M3 ui-drop-verification-v9.json",
+      "files": 1035,
+      "bytes": 16602298,
+      "directories": 152,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WBS-T04-UI-20261010",
+      "role": "project-test-workspace",
+      "basis": "Generated M3-T04 authored EPUB viewer fixture; actual-viewer01-failure.json binds kit exact root and synthetic books/out",
+      "files": 19,
+      "bytes": 348749,
+      "directories": 10,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WBS-T04-UI-20261010-03",
+      "role": "project-test-workspace",
+      "basis": "Generated M3-T04 prelaunch retry viewer fixture; actual-viewer03.py binds exact kit",
+      "files": 12,
+      "bytes": 271605,
+      "directories": 4,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Projects>/WBS-T04-UI-20261010-04",
+      "role": "project-test-workspace",
+      "basis": "Generated M3-T04 final native viewer fixture; actual-native-opener04-independent-review-v2.json binds exact root, authored outputs, ready receipts/native result",
+      "files": 30,
+      "bytes": 657423,
+      "directories": 10,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-M3-review-fa05f816831f4f4aa83dfbcfdfc731f0",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 85,
+      "bytes": 552309,
+      "directories": 21,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-cmd-boundary-a0f6fc04e40347518a591be5ff7f4ec0",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 16,
+      "bytes": 22131,
+      "directories": 11,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T01-20261008",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 118,
+      "bytes": 7355736,
+      "directories": 25,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/winbooksplit-m0-t02-fixture-qa-thm1o55h",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 35,
+      "bytes": 449837,
+      "directories": 4,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 8772,
+      "bytes": 257361681,
+      "directories": 1017,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T04-248731a3abaf420d98eb02647fe00a0b",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1666,
+      "bytes": 42523594,
+      "directories": 190,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T01-e0ea6ade5bab402085077e05a2aaa385",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1662,
+      "bytes": 247796728,
+      "directories": 186,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T02-bad9ebf463084def98db7998a46c8f4e",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1647,
+      "bytes": 42587479,
+      "directories": 185,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T03-58058894cda94dd2bba8a01312851e50",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1659,
+      "bytes": 42673504,
+      "directories": 185,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T04-628012323fe54b4196d760e4c1ae4547",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1655,
+      "bytes": 42813342,
+      "directories": 185,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T05-6a604380680a4a85ab31cde1a86e8bc6",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1668,
+      "bytes": 43365962,
+      "directories": 185,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T06-16eb3b3bf0174a35837012b75d23408c",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1808,
+      "bytes": 44268573,
+      "directories": 267,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T06-before-abfbeb9c162647b6b99decb4a32b57e7",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 2,
+      "bytes": 15140,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T01-90ceae7682e54ccdbf5af887fdf872a7",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1894,
+      "bytes": 47578703,
+      "directories": 305,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T01-before-88ea0ed54f3e4ea3bd0ac44fc124eb75",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 24,
+      "bytes": 64960,
+      "directories": 7,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T02-f0d85ef8b4d34d1a93575d3f78cf3772",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1761,
+      "bytes": 48876950,
+      "directories": 187,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T03-ed3da3a2a49041ed9cb978e2973803f3",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1857,
+      "bytes": 48934104,
+      "directories": 241,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T04-d495bc220aa843b0a477bb1c77926fe0",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1775,
+      "bytes": 51063044,
+      "directories": 211,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T05-1af4d4ff89134ce1b0715d29496f5150",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1680,
+      "bytes": 66717281,
+      "directories": 192,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M2-T05-supervisor-d3b81ce98e90425585de70d865d5ca28",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 15,
+      "bytes": 8041909,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M3-T01-b40796ffda3e4a7bb731f4d2d63c71bd",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1776,
+      "bytes": 92811123,
+      "directories": 215,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M3-T01-python-before-e91c3d9bad3e4278b4c2b23f55025a19",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 8,
+      "bytes": 8045,
+      "directories": 4,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M3-T03-Calibre-20261009",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1345,
+      "bytes": 662902308,
+      "directories": 84,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M5-T02-replace-314d1cb9c1aa45b4995026253e05a135",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 10,
+      "bytes": 428855,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-release-base-la5ttt1w",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 98,
+      "bytes": 1078848,
+      "directories": 57,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-release-base-o__51ohf",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 98,
+      "bytes": 1079883,
+      "directories": 59,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-release-test-om7b7tpq",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 99,
+      "bytes": 1078875,
+      "directories": 57,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-release-test-ssz9s0vy",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 99,
+      "bytes": 1079769,
+      "directories": 60,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-shell-probe-71b998fbab274d62b18494be8682c0cb",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 2,
+      "bytes": 29998,
+      "directories": 3,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-shell-probe-fe8e1d0205fb47619fc41faa0c1e1f84",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 2,
+      "bytes": 75009,
+      "directories": 3,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-shell-tools-9fee55acfa9549a1a488657887f79ce5",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 69,
+      "bytes": 300986539,
+      "directories": 19,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-0ngmoor9",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 29,
+      "directories": 2,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-23ibzuk8",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 2,
+      "bytes": 42772,
+      "directories": 3,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-4mcnmwq8",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 193,
+      "bytes": 4621363,
+      "directories": 67,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-6lfg8wzb",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 478,
+      "bytes": 102634072,
+      "directories": 272,
+      "reparse_links_removed_without_following": 2,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-8cdoixg8",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1818,
+      "bytes": 35235616,
+      "directories": 721,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-9_ba13l7",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 319,
+      "bytes": 4078501,
+      "directories": 111,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-93pw47he",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 314,
+      "bytes": 69162784,
+      "directories": 223,
+      "reparse_links_removed_without_following": 2,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-9i8lrzf3",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 763,
+      "bytes": 110443687,
+      "directories": 360,
+      "reparse_links_removed_without_following": 2,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-b0poquic",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 379,
+      "bytes": 490059,
+      "directories": 19,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-bg7sphit",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 203,
+      "bytes": 4873973,
+      "directories": 85,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-bl9970sk",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1147,
+      "bytes": 94868270,
+      "directories": 499,
+      "reparse_links_removed_without_following": 2,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-d_if9zqu",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 203,
+      "bytes": 17753465,
+      "directories": 85,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-fhmemmnw",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 83,
+      "bytes": 1715877,
+      "directories": 35,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-gcxeh154",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 104,
+      "bytes": 748870,
+      "directories": 65,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-gqkp1bzq",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 25,
+      "bytes": 395002,
+      "directories": 9,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-hfyd6yzc",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 27,
+      "bytes": 580854,
+      "directories": 9,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-jufsepmu",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 263,
+      "bytes": 4294097,
+      "directories": 97,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-pwbzy4c9",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 141,
+      "bytes": 3373971,
+      "directories": 50,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-td6a2bfs",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 197,
+      "bytes": 3201655,
+      "directories": 74,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-tzzvrvgs",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 32,
+      "bytes": 750604,
+      "directories": 11,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-uxrhdhho",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1068,
+      "bytes": 20915125,
+      "directories": 447,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-wkuqaey4",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 305,
+      "bytes": 3861810,
+      "directories": 106,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-tests-yde2okj0",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 82,
+      "bytes": 2152820,
+      "directories": 31,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M1-T02-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M1-T03-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M1-T04-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M1-T05-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M1-T06-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M2-T01-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M2-T02-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M2-T03-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/wbs-active-M2-T04-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 86,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T02-characterization-clean-C.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 26544,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T02-characterization-final.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 26544,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T02-characterization-first.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 23141,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T02-characterization-second.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 26544,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T02-pr-9ab03a57f9a1435894679aabcbebc8e7.md",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 1837,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0-T04-active-path.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0T04-shell-proberoot.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 93,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M0T04-shell-toolroot.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 93,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-equivalence-156ce9c86ab94d29b3fd283169519d82.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 27590,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-extraction-final-7a13dabc7ace465b9c78310448420059.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 60245,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-full-2c8f91c956bc4d6899c2049374e956e2.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 125627,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-launchers-6da9aa0b1b6b472397e87eb5288d8ff6.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 45338,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-python-b6f51ecb172f4d4fa3cac33f4fa3efa6.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 7972,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-T01-active-path.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-timeout-final-857c718c727c4e20a7a994ea8532bd9c.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 8582,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-timeout-fixed-a74cdd79800e4f9c885633e4bd59f6a1.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 8540,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M1-timeout-fixed-ec2d70c29d2a4f6b83f79b9a8342df96.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 10332,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-M3-T01-current-root.txt",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 88,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-shell-targeted-4c700919219a4eec8ca2a06fc107803a.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 39533,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/WinBookSplit-shell-targeted-ec9bb611c26945648e4c262e82dc9ee5.json",
+      "role": "project-temp",
+      "basis": "Project-specific generated test/runtime/receipt root; prefix bound to harness/evidence inventory",
+      "files": 1,
+      "bytes": 69790,
+      "directories": 0,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Temp>/F-xu2zuc1_",
+      "role": "project-temp",
+      "basis": "M4-T03 cross-host-preC01-harness-reproduction01.json workspace_retained exact root; fault-stage-preC01.json copied launcher/authored PDF/neighbor/owned output bindings; characterize_faults.py F- TemporaryDirectory retains on failure; bounded children cross_host/invariants/isolation",
+      "files": 201,
+      "bytes": 867515,
+      "directories": 59,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-13866303b2304694a6cf719296136c3c",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 7211,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-1791aa930f2a4f8f8a8ac5f07143914e",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 64501,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261010-201003_124bdf4710db401bb4a2e08393fef39d",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 9,
+      "bytes": 21305,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-231101485c674e748cb9561c977bfce5",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 12324,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/01 - PDF Å [1] & 100% !_20261009-185234_60206606cfe64676a025345eeb7b8940",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 7894,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-3261c7b267ae4da8a7fc04ebeb94beb0",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 30173,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/02 - EPUB Å [1] & 100% !_20261009-185340_acbd73e5706a4a0e9d4621c101db49d2",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 137382,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-37d8f18bdb25480c9b6cc36405528261",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 33538,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/03 - AZW3 Å [1] & 100% !_20261009-185454_db4d9a11a9b64817b6d383e2057474fd",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 157317,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-4218d304f5c342fbb0cccf18caa21a95",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 124083,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Book_20261011-070725_d163d885c1144f9883f8ac639a711377",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 151591,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-4370c1f441c245d4909543f76bf961aa",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 124774,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Book_20261010-204230_5ccbf7c0e99e435d87ff61e94ee4feab",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 151622,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-548c7c632dc04871b3466f524797b1d4",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 12753,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/04 - Flat_20261009-184825_171f7a187ec545fe9f116ceb11a8a717",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 7733,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-7664083075654286b7922cfb2a814bea",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 51586,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261011-070301_a31747a43e9e4218b6df4b6896eed1f2",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 6,
+      "bytes": 15854,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-816ccf8e592d49c988e5bf245be787ef",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 51860,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261010-194422_d9313711282a4a94a4002de5b6e49ab7",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 6,
+      "bytes": 15864,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-82a7fdcb06ac43f2b520b72735c8893c",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 33840,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/No outline_20261010-203905_2633bf1bd2874834ab0d9debdce16c3f",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 13244,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-8ce76f500f9d4b74b88040216b66d207",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 123115,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Book_20261010-204032_10aa82825d1648f1b65e0745a13e94b3",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 151573,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-916cb4b499214cc78f55becdcb42b2ee",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + parsed historical ENGINE/OPERATION-OUTCOME bind authored WBS-T03-UI/P-footer source; M3 raw receipts corroborate",
+      "files": 2,
+      "bytes": 12347,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/01 - PDF Å [1] & 100% !_20261009-184102_ac0fe4eeae38453bb178df6902793045",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 7894,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-96fae8653c6d4b2e810236f405ff6408",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 64236,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261011-070331_83866512dd8049e39b6e6928012b10fe",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 9,
+      "bytes": 21295,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-a6b6d6ef882047ee9ee0f17d92c363f5",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 27680,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261010-202318_d1c450520d26441cbe8a0a07b3375cbd",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 3,
+      "bytes": 10583,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-b44fc4d88cc74a5cbcbe30fa845319a4",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 105971,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Book_20261010-204126_3fcc19ff9ae44d51bb8622354add0cdd",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 138837,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-bf202e63e65847c89df62242ae5f70a9",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 27408,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Input & [Å_日本] manual_20261011-070355_60836e2999754b4984a6449c26a2b2a0",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 3,
+      "bytes": 10573,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-d81610f625864ec68d703a687e21e476",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 34081,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/No outline_20261011-070606_abf815a0448f4a848ccde96190b0c5e7",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 13234,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/.WinBookSplit-console-ef6dad7f01ce4f97b576785ca4a48aab",
+      "role": "authored-documents-output",
+      "basis": "Owner run_id + WinBookSplit_Run.json bind exact synthetic M5 candidate02/M6 explorer-final01 source path; outcome links final directory",
+      "files": 3,
+      "bytes": 105343,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Documents>/Book_20261011-070634_1c4abbc6ad1c464987673c89f513222b",
+      "role": "authored-documents-output",
+      "basis": "Exact outcome directory linked by synthetic console; owner run_id matches complete output manifest",
+      "files": 5,
+      "bytes": 138806,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/tests/ebooks/__pycache__",
+      "role": "repository-cache",
+      "basis": "Ignored generated bytecode; git ls-files must prove no tracked members",
+      "files": 1,
+      "bytes": 96217,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/tests/python/__pycache__",
+      "role": "repository-cache",
+      "basis": "Ignored generated bytecode; git ls-files must prove no tracked members",
+      "files": 1,
+      "bytes": 18630,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/tests/ux/__pycache__",
+      "role": "repository-cache",
+      "basis": "Ignored generated bytecode; git ls-files must prove no tracked members",
+      "files": 2,
+      "bytes": 100982,
+      "directories": 1,
+      "reparse_links_removed_without_following": 0,
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    }
+  ],
+  "failed": [
+    {
+      "path": "<Projects>/WBS-T04-UI-20261010-02",
+      "role": "project-test-workspace",
+      "outcome": "FAILED_OR_PARTIAL",
+      "reason": "The process cannot access the file 'D:\\projects\\WBS-T04-UI-20261010-02\\cwd' because it is being used by another process."
+    }
+  ],
+  "guarded_source_paths": 176,
+  "guarded_source_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+  "guarded_source_preserved": true,
+  "preserved": [
+    "Git repository and history",
+    "Tracked source and regression tests",
+    "Tracked historical evidence and exact M6-T06 final checkpoint receipt",
+    "Three exact accepted release assets at D:/projects/WinBookSplit-v1.0.0",
+    "Public v1.0.0/tag",
+    "Unrelated user documents, applications and private settings"
+  ],
+  "external_evidence_retention": "Old local raw generated test reports, failed receipts, fixtures, copied runtimes, renders, output PDFs and scratch workspaces removed by later explicit user authority. Existing committed summaries/seals are historical evidence, not claims that deleted raw files remain available.",
+  "cleanup_rules": [
+    "Native PowerShell end-to-end; no cmd/shell-built deletion",
+    "Every resolved absolute root checked against explicit intended parent and ownership",
+    "Tree inventory does not follow reparse points; links removed individually before recursive parent cleanup",
+    "No tracked test code, runtime, package, build or dependency inputs deleted",
+    "No new application/full/native Windows/Calibre/renderer/human/scanner test; source integrity checks only"
+  ],
+  "initial_batch": {
+    "deleted_files": 79486.0,
+    "failed": [
+      {
+        "path": "<Projects>/WBS-T04-UI-20261010-02",
+        "role": "project-test-workspace",
+        "outcome": "FAILED_OR_PARTIAL",
+        "reason": "The process cannot access the file 'D:\\projects\\WBS-T04-UI-20261010-02\\cwd' because it is being used by another process."
+      }
+    ],
+    "deleted_bytes": 5743770155.0,
+    "finished_at_utc": "2026-10-11T11:48:39.5363079Z",
+    "deleted_targets": 153,
+    "result": "PARTIAL",
+    "exit_code": 1
+  },
+  "retry": {
+    "target": "<Projects>/WBS-T04-UI-20261010-02",
+    "remaining_bytes_removed": 278631.0,
+    "files_now_remaining": 0,
+    "finished_at_utc": "2026-10-11T11:49:18.8909153Z",
+    "remaining_files_removed": 16,
+    "remaining_directories": [
+      {
+        "path": "<Projects>/WBS-T04-UI-20261010-02/cwd",
+        "reason": "The process cannot access the file '<Projects>\\WBS-T04-UI-20261010-02\\cwd' because it is being used by another process."
+      },
+      {
+        "path": "<Projects>/WBS-T04-UI-20261010-02",
+        "reason": "Directory retains a child; skip removal"
+      }
+    ]
+  },
+  "files_removed_from_all_targets": true,
+  "shared_browser": {
+    "stale_test_PDF_already_absent": true,
+    "installed_browser_retained": true,
+    "pending_user_permission_for_viewer_window_close": true,
+    "browser_not_stopped": true,
+    "initial_guard_aborted_without_deletion": true
+  },
+  "independent_post_cleanup_verification": {
+    "observed_at_utc": "2026-10-11T11:50:23.7211327Z",
+    "auditor": "cleanup_inventory (read-only independent agent)",
+    "exact_targets": 154,
+    "absent_targets": 153,
+    "remaining_root": "<Projects>/WBS-T04-UI-20261010-02",
+    "remaining_directories_including_root": 2,
+    "remaining_files": 0,
+    "remaining_reparse_links": 0,
+    "scoped_temp_artifacts": 0,
+    "exact_authored_documents_targets": 0,
+    "repository_caches": 0,
+    "other_owned_test_siblings": 0,
+    "all176_guarded_source_hashes_match_R_record": true,
+    "preserved_archive_files": 3,
+    "all3_archive_hashes_match_accepted_assets": true,
+    "new_files_tests_or_mutations": false
+  },
+  "inventory_totals": {
+    "targets": 154,
+    "files": 79516,
+    "bytes": 5744323585,
+    "junctions": 19,
+    "scope": "Original inventoried artifacts; later temporary cleanup helpers recorded separately."
+  },
+  "retained_historical_final_D_receipt": {
+    "path": "evidence/M6-T06-final-checkpoint.json",
+    "sha256": "9e4a305ecd7d873b0c1fd93aa534e69737774eb685379291aea106137aab1306",
+    "copied_without_edits": true
+  },
+  "temporary_cleanup_metadata_removed": [
+    {
+      "path": "<Repository>/.git/winbooksplit-cleanup-candidates.json",
+      "bytes": 29824,
+      "sha256": "d09854ccf601874d84a0092c5d590ddb12adece1983fd7de1ee00f5476dff766",
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/.git/winbooksplit-cleanup-plan.json",
+      "bytes": 61602,
+      "sha256": "cd0f5e13c6fc6543c08be886e0b9786fb3c669257b20b04baba50896cad7d4b3",
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/.git/winbooksplit-cleanup.ps1",
+      "bytes": 14084,
+      "sha256": "baaaf598b730784282d905d0a51ff2731a56b6ad1f1a1e71b5f9f3278c97ac72",
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    },
+    {
+      "path": "<Repository>/.git/winbooksplit-cleanup-retry.ps1",
+      "bytes": 4345,
+      "sha256": "807ee37f24270851a56e185e37135b28b9cc29b3c2b657b08b4b3391bcf02087",
+      "outcome": "DELETED_AND_VERIFIED_ABSENT"
+    }
+  ],
+  "total_removed_files_including_cleanup_metadata": 79520,
+  "total_removed_bytes_including_cleanup_metadata": 5744433440,
+  "helper_removal_verification_at_utc": "2026-10-11T11:53:56Z",
+  "helper_removal_method": "Four exact ordinary temporary files removed with apply_patch and verified absent; Git metadata/history preserved.",
+  "helper_preparation_rejection": "Automatic command review rejected the initial shell helper-removal command as blocked by policy before any action. Exact file removals completed safely afterward.",
+  "cleanup_documentation_review": {
+    "auditor": "closure_review (read-only independent agent)",
+    "outcome": "APPROVED_NO_BLOCKER",
+    "scope": "Actual file deletion and locked empty directories; source/assets/exact historical D receipt hashes; privacy; historical vs current synchronization; no new application tests"
+  }
+}

@@ -1,0 +1,1787 @@
+{
+  "schema_version": 1,
+  "task": "M6-T06",
+  "result": "PASS",
+  "project_status": "COMPLETE",
+  "acceptance": {
+    "AC-106": "PASS",
+    "AC-107": "PASS in durable records and actual final report scope"
+  },
+  "actual_closure_commit_D": "4d15589524764c14e4883f22f550d650f07aafb4",
+  "closure_tree": "b5c7d44cc46a64579405923fc4fcc772e09a28dc",
+  "normal_commit_native_exit": 0,
+  "normal_push_native_exit": 0,
+  "current_main_sync": {
+    "repository": "PikkuJanne/WinBookSplit",
+    "observed_at": "2026-10-11T08:42:01.085631+00:00",
+    "status": "SYNCED",
+    "read_only": true,
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "branch": "main",
+    "local_head": "4d15589524764c14e4883f22f550d650f07aafb4",
+    "worktree_clean": true,
+    "remote_head": "4d15589524764c14e4883f22f550d650f07aafb4",
+    "reason": "Clean local HEAD equals fresh live branch at observation time"
+  },
+  "release_source_commit_R": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "R_ancestor_of_D": true,
+  "all176guarded_R_raw_and_committed_unchanged": true,
+  "all28payload_all16runtime_threebuilder_unchanged": true,
+  "only_eight_excluded_closure_docs_in_D": true,
+  "guarded_source_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+  "fixed_tag_refs": {
+    "refs/tags/v1.0.0": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+    "refs/tags/v1.0.0^{}": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+  },
+  "public_release": {
+    "id": 409510027,
+    "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0",
+    "tag_name": "v1.0.0",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-11T08:02:26Z"
+  },
+  "accepted_and_anonymous_assets": [
+    {
+      "name": "WinBookSplit-v1.0.0.zip",
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+      "accepted_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "downloaded_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "bytes": 414497,
+      "anonymous_download_verified": true,
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "WinBookSplit-v1.0.0.zip"
+      },
+      "draft_asset_id": 630123440,
+      "draft_asset_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-6252f4e92fae63237bfa/WinBookSplit-v1.0.0.zip",
+      "uploaded_API_digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "authenticated_draft_retrieved_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "authenticated_draft_exact_bytes_equal": true,
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
+    },
+    {
+      "name": "release-manifest.json",
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+      "accepted_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "downloaded_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "bytes": 11547,
+      "anonymous_download_verified": true,
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "release-manifest.json"
+      },
+      "draft_asset_id": 630123444,
+      "draft_asset_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-6252f4e92fae63237bfa/release-manifest.json",
+      "uploaded_API_digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "authenticated_draft_retrieved_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+      "authenticated_draft_exact_bytes_equal": true,
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+      "accepted_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "downloaded_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "bytes": 178,
+      "anonymous_download_verified": true,
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
+      "local_artifact": {
+        "workspace": "WinBookSplit-M6-T02-20261011",
+        "directory": "final-R-01",
+        "name": "SHA256SUMS.txt"
+      },
+      "draft_asset_id": 630123442,
+      "draft_asset_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-6252f4e92fae63237bfa/SHA256SUMS.txt",
+      "uploaded_API_digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "authenticated_draft_retrieved_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+      "authenticated_draft_exact_bytes_equal": true,
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
+    }
+  ],
+  "actual_D_CI": {
+    "id": 38125187709,
+    "head_sha": "4d15589524764c14e4883f22f550d650f07aafb4",
+    "status": "completed",
+    "conclusion": "success",
+    "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38125187709"
+  },
+  "CI_scope": "Actual current D workflow completed-success metadata freshly verified. No fresh D artifact-report audit or new local full suite is claimed; accepted R prior report audit remains separate.",
+  "root_source_audit_checks": 500,
+  "independent_source_public_audit_checks": 1432,
+  "root_final_document_stage_checks": 262,
+  "independent_final_document_review_receipt": {
+    "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent-document-review\\document-review.json",
+    "bytes": 66816,
+    "sha256": "8f843776d7506fa458d9e82c19b3ddfd84d9fcfbfa02617bb19958bedad5b11c"
+  },
+  "operation_receipt": {
+    "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\checkpoint-operations.json",
+    "bytes": 10674,
+    "sha256": "cf987db87d1ba2f7f901a8d2d656691d58c0bdae7b48b07952e7b41506597ba9"
+  },
+  "reviewed_document_seals": [
+    {
+      "path": "docs/codex-v1.0.0/NEXT_SESSION.md",
+      "bytes": 6990,
+      "sha256": "0f8083b22a244a2e20b2c68649579afc118cf3608cd0db7ab90a61a70f0029de"
+    },
+    {
+      "path": "docs/codex-v1.0.0/STATUS.md",
+      "bytes": 95209,
+      "sha256": "89231b6ff4b51a281cf24a6a17cdc53484753a7de163d1ae60092604344267dc"
+    },
+    {
+      "path": "docs/codex-v1.0.0/TASKS.json",
+      "bytes": 51624,
+      "sha256": "4151439ff2b5e3cbd5eab7c63018d2e6896555c7c0b66fc72e9e01696e959c8d"
+    },
+    {
+      "path": "docs/codex-v1.0.0/TESTING.md",
+      "bytes": 55574,
+      "sha256": "ec676b28eeace43c3d76273e1c2aff822572ce6ad1fe63176254f087f730e579"
+    },
+    {
+      "path": "docs/codex-v1.0.0/evidence/M6-T06-closure.json",
+      "bytes": 90301,
+      "sha256": "a25eaffc99d4e047c3393199a7e3e632a57b7762bb9ca14550685da2bf527f21"
+    },
+    {
+      "path": "docs/codex-v1.0.0/evidence/M6-T06-closure.md",
+      "bytes": 7114,
+      "sha256": "3a1d4f1abb158801667fdee436ba0c9b2be1741b0842a07dafd12e0b116c04fb"
+    },
+    {
+      "path": "docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+      "bytes": 22444,
+      "sha256": "f5cac9b6c65744795548db1aa6c34095257ade551d62e4770db5a18820d45a0c"
+    },
+    {
+      "path": "docs/codex-v1.0.0/tasks/M6-T06.md",
+      "bytes": 3495,
+      "sha256": "0f12581d1027f0dbd245d121e8c671c14085be3137e51c916ca40b15ecb19959"
+    }
+  ],
+  "limitations": [
+    "Documentation and read-only integrity/live metadata audit only. No new local full suite, Windows app/BAT/Explorer, Calibre, renderer, human, clean OS, security advisory or scanner execution in M6-T06.",
+    "Accepted exact final ZIP evidence remains M6-T03: native38cases/72operations; actual both-host Calibre9.15.0 EPUB/genuine unencrypted KF8 AZW3; supplementary8cases/44same-Poppler page comparisons. Retained native and rendered results are not new runs.",
+    "F01-F07 are USER_ATTESTED_PASS. Additional six-run GUI artifact audit is WAIVED_BY_USER_NOT_RUN; no independently authenticated GUI logs/output hashes/BAT exits/run times/viewer actions are invented or requested.",
+    "Windows11 x64 existing-workstation isolation with fresh extracted packages/runtime-only venvs/controlled paths is not clean OS/VM/Sandbox/Windows10/ARM/UNC support or an OS network sandbox.",
+    "Windows PowerShell5.1.26100.9444, PowerShell7.6.6, regular GIL CPython3.14.8 x64/pypdf6.20.0 and Calibre9.15.0 are accepted versions. T05 actual Windows CIM10.0.26300/registry26300.9457/26H2 is separately recorded from older exact-ZIP OS observations.",
+    "Scripts/package/tag are unsigned; SHA-256 is integrity evidence, not a signing, publisher-authenticity or SmartScreen guarantee.",
+    "Historical failures, interruptions, UNKNOWN causes, missing original receipts, scanner/native-stack gaps, developer-only renderer applicability limits, font/destination diagnostics, static observations and newline differences remain preserved. No hostile-document security certification.",
+    "Completed M3/M5 D13 human routes remain closed; original unrun G04-G16 remain SUPERSEDED and retired interactions native-only.",
+    "Release R and frozen assets remain fixed. D is excluded documentation closure only; D is not the tested package source. Its own exact SHA/push/clean-live/main/tag/ancestry/payload/CI receipt lives externally after actual operations, avoiding self-reference."
+  ],
+  "tracked_writes_after_D": false,
+  "next_task": null,
+  "pending_project_or_website_work": [],
+  "observed_at": "2026-10-11T08:42:03.297361+00:00",
+  "checks": [
+    {
+      "check": "actual commit/push native0",
+      "passed": true
+    },
+    {
+      "check": "final-HEAD native result",
+      "passed": true
+    },
+    {
+      "check": "current D",
+      "passed": true
+    },
+    {
+      "check": "final-status native result",
+      "passed": true
+    },
+    {
+      "check": "final-branch native result",
+      "passed": true
+    },
+    {
+      "check": "clean main",
+      "passed": true
+    },
+    {
+      "check": "final-tree native result",
+      "passed": true
+    },
+    {
+      "check": "D exact reviewed tree",
+      "passed": true
+    },
+    {
+      "check": "final-D-paths native result",
+      "passed": true
+    },
+    {
+      "check": "only exact8 closure docs committed",
+      "passed": true
+    },
+    {
+      "check": "final-R-ancestor native result",
+      "passed": true
+    },
+    {
+      "check": "final-R-tree native result",
+      "passed": true
+    },
+    {
+      "check": "R tree fixed",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded .github/workflows/windows-ci.yml",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded .gitignore",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/codex-v1.0.0/PLAN_ORACLES.json",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded LICENSE",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded requirements-dev.txt",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/baseline/characterize_original.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/baseline/expected_original.json",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/baseline/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/bookmarks/characterize_level1.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/bookmarks/characterize_level2.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/bookmarks/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/cli/characterize_cli.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/cli/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/cli/validate_cli_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/conversion/characterize_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/conversion/generate_ebook_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/conversion/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/diagnostics/characterize_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/diagnostics/Probe-Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/diagnostics/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/document_policy/characterize_document_policy.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/document_policy/generate_document_policy_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/document_policy/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/document_policy/validate_document_policy_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ebooks/assets.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ebooks/behavior.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ebooks/characterize_ebooks.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ebooks/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ebooks/validate_ebooks_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/extraction/characterize_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/extraction/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/failures/fail_python.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/characterize_faults.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/characterize_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/cross_host.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/invariants.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/validate_cross_host_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/validate_faults_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/validate_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/faults/worker.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fidelity/characterize_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fidelity/generate_fidelity_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fidelity/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fidelity/render_pdfium.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fidelity/validate_fidelity_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fixtures/generate_pdf_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/fixtures/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/Invoke-ShellTests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/launcher/characterize_launcher.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/launcher/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/launcher/validate_launcher_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/manual/characterize_manual.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/manual/current_launchers.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/manual/interaction_receipts.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/manual/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/outcomes/characterize_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/outcomes/fault_engine.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/outcomes/OwnedConverter.cs",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/outcomes/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/outcomes/validate_outcomes_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/output/characterize_output.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/output/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/paths/characterize_paths.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/paths/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/plans/characterize_plan.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/plans/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/FailureProbe.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Harness.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/HarnessSupport.psm1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Launcher.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Logging.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Outcome.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Process.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Runtime.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Session.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Support.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/powershell/Version.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/characterize_process.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/fake_engine.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/native_child.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/Probe-Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/process/validate_process_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/PSScriptAnalyzerSettings.psd1",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/console_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/session_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ci_bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ci_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_cli_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_console_manifest.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_cross_host_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_document_policy_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ebook_assets.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ebook_behavior.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ebooks_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_fault_invariants.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_fault_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_faults_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_fidelity_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_filenames.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_interaction_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_interactive.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_launcher_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_level1.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_level2.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_manual.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_outcomes_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_output.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_pdf_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_pdf_policy.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_plan.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_preview.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_process_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_release_package.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_release_security.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_runner.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_runtime_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_support_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_ux_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_version.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/python/test_warnings.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/run_tests.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/runtime/characterize_runtime.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/runtime/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/runtime/validate_runtime_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/support/characterize_support.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/support/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/support/validate_support_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ux/characterize_ux.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ux/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tests/ux/validate_ux_report.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/ci/bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/ci/check_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/ci/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/codex-handoff/check_sync.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/codex-handoff/handoff_common.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/codex-handoff/validate_plan.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/release/build_package.py",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/release/payload.json",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded tools/release/README.md",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded VERSION",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "final raw R guarded WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "final-guarded-Git native result",
+      "passed": true
+    },
+    {
+      "check": "all176committed guarded unchanged",
+      "passed": true
+    },
+    {
+      "check": "final-post-R native result",
+      "passed": true
+    },
+    {
+      "check": "post-R only excluded docs",
+      "passed": true
+    },
+    {
+      "check": "final-doc-0 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/NEXT_SESSION.md",
+      "passed": true
+    },
+    {
+      "check": "final-doc-1 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/STATUS.md",
+      "passed": true
+    },
+    {
+      "check": "final-doc-2 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/TASKS.json",
+      "passed": true
+    },
+    {
+      "check": "final-doc-3 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/TESTING.md",
+      "passed": true
+    },
+    {
+      "check": "final-doc-4 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/evidence/M6-T06-closure.json",
+      "passed": true
+    },
+    {
+      "check": "final-doc-5 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/evidence/M6-T06-closure.md",
+      "passed": true
+    },
+    {
+      "check": "final-doc-6 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+      "passed": true
+    },
+    {
+      "check": "final-doc-7 native result",
+      "passed": true
+    },
+    {
+      "check": "reviewed raw/Git document docs/codex-v1.0.0/tasks/M6-T06.md",
+      "passed": true
+    },
+    {
+      "check": "36done all actual evidence",
+      "passed": true
+    },
+    {
+      "check": "no pending gates/blockers",
+      "passed": true
+    },
+    {
+      "check": "honest unsigned/waiver",
+      "passed": true
+    },
+    {
+      "check": "final-CI-list native result",
+      "passed": true
+    },
+    {
+      "check": "sole current actual CI completed-success",
+      "passed": true
+    },
+    {
+      "check": "final-CI native result",
+      "passed": true
+    },
+    {
+      "check": "actual D CI metadata",
+      "passed": true
+    },
+    {
+      "check": "final-public-releases native result",
+      "passed": true
+    },
+    {
+      "check": "only final v1.0.0",
+      "passed": true
+    },
+    {
+      "check": "actual unchanged public release",
+      "passed": true
+    },
+    {
+      "check": "exact3assets",
+      "passed": true
+    },
+    {
+      "check": "unchanged public asset WinBookSplit-v1.0.0.zip",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T02-20261011\\final-R-01\\WinBookSplit-v1.0.0.zip",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T05-20261011\\anonymous-download-02\\WinBookSplit-v1.0.0.zip",
+      "passed": true
+    },
+    {
+      "check": "unchanged public asset release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T02-20261011\\final-R-01\\release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T05-20261011\\anonymous-download-02\\release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "unchanged public asset SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T02-20261011\\final-R-01\\SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "preserved accepted/public D:\\projects\\WinBookSplit-M6-T05-20261011\\anonymous-download-02\\SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "final-tag native result",
+      "passed": true
+    },
+    {
+      "check": "fixed annotated tag",
+      "passed": true
+    },
+    {
+      "check": "independent doc receipt sealed",
+      "passed": true
+    },
+    {
+      "check": "final-live-sync native result",
+      "passed": true
+    },
+    {
+      "check": "final clean D localmain=freshlive",
+      "passed": true
+    }
+  ],
+  "checks_passed": 234,
+  "commands": [
+    {
+      "label": "final-HEAD",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.464080+00:00",
+      "finished_at": "2026-10-11T08:41:57.521335+00:00",
+      "elapsed_seconds": 0.057250000012572855,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "a84b626cf87603855682c414340c2005867a63abc6c67d87c1b9e7560e235d68",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-status",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "status",
+        "--porcelain=v1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.523618+00:00",
+      "finished_at": "2026-10-11T08:41:57.587278+00:00",
+      "elapsed_seconds": 0.06366260000504553,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-branch",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "branch",
+        "--show-current"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.589606+00:00",
+      "finished_at": "2026-10-11T08:41:57.645142+00:00",
+      "elapsed_seconds": 0.05553990000043996,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 5,
+      "stdout_sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-tree",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "4d15589524764c14e4883f22f550d650f07aafb4^{tree}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.647307+00:00",
+      "finished_at": "2026-10-11T08:41:57.703271+00:00",
+      "elapsed_seconds": 0.05596589998458512,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "6364ac3b34cfbbb33d9d08eb05346d3a763eef2b292ba3a3011eb9d689d5bc1e",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-D-paths",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff-tree",
+        "--no-commit-id",
+        "--name-only",
+        "-r",
+        "4d15589524764c14e4883f22f550d650f07aafb4"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.705306+00:00",
+      "finished_at": "2026-10-11T08:41:57.764969+00:00",
+      "elapsed_seconds": 0.059666599991032854,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 293,
+      "stdout_sha256": "d516a8040e54f2ec4fb9f35796fe868136618e6b97f4e028b0aab66f49996c40",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-R-ancestor",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "merge-base",
+        "--is-ancestor",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "4d15589524764c14e4883f22f550d650f07aafb4"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.767113+00:00",
+      "finished_at": "2026-10-11T08:41:57.822886+00:00",
+      "elapsed_seconds": 0.05577659999835305,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-R-tree",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573^{tree}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.823905+00:00",
+      "finished_at": "2026-10-11T08:41:57.881351+00:00",
+      "elapsed_seconds": 0.05744959998992272,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "a6196fbe7eda0187189add011e125a9d4a083f127f48e7e5738fa9590fdd2f9b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-guarded-Git",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff",
+        "--name-only",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "4d15589524764c14e4883f22f550d650f07aafb4",
+        "--",
+        ".github/workflows/windows-ci.yml",
+        ".gitignore",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+        "docs/codex-v1.0.0/PLAN_ORACLES.json",
+        "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
+        "docs/EBOOK_SUPPORT.md",
+        "docs/PDF_FIDELITY.md",
+        "docs/PDF_POLICY.md",
+        "docs/SETUP.md",
+        "docs/SUPPORT_DIAGNOSTICS.md",
+        "engine/WinBookSplit.Diagnostics.ps1",
+        "engine/WinBookSplit.Logging.ps1",
+        "engine/WinBookSplit.Outcomes.json",
+        "engine/WinBookSplit.Paths.ps1",
+        "engine/WinBookSplit.Process.ps1",
+        "engine/WinBookSplit.Runtime.ps1",
+        "engine/WinBookSplit.Support.ps1",
+        "engine/winbooksplit_conversion.py",
+        "engine/winbooksplit_engine.py",
+        "engine/winbooksplit_job.py",
+        "engine/winbooksplit_windows.py",
+        "Export-WinBookSplitDiagnostics.ps1",
+        "LICENSE",
+        "README.md",
+        "requirements-dev.txt",
+        "requirements.txt",
+        "SECURITY.md",
+        "tests/baseline/characterize_original.py",
+        "tests/baseline/expected_original.json",
+        "tests/baseline/README.md",
+        "tests/bookmarks/characterize_level1.py",
+        "tests/bookmarks/characterize_level2.py",
+        "tests/bookmarks/README.md",
+        "tests/cli/characterize_cli.py",
+        "tests/cli/Probe-Help.ps1",
+        "tests/cli/README.md",
+        "tests/cli/validate_cli_report.py",
+        "tests/conversion/characterize_conversion.py",
+        "tests/conversion/generate_ebook_fixtures.py",
+        "tests/conversion/README.md",
+        "tests/diagnostics/characterize_diagnostics.py",
+        "tests/diagnostics/Probe-Diagnostics.ps1",
+        "tests/diagnostics/README.md",
+        "tests/document_policy/characterize_document_policy.py",
+        "tests/document_policy/generate_document_policy_fixtures.py",
+        "tests/document_policy/README.md",
+        "tests/document_policy/validate_document_policy_report.py",
+        "tests/ebooks/assets.py",
+        "tests/ebooks/behavior.py",
+        "tests/ebooks/characterize_ebooks.py",
+        "tests/ebooks/README.md",
+        "tests/ebooks/validate_ebooks_report.py",
+        "tests/extraction/characterize_extraction.py",
+        "tests/extraction/README.md",
+        "tests/failures/fail_python.py",
+        "tests/faults/characterize_faults.py",
+        "tests/faults/characterize_isolation.py",
+        "tests/faults/cross_host.py",
+        "tests/faults/invariants.py",
+        "tests/faults/README.md",
+        "tests/faults/validate_cross_host_report.py",
+        "tests/faults/validate_faults_report.py",
+        "tests/faults/validate_isolation.py",
+        "tests/faults/worker.py",
+        "tests/fidelity/characterize_fidelity.py",
+        "tests/fidelity/generate_fidelity_fixtures.py",
+        "tests/fidelity/README.md",
+        "tests/fidelity/render_pdfium.py",
+        "tests/fidelity/validate_fidelity_report.py",
+        "tests/fixtures/generate_pdf_fixtures.py",
+        "tests/fixtures/README.md",
+        "tests/Invoke-ShellTests.ps1",
+        "tests/launcher/characterize_launcher.py",
+        "tests/launcher/README.md",
+        "tests/launcher/validate_launcher_report.py",
+        "tests/manual/characterize_manual.py",
+        "tests/manual/current_launchers.py",
+        "tests/manual/interaction_receipts.py",
+        "tests/manual/README.md",
+        "tests/outcomes/characterize_outcomes.py",
+        "tests/outcomes/fault_engine.py",
+        "tests/outcomes/OwnedConverter.cs",
+        "tests/outcomes/README.md",
+        "tests/outcomes/validate_outcomes_report.py",
+        "tests/output/characterize_output.py",
+        "tests/output/README.md",
+        "tests/paths/characterize_paths.py",
+        "tests/paths/README.md",
+        "tests/plans/characterize_plan.py",
+        "tests/plans/README.md",
+        "tests/powershell/FailureProbe.ps1",
+        "tests/powershell/Harness.Tests.ps1",
+        "tests/powershell/HarnessSupport.psm1",
+        "tests/powershell/Launcher.Tests.ps1",
+        "tests/powershell/Logging.Tests.ps1",
+        "tests/powershell/Outcome.Tests.ps1",
+        "tests/powershell/Process.Tests.ps1",
+        "tests/powershell/Runtime.Tests.ps1",
+        "tests/powershell/Session.Tests.ps1",
+        "tests/powershell/Support.Tests.ps1",
+        "tests/powershell/Version.Tests.ps1",
+        "tests/process/characterize_process.py",
+        "tests/process/fake_engine.py",
+        "tests/process/native_child.py",
+        "tests/process/Probe-Process.ps1",
+        "tests/process/README.md",
+        "tests/process/session_child.py",
+        "tests/process/validate_process_report.py",
+        "tests/PSScriptAnalyzerSettings.psd1",
+        "tests/python/console_receipt_fixture.py",
+        "tests/python/session_receipt_fixture.py",
+        "tests/python/test_ci_bootstrap.py",
+        "tests/python/test_ci_package_inputs.py",
+        "tests/python/test_cli_receipt.py",
+        "tests/python/test_console_manifest.py",
+        "tests/python/test_conversion.py",
+        "tests/python/test_cross_host_receipt.py",
+        "tests/python/test_diagnostics.py",
+        "tests/python/test_document_policy_receipt.py",
+        "tests/python/test_ebook_assets.py",
+        "tests/python/test_ebook_behavior.py",
+        "tests/python/test_ebooks_receipt.py",
+        "tests/python/test_extraction.py",
+        "tests/python/test_fault_invariants.py",
+        "tests/python/test_fault_isolation.py",
+        "tests/python/test_faults_receipt.py",
+        "tests/python/test_fidelity_receipt.py",
+        "tests/python/test_filenames.py",
+        "tests/python/test_interaction_receipt.py",
+        "tests/python/test_interactive.py",
+        "tests/python/test_launcher_receipt.py",
+        "tests/python/test_level1.py",
+        "tests/python/test_level2.py",
+        "tests/python/test_manual.py",
+        "tests/python/test_outcomes.py",
+        "tests/python/test_outcomes_receipt.py",
+        "tests/python/test_output.py",
+        "tests/python/test_pdf_fidelity.py",
+        "tests/python/test_pdf_policy.py",
+        "tests/python/test_plan.py",
+        "tests/python/test_preview.py",
+        "tests/python/test_process_receipt.py",
+        "tests/python/test_release_package.py",
+        "tests/python/test_release_security.py",
+        "tests/python/test_runner.py",
+        "tests/python/test_runtime_receipt.py",
+        "tests/python/test_support_receipt.py",
+        "tests/python/test_ux_receipt.py",
+        "tests/python/test_version.py",
+        "tests/python/test_warnings.py",
+        "tests/README.md",
+        "tests/run_tests.py",
+        "tests/runtime/characterize_runtime.py",
+        "tests/runtime/README.md",
+        "tests/runtime/validate_runtime_report.py",
+        "tests/support/characterize_support.py",
+        "tests/support/README.md",
+        "tests/support/validate_support_report.py",
+        "tests/ux/characterize_ux.py",
+        "tests/ux/README.md",
+        "tests/ux/validate_ux_report.py",
+        "THIRD_PARTY_NOTICES.md",
+        "tools/ci/bootstrap.py",
+        "tools/ci/check_package_inputs.py",
+        "tools/ci/README.md",
+        "tools/codex-handoff/check_sync.py",
+        "tools/codex-handoff/handoff_common.py",
+        "tools/codex-handoff/validate_plan.py",
+        "tools/release/build_package.py",
+        "tools/release/payload.json",
+        "tools/release/README.md",
+        "VERSION",
+        "WinBookSplit.bat",
+        "WinBookSplit.ps1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.904300+00:00",
+      "finished_at": "2026-10-11T08:41:57.970431+00:00",
+      "elapsed_seconds": 0.06613069999730214,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-post-R",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff",
+        "--name-only",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "4d15589524764c14e4883f22f550d650f07aafb4"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:57.971550+00:00",
+      "finished_at": "2026-10-11T08:41:58.029832+00:00",
+      "elapsed_seconds": 0.05829260000609793,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 1157,
+      "stdout_sha256": "44339d167469c82e43153f8c18840e08b746e1f24f1551938e2d05f38bf44921",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-0",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/NEXT_SESSION.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.031179+00:00",
+      "finished_at": "2026-10-11T08:41:58.087721+00:00",
+      "elapsed_seconds": 0.05654369998956099,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 6990,
+      "stdout_sha256": "0f8083b22a244a2e20b2c68649579afc118cf3608cd0db7ab90a61a70f0029de",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-1",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/STATUS.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.090029+00:00",
+      "finished_at": "2026-10-11T08:41:58.149672+00:00",
+      "elapsed_seconds": 0.05964530000346713,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 95209,
+      "stdout_sha256": "89231b6ff4b51a281cf24a6a17cdc53484753a7de163d1ae60092604344267dc",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-2",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/TASKS.json"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.152472+00:00",
+      "finished_at": "2026-10-11T08:41:58.209663+00:00",
+      "elapsed_seconds": 0.057193799992091954,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 51624,
+      "stdout_sha256": "4151439ff2b5e3cbd5eab7c63018d2e6896555c7c0b66fc72e9e01696e959c8d",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-3",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/TESTING.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.212480+00:00",
+      "finished_at": "2026-10-11T08:41:58.270572+00:00",
+      "elapsed_seconds": 0.05809469998348504,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 55574,
+      "stdout_sha256": "ec676b28eeace43c3d76273e1c2aff822572ce6ad1fe63176254f087f730e579",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-4",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/evidence/M6-T06-closure.json"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.273118+00:00",
+      "finished_at": "2026-10-11T08:41:58.336068+00:00",
+      "elapsed_seconds": 0.06295370002044365,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 90301,
+      "stdout_sha256": "a25eaffc99d4e047c3393199a7e3e632a57b7762bb9ca14550685da2bf527f21",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-5",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/evidence/M6-T06-closure.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.338810+00:00",
+      "finished_at": "2026-10-11T08:41:58.395492+00:00",
+      "elapsed_seconds": 0.05668589999550022,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 7114,
+      "stdout_sha256": "3a1d4f1abb158801667fdee436ba0c9b2be1741b0842a07dafd12e0b116c04fb",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-6",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.397708+00:00",
+      "finished_at": "2026-10-11T08:41:58.454185+00:00",
+      "elapsed_seconds": 0.056477999984053895,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 22444,
+      "stdout_sha256": "f5cac9b6c65744795548db1aa6c34095257ade551d62e4770db5a18820d45a0c",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-doc-7",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "show",
+        "4d15589524764c14e4883f22f550d650f07aafb4:docs/codex-v1.0.0/tasks/M6-T06.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.456850+00:00",
+      "finished_at": "2026-10-11T08:41:58.514652+00:00",
+      "elapsed_seconds": 0.057805499993264675,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 3495,
+      "stdout_sha256": "0f12581d1027f0dbd245d121e8c671c14085be3137e51c916ca40b15ecb19959",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-CI-list",
+      "command": [
+        "gh",
+        "run",
+        "list",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--commit",
+        "4d15589524764c14e4883f22f550d650f07aafb4",
+        "--json",
+        "databaseId,headSha,status,conclusion,url"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:58.518597+00:00",
+      "finished_at": "2026-10-11T08:41:59.304876+00:00",
+      "elapsed_seconds": 0.7862929999828339,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 202,
+      "stdout_sha256": "2a315a0c0677ac11320dbbcac68717b160d0220a43ae1de46c2047783b627dee",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-CI",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/actions/runs/38125187709"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:59.307317+00:00",
+      "finished_at": "2026-10-11T08:41:59.732153+00:00",
+      "elapsed_seconds": 0.42482939999899827,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13133,
+      "stdout_sha256": "c36bb588cc5e3f5d4edad3fa2e2c5d2c90d6f82313bc8e94b4a65422865fb3fa",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-public-releases",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases?per_page=100"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:41:59.735226+00:00",
+      "finished_at": "2026-10-11T08:42:00.373854+00:00",
+      "elapsed_seconds": 0.6386307000066154,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13818,
+      "stdout_sha256": "905dc8be80a4b5d45b2a2b009da72e39a32ef6669f3439959f3ef68a9b0a0505",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:42:00.381714+00:00",
+      "finished_at": "2026-10-11T08:42:00.958431+00:00",
+      "elapsed_seconds": 0.5767141000251286,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "final-live-sync",
+      "command": [
+        "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+        "-B",
+        "D:\\projects\\WinBookSplit-main\\tools\\codex-handoff\\check_sync.py",
+        "--repo",
+        "D:\\projects\\WinBookSplit-main"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:42:00.963634+00:00",
+      "finished_at": "2026-10-11T08:42:03.295823+00:00",
+      "elapsed_seconds": 2.33216839999659,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 487,
+      "stdout_sha256": "c198bb287b1a80febccc774e3d55b1061d28a69cee0ce1f6801603a13b403ce1",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "script_seal": {
+    "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\final_checkpoint.py",
+    "bytes": 7480,
+    "sha256": "653c11a712f422bac7027ab051d8250185af05f5d533c6919da433ce2a898bf6"
+  }
+}
