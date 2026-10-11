@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template": false,
-  "status": "fixed_annotated_tag_inspected_draft_GateD_PASS_publication_pending",
+  "status": "public_v1.0.0_GateE_AC103_AC104_AC105_PASS_final_closure_pending_M6_T06",
   "repository": "PikkuJanne/WinBookSplit",
   "tag": "v1.0.0",
   "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
@@ -17,11 +17,11 @@
     "runtime_files": 16
   },
   "tag_resolved_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
-  "tag_verified_at": "2026-10-11T07:43:12.127010+00:00",
-  "release_url": null,
+  "tag_verified_at": "2026-10-11T08:03:03.876253+00:00",
+  "release_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0",
   "release_id": 409510027,
-  "published_at": null,
-  "draft": true,
+  "published_at": "2026-10-11T08:02:26Z",
+  "draft": false,
   "prerelease": false,
   "ci_evidence": [
     {
@@ -75,11 +75,11 @@
   "assets": [
     {
       "name": "WinBookSplit-v1.0.0.zip",
-      "public_url": null,
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
       "accepted_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
-      "downloaded_sha256": null,
+      "downloaded_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
       "bytes": 414497,
-      "anonymous_download_verified": false,
+      "anonymous_download_verified": true,
       "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
@@ -91,15 +91,17 @@
       "uploaded_API_digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
       "authenticated_draft_retrieved_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
       "authenticated_draft_exact_bytes_equal": true,
-      "draft_inspection_evidence": "evidence/M6-T04-draft.json"
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
     },
     {
       "name": "release-manifest.json",
-      "public_url": null,
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
       "accepted_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
-      "downloaded_sha256": null,
+      "downloaded_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
       "bytes": 11547,
-      "anonymous_download_verified": false,
+      "anonymous_download_verified": true,
       "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
@@ -111,15 +113,17 @@
       "uploaded_API_digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
       "authenticated_draft_retrieved_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
       "authenticated_draft_exact_bytes_equal": true,
-      "draft_inspection_evidence": "evidence/M6-T04-draft.json"
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
     },
     {
       "name": "SHA256SUMS.txt",
-      "public_url": null,
+      "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
       "accepted_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
-      "downloaded_sha256": null,
+      "downloaded_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
       "bytes": 178,
-      "anonymous_download_verified": false,
+      "anonymous_download_verified": true,
       "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
@@ -131,27 +135,44 @@
       "uploaded_API_digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
       "authenticated_draft_retrieved_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
       "authenticated_draft_exact_bytes_equal": true,
-      "draft_inspection_evidence": "evidence/M6-T04-draft.json"
+      "draft_inspection_evidence": "evidence/M6-T04-draft.json",
+      "anonymous_exact_bytes_equal": true,
+      "public_download_evidence": "evidence/M6-T05-publication.json"
     }
   ],
-  "downloaded_windows_smoke": null,
+  "downloaded_windows_smoke": {
+    "path": "evidence/M6-T05-publication.json",
+    "acceptance_id": "AC-105",
+    "outcome": "PASS",
+    "ZIP_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+    "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "actual_cases": 2,
+    "hosts": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "native_operations": 16,
+    "chapter_count": 4,
+    "reopened_physical_pages": 8,
+    "scope": "Version1.0.0 and authored four-page Manual1,3; fresh anonymous matching ZIP/runtime-only venv on actual Windows11Pro26300.9457. No new BAT/GUI/Calibre/render/full/newhuman claim."
+  },
   "signing_status": "unsigned; final scripts and package manifest identify actual unsigned bytes",
   "closure_commit": null,
   "release_commit_is_ancestor_of_closure": null,
   "payload_unchanged_after_release_commit": null,
   "last_historical_main_sync_receipt": {
     "repository": "PikkuJanne/WinBookSplit",
-    "observed_at": "2026-10-11T07:40:49.717356+00:00",
+    "observed_at": "2026-10-11T08:03:53.616816+00:00",
     "status": "SYNCED",
     "read_only": true,
     "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
     "branch": "main",
-    "local_head": "1751f8ecfe2ddc68b6308f47dde1309f3eaeba47",
+    "local_head": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
     "worktree_clean": true,
-    "remote_head": "1751f8ecfe2ddc68b6308f47dde1309f3eaeba47",
+    "remote_head": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
     "reason": "Clean local HEAD equals fresh live branch at observation time"
   },
-  "final_current_sync_receipt_location": "External M6-T04 checkpoint/thread after actual commit/push; not observed inside this record.",
+  "final_current_sync_receipt_location": "External M6-T05 checkpoint/thread after actual intended-file commit/push; not observed inside this record. M6-T06 owns final project closure receipt.",
   "known_limits": [
     "Historical through M6-T02: R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
     "Historical through M6-T02: R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
@@ -177,13 +198,23 @@
     "Completed M3/M5 D13 human routes remain closed; G04-G16 remain SUPERSEDED and retired variants native-only. The final-ZIP owner attestation and waived GUI artifact audit are separately recorded.",
     "Historical through M6-T03: No source-checkout full514/Pester/full22, new workflow request, advisory query, signing, rebuild, tag/draft/release/upload/download occurred here.",
     "Historical through M6-T03: R and all three final assets remain fixed/unsigned. AC101-107 are pending; project publication is incomplete.",
-    "Authenticated draft retrieval proves uploaded bytes only; it is not public or anonymous availability verification.",
-    "Tag and draft are unsigned; no signing/SmartScreen/authenticity guarantee.",
+    "Historical through M6-T04: Authenticated draft retrieval proves uploaded bytes only; it is not public or anonymous availability verification.",
+    "Historical through M6-T04: Tag and draft are unsigned; no signing/SmartScreen/authenticity guarantee.",
     "F01-F07 remain USER_ATTESTED_PASS; additional six-run GUI artifact audit WAIVED_BY_USER_NOT_RUN. No new UI/viewer/log/output/BAT-exit proof or human execution is claimed.",
     "Existing workstation Windows11 x64 isolation, historical scanner/native-stack/developer-renderer/UNKNOWN/default-static/newline and failed preparation limits remain as recorded.",
-    "Draft API html_url/browser_download_url currently use GitHub untagged placeholder; actual tag_name is v1.0.0 with independently proven annotated R. Public URLs must be read anew after publication.",
+    "Historical through M6-T04: Draft API html_url/browser_download_url currently use GitHub untagged placeholder; actual tag_name is v1.0.0 with independently proven annotated R. Public URLs must be read anew after publication.",
     "No Git configuration, repository settings, visibility or protection change; no wildcard upload, overwrite/clobber, retarget/delete/force push or different version. Only frozen assets uploaded.",
-    "Bookkeeping checkpoint own commit/push/live-sync receipt is external after the actual operation; no future/self SHA is asserted."
+    "Bookkeeping checkpoint own commit/push/live-sync receipt is external after the actual operation; no future/self SHA is asserted.",
+    "Actual minimal downloaded-package Version/manual PDF runs only; no new BAT/Explorer/viewer/Calibre/render/full-suite or human execution. Prior full final-ZIP Windows/Calibre acceptance remains M6-T03.",
+    "Fresh extraction and app-local runtime-only venv on existing Windows 11 Pro x64 workstation, currently CIM10.0.26300/registry26300.9457/26H2. Registry ProductName Windows10Pro is retained as stale metadata, not the OS identity. Not a clean OS/VM/Sandbox/Windows10/ARM/UNC test.",
+    "Current actual PS5.1.26100.9444 and PS7.6.6, regular CPython3.14.8 x64/pypdf6.20.0; fixture-only ReportLab5.0.1 from dev venv. Fresh runtime contains pip26.2.1+pypdf only. Application processing uses controlled local paths and isolated engine execution.",
+    "Scripts/package/tag unsigned; no signing, publisher-authenticity or SmartScreen guarantee.",
+    "F01-F07 remain USER_ATTESTED_PASS; additional six-run GUI artifact audit WAIVED_BY_USER_NOT_RUN. No reopened human testing or invented GUI logs/output hashes/BAT exits/viewer actions.",
+    "No asset rebuild/replacement, source/runtime/build/dependency/test edit, private document, settings/visibility/protection/persistent policy/PATH/registry change. All artifacts preserved; no cleanup performed.",
+    "Trailing-slash API404, wrong anonymous API Accept415 and smoke environment-key KeyError are failed preparation trials, corrected separately. They are not application passes or product defects. All original code/streams/reports retained.",
+    "Independent public-auditor trial01 failed1043/1044checks because Git archive applied CRLF conversion. Original trial code/receipt retained; canonical core.autocrlf=false archive passed1333checks. No asset/source defect.",
+    "Historical failures/UNKNOWN/scanner/developer renderer/default static/newline limits remain as previously recorded. M6-T06 final closure AC106/107 remains pending.",
+    "This checkpoint own SHA/push/live receipt follows externally after actual commit; no self/future hash or final-project-closure claim."
   ],
   "open_blockers": [],
   "historical_prerequisite_evidence": {
@@ -193,8 +224,7 @@
     "final_asset_acceptance": false
   },
   "pending_release_gates": [
-    "M6-T05 public release/anonymous matching downloads and downloaded-package smoke",
-    "M6-T06 durable closure and synchronized final main"
+    "M6-T06 durable documentation closure AC106/107 and synchronized final main; tag remains fixed at R"
   ],
   "asset_integrity_evidence": {
     "path": "evidence/M6-T02-final-assets.json",
@@ -207,10 +237,10 @@
     "recorded_through": "Historical M6-T02 package-integrity record; false final-acceptance field records that earlier stage, superseded by current exact_final_asset_Windows_accepted."
   },
   "release_notes": {
-    "path": "evidence/M6-T04-release-notes.md",
-    "sha256": "a311b928a0b46034276e60e5f6edd2c84a43827cc584c82215a562d5b58cfe66",
-    "bytes": 7547,
-    "status": "inspected draft exact server body; public/downloaded smoke context pending"
+    "path": "evidence/M6-T05-release-notes.md",
+    "sha256": "f4c5473da1aa558931130d388cbafc4d658b6456d7fcfec0d09b68303f405004",
+    "bytes": 7433,
+    "status": "Exact public release body verified anonymously; context reconciled before publication."
   },
   "exact_final_asset_Windows_accepted": true,
   "exact_final_asset_acceptance_basis": "Native Windows/Calibre/PDF fidelity evidence plus user-reported seven guide passes accepted by owner direction; GUI artifact authentication was waived, not performed.",
@@ -225,5 +255,12 @@
     "path": "evidence/M6-T02-release-notes.md",
     "sha256": "cbb1c240835621980a6f4da9f961ebaae3f23afa3ce7e1439580f8e77871ca97",
     "status": "prepared; final-asset/publication gates pending"
-  }
+  },
+  "historical_release_notes_through_M6_T04": {
+    "path": "evidence/M6-T04-release-notes.md",
+    "sha256": "a311b928a0b46034276e60e5f6edd2c84a43827cc584c82215a562d5b58cfe66",
+    "bytes": 7547,
+    "status": "inspected draft exact server body; public/downloaded smoke context pending"
+  },
+  "GateE_evidence": "evidence/M6-T05-publication.json"
 }

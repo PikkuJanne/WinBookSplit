@@ -1,0 +1,3047 @@
+{
+  "schema_version": 1,
+  "task": "M6-T05",
+  "result": "PASS",
+  "recorded_at_utc": "2026-10-11T08:08:08.729899+00:00",
+  "repository": "PikkuJanne/WinBookSplit",
+  "starting_main": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
+  "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "guarded_source_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+  "acceptance": [
+    {
+      "id": "AC-103",
+      "outcome": "PASS",
+      "basis": "Delegated publication of existing409510027; authenticated and anonymous fresh metadata/inventory confirm sole public non-draft/non-prerelease v1.0.0, actual timestamp/URL, fixed annotated direct/peeled tag R."
+    },
+    {
+      "id": "AC-104",
+      "outcome": "PASS",
+      "basis": "New token/cookie/Authorization/proxy-free public downloads; three hashes/sizes/exact bytes equal accepted originals plus downloaded checksum lines. Exact28 safe ZIP members equal R."
+    },
+    {
+      "id": "AC-105",
+      "outcome": "PASS",
+      "basis": "Actual fresh downloaded extraction/app-local runtime on Windows11; Version1.0.0 and four-page Manual1,3 through both supported hosts, fourchapters/eight reopened page observations, complete ordered identities and preserved source/neighbor/prior/payload/dependencies."
+    }
+  ],
+  "public_release": {
+    "id": 409510027,
+    "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0",
+    "tag_name": "v1.0.0",
+    "target_commitish": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "name": "WinBookSplit v1.0.0",
+    "draft": false,
+    "prerelease": false,
+    "immutable": false,
+    "published_at": "2026-10-11T08:02:26Z",
+    "created_at": "2026-10-11T07:41:49Z",
+    "updated_at": "2026-10-11T08:02:26Z"
+  },
+  "remote_refs": {
+    "refs/tags/v1.0.0": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+    "refs/tags/v1.0.0^{}": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+  },
+  "publication_notes": {
+    "path": "evidence/M6-T05-release-notes.md",
+    "bytes": 7433,
+    "sha256": "f4c5473da1aa558931130d388cbafc4d658b6456d7fcfec0d09b68303f405004",
+    "exact_public_body_equal": true,
+    "context_diff": "Only draft/intended wording and pending public/download sentence changed; no completed-download preclaim."
+  },
+  "GateE_preflight": {
+    "result": "PASS",
+    "checks_passed": 416,
+    "guarded_paths": 176,
+    "payload_files": 28,
+    "builder_files": 3,
+    "post_R_only_excluded_bookkeeping": true,
+    "actual_CI_queries": [
+      {
+        "id": 38097123491,
+        "name": "Windows CI",
+        "node_id": "WFR_kwLOQuQGxc8AAAAI3sP4ow",
+        "head_branch": "main",
+        "head_sha": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "path": ".github/workflows/windows-ci.yml",
+        "display_title": "M5-T05: close acceptance and hand off merged candidate to release freeze",
+        "run_number": 39,
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 380583951,
+        "check_suite_id": 103221332265,
+        "check_suite_node_id": "CS_kwDOQuQGxc8AAAAYCHiJKQ",
+        "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491",
+        "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38097123491",
+        "pull_requests": [],
+        "created_at": "2026-10-11T00:03:29Z",
+        "updated_at": "2026-10-11T00:11:30Z",
+        "actor": {
+          "login": "PikkuJanne",
+          "id": 133158253,
+          "node_id": "U_kgDOB-_VbQ",
+          "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/PikkuJanne",
+          "html_url": "https://github.com/PikkuJanne",
+          "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+          "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+          "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+          "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+          "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+          "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-11T00:03:29Z",
+        "triggering_actor": {
+          "login": "PikkuJanne",
+          "id": 133158253,
+          "node_id": "U_kgDOB-_VbQ",
+          "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/PikkuJanne",
+          "html_url": "https://github.com/PikkuJanne",
+          "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+          "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+          "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+          "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+          "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+          "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491/jobs",
+        "logs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491/logs",
+        "check_suite_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/check-suites/103221332265",
+        "artifacts_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491/artifacts",
+        "cancel_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491/cancel",
+        "rerun_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38097123491/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/workflows/380583951",
+        "head_commit": {
+          "id": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "tree_id": "62da4fe06b2d07374b27743dd252aab492993c35",
+          "message": "M5-T05: close acceptance and hand off merged candidate to release freeze",
+          "timestamp": "2026-10-11T00:03:26Z",
+          "author": {
+            "name": "Janne Vuorela",
+            "email": "133158253+PikkuJanne@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "Janne Vuorela",
+            "email": "133158253+PikkuJanne@users.noreply.github.com"
+          }
+        },
+        "repository": {
+          "id": 1122240197,
+          "node_id": "R_kgDOQuQGxQ",
+          "name": "WinBookSplit",
+          "full_name": "PikkuJanne/WinBookSplit",
+          "private": false,
+          "owner": {
+            "login": "PikkuJanne",
+            "id": 133158253,
+            "node_id": "U_kgDOB-_VbQ",
+            "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/PikkuJanne",
+            "html_url": "https://github.com/PikkuJanne",
+            "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+            "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+            "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+            "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+            "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/PikkuJanne/WinBookSplit",
+          "description": "A \"drop-and-forget\" PDF/AZW3/EPUB decomposition tool for technical manuals, textbooks, and heavy documentation. Large PDFs are often unwieldy for e-readers or quick reference, this script treats a PDF like a modular project\u2014dropping a massive book in and getting a clean, organized folder of individual chapters out. ",
+          "fork": false,
+          "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit",
+          "forks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/forks",
+          "keys_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/teams",
+          "hooks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/hooks",
+          "issue_events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/events",
+          "assignees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/tags",
+          "blobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/languages",
+          "stargazers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/stargazers",
+          "contributors_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contributors",
+          "subscribers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscribers",
+          "subscription_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscription",
+          "commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/merges",
+          "archive_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/downloads",
+          "issues_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/labels{/name}",
+          "releases_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/deployments"
+        },
+        "head_repository": {
+          "id": 1122240197,
+          "node_id": "R_kgDOQuQGxQ",
+          "name": "WinBookSplit",
+          "full_name": "PikkuJanne/WinBookSplit",
+          "private": false,
+          "owner": {
+            "login": "PikkuJanne",
+            "id": 133158253,
+            "node_id": "U_kgDOB-_VbQ",
+            "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/PikkuJanne",
+            "html_url": "https://github.com/PikkuJanne",
+            "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+            "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+            "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+            "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+            "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/PikkuJanne/WinBookSplit",
+          "description": "A \"drop-and-forget\" PDF/AZW3/EPUB decomposition tool for technical manuals, textbooks, and heavy documentation. Large PDFs are often unwieldy for e-readers or quick reference, this script treats a PDF like a modular project\u2014dropping a massive book in and getting a clean, organized folder of individual chapters out. ",
+          "fork": false,
+          "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit",
+          "forks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/forks",
+          "keys_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/teams",
+          "hooks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/hooks",
+          "issue_events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/events",
+          "assignees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/tags",
+          "blobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/languages",
+          "stargazers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/stargazers",
+          "contributors_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contributors",
+          "subscribers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscribers",
+          "subscription_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscription",
+          "commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/merges",
+          "archive_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/downloads",
+          "issues_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/labels{/name}",
+          "releases_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/deployments"
+        }
+      },
+      {
+        "id": 38122660858,
+        "name": "Windows CI",
+        "node_id": "WFR_kwLOQuQGxc8AAAAI4Emj-g",
+        "head_branch": "main",
+        "head_sha": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
+        "path": ".github/workflows/windows-ci.yml",
+        "display_title": "M6-T04: record fixed annotated tag and inspected release draft",
+        "run_number": 44,
+        "event": "push",
+        "status": "completed",
+        "conclusion": "success",
+        "workflow_id": 380583951,
+        "check_suite_id": 103288248081,
+        "check_suite_node_id": "CS_kwDOQuQGxc8AAAAYDHWXEQ",
+        "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858",
+        "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38122660858",
+        "pull_requests": [],
+        "created_at": "2026-10-11T07:49:17Z",
+        "updated_at": "2026-10-11T07:56:54Z",
+        "actor": {
+          "login": "PikkuJanne",
+          "id": 133158253,
+          "node_id": "U_kgDOB-_VbQ",
+          "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/PikkuJanne",
+          "html_url": "https://github.com/PikkuJanne",
+          "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+          "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+          "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+          "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+          "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+          "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "run_attempt": 1,
+        "referenced_workflows": [],
+        "run_started_at": "2026-10-11T07:49:17Z",
+        "triggering_actor": {
+          "login": "PikkuJanne",
+          "id": 133158253,
+          "node_id": "U_kgDOB-_VbQ",
+          "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+          "gravatar_id": "",
+          "url": "https://api.github.com/users/PikkuJanne",
+          "html_url": "https://github.com/PikkuJanne",
+          "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+          "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+          "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+          "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+          "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+          "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+          "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+          "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+          "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+          "type": "User",
+          "user_view_type": "public",
+          "site_admin": false
+        },
+        "jobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858/jobs",
+        "logs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858/logs",
+        "check_suite_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/check-suites/103288248081",
+        "artifacts_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858/artifacts",
+        "cancel_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858/cancel",
+        "rerun_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/runs/38122660858/rerun",
+        "previous_attempt_url": null,
+        "workflow_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/actions/workflows/380583951",
+        "head_commit": {
+          "id": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
+          "tree_id": "e11d661a522715fa158b1745107b6e0507ef25aa",
+          "message": "M6-T04: record fixed annotated tag and inspected release draft",
+          "timestamp": "2026-10-11T07:49:05Z",
+          "author": {
+            "name": "Janne Vuorela",
+            "email": "133158253+PikkuJanne@users.noreply.github.com"
+          },
+          "committer": {
+            "name": "Janne Vuorela",
+            "email": "133158253+PikkuJanne@users.noreply.github.com"
+          }
+        },
+        "repository": {
+          "id": 1122240197,
+          "node_id": "R_kgDOQuQGxQ",
+          "name": "WinBookSplit",
+          "full_name": "PikkuJanne/WinBookSplit",
+          "private": false,
+          "owner": {
+            "login": "PikkuJanne",
+            "id": 133158253,
+            "node_id": "U_kgDOB-_VbQ",
+            "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/PikkuJanne",
+            "html_url": "https://github.com/PikkuJanne",
+            "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+            "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+            "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+            "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+            "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/PikkuJanne/WinBookSplit",
+          "description": "A \"drop-and-forget\" PDF/AZW3/EPUB decomposition tool for technical manuals, textbooks, and heavy documentation. Large PDFs are often unwieldy for e-readers or quick reference, this script treats a PDF like a modular project\u2014dropping a massive book in and getting a clean, organized folder of individual chapters out. ",
+          "fork": false,
+          "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit",
+          "forks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/forks",
+          "keys_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/teams",
+          "hooks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/hooks",
+          "issue_events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/events",
+          "assignees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/tags",
+          "blobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/languages",
+          "stargazers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/stargazers",
+          "contributors_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contributors",
+          "subscribers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscribers",
+          "subscription_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscription",
+          "commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/merges",
+          "archive_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/downloads",
+          "issues_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/labels{/name}",
+          "releases_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/deployments"
+        },
+        "head_repository": {
+          "id": 1122240197,
+          "node_id": "R_kgDOQuQGxQ",
+          "name": "WinBookSplit",
+          "full_name": "PikkuJanne/WinBookSplit",
+          "private": false,
+          "owner": {
+            "login": "PikkuJanne",
+            "id": 133158253,
+            "node_id": "U_kgDOB-_VbQ",
+            "avatar_url": "https://avatars.githubusercontent.com/u/133158253?v=4",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/PikkuJanne",
+            "html_url": "https://github.com/PikkuJanne",
+            "followers_url": "https://api.github.com/users/PikkuJanne/followers",
+            "following_url": "https://api.github.com/users/PikkuJanne/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PikkuJanne/gists{/gist_id}",
+            "starred_url": "https://api.github.com/users/PikkuJanne/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PikkuJanne/subscriptions",
+            "organizations_url": "https://api.github.com/users/PikkuJanne/orgs",
+            "repos_url": "https://api.github.com/users/PikkuJanne/repos",
+            "events_url": "https://api.github.com/users/PikkuJanne/events{/privacy}",
+            "received_events_url": "https://api.github.com/users/PikkuJanne/received_events",
+            "type": "User",
+            "user_view_type": "public",
+            "site_admin": false
+          },
+          "html_url": "https://github.com/PikkuJanne/WinBookSplit",
+          "description": "A \"drop-and-forget\" PDF/AZW3/EPUB decomposition tool for technical manuals, textbooks, and heavy documentation. Large PDFs are often unwieldy for e-readers or quick reference, this script treats a PDF like a modular project\u2014dropping a massive book in and getting a clean, organized folder of individual chapters out. ",
+          "fork": false,
+          "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit",
+          "forks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/forks",
+          "keys_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/keys{/key_id}",
+          "collaborators_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/collaborators{/collaborator}",
+          "teams_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/teams",
+          "hooks_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/hooks",
+          "issue_events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/events{/number}",
+          "events_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/events",
+          "assignees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/assignees{/user}",
+          "branches_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches{/branch}",
+          "tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/tags",
+          "blobs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/blobs{/sha}",
+          "git_tags_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags{/sha}",
+          "git_refs_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/refs{/sha}",
+          "trees_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/trees{/sha}",
+          "statuses_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/statuses/{sha}",
+          "languages_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/languages",
+          "stargazers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/stargazers",
+          "contributors_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contributors",
+          "subscribers_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscribers",
+          "subscription_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/subscription",
+          "commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/commits{/sha}",
+          "git_commits_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/commits{/sha}",
+          "comments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/comments{/number}",
+          "issue_comment_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues/comments{/number}",
+          "contents_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contents/{+path}",
+          "compare_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/compare/{base}...{head}",
+          "merges_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/merges",
+          "archive_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/{archive_format}{/ref}",
+          "downloads_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/downloads",
+          "issues_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/issues{/number}",
+          "pulls_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/pulls{/number}",
+          "milestones_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/milestones{/number}",
+          "notifications_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/notifications{?since,all,participating}",
+          "labels_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/labels{/name}",
+          "releases_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases{/id}",
+          "deployments_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/deployments"
+        }
+      }
+    ],
+    "receipt": {
+      "path": "preflight.json",
+      "bytes": 247499,
+      "sha256": "3fdd2f0063d477e9d8f109d6300055359c03dcbce99ba1eb696cb65f3e8b0dd3"
+    }
+  },
+  "publication_audit": {
+    "result": "PASS",
+    "checks_passed": 39,
+    "commands": [
+      {
+        "label": "publish-status",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-status",
+        "command": [
+          "git",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "status",
+          "--porcelain=v1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:21.659503+00:00",
+        "finished_at": "2026-10-11T08:02:21.722330+00:00",
+        "elapsed_seconds": 0.06282409999403171,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "publish-live",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-live",
+        "command": [
+          "git",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "ls-remote",
+          "origin",
+          "refs/heads/main"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:21.723413+00:00",
+        "finished_at": "2026-10-11T08:02:22.285223+00:00",
+        "elapsed_seconds": 0.561822600022424,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 57,
+        "stdout_sha256": "391d74ba089d4d5c59cd86da0974a814471ed02d23f98e7a563abe6f52f1c8d2",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "publish-tag",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-tag",
+        "command": [
+          "git",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "ls-remote",
+          "origin",
+          "refs/tags/v1.0.0",
+          "refs/tags/v1.0.0^{}"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:22.287172+00:00",
+        "finished_at": "2026-10-11T08:02:22.843399+00:00",
+        "elapsed_seconds": 0.556226400018204,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 119,
+        "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "publish-draft",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-draft",
+        "command": [
+          "gh",
+          "api",
+          "repos/PikkuJanne/WinBookSplit/releases/409510027"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:22.844785+00:00",
+        "finished_at": "2026-10-11T08:02:23.308382+00:00",
+        "elapsed_seconds": 0.46360220000497065,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 13873,
+        "stdout_sha256": "f227666d21ad431b7440f1334c9786e8c5b9ed6985966815bb1c3e6d4996ec3a",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "update-draft-notes",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\update-draft-notes",
+        "command": [
+          "gh",
+          "release",
+          "edit",
+          "v1.0.0",
+          "--repo",
+          "PikkuJanne/WinBookSplit",
+          "--notes-file",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\publication-notes.md"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:23.311374+00:00",
+        "finished_at": "2026-10-11T08:02:24.807815+00:00",
+        "elapsed_seconds": 1.4964430999825709,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 86,
+        "stdout_sha256": "4a8e515acf9de4349b024f12b2975cf328787ed497e03600b1eda34d56ce1561",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "revised-draft",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\revised-draft",
+        "command": [
+          "gh",
+          "api",
+          "repos/PikkuJanne/WinBookSplit/releases/409510027"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:24.809401+00:00",
+        "finished_at": "2026-10-11T08:02:25.272873+00:00",
+        "elapsed_seconds": 0.4634784000227228,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 13759,
+        "stdout_sha256": "042ed47be68fc2f5af34edb51656b5352d29676e27ff95ad3c9dc347f092c641",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "publish",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish",
+        "command": [
+          "gh",
+          "release",
+          "edit",
+          "v1.0.0",
+          "--repo",
+          "PikkuJanne/WinBookSplit",
+          "--draft=false",
+          "--prerelease=false",
+          "--latest"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:25.275792+00:00",
+        "finished_at": "2026-10-11T08:02:26.809528+00:00",
+        "elapsed_seconds": 1.533749700000044,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 63,
+        "stdout_sha256": "37c27a70e65e14dabd446825b8efe1d4d8fae9eb773dbc1aed3a9b25e97a0abf",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "published-authenticated",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\published-authenticated",
+        "command": [
+          "gh",
+          "api",
+          "repos/PikkuJanne/WinBookSplit/releases/409510027"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:26.811792+00:00",
+        "finished_at": "2026-10-11T08:02:27.290351+00:00",
+        "elapsed_seconds": 0.4785548000072595,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 13816,
+        "stdout_sha256": "d63b75115cf778493b8699f1d1437c2bbd0049f882952895a907a04f63b8d926",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "label": "published-tag",
+        "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\published-tag",
+        "command": [
+          "git",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "ls-remote",
+          "origin",
+          "refs/tags/v1.0.0",
+          "refs/tags/v1.0.0^{}"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:02:27.293133+00:00",
+        "finished_at": "2026-10-11T08:02:27.843514+00:00",
+        "elapsed_seconds": 0.550382699992042,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdout_bytes": 119,
+        "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+        "stderr_bytes": 0,
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "receipt": {
+      "path": "publication.json",
+      "bytes": 26604,
+      "sha256": "230a33de26586168b078aeccccbdf5d817ff835d3bde5beb9f91b523ce2fb1de"
+    }
+  },
+  "anonymous_download_audit": {
+    "result": "PASS",
+    "checks_passed": 90,
+    "metadata_http": {
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+      "status": 200,
+      "started_at": "2026-10-11T08:03:01.687453+00:00",
+      "finished_at": "2026-10-11T08:03:01.945820+00:00",
+      "bytes": 13816,
+      "sha256": "d63b75115cf778493b8699f1d1437c2bbd0049f882952895a907a04f63b8d926",
+      "request_headers": {
+        "User-agent": "WinBookSplit-public-integrity/1.0",
+        "Accept": "application/vnd.github+json"
+      },
+      "redirects": [],
+      "authentication": "none",
+      "cookies": "none",
+      "proxy": "disabled"
+    },
+    "public_inventory_http": {
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases?per_page=100",
+      "status": 200,
+      "started_at": "2026-10-11T08:03:01.244051+00:00",
+      "finished_at": "2026-10-11T08:03:01.673970+00:00",
+      "bytes": 13818,
+      "sha256": "05fecd3da5d343840eb732ebaa0f69226754cc3a023618e49eabdcabb47989a5",
+      "request_headers": {
+        "User-agent": "WinBookSplit-public-integrity/1.0",
+        "Accept": "application/vnd.github+json"
+      },
+      "redirects": [],
+      "authentication": "none",
+      "cookies": "none",
+      "proxy": "disabled"
+    },
+    "assets": [
+      {
+        "name": "WinBookSplit-v1.0.0.zip",
+        "asset_id": 630123440,
+        "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+        "accepted_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "downloaded_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "bytes": 414497,
+        "exact_bytes_equal": true,
+        "anonymous_download_verified": true,
+        "http": {
+          "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+          "status": 200,
+          "started_at": "2026-10-11T08:03:01.961234+00:00",
+          "finished_at": "2026-10-11T08:03:02.493001+00:00",
+          "bytes": 414497,
+          "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+          "request_headers": {
+            "User-agent": "WinBookSplit-public-integrity/1.0",
+            "Accept": "application/octet-stream"
+          },
+          "redirects": [
+            {
+              "status": 302,
+              "scheme": "https",
+              "host": "release-assets.githubusercontent.com",
+              "path": "/github-production-release-asset/1122240197/a2aba1af-3642-421c-9227-cd841df78038",
+              "query_omitted": true
+            }
+          ],
+          "authentication": "none",
+          "cookies": "none",
+          "proxy": "disabled"
+        }
+      },
+      {
+        "name": "release-manifest.json",
+        "asset_id": 630123444,
+        "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+        "accepted_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "downloaded_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "bytes": 11547,
+        "exact_bytes_equal": true,
+        "anonymous_download_verified": true,
+        "http": {
+          "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+          "status": 200,
+          "started_at": "2026-10-11T08:03:02.529095+00:00",
+          "finished_at": "2026-10-11T08:03:02.888763+00:00",
+          "bytes": 11547,
+          "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+          "request_headers": {
+            "User-agent": "WinBookSplit-public-integrity/1.0",
+            "Accept": "application/octet-stream"
+          },
+          "redirects": [
+            {
+              "status": 302,
+              "scheme": "https",
+              "host": "release-assets.githubusercontent.com",
+              "path": "/github-production-release-asset/1122240197/b58671f1-0b3a-4048-9ea3-c5d0dc2ff441",
+              "query_omitted": true
+            }
+          ],
+          "authentication": "none",
+          "cookies": "none",
+          "proxy": "disabled"
+        }
+      },
+      {
+        "name": "SHA256SUMS.txt",
+        "asset_id": 630123442,
+        "public_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+        "accepted_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "downloaded_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "bytes": 178,
+        "exact_bytes_equal": true,
+        "anonymous_download_verified": true,
+        "http": {
+          "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+          "status": 200,
+          "started_at": "2026-10-11T08:03:02.918921+00:00",
+          "finished_at": "2026-10-11T08:03:03.267446+00:00",
+          "bytes": 178,
+          "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+          "request_headers": {
+            "User-agent": "WinBookSplit-public-integrity/1.0",
+            "Accept": "application/octet-stream"
+          },
+          "redirects": [
+            {
+              "status": 302,
+              "scheme": "https",
+              "host": "release-assets.githubusercontent.com",
+              "path": "/github-production-release-asset/1122240197/987007c1-1fcc-4268-8801-d738a9c6c8d1",
+              "query_omitted": true
+            }
+          ],
+          "authentication": "none",
+          "cookies": "none",
+          "proxy": "disabled"
+        }
+      }
+    ],
+    "checksum_lines": {
+      "WinBookSplit-v1.0.0.zip": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+      "release-manifest.json": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+    },
+    "extracted_files": [
+      {
+        "path": "CHANGELOG.md",
+        "bytes": 2040,
+        "sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8"
+      },
+      {
+        "path": "CONTRIBUTING.md",
+        "bytes": 1839,
+        "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+      },
+      {
+        "path": "Export-WinBookSplitDiagnostics.ps1",
+        "bytes": 863,
+        "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+      },
+      {
+        "path": "LICENSE",
+        "bytes": 1070,
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+      },
+      {
+        "path": "README.md",
+        "bytes": 9378,
+        "sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a"
+      },
+      {
+        "path": "SECURITY.md",
+        "bytes": 2093,
+        "sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+      },
+      {
+        "path": "THIRD_PARTY_NOTICES.md",
+        "bytes": 2461,
+        "sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512"
+      },
+      {
+        "path": "VERSION",
+        "bytes": 6,
+        "sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+      },
+      {
+        "path": "WinBookSplit.bat",
+        "bytes": 1145,
+        "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+      },
+      {
+        "path": "WinBookSplit.ps1",
+        "bytes": 53754,
+        "sha256": "3fb8923d0014e551416f198f7ce4ed2bbb7c26dd50f7238e8ba6917feed32f8c"
+      },
+      {
+        "path": "WinBookSplit_icon.ico",
+        "bytes": 21645,
+        "sha256": "01a2c8f1ff14d3473c0d794dddc16a6c2fd899247f0d1534421a4f8776b44196"
+      },
+      {
+        "path": "docs/EBOOK_SUPPORT.md",
+        "bytes": 3352,
+        "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+      },
+      {
+        "path": "docs/PDF_FIDELITY.md",
+        "bytes": 3344,
+        "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+      },
+      {
+        "path": "docs/PDF_POLICY.md",
+        "bytes": 4143,
+        "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+      },
+      {
+        "path": "docs/SETUP.md",
+        "bytes": 5158,
+        "sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497"
+      },
+      {
+        "path": "docs/SUPPORT_DIAGNOSTICS.md",
+        "bytes": 5262,
+        "sha256": "e53ca94c64c3ac092136781c265004ab461e5df0649e5db7d3805e3400afceed"
+      },
+      {
+        "path": "engine/WinBookSplit.Diagnostics.ps1",
+        "bytes": 25458,
+        "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+      },
+      {
+        "path": "engine/WinBookSplit.Logging.ps1",
+        "bytes": 13060,
+        "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+      },
+      {
+        "path": "engine/WinBookSplit.Outcomes.json",
+        "bytes": 1581,
+        "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+      },
+      {
+        "path": "engine/WinBookSplit.Paths.ps1",
+        "bytes": 4142,
+        "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+      },
+      {
+        "path": "engine/WinBookSplit.Process.ps1",
+        "bytes": 40377,
+        "sha256": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf"
+      },
+      {
+        "path": "engine/WinBookSplit.Runtime.ps1",
+        "bytes": 27945,
+        "sha256": "95c7ac0635394f363e01a1dc7da0360d7e95ca871fc230a5f6760184346e99e3"
+      },
+      {
+        "path": "engine/WinBookSplit.Support.ps1",
+        "bytes": 26774,
+        "sha256": "12ebcbfef356a764617efe460e9ce135966f2183e585394bb3a1edc13be1f69d"
+      },
+      {
+        "path": "engine/winbooksplit_conversion.py",
+        "bytes": 27985,
+        "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+      },
+      {
+        "path": "engine/winbooksplit_engine.py",
+        "bytes": 100090,
+        "sha256": "dbfe25d08627f074c6d9404cc2ba65684673041d3272b90a90974a64e218f3aa"
+      },
+      {
+        "path": "engine/winbooksplit_job.py",
+        "bytes": 14965,
+        "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+      },
+      {
+        "path": "engine/winbooksplit_windows.py",
+        "bytes": 10933,
+        "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      {
+        "path": "requirements.txt",
+        "bytes": 236,
+        "sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923"
+      }
+    ],
+    "receipt": {
+      "path": "anonymous-download.json",
+      "bytes": 50380,
+      "sha256": "51b981f5b7c337f83f8193c68c8a526f969da2aec207df9f705d2743b784ed16"
+    }
+  },
+  "downloaded_package_Windows_smoke": {
+    "result": "PASS",
+    "actual_cases": 2,
+    "native_operations": 16,
+    "chapter_count": 4,
+    "reopened_physical_pages": 8,
+    "driver": {
+      "command": [
+        "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke_downloaded.py",
+        "--assets",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\anonymous-download-02",
+        "--app",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted",
+        "--work",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011",
+      "started_at": "2026-10-11T08:04:10.371220+00:00",
+      "finished_at": "2026-10-11T08:04:32.795760+00:00",
+      "exit_code": 0,
+      "timeout": false,
+      "elapsed_seconds": 22.424540799984243,
+      "stdout_sha256": "e7b65a0cd860700e27a68b1d694decfb4c72d115ca4a535f3574df640cd72265",
+      "stdout_bytes": 85,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0
+    },
+    "host_observations_before": {
+      "PS51": {
+        "powershell": "5.1.26100.9444",
+        "policies": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "RemoteSigned"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "Undefined"
+          }
+        ],
+        "windows": {
+          "ProductName": "Windows 10 Pro",
+          "EditionID": "Professional",
+          "DisplayVersion": "26H2",
+          "CurrentBuild": "26300",
+          "UBR": 9457
+        },
+        "architecture": "AMD64"
+      },
+      "PS7": {
+        "powershell": "7.6.6",
+        "policies": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "RemoteSigned"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "RemoteSigned"
+          }
+        ],
+        "windows": {
+          "ProductName": "Windows 10 Pro",
+          "EditionID": "Professional",
+          "DisplayVersion": "26H2",
+          "CurrentBuild": "26300",
+          "UBR": 9457
+        },
+        "architecture": "AMD64"
+      }
+    },
+    "host_observations_after": {
+      "PS51": {
+        "powershell": "5.1.26100.9444",
+        "policies": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "RemoteSigned"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "Undefined"
+          }
+        ],
+        "windows": {
+          "ProductName": "Windows 10 Pro",
+          "EditionID": "Professional",
+          "DisplayVersion": "26H2",
+          "CurrentBuild": "26300",
+          "UBR": 9457
+        },
+        "architecture": "AMD64"
+      },
+      "PS7": {
+        "powershell": "7.6.6",
+        "policies": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "RemoteSigned"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "RemoteSigned"
+          }
+        ],
+        "windows": {
+          "ProductName": "Windows 10 Pro",
+          "EditionID": "Professional",
+          "DisplayVersion": "26H2",
+          "CurrentBuild": "26300",
+          "UBR": 9457
+        },
+        "architecture": "AMD64"
+      }
+    },
+    "current_OS_CIM": {
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.26300",
+      "BuildNumber": "26300",
+      "OSArchitecture": "64-bit"
+    },
+    "runtime_observation": {
+      "executable": "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+      "version": "3.14.8",
+      "prefix": "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv",
+      "base_prefix": "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148",
+      "pypdf_version": "6.20.0",
+      "pypdf_file": "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Lib\\site-packages\\pypdf\\__init__.py",
+      "distributions": [
+        [
+          "pip",
+          "26.2.1"
+        ],
+        [
+          "pypdf",
+          "6.20.0"
+        ]
+      ],
+      "sys_path": [
+        "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148\\python314.zip",
+        "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148\\DLLs",
+        "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148\\Lib",
+        "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Lib\\site-packages"
+      ]
+    },
+    "fixture_provenance": {
+      "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs\\Authored four-page smoke.pdf",
+      "bytes": 2851,
+      "sha256": "e69a719ba62d7b3b225f9fb281080b78593b4d60033584365357f45ee04843f6",
+      "page_count": 4,
+      "expected_markers": [
+        [
+          "001"
+        ],
+        [
+          "002"
+        ],
+        [
+          "003"
+        ],
+        [
+          "004"
+        ]
+      ],
+      "authorship": "Original four-page generated fixture for this smoke; no private inputs",
+      "fixture_python": {
+        "executable": "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+        "version": "3.14.8"
+      },
+      "reportlab": {
+        "version": "5.0.1",
+        "file": "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Lib\\site-packages\\reportlab\\__init__.py"
+      }
+    },
+    "cases": [
+      {
+        "id": "PS51-minimal-downloaded-PDF",
+        "passed": true,
+        "native_operation_id": "PS51-four-page-manual",
+        "reopened_page_audit_operation_id": "PS51-physical-page-audit",
+        "console_log": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\outputs\\.WinBookSplit-console-761c95ba5f584d93b93953d6b7f078f5\\console.log",
+          "bytes": 14201,
+          "sha256": "c525dfbbf9bfc9c833fd9633d7579f7ec2e23dbc49348921d29f108c88a888f7",
+          "device": 2492383388551958737,
+          "inode": 281474976769260,
+          "attributes": 32
+        },
+        "run_manifest_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\outputs\\.WinBookSplit-console-761c95ba5f584d93b93953d6b7f078f5\\WinBookSplit_Run.json",
+          "bytes": 10462,
+          "sha256": "712fab52339748958635160da81fef34bcbaf3300103dfab23f6ca95ddf640bf",
+          "device": 2492383388551958737,
+          "inode": 281474976769266,
+          "attributes": 32
+        },
+        "prior_before": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\outputs\\prior-output.pdf",
+          "bytes": 45,
+          "sha256": "db497428c1d8002efaf89bb9590648c62ae5a90749ff518bc45d0ef5174faccc",
+          "device": 2492383388551958737,
+          "inode": 281474976769256,
+          "attributes": 32
+        },
+        "prior_after": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\outputs\\prior-output.pdf",
+          "bytes": 45,
+          "sha256": "db497428c1d8002efaf89bb9590648c62ae5a90749ff518bc45d0ef5174faccc",
+          "device": 2492383388551958737,
+          "inode": 281474976769256,
+          "attributes": 32
+        },
+        "source_neighbor_payload_unchanged": true,
+        "output": {
+          "final_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\outputs\\Authored four-page smoke_20261011-080424_861d2af0adfa4c95a0b9106e6d335701",
+          "chapters": [
+            {
+              "filename": "01 - Section (Page 1-2).pdf",
+              "bytes": 1915,
+              "sha256": "33aaeee2dfba972559a6237694293cef70d639e711e33118ec56a945780f92eb",
+              "range": [
+                0,
+                2
+              ],
+              "physical_pages": 2,
+              "page_markers": [
+                [
+                  "001"
+                ],
+                [
+                  "002"
+                ]
+              ],
+              "exact_source_page_text": true
+            },
+            {
+              "filename": "02 - Section (Page 3-4).pdf",
+              "bytes": 1915,
+              "sha256": "9d18306c58d7cb31e70419d383f0bb9eb3c1175300f7ae5770b085289f5ce02e",
+              "range": [
+                2,
+                4
+              ],
+              "physical_pages": 2,
+              "page_markers": [
+                [
+                  "003"
+                ],
+                [
+                  "004"
+                ]
+              ],
+              "exact_source_page_text": true
+            }
+          ],
+          "source_markers": [
+            [
+              "001"
+            ],
+            [
+              "002"
+            ],
+            [
+              "003"
+            ],
+            [
+              "004"
+            ]
+          ],
+          "flattened_output_markers": [
+            [
+              "001"
+            ],
+            [
+              "002"
+            ],
+            [
+              "003"
+            ],
+            [
+              "004"
+            ]
+          ],
+          "all_pages_once": true,
+          "physical_output_pages": 4,
+          "chapter_count": 2
+        },
+        "runtime_versions": {
+          "powershell": "5.1.26100.9444",
+          "python": "3.14.8",
+          "pypdf": "6.20.0",
+          "calibre": null
+        }
+      },
+      {
+        "id": "PS7-minimal-downloaded-PDF",
+        "passed": true,
+        "native_operation_id": "PS7-four-page-manual",
+        "reopened_page_audit_operation_id": "PS7-physical-page-audit",
+        "console_log": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\outputs\\.WinBookSplit-console-e8f68f2860874925a958fe32570c3608\\console.log",
+          "bytes": 14192,
+          "sha256": "e7f89407536c2573e4868560f9e5d75f15cbfa5d984279d38141e27648bd2257",
+          "device": 2492383388551958737,
+          "inode": 281474976769279,
+          "attributes": 32
+        },
+        "run_manifest_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\outputs\\.WinBookSplit-console-e8f68f2860874925a958fe32570c3608\\WinBookSplit_Run.json",
+          "bytes": 10445,
+          "sha256": "bf0060df6fe3e79777b900f7a987347ce273bf52d4f879802ebee9a73504e665",
+          "device": 2492383388551958737,
+          "inode": 281474976769285,
+          "attributes": 32
+        },
+        "prior_before": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\outputs\\prior-output.pdf",
+          "bytes": 45,
+          "sha256": "db497428c1d8002efaf89bb9590648c62ae5a90749ff518bc45d0ef5174faccc",
+          "device": 2492383388551958737,
+          "inode": 281474976769275,
+          "attributes": 32
+        },
+        "prior_after": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\outputs\\prior-output.pdf",
+          "bytes": 45,
+          "sha256": "db497428c1d8002efaf89bb9590648c62ae5a90749ff518bc45d0ef5174faccc",
+          "device": 2492383388551958737,
+          "inode": 281474976769275,
+          "attributes": 32
+        },
+        "source_neighbor_payload_unchanged": true,
+        "output": {
+          "final_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\outputs\\Authored four-page smoke_20261011-080429_2f7e549236a643fba476df3d34d71ce2",
+          "chapters": [
+            {
+              "filename": "01 - Section (Page 1-2).pdf",
+              "bytes": 1915,
+              "sha256": "33aaeee2dfba972559a6237694293cef70d639e711e33118ec56a945780f92eb",
+              "range": [
+                0,
+                2
+              ],
+              "physical_pages": 2,
+              "page_markers": [
+                [
+                  "001"
+                ],
+                [
+                  "002"
+                ]
+              ],
+              "exact_source_page_text": true
+            },
+            {
+              "filename": "02 - Section (Page 3-4).pdf",
+              "bytes": 1915,
+              "sha256": "9d18306c58d7cb31e70419d383f0bb9eb3c1175300f7ae5770b085289f5ce02e",
+              "range": [
+                2,
+                4
+              ],
+              "physical_pages": 2,
+              "page_markers": [
+                [
+                  "003"
+                ],
+                [
+                  "004"
+                ]
+              ],
+              "exact_source_page_text": true
+            }
+          ],
+          "source_markers": [
+            [
+              "001"
+            ],
+            [
+              "002"
+            ],
+            [
+              "003"
+            ],
+            [
+              "004"
+            ]
+          ],
+          "flattened_output_markers": [
+            [
+              "001"
+            ],
+            [
+              "002"
+            ],
+            [
+              "003"
+            ],
+            [
+              "004"
+            ]
+          ],
+          "all_pages_once": true,
+          "physical_output_pages": 4,
+          "chapter_count": 2
+        },
+        "runtime_versions": {
+          "powershell": "7.6.6",
+          "python": "3.14.8",
+          "pypdf": "6.20.0",
+          "calibre": null
+        }
+      }
+    ],
+    "operations": [
+      {
+        "id": "PS51-host-before",
+        "argv": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-before.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:10.524723+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 13556,
+        "finished_utc": "2026-10-11T08:04:11.003111+00:00",
+        "elapsed_seconds": 0.4782347000145819,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-before.stdout.bin",
+          "bytes": 423,
+          "sha256": "e26e5becb6b05ad4779df430f23d314ae4a1c5e3929e7ba2cf689833257afd6a",
+          "device": 2492383388551958737,
+          "inode": 281474976768058,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-before.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976768059,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS51-Version",
+        "argv": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-Version.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:11.010727+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 10804,
+        "finished_utc": "2026-10-11T08:04:11.464784+00:00",
+        "elapsed_seconds": 0.4539140999841038,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-Version.stdout.bin",
+          "bytes": 20,
+          "sha256": "f344c10578465e85d421fc0bc59b62aaca2bcd75cc0302a9ac6d254f3b0b3dd0",
+          "device": 2492383388551958737,
+          "inode": 281474976768061,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-Version.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976768062,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS7-host-before",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-before.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:11.471392+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\Modules"
+        },
+        "pid": 22268,
+        "finished_utc": "2026-10-11T08:04:13.762906+00:00",
+        "elapsed_seconds": 2.2913817000226118,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-before.stdout.bin",
+          "bytes": 417,
+          "sha256": "a36f2512242a79a9c5e0842218efc21c877023d400a9a4d96d0e07c940b9de45",
+          "device": 2492383388551958737,
+          "inode": 281474976768064,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-before.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976768065,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS7-Version",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-Version.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:13.769013+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\Modules"
+        },
+        "pid": 25608,
+        "finished_utc": "2026-10-11T08:04:15.658641+00:00",
+        "elapsed_seconds": 1.889484099985566,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-Version.stdout.bin",
+          "bytes": 20,
+          "sha256": "f344c10578465e85d421fc0bc59b62aaca2bcd75cc0302a9ac6d254f3b0b3dd0",
+          "device": 2492383388551958737,
+          "inode": 281474976768067,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-Version.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976768068,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "base-python",
+        "argv": [
+          "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148\\python.exe",
+          "-I",
+          "-B",
+          "-c",
+          "import sys,platform,sysconfig,json; assert sys.version_info[:3]==(3,14,8); assert sys.platform=='win32' and platform.machine()=='AMD64'; assert not sysconfig.get_config_var('Py_GIL_DISABLED'); print(json.dumps({'executable':sys.executable,'version':platform.python_version(),'machine':platform.machine(),'base_prefix':sys.base_prefix}))"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:15.661926+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 21156,
+        "finished_utc": "2026-10-11T08:04:15.827886+00:00",
+        "elapsed_seconds": 0.1658076999883633,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\base-python.stdout.bin",
+          "bytes": 300,
+          "sha256": "f8099f275e3861316b3a905fb4bb351ce67aadde17c55fec1e603c1dc97c52d0",
+          "device": 2492383388551958737,
+          "inode": 281474976768069,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\base-python.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976768070,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "fresh-venv",
+        "argv": [
+          "C:\\Users\\jtvuo\\AppData\\Local\\Temp\\WinBookSplit-M0-T03-a8ad4737faee47debcae4abe60d2076a\\python3148\\python.exe",
+          "-I",
+          "-B",
+          "-m",
+          "venv",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:15.832753+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 21372,
+        "finished_utc": "2026-10-11T08:04:19.613749+00:00",
+        "elapsed_seconds": 3.780887000000803,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\fresh-venv.stdout.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769097,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\fresh-venv.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769098,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "install-hash-pinned-pypdf",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "-m",
+          "pip",
+          "--isolated",
+          "--disable-pip-version-check",
+          "install",
+          "--require-hashes",
+          "--only-binary=:all:",
+          "--index-url",
+          "https://pypi.org/simple",
+          "-r",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\requirements.txt"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:19.615192+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 600,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 1424,
+        "finished_utc": "2026-10-11T08:04:20.855896+00:00",
+        "elapsed_seconds": 1.240519699989818,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\install-hash-pinned-pypdf.stdout.bin",
+          "bytes": 243,
+          "sha256": "5c2f89e7bbea32a8864571c206bc5a8f3af4e6170692c2ca21714180774b3a10",
+          "device": 2492383388551958737,
+          "inode": 562949953479828,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\install-hash-pinned-pypdf.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769243,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "pip-check",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "-m",
+          "pip",
+          "--isolated",
+          "--disable-pip-version-check",
+          "check"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:20.858885+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 26840,
+        "finished_utc": "2026-10-11T08:04:21.264152+00:00",
+        "elapsed_seconds": 0.4051508999837097,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\pip-check.stdout.bin",
+          "bytes": 31,
+          "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+          "device": 2492383388551958737,
+          "inode": 281474976769244,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\pip-check.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769245,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "runtime-origins",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "-c",
+          "import sys,platform,sysconfig,pypdf,importlib.metadata as m,json,pathlib; d=sorted((v.metadata['Name'],v.version) for v in m.distributions()); assert sys.version_info[:3]==(3,14,8) and platform.machine()=='AMD64' and not sysconfig.get_config_var('Py_GIL_DISABLED'); assert pypdf.__version__=='6.20.0' and sys.prefix!=sys.base_prefix; assert pathlib.Path(pypdf.__file__).is_relative_to(pathlib.Path(sys.prefix)); assert sorted(v[0].lower() for v in d)==['pip','pypdf']; print(json.dumps({'executable':sys.executable,'version':platform.python_version(),'prefix':sys.prefix,'base_prefix':sys.base_prefix,'pypdf_version':pypdf.__version__,'pypdf_file':pypdf.__file__,'distributions':d,'sys_path':sys.path}))"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:21.269188+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 7180,
+        "finished_utc": "2026-10-11T08:04:21.574268+00:00",
+        "elapsed_seconds": 0.30495399999199435,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\runtime-origins.stdout.bin",
+          "bytes": 1143,
+          "sha256": "26efd5db27aa70e10a09325e9491aff4c7bf0e02752e2dfc878d01c7e2b2c7f2",
+          "device": 2492383388551958737,
+          "inode": 281474976769246,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\runtime-origins.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769247,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "author-four-page-fixture",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\fixture_setup.py",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:21.966852+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 13360,
+        "finished_utc": "2026-10-11T08:04:22.177330+00:00",
+        "elapsed_seconds": 0.21036299999104813,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\author-four-page-fixture.stdout.bin",
+          "bytes": 645,
+          "sha256": "e180f05c6910a863f30706b97f03ba1694a51516cab503ef383796e93bc42612",
+          "device": 2492383388551958737,
+          "inode": 281474976769250,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\author-four-page-fixture.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769251,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS51-four-page-manual",
+        "argv": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-four-page-manual.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:22.187043+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 12896,
+        "finished_utc": "2026-10-11T08:04:24.981302+00:00",
+        "elapsed_seconds": 2.7941240000072867,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-four-page-manual.stdout.bin",
+          "bytes": 5335,
+          "sha256": "ab38ae54743f230a9789f6283102c2bb16fe53cb95a8824df4c64d005e352d67",
+          "device": 2492383388551958737,
+          "inode": 281474976769267,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-four-page-manual.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769268,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS51-physical-page-audit",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\audit_pdf_outputs.py",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS51\\audit-context.json"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:24.984535+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 25748,
+        "finished_utc": "2026-10-11T08:04:25.206376+00:00",
+        "elapsed_seconds": 0.2217293999856338,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-physical-page-audit.stdout.bin",
+          "bytes": 2254,
+          "sha256": "afc672c9c3310b43c2fb7d0d9e89bad553db24fbce6fe4f64ea6752ad3a3e826",
+          "device": 2492383388551958737,
+          "inode": 281474976769270,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-physical-page-audit.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769271,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS7-four-page-manual",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-four-page-manual.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:25.230602+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\Modules"
+        },
+        "pid": 17712,
+        "finished_utc": "2026-10-11T08:04:29.876395+00:00",
+        "elapsed_seconds": 4.64566909999121,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-four-page-manual.stdout.bin",
+          "bytes": 5352,
+          "sha256": "a680572bf7727d5e6c8d3d183eab03110701d8b2c2debe25b8a7360b40674813",
+          "device": 2492383388551958737,
+          "inode": 281474976769286,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-four-page-manual.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769287,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS7-physical-page-audit",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\extracted\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\audit_pdf_outputs.py",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\cases\\PS7\\audit-context.json"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:29.881804+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Users\\jtvuo\\Documents\\PowerShell\\Modules;C:\\Program Files\\PowerShell\\Modules;c:\\users\\jtvuo\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\Modules;C:\\Users\\jtvuo\\Documents\\WindowsPowerShell\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules;C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 21908,
+        "finished_utc": "2026-10-11T08:04:30.092869+00:00",
+        "elapsed_seconds": 0.21096669998951256,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-physical-page-audit.stdout.bin",
+          "bytes": 2252,
+          "sha256": "cb29013ec809563352668c9f0a857259f3a444b139baf3a89c2c87459a5e6fd4",
+          "device": 2492383388551958737,
+          "inode": 281474976769289,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-physical-page-audit.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769290,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS51-host-after",
+        "argv": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-after.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:30.112778+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules"
+        },
+        "pid": 17004,
+        "finished_utc": "2026-10-11T08:04:30.515931+00:00",
+        "elapsed_seconds": 0.40302160001010634,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-after.stdout.bin",
+          "bytes": 423,
+          "sha256": "e26e5becb6b05ad4779df430f23d314ae4a1c5e3929e7ba2cf689833257afd6a",
+          "device": 2492383388551958737,
+          "inode": 281474976769293,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS51-host-after.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769294,
+          "attributes": 32
+        }
+      },
+      {
+        "id": "PS7-host-after",
+        "argv": [
+          "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\pwsh.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "RemoteSigned",
+          "-File",
+          "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-after.ps1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\unrelated-cwd",
+        "started_utc": "2026-10-11T08:04:30.521785+00:00",
+        "stdin": "DEVNULL",
+        "deadline_seconds": 240,
+        "native_exit_code": 0,
+        "parent_stopped": true,
+        "streams_complete": true,
+        "timed_out": false,
+        "environment": {
+          "PATH": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6;C:\\WINDOWS\\System32;C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0",
+          "PYTHONPATH": null,
+          "PYTHONHOME": null,
+          "PSModulePath": "D:\\projects\\WinBookSplit-M5-T04-20261010\\powershell-7.6.6\\Modules"
+        },
+        "pid": 21668,
+        "finished_utc": "2026-10-11T08:04:32.373922+00:00",
+        "elapsed_seconds": 1.851999300008174,
+        "stdout_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-after.stdout.bin",
+          "bytes": 417,
+          "sha256": "a36f2512242a79a9c5e0842218efc21c877023d400a9a4d96d0e07c940b9de45",
+          "device": 2492383388551958737,
+          "inode": 281474976769296,
+          "attributes": 32
+        },
+        "stderr_identity": {
+          "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\raw\\PS7-host-after.stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "device": 2492383388551958737,
+          "inode": 281474976769297,
+          "attributes": 32
+        }
+      }
+    ],
+    "source_neighbor_before": {
+      "Authored four-page smoke.pdf": {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs\\Authored four-page smoke.pdf",
+        "bytes": 2851,
+        "sha256": "e69a719ba62d7b3b225f9fb281080b78593b4d60033584365357f45ee04843f6",
+        "device": 2492383388551958737,
+        "inode": 281474976769249,
+        "attributes": 33
+      },
+      "authored-neighbor.txt": {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs\\authored-neighbor.txt",
+        "bytes": 61,
+        "sha256": "12db4b6faabecc6eb33c9f85853cefedb34162fb2f79c5d672252972fe22d699",
+        "device": 2492383388551958737,
+        "inode": 281474976769252,
+        "attributes": 32
+      }
+    },
+    "source_neighbor_after": {
+      "Authored four-page smoke.pdf": {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs\\Authored four-page smoke.pdf",
+        "bytes": 2851,
+        "sha256": "e69a719ba62d7b3b225f9fb281080b78593b4d60033584365357f45ee04843f6",
+        "device": 2492383388551958737,
+        "inode": 281474976769249,
+        "attributes": 33
+      },
+      "authored-neighbor.txt": {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\inputs\\authored-neighbor.txt",
+        "bytes": 61,
+        "sha256": "12db4b6faabecc6eb33c9f85853cefedb34162fb2f79c5d672252972fe22d699",
+        "device": 2492383388551958737,
+        "inode": 281474976769252,
+        "attributes": 32
+      }
+    },
+    "payload28_unchanged": true,
+    "runtime_files": 1019,
+    "runtime_inventory_sha256": "06cb65ad3aa45a4ff4f8bac22cfb7e28f6f1038dc57d9c147d364c225938cd37",
+    "runtime_after_exact_equal": true,
+    "host_policy_observations_unchanged": true,
+    "downloaded_assets_after_exact_equal": true,
+    "receipt": {
+      "path": "downloaded-smoke02/downloaded-smoke-report.json",
+      "bytes": 1004750,
+      "sha256": "ef4c1c68fa493094e9e6a8db078c337288c76e723abd4db18b53fcfc11497729"
+    }
+  },
+  "major_native_command_receipts": [
+    {
+      "label": "start-status",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\start-status",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "status",
+        "--porcelain=v1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:44.517355+00:00",
+      "finished_at": "2026-10-11T08:01:44.584568+00:00",
+      "elapsed_seconds": 0.06720869999844581,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-branch",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\start-branch",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "branch",
+        "--show-current"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:44.585722+00:00",
+      "finished_at": "2026-10-11T08:01:44.655319+00:00",
+      "elapsed_seconds": 0.06960089999483898,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 5,
+      "stdout_sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-head",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\start-head",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:44.656750+00:00",
+      "finished_at": "2026-10-11T08:01:44.719197+00:00",
+      "elapsed_seconds": 0.06244360000710003,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "ba22d948d561f324de40139bd3fcba4797ef9a7b8670a3a6d3cfeb111b3ab199",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-live",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\start-live",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:44.720243+00:00",
+      "finished_at": "2026-10-11T08:01:45.275356+00:00",
+      "elapsed_seconds": 0.5551173999847379,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 57,
+      "stdout_sha256": "391d74ba089d4d5c59cd86da0974a814471ed02d23f98e7a563abe6f52f1c8d2",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-ancestor",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\R-ancestor",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "merge-base",
+        "--is-ancestor",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "HEAD"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:45.276440+00:00",
+      "finished_at": "2026-10-11T08:01:45.334429+00:00",
+      "elapsed_seconds": 0.05799149998347275,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-tree",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\R-tree",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573^{tree}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:45.335577+00:00",
+      "finished_at": "2026-10-11T08:01:45.396981+00:00",
+      "elapsed_seconds": 0.06140949999098666,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "a6196fbe7eda0187189add011e125a9d4a083f127f48e7e5738fa9590fdd2f9b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "post-R-paths",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\post-R-paths",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff",
+        "--name-only",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "HEAD"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:45.398655+00:00",
+      "finished_at": "2026-10-11T08:01:45.456621+00:00",
+      "elapsed_seconds": 0.057966899999883026,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 846,
+      "stdout_sha256": "1dad79addb82e24cd569f7442cd89c3f721c37b861854a3e3f544fd369580bc5",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "repo",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\repo",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:55.979816+00:00",
+      "finished_at": "2026-10-11T08:01:56.503176+00:00",
+      "elapsed_seconds": 0.523365000000922,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 6429,
+      "stdout_sha256": "2377f33bb181469388b9f114c4b01fd53447b1d3e7d98a0a2c6ff8bb76729bc0",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-CI",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\R-CI",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/actions/runs/38097123491"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:56.505951+00:00",
+      "finished_at": "2026-10-11T08:01:56.973245+00:00",
+      "elapsed_seconds": 0.46729649999178946,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13161,
+      "stdout_sha256": "9b109e85ab1964a1de1af4692903fc9204d45283bf7b580d064ae9fce1410a7e",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-CI",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\start-CI",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/actions/runs/38122660858"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:56.976976+00:00",
+      "finished_at": "2026-10-11T08:01:57.528317+00:00",
+      "elapsed_seconds": 0.5513367999810725,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13141,
+      "stdout_sha256": "8f78ec9ae05a5816d2a2a7038ad825b5f936f451def3b9e6e1853cf3ec523504",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "open-PRs",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\open-PRs",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/pulls?state=open&per_page=100"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:57.529631+00:00",
+      "finished_at": "2026-10-11T08:01:58.028014+00:00",
+      "elapsed_seconds": 0.4983846000104677,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 2,
+      "stdout_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "preflight-tag",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\preflight-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:58.029327+00:00",
+      "finished_at": "2026-10-11T08:01:58.618126+00:00",
+      "elapsed_seconds": 0.5888080000004265,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "preflight-releases",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705704514857100\\preflight-releases",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases?per_page=100"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:01:58.619899+00:00",
+      "finished_at": "2026-10-11T08:01:59.344929+00:00",
+      "elapsed_seconds": 0.7250335999997333,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13875,
+      "stdout_sha256": "11ddd2bb3faf473fc84edb146badbaae1d3ba7bb835ed5474ea8229bfbe15a3f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "publish-status",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-status",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "status",
+        "--porcelain=v1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:21.659503+00:00",
+      "finished_at": "2026-10-11T08:02:21.722330+00:00",
+      "elapsed_seconds": 0.06282409999403171,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "publish-live",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-live",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:21.723413+00:00",
+      "finished_at": "2026-10-11T08:02:22.285223+00:00",
+      "elapsed_seconds": 0.561822600022424,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 57,
+      "stdout_sha256": "391d74ba089d4d5c59cd86da0974a814471ed02d23f98e7a563abe6f52f1c8d2",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "publish-tag",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:22.287172+00:00",
+      "finished_at": "2026-10-11T08:02:22.843399+00:00",
+      "elapsed_seconds": 0.556226400018204,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "publish-draft",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish-draft",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases/409510027"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:22.844785+00:00",
+      "finished_at": "2026-10-11T08:02:23.308382+00:00",
+      "elapsed_seconds": 0.46360220000497065,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13873,
+      "stdout_sha256": "f227666d21ad431b7440f1334c9786e8c5b9ed6985966815bb1c3e6d4996ec3a",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "update-draft-notes",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\update-draft-notes",
+      "command": [
+        "gh",
+        "release",
+        "edit",
+        "v1.0.0",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--notes-file",
+        "D:\\projects\\WinBookSplit-M6-T05-20261011\\publication-notes.md"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:23.311374+00:00",
+      "finished_at": "2026-10-11T08:02:24.807815+00:00",
+      "elapsed_seconds": 1.4964430999825709,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 86,
+      "stdout_sha256": "4a8e515acf9de4349b024f12b2975cf328787ed497e03600b1eda34d56ce1561",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "revised-draft",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\revised-draft",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases/409510027"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:24.809401+00:00",
+      "finished_at": "2026-10-11T08:02:25.272873+00:00",
+      "elapsed_seconds": 0.4634784000227228,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13759,
+      "stdout_sha256": "042ed47be68fc2f5af34edb51656b5352d29676e27ff95ad3c9dc347f092c641",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "publish",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\publish",
+      "command": [
+        "gh",
+        "release",
+        "edit",
+        "v1.0.0",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--draft=false",
+        "--prerelease=false",
+        "--latest"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:25.275792+00:00",
+      "finished_at": "2026-10-11T08:02:26.809528+00:00",
+      "elapsed_seconds": 1.533749700000044,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 63,
+      "stdout_sha256": "37c27a70e65e14dabd446825b8efe1d4d8fae9eb773dbc1aed3a9b25e97a0abf",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "published-authenticated",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\published-authenticated",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases/409510027"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:26.811792+00:00",
+      "finished_at": "2026-10-11T08:02:27.290351+00:00",
+      "elapsed_seconds": 0.4785548000072595,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13816,
+      "stdout_sha256": "d63b75115cf778493b8699f1d1437c2bbd0049f882952895a907a04f63b8d926",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "published-tag",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705741655175700\\published-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:02:27.293133+00:00",
+      "finished_at": "2026-10-11T08:02:27.843514+00:00",
+      "elapsed_seconds": 0.550382699992042,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "anonymous-tag",
+      "receipt_directory": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\1791705781221700600\\anonymous-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:03:03.304304+00:00",
+      "finished_at": "2026-10-11T08:03:03.875400+00:00",
+      "elapsed_seconds": 0.5710953999951016,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "external_receipts": {
+    "directory": "D:/projects/WinBookSplit-M6-T05-20261011",
+    "records": [
+      {
+        "path": "preflight.json",
+        "bytes": 247499,
+        "sha256": "3fdd2f0063d477e9d8f109d6300055359c03dcbce99ba1eb696cb65f3e8b0dd3"
+      },
+      {
+        "path": "publication.json",
+        "bytes": 26604,
+        "sha256": "230a33de26586168b078aeccccbdf5d817ff835d3bde5beb9f91b523ce2fb1de"
+      },
+      {
+        "path": "anonymous-download.json",
+        "bytes": 50380,
+        "sha256": "51b981f5b7c337f83f8193c68c8a526f969da2aec207df9f705d2743b784ed16"
+      },
+      {
+        "path": "downloaded-smoke02/downloaded-smoke-report.json",
+        "bytes": 1004750,
+        "sha256": "ef4c1c68fa493094e9e6a8db078c337288c76e723abd4db18b53fcfc11497729"
+      },
+      {
+        "path": "smoke-driver-trial02-command.json",
+        "bytes": 921,
+        "sha256": "82dff70dfeb749436cddd0580ef5e9e81a7b846bbb43c8cb420b099dacc5466d"
+      },
+      {
+        "path": "release_flow-trial01.py",
+        "bytes": 13385,
+        "sha256": "6de9962c35276aea7f4aedce5b2463e049e0ef8127820b0c893dbe76d78202d9"
+      },
+      {
+        "path": "release_flow-publication01.py",
+        "bytes": 13473,
+        "sha256": "86cdfadbfec2d4b97390322e24fead027fbf1a87827aa9adb1d6e1fd87d11b45"
+      },
+      {
+        "path": "release_flow-download-trial01.py",
+        "bytes": 14180,
+        "sha256": "80b4b8d22babff6a1a3e0d1fe07795bcae0db9061fb76e583dd60a3aac57985b"
+      },
+      {
+        "path": "release_flow.py",
+        "bytes": 14290,
+        "sha256": "a03e4dd9737efbea3b353d2615fb7d1d36452a2f6e0a6df18f344e5e450b9d63"
+      },
+      {
+        "path": "smoke_downloaded-trial01.py",
+        "bytes": 25948,
+        "sha256": "c0e0fa1956d5f89185f6388bd972c89195aaa3169090cbb7ffdb63aecaf3431d"
+      },
+      {
+        "path": "smoke_downloaded.py",
+        "bytes": 26153,
+        "sha256": "1be5aacd73c7d6f76c1ebf15359ebec945874c808dc20d9f202017f35409dd56"
+      },
+      {
+        "path": "run_smoke-trial01.py",
+        "bytes": 1454,
+        "sha256": "8576b6a35efa27830df1ec95ee4d46ea99ef960ede1bf4d5dca31d5e42712cfe"
+      },
+      {
+        "path": "run_smoke.py",
+        "bytes": 1470,
+        "sha256": "feb0a449825152bcaf3f9b8fa551a24b334f455ac9bed44b0a62eea26977b941"
+      },
+      {
+        "path": "smoke-driver-preparation02.json",
+        "bytes": 479,
+        "sha256": "733bba99fddaa00bea1185f3b9fa3ebae19594952f87f314210ad90208ec925d"
+      },
+      {
+        "path": "commands/starting-sync/receipt.json",
+        "bytes": 735,
+        "sha256": "c38b5ed4e8d1641d05bdb2ef89fe802ddf49c0e7484d36f34bfd96089eaaa493"
+      },
+      {
+        "path": "commands/current-windows-cim/receipt.json",
+        "bytes": 780,
+        "sha256": "ca4ae9f9e2b63719f1bc3878396926e838bfc0de8a0d0730e5b93b201c377f82"
+      },
+      {
+        "path": "independent-public-audit-trial02.json",
+        "bytes": 145663,
+        "sha256": "25ebd98b95245bbf15a793c8cf8b4b9d228456467ad38103e9758f39eb32c73e"
+      },
+      {
+        "path": "independent-smoke-audit.json",
+        "bytes": 325514,
+        "sha256": "7d0bfb432ddd6256ae2a8661b13456f31e239a5b5afd298cb3fef3b05cd6f59e"
+      },
+      {
+        "path": "independent_public_audit.py",
+        "bytes": 12654,
+        "sha256": "700da5c9788bea841eed754200f9403235d09bad052a3f2de12d1a04e280c2b0"
+      },
+      {
+        "path": "independent_public_audit-trial01.py",
+        "bytes": 12583,
+        "sha256": "813d918a0868e9dbe7620930f2ae848d7761c3a2c625eec251f74f5c49e5e4e7"
+      },
+      {
+        "path": "independent_smoke_audit.py",
+        "bytes": 11597,
+        "sha256": "95f1bca1a0050f3883a9be278141bca9e4d6553ea7e6ae66a5c347c99a43304d"
+      },
+      {
+        "path": "write_checkpoint.py",
+        "bytes": 32282,
+        "sha256": "4f7653ac5861f0d6d033a8bd3c2dddf03cbc19a0dc6b369f7cc9953ac767b981"
+      }
+    ],
+    "failed_preparation_records": [
+      {
+        "path": "download-failure-1791705764006250100.json",
+        "bytes": 352,
+        "sha256": "b2a74d2c8bc294fd6755756fb56c6eaf30da1f57aa7af5256387774570188b7d"
+      },
+      {
+        "path": "preflight-failure-1791705688692437400.json",
+        "bytes": 173998,
+        "sha256": "6f459d0cb8ed050da32d42e507aaca064e371631fd3bdd9d59e340aae0677571"
+      },
+      {
+        "path": "downloaded-smoke01/downloaded-smoke-report.json",
+        "bytes": 14162,
+        "sha256": "f312f671a4185fe309114e20ed06fbd5c9ee5dce70eaa06d7830b68e826ba76c"
+      },
+      {
+        "path": "smoke-driver-command.json",
+        "bytes": 923,
+        "sha256": "7dbe10032c9ab03247a4219a723a1500899cc6bcbd138dd9585e3e46ff674a92"
+      },
+      {
+        "path": "independent-public-audit-trial01.json",
+        "bytes": 96558,
+        "sha256": "5e06ba28883d2b7085b076cc98922886f21352353d7b5dbdca949d0dd3c38244"
+      }
+    ]
+  },
+  "preparation_failures": [
+    {
+      "trial": "preflight01",
+      "outcome": "FAILED native1",
+      "cause": "Trailing slash on repository gh API endpoint returned HTTP404; corrected no-slash request in unique namespace passed416checks."
+    },
+    {
+      "trial": "anonymous-download01",
+      "outcome": "FAILED native1/HTTP415",
+      "cause": "Octet-stream Accept used for metadata API; corrected GitHub JSON Accept in fresh anonymous-download02 passed90checks."
+    },
+    {
+      "trial": "downloaded-smoke01",
+      "outcome": "FAILED native1 before native launch",
+      "cause": "Case-sensitive copied Windows environment mapping looked up SystemRoot; uppercase normalization fixed trial02. Original extraction unchanged and no venv created by failed trial."
+    }
+  ],
+  "independent_public_review": {
+    "result": "PASS",
+    "checks_passed": 1333,
+    "receipt": {
+      "path": "independent-public-audit-trial02.json",
+      "bytes": 145663,
+      "sha256": "25ebd98b95245bbf15a793c8cf8b4b9d228456467ad38103e9758f39eb32c73e"
+    },
+    "script": {
+      "path": "independent_public_audit.py",
+      "bytes": 12654,
+      "sha256": "700da5c9788bea841eed754200f9403235d09bad052a3f2de12d1a04e280c2b0"
+    },
+    "scope": "Retained raw streams/native receipts, original/download/R/source/member rehash plus fresh anonymous metadata/allthreeasset bytes and live fixed tag. No app rerun."
+  },
+  "independent_downloaded_smoke_review": {
+    "result": "PASS",
+    "checks_passed": 2338,
+    "receipt": {
+      "path": "independent-smoke-audit.json",
+      "bytes": 325514,
+      "sha256": "7d0bfb432ddd6256ae2a8661b13456f31e239a5b5afd298cb3fef3b05cd6f59e"
+    },
+    "script": {
+      "path": "independent_smoke_audit.py",
+      "bytes": 11597,
+      "sha256": "95f1bca1a0050f3883a9be278141bca9e4d6553ea7e6ae66a5c347c99a43304d"
+    },
+    "native_operations_authenticated": 16,
+    "streams_authenticated": 32,
+    "reopened_chapters": 4,
+    "reopened_physical_pages": 8,
+    "preserved_runtime_files": 1019,
+    "scope": "Read-only raw native/physical output/runtime/policy/source/neighbor/prior/payload evidence audit; no app/Calibre/render/full/newhuman rerun."
+  },
+  "independent_review_preparation_failure": {
+    "result": "FAILED",
+    "checks_passed": 1043,
+    "checks_total": 1044,
+    "cause": "Git archive line-ending conversion premise; corrected canonical archive succeeded. No product or asset defect.",
+    "receipt": {
+      "path": "independent-public-audit-trial01.json",
+      "bytes": 96558,
+      "sha256": "5e06ba28883d2b7085b076cc98922886f21352353d7b5dbdca949d0dd3c38244"
+    },
+    "script": {
+      "path": "independent_public_audit-trial01.py",
+      "bytes": 12583,
+      "sha256": "813d918a0868e9dbe7620930f2ae848d7761c3a2c625eec251f74f5c49e5e4e7"
+    }
+  },
+  "new_application_execution": "Two actual minimal downloaded PDF cases plus two Version checks,16 native operations; no full/Calibre/BAT/Explorer/render/newhuman run",
+  "new_package_build": false,
+  "private_document_inputs": false,
+  "tracked_runtime_build_dependency_test_edits": false,
+  "product_defects_found": [],
+  "skips": [
+    "Full native/Python/Pester/Calibre/render/BAT/Explorer/newhuman matrices not rerun: no affected runtime bytes and accepted exact final ZIP remains unchanged. This is AC105 minimal downloaded-package scope."
+  ],
+  "limitations": [
+    "Actual minimal downloaded-package Version/manual PDF runs only; no new BAT/Explorer/viewer/Calibre/render/full-suite or human execution. Prior full final-ZIP Windows/Calibre acceptance remains M6-T03.",
+    "Fresh extraction and app-local runtime-only venv on existing Windows 11 Pro x64 workstation, currently CIM10.0.26300/registry26300.9457/26H2. Registry ProductName Windows10Pro is retained as stale metadata, not the OS identity. Not a clean OS/VM/Sandbox/Windows10/ARM/UNC test.",
+    "Current actual PS5.1.26100.9444 and PS7.6.6, regular CPython3.14.8 x64/pypdf6.20.0; fixture-only ReportLab5.0.1 from dev venv. Fresh runtime contains pip26.2.1+pypdf only. Application processing uses controlled local paths and isolated engine execution.",
+    "Scripts/package/tag unsigned; no signing, publisher-authenticity or SmartScreen guarantee.",
+    "F01-F07 remain USER_ATTESTED_PASS; additional six-run GUI artifact audit WAIVED_BY_USER_NOT_RUN. No reopened human testing or invented GUI logs/output hashes/BAT exits/viewer actions.",
+    "No asset rebuild/replacement, source/runtime/build/dependency/test edit, private document, settings/visibility/protection/persistent policy/PATH/registry change. All artifacts preserved; no cleanup performed.",
+    "Trailing-slash API404, wrong anonymous API Accept415 and smoke environment-key KeyError are failed preparation trials, corrected separately. They are not application passes or product defects. All original code/streams/reports retained.",
+    "Independent public-auditor trial01 failed1043/1044checks because Git archive applied CRLF conversion. Original trial code/receipt retained; canonical core.autocrlf=false archive passed1333checks. No asset/source defect.",
+    "Historical failures/UNKNOWN/scanner/developer renderer/default static/newline limits remain as previously recorded. M6-T06 final closure AC106/107 remains pending.",
+    "This checkpoint own SHA/push/live receipt follows externally after actual commit; no self/future hash or final-project-closure claim."
+  ],
+  "checkpoint": {
+    "implementation_anchor": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "scope": "Accepted tag/package source, not bookkeeping HEAD",
+    "historical_main_at_start": {
+      "repository": "PikkuJanne/WinBookSplit",
+      "observed_at": "2026-10-11T08:03:53.616816+00:00",
+      "status": "SYNCED",
+      "read_only": true,
+      "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+      "branch": "main",
+      "local_head": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
+      "worktree_clean": true,
+      "remote_head": "adf80d8d1a3857b087112d53f3f84dae2715ad88",
+      "reason": "Clean local HEAD equals fresh live branch at observation time"
+    },
+    "own_bookkeeping_commit": null,
+    "own_push_live_sync_receipt": "External M6-T05 checkpoint/thread after actual intended-file normal commit/push"
+  },
+  "next_task": "M6-T06",
+  "final_project_closure": "PENDING_M6_T06_AC106_AC107",
+  "checkpoint_validation": {
+    "structural_plan": {
+      "status": "VALID",
+      "tasks": 36,
+      "acceptance_cases": 107,
+      "split_oracles": 30,
+      "scope": "Structural consistency only; requirements are not test results."
+    },
+    "actual_native_receipt": {
+      "command": [
+        "D:/projects/WinBookSplit-M5-T04-20261010/dev-venv/Scripts/python.exe",
+        "-B",
+        "D:/projects/WinBookSplit-main/tools/codex-handoff/validate_plan.py"
+      ],
+      "cwd": "D:/projects/WinBookSplit-main",
+      "started_at": "2026-10-11T08:08:33.905907+00:00",
+      "finished_at": "2026-10-11T08:08:34.125836+00:00",
+      "elapsed_seconds": 0.21992120001232252,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdin": "DEVNULL",
+      "stdout_bytes": 174,
+      "stdout_sha256": "d69cccac73fc9a31b828b492a0fdb936b1da988ce8fbe703d30d7e24b6dd22ec",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "scope": "Structural consistency only; requirements are not executed acceptance tests."
+  }
+}
