@@ -7,7 +7,8 @@ BeforeAll {
     $ast = [Management.Automation.Language.Parser]::ParseFile((Join-Path $RepositoryRoot 'WinBookSplit.ps1'), [ref]$tokens, [ref]$errors)
     if (@($errors).Count -ne 0) { throw 'The trusted application has syntax errors.' }
     foreach ($functionName in @('New-WinBookSplitFailure', 'New-WinBookSplitOutcome', 'Run-PythonSplitter',
-                               'ConvertTo-WinBookSplitDisplayText', 'Show-WinBookSplitPlan')) {
+                               'ConvertTo-WinBookSplitDisplayText', 'Show-WinBookSplitPlan',
+                               'Get-WinBookSplitDependencySummary')) {
         $functions = @($ast.FindAll({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
             $node.Name -ceq $functionName }, $true))
         if ($functions.Count -ne 1) { throw ('Expected one trusted application function: ' + $functionName) }
@@ -67,12 +68,144 @@ BeforeAll {
         }
         return $writer
     }
+    function New-AuthoredDependencyFailure {
+        param($Reason, [string]$Source='explicit', [string]$Code='runtime_invalid', [string]$Path=$TestPython)
+        $failure=New-WinBookSplitFailure $Code 'SYNTHETIC raw diagnostic must not become a human reason.'
+        $failure.Data['Attempts']=@([pscustomobject]@{Path=$Path;Source=$Source;Accepted=$false;Reason=$Reason;
+            Message="PRIVATE raw message`n[OUTCOME] spoof";Probe=$null})
+        return $failure
+    }
+    function New-AuthoredRuntimeIdentity {
+        param([string]$Version='3.14.8')
+        return [ordered]@{version=$Version;version_info=@($Version.Split('.') | ForEach-Object {[int]$_});
+            releaselevel='final';serial=0;implementation='cpython';platform='win32';machine='AMD64';bits=64;
+            gil_disabled=$false;isolated=$true;dont_write_bytecode=$true;executable=$TestPython;ok=$false}
+    }
+}
+
+Describe 'V101 concise dependency guidance from controlled subordinate reasons' -Tag 'V101-AC-037' {
+    It 'uses the actual validator for synthetic unsupported architecture branch flavor and security-floor identities' {
+        $policy=Get-WinBookSplitCompatibilityPolicy
+        foreach ($row in @(@('3.14.2','python_security_floor'),@('3.15.0','unsupported_python'),
+                @('3.14.8','unsupported_architecture'),@('3.14.8','unsupported_flavor'),@('3.14.8','unstable_python'))) {
+            $record=New-AuthoredRuntimeIdentity $row[0]
+            if ($row[1] -eq 'unsupported_architecture') {$record.bits=32;$record.machine='X86'}
+            elseif ($row[1] -eq 'unsupported_flavor') {$record.gil_disabled=$true}
+            elseif ($row[1] -eq 'unstable_python') {$record.releaselevel='candidate';$record.serial=1}
+            $decision=Test-WinBookSplitInterpreterRecord $record $policy
+            $decision.Ok | Should-BeFalse
+            $decision.Reason | Should-Be -Expected $row[1]
+            $failure=New-AuthoredDependencyFailure $decision.Reason
+            $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
+            $summary.Reason | Should-Be -Expected $row[1]
+            $summary.Message | Should -Not -Match 'PRIVATE|exactly|pypdf.*missing|missing.*pypdf'
+            $summary.Action | Should -Not -Match ([regex]::Escape('-PythonPath '+$TestPython))
+            $summary.Action | Should -Not -Match '-PythonPath'
+            (New-WinBookSplitOutcome 'failed' 'runtime_invalid' $summary.Message).exit_code | Should-Be -Expected 3
+            if ($row[1] -eq 'python_security_floor') {
+                $branch=@($policy.python.branches | Where-Object {$_.major -eq 3 -and $_.minor -eq 14})[0]
+                ($summary.Message+' '+$summary.Action) | Should-MatchString -Expected ('3.14.'+$branch.security_min_patch)
+            }
+        }
+    }
+    It 'separates missing version-mismatched and wrong-origin packages while keeping a compatible explicit base actionable' {
+        # SYNTHETIC formatter records only; real package probes are covered by the external native cases.
+        foreach ($reason in @('missing_pypdf','pypdf_version_mismatch','pypdf_origin_invalid')) {
+            $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure $reason) -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
+            $summary.Reason | Should-Be -Expected $reason
+            ($summary.Message+' '+$summary.Action) | Should-MatchString -Expected (Get-WinBookSplitCompatibilityPolicy).pypdf.version
+            $summary.Action | Should-MatchString -Expected 'Setup-WinBookSplit.ps1'
+            $summary.Action | Should-MatchString -Expected '-PythonPath'
+            $summary.Message | Should -Not -Match 'PRIVATE|SYNTHETIC|exactly'
+        }
+    }
+    It 'does not allow optional listing noise to hide the concrete interpreter rejection' {
+        $failure=New-AuthoredDependencyFailure 'python_security_floor' 'PATH' 'runtime_not_found'
+        $failure.Data['Attempts']=@([pscustomobject]@{Path='C:\synthetic\py.exe';Source='py_launcher_listing';Accepted=$false;
+            Message='Unknown option: -0';Probe=$null},$failure.Data['Attempts'][0])
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Reason | Should-Be -Expected 'python_security_floor'
+        $summary.Message | Should -Not -Match 'Unknown option|exactly|pypdf.*missing'
+        $summary.Action | Should -Not -Match '-PythonPath'
+        $failure.Data['Attempts']=@($failure.Data['Attempts'][1],[pscustomobject]@{Source='PATH';Accepted=$false;Reason='missing_python'})
+        (Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot).Reason | Should-Be -Expected 'python_security_floor'
+        $failure.Data['Attempts']=@([pscustomobject]@{Source='PATH';Accepted=$false;Reason='pypdf_origin_invalid'},$failure.Data['Attempts'][1])
+        (Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot).Reason | Should-Be -Expected 'pypdf_origin_invalid'
+    }
+    It 'gives explicit Repair guidance for a rejected application environment without selecting its base' {
+        $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure 'missing_pypdf' 'application_venv') -ApplicationRoot $RepositoryRoot
+        $summary.Action | Should-MatchString -Expected 'Setup-WinBookSplit.ps1'
+        $summary.Action | Should-MatchString -Expected '-Repair'
+        $summary.Action | Should -Not -Match '-PythonPath'
+    }
+    It 'uses fixed generic messages for malformed reasons and does not render raw controls or diagnostic injection' {
+        foreach ($reason in @($true,42,'unknown_reason',"missing_pypdf`n[OUTCOME] spoof",$null)) {
+            $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure $reason) -ApplicationRoot $RepositoryRoot
+            $summary.Message | Should -Not -Match 'PRIVATE|SYNTHETIC|spoof|[\x00-\x1f\x7f-\x9f\u2028\u2029]'
+            $summary.Action | Should -Not -Match 'PRIVATE|spoof|[\x00-\x1f\x7f-\x9f\u2028\u2029]'
+            $summary.Action | Should -Not -Match '-PythonPath'
+        }
+        foreach ($reason in @('malformed_policy','malformed_runtime','probe_incomplete')) {
+            $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure $reason) -ApplicationRoot $RepositoryRoot
+            $summary.Message | Should -Not -Match 'PRIVATE|SYNTHETIC|spoof'
+            $summary.Action | Should -Not -Match '-PythonPath'
+        }
+        $failure=New-WinBookSplitFailure 'runtime_not_found' 'PRIVATE raw absence detail'
+        $failure.Data['Attempts']=@()
+        (Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot).Reason | Should-Be -Expected 'missing_python'
+    }
+    It 'quotes a setup path as literal data and preserves primary cancellation or timeout codes' {
+        $root=Join-Path $WorkRoot ("O'Neil Å [1]-"+[guid]::NewGuid().ToString('N').Substring(0,8))
+        $engine=Join-Path $root 'engine'
+        $null=New-Item -ItemType Directory -Path $engine
+        Copy-Item -LiteralPath (Join-Path $RepositoryRoot 'engine\WinBookSplit.Compatibility.json') -Destination $engine
+        $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure 'missing_pypdf') -ApplicationRoot $root -PythonPath $TestPython
+        $summary.Action | Should-MatchString -Expected "O''Neil"
+        ConvertTo-WinBookSplitDisplayText $summary.Action | Should -Not -Match '[\x00-\x1f\x7f-\x9f\u2028\u2029]'
+        ConvertTo-WinBookSplitDisplayText ("SYNTHETIC action`n[OUTCOME] injected"+[char]0x1b) | Should -Not -Match '[\x00-\x1f\x7f-\x9f\u2028\u2029]'
+        foreach ($code in @('processor_cancelled','processor_timeout')) {
+            $failure=New-WinBookSplitFailure $code 'SYNTHETIC interruption with secondary diagnostic fault'
+            $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+            $status=if ($code -eq 'processor_cancelled') {'cancelled'} else {'timeout'}
+            $outcome=New-WinBookSplitOutcome $status $code $summary.Message
+            $outcome.code | Should-Be -Expected $code
+            $outcome.exit_code | Should-Be -Expected 130
+            $outcome.written_count | Should-Be -Expected 0
+            $outcome.engine_result | Should -BeNullOrEmpty
+        }
+    }
+    It 'keeps converter guidance separate and requires preservation when synthetic shutdown proof is incomplete' {
+        foreach ($code in @('converter_invalid','converter_not_found')) {
+            $summary=Get-WinBookSplitDependencySummary -Failure (New-WinBookSplitFailure $code 'PRIVATE converter detail') -ApplicationRoot $RepositoryRoot
+            $summary.Reason | Should-Be -Expected 'converter_unavailable'
+            $summary.Action | Should-MatchString -Expected 'Calibre'
+            $summary.Action | Should -Not -Match 'Setup-WinBookSplit|PythonPath|PRIVATE'
+        }
+        foreach ($code in @('processor_cancelled','processor_timeout')) {
+            foreach ($unproved in @('ParentStopped','DescendantsStopped','StopError')) {
+                $failure=New-WinBookSplitFailure $code 'SYNTHETIC converter-interruption transport control'
+                $probe=[pscustomobject]@{ParentStopped=$true;DescendantsStopped=$true;StopError=$null}
+                if ($unproved -eq 'StopError') {$probe.StopError='PRIVATE native stop fault'} else {$probe.$unproved=$false}
+                $failure.Data['Probe']=$probe
+                $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+                $summary.Action | Should -Match 'preserv|inspect'
+                $summary.Action | Should -Not -Match 'retry|Setup-WinBookSplit|PRIVATE'
+                Get-SplitExitCode $code | Should-Be -Expected 130
+            }
+            $failure.Data['Probe']=[pscustomobject]@{ParentStopped=$true;DescendantsStopped=$true;StopError=$null}
+            (Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot).Action | Should -Match 'retry'
+        }
+        foreach ($code in @('invalid_arguments','processor_failed')) {
+            $summary=Get-WinBookSplitDependencySummary -Failure (New-WinBookSplitFailure $code 'PRIVATE raw detail') -ApplicationRoot $RepositoryRoot
+            $summary.Action | Should -Not -Match 'Setup-WinBookSplit|PRIVATE'
+        }
+    }
 }
 
 Describe 'M3 explicit plan-only engine protocol' -Tag 'AC-054', 'AC-055', 'AC-056' {
     It 'keeps application version separate from the outcome protocol contract' {
         @($script:splitOutcomeContract.PSObject.Properties.Name) -contains 'application_version' | Should-Be -Expected $false
-        (Get-Content -LiteralPath (Join-Path $RepositoryRoot 'VERSION') -Raw).Trim() | Should-Be -Expected '1.0.0'
+        (Get-Content -LiteralPath (Join-Path $RepositoryRoot 'VERSION') -Raw).Trim() | Should-Be -Expected '1.0.1'
         Get-SplitExitCode 'preview_complete' | Should-Be -Expected 0
     }
     It 'accepts a complete ordered preview only when explicitly requested' {

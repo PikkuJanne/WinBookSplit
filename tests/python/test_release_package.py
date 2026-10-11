@@ -30,8 +30,8 @@ checker = importlib.util.module_from_spec(INPUT_SPEC)
 INPUT_SPEC.loader.exec_module(checker)
 
 PAYLOAD_PATHS = tuple(sorted(set(checker.INPUT_PATHS) - {"docs/codex-v1.0.0/SUPPORT_AND_SETUP.md"}))
-BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json", "tools/ci/check_package_inputs.py")
-ASSET_NAMES = ("WinBookSplit-v1.0.0.zip", "release-manifest.json", "SHA256SUMS.txt")
+BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json", "tools/ci/check_package_inputs.py", "tools/release/frozen_assets.py")
+ASSET_NAMES = ("WinBookSplit-v1.0.1.zip", "release-manifest.json", "SHA256SUMS.txt")
 
 
 def fixture_git(repo, *args, data=None):
@@ -141,7 +141,13 @@ class ReleasePackageTests(unittest.TestCase):
                               timeout=90, check=False, cwd=self.work)
 
     def test_payload_members_and_independent_git_blob_hashes_are_exact(self):
-        self.assertEqual(len(PAYLOAD_PATHS), 28)
+        self.assertEqual(len(PAYLOAD_PATHS), 33)
+        self.assertTrue({"engine/WinBookSplit.Compatibility.ps1",
+                         "engine/WinBookSplit.Compatibility.json",
+                         "engine/winbooksplit_compatibility.py",
+                         "WinBookSplit.ico", "Setup-WinBookSplit.ps1",
+                         "engine/WinBookSplit.Setup.ps1"}.issubset(PAYLOAD_PATHS))
+        self.assertNotIn("WinBookSplit_icon.ico", PAYLOAD_PATHS)
         with zipfile.ZipFile(self.archive) as archive:
             self.assertEqual(archive.namelist(), list(PAYLOAD_PATHS))
             for info in archive.infolist():
@@ -174,7 +180,7 @@ class ReleasePackageTests(unittest.TestCase):
         self.assertEqual(manifest, self.base_manifest)
         self.assertEqual(manifest["source_commit"], self.commit)
         self.assertEqual(manifest["source_tree"], self.git("rev-parse", self.commit + "^{tree}"))
-        self.assertEqual(manifest["version"], "1.0.0")
+        self.assertEqual(manifest["version"], "1.0.1")
         self.assertFalse(manifest["signed"])
         self.assertEqual([row["path"] for row in manifest["files"]], list(PAYLOAD_PATHS))
         for row in manifest["files"] + manifest["builder"]["files"]:
@@ -246,6 +252,16 @@ class ReleasePackageTests(unittest.TestCase):
         bad_commit = self.commit_all()
         output = self.work / "wrong-version-output"
         self.rejected(lambda: builder.build_package(self.repo, bad_commit, output), "release_version_mismatch")
+        self.assertFalse(output.exists())
+
+    def test_git_bound_policy_reuses_shipped_strict_validator_before_output(self):
+        path = self.repo / "engine/WinBookSplit.Compatibility.json"
+        policy = json.loads(path.read_bytes())
+        policy["sources"][0]["url"] = "http://example.invalid/unreviewed"
+        path.write_bytes((json.dumps(policy, indent=2) + "\n").encode("utf-8"))
+        altered = self.commit_all()
+        output = self.work / "invalid-policy-output"
+        self.rejected(lambda: builder.build_package(self.repo, altered, output), "invalid_dependency_policy")
         self.assertFalse(output.exists())
 
     def test_uncommitted_or_changed_builder_provenance_is_rejected(self):
@@ -485,8 +501,8 @@ class ReleasePackageTests(unittest.TestCase):
         self.assertEqual(fields[4], len(PAYLOAD_PATHS))
         central_size, central_offset = fields[5:7]
         central = original[central_offset:central_offset + central_size]
-        # This harmless 56-member fixture demonstrates that ZIP64 can override a
-        # normal EOCD that still advertises the expected 28 members and CD size.
+        # This harmless doubled-member fixture demonstrates that ZIP64 can override a
+        # normal EOCD that still advertises the expected payload count and CD size.
         expanded = central * 2
         record_offset = central_offset + len(expanded)
         record = struct.pack("<4sQ2H2L4Q", b"PK\x06\x06", 44, 45, 45, 0, 0,

@@ -18,6 +18,9 @@ SCRIPT = ROOT / "tests/run_tests.py"
 SPEC = importlib.util.spec_from_file_location("wbs_test_runner", SCRIPT)
 runner = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(runner)
+CONSOLE_FIXTURE_SPEC = importlib.util.spec_from_file_location("wbs_runner_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(CONSOLE_FIXTURE_SPEC)
+CONSOLE_FIXTURE_SPEC.loader.exec_module(console_fixture)
 
 
 def corrected_level2_reference():
@@ -273,6 +276,47 @@ def complete_paths_report(hosts):
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
 
 
+def complete_conversion_bat_failure():
+    """Synthetic console bytes reuse the existing receipt fixture, not native proof."""
+    source = str(Path("C:/synthetic/Book.epub"))
+    observed = {"sha256": "a" * 64, "size_bytes": 1024}
+    outcome = {"protocol": "winbooksplit.outcome", "version": 1, "status": "failed", "code": "converter_not_found",
+               "message": "A compatible trusted Calibre converter was not found.", "exit_code": 3, "mode": "",
+               "written_count": 0, "final_directory": None, "engine_result": None}
+    dependency = {"Code": "converter_not_found", "Attempts": []}
+    text = "[DEPENDENCY-ERROR] " + json.dumps(dependency) + "\r\n[OPERATION-OUTCOME] " + json.dumps(outcome) + "\r\n"
+    digest = runner.sha256(text.encode("utf-8"))
+    receipt = console_fixture.make(outcome, digest, log_text=text, source_path=source, source_observation=observed)
+    receipt["run_manifest"]["settings"].update(input_kind="epub", no_pause=False)
+    console_fixture.reseal(receipt)
+    log = str(Path("C:/synthetic/Documents") / (".WinBookSplit-console-" + receipt["owner"]["run_id"]) / "console.log")
+    cache = {name: {"device": 1, "inode": number} for number, name in enumerate(
+             ("Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"), 1)}
+    return {"passed": True, "actual_process": True, "exit_code": 3, "outputs": [], "successful_final_count": 0,
+            "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
+            "preflight_before_engine": True, "diagnostic_console_authenticated": True, "engine_invocation_record_absent": True,
+            "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
+            "dependency_error": dependency, "terminal_outcome": outcome, "input_path": source, "source_observation": observed,
+            "console_path": log, "console_log_text": text, "console_log_sha256": digest, "console_evidence": receipt,
+            "stdout": "Action: Select trusted Calibre 9.15.0 with -CalibrePath\r\nLog: " + log + "\r\n[OUTCOME] " + json.dumps(outcome) + "\r\n",
+            "interaction": {key: [] for key in ("engine_invocations", "requests", "replies", "displayed_plans")}, "process_summaries": [],
+            "converter_absence_environment": {"child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                "cache_directory_identities_before": cache, "cache_directory_identities_after": deepcopy(cache),
+                "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True},
+            "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"}
+
+
+def rebind_conversion_bat_log(case):
+    """Rehash synthetic altered log bytes to exercise semantic refusal guards."""
+    text, receipt = case["console_log_text"], case["console_evidence"]
+    digest, length = runner.sha256(text.encode("utf-8")), len(text.encode("utf-8"))
+    case["console_log_sha256"] = digest
+    receipt.update(log_sha256=digest, log_size_bytes=length)
+    receipt["file_identities"]["console.log"].update(sha256=digest, size_bytes=length)
+    receipt["run_manifest"]["log"]["bytes_written"] = length
+    console_fixture.reseal(receipt)
+
+
 def complete_conversion_report(hosts, calibre):
     policies = [{"scope": name, "policy": "Undefined"} for name in ("MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine")]
 
@@ -358,12 +402,7 @@ def complete_conversion_report(hosts, calibre):
                             "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"],
                             "stored_policies": policies, "policies_after": policies} for index, host in enumerate(("PS51", "PS7"))],
             "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,
-            "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 3, "outputs": [], "successful_final_count": 0,
-                "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
-                "preflight_before_console_output": True, "console_record_absent": True, "engine_invocation_record_absent": True,
-                "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
-                "dependency_error": {"Code": "converter_not_found", "Attempts": []},
-                "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"},
+            "bat_missing_converter_case": complete_conversion_bat_failure(),
             "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
             "owned_temp_removed": True, "machine_settings_unchanged": True,
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
@@ -450,13 +489,40 @@ class RunnerTests(unittest.TestCase):
                 ("invalid output accepted", lambda data: data["invalid_converter_cases"][0]["engine_record"].__setitem__("written_count", 1)),
                 ("success summary on failure", lambda data: data["invalid_converter_cases"][0].__setitem__("no_success_summary", False)),
                 ("BAT zero failure", lambda data: data["bat_missing_converter_case"].__setitem__("exit_code", 0)),
-                ("BAT late failure", lambda data: data["bat_missing_converter_case"].__setitem__("preflight_before_console_output", False)),
-                ("BAT console written", lambda data: data["bat_missing_converter_case"].__setitem__("console_record_absent", False)),
+                ("BAT late failure", lambda data: data["bat_missing_converter_case"].__setitem__("preflight_before_engine", False)),
+                ("BAT unauthenticated console", lambda data: data["bat_missing_converter_case"].__setitem__("diagnostic_console_authenticated", False)),
                 ("BAT conversion started", lambda data: data["bat_missing_converter_case"].__setitem__("conversion_started", True)),
                 ("BAT wrong dependency", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Code", "runtime_invalid")),
                 ("BAT unproved probe", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Attempts", [{"Accepted": True, "Probe": None}])),
                 ("unpreserved baseline", lambda data: data.__setitem__("baseline_guards_preserved", False)),
             ]
+            def bat_log_change(data, added):
+                case = data["bat_missing_converter_case"]
+                case["console_log_text"] += added
+                rebind_conversion_bat_log(case)
+
+            def bat_manifest_change(data, field, value):
+                receipt = data["bat_missing_converter_case"]["console_evidence"]
+                receipt["run_manifest"][field] = value
+                console_fixture.reseal(receipt)
+
+            defects.extend([
+                ("BAT wrong log hash", lambda data: data["bat_missing_converter_case"].__setitem__("console_log_sha256", "b" * 64)),
+                ("BAT unexpected console member", lambda data: data["bat_missing_converter_case"]["console_evidence"]["members"].append("unowned.txt")),
+                ("BAT wrong owner", lambda data: data["bat_missing_converter_case"]["console_evidence"]["owner"].__setitem__("run_id", "d" * 32)),
+                ("BAT wrong manifest outcome", lambda data: bat_manifest_change(data, "outcome", {"code": "split_complete"})),
+                ("BAT wrong source binding", lambda data: bat_manifest_change(data, "source_identity", {"path": "C:/unexpected.epub", "binding": "metadata_only", "sha256": None, "size_bytes": 1024})),
+                ("BAT unsupported recorded runtime", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.2", "pypdf": "6.20.0", "calibre": None})),
+                ("BAT duplicate dependency frame", lambda data: bat_log_change(data, "[DEPENDENCY-ERROR] " + json.dumps(data["bat_missing_converter_case"]["dependency_error"]) + "\r\n")),
+                ("BAT contradictory dependency frame", lambda data: bat_log_change(data, '[DEPENDENCY-ERROR] {"Code":"runtime_invalid","Attempts":[]}\r\n')),
+                ("BAT duplicate outcome footer", lambda data: bat_log_change(data, "[OPERATION-OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
+                ("BAT engine log frame", lambda data: bat_log_change(data, '[ENGINE] {"arguments":[]}\r\n')),
+                ("BAT native process summary", lambda data: bat_log_change(data, '[PROCESS] {}\r\n')),
+                ("BAT false converter acceptance", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.20.0", "calibre": "9.15.0"})),
+                ("BAT duplicate terminal outcome", lambda data: data["bat_missing_converter_case"].__setitem__("stdout", data["bat_missing_converter_case"]["stdout"] + "[OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
+                ("BAT changed isolated cache identity", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_after"]["Microsoft"].__setitem__("inode", 99)),
+                ("BAT unexpected isolation directory", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_before"].__setitem__("Programs", {"device": 1, "inode": 9})),
+            ])
             for name, defect in defects:
                 with self.subTest(defect=name):
                     child = deepcopy(complete)
@@ -914,6 +980,8 @@ class RunnerTests(unittest.TestCase):
 
         with patch.object(runner, "source_manifest", return_value={"synthetic-test-source": "hash"}), \
                 patch.object(runner, "run_command", side_effect=successful_command), \
+                patch.object(runner, "prepare_setup_test_wheel", return_value=(
+                    Path("C:/trusted/test-wheelhouse"), {"name": "setup-test-wheel", "exit_code": 0})), \
                 patch.object(runner, "attach_child_report") as attach:
             report = runner.execute(args)
         manual = [command for command in commands
@@ -988,7 +1056,7 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"])
         self.assertEqual([step["name"] for step in report["steps"][-19:]],
                          ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression", "fault-regression", "ebook-regression"])
-        self.assertEqual(len(report["steps"]), 22)
+        self.assertEqual(len(report["steps"]), 23)
         self.assertTrue(report["success"])
 
     def test_ebooks_target_binds_both_routes_and_preserves_either_native_failure(self):
@@ -1098,6 +1166,10 @@ class RunnerTests(unittest.TestCase):
                 "tools/ci/README.md": b"Declared CI scope\n",
                 "tools/ci/bootstrap.py": b"Pinned isolated bootstrap\n",
                 "tools/ci/check_package_inputs.py": b"Immutable input checks\n",
+                "tools/compatibility/README.md": b"Finite native kit scope\n",
+                "tools/compatibility/kit_builder.py": b"Source-bound native kit producer\n",
+                "tools/compatibility/Invoke-NativeAcceptance.ps1": b"Owned native process harness\n",
+                "tools/compatibility/native_smoke.py": b"Original physical page oracles\n",
             }
             for name, data in content.items():
                 target = root / name
@@ -1685,11 +1757,224 @@ class RunnerTests(unittest.TestCase):
             self.assertEqual(command[command.index("-ExecutionPolicy") + 1], "RemoteSigned")
             self.assertNotIn("Bypass", command)
 
+    def test_setup_wheel_download_uses_locked_source_and_child_local_pip_configuration(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-setup-wheel-runner-") as directory:
+            work = Path(directory)
+            wheel_bytes = b"Synthetic test wheel only; not installation acceptance."
+            lock = {"version": "6.20.0", "wheel_sha256": runner.sha256(wheel_bytes)}
+            observed = {}
+
+            def download(argv, cwd, **kwargs):
+                observed.update(command=argv, cwd=cwd, environment=kwargs["environment"])
+                destination = Path(argv[argv.index("--dest") + 1])
+                (destination / "pypdf-6.20.0-py3-none-any.whl").write_bytes(wheel_bytes)
+                return {"exit_code": 0, "stdout": "Synthetic downloader result", "stderr": ""}
+
+            with patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": "", "PIP_INDEX_URL": "https://invalid.example",
+                                        "pip_extra_index_url": "https://invalid.example/extra", "PIP_CONFIG_FILE": "foreign.ini"}), \
+                    patch.object(runner.importlib.util, "spec_from_file_location"), \
+                    patch.object(runner.importlib.util, "module_from_spec") as module, \
+                    patch.object(runner, "run_command", side_effect=download):
+                module.return_value.load_policy.return_value = {"pypdf": lock}
+                wheelhouse, step = runner.prepare_setup_test_wheel(work)
+                self.assertEqual(os.environ["PIP_CONFIG_FILE"], "foreign.ini")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["wheel_sha256"], lock["wheel_sha256"])
+            self.assertEqual(wheelhouse, work / "setup-test-wheelhouse")
+            self.assertEqual(observed["environment"]["PIP_CONFIG_FILE"], os.devnull)
+            self.assertEqual([key for key in observed["environment"] if key.upper().startswith("PIP_")], ["PIP_CONFIG_FILE"])
+            command = observed["command"]
+            self.assertEqual(command[:6], [sys.executable, "-I", "-B", "-m", "pip", "--isolated"])
+            self.assertEqual(command[command.index("--index-url") + 1], "https://pypi.org/simple")
+            for flag in ("--require-hashes", "--only-binary=:all:", "--no-deps", "--no-cache-dir", "--no-input"):
+                self.assertIn(flag, command)
+
+    def test_supplied_setup_wheel_is_read_only_and_hash_mismatch_fails_without_download(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-supplied-wheel-runner-") as directory:
+            work = Path(directory)
+            wheelhouse = work / "provided"
+            wheelhouse.mkdir()
+            wheel = wheelhouse / "pypdf-6.20.0-py3-none-any.whl"
+            wheel.write_bytes(b"Synthetic wheel fixture")
+            for digest, accepted in ((runner.sha256(wheel.read_bytes()), True), ("0" * 64, False)):
+                with self.subTest(accepted=accepted), patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": str(wheelhouse)}), \
+                        patch.object(runner.importlib.util, "spec_from_file_location"), \
+                        patch.object(runner.importlib.util, "module_from_spec") as module, \
+                        patch.object(runner, "run_command") as download:
+                    module.return_value.load_policy.return_value = {"pypdf": {"version": "6.20.0", "wheel_sha256": digest}}
+                    stamp = wheel.stat().st_mtime_ns
+                    selected, step = runner.prepare_setup_test_wheel(work)
+                    self.assertEqual(step["exit_code"] == 0, accepted)
+                    self.assertEqual(selected, wheelhouse if accepted else None)
+                    self.assertEqual(wheel.read_bytes(), b"Synthetic wheel fixture")
+                    self.assertEqual(wheel.stat().st_mtime_ns, stamp)
+                    download.assert_not_called()
+                    self.assertFalse((work / "setup-test-wheelhouse").exists())
+
+    def test_failed_setup_test_wheel_preparation_is_not_reported_as_a_shell_pass(self):
+        args = SimpleNamespace(layer="shell", failure_probe=None,
+                               shell_path=[Path("C:/trusted/pwsh.exe")], tool_root=Path("C:/trusted/tool-root"))
+        with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                patch.object(runner, "run_command", return_value={"exit_code": 0, "stdout": "synthetic git identity", "stderr": ""}), \
+                patch.object(runner, "prepare_setup_test_wheel", return_value=(None,
+                    {"name": "setup-test-wheel", "exit_code": 17, "stderr": "synthetic download failed"})), \
+                patch.object(runner, "shell_command") as shell:
+            report = runner.execute(args)
+        self.assertFalse(report["success"])
+        self.assertEqual(report["steps"], [{"name": "setup-test-wheel", "exit_code": 17, "stderr": "synthetic download failed"}])
+        shell.assert_not_called()
+
     def test_git_provenance_drops_inherited_repository_selectors(self):
         with patch.dict(os.environ, {name: "hostile-unrelated-value" for name in runner.GIT_SELECTORS}):
             environment = runner.child_environment()
             self.assertFalse(any(name in environment for name in runner.GIT_SELECTORS))
             self.assertTrue(all(name in os.environ for name in runner.GIT_SELECTORS))
+
+
+class ApplicationRouteTests(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        spec = importlib.util.spec_from_file_location("wbs_test_application_matrix", ROOT / "tests/compatibility/application_matrix.py")
+        cls.matrix = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.matrix)
+
+    def test_fixed_runtime_only_modules_have_no_developer_fixture_suite(self):
+        self.assertEqual(runner.APPLICATION_UNIT_MODULES, self.matrix.UNIT_MODULES)
+        self.assertEqual(len(set(runner.APPLICATION_UNIT_MODULES)), 9)
+        self.assertNotIn("test_runner", runner.APPLICATION_UNIT_MODULES)
+        self.assertNotIn("test_package_inputs", runner.APPLICATION_UNIT_MODULES)
+
+    def test_missing_required_module_fails_without_discovery_fallback(self):
+        class Stream(io.StringIO):
+            def reconfigure(self, **kwargs):
+                pass
+        output = Stream()
+        original_import = __import__
+
+        def missing(name, *args, **kwargs):
+            if name == runner.APPLICATION_UNIT_MODULES[0]:
+                raise ImportError("controlled required-module failure")
+            return original_import(name, *args, **kwargs)
+
+        with patch("builtins.__import__", side_effect=missing), patch.object(sys, "stdout", output), patch.object(sys, "path", list(sys.path)):
+            status = runner.application_unit_suite()
+        self.assertEqual(status, 1)
+        record = json.loads(output.getvalue().removeprefix("[APPLICATION-UNITS] "))
+        self.assertFalse(record["success"])
+        self.assertEqual(record["tests_run"], 0)
+        self.assertIn("ImportError", record["loading_error"])
+        self.assertEqual(record["modules"], [])
+
+    def test_required_module_skip_is_a_failed_unit_route(self):
+        class Stream(io.StringIO):
+            def reconfigure(self, **kwargs):
+                pass
+        class Skipped(unittest.TestCase):
+            @unittest.skip("controlled runtime-only skip")
+            def test_boundary(self):
+                pass
+        class Loader:
+            errors = []
+            def loadTestsFromModule(self, module):
+                return unittest.defaultTestLoader.loadTestsFromTestCase(Skipped)
+        output = Stream()
+        with patch.object(runner.unittest, "TestLoader", return_value=Loader()), patch.object(sys, "stdout", output), \
+                patch.object(sys, "stderr", Stream()), patch.object(sys, "path", list(sys.path)):
+            status = runner.application_unit_suite()
+        self.assertEqual(status, 1)
+        record = json.loads(output.getvalue().removeprefix("[APPLICATION-UNITS] "))
+        self.assertEqual(record["tests_run"], 9)
+        self.assertEqual(len(record["skipped"]), 9)
+        self.assertFalse(record["success"])
+
+    def test_native_process_requires_whole_tree_input_writer_and_exact_streams(self):
+        good = {"ExitCode": 2, "Pid": 123, "ParentStopped": True, "DescendantsStopped": True,
+                "StreamsComplete": True, "JobAssigned": True, "InputWriterStopped": True,
+                "TimedOut": False, "Cancelled": False, "StdoutTruncated": False, "StderrTruncated": False,
+                "Stdout": "authored å\n", "StdoutTotalBytes": len("authored å\n".encode("utf-8")),
+                "Stderr": "", "StderrTotalBytes": 0,
+                **{key: None for key in ("StartError", "StopError", "StreamError", "ResultError", "InteractionError", "InputError")}}
+        self.assertEqual(self.matrix.validate_process(good), good)
+        for key, value in (("DescendantsStopped", False), ("InputWriterStopped", False), ("StreamsComplete", None),
+                           ("JobAssigned", False), ("TimedOut", True), ("Cancelled", True), ("ExitCode", True),
+                           ("StdoutTruncated", True), ("StdoutTotalBytes", 0), ("StopError", "controlled")):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.matrix.validate_process({**good, key: value})
+
+    def test_unit_receipt_binds_all_modules_counts_runtime_and_no_skips(self):
+        candidate = Path("C:/authored/python.exe")
+        good = {"protocol": "winbooksplit.application-units", "version": 1, "success": True,
+                "required_modules": list(self.matrix.UNIT_MODULES),
+                "modules": [{"name": name, "test_count": 1} for name in self.matrix.UNIT_MODULES],
+                "tests_run": 9, "failures": 0, "errors": 0, "expected_failures": 0, "unexpected_successes": 0,
+                "skipped": [], "loading_error": None, "python_executable": str(candidate), "python_version": "3.13.16",
+                "isolated": True, "no_bytecode": True}
+        self.matrix.validate_units(good, candidate, "3.13.16")
+        for key, value in (("modules", good["modules"][:-1]), ("tests_run", True), ("errors", False),
+                           ("skipped", [{"test": "controlled", "reason": "unsupported"}]),
+                           ("python_version", "3.14.8"), ("python_executable", "C:/other/python.exe"),
+                           ("isolated", False), ("loading_error", "missing module")):
+            with self.subTest(key=key), self.assertRaises(ValueError):
+                self.matrix.validate_units({**good, key: value}, candidate, "3.13.16")
+
+    def test_application_module_startup_failure_preserves_owned_workspace(self):
+        args = SimpleNamespace(application_python_path=Path("C:/authored/python.exe"), shell_path=[], calibre_path=None)
+        with tempfile.TemporaryDirectory() as directory, patch.object(runner.importlib.util, "spec_from_file_location", side_effect=RuntimeError("controlled import failure")):
+            step = runner.application_matrix_step(args, Path(directory))
+        self.assertEqual(step["exit_code"], 1)
+        self.assertFalse(step["cleanup_safe"])
+        self.assertEqual(step["evidence"]["error_type"], "RuntimeError")
+
+    def test_synthetic_candidate_policy_origin_inventory_and_identity_binding(self):
+        compatibility = self.matrix.load("wbs_runner_candidate_policy", ROOT / "engine/winbooksplit_compatibility.py")
+        policy_path = ROOT / "engine/WinBookSplit.Compatibility.json"
+        policy = compatibility.load_policy(policy_path)
+        candidate = Path("C:/authored/python.exe")
+        origin = Path("C:/authored/lib/pypdf/__init__.py")
+        # Later stable patch is a numeric policy test, not an installed-runtime claim.
+        record = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": True, "reason": "supported",
+                  "version": "3.14.10", "version_info": [3, 14, 10], "releaselevel": "final", "serial": 0,
+                  "implementation": "cpython", "platform": "win32", "machine": "AMD64", "bits": 64,
+                  "gil_disabled": False, "isolated": True, "dont_write_bytecode": True, "executable": str(candidate),
+                  "policy_version": policy["policy_version"], "policy_sha256": self.matrix.digest(policy_path),
+                  "pypdf_version": policy["pypdf"]["version"], "pypdf_path": str(origin)}
+        inventory = {"executable": str(candidate), "version": "3.14.10", "isolated": True, "dont_write_bytecode": True,
+                     "purelib": "C:/authored/lib", "platlib": "C:/authored/lib",
+                     "distributions": [{"name": "pypdf", "version": policy["pypdf"]["version"]}]}
+        with patch.object(self.matrix, "ordinary_file", side_effect=lambda value: Path(value)):
+            self.matrix.validate_candidate(record, inventory, candidate, policy, self.matrix.digest(policy_path), compatibility)
+            mutations = [({**record, "policy_sha256": "0" * 64}, inventory),
+                         ({**record, "version": "3.14.2", "version_info": [3, 14, 2]}, {**inventory, "version": "3.14.2"}),
+                         ({**record, "pypdf_path": "C:/outside/pypdf/__init__.py"}, inventory),
+                         (record, {**inventory, "executable": "C:/other/python.exe"}),
+                         (record, {**inventory, "distributions": [*inventory["distributions"], {"name": "Pillow", "version": "12.3.0"}]})]
+            for bad_record, bad_inventory in mutations:
+                with self.subTest(record=bad_record, inventory=bad_inventory), self.assertRaises(ValueError):
+                    self.matrix.validate_candidate(bad_record, bad_inventory, candidate, policy, self.matrix.digest(policy_path), compatibility)
+
+    def test_wrapper_dependency_binds_exact_executable_even_when_versions_match(self):
+        import test_runtime_receipt as fixture
+        candidate = Path(r"C:\authored\runtime14\Scripts\python.exe")
+        selected = fixture.selected_runtime(str(candidate), "explicit")
+        probe = selected["Details"]
+        policy_sha = selected["PolicySha256"]
+        text = "[DEPENDENCY] " + json.dumps({"Runtime": selected, "Converter": None}) + "\n"
+        result = self.matrix.validate_wrapper_runtime(text, candidate, probe, policy_sha,
+                                                     fixture.validator, fixture.validator.console._unique_json)
+        self.assertEqual(result["selected_runtime"], selected)
+        other = fixture.selected_runtime(r"C:\authored\dev14\Scripts\python.exe", "explicit")
+        self.assertEqual(other["Version"], selected["Version"])
+        mutations = ["[DEPENDENCY] " + json.dumps({"Runtime": other, "Converter": None}) + "\n", text + text]
+        for malformed in mutations:
+            with self.subTest(text=malformed), self.assertRaises(ValueError):
+                self.matrix.validate_wrapper_runtime(malformed, candidate, probe, policy_sha,
+                                                     fixture.validator, fixture.validator.console._unique_json)
+        with self.assertRaises(ValueError):
+            self.matrix.validate_wrapper_runtime(text, candidate, {**probe, "message": "Different actual probe"}, policy_sha,
+                                                 fixture.validator, fixture.validator.console._unique_json)
+        with self.assertRaises(ValueError):
+            self.matrix.validate_wrapper_runtime(text, candidate, probe, "0" * 64,
+                                                 fixture.validator, fixture.validator.console._unique_json)
 
 
 if __name__ == "__main__":

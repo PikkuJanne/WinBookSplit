@@ -14,6 +14,9 @@ using System.Text;
 using System.Threading;
 using Microsoft.Win32.SafeHandles;
 namespace WinBookSplit.Supervision {
+    // .NET Framework Exception.Data requires serializable evidence values.
+    // This record contains data fields only; owned process handles stay in Child.
+    [Serializable]
     public sealed class Result {
         public int? Pid, ExitCode;
         public bool TimedOut, Cancelled, ParentStopped, DescendantsStopped, StreamsComplete, JobAssigned;
@@ -373,29 +376,34 @@ namespace WinBookSplit.Supervision {
             try { if (!started && stream!=null) stream.Dispose(); }
             catch (Exception failure) { StopError(result,"Close an unstarted engine drain: "+failure.Message); }
         }
-        static IntPtr EnvironmentBlock() {
+        static IntPtr EnvironmentBlock(bool isolatePipConfiguration) {
             SortedDictionary<string,string> values = new SortedDictionary<string,string>(StringComparer.OrdinalIgnoreCase);
             foreach (DictionaryEntry item in Environment.GetEnvironmentVariables()) {
                 string name = (string)item.Key;
-                if (!name.StartsWith("PYTHON",StringComparison.OrdinalIgnoreCase) && !name.StartsWith("PYLAUNCHER",StringComparison.OrdinalIgnoreCase)) values[name] = (string)item.Value;
+                if (!name.StartsWith("PYTHON",StringComparison.OrdinalIgnoreCase) && !name.StartsWith("PYLAUNCHER",StringComparison.OrdinalIgnoreCase) &&
+                    !(isolatePipConfiguration && name.StartsWith("PIP_",StringComparison.OrdinalIgnoreCase))) values[name] = (string)item.Value;
             }
             values["PYTHONUTF8"]="1"; values["PYTHONIOENCODING"]="utf-8:backslashreplace";
             values["PYTHON_MANAGER_AUTOMATIC_INSTALL"]="false"; values["PYLAUNCHER_NO_SEARCH_PATH"]="1";
+            if (isolatePipConfiguration) values["PIP_CONFIG_FILE"]="nul";
             StringBuilder block = new StringBuilder(); foreach (KeyValuePair<string,string> item in values) block.Append(item.Key).Append('=').Append(item.Value).Append('\0'); block.Append('\0');
             return Marshal.StringToHGlobalUni(block.ToString());
         }
         public static Result Run(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation) {
-            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null);
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,false);
+        }
+        public static Result Run(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,bool isolatePipConfiguration) {
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,isolatePipConfiguration);
         }
         public static Session StartSession(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation) {
             return new Session(path,command,cwd,timeout,captureLimit,resultLimit,cancellation);
         }
         internal static Result RunSession(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session) {
-            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,session);
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,session,false);
         }
         // Ordinary and interactive invocations share the same owned job,
         // restricted startup handles, drains, deadline and shutdown proofs.
-        static Result RunCore(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session) {
+        static Result RunCore(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session,bool isolatePipConfiguration) {
             Result result = new Result(); Stopwatch clock = Stopwatch.StartNew();
             IntPtr job=IntPtr.Zero, input=IntPtr.Zero, inputWrite=IntPtr.Zero, outputRead=IntPtr.Zero, outputWrite=IntPtr.Zero,errorRead=IntPtr.Zero,errorWrite=IntPtr.Zero, env=IntPtr.Zero,attributes=IntPtr.Zero,handles=IntPtr.Zero;
             ProcessInfo process=new ProcessInfo(); bool created=false, attributeReady=false; int consoleCancelled=0;
@@ -431,7 +439,7 @@ namespace WinBookSplit.Supervision {
                 handles=Marshal.AllocHGlobal(3*IntPtr.Size); Marshal.WriteIntPtr(handles,0,input); Marshal.WriteIntPtr(handles,IntPtr.Size,outputWrite); Marshal.WriteIntPtr(handles,2*IntPtr.Size,errorWrite);
                 if (!UpdateProcThreadAttribute(attributes,0,new IntPtr(0x20002),handles,new IntPtr(3*IntPtr.Size),IntPtr.Zero,IntPtr.Zero)) throw Failure("Restrict engine inherited handles");
                 StartupEx startup=new StartupEx(); startup.Info.Size=Marshal.SizeOf(typeof(StartupEx)); startup.Info.Flags=0x100; startup.Info.Input=input; startup.Info.Output=outputWrite; startup.Info.Error=errorWrite; startup.Attributes=attributes;
-                env=EnvironmentBlock();
+                env=EnvironmentBlock(isolatePipConfiguration);
                 if (!CreateProcessW(path,new StringBuilder(command),IntPtr.Zero,IntPtr.Zero,true,0x08080404,env,cwd,ref startup,out process)) throw Failure("Start the suspended engine executable");
                 created=true; result.Pid=(int)process.ProcessId;
                 if (!AssignProcessToJobObject(job,process.Process)) throw Failure("Assign the suspended engine to its owned job");
@@ -515,7 +523,8 @@ function Invoke-WinBookSplitProcess {
           [ValidateRange(0.05, 172800)][double]$TimeoutSeconds = 3600,
           [ValidateRange(1024, 1048576)][int]$CaptureLimitBytes = 65536,
           [ValidateRange(1024, 33554432)][int]$ResultLimitBytes = 8388608,
-          [Threading.CancellationToken]$CancellationToken = [Threading.CancellationToken]::None)
+          [Threading.CancellationToken]$CancellationToken = [Threading.CancellationToken]::None,
+          [switch]$IsolatePipConfiguration)
     if ($Path -notmatch '^(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)' -or $Path.IndexOf([char]0) -ge 0 -or
         $WorkingDirectory -notmatch '^(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)' -or $WorkingDirectory.IndexOf([char]0) -ge 0) {
         throw 'Engine launch requires absolute literal executable and working-directory paths.'
@@ -526,7 +535,7 @@ function Invoke-WinBookSplitProcess {
     Initialize-WinBookSplitProcess
     $command = (ConvertTo-NativeArgument -Value $Path) + ' ' + (($Arguments | ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' ')
     return [WinBookSplit.Supervision.Child]::Run($Path, $command, $WorkingDirectory,
-        [int]($TimeoutSeconds * 1000), $CaptureLimitBytes, $ResultLimitBytes, $CancellationToken)
+        [int]($TimeoutSeconds * 1000), $CaptureLimitBytes, $ResultLimitBytes, $CancellationToken, [bool]$IsolatePipConfiguration)
 }
 
 # The session owns only managed/native transport. JSON schema, nonce, sequence

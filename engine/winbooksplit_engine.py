@@ -63,6 +63,30 @@ except ValueError as error:
     raise SystemExit(version_exit) from error
 
 
+if __name__ == "__main__":
+    # Direct CLI processing receives the same offline interpreter/package guard
+    # before any pypdf import or document/output access. Callable imports stay
+    # useful for developer fixtures and reference validation.
+    try:
+        _compatibility_spec = importlib.util.spec_from_file_location(
+            "_winbooksplit_direct_compatibility", Path(__file__).resolve().with_name("winbooksplit_compatibility.py"))
+        _compatibility = importlib.util.module_from_spec(_compatibility_spec)
+        _compatibility_spec.loader.exec_module(_compatibility)
+        _runtime_record = _compatibility.probe_interpreter()
+    except Exception as error:
+        _runtime_record = {"ok": False, "reason": "malformed_policy",
+                           "message": "Cannot load shipped runtime compatibility validation: " + str(error)}
+    if not _runtime_record["ok"]:
+        _dependency_code = "dependency_missing" if _runtime_record["reason"] == "missing_pypdf" else "runtime_invalid"
+        _dependency_exit = result_exit_code(_dependency_code)
+        print(json.dumps({"protocol": "winbooksplit.result", "version": 1,
+            "mode": sys.argv[3] if len(sys.argv) > 3 else "", "status": "error",
+            "code": _dependency_code, "message": _runtime_record["message"], "warnings": [],
+            "fallback_modes": [], "exit_code": _dependency_exit, "written_count": 0,
+            "execution": None, "diagnostic": {"reason": _runtime_record["reason"]}}, ensure_ascii=True))
+        raise SystemExit(_dependency_exit)
+
+
 try:
     from pypdf import PageObject, PdfReader, PdfWriter, __version__ as PYPDF_VERSION
     from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, IndirectObject, NameObject,

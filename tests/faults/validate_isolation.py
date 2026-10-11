@@ -2,8 +2,13 @@
 
 from hashlib import sha256
 import json
+import importlib.util
 from pathlib import Path
 import re
+
+spec = importlib.util.spec_from_file_location('wbs_isolation_console_receipt', Path(__file__).resolve().parents[2] / 'tests/manual/current_launchers.py')
+console = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(console)
 
 
 IDS = {"prior-repeat-1", "prior-repeat-2", "overlap-success", "overlap-mid-write", "repeat-after"}
@@ -218,7 +223,8 @@ def validate_isolation_report(report, expected_source=None, *, cleanup_complete=
     need(isinstance(nonce, str) and re.fullmatch(r"[0-9a-f]{32}", nonce), "Missing authored overlap control nonce")
     good, bad = by_id["overlap-success"], by_id["overlap-mid-write"]
     environment = report.get("environment", {})
-    need(environment.get("python_version") == "3.14.8" and environment.get("pypdf_version") == "6.20.0"
+    need(console.python_version_supported(environment.get("python_version")) and
+         environment.get("pypdf_version") == console.RUNTIME_POLICY["pypdf"]["version"]
          and isinstance(environment.get("python_executable"), str) and Path(environment["python_executable"]).is_absolute(), "Pinned actual interpreter/parser identity missing")
     work = Path(report.get("workspace", ""))
     engine, worker = report.get("engine_path"), report.get("worker_path")

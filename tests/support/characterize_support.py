@@ -246,7 +246,8 @@ def export_case(work, host, kind):
     if kind == 'wrong-protocol':
         raw = raw.replace('winbooksplit.run', 'authored.wrong.protocol', 1)
     if kind == 'selected-secret':
-        raw = raw.replace('"python": "3.14.8"', '"python": "MOCK_PRIVATE_VERSION_SECRET"', 1)
+        raw, count = re.subn(r'("python"\s*:\s*)"[^"]+"', r'\1"MOCK_PRIVATE_VERSION_SECRET"', raw, count=1)
+        require(count == 1, 'Selected-version redaction control did not alter its authored copied manifest')
     if kind == 'pending-manifest':
         source = directory / 'WinBookSplit_Run.pending.json'
     source.write_bytes(raw.encode('utf-8') if kind != 'invalid-utf8' else b'\xff\xfe\x81invalid')

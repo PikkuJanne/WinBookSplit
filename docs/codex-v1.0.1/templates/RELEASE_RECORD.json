@@ -1,0 +1,34 @@
+{
+  "schema_version": 1,
+  "target": "v1.0.1",
+  "status": "NOT_RUN",
+  "source_R": null,
+  "closure_C": null,
+  "assets": [],
+  "policy": {
+    "supported_minors": [],
+    "security_review": null
+  },
+  "evidence": {
+    "regression": null,
+    "runtime_matrix": null,
+    "native_windows10": null,
+    "native_windows11": null,
+    "ebook_conversion": null,
+    "setup": null,
+    "review": null,
+    "ci": null
+  },
+  "public": {
+    "url": null,
+    "draft": null,
+    "prerelease": null,
+    "published_at": null,
+    "anonymous_download_verified": false,
+    "peeled_tag_matches_R": false
+  },
+  "v1_0_0_preserved": false,
+  "final_main_sync": null,
+  "human_sessions": 0,
+  "limitations": []
+}

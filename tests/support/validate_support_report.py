@@ -7,10 +7,15 @@ from __future__ import annotations
 from datetime import datetime
 from hashlib import sha256
 import json
+import importlib.util
 from pathlib import Path
 import re
 
 ROOT = Path(__file__).resolve().parents[2]
+spec = importlib.util.spec_from_file_location('wbs_support_runtime_receipt', ROOT / 'tests/runtime/validate_runtime_report.py')
+runtime_receipt = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(runtime_receipt)
+console = runtime_receipt.console
 APPLICATION_KINDS = ('success-pdf', 'success-epub', 'success-azw3', 'failed-pdf', 'cancelled',
                      'no-plan', 'parser-warning', 'bookmark-warning', 'log-fault-success',
                      'manifest-fault-success', 'log-fault-primary', 'manifest-fault-primary',
@@ -20,7 +25,9 @@ EXPORT_KINDS = ('success', 'failed', 'cancelled', 'incomplete', 'no-plan', 'reda
 APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
                'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Diagnostics.ps1', 'engine/WinBookSplit.Runtime.ps1',
                'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1', 'engine/WinBookSplit.Outcomes.json',
-               'engine/winbooksplit_engine.py', 'engine/winbooksplit_windows.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_job.py')
+               'engine/winbooksplit_engine.py', 'engine/winbooksplit_windows.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_job.py',
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 SCALAR_SETTINGS = ('mode', 'input_kind', 'preview', 'non_interactive', 'no_pause', 'keep_converted_pdf', 'conversion_timeout', 'process_timeout')
 
 
@@ -138,7 +145,7 @@ def validate_run_manifest(manifest, row):
     final = row['outcome']
     need(isinstance(manifest, dict) and manifest.get('protocol') == 'winbooksplit.run'
          and type(manifest.get('version')) is int and manifest['version'] == 1
-         and manifest.get('application_version') == '1.0.0'
+         and manifest.get('application_version') == console.APPLICATION_VERSION
          and isinstance(manifest.get('run_id'), str) and re.fullmatch('[0-9a-f]{32}', manifest['run_id']), 'Run manifest protocol/version/run identity invalid')
     need(set(manifest) == {'protocol', 'version', 'run_id', 'application_version', 'started_utc', 'finished_utc', 'diagnostics_finalized',
          'runtime_versions', 'settings', 'source_identity', 'plan', 'engine_result', 'outcome', 'warnings', 'log'}, 'Run manifest schema differs')
@@ -162,7 +169,15 @@ def validate_run_manifest(manifest, row):
          and type(settings.get('process_timeout')) is int and settings['conversion_timeout'] == 1800
          and settings['process_timeout'] == 3600, 'Normalized run settings differ from literal native arguments')
     runtime = manifest.get('runtime_versions')
-    need(runtime == {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.20.0',
+    dependencies = records(row['console_log'], '[DEPENDENCY] ')
+    need(len(dependencies) == 1 and isinstance(dependencies[0], dict), 'Actual selected dependency frame missing')
+    selected = runtime_receipt.runtime(dependencies[0].get('Runtime'))
+    need(row['application_sha256']['engine/WinBookSplit.Compatibility.json'] == selected['PolicySha256'],
+         'Selected dependency policy differs from copied application bytes')
+    parameters = row['parameters']
+    need('-PythonPath' in parameters and selected['Path'] == parameters[parameters.index('-PythonPath') + 1],
+         'Support selected Python differs from explicit native argument')
+    need(runtime == {'powershell': row['host_version'], 'python': selected['Version'], 'pypdf': console.RUNTIME_POLICY['pypdf']['version'],
                      'calibre': '9.15.0' if row['input_kind'] != 'pdf' else None}, 'Run manifest versions differ from resolved runtimes')
     original = row['source_observations_before']['source']
     source = manifest.get('source_identity')
@@ -331,15 +346,17 @@ def validate_application_case(row):
 def validate_summary(summary, manifest):
     need(isinstance(manifest, dict) and manifest.get('protocol') == 'winbooksplit.run'
          and type(manifest.get('version')) is int and manifest['version'] == 1
-         and manifest.get('diagnostics_finalized') is True, 'Export source is not a finalized run manifest')
+         and manifest.get('diagnostics_finalized') is True
+         and manifest.get('application_version') == console.APPLICATION_VERSION, 'Export source is not a finalized run manifest')
     need(isinstance(summary, dict) and set(summary) == {'protocol', 'version', 'application_version', 'runtime_versions',
          'settings', 'plan', 'outcome', 'warnings', 'log'} and summary['protocol'] == 'winbooksplit.support'
-         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == '1.0.0',
+         and type(summary['version']) is int and summary['version'] == 1 and summary['application_version'] == manifest['application_version'] == console.APPLICATION_VERSION,
          'Support summary root whitelist/protocol invalid')
     versions = {**manifest['runtime_versions'], 'powershell': '5.1' if manifest['runtime_versions']['powershell'].startswith('5.1.') else '7'}
     need(summary['runtime_versions'] == versions and set(summary['runtime_versions']) == {'powershell', 'python', 'pypdf', 'calibre'},
          'Support runtime whitelist differs')
-    need(versions['powershell'] in {'5.1', '7'} and versions['python'] == '3.14.8' and versions['pypdf'] == '6.20.0'
+    need(versions['powershell'] in {'5.1', '7'} and console.python_version_supported(versions['python'])
+         and versions['pypdf'] == console.RUNTIME_POLICY['pypdf']['version']
          and versions['calibre'] in {'9.15.0', None}
          and re.fullmatch(r'(?:5\.1|7)\.\d+(?:\.\d+){0,2}', manifest['runtime_versions']['powershell']),
          'Support runtime includes an unsupported or private token')

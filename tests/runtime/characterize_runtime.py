@@ -28,7 +28,9 @@ APPLICATION_FILES = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "require
                      "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
                      "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
-                     "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
+                     "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1",
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 
 
 def load(name, path):
@@ -152,10 +154,24 @@ class Cases:
         self.work, self.shells, self.python, self.calibre = work, shells, python, calibre
         self.venv = python.parent.parent
         self.core = Path(next(line.split(" = ", 1)[1] for line in (self.venv / "pyvenv.cfg").read_text().splitlines() if line.startswith("home = "))) / "python.exe"
-        self.wrong_python = Path(os.environ.get("WBS_TEST_UNSUPPORTED_PYTHON", str(Path(os.environ["LOCALAPPDATA"]) / "Python/pythoncore-3.14-64/python.exe")))
-        require(self.wrong_python.is_file(), "Recorded real unsupported Python 3.14.7 control is required")
-        self.wrong_observation = history.run([str(self.wrong_python), "-I", "-B", "-c", "import sys;print(sys.executable);print(sys.version)"], work)
-        require(self.wrong_observation["exit_code"] == 0 and "3.14.7" in self.wrong_observation["stdout"], "Actual unsupported Python control changed")
+        helper, policy = ROOT / "engine/winbooksplit_compatibility.py", ROOT / "engine/WinBookSplit.Compatibility.json"
+        supported_command = [str(python), "-I", "-B", str(helper), "--probe", "--policy", str(policy)]
+        self.python_observation = {**history.run(supported_command, work), "command": supported_command}
+        self.python_details = json.loads(self.python_observation["stdout"])
+        require(self.python_observation["exit_code"] == 0 and self.python_details["ok"] is True and
+                launchers.compatibility.validate_interpreter(self.python_details, launchers.RUNTIME_POLICY)["ok"],
+                "Actual application interpreter does not satisfy the shipped policy")
+        unsupported = os.environ.get("WBS_TEST_UNSUPPORTED_PYTHON")
+        require(unsupported is not None, "Set WBS_TEST_UNSUPPORTED_PYTHON to a genuine excluded interpreter control")
+        self.wrong_python = Path(unsupported).resolve(strict=True)
+        require(self.wrong_python.is_file(), "Genuine excluded Python control is required")
+        unsupported_command = [str(self.wrong_python), "-I", "-B", str(helper), "--probe", "--interpreter-only", "--policy", str(policy)]
+        self.wrong_observation = {**history.run(unsupported_command, work), "command": unsupported_command}
+        wrong = json.loads(self.wrong_observation["stdout"])
+        require(self.wrong_observation["exit_code"] == 1 and wrong["ok"] is False and
+                wrong["reason"] in {"unsupported_python", "python_security_floor", "python_compatibility_floor"} and
+                not launchers.compatibility.validate_interpreter(wrong, launchers.RUNTIME_POLICY)["ok"],
+                "Actual excluded Python control is accepted or mislabeled")
         self.system = Path(os.environ["SystemRoot"])
         self.ps51 = self.system / "System32/WindowsPowerShell/v1.0/powershell.exe"
         self.stub, self.compilation = native_stub(work, self.ps51)
@@ -279,6 +295,7 @@ class Cases:
             environment["WBS_RUNTIME_PYTHON"] = str(python_path)
         if converter_path is not None:
             environment["WBS_RUNTIME_CALIBRE"] = str(converter_path)
+        expected_failure = category in {"python_failure", "converter_failure"}
         wrapper = case / ("Invoke.cmd" if batch else "Invoke.ps1")
         if batch:
             # No CALL/re-expansion of percent or exclamation characters.
@@ -290,13 +307,13 @@ class Cases:
         else:
             wrapper.write_text('[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)\n'
                 '$options=@{InputFile=$env:WBS_RUNTIME_INPUT;OutputDirectory=$env:WBS_RUNTIME_BASE}\n'
+                + ('$options.NonInteractive=$true;$options.Mode="Manual";$options.StartPages="1";$options.NoPause=$true\n' if expected_failure else '') +
                 'if($env:WBS_RUNTIME_PYTHON){$options.PythonPath=$env:WBS_RUNTIME_PYTHON}\n'
                 'if($env:WBS_RUNTIME_CALIBRE){$options.CalibrePath=$env:WBS_RUNTIME_CALIBRE}\n'
                 '& $env:WBS_RUNTIME_APP @options\nexit $LASTEXITCODE\n', encoding="utf-8")
             command = [str(shell), "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(wrapper)]
         decoy_hashes = {str(path): digest(path) for path in decoys}
         output_before = [] if not batch else None
-        expected_failure = category in {"python_failure", "converter_failure"}
         process, log, console_owner, execution, members, record = None, None, None, None, None, None
         cleanup_safe = True
         try:
@@ -322,7 +339,9 @@ class Cases:
                         and "[ENGINE] " not in process["stdout"] and "[DEPENDENCY] " not in process["stdout"], "Dependency failure announced processing/success")
                 require(not conversion_marker.exists(), "Dependency rejection started conversion")
                 if category == "python_failure":
-                    require(not version_marker.exists() and "3.14.8" in process["stdout"] and "6.20.0" in process["stdout"], "Python failure attempted converter or omitted exact setup targets")
+                    require(not version_marker.exists() and "Setup-WinBookSplit.ps1" in process["stdout"] and
+                            launchers.RUNTIME_POLICY["pypdf"]["version"] in process["stdout"],
+                            "Python failure attempted converter or omitted explicit local setup guidance")
                 else:
                     require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"], "Converter failure omitted actionable exact setup guidance")
                 record = {"dependency_error": errors[0], "candidate_path": candidate if category == "python_failure" else str(converter_path) if converter_path else None,
@@ -341,7 +360,7 @@ class Cases:
                 frames = [json.loads(line) for line in text.splitlines() if line.startswith("{")]
                 require(len(dependency) == len(invocation) == len(frames) == 1 and frames[0]["status"] == "success", "Missing actual dependency/execution records")
                 selected = dependency[0]["Runtime"]
-                require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == "3.14.8"
+                require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == self.python_details["version"]
                         and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.20.0", "Selected actual interpreter differs from case")
                 require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:4] == ["-I", "-B", "-X", "utf8"]
                         and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", ""], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
@@ -365,6 +384,7 @@ class Cases:
                     require(checked["page_content_sha256"] == original_content, "Selected-runtime PDF content differs from original source pages")
                     require(dependency[0]["Converter"] is None and not version_marker.exists(), "PDF-only execution unnecessarily probed Calibre")
                 record = {"dependency_selection": dependency[0], "engine_invocation": invocation[0], "expected_python_path": candidate,
+                    "expected_python_version": self.python_details["version"],
                     "expected_python_source": expected_source, "expected_converter_source": expected_converter_source,
                     "writer_result": execution, "engine_record": frames[0], "written_count": execution["written_count"],
                     "selected_interpreter_used_for_engine": True, "all_physical_pages_preserved": True, **checked}
@@ -455,6 +475,7 @@ def characterize(work, shells, calibre):
         "acceptance_ids": ACCEPTANCE_IDS, "observed_at": datetime.now(timezone.utc).isoformat(), "host_cases": hosts,
         **groups, "case_count": sum(len(value) for value in groups.values()), "native_control_compilation": cases.compilation,
         "positive_decoy_controls": cases.controls, "unsupported_real_python_observation": cases.wrong_observation,
+        "supported_real_python_observation": cases.python_observation,
         "independent_real_conversion_reference": cases.reference,
         "calibre": {"path": str(calibre), "version": "9.15.0", "sha256": digest(calibre)},
         "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,

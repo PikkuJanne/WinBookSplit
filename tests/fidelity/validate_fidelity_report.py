@@ -13,7 +13,9 @@ APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBoo
     'engine/WinBookSplit.Runtime.ps1', 'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Diagnostics.ps1',
     'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1',
     'engine/WinBookSplit.Outcomes.json', 'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py',
-    'engine/winbooksplit_windows.py', 'engine/winbooksplit_job.py')
+    'engine/winbooksplit_windows.py', 'engine/winbooksplit_job.py',
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 MATRIX = [('rich', 'manual'), ('rich', '1'), ('rich', '2'), ('scanned', 'manual')]
 RANGES = {'manual': [[0, 3], [3, 6]], '1': [[0, 3], [3, 6]], '2': [[0, 1], [1, 3], [3, 4], [4, 6]]}
 AUTHOR = 'Authored Å café 日本 source author'
@@ -182,7 +184,7 @@ def validate_output(row, output, entry, expected):
     metadata = output.get('metadata')
     source_title = TITLE + (' image-only' if row['kind'] == 'scanned' else '')
     need(isinstance(metadata, dict) and metadata.get('/Title') == chapter and metadata.get('/Author') == AUTHOR
-         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == 'WinBookSplit 1.0.0 (pypdf 6.20.0)'
+         and metadata.get('/Creator') == 'WinBookSplit' and metadata.get('/Producer') == f"WinBookSplit {console.APPLICATION_VERSION} (pypdf {console.RUNTIME_POLICY['pypdf']['version']})"
          and metadata.get('/Subject') == 'Source: ' + source_title and '/AuthoredPrivateField' not in metadata,
          'Chapter/source metadata incorrect or original private metadata copied')
     need(output.get('outline') == [{'title': chapter, 'page': 0}], 'Useful chapter-start bookmark differs from safe chapter label/page0')

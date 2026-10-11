@@ -17,35 +17,24 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
 BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json",
-                 "tools/ci/check_package_inputs.py")
+                 "tools/ci/check_package_inputs.py", "tools/release/frozen_assets.py")
 SPEC = importlib.util.spec_from_file_location("wbs_package_inputs", ROOT / BUILDER_PATHS[2])
 checker = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(checker)
-VERSION = "1.0.0"
-ZIP_NAME = "WinBookSplit-v1.0.0.zip"
+ASSET_SPEC = importlib.util.spec_from_file_location("wbs_frozen_assets", ROOT / BUILDER_PATHS[3])
+assets = importlib.util.module_from_spec(ASSET_SPEC)
+ASSET_SPEC.loader.exec_module(assets)
+VERSION = "1.0.1"
+ZIP_NAME = "WinBookSplit-v1.0.1.zip"
 ASSET_NAMES = (ZIP_NAME, "release-manifest.json", "SHA256SUMS.txt")
 INCOMPLETE = ".package-incomplete"
-TIMESTAMP = (1980, 1, 1, 0, 0, 0)
-FILE_ATTRIBUTES = (stat.S_IFREG | 0o644) << 16
-MAX_ARCHIVE_BYTES = 32 * 1024 * 1024
-MAX_MANIFEST_BYTES = 128 * 1024
-
-
-class PackageError(ValueError):
-    def __init__(self, code: str):
-        super().__init__(code)
-        self.code = code
-
-
-def canonical(value: object) -> bytes:
-    return (json.dumps(value, sort_keys=True, indent=2, ensure_ascii=True) + "\n").encode("ascii")
-
-
-def _ordinary(path: Path, directory: bool = False) -> None:
-    info = path.lstat()
-    if stat.S_ISLNK(info.st_mode) or getattr(info, "st_file_attributes", 0) & 0x400 \
-            or not (stat.S_ISDIR(info.st_mode) if directory else stat.S_ISREG(info.st_mode)):
-        raise PackageError("ordinary_path_required")
+TIMESTAMP = assets.TIMESTAMP
+FILE_ATTRIBUTES = assets.FILE_ATTRIBUTES
+MAX_ARCHIVE_BYTES = assets.MAX_ARCHIVE_BYTES
+MAX_MANIFEST_BYTES = assets.MAX_MANIFEST_BYTES
+PackageError = assets.PackageError
+canonical = assets.canonical
+_ordinary = assets.ordinary
 
 
 def _destination(repo: Path, output: Path, *, existing: bool) -> Path:
@@ -83,6 +72,24 @@ def _blob(repo: Path, commit: str, path: str) -> tuple[bytes, dict]:
         raise PackageError("builder_blob_size_mismatch")
     return data, {"path": path, "git_blob": oid, "git_mode": mode,
                   "bytes": size, "sha256": sha256(data).hexdigest()}
+
+
+def _policy_metadata(payload: dict[str, bytes]) -> dict:
+    # Only execute the already Git-blob-validated shipped validator, never a
+    # local sibling or a helper from an untrusted asset manifest. The frozen
+    # consumer remains pure stdlib and never executes application payload code.
+    path = "engine/winbooksplit_compatibility.py"
+    namespace = {"__name__": "wbs_bound_release_policy", "__file__": path}
+    try:
+        exec(compile(payload[path], path, "exec"), namespace)
+        policy = json.loads(payload["engine/WinBookSplit.Compatibility.json"].decode("utf-8"),
+                            object_pairs_hook=namespace["_unique_object"],
+                            parse_constant=namespace["_invalid_constant"])
+        namespace["_validate_policy"](policy)
+        return assets.dependency_metadata(payload["engine/WinBookSplit.Compatibility.json"],
+                                          payload["requirements.txt"])
+    except (KeyError, ValueError, TypeError, UnicodeError, RecursionError) as error:
+        raise PackageError("invalid_dependency_policy") from error
 
 
 def _source(repo: Path, commit: str) -> tuple[dict, dict[str, bytes], dict]:
@@ -134,15 +141,7 @@ def _source(repo: Path, commit: str) -> tuple[dict, dict[str, bytes], dict]:
             "source_commit": commit, "source_tree": inputs["source_tree"],
             "payload_sha256": sha256(canonical(files)).hexdigest(), "files": files,
             "runtime_sibling_dependencies": inputs["runtime_sibling_dependencies"],
-            "dependencies": {"windows": {"supported": "Windows 11 x64", "bundled": False},
-                             "powershell": {"supported": ["Windows PowerShell 5.1", "PowerShell 7.6.6"],
-                                            "bundled": False},
-                             "python": {"version": "3.14.8", "architecture": "x64",
-                                        "flavor": "regular GIL CPython", "bundled": False},
-                             "pypdf": {"version": "6.20.0", "requirement": checker.RUNTIME_REQUIREMENT,
-                                       "bundled": False},
-                             "calibre": {"version": "9.15.0", "required_for": ["epub", "azw3"],
-                                         "bundled": False}},
+            "dependencies": _policy_metadata(payload),
             "builder": tool, "signed": False,
             "scope": "Unpublished package provenance; Windows/Explorer/Calibre acceptance and release gates remain separate."}
     return base, payload, tool
@@ -161,15 +160,7 @@ def _sums(archive: bytes, manifest: bytes) -> bytes:
             sha256(manifest).hexdigest() + "  release-manifest.json\n").encode("ascii")
 
 
-def _read(path: Path, maximum: int) -> bytes:
-    _ordinary(path)
-    if not 0 < path.stat().st_size <= maximum:
-        raise PackageError("invalid_asset_size")
-    with path.open("rb") as stream:
-        data = stream.read(maximum + 1)
-    if not 0 < len(data) <= maximum:
-        raise PackageError("invalid_asset_size")
-    return data
+_read = assets.read_bounded
 
 
 def _validate(base: dict, payload: dict[str, bytes], output: Path, *, building: bool = False) -> dict:
@@ -196,41 +187,7 @@ def _validate(base: dict, payload: dict[str, bytes], output: Path, *, building: 
             raise PackageError("manifest_mismatch")
         if sums != _sums(archive, manifest_bytes):
             raise PackageError("checksum_mismatch")
-        # Bound the central directory before ZipFile allocates member objects.
-        end = archive.rfind(b"PK\x05\x06")
-        if end < 0 or end + 22 > len(archive):
-            raise PackageError("invalid_package")
-        _, disk, start_disk, disk_count, count, central_size, central_offset, comment_size = struct.unpack(
-            "<4s4H2LH", archive[end:end + 22])
-        if count != len(payload) or disk_count != count or comment_size:
-            raise PackageError("zip_membership_mismatch")
-        expected_central_size = sum(46 + len(path.encode("utf-8")) for path in payload)
-        if disk or start_disk or central_size != expected_central_size:
-            raise PackageError("invalid_zip_member")
-        # This bounded recipe never uses ZIP64. A ZIP64 locator lets zipfile
-        # replace the small EOCD values above, so reject it before opening.
-        if end >= 20 and archive[end - 20:end - 16] == b"PK\x06\x07" \
-                or end + 22 != len(archive) or central_offset + central_size != end:
-            raise PackageError("zip_recipe_mismatch")
-        # Inspect before extraction. No member is ever extracted by this tool.
-        with zipfile.ZipFile(io.BytesIO(archive), "r") as source:
-            members = source.infolist()
-            if len(members) != len(payload) or [item.filename for item in members] != sorted(payload) \
-                    or source.comment:
-                raise PackageError("zip_membership_mismatch")
-            for member in members:
-                path = member.filename
-                if not checker.safe_relative(path) or member.orig_filename != path \
-                        or member.date_time != TIMESTAMP or member.compress_type != zipfile.ZIP_STORED \
-                        or member.flag_bits != 0 or member.create_system != 3 \
-                        or member.external_attr != FILE_ATTRIBUTES or member.internal_attr != 0 \
-                        or member.extra or member.comment or member.is_dir() \
-                        or member.file_size != len(payload[path]) or member.compress_size != member.file_size:
-                    raise PackageError("invalid_zip_member")
-                if source.read(member) != payload[path]:
-                    raise PackageError("zip_payload_mismatch")
-        if archive != _archive(payload):
-            raise PackageError("zip_recipe_mismatch")
+        assets.validate_archive(archive, payload)
     except (KeyError, TypeError, json.JSONDecodeError, zipfile.BadZipFile, RuntimeError, NotImplementedError) as error:
         raise PackageError("invalid_package") from error
     return manifest
@@ -242,15 +199,7 @@ def validate_package(repo: Path, commit: str, output: Path) -> dict:
     return _validate(base, payload, destination)
 
 
-def _archive(payload: dict[str, bytes]) -> bytes:
-    stream = io.BytesIO()
-    with zipfile.ZipFile(stream, "w", compression=zipfile.ZIP_STORED) as archive:
-        for path in sorted(payload):
-            info = zipfile.ZipInfo(path, date_time=TIMESTAMP)
-            info.create_system = 3
-            info.external_attr = FILE_ATTRIBUTES
-            archive.writestr(info, payload[path])
-    return stream.getvalue()
+_archive = assets.archive_bytes
 
 
 def build_package(repo: Path, commit: str, output: Path) -> dict:

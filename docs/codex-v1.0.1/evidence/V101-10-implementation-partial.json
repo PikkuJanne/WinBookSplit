@@ -1,0 +1,608 @@
+{
+  "schema_version": 1,
+  "task": "V101-10",
+  "status": "IN_PROGRESS",
+  "kind": "PUBLIC_SAFE_PARTIAL_IMPLEMENTATION_CHECKPOINT",
+  "observed_utc": "2026-10-11T18:47:43.004959+00:00",
+  "source": {
+    "base_commit": "562dd1254d639807257bc4ba794ea905f483e75e",
+    "base_tree": "74554579e423d71582230a9eecbeeb8560bb2fde",
+    "worktree_state": "Ten reviewed task10 implementation paths imported; awaiting implementation commit.",
+    "raw_file_identities": {
+      "engine/WinBookSplit.Compatibility.json": {
+        "bytes": 6342,
+        "sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0"
+      },
+      "engine/WinBookSplit.Runtime.ps1": {
+        "bytes": 48300,
+        "sha256": "19a7c4a59c5600f4cc4e191a290c751215aacef24798e37f6947765786084fe7"
+      },
+      "tests/conversion/characterize_conversion.py": {
+        "bytes": 39215,
+        "sha256": "c6597a164d88466ff4beef59e453a58bb3040ee2b2bc174538d08576726b2198"
+      },
+      "tests/run_tests.py": {
+        "bytes": 143078,
+        "sha256": "fd65535e4def82a89f9cd6674486b0ffb27978bcc606c0289cb68a32b057b26d"
+      },
+      "tests/python/test_runner.py": {
+        "bytes": 153745,
+        "sha256": "b53c368f5d7820244f1a5345d509924303e8e6af17df9e77247443f6d2cd9b84"
+      },
+      "tests/powershell/Compatibility.Tests.ps1": {
+        "bytes": 16002,
+        "sha256": "cf7694e78e9da6cab10c29e4a40872414aa9df4d0c7265a66ab604dd971cc7e0"
+      },
+      "tests/powershell/Discovery.Tests.ps1": {
+        "bytes": 29509,
+        "sha256": "577655a063d3f2a2cd59caba26df7cf95bf6e74d5a78d804c1d5362ac88b8c77"
+      },
+      "tests/powershell/Runtime.Tests.ps1": {
+        "bytes": 21481,
+        "sha256": "69202002719d78a210d329a5e549454eff26ee8ff5692e9f7778518b7ffa5e16"
+      },
+      "tests/python/test_compatibility.py": {
+        "bytes": 33300,
+        "sha256": "0b24bd847d9df0ac50f1dda11af7f341847708a3261f5fcc91107066541ebe1a"
+      },
+      "tests/python/test_runtime_receipt.py": {
+        "bytes": 34024,
+        "sha256": "9fbb36e59b6ff7958c6e3e09737113336b3f4df7ba2fe6412fac034ab56ec4b8"
+      }
+    },
+    "self_referential_commit_claim": false
+  },
+  "changes": [
+    "Policy2 raises numeric CPython security floors to3.13.16/3.14.8; later stable patches in these branches remain accepted. pypdf6.20.0 and optional Calibre9.15.0 locks remain unchanged.",
+    "The actual BAT missing-converter test authenticates the local console dependency record and terminal OUTCOME, preserving exact ownership, no-engine/publication and source guards.",
+    "Converter discovery now reuses the existing stop-proof guard before interruption/banner checks; unproved shutdown terminates discovery rather than allowing fallback."
+  ],
+  "policy_controls": {
+    "receipt": {
+      "file": "task10-policy-draft/final-controls-receipt-02.json",
+      "bytes": 14777,
+      "sha256": "06bd3bcbef3381a09ed1ebc70ae0dea7b4947576c2dfe7c54e6c8b9ca28f5b7b"
+    },
+    "classification": "Actual native helper/TLS observations plus SYNTHETIC policy boundary controls; not full application acceptance.",
+    "policy_version": 2,
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "security_floors": {
+      "3.13": 16,
+      "3.14": 8
+    },
+    "runs": [
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-02-PS51-13/report.json",
+          "bytes": 29783,
+          "sha256": "d9babfcc440d036d5a4476d4d58a67b308d68c3c07a6b4056357b5f0eef3428e"
+        },
+        "powershell": "5.1.26100.9444",
+        "python": "3.13.16",
+        "pester": {
+          "failed": 0,
+          "errors": [],
+          "passed": 37,
+          "failed_containers": 0,
+          "skipped": 0,
+          "total": 37,
+          "result": "Passed",
+          "not_run": 0
+        },
+        "python_units": [
+          {
+            "pattern": "test_compatibility.py",
+            "passed": 45,
+            "seconds": 2.838,
+            "skipped": 0
+          },
+          {
+            "pattern": "test_runtime_receipt.py",
+            "passed": 8,
+            "seconds": 2.008,
+            "skipped": 0
+          }
+        ],
+        "source_unchanged": true,
+        "syntax_error_count": 0,
+        "scoped_pssa_finding_count": 0,
+        "native_probe_count": 4,
+        "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+        "expat": "expat_2.8.5"
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-02-PS51-14/report.json",
+          "bytes": 29770,
+          "sha256": "ad44f9f852c50e51db42910b885895b5978922a0ad1bf64312f9653a1621d21b"
+        },
+        "powershell": "5.1.26100.9444",
+        "python": "3.14.8",
+        "pester": {
+          "failed": 0,
+          "errors": [],
+          "passed": 37,
+          "failed_containers": 0,
+          "skipped": 0,
+          "total": 37,
+          "result": "Passed",
+          "not_run": 0
+        },
+        "python_units": [
+          {
+            "pattern": "test_compatibility.py",
+            "passed": 45,
+            "seconds": 2.864,
+            "skipped": 0
+          },
+          {
+            "pattern": "test_runtime_receipt.py",
+            "passed": 8,
+            "seconds": 1.369,
+            "skipped": 0
+          }
+        ],
+        "source_unchanged": true,
+        "syntax_error_count": 0,
+        "scoped_pssa_finding_count": 0,
+        "native_probe_count": 4,
+        "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+        "expat": "expat_2.8.5"
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-02-PS766-13/report.json",
+          "bytes": 21295,
+          "sha256": "a911365969fd22b135e9fd10d81a2cab497007e3a9c87e20b405c729ca7f156a"
+        },
+        "powershell": "7.6.6",
+        "python": "3.13.16",
+        "pester": {
+          "skipped": 0,
+          "result": "Passed",
+          "failed_containers": 0,
+          "errors": [],
+          "total": 37,
+          "passed": 37,
+          "failed": 0,
+          "not_run": 0
+        },
+        "python_units": [
+          {
+            "pattern": "test_compatibility.py",
+            "passed": 45,
+            "seconds": 3.923,
+            "skipped": 0
+          },
+          {
+            "pattern": "test_runtime_receipt.py",
+            "passed": 8,
+            "seconds": 2.141,
+            "skipped": 0
+          }
+        ],
+        "source_unchanged": true,
+        "syntax_error_count": 0,
+        "scoped_pssa_finding_count": 0,
+        "native_probe_count": 4,
+        "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+        "expat": "expat_2.8.5"
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-02-PS766-14/report.json",
+          "bytes": 21280,
+          "sha256": "42fef716b6ed22b1022debe7a3e2b37004b8a2baf1ca6cc7d8b4cf43c40fa486"
+        },
+        "powershell": "7.6.6",
+        "python": "3.14.8",
+        "pester": {
+          "failed_containers": 0,
+          "total": 37,
+          "passed": 37,
+          "failed": 0,
+          "errors": [],
+          "skipped": 0,
+          "result": "Passed",
+          "not_run": 0
+        },
+        "python_units": [
+          {
+            "pattern": "test_compatibility.py",
+            "passed": 45,
+            "seconds": 3.004,
+            "skipped": 0
+          },
+          {
+            "pattern": "test_runtime_receipt.py",
+            "passed": 8,
+            "seconds": 1.484,
+            "skipped": 0
+          }
+        ],
+        "source_unchanged": true,
+        "syntax_error_count": 0,
+        "scoped_pssa_finding_count": 0,
+        "native_probe_count": 4,
+        "openssl": "OpenSSL 3.5.9 29 Sep 2026",
+        "expat": "expat_2.8.5"
+      }
+    ],
+    "source_qualification": "These four focused runs used Runtime abd6a60f before the separate converter stop-proof change. Their actual recorded source maps are retained.",
+    "preserved_initial_attempts": [
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-01-PS51-13/report.json",
+          "bytes": 4327,
+          "sha256": "a568f17c5d2e46390dd298f936822d72639157588f1690f18b4c8fbc84a2a53c"
+        },
+        "overall_result": "FAIL_PREPARATION",
+        "pester_passed": 37,
+        "remaining_native_and_units": "NOT_RUN",
+        "cause": "External wrapper passed120 seconds to the existing60-second-max runtime probe API; wrapper-only02 correction used60 without changing production limits."
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-01-PS51-14/report.json",
+          "bytes": 4327,
+          "sha256": "4ddda14af805154042d32173228a43ffaac0dbd1eda89f535a256e911a0d4e02"
+        },
+        "overall_result": "FAIL_PREPARATION",
+        "pester_passed": 37,
+        "remaining_native_and_units": "NOT_RUN",
+        "cause": "External wrapper passed120 seconds to the existing60-second-max runtime probe API; wrapper-only02 correction used60 without changing production limits."
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-01-PS766-13/report.json",
+          "bytes": 3376,
+          "sha256": "fb54d5e1620d15310c1a519a45ca1047d2406a0c67d06a8bd668c425936e3f56"
+        },
+        "overall_result": "FAIL_PREPARATION",
+        "pester_passed": 37,
+        "remaining_native_and_units": "NOT_RUN",
+        "cause": "External wrapper passed120 seconds to the existing60-second-max runtime probe API; wrapper-only02 correction used60 without changing production limits."
+      },
+      {
+        "report": {
+          "file": "task10-policy-draft/controls-01-PS766-14/report.json",
+          "bytes": 3376,
+          "sha256": "55b82decfdc7bdf8d859d407a2a6d04eb37db71b5ddfcc1efc189fe0ba2e34f5"
+        },
+        "overall_result": "FAIL_PREPARATION",
+        "pester_passed": 37,
+        "remaining_native_and_units": "NOT_RUN",
+        "cause": "External wrapper passed120 seconds to the existing60-second-max runtime probe API; wrapper-only02 correction used60 without changing production limits."
+      }
+    ]
+  },
+  "converter_stop_controls": {
+    "review": {
+      "file": "task10-converter-stop-draft/independent-review-01.json",
+      "bytes": 4349,
+      "sha256": "1b7ea14858e5be15e09a07c94d3b76c4ad093338f36037ff1f584892009742b3"
+    },
+    "review_result": "CLEAR",
+    "runs": [
+      {
+        "file": "task10-converter-stop-draft/focused-ps51-01/report.json",
+        "sha256": "4100640a20d9b794e192ceb2198cdf04f73ac9374e33a7ee75bbe4d8a87ff6b7",
+        "powershell": "5.1.26100.9444",
+        "started_utc": "2026-10-11T18:42:55.1923403Z",
+        "finished_utc": "2026-10-11T18:43:10.5418584Z",
+        "pester": {
+          "total": 29,
+          "errors": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 29,
+          "skipped": 0,
+          "container_errors": [],
+          "failed": 0,
+          "result": "Passed"
+        },
+        "source_unchanged": true,
+        "originals_unchanged": true,
+        "syntax_errors": 0,
+        "scoped_pssa_findings": 0
+      },
+      {
+        "file": "task10-converter-stop-draft/focused-ps766-01/report.json",
+        "sha256": "e530ed84cbbf047850ad0d978f686fbd071ee655585005e538637b6cf080f367",
+        "powershell": "7.6.6",
+        "started_utc": "2026-10-11T18:42:55.2680726Z",
+        "finished_utc": "2026-10-11T18:43:09.1051868Z",
+        "pester": {
+          "result": "Passed",
+          "total": 29,
+          "skipped": 0,
+          "errors": [],
+          "passed": 29,
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "container_errors": []
+        },
+        "source_unchanged": true,
+        "originals_unchanged": true,
+        "syntax_errors": 0,
+        "scoped_pssa_findings": 0
+      }
+    ],
+    "classification": "Ten added SYNTHETIC native-result controls plus19 retained Runtime tests per host; no actual converter child/document in the new controls.",
+    "original_reproduction": {
+      "file": "task10-converter-stop-draft/reproduction-02/report.json",
+      "bytes": 3515,
+      "sha256": "c9833d5f8911add620a6a0e128c2ba9ad015706b7469d0db3ef724766e849763"
+    }
+  },
+  "runner_units": {
+    "command": "<runtime13-or14> -I -B -m unittest discover -s <checkout>/tests/python -p test_runner.py",
+    "runs": [
+      {
+        "python": "3.13.16",
+        "passed": 51,
+        "seconds": 10.205,
+        "log": {
+          "file": "task10-runner-current13-01.log",
+          "bytes": 8745,
+          "sha256": "85b1d30e1e612754fb7d7b79a9bc240473d4791c28a5258f399d0338add15101"
+        }
+      },
+      {
+        "python": "3.14.8",
+        "passed": 51,
+        "seconds": 10.125,
+        "log": {
+          "file": "task10-runner-current14-01.log",
+          "bytes": 8745,
+          "sha256": "65acd3aa8e0794153b3bbf3241b75061e706d0f9931511da04a3c9b5f76eee4f"
+        }
+      }
+    ],
+    "preserved_preparation_failure": "Prior direct -I -B test_runner.py invocations executed51 tests each:50 passed and one ModuleNotFoundError for test_runtime_receipt. Standard unittest discovery corrected the invocation without a code change."
+  },
+  "conversion_test_review": {
+    "file": "task10-conversion-review-01/review-final.json",
+    "bytes": 4688,
+    "sha256": "d7f804a97d89f11867a8ebfba58b5c72f8612e8608f1085c7fabf2ab723593d5"
+  },
+  "historical_native_regressions": {
+    "source_commit_at_outer_start": "e21ef1a769052b7d31b1c4bee6a1e1ed109ab099",
+    "source_tree_at_outer_start": "93144ed1b7e0adbfe56d507412a4fa425eb47174",
+    "raw_tested_paths_digest": "d4722ccb9978afb4173b0953e8efd60fea4a3022a931dc552f56cb8bd6bb7b7a",
+    "os_scope": "Actual Windows11Pro10.0.26300/ProductType1/x64, not Windows10.",
+    "versions": {
+      "python": "3.14.8",
+      "pypdf": "6.20.0",
+      "powershell": [
+        "5.1.26100.9444",
+        "7.6.6"
+      ],
+      "calibre": "9.15.0"
+    },
+    "reports": {
+      "fidelity": {
+        "status": "PASS",
+        "raw_report": {
+          "file": "fidelity.json",
+          "bytes": 2382216,
+          "sha256": "d436a8f762b59a70a9fb13b3e0c6a3d8603dd93503a00a28a25bbf82ddcf8eab"
+        },
+        "stages": [
+          {
+            "id": "fidelity-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {
+              "case_count": 8
+            }
+          }
+        ],
+        "source_unchanged": true,
+        "owned_work_removed": true
+      },
+      "ebooks": {
+        "status": "FAIL",
+        "raw_report": {
+          "file": "ebooks.json",
+          "bytes": 3592767,
+          "sha256": "b63e3470e4be45d17065da127cfa683632026bec3248fa2c5ec3be6652f80247"
+        },
+        "stages": [
+          {
+            "id": "conversion-regression",
+            "status": "FAIL",
+            "native_exit_code": 1,
+            "child_report_present": false,
+            "counts": {}
+          },
+          {
+            "id": "ebook-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {
+              "case_count": 10
+            }
+          }
+        ],
+        "source_unchanged": true,
+        "owned_work_removed": true
+      },
+      "document-policy": {
+        "status": "PASS",
+        "raw_report": {
+          "file": "document-policy.json",
+          "bytes": 3619375,
+          "sha256": "bdaf41be70a004fcf089080a6d155c59b21d397c3da46c7e641458d2a56f9c42"
+        },
+        "stages": [
+          {
+            "id": "document-policy-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {
+              "case_count": 75,
+              "application_case_count": 73,
+              "export_case_count": 2
+            }
+          }
+        ],
+        "source_unchanged": true,
+        "owned_work_removed": true
+      },
+      "faults": {
+        "status": "PASS",
+        "raw_report": {
+          "file": "faults.json",
+          "bytes": 12475271,
+          "sha256": "b206961eb560129d7d525921bab3ed59a2ea9e79562df2c7c6850596907682f4"
+        },
+        "stages": [
+          {
+            "id": "path-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {}
+          },
+          {
+            "id": "process-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {
+              "case_count": 35
+            }
+          },
+          {
+            "id": "outcome-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {
+              "case_count": 51
+            }
+          },
+          {
+            "id": "fault-regression",
+            "status": "PASS",
+            "native_exit_code": 0,
+            "child_report_present": true,
+            "counts": {}
+          }
+        ],
+        "source_unchanged": true,
+        "owned_work_removed": true
+      }
+    },
+    "qualification": "Fidelity8, document-policy75 and all four fault stages passed. Aggregate ebooks FAILED its stale conversion assertion with no conversion child report; its separate genuine EPUB/AZW3 ebook-regression10 passed. Historical policy1 source is not relabeled as current policy2 acceptance."
+  },
+  "historical_server_ci": {
+    "receipt": {
+      "file": "final-review-receipt.json",
+      "bytes": 10844,
+      "sha256": "707b6892e831cef3a1e225a6bcb2aaf2b82dafb68235d392a47dc9dd2212a8c3"
+    },
+    "source_commit": "562dd1254d639807257bc4ba794ea905f483e75e",
+    "run_id": 38162309458,
+    "status": "PASS",
+    "os_scope": "Actual hosted WindowsServer2025Datacenter/ProductType3; not native Windows10/11 workstation acceptance.",
+    "counts": {
+      "reference_python": 637,
+      "pester_per_host": 182,
+      "application_units_per_minor": 147,
+      "PDF_cases_per_minor": 8
+    },
+    "skips": 0,
+    "calibre": "NOT_REQUESTED",
+    "current_source_qualification": "This historical full PASS predates the ten imported task10 source paths."
+  },
+  "security_review": {
+    "receipt": {
+      "file": "V101-10-security-review-04.json",
+      "bytes": 16210,
+      "sha256": "b096bdd09e58cb4570c26608cf01cabb570ec29a8ce7d6653b7a41370c4ee2ca"
+    },
+    "decision": {
+      "policy_version": 2,
+      "regular_windows_x64_cpython_security_floors": {
+        "3.13": 16,
+        "3.14": 8
+      },
+      "recommended_patches": {
+        "3.13": 16,
+        "3.14": 8
+      },
+      "acceptance": "At or above the reviewed floor within explicitly admitted3.13/3.14 stable branches. Later patches are accepted numerically; not equality with the latest tested patch.",
+      "all_discovery_locations": "Same security floor for explicit path, authoritative application .venv, ordinary PATH and read-only launcher/registered-manager candidates; no location or offline exception.",
+      "pypdf": {
+        "version": "6.20.0",
+        "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+        "version_hash_and_origin_guards": "unchanged"
+      },
+      "calibre": {
+        "version": "9.15.0",
+        "scoped_route_assessment": "unchanged from security-review03; exact optional EPUB/AZW3 to PDF route only"
+      },
+      "excluded_minors": "3.11/3.12 remain excluded because patched source-only maintenance versions do not provide the reviewed official Windows binary distribution; no syntax/API incompatibility or universal insecurity claim.",
+      "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0"
+    },
+    "scope": "Primary advisory/source assessment and actual isolated TLS inventories; no exploit execution or universal security claim. OpenSSL CVE-2026-35189 normal HTTPS handshake exposure informs the raised floors."
+  },
+  "preserved_failures": [
+    {
+      "classification": "TOOL_OUTPUT_ONLY_PREPARATION_FAILURE",
+      "count": 2,
+      "native_exit_code": 1,
+      "report_present": false,
+      "scope": "Root report-parent missing before tests; no native regression result or invented raw receipt hash."
+    },
+    {
+      "classification": "ACTUAL_HISTORICAL_REGRESSION_FAILURE",
+      "raw_report": {
+        "file": "ebooks.json",
+        "bytes": 3592767,
+        "sha256": "b63e3470e4be45d17065da127cfa683632026bec3248fa2c5ec3be6652f80247"
+      },
+      "stage": "conversion-regression",
+      "native_exit_code": 1,
+      "timed_out": false,
+      "child_report_present": false,
+      "reason": "Stale BAT assertion expected no console and raw dependency frame on stdout; new ordinary diagnostic contract creates authenticated local console with concise terminal OUTCOME. Separate ebook-regression10 PASS does not convert aggregate FAIL to PASS."
+    },
+    {
+      "classification": "ACTUAL_NATIVE_FIXTURE_FAILURE",
+      "raw_report": {
+        "path": "<isolated-work>\\regression-10-final-01\\bat-dependency-bdd9452cc7f64abfbe41471eb3b342c8\\native-observation.json",
+        "sha256": "ca732b050e885ad469674d0e63d6099cbe78c1f2f2a6f25d31cc88728bc89ce0",
+        "bytes": 44793
+      },
+      "reason": "Actual BAT3/dependency-not-found was correct; an isolated LOCALAPPDATA root acquired exactly three empty ordinary Microsoft/Windows/Caches directories. Raw output preserved before assertion; no precise OS writing API cause claimed."
+    },
+    {
+      "classification": "ACTUAL_NO_APP_NATIVE_CONTROLS",
+      "raw_report": {
+        "path": "<isolated-work>\\regression-10-final-01\\isolated-ps-cache-1285782fe3ef42b9b4dad47e6c180101\\receipt.json",
+        "sha256": "eff9d5a27c525b209d6e32eea7ba68aa0aae8fad18b39f4eb60af8441dbe9644",
+        "bytes": 3008
+      },
+      "reason": "PlainPS/MyDocuments/Appx controls remained empty; they do not prove which API created the actual BAT cache chain."
+    }
+  ],
+  "pending": {
+    "fresh_full_conversion_current_source": "NOT_RUN; waiting for a literal clean implementation commit and frozen source.",
+    "fresh_full_reference_current_source": "NOT_RUN",
+    "native_Windows10": "NOT_RUN",
+    "final_v1_0_1_ZIP": "NOT_RUN",
+    "publication": "NOT_RUN"
+  },
+  "limitations": [
+    "Partial checkpoint only; task10 remains IN_PROGRESS.",
+    "Controlled failures and seeded invariant tests do not establish physical disk exhaustion, human Ctrl+C or GUI observations.",
+    "All referenced raw artifacts remain external; this report excludes profile paths, private streams and document content."
+  ]
+}

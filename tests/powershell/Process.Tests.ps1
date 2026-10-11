@@ -129,3 +129,39 @@ Describe 'M2 UTF-8 and argument data boundary' -Tag 'AC-048', 'AC-049' {
         $actual.io_env | Should-Be -Expected 'utf-8:backslashreplace'
     }
 }
+
+Describe 'V101 fixed setup-only pip configuration isolation' -Tag 'V101-AC-030','V101-AC-031','V101-AC-033' {
+    It 'removes child PIP options and sets the exact Windows null sentinel while preserving caller and ordinary defaults' {
+        $savedPip=@{}
+        foreach ($item in @(Get-ChildItem Env:)) {
+            if ($item.Name.StartsWith('PIP_',[StringComparison]::OrdinalIgnoreCase)) { $savedPip[$item.Name]=$item.Value }
+        }
+        try {
+            $env:PIP_WBS_TEST_SENTINEL='authored child option'
+            $env:PIP_CONFIG_FILE=Join-Path $TestDrive 'authored-pip.ini'
+            [IO.File]::WriteAllText($env:PIP_CONFIG_FILE,"[global]`nindex-url = http://127.0.0.1:1/never-requested`n")
+            $code='import json,os; print(json.dumps({k:v for k,v in os.environ.items() if k.upper().startswith("PIP_")}))'
+            $ordinary=Invoke-WinBookSplitProcess -Path $TestPython -WorkingDirectory $RepositoryRoot -Arguments @('-I','-B','-c',$code)
+            $ordinary.ExitCode | Should -Be 0
+            $defaults=$ordinary.Stdout | ConvertFrom-Json
+            $defaults.PIP_WBS_TEST_SENTINEL | Should -BeExactly 'authored child option'
+            $defaults.PIP_CONFIG_FILE | Should -BeExactly $env:PIP_CONFIG_FILE
+            $isolated=Invoke-WinBookSplitProcess -Path $TestPython -WorkingDirectory $RepositoryRoot -Arguments @('-I','-B','-c',$code) -IsolatePipConfiguration
+            $isolated.ExitCode | Should -Be 0
+            $isolated.JobAssigned | Should -BeTrue
+            $isolated.ParentStopped | Should -BeTrue
+            $isolated.DescendantsStopped | Should -BeTrue
+            $isolated.StreamsComplete | Should -BeTrue
+            $values=$isolated.Stdout | ConvertFrom-Json
+            @($values.PSObject.Properties).Count | Should -Be 1
+            $values.PIP_CONFIG_FILE | Should -BeExactly 'nul'
+            $env:PIP_WBS_TEST_SENTINEL | Should -BeExactly 'authored child option'
+            $env:PIP_CONFIG_FILE | Should -BeExactly (Join-Path $TestDrive 'authored-pip.ini')
+        } finally {
+            foreach ($item in @(Get-ChildItem Env:)) {
+                if ($item.Name.StartsWith('PIP_',[StringComparison]::OrdinalIgnoreCase)) { [Environment]::SetEnvironmentVariable($item.Name,$null,'Process') }
+            }
+            foreach ($name in $savedPip.Keys) { [Environment]::SetEnvironmentVariable($name,$savedPip[$name],'Process') }
+        }
+    }
+}

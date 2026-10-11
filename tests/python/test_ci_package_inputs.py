@@ -51,19 +51,60 @@ class PackageInputTests(unittest.TestCase):
     def test_current_committed_inputs_and_helper_closure_are_bound(self):
         result = checker.validate_inputs(self.repo, self.commit)
         self.assertTrue(result["success"])
-        self.assertEqual((result["runtime_count"], result["support_source_count"]), (16, 13))
+        self.assertEqual((result["runtime_count"], result["support_source_count"]), (21, 13))
         self.assertEqual(result["source_commit"], self.commit)
         self.assertEqual(result["source_tree"], self.git("rev-parse", "HEAD^{tree}"))
         self.assertFalse(result["working_tree_inputs_used"])
         self.assertFalse(result["package_built"])
         self.assertEqual({row["path"] for row in result["files"]}, set(checker.INPUT_PATHS))
-        self.assertEqual(result["application_version"], "1.0.0")
+        self.assertEqual(result["application_version"], "1.0.1")
         dependencies = result["runtime_sibling_dependencies"]
         for consumer in ("WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Support.ps1"):
             self.assertIn("VERSION", dependencies[consumer])
         self.assertIn("engine/winbooksplit_conversion.py", dependencies["engine/winbooksplit_engine.py"])
+        self.assertIn("engine/winbooksplit_compatibility.py", dependencies["engine/winbooksplit_engine.py"])
+        self.assertIn("engine/WinBookSplit.Compatibility.json", dependencies["engine/winbooksplit_compatibility.py"])
+        self.assertIn("engine/WinBookSplit.Compatibility.ps1", dependencies["engine/WinBookSplit.Runtime.ps1"])
+        self.assertIn("engine/WinBookSplit.Compatibility.json", dependencies["engine/WinBookSplit.Compatibility.ps1"])
         self.assertIn("engine/winbooksplit_job.py", dependencies["engine/winbooksplit_conversion.py"])
         self.assertIn("engine/WinBookSplit.Support.ps1", dependencies["Export-WinBookSplitDiagnostics.ps1"])
+        self.assertIn("engine/WinBookSplit.Setup.ps1", dependencies["Setup-WinBookSplit.ps1"])
+        for dependency in ("engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
+                           "engine/WinBookSplit.Logging.ps1"):
+            self.assertIn(dependency, dependencies["engine/WinBookSplit.Setup.ps1"])
+        self.assertIn("requirements.txt", dependencies["engine/WinBookSplit.Setup.ps1"])
+
+    def test_setup_cannot_switch_its_committed_lock_or_application_root(self):
+        changes = (
+            ("Setup-WinBookSplit.ps1", "Invoke-WinBookSplitSetup -ApplicationRoot $PSScriptRoot",
+             "Invoke-WinBookSplitSetup -ApplicationRoot 'C:/private'"),
+            ("engine/WinBookSplit.Setup.ps1", "[IO.Path]::Combine($ApplicationRoot,'requirements.txt')",
+             "[IO.Path]::Combine($ApplicationRoot,'private-requirements.txt')"),
+            ("engine/WinBookSplit.Setup.ps1", "$root=Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory",
+             "$root=Get-WinBookSplitTrustedPath -Path 'C:/private' -Directory"),
+        )
+        for consumer, old, new in changes:
+            with self.subTest(consumer=consumer, binding=old):
+                path = self.repo / consumer
+                original = path.read_text(encoding="utf-8")
+                self.assertIn(old, original)
+                path.write_text(original.replace(old, new), encoding="utf-8")
+                self.rejected("unresolved_runtime_dependency", self.commit_all())
+                path.write_text(original, encoding="utf-8")
+
+    def test_each_setup_file_must_be_committed_despite_a_working_copy(self):
+        for path in ("Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1"):
+            with self.subTest(path=path):
+                self.git("rm", "--cached", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Authored missing setup input")
+                self.assertTrue((self.repo / path).is_file())
+                with self.assertRaises(checker.InputError) as caught:
+                    checker.validate_inputs(self.repo, self.git("rev-parse", "HEAD"))
+                self.assertEqual((caught.exception.code, caught.exception.path), ("missing_input", path))
+                self.git("add", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Restore authored setup input")
 
     def test_committed_version_is_required_and_rejects_malformed_or_oversized_bytes(self):
         version = self.repo / "VERSION"
@@ -151,7 +192,7 @@ class PackageInputTests(unittest.TestCase):
                         os.environ["GIT_NO_REPLACE_OBJECTS"] = inherited
                     # Git disables replacements when this variable is present,
                     # even when its inherited value is the string "0".
-                    expected_version = "2.0.0" if inherited is None else "1.0.0"
+                    expected_version = "2.0.0" if inherited is None else baseline["application_version"]
                     self.assertEqual(self.git("show", self.commit + ":VERSION"), expected_version)
                     # Provenance must still identify the original committed bytes.
                     self.assertEqual(checker.validate_inputs(self.repo, self.commit), baseline)
@@ -173,6 +214,21 @@ class PackageInputTests(unittest.TestCase):
                 self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
                          "commit", "--quiet", "-m", "Authored nonordinary helper")
                 self.rejected("nonordinary_input", self.git("rev-parse", "HEAD"))
+
+    def test_each_compatibility_file_must_be_committed_despite_a_working_copy(self):
+        for path in ("engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+                     "engine/winbooksplit_compatibility.py"):
+            with self.subTest(path=path):
+                self.git("rm", "--cached", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Authored missing compatibility input")
+                self.assertTrue((self.repo / path).is_file())
+                with self.assertRaises(checker.InputError) as caught:
+                    checker.validate_inputs(self.repo, self.git("rev-parse", "HEAD"))
+                self.assertEqual((caught.exception.code, caught.exception.path), ("missing_input", path))
+                self.git("add", "--", path)
+                self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",
+                         "commit", "--quiet", "-m", "Restore authored compatibility input")
 
     def test_unsafe_windows_and_traversal_names_are_rejected(self):
         for path in ("../engine/x.py", "/absolute", "C:/file", "engine\\x.py", "engine//x.py",
@@ -206,12 +262,33 @@ class PackageInputTests(unittest.TestCase):
                 self.assertIn(caught.exception.code, {"undeclared_runtime_dependency", "unresolved_runtime_dependency"})
 
     def test_powershell_sibling_and_batch_launcher_changes_are_rejected(self):
-        original = (self.repo / "WinBookSplit.ps1").read_text(encoding="utf-8")
-        (self.repo / "WinBookSplit.ps1").write_text(original + "\n. (Join-Path $PSScriptRoot 'private-helper.ps1')\n", encoding="utf-8")
-        self.rejected("undeclared_runtime_dependency", self.commit_all())
-        (self.repo / "WinBookSplit.ps1").write_text(original, encoding="utf-8")
+        for consumer in ("WinBookSplit.ps1", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1"):
+            with self.subTest(consumer=consumer):
+                path = self.repo / consumer
+                original = path.read_text(encoding="utf-8")
+                path.write_text(original + "\n. (Join-Path $PSScriptRoot 'private-helper.ps1')\n", encoding="utf-8")
+                self.rejected("undeclared_runtime_dependency", self.commit_all())
+                path.write_text(original, encoding="utf-8")
         (self.repo / "WinBookSplit.bat").write_text('@echo off\nPowerShell -File "%~dp0private-helper.ps1"\n', encoding="utf-8")
         self.rejected("launcher_dependency_changed", self.commit_all())
+
+    def test_only_exact_helper_literal_pypdf_dynamic_import_is_allowed(self):
+        helper = self.repo / "engine/winbooksplit_compatibility.py"
+        original = helper.read_text(encoding="utf-8")
+        # The real lazy package probe is accepted; alternate/computed imports are not.
+        self.assertTrue(checker.validate_inputs(self.repo, self.commit)["success"])
+        for addition in ("importlib.import_module('private_helper')", "importlib.import_module('os')",
+                         "importlib.import_module(package_name)", "importlib.import_module('pypdf', package=None)",
+                         "other.import_module('pypdf')", "__import__('pypdf')", "import_module('pypdf')",
+                         "from importlib import import_module as load; load('private_helper')",
+                         "from builtins import __import__ as load; load('private_helper')"):
+            with self.subTest(addition=addition):
+                helper.write_text(original + "\n" + addition + "\n", encoding="utf-8")
+                self.rejected("unresolved_runtime_dependency", self.commit_all())
+        helper.write_text(original, encoding="utf-8")
+        engine = self.repo / "engine/winbooksplit_engine.py"
+        engine.write_text(engine.read_text(encoding="utf-8") + "\nimportlib.import_module('pypdf')\n", encoding="utf-8")
+        self.rejected("unresolved_runtime_dependency", self.commit_all())
 
     def test_runtime_requirement_rejects_unpinned_dev_extra_url_and_include(self):
         for line in ("pypdf==6.20.0", checker.RUNTIME_REQUIREMENT + "\nreportlab==5.0.1",

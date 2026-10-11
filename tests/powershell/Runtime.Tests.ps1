@@ -58,6 +58,9 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
     }
     It 'hard-fails an existing application venv with no Scripts interpreter' {
         $app=Join-Path $TestDrive 'app'; $null=New-Item -ItemType Directory -Path (Join-Path $app '.venv')
+        $null=New-Item -ItemType Directory -Path (Join-Path $app 'engine')
+        Copy-Item -LiteralPath (Join-Path $RepositoryRoot 'engine\WinBookSplit.Compatibility.json') -Destination (Join-Path $app 'engine')
+        Copy-Item -LiteralPath (Join-Path $RepositoryRoot 'engine\winbooksplit_compatibility.py') -Destination (Join-Path $app 'engine')
         Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur' }
         try { Resolve-WinBookSplitRuntime -ApplicationRoot $app; throw 'Expected venv rejection' }
         catch {
@@ -77,8 +80,13 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
             $result=Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -DocumentPath (Join-Path $TestDrive 'book\owned.pdf')
             $result.Path | Should-Be -Expected $TestPython
             $result.Source | Should-Be -Expected 'PATH'
-            @($result.Attempts | Where-Object { -not $_.Accepted }).Count | Should-Be -Expected 1
-            $result.Attempts[0].Probe.ParentStopped | Should-BeTrue
+            $badAttempts=@($result.Attempts | Where-Object { $_.Source -eq 'PATH' -and $_.Path -eq (Join-Path $bad 'python.exe') -and -not $_.Accepted })
+            $badAttempts.Count | Should-Be -Expected 1
+            $badAttempts[0].Probe.ParentStopped | Should-BeTrue
+            $badAttempts[0].Probe.DescendantsStopped | Should-BeTrue
+            [string]::IsNullOrWhiteSpace($badAttempts[0].Probe.StartError) | Should-BeFalse
+            ($null -eq $badAttempts[0].Probe.Pid) | Should-BeTrue
+            $badAttempts[0].Probe.JobAssigned | Should-BeFalse
         } finally { $env:PATH=$savedPath; Set-Location -LiteralPath $savedLocation.ProviderPath }
     }
     It 'excludes empty, relative, document and unrelated-CWD automatic candidates' {
@@ -214,5 +222,115 @@ Describe 'M2 converter version preflight' -Tag 'AC-045' {
             Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:extraBanner }
             { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
         }
+    }
+}
+
+Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETIC' {
+    # These altered flags and converter banners are SYNTHETIC. Existing native SDK
+    # cases above verify real stream draining and owned-tree timeout independently.
+    It 'halts automatic discovery on unproved <ControlKind> shutdown before another candidate' -ForEach @(
+        @{ ControlKind='parent' }, @{ ControlKind='descendant' }, @{ ControlKind='stoperror' }
+    ) {
+        $script:converterFirst=$TestPython
+        $script:converterSecond=Join-Path $TestDrive ('second-converter-'+$ControlKind+'.exe')
+        [IO.File]::WriteAllText($script:converterSecond,'Owned ordinary second candidate; never executed.')
+        $script:converterControl=$ControlKind
+        Mock Get-WinBookSplitPathCandidates { return @($script:converterFirst,$script:converterSecond) }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            if ($Path -eq $script:converterFirst) {
+                switch ($script:converterControl) {
+                    'parent' { $probe.ParentStopped=$false }
+                    'descendant' { $probe.DescendantsStopped=$false }
+                    'stoperror' { $probe.StopError='SYNTHETIC owned-tree stop failure' }
+                }
+                $script:converterUnsafeProbe=$probe
+            }
+            return $probe
+        }
+        $failure=$null; $selected=$null
+        try { $selected=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot }
+        catch { $failure=$_.Exception }
+        ($null -eq $selected) | Should-BeTrue
+        ($null -ne $failure) | Should-BeTrue
+        $failure.Data['Code'] | Should-Be -Expected 'processor_failed'
+        $failure.Data['FatalDiscovery'] | Should-BeTrue
+        [object]::ReferenceEquals($failure.Data['Probe'],$script:converterUnsafeProbe) | Should-BeTrue
+        $failure.Data['Probe'].TimedOut | Should-BeFalse
+        $failure.Data['Probe'].Cancelled | Should-BeFalse
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 0 -Exactly -ParameterFilter { $Path -eq $script:converterSecond }
+    }
+    It 'retains fatal exact-probe evidence for an explicit unproved <ControlKind> shutdown' -ForEach @(
+        @{ ControlKind='parent' }, @{ ControlKind='descendant' }, @{ ControlKind='stoperror' }
+    ) {
+        $script:converterControl=$ControlKind
+        Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            switch ($script:converterControl) {
+                'parent' { $probe.ParentStopped=$false }
+                'descendant' { $probe.DescendantsStopped=$false }
+                'stoperror' { $probe.StopError='SYNTHETIC owned-tree stop failure' }
+            }
+            $script:converterUnsafeProbe=$probe
+            return $probe
+        }
+        $failure=$null
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython }
+        catch { $failure=$_.Exception }
+        ($null -ne $failure) | Should-BeTrue
+        $failure.Data['Code'] | Should-Be -Expected 'processor_failed'
+        $failure.Data['FatalDiscovery'] | Should-BeTrue
+        [object]::ReferenceEquals($failure.Data['Probe'],$script:converterUnsafeProbe) | Should-BeTrue
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly
+        Should-Invoke Get-WinBookSplitPathCandidates -Times 0 -Exactly
+    }
+    It 'prioritizes unproved shutdown over an interrupted <ControlKind> probe' -ForEach @(
+        @{ ControlKind='timeout' }, @{ ControlKind='cancel' }
+    ) {
+        $script:converterControl=$ControlKind
+        Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            $probe.DescendantsStopped=$false
+            if ($script:converterControl -eq 'timeout') { $probe.TimedOut=$true } else { $probe.Cancelled=$true }
+            $script:converterUnsafeProbe=$probe
+            return $probe
+        }
+        $failure=$null
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython }
+        catch { $failure=$_.Exception }
+        ($null -ne $failure) | Should-BeTrue
+        $failure.Data['Code'] | Should-Be -Expected 'processor_failed'
+        $failure.Data['FatalDiscovery'] | Should-BeTrue
+        [object]::ReferenceEquals($failure.Data['Probe'],$script:converterUnsafeProbe) | Should-BeTrue
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly
+        Should-Invoke Get-WinBookSplitPathCandidates -Times 0 -Exactly
+    }
+    It 'preserves the proved interrupted <ControlKind> primary code' -ForEach @(
+        @{ ControlKind='timeout'; ExpectedCode='processor_timeout' },
+        @{ ControlKind='cancel'; ExpectedCode='processor_cancelled' }
+    ) {
+        $script:converterControl=$ControlKind
+        Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            if ($script:converterControl -eq 'timeout') { $probe.TimedOut=$true } else { $probe.Cancelled=$true }
+            $script:converterInterruptedProbe=$probe
+            return $probe
+        }
+        $failure=$null
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython }
+        catch { $failure=$_.Exception }
+        ($null -ne $failure) | Should-BeTrue
+        $failure.Data['Code'] | Should-Be -Expected $ExpectedCode
+        ($failure.Data['FatalDiscovery'] -eq $true) | Should-BeFalse
+        [object]::ReferenceEquals($failure.Data['Probe'],$script:converterInterruptedProbe) | Should-BeTrue
+        $failure.Data['Probe'].ParentStopped | Should-BeTrue
+        $failure.Data['Probe'].DescendantsStopped | Should-BeTrue
+        ($null -eq $failure.Data['Probe'].StopError) | Should-BeTrue
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly
+        Should-Invoke Get-WinBookSplitPathCandidates -Times 0 -Exactly
     }
 }

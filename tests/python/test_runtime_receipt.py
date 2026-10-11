@@ -6,6 +6,7 @@ import json
 import ntpath
 from pathlib import Path
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -27,7 +28,9 @@ APP_FILES = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.tx
              "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
              "engine/winbooksplit_engine.py", "engine/winbooksplit_windows.py",
              "engine/winbooksplit_conversion.py", "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
-             "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1")
+             "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1",
+    "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 
 
 def native_probe(stdout, exit_code=0):
@@ -39,19 +42,39 @@ def native_probe(stdout, exit_code=0):
             "StreamError": None, "ElapsedSeconds": 0.1}
 
 
-def selected_runtime(executable, source):
+def selected_runtime(executable, source, version="3.14.8"):
     origin = ntpath.join(ntpath.dirname(ntpath.dirname(executable)),
                          "Lib", "site-packages", "pypdf", "__init__.py")
     details = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": True,
-               "executable": executable, "version": "3.14.8", "implementation": "cpython",
+               "executable": executable, "version": version, "version_info": [int(part) for part in version.split(".")],
+               "releaselevel": "final", "serial": 0, "implementation": "cpython",
                "platform": "win32", "machine": "AMD64", "bits": 64, "gil_disabled": False,
                "isolated": True, "dont_write_bytecode": True, "pypdf_version": "6.20.0",
-               "pypdf_path": origin, "message": "Supported interpreter and pypdf imported in isolation."}
+               "pypdf_path": origin, "policy_version": validator.console.RUNTIME_POLICY["policy_version"],
+               "policy_sha256": validator.console.RUNTIME_POLICY_SHA256, "reason": "supported",
+               "message": "Synthetic supported interpreter and locked pypdf record."}
     probe = native_probe(json.dumps(details) + "\r\n")
-    return {"Path": executable, "Version": "3.14.8", "Source": source, "PypdfVersion": "6.20.0",
+    result = {"Path": executable, "Version": version, "Source": source, "PypdfVersion": "6.20.0",
+            "PolicyVersion": details["policy_version"], "PolicySha256": details["policy_sha256"], "InterpreterOnly": False,
             "PypdfPath": origin, "Details": details, "Probe": probe, "Arguments": ["-I", "-B"],
             "Attempts": [{"Path": executable, "Source": source, "Accepted": True,
-                          "Message": details["message"], "Probe": deepcopy(probe)}]}
+                          "Reason": "supported", "Message": details["message"], "Probe": deepcopy(probe)}]}
+    if source in {"PATH", "manager", "py_launcher"}:
+        result["Attempts"].append({"Path": executable, "Source": "selection", "Accepted": True,
+                                  "Reason": "supported", "Message": "Synthetic policy selection bookkeeping.", "Probe": None})
+    return result
+
+
+def rejected_details(executable, version, reason):
+    details = deepcopy(selected_runtime(executable, "explicit", version)["Details"])
+    details.pop("pypdf_version")
+    details.pop("pypdf_path")
+    details.update(ok=False, reason=reason, message={
+        "unsupported_python": "This synthetic Python branch is excluded by the policy.",
+        "missing_pypdf": "The locked package cannot be imported: No module named 'pypdf'",
+        "pypdf_version_mismatch": "Expected locked pypdf 6.20.0 in both import and distribution metadata.",
+    }[reason])
+    return details
 
 
 def selected_converter(source):
@@ -172,12 +195,9 @@ def valid_report():
                 candidate = directory + "\\candidate.exe" if explicit else None
                 attempts = []
                 if explicit:
-                    detail = {"protocol": "winbooksplit.runtime", "schema_version": 1, "ok": False,
-                              "version": "3.14.7" if kind == "wrong-version" else "3.14.8",
-                              "message": "Expected CPython 3.14.8 exactly." if kind == "wrong-version" else
-                              "No module named 'pypdf'" if kind == "missing-pypdf" else "Expected pypdf 6.20.0 exactly."}
-                    if kind == "wrong-pypdf":
-                        detail["pypdf_version"] = "9.99.0"
+                    detail = rejected_details(candidate, "3.12.14" if kind == "wrong-version" else "3.14.8",
+                              "unsupported_python" if kind == "wrong-version" else
+                              "missing_pypdf" if kind == "missing-pypdf" else "pypdf_version_mismatch")
                     bad_probe = None if kind == "missing" else native_probe(
                         "ebook-convert.exe (calibre 9.14.0)\r\n" if category == "converter_failure"
                         else "OWNED-NON-PYTHON-NATIVE-CONTROL\r\n" if kind == "non-python" else json.dumps(detail) + "\r\n",
@@ -189,7 +209,7 @@ def valid_report():
                                  "Message": "Excluded automatic candidate", "Probe": None} for filename in case["decoy_sha256"]]
                 error = {"Code": "runtime_invalid" if category == "python_failure" else
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
-                guidance = ("3.14.8 6.20.0 -PythonPath -I -m pip requirements.txt " + candidate if category == "python_failure"
+                guidance = ("Reviewed Python policy 6.20.0 -PythonPath Setup-WinBookSplit.ps1 .venv " + candidate if category == "python_failure"
                             else "Calibre 9.15.0 -CalibrePath")
                 case.update(dependency_error=error, candidate_path=candidate, exit_code=3,
                             stdout="Dependency preflight failed " + guidance + "\n[DEPENDENCY-ERROR] " + json.dumps(error) + "\n",
@@ -209,7 +229,8 @@ def valid_report():
                         for name in case["decoy_sha256"] if name.endswith(".exe")]
                 if kind == "multiple-path":
                     runtime["Attempts"].insert(0, {"Path": r"C:\synthetic\unsupported\python.exe", "Source": "PATH",
-                        "Accepted": False, "Message": "Wrong Python", "Probe": native_probe('{"version":"3.14.7"}\r\n', 1)})
+                        "Accepted": False, "Message": "Excluded Python", "Probe": native_probe(json.dumps(
+                            rejected_details(r"C:\synthetic\unsupported\python.exe", "3.12.14", "unsupported_python")) + '\r\n', 1)})
                 if kind == "py-launcher-listing":
                     launcher = directory + "\\launcher\\py.exe"
                     runtime["Attempts"].insert(0, {"Path": launcher, "Source": "py_launcher_listing", "Accepted": True,
@@ -226,6 +247,7 @@ def valid_report():
                 case.update(dependency_selection={"Runtime": runtime,
                             "Converter": selected_converter(converter_source) if ebook else None},
                             expected_python_path=executable, expected_python_source=selection,
+                            expected_python_version="3.14.8",
                             expected_converter_source=converter_source,
                             engine_invocation={"path": executable, "arguments": engine_argv},
                             writer_result=writer, exit_code=0, written_count=3, selected_interpreter_used_for_engine=True,
@@ -254,7 +276,17 @@ def valid_report():
                    "controlled_PYTHONPATH": r"C:\synthetic\module", "control_reached": True}}
     report["native_control_compilation"] = {"command": [SHELLS[0], "-Command", "Synthetic fixture"],
         "cwd": r"C:\synthetic", "exit_code": 0, "stdout": "", "stderr": "", "source_sha256": "c" * 64, "executable_sha256": "d" * 64}
-    report["unsupported_real_python_observation"] = {"exit_code": 0, "stdout": "CPython 3.14.7", "stderr": ""}
+    source_map["engine/WinBookSplit.Compatibility.json"] = validator.console.RUNTIME_POLICY_SHA256
+    for field in validator.CASE_KINDS:
+        for case in report[field]:
+            case["application_path_sha256"]["engine/WinBookSplit.Compatibility.json"] = validator.console.RUNTIME_POLICY_SHA256
+    helper, policy = str(ROOT / 'engine/winbooksplit_compatibility.py'), str(ROOT / 'engine/WinBookSplit.Compatibility.json')
+    supported = selected_runtime(r"C:\synthetic\env\Scripts\python.exe", "explicit")
+    report["supported_real_python_observation"] = {"exit_code": 0, "stdout": json.dumps(supported['Details']), "stderr": "",
+        "command": [supported['Path'], '-I', '-B', helper, '--probe', '--policy', policy]}
+    excluded = rejected_details(r"C:\synthetic\unsupported\python.exe", "3.12.14", "unsupported_python")
+    report["unsupported_real_python_observation"] = {"exit_code": 1, "stdout": json.dumps(excluded), "stderr": "",
+        "command": [excluded['executable'], '-I', '-B', helper, '--probe', '--interpreter-only', '--policy', policy]}
     report["independent_real_conversion_reference"] = {"process": {"exit_code": 0, "argv": [CALIBRE,
         r"C:\synthetic\reference.epub", r"C:\synthetic\reference.pdf", "--output-profile", "tablet"]},
         "sha256": "f" * 64, "size_bytes": 300, "page_count": 3, "page_content_sha256": deepcopy(CONTENT)}
@@ -267,6 +299,59 @@ class RuntimeReceiptTests(unittest.TestCase):
 
     def test_complete_synthetic_receipt_is_structurally_accepted(self):
         self.validate(valid_report())
+
+    def test_synthetic_policy_versions_and_manager_selection_are_supported(self):
+        for version in ('3.13.16', '3.13.17', '3.13.99', '3.14.8', '3.14.10', '3.14.99'):
+            for source in ('explicit', 'PATH', 'manager', 'py_launcher'):
+                with self.subTest(version=version, source=source):
+                    validator.runtime(selected_runtime(r'C:\synthetic\env\Scripts\python.exe', source, version))
+
+    def test_synthetic_previous_security_floors_reject_for_every_discovery_source(self):
+        for version in ('3.13.15', '3.14.7'):
+            for source in ('explicit', 'PATH', 'manager', 'py_launcher'):
+                with self.subTest(version=version, source=source), self.assertRaises(ValueError):
+                    validator.runtime(selected_runtime(r'C:\synthetic\env\Scripts\python.exe', source, version))
+
+    def test_synthetic_blocked_patch_and_manifest_target_mismatch_reject(self):
+        policy = deepcopy(validator.console.RUNTIME_POLICY)
+        next(branch for branch in policy['python']['branches'] if branch['minor'] == 14)['blocked_patches'] = [8]
+        with patch.object(validator.console, 'RUNTIME_POLICY', policy), self.assertRaises(ValueError):
+            validator.runtime(selected_runtime(r'C:\synthetic\env\Scripts\python.exe', 'PATH'))
+        case = valid_report()['python_selection_cases'][0]
+        receipt = case['console_evidence']
+        for version in ('3.13.16', '3.14.10'):
+            receipt['run_manifest']['runtime_versions']['python'] = version
+            console_fixture.reseal(receipt)
+            validator.console.validate_console_evidence(receipt, receipt['operation_outcome'], receipt['log_sha256'])
+            with self.assertRaises(ValueError):
+                validator.console.validate_console_evidence(receipt, receipt['operation_outcome'], receipt['log_sha256'],
+                                                          expected_python_version='3.14.8')
+
+    def test_resealed_synthetic_identity_policy_and_candidate_corruption_reject(self):
+        def reseal(record):
+            record['Probe'] = native_probe(json.dumps(record['Details']) + '\r\n')
+            record['Attempts'][0]['Probe'] = deepcopy(record['Probe'])
+        mutations = {
+            'unreviewed branch': lambda r: r['Details'].update(version='3.15.0', version_info=[3, 15, 0]),
+            'security floor': lambda r: r['Details'].update(version='3.14.6', version_info=[3, 14, 6]),
+            'boolean version': lambda r: r['Details'].update(version_info=[3, 14, True]),
+            'prerelease': lambda r: r['Details'].update(releaselevel='candidate', serial=1),
+            'policy identity': lambda r: r['Details'].update(policy_sha256='a' * 64),
+            'policy boolean': lambda r: r['Details'].update(policy_version=True),
+            'unknown native field': lambda r: r['Details'].update(unrecognized=True),
+            'unknown provenance': lambda r: r.update(Source='selection'),
+            'wrong selected candidate': lambda r: r['Attempts'][0].update(Path=r'C:\other\python.exe'),
+            'bookkeeping probe': lambda r: r['Attempts'][-1].update(Probe=deepcopy(r['Probe'])),
+            'bookkeeping path': lambda r: r['Attempts'][-1].update(Path=r'C:\other\python.exe'),
+            'interpreter only': lambda r: r.update(InterpreterOnly=True),
+        }
+        for name, mutate in mutations.items():
+            with self.subTest(defect=name):
+                record = selected_runtime(r'C:\synthetic\env\Scripts\python.exe', 'manager')
+                mutate(record)
+                reseal(record)
+                with self.assertRaises(ValueError):
+                    validator.runtime(record)
 
     def test_windows_host_casing_preserves_identity(self):
         report = valid_report()

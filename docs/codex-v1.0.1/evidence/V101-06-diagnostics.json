@@ -1,0 +1,382 @@
+{
+  "task": "V101-06",
+  "observed_at": "2026-10-11T15:57:18.858180+00:00",
+  "observed_source_commit": "cd4e9795e0786069348a27e8fa176912f979b636",
+  "observed_source_tree": "0f95e05273ed493c29faad253167919aa785c638",
+  "changed_source_sha256": {
+    "WinBookSplit.ps1": "dfb946eff564805cfc9037637a01205eb865bd30d1ed5d2dc7bccdd5d662158d",
+    "docs/SUPPORT_DIAGNOSTICS.md": "584597f527b8509640d03dc01b385a6013c2666d2df4918429bc4f68cfbc2380",
+    "engine/WinBookSplit.Runtime.ps1": "abd6a60f1cc6d5dd33888396cf7807fc39272c199560ff6ec52cce68d4093b3d",
+    "tests/powershell/Logging.Tests.ps1": "8920cd2a769f3b2ab1b1372a8094bfe5c2fa84fd08e32b2b7c1fb987d15fbdd5",
+    "tests/powershell/Outcome.Tests.ps1": "3b88d18b365e9156302c648ec2933a1348eb5b0eb1554682e7736b0b2fbd0b7c",
+    "tests/powershell/Support.Tests.ps1": "63cb54123cd780091d1033ad1ccd90845439fc170c124e25b5fe6238280dabc3"
+  },
+  "policy_sha256": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+  "final_index_sha256": "c9bf3f6f4aaf32911ccff36e7054f724db2b7e11f98f9da1eba3476a876b6c23",
+  "verification": {
+    "schema_version": 1,
+    "task": "V101-06",
+    "created_utc": "2026-10-11T15:56:02.840066+00:00",
+    "scope": "Available Windows11 task06 diagnostics/API checks. No native Windows10, final ZIP, Explorer, or real Calibre conversion PASS.",
+    "source_checkpoint": {
+      "head": "cd4e9795e0786069348a27e8fa176912f979b636",
+      "tree": "0f95e05273ed493c29faad253167919aa785c638",
+      "meaning": "Prior live task05 checkpoint; exact uncommitted task06 worktree bytes are separately bound below."
+    },
+    "final_source_sha256": {
+      "WinBookSplit.ps1": "dfb946eff564805cfc9037637a01205eb865bd30d1ed5d2dc7bccdd5d662158d",
+      "engine\\WinBookSplit.Runtime.ps1": "abd6a60f1cc6d5dd33888396cf7807fc39272c199560ff6ec52cce68d4093b3d",
+      "engine\\WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+      "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine\\WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+      "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+      "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+      "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "tests\\powershell\\Outcome.Tests.ps1": "3b88d18b365e9156302c648ec2933a1348eb5b0eb1554682e7736b0b2fbd0b7c",
+      "tests\\powershell\\Logging.Tests.ps1": "8920cd2a769f3b2ab1b1372a8094bfe5c2fa84fd08e32b2b7c1fb987d15fbdd5",
+      "tests\\powershell\\Support.Tests.ps1": "63cb54123cd780091d1033ad1ccd90845439fc170c124e25b5fe6238280dabc3"
+    },
+    "commands": {
+      "PS51-01": [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\diagnostics-tests-06-01\\Invoke-Focused.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\diagnostics-tests-06-01\\PS51-01"
+      ],
+      "PS766-01": [
+        "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\diagnostics-tests-06-01\\Invoke-Focused.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\diagnostics-tests-06-01\\PS766-01"
+      ],
+      "PS51-02": [
+        "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\diagnostics-tests-06-01\\Invoke-Focused.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\diagnostics-tests-06-01\\PS51-02"
+      ],
+      "PS766-02": [
+        "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\diagnostics-tests-06-01\\Invoke-Focused.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\diagnostics-tests-06-01\\PS766-02"
+      ],
+      "native-01": [
+        "<isolated-work>\\dev14\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<isolated-work>\\diagnostics-tests-06-01\\native_cases.py",
+        "<isolated-work>\\diagnostics-tests-06-01\\native-01"
+      ],
+      "native-02": [
+        "<isolated-work>\\dev14\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<isolated-work>\\diagnostics-tests-06-01\\native_cases.py",
+        "<isolated-work>\\diagnostics-tests-06-01\\native-02"
+      ],
+      "shared-shell-06-01": [
+        "<isolated-work>\\dev14\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<checkout>\\tests\\run_tests.py",
+        "--layer",
+        "shell",
+        "--report",
+        "<isolated-work>\\diagnostics-tests-06-01\\shared-shell-06-01.json",
+        "--tool-root",
+        "<isolated-work>\\shell-tools",
+        "--shell-path",
+        "C:/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "--shell-path",
+        "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe"
+      ]
+    },
+    "command_context": {
+      "focus": "Fresh test-tool bootstrap uses explicit known host Utility/Management/Security module imports and owned unrelated CWD/TEMP; Bypass is child-scoped test invocation only.",
+      "native": "Inherited application environment; owned wrapper explicitly imports its known host evidence modules and Diagnostics then Process. Full Main child uses RemoteSigned; actual process/stream/job/shutdown records retained.",
+      "shared": "Caller-scoped WBS_TEST_WHEELHOUSE set to the previously reviewed task05 wheelhouse and restored finally; shared runner uses its existing child module/runtime isolation."
+    },
+    "focused": {
+      "PS51-02": {
+        "receipt": {
+          "path": "<isolated-work>\\diagnostics-tests-06-01\\PS51-02\\report.json",
+          "sha256": "8acf4ba7cdc0895a3e456dae30c0f7b14459fb9295a19895b4dedd19ac605cbf"
+        },
+        "host": "5.1.26100.9444",
+        "clr": "4.0.30319.42000",
+        "pester": {
+          "total": 58,
+          "errors": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 58,
+          "skipped": 0,
+          "container_errors": [],
+          "failed": 0,
+          "result": "Passed"
+        },
+        "source_unchanged": true,
+        "syntax_errors": 0,
+        "scoped_pssa_findings": 0
+      },
+      "PS766-02": {
+        "receipt": {
+          "path": "<isolated-work>\\diagnostics-tests-06-01\\PS766-02\\report.json",
+          "sha256": "5a7e1c6ecc92c594ca4ee530b5c1b25bb3047a5d7232db4a8e8e887e66aa34f7"
+        },
+        "host": "7.6.6",
+        "clr": "10.0.12",
+        "pester": {
+          "failed_containers": 0,
+          "passed": 58,
+          "total": 58,
+          "failed": 0,
+          "skipped": 0,
+          "result": "Passed",
+          "not_run": 0,
+          "container_errors": [],
+          "errors": []
+        },
+        "source_unchanged": true,
+        "syntax_errors": 0,
+        "scoped_pssa_findings": 0
+      }
+    },
+    "native": {
+      "receipt": {
+        "path": "<isolated-work>\\diagnostics-tests-06-01\\native-02\\report.json",
+        "sha256": "41369b402333f6331513d8916ab2ee786b1de888c2626f6d1f82693cbdc86584"
+      },
+      "passed_records": 32,
+      "source_unchanged": true,
+      "os": {
+        "build": "26300",
+        "version": "10.0.26300",
+        "caption": "Microsoft Windows 11 Pro",
+        "is_64_bit_process": true,
+        "architecture": "64-bit",
+        "product_type": 1,
+        "is_64_bit_os": true
+      },
+      "hosts": [
+        "5.1.26100.9444",
+        "7.6.6"
+      ],
+      "actual_python_versions": [
+        "3.13.16",
+        "3.14.8"
+      ],
+      "package_fixture_scope": "Owned constant-only wrong-version/outside-origin module/distribution stubs under actual13.16/14.8 venvs; not upstream pypdf package tests.",
+      "fault_scope": "Six copied-source controls across two hosts, with exact original/changed copy digests, actual sleep-helper cancellation/deadline and closed-writer finalizer faults. Original3/130 codes preserved; no fake native stop flags.",
+      "protected_inputs": "Every authored source, neighbor and prior-output hash/size/identity/mtime remains unchanged. Application copy bytes unchanged from the disclosed actual copy digests.",
+      "acl_scope": "Actual deny-Write output ACL; restored original owner/group/protection/ACE identities/permissions. Windows descriptor bookkeeping normalization is not a permission change."
+    },
+    "shared_shell": {
+      "receipt": {
+        "path": "<isolated-work>\\diagnostics-tests-06-01\\shared-shell-06-01.json",
+        "sha256": "a365563434de8794ba66c8ca3856a2486becda64fc532fce721a1214017f03cc"
+      },
+      "success": true,
+      "source_unchanged": true,
+      "owned_work_directory_removed": true,
+      "hosts": [
+        {
+          "host": {
+            "version": "5.1.26100.9444",
+            "edition": "Desktop",
+            "clr": "4.0.30319.42000",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "pester": {
+            "total": 182,
+            "failed_cases": [],
+            "not_run": 0,
+            "failed_containers": 0,
+            "passed": 182,
+            "skipped": 0,
+            "failed_blocks": [],
+            "failed": 0,
+            "result": "Passed",
+            "failed_container_errors": []
+          },
+          "command": [
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-EncodedCommand",
+            "JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAdABvAHAAJwA7ACAAJABiAGwAbwBjAGsAIAA9ACAAWwBzAGMAcgBpAHAAdABiAGwAbwBjAGsAXQA6ADoAQwByAGUAYQB0AGUAKABbAEkATwAuAEYAaQBsAGUAXQA6ADoAUgBlAGEAZABBAGwAbABUAGUAeAB0ACgAJABlAG4AdgA6AFcAQgBTAF8AVABFAFMAVABfAFMAQwBSAEkAUABUACwAIABbAFQAZQB4AHQALgBFAG4AYwBvAGQAaQBuAGcAXQA6ADoAVQBUAEYAOAApACkAOwAgACYAIAAkAGIAbABvAGMAawAgAC0AUgBlAHAAbwBzAGkAdABvAHIAeQBSAG8AbwB0ACAAJABlAG4AdgA6AFcAQgBTAF8AVABFAFMAVABfAFIATwBPAFQAIAAtAFQAbwBvAGwAUgBvAG8AdAAgACQAZQBuAHYAOgBXAEIAUwBfAFQARQBTAFQAXwBUAE8ATwBMAFMAIAAtAFIAZQBwAG8AcgB0AFAAYQB0AGgAIAAkAGUAbgB2ADoAVwBCAFMAXwBUAEUAUwBUAF8AUgBFAFAATwBSAFQAIAAtAFcAbwByAGsAUgBvAG8AdAAgACQAZQBuAHYAOgBXAEIAUwBfAFQARQBTAFQAXwBXAE8AUgBLAA=="
+          ]
+        },
+        {
+          "host": {
+            "version": "7.6.6",
+            "edition": "Core",
+            "clr": "10.0.12",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "pester": {
+            "passed": 182,
+            "failed_blocks": [],
+            "skipped": 0,
+            "total": 182,
+            "not_run": 0,
+            "failed_container_errors": [],
+            "result": "Passed",
+            "failed_containers": 0,
+            "failed_cases": [],
+            "failed": 0
+          },
+          "command": [
+            "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-EncodedCommand",
+            "JABFAHIAcgBvAHIAQQBjAHQAaQBvAG4AUAByAGUAZgBlAHIAZQBuAGMAZQAgAD0AIAAnAFMAdABvAHAAJwA7ACAAJABiAGwAbwBjAGsAIAA9ACAAWwBzAGMAcgBpAHAAdABiAGwAbwBjAGsAXQA6ADoAQwByAGUAYQB0AGUAKABbAEkATwAuAEYAaQBsAGUAXQA6ADoAUgBlAGEAZABBAGwAbABUAGUAeAB0ACgAJABlAG4AdgA6AFcAQgBTAF8AVABFAFMAVABfAFMAQwBSAEkAUABUACwAIABbAFQAZQB4AHQALgBFAG4AYwBvAGQAaQBuAGcAXQA6ADoAVQBUAEYAOAApACkAOwAgACYAIAAkAGIAbABvAGMAawAgAC0AUgBlAHAAbwBzAGkAdABvAHIAeQBSAG8AbwB0ACAAJABlAG4AdgA6AFcAQgBTAF8AVABFAFMAVABfAFIATwBPAFQAIAAtAFQAbwBvAGwAUgBvAG8AdAAgACQAZQBuAHYAOgBXAEIAUwBfAFQARQBTAFQAXwBUAE8ATwBMAFMAIAAtAFIAZQBwAG8AcgB0AFAAYQB0AGgAIAAkAGUAbgB2ADoAVwBCAFMAXwBUAEUAUwBUAF8AUgBFAFAATwBSAFQAIAAtAFcAbwByAGsAUgBvAG8AdAAgACQAZQBuAHYAOgBXAEIAUwBfAFQARQBTAFQAXwBXAE8AUgBLAA=="
+          ]
+        }
+      ],
+      "analysis_scope": "Syntax and scaffold/module/test PSSA gates0. Legacy Main default-analyzer findings are observations, not an all-analyzer0 claim."
+    },
+    "acceptance_scope": {
+      "V101-AC-034": "PASS for available Windows11 inbox5.1 syntax/entry-point execution and unchanged BAT bytes. Native Windows10 portion NOT_RUN, retained for AC068.",
+      "V101-AC-036": "PASS actual CIM caption/build/ProductType/architecture recording on Windows11 workstation; not a Windows10 execution claim.",
+      "V101-AC-037": "PASS synthetic validator/formatter controls plus actual package/missing-path/full-entry/local-log/support/fallback/native-interruption evidence.",
+      "V101-AC-038": "PASS actual Main+VERSION-only copy query and actual comment help under both hosts without loading application dependency helpers."
+    },
+    "preserved_history": [
+      {
+        "receipts": [
+          {
+            "path": "<isolated-work>\\diagnostics-tests-06-01\\PS51-01\\report.json",
+            "sha256": "959843231759d7512aa62a34ed9f1d87c9c0a451a890c9cf01d5c6797b9249d0"
+          },
+          {
+            "path": "<isolated-work>\\diagnostics-tests-06-01\\PS766-01\\report.json",
+            "sha256": "e57ade630d8e9d421753354829453d1bbfbbed1eee88244a1f93f83f99878cd1"
+          }
+        ],
+        "status": "FAIL",
+        "actual_count": "53/57 each",
+        "meaning": "One production omission of policy-derived locked pypdf version, plus three authoring failures from unavailable Pester6 Should-BeNullOrEmpty. Corrected source and assertions; no safety assertion removed."
+      },
+      {
+        "receipt": {
+          "path": "<isolated-work>\\diagnostics-tests-06-01\\native-01\\report.json",
+          "sha256": "f536a41ec0f549d980149182f2704aca3ecec5879998f5e037fd3168df2e54c0"
+        },
+        "status": "FAILED_PREPARATION",
+        "meaning": "External wrapper omitted Diagnostics before Process; ConvertTo-NativeArgument unavailable before any Main child started. Actual owned venv preparation and raw failed wrapper receipts preserved. Fresh native02 uses actual application helper load order."
+      }
+    ],
+    "external_harness_sha256": {
+      "Invoke-Focused.ps1": "6dedceb6883d9f843ac0102df3f40ce44247bd4b45cde5c3ab9367dce55f590e",
+      "Invoke-NativeCase.ps1": "715b694b842794d9939061647e8b54444883283b3776cc2de1399b0af7d6843c",
+      "native_cases.py": "c340756b9d565e3fd8b88ad4d816979c7261bcbfb072e51ce6f71ebd3c8a6505",
+      "write_final_index.py": "754421ed0c84bc6a01fa1dc76a2a9a647a3ab1a7d33da622438ca2fa2ae93405"
+    },
+    "limitations": [
+      "No native Windows10 evidence.",
+      "No final ZIP or public release evidence.",
+      "No Explorer integration change/signoff.",
+      "No real Calibre conversion in this task.",
+      "Synthetic3.14.2/future/flavor/architecture and unsafe-stop flags are validator/formatter controls, not installed-runtime or native process-stop claims."
+    ],
+    "next_task": "Parent checkpoints task06, pushes and live-verifies, then activates task07 reference/minor matrix and paired fixture/validator closure updates.",
+    "checkout_venv_absent": true
+  },
+  "extra_reports": [
+    {
+      "path": "<isolated-work>/diagnostics-06-before-01/receipt.json",
+      "sha256": "a09c196ef8f7158ee9562d4ac62ec3da47aad872e4cb9d748e01873e26be9fb2",
+      "scope": "Actual pre-change inbox5.1 Win11 reproduction: exit3, giant frame, no early records, obsolete direct pip advice"
+    },
+    {
+      "path": "<isolated-work>/diagnostics-06-static-02-PS51.json",
+      "sha256": "25d220e62175de92b491eca3aef1717cb028ab74b6875b6ba547af8c0ee67e5c",
+      "scope": "Final Main/Runtime syntax and scoped PSSA under actual inbox5.1"
+    },
+    {
+      "path": "<isolated-work>/diagnostics-06-static-02-PS766.json",
+      "sha256": "bfda7932a7bac7ae15b6517220d9c66c82de0c77b52b49b33ad38561145c774f",
+      "scope": "Final Main/Runtime syntax and scoped PSSA under actual portable7.6.6"
+    },
+    {
+      "path": "<isolated-work>/V101-06-final-api-source-01.json",
+      "sha256": "a30658bcb21f307e911943a93a95acfcb3d262741138965f65d1fb2e64cc06a4",
+      "scope": "Independent final17-file API source snapshot; static only"
+    }
+  ],
+  "api_review_sha256": "7418a24e35d484c9a9e60e136214b9620a56f72536e50989cc80024a92ac3681",
+  "interpretation": "Available-host source-checkout Windows11 automation and static API review only. Win10 native portion remains NOT_RUN and is required by AC068; no final ZIP or release acceptance.",
+  "native_windows10": "NOT_RUN",
+  "final_zip_windows11": "NOT_RUN",
+  "human_actions": 0,
+  "next_task": "V101-07"
+}

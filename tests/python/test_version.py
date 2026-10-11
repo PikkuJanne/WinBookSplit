@@ -30,8 +30,8 @@ class ApplicationVersionTests(unittest.TestCase):
         self.version = self.work / "VERSION"
 
     def test_shipped_candidate_has_one_version_source_and_unchanged_outcome_schema(self):
-        self.assertEqual((ROOT / "VERSION").read_bytes(), b"1.0.0\n")
-        self.assertEqual(read_version(ROOT / "VERSION"), "1.0.0")
+        self.assertEqual((ROOT / "VERSION").read_bytes(), b"1.0.1\n")
+        self.assertEqual(read_version(ROOT / "VERSION"), "1.0.1")
         contract = json.loads((ROOT / "engine/WinBookSplit.Outcomes.json").read_text(encoding="utf-8"))
         self.assertEqual(set(contract), {"schema_version", "codes"})
         self.assertEqual(contract["schema_version"], 1)
@@ -72,7 +72,8 @@ class ApplicationVersionTests(unittest.TestCase):
     def test_actual_engine_missing_or_bad_version_fails_before_dependency_and_source_access(self):
         app = self.work / "app"
         (app / "engine").mkdir(parents=True)
-        for name in ("winbooksplit_engine.py", "WinBookSplit.Outcomes.json"):
+        for name in ("winbooksplit_engine.py", "WinBookSplit.Outcomes.json",
+                     "winbooksplit_compatibility.py", "WinBookSplit.Compatibility.json"):
             shutil.copyfile(ROOT / "engine" / name, app / "engine" / name)
         source, output = self.work / "absent-input.pdf", self.work / "absent-output"
         sentinel = self.work / "neighbor.txt"

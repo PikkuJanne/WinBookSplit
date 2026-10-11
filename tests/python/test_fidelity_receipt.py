@@ -37,7 +37,7 @@ def synthetic_output():
               'pages': [actual], 'expected_pages': [deepcopy(source)],
               'inventory': {'all_page_object_count': 1, 'serialized_content_marker_ids': [1], 'all_image_decoded_sha256': ['2' * 64]},
               'metadata': {'/Title': 'Chapter', '/Author': guard.AUTHOR, '/Creator': 'WinBookSplit',
-                           '/Producer': 'WinBookSplit 1.0.0 (pypdf 6.20.0)', '/Subject': 'Source: ' + guard.TITLE},
+                           '/Producer': f"WinBookSplit {guard.console.APPLICATION_VERSION} (pypdf {guard.console.RUNTIME_POLICY['pypdf']['version']})", '/Subject': 'Source: ' + guard.TITLE},
               'outline': [{'title': 'Chapter', 'page': 0}], 'catalog_keys': ['/Type', '/Pages', '/Outlines'],
               'annotations': [{'page': 0, 'name': 'forward-0', 'P_matches_page': True, 'source_relations_absent': True, 'unsupported_action_absent': True}],
               'renders': deepcopy(rendered)}
@@ -53,6 +53,12 @@ class FidelityReceiptTests(unittest.TestCase):
 
     def test_canonical_direct_link_is_valid(self):
         self.check()
+
+    def test_producer_binds_canonical_application_version_and_locked_package(self):
+        for producer in ("WinBookSplit 0.0.0 (pypdf 6.20.0)",
+                         f"WinBookSplit {guard.console.APPLICATION_VERSION} (pypdf 9.99.0)"):
+            with self.subTest(producer=producer), self.assertRaises(ValueError):
+                self.check(lambda row, out, entry, source: out['metadata'].update({'/Producer': producer}))
 
     def test_hidden_page_objects_fail(self):
         with self.assertRaisesRegex(ValueError, 'hidden off-segment'):

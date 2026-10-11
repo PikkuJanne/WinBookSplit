@@ -1,0 +1,710 @@
+{
+  "application_payload_paths_changed": [],
+  "changed_files": {
+    "tests/powershell/Outcome.Tests.ps1": {
+      "bytes": 43146,
+      "sha256": "fe1871260b0861dc28726c78f3005d83809aef7ba96e0bca809aed103f26afc5"
+    },
+    "tests/powershell/Support.Tests.ps1": {
+      "bytes": 20336,
+      "sha256": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+    },
+    "tests/powershell/Version.Tests.ps1": {
+      "bytes": 3504,
+      "sha256": "4d551a60abc22ad7a0e8734eca83084c6988a6a507a114be2127261b6476c6a7"
+    },
+    "tests/python/test_ci_package_inputs.py": {
+      "bytes": 21626,
+      "sha256": "bf5f53e648048a8209463d240242052df69404a6b12dd2ee04265e9a6860d508"
+    }
+  },
+  "development_package": {
+    "assets": {
+      "SHA256SUMS.txt": "3923c243d1ac8a49f731b2d6a17f03ee446e706ee05760df56b2163b2b69989b",
+      "WinBookSplit-v1.0.1.zip": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+      "release-manifest.json": "1353ba81daa88b76c5dd197a8910fe9b1f68ec4d07c25a8d7ef54929de318231"
+    },
+    "commands": [
+      "bare CPython 3.14.8 -I -B tools/release/build_package.py build --repo <checkout> --commit 087deb7aff3c6de102336085088ce570cd28f5b2 --output <fresh external directory>",
+      "same builder verify with identical repo/commit/output"
+    ],
+    "members": 33,
+    "native_exit_codes": [
+      0,
+      0
+    ],
+    "scope": "Unpublished pre-integration builder/verify check, not final release assets.",
+    "signed": false,
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2",
+    "version": "1.0.1"
+  },
+  "failed_ci": {
+    "acquisition_sha256": "dcff413eb82ef980edcba905784d3fc5504865272710375725d7f1caaa32ca07",
+    "application_jobs": "Both completed success; overall run remains FAIL.",
+    "archives": [
+      {
+        "api_digest": "sha256:d9590aa3f1d95daf707b795f22a955a2b88891fe3dca4e42f68af3e6d191e1df",
+        "api_size_in_bytes": 74307,
+        "downloaded_bytes": 74307,
+        "id": 11712324767,
+        "members": [
+          {
+            "bytes": 439,
+            "name": "os.json",
+            "sha256": "bfbfb33a9f5534668ea77b786584b7fc083c900d889044c99704ce7dab1ac043"
+          },
+          {
+            "bytes": 10038,
+            "name": "tools-bootstrap.json",
+            "sha256": "20fcbbd36f9673e6727eedec36cbba284c385c6e26018c29379dd341bc800e86"
+          },
+          {
+            "bytes": 11994,
+            "name": "package-inputs.json",
+            "sha256": "c7df849bc782d0239080fd48003afa19df9f7d8c158347001741f7f17e3a2d85"
+          },
+          {
+            "bytes": 159909,
+            "name": "python.json",
+            "sha256": "67ed802f5dc44eb65c259b4028f02e815c2de31439b8653884ea941024c6b191"
+          },
+          {
+            "bytes": 122626,
+            "name": "shell-ps7.json",
+            "sha256": "139d25bbd87e2b21d3a70fb112c3953a65a4af81ed2e92a1bc233cd6136df455"
+          },
+          {
+            "bytes": 77489,
+            "name": "shell-ps51.json",
+            "sha256": "e01465e61e0407476c7c6f3fe2fba40e52f7e9b99c66d5f1abf503d3579fe375"
+          }
+        ],
+        "name": "windows-reference-087deb7aff3c6de102336085088ce570cd28f5b2-1",
+        "role": "reference",
+        "sha256": "d9590aa3f1d95daf707b795f22a955a2b88891fe3dca4e42f68af3e6d191e1df"
+      },
+      {
+        "api_digest": "sha256:5638ac4be91294233cbec8eda6084f11b751061d7ff1f38d15d24fdd081641ef",
+        "api_size_in_bytes": 53037,
+        "downloaded_bytes": 53037,
+        "id": 11712622413,
+        "members": [
+          {
+            "bytes": 11994,
+            "name": "package-inputs.json",
+            "sha256": "c7df849bc782d0239080fd48003afa19df9f7d8c158347001741f7f17e3a2d85"
+          },
+          {
+            "bytes": 439,
+            "name": "os.json",
+            "sha256": "bfbfb33a9f5534668ea77b786584b7fc083c900d889044c99704ce7dab1ac043"
+          },
+          {
+            "bytes": 479244,
+            "name": "application.json",
+            "sha256": "6d5e4e75b78e7c160e76928704093137e17d9d0fd31d82428a35ef19f6029ac1"
+          }
+        ],
+        "name": "windows-application-3.13.16-087deb7aff3c6de102336085088ce570cd28f5b2-1",
+        "role": "application13",
+        "sha256": "5638ac4be91294233cbec8eda6084f11b751061d7ff1f38d15d24fdd081641ef"
+      },
+      {
+        "api_digest": "sha256:1f1efdd6876c0917fe8779fca301318408c4590d5e6093c17e5488ce13b96043",
+        "api_size_in_bytes": 53053,
+        "downloaded_bytes": 53053,
+        "id": 11711849000,
+        "members": [
+          {
+            "bytes": 11994,
+            "name": "package-inputs.json",
+            "sha256": "c7df849bc782d0239080fd48003afa19df9f7d8c158347001741f7f17e3a2d85"
+          },
+          {
+            "bytes": 439,
+            "name": "os.json",
+            "sha256": "bfbfb33a9f5534668ea77b786584b7fc083c900d889044c99704ce7dab1ac043"
+          },
+          {
+            "bytes": 479160,
+            "name": "application.json",
+            "sha256": "de3541427e304d8bbc22872b073d2ef417de7fa1cb6bfc2e95feea0afc959521"
+          }
+        ],
+        "name": "windows-application-3.14.8-087deb7aff3c6de102336085088ce570cd28f5b2-1",
+        "role": "application14",
+        "sha256": "1f1efdd6876c0917fe8779fca301318408c4590d5e6093c17e5488ce13b96043"
+      }
+    ],
+    "python": {
+      "failed": 1,
+      "passed": 644,
+      "seconds": 415.88,
+      "total": 645
+    },
+    "result": "FAIL",
+    "run": 38166990809,
+    "shells": [
+      {
+        "analysis_findings": 0,
+        "analysis_rows": 26,
+        "failed": 7,
+        "failed_cases": [
+          {
+            "errors": [
+              "Expected [string] '1.0.0', but got [string] '1.0.1'."
+            ],
+            "name": "M3 explicit plan-only engine protocol.keeps application version separate from the outcome protocol contract"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports a dependency refusal with null accepted versions without exposing the local diagnosis"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports only safe fields and preserves an original containing secrets in every discarded detail"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports only fixed PDF fidelity warning tokens without private metadata or annotation text"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.preserves failed cancelled no-plan and incomplete zero-count outcomes without fabricating success"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.normalizes portable PowerShell versions to fixed buckets and accepts the actual timeout limits"
+          },
+          {
+            "errors": [
+              "Expected strings to be the same, but they were different.\nString lengths are both 5.\nStrings differ at index 4.\nExpected: '1.0.0'\nBut was:  '1.0.1'\n           ----^"
+            ],
+            "name": "Canonical application VERSION.reads the same shipped candidate in Main and support without their runtime helpers"
+          }
+        ],
+        "not_run": 0,
+        "passed": 185,
+        "report": "shell-ps51.json",
+        "skipped": 0,
+        "syntax_errors": 0,
+        "syntax_rows": 27,
+        "total": 192
+      },
+      {
+        "analysis_findings": 0,
+        "analysis_rows": 26,
+        "failed": 7,
+        "failed_cases": [
+          {
+            "errors": [
+              "Expected [string] '1.0.0', but got [string] '1.0.1'."
+            ],
+            "name": "M3 explicit plan-only engine protocol.keeps application version separate from the outcome protocol contract"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports a dependency refusal with null accepted versions without exposing the local diagnosis"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports only safe fields and preserves an original containing secrets in every discarded detail"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.exports only fixed PDF fidelity warning tokens without private metadata or annotation text"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.preserves failed cancelled no-plan and incomplete zero-count outcomes without fabricating success"
+          },
+          {
+            "errors": [
+              "Invalid diagnostic token."
+            ],
+            "name": "Explicit allowlisted support diagnostic export.normalizes portable PowerShell versions to fixed buckets and accepts the actual timeout limits"
+          },
+          {
+            "errors": [
+              "Expected strings to be the same, but they were different.\nString lengths are both 5.\nStrings differ at index 4.\nExpected: '1.0.0'\nBut was:  '1.0.1'\n           ----^"
+            ],
+            "name": "Canonical application VERSION.reads the same shipped candidate in Main and support without their runtime helpers"
+          }
+        ],
+        "not_run": 0,
+        "passed": 185,
+        "report": "shell-ps7.json",
+        "skipped": 0,
+        "syntax_errors": 0,
+        "syntax_rows": 27,
+        "total": 192
+      }
+    ],
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2",
+    "source_tree": "f795ff288a154205c7edad3dd96ae8cfdc5af4bf",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38166990809"
+  },
+  "focused_python_correction": {
+    "classification": "ACTUAL_WINDOWS11_STANDARD_UNITTEST_SUBSET",
+    "command": "<dev14> -I -B <owned-task11-work>/run_owned_task11_units.py",
+    "environment": {
+      "dont_write_bytecode": true,
+      "isolated": true,
+      "packages": {
+        "Pillow": "12.3.0",
+        "charset-normalizer": "3.5.2",
+        "pypdf": "6.20.0",
+        "reportlab": "5.0.1"
+      },
+      "python": "3.14.8"
+    },
+    "errors": 0,
+    "evidence_preserved": true,
+    "expected_failures": 0,
+    "failures": 0,
+    "finished_utc": "2026-10-11T19:22:10.332625+00:00",
+    "inner_command": "<dev14> -I -B <owned-task11-work>/run_owned_task11_units.py --_unit-child",
+    "loading_error_present": false,
+    "module_roster": [
+      {
+        "name": "test_ci_package_inputs",
+        "tests": 1
+      }
+    ],
+    "not_run": [
+      "Full matching source CI (root collects separately)",
+      "native Windows10",
+      "final release ZIP",
+      "publication"
+    ],
+    "owned_SDK_process": {
+      "elapsed_seconds": 14.209214800037444,
+      "job_assigned_before_resume": true,
+      "native_exit_code": 0,
+      "native_safe": true,
+      "stderr_total_bytes": 0,
+      "stderr_truncated": false,
+      "stdout_total_bytes": 49,
+      "stdout_truncated": false,
+      "timeout_seconds": 1200,
+      "whole_tree_stopped": true
+    },
+    "qualification": "One fixed standard unittest replacement-ref case; receipt/version/metadata mutations remain SYNTHETIC controls. FrozenAssets uses existing release fixture helpers without running test_release_package26. Actual temporary Git/filesystem operations are not final package/application acceptance.",
+    "raw_receipts": [
+      {
+        "bytes": 45809,
+        "file": "report.json",
+        "sha256": "87df913c2e184b90e8fbb5043171d84af384ac99ec4446623f49602056aefec2"
+      },
+      {
+        "bytes": 44690,
+        "file": "units.json",
+        "sha256": "faa5827aaee086aa013be69f5d1ecedce1171cdc057e117d1256487dfe65d012"
+      },
+      {
+        "bytes": 278,
+        "file": "unittest.log",
+        "sha256": "55c1cc6d2f14eb1ad1b05b2d9a5b6eb731bd9ea050438eabc248fa1539c7960e"
+      },
+      {
+        "bytes": 10819,
+        "file": "run_owned_task11_units.py",
+        "sha256": "ed93e8ef0ae12e37e8bf682254cad255a5fde97cd436ce38ed06b8f10a482c0a"
+      }
+    ],
+    "required_modules": [
+      "test_ci_package_inputs"
+    ],
+    "result": "PASS",
+    "same_source_maps_in_driver_and_units": true,
+    "schema_version": 1,
+    "skipped": 0,
+    "source_after_sha256": "3faca7bceab07b9cf6e547ff77c7d700338fd963799e711e2b35fd81bd8b6bbd",
+    "source_before_sha256": "3faca7bceab07b9cf6e547ff77c7d700338fd963799e711e2b35fd81bd8b6bbd",
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2",
+    "source_path_count": 200,
+    "source_qualification": "Base087 plus the exact one uncommitted test assertion identified below; not a clean-current-commit claim.",
+    "source_tree": "f795ff288a154205c7edad3dd96ae8cfdc5af4bf",
+    "source_unchanged": true,
+    "started_utc": "2026-10-11T19:21:55.718690+00:00",
+    "task": "V101-11",
+    "test_change": {
+      "path": "tests/python/test_ci_package_inputs.py",
+      "sha256": "bf5f53e648048a8209463d240242052df69404a6b12dd2ee04265e9a6860d508"
+    },
+    "tests_run": 1,
+    "unexpected_successes": 0,
+    "units_source_after_sha256": "3faca7bceab07b9cf6e547ff77c7d700338fd963799e711e2b35fd81bd8b6bbd",
+    "units_source_before_sha256": "3faca7bceab07b9cf6e547ff77c7d700338fd963799e711e2b35fd81bd8b6bbd"
+  },
+  "focused_shell_corrections": {
+    "actual_driver": {
+      "dont_write_bytecode": true,
+      "isolated": true,
+      "python": "3.14.8"
+    },
+    "diff_review": {
+      "result": "CLEAR",
+      "sha256": "f6420199ad9b86944cc534e7b5fcc46265f9bedfc8ea84d1771a81b69d1ef4d9"
+    },
+    "evidence_preserved": true,
+    "external_wrappers": {
+      "powershell_sha256": "9b667431ea754a9ec7a96da39b9711c882d2842d39a9b79ccdc5c011d8e258ee",
+      "preparation_sha256": "960f58f285cb721ef6a01ee2e81b5a827dcfb149ebb222b97c2d0a7d1efdabab",
+      "python_sha256": "613c9bdf07fda3767e125f1f9f7d775dff9322c260d50b2d48a4800a3e8051b6"
+    },
+    "finished_utc": "2026-10-11T19:28:22.136131+00:00",
+    "hosts": [
+      {
+        "actual_version": "5.1.26100.9444",
+        "counts": {
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 52,
+          "skipped": 0,
+          "total": 52
+        },
+        "environment_restored": true,
+        "fixture_sources_unchanged": true,
+        "parser": {
+          "errors": 0,
+          "paths": 3
+        },
+        "raw_child_report_sha256": "c917cdcab08fa0d6dcc6406fee38dbfa12b2a5398201daa2780dc20b15f6a95c",
+        "raw_invocation_sha256": "dca7686dee983c63188ce03ba667fbe23e14951ebd165f91d54beafdf235c944",
+        "result": "PASS",
+        "roster": [
+          {
+            "actual": 29,
+            "expected": 29,
+            "path": "tests/powershell/Outcome.Tests.ps1"
+          },
+          {
+            "actual": 4,
+            "expected": 4,
+            "path": "tests/powershell/Version.Tests.ps1"
+          },
+          {
+            "actual": 19,
+            "expected": 19,
+            "path": "tests/powershell/Support.Tests.ps1"
+          }
+        ],
+        "scoped_analysis": {
+          "findings": 0,
+          "paths": 3,
+          "settings_sha256": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476"
+        },
+        "supervision": {
+          "descendants_stopped": true,
+          "elapsed_seconds": 30.06833550002193,
+          "job_assigned_before_resume": true,
+          "native_exit_code": 0,
+          "safe": true,
+          "stderr_total_bytes": 0,
+          "stderr_truncated": false,
+          "stdout_truncated": false,
+          "timeout_seconds": 1200,
+          "transport": "Existing winbooksplit_conversion._run_converter with native owned Windows Job"
+        },
+        "tag": "PS51",
+        "tools": [
+          {
+            "manifest_sha256": "ea8445218d46eeb69dd08827d38222f1d23c592966722ecfd0bdc419bf045543",
+            "name": "Pester",
+            "version": "6.2.0"
+          },
+          {
+            "manifest_sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0"
+          }
+        ]
+      },
+      {
+        "actual_version": "7.6.6",
+        "counts": {
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "passed": 52,
+          "skipped": 0,
+          "total": 52
+        },
+        "environment_restored": true,
+        "fixture_sources_unchanged": true,
+        "parser": {
+          "errors": 0,
+          "paths": 3
+        },
+        "raw_child_report_sha256": "b5ce5e8575b6f208648fe198085ce2d777b0341e34500e8fb0b1ba395b70547a",
+        "raw_invocation_sha256": "046ce90e12a64f297a2b3c950e1c2876b908273bee0cf74e423b9ba54ee9b719",
+        "result": "PASS",
+        "roster": [
+          {
+            "actual": 29,
+            "expected": 29,
+            "path": "tests/powershell/Outcome.Tests.ps1"
+          },
+          {
+            "actual": 4,
+            "expected": 4,
+            "path": "tests/powershell/Version.Tests.ps1"
+          },
+          {
+            "actual": 19,
+            "expected": 19,
+            "path": "tests/powershell/Support.Tests.ps1"
+          }
+        ],
+        "scoped_analysis": {
+          "findings": 0,
+          "paths": 3,
+          "settings_sha256": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476"
+        },
+        "supervision": {
+          "descendants_stopped": true,
+          "elapsed_seconds": 25.474274400039576,
+          "job_assigned_before_resume": true,
+          "native_exit_code": 0,
+          "safe": true,
+          "stderr_total_bytes": 0,
+          "stderr_truncated": false,
+          "stdout_truncated": false,
+          "timeout_seconds": 1200,
+          "transport": "Existing winbooksplit_conversion._run_converter with native owned Windows Job"
+        },
+        "tag": "PS766",
+        "tools": [
+          {
+            "manifest_sha256": "ea8445218d46eeb69dd08827d38222f1d23c592966722ecfd0bdc419bf045543",
+            "name": "Pester",
+            "version": "6.2.0"
+          },
+          {
+            "manifest_sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791",
+            "name": "PSScriptAnalyzer",
+            "version": "1.25.0"
+          }
+        ]
+      }
+    ],
+    "limits": [
+      "Three focused PowerShell suites/parser/scoped analyzer only; controlled receipt fixtures remain SYNTHETIC.",
+      "Base087 plus four identified uncommitted test fixes; no clean-current-commit or full new CI PASS.",
+      "Historical CI38166990809 is FAIL and retained.",
+      "Actual host is Windows11; nativeWindows10/finalZIP/publication remain NOT_RUN.",
+      "No application source changes, no additional tests, no owned-work deletion."
+    ],
+    "protocol": "winbooksplit.task11-focused-shell-summary",
+    "raw_aggregate_sha256": "0badfa32db52f0d8be1de095340f4a742e19244300a8d879d4a5ab78da60ff2b",
+    "result": "PASS",
+    "schema_version": 1,
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2",
+    "source_guard": {
+      "after_sha256": "c6080d2ede21a9671484adc2f7dd3f615cdc2bffcf684b69816cbcad4764f9e5",
+      "before_sha256": "c6080d2ede21a9671484adc2f7dd3f615cdc2bffcf684b69816cbcad4764f9e5",
+      "paths": 200,
+      "unchanged": true
+    },
+    "source_qualification": "Base087 plus exactly four uncommitted test fixture fixes; no application changes or clean-current-commit claim.",
+    "source_tree": "f795ff288a154205c7edad3dd96ae8cfdc5af4bf",
+    "started_utc": "2026-10-11T19:27:51.738105+00:00",
+    "task": "V101-11",
+    "test_changes": {
+      "tests/powershell/Outcome.Tests.ps1": {
+        "bytes": 43146,
+        "sha256": "fe1871260b0861dc28726c78f3005d83809aef7ba96e0bca809aed103f26afc5"
+      },
+      "tests/powershell/Support.Tests.ps1": {
+        "bytes": 20336,
+        "sha256": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+      },
+      "tests/powershell/Version.Tests.ps1": {
+        "bytes": 3504,
+        "sha256": "4d551a60abc22ad7a0e8734eca83084c6988a6a507a114be2127261b6476c6a7"
+      },
+      "tests/python/test_ci_package_inputs.py": {
+        "bytes": 21626,
+        "sha256": "bf5f53e648048a8209463d240242052df69404a6b12dd2ee04265e9a6860d508"
+      }
+    }
+  },
+  "historical_targeted_failure": {
+    "classification": "ACTUAL_WINDOWS11_STANDARD_UNITTEST_SUBSET",
+    "command": "<dev14> -I -B <owned-task11-work>/run_owned_task11_units.py",
+    "environment": {
+      "dont_write_bytecode": true,
+      "isolated": true,
+      "packages": {
+        "Pillow": "12.3.0",
+        "charset-normalizer": "3.5.2",
+        "pypdf": "6.20.0",
+        "reportlab": "5.0.1"
+      },
+      "python": "3.14.8"
+    },
+    "errors": 0,
+    "evidence_preserved": true,
+    "expected_failures": 0,
+    "failures": 1,
+    "finished_utc": "2026-10-11T19:18:44.640233+00:00",
+    "inner_command": "<dev14> -I -B <owned-task11-work>/run_owned_task11_units.py --_unit-child",
+    "loading_error_present": false,
+    "module_roster": [
+      {
+        "name": "test_version",
+        "tests": 5
+      },
+      {
+        "name": "test_ci_package_inputs",
+        "tests": 20
+      },
+      {
+        "name": "test_frozen_assets",
+        "tests": 15
+      },
+      {
+        "name": "test_console_manifest",
+        "tests": 11
+      },
+      {
+        "name": "test_support_receipt",
+        "tests": 16
+      },
+      {
+        "name": "test_document_policy_receipt",
+        "tests": 14
+      },
+      {
+        "name": "test_fidelity_receipt",
+        "tests": 14
+      },
+      {
+        "name": "test_cli_receipt",
+        "tests": 5
+      },
+      {
+        "name": "test_pdf_fidelity",
+        "tests": 11
+      },
+      {
+        "name": "test_runner",
+        "tests": 51
+      }
+    ],
+    "not_run": [
+      "Full matching source CI (root collects separately)",
+      "native Windows10",
+      "final release ZIP",
+      "publication"
+    ],
+    "owned_SDK_process": {
+      "elapsed_seconds": 293.3667293000035,
+      "job_assigned_before_resume": true,
+      "native_exit_code": 1,
+      "native_safe": true,
+      "stderr_total_bytes": 0,
+      "stderr_truncated": false,
+      "stdout_total_bytes": 53,
+      "stdout_truncated": false,
+      "timeout_seconds": 1200,
+      "whole_tree_stopped": true
+    },
+    "qualification": "Ten fixed standard unittest modules; receipt/version/metadata mutations remain SYNTHETIC controls. FrozenAssets uses existing release fixture helpers without running test_release_package26. Actual temporary Git/filesystem operations are not final package/application acceptance.",
+    "raw_receipts": [
+      {
+        "bytes": 46461,
+        "file": "report.json",
+        "sha256": "78d19704f6575e5a40d8f4f62a6add4f68267c3e90c45785c77245e72c9b0e4a"
+      },
+      {
+        "bytes": 45917,
+        "file": "units.json",
+        "sha256": "60ca444b84335230e5b5ee451138f42b3f797b6960ddeae1d5719cab30e2a21e"
+      },
+      {
+        "bytes": 29478,
+        "file": "unittest.log",
+        "sha256": "951c73f5265ca4a4bc9ee91e2f9340db3108d2a493e26e1da0cec0dd5239efcc"
+      },
+      {
+        "bytes": 10044,
+        "file": "run_owned_task11_units.py",
+        "sha256": "8bf61530027c96e60e880919d10dad9710b5f5bdd29504b697bfeb62dd933261"
+      }
+    ],
+    "required_modules": [
+      "test_version",
+      "test_ci_package_inputs",
+      "test_frozen_assets",
+      "test_console_manifest",
+      "test_support_receipt",
+      "test_document_policy_receipt",
+      "test_fidelity_receipt",
+      "test_cli_receipt",
+      "test_pdf_fidelity",
+      "test_runner"
+    ],
+    "result": "FAIL",
+    "same_source_maps_in_driver_and_units": true,
+    "schema_version": 1,
+    "skipped": 0,
+    "source_after_sha256": "e236ed916b4c59c0473f30da69631ed0c57f5df07e3790f994d957fbdfd98265",
+    "source_before_sha256": "e236ed916b4c59c0473f30da69631ed0c57f5df07e3790f994d957fbdfd98265",
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2",
+    "source_path_count": 200,
+    "source_tree": "f795ff288a154205c7edad3dd96ae8cfdc5af4bf",
+    "source_unchanged": true,
+    "started_utc": "2026-10-11T19:13:51.093494+00:00",
+    "task": "V101-11",
+    "tests_run": 162,
+    "unexpected_successes": 0,
+    "units_source_after_sha256": "e236ed916b4c59c0473f30da69631ed0c57f5df07e3790f994d957fbdfd98265",
+    "units_source_before_sha256": "e236ed916b4c59c0473f30da69631ed0c57f5df07e3790f994d957fbdfd98265"
+  },
+  "implementation_before": "087deb7aff3c6de102336085088ce570cd28f5b2",
+  "native_version_queries": {
+    "inbox51": "WinBookSplit 1.0.1 / exit 0",
+    "isolated766": "WinBookSplit 1.0.1 / exit 0",
+    "scope": "Available Windows11 source checkout, no final-ZIP claim.",
+    "source_commit": "087deb7aff3c6de102336085088ce570cd28f5b2"
+  },
+  "observed_utc": "2026-10-11T19:30:21.831407+00:00",
+  "pending": [
+    "full matching corrected-source CI",
+    "reviewed main integration/R freeze",
+    "native final-ZIP Windows11/Windows10",
+    "public v1.0.1 publication"
+  ],
+  "preserved_controls": [
+    "explicit replacement-ref 2.0.0 and original-byte comparison",
+    "malformed/synthetic 1.0.0 version tokens",
+    "support secret/allowlist refusals",
+    "all application and package safety guards"
+  ],
+  "schema_version": 1,
+  "scope": "Four test-fixture corrections only; source-bound full corrected CI remains pending.",
+  "status": "IN_PROGRESS",
+  "task": "V101-11",
+  "tree_before": "f795ff288a154205c7edad3dd96ae8cfdc5af4bf"
+}

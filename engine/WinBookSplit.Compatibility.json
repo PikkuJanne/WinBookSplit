@@ -1,0 +1,134 @@
+{
+  "schema_version": 1,
+  "policy_version": 2,
+  "reviewed_on": "2026-10-11",
+  "python": {
+    "implementation": "cpython",
+    "platform": "win32",
+    "machine": "AMD64",
+    "bits": 64,
+    "stable_only": true,
+    "gil_disabled": false,
+    "branches": [
+      {
+        "major": 3,
+        "minor": 14,
+        "compatibility_min_patch": 0,
+        "security_min_patch": 8,
+        "recommended_patch": 8,
+        "blocked_patches": [],
+        "security_sources": ["CVE12003", "Changelog314", "OpenSSL20260929", "OpenSSL3148"]
+      },
+      {
+        "major": 3,
+        "minor": 13,
+        "compatibility_min_patch": 0,
+        "security_min_patch": 16,
+        "recommended_patch": 16,
+        "blocked_patches": [],
+        "security_sources": ["CVE12003", "Changelog313", "OpenSSL20260929", "OpenSSL31316"]
+      }
+    ]
+  },
+  "pypdf": {
+    "version": "6.20.0",
+    "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+  },
+  "calibre": {
+    "version": "9.15.0"
+  },
+  "excluded_python_branches": [
+    {
+      "major": 3,
+      "minor": 11,
+      "reason": "The Windows import-search-path fix for CVE-2026-12003 is in source-only 3.11.16. The current PSF Windows catalog ends at 3.11.9; no patched official Windows binary is available. End users must not compile Python."
+    },
+    {
+      "major": 3,
+      "minor": 12,
+      "reason": "The Windows import-search-path fix for CVE-2026-12003 is in source-only 3.12.14. The current PSF Windows catalog ends at 3.12.10; no patched official Windows binary is available. End users must not compile Python."
+    }
+  ],
+  "sources": [
+    {
+      "id": "OpenSSL20260929",
+      "url": "https://openssl-library.org/news/secadv/20260929.txt",
+      "relevance": "CVE-2026-35189 (Low): relative CRL distribution points in a peer certificate can cause disproportionate allocation during normal TLS handshake before trust rejection; no CRL-check flag is required. Explicit online pip setup uses TLS. Fixed in OpenSSL 3.5.9 (or 3.0.23); numeric floors cover the PSF Windows bundles."
+    },
+    {
+      "id": "OpenSSL3148",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.14.8/Misc/NEWS.d/3.14.8.rst",
+      "relevance": "gh-158010 updates Windows OpenSSL to 3.5.9. Actual tested regular x64 3.14.8 reports OpenSSL 3.5.9. Floor 3.14.8 addresses the known bundled-TLS issue; later stable maintenance versions remain accepted."
+    },
+    {
+      "id": "OpenSSL31316",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.13.16/Misc/NEWS.d/3.13.16.rst",
+      "relevance": "gh-158010 updates Windows OpenSSL from the 3.0 series to 3.5.9. Actual tested regular x64 3.13.16 reports OpenSSL 3.5.9. Floor 3.13.16 addresses the known bundled-TLS issue; later stable maintenance versions remain accepted."
+    },
+    {
+      "id": "CVE12003",
+      "url": "https://github.com/python/cpython/issues/151544",
+      "relevance": "Windows legacy all-user installs can discover attacker-controlled in-tree libraries outside the install directory. A uniform floor covers all discovery locations; protected per-user installs may be unaffected."
+    },
+    {
+      "id": "Changelog314",
+      "url": "https://docs.python.org/3.14/whatsnew/changelog.html#python-3-14-7-final",
+      "relevance": "3.14.7 removes the Modules/Setup.local landmark fallback (gh-151544). 3.14.8 is recommended separately and later stable patches remain acceptable."
+    },
+    {
+      "id": "Changelog313",
+      "url": "https://docs.python.org/3.13/whatsnew/changelog.html#python-3-13-15-final",
+      "relevance": "3.13.15 removes the Modules/Setup.local landmark fallback (gh-151544). 3.13.16 is recommended separately and later stable patches remain acceptable."
+    },
+    {
+      "id": "Release31116",
+      "url": "https://www.python.org/downloads/release/python-31116/",
+      "relevance": "3.11.16 includes gh-151544 and is source-only; 3.11.9 was the last full binary release."
+    },
+    {
+      "id": "Release31214",
+      "url": "https://www.python.org/downloads/release/python-31214/",
+      "relevance": "3.12.14 includes gh-151544 and is source-only; 3.12.10 was the last full binary release."
+    },
+    {
+      "id": "WindowsCatalog",
+      "url": "https://www.python.org/ftp/python/index-windows.json",
+      "relevance": "PSF Windows distribution URLs and hashes; all three linked catalog pages were inspected on the review date."
+    },
+    {
+      "id": "PythonLifecycle",
+      "url": "https://devguide.python.org/versions/",
+      "relevance": "3.11-3.13 are security-only branches; 3.14 is in maintenance. Lifecycle status alone is not a security guarantee."
+    },
+    {
+      "id": "PythonWindows",
+      "url": "https://docs.python.org/3.14/using/windows.html",
+      "relevance": "Python 3.14 supports Windows 10 and newer. Installed-runtime listing is read-only; automatic runtime installation must not be used for processing discovery."
+    },
+    {
+      "id": "PypdfMetadata",
+      "url": "https://pypi.org/pypi/pypdf/6.20.0/json",
+      "relevance": "Exact non-yanked pypdf 6.20.0 wheel hash and Python >=3.9 feasibility metadata; metadata is not application test evidence."
+    },
+    {
+      "id": "PypdfMultipleFilters",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f",
+      "relevance": "The October 9 multiple-filter memory-consumption advisory is patched in 6.20.0; retain the separate exact package lock and existing guards."
+    },
+    {
+      "id": "CalibreWindows",
+      "url": "https://calibre-ebook.com/download_windows",
+      "relevance": "Current upstream Windows prerequisite is Windows 10 version 1809 or newer; native application acceptance is still required."
+    },
+    {
+      "id": "Calibre915Installer",
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/bypy/windows/wix-template.xml",
+      "relevance": "The exact 9.15.0 Windows installer permits Windows 10 builds; this is prerequisite evidence, not a WinBookSplit conversion pass."
+    },
+    {
+      "id": "CalibreAdvisories",
+      "url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100",
+      "relevance": "All 21 published advisory records inspected on the review date exclude 9.15.0 from their affected ranges; recheck at release."
+    }
+  ]
+}

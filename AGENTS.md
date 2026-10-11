@@ -1,8 +1,28 @@
 # WinBookSplit working agreement
 
+## Active v1.0.1 compatibility patch
+
+Implement and publicly publish WinBookSplit v1.0.1 under the owner's 11 October
+2026 authorization. Read `docs/codex-v1.0.1/SCOPE.md`, `STATUS.md`,
+`NEXT_SESSION.md`, `TASKS.json`, and the selected task and specifications first.
+This scope supersedes historical v1.0.0-only routing, Windows-11-only scope,
+exact Python-patch acceptance, old milestone gates, and repeated owner-test
+programmes. Use `docs/codex-v1.0.1/HUMAN_TESTING.md` for minimal-human native
+acceptance and `docs/codex-v1.0.1/RELEASE_RUNBOOK.md` through public v1.0.1
+publication, anonymous byte verification, and synchronized final main.
+
+Preserve all file safety, dependency-origin, process, privacy, truthful-evidence,
+and Git protection rules below. Historical v1.0.0 reports remain unchanged;
+its published tag and assets are immutable. Scoped isolated per-user dependency
+setup, ordinary commits/pushes, PRs, passing reviewed merges, and this exact
+v1.0.1 release are authorized. No force push, settings/visibility change,
+spending, or other release version is authorized. Missing native Windows 10
+evidence remains NOT_RUN/BLOCKED; complete independent work and prepare one
+consolidated command/report kit when authorized native access is unavailable.
+
 ## Scope
 
-Incrementally improve this existing local Windows PDF/ebook splitter through its first public GitHub `v1.0.0`. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Extracting existing Python into a shipped file is allowed; replacing the application/engine with a new framework is not.
+Incrementally improve this existing local Windows PDF/ebook splitter through the authorized GitHub `v1.0.1` compatibility patch. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Extracting existing Python into a shipped file is allowed; replacing the application/engine with a new framework is not.
 
 No website, service, uploads, telemetry, native ebook output, OCR/AI chapter inference, DRM removal, installer, updater, or interim public release. No paid/signing prerequisite. Never process private textbooks/documents in CI or commit them.
 
@@ -26,7 +46,7 @@ Update task/evidence/status/next-session files; stage intended paths only; commi
 
 The user delegated ordinary scoped commits, pushes, PRs, merges of passing reviewed work, and final v1.0.0 publication. Respect environment approvals and existing protection; never bypass them. Destructive Git operations, settings/visibility changes, spending, new release versions, or scope expansion require separate authority.
 
-A tag or draft is not completion. Follow `RELEASE_RUNBOOK.md`: tested commit and package, real Windows/Calibre checks, public non-draft/non-prerelease v1.0.0, anonymously downloaded matching assets, fixed tag, and synchronized final main. Signing is optional and unsigned status must be disclosed.
+A tag or draft is not completion. Follow `docs/codex-v1.0.1/RELEASE_RUNBOOK.md`: tested commit and package, real Windows 10/11 and Calibre checks, public non-draft/non-prerelease v1.0.1, anonymously downloaded matching assets, fixed tag, and synchronized final main. Signing is optional and unsigned status must be disclosed.
 
 ## Code review rules
 

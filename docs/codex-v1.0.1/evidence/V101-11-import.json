@@ -1,0 +1,177 @@
+{
+  "commands": [
+    "bare CPython 3.14.8 -I -B import_task11_ready.py 9d49f5dcf8dccc016aded9a29c31d96c2b8f7552",
+    "git -c core.whitespace=cr-at-eol diff --check"
+  ],
+  "files": {
+    "CHANGELOG.md": {
+      "bytes": 3464,
+      "imported_sha256": "83cd513c1eafe7d9e8b155dd02d94c1136401be1d54f6da32c719636508e4ae7",
+      "original_sha256": "426ee56ac29cf59f6d3c9bfe3c250add022ede84fe25ff6795ee424ece034dc8"
+    },
+    "README.md": {
+      "bytes": 11994,
+      "imported_sha256": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441",
+      "original_sha256": "a81cd88d5d5a80d479691511a682b9198483a271d3ab7126c7cc819341c8376a"
+    },
+    "SECURITY.md": {
+      "bytes": 3655,
+      "imported_sha256": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4",
+      "original_sha256": "400e1be8cbd3a40e27363c272516fc967d20cf79c148e522c262d6910893eb71"
+    },
+    "Setup-WinBookSplit.ps1": {
+      "bytes": 2258,
+      "imported_sha256": "ec7ced112d6ed30301d852794c9feb6ceb40fd76191406e3adce63dff5135ab5",
+      "original_sha256": "5f4b0443066d9e27e5431d19aeb39d2ae732ed1a5d32e93b89cc5dec7e28b13f"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 2688,
+      "imported_sha256": "517eff28010e0f22b775ef209ce1909d574fb0e883086c94ec5831537946b614",
+      "original_sha256": "f52458e3938380dbee96ad665a305d1821d2977c0e1798dd160dcb0eb2d3b512"
+    },
+    "VERSION": {
+      "bytes": 6,
+      "imported_sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066",
+      "original_sha256": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03"
+    },
+    "WinBookSplit.ps1": {
+      "bytes": 67492,
+      "imported_sha256": "2ffe4be6e83c45c22dd339a140e32c33e6fda5929fef85bd8ce9171f1bce01ed",
+      "original_sha256": "dfb946eff564805cfc9037637a01205eb865bd30d1ed5d2dc7bccdd5d662158d"
+    },
+    "docs/SETUP.md": {
+      "bytes": 10861,
+      "imported_sha256": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170",
+      "original_sha256": "4e0b4ef6829fd5522f32596b96a0d9e1d796b8b3c93ed51229937799e4bae497"
+    },
+    "docs/SUPPORT_DIAGNOSTICS.md": {
+      "bytes": 5892,
+      "imported_sha256": "fd4485111d6db0e850d0badf0ae7fe88fc90eaea7979b665a7033c598e3c63f1",
+      "original_sha256": "584597f527b8509640d03dc01b385a6013c2666d2df4918429bc4f68cfbc2380"
+    },
+    "requirements.txt": {
+      "bytes": 255,
+      "imported_sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3",
+      "original_sha256": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923"
+    },
+    "tests/cli/validate_cli_report.py": {
+      "bytes": 21452,
+      "imported_sha256": "000695c5b2fd8e72a0a8bbe8edfe79556cb2771bfb326c6f05a91c3ae91181a7",
+      "original_sha256": "3dfb90200eea5e2d386ea66eeaed6f5603695a0b9abb8e94b2e96e4f700f8a79"
+    },
+    "tests/fidelity/validate_fidelity_report.py": {
+      "bytes": 28632,
+      "imported_sha256": "077fda002d7d3f221265caf965026b1f0971bb3576b62a896c048b25f19f8487",
+      "original_sha256": "a4a4fbfc784c3082984845ff3fc25e08ba4de251c22bee457fcc65b642b10dc5"
+    },
+    "tests/manual/current_launchers.py": {
+      "bytes": 29594,
+      "imported_sha256": "5c26582a91ad230d525ebcca21e76a5c6f837eb6656bd9ebe3f2570403cd06d7",
+      "original_sha256": "dc3950e277ed367414a56a52aadeafd0dc44d2fdb31fe5d6fd61de2c7c7af465"
+    },
+    "tests/python/console_receipt_fixture.py": {
+      "bytes": 4736,
+      "imported_sha256": "2ce676b5983ebddac356da2aced56d0d58523b1bc87c3a6ff3c8996ef6516637",
+      "original_sha256": "28b9a4ce2888b29021f4049eed529cd8c85ac8acda7f057c83ab40a07cdb343e"
+    },
+    "tests/python/test_ci_package_inputs.py": {
+      "bytes": 21602,
+      "imported_sha256": "5bce6d47e62c3c5c027daaad382d42aa887e79e38be7905418761271e1ed5b19",
+      "original_sha256": "41b2ea08185b4b71ae27ed2e328f0abd676201170053cab96b0baee65e809cc7"
+    },
+    "tests/python/test_cli_receipt.py": {
+      "bytes": 8892,
+      "imported_sha256": "96fe4663fccb6a1f864fb2ba43e401b2ea6ca12c2c5626cefc61607e0dc4e4d2",
+      "original_sha256": "19426cae55a58e6206145275a06f82a808ff53f7b5bcf39ec0a12f001c991605"
+    },
+    "tests/python/test_console_manifest.py": {
+      "bytes": 14890,
+      "imported_sha256": "e221bf99dbbea208f0fc918d6feba76b3edd8409008867cd0a66ed611342ded8",
+      "original_sha256": "30795994e79f3666568b11b6ff40293cb9b84ced5087026cdd96c4851fc0dcf7"
+    },
+    "tests/python/test_document_policy_receipt.py": {
+      "bytes": 16520,
+      "imported_sha256": "18dd6c40593b5408455f8a3e452bebb71a6b50ae845ce3eb1dbb5df9aa33d85e",
+      "original_sha256": "4b1cfb99a72bfde75062ee5aeec23b8308aec53315406ba635341235b80e5f6a"
+    },
+    "tests/python/test_fidelity_receipt.py": {
+      "bytes": 9102,
+      "imported_sha256": "b9a9c585cc2f6255171bc6c01b302d1cb4d9778bd36255b8c8566b6a244797ef",
+      "original_sha256": "e6a0eca9bd2655844a2ebd71e5a06ac65f30bab76ffad1b48bb6349648581e40"
+    },
+    "tests/python/test_frozen_assets.py": {
+      "bytes": 18265,
+      "imported_sha256": "e6caff404a10565b853720a1cb1027d28568bc6e5b9070f863f045ee16c8711a",
+      "original_sha256": "ec2a422d633f7ab76672bf5b082b84494f350be0e873d1879fab47cb8fb1eacc"
+    },
+    "tests/python/test_pdf_fidelity.py": {
+      "bytes": 19729,
+      "imported_sha256": "8f00a67577d416a891f6059a483ad15bfc7c30d05e1845b69136e35ed9b2d728",
+      "original_sha256": "7548abb7af801543321606306afb8c3495ec9fb7d95a91c7891dfcaf26d62f1b"
+    },
+    "tests/python/test_release_package.py": {
+      "bytes": 30491,
+      "imported_sha256": "4db5c4943b9635e3e176b5b30b856415acf353408192b2fc01fd2ff34a3d4706",
+      "original_sha256": "f90e49ba28676cffdf592aa74c73349e44f49bd1a56af939658e3d472c5f214d"
+    },
+    "tests/python/test_support_receipt.py": {
+      "bytes": 20107,
+      "imported_sha256": "db21649dcfd7f83655dbb09734ca7b936a53429ba27802cc11091c942ac375ad",
+      "original_sha256": "913a251709f7b7071501c10d69ce7820a00610d2cafa9e2b0aecaad6777ce150"
+    },
+    "tests/python/test_version.py": {
+      "bytes": 5910,
+      "imported_sha256": "a73a831dd831ee6a82985c57ca497ef3f77116d65b45a18ec57c4a7b9611874e",
+      "original_sha256": "d7e951fb04423814aa97451c45cba14341074b52959ec2eef4d7b4bd4c57f247"
+    },
+    "tests/support/validate_support_report.py": {
+      "bytes": 41459,
+      "imported_sha256": "011ec615d4d4b87520241e10c1b7a542733744be97a4fab650548b4cdab1c7f7",
+      "original_sha256": "62473187959caa6c379acfb91aa010de8ce4c6b49602f2799efd1268f1c94f8a"
+    },
+    "tools/release/README.md": {
+      "bytes": 6731,
+      "imported_sha256": "a5f34c699b327be6608c6f9b50e1ba04576cd5228781f87c4e9f587f4fb6360c",
+      "original_sha256": "16be0345569ce7b61c240acbd2fce6f1d07cc205394be04fc7aaedeb9d4cd060"
+    },
+    "tools/release/build_package.py": {
+      "bytes": 11901,
+      "imported_sha256": "f835bdc1d8ebed739aa7eea221420bd31d23f62a86ad5a54e050a2de320c1330",
+      "original_sha256": "42f2a759b8585f9147962af904babb0e30981e137eb16997eeed9cb318e9855a"
+    },
+    "tools/release/frozen_assets.py": {
+      "bytes": 19085,
+      "imported_sha256": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9",
+      "original_sha256": "ed03f74cc4d54e4e7e37e77c8a285b8f3d068b3cc329901cb3325c76f1df93b7"
+    },
+    "tools/release/payload.json": {
+      "bytes": 1110,
+      "imported_sha256": "bddb80b5bd45d48f0489990c78f73d408faec651f6944f298402c4474fa86bf4",
+      "original_sha256": "5f34a3abba408734a6cc1462e480cd4cb027b52235c275a27a1fc25f654d4cf8"
+    }
+  },
+  "import_receipt_sha256": "10d29f7db7edcebde2ec53332a0fe27dc2241ef1aad41eaeba5ed7c6c193c189",
+  "observed_utc": "2026-10-11T19:11:26.511147+00:00",
+  "preserved": [
+    "WinBookSplit.bat bytes",
+    "artwork",
+    "pypdf executable hash lock",
+    "historical v1.0.0 evidence",
+    "process/origin/output guards"
+  ],
+  "readiness_sha256": "0c1913f4a799ba5199e08fa908497bf88dadabb61c3a74e2f25b4ae23bd5508f",
+  "results": {
+    "committed_source_units": "NOT_RUN",
+    "diff_check": "PASS",
+    "finite_import": "PASS",
+    "matching_full_ci": "NOT_RUN",
+    "native_windows10_final_zip": "NOT_RUN",
+    "native_windows11_final_zip": "NOT_RUN",
+    "release_publication": "NOT_RUN"
+  },
+  "schema_version": 1,
+  "scope": "Reviewed finite source import; committed-source units and full CI remain pending.",
+  "source_before": "9d49f5dcf8dccc016aded9a29c31d96c2b8f7552",
+  "status": "IN_PROGRESS",
+  "task": "V101-11"
+}

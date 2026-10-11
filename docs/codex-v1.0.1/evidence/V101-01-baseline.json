@@ -1,0 +1,39 @@
+{
+  "observed_at": "2026-10-11T14:01:15.692133+00:00",
+  "task": "V101-01",
+  "source_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
+  "source_tree": "1a1ccd03ad0ac692115ee9a3a503dba8a4e28f21",
+  "branch": "codex/v1.0.1-compatibility",
+  "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+  "artwork_sha256": {
+    "WinBookSplit.ico": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42",
+    "WinBookSplit.png": "c9385cc2874821281cec1744f8459b6fb3a427ed9955cf7976353e42fc11891b",
+    "WinBookSplit_poster.png": "1982dd3719ba781a8cccf00453b8e1b394b914396b68e6e4de979a0e75db0bb6"
+  },
+  "v1.0.0_release_id": 409510027,
+  "v1.0.0_tag_listing": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2\trefs/tags/v1.0.0\n73c90d10dc16b1c321737afbdfbe959d61a24573\trefs/tags/v1.0.0^{}",
+  "v1.0.0_assets_sha256": {
+    "release-manifest.json": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+    "SHA256SUMS.txt": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+    "WinBookSplit-v1.0.0.zip": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+  },
+  "reproduction_sha256": "0e6e7f93699ecfa132603e724e2c9a456a82733fa2658a28e28ea64c620275f0",
+  "reproduction_kind": "SYNTHETIC_BASELINE_REPRODUCTION; native PS5.1 and supervisor, mocked discovery and synthetic version, not native Python3.14.2",
+  "reproduction_assertions": 16,
+  "pypdf_imports": 0,
+  "native_windows10": "UNAVAILABLE; no authorized remote tool, Hyper-V/VBox/VMware inventory accessible",
+  "native_windows11": "INVENTORY_ONLY; Windows11Pro x64 CIM10.0.26300/registry26H2 UBR9457; no application acceptance yet",
+  "nested_agents": [],
+  "bundle_import": {
+    "preview_exit": 0,
+    "apply_exit": 0,
+    "created_files": 47,
+    "overwrites": 0
+  },
+  "failures_retained": [
+    "three baseline reproduction preparation failures",
+    "isolated imported plan helper sibling-import failure"
+  ],
+  "helper_fix": "Add explicit trusted sibling directory to sys.path for isolated validate_plan/check_sync; original bundle remains unchanged",
+  "next_task": "V101-02"
+}

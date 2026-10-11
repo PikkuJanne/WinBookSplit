@@ -1,0 +1,167 @@
+{
+  "task": "V101-03",
+  "observed_at": "2026-10-11T14:29:49.029269+00:00",
+  "observed_source_commit": "dccb460be65d2352b81d43a977b20aaf4ce325f3",
+  "observed_source_tree": "6ca042651bcd67f0624a08df8b261a3bdde29c08",
+  "changed_source_sha256": {
+    "WinBookSplit.ps1": "11adb133e06705cbb1e12ca524adc312141e220acb49830fccd97a34e608160c",
+    "engine/WinBookSplit.Runtime.ps1": "9224c03d97278771922726abf22e5a5f066ef654b7397cf7f8a5cde13ed728bc",
+    "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+    "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+    "engine/WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+    "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+    "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+    "tests/Invoke-ShellTests.ps1": "0644d3803f78784cf0cee619e68833a2bd24e2cf0970891300a5abb07708a794",
+    "tests/powershell/Compatibility.Tests.ps1": "43fc807e9d426f37bbf3c8f70e0db23d46386ed2dd96dddaf4506469e4d33e75",
+    "tests/powershell/Runtime.Tests.ps1": "e969b8d566a807bf1eb8dc9df7bc77f22be582e556b039545298b3813f7c1f84",
+    "tests/python/test_compatibility.py": "9ff586a233c78cf4a152392b8ff619e089d5b017398a8bdf4638273d317e41fc",
+    "tests/python/test_ci_package_inputs.py": "a9fc82087011f932dc73c6f2498d34aa2a0effc51d08f7c9bccfc3abbe117793",
+    "tests/python/test_release_package.py": "b148c67b32e31e2ee314a3ce48ed73891a9bb50a4bbe0a2639c328b77c7239d7",
+    "tools/ci/check_package_inputs.py": "239a49d5a8daa0d52eb2a3394383cff7f9b9050e2a5b61649926058ef6d2badd",
+    "tools/release/payload.json": "1974511a131147da260ae55d7e94aeff8baff66eeb35c214affdde4c153b16e3"
+  },
+  "policy_version": 1,
+  "policy_sha256": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+  "python_final_policy_units": {
+    "versions": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "tests_per_version": 43,
+    "skips": 0,
+    "command": "<runtime>/Scripts/python.exe -I -B tests/python/test_compatibility.py -v",
+    "receipt_sha256": "f26c8b229096a19d2fde1532203fdc6095a2f663e07b69de8c883328d39d60ee"
+  },
+  "python_entrypoint_receipt_sha256": "1ca0515be474ff65d1ec839a425d064868dd1e4ff82d1eb2d877c2975dcb25b3",
+  "shells": [
+    {
+      "powershell": "5.1.26100.9444",
+      "scope": "cumulative_before_url_hardening",
+      "pester": {
+        "passed": 128,
+        "failed": 0,
+        "total": 128,
+        "result": "Passed",
+        "not_run": 0,
+        "skipped": 0,
+        "failed_containers": 0
+      },
+      "receipt_sha256": "2a7fc1a8c4beda6a8fc8c355dfec2e20c4ca869ca5602116dd06338aa60dcf3e"
+    },
+    {
+      "powershell": "5.1.26100.9444",
+      "scope": "final_focused",
+      "pester": {
+        "failed": 0,
+        "errors": [],
+        "passed": 12,
+        "failed_containers": 0,
+        "skipped": 0,
+        "total": 12,
+        "result": "Passed",
+        "not_run": 0
+      },
+      "receipt_sha256": "d2e5c2bf1cf9969abcf5ab4bd482716997c00abc8d3252ba7d9d189c3a884390"
+    },
+    {
+      "powershell": "7.6.6",
+      "scope": "cumulative_before_url_hardening",
+      "pester": {
+        "total": 128,
+        "failed_containers": 0,
+        "result": "Passed",
+        "not_run": 0,
+        "passed": 128,
+        "failed": 0,
+        "skipped": 0
+      },
+      "receipt_sha256": "84fd17040c75c9e35e3cf0206921ae4c7266b18c760aae24e643483e721ee4af"
+    },
+    {
+      "powershell": "7.6.6",
+      "scope": "final_focused",
+      "pester": {
+        "skipped": 0,
+        "not_run": 0,
+        "failed": 0,
+        "result": "Passed",
+        "passed": 12,
+        "errors": [],
+        "failed_containers": 0,
+        "total": 12
+      },
+      "receipt_sha256": "25d03ad590c9dd1d747e597ee7ade36df8020e5e0c004a00f4c882d606180099"
+    }
+  ],
+  "reference_python_attempt": {
+    "command": "dev14/Scripts/python.exe -I -B tests/run_tests.py --layer python --report <new-external-report>",
+    "version": "3.14.8",
+    "status": "RUNNING",
+    "receipt_sha256": null,
+    "scope": "Started while the release member assertion was being corrected; no full reference acceptance counted for this checkpoint. Final stable reference regression is V101-07."
+  },
+  "package_integration": {
+    "input_guard_tests": 18,
+    "unaffected_release_tests": 24,
+    "corrected_release_method": 1,
+    "existing_bat_pypdf_security_tests": 5,
+    "external_receipt_sha256": "ae7e3cc8428ededa450ab7356767dfa109f899031fac9b00cbfb76a85d84187a",
+    "scope": "Real authored Git/blob/ZIP fixtures; two initial release-fixture failures retained, exact affected method rerun passed. No production package or publication claimed."
+  },
+  "native_checkout": {
+    "kind": "NATIVE_AUTOMATED",
+    "os": "Windows 11 Pro",
+    "build": "26300",
+    "powershell": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "python": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "pypdf": "6.20.0",
+    "records": 26,
+    "manual_splits": 4,
+    "chapters": 12,
+    "reopened_pages": 40,
+    "source_and_neighbor_preserved": true,
+    "support_exports": 4,
+    "actual_3_14_7_at_floor_interpreter_only": true,
+    "receipt_sha256": "b005914d0d50ac25c29d77b516316ede57664b64ca5276ccf531d17b9b8b137d",
+    "runner_sha256": "dea55a72fcad4d3ea85483ccd04ae4fe23f58294c8ec6c7f54f3230239e5656c",
+    "probe_wrapper_sha256": "ebe82973adf4250e0c64d48259ca020b3b9dfa499f7771ebf612620e6404b0c5",
+    "source_sha256_at_run": {
+      "WinBookSplit.ps1": "11adb133e06705cbb1e12ca524adc312141e220acb49830fccd97a34e608160c",
+      "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "VERSION": "59854984853104df5c353e2f681a15fc7924742f9a2e468c29af248dce45ce03",
+      "tests\\fixtures\\generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+      "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+      "engine\\WinBookSplit.Compatibility.ps1": "4ea996687b887e9458506725f184f2aa1486b49e031d0d7d710cd1cc61a6c75a",
+      "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine\\WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+      "engine\\WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine\\WinBookSplit.Process.ps1": "4bd1c0795cb9f7f681ac957e2123488f33dbae6207629e181691ff540b2f7baf",
+      "engine\\WinBookSplit.Runtime.ps1": "9224c03d97278771922726abf22e5a5f066ef654b7397cf7f8a5cde13ed728bc",
+      "engine\\WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+      "engine\\winbooksplit_compatibility.py": "ed2e08f389425d832f359b2c4e0d07562ea465b3e19aff8f0892ae62eea9ba19",
+      "engine\\winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine\\winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+      "engine\\winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine\\winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    "scope": "Checkout application/probe/export matrix before the final malformed-URL hardening. Final affected validators and actual Python package probes were rerun separately; final ZIP acceptance remains pending."
+  },
+  "failed_native_first_attempt": {
+    "status": "FAILED",
+    "reason": "Get-FileHash unavailable under inherited mixed PowerShell module paths; corrected to .NET hashing of exact parsed bytes.",
+    "receipt_sha256": "92bb1228e7be85c4025adbd7a1e92df829c35a8c36a20e585337df21bab7ca2b"
+  },
+  "review": "Independent agent review; numeric policy revalidation and strict JSON/digest/identity/origin/process guards retained. Package audit narrowed for one literal delayed pypdf import; current icon bytes preserved.",
+  "synthetic_scope": "Boundary, future patch, architecture/GIL and damaged policy/package records are labelled synthetic tests, not installed future runtimes.",
+  "native_windows10": "NOT_RUN",
+  "final_zip_windows11": "NOT_RUN",
+  "next_task": "V101-04"
+}

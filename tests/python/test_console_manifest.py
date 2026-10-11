@@ -63,7 +63,8 @@ class ConsoleManifestTests(unittest.TestCase):
         self.assertEqual(self.source.read_bytes(), b"Authored metadata-only input, never parsed as PDF\n")
 
     def test_resealed_wrong_protocol_owner_outcome_log_source_and_warning_records_are_rejected(self):
-        mutations = [lambda m: m.update(protocol="foreign.run"), lambda m: m.update(version=True),
+        mutations = [lambda m: m.update(application_version="0.0.0"),
+            lambda m: m.update(protocol="foreign.run"), lambda m: m.update(version=True),
             lambda m: m.update(run_id="f" * 32), lambda m: m.update(diagnostics_finalized=False),
             lambda m: m["outcome"].update(exit_code=0), lambda m: m["log"].update(bytes_written=1),
             lambda m: m["source_identity"].update(path="C:/foreign.pdf"), lambda m: m["source_identity"].update(size_bytes=1),

@@ -3,12 +3,13 @@ param([string]$RepositoryRoot, [string]$WorkRoot, [string]$TestPython)
 BeforeAll {
     . (Join-Path $RepositoryRoot 'engine\WinBookSplit.Support.ps1')
     Initialize-WinBookSplitSupport
+    $script:supportApplicationVersion=Get-WinBookSplitSupportApplicationVersion -Root $RepositoryRoot
     $supportRoot = Join-Path $WorkRoot ('support-' + [guid]::NewGuid().ToString('N'))
     $null = New-Item -ItemType Directory -Path $supportRoot
     $secret = 'PRIVATE_SENTINEL_7c4c_path_title_message_token'
     function New-SupportFixture {
         return [ordered]@{
-            protocol='winbooksplit.run'; version=1; run_id=('a'*32); application_version='1.0.0'
+            protocol='winbooksplit.run'; version=1; run_id=('a'*32); application_version=$script:supportApplicationVersion
             started_utc='2026-10-10T00:00:00.0000000Z'; finished_utc='2026-10-10T00:00:01.0000000Z'; diagnostics_finalized=$true
             runtime_versions=[ordered]@{ powershell='5.1.26100.9444'; python='3.14.8'; pypdf='6.20.0'; calibre=$null }
             settings=[ordered]@{ mode='manual'; input_kind='pdf'; preview=$false; non_interactive=$true; no_pause=$true; keep_converted_pdf=$false
@@ -45,6 +46,32 @@ BeforeAll {
 }
 
 Describe 'Explicit allowlisted support diagnostic export' {
+    It 'exports a dependency refusal with null accepted versions without exposing the local diagnosis' {
+        # SYNTHETIC manifest data; native probes and complete Main entry points are recorded separately.
+        foreach ($row in @(@('failed','runtime_invalid',3),@('failed','runtime_not_found',3),
+                @('cancelled','processor_cancelled',130),@('timeout','processor_timeout',130))) {
+            $fixture=New-SupportFixture
+            $fixture.runtime_versions.python=$null; $fixture.runtime_versions.pypdf=$null; $fixture.runtime_versions.calibre=$null
+            $fixture.plan=$null; $fixture.engine_result=$null
+            $fixture.outcome.status=$row[0]; $fixture.outcome.code=$row[1]; $fixture.outcome.exit_code=$row[2]
+            $fixture.outcome.written_count=0; $fixture.outcome.final_directory=$null; $fixture.outcome.engine_result=$null
+            $path=Write-SupportFixture $fixture; $destination=New-SupportDestination
+            $before=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
+            $summary=Export-WinBookSplitSupportSummary $path $destination
+            @($fixture.Keys) -join ',' | Should -BeExactly 'protocol,version,run_id,application_version,started_utc,finished_utc,diagnostics_finalized,runtime_versions,settings,source_identity,plan,engine_result,outcome,warnings,log'
+            $summary.runtime_versions.python | Should -BeNullOrEmpty
+            $summary.runtime_versions.pypdf | Should -BeNullOrEmpty
+            $summary.runtime_versions.calibre | Should -BeNullOrEmpty
+            $summary.plan | Should -BeNullOrEmpty
+            $summary.outcome.status | Should -BeExactly $row[0]
+            $summary.outcome.code | Should -BeExactly $row[1]
+            $summary.outcome.exit_code | Should -Be $row[2]
+            $summary.outcome.written_count | Should -Be 0
+            [IO.File]::ReadAllText($path) | Should -Match $secret
+            [IO.File]::ReadAllText($destination) | Should -Not -Match $secret
+            (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash | Should -BeExactly $before
+        }
+    }
     It 'exports only safe fields and preserves an original containing secrets in every discarded detail' {
         $path=Write-SupportFixture (New-SupportFixture); $destination=New-SupportDestination
         $before=Get-Item -LiteralPath $path; $hash=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash

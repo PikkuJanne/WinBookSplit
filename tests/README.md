@@ -5,6 +5,41 @@ Use the explicit fresh developer-venv interpreter from
 working directory; it resolves the trusted repository from its own location.
 Do not activate a venv or install dependencies globally.
 
+The v1.0.1 `--layer application` route keeps the developer driver separate from
+the application interpreter. Run it once for each reviewed runtime-only Python
+3.13 and 3.14 environment containing the locked pypdf (and optional pip). Supply
+both actual shell hosts. Fixture generation and PDF inspection stay on the
+developer Python; the explicit application Python runs a fixed nine-module
+stdlib/pypdf unit set and real manual, Auto1, Auto2 and failure cases. Both native
+PowerShell wrappers run the copied 21-file application with that same candidate.
+
+```powershell
+& $TestPython -I -B $Runner --layer application --application-python-path 'C:\Tools\WinBookSplit-runtime13\Scripts\python.exe' --shell-path $PS51 --shell-path $PS7 --report $Report
+```
+
+Use the absolute variables shown below and a fresh report for every call. Add
+`--calibre-path $Calibre` to request actual authored EPUB/AZW3 conversion and
+retained/discarded intermediate checks; its omission is recorded as
+`NOT_REQUESTED`. Each report independently binds the full shared-policy/origin
+probe, before/after package inventory, interpreter and application hashes,
+driver/application arguments, CIM OS caption/build/product type and native job,
+tree, stream and input-writer completion. Timeout or unproved shutdown fails the
+route and preserves its external work directory. These are automated native
+checks on the recorded OS; they do not claim Windows 10 or human Explorer tests.
+The existing complete developer unit child has a finite 1200-second harness
+deadline after a measured 584.951-second local reference run approached the old
+600-second bound. Application production deadlines are unchanged.
+
+The v1.0.1 shell suite also exercises explicit setup in authored copied
+applications. Before a normal shell/full run, the shared runner acquires the
+one reviewed pypdf wheel in its owned temporary directory using hash-required,
+binary-only pip download with child-local configuration isolation. To reuse
+an existing offline fixture, set `WBS_TEST_WHEELHOUSE` to an absolute directory
+containing that exact wheel; its hash is checked and the supplied directory is
+preserved. Failure to prepare it fails the run before any shell pass can be
+claimed. The preparation is a separately recorded step, bringing full to 23
+steps. This is developer test setup; the ordinary application never installs.
+
 ```powershell
 $TestPython = 'C:\Tools\WinBookSplit\.venv-dev\Scripts\python.exe'
 $Runner = 'C:\Tools\WinBookSplit\tests\run_tests.py'

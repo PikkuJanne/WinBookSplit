@@ -1,0 +1,67 @@
+{
+  "schema_version": 1,
+  "status": "DESIGN_ONLY_NOT_RUNTIME_CONFIG",
+  "application": "WinBookSplit",
+  "target_version": "1.0.1",
+  "platform": {
+    "os": [
+      "Windows 10 22H2",
+      "Windows 11"
+    ],
+    "architecture": "x64",
+    "implementation": "cpython",
+    "regular_gil": true,
+    "stable_only": true
+  },
+  "python_candidate_branches": [
+    {
+      "major": 3,
+      "minor": 11,
+      "supported": null,
+      "compatibility_min_patch": null,
+      "security_min_patch": null,
+      "recommended_patch": null,
+      "blocked_versions": [],
+      "tested_versions": [],
+      "evidence": []
+    },
+    {
+      "major": 3,
+      "minor": 12,
+      "supported": null,
+      "compatibility_min_patch": null,
+      "security_min_patch": null,
+      "recommended_patch": null,
+      "blocked_versions": [],
+      "tested_versions": [],
+      "evidence": []
+    },
+    {
+      "major": 3,
+      "minor": 13,
+      "supported": null,
+      "compatibility_min_patch": null,
+      "security_min_patch": null,
+      "recommended_patch": null,
+      "blocked_versions": [],
+      "tested_versions": [],
+      "evidence": []
+    },
+    {
+      "major": 3,
+      "minor": 14,
+      "supported": null,
+      "compatibility_min_patch": null,
+      "security_min_patch": null,
+      "recommended_patch": null,
+      "blocked_versions": [],
+      "tested_versions": [],
+      "evidence": []
+    }
+  ],
+  "accept_later_stable_patches": true,
+  "pypdf_initial_review_target": "6.20.0",
+  "calibre_initial_review_target": "9.15.0",
+  "security_review_date": null,
+  "sources": []
+}

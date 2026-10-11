@@ -4,8 +4,9 @@ The Windows workflow uses the existing `tests/run_tests.py` entry point for
 Python and separate explicit Windows PowerShell 5.1 and PowerShell 7 shell
 runs. The shell layer gates syntax, selected scaffold analyzer rules and
 Pester; historical application analyzer findings remain recorded observations.
-Windows Server 2025 hosted results do not replace local Windows 11, real
-Calibre, rendered fidelity, Explorer or the closed human evidence.
+Windows Server 2025 hosted results do not replace native Windows 10/11,
+real Calibre or rendered fidelity evidence. The unchanged Explorer integration
+does not require a repeated human programme.
 Checkout fetches full history because an unchanged AC-011 unit reads the
 immutable extraction commit with `git cat-file`; a shallow checkout omits that
 required historical blob. No historical test is skipped or weakened.
@@ -16,6 +17,18 @@ and `requirements.txt` are installed with required hashes and binary wheels.
 Gallery, checks fixed package SHA256 values before bounded ordinary-file
 extraction, and leaves global module, trust and execution-policy settings alone.
 The shared shell harness imports only the selected versioned manifests.
+
+Two separate application jobs use the exact test targets in
+`tests/compatibility/runtime-lock.json`: 3.13.16 and 3.14.8. Each uses its own
+runtime environment containing only pypdf6.20.0 and optional pip; a distinct
+3.14.8 driver generates authored fixtures with the development dependencies.
+The shared application route runs147 stdlib/pypdf methods and eight PDF/native
+wrapper cases under both shell hosts. This bounded Server route explicitly
+omits Calibre; actual EPUB/AZW3 and native OS gates remain separate. Numeric
+application acceptance comes from the shipped policy, independently of these
+exact reproducible test selections. The workflow checks that every advertised
+minor has a matrix target, uses no fail-fast cancellation between branches,
+and retains finite30-minute reference/20-minute application job bounds.
 
 Reviewed action revisions:
 
@@ -38,8 +51,14 @@ references or release writes. Checkout does not persist credentials. Later
 ready checks still execute after a test failure, while native failures keep
 the job failed.
 
-The artifact allowlist contains only five generated JSON reports: tool
-bootstrap, package prerequisites, Python, shell PS5.1 and shell PS7. No PDFs,
+The reference artifact allowlist contains six generated JSON reports: actual
+CIM OS/source facts, tool bootstrap, package prerequisites, Python, shell PS5.1
+and shell PS7. Each application artifact contains OS/source facts, package
+prerequisites and its application report. Artifact names include source SHA,
+role/target and run attempt. `validate_reports.py` requires every declared
+report, matching source, Server ProductType, successful non-skipped suites and
+the exact application target; partial artifacts and unrelated older green runs
+cannot satisfy the gate. Native commands keep their nonzero exit codes. No PDFs,
 Documents directory, environment dump or temporary-workspace wildcard is
 uploaded. Reports remain available on failure. A proposed workflow is not
 actual hosted CI evidence; record run URL, tested commit, results and limitations

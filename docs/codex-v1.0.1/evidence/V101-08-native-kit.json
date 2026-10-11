@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "task": "V101-08",
+  "observed_at": "2026-10-11T18:02:39.034338+00:00",
+  "scope": "HARNESS_IMPLEMENTATION_AND_AVAILABLE_WINDOWS11_REHEARSAL; not nativeWindows10/finalv1.0.1/publicrelease",
+  "implementation": {
+    "source_commit": "e21ef1a769052b7d31b1c4bee6a1e1ed109ab099",
+    "source_tree": "93144ed1b7e0adbfe56d507412a4fa425eb47174",
+    "prior_checkpoint": "9e35627a29ccc03e0977b16458d7d3a648e33ec0",
+    "source_file_count": 16,
+    "source_files": {
+      "tests/Invoke-ShellTests.ps1": {
+        "bytes": 12294,
+        "sha256": "d7c39a2d63d0506f956c64f59ae913558e28b76506245a903eeb036c714c9d01"
+      },
+      "tests/python/test_release_package.py": {
+        "bytes": 29897,
+        "sha256": "f90e49ba28676cffdf592aa74c73349e44f49bd1a56af939658e3d472c5f214d"
+      },
+      "tests/python/test_runner.py": {
+        "bytes": 147681,
+        "sha256": "e4569f89eda88e5129488b1ee15c27f628275b5fd80320720ae9b2a06c10d8e3"
+      },
+      "tests/run_tests.py": {
+        "bytes": 138441,
+        "sha256": "9bcacee3c9aa5c6cb9a8c08fd3d930c156417fdfa5ce189edc5ce57260d600c5"
+      },
+      "tools/release/build_package.py": {
+        "bytes": 11504,
+        "sha256": "42f2a759b8585f9147962af904babb0e30981e137eb16997eeed9cb318e9855a"
+      },
+      "tools/release/frozen_assets.py": {
+        "bytes": 13209,
+        "sha256": "ed03f74cc4d54e4e7e37e77c8a285b8f3d068b3cc329901cb3325c76f1df93b7"
+      },
+      "tests/python/test_frozen_assets.py": {
+        "bytes": 14673,
+        "sha256": "ec2a422d633f7ab76672bf5b082b84494f350be0e873d1879fab47cb8fb1eacc"
+      },
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+        "bytes": 66473,
+        "sha256": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5"
+      },
+      "tools/compatibility/kit_builder.py": {
+        "bytes": 26652,
+        "sha256": "4dc7d31cd906563e78ca985613378209986d4d0cd9859c091e9cdb945ea58563"
+      },
+      "tools/compatibility/native_smoke.py": {
+        "bytes": 52058,
+        "sha256": "778caa7522c7f672993881a1e9551810ed9a34f58cc5f292fd2ef7cacc519e0d"
+      },
+      "tools/compatibility/prepare_fixtures.py": {
+        "bytes": 8565,
+        "sha256": "be35bae460e822f2436d0a1c381186a9d80d16331f7ebb44f8a08c5ab7e1a519"
+      },
+      "tools/compatibility/README.md": {
+        "bytes": 5111,
+        "sha256": "0af211e6110b6743ca9729271e2efb33ed4ffdac62ec62a24b99f65d2bce46f0"
+      },
+      "tests/compatibility/Probe-NativeKit.ps1": {
+        "bytes": 12226,
+        "sha256": "75ae3fd43f3cf49edcdaf48aaa0ac3595c41a4a3da21f8cb125a8285697dc814"
+      },
+      "tests/python/test_native_smoke.py": {
+        "bytes": 19964,
+        "sha256": "29d936e8e14e7e2739116cb94043ec100116c1c366b680f2779667405139e663"
+      },
+      "tests/python/test_native_fixture_preparation.py": {
+        "bytes": 2486,
+        "sha256": "8878fc5630d04dd47d4cee726d7c4097fec132314f31b6b16885058c2fb28ef4"
+      },
+      "tests/python/test_native_kit.py": {
+        "bytes": 7875,
+        "sha256": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc"
+      }
+    },
+    "committed_blob_files": {
+      "tests/Invoke-ShellTests.ps1": {
+        "bytes": 12292,
+        "sha256": "8b15c3406ecaa39bcac5bea371a8107abce9a914c1e2548206099d705358a06e"
+      },
+      "tests/python/test_release_package.py": {
+        "bytes": 29897,
+        "sha256": "f90e49ba28676cffdf592aa74c73349e44f49bd1a56af939658e3d472c5f214d"
+      },
+      "tests/python/test_runner.py": {
+        "bytes": 147677,
+        "sha256": "38e8473e88c6521b7568e7b34c6c5790325cd141e0740752c536e4dcc7a42cf6"
+      },
+      "tests/run_tests.py": {
+        "bytes": 138441,
+        "sha256": "9bcacee3c9aa5c6cb9a8c08fd3d930c156417fdfa5ce189edc5ce57260d600c5"
+      },
+      "tools/release/build_package.py": {
+        "bytes": 11504,
+        "sha256": "42f2a759b8585f9147962af904babb0e30981e137eb16997eeed9cb318e9855a"
+      },
+      "tools/release/frozen_assets.py": {
+        "bytes": 13209,
+        "sha256": "ed03f74cc4d54e4e7e37e77c8a285b8f3d068b3cc329901cb3325c76f1df93b7"
+      },
+      "tests/python/test_frozen_assets.py": {
+        "bytes": 14673,
+        "sha256": "ec2a422d633f7ab76672bf5b082b84494f350be0e873d1879fab47cb8fb1eacc"
+      },
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+        "bytes": 66473,
+        "sha256": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5"
+      },
+      "tools/compatibility/kit_builder.py": {
+        "bytes": 26652,
+        "sha256": "4dc7d31cd906563e78ca985613378209986d4d0cd9859c091e9cdb945ea58563"
+      },
+      "tools/compatibility/native_smoke.py": {
+        "bytes": 52058,
+        "sha256": "778caa7522c7f672993881a1e9551810ed9a34f58cc5f292fd2ef7cacc519e0d"
+      },
+      "tools/compatibility/prepare_fixtures.py": {
+        "bytes": 8565,
+        "sha256": "be35bae460e822f2436d0a1c381186a9d80d16331f7ebb44f8a08c5ab7e1a519"
+      },
+      "tools/compatibility/README.md": {
+        "bytes": 5111,
+        "sha256": "0af211e6110b6743ca9729271e2efb33ed4ffdac62ec62a24b99f65d2bce46f0"
+      },
+      "tests/compatibility/Probe-NativeKit.ps1": {
+        "bytes": 12226,
+        "sha256": "75ae3fd43f3cf49edcdaf48aaa0ac3595c41a4a3da21f8cb125a8285697dc814"
+      },
+      "tests/python/test_native_smoke.py": {
+        "bytes": 19964,
+        "sha256": "29d936e8e14e7e2739116cb94043ec100116c1c366b680f2779667405139e663"
+      },
+      "tests/python/test_native_fixture_preparation.py": {
+        "bytes": 2486,
+        "sha256": "8878fc5630d04dd47d4cee726d7c4097fec132314f31b6b16885058c2fb28ef4"
+      },
+      "tests/python/test_native_kit.py": {
+        "bytes": 7875,
+        "sha256": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc"
+      }
+    },
+    "source_map_sha256": "d08f6f82ea085802f7ea0dcf2a812c09bb15f5a57bc1aa802b178c3b1bdc8f67",
+    "source_map_recipe": "SHA256 of UTF8 sorted compact JSON path->{bytes,sha256}",
+    "all_16_local_bytes_equal_commit_blobs": false,
+    "local_vs_git_newline_only_differences": [
+      "tests/Invoke-ShellTests.ps1",
+      "tests/python/test_runner.py"
+    ],
+    "all_16_equal_after_crlf_to_lf_comparison": true,
+    "local_clean_observed": true,
+    "live_branch_equal_observed": true,
+    "sync_observation": "Parent observed17:58:42.544831+00; evidence writer independently observed clean HEAD/live branch equality afterward. This is not this evidence-only checkpoint's future identity."
+  },
+  "tests": {
+    "python_tool_output_controls": [
+      {
+        "python": "3.13.16",
+        "status": "PASS",
+        "tests": 42,
+        "seconds": 0.665,
+        "receipt_kind": "ACTUAL_TOOL_OUTPUT_ONLY",
+        "raw_unittest_report_sha256": null,
+        "tested_native_kit_test_sha256": "a57afd1b9a7a7ea429486071d5ee6e1182f9d2e800811ddaaa320c228bd02d21",
+        "current_native_kit_test_sha256": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc",
+        "qualification": "Only the test module docstring changed after execution; do not claim this ran at the later raw test bytes or as a complete suite."
+      },
+      {
+        "python": "3.14.8",
+        "status": "PASS",
+        "tests": 42,
+        "seconds": 0.638,
+        "receipt_kind": "ACTUAL_TOOL_OUTPUT_ONLY",
+        "raw_unittest_report_sha256": null,
+        "tested_native_kit_test_sha256": "a57afd1b9a7a7ea429486071d5ee6e1182f9d2e800811ddaaa320c228bd02d21",
+        "current_native_kit_test_sha256": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc",
+        "qualification": "Only the test module docstring changed after execution; do not claim this ran at the later raw test bytes or as a complete suite."
+      }
+    ],
+    "frozen_assets_tool_output_controls": {
+      "status": "PASS",
+      "tests": 12,
+      "seconds": 22.425,
+      "receipt_kind": "ACTUAL_TOOL_OUTPUT_ONLY",
+      "raw_unittest_report_sha256": null
+    },
+    "source_manifest_tool_output_control": {
+      "status": "PASS",
+      "tests": 1,
+      "seconds": 0.148,
+      "receipt_kind": "ACTUAL_TOOL_OUTPUT_ONLY",
+      "raw_unittest_report_sha256": null
+    },
+    "tool_output_summary": {
+      "name": "task08-root-imported-source-01.json",
+      "role": "Preserved parent summary; its earlier core/Probe/README map is not the current map",
+      "bytes": 2695,
+      "sha256": "a6fadec4466a66a0e5f2eb4bf58438d45da67002c6df915e83461b7e98127860"
+    },
+    "final_in_tree_primitives": [
+      {
+        "host": "5.1.26100.9444",
+        "process_bits": 64,
+        "status": "PASS",
+        "tests": 13,
+        "failures": 0,
+        "started_utc": "2026-10-11T17:50:10.2646435Z",
+        "finished_utc": "2026-10-11T17:50:14.7040563Z",
+        "source_unchanged": true,
+        "scope": "CONTROLLED_NATIVE_TOOLING_ONLY",
+        "receipt": {
+          "name": "receipt.json",
+          "role": "PS51-in-tree-final-primitives",
+          "bytes": 3200,
+          "sha256": "294a94a4e2faf83ef86fb85edfb1e25c8b8034c32b8729a4def9bd40f770abda"
+        }
+      },
+      {
+        "host": "7.6.6",
+        "process_bits": 64,
+        "status": "PASS",
+        "tests": 13,
+        "failures": 0,
+        "started_utc": "2026-10-11T17:50:13.8684692Z",
+        "finished_utc": "2026-10-11T17:50:17.9347565Z",
+        "source_unchanged": true,
+        "scope": "CONTROLLED_NATIVE_TOOLING_ONLY",
+        "receipt": {
+          "name": "receipt.json",
+          "role": "PS766-in-tree-final-primitives",
+          "bytes": 3191,
+          "sha256": "2b8a020617b8a7049253e536ebc013ff2096cb06eddd1a0ae617850c98fad956"
+        }
+      }
+    ],
+    "final_core_static": [
+      {
+        "host": "5.1.26100.9444",
+        "status": "PASS",
+        "parse_errors": 0,
+        "analyzer_findings": 0,
+        "analyzer_version": "1.25.0",
+        "settings_sha256": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+        "source_sha256": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5",
+        "source_unchanged": true,
+        "receipt": {
+          "name": "static-review-08-04-PS51.json",
+          "role": "PS51-final-core-static",
+          "bytes": 829,
+          "sha256": "5312fb38615c58abc2ff6861c0c31107c00dc1c53cbf62840fdad11e2ae14356"
+        }
+      },
+      {
+        "host": "7.6.6",
+        "status": "PASS",
+        "parse_errors": 0,
+        "analyzer_findings": 0,
+        "analyzer_version": "1.25.0",
+        "settings_sha256": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+        "source_sha256": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5",
+        "source_unchanged": true,
+        "receipt": {
+          "name": "static-review-08-04-PS766.json",
+          "role": "PS766-final-core-static",
+          "bytes": 738,
+          "sha256": "c3739ea5f7e4e6219fd6a43809838e1a27e06960496aad982e821d5d63d2e305"
+        }
+      }
+    ],
+    "meaningful_external_builder_controls": {
+      "status": "PASS",
+      "tests": 11,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "scope": "SYNTHETIC_AND_NATIVE_GUARDED_EXTRACTION_TOOLING",
+      "receipt": {
+        "name": "report.json",
+        "role": "Final producer control report",
+        "bytes": 879,
+        "sha256": "63888cb2d261babfd9b88293c8a33624a032545c2c1c20975005cadadaafb6c1"
+      }
+    }
+  },
+  "native_rehearsal": {
+    "evidence_kind": "NATIVE_AUTOMATED",
+    "execution": "AGENT_LAUNCHED",
+    "status": "PASS",
+    "os": {
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.26300",
+      "BuildNumber": "26300",
+      "OSArchitecture": "64-bit",
+      "ProductType": 1,
+      "UBR": 9457,
+      "powershell_version": "5.1.26100.9444",
+      "process_bits": 64,
+      "DisplayVersion": "26H2",
+      "processor_architectures": [
+        9
+      ],
+      "os_bits": 64,
+      "platform_scope": "NATIVE_WINDOWS11_DRY_RUN"
+    },
+    "started_utc": "2026-10-11T17:49:30.4868326Z",
+    "finished_utc": "2026-10-11T17:52:06.1881829Z",
+    "elapsed_seconds": 155.70135,
+    "versions": {
+      "python": "3.14.8",
+      "pypdf": "6.20.0",
+      "calibre": "9.15.0"
+    },
+    "production": {
+      "assets": {
+        "SHA256SUMS.txt": {
+          "bytes": 178,
+          "sha256": "a80aa569118e61535960c854df25a1fe2afcd0c5415fb7d728736e22a028b06f"
+        },
+        "WinBookSplit-v1.0.0.zip": {
+          "bytes": 870854,
+          "sha256": "7f3ea62f584ce65e3b3037ea93bd73df9e8ed9425e68e8cf0526e8ad3acaea43"
+        },
+        "release-manifest.json": {
+          "bytes": 13661,
+          "sha256": "bcf25ed2e65bcd9115c4ea7c18162379eee9f9d08fa2676eee324ff8c60f988f"
+        }
+      },
+      "payload_sha256": "02725059508c77fc4654423c5a89e89be795012ed0bf720979f0e1cef3544593",
+      "policy_sha256": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+      "source_commit": "aa5bc2ee73d50d55dee1684a9ff05a5507fc2549",
+      "source_tree": "94f0b7634cd2aebe0711b89e06a1ac4640c57652",
+      "version": "1.0.0"
+    },
+    "kit": {
+      "fixtures_payload_sha256": "13228436e9b004fec8bcf8ef68371cfb926b9523d4d0117412b86c39deb25c27",
+      "helpers_payload_sha256": "906c411380901fc086fa366ac3bdf994bcf4375caa3936e12ad251f5c10486de",
+      "mode": "EXTERNAL_DRAFT_REHEARSAL",
+      "repository_observation": {
+        "commit": "9e35627a29ccc03e0977b16458d7d3a648e33ec0",
+        "tree": "45fa8bc2b06541cfd35f9e4b18eae08279fbc8ab"
+      },
+      "source_commit": null,
+      "source_tree": null
+    },
+    "bindings_sha256": "e6f5415a640d2f684f5c161268b06c1f45182af867cad30976bf6e2bc32299b8",
+    "kit_archive": {
+      "bytes": 1240971,
+      "sha256": "4f378df2cb66dee9e65336c2006e9dc31aaccb276988e4e3a4b3628daa2e6cb5"
+    },
+    "stages": [
+      {
+        "id": "os",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": null
+      },
+      {
+        "id": "kit_identity",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": null
+      },
+      {
+        "id": "prerequisites",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": null
+      },
+      {
+        "id": "verify_extract",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "6a978e88b89745b1ac726534fc8d4e34872ed991252cb860a16a3fea3ddbd195"
+      },
+      {
+        "id": "version",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "1b021c21865a82e54f2928a4898c33c3de4bdb102726b1c1383f57da9738a765"
+      },
+      {
+        "id": "help",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "efa10755625c8a1ffe0ed9c61aa3d28a10a4133681f648df8644dc511c613c2e"
+      },
+      {
+        "id": "setup_install",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "d04c19b16d8e2dc74a0f9b1f9f189d8e775151f879560432a6e96a92a9673607"
+      },
+      {
+        "id": "setup_check",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "8671fd7bacc858f3cc3ff86c837d66614da1cd50c723659e0fe687afc6a29a62"
+      },
+      {
+        "id": "setup_noop",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "940df7511a52583d870506f06fcc174e8d6e31461fb42d5ed0d844d054402293"
+      },
+      {
+        "id": "controls",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": null
+      },
+      {
+        "id": "prepare",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "846bfeafbb30cba1bd6c99fa13b9334abf33a33b65b7753ed327dc550e9b93a2"
+      },
+      {
+        "id": "native_cases",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "4063ff8a0e4a8dfd6c500b83d1e1e4a8958fa8bd38c82f2bd742486e907c8719"
+      },
+      {
+        "id": "validate",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "fb7b6ebf6f0d81387b5535bc77fb6d15c6d858d2c6f5639a3c144d0cc24ff3cc"
+      },
+      {
+        "id": "redact",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": "df9abb8815535798bcf7e7c9e4247d015a119f1a89cbb5572fa3e36426e6c9fb"
+      },
+      {
+        "id": "source_identity",
+        "status": "PASS",
+        "code": "completed",
+        "exit_code": 0,
+        "probe_sha256": null
+      }
+    ],
+    "cases": [
+      {
+        "id": "ref-epub",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "ref-azw3",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "manual",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "manual-first",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "auto1",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "auto2",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "repeat",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "preview",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "invalid-manual",
+        "status": "PASS",
+        "exit_code": 2,
+        "error_code": null
+      },
+      {
+        "id": "no-bookmarks",
+        "status": "PASS",
+        "exit_code": 5,
+        "error_code": null
+      },
+      {
+        "id": "cancel-plan",
+        "status": "PASS",
+        "exit_code": 130,
+        "error_code": null
+      },
+      {
+        "id": "missing-python",
+        "status": "PASS",
+        "exit_code": 3,
+        "error_code": null
+      },
+      {
+        "id": "missing-pypdf",
+        "status": "PASS",
+        "exit_code": 3,
+        "error_code": null
+      },
+      {
+        "id": "epub-discard",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "epub-keep",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "azw3-discard",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "azw3-keep",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "bat-one",
+        "status": "PASS",
+        "exit_code": 0,
+        "error_code": null
+      },
+      {
+        "id": "bat-two",
+        "status": "PASS",
+        "exit_code": 2,
+        "error_code": null
+      }
+    ],
+    "controls": [
+      {
+        "id": "owned_timeout",
+        "scope": "CONTROLLED_NATIVE",
+        "status": "PASS",
+        "code": "expected_stop_proved",
+        "probe_sha256": "e6417860ef8111d6e7d6d7fa90a18a7ce2543cad61d5b4e19bd1c224a5db508a",
+        "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+      },
+      {
+        "id": "owned_cancel",
+        "scope": "CONTROLLED_NATIVE",
+        "status": "PASS",
+        "code": "expected_stop_proved",
+        "probe_sha256": "1c3bac509905b3987c23b3e0b842800058bc7e3056b074239df4637686c67173",
+        "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+      },
+      {
+        "id": "failed_legacy_path_fallback",
+        "scope": "CONTROLLED_NATIVE",
+        "status": "PASS",
+        "code": "failed_listing_then_path_accepted",
+        "probe_sha256": "466ed35e7f0aeb00ab5e5d0e4b2067af97348aa4fe9bd636589ac3a7416a8d02",
+        "helper_sha256": "3d04efb4dd45e6ba3660967de5ae544891b2254d6043b488c1b5ccd617bec0d0",
+        "fixture_exe_sha256": "6dbf6bdc944b407284007c5b7649bcd6d21c459792d4d7f4856524a9697a6159"
+      }
+    ],
+    "cleanup_safe": true,
+    "source_unchanged": true,
+    "all_19_processes_proved_job_parent_descendants_streams_writer_stopped": true,
+    "all_errors_explicit_null_and_utf8_stream_totals_exact": true,
+    "portable_provisioning": {
+      "status": "PASS",
+      "fresh_private_destination": true,
+      "canonical_final_utf16_units": 50,
+      "maximum_utf16_units": 58,
+      "installer_elapsed_seconds": 18.0949581,
+      "installer_exit_code": 0,
+      "installer_job_tree_streams_writer_stop_proved": true,
+      "converter_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "global_install_or_path_mutation_requested": false
+    },
+    "raw_result": {
+      "name": "native-result.json",
+      "role": "Redacted final native result",
+      "bytes": 10561,
+      "sha256": "f31c6ce856ef5f6175501a6573ae4c30e7faa46dd7d45700db11d3ea4d8cca76"
+    },
+    "returned_bundle": {
+      "name": "native-result.zip",
+      "role": "Exactly one allowlisted JSON, byte-equal to raw redacted result",
+      "bytes": 10700,
+      "sha256": "3fde4624cec67db900fb316489a23c9cd0e685011f70f46e8ed8ac105f79914a"
+    },
+    "plan": {
+      "name": "plan.json",
+      "role": "Private raw plan remains outside Git",
+      "bytes": 66435,
+      "sha256": "fee9e0ea9f7505b80d8cfbeb5bf039390d799313196afeceb550c0124cf3161c"
+    },
+    "raw_process_report": {
+      "name": "process-report.json",
+      "role": "Private raw commands/streams remain outside Git",
+      "bytes": 375049,
+      "sha256": "4063ff8a0e4a8dfd6c500b83d1e1e4a8958fa8bd38c82f2bd742486e907c8719"
+    },
+    "consolidated_read_only_summary": {
+      "name": "rehearsal-kit-09-final-receipt.json",
+      "role": "Private full summary independently checks preserved native/tool/source facts",
+      "bytes": 34716,
+      "sha256": "2fbeb1b8259f9064a7dae0d9b46b80e25c30b5e2f8df7a82a928959ec68873c2"
+    }
+  },
+  "committed_producer": {
+    "status": "PASS",
+    "mode": "COMMITTED",
+    "source_commit": "e21ef1a769052b7d31b1c4bee6a1e1ed109ab099",
+    "source_tree": "93144ed1b7e0adbfe56d507412a4fa425eb47174",
+    "all_helpers_equal_git_blobs": true,
+    "all_current_output_files_match_build_receipt": true,
+    "kit_archive": {
+      "bytes": 1240912,
+      "sha256": "b6f058f438f1f4163796ab1c821441eac6aa60e5bf37a9b8704b864edcc667d1"
+    },
+    "bindings_sha256": "2033228b306a3b64612fe14211b44de189625309a8c7932636a3329c8e719484",
+    "raw_build_receipt": {
+      "name": "task08-committed-kit-01.build.json",
+      "role": "Actual default COMMITTED producer output",
+      "bytes": 5419,
+      "sha256": "453edcc8d9253bedba7229721afbe8b33998d2a1a584c0086877929e62e87899"
+    },
+    "native_rerun_of_committed_binding_mode": "NOT_RUN",
+    "qualification": "The native09 draft and committed producer have identical authenticated helper bytes. Binding JSON/wrapper/provenance differ. Native09 does not certify a native execution of this later COMMITTED kit."
+  },
+  "actual_commands_redacted": [
+    [
+      "<isolated-work>\\dev14\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "<external-oracle>\\prepare_fixtures.py",
+      "--repository-root",
+      "<checkout>",
+      "--output-root",
+      "<fixtures>",
+      "--calibre-path",
+      "<reviewed-converter>\\ebook-convert.exe",
+      "--report",
+      "<private-report>"
+    ],
+    [
+      "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "Bypass",
+      "-File",
+      "<draft-kit09>\\Run-Windows10.ps1",
+      "-ProvisionPrerequisites",
+      "-AllowWindows11DryRun",
+      "-Execution",
+      "AGENT_LAUNCHED"
+    ],
+    [
+      "<bare14>\\python.exe",
+      "-I",
+      "-B",
+      "<checkout>\\tools\\compatibility\\kit_builder.py",
+      "build",
+      "--repository-root",
+      "<checkout>",
+      "--assets-root",
+      "<unpublished-C7-assets>",
+      "--fixture-root",
+      "<draft-kit09>\\fixtures",
+      "--core-path",
+      "<checkout>\\tools\\compatibility\\Invoke-NativeAcceptance.ps1",
+      "--oracle-path",
+      "<checkout>\\tools\\compatibility\\native_smoke.py",
+      "--verifier-path",
+      "<checkout>\\tools\\release\\frozen_assets.py",
+      "--output",
+      "<committed-kit01>"
+    ],
+    [
+      "<bare14>\\python.exe",
+      "-I",
+      "-B",
+      "<external-core>\\summarize_kit09.py"
+    ]
+  ],
+  "prerequisite_artifacts": [
+    {
+      "name": "python-3.14.8-amd64.zip",
+      "bytes": 32879974,
+      "sha256": "4873947a8afc037846b180312b83c744a4146a851cfd316a75c3125a4d8299da"
+    },
+    {
+      "name": "calibre-portable-installer-9.15.0.exe",
+      "bytes": 205319944,
+      "sha256": "55a8c89bc0739a2dc6d496742ea625fccc6dfdec1413eb805805a28e7227536c"
+    },
+    {
+      "name": "pypdf-6.20.0-py3-none-any.whl",
+      "bytes": 401710,
+      "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+    }
+  ],
+  "fixture_preparation": {
+    "status": "PASS_ACTUAL_CALIBRE",
+    "catalog_sha256": "7527ad874eb8c039b6f32675f265df7c7b8a6c95577b58d605d0c8b146e09df9",
+    "fixtures": {
+      "flat-6.pdf": {
+        "bytes": 5127,
+        "sha256": "a3ada3779ffc7d33a594c45c082069edb3a857bdb1807aa716cee2d1c785b1dd"
+      },
+      "native-fixtures.json": {
+        "bytes": 1984,
+        "sha256": "7527ad874eb8c039b6f32675f265df7c7b8a6c95577b58d605d0c8b146e09df9"
+      },
+      "nested-12.pdf": {
+        "bytes": 10094,
+        "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+      },
+      "original-three-chapters.azw3": {
+        "bytes": 12844,
+        "sha256": "d8033082a65805a7135ff4eb52ec285b5975f7d706149ef495a8997fbc342c58"
+      },
+      "original-three-chapters.epub": {
+        "bytes": 3244,
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+      },
+      "simple-10.pdf": {
+        "bytes": 8211,
+        "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+      }
+    },
+    "reference_physical_pages": {
+      "epub": 3,
+      "azw3": 4
+    },
+    "raw_report": {
+      "name": "fixture-preparation-01.json",
+      "role": "Private fixture producer paths/streams outside Git",
+      "bytes": 5309,
+      "sha256": "b572d6017d6348f38b0decfc5b9886cda8b79cf41aab8b778e187f31bda9a4a7"
+    }
+  },
+  "historical_trials": [
+    {
+      "kit": "rehearsal-kit-07",
+      "scope": "ACTUAL_NATIVE_WINDOWS11_DRY_RUN; C7 unpublished1.0.0; external draft",
+      "status": "PASS",
+      "stages_passed": 15,
+      "cases_passed": 19,
+      "controls_passed": 3,
+      "core_sha256": "cd9a52c8fa1f5129e739b068d0910fe6ecef1105ae75446c5f0133f63197a044",
+      "qualification": "Earlier explicit bare-Python/wheelhouse/reviewed converter route; later static/path fixes changed the core. Not attributed to final core."
+    },
+    {
+      "kit": "rehearsal-kit-08",
+      "scope": "ACTUAL_NATIVE_WINDOWS11_DRY_RUN; C7 unpublished1.0.0; external draft",
+      "status": "FAIL",
+      "oracle": null,
+      "cases_not_run": 19,
+      "cleanup_safe": false,
+      "core_sha256": "2872075e917f4208bd5400a30cbc5c3af9293a6e0b28895be3598b67ff361cf3",
+      "installer_tree_stop_proof": "UNKNOWN",
+      "qualification": "Fresh private Calibre destination exceeded vendor58UTF16 bound and reached UI; deadline expired. Old write-after-assert lost the full Probe. Parent PID absence alone does not prove tree shutdown. Work/downloads/failed bundle preserved."
+    },
+    {
+      "kit": "rehearsal-kit-09",
+      "scope": "ACTUAL_NATIVE_WINDOWS11_DRY_RUN; C7 unpublished1.0.0; external draft",
+      "status": "PASS",
+      "stages_passed": 15,
+      "cases_passed": 19,
+      "controls_passed": 3,
+      "core_sha256": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5",
+      "qualification": "Fresh complete sole-Provision run at final reviewed helper bytes; no explicit Python/converter/wheelhouse paths supplied."
+    }
+  ],
+  "preserved_defects": [
+    "Early kit/oracle trials remain FAILED: native known-system literal path binding and strict negative exit/console expectations were corrected; copied old-plan19/19 pure revalidation is not a fresh native run.",
+    "Initial core static analysis failed3 findings: two empty proof catches now explicitly reset safe=false, unused assignment removed; original rule/settings unchanged. Final both-host static receipts PASS0/0.",
+    "DirectoryGuard prevents directory replacement but not child unlink; actual guarded-file deletion control reproduced this. Producer now compares bounded deterministic authored ZIP bytes after exclusive write and held FileGuard; substitution control refuses success.",
+    "Old08 Calibre vendor path-bound failure remains FAIL with unknown tree-stop proof. Final code measures the canonical joined path<=58UTF16 before launch and persists installer Probe before assertion; no guessed silent flag or alias bypass.",
+    "Initial external evidence writer's all16 raw-local==Git assertion failed on mixed local shell-runner line endings versus LF Git blob. No source changed; final record keeps separate exact local/Git hashes and proves CRLF-to-LF-only differences."
+  ],
+  "acceptance_scope": {
+    "V101-AC-044": "PASS_HARNESS_AND_REHEARSAL_VERIFICATION",
+    "V101-AC-045": "PASS_ACTUAL_WINDOWS11_IDENTITIES_RESULTS",
+    "V101-AC-046": "PASS_AUTOMATED_AVAILABLE_WINDOWS11_REHEARSAL",
+    "V101-AC-047": "PASS_ACTUAL_AUTHORED_EPUB_AND_AZW3_REHEARSAL",
+    "V101-AC-048": "PASS_IMPLEMENTED_REDACTED_BUNDLE_AGENT_LAUNCHED_REHEARSAL; USER_LAUNCHED_NOT_RUN",
+    "V101-AC-049": "UNCHANGED_BAT_EXPLORER_SCOPE; NO_REPEAT_MANUAL_REQUEST"
+  },
+  "not_run": {
+    "native_windows10": "NOT_RUN",
+    "native_final_v1_0_1_zip": "NOT_RUN",
+    "user_launched_native_session": "NOT_RUN",
+    "physical_explorer_drag": "NOT_REPEATED_UNCHANGED_LAUNCHER",
+    "public_v1_0_1_release": "NOT_RUN"
+  },
+  "limitations": [
+    "Existing isolated Windows11 workstation, not a clean OS/VM/Windows10/Server proof",
+    "UnpublishedC7 v1.0.0-named bytes differ from publicv1.0.0 and finalv1.0.1",
+    "No private documents or raw personal paths/console streams enter this record",
+    "All acceptance work/outputs/downloads are retained; no recursive cleanup authority inferred",
+    "Default committed producer check is distinct from native execution and future exact-final-ZIP acceptance",
+    "No subsequent fullCI outcome asserted here"
+  ]
+}
