@@ -1196,7 +1196,7 @@
         "Final exact-asset Windows evidence",
         "Accepted artifact hash/versions"
       ],
-      "status": "blocked",
+      "status": "done",
       "depends_on": [
         "M6-T02"
       ],

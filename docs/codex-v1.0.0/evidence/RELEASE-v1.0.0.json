@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "template": false,
-  "status": "assets_frozen_AC100_pass_Explorer_acceptance_pending",
+  "status": "assets_frozen_GateC_accepted_owner_attested_GUI_artifact_audit_waived",
   "repository": "PikkuJanne/WinBookSplit",
   "tag": "v1.0.0",
   "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
@@ -41,11 +41,15 @@
     {
       "path": "evidence/M6-T03-final-windows.json",
       "acceptance_id": "AC-099",
-      "outcome": "BLOCKED",
+      "outcome": "PASS",
       "ZIP_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
       "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
       "native_cases_passed": 38,
-      "missing_action": "Actual final-ZIP Explorer F01-F07 observations and authenticated authored artifacts."
+      "missing_action": null,
+      "user_reported_flows_passed": 7,
+      "basis": "Actual independently audited final-ZIP native Windows checks plus owner-attested F01-F07 against the sealed guide. Additional six-run GUI artifact audit explicitly waived by the owner.",
+      "independent_GUI_artifact_audit": "WAIVED_BY_USER_NOT_RUN",
+      "owner_acceptance_record": "evidence/M6-T03-final-windows.json#owner_acceptance"
     }
   ],
   "calibre_evidence": [
@@ -76,7 +80,7 @@
       "downloaded_sha256": null,
       "bytes": 414497,
       "anonymous_download_verified": false,
-      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 final Explorer acceptance pending",
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
         "directory": "final-R-01",
@@ -90,7 +94,7 @@
       "downloaded_sha256": null,
       "bytes": 11547,
       "anonymous_download_verified": false,
-      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 final Explorer acceptance pending",
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
         "directory": "final-R-01",
@@ -104,7 +108,7 @@
       "downloaded_sha256": null,
       "bytes": 178,
       "anonymous_download_verified": false,
-      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 final Explorer acceptance pending",
+      "acceptance_scope": "AC097/098 frozen integrity and AC100 native real-ebook/PDF fidelity PASS; AC099 accepted native plus owner-attested F01-F07, additional GUI artifact audit waived and not performed",
       "local_artifact": {
         "workspace": "WinBookSplit-M6-T02-20261011",
         "directory": "final-R-01",
@@ -119,17 +123,17 @@
   "payload_unchanged_after_release_commit": null,
   "last_historical_main_sync_receipt": {
     "repository": "PikkuJanne/WinBookSplit",
-    "observed_at": "2026-10-11T05:18:33.256228+00:00",
+    "observed_at": "2026-10-11T07:09:34.253826+00:00",
     "status": "SYNCED",
     "read_only": true,
     "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
     "branch": "main",
-    "local_head": "deb563d02e861e565d54e435739bcad96d7f8a41",
+    "local_head": "3344e3339d42ef4e31f95799a1397ca467b31a50",
     "worktree_clean": true,
-    "remote_head": "deb563d02e861e565d54e435739bcad96d7f8a41",
+    "remote_head": "3344e3339d42ef4e31f95799a1397ca467b31a50",
     "reason": "Clean local HEAD equals fresh live branch at observation time"
   },
-  "final_current_sync_receipt_location": "External M6-T03/thread after own actual commit/push; not yet observed inside this record.",
+  "final_current_sync_receipt_location": "External owner-acceptance checkpoint/thread after actual commit/push; not yet observed inside this record.",
   "known_limits": [
     "Historical through M6-T02: R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
     "Historical through M6-T02: R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
@@ -145,24 +149,18 @@
     "Historical through M6-T02: ZIP bytes equal reviewed C3 payload but final manifest/checksums identify R and differ from C3; neither older human nor source-checkout tests certify this final package.",
     "Historical through M6-T02: Focused25 package tests are real authored-Git unit regressions; no fresh full514/Pester/local full22/application/human/renderer/Calibre execution occurred here.",
     "Historical through M6-T02: Release notes are prepared from R with actual package hashes, unsigned disclosure and pending acceptance/publication context; reconcile only contextual opening after actual later gates pass.",
-    "AC-099 final Explorer/BAT/console/viewer observations F01-F07 remain NOT RUN; native redirected controls do not certify them.",
+    "AC-099/GateC is accepted in actual native plus owner-attested scope. F01-F07 are USER_ATTESTED_PASS against the sealed final-ZIP guide; the additional six-run GUI artifact audit is WAIVED_BY_USER_NOT_RUN. No GUI log/output authentication, captured BAT exit, actual operation timestamps or independent viewer proof is claimed.",
     "Existing Windows11 x64 workstation with fresh extractions/runtime-only venvs/controlled child paths; no clean OS/Sandbox/VM/Windows10/ARM/UNC certification.",
     "No final-asset BAT outer native exit or human viewer/process-absence evidence is inferred from files or window disappearance.",
     "Supplementary fidelity uses one actual Poppler26.07 renderer. Prior PDFium/developer advisory limits remain historical; no second-renderer renewal or general arbitrary-document promise.",
     "Native and renderer stderr remains retained. Authored rich-source render emitted1333bytes of font/malformed-destination diagnostics; sixteen rich-output render operations emitted1289bytes of recorded font diagnostics. Native0 and exact pixel comparisons are not warning-free claims.",
     "Two supplementary harness preparation trials remain FAILED: frame read from stdout instead of finalized log, then missing datetime in pure adapter. The read-only replay is not an application rerun.",
     "All historical failures, interruptions, UNKNOWN causes, unavailable scanners/original receipts, default static observations and23older unmapped newline differences remain preserved.",
-    "Completed M3/M5 D13 human routes remain closed; G04-G16 remain SUPERSEDED and retired variants native-only. These separately labeled final-ZIP observations are pending.",
+    "Completed M3/M5 D13 human routes remain closed; G04-G16 remain SUPERSEDED and retired variants native-only. The final-ZIP owner attestation and waived GUI artifact audit are separately recorded.",
     "No source-checkout full514/Pester/full22, new workflow request, advisory query, signing, rebuild, tag/draft/release/upload/download occurred here.",
     "R and all three final assets remain fixed/unsigned. AC101-107 are pending; project publication is incomplete."
   ],
-  "open_blockers": [
-    {
-      "task": "M6-T03",
-      "acceptance_id": "AC-099",
-      "missing_action": "Actual prepared final-ZIP Explorer F01-F07 outcomes and authored artifact audit."
-    }
-  ],
+  "open_blockers": [],
   "historical_prerequisite_evidence": {
     "path": "evidence/M6-T01-release-source.json",
     "field": "prerequisite_review",
@@ -170,7 +168,6 @@
     "final_asset_acceptance": false
   },
   "pending_release_gates": [
-    "M6-T03 final-ZIP Explorer F01-F07 acceptance; AC100 native ebook/fidelity passed",
     "M6-T04 fixed annotated tag and inspected draft",
     "M6-T05 public release/anonymous matching downloads and downloaded-package smoke",
     "M6-T06 durable closure and synchronized final main"
@@ -189,5 +186,8 @@
     "sha256": "cbb1c240835621980a6f4da9f961ebaae3f23afa3ce7e1439580f8e77871ca97",
     "status": "prepared; final-asset/publication gates pending"
   },
-  "exact_final_asset_Windows_accepted": false
+  "exact_final_asset_Windows_accepted": true,
+  "exact_final_asset_acceptance_basis": "Native Windows/Calibre/PDF fidelity evidence plus user-reported seven guide passes accepted by owner direction; GUI artifact authentication was waived, not performed.",
+  "independent_GUI_run_artifacts_authenticated": false,
+  "owner_GUI_artifact_audit_waiver": "WAIVED_BY_USER_NOT_RUN"
 }
