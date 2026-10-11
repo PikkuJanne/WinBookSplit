@@ -1,5 +1,17 @@
 # Next session
 
+**None for this project: first public v1.0.0 is COMPLETE at the verified M6-T06 checkpoint.** All36tasks are done; no website/other-version/feature work is queued. [Public release](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0) is verified non-draft/non-prerelease, with matching anonymously downloaded assets and actual accepted Windows/Calibre evidence.
+
+Source **R=73c90d10dc16b1c321737afbdfbe959d61a24573**, tree **62da4fe06b2d07374b27743dd252aab492993c35**, tag object97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2 stay fixed. Final documentation-only **D**/normal push/current-main CI/clean live-main equality/R ancestry/unchanged payload/tag receipt is **D:/projects/WinBookSplit-M6-T06-20261011/final-checkpoint-receipt.json and this M6-T06 chat final report**, written only after actual operations. Its own SHA stays outside D under GateF; inspect evidence/M6-T06-closure.md/json and RELEASE-v1.0.0.json. Starting clean/live **fc233efabf8c17bb87555b3f526d73ced8421929** and CI38123924110success are historical entry proof, not substitutes for actual final-D proof.
+
+Assets unchanged/unsigned: ZIP e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3; manifest ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f; sums 1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b. All176guarded/28payload/threebuilder inputs remain frozen. Windows11x64/PS5.1.26100.9444+7.6.6/regularPython3.14.8+pypdf6.20.0/Calibre9.15.0; existing workstation isolation, no cleanOS/Windows10/ARM/UNC claim.
+
+F01-F07 USER_ATTESTED_PASS; extra GUI audit WAIVED_BY_USER_NOT_RUN. Do not request further human evidence or reopen M3/M5D13; G04-G16 remain SUPERSEDED. Prior native/Calibre/render evidence, unsigned and historical failed/UNKNOWN/scanner/renderer/static/newline/font limits remain preserved. No new local app/full/Calibre/GUI/human/render/security execution at closure. External root receipts/scripts at D:/projects/WinBookSplit-M6-T06-20261011 retain actual source/evidence/live checks and failed preparation trial. No tag/asset replacement/rebuild/new version/settings/destructive change is authorized by completion.
+
+If a later separate request arrives, first recheck actual Git/origin/dirty/in-progress/live main/tag/release/CI; never reset to this history or assume old sync is current. No more work is scheduled here.
+
+## Historical handoff through M6-T05
+
 Next: **M6-T06 — Commit closure and verify final local/main synchronization**, AC106/107. M6-T05 AC103/104/105 passes. [Public v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0) ID409510027 is draft=false/prerelease=false/published_at=2026-10-11T08:02:26Z. Sole public release and three anonymous public downloads are verified; actual minimal downloaded-package Windows smoke passes. Stop at the M6-T06 closure boundary; no other version/site/feature task.
 
 Read AGENTS.md, STATUS.md, TASKS.json, SCOPE_AND_DECISIONS.md, tasks/M6-T06.md, RELEASE_RUNBOOK.md GateF, TESTING.md, GITHUB_WORKFLOW.md, evidence/M6-T05-publication.md/json, M6-T05-release-notes.md and RELEASE-v1.0.0.json. Inspect current Git/origin/upstream/worktrees/dirty/in-progress/live main/CI/tag/releases/PRs before changes; preserve unrelated work. Starting M6-T05 main was clean/live **adf80d8d1a3857b087112d53f3f84dae2715ad88**, actual CI38122660858 success. This task checkpoint's later actual SHA/push/clean-live receipt lives external/thread; recheck, never infer/reset from historical SHA.

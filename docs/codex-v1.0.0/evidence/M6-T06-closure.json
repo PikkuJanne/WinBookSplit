@@ -1,0 +1,2587 @@
+{
+  "schema_version": 1,
+  "task": "M6-T06",
+  "recorded_at_utc": "2026-10-11T08:29:18.664862+00:00",
+  "date_local": "2026-10-11",
+  "timezone": "Europe/Berlin",
+  "result": "CLOSURE_RECORDS_VERIFIED_FINAL_D_RECEIPT_EXTERNAL",
+  "repository": "PikkuJanne/WinBookSplit",
+  "release_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0",
+  "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "implementation_commit_basis": "TASKS implementation_commit is fixed accepted product source R, following M6 convention; actual documentation-only D and final-current proof are external after commit, not manufactured here.",
+  "starting_main": "fc233efabf8c17bb87555b3f526d73ced8421929",
+  "starting_main_tree": "a3f81871834876cd242022ad4577da2b2114009f",
+  "starting_main_sync": {
+    "repository": "PikkuJanne/WinBookSplit",
+    "observed_at": "2026-10-11T08:27:07.466608+00:00",
+    "status": "SYNCED",
+    "read_only": true,
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "branch": "main",
+    "local_head": "fc233efabf8c17bb87555b3f526d73ced8421929",
+    "worktree_clean": true,
+    "remote_head": "fc233efabf8c17bb87555b3f526d73ced8421929",
+    "reason": "Clean local HEAD equals fresh live branch at observation time"
+  },
+  "acceptance": [
+    {
+      "id": "AC-106",
+      "outcome": "FINAL_CURRENT_RESULT_IN_EXTERNAL_D_RECEIPT",
+      "basis": "Actual clean/live starting main, R ancestry and unchanged176guarded/28payload/3builder plus reviewed excluded closure records are verified. Actual D commit/push/clean-main/live equality/tag/ancestry/payload/CI are checked after commit and recorded externally; no unobserved D hash or sync is asserted here."
+    },
+    {
+      "id": "AC-107",
+      "outcome": "PASS_FOR_DURABLE_RECORDS_FINAL_REPORT_EXTERNAL",
+      "basis": "Actual publication, fixed R, accepted/anonymous hashes, Windows/Calibre/CI/owner-waiver evidence and limitations consolidated; all36tasks complete at the successful D checkpoint, final factual report supplies actual D."
+    }
+  ],
+  "closure_audit": {
+    "result": "PASS",
+    "observed_at": "2026-10-11T08:27:09.710431+00:00",
+    "checks_passed": 500,
+    "guarded_source_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "guarded_paths": 176,
+    "payload_files": 28,
+    "builder_files": 3,
+    "post_R_paths": [
+      "docs/codex-v1.0.0/NEXT_SESSION.md",
+      "docs/codex-v1.0.0/SCOPE_AND_DECISIONS.md",
+      "docs/codex-v1.0.0/STATUS.md",
+      "docs/codex-v1.0.0/TASKS.json",
+      "docs/codex-v1.0.0/TESTING.md",
+      "docs/codex-v1.0.0/evidence/M6-T01-release-source.json",
+      "docs/codex-v1.0.0/evidence/M6-T01-release-source.md",
+      "docs/codex-v1.0.0/evidence/M6-T02-final-assets.json",
+      "docs/codex-v1.0.0/evidence/M6-T02-final-assets.md",
+      "docs/codex-v1.0.0/evidence/M6-T02-release-notes.md",
+      "docs/codex-v1.0.0/evidence/M6-T03-final-windows.json",
+      "docs/codex-v1.0.0/evidence/M6-T03-final-windows.md",
+      "docs/codex-v1.0.0/evidence/M6-T04-draft.json",
+      "docs/codex-v1.0.0/evidence/M6-T04-draft.md",
+      "docs/codex-v1.0.0/evidence/M6-T04-release-notes.md",
+      "docs/codex-v1.0.0/evidence/M6-T05-publication.json",
+      "docs/codex-v1.0.0/evidence/M6-T05-publication.md",
+      "docs/codex-v1.0.0/evidence/M6-T05-release-notes.md",
+      "docs/codex-v1.0.0/evidence/RELEASE-v1.0.0.json",
+      "docs/codex-v1.0.0/tasks/M6-T01.md",
+      "docs/codex-v1.0.0/tasks/M6-T02.md",
+      "docs/codex-v1.0.0/tasks/M6-T03.md",
+      "docs/codex-v1.0.0/tasks/M6-T04.md",
+      "docs/codex-v1.0.0/tasks/M6-T05.md"
+    ],
+    "prior_tracked_seals_count": 65,
+    "M6_acceptance": [
+      {
+        "task": "M6-T01",
+        "acceptance": [
+          {
+            "id": "AC-095",
+            "outcome": "PASS",
+            "scope": "Committed reviewed clean/live main R, VERSION1.0.0, actual R CI/payload manifest, no conflicting tags/releases."
+          },
+          {
+            "id": "AC-096",
+            "outcome": "PASS_IN_RECORDED_PREREQUISITE_SCOPE",
+            "scope": "All94 M0-M5 IDs and required Windows/Calibre/launcher/safety/dependency/CI evidence verified with exact current byte bindings; future exact-final-asset gates remain pending."
+          }
+        ]
+      },
+      {
+        "task": "M6-T02",
+        "acceptance": [
+          {
+            "id": "AC-097",
+            "outcome": "PASS",
+            "scope": "Two actual explicit-R builds/verify and independent exact ZIP/manifest/member/provenance audit; no private/untracked/development payload"
+          },
+          {
+            "id": "AC-098",
+            "outcome": "PASS",
+            "scope": "Three final actual hashes/sizes and noncircular checksums agree; allthree assets byte-identical across builds and frozen for M6-T03"
+          }
+        ]
+      },
+      {
+        "task": "M6-T03",
+        "acceptance": [
+          {
+            "id": "AC-099",
+            "outcome": "PASS",
+            "completed_scope": "Fresh exact-final ZIP native38case/both-host/path/manual/bookmark/safety/import checks pass. Direct human report against the sealed F01-F07 guide: All tests PASSED.",
+            "missing_action": null,
+            "basis": "Actual independently audited final-ZIP native Windows checks plus owner-attested F01-F07 against the sealed guide. Additional six-run GUI artifact audit explicitly waived by the owner.",
+            "independent_GUI_artifact_audit": "WAIVED_BY_USER_NOT_RUN"
+          },
+          {
+            "id": "AC-100",
+            "outcome": "PASS",
+            "scope": "Actual final-ZIP real Calibre EPUB/KF8 AZW3 plus complete output page identities/source safety and rendered samples; rich/image-only supplementary8cases/44page comparisons."
+          }
+        ]
+      },
+      {
+        "task": "M6-T04",
+        "acceptance": [
+          {
+            "id": "AC-101",
+            "outcome": "PASS",
+            "basis": "New annotated v1.0.0 created at accepted R; only explicit tag pushed; Git live direct/peeled refs and independent GitHub tag-object API identify R."
+          },
+          {
+            "id": "AC-102",
+            "outcome": "PASS",
+            "basis": "Sole draft v1.0.0 with reviewed exact notes and exactly three accepted uploaded assets; API digest/name/size/state and authenticated retrieved byte equality pass."
+          }
+        ]
+      },
+      {
+        "task": "M6-T05",
+        "acceptance": [
+          {
+            "id": "AC-103",
+            "outcome": "PASS",
+            "basis": "Delegated publication of existing409510027; authenticated and anonymous fresh metadata/inventory confirm sole public non-draft/non-prerelease v1.0.0, actual timestamp/URL, fixed annotated direct/peeled tag R."
+          },
+          {
+            "id": "AC-104",
+            "outcome": "PASS",
+            "basis": "New token/cookie/Authorization/proxy-free public downloads; three hashes/sizes/exact bytes equal accepted originals plus downloaded checksum lines. Exact28 safe ZIP members equal R."
+          },
+          {
+            "id": "AC-105",
+            "outcome": "PASS",
+            "basis": "Actual fresh downloaded extraction/app-local runtime on Windows11; Version1.0.0 and four-page Manual1,3 through both supported hosts, fourchapters/eight reopened page observations, complete ordered identities and preserved source/neighbor/prior/payload/dependencies."
+          }
+        ]
+      }
+    ],
+    "M6_evidence_seals": [
+      {
+        "path": "D:\\projects\\WinBookSplit-main\\docs\\codex-v1.0.0\\evidence\\M6-T01-release-source.json",
+        "bytes": 246428,
+        "sha256": "14a179da156bd5edc936f035055952577b7a68b282ba921862397315840971ab"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-main\\docs\\codex-v1.0.0\\evidence\\M6-T02-final-assets.json",
+        "bytes": 174007,
+        "sha256": "a62923b8aeefa5db8c8d0418aeceea3e8f3a8e8f4b17409e32d00096bc626bc8"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-main\\docs\\codex-v1.0.0\\evidence\\M6-T03-final-windows.json",
+        "bytes": 54256,
+        "sha256": "709f24a23c34b83dbd26ace7e9514d4f6b0fff2679a620555f613294996960c2"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-main\\docs\\codex-v1.0.0\\evidence\\M6-T04-draft.json",
+        "bytes": 275629,
+        "sha256": "3dcfbafa32588fc0a8c883a33cf9c5cd6b7951587ee823f1467a1882979d81d4"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-main\\docs\\codex-v1.0.0\\evidence\\M6-T05-publication.json",
+        "bytes": 135630,
+        "sha256": "925f355bb068ee5f22f69ba595b0481f07d70103ce07ea79cb62a87e5b75091e"
+      }
+    ],
+    "retained_T05_external_seals": [
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\preflight.json",
+        "bytes": 247499,
+        "sha256": "3fdd2f0063d477e9d8f109d6300055359c03dcbce99ba1eb696cb65f3e8b0dd3"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\publication.json",
+        "bytes": 26604,
+        "sha256": "230a33de26586168b078aeccccbdf5d817ff835d3bde5beb9f91b523ce2fb1de"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\anonymous-download.json",
+        "bytes": 50380,
+        "sha256": "51b981f5b7c337f83f8193c68c8a526f969da2aec207df9f705d2743b784ed16"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke02\\downloaded-smoke-report.json",
+        "bytes": 1004750,
+        "sha256": "ef4c1c68fa493094e9e6a8db078c337288c76e723abd4db18b53fcfc11497729"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke-driver-trial02-command.json",
+        "bytes": 921,
+        "sha256": "82dff70dfeb749436cddd0580ef5e9e81a7b846bbb43c8cb420b099dacc5466d"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\release_flow-trial01.py",
+        "bytes": 13385,
+        "sha256": "6de9962c35276aea7f4aedce5b2463e049e0ef8127820b0c893dbe76d78202d9"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\release_flow-publication01.py",
+        "bytes": 13473,
+        "sha256": "86cdfadbfec2d4b97390322e24fead027fbf1a87827aa9adb1d6e1fd87d11b45"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\release_flow-download-trial01.py",
+        "bytes": 14180,
+        "sha256": "80b4b8d22babff6a1a3e0d1fe07795bcae0db9061fb76e583dd60a3aac57985b"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\release_flow.py",
+        "bytes": 14290,
+        "sha256": "a03e4dd9737efbea3b353d2615fb7d1d36452a2f6e0a6df18f344e5e450b9d63"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke_downloaded-trial01.py",
+        "bytes": 25948,
+        "sha256": "c0e0fa1956d5f89185f6388bd972c89195aaa3169090cbb7ffdb63aecaf3431d"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke_downloaded.py",
+        "bytes": 26153,
+        "sha256": "1be5aacd73c7d6f76c1ebf15359ebec945874c808dc20d9f202017f35409dd56"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\run_smoke-trial01.py",
+        "bytes": 1454,
+        "sha256": "8576b6a35efa27830df1ec95ee4d46ea99ef960ede1bf4d5dca31d5e42712cfe"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\run_smoke.py",
+        "bytes": 1470,
+        "sha256": "feb0a449825152bcaf3f9b8fa551a24b334f455ac9bed44b0a62eea26977b941"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke-driver-preparation02.json",
+        "bytes": 479,
+        "sha256": "733bba99fddaa00bea1185f3b9fa3ebae19594952f87f314210ad90208ec925d"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\starting-sync\\receipt.json",
+        "bytes": 735,
+        "sha256": "c38b5ed4e8d1641d05bdb2ef89fe802ddf49c0e7484d36f34bfd96089eaaa493"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\commands\\current-windows-cim\\receipt.json",
+        "bytes": 780,
+        "sha256": "ca4ae9f9e2b63719f1bc3878396926e838bfc0de8a0d0730e5b93b201c377f82"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent-public-audit-trial02.json",
+        "bytes": 145663,
+        "sha256": "25ebd98b95245bbf15a793c8cf8b4b9d228456467ad38103e9758f39eb32c73e"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent-smoke-audit.json",
+        "bytes": 325514,
+        "sha256": "7d0bfb432ddd6256ae2a8661b13456f31e239a5b5afd298cb3fef3b05cd6f59e"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent_public_audit.py",
+        "bytes": 12654,
+        "sha256": "700da5c9788bea841eed754200f9403235d09bad052a3f2de12d1a04e280c2b0"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent_public_audit-trial01.py",
+        "bytes": 12583,
+        "sha256": "813d918a0868e9dbe7620930f2ae848d7761c3a2c625eec251f74f5c49e5e4e7"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent_smoke_audit.py",
+        "bytes": 11597,
+        "sha256": "95f1bca1a0050f3883a9be278141bca9e4d6553ea7e6ae66a5c347c99a43304d"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\write_checkpoint.py",
+        "bytes": 32282,
+        "sha256": "4f7653ac5861f0d6d033a8bd3c2dddf03cbc19a0dc6b369f7cc9953ac767b981"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\download-failure-1791705764006250100.json",
+        "bytes": 352,
+        "sha256": "b2a74d2c8bc294fd6755756fb56c6eaf30da1f57aa7af5256387774570188b7d"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\preflight-failure-1791705688692437400.json",
+        "bytes": 173998,
+        "sha256": "6f459d0cb8ed050da32d42e507aaca064e371631fd3bdd9d59e340aae0677571"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\downloaded-smoke01\\downloaded-smoke-report.json",
+        "bytes": 14162,
+        "sha256": "f312f671a4185fe309114e20ed06fbd5c9ee5dce70eaa06d7830b68e826ba76c"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\smoke-driver-command.json",
+        "bytes": 923,
+        "sha256": "7dbe10032c9ab03247a4219a723a1500899cc6bcbd138dd9585e3e46ff674a92"
+      },
+      {
+        "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\independent-public-audit-trial01.json",
+        "bytes": 96558,
+        "sha256": "5e06ba28883d2b7085b076cc98922886f21352353d7b5dbdca949d0dd3c38244"
+      }
+    ],
+    "remote_refs": {
+      "refs/tags/v1.0.0": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+      "refs/tags/v1.0.0^{}": "73c90d10dc16b1c321737afbdfbe959d61a24573"
+    },
+    "public_release": {
+      "id": 409510027,
+      "tag_name": "v1.0.0",
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-10-11T08:02:26Z",
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0"
+    },
+    "assets": [
+      {
+        "id": 630123444,
+        "name": "release-manifest.json",
+        "size": 11547,
+        "digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json"
+      },
+      {
+        "id": 630123442,
+        "name": "SHA256SUMS.txt",
+        "size": 178,
+        "digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt"
+      },
+      {
+        "id": 630123440,
+        "name": "WinBookSplit-v1.0.0.zip",
+        "size": 414497,
+        "digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip"
+      }
+    ],
+    "CI": [
+      {
+        "id": 38097123491,
+        "head_sha": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38097123491"
+      },
+      {
+        "id": 38123924110,
+        "head_sha": "fc233efabf8c17bb87555b3f526d73ced8421929",
+        "status": "completed",
+        "conclusion": "success",
+        "html_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38123924110"
+      }
+    ],
+    "audit_environment": {
+      "Python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+      "executable": "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+      "platform": "win32"
+    }
+  },
+  "audit_commands": [
+    {
+      "label": "start-status",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "status",
+        "--porcelain=v1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:02.862646+00:00",
+      "finished_at": "2026-10-11T08:27:02.925511+00:00",
+      "elapsed_seconds": 0.06286089998320676,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-branch",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "branch",
+        "--show-current"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:02.927675+00:00",
+      "finished_at": "2026-10-11T08:27:02.984654+00:00",
+      "elapsed_seconds": 0.056982999987667426,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 5,
+      "stdout_sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "upstream",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "--abbrev-ref",
+        "--symbolic-full-name",
+        "@{u}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:02.987136+00:00",
+      "finished_at": "2026-10-11T08:27:03.048448+00:00",
+      "elapsed_seconds": 0.0613115000014659,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 12,
+      "stdout_sha256": "047f220328b7a2219f45225722c482dd31cf8c6ce01fdad1e8eccab7d01fcd01",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-HEAD",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "HEAD"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.050487+00:00",
+      "finished_at": "2026-10-11T08:27:03.109208+00:00",
+      "elapsed_seconds": 0.058719799999380484,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "e24d14b6123b9deca38f20078e1d263b4d48c990601a0c84d64f994e7773fe8f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-live",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/heads/main"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.111222+00:00",
+      "finished_at": "2026-10-11T08:27:03.699131+00:00",
+      "elapsed_seconds": 0.5879148000094574,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 57,
+      "stdout_sha256": "1cd42471c3c39ce3d1729c4fffd62a3418fb3990c1436db7efc13020dadeab71",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "origin",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "remote",
+        "-v"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.701930+00:00",
+      "finished_at": "2026-10-11T08:27:03.769314+00:00",
+      "elapsed_seconds": 0.06738249998306856,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 123,
+      "stdout_sha256": "2c9a82b9f3fe8819a54128c6cbca2706022123ac6454dd60343a6aff297477bd",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "git-dir",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "--absolute-git-dir"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.772406+00:00",
+      "finished_at": "2026-10-11T08:27:03.843397+00:00",
+      "elapsed_seconds": 0.07097599998814985,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 35,
+      "stdout_sha256": "352619cbd046dee3b160be7d025775bc47dd07c04e4d6c3a74ec90117bb72797",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "worktrees",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.845566+00:00",
+      "finished_at": "2026-10-11T08:27:03.902926+00:00",
+      "elapsed_seconds": 0.05736310000065714,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 109,
+      "stdout_sha256": "8090dcc312154f1f255c01d46740701991aaac5b977452d1e290c812e6fa6020",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-ancestor",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "merge-base",
+        "--is-ancestor",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "fc233efabf8c17bb87555b3f526d73ced8421929"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.905545+00:00",
+      "finished_at": "2026-10-11T08:27:03.961335+00:00",
+      "elapsed_seconds": 0.055792200000723824,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-tree",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573^{tree}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:03.962355+00:00",
+      "finished_at": "2026-10-11T08:27:04.017705+00:00",
+      "elapsed_seconds": 0.05535369997960515,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "a6196fbe7eda0187189add011e125a9d4a083f127f48e7e5738fa9590fdd2f9b",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-tree",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "rev-parse",
+        "fc233efabf8c17bb87555b3f526d73ced8421929^{tree}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:04.020028+00:00",
+      "finished_at": "2026-10-11T08:27:04.075568+00:00",
+      "elapsed_seconds": 0.055540200002724305,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 41,
+      "stdout_sha256": "de540da0e05c31232323773d3722eed4a2f1e31c8232605f9283adb97a382d16",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "post-R-paths",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff",
+        "--name-only",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "fc233efabf8c17bb87555b3f526d73ced8421929"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:04.077601+00:00",
+      "finished_at": "2026-10-11T08:27:04.137133+00:00",
+      "elapsed_seconds": 0.05953489997773431,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 1031,
+      "stdout_sha256": "50b9b15eb884f7dbc9bfd3c2e696db858b1e912a2ed201de41715730f51a22ba",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "guarded-Git",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "diff",
+        "--name-only",
+        "73c90d10dc16b1c321737afbdfbe959d61a24573",
+        "fc233efabf8c17bb87555b3f526d73ced8421929",
+        "--",
+        ".github/workflows/windows-ci.yml",
+        ".gitignore",
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+        "docs/codex-v1.0.0/PLAN_ORACLES.json",
+        "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
+        "docs/EBOOK_SUPPORT.md",
+        "docs/PDF_FIDELITY.md",
+        "docs/PDF_POLICY.md",
+        "docs/SETUP.md",
+        "docs/SUPPORT_DIAGNOSTICS.md",
+        "engine/WinBookSplit.Diagnostics.ps1",
+        "engine/WinBookSplit.Logging.ps1",
+        "engine/WinBookSplit.Outcomes.json",
+        "engine/WinBookSplit.Paths.ps1",
+        "engine/WinBookSplit.Process.ps1",
+        "engine/WinBookSplit.Runtime.ps1",
+        "engine/WinBookSplit.Support.ps1",
+        "engine/winbooksplit_conversion.py",
+        "engine/winbooksplit_engine.py",
+        "engine/winbooksplit_job.py",
+        "engine/winbooksplit_windows.py",
+        "Export-WinBookSplitDiagnostics.ps1",
+        "LICENSE",
+        "README.md",
+        "requirements-dev.txt",
+        "requirements.txt",
+        "SECURITY.md",
+        "tests/baseline/characterize_original.py",
+        "tests/baseline/expected_original.json",
+        "tests/baseline/README.md",
+        "tests/bookmarks/characterize_level1.py",
+        "tests/bookmarks/characterize_level2.py",
+        "tests/bookmarks/README.md",
+        "tests/cli/characterize_cli.py",
+        "tests/cli/Probe-Help.ps1",
+        "tests/cli/README.md",
+        "tests/cli/validate_cli_report.py",
+        "tests/conversion/characterize_conversion.py",
+        "tests/conversion/generate_ebook_fixtures.py",
+        "tests/conversion/README.md",
+        "tests/diagnostics/characterize_diagnostics.py",
+        "tests/diagnostics/Probe-Diagnostics.ps1",
+        "tests/diagnostics/README.md",
+        "tests/document_policy/characterize_document_policy.py",
+        "tests/document_policy/generate_document_policy_fixtures.py",
+        "tests/document_policy/README.md",
+        "tests/document_policy/validate_document_policy_report.py",
+        "tests/ebooks/assets.py",
+        "tests/ebooks/behavior.py",
+        "tests/ebooks/characterize_ebooks.py",
+        "tests/ebooks/README.md",
+        "tests/ebooks/validate_ebooks_report.py",
+        "tests/extraction/characterize_extraction.py",
+        "tests/extraction/README.md",
+        "tests/failures/fail_python.py",
+        "tests/faults/characterize_faults.py",
+        "tests/faults/characterize_isolation.py",
+        "tests/faults/cross_host.py",
+        "tests/faults/invariants.py",
+        "tests/faults/README.md",
+        "tests/faults/validate_cross_host_report.py",
+        "tests/faults/validate_faults_report.py",
+        "tests/faults/validate_isolation.py",
+        "tests/faults/worker.py",
+        "tests/fidelity/characterize_fidelity.py",
+        "tests/fidelity/generate_fidelity_fixtures.py",
+        "tests/fidelity/README.md",
+        "tests/fidelity/render_pdfium.py",
+        "tests/fidelity/validate_fidelity_report.py",
+        "tests/fixtures/generate_pdf_fixtures.py",
+        "tests/fixtures/README.md",
+        "tests/Invoke-ShellTests.ps1",
+        "tests/launcher/characterize_launcher.py",
+        "tests/launcher/README.md",
+        "tests/launcher/validate_launcher_report.py",
+        "tests/manual/characterize_manual.py",
+        "tests/manual/current_launchers.py",
+        "tests/manual/interaction_receipts.py",
+        "tests/manual/README.md",
+        "tests/outcomes/characterize_outcomes.py",
+        "tests/outcomes/fault_engine.py",
+        "tests/outcomes/OwnedConverter.cs",
+        "tests/outcomes/README.md",
+        "tests/outcomes/validate_outcomes_report.py",
+        "tests/output/characterize_output.py",
+        "tests/output/README.md",
+        "tests/paths/characterize_paths.py",
+        "tests/paths/README.md",
+        "tests/plans/characterize_plan.py",
+        "tests/plans/README.md",
+        "tests/powershell/FailureProbe.ps1",
+        "tests/powershell/Harness.Tests.ps1",
+        "tests/powershell/HarnessSupport.psm1",
+        "tests/powershell/Launcher.Tests.ps1",
+        "tests/powershell/Logging.Tests.ps1",
+        "tests/powershell/Outcome.Tests.ps1",
+        "tests/powershell/Process.Tests.ps1",
+        "tests/powershell/Runtime.Tests.ps1",
+        "tests/powershell/Session.Tests.ps1",
+        "tests/powershell/Support.Tests.ps1",
+        "tests/powershell/Version.Tests.ps1",
+        "tests/process/characterize_process.py",
+        "tests/process/fake_engine.py",
+        "tests/process/native_child.py",
+        "tests/process/Probe-Process.ps1",
+        "tests/process/README.md",
+        "tests/process/session_child.py",
+        "tests/process/validate_process_report.py",
+        "tests/PSScriptAnalyzerSettings.psd1",
+        "tests/python/console_receipt_fixture.py",
+        "tests/python/session_receipt_fixture.py",
+        "tests/python/test_ci_bootstrap.py",
+        "tests/python/test_ci_package_inputs.py",
+        "tests/python/test_cli_receipt.py",
+        "tests/python/test_console_manifest.py",
+        "tests/python/test_conversion.py",
+        "tests/python/test_cross_host_receipt.py",
+        "tests/python/test_diagnostics.py",
+        "tests/python/test_document_policy_receipt.py",
+        "tests/python/test_ebook_assets.py",
+        "tests/python/test_ebook_behavior.py",
+        "tests/python/test_ebooks_receipt.py",
+        "tests/python/test_extraction.py",
+        "tests/python/test_fault_invariants.py",
+        "tests/python/test_fault_isolation.py",
+        "tests/python/test_faults_receipt.py",
+        "tests/python/test_fidelity_receipt.py",
+        "tests/python/test_filenames.py",
+        "tests/python/test_interaction_receipt.py",
+        "tests/python/test_interactive.py",
+        "tests/python/test_launcher_receipt.py",
+        "tests/python/test_level1.py",
+        "tests/python/test_level2.py",
+        "tests/python/test_manual.py",
+        "tests/python/test_outcomes.py",
+        "tests/python/test_outcomes_receipt.py",
+        "tests/python/test_output.py",
+        "tests/python/test_pdf_fidelity.py",
+        "tests/python/test_pdf_policy.py",
+        "tests/python/test_plan.py",
+        "tests/python/test_preview.py",
+        "tests/python/test_process_receipt.py",
+        "tests/python/test_release_package.py",
+        "tests/python/test_release_security.py",
+        "tests/python/test_runner.py",
+        "tests/python/test_runtime_receipt.py",
+        "tests/python/test_support_receipt.py",
+        "tests/python/test_ux_receipt.py",
+        "tests/python/test_version.py",
+        "tests/python/test_warnings.py",
+        "tests/README.md",
+        "tests/run_tests.py",
+        "tests/runtime/characterize_runtime.py",
+        "tests/runtime/README.md",
+        "tests/runtime/validate_runtime_report.py",
+        "tests/support/characterize_support.py",
+        "tests/support/README.md",
+        "tests/support/validate_support_report.py",
+        "tests/ux/characterize_ux.py",
+        "tests/ux/README.md",
+        "tests/ux/validate_ux_report.py",
+        "THIRD_PARTY_NOTICES.md",
+        "tools/ci/bootstrap.py",
+        "tools/ci/check_package_inputs.py",
+        "tools/ci/README.md",
+        "tools/codex-handoff/check_sync.py",
+        "tools/codex-handoff/handoff_common.py",
+        "tools/codex-handoff/validate_plan.py",
+        "tools/release/build_package.py",
+        "tools/release/payload.json",
+        "tools/release/README.md",
+        "VERSION",
+        "WinBookSplit.bat",
+        "WinBookSplit.ps1"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:04.159178+00:00",
+      "finished_at": "2026-10-11T08:27:04.224474+00:00",
+      "elapsed_seconds": 0.0652956000121776,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 0,
+      "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "repository",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:04.270315+00:00",
+      "finished_at": "2026-10-11T08:27:04.759171+00:00",
+      "elapsed_seconds": 0.48886009998386726,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 6429,
+      "stdout_sha256": "9a64d7cdc0cb28f7f477f01d828b641efdf7ad23b1e57a6ebf23339a38185336",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "open-PRs",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/pulls?state=open&per_page=100"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:04.762128+00:00",
+      "finished_at": "2026-10-11T08:27:05.226298+00:00",
+      "elapsed_seconds": 0.46416709999903105,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 2,
+      "stdout_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "releases",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases?per_page=100"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:05.229165+00:00",
+      "finished_at": "2026-10-11T08:27:05.750617+00:00",
+      "elapsed_seconds": 0.5214463000011165,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13818,
+      "stdout_sha256": "04445a261eede308015b1ba7f6e5740f3fa5bf5e1adc267939c093d8a78cf121",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "fixed-tag",
+      "command": [
+        "git",
+        "-C",
+        "D:\\projects\\WinBookSplit-main",
+        "ls-remote",
+        "origin",
+        "refs/tags/v1.0.0",
+        "refs/tags/v1.0.0^{}"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:05.753320+00:00",
+      "finished_at": "2026-10-11T08:27:06.291067+00:00",
+      "elapsed_seconds": 0.5377460999879986,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 119,
+      "stdout_sha256": "5e4b1b5050577e0824e9dbfa2dbef6c482faf6213120e1117ad4a20e9eef5bae",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "R-CI",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/actions/runs/38097123491"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:06.294902+00:00",
+      "finished_at": "2026-10-11T08:27:06.802539+00:00",
+      "elapsed_seconds": 0.507619700016221,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13161,
+      "stdout_sha256": "9b109e85ab1964a1de1af4692903fc9204d45283bf7b580d064ae9fce1410a7e",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "starting-main-CI",
+      "command": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/actions/runs/38123924110"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:06.805453+00:00",
+      "finished_at": "2026-10-11T08:27:07.335670+00:00",
+      "elapsed_seconds": 0.5302238000149373,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 13153,
+      "stdout_sha256": "c2ebfee364b810f3165dc217f39f73b3944da6329713fb279588125b8278590f",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "label": "start-sync",
+      "command": [
+        "D:\\projects\\WinBookSplit-M5-T04-20261010\\dev-venv\\Scripts\\python.exe",
+        "-B",
+        "D:\\projects\\WinBookSplit-main\\tools\\codex-handoff\\check_sync.py",
+        "--repo",
+        "D:\\projects\\WinBookSplit-main"
+      ],
+      "cwd": "D:\\projects\\WinBookSplit-main",
+      "started_at": "2026-10-11T08:27:07.338856+00:00",
+      "finished_at": "2026-10-11T08:27:09.705203+00:00",
+      "elapsed_seconds": 2.3663664999767207,
+      "exit_code": 0,
+      "timeout": false,
+      "shell": false,
+      "stdout_bytes": 487,
+      "stdout_sha256": "c5d118837618b7af405ec1bfed804d82f6d425e023211bbf70b05056d20b4eaa",
+      "stderr_bytes": 0,
+      "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "acceptance_bindings": [
+    {
+      "id": "AC-001",
+      "task": "M0-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T01-live-audit.json",
+        "evidence/M0-T01-handoff.md"
+      ]
+    },
+    {
+      "id": "AC-002",
+      "task": "M0-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T01-live-audit.json",
+        "evidence/M0-T01-handoff.md"
+      ]
+    },
+    {
+      "id": "AC-003",
+      "task": "M0-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T01-live-audit.json",
+        "evidence/M0-T01-handoff.md"
+      ]
+    },
+    {
+      "id": "AC-004",
+      "task": "M0-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T02-baseline.md",
+        "evidence/M0-T02-characterization.json"
+      ]
+    },
+    {
+      "id": "AC-005",
+      "task": "M0-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T02-baseline.md",
+        "evidence/M0-T02-characterization.json"
+      ]
+    },
+    {
+      "id": "AC-006",
+      "task": "M0-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T02-baseline.md",
+        "evidence/M0-T02-characterization.json"
+      ]
+    },
+    {
+      "id": "AC-007",
+      "task": "M0-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T03-support.md",
+        "evidence/M0-T03-environment.json"
+      ]
+    },
+    {
+      "id": "AC-008",
+      "task": "M0-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T03-support.md",
+        "evidence/M0-T03-environment.json"
+      ]
+    },
+    {
+      "id": "AC-009",
+      "task": "M0-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T04-scaffolding.md",
+        "evidence/M0-T04-harness.json"
+      ]
+    },
+    {
+      "id": "AC-010",
+      "task": "M0-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M0-T04-scaffolding.md",
+        "evidence/M0-T04-harness.json"
+      ]
+    },
+    {
+      "id": "AC-011",
+      "task": "M1-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T01-extraction.md",
+        "evidence/M1-T01-extraction.json"
+      ]
+    },
+    {
+      "id": "AC-012",
+      "task": "M1-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T01-extraction.md",
+        "evidence/M1-T01-extraction.json"
+      ]
+    },
+    {
+      "id": "AC-013",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-014",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-015",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-016",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-017",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-018",
+      "task": "M1-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T02-manual.md",
+        "evidence/M1-T02-manual.json"
+      ]
+    },
+    {
+      "id": "AC-019",
+      "task": "M1-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T03-level1.md",
+        "evidence/M1-T03-level1.json"
+      ]
+    },
+    {
+      "id": "AC-020",
+      "task": "M1-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T03-level1.md",
+        "evidence/M1-T03-level1.json"
+      ]
+    },
+    {
+      "id": "AC-021",
+      "task": "M1-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T03-level1.md",
+        "evidence/M1-T03-level1.json"
+      ]
+    },
+    {
+      "id": "AC-022",
+      "task": "M1-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T03-level1.md",
+        "evidence/M1-T03-level1.json"
+      ]
+    },
+    {
+      "id": "AC-023",
+      "task": "M1-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T04-level2.md",
+        "evidence/M1-T04-level2.json"
+      ]
+    },
+    {
+      "id": "AC-024",
+      "task": "M1-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T04-level2.md",
+        "evidence/M1-T04-level2.json"
+      ]
+    },
+    {
+      "id": "AC-025",
+      "task": "M1-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T04-level2.md",
+        "evidence/M1-T04-level2.json"
+      ]
+    },
+    {
+      "id": "AC-026",
+      "task": "M1-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T04-level2.md",
+        "evidence/M1-T04-level2.json"
+      ]
+    },
+    {
+      "id": "AC-027",
+      "task": "M1-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T05-plan.md",
+        "evidence/M1-T05-plan.json"
+      ]
+    },
+    {
+      "id": "AC-028",
+      "task": "M1-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T05-plan.md",
+        "evidence/M1-T05-plan.json"
+      ]
+    },
+    {
+      "id": "AC-029",
+      "task": "M1-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T05-plan.md",
+        "evidence/M1-T05-plan.json"
+      ]
+    },
+    {
+      "id": "AC-030",
+      "task": "M1-T06",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T06-diagnostics.md",
+        "evidence/M1-T06-diagnostics.json"
+      ]
+    },
+    {
+      "id": "AC-031",
+      "task": "M1-T06",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M1-T06-diagnostics.md",
+        "evidence/M1-T06-diagnostics.json"
+      ]
+    },
+    {
+      "id": "AC-032",
+      "task": "M2-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T01-output.md",
+        "evidence/M2-T01-output.json"
+      ]
+    },
+    {
+      "id": "AC-033",
+      "task": "M2-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T01-output.md",
+        "evidence/M2-T01-output.json"
+      ]
+    },
+    {
+      "id": "AC-034",
+      "task": "M2-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T01-output.md",
+        "evidence/M2-T01-output.json"
+      ]
+    },
+    {
+      "id": "AC-035",
+      "task": "M2-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T01-output.md",
+        "evidence/M2-T01-output.json"
+      ]
+    },
+    {
+      "id": "AC-036",
+      "task": "M2-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T02-paths.md",
+        "evidence/M2-T02-paths.json"
+      ]
+    },
+    {
+      "id": "AC-037",
+      "task": "M2-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T02-paths.md",
+        "evidence/M2-T02-paths.json"
+      ]
+    },
+    {
+      "id": "AC-038",
+      "task": "M2-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T02-paths.md",
+        "evidence/M2-T02-paths.json"
+      ]
+    },
+    {
+      "id": "AC-039",
+      "task": "M2-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T02-paths.md",
+        "evidence/M2-T02-paths.json"
+      ]
+    },
+    {
+      "id": "AC-040",
+      "task": "M2-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T03-conversion.md",
+        "evidence/M2-T03-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-041",
+      "task": "M2-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T03-conversion.md",
+        "evidence/M2-T03-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-042",
+      "task": "M2-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T03-conversion.md",
+        "evidence/M2-T03-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-043",
+      "task": "M2-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T04-runtime.md",
+        "evidence/M2-T04-runtime.json"
+      ]
+    },
+    {
+      "id": "AC-044",
+      "task": "M2-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T04-runtime.md",
+        "evidence/M2-T04-runtime.json"
+      ]
+    },
+    {
+      "id": "AC-045",
+      "task": "M2-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T04-runtime.md",
+        "evidence/M2-T04-runtime.json"
+      ]
+    },
+    {
+      "id": "AC-046",
+      "task": "M2-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T05-process.md",
+        "evidence/M2-T05-process.json"
+      ]
+    },
+    {
+      "id": "AC-047",
+      "task": "M2-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T05-process.md",
+        "evidence/M2-T05-process.json"
+      ]
+    },
+    {
+      "id": "AC-048",
+      "task": "M2-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T05-process.md",
+        "evidence/M2-T05-process.json"
+      ]
+    },
+    {
+      "id": "AC-049",
+      "task": "M2-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M2-T05-process.md",
+        "evidence/M2-T05-process.json"
+      ]
+    },
+    {
+      "id": "AC-050",
+      "task": "M3-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T01-outcomes.md",
+        "evidence/M3-T01-outcomes.json",
+        "evidence/M3-T01-human.md",
+        "evidence/M3-T01-human.json"
+      ]
+    },
+    {
+      "id": "AC-051",
+      "task": "M3-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T01-outcomes.md",
+        "evidence/M3-T01-outcomes.json",
+        "evidence/M3-T01-human.md",
+        "evidence/M3-T01-human.json"
+      ]
+    },
+    {
+      "id": "AC-052",
+      "task": "M3-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T01-outcomes.md",
+        "evidence/M3-T01-outcomes.json",
+        "evidence/M3-T01-human.md",
+        "evidence/M3-T01-human.json"
+      ]
+    },
+    {
+      "id": "AC-053",
+      "task": "M3-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T02-cli.md",
+        "evidence/M3-T02-cli.json"
+      ]
+    },
+    {
+      "id": "AC-054",
+      "task": "M3-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T02-cli.md",
+        "evidence/M3-T02-cli.json"
+      ]
+    },
+    {
+      "id": "AC-055",
+      "task": "M3-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T02-cli.md",
+        "evidence/M3-T02-cli.json"
+      ]
+    },
+    {
+      "id": "AC-056",
+      "task": "M3-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T02-cli.md",
+        "evidence/M3-T02-cli.json"
+      ]
+    },
+    {
+      "id": "AC-057",
+      "task": "M3-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T03-launcher.md",
+        "evidence/M3-T03-launcher.json"
+      ]
+    },
+    {
+      "id": "AC-058",
+      "task": "M3-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T03-launcher.md",
+        "evidence/M3-T03-launcher.json"
+      ]
+    },
+    {
+      "id": "AC-059",
+      "task": "M3-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T03-launcher.md",
+        "evidence/M3-T03-launcher.json"
+      ]
+    },
+    {
+      "id": "AC-060",
+      "task": "M3-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T04-ux.md",
+        "evidence/M3-T04-ux.json"
+      ]
+    },
+    {
+      "id": "AC-061",
+      "task": "M3-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T04-ux.md",
+        "evidence/M3-T04-ux.json"
+      ]
+    },
+    {
+      "id": "AC-062",
+      "task": "M3-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T04-ux.md",
+        "evidence/M3-T04-ux.json"
+      ]
+    },
+    {
+      "id": "AC-063",
+      "task": "M3-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T05-diagnostics.md",
+        "evidence/M3-T05-diagnostics.json"
+      ]
+    },
+    {
+      "id": "AC-064",
+      "task": "M3-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T05-diagnostics.md",
+        "evidence/M3-T05-diagnostics.json"
+      ]
+    },
+    {
+      "id": "AC-065",
+      "task": "M3-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M3-T05-diagnostics.md",
+        "evidence/M3-T05-diagnostics.json"
+      ]
+    },
+    {
+      "id": "AC-066",
+      "task": "M4-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T01-fidelity.md",
+        "evidence/M4-T01-fidelity.json"
+      ]
+    },
+    {
+      "id": "AC-067",
+      "task": "M4-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T01-fidelity.md",
+        "evidence/M4-T01-fidelity.json"
+      ]
+    },
+    {
+      "id": "AC-068",
+      "task": "M4-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T01-fidelity.md",
+        "evidence/M4-T01-fidelity.json"
+      ]
+    },
+    {
+      "id": "AC-069",
+      "task": "M4-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T01-fidelity.md",
+        "evidence/M4-T01-fidelity.json"
+      ]
+    },
+    {
+      "id": "AC-070",
+      "task": "M4-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T02-document-policy.md",
+        "evidence/M4-T02-document-policy.json"
+      ]
+    },
+    {
+      "id": "AC-071",
+      "task": "M4-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T02-document-policy.md",
+        "evidence/M4-T02-document-policy.json"
+      ]
+    },
+    {
+      "id": "AC-072",
+      "task": "M4-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T02-document-policy.md",
+        "evidence/M4-T02-document-policy.json"
+      ]
+    },
+    {
+      "id": "AC-073",
+      "task": "M4-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T03-fault-regression.md",
+        "evidence/M4-T03-fault-regression.json"
+      ]
+    },
+    {
+      "id": "AC-074",
+      "task": "M4-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T03-fault-regression.md",
+        "evidence/M4-T03-fault-regression.json"
+      ]
+    },
+    {
+      "id": "AC-075",
+      "task": "M4-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T03-fault-regression.md",
+        "evidence/M4-T03-fault-regression.json"
+      ]
+    },
+    {
+      "id": "AC-076",
+      "task": "M4-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T04-ebook-conversion.md",
+        "evidence/M4-T04-ebook-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-077",
+      "task": "M4-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T04-ebook-conversion.md",
+        "evidence/M4-T04-ebook-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-078",
+      "task": "M4-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T04-ebook-conversion.md",
+        "evidence/M4-T04-ebook-conversion.json"
+      ]
+    },
+    {
+      "id": "AC-079",
+      "task": "M4-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T05-windows-ci.md",
+        "evidence/M4-T05-windows-ci.json"
+      ]
+    },
+    {
+      "id": "AC-080",
+      "task": "M4-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T05-windows-ci.md",
+        "evidence/M4-T05-windows-ci.json"
+      ]
+    },
+    {
+      "id": "AC-081",
+      "task": "M4-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M4-T05-windows-ci.md",
+        "evidence/M4-T05-windows-ci.json"
+      ]
+    },
+    {
+      "id": "AC-082",
+      "task": "M5-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T01-documentation.md",
+        "evidence/M5-T01-documentation.json"
+      ]
+    },
+    {
+      "id": "AC-083",
+      "task": "M5-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T01-documentation.md",
+        "evidence/M5-T01-documentation.json"
+      ]
+    },
+    {
+      "id": "AC-084",
+      "task": "M5-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T02-package.md",
+        "evidence/M5-T02-package.json"
+      ]
+    },
+    {
+      "id": "AC-085",
+      "task": "M5-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T02-package.md",
+        "evidence/M5-T02-package.json"
+      ]
+    },
+    {
+      "id": "AC-086",
+      "task": "M5-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T02-package.md",
+        "evidence/M5-T02-package.json"
+      ]
+    },
+    {
+      "id": "AC-087",
+      "task": "M5-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T03-candidate.md",
+        "evidence/M5-T03-candidate.json",
+        "evidence/M5-T03-manual-smoke.md",
+        "evidence/M5-T03-human-smoke.md",
+        "evidence/M5-T03-human-smoke.json"
+      ]
+    },
+    {
+      "id": "AC-088",
+      "task": "M5-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T03-candidate.md",
+        "evidence/M5-T03-candidate.json",
+        "evidence/M5-T03-manual-smoke.md",
+        "evidence/M5-T03-human-smoke.md",
+        "evidence/M5-T03-human-smoke.json"
+      ]
+    },
+    {
+      "id": "AC-089",
+      "task": "M5-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T03-candidate.md",
+        "evidence/M5-T03-candidate.json",
+        "evidence/M5-T03-manual-smoke.md",
+        "evidence/M5-T03-human-smoke.md",
+        "evidence/M5-T03-human-smoke.json"
+      ]
+    },
+    {
+      "id": "AC-090",
+      "task": "M5-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T04-security.md",
+        "evidence/M5-T04-security.json"
+      ]
+    },
+    {
+      "id": "AC-091",
+      "task": "M5-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T04-security.md",
+        "evidence/M5-T04-security.json"
+      ]
+    },
+    {
+      "id": "AC-092",
+      "task": "M5-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T04-security.md",
+        "evidence/M5-T04-security.json"
+      ]
+    },
+    {
+      "id": "AC-093",
+      "task": "M5-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T05-acceptance.md",
+        "evidence/M5-T05-acceptance.json"
+      ]
+    },
+    {
+      "id": "AC-094",
+      "task": "M5-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M5-T05-acceptance.md",
+        "evidence/M5-T05-acceptance.json"
+      ]
+    },
+    {
+      "id": "AC-095",
+      "task": "M6-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T01-release-source.md",
+        "evidence/M6-T01-release-source.json",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-096",
+      "task": "M6-T01",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T01-release-source.md",
+        "evidence/M6-T01-release-source.json",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-097",
+      "task": "M6-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T02-final-assets.md",
+        "evidence/M6-T02-final-assets.json",
+        "evidence/M6-T02-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-098",
+      "task": "M6-T02",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T02-final-assets.md",
+        "evidence/M6-T02-final-assets.json",
+        "evidence/M6-T02-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-099",
+      "task": "M6-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T03-final-windows.md",
+        "evidence/M6-T03-final-windows.json"
+      ]
+    },
+    {
+      "id": "AC-100",
+      "task": "M6-T03",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T03-final-windows.md",
+        "evidence/M6-T03-final-windows.json"
+      ]
+    },
+    {
+      "id": "AC-101",
+      "task": "M6-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T04-draft.md",
+        "evidence/M6-T04-draft.json",
+        "evidence/M6-T04-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-102",
+      "task": "M6-T04",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T04-draft.md",
+        "evidence/M6-T04-draft.json",
+        "evidence/M6-T04-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-103",
+      "task": "M6-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T05-publication.md",
+        "evidence/M6-T05-publication.json",
+        "evidence/M6-T05-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-104",
+      "task": "M6-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T05-publication.md",
+        "evidence/M6-T05-publication.json",
+        "evidence/M6-T05-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-105",
+      "task": "M6-T05",
+      "basis": "SATISFIED_IN_RECORDED_SCOPE",
+      "evidence_paths": [
+        "evidence/M6-T05-publication.md",
+        "evidence/M6-T05-publication.json",
+        "evidence/M6-T05-release-notes.md",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-106",
+      "task": "M6-T06",
+      "basis": "FINAL_CURRENT_ACCEPTANCE_IN_EXTERNAL_D_RECEIPT_AND_USER_REPORT",
+      "evidence_paths": [
+        "evidence/M6-T06-closure.md",
+        "evidence/M6-T06-closure.json",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    },
+    {
+      "id": "AC-107",
+      "task": "M6-T06",
+      "basis": "FINAL_CURRENT_ACCEPTANCE_IN_EXTERNAL_D_RECEIPT_AND_USER_REPORT",
+      "evidence_paths": [
+        "evidence/M6-T06-closure.md",
+        "evidence/M6-T06-closure.json",
+        "evidence/RELEASE-v1.0.0.json"
+      ]
+    }
+  ],
+  "external_receipts": [
+    {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure-audit02.json",
+      "bytes": 107921,
+      "sha256": "c4394f3b55485f6d535318f75efd864069be4b95e3637086cbb95d40ddf54352"
+    },
+    {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure_audit.py",
+      "bytes": 11297,
+      "sha256": "5601c80a5334f5bb0c6925a92a3aaca5c64cbc077f65f8bd537f20fd0dce4c68"
+    },
+    {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure-audit.json",
+      "bytes": 57666,
+      "sha256": "85fcb98d05fab51c2f9e694522d0ce3b7a074353356094c4e706a8f4afe91a1f"
+    },
+    {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure_audit-trial01.py",
+      "bytes": 11222,
+      "sha256": "c8acddb4bb54590b163a3c2e535c84dec9c9bcb62ef43c810528b8f403bab3a7"
+    },
+    {
+      "path": "D:\\projects\\WinBookSplit-M6-T05-20261011\\final-checkpoint-receipt.json",
+      "bytes": 20235,
+      "sha256": "ad0c90ac941cbb17e33a816981cfa8a30dcad6e7df47bc489c609378d3ab1cba"
+    }
+  ],
+  "preparation_failures": [
+    {
+      "outcome": "FAILED_READ_ONLY_EXPLORATORY_COMMAND",
+      "operation": "PowerShell unquoted HEAD^{tree} exploratory multi-command call",
+      "actual_output": "Git ambiguous argument dAByAGUAZQA=; unintended PowerShell argument transformation. Later Python argv/shell=False R/tree/current source audit native0 verifies actual tree. This is no product/test pass; aggregate exploratory shell exit0 did not certify each command."
+    },
+    {
+      "outcome": "FAILED_READ_ONLY_SCHEMA_EXPLORATION",
+      "operation": "Python inspection of M6-T01 external_receipts",
+      "actual_output": "AttributeError: list object has no attribute items, native1. Subsequent typed inspection succeeded; no source/app/remote mutation."
+    },
+    {
+      "outcome": "FAILED_AUDIT_PREMISE_NATIVE1",
+      "receipt": {
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure-audit.json",
+        "bytes": 57666,
+        "sha256": "85fcb98d05fab51c2f9e694522d0ce3b7a074353356094c4e706a8f4afe91a1f"
+      },
+      "script": {
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011\\closure_audit-trial01.py",
+        "bytes": 11222,
+        "sha256": "c8acddb4bb54590b163a3c2e535c84dec9c9bcb62ef43c810528b8f403bab3a7"
+      },
+      "checks_passed": 442,
+      "reason": "Exact PASS-only audit incorrectly rejected historical PASS_IN_RECORDED_PREREQUISITE_SCOPE for AC096. Allow precisely the actual accepted label while preserving its scope; separate audit02 passed500. No product/evidence defect."
+    }
+  ],
+  "source_payload_proof": {
+    "verified_through_existing_commit": "fc233efabf8c17bb87555b3f526d73ced8421929",
+    "R_ancestor": true,
+    "guarded_paths": 176,
+    "payload_paths": 28,
+    "builder_paths": 3,
+    "raw_and_committed_inputs_unchanged": true,
+    "guarded_source_digest": "a428c67c95acf794a15767975079d34a79ca2a5b25af38f951cafa04d6d2715b",
+    "final_D_revalidation_location": "D:/projects/WinBookSplit-M6-T06-20261011/final-checkpoint-receipt.json and this M6-T06 chat final report"
+  },
+  "prior_acceptance_review": {
+    "M0_M5_required_ids": 94,
+    "M6_prior_ids": 11,
+    "prior_total": 105,
+    "all_required_mapping_count": 107,
+    "fresh_local_application_or_human_execution": false,
+    "scope": "Accepted recorded scopes, existing genuine native Windows/Calibre/fidelity/CI outcomes and explicit owner-attested/waived GUI route. Fresh rehashes and read-only consistency review preserve historical limitations."
+  },
+  "new_application_or_human_execution": false,
+  "new_package_build": false,
+  "tracked_runtime_build_dependency_test_edits": false,
+  "private_document_inputs": false,
+  "product_defects_found": [],
+  "skips": [
+    {
+      "scope": "New local full/native/Calibre/render/human/scanner/cleanOS runs",
+      "outcome": "NOT_RUN",
+      "reason": "Excluded documentation-only closure; immutable byte bindings and accepted prior actual evidence remain applicable."
+    }
+  ],
+  "limitations": [
+    "Documentation and read-only integrity/live metadata audit only. No new local full suite, Windows app/BAT/Explorer, Calibre, renderer, human, clean OS, security advisory or scanner execution in M6-T06.",
+    "Accepted exact final ZIP evidence remains M6-T03: native38cases/72operations; actual both-host Calibre9.15.0 EPUB/genuine unencrypted KF8 AZW3; supplementary8cases/44same-Poppler page comparisons. Retained native and rendered results are not new runs.",
+    "F01-F07 are USER_ATTESTED_PASS. Additional six-run GUI artifact audit is WAIVED_BY_USER_NOT_RUN; no independently authenticated GUI logs/output hashes/BAT exits/run times/viewer actions are invented or requested.",
+    "Windows11 x64 existing-workstation isolation with fresh extracted packages/runtime-only venvs/controlled paths is not clean OS/VM/Sandbox/Windows10/ARM/UNC support or an OS network sandbox.",
+    "Windows PowerShell5.1.26100.9444, PowerShell7.6.6, regular GIL CPython3.14.8 x64/pypdf6.20.0 and Calibre9.15.0 are accepted versions. T05 actual Windows CIM10.0.26300/registry26300.9457/26H2 is separately recorded from older exact-ZIP OS observations.",
+    "Scripts/package/tag are unsigned; SHA-256 is integrity evidence, not a signing, publisher-authenticity or SmartScreen guarantee.",
+    "Historical failures, interruptions, UNKNOWN causes, missing original receipts, scanner/native-stack gaps, developer-only renderer applicability limits, font/destination diagnostics, static observations and newline differences remain preserved. No hostile-document security certification.",
+    "Completed M3/M5 D13 human routes remain closed; original unrun G04-G16 remain SUPERSEDED and retired interactions native-only.",
+    "Release R and frozen assets remain fixed. D is excluded documentation closure only; D is not the tested package source. Its own exact SHA/push/clean-live/main/tag/ancestry/payload/CI receipt lives externally after actual operations, avoiding self-reference."
+  ],
+  "closure_commit": null,
+  "final_current_sync_receipt_location": "D:/projects/WinBookSplit-M6-T06-20261011/final-checkpoint-receipt.json and this M6-T06 chat final report",
+  "closure_records": [
+    "TASKS.json",
+    "STATUS.md",
+    "NEXT_SESSION.md",
+    "TESTING.md",
+    "tasks/M6-T06.md",
+    "evidence/M6-T06-closure.md",
+    "evidence/M6-T06-closure.json",
+    "evidence/RELEASE-v1.0.0.json"
+  ],
+  "next_task": null,
+  "pending_project_or_website_work": [],
+  "checkpoint_rule": "GateF allows closure_commit=null in its own record. COMPLETE requires actual normal D commit/push, clean local main=fresh live main, fixed tag R, R ancestry/unchanged inputs, final evidence review; no tracked edits solely to insert D self-SHA.",
+  "independent_release_review": {
+    "result": "PASS",
+    "checks_passed": 1432,
+    "checks_total": 1432,
+    "started_at": "2026-10-11T08:27:51.111829+00:00",
+    "finished_at": "2026-10-11T08:27:54.786705+00:00",
+    "guarded_paths": 176,
+    "payload_files": 28,
+    "builder_inputs": 3,
+    "prior_tracked_seals": 65,
+    "preserved_T05_external_seals": 27,
+    "R_ancestor_of_entry_HEAD": true,
+    "limits": [
+      "Existing accepted native/GUI/Calibre/CI results are historical evidence rehashes, not new execution.",
+      "F01-F07 remain owner-attested and additional GUI artifact audit waived/not run.",
+      "Root-owned final documentation D/push/current-main sync requires its own later external receipt.",
+      "No rebuild/application/full-suite/Calibre/renderer/BAT/UI/human or new advisory/scanner run.",
+      "Original failed receipts, UNKNOWN/newline/renderer/scanner/workstation/unsigned limits are retained."
+    ],
+    "scope": "Independent read-only frozen source/assets/public metadata and prior evidence-seal review; no application or mutation.",
+    "native_commands": [
+      {
+        "label": "initial-head",
+        "command": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.112452+00:00",
+        "finished_at": "2026-10-11T08:27:51.168768+00:00",
+        "elapsed_seconds": 0.056322700023883954,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-head\\stdout.bin",
+          "bytes": 41,
+          "sha256": "e24d14b6123b9deca38f20078e1d263b4d48c990601a0c84d64f994e7773fe8f"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-head\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "initial-branch",
+        "command": [
+          "git",
+          "branch",
+          "--show-current"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.172294+00:00",
+        "finished_at": "2026-10-11T08:27:51.227073+00:00",
+        "elapsed_seconds": 0.054778599995188415,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-branch\\stdout.bin",
+          "bytes": 5,
+          "sha256": "6403203dd5a0867eb14d104ee8a73730bd72dd9ad92e78d996a6dba0a5dcfc01"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-branch\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "initial-origin",
+        "command": [
+          "git",
+          "remote",
+          "-v"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.230195+00:00",
+        "finished_at": "2026-10-11T08:27:51.285868+00:00",
+        "elapsed_seconds": 0.05568590000621043,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-origin\\stdout.bin",
+          "bytes": 123,
+          "sha256": "2c9a82b9f3fe8819a54128c6cbca2706022123ac6454dd60343a6aff297477bd"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-origin\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "worktrees",
+        "command": [
+          "git",
+          "worktree",
+          "list",
+          "--porcelain"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.288870+00:00",
+        "finished_at": "2026-10-11T08:27:51.343194+00:00",
+        "elapsed_seconds": 0.05432550000841729,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\worktrees\\stdout.bin",
+          "bytes": 109,
+          "sha256": "8090dcc312154f1f255c01d46740701991aaac5b977452d1e290c812e6fa6020"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\worktrees\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "initial-status",
+        "command": [
+          "git",
+          "status",
+          "--porcelain=v1"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.346077+00:00",
+        "finished_at": "2026-10-11T08:27:51.406922+00:00",
+        "elapsed_seconds": 0.060848900000564754,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-status\\stdout.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\initial-status\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "R-ancestor",
+        "command": [
+          "git",
+          "--no-replace-objects",
+          "merge-base",
+          "--is-ancestor",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "fc233efabf8c17bb87555b3f526d73ced8421929"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.408465+00:00",
+        "finished_at": "2026-10-11T08:27:51.466009+00:00",
+        "elapsed_seconds": 0.05754810001235455,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\R-ancestor\\stdout.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\R-ancestor\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "R-tree",
+        "command": [
+          "git",
+          "rev-parse",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573^{tree}"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.467744+00:00",
+        "finished_at": "2026-10-11T08:27:51.524454+00:00",
+        "elapsed_seconds": 0.05671299999812618,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\R-tree\\stdout.bin",
+          "bytes": 41,
+          "sha256": "a6196fbe7eda0187189add011e125a9d4a083f127f48e7e5738fa9590fdd2f9b"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\R-tree\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "post-R-paths",
+        "command": [
+          "git",
+          "diff",
+          "--name-only",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573",
+          "fc233efabf8c17bb87555b3f526d73ced8421929"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.527594+00:00",
+        "finished_at": "2026-10-11T08:27:51.585274+00:00",
+        "elapsed_seconds": 0.05768639998859726,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\post-R-paths\\stdout.bin",
+          "bytes": 1031,
+          "sha256": "50b9b15eb884f7dbc9bfd3c2e696db858b1e912a2ed201de41715730f51a22ba"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\post-R-paths\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "canonical-R-archive",
+        "command": [
+          "git",
+          "--no-replace-objects",
+          "-c",
+          "core.autocrlf=false",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "archive",
+          "--format=tar",
+          "73c90d10dc16b1c321737afbdfbe959d61a24573"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.588015+00:00",
+        "finished_at": "2026-10-11T08:27:51.783329+00:00",
+        "elapsed_seconds": 0.19531569999526255,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\canonical-R-archive\\stdout.bin",
+          "bytes": 14970880,
+          "sha256": "675969e961c01cac787e087b05fba1d72bf67aaba9fabe6ced2e678ad8667ac2"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\canonical-R-archive\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "canonical-HEAD-archive",
+        "command": [
+          "git",
+          "--no-replace-objects",
+          "-c",
+          "core.autocrlf=false",
+          "-C",
+          "D:\\projects\\WinBookSplit-main",
+          "archive",
+          "--format=tar",
+          "fc233efabf8c17bb87555b3f526d73ced8421929"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:51.867156+00:00",
+        "finished_at": "2026-10-11T08:27:52.076098+00:00",
+        "elapsed_seconds": 0.20894229999976233,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\canonical-HEAD-archive\\stdout.bin",
+          "bytes": 15964160,
+          "sha256": "acb4aa691790800aa27251b9330b7449a15336fee2ad14d0abb0af8efb4eb22f"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\canonical-HEAD-archive\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "fresh-main-fixed-tag",
+        "command": [
+          "git",
+          "ls-remote",
+          "origin",
+          "refs/heads/main",
+          "refs/tags/v1.0.0",
+          "refs/tags/v1.0.0^{}"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:54.186978+00:00",
+        "finished_at": "2026-10-11T08:27:54.717973+00:00",
+        "elapsed_seconds": 0.5309953999822028,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\fresh-main-fixed-tag\\stdout.bin",
+          "bytes": 176,
+          "sha256": "e1eb620577d52b1240425650f21194a6a3bf4e4e3f595da5c0871887a8d3172e"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\fresh-main-fixed-tag\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      {
+        "label": "final-head",
+        "command": [
+          "git",
+          "rev-parse",
+          "HEAD"
+        ],
+        "cwd": "D:\\projects\\WinBookSplit-main",
+        "started_at": "2026-10-11T08:27:54.723578+00:00",
+        "finished_at": "2026-10-11T08:27:54.780900+00:00",
+        "elapsed_seconds": 0.05732329998863861,
+        "exit_code": 0,
+        "timeout": false,
+        "shell": false,
+        "stdin": "DEVNULL",
+        "stdout": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\final-head\\stdout.bin",
+          "bytes": 41,
+          "sha256": "e24d14b6123b9deca38f20078e1d263b4d48c990601a0c84d64f994e7773fe8f"
+        },
+        "stderr": {
+          "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\commands\\final-head\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      }
+    ],
+    "fresh_anonymous_HTTP": [
+      {
+        "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+        "started_at": "2026-10-11T08:27:52.351833+00:00",
+        "finished_at": "2026-10-11T08:27:52.636031+00:00",
+        "status": 200,
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\fresh-public\\release.json",
+        "bytes": 13816,
+        "sha256": "cde723f2a41709720b0f68581e9b7a822b4c933b4721b6e1def771428dc4f52a",
+        "request_headers": {
+          "User-agent": "WinBookSplit-independent-closure-audit/1.0",
+          "Accept": "application/vnd.github+json"
+        },
+        "redirects": [],
+        "authentication": "none",
+        "cookies": "none",
+        "proxy": "disabled"
+      },
+      {
+        "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases?per_page=100",
+        "started_at": "2026-10-11T08:27:52.648264+00:00",
+        "finished_at": "2026-10-11T08:27:52.942578+00:00",
+        "status": 200,
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\fresh-public\\inventory.json",
+        "bytes": 13818,
+        "sha256": "04445a261eede308015b1ba7f6e5740f3fa5bf5e1adc267939c093d8a78cf121",
+        "request_headers": {
+          "User-agent": "WinBookSplit-independent-closure-audit/1.0",
+          "Accept": "application/vnd.github+json"
+        },
+        "redirects": [],
+        "authentication": "none",
+        "cookies": "none",
+        "proxy": "disabled"
+      },
+      {
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+        "started_at": "2026-10-11T08:27:52.952995+00:00",
+        "finished_at": "2026-10-11T08:27:53.423838+00:00",
+        "status": 200,
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\fresh-public\\WinBookSplit-v1.0.0.zip",
+        "bytes": 414497,
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "request_headers": {
+          "User-agent": "WinBookSplit-independent-closure-audit/1.0",
+          "Accept": "application/octet-stream"
+        },
+        "redirects": [
+          {
+            "status": 302,
+            "scheme": "https",
+            "host": "release-assets.githubusercontent.com",
+            "query_omitted": true
+          }
+        ],
+        "authentication": "none",
+        "cookies": "none",
+        "proxy": "disabled"
+      },
+      {
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+        "started_at": "2026-10-11T08:27:53.439240+00:00",
+        "finished_at": "2026-10-11T08:27:53.816227+00:00",
+        "status": 200,
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\fresh-public\\release-manifest.json",
+        "bytes": 11547,
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "request_headers": {
+          "User-agent": "WinBookSplit-independent-closure-audit/1.0",
+          "Accept": "application/octet-stream"
+        },
+        "redirects": [
+          {
+            "status": 302,
+            "scheme": "https",
+            "host": "release-assets.githubusercontent.com",
+            "query_omitted": true
+          }
+        ],
+        "authentication": "none",
+        "cookies": "none",
+        "proxy": "disabled"
+      },
+      {
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+        "started_at": "2026-10-11T08:27:53.826792+00:00",
+        "finished_at": "2026-10-11T08:27:54.186520+00:00",
+        "status": 200,
+        "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\fresh-public\\SHA256SUMS.txt",
+        "bytes": 178,
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "request_headers": {
+          "User-agent": "WinBookSplit-independent-closure-audit/1.0",
+          "Accept": "application/octet-stream"
+        },
+        "redirects": [
+          {
+            "status": 302,
+            "scheme": "https",
+            "host": "release-assets.githubusercontent.com",
+            "query_omitted": true
+          }
+        ],
+        "authentication": "none",
+        "cookies": "none",
+        "proxy": "disabled"
+      }
+    ],
+    "receipt": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\trial02\\independent-release-audit.json",
+      "bytes": 180185,
+      "sha256": "f969276ebe16f951a7256cd7dd0a929cec98d4a3458031f5bedcb364cf0c93e5"
+    },
+    "script": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\audit_release_trial02.py",
+      "bytes": 17465,
+      "sha256": "83ff7daa5b14f99a80abbfb68706acbcdcdbc0154a25a722e5ee59757c56aee2"
+    },
+    "driver": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\driver-trial02-command.json",
+      "bytes": 664,
+      "sha256": "d51e06eb3331d47154fc4f3b73afc41420e2d788edb969317a5f0f4543ee6a41"
+    }
+  },
+  "independent_reviewer_preparation_failure": {
+    "outcome": "FAILED",
+    "reason": "First read-only audit used a ZIP local named raw which shadowed its raw-byte comparison helper, raising UnboundLocalError. Original trial preserved; helper name corrected in fresh trial02/native0/1432checks. No source/product/asset defect.",
+    "receipt": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\independent-release-audit.json",
+      "bytes": 9698,
+      "sha256": "d668447386289de61cc5e883a3ed47431fa2eb7f662e770cea4feb2b67d79fe9"
+    },
+    "script": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\audit_release.py",
+      "bytes": 17398,
+      "sha256": "08f0106cdb957cc0942d873d7e5f919208a1eba3f9adeed140d6116c07bed808"
+    },
+    "driver": {
+      "path": "D:\\projects\\WinBookSplit-M6-T06-20261011-independent\\driver-command.json",
+      "bytes": 657,
+      "sha256": "84628eb758fde0ffc422181a30f5e59d1a99898e3f288c8531c6afa3b9b87344"
+    }
+  }
+}
