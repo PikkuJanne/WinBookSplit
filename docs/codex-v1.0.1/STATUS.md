@@ -14,3 +14,10 @@ consolidated owner kit. No existing public v1.0.0 release/tag/assets were change
 Policy 2 keeps numeric 3.13.16+/3.14.8+ floors and separate pypdf 6.20.0/Calibre 9.15.0
 locks. Artwork/BAT/safety guards remain intact. This nonshipped closure does not
 move R or certify a later checkout. Verify the next sync externally.
+
+The five nonshipped PS7 supplement files are imported and their focused tooling
+preflight passed on C plus those five identified uncommitted imports: 15 controls
+per Python branch and scoped parser/analyzer on both actual shells. See
+[tooling evidence](evidence/V101-13-tooling-preflight.md). This is preparation;
+no native final-ZIP or current C full-CI pass is claimed. V101-13 stays
+IN_PROGRESS. The frozen R assets and all33 production members are unchanged.

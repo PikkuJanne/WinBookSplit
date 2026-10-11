@@ -1,0 +1,146 @@
+{
+  "protocol": "winbooksplit.ps7-tooling-summary",
+  "schema_version": 1,
+  "result": "PASS",
+  "source_base": "8ecbc3af0003d091aefd1db3fdbd54a37c2a7757",
+  "source_qualification": "Run only after root-authorized importer applies these five bytes at literal supplied clean-base HEAD; record dirty-five source qualification, no application acceptance.",
+  "release_source": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "release_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+  "imported_paths": {
+    "tools/compatibility/final_zip_ps7.py": {
+      "sha256": "5eb825bb183ae383476a4b2392216881c4d699f3b8b087a392e3273883af5e0b",
+      "bytes": 18155,
+      "expected_original_sha256": null
+    },
+    "tools/compatibility/Invoke-FinalZipPs7.ps1": {
+      "sha256": "eaef9da460de77741675e484480a808ff6660d1f1d2e57091681e8e46a07f38b",
+      "bytes": 12436,
+      "expected_original_sha256": null
+    },
+    "tests/python/test_final_zip_ps7.py": {
+      "sha256": "a164c2b8e440aab747b4d8c24ae42b2801fa79279ab36abf53d119ebb7a7dc5b",
+      "bytes": 14438,
+      "expected_original_sha256": null
+    },
+    "tests/Invoke-ShellTests.ps1": {
+      "sha256": "b44333f809851edac7fd84d0c59bcda100c2a9e8528ac240ab06120e56568567",
+      "bytes": 12387,
+      "expected_original_sha256": "8b15c3406ecaa39bcac5bea371a8107abce9a914c1e2548206099d705358a06e"
+    },
+    "tools/compatibility/README.md": {
+      "sha256": "92b4d6a0c975deb6a4570d3bea9b79b09dea2fe93ff2bba2a4b900d31fa60e8b",
+      "bytes": 6996,
+      "expected_original_sha256": "0af211e6110b6743ca9729271e2efb33ed4ffdac62ec62a24b99f65d2bce46f0"
+    }
+  },
+  "source_guard": {
+    "paths": 203,
+    "before_sha256": "5b285d48c2bfd7dff45018bb989c5ad6412d95b05b03e4baf9a755e17ba468bb",
+    "after_sha256": "5b285d48c2bfd7dff45018bb989c5ad6412d95b05b03e4baf9a755e17ba468bb",
+    "unchanged": true
+  },
+  "rows": [
+    {
+      "tag": "python-13",
+      "success": true,
+      "native_exit_code": 0,
+      "native_safe": true,
+      "job_assigned_before_resume": true,
+      "descendants_stopped": true,
+      "child_identity": {
+        "bytes": 45821,
+        "sha256": "96489d3a645fe479fcf96ad6f465a76a49021c723b5417a77686012cca2da935"
+      },
+      "counts": {
+        "python": "3.13.16",
+        "host": null,
+        "tests_run": 15,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "source_unchanged": true
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "syntax_errors": 0,
+      "analysis_findings": 0
+    },
+    {
+      "tag": "python-14",
+      "success": true,
+      "native_exit_code": 0,
+      "native_safe": true,
+      "job_assigned_before_resume": true,
+      "descendants_stopped": true,
+      "child_identity": {
+        "bytes": 45820,
+        "sha256": "bef7447483987594205b9a93300d68a620865f8cf1ba180735ab4526b385d1da"
+      },
+      "counts": {
+        "python": "3.14.8",
+        "host": null,
+        "tests_run": 15,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "source_unchanged": true
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "syntax_errors": 0,
+      "analysis_findings": 0
+    },
+    {
+      "tag": "PS51",
+      "success": true,
+      "native_exit_code": 0,
+      "native_safe": true,
+      "job_assigned_before_resume": true,
+      "descendants_stopped": true,
+      "child_identity": {
+        "bytes": 3006,
+        "sha256": "af3c6ea6827d4c4567f778b9d2f2bf9198717effa0b051af489c5f8ea69c9ad8"
+      },
+      "counts": {
+        "python": null,
+        "host": "5.1.26100.9444",
+        "tests_run": null,
+        "expected_failures": null,
+        "unexpected_successes": null,
+        "source_unchanged": true
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "syntax_errors": 0,
+      "analysis_findings": 0
+    },
+    {
+      "tag": "PS766",
+      "success": true,
+      "native_exit_code": 0,
+      "native_safe": true,
+      "job_assigned_before_resume": true,
+      "descendants_stopped": true,
+      "child_identity": {
+        "bytes": 2157,
+        "sha256": "ec4ce918fdd27bad9be140108378bb0215d3215af1054ad07001d47ff5a4036a"
+      },
+      "counts": {
+        "python": null,
+        "host": "7.6.6",
+        "tests_run": null,
+        "expected_failures": null,
+        "unexpected_successes": null,
+        "source_unchanged": true
+      },
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "syntax_errors": 0,
+      "analysis_findings": 0
+    }
+  ],
+  "raw_report_sha256": "8a08ae09c6f9c19101ec6ccb0539ac34a3d058541669ec71c7cd8f556dfbe344",
+  "scope": "Scoped tooling unit/parser/analyzer checks only. No finalZIP application/nativeWin10 acceptance or publication."
+}

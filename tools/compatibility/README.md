@@ -35,3 +35,34 @@ On a supported machine, the generated PowerShell wrapper can also accept explici
 `tests/python/test_native_kit.py` exercises strict JSON, authentication, guarded exclusive output, preserved collisions, sanitized Git environment, held directory identity and refusal to adopt an unlinked/recreated archive. Its temporary work is limited to authored fixtures. Run it through the existing Python test runner.
 
 `tests/compatibility/Probe-NativeKit.ps1` accepts explicit RepositoryRoot, CoreRoot, TestPython, a fresh WorkRoot and ReportPath. Its thirteen controls exercise bounded reads, strict receipts, absent/empty environment restoration, malformed proof refusal, fixed OS redaction, the vendor's UTF-16 path bound and actual owned descendant timeout/cancellation under the selected native shell. These controls are tooling checks, not final-ZIP or Windows 10 acceptance. The normal scoped shell syntax and analyzer checks remain required.
+
+## Supplemental PowerShell 7 checks
+
+After complete Windows 11 inbox 5.1 acceptance of the exact frozen v1.0.1 ZIP,
+run `Invoke-FinalZipPs7Acceptance` against that same application extraction and
+its authenticated prior local report. Use the reviewed kit/bindings hash, prior
+report hash, adapter hash and an explicit ordinary PowerShell 7.6.6 executable.
+Do not derive expected pins from an untrusted manifest or substitute another ZIP.
+
+```powershell
+. "$KitRoot/tools/compatibility/Invoke-NativeAcceptance.ps1"
+. "$Repository/tools/compatibility/Invoke-FinalZipPs7.ps1"
+Invoke-FinalZipPs7Acceptance -KitRoot $KitRoot -BindingsSha256 $ReviewedBindingsSha256 `
+  -PriorReport $PriorReport -PriorReportSha256 $ReviewedPriorReportSha256 `
+  -NativePlan $NativePlan -ExtractionReceipt $ExtractionReceipt `
+  -PowerShell7 $PowerShell7 -ExpectedPowerShell7Version '7.6.6' `
+  -AdapterPython "$Repository/tools/compatibility/final_zip_ps7.py" `
+  -AdapterPythonSha256 $ReviewedAdapterPythonSha256 -WorkRoot $FreshPs7Work
+```
+
+The four direct `-File` cases are Version, healthy read-only Setup Check,
+Manual `1,4,7` on the authored ten-page PDF, and Auto2 on the nested twelve-page
+PDF. The adapter verifies the real PS7 path/version and native workstation facts,
+reuses the existing owned Process/Session transport and console/page oracles,
+and requires the application environment, source fixtures and prior output
+marker to remain unchanged. It installs nothing and retains all raw work.
+The completed `ps7-result.json` uses fixed redacted fields; raw process reports
+remain private. These supplemental checks provide no Windows 10 evidence and do
+not repeat the complete inbox 5.1, ebook, BAT or Explorer acceptance programme.
+Syntax, scoped analyzer and synthetic binding controls are preparation checks;
+only an actual run on the authenticated final ZIP can certify these four cases.
