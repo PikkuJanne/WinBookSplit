@@ -683,8 +683,14 @@
       "key": "dependency_review",
       "expected": "Current applicable Python/pypdf/Calibre advisories and approved artifact hashes reviewed; no broad untested pypdf acceptance.",
       "verification_kind": "CODE_OR_SOURCE_REVIEW",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json"
+      ]
     },
     {
       "id": "V101-AC-055",
@@ -692,8 +698,14 @@
       "key": "pdf_guards",
       "expected": "Encryption/private reader hook and unsupported active document behavior remain correct under the supported runtimes.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json"
+      ]
     },
     {
       "id": "V101-AC-056",
@@ -701,8 +713,14 @@
       "key": "core_safety",
       "expected": "Page coverage/source preservation/non-overwrite/process-tree cleanup/Unicode regression remains passing.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json"
+      ]
     },
     {
       "id": "V101-AC-057",
@@ -710,8 +728,14 @@
       "key": "actual_conversion",
       "expected": "Real EPUB and genuine AZW3 inputs convert/split with expected page coverage; mocked converter success is separate.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json"
+      ]
     },
     {
       "id": "V101-AC-058",
@@ -719,8 +743,14 @@
       "key": "pdf_without_calibre",
       "expected": "PDF setup/processing remains usable without Calibre; converter changes are limited to proven requirements.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json"
+      ]
     },
     {
       "id": "V101-AC-059",

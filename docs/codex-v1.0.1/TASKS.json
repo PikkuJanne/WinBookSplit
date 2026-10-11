@@ -261,8 +261,13 @@
         "V101-AC-057",
         "V101-AC-058"
       ],
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "evidence": [
+        "evidence/V101-10-regressions.md",
+        "evidence/V101-10-regressions.json",
+        "evidence/V101-10-ci.json",
+        "evidence/V101-10-security-review.md",
+        "evidence/V101-10-security-review.json",
         "evidence/V101-10-implementation-partial.md",
         "evidence/V101-10-implementation-partial.json"
       ]
@@ -286,7 +291,7 @@
         "V101-AC-062",
         "V101-AC-063"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {
