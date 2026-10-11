@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "policy_version": 1,
+  "policy_version": 2,
   "reviewed_on": "2026-10-11",
   "python": {
     "implementation": "cpython",
@@ -14,19 +14,19 @@
         "major": 3,
         "minor": 14,
         "compatibility_min_patch": 0,
-        "security_min_patch": 7,
+        "security_min_patch": 8,
         "recommended_patch": 8,
         "blocked_patches": [],
-        "security_sources": ["CVE12003", "Changelog314"]
+        "security_sources": ["CVE12003", "Changelog314", "OpenSSL20260929", "OpenSSL3148"]
       },
       {
         "major": 3,
         "minor": 13,
         "compatibility_min_patch": 0,
-        "security_min_patch": 15,
+        "security_min_patch": 16,
         "recommended_patch": 16,
         "blocked_patches": [],
-        "security_sources": ["CVE12003", "Changelog313"]
+        "security_sources": ["CVE12003", "Changelog313", "OpenSSL20260929", "OpenSSL31316"]
       }
     ]
   },
@@ -50,6 +50,21 @@
     }
   ],
   "sources": [
+    {
+      "id": "OpenSSL20260929",
+      "url": "https://openssl-library.org/news/secadv/20260929.txt",
+      "relevance": "CVE-2026-35189 (Low): relative CRL distribution points in a peer certificate can cause disproportionate allocation during normal TLS handshake before trust rejection; no CRL-check flag is required. Explicit online pip setup uses TLS. Fixed in OpenSSL 3.5.9 (or 3.0.23); numeric floors cover the PSF Windows bundles."
+    },
+    {
+      "id": "OpenSSL3148",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.14.8/Misc/NEWS.d/3.14.8.rst",
+      "relevance": "gh-158010 updates Windows OpenSSL to 3.5.9. Actual tested regular x64 3.14.8 reports OpenSSL 3.5.9. Floor 3.14.8 addresses the known bundled-TLS issue; later stable maintenance versions remain accepted."
+    },
+    {
+      "id": "OpenSSL31316",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.13.16/Misc/NEWS.d/3.13.16.rst",
+      "relevance": "gh-158010 updates Windows OpenSSL from the 3.0 series to 3.5.9. Actual tested regular x64 3.13.16 reports OpenSSL 3.5.9. Floor 3.13.16 addresses the known bundled-TLS issue; later stable maintenance versions remain accepted."
+    },
     {
       "id": "CVE12003",
       "url": "https://github.com/python/cpython/issues/151544",

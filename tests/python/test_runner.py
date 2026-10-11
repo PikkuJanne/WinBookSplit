@@ -18,6 +18,9 @@ SCRIPT = ROOT / "tests/run_tests.py"
 SPEC = importlib.util.spec_from_file_location("wbs_test_runner", SCRIPT)
 runner = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(runner)
+CONSOLE_FIXTURE_SPEC = importlib.util.spec_from_file_location("wbs_runner_console_fixture", ROOT / "tests/python/console_receipt_fixture.py")
+console_fixture = importlib.util.module_from_spec(CONSOLE_FIXTURE_SPEC)
+CONSOLE_FIXTURE_SPEC.loader.exec_module(console_fixture)
 
 
 def corrected_level2_reference():
@@ -273,6 +276,47 @@ def complete_paths_report(hosts):
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
 
 
+def complete_conversion_bat_failure():
+    """Synthetic console bytes reuse the existing receipt fixture, not native proof."""
+    source = str(Path("C:/synthetic/Book.epub"))
+    observed = {"sha256": "a" * 64, "size_bytes": 1024}
+    outcome = {"protocol": "winbooksplit.outcome", "version": 1, "status": "failed", "code": "converter_not_found",
+               "message": "A compatible trusted Calibre converter was not found.", "exit_code": 3, "mode": "",
+               "written_count": 0, "final_directory": None, "engine_result": None}
+    dependency = {"Code": "converter_not_found", "Attempts": []}
+    text = "[DEPENDENCY-ERROR] " + json.dumps(dependency) + "\r\n[OPERATION-OUTCOME] " + json.dumps(outcome) + "\r\n"
+    digest = runner.sha256(text.encode("utf-8"))
+    receipt = console_fixture.make(outcome, digest, log_text=text, source_path=source, source_observation=observed)
+    receipt["run_manifest"]["settings"].update(input_kind="epub", no_pause=False)
+    console_fixture.reseal(receipt)
+    log = str(Path("C:/synthetic/Documents") / (".WinBookSplit-console-" + receipt["owner"]["run_id"]) / "console.log")
+    cache = {name: {"device": 1, "inode": number} for number, name in enumerate(
+             ("Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"), 1)}
+    return {"passed": True, "actual_process": True, "exit_code": 3, "outputs": [], "successful_final_count": 0,
+            "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
+            "preflight_before_engine": True, "diagnostic_console_authenticated": True, "engine_invocation_record_absent": True,
+            "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
+            "dependency_error": dependency, "terminal_outcome": outcome, "input_path": source, "source_observation": observed,
+            "console_path": log, "console_log_text": text, "console_log_sha256": digest, "console_evidence": receipt,
+            "stdout": "Action: Select trusted Calibre 9.15.0 with -CalibrePath\r\nLog: " + log + "\r\n[OUTCOME] " + json.dumps(outcome) + "\r\n",
+            "interaction": {key: [] for key in ("engine_invocations", "requests", "replies", "displayed_plans")}, "process_summaries": [],
+            "converter_absence_environment": {"child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                "cache_directory_identities_before": cache, "cache_directory_identities_after": deepcopy(cache),
+                "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True},
+            "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"}
+
+
+def rebind_conversion_bat_log(case):
+    """Rehash synthetic altered log bytes to exercise semantic refusal guards."""
+    text, receipt = case["console_log_text"], case["console_evidence"]
+    digest, length = runner.sha256(text.encode("utf-8")), len(text.encode("utf-8"))
+    case["console_log_sha256"] = digest
+    receipt.update(log_sha256=digest, log_size_bytes=length)
+    receipt["file_identities"]["console.log"].update(sha256=digest, size_bytes=length)
+    receipt["run_manifest"]["log"]["bytes_written"] = length
+    console_fixture.reseal(receipt)
+
+
 def complete_conversion_report(hosts, calibre):
     policies = [{"scope": name, "policy": "Undefined"} for name in ("MachinePolicy", "UserPolicy", "CurrentUser", "LocalMachine")]
 
@@ -358,12 +402,7 @@ def complete_conversion_report(hosts, calibre):
                             "syntax_checked": ["WinBookSplit.ps1", "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1"],
                             "stored_policies": policies, "policies_after": policies} for index, host in enumerate(("PS51", "PS7"))],
             "real_cases": real, "direct_api_cases": direct, "invalid_converter_cases": invalid,
-            "bat_missing_converter_case": {"passed": True, "actual_process": True, "exit_code": 3, "outputs": [], "successful_final_count": 0,
-                "input_unchanged": True, "neighbor_unchanged": True, "owned_outputs_removed": True, "no_success_summary": True,
-                "preflight_before_console_output": True, "console_record_absent": True, "engine_invocation_record_absent": True,
-                "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
-                "dependency_error": {"Code": "converter_not_found", "Attempts": []},
-                "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"},
+            "bat_missing_converter_case": complete_conversion_bat_failure(),
             "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
             "owned_temp_removed": True, "machine_settings_unchanged": True,
             "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f", "import_observation": {"import_safe": True}}
@@ -450,13 +489,40 @@ class RunnerTests(unittest.TestCase):
                 ("invalid output accepted", lambda data: data["invalid_converter_cases"][0]["engine_record"].__setitem__("written_count", 1)),
                 ("success summary on failure", lambda data: data["invalid_converter_cases"][0].__setitem__("no_success_summary", False)),
                 ("BAT zero failure", lambda data: data["bat_missing_converter_case"].__setitem__("exit_code", 0)),
-                ("BAT late failure", lambda data: data["bat_missing_converter_case"].__setitem__("preflight_before_console_output", False)),
-                ("BAT console written", lambda data: data["bat_missing_converter_case"].__setitem__("console_record_absent", False)),
+                ("BAT late failure", lambda data: data["bat_missing_converter_case"].__setitem__("preflight_before_engine", False)),
+                ("BAT unauthenticated console", lambda data: data["bat_missing_converter_case"].__setitem__("diagnostic_console_authenticated", False)),
                 ("BAT conversion started", lambda data: data["bat_missing_converter_case"].__setitem__("conversion_started", True)),
                 ("BAT wrong dependency", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Code", "runtime_invalid")),
                 ("BAT unproved probe", lambda data: data["bat_missing_converter_case"]["dependency_error"].__setitem__("Attempts", [{"Accepted": True, "Probe": None}])),
                 ("unpreserved baseline", lambda data: data.__setitem__("baseline_guards_preserved", False)),
             ]
+            def bat_log_change(data, added):
+                case = data["bat_missing_converter_case"]
+                case["console_log_text"] += added
+                rebind_conversion_bat_log(case)
+
+            def bat_manifest_change(data, field, value):
+                receipt = data["bat_missing_converter_case"]["console_evidence"]
+                receipt["run_manifest"][field] = value
+                console_fixture.reseal(receipt)
+
+            defects.extend([
+                ("BAT wrong log hash", lambda data: data["bat_missing_converter_case"].__setitem__("console_log_sha256", "b" * 64)),
+                ("BAT unexpected console member", lambda data: data["bat_missing_converter_case"]["console_evidence"]["members"].append("unowned.txt")),
+                ("BAT wrong owner", lambda data: data["bat_missing_converter_case"]["console_evidence"]["owner"].__setitem__("run_id", "d" * 32)),
+                ("BAT wrong manifest outcome", lambda data: bat_manifest_change(data, "outcome", {"code": "split_complete"})),
+                ("BAT wrong source binding", lambda data: bat_manifest_change(data, "source_identity", {"path": "C:/unexpected.epub", "binding": "metadata_only", "sha256": None, "size_bytes": 1024})),
+                ("BAT unsupported recorded runtime", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.2", "pypdf": "6.20.0", "calibre": None})),
+                ("BAT duplicate dependency frame", lambda data: bat_log_change(data, "[DEPENDENCY-ERROR] " + json.dumps(data["bat_missing_converter_case"]["dependency_error"]) + "\r\n")),
+                ("BAT contradictory dependency frame", lambda data: bat_log_change(data, '[DEPENDENCY-ERROR] {"Code":"runtime_invalid","Attempts":[]}\r\n')),
+                ("BAT duplicate outcome footer", lambda data: bat_log_change(data, "[OPERATION-OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
+                ("BAT engine log frame", lambda data: bat_log_change(data, '[ENGINE] {"arguments":[]}\r\n')),
+                ("BAT native process summary", lambda data: bat_log_change(data, '[PROCESS] {}\r\n')),
+                ("BAT false converter acceptance", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.20.0", "calibre": "9.15.0"})),
+                ("BAT duplicate terminal outcome", lambda data: data["bat_missing_converter_case"].__setitem__("stdout", data["bat_missing_converter_case"]["stdout"] + "[OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
+                ("BAT changed isolated cache identity", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_after"]["Microsoft"].__setitem__("inode", 99)),
+                ("BAT unexpected isolation directory", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_before"].__setitem__("Programs", {"device": 1, "inode": 9})),
+            ])
             for name, defect in defects:
                 with self.subTest(defect=name):
                     child = deepcopy(complete)

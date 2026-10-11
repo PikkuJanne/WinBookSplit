@@ -24,7 +24,7 @@ BeforeAll {
 
 Describe 'V101 offline policy and numeric maintenance releases' -Tag 'V101-AC-011','V101-AC-012','V101-AC-016' {
     It 'accepts floor, current and synthetic later stable patches numerically' {
-        foreach ($version in @('3.14.7','3.14.8','3.14.9','3.14.10','3.14.99','3.13.15','3.13.16','3.13.99')) {
+        foreach ($version in @('3.14.8','3.14.9','3.14.10','3.14.99','3.13.16','3.13.17','3.13.99')) {
             $result = Test-WinBookSplitInterpreterRecord (New-CompatibilityRecord $version) $script:policy
             $result.Ok | Should -BeTrue
             $result.Reason | Should -BeExactly 'supported'
@@ -33,7 +33,7 @@ Describe 'V101 offline policy and numeric maintenance releases' -Tag 'V101-AC-01
         }
     }
     It 'explains security floors and unsupported branches instead of an exact patch pin' {
-        foreach ($version in @('3.14.2','3.14.6','3.13.14')) {
+        foreach ($version in @('3.14.2','3.14.6','3.14.7','3.13.14','3.13.15')) {
             $result = Test-WinBookSplitInterpreterRecord (New-CompatibilityRecord $version) $script:policy
             $result.Ok | Should -BeFalse
             $result.Reason | Should -BeExactly 'python_security_floor'
@@ -58,10 +58,11 @@ Describe 'V101 offline policy and numeric maintenance releases' -Tag 'V101-AC-01
         (Test-WinBookSplitPythonVersion '3.14.10' $higher).Ok | Should -BeTrue
     }
     It 'formats supported floors from the policy without requiring a runtime record' {
-        Get-WinBookSplitPythonPolicyDescription $script:policy | Should -BeExactly 'regular Windows x64 CPython 3.14.7+ or 3.13.15+; later stable patches accepted'
+        Get-WinBookSplitPythonPolicyDescription $script:policy | Should -BeExactly 'regular Windows x64 CPython 3.14.8+ or 3.13.16+; later stable patches accepted'
         $higher = Copy-CompatibilityPolicy
-        $higher.python.branches[0].security_min_patch = 8
-        Get-WinBookSplitPythonPolicyDescription $higher | Should -Match '3\.14\.8\+'
+        $higher.python.branches[0].security_min_patch = 9
+        $higher.python.branches[0].recommended_patch = 9
+        Get-WinBookSplitPythonPolicyDescription $higher | Should -Match '3\.14\.9\+'
     }
 }
 
@@ -102,8 +103,10 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
         [IO.File]::WriteAllBytes($path, [byte[]](@(239,187,191) + [Text.Encoding]::UTF8.GetBytes(($script:policy | ConvertTo-Json -Depth 32))))
         { Get-WinBookSplitCompatibilityPolicy $path } | Should -Throw
         # PS 5.1 serializes integral doubles as JSON integers. Author the token
-        # literally to verify the loader rejects 1.0 on both actual hosts.
-        $text = ($script:policy | ConvertTo-Json -Depth 32 -Compress) -replace '"policy_version":1', '"policy_version":1.0'
+        # literally to verify the loader rejects the current policy version as a float on both hosts.
+        $token = '"policy_version":' + [string]$script:policy.policy_version
+        $text = ($script:policy | ConvertTo-Json -Depth 32 -Compress).Replace($token, ($token + '.0'))
+        $text | Should -Match ([regex]::Escape($token + '.0'))
         { Get-WinBookSplitCompatibilityPolicy (Write-CompatibilityPolicy -Text $text) } | Should -Throw
     }
     It 'rejects schema types, bad dates, unknown fields, arrays and malformed identity' {
@@ -190,7 +193,7 @@ Describe 'V101 interpreter identity is independently validated' -Tag 'V101-AC-01
         (Test-WinBookSplitInterpreterRecord $record $script:policy).Reason | Should -BeExactly 'python_security_floor'
     }
     It 'matches Python decisions and messages across valid malformed and rejected runtime records' {
-        $records = @('3.14.2','3.14.6','3.14.7','3.14.8','3.14.9','3.14.10','3.14.99','3.13.14','3.13.15','3.13.99','3.12.14','3.15.0') | ForEach-Object { New-CompatibilityRecord $_ }
+        $records = @('3.14.2','3.14.6','3.14.7','3.14.8','3.14.9','3.14.10','3.14.99','3.13.14','3.13.15','3.13.16','3.13.17','3.13.99','3.12.14','3.15.0') | ForEach-Object { New-CompatibilityRecord $_ }
         foreach ($case in @(@('serial',$true),@('serial',1),@('bits',32),@('machine','ARM64'),@('implementation','pypy'),@('isolated',$false),@('gil_disabled',$true),@('version','3.14.8rc1'),@('version','3.14.08'),@('version_info',@(3,14,7)),@('releaselevel','alpha'))) {
             $record=New-CompatibilityRecord; $record[$case[0]]=$case[1]; $records+=@($record)
         }

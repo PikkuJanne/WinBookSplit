@@ -407,7 +407,7 @@ Describe 'V101 authoritative existing environment shapes and native child settin
 
 Describe 'V101 deterministic policy selection (SYNTHETIC later patches)' -Tag 'V101-AC-024' {
     It 'prefers the policy branch before any higher patch on another branch in either input order' {
-        $preferred = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.7'
+        $preferred = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.8'
         $other = New-DiscoveryRankCandidate 'C:\B\python.exe' '3.13.99'
         foreach ($candidates in @(@($other,$preferred),@($preferred,$other))) {
             (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Path | Should -BeExactly $preferred.Path
@@ -428,8 +428,10 @@ Describe 'V101 deterministic policy selection (SYNTHETIC later patches)' -Tag 'V
         }
     }
     It 'never ranks below-floor unsupported or prerelease candidates as eligible' {
-        $valid = New-DiscoveryRankCandidate 'C:\Z\python.exe' '3.13.15'
+        $valid = New-DiscoveryRankCandidate 'C:\Z\python.exe' '3.13.16'
         $candidates = @((New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.2'),
+            (New-DiscoveryRankCandidate 'C:\D\python.exe' '3.14.7'),
+            (New-DiscoveryRankCandidate 'C:\E\python.exe' '3.13.15'),
             (New-DiscoveryRankCandidate 'C:\B\python.exe' '3.15.0'),
             (New-DiscoveryRankCandidate 'C:\C\python.exe' '3.14.9rc1'),$valid)
         (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Path | Should -BeExactly $valid.Path

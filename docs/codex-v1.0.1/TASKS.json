@@ -262,7 +262,10 @@
         "V101-AC-058"
       ],
       "status": "IN_PROGRESS",
-      "evidence": []
+      "evidence": [
+        "evidence/V101-10-implementation-partial.md",
+        "evidence/V101-10-implementation-partial.json"
+      ]
     },
     {
       "id": "V101-11",

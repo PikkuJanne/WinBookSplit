@@ -199,6 +199,32 @@ class PolicyLoaderTests(unittest.TestCase):
                     record = synthetic_runtime(branch["minor"], patch_number)
                     self.assertTrue(compatibility.validate_interpreter(record, policy)["ok"])
 
+    def test_shipped_policy_two_rejects_previous_openssl_floors_and_accepts_later_patches(self):
+        policy = compatibility.load_policy()
+        self.assertEqual(policy["policy_version"], 2)
+        self.assertEqual([(b["minor"], b["security_min_patch"]) for b in policy["python"]["branches"]],
+                         [(14, 8), (13, 16)])
+        for minor, old_floor, accepted in ((14, 7, (8, 9, 10, 99)), (13, 15, (16, 17, 99))):
+            with self.subTest(minor=minor, old_floor=old_floor):
+                self.assertEqual(compatibility.validate_interpreter(synthetic_runtime(minor, old_floor), policy)["reason"],
+                                 "python_security_floor")
+            for patch_number in accepted:
+                with self.subTest(minor=minor, patch=patch_number):
+                    self.assertTrue(compatibility.validate_interpreter(synthetic_runtime(minor, patch_number), policy)["ok"])
+        self.assertEqual(policy["pypdf"]["version"], "6.20.0")
+        self.assertEqual(policy["calibre"]["version"], "9.15.0")
+
+    def test_shipped_policy_version_float_and_boolean_tokens_fail_closed(self):
+        policy = compatibility.load_policy()
+        token = '"policy_version": ' + str(policy["policy_version"])
+        original = json.dumps(policy)
+        for value in (str(policy["policy_version"]) + ".0", "true", "false"):
+            text = original.replace(token, '"policy_version": ' + value, 1)
+            self.assertNotEqual(text, original)
+            self.path.write_text(text, encoding="utf-8")
+            with self.subTest(value=value), self.assertRaises(compatibility.PolicyError):
+                compatibility.load_policy(self.path)
+
     def test_missing_empty_oversized_invalid_utf8_and_recursive_json_are_rejected(self):
         with self.assertRaises(compatibility.PolicyError):
             compatibility.load_policy(self.path)

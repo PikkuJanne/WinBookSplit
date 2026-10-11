@@ -240,123 +240,179 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
     environment = history.clean_environment(cwd)
     parent_local_app_data = os.environ.get("LOCALAPPDATA")
     isolated_local_app_data = None
-    if batch:
-        # The missing-converter case must not discover the user's real install.
-        require(all(not path.exists() for path in (
-            Path("C:/Program Files/Calibre2/ebook-convert.exe"),
-            Path("C:/Program Files (x86)/Calibre2/ebook-convert.exe"))),
-            "Missing-converter fixture requires both fixed system Calibre paths absent; do not alter an installed converter")
-        isolated_local_app_data = cwd / "empty-local-app-data"
-        isolated_local_app_data.mkdir()
-        environment["LOCALAPPDATA"] = str(isolated_local_app_data)
-    environment.update(PATH=os.pathsep.join((str(Path(sys.executable).parent), str(ps51.parent), str(system / "System32"), str(system))),
-                       PSModulePath=str(shell.parent / "Modules"), WBS_CONVERSION_SCRIPT=str(ROOT / "WinBookSplit.ps1"),
-                       WBS_CONVERSION_INPUT=str(source), WBS_CONVERSION_BASE=str(base), WBS_CONVERSION_CALIBRE=str(calibre),
-                       WBS_CONVERSION_KEEP="1" if keep else "0", WBS_CONVERSION_BAT=str(ROOT / "WinBookSplit.bat"))
-    fake_receipt = cwd / "fake-receipt.txt"
-    if fake_kind is not None:
-        environment.update(WBS_FAKE_MODE=fake_kind, WBS_ZERO_PDF=str(zero), WBS_FAKE_RECEIPT=str(fake_receipt))
-    command = [str(system / "System32/cmd.exe"), "/d", "/v:off", "/c", str(wrapper)] if batch else \
-        [str(shell), "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(wrapper)]
-    neighbor = original_neighbor(source, inputs)
-    before = {str(path): history.file_digest(path) for path in (source, neighbor)}
-    log = marker = execution = members = None
-    cleanup_safe = True
-    answers = "M\nN\n2,3\nY\nN\n\n" if fake_kind is None and not batch else "M\n"
-    try:
-        with paths.read_only_source(source):
-            readonly_observed = bool(source.lstat().st_file_attributes & 1)
-            try:
-                process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=120)
-            except history.EntryPointFailure as error:
-                cleanup_safe = error.cleanup_safe
-                raise
-        frames = []
-        if any(line.startswith("Log: ") for line in process["stdout"].splitlines()):
-            log = launchers.exact_line(process["stdout"], "Log: ")
-            require(log.is_absolute() and log.name == "console.log" and log.parent.parent == base
-                    and re.fullmatch(r"\.WinBookSplit-console-[0-9a-f]{32}", log.parent.name), "Conversion console escaped explicit base")
-            marker = json.loads((log.parent / ".WinBookSplit-console-owner.json").read_text(encoding="utf-8"))
-            require(marker == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Conversion console ownership differs")
-            frames = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith("{")]
-        success = fake_kind is None and not batch
-        expected_exit = 0 if success else 3 if batch else 4
-        require(process["exit_code"] == expected_exit, "Actual conversion launcher exit differs: " + identifier + ": " + repr(process))
-        if success:
-            require(len(frames) == 1 and frames[0]["status"] == "success" and frames[0]["exit_code"] == 0, "Real conversion did not produce one successful result")
-            execution = frames[0]["execution"]
-            require(launchers.exact_line(process["stdout"], "Output: ") == Path(execution["final_directory"]), "Emitted conversion output differs from manifest")
-            checked, members = check_publication(base, execution, reference["page_content_sha256"])
-            preview = [{key: value for key, value in entry.items() if key not in {"sha256", "size_bytes", "page_count"}} for entry in execution["outputs"]]
-            record = parity_record(source, base, execution, preview, checked, reference)
-            record.update(engine_record=frames[0], source_read_only_attribute_observed=readonly_observed, source_attributes_restored=True,
-                          page_content_observation="actual-converter-metadata-compared-with-independent-real-conversion-and-slices",
-                          no_replanning_observation="supported-by-direct-api-and-shared-plan-controls",
-                          preview_observation="expected-manual-ranges-and-execution-metadata; independent-preview-tested-directly")
-        else:
-            require(not any(line.startswith("Output: ") for line in process["stdout"].splitlines())
-                    and "Done." not in process["stdout"] and "[Writing]" not in process["stdout"], "Failed converter announced output or success")
-            record = {"outputs": [], "successful_final_count": 0, "no_success_summary": True, "workspace_absent_verified": True}
-            if not batch:
-                require(len(frames) == 1 and frames[0]["code"] == "conversion_output_invalid" and frames[0]["written_count"] == 0
-                        and frames[0]["execution"] is None, "Zero-exit invalid PDF was not rejected by the conversion category: " + repr(frames))
-                converter_observation = frames[0]["diagnostic"]["conversion"]
-                require(converter_observation["exit_code"] == 0
-                        and "WBS-FAKE-NATIVE-EXIT-0" in converter_observation["stdout_tail"], "Actual parent did not observe the native converter's zero status and final control")
-                receipt = fake_receipt.read_text(encoding="utf-8").splitlines()
-                require(receipt[0] == fake_kind and receipt[2] == "0" and not Path(receipt[1]).exists(), "Authored zero-exit converter did not reach its final native control or clean its workspace")
-                record.update(engine_record=frames[0], converter_exit_code=0, converter_native_observation="actual-parent-record-and-authored-final-return-control",
-                              converter_process=converter_observation, fake_receipt=receipt)
-                remove_diagnostic(base, frames[0])
+    isolation_guards = ExitStack()
+    isolation_before = None
+
+    def isolation_inventory():
+        result = {}
+        directory = isolated_local_app_data
+        for expected in ("Microsoft", "Windows", "Caches", None):
+            with os.scandir(directory) as entries:
+                entry = next(entries, None)
+                extra = next(entries, None) if expected is not None else None
+                require((entry is None if expected is None else entry is not None and entry.name == expected and extra is None),
+                        "Missing-converter cache fixture acquired unexpected files or paths")
+            if expected is not None:
+                directory = directory / expected
+                require(not history.is_reparse(directory) and directory.is_dir(), "Missing-converter cache directory is not ordinary")
+                details = directory.lstat()
+                result[directory.relative_to(isolated_local_app_data).as_posix()] = {"device": details.st_dev, "inode": details.st_ino}
+        return result
+    with isolation_guards:
+        if batch:
+            # The missing-converter case must not discover the user's real install.
+            require(all(not path.exists() for path in (
+                Path("C:/Program Files/Calibre2/ebook-convert.exe"),
+                Path("C:/Program Files (x86)/Calibre2/ebook-convert.exe"))),
+                "Missing-converter fixture requires both fixed system Calibre paths absent; do not alter an installed converter")
+            isolated_local_app_data = cwd / "empty-local-app-data"
+            isolated_local_app_data.mkdir()
+            # The actual ordinary BAT route initializes this empty Windows cache
+            # chain. Author and hold it, rather than accepting newly created paths.
+            (isolated_local_app_data / "Microsoft/Windows/Caches").mkdir(parents=True)
+            windows = load("wbs_conversion_isolation_windows", ROOT / "engine/winbooksplit_windows.py")
+            for path in [*reversed(isolated_local_app_data.parents), isolated_local_app_data,
+                         isolated_local_app_data / "Microsoft", isolated_local_app_data / "Microsoft/Windows",
+                         isolated_local_app_data / "Microsoft/Windows/Caches"]:
+                isolation_guards.enter_context(windows.DirectoryGuard(path))
+            isolation_before = isolation_inventory()
+            environment["LOCALAPPDATA"] = str(isolated_local_app_data)
+        environment.update(PATH=os.pathsep.join((str(Path(sys.executable).parent), str(ps51.parent), str(system / "System32"), str(system))),
+                           PSModulePath=str(shell.parent / "Modules"), WBS_CONVERSION_SCRIPT=str(ROOT / "WinBookSplit.ps1"),
+                           WBS_CONVERSION_INPUT=str(source), WBS_CONVERSION_BASE=str(base), WBS_CONVERSION_CALIBRE=str(calibre),
+                           WBS_CONVERSION_KEEP="1" if keep else "0", WBS_CONVERSION_BAT=str(ROOT / "WinBookSplit.bat"))
+        fake_receipt = cwd / "fake-receipt.txt"
+        if fake_kind is not None:
+            environment.update(WBS_FAKE_MODE=fake_kind, WBS_ZERO_PDF=str(zero), WBS_FAKE_RECEIPT=str(fake_receipt))
+        command = [str(system / "System32/cmd.exe"), "/d", "/v:off", "/c", str(wrapper)] if batch else \
+            [str(shell), "-NoProfile", "-ExecutionPolicy", "RemoteSigned", "-File", str(wrapper)]
+        neighbor = original_neighbor(source, inputs)
+        before = {str(path): history.file_digest(path) for path in (source, neighbor)}
+        log = marker = execution = members = terminal_outcome = None
+        cleanup_safe = True
+        answers = "M\nN\n2,3\nY\nN\n\n" if fake_kind is None and not batch else "M\n"
+        try:
+            with paths.read_only_source(source):
+                readonly_observed = bool(source.lstat().st_file_attributes & 1)
+                try:
+                    process = history.run_entrypoint(command, cwd, environment=environment, stdin=answers, timeout=120)
+                except history.EntryPointFailure as error:
+                    cleanup_safe = error.cleanup_safe
+                    raise
+            frames = []
+            if any(line.startswith("Log: ") for line in process["stdout"].splitlines()):
+                log = launchers.exact_line(process["stdout"], "Log: ")
+                require(log.is_absolute() and log.name == "console.log" and log.parent.parent == base
+                        and re.fullmatch(r"\.WinBookSplit-console-[0-9a-f]{32}", log.parent.name), "Conversion console escaped explicit base")
+                marker = json.loads((log.parent / ".WinBookSplit-console-owner.json").read_text(encoding="utf-8"))
+                require(marker == {"run_id": log.parent.name.removeprefix(".WinBookSplit-console-"), "kind": "console"}, "Conversion console ownership differs")
+                frames = [json.loads(line) for line in log.read_text(encoding="utf-8").splitlines() if line.startswith("{")]
+            success = fake_kind is None and not batch
+            expected_exit = 0 if success else 3 if batch else 4
+            require(process["exit_code"] == expected_exit, "Actual conversion launcher exit differs: " + identifier + ": " + repr(process))
+            if success:
+                require(len(frames) == 1 and frames[0]["status"] == "success" and frames[0]["exit_code"] == 0, "Real conversion did not produce one successful result")
+                execution = frames[0]["execution"]
+                require(launchers.exact_line(process["stdout"], "Output: ") == Path(execution["final_directory"]), "Emitted conversion output differs from manifest")
+                checked, members = check_publication(base, execution, reference["page_content_sha256"])
+                preview = [{key: value for key, value in entry.items() if key not in {"sha256", "size_bytes", "page_count"}} for entry in execution["outputs"]]
+                record = parity_record(source, base, execution, preview, checked, reference)
+                record.update(engine_record=frames[0], source_read_only_attribute_observed=readonly_observed, source_attributes_restored=True,
+                              page_content_observation="actual-converter-metadata-compared-with-independent-real-conversion-and-slices",
+                              no_replanning_observation="supported-by-direct-api-and-shared-plan-controls",
+                              preview_observation="expected-manual-ranges-and-execution-metadata; independent-preview-tested-directly")
             else:
-                record["scope"] = "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"
-                require("Calibre" in process["stdout"] or "calibre" in process["stdout"], "BAT failure did not identify the missing conversion dependency")
-                dependency_errors = [json.loads(line.removeprefix("[DEPENDENCY-ERROR] ")) for line in process["stdout"].splitlines()
-                                     if line.startswith("[DEPENDENCY-ERROR] ")]
-                require(log is None and frames == [] and len(dependency_errors) == 1
-                        and dependency_errors[0].get("Code") == "converter_not_found"
-                        and isinstance(dependency_errors[0].get("Attempts"), list)
-                        and all(item.get("Accepted") is False and item.get("Probe") is None for item in dependency_errors[0]["Attempts"]),
-                        "Actual BAT missing converter did not fail in dependency preflight before console/processing")
-                require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"]
-                        and all(marker not in process["stdout"] for marker in ("[ENGINE]", "[CONVERSION]", "[DEPENDENCY] ")),
-                        "Actual BAT missing converter omitted precise guidance or started processing")
-                record.update(dependency_error=dependency_errors[0], preflight_before_console_output=True,
-                              console_record_absent=True, engine_invocation_record_absent=True,
-                              dependency_success_record_absent=True, conversion_started=False,
-                              written_count=0, setup_guidance_verified=True)
-                require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
-                        and not isolated_local_app_data.is_junction() and not any(isolated_local_app_data.iterdir())
-                        and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
-                        "Missing-converter child isolation or parent environment changed")
-                record["converter_absence_environment"] = {
-                    "child_local_app_data_isolated": True, "owned_directory_ordinary_and_empty": True,
-                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
-        require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
-        record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
-                      input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)
-        if log is not None:
-            text = log.read_text(encoding="utf-8")
-            interaction = launchers.interactions.capture(text)
-            summaries = [json.loads(line[len("[PROCESS] "):]) for line in text.splitlines() if line.startswith("[PROCESS] ")]
-            launchers.interactions.validate(interaction, summaries,
-                ["input_ready", "plan_ready"] if success else [],
-                ["starts", "execute"] if success else [], starts="2,3", execution=execution)
-            record.update(interaction=interaction, process_summaries=summaries)
-            record["console_evidence"] = launchers.authenticate_console_manifest(log, source_path=source,
-                source_observation={"sha256": before[str(source)], "size_bytes": source.stat().st_size})
-    finally:
-        if cleanup_safe:
-            if execution is not None and members is not None:
-                remove_publication(base, execution, members)
-            if log is not None and marker is not None:
-                launchers.remove_console_directory(log, base, source_path=source,
+                require(not any(line.startswith("Output: ") for line in process["stdout"].splitlines())
+                        and "Done." not in process["stdout"] and "[Writing]" not in process["stdout"], "Failed converter announced output or success")
+                record = {"outputs": [], "successful_final_count": 0, "no_success_summary": True, "workspace_absent_verified": True}
+                if not batch:
+                    require(len(frames) == 1 and frames[0]["code"] == "conversion_output_invalid" and frames[0]["written_count"] == 0
+                            and frames[0]["execution"] is None, "Zero-exit invalid PDF was not rejected by the conversion category: " + repr(frames))
+                    converter_observation = frames[0]["diagnostic"]["conversion"]
+                    require(converter_observation["exit_code"] == 0
+                            and "WBS-FAKE-NATIVE-EXIT-0" in converter_observation["stdout_tail"], "Actual parent did not observe the native converter's zero status and final control")
+                    receipt = fake_receipt.read_text(encoding="utf-8").splitlines()
+                    require(receipt[0] == fake_kind and receipt[2] == "0" and not Path(receipt[1]).exists(), "Authored zero-exit converter did not reach its final native control or clean its workspace")
+                    record.update(engine_record=frames[0], converter_exit_code=0, converter_native_observation="actual-parent-record-and-authored-final-return-control",
+                                  converter_process=converter_observation, fake_receipt=receipt)
+                    remove_diagnostic(base, frames[0])
+                else:
+                    record["scope"] = "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"
+                    require("Calibre" in process["stdout"] or "calibre" in process["stdout"], "BAT failure did not identify the missing conversion dependency")
+                    require(log is not None and frames == [], "BAT dependency failure lacks local diagnostics or invoked the engine")
+                    terminal_outcomes = [launchers._unique_json(line.removeprefix("[OUTCOME] ")) for line in process["stdout"].splitlines()
+                                         if line.startswith("[OUTCOME] ")]
+                    require(len(terminal_outcomes) == 1, "BAT dependency failure lacks one terminal outcome")
+                    terminal_outcome = terminal_outcomes[0]
+                    require(terminal_outcome.get("status") == "failed" and terminal_outcome.get("code") == "converter_not_found"
+                            and type(terminal_outcome.get("exit_code")) is int and terminal_outcome["exit_code"] == 3
+                            and terminal_outcome.get("mode") == "" and type(terminal_outcome.get("written_count")) is int
+                            and terminal_outcome["written_count"] == 0 and terminal_outcome.get("final_directory", "missing") is None
+                            and terminal_outcome.get("engine_result", "missing") is None, "BAT dependency failure outcome differs")
+                    observed_source = {"sha256": before[str(source)], "size_bytes": source.stat().st_size}
+                    authentication = launchers.authenticate_console_manifest(log, terminal_outcome,
+                        source_path=source, source_observation=observed_source)
+                    console_bytes = log.read_bytes()
+                    text = console_bytes.decode("utf-8", errors="strict")
+                    launchers.validate_console_evidence(authentication, terminal_outcome, sha256(console_bytes).hexdigest(),
+                        source_path=source, source_observation=observed_source, log_text=text)
+                    dependency_errors = [launchers._unique_json(line.removeprefix("[DEPENDENCY-ERROR] ")) for line in text.splitlines()
+                                         if line.startswith("[DEPENDENCY-ERROR] ")]
+                    require(len(dependency_errors) == 1
+                            and dependency_errors[0].get("Code") == "converter_not_found"
+                            and isinstance(dependency_errors[0].get("Attempts"), list)
+                            and all(item.get("Accepted") is False and item.get("Probe") is None for item in dependency_errors[0]["Attempts"]),
+                            "Actual BAT missing converter lacks one authenticated dependency preflight failure")
+                    require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"]
+                            and all(marker not in process["stdout"] + text for marker in ("[ENGINE]", "[CONVERSION]", "[DEPENDENCY] "))
+                            and not any(line.startswith("{") for line in text.splitlines()),
+                            "Actual BAT missing converter omitted precise guidance or started processing")
+                    require(authentication["confirmed_plan"] is None and authentication["run_manifest"]["plan"] is None,
+                            "BAT dependency failure unexpectedly prepared or confirmed a plan")
+                    record.update(dependency_error=dependency_errors[0], preflight_before_engine=True,
+                                  diagnostic_console_authenticated=True, engine_invocation_record_absent=True,
+                                  dependency_success_record_absent=True, conversion_started=False,
+                                  written_count=0, setup_guidance_verified=True, terminal_outcome=terminal_outcome,
+                                  console_evidence=authentication, console_log_text=text,
+                                  console_log_sha256=sha256(console_bytes).hexdigest(), console_path=str(log), input_path=str(source),
+                                  source_observation=observed_source)
+                    require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
+                            and not isolated_local_app_data.is_junction() and isolation_inventory() == isolation_before
+                            and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
+                            "Missing-converter child isolation or parent environment changed")
+                    record["converter_absence_environment"] = {
+                        "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                        "cache_directory_identities_before": isolation_before, "cache_directory_identities_after": isolation_inventory(),
+                        "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
+            require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
+            record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
+                          input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)
+            if log is not None:
+                text = log.read_text(encoding="utf-8")
+                interaction = launchers.interactions.capture(text)
+                summaries = [json.loads(line[len("[PROCESS] "):]) for line in text.splitlines() if line.startswith("[PROCESS] ")]
+                if batch:
+                    require(all(events == [] for events in interaction.values()) and summaries == [],
+                            "BAT dependency failure recorded an engine process or interaction")
+                else:
+                    launchers.interactions.validate(interaction, summaries,
+                        ["input_ready", "plan_ready"] if success else [],
+                        ["starts", "execute"] if success else [], starts="2,3", execution=execution)
+                record.update(interaction=interaction, process_summaries=summaries)
+                record["console_evidence"] = launchers.authenticate_console_manifest(log, terminal_outcome, source_path=source,
                     source_observation={"sha256": before[str(source)], "size_bytes": source.stat().st_size})
-    if not batch:
-        require(not any(base.iterdir()), "Conversion left unexplained output-base members")
-    require(log is None or not log.parent.exists(), "Owned conversion console remains")
-    record["owned_outputs_removed"] = True
-    return record
+        finally:
+            if cleanup_safe:
+                if execution is not None and members is not None:
+                    remove_publication(base, execution, members)
+                if log is not None and marker is not None:
+                    launchers.remove_console_directory(log, base, terminal_outcome, source_path=source,
+                        source_observation={"sha256": before[str(source)], "size_bytes": source.stat().st_size})
+        if not batch:
+            require(not any(base.iterdir()), "Conversion left unexplained output-base members")
+        require(log is None or not log.parent.exists(), "Owned conversion console remains")
+        record["owned_outputs_removed"] = True
+        return record
 
 
 def characterize(work, shells, calibre):

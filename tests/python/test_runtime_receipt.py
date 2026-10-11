@@ -301,9 +301,15 @@ class RuntimeReceiptTests(unittest.TestCase):
         self.validate(valid_report())
 
     def test_synthetic_policy_versions_and_manager_selection_are_supported(self):
-        for version in ('3.13.15', '3.13.16', '3.13.99', '3.14.7', '3.14.8', '3.14.10'):
+        for version in ('3.13.16', '3.13.17', '3.13.99', '3.14.8', '3.14.10', '3.14.99'):
             for source in ('explicit', 'PATH', 'manager', 'py_launcher'):
                 with self.subTest(version=version, source=source):
+                    validator.runtime(selected_runtime(r'C:\synthetic\env\Scripts\python.exe', source, version))
+
+    def test_synthetic_previous_security_floors_reject_for_every_discovery_source(self):
+        for version in ('3.13.15', '3.14.7'):
+            for source in ('explicit', 'PATH', 'manager', 'py_launcher'):
+                with self.subTest(version=version, source=source), self.assertRaises(ValueError):
                     validator.runtime(selected_runtime(r'C:\synthetic\env\Scripts\python.exe', source, version))
 
     def test_synthetic_blocked_patch_and_manifest_target_mismatch_reject(self):

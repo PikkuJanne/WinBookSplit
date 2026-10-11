@@ -763,6 +763,57 @@ def validate_conversion_success(case: dict, calibre_path: str) -> None:
         raise ValueError("Conversion must publish exactly the three requested complete sections in its explicit base")
 
 
+def validate_conversion_bat_diagnostics(bat: dict) -> None:
+    """Reuse the existing local-console proof for one ordinary BAT failure."""
+    spec = importlib.util.spec_from_file_location("wbs_conversion_console_validator", ROOT / "tests/manual/current_launchers.py")
+    launchers = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(launchers)
+    outcome, text, stdout = bat.get("terminal_outcome"), bat.get("console_log_text"), bat.get("stdout")
+    source, observed = bat.get("input_path"), bat.get("source_observation")
+    if not isinstance(outcome, dict) or outcome.get("status") != "failed" or outcome.get("code") != "converter_not_found" \
+            or type(outcome.get("exit_code")) is not int or outcome["exit_code"] != 3 or outcome.get("mode") != "" \
+            or type(outcome.get("written_count")) is not int or outcome["written_count"] != 0 \
+            or outcome.get("final_directory", "missing") is not None or outcome.get("engine_result", "missing") is not None \
+            or not isinstance(text, str) or not isinstance(stdout, str) or not isinstance(source, str) \
+            or Path(source).suffix.lower() not in {".epub", ".azw3"} or not isinstance(observed, dict) \
+            or type(observed.get("size_bytes")) is not int or observed["size_bytes"] < 1 or not valid_digest(observed.get("sha256")):
+        raise ValueError("BAT dependency failure must retain its exact terminal outcome and immutable input observation")
+    launchers.validate_console_evidence(bat.get("console_evidence"), outcome, bat.get("console_log_sha256"),
+        source_path=Path(source), source_observation=observed, log_text=text)
+    def frames(content, prefix):
+        return [launchers._unique_json(line[len(prefix):]) for line in content.splitlines() if line.startswith(prefix)]
+    if frames(stdout, "[OUTCOME] ") != [outcome] or frames(text, "[OPERATION-OUTCOME] ") != [outcome] \
+            or frames(text, "[DEPENDENCY-ERROR] ") != [bat.get("dependency_error")] \
+            or frames(stdout, "[DEPENDENCY-ERROR] ") != []:
+        raise ValueError("BAT terminal/footer/logged dependency frames disagree or are duplicated")
+    log = launchers.exact_line(stdout, "Log: ")
+    receipt = bat["console_evidence"]
+    if not log.is_absolute() or str(log) != bat.get("console_path") or log.name != "console.log" \
+            or log.parent.name != ".WinBookSplit-console-" + receipt["owner"]["run_id"] \
+            or receipt.get("confirmed_plan", "missing") is not None or receipt["run_manifest"].get("plan", "missing") is not None \
+            or receipt["run_manifest"]["runtime_versions"].get("calibre", "missing") is not None \
+            or "Calibre 9.15.0" not in stdout or "-CalibrePath" not in stdout:
+        raise ValueError("BAT dependency diagnostics have false ownership, plan, converter or guidance")
+    interaction = launchers.interactions.capture(text)
+    if bat.get("interaction") != interaction or any(events != [] for events in interaction.values()) \
+            or bat.get("process_summaries") != [] or frames(text, "[PROCESS] ") != [] \
+            or any(line.startswith("{") for line in (stdout + text).splitlines()) or "engine_record" in bat \
+            or any(marker in stdout + text for marker in ("[ENGINE]", "[CONVERSION]", "[DEPENDENCY] ", "[Writing]", "Done.")) \
+            or any(line.startswith("Output: ") for line in (stdout + text).splitlines()):
+        raise ValueError("BAT dependency failure must precede every engine, interaction, conversion and publication")
+    isolation = bat.get("converter_absence_environment")
+    if not isinstance(isolation, dict) or any(isolation.get(key) is not True for key in (
+            "child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged", "parent_local_app_data_unchanged", "fixed_system_calibre_paths_absent")):
+        raise ValueError("BAT missing-converter discovery isolation was not preserved")
+    identities = isolation.get("cache_directory_identities_before")
+    if not isinstance(identities, dict) or set(identities) != {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"} \
+            or identities != isolation.get("cache_directory_identities_after") \
+            or any(not isinstance(item, dict) or set(item) != {"device", "inode"}
+                   or type(item["device"]) is not int or item["device"] < 0
+                   or type(item["inode"]) is not int or item["inode"] <= 0 for item in identities.values()):
+        raise ValueError("BAT missing-converter owned empty cache-directory closure or identity changed")
+
+
 def validate_conversion_report(child: dict, requested_shells: list[str], calibre_path: str) -> None:
     if type(child.get("schema_version")) is not int or child["schema_version"] != 1 \
             or child.get("task_id") != "M2-T03" or child.get("result") != "CONVERSION_REGRESSION_PASSED" \
@@ -883,7 +934,7 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
     if not isinstance(bat, dict) or bat.get("passed") is not True or bat.get("actual_process") is not True \
             or bat.get("exit_code") != 3 or bat.get("outputs") != [] or bat.get("successful_final_count") != 0 \
             or any(bat.get(field) is not True for field in ("input_unchanged", "neighbor_unchanged", "owned_outputs_removed", "no_success_summary",
-                    "preflight_before_console_output", "console_record_absent", "engine_invocation_record_absent",
+                    "preflight_before_engine", "diagnostic_console_authenticated", "engine_invocation_record_absent",
                     "dependency_success_record_absent", "setup_guidance_verified")) \
             or bat.get("conversion_started") is not False or type(bat.get("written_count")) is not int or bat["written_count"] != 0 \
             or not isinstance(bat.get("dependency_error"), dict) or bat["dependency_error"].get("Code") != "converter_not_found" \
@@ -892,6 +943,7 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
                    for item in bat["dependency_error"]["Attempts"]) \
             or bat.get("scope") != "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance":
         raise ValueError("Conversion evidence must accurately preserve actual BAT missing-converter failure")
+    validate_conversion_bat_diagnostics(bat)
 
 
 def validate_plan_report(child: dict) -> None:
