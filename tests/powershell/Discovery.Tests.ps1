@@ -6,6 +6,7 @@ BeforeAll {
     if (-not [IO.File]::Exists($TestPython)) { throw 'Discovery tests require the concrete accepted TestPython.' }
     $script:discoveryPolicy = Get-WinBookSplitCompatibilityPolicy
     $script:nativeDiscoveryProbe = (Get-Command Invoke-WinBookSplitRuntimeProbe).ScriptBlock
+    $script:discoveryExecutableFixtures = New-Object 'Collections.Generic.List[object]'
     function New-DiscoveryProbe {
         param([AllowEmptyString()][string]$Stdout = '', [AllowEmptyString()][string]$Stderr = '', [int]$ExitCode = 0)
         return [pscustomobject]@{ Stdout=$Stdout; Stderr=$Stderr; ExitCode=$ExitCode; TimedOut=$false;
@@ -14,10 +15,21 @@ BeforeAll {
     }
     function New-DiscoveryExecutable {
         param([string]$Name = 'py.exe')
-        $directory = Join-Path $TestDrive ([guid]::NewGuid().ToString('N'))
-        $null = New-Item -ItemType Directory -Path $directory
+        # The shared harness runs from WorkRoot and its TestDrive is beneath CWD.
+        # Listing fixtures must be outside that correctly excluded dependency origin.
+        $parent = [IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($WorkRoot))
+        $directory = Join-Path $parent ('discovery-' + [guid]::NewGuid().ToString('N'))
+        $null = New-Item -ItemType Directory -Path $directory -ErrorAction Stop
+        $owned = [pscustomobject]@{Directory=$directory;File=$null}
+        $script:discoveryExecutableFixtures.Add($owned)
         $path = Join-Path $directory $Name
-        [IO.File]::WriteAllText($path, 'SYNTHETIC listing executable fixture: never executed.')
+        $stream = [IO.File]::Open($path,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+        try {
+            $owned.File=$path
+            $bytes=[Text.Encoding]::UTF8.GetBytes('SYNTHETIC listing executable fixture: never executed.')
+            $stream.Write($bytes,0,$bytes.Length)
+        } finally { $stream.Dispose() }
+        Test-WinBookSplitAutomaticPath -Path $path -ApplicationRoot $RepositoryRoot | Should -BeTrue
         return $path
     }
     function New-DiscoveryApplication {
@@ -43,6 +55,14 @@ BeforeAll {
             InstallLocation=([IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::ProgramFiles),'WindowsApps',$full));
             Architecture='X64';SignatureKind='Developer';Status='Ok';Version=$version;
             IsDevelopmentMode=$false;IsPartiallyStaged=$false;IsFramework=$false;IsResourcePackage=$false}) }
+    }
+}
+
+AfterAll {
+    foreach ($owned in $script:discoveryExecutableFixtures) {
+        # Exact authored files only; nonrecursive deletion preserves any foreign entry.
+        if ($owned.File -and [IO.File]::Exists($owned.File)) { [IO.File]::Delete($owned.File) }
+        if ([IO.Directory]::Exists($owned.Directory)) { [IO.Directory]::Delete($owned.Directory,$false) }
     }
 }
 

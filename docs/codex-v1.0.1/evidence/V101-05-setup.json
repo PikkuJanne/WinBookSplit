@@ -1,0 +1,349 @@
+{
+  "task": "V101-05",
+  "observed_at": "2026-10-11T15:34:06.043303+00:00",
+  "observed_source_commit": "8879c76e5a2d5ec810f4d6122d317390f8a0c607",
+  "observed_source_tree": "e9fc784b63f90363825350184b43358644f34066",
+  "changed_source_sha256": {
+    "Setup-WinBookSplit.ps1": "5f4b0443066d9e27e5431d19aeb39d2ae732ed1a5d32e93b89cc5dec7e28b13f",
+    "engine/WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+    "engine/WinBookSplit.Runtime.ps1": "588dcb31c6c1082e2da626243e510c386bafa0ef4cff32bc47a77c77a3329953",
+    "engine/WinBookSplit.Setup.ps1": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473",
+    "tests/Invoke-ShellTests.ps1": "1b74764479a187ccf84220b7754293d6fb0ea6357c26b6b599d0217b6662cb96",
+    "tests/README.md": "d1b1b0bf68be2cfc4a0652371aab47489740f9db2fe62e4ff03b6cc2ba2e3636",
+    "tests/powershell/Discovery.Tests.ps1": "897d431882d7e6771409a423dac56cd571dbd153e13f493ae1a10aff5a44f0ac",
+    "tests/powershell/Process.Tests.ps1": "dd2836e334f8115820f507091d0b990fe8147b51688ba0661a435fd9cc2fee4d",
+    "tests/powershell/Setup.Tests.ps1": "5a3478e03ba104c3aafbf8c1ffd5f7e61ef115c15ed55d648c0f89e46fb0f941",
+    "tests/python/test_ci_package_inputs.py": "41b2ea08185b4b71ae27ed2e328f0abd676201170053cab96b0baee65e809cc7",
+    "tests/python/test_release_package.py": "3fd0cba1425a01339fc619a29df63c6f02c60fc37b136bf8f9a87da344c4ddab",
+    "tests/python/test_runner.py": "d6383001c90e7626e5934cdc1e6cf8abc74e28ea6483b39dbfb1c372f4988bc7",
+    "tests/run_tests.py": "4e3b51384f327b4f20002e20af0421dc89c78a3452c4666d50cb9383a64783b8",
+    "tools/ci/check_package_inputs.py": "e8ba47dfd4c4b901e31f32a6b586f92c5622fd594100ec5675dac86099f55eb0",
+    "tools/release/payload.json": "5f34a3abba408734a6cc1462e480cd4cb027b52235c275a27a1fc25f654d4cf8"
+  },
+  "policy_sha256": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+  "final_index_sha256": "84fb1496591697a42279627b170a48ffb0c5fcc2c261a66dce4a057560570f93",
+  "verification": {
+    "schema_version": 1,
+    "checkpoint": "V101-05 automated setup tests complete against frozen uncommitted source following checkpoint8879c76; parent owns commit/push/live sync.",
+    "observed_at": "2026-10-11T15:32:48.077166+00:00",
+    "status": "PASS_SCOPED_WINDOWS11_AUTOMATION",
+    "source_head": "8879c76e5a2d5ec810f4d6122d317390f8a0c607",
+    "source_tree": "e9fc784b63f90363825350184b43358644f34066",
+    "current_source": {
+      "Setup-WinBookSplit.ps1": "5f4b0443066d9e27e5431d19aeb39d2ae732ed1a5d32e93b89cc5dec7e28b13f",
+      "requirements.txt": "d53e07cfd27988166ed3a783507cbd3b69a2be7bb5fc42d83097d9e3654b5923",
+      "engine\\WinBookSplit.Setup.ps1": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473",
+      "engine\\WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+      "engine\\WinBookSplit.Runtime.ps1": "588dcb31c6c1082e2da626243e510c386bafa0ef4cff32bc47a77c77a3329953",
+      "engine\\WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+      "engine\\WinBookSplit.Compatibility.json": "b2776ea7e75629a45ad0cf664e1c9002cdf61a0fc8a8815bf879fd34377c9c62",
+      "engine\\WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+      "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine\\WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+      "engine\\winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "tests\\powershell\\Setup.Tests.ps1": "5a3478e03ba104c3aafbf8c1ffd5f7e61ef115c15ed55d648c0f89e46fb0f941",
+      "tests\\powershell\\Process.Tests.ps1": "dd2836e334f8115820f507091d0b990fe8147b51688ba0661a435fd9cc2fee4d",
+      "tests\\powershell\\Discovery.Tests.ps1": "897d431882d7e6771409a423dac56cd571dbd153e13f493ae1a10aff5a44f0ac"
+    },
+    "final_reports": [
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\report.json",
+        "sha256": "2a818e244de5c86c7cda6e2c2ed01d49d5f5a8f9ba58f6a0601d133567966f94"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\report.json",
+        "sha256": "e934838d7d765f0fa6c68c517a5eab2e3f8c1ec7b5e47e33f2e733d819868550"
+      },
+      {
+        "path": "<isolated-work>\\native-setup-05-02\\report.json",
+        "sha256": "b44a21120be721a968e5a139e6ff532f7f52646c684910f06b34354f08a8fc9a"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\shared-shell-05-02.json",
+        "sha256": "1ebfe5b202d87bf255393346b4dd3c3519f0596a171c7049647cd4937c64d8a3"
+      }
+    ],
+    "preserved_historical_reports": [
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-01\\report.json",
+        "sha256": "7e8f94c34f57e048f9ab5b8d39705bbb09c335a005e77ddd6181efc0d646a9ee"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-01\\report.json",
+        "sha256": "5059fdf7bb65d67abd5247170c42e945aa63ad9e3b59329a270735a0dd437a62"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-cancel-02\\report.json",
+        "sha256": "43c439b0176c638d369c7138f48cec451bc9f93fd3523b21262db1fd4625501d"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-native-cancel-02\\result.json",
+        "sha256": "32b6b0f3e756b8b1a899eb6f4bc487d90bfefb5023c48ea77be5efd0453744ec"
+      },
+      {
+        "path": "<isolated-work>\\native-setup-05-01\\report.json",
+        "sha256": "ba17121d6d6ff370873502252869f4e36fc12a6578b3069f895e99febc4ad17e"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-02\\report.json",
+        "sha256": "d93859a75e63fda863e014e9d00be2e96001bb46926733501a5e79e2c1c097b2"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-02\\report.json",
+        "sha256": "02c691308a9c5d31b6abf7ac5ffaba2d1720c9c1d214048b1313be4aca80f200"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\shared-shell-05-01.json",
+        "sha256": "6e480c74e2ce3c736567216e661dd2b52c4f368a03a3785444271e4b8babd137"
+      }
+    ],
+    "controlled_observations": [
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-concurrent-replacement-81a3925bc68046c5a66c9b1439c2c71e.json",
+        "sha256": "f67e920b6a423cbf266738e0cfed735eff2c13950c72461f148b9827544b2e19"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-controlled-native-cancellation-0da74d97dcc7425682b16ef2a311eb24.json",
+        "sha256": "ed20701ddd6f04f89f4e77f3222b648eb6e856cb156610aa321a39684019ab32"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-controlled-native-install-failure-9f8e15ef1783474f96a8f597b812b9df.json",
+        "sha256": "06b168494a061a1146e5bd13336a1296c583cac54f6ee40ab7a1f91d74daaa23"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-healthy-unused-prerequisites-2bcb289e18014ddeb127fc044f01af56.json",
+        "sha256": "f29f82a05c02cf4f108d6249051a56c5945f16e827c7b4160335312cc74e9ba0"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-healthy-unused-prerequisites-742332274edb4c98a9edbedf2d317912.json",
+        "sha256": "d6f5c1bbce6f68737a9ae19656349348c89a778311ac9e719bae809c2fdd85b0"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-offline-create-4950e79387ca4b018451a0758ebcde8a.json",
+        "sha256": "b75f8746de49f89c5bb972b432f97bc8b263bd2ca16de9667a4ced7352d7ac1e"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-policy-identity-race-f1dc9c63ff614d95968c4f9eac4ab24d.json",
+        "sha256": "059adb9f1c49cb7edd52d3142cbd1372095d72e3f167db47a6e2f03700919212"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-preserved-base-248fd1fc5e234098bb5635358f88849b.json",
+        "sha256": "456be06a15d72a7dd1d8c8158eacfea9f98ba4284ceb5585ec06e1c6106e6ae5"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01\\setup-preserved-base-7cf8154ad8d34574821c6e7b7aacc1f2.json",
+        "sha256": "a61eb0e6e9cb3362840a648e954be3cbbc0f476836c9c17af64d3d0be8394e3a"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-concurrent-replacement-c105f25e8d684a1799e4c145916a2ad0.json",
+        "sha256": "f46b9c80a7fe4a7e7ebd916943f2ee6563278b310eeebc079feed5cd240b75ea"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-controlled-native-cancellation-e56a766967d745d6be3e60d302e30b18.json",
+        "sha256": "a5e9d3633b293d3d43fba59d8a27270c602557795df507e0606b772c572ece85"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-controlled-native-install-failure-6a430ab1576e47478f998b948a88e4dd.json",
+        "sha256": "f7d9776ab9e62753ea6d89a9d9faaf69ae33bce8aa8d462b7b6c73b1171b7f49"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-healthy-unused-prerequisites-3aa3a6a09da741499a1a5cd2e04b9565.json",
+        "sha256": "68cb19f5c024a18e645ba24c31fc9f2ea7f5910423008e8d24461fe6d826d81d"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-healthy-unused-prerequisites-5a83961eeb5547d0adf0335f79878af6.json",
+        "sha256": "fca75e47aaa1aa73e40f2dc78b665987fd6710add57dab49ee277f9d67f7f4c0"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-offline-create-91408c118ec743d5b4e6c8b16d11118b.json",
+        "sha256": "ec04e2c64ce403e2529511d35c73dad1741ae8c4dfeb69f0deb15099a2df2ee4"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-policy-identity-race-6d4aa1afe2dc46c0b5a1fb495f00315d.json",
+        "sha256": "39a3eddf4ca9c8c6133adab246962bf23d77e3bac411c9577008cfe962d9b8d3"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-preserved-base-2befd4cef5a44bf4851e3b8754ebf74d.json",
+        "sha256": "213d0b6a0b226c442d15397b8f5847d3182c22024a8f9c850dd23bf1b91d486e"
+      },
+      {
+        "path": "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01\\setup-preserved-base-5f9ab07d73c847d9b13286cc30b90a4f.json",
+        "sha256": "90c2c94633c0090028194b7253041d65c46f0c9832e068970e4f4c8cbde29e47"
+      }
+    ],
+    "actual_versions_report": {
+      "path": "<isolated-work>\\native-setup-05-02\\actual-venv-versions.json",
+      "sha256": "8c399e0a338d61854e8d35cfd370c42c199190c6f18b196d2bdc8b4132c1816e"
+    },
+    "actual_versions": {
+      "powershell": [
+        "5.1.26100.9444",
+        "7.6.6"
+      ],
+      "python": [
+        "3.13.16",
+        "3.14.8"
+      ],
+      "pypdf": "6.20.0",
+      "pip": "26.2.1"
+    },
+    "reviewed_wheel": {
+      "path": "<isolated-work>\\setup-tests-05-01\\wheelhouse\\pypdf-6.20.0-py3-none-any.whl",
+      "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+    },
+    "focused_commands": [
+      [
+        "C:/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\setup-tests-05-01\\Invoke-FocusedFixtures.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\setup-tests-05-01\\PS51-fixtures-01"
+      ],
+      [
+        "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "<isolated-work>\\setup-tests-05-01\\Invoke-FocusedFixtures.ps1",
+        "-WorkRoot",
+        "<isolated-work>\\setup-tests-05-01\\PS766-fixtures-01"
+      ]
+    ],
+    "native_matrix_command": [
+      "<isolated-work>\\dev14\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "<isolated-work>\\setup-tests-05-01\\native_setup_05_02.py"
+    ],
+    "shared_shell_command": [
+      "<isolated-work>\\dev14\\Scripts\\python.exe",
+      "-I",
+      "-B",
+      "<checkout>\\tests\\run_tests.py",
+      "--layer",
+      "shell",
+      "--report",
+      "<isolated-work>\\setup-tests-05-01\\shared-shell-05-02.json",
+      "--tool-root",
+      "<isolated-work>\\shell-tools",
+      "--shell-path",
+      "C:/WINDOWS/System32/WindowsPowerShell/v1.0/powershell.exe",
+      "--shell-path",
+      "<isolated-work>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe"
+    ],
+    "shared_shell_supplied_wheelhouse": "<isolated-work>\\setup-tests-05-01\\wheelhouse",
+    "result_counts": {
+      "focused_per_host": 54,
+      "native_records": 27,
+      "shared_shell_steps": 3,
+      "shared_shell_per_host": 170
+    },
+    "historical_defects": [
+      "Initial inbox5.1 Pester run:25/26; isolated7.6.6:26/26 against earlier source. Native cancellation stopped safely but .NET Framework Exception.Data rejected the nonserializable native Result and replaced setup_cancelled with setup_failed. Direct standalone reproduction confirmed it; narrow data-only Serializable fix restored precise classification and proof.",
+      "Initial standalone preparation omitted Outcomes.json in the copied fixture. Preparation failed before setup; retained PS51-native-cancel-01 directory. Fixture correction made the actual serializability reproduction possible.",
+      "Initial native matrix asserted dependency_missing instead of the runtime protocol reason missing_pypdf. The bare3.13.16 probe behaved correctly. Failed native-setup-05-01 receipt retained; fresh corrected native-setup-05-02 passed27 records.",
+      "Earlier final focused29/29 per-host reports remain valid only for their recorded test hashes and commands. Cumulative shared01 then failed164/170 on both hosts: five Discovery fixtures were under unrelated child CWD and correctly excluded before probe by production guard; ACL effective permissions restored but Windows normalized raw SDDL D: to D:AI. Exact owned sibling listing fixtures plus nonrecursive cleanup and owner/group/protected-state/every-ACE restoration comparison corrected those test assumptions. No production guards changed."
+    ],
+    "limitations": [
+      "Windows11 workstation automation only; native Windows10 evidence is not PASS.",
+      "Source-copy tests, not final ZIP/release acceptance.",
+      "No Calibre, BAT/Explorer or human acceptance claim. Synthetic failure commands, scheduling gates, and policy identity mismatch are explicitly labelled in committed tests."
+    ],
+    "next_task": "Parent completes V101-05 evidence/checkpoint/live sync and proceeds to the next ready task."
+  },
+  "reports": [
+    {
+      "path": "<isolated-work>/setup-tests-05-01/shared-shell-05-02.json",
+      "sha256": "1ebfe5b202d87bf255393346b4dd3c3519f0596a171c7049647cd4937c64d8a3",
+      "scope": "Final cumulative native Windows11 shell regression"
+    },
+    {
+      "path": "<isolated-work>/setup-tests-05-01/shared-shell-05-01.json",
+      "sha256": "6e480c74e2ce3c736567216e661dd2b52c4f368a03a3785444271e4b8babd137",
+      "scope": "Preserved FAIL164/170 each: five excluded-CWD listing fixtures and one ACL-format fixture"
+    },
+    {
+      "path": "<isolated-work>/native-setup-05-02/report.json",
+      "sha256": "b44a21120be721a968e5a139e6ff532f7f52646c684910f06b34354f08a8fc9a",
+      "scope": "Actual27-record two-minor/setup/online/offline/concurrency matrix"
+    },
+    {
+      "path": "<isolated-work>/native-setup-05-02/actual-venv-versions.json",
+      "sha256": "8c399e0a338d61854e8d35cfd370c42c199190c6f18b196d2bdc8b4132c1816e",
+      "scope": "Actual final-path venv sys.prefix/base_prefix and package observations"
+    },
+    {
+      "path": "<isolated-work>/setup-tests-05-01/PS51-exception-data-before-02.json",
+      "sha256": "99b7671ee2b27483d160b3eb394a0a9586cd5cfc3f1f17a8ea884765081748c4",
+      "scope": "Actual Framework exception evidence defect before fix; fatal flags SYNTHETIC"
+    },
+    {
+      "path": "<isolated-work>/setup-tests-05-01/PS51-exception-data-after-02.json",
+      "sha256": "d14e716b09bbc876e9e1f6e0f3c6753d65c43bc282a0464bce5f1700838ef9bb",
+      "scope": "Actual Framework timeout/cancel after data-only fix; fatal flags SYNTHETIC"
+    },
+    {
+      "path": "<isolated-work>/V101-05-runner-units-01.json",
+      "sha256": "0e8583a73b22136ad23f23f55072a5da12320559021c31442902f1c50efb691a",
+      "scope": "Actual43/43 unittest each minor; mocked routing/download controls explicitly SYNTHETIC; earlier shell harness hash"
+    },
+    {
+      "path": "<isolated-work>/V101-05-known-pester-failure-01.json",
+      "sha256": "b52fb549596a580dd70ffb878f35822a5179352467ce3a4d824ad73402b4053b",
+      "scope": "Intentional native failure probe: exit1 on both hosts, accurate bounded failed-case fields"
+    },
+    {
+      "path": "<isolated-work>/V101-05-real-test-wheel-13-01.json",
+      "sha256": "393af19c8ae0dd09c76817bcb349c51b220ce5cffc4d40190c098ff3657e0e54",
+      "scope": "Actual official PyPI test-fixture wheel acquisition under13.16"
+    },
+    {
+      "path": "<isolated-work>/V101-05-real-test-wheel-14-01.json",
+      "sha256": "1e438a7cb892c9bcf1b9d3d1e9d5e95a75dc85cf6baedc640c16616205b248ba",
+      "scope": "Actual official PyPI test-fixture wheel acquisition under14.8"
+    },
+    {
+      "path": "<isolated-work>/V101-05-package-inputs-final-02.json",
+      "sha256": "25a659f433b785d106e66a993f963c6799abd4bd7394b80b5b2575e423b56b46",
+      "scope": "Actual final-core source closure selected unittest PASS1/1"
+    },
+    {
+      "path": "<isolated-work>/V101-05-package-release-final-02.json",
+      "sha256": "cd577830cb13d42af63ffdea214c807962688595ff95154eda1b547ec51b9e35",
+      "scope": "Actual final-core owned Git source-to33 ZIP member byte/hash selected unittest PASS1/1"
+    },
+    {
+      "path": "<isolated-work>/V101-05-package-final-review-02.md",
+      "sha256": "e657786f229c38a194de3f9491978f7f9b2a4c43530a10323a71ec9e5e9b169c",
+      "scope": "Independent final-core package review"
+    },
+    {
+      "path": "<isolated-work>/V101-05-final-tests-readonly-review-01.md",
+      "sha256": "83998202e6cc68e285c8102b80a33008f9d2ecb52b91d453836e623c9dabe8f5",
+      "scope": "Independent final-fixture/wheel-seeding/failure-field review; no tests run by reviewer"
+    },
+    {
+      "path": "<isolated-work>/V101-05-pip-planning-20261011.md",
+      "sha256": "3955ae7957a16355f1645790b51d18bb0d445b6b0c0c6a84eec042c60408f25f",
+      "scope": "Primary pip configuration/find-links review and controlled native observations"
+    }
+  ],
+  "interpretation": "Actual source-checkout Windows11 automation, with raw working hashes bound independently from older committed tree. No Windows10/finalZIP/Explorer/release acceptance.",
+  "preserved_ci_failure": {
+    "run": 38148878572,
+    "source_commit": "8879c76e5a2d5ec810f4d6122d317390f8a0c607",
+    "python": "PASS559/559",
+    "pester_each": "FAIL148/153",
+    "scope": "Historical report lacked failure names. Five observed shared Discovery fixtures reproduce the same count and fail under unrelated CWD; no claim to know unrecorded CI names. New bounded fields diagnose subsequent CI."
+  },
+  "native_windows10": "NOT_RUN",
+  "final_zip_windows11": "NOT_RUN",
+  "human_actions": 0,
+  "next_task": "V101-06"
+}

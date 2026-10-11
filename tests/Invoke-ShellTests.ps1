@@ -83,6 +83,8 @@ try {
         (Join-Path -Path $repository -ChildPath 'tests\Invoke-ShellTests.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Runtime.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Compatibility.ps1'),
+        (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Setup.ps1'),
+        (Join-Path -Path $repository -ChildPath 'Setup-WinBookSplit.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Process.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Logging.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Support.ps1'),
@@ -122,6 +124,9 @@ try {
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Discovery.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Setup.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON; Wheelhouse = $env:WBS_TEST_WHEELHOUSE
+        }
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Runtime.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
@@ -149,6 +154,14 @@ try {
     $config.Output.Verbosity = 'None'
     $config.TestResult.Enabled = $false
     $pesterResult = Invoke-Pester -Configuration $config
+    $failureMessages = {
+        param($Records)
+        foreach ($record in $Records) {
+            $failureText = [string]$record.Exception.Message
+            if ($failureText.Length -gt 8192) { $failureText = $failureText.Substring(0, 8192) + ' [truncated]' }
+            $failureText
+        }
+    }
     $report.pester = @{
         result = $pesterResult.Result.ToString()
         total = $pesterResult.TotalCount
@@ -157,6 +170,15 @@ try {
         skipped = $pesterResult.SkippedCount
         not_run = $pesterResult.NotRunCount
         failed_containers = $pesterResult.FailedContainersCount
+        failed_cases = @($pesterResult.Failed | ForEach-Object {
+            @{ name = $_.ExpandedPath; errors = @(& $failureMessages $_.ErrorRecord) }
+        })
+        failed_blocks = @($pesterResult.FailedBlocks | ForEach-Object {
+            @{ name = $_.ExpandedPath; errors = @(& $failureMessages $_.ErrorRecord) }
+        })
+        failed_container_errors = @($pesterResult.FailedContainers | ForEach-Object {
+            @(& $failureMessages $_.ErrorRecord)
+        })
     }
     $outcomes.Add([pscustomobject]@{ name = 'Pester'; passed = ($pesterResult.Result -eq 'Passed' -and $pesterResult.TotalCount -gt 0) })
 

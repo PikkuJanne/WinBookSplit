@@ -12,6 +12,7 @@ import base64
 from contextlib import contextmanager
 from datetime import datetime, timezone
 import hashlib
+import importlib.util
 from importlib.metadata import PackageNotFoundError, version
 import json
 import os
@@ -127,7 +128,7 @@ def sha256(data: bytes) -> str:
 def source_manifest() -> dict[str, str]:
     """Hash actual checked-out bytes; avoid circular evidence/status hashes."""
     paths = [ROOT / name for name in (
-        "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
+        "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Setup-WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "README.md", "LICENSE", ".gitignore",
         "CHANGELOG.md", "THIRD_PARTY_NOTICES.md", "CONTRIBUTING.md", "SECURITY.md", "docs/SETUP.md",
         "docs/SUPPORT_DIAGNOSTICS.md", "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
         "requirements.txt", "requirements-dev.txt",
@@ -1277,6 +1278,60 @@ def owned_evidence_workspace(steps):
             temporary.cleanup()
 
 
+def prepare_setup_test_wheel(work: Path) -> tuple[Path | None, dict]:
+    """Acquire one locked test fixture in owned work, or validate a supplied one.
+
+    This is explicit developer setup in the test runner. Production processing
+    never downloads packages. The native setup tests independently validate the
+    same wheel and exercise installation only in their copied applications.
+    """
+    record = {"name": "setup-test-wheel", "exit_code": 126}
+    try:
+        spec = importlib.util.spec_from_file_location(
+            "wbs_test_policy", ROOT / "engine/winbooksplit_compatibility.py")
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        policy_path = ROOT / "engine/WinBookSplit.Compatibility.json"
+        policy = helper.load_policy(policy_path)
+        lock = policy["pypdf"]
+        record["policy_sha256"] = sha256(policy_path.read_bytes())
+        supplied = os.environ.get("WBS_TEST_WHEELHOUSE")
+        if supplied:
+            wheelhouse = Path(supplied)
+            if not wheelhouse.is_absolute() or not wheelhouse.is_dir():
+                raise ValueError("WBS_TEST_WHEELHOUSE must be an existing absolute directory")
+            record["source"] = "supplied-read-only-wheelhouse"
+        else:
+            wheelhouse = work / "setup-test-wheelhouse"
+            wheelhouse.mkdir()
+            environment = child_environment(work)
+            for name in list(environment):
+                if name.upper().startswith("PIP_"):
+                    del environment[name]
+            environment["PIP_CONFIG_FILE"] = os.devnull
+            command = [sys.executable, "-I", "-B", "-m", "pip", "--isolated",
+                       "--no-input", "--disable-pip-version-check", "download",
+                       "--require-hashes", "--only-binary=:all:", "--no-deps",
+                       "--no-cache-dir", "--index-url", "https://pypi.org/simple",
+                       "-r", str(ROOT / "requirements.txt"), "--dest", str(wheelhouse)]
+            record.update(source="explicit-developer-test-download",
+                          **run_command(command, work, environment=environment, timeout=120))
+            if record["exit_code"]:
+                return None, record
+        wheel = wheelhouse / f"pypdf-{lock['version']}-py3-none-any.whl"
+        if wheel.is_symlink() or not wheel.is_file():
+            raise ValueError("The exact reviewed test wheel is absent or is a symbolic link")
+        digest = sha256(wheel.read_bytes())
+        if digest != lock["wheel_sha256"]:
+            raise ValueError("The test wheel does not match the reviewed policy hash")
+        record.update(exit_code=0, wheel_sha256=digest, wheel_path=str(wheel),
+                      wheelhouse=str(wheelhouse))
+        return wheelhouse, record
+    except (OSError, ValueError, RuntimeError) as error:
+        record.update(exit_code=126, evidence_error=str(error))
+        return None, record
+
+
 def shell_command(shell: Path, work: Path, report: Path, tool_root: Path,
                   failure_probe: bool) -> tuple[list[str], dict[str, str]]:
     # Static bootstrap reads only our trusted test source. Paths travel through
@@ -1360,13 +1415,21 @@ def execute(args: argparse.Namespace) -> dict:
                           **run_command([sys.executable, "-I", "-B", str(SCRIPT),
                                          "--_python-child"], work, environment=environment, timeout=600)})
         if args.layer in {"shell", "full"} or args.failure_probe == "pester":
+            wheelhouse = None
+            if not args.failure_probe:
+                wheelhouse, wheel_step = prepare_setup_test_wheel(work)
+                steps.append(wheel_step)
             for index, shell in enumerate(args.shell_path):
+                if not args.failure_probe and wheelhouse is None:
+                    break
                 shell_work = work / f"shell-{index}"
                 shell_work.mkdir()
                 child_report = shell_work / "report.json"
                 command, shell_environment = shell_command(
                     shell, shell_work, child_report, args.tool_root,
                     args.failure_probe == "pester")
+                if wheelhouse is not None:
+                    shell_environment["WBS_TEST_WHEELHOUSE"] = str(wheelhouse)
                 step = {"name": f"shell-{index}", "shell_executable": str(shell),
                         "process_policy_requested": "RemoteSigned (fresh child only)",
                         "builtin_module_path": shell_environment["PSModulePath"],

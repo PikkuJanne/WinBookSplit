@@ -914,6 +914,8 @@ class RunnerTests(unittest.TestCase):
 
         with patch.object(runner, "source_manifest", return_value={"synthetic-test-source": "hash"}), \
                 patch.object(runner, "run_command", side_effect=successful_command), \
+                patch.object(runner, "prepare_setup_test_wheel", return_value=(
+                    Path("C:/trusted/test-wheelhouse"), {"name": "setup-test-wheel", "exit_code": 0})), \
                 patch.object(runner, "attach_child_report") as attach:
             report = runner.execute(args)
         manual = [command for command in commands
@@ -988,7 +990,7 @@ class RunnerTests(unittest.TestCase):
         self.assertEqual([call.args[2] for call in attach.call_args_list], ["shell", "shell", "manual", "bookmarks", "level2", "plan", "diagnostics", "output", "paths", "conversion", "runtime", "process", "outcomes", "cli", "launcher", "ux", "support", "fidelity", "document-policy", "faults", "ebooks"])
         self.assertEqual([step["name"] for step in report["steps"][-19:]],
                          ["manual-regression", "level1-regression", "level2-regression", "shared-plan-regression", "diagnostic-regression", "output-regression", "path-regression", "conversion-regression", "runtime-regression", "process-regression", "outcome-regression", "cli-regression", "launcher-regression", "ux-regression", "support-regression", "fidelity-regression", "document-policy-regression", "fault-regression", "ebook-regression"])
-        self.assertEqual(len(report["steps"]), 22)
+        self.assertEqual(len(report["steps"]), 23)
         self.assertTrue(report["success"])
 
     def test_ebooks_target_binds_both_routes_and_preserves_either_native_failure(self):
@@ -1684,6 +1686,73 @@ class RunnerTests(unittest.TestCase):
             self.assertIn("-EncodedCommand", command)
             self.assertEqual(command[command.index("-ExecutionPolicy") + 1], "RemoteSigned")
             self.assertNotIn("Bypass", command)
+
+    def test_setup_wheel_download_uses_locked_source_and_child_local_pip_configuration(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-setup-wheel-runner-") as directory:
+            work = Path(directory)
+            wheel_bytes = b"Synthetic test wheel only; not installation acceptance."
+            lock = {"version": "6.20.0", "wheel_sha256": runner.sha256(wheel_bytes)}
+            observed = {}
+
+            def download(argv, cwd, **kwargs):
+                observed.update(command=argv, cwd=cwd, environment=kwargs["environment"])
+                destination = Path(argv[argv.index("--dest") + 1])
+                (destination / "pypdf-6.20.0-py3-none-any.whl").write_bytes(wheel_bytes)
+                return {"exit_code": 0, "stdout": "Synthetic downloader result", "stderr": ""}
+
+            with patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": "", "PIP_INDEX_URL": "https://invalid.example",
+                                        "pip_extra_index_url": "https://invalid.example/extra", "PIP_CONFIG_FILE": "foreign.ini"}), \
+                    patch.object(runner.importlib.util, "spec_from_file_location"), \
+                    patch.object(runner.importlib.util, "module_from_spec") as module, \
+                    patch.object(runner, "run_command", side_effect=download):
+                module.return_value.load_policy.return_value = {"pypdf": lock}
+                wheelhouse, step = runner.prepare_setup_test_wheel(work)
+                self.assertEqual(os.environ["PIP_CONFIG_FILE"], "foreign.ini")
+            self.assertEqual(step["exit_code"], 0)
+            self.assertEqual(step["wheel_sha256"], lock["wheel_sha256"])
+            self.assertEqual(wheelhouse, work / "setup-test-wheelhouse")
+            self.assertEqual(observed["environment"]["PIP_CONFIG_FILE"], os.devnull)
+            self.assertEqual([key for key in observed["environment"] if key.upper().startswith("PIP_")], ["PIP_CONFIG_FILE"])
+            command = observed["command"]
+            self.assertEqual(command[:6], [sys.executable, "-I", "-B", "-m", "pip", "--isolated"])
+            self.assertEqual(command[command.index("--index-url") + 1], "https://pypi.org/simple")
+            for flag in ("--require-hashes", "--only-binary=:all:", "--no-deps", "--no-cache-dir", "--no-input"):
+                self.assertIn(flag, command)
+
+    def test_supplied_setup_wheel_is_read_only_and_hash_mismatch_fails_without_download(self):
+        with tempfile.TemporaryDirectory(prefix="wbs-supplied-wheel-runner-") as directory:
+            work = Path(directory)
+            wheelhouse = work / "provided"
+            wheelhouse.mkdir()
+            wheel = wheelhouse / "pypdf-6.20.0-py3-none-any.whl"
+            wheel.write_bytes(b"Synthetic wheel fixture")
+            for digest, accepted in ((runner.sha256(wheel.read_bytes()), True), ("0" * 64, False)):
+                with self.subTest(accepted=accepted), patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": str(wheelhouse)}), \
+                        patch.object(runner.importlib.util, "spec_from_file_location"), \
+                        patch.object(runner.importlib.util, "module_from_spec") as module, \
+                        patch.object(runner, "run_command") as download:
+                    module.return_value.load_policy.return_value = {"pypdf": {"version": "6.20.0", "wheel_sha256": digest}}
+                    stamp = wheel.stat().st_mtime_ns
+                    selected, step = runner.prepare_setup_test_wheel(work)
+                    self.assertEqual(step["exit_code"] == 0, accepted)
+                    self.assertEqual(selected, wheelhouse if accepted else None)
+                    self.assertEqual(wheel.read_bytes(), b"Synthetic wheel fixture")
+                    self.assertEqual(wheel.stat().st_mtime_ns, stamp)
+                    download.assert_not_called()
+                    self.assertFalse((work / "setup-test-wheelhouse").exists())
+
+    def test_failed_setup_test_wheel_preparation_is_not_reported_as_a_shell_pass(self):
+        args = SimpleNamespace(layer="shell", failure_probe=None,
+                               shell_path=[Path("C:/trusted/pwsh.exe")], tool_root=Path("C:/trusted/tool-root"))
+        with patch.object(runner, "source_manifest", return_value={"synthetic": "hash"}), \
+                patch.object(runner, "run_command", return_value={"exit_code": 0, "stdout": "synthetic git identity", "stderr": ""}), \
+                patch.object(runner, "prepare_setup_test_wheel", return_value=(None,
+                    {"name": "setup-test-wheel", "exit_code": 17, "stderr": "synthetic download failed"})), \
+                patch.object(runner, "shell_command") as shell:
+            report = runner.execute(args)
+        self.assertFalse(report["success"])
+        self.assertEqual(report["steps"], [{"name": "setup-test-wheel", "exit_code": 17, "stderr": "synthetic download failed"}])
+        shell.assert_not_called()
 
     def test_git_provenance_drops_inherited_repository_selectors(self):
         with patch.dict(os.environ, {name: "hostile-unrelated-value" for name in runner.GIT_SELECTORS}):

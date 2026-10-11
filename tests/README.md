@@ -5,6 +5,16 @@ Use the explicit fresh developer-venv interpreter from
 working directory; it resolves the trusted repository from its own location.
 Do not activate a venv or install dependencies globally.
 
+The v1.0.1 shell suite also exercises explicit setup in authored copied
+applications. Before a normal shell/full run, the shared runner acquires the
+one reviewed pypdf wheel in its owned temporary directory using hash-required,
+binary-only pip download with child-local configuration isolation. To reuse
+an existing offline fixture, set `WBS_TEST_WHEELHOUSE` to an absolute directory
+containing that exact wheel; its hash is checked and the supplied directory is
+preserved. Failure to prepare it fails the run before any shell pass can be
+claimed. The preparation is a separately recorded step, bringing full to 23
+steps. This is developer test setup; the ordinary application never installs.
+
 ```powershell
 $TestPython = 'C:\Tools\WinBookSplit\.venv-dev\Scripts\python.exe'
 $Runner = 'C:\Tools\WinBookSplit\tests\run_tests.py'

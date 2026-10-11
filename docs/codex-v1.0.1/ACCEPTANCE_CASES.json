@@ -315,8 +315,11 @@
       "key": "fresh_setup",
       "expected": "A bare compatible Python can create the app environment and install the reviewed runtime lock without global pypdf.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-026",
@@ -324,8 +327,11 @@
       "key": "healthy_noop",
       "expected": "A healthy existing environment validates without replacement or unnecessary package downloads.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-027",
@@ -333,8 +339,11 @@
       "key": "broken_environment",
       "expected": "A broken/unapproved existing environment is preserved by default and has an actionable explicit repair route.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-028",
@@ -342,8 +351,11 @@
       "key": "repair_rollback",
       "expected": "Explicit repair preserves/restores the original environment on failure; unrelated files are not removed.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-029",
@@ -351,8 +363,11 @@
       "key": "nonrelocatable_venv",
       "expected": "Setup does not promote a relocated completed venv; the final environment works from its actual final path.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-030",
@@ -360,8 +375,11 @@
       "key": "locked_install",
       "expected": "Online/offline installs enforce reviewed hashes/binary packages; a hash mismatch or absent wheel fails without unsafe fallback.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-031",
@@ -369,8 +387,11 @@
       "key": "check_readonly",
       "expected": "Check mode and normal processing never install, create environments or change global packages/PATH/policy.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-032",
@@ -378,8 +399,11 @@
       "key": "setup_concurrency",
       "expected": "Two setups, interruption, locked files and unwritable/reparse paths are handled without deleting user-owned content.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-033",
@@ -387,8 +411,11 @@
       "key": "unattended_setup",
       "expected": "NonInteractive never prompts; missing prerequisites return precise errors. No Python/Calibre auto-install or elevation is hidden in setup.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-AC-034",

@@ -130,8 +130,11 @@
         "V101-AC-032",
         "V101-AC-033"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-05-setup.md",
+        "evidence/V101-05-setup.json"
+      ]
     },
     {
       "id": "V101-06",
@@ -152,7 +155,7 @@
         "V101-AC-037",
         "V101-AC-038"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

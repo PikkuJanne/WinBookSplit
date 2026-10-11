@@ -141,11 +141,12 @@ class ReleasePackageTests(unittest.TestCase):
                               timeout=90, check=False, cwd=self.work)
 
     def test_payload_members_and_independent_git_blob_hashes_are_exact(self):
-        self.assertEqual(len(PAYLOAD_PATHS), 31)
+        self.assertEqual(len(PAYLOAD_PATHS), 33)
         self.assertTrue({"engine/WinBookSplit.Compatibility.ps1",
                          "engine/WinBookSplit.Compatibility.json",
                          "engine/winbooksplit_compatibility.py",
-                         "WinBookSplit.ico"}.issubset(PAYLOAD_PATHS))
+                         "WinBookSplit.ico", "Setup-WinBookSplit.ps1",
+                         "engine/WinBookSplit.Setup.ps1"}.issubset(PAYLOAD_PATHS))
         self.assertNotIn("WinBookSplit_icon.ico", PAYLOAD_PATHS)
         with zipfile.ZipFile(self.archive) as archive:
             self.assertEqual(archive.namelist(), list(PAYLOAD_PATHS))

@@ -15,10 +15,11 @@ import sys
 
 
 RUNTIME_PATHS = (
-    "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1", "requirements.txt",
+    "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1",
+    "Setup-WinBookSplit.ps1", "requirements.txt",
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Paths.ps1",
-    "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1",
+    "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1", "engine/WinBookSplit.Setup.ps1",
     "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py",
     "engine/winbooksplit_compatibility.py",
@@ -267,6 +268,14 @@ def validate_inputs(repo: Path, commit: str) -> dict:
                 if "[IO.Directory]::GetParent($PSScriptRoot).FullName" not in text or "[IO.Path]::Combine($Root, 'VERSION')" not in text:
                     raise InputError("unresolved_runtime_dependency", path)
                 needed.add("VERSION")
+            if path == "Setup-WinBookSplit.ps1" and "Invoke-WinBookSplitSetup -ApplicationRoot $PSScriptRoot" not in text:
+                raise InputError("unresolved_runtime_dependency", path)
+            if path == "engine/WinBookSplit.Setup.ps1":
+                if "$root=Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory" not in text or \
+                        "[IO.Path]::Combine($ApplicationRoot,'requirements.txt')" not in text or \
+                        "Get-WinBookSplitSetupPackageSource -ApplicationRoot $root -Policy $policy" not in text:
+                    raise InputError("unresolved_runtime_dependency", path)
+                needed.add("requirements.txt")
             dependencies[path] = sorted(needed)
     bat = _text(blobs["WinBookSplit.bat"], "WinBookSplit.bat")
     references = re.findall(r"%~dp0([^\"\r\n]+)", bat, re.IGNORECASE)

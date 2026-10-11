@@ -153,11 +153,23 @@ $records=@(foreach ($package in $packages) {
 }
 
 function Add-WinBookSplitPythonDiscoveryCandidate {
-    param([string]$Path, [string]$Source, [string]$ApplicationRoot, [string]$DocumentPath, $Candidates, $Seen, $Attempts)
+    param([string]$Path, [string]$Source, [string]$ApplicationRoot, [string]$DocumentPath, $Candidates, $Seen, $Attempts,
+        [string[]]$ExcludedDirectories = @(), [string[]]$ExcludedDirectoryPrefixes = @())
     try {
         if (-not (Test-WinBookSplitAutomaticPath $Path $ApplicationRoot $DocumentPath)) { throw 'Document-directory or unrelated-CWD candidate excluded.' }
         $path = Get-WinBookSplitTrustedPath -Path $Path -Automatic
         $path = ([WinBookSplit.Preflight.Probe]::Canonical($path)).Path
+        foreach ($directory in $ExcludedDirectories) {
+            $excluded = [IO.Path]::GetFullPath($directory).TrimEnd('\')
+            if ($path.Equals($excluded, [StringComparison]::OrdinalIgnoreCase) -or $path.StartsWith($excluded + '\', [StringComparison]::OrdinalIgnoreCase)) {
+                throw 'Application environment excluded from setup base-interpreter discovery.'
+            }
+        }
+        foreach ($prefix in $ExcludedDirectoryPrefixes) {
+            if ($path.StartsWith([IO.Path]::GetFullPath($prefix), [StringComparison]::OrdinalIgnoreCase)) {
+                throw 'Preserved setup artifact excluded from base-interpreter discovery.'
+            }
+        }
         if (-not (Test-WinBookSplitAutomaticPath $path $ApplicationRoot $DocumentPath)) { throw 'Canonical candidate is in an excluded document or current directory.' }
         if ($Seen.Contains($path)) { return }
         if ($Candidates.Count -ge 32) { throw 'Automatic discovery exceeds the 32-interpreter limit.' }
@@ -201,7 +213,7 @@ function Get-WinBookSplitDiscoveryTimeout {
 
 function Resolve-WinBookSplitAutomaticPython {
     param([string]$ApplicationRoot, [string]$DocumentPath, $Attempts, $Policy,
-        [double]$TimeoutSeconds = 10, [switch]$InterpreterOnly)
+        [double]$TimeoutSeconds = 10, [switch]$InterpreterOnly, [string[]]$ExcludedDirectories = @(), [string[]]$ExcludedDirectoryPrefixes = @())
     $clock = [Diagnostics.Stopwatch]::StartNew()
     $candidates = New-Object 'Collections.Generic.List[object]'
     $accepted = New-Object 'Collections.Generic.List[object]'
@@ -210,7 +222,7 @@ function Resolve-WinBookSplitAutomaticPython {
     # failure cannot consume its opportunity. Selection waits for all candidates.
     $direct = [string[]]@(Get-WinBookSplitPathCandidates 'python.exe' $ApplicationRoot $DocumentPath $Attempts)
     [Array]::Sort($direct, [StringComparer]::Ordinal)
-    foreach ($path in $direct) { Add-WinBookSplitPythonDiscoveryCandidate $path 'PATH' $ApplicationRoot $DocumentPath $candidates $seen $Attempts }
+    foreach ($path in $direct) { Add-WinBookSplitPythonDiscoveryCandidate $path 'PATH' $ApplicationRoot $DocumentPath $candidates $seen $Attempts -ExcludedDirectories $ExcludedDirectories -ExcludedDirectoryPrefixes $ExcludedDirectoryPrefixes }
     foreach ($candidate in $candidates) {
         $timeout = Get-WinBookSplitDiscoveryTimeout $clock $TimeoutSeconds
         $result = Test-WinBookSplitPythonCandidate $candidate.Path $candidate.Source $ApplicationRoot $Attempts $timeout -InterpreterOnly:$InterpreterOnly
@@ -250,7 +262,7 @@ function Resolve-WinBookSplitAutomaticPython {
             [Array]::Sort($paths, [StringComparer]::Ordinal)
             $Attempts.Add([pscustomobject]@{Path=$path;Source=$query.Source;Accepted=$true;Message='Read-only installed-runtime listing; no runtime launch/install requested.';Probe=$probe})
             $source = 'py_launcher'; if ($query.Source -eq 'manager_listing') { $source = 'manager' }
-            foreach ($candidate in $paths) { Add-WinBookSplitPythonDiscoveryCandidate $candidate $source $ApplicationRoot $DocumentPath $candidates $seen $Attempts }
+            foreach ($candidate in $paths) { Add-WinBookSplitPythonDiscoveryCandidate $candidate $source $ApplicationRoot $DocumentPath $candidates $seen $Attempts -ExcludedDirectories $ExcludedDirectories -ExcludedDirectoryPrefixes $ExcludedDirectoryPrefixes }
         } catch {
             if (Test-WinBookSplitInterruption $_.Exception) { throw }
             $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Accepted=$false;Message=$_.Exception.Message;Probe=$probe})
