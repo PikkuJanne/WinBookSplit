@@ -1,0 +1,750 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.1",
+  "cases": [
+    {
+      "id": "V101-AC-001",
+      "task": "V101-01",
+      "key": "baseline_identity",
+      "expected": "Local origin/push target, live main, release and tag identities are recorded; no reset to bundled commit.",
+      "verification_kind": "AUTOMATED",
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-AC-002",
+      "task": "V101-01",
+      "key": "preserve_existing",
+      "expected": "Unrelated work, existing artwork and all v1.0.0 release/tag/assets remain unchanged.",
+      "verification_kind": "AUTOMATED",
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-AC-003",
+      "task": "V101-01",
+      "key": "scope_routing",
+      "expected": "Active AGENTS guidance routes to v1.0.1 and replaces conflicting exact-runtime/manual gates without removing safety rules.",
+      "verification_kind": "CODE_OR_SOURCE_REVIEW",
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-AC-004",
+      "task": "V101-01",
+      "key": "reproduce_report",
+      "expected": "Regression reproduces 3.14.2 versus exact 3.14.8 rejection and failed -0p followed by PATH discovery; pypdf state remains unknown before import.",
+      "verification_kind": "AUTOMATED",
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-AC-005",
+      "task": "V101-01",
+      "key": "native_access",
+      "expected": "Authorized Windows 10 automation availability is recorded; absent access creates one kit plan, not an invented pass.",
+      "verification_kind": "CODE_OR_SOURCE_REVIEW",
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-AC-006",
+      "task": "V101-02",
+      "key": "branch_decision",
+      "expected": "All four candidate branches evaluated with concrete inclusion/exclusion reasons; security and Windows binary availability reviewed.",
+      "verification_kind": "CODE_OR_SOURCE_REVIEW",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-007",
+      "task": "V101-02",
+      "key": "shared_policy",
+      "expected": "One validated policy design is used across setup/probe/PowerShell validation/tests/docs; exact build pins are separate.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-008",
+      "task": "V101-02",
+      "key": "patch_updates",
+      "expected": "Later stable maintenance versions inside approved branches are accepted without exact equality or a live online check.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-009",
+      "task": "V101-02",
+      "key": "security_floors",
+      "expected": "Each hard floor/exclusion has applicable evidence; recommended latest patch is not silently used as an equality/minimum rule.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-010",
+      "task": "V101-02",
+      "key": "scope_bounds",
+      "expected": "Only tested regular stable x64 CPython branches are advertised; 32-bit, ARM, free-threaded and future untested minors are excluded clearly.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-011",
+      "task": "V101-03",
+      "key": "numeric_versions",
+      "expected": "Numeric tests cover patch 8, 9 and 10, below/at floor and later stable patches; synthetic future versions are not claimed installed.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-012",
+      "task": "V101-03",
+      "key": "dual_layer_parity",
+      "expected": "PowerShell and Python reach the same policy decision; one layer cannot retain the old exact check or trust ok blindly.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-013",
+      "task": "V101-03",
+      "key": "policy_errors",
+      "expected": "Malformed/missing policy, wrong types/booleans and unsupported schema fail clearly without broad fallback.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-014",
+      "task": "V101-03",
+      "key": "trust_retained",
+      "expected": "Isolated flags, actual executable identity, architecture/GIL checks and package import/distribution origin remain enforced.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-015",
+      "task": "V101-03",
+      "key": "setup_probe",
+      "expected": "A compatible bare interpreter with no pypdf can pass interpreter-only setup probing; processing correctly rejects missing pypdf.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-016",
+      "task": "V101-03",
+      "key": "reported_version",
+      "expected": "3.14.2 gets the documented policy/security decision rather than an exact 3.14.8 equality rejection; no unsupported promise of safety.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-017",
+      "task": "V101-04",
+      "key": "legacy_listing",
+      "expected": "Legacy installed-only launcher listing works and parses concrete executable paths safely.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-018",
+      "task": "V101-04",
+      "key": "manager_listing",
+      "expected": "Installed Python manager listing is handled through a verified read-only route, without runtime install triggers.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-019",
+      "task": "V101-04",
+      "key": "unknown_option",
+      "expected": "Unknown option -0 does not prevent a subsequent trusted PATH interpreter from succeeding.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-020",
+      "task": "V101-04",
+      "key": "launcher_absent",
+      "expected": "No launcher plus a valid direct interpreter works; empty/malformed listings are bounded failures rather than hangs.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-021",
+      "task": "V101-04",
+      "key": "explicit_authority",
+      "expected": "Invalid explicit Python or broken existing .venv fails without silently switching runtimes.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-022",
+      "task": "V101-04",
+      "key": "decoys",
+      "expected": "Document/CWD decoys, import shadowing and unsafe executable aliases remain excluded; valid unrelated-CWD launch still works.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-023",
+      "task": "V101-04",
+      "key": "discovery_readonly",
+      "expected": "Discovery never launches an installer, changes global settings, queries online runtime lists or hangs indefinitely.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-024",
+      "task": "V101-04",
+      "key": "selection_order",
+      "expected": "Multiple valid candidates are deduplicated and selected deterministically; diagnostics identify the actual choice.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-025",
+      "task": "V101-05",
+      "key": "fresh_setup",
+      "expected": "A bare compatible Python can create the app environment and install the reviewed runtime lock without global pypdf.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-026",
+      "task": "V101-05",
+      "key": "healthy_noop",
+      "expected": "A healthy existing environment validates without replacement or unnecessary package downloads.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-027",
+      "task": "V101-05",
+      "key": "broken_environment",
+      "expected": "A broken/unapproved existing environment is preserved by default and has an actionable explicit repair route.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-028",
+      "task": "V101-05",
+      "key": "repair_rollback",
+      "expected": "Explicit repair preserves/restores the original environment on failure; unrelated files are not removed.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-029",
+      "task": "V101-05",
+      "key": "nonrelocatable_venv",
+      "expected": "Setup does not promote a relocated completed venv; the final environment works from its actual final path.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-030",
+      "task": "V101-05",
+      "key": "locked_install",
+      "expected": "Online/offline installs enforce reviewed hashes/binary packages; a hash mismatch or absent wheel fails without unsafe fallback.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-031",
+      "task": "V101-05",
+      "key": "check_readonly",
+      "expected": "Check mode and normal processing never install, create environments or change global packages/PATH/policy.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-032",
+      "task": "V101-05",
+      "key": "setup_concurrency",
+      "expected": "Two setups, interruption, locked files and unwritable/reparse paths are handled without deleting user-owned content.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-033",
+      "task": "V101-05",
+      "key": "unattended_setup",
+      "expected": "NonInteractive never prompts; missing prerequisites return precise errors. No Python/Calibre auto-install or elevation is hidden in setup.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-034",
+      "task": "V101-06",
+      "key": "ps51_baseline",
+      "expected": "BAT still runs through Windows PowerShell 5.1 and setup/app parse under the real target host.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-035",
+      "task": "V101-06",
+      "key": "native_api_audit",
+      "expected": "Any Windows-11-only API/assumption is replaced narrowly, with equivalent safety and actual tests.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-036",
+      "task": "V101-06",
+      "key": "os_detection",
+      "expected": "Native evidence uses caption/build/ProductType/architecture, not only ProductName or version 10.0.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-037",
+      "task": "V101-06",
+      "key": "actionable_errors",
+      "expected": "Missing Python, incompatible/security-floor Python, missing pypdf and wrong-origin packages have distinct useful guidance.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-038",
+      "task": "V101-06",
+      "key": "version_no_runtime",
+      "expected": "Version/help queries work without Python/pypdf/Calibre and no new runtime check breaks them.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-039",
+      "task": "V101-07",
+      "key": "real_minor_matrix",
+      "expected": "Every advertised Python minor runs actual application tests; at least two pass. Mocked versions are separate policy tests.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-040",
+      "task": "V101-07",
+      "key": "reference_regression",
+      "expected": "Existing full Python and PS5.1/PS7 reference regression passes with no unexplained removal of safety tests.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-041",
+      "task": "V101-07",
+      "key": "dev_separation",
+      "expected": "Reference developer wheels/tool pins do not recreate an application exact-Python requirement or get installed into runtime-only environments.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-042",
+      "task": "V101-07",
+      "key": "fixtures_reuse",
+      "expected": "Synthetic/redistributable fixtures cover page boundaries, metadata policy and conversion; no personal documents enter tests.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-043",
+      "task": "V101-07",
+      "key": "maintenance_policy_tests",
+      "expected": "Data-driven tests cover both later patches and blocked/security floor cases without claiming all were actually installed.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-044",
+      "task": "V101-08",
+      "key": "kit_integrity",
+      "expected": "Harness verifies ZIP/hash/manifest before safe fresh extraction; no zip traversal, duplicate paths or preexisting target overwrite.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-045",
+      "task": "V101-08",
+      "key": "real_host_report",
+      "expected": "Report records real OS/ProductType/build, tool versions, code/policy/harness identities and actual exit results.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-046",
+      "task": "V101-08",
+      "key": "automated_smoke",
+      "expected": "The prepared kit automates BAT/CLI/setup/manual/bookmark/Unicode/non-overwrite/error/cancellation checks using synthetic fixtures.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-047",
+      "task": "V101-08",
+      "key": "native_ebook_kit",
+      "expected": "Kit includes genuine self-authored EPUB and AZW3/KF8 conversion validation without private input or manual PDF counting.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-048",
+      "task": "V101-08",
+      "key": "single_result",
+      "expected": "User-launched kit produces one redacted result bundle; raw personal paths remain local and every planned test has an outcome.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-049",
+      "task": "V101-08",
+      "key": "minimal_manual",
+      "expected": "No repeated owner guide or screenshot requirement; any unavoidable changed-launcher observation is consolidated into one session.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-050",
+      "task": "V101-09",
+      "key": "ci_matrix",
+      "expected": "All advertised minors run on actual x64 interpreters in CI; source SHA and resolved patches are recorded.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-051",
+      "task": "V101-09",
+      "key": "ci_scope",
+      "expected": "Server jobs are explicitly Server evidence and do not stand in for native Windows 10/11.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-052",
+      "task": "V101-09",
+      "key": "ci_permissions",
+      "expected": "Pinned reviewed actions and least privilege retained; no untrusted PR execution on a personal self-hosted runner.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-053",
+      "task": "V101-09",
+      "key": "ci_failure",
+      "expected": "Failed/timed-out/missing required jobs block release; green unrelated older runs or skipped suites are not used as evidence.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-054",
+      "task": "V101-10",
+      "key": "dependency_review",
+      "expected": "Current applicable Python/pypdf/Calibre advisories and approved artifact hashes reviewed; no broad untested pypdf acceptance.",
+      "verification_kind": "CODE_OR_SOURCE_REVIEW",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-055",
+      "task": "V101-10",
+      "key": "pdf_guards",
+      "expected": "Encryption/private reader hook and unsupported active document behavior remain correct under the supported runtimes.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-056",
+      "task": "V101-10",
+      "key": "core_safety",
+      "expected": "Page coverage/source preservation/non-overwrite/process-tree cleanup/Unicode regression remains passing.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-057",
+      "task": "V101-10",
+      "key": "actual_conversion",
+      "expected": "Real EPUB and genuine AZW3 inputs convert/split with expected page coverage; mocked converter success is separate.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-058",
+      "task": "V101-10",
+      "key": "pdf_without_calibre",
+      "expected": "PDF setup/processing remains usable without Calibre; converter changes are limited to proven requirements.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-059",
+      "task": "V101-11",
+      "key": "public_docs",
+      "expected": "Current docs describe actual Windows/Python ranges/floors, setup/check/repair/offline behavior and tested-versus-accepted distinction.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-060",
+      "task": "V101-11",
+      "key": "version_consistent",
+      "expected": "Banner/manifest/package name/setup metadata all agree on 1.0.1; historical v1.0.0 records are not bulk rewritten.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-061",
+      "task": "V101-11",
+      "key": "package_inputs",
+      "expected": "Allowlist includes setup/policy and required runtime files from source; no venv/dev docs/private logs accidentally ship.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-062",
+      "task": "V101-11",
+      "key": "no_frozen_equality",
+      "expected": "Scan confirms active code/docs/setup do not demand one exact Python patch; legitimate build pins/historical records remain labeled.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-063",
+      "task": "V101-11",
+      "key": "limits_disclosed",
+      "expected": "Unsigned status, Windows10 servicing caveat and remaining format/platform limits are accurate.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-064",
+      "task": "V101-12",
+      "key": "review_complete",
+      "expected": "Changed policy/discovery/setup/native handling reviewed; critical/security/correctness blockers resolved with actual test evidence.",
+      "verification_kind": "CODE_OR_SOURCE_REVIEW",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-065",
+      "task": "V101-12",
+      "key": "integrated_R",
+      "expected": "R is a reviewed integrated commit reachable from main with passing required checks, not a stale unmerged branch.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-066",
+      "task": "V101-12",
+      "key": "source_package_identity",
+      "expected": "ZIP/manifest/checksums and member allowlist are audited against R; no uncommitted bytes or manual ZIP edits.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-067",
+      "task": "V101-12",
+      "key": "release_freeze",
+      "expected": "Exact source R and asset hashes fixed before final native runs; comparison of different build-toolchains is not required.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-068",
+      "task": "V101-13",
+      "key": "native_win10",
+      "expected": "Genuine Windows10 22H2 workstation/VM automated smoke and setup succeed on the exact frozen ZIP; no server/mock substitution.",
+      "verification_kind": "NATIVE_AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-069",
+      "task": "V101-13",
+      "key": "native_win11",
+      "expected": "Genuine Windows11 final-ZIP smoke, PS5.1 and supported PS7 path succeed with actual environment recorded.",
+      "verification_kind": "NATIVE_AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-070",
+      "task": "V101-13",
+      "key": "native_ebooks",
+      "expected": "Real EPUB/AZW3 conversion and split/source/output validation are evidenced on both OS families.",
+      "verification_kind": "NATIVE_AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-071",
+      "task": "V101-13",
+      "key": "identity_and_limits",
+      "expected": "All final native results refer to accepted ZIP/R, and minimal-human/unchanged-Explorer testing limits are truthful.",
+      "verification_kind": "AUTOMATED",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-072",
+      "task": "V101-14",
+      "key": "prepublish_gates",
+      "expected": "Actual tests/security review/CI/native evidence and exact accepted artifacts are complete; no NOT_RUN result becomes PASS.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-073",
+      "task": "V101-14",
+      "key": "fixed_tag",
+      "expected": "Local and live peeled v1.0.1 tag equal R; tag and existing v1.0.0 are not moved or replaced.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-074",
+      "task": "V101-14",
+      "key": "public_publication",
+      "expected": "v1.0.1 is published non-draft/non-prerelease with exact expected assets and truthful tested-scope notes.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-075",
+      "task": "V101-15",
+      "key": "anonymous_metadata",
+      "expected": "Anonymous metadata identifies public non-draft non-prerelease v1.0.1 and required assets.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-076",
+      "task": "V101-15",
+      "key": "anonymous_assets",
+      "expected": "Anonymous ZIP/manifest/checksum downloads match all accepted hashes and expected sizes/content.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-077",
+      "task": "V101-15",
+      "key": "public_zip_smoke",
+      "expected": "Extracted verified public ZIP runs an automated smoke and matches native-tested ZIP identity.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-078",
+      "task": "V101-15",
+      "key": "old_release_intact",
+      "expected": "v1.0.0 public tag/assets and source remain unchanged compared with the starting snapshot.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-079",
+      "task": "V101-16",
+      "key": "closure_audit",
+      "expected": "Post-R closure changes are non-shipped evidence only; release source/tag remain R.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-080",
+      "task": "V101-16",
+      "key": "final_sync",
+      "expected": "Clean local main equals a fresh live remote main at closure C; no cached-ref or failed-push success.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    },
+    {
+      "id": "V101-AC-081",
+      "task": "V101-16",
+      "key": "done_evidence",
+      "expected": "Final status has public URL/R/artifact hashes/actual coverage/limits and truthful task completion; project is not marked done at a tag/draft.",
+      "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
+      "status": "NOT_RUN",
+      "evidence": []
+    }
+  ]
+}

@@ -1,0 +1,361 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.1",
+  "tasks": [
+    {
+      "id": "V101-01",
+      "milestone": "M0",
+      "title": "Reconcile live baseline and activate the patch scope",
+      "depends_on": [],
+      "brief": "tasks/V101-01.md",
+      "read": [
+        "BASELINE.md",
+        "AGENTS_UPDATE.md",
+        "SCOPE.md",
+        "GITHUB_SYNC.md"
+      ],
+      "acceptance": [
+        "V101-AC-001",
+        "V101-AC-002",
+        "V101-AC-003",
+        "V101-AC-004",
+        "V101-AC-005"
+      ],
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-01-baseline.md",
+        "evidence/V101-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V101-02",
+      "milestone": "M0",
+      "title": "Decide the shared compatibility and security policy",
+      "depends_on": [
+        "V101-01"
+      ],
+      "brief": "tasks/V101-02.md",
+      "read": [
+        "specs/RUNTIME_POLICY.md",
+        "SCOPE.md",
+        "SOURCES.md"
+      ],
+      "acceptance": [
+        "V101-AC-006",
+        "V101-AC-007",
+        "V101-AC-008",
+        "V101-AC-009",
+        "V101-AC-010"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-03",
+      "milestone": "M1",
+      "title": "Implement policy-driven runtime validation at every entry point",
+      "depends_on": [
+        "V101-02"
+      ],
+      "brief": "tasks/V101-03.md",
+      "read": [
+        "specs/RUNTIME_POLICY.md"
+      ],
+      "acceptance": [
+        "V101-AC-011",
+        "V101-AC-012",
+        "V101-AC-013",
+        "V101-AC-014",
+        "V101-AC-015",
+        "V101-AC-016"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-04",
+      "milestone": "M1",
+      "title": "Harden launcher discovery and independent fallback",
+      "depends_on": [
+        "V101-03"
+      ],
+      "brief": "tasks/V101-04.md",
+      "read": [
+        "specs/DISCOVERY_AND_SETUP.md"
+      ],
+      "acceptance": [
+        "V101-AC-017",
+        "V101-AC-018",
+        "V101-AC-019",
+        "V101-AC-020",
+        "V101-AC-021",
+        "V101-AC-022",
+        "V101-AC-023",
+        "V101-AC-024"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-05",
+      "milestone": "M2",
+      "title": "Add explicit safe application-local setup",
+      "depends_on": [
+        "V101-04"
+      ],
+      "brief": "tasks/V101-05.md",
+      "read": [
+        "specs/DISCOVERY_AND_SETUP.md"
+      ],
+      "acceptance": [
+        "V101-AC-025",
+        "V101-AC-026",
+        "V101-AC-027",
+        "V101-AC-028",
+        "V101-AC-029",
+        "V101-AC-030",
+        "V101-AC-031",
+        "V101-AC-032",
+        "V101-AC-033"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-06",
+      "milestone": "M2",
+      "title": "Audit Windows 10 paths and simplify dependency diagnostics",
+      "depends_on": [
+        "V101-05"
+      ],
+      "brief": "tasks/V101-06.md",
+      "read": [
+        "specs/WINDOWS_COMPATIBILITY.md",
+        "specs/RUNTIME_POLICY.md"
+      ],
+      "acceptance": [
+        "V101-AC-034",
+        "V101-AC-035",
+        "V101-AC-036",
+        "V101-AC-037",
+        "V101-AC-038"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-07",
+      "milestone": "M3",
+      "title": "Extend automated tests and decouple developer tooling",
+      "depends_on": [
+        "V101-06"
+      ],
+      "brief": "tasks/V101-07.md",
+      "read": [
+        "TESTING.md",
+        "specs/RUNTIME_POLICY.md"
+      ],
+      "acceptance": [
+        "V101-AC-039",
+        "V101-AC-040",
+        "V101-AC-041",
+        "V101-AC-042",
+        "V101-AC-043"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-08",
+      "milestone": "M3",
+      "title": "Build and verify the one-command native acceptance kit",
+      "depends_on": [
+        "V101-07"
+      ],
+      "brief": "tasks/V101-08.md",
+      "read": [
+        "TESTING.md",
+        "HUMAN_TESTING.md"
+      ],
+      "acceptance": [
+        "V101-AC-044",
+        "V101-AC-045",
+        "V101-AC-046",
+        "V101-AC-047",
+        "V101-AC-048",
+        "V101-AC-049"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-09",
+      "milestone": "M3",
+      "title": "Add the bounded Windows CI runtime matrix",
+      "depends_on": [
+        "V101-07"
+      ],
+      "brief": "tasks/V101-09.md",
+      "read": [
+        "TESTING.md",
+        "GITHUB_SYNC.md"
+      ],
+      "acceptance": [
+        "V101-AC-050",
+        "V101-AC-051",
+        "V101-AC-052",
+        "V101-AC-053"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-10",
+      "milestone": "M3",
+      "title": "Verify pypdf, conversion and security regressions",
+      "depends_on": [
+        "V101-08",
+        "V101-09"
+      ],
+      "brief": "tasks/V101-10.md",
+      "read": [
+        "specs/RUNTIME_POLICY.md",
+        "TESTING.md",
+        "SOURCES.md"
+      ],
+      "acceptance": [
+        "V101-AC-054",
+        "V101-AC-055",
+        "V101-AC-056",
+        "V101-AC-057",
+        "V101-AC-058"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-11",
+      "milestone": "M4",
+      "title": "Update public documentation, version and release payload",
+      "depends_on": [
+        "V101-10"
+      ],
+      "brief": "tasks/V101-11.md",
+      "read": [
+        "RELEASE_RUNBOOK.md",
+        "specs/DISCOVERY_AND_SETUP.md"
+      ],
+      "acceptance": [
+        "V101-AC-059",
+        "V101-AC-060",
+        "V101-AC-061",
+        "V101-AC-062",
+        "V101-AC-063"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-12",
+      "milestone": "M4",
+      "title": "Review, integrate and freeze the release source",
+      "depends_on": [
+        "V101-11"
+      ],
+      "brief": "tasks/V101-12.md",
+      "read": [
+        "RELEASE_RUNBOOK.md",
+        "GITHUB_SYNC.md"
+      ],
+      "acceptance": [
+        "V101-AC-064",
+        "V101-AC-065",
+        "V101-AC-066",
+        "V101-AC-067"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-13",
+      "milestone": "M4",
+      "title": "Run exact-package native Windows acceptance",
+      "depends_on": [
+        "V101-12"
+      ],
+      "brief": "tasks/V101-13.md",
+      "read": [
+        "HUMAN_TESTING.md",
+        "TESTING.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V101-AC-068",
+        "V101-AC-069",
+        "V101-AC-070",
+        "V101-AC-071"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-14",
+      "milestone": "M5",
+      "title": "Publish the accepted v1.0.1 release",
+      "depends_on": [
+        "V101-13"
+      ],
+      "brief": "tasks/V101-14.md",
+      "read": [
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V101-AC-072",
+        "V101-AC-073",
+        "V101-AC-074"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-15",
+      "milestone": "M5",
+      "title": "Verify anonymous public downloads and old-release preservation",
+      "depends_on": [
+        "V101-14"
+      ],
+      "brief": "tasks/V101-15.md",
+      "read": [
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V101-AC-075",
+        "V101-AC-076",
+        "V101-AC-077",
+        "V101-AC-078"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    },
+    {
+      "id": "V101-16",
+      "milestone": "M5",
+      "title": "Close evidence and synchronize final main",
+      "depends_on": [
+        "V101-15"
+      ],
+      "brief": "tasks/V101-16.md",
+      "read": [
+        "GITHUB_SYNC.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V101-AC-079",
+        "V101-AC-080",
+        "V101-AC-081"
+      ],
+      "status": "NOT_STARTED",
+      "evidence": []
+    }
+  ]
+}

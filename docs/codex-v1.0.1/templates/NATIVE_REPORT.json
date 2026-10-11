@@ -1,0 +1,30 @@
+{
+  "schema_version": 1,
+  "status": "NOT_RUN",
+  "execution_kind": "NATIVE_AUTOMATED",
+  "launch_mode": null,
+  "observed_at": null,
+  "source_R": null,
+  "zip_sha256": null,
+  "policy_sha256": null,
+  "harness_sha256": null,
+  "os": {
+    "caption": null,
+    "build": null,
+    "product_type": null,
+    "architecture": null
+  },
+  "tools": {
+    "powershell": null,
+    "dotnet": null,
+    "python": null,
+    "pypdf": null,
+    "calibre": null
+  },
+  "environment_scope": "Fresh application extraction/isolated dependencies; not a claim of a clean OS install.",
+  "cases": [],
+  "source_unchanged": null,
+  "output_coverage_verified": null,
+  "raw_report_local": true,
+  "redaction_reviewed": false
+}

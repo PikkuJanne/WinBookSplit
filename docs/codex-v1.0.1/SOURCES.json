@@ -1,0 +1,145 @@
+{
+  "observed_date": "2026-10-11",
+  "sources": [
+    {
+      "id": "R1",
+      "title": "Observed main",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches/main",
+      "access": "GitHub connector",
+      "relevance": "main be1fa1e…; current artwork must be preserved"
+    },
+    {
+      "id": "R2",
+      "title": "Observed published releases",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases",
+      "access": "GitHub connector",
+      "relevance": "v1.0.0 published; fixed source and asset hashes; no v1.0.1 in observed list"
+    },
+    {
+      "id": "R3",
+      "title": "Root working agreement",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/AGENTS.md",
+      "access": "GitHub connector",
+      "relevance": "Old v1.0.0 routing and delegated scope"
+    },
+    {
+      "id": "R4",
+      "title": "Runtime preflight",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/engine/WinBookSplit.Runtime.ps1",
+      "access": "GitHub connector/current conversation code review",
+      "relevance": "Exact Python checks at both layers, discovery and converter pin"
+    },
+    {
+      "id": "R5",
+      "title": "Current README",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/README.md",
+      "access": "GitHub connector/current conversation code review",
+      "relevance": "Narrow current support matrix"
+    },
+    {
+      "id": "R6",
+      "title": "PDF reader guard",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/engine/winbooksplit_conversion.py",
+      "access": "GitHub connector/current conversation code review",
+      "relevance": "Private encryption hook and reader keyword dependency"
+    },
+    {
+      "id": "R7",
+      "title": "Current CI",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/.github/workflows/windows-ci.yml",
+      "access": "GitHub connector",
+      "relevance": "Single Python pin and Windows Server automation"
+    },
+    {
+      "id": "R8",
+      "title": "Existing test harness",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62/tests/run_tests.py",
+      "access": "GitHub connector",
+      "relevance": "Reuse regression/evidence machinery"
+    },
+    {
+      "id": "R9",
+      "title": "Existing release tool directory",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/contents/tools/release?ref=be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
+      "access": "GitHub connector",
+      "relevance": "Build_package.py and payload.json discovered"
+    },
+    {
+      "id": "S1",
+      "title": "Python Windows documentation",
+      "url": "https://docs.python.org/3.14/using/windows.html",
+      "access": "web",
+      "relevance": "Legacy -0p remains supported; manager listing exists; avoid automatic runtime installation"
+    },
+    {
+      "id": "S2",
+      "title": "Python 3.14.8 release",
+      "url": "https://www.python.org/downloads/release/python-3148/",
+      "access": "web",
+      "relevance": "Security maintenance release; examine relevant fixes before setting lower floors"
+    },
+    {
+      "id": "S3",
+      "title": "pypdf 6.20.0 metadata",
+      "url": "https://pypi.org/project/pypdf/6.20.0/",
+      "access": "web",
+      "relevance": "Python >=3.9 metadata is not proof of application compatibility"
+    },
+    {
+      "id": "S4",
+      "title": "GitHub hosted runners",
+      "url": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners",
+      "access": "web",
+      "relevance": "Standard x64 Windows CI is not Windows 10 desktop evidence"
+    },
+    {
+      "id": "S5",
+      "title": "Python branch status",
+      "url": "https://devguide.python.org/versions/",
+      "access": "web",
+      "relevance": "Recheck lifecycle and Windows binary availability at execution"
+    },
+    {
+      "id": "S6",
+      "title": "Virtual environments",
+      "url": "https://docs.python.org/3/library/venv.html",
+      "access": "web",
+      "relevance": "Environment isolation; environments are not generally relocatable"
+    },
+    {
+      "id": "S7",
+      "title": "Calibre Windows download",
+      "url": "https://calibre-ebook.com/download_windows",
+      "access": "web",
+      "relevance": "Upstream Windows support is a prerequisite, not application acceptance"
+    },
+    {
+      "id": "S8",
+      "title": "pip secure installs",
+      "url": "https://pip.pypa.io/en/stable/topics/secure-installs/",
+      "access": "web",
+      "relevance": "Hash-required locked installs need exact permitted artifacts"
+    },
+    {
+      "id": "S9",
+      "title": "Windows 10 lifecycle",
+      "url": "https://learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro",
+      "access": "web",
+      "relevance": "Compatibility does not extend Microsoft security servicing"
+    },
+    {
+      "id": "S10",
+      "title": "GitHub CLI release creation",
+      "url": "https://cli.github.com/manual/gh_release_create",
+      "access": "web",
+      "relevance": "Draft creation and explicit tag verification"
+    },
+    {
+      "id": "S11",
+      "title": "GitHub CLI release editing",
+      "url": "https://cli.github.com/manual/gh_release_edit",
+      "access": "web",
+      "relevance": "Publish draft using explicit flags"
+    }
+  ]
+}

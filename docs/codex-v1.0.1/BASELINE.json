@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "observed_date": "2026-10-11",
+  "repository": "PikkuJanne/WinBookSplit",
+  "main_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
+  "main_commit_message": "Icon and poster",
+  "public_release": {
+    "tag": "v1.0.0",
+    "source": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "published_at": "2026-10-11T08:02:26Z",
+    "zip_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+  },
+  "v1_0_1_in_observed_release_list": false,
+  "target_release": "v1.0.1",
+  "reset_target": false,
+  "reported_failure": {
+    "os": "Windows 10 (exact build not established by supplied log)",
+    "python": "3.14.2",
+    "launcher_listing": "-0p produced Unknown option: -0",
+    "runtime_rejection": "Expected CPython 3.14.8 exactly",
+    "pypdf_on_reported_machine": "UNKNOWN; probe stopped before import"
+  },
+  "checks_during_bundle_assembly": "Repository/API reads and handoff-helper validation only; no Windows/application execution or writes."
+}

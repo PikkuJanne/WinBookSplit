@@ -1,0 +1,176 @@
+{
+  "schema_version": 1,
+  "purpose": "Synthetic data-driven policy tests, not the final security policy or evidence of installed versions.",
+  "fixture_policy": {
+    "branches": {
+      "3.13": {
+        "minimum_patch": 5
+      },
+      "3.14": {
+        "minimum_patch": 8
+      }
+    },
+    "stable_only": true,
+    "implementation": "cpython",
+    "bits": 64,
+    "machine": "AMD64",
+    "gil_disabled": false
+  },
+  "cases": [
+    {
+      "id": "POL-01",
+      "version": [
+        3,
+        13,
+        5
+      ],
+      "releaselevel": "final",
+      "expected": "ACCEPT"
+    },
+    {
+      "id": "POL-02",
+      "version": [
+        3,
+        13,
+        4
+      ],
+      "releaselevel": "final",
+      "expected": "REJECT_FLOOR"
+    },
+    {
+      "id": "POL-03",
+      "version": [
+        3,
+        13,
+        6
+      ],
+      "releaselevel": "final",
+      "expected": "ACCEPT"
+    },
+    {
+      "id": "POL-04",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "releaselevel": "final",
+      "expected": "ACCEPT"
+    },
+    {
+      "id": "POL-05",
+      "version": [
+        3,
+        14,
+        9
+      ],
+      "releaselevel": "final",
+      "expected": "ACCEPT"
+    },
+    {
+      "id": "POL-06",
+      "version": [
+        3,
+        14,
+        10
+      ],
+      "releaselevel": "final",
+      "expected": "ACCEPT"
+    },
+    {
+      "id": "POL-07",
+      "version": [
+        3,
+        14,
+        2
+      ],
+      "releaselevel": "final",
+      "expected": "REJECT_FLOOR",
+      "note": "Fixture-only floor; real decision must follow reviewed policy, not this test fixture."
+    },
+    {
+      "id": "POL-08",
+      "version": [
+        3,
+        14,
+        9
+      ],
+      "releaselevel": "candidate",
+      "expected": "REJECT_PRERELEASE"
+    },
+    {
+      "id": "POL-09",
+      "version": [
+        3,
+        15,
+        0
+      ],
+      "releaselevel": "final",
+      "expected": "REJECT_MINOR"
+    },
+    {
+      "id": "POL-10",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "bits": 32,
+      "expected": "REJECT_ARCHITECTURE"
+    },
+    {
+      "id": "POL-11",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "gil_disabled": true,
+      "expected": "REJECT_FLAVOR"
+    },
+    {
+      "id": "POL-12",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "implementation": "pypy",
+      "expected": "REJECT_IMPLEMENTATION"
+    },
+    {
+      "id": "POL-13",
+      "version": [
+        3,
+        14,
+        true
+      ],
+      "expected": "REJECT_MALFORMED"
+    },
+    {
+      "id": "POL-14",
+      "version": "3.14.8junk",
+      "expected": "REJECT_MALFORMED"
+    },
+    {
+      "id": "POL-15",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "policy_schema_version": 999,
+      "expected": "REJECT_POLICY"
+    },
+    {
+      "id": "POL-16",
+      "version": [
+        3,
+        14,
+        8
+      ],
+      "machine": "ARM64",
+      "expected": "REJECT_ARCHITECTURE"
+    }
+  ]
+}
