@@ -617,8 +617,11 @@
       "key": "ci_matrix",
       "expected": "All advertised minors run on actual x64 interpreters in CI; source SHA and resolved patches are recorded.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-09-ci.md",
+        "evidence/V101-09-ci.json"
+      ]
     },
     {
       "id": "V101-AC-051",
@@ -626,8 +629,11 @@
       "key": "ci_scope",
       "expected": "Server jobs are explicitly Server evidence and do not stand in for native Windows 10/11.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-09-ci.md",
+        "evidence/V101-09-ci.json"
+      ]
     },
     {
       "id": "V101-AC-052",
@@ -635,8 +641,11 @@
       "key": "ci_permissions",
       "expected": "Pinned reviewed actions and least privilege retained; no untrusted PR execution on a personal self-hosted runner.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-09-ci.md",
+        "evidence/V101-09-ci.json"
+      ]
     },
     {
       "id": "V101-AC-053",
@@ -644,8 +653,11 @@
       "key": "ci_failure",
       "expected": "Failed/timed-out/missing required jobs block release; green unrelated older runs or skipped suites are not used as evidence.",
       "verification_kind": "AUTOMATED",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-09-ci.md",
+        "evidence/V101-09-ci.json"
+      ]
     },
     {
       "id": "V101-AC-054",

@@ -210,7 +210,7 @@
         "V101-AC-048",
         "V101-AC-049"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {
@@ -231,9 +231,10 @@
         "V101-AC-052",
         "V101-AC-053"
       ],
-      "status": "IN_PROGRESS",
+      "status": "DONE",
       "evidence": [
-        "evidence/V101-09-ci.md"
+        "evidence/V101-09-ci.md",
+        "evidence/V101-09-ci.json"
       ]
     },
     {
