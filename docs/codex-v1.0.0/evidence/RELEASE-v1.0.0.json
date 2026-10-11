@@ -1,0 +1,117 @@
+{
+  "schema_version": 1,
+  "template": false,
+  "status": "source_frozen_assets_pending",
+  "repository": "PikkuJanne/WinBookSplit",
+  "tag": "v1.0.0",
+  "release_source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+  "release_source_tree": "62da4fe06b2d07374b27743dd252aab492993c35",
+  "payload_input_manifest": {
+    "path": "evidence/M6-T01-release-source.json",
+    "record_sha256": "14a179da156bd5edc936f035055952577b7a68b282ba921862397315840971ab",
+    "field": "release_source_manifest",
+    "canonical_sha256": "fc417dfb7fbcbe3a9c17ef2338631cc323eeffd4ed35b3847a80923b9920d57d",
+    "payload_sha256": "70eaa3fcfc16e1d5a25453eab49da2f4f72cd1f7a2b000ae114bf64b1f0b5d8c",
+    "builder_inputs_sha256": "41489c5074f187f809b52f8392da852f782cc473a587065fab13291ee33ca074",
+    "files": 28,
+    "runtime_files": 16
+  },
+  "tag_resolved_commit": null,
+  "tag_verified_at": null,
+  "release_url": null,
+  "release_id": null,
+  "published_at": null,
+  "draft": null,
+  "prerelease": null,
+  "ci_evidence": [
+    {
+      "source_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "run_id": 38097123491,
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38097123491",
+      "conclusion": "success",
+      "evidence_path": "evidence/M6-T01-release-source.json",
+      "field": "actual_R_CI",
+      "archive_sha256": "d7da977ec19257a45a1129fc59b003c281c77f611b6bc02360876969346186a6",
+      "Python_passed": 514,
+      "Pester_passed_per_host": 116,
+      "skips": 0
+    }
+  ],
+  "windows_package_evidence": [],
+  "calibre_evidence": [],
+  "security_review": {
+    "path": "evidence/M5-T04-security.json",
+    "revalidation": "evidence/M6-T01-release-source.json",
+    "scope": "Recorded prerequisite scope only; scanner/developer/UNKNOWN limits retained"
+  },
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.0.zip",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    },
+    {
+      "name": "release-manifest.json",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "public_url": null,
+      "accepted_sha256": null,
+      "downloaded_sha256": null,
+      "bytes": null,
+      "anonymous_download_verified": false
+    }
+  ],
+  "downloaded_windows_smoke": null,
+  "signing_status": "unsigned_planned; disclose_actual_final_assets",
+  "closure_commit": null,
+  "release_commit_is_ancestor_of_closure": null,
+  "payload_unchanged_after_release_commit": null,
+  "last_historical_main_sync_receipt": {
+    "repository": "PikkuJanne/WinBookSplit",
+    "observed_at": "2026-10-11T00:28:02.550718+00:00",
+    "status": "SYNCED",
+    "read_only": true,
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "branch": "main",
+    "local_head": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "worktree_clean": true,
+    "remote_head": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "reason": "Clean local HEAD equals fresh live branch at observation time"
+  },
+  "final_current_sync_receipt_location": null,
+  "known_limits": [
+    "R is fixed at 73c90d10; later excluded evidence commits never become the package source or tag target.",
+    "This task freezes source inputs only. No R ZIP, final release-manifest, SHA256SUMS, tag, draft, publication or anonymous download was created.",
+    "R hosted CI is an actual previously completed run, freshly downloaded/audited here; no fresh suite invocation is claimed.",
+    "Local native full22, real Calibre and render evidence is retained from C3 with all176 relevant Git/raw bytes unchanged; pure receipt revalidation is not a fresh Windows end-to-end run.",
+    "M3 and T03 D13 accepted human routes stay closed. T03 tested older candidate bytes and pins; G04-G16 remain SUPERSEDED. M6-T03 exact final-asset acceptance is still required.",
+    "Existing Windows11 x64 workstation isolation is distinct from a clean OS, Windows10, ARM, UNC or an OS network sandbox.",
+    "Dedicated scanners and complete OS/native-stack inventory were unavailable in T04; developer-only renderer debt and applicability UNKNOWN remain disclosed, not a universal hostile-document security certification.",
+    "T04 primary dependency review dated 2026-10-10 was rehashed. No new advisory query or scanner run occurred in this task.",
+    "Historical failures, interruptions, UNKNOWN causes, missing original auditor/summary bytes, static default observations and unmapped raw newline differences remain intact.",
+    "The clean/live R receipt predates bookkeeping. The evidence checkpoint own commit/push/current sync is recorded externally only after it exists."
+  ],
+  "open_blockers": [],
+  "historical_prerequisite_evidence": {
+    "path": "evidence/M6-T01-release-source.json",
+    "field": "prerequisite_review",
+    "M0_M5_ids": 94,
+    "final_asset_acceptance": false
+  },
+  "pending_release_gates": [
+    "M6-T02 final assets/hashes/notes from R",
+    "M6-T03 exact final ZIP Windows/Calibre acceptance",
+    "M6-T04 fixed annotated tag and inspected draft",
+    "M6-T05 public release/anonymous matching downloads and downloaded-package smoke",
+    "M6-T06 durable closure and synchronized final main"
+  ]
+}

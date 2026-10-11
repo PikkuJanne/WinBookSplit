@@ -1124,7 +1124,7 @@
         "Accepted R/CI/payload manifest",
         "Release prerequisite evidence"
       ],
-      "status": "todo",
+      "status": "done",
       "depends_on": [
         "M5-T05"
       ],
@@ -1132,8 +1132,12 @@
         "AC-095",
         "AC-096"
       ],
-      "evidence_paths": [],
-      "implementation_commit": null,
+      "evidence_paths": [
+        "evidence/M6-T01-release-source.md",
+        "evidence/M6-T01-release-source.json",
+        "evidence/RELEASE-v1.0.0.json"
+      ],
+      "implementation_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
       "checkpoint_rule": "Tests/evidence + intended-file commit + normal push + clean HEAD = live GitHub branch. See GITHUB_WORKFLOW.md."
     },
     {
