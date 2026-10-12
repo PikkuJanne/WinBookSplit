@@ -1,4 +1,4 @@
-name: Diagnostic shell timing only
+name: Diagnostic unmodified shell TEMP experiment only
 
 on:
   workflow_dispatch:
@@ -6,16 +6,20 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: windows-ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
-  diagnostic-shadow-inbox:
-    name: Diagnostic shadow inbox 5.1 (no acceptance)
+  diagnostic-unmodified-temp:
+    name: Diagnostic original inbox with full Python predecessor (no acceptance)
     runs-on: windows-2025
     timeout-minutes: 30
     defaults:
       run:
         shell: pwsh
     steps:
-      - name: Checkout fixed reviewed source R
+      - name: Checkout tested source
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         env:
           GIT_CONFIG_COUNT: '1'
@@ -28,7 +32,24 @@ jobs:
           set-safe-directory: false
           fetch-depth: 0
 
-      - name: Set up exact isolated fixture driver
+      - name: Create owned report directory
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          if (Test-Path -LiteralPath $CiRoot) { throw 'CI directory already exists' }
+          $null = New-Item -ItemType Directory -Path (Join-Path $CiRoot 'reports')
+          $CiOS = Get-CimInstance Win32_OperatingSystem -ErrorAction Stop
+          $CiCommit = (& git rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiOSRecord = [ordered]@{schema_version=1;source_commit=$CiCommit;caption=[string]$CiOS.Caption;version=[string]$CiOS.Version;build=[string]$CiOS.BuildNumber;architecture=[string]$CiOS.OSArchitecture;product_type=[int]$CiOS.ProductType;process_bits=([IntPtr]::Size*8);powershell=$PSVersionTable.PSVersion.ToString();clr=[Environment]::Version.ToString();image_os=$env:ImageOS;image_version=$env:ImageVersion;run_id=$env:GITHUB_RUN_ID;run_attempt=$env:GITHUB_RUN_ATTEMPT}
+          $CiOSPath = Join-Path $CiRoot 'reports\os.json'
+          $CiStream = [IO.File]::Open($CiOSPath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)
+          try {
+            $CiBytes = [Text.Encoding]::UTF8.GetBytes(($CiOSRecord | ConvertTo-Json -Depth 4))
+            $CiStream.Write($CiBytes,0,$CiBytes.Length)
+          } finally { $CiStream.Dispose() }
+
+      - name: Set up exact regular x64 Python
+        id: python-setup
         uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
         with:
           python-version: '3.14.8'
@@ -36,53 +57,97 @@ jobs:
           freethreaded: false
           allow-prereleases: false
 
-      - name: Prepare owned diagnostic tools and authenticate shadow transformer
+      - name: Install hash-pinned development dependencies in a fresh venv
+        id: dependencies
         run: |
-          $ErrorActionPreference = 'Stop'
-          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-shell-diagnostic'
-          if (Test-Path -LiteralPath $CiRoot) { throw 'Diagnostic root already exists.' }
-          $null = New-Item -ItemType Directory -Path (Join-Path $CiRoot 'reports')
           Get-ChildItem Env:PIP_* | Remove-Item
           $env:PIP_CONFIG_FILE = 'nul'
-          python -I -B -c "import struct,sys; assert sys.version_info[:3]==(3,14,8) and struct.calcsize('P')==8"
+          python -I -B -c "import struct,sys; assert sys.version_info[:3] == (3,14,8) and struct.calcsize('P') == 8"
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python -I -B -m venv (Join-Path $CiRoot 'venv')
+          $CiVenv = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci\venv'
+          python -I -B -m venv $CiVenv
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          $CiPython = Join-Path $CiVenv 'Scripts\python.exe'
           & $CiPython -I -B -m pip install --isolated --disable-pip-version-check --no-input --no-cache-dir --require-hashes --only-binary=:all: -r requirements-dev.txt
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           & $CiPython -I -B -m pip check
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          & $CiPython -I -B tools/ci/bootstrap.py --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\tools-bootstrap.json')
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $CiWheels = Join-Path $CiRoot 'wheelhouse'
-          $null = New-Item -ItemType Directory -Path $CiWheels
-          & $CiPython -I -B -m pip download --isolated --disable-pip-version-check --no-input --no-cache-dir --no-deps --require-hashes --only-binary=:all: -r requirements.txt --dest $CiWheels
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $env:WBS_DIAGNOSTIC_ROOT = $CiRoot
-          & $CiPython -I -B -c "import os,re,subprocess;from pathlib import Path;from hashlib import sha256;c=os.environ['GITHUB_SHA'];assert re.fullmatch('[0-9a-f]{40}',c);e={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')};e.update(GIT_NO_REPLACE_OBJECTS='1',GIT_TERMINAL_PROMPT='0');b=subprocess.run(['git','show',c+':tools/ci/diagnose_shell_timeout.py'],env=e,stdin=subprocess.DEVNULL,capture_output=True,timeout=60,check=True).stdout;assert len(b)<65536 and sha256(b).hexdigest()=='e2025f36344d5ec26ff3ab4ec3ebf1bd67d05ce9ca9f363d8afc308eec87c0d8';p=Path(os.environ['WBS_DIAGNOSTIC_ROOT'])/'diagnose_shell_timeout.py';p.open('xb').write(b)"
           exit $LASTEXITCODE
 
-      - name: Run diagnostic-only shadow with unchanged 300-second shell bound
+      - name: Bootstrap exact isolated shell tools
+        id: modules
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
         run: |
-          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-shell-diagnostic'
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
           $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
-          $env:WBS_TEST_WHEELHOUSE = Join-Path $CiRoot 'wheelhouse'
-          & $CiPython -I -B (Join-Path $CiRoot 'diagnose_shell_timeout.py') --tool-root (Join-Path $CiRoot 'tools') --reports (Join-Path $CiRoot 'reports')
+          & $CiPython -I -B tools/ci/bootstrap.py --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\tools-bootstrap.json')
           exit $LASTEXITCODE
 
-      - name: Preserve only diagnostic shadow timing and source receipts
+      - name: Check committed package prerequisites without building a package
+        if: ${{ !cancelled() && steps.python-setup.outcome == 'success' }}
+        run: |
+          $CiCommit = (& git rev-parse HEAD).Trim()
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiReport = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci\reports\package-inputs.json'
+          python -I -B tools/ci/check_package_inputs.py --repo $env:GITHUB_WORKSPACE --commit $CiCommit --report $CiReport
+          exit $LASTEXITCODE
+
+      - name: Python regression through the shared runner
+        id: python-regression
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' }}
+        run: |
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          & $CiPython -I -B tests/run_tests.py --layer python --report (Join-Path $CiRoot 'reports\python.json')
+          exit $LASTEXITCODE
+
+      - name: One diagnostic original inbox run with process-local owned TEMP and unchanged 300-second bound
+        if: ${{ !cancelled() && steps.dependencies.outcome == 'success' && steps.modules.outcome == 'success' && steps.python-regression.outcome == 'success' }}
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
+          $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
+          $CiShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
+          $CiTemp = Join-Path $CiRoot 'shell-owned-temp'
+          if (Test-Path -LiteralPath $CiTemp) { throw 'Owned shell temp directory already exists.' }
+          $null = New-Item -ItemType Directory -Path $CiTemp
+          $env:WBS_DIAGNOSTIC_ROOT = $CiRoot
+          & $CiPython -I -B -c "import os,re,subprocess;from pathlib import Path;from hashlib import sha256;c=os.environ['GITHUB_SHA'];assert re.fullmatch('[0-9a-f]{40}',c);e={k:v for k,v in os.environ.items() if not k.upper().startswith('GIT_')};e.update(GIT_NO_REPLACE_OBJECTS='1',GIT_TERMINAL_PROMPT='0');b=subprocess.run(['git','show',c+':tools/ci/diagnose_shell_temp.py'],env=e,stdin=subprocess.DEVNULL,capture_output=True,timeout=60,check=True).stdout;assert len(b)<65536 and sha256(b).hexdigest()=='7abf1872940bbd17d7147f68f7716bf5ea0c7d362b9cd9e595feb0fc90220281';p=Path(os.environ['WBS_DIAGNOSTIC_ROOT'])/'diagnose_shell_temp.py';p.open('xb').write(b)"
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          & $CiPython -I -B (Join-Path $CiRoot 'diagnose_shell_temp.py') --phase before --reports (Join-Path $CiRoot 'reports') --tool-root (Join-Path $CiRoot 'tools') --temp-root $CiTemp
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $CiPreviousTemp = $env:TEMP
+          $CiPreviousTmp = $env:TMP
+          $CiPreviousWheelhouse = $env:WBS_TEST_WHEELHOUSE
+          $CiRunnerExit = $null
+          try {
+            $env:TEMP = $CiTemp
+            $env:TMP = $CiTemp
+            Remove-Item Env:WBS_TEST_WHEELHOUSE -ErrorAction SilentlyContinue
+            & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps51.json')
+            $CiRunnerExit = $LASTEXITCODE
+          } finally {
+            if ($null -eq $CiPreviousTemp) { Remove-Item Env:TEMP -ErrorAction SilentlyContinue } else { $env:TEMP = $CiPreviousTemp }
+            if ($null -eq $CiPreviousTmp) { Remove-Item Env:TMP -ErrorAction SilentlyContinue } else { $env:TMP = $CiPreviousTmp }
+            if ($null -eq $CiPreviousWheelhouse) { Remove-Item Env:WBS_TEST_WHEELHOUSE -ErrorAction SilentlyContinue } else { $env:WBS_TEST_WHEELHOUSE = $CiPreviousWheelhouse }
+          }
+          if ($null -eq $CiRunnerExit) { throw 'Original runner produced no exit observation.' }
+          & $CiPython -I -B (Join-Path $CiRoot 'diagnose_shell_temp.py') --phase after --runner-exit $CiRunnerExit --reports (Join-Path $CiRoot 'reports') --tool-root (Join-Path $CiRoot 'tools') --temp-root $CiTemp
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          exit $CiRunnerExit
+
+      - name: Preserve diagnostic-only original source and context reports
         if: ${{ always() }}
         uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
-          name: diagnostic-only-shell-R001669a-${{ github.sha }}-${{ github.run_attempt }}
+          name: diagnostic-only-unmodified-temp-R001669a-${{ github.sha }}-${{ github.run_attempt }}
           path: |
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/reports/tools-bootstrap.json
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/reports/diagnostic.json
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/reports/phase.jsonl
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/reports/shadow-report.json
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/work/phase.jsonl
-            ${{ runner.temp }}/WinBookSplit-shell-diagnostic/work/report.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/os.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/tools-bootstrap.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/package-inputs.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/python.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/shell-ps51.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/temp-before.json
+            ${{ runner.temp }}/WinBookSplit-ci/reports/temp-after.json
           retention-days: 14
           include-hidden-files: false
           overwrite: false
