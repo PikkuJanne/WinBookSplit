@@ -1019,8 +1019,14 @@
       "key": "anonymous_metadata",
       "expected": "Anonymous metadata identifies public non-draft non-prerelease v1.0.1 and required assets.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-15-anonymous-audit.json",
+        "evidence/V101-15-public-zip-smoke.json",
+        "evidence/V101-15-verification.json",
+        "evidence/V101-15-verification.md",
+        "evidence/V101-15-A63-ci.json"
+      ]
     },
     {
       "id": "V101-AC-076",
@@ -1028,8 +1034,14 @@
       "key": "anonymous_assets",
       "expected": "Anonymous ZIP/manifest/checksum downloads match all accepted hashes and expected sizes/content.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-15-anonymous-audit.json",
+        "evidence/V101-15-public-zip-smoke.json",
+        "evidence/V101-15-verification.json",
+        "evidence/V101-15-verification.md",
+        "evidence/V101-15-A63-ci.json"
+      ]
     },
     {
       "id": "V101-AC-077",
@@ -1037,8 +1049,14 @@
       "key": "public_zip_smoke",
       "expected": "Extracted verified public ZIP runs an automated smoke and matches native-tested ZIP identity.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-15-anonymous-audit.json",
+        "evidence/V101-15-public-zip-smoke.json",
+        "evidence/V101-15-verification.json",
+        "evidence/V101-15-verification.md",
+        "evidence/V101-15-A63-ci.json"
+      ]
     },
     {
       "id": "V101-AC-078",
@@ -1046,8 +1064,14 @@
       "key": "old_release_intact",
       "expected": "v1.0.0 public tag/assets and source remain unchanged compared with the starting snapshot.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-15-anonymous-audit.json",
+        "evidence/V101-15-public-zip-smoke.json",
+        "evidence/V101-15-verification.json",
+        "evidence/V101-15-verification.md",
+        "evidence/V101-15-A63-ci.json"
+      ]
     },
     {
       "id": "V101-AC-079",

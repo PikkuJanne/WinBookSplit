@@ -1,0 +1,479 @@
+{
+  "anonymous_transport": {
+    "authorization": false,
+    "cookies": false,
+    "https_only": true,
+    "max_redirects_per_request": 6,
+    "per_socket_timeout_seconds": 30,
+    "proxy_environment_used": false,
+    "redirect_queries_exported": false,
+    "total_http_deadline_seconds": 600
+  },
+  "asset_http": [
+    {
+      "http": {
+        "bytes": 178,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b3a538b9-0a6a-4928-ac08-bd5ea32f3269",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b3a538b9-0a6a-4928-ac08-bd5ea32f3269"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt",
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+        "status": 200
+      },
+      "id": 633779495,
+      "name": "SHA256SUMS.txt",
+      "version": "1.0.1"
+    },
+    {
+      "http": {
+        "bytes": 885340,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b0418072-ff6c-4f89-8f66-b39035fa907f",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b0418072-ff6c-4f89-8f66-b39035fa907f"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip",
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+        "status": 200
+      },
+      "id": 633779492,
+      "name": "WinBookSplit-v1.0.1.zip",
+      "version": "1.0.1"
+    },
+    {
+      "http": {
+        "bytes": 15816,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/87a5a980-9dc8-43cc-9ca1-c9de06609da0",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/87a5a980-9dc8-43cc-9ca1-c9de06609da0"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json",
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+        "status": 200
+      },
+      "id": 633779501,
+      "name": "release-manifest.json",
+      "version": "1.0.1"
+    },
+    {
+      "http": {
+        "bytes": 178,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/987007c1-1fcc-4268-8801-d738a9c6c8d1",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/987007c1-1fcc-4268-8801-d738a9c6c8d1"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "status": 200
+      },
+      "id": 630123442,
+      "name": "SHA256SUMS.txt",
+      "version": "1.0.0"
+    },
+    {
+      "http": {
+        "bytes": 414497,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/a2aba1af-3642-421c-9227-cd841df78038",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/a2aba1af-3642-421c-9227-cd841df78038"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "status": 200
+      },
+      "id": 630123440,
+      "name": "WinBookSplit-v1.0.0.zip",
+      "version": "1.0.0"
+    },
+    {
+      "http": {
+        "bytes": 11547,
+        "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b58671f1-0b3a-4048-9ea3-c5d0dc2ff441",
+        "redirects_without_queries": [
+          {
+            "from": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+            "status": 302,
+            "to": "https://release-assets.githubusercontent.com/github-production-release-asset/1122240197/b58671f1-0b3a-4048-9ea3-c5d0dc2ff441"
+          }
+        ],
+        "request_headers": {
+          "Accept": "application/octet-stream",
+          "Accept-Encoding": "identity",
+          "User-Agent": "WinBookSplit-anonymous-release-verification"
+        },
+        "requested_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "status": 200
+      },
+      "id": 630123444,
+      "name": "release-manifest.json",
+      "version": "1.0.0"
+    }
+  ],
+  "extracted_files": {
+    "CHANGELOG.md": {
+      "bytes": 3464,
+      "sha256": "83cd513c1eafe7d9e8b155dd02d94c1136401be1d54f6da32c719636508e4ae7"
+    },
+    "CONTRIBUTING.md": {
+      "bytes": 1839,
+      "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+    },
+    "Export-WinBookSplitDiagnostics.ps1": {
+      "bytes": 863,
+      "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+    },
+    "LICENSE": {
+      "bytes": 1070,
+      "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+    },
+    "README.md": {
+      "bytes": 11994,
+      "sha256": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441"
+    },
+    "SECURITY.md": {
+      "bytes": 3655,
+      "sha256": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4"
+    },
+    "Setup-WinBookSplit.ps1": {
+      "bytes": 2226,
+      "sha256": "1d54811fa5c38720d303e734ac46f4f1faee3f56165a1ffa622c836df4516486"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 2688,
+      "sha256": "517eff28010e0f22b775ef209ce1909d574fb0e883086c94ec5831537946b614"
+    },
+    "VERSION": {
+      "bytes": 6,
+      "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066"
+    },
+    "WinBookSplit.bat": {
+      "bytes": 1145,
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+    },
+    "WinBookSplit.ico": {
+      "bytes": 370070,
+      "sha256": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42"
+    },
+    "WinBookSplit.ps1": {
+      "bytes": 67492,
+      "sha256": "2ffe4be6e83c45c22dd339a140e32c33e6fda5929fef85bd8ce9171f1bce01ed"
+    },
+    "docs/EBOOK_SUPPORT.md": {
+      "bytes": 3352,
+      "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+    },
+    "docs/PDF_FIDELITY.md": {
+      "bytes": 3344,
+      "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+    },
+    "docs/PDF_POLICY.md": {
+      "bytes": 4143,
+      "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+    },
+    "docs/SETUP.md": {
+      "bytes": 10861,
+      "sha256": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170"
+    },
+    "docs/SUPPORT_DIAGNOSTICS.md": {
+      "bytes": 5892,
+      "sha256": "fd4485111d6db0e850d0badf0ae7fe88fc90eaea7979b665a7033c598e3c63f1"
+    },
+    "engine/WinBookSplit.Compatibility.json": {
+      "bytes": 6342,
+      "sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0"
+    },
+    "engine/WinBookSplit.Compatibility.ps1": {
+      "bytes": 16904,
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+    },
+    "engine/WinBookSplit.Diagnostics.ps1": {
+      "bytes": 25458,
+      "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+    },
+    "engine/WinBookSplit.Logging.ps1": {
+      "bytes": 13060,
+      "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+    },
+    "engine/WinBookSplit.Outcomes.json": {
+      "bytes": 1581,
+      "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+    },
+    "engine/WinBookSplit.Paths.ps1": {
+      "bytes": 4142,
+      "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+    },
+    "engine/WinBookSplit.Process.ps1": {
+      "bytes": 41219,
+      "sha256": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984"
+    },
+    "engine/WinBookSplit.Runtime.ps1": {
+      "bytes": 47612,
+      "sha256": "e56870195c4c5fd09a8ebdb1c96a3091d088fc80d25764d537811fb83afa4816"
+    },
+    "engine/WinBookSplit.Setup.ps1": {
+      "bytes": 27716,
+      "sha256": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473"
+    },
+    "engine/WinBookSplit.Support.ps1": {
+      "bytes": 27250,
+      "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+    },
+    "engine/winbooksplit_compatibility.py": {
+      "bytes": 20075,
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    },
+    "engine/winbooksplit_conversion.py": {
+      "bytes": 27985,
+      "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+    },
+    "engine/winbooksplit_engine.py": {
+      "bytes": 101647,
+      "sha256": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+    },
+    "engine/winbooksplit_job.py": {
+      "bytes": 14965,
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    "engine/winbooksplit_windows.py": {
+      "bytes": 10933,
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    "requirements.txt": {
+      "bytes": 255,
+      "sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+    }
+  },
+  "helper_sha256": {
+    "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+    "tools/ci/check_package_inputs.py": "e8ba47dfd4c4b901e31f32a6b586f92c5622fd594100ec5675dac86099f55eb0",
+    "tools/compatibility/kit_builder.py": "4dc7d31cd906563e78ca985613378209986d4d0cd9859c091e9cdb945ea58563",
+    "tools/release/build_package.py": "f835bdc1d8ebed739aa7eea221420bd31d23f62a86ad5a54e050a2de320c1330",
+    "tools/release/frozen_assets.py": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9",
+    "tools/release/payload.json": "bddb80b5bd45d48f0489990c78f73d408faec651f6944f298402c4474fa86bf4"
+  },
+  "metadata_http": [
+    {
+      "bytes": 10161,
+      "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.1",
+      "redirects_without_queries": [],
+      "request_headers": {
+        "Accept": "application/vnd.github+json",
+        "Accept-Encoding": "identity",
+        "User-Agent": "WinBookSplit-anonymous-release-verification"
+      },
+      "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.1",
+      "sha256": "ddaf8661dfd04a5ce5b3b6a171c52844773b4ac7ef0d751ccfb1118229ad79c2",
+      "status": 200
+    },
+    {
+      "bytes": 13816,
+      "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+      "redirects_without_queries": [],
+      "request_headers": {
+        "Accept": "application/vnd.github+json",
+        "Accept-Encoding": "identity",
+        "User-Agent": "WinBookSplit-anonymous-release-verification"
+      },
+      "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+      "sha256": "b703a408f63f0577aa7d208f91c5ca22520828b343d28e11590275934f4c03b3",
+      "status": 200
+    }
+  ],
+  "observed_utc": "2026-10-12T12:59:28.854480+00:00",
+  "old_release": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "id": 630123442,
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt"
+      },
+      "WinBookSplit-v1.0.0.zip": {
+        "bytes": 414497,
+        "id": 630123440,
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip"
+      },
+      "release-manifest.json": {
+        "bytes": 11547,
+        "id": 630123444,
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json"
+      }
+    },
+    "id": 409510027,
+    "preserved": true
+  },
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "protocol": "winbooksplit.anonymous-release-audit",
+  "public_release": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "id": 633779495,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "id": 633779492,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "id": 633779501,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json"
+      }
+    },
+    "draft": false,
+    "id": 410596171,
+    "notes_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+    "prerelease": false,
+    "published_at": "2026-10-12T12:52:30Z",
+    "tag": "v1.0.1"
+  },
+  "public_zip_smoke": "NOT_RUN",
+  "schema_version": 1,
+  "scope": "Anonymous metadata, all six new/old asset byte downloads, fixed tags and existing 33-member Git-bound package verification. No application execution.",
+  "success": true,
+  "tags": {
+    "v1.0.0": {
+      "http": [
+        {
+          "bytes": 341,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.0",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.0",
+          "sha256": "724763be84ca0a27ce98884c99d14769ad52d6e6d5c2587de24ba6401d2c891a",
+          "status": 200
+        },
+        {
+          "bytes": 708,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+          "sha256": "e8ccfd32cfcc64fff92d0cdd329fff63a1f7bda49977b16f6d477da418bd2496",
+          "status": 200
+        }
+      ],
+      "peeled_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "tag_object": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2"
+    },
+    "v1.0.1": {
+      "http": [
+        {
+          "bytes": 341,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.1",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.1",
+          "sha256": "989de35df0009ed5e1e51838d91eef5f9de36887934ed1c88b66461878289f2b",
+          "status": 200
+        },
+        {
+          "bytes": 708,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/113ab73991c9527caf983a8e9e5993a75b226c1a",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/113ab73991c9527caf983a8e9e5993a75b226c1a",
+          "sha256": "c69543263b8dcc666928440f6bc326a8ed35e750cf0cb9fdd2c4249a8adbe568",
+          "status": 200
+        }
+      ],
+      "peeled_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+      "tag_object": "113ab73991c9527caf983a8e9e5993a75b226c1a"
+    }
+  },
+  "tooling_source": {
+    "commit": "a63b65659ae1d48104ba7fd20e74556c9debf728",
+    "helpers_match_current_committed_blobs": true,
+    "tree": "88ae3a1beae79843d90d9cf266fccd058e8aae07"
+  },
+  "writer_sha256": "6d1aecb58a75e3ef5f5e43d3e7bd55df2c015704eeb52c562ec676fd805ca7ee"
+}

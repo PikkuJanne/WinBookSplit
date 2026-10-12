@@ -411,8 +411,14 @@
         "V101-AC-077",
         "V101-AC-078"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-15-anonymous-audit.json",
+        "evidence/V101-15-public-zip-smoke.json",
+        "evidence/V101-15-verification.json",
+        "evidence/V101-15-verification.md",
+        "evidence/V101-15-A63-ci.json"
+      ]
     },
     {
       "id": "V101-16",
@@ -431,7 +437,7 @@
         "V101-AC-080",
         "V101-AC-081"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     }
   ]

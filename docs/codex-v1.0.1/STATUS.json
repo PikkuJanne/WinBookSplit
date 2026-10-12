@@ -2,19 +2,19 @@
   "schema_version": 1,
   "target_release": "v1.0.1",
   "phase": "IN_PROGRESS",
-  "current_task": "V101-15",
+  "current_task": "V101-16",
   "baseline_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
   "work_branch": "main",
   "last_verified_sync": {
     "branch": "main",
-    "commit": "511515c1acae2074e231b53f84cefc532caef4ba",
-    "observed_at": "2026-10-12T12:58:32.589761+00:00"
+    "commit": "a63b65659ae1d48104ba7fd20e74556c9debf728",
+    "observed_at": "2026-10-12T13:31:33.441104+00:00"
   },
   "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
   "accepted_zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
   "native_windows10": "PASS",
   "native_windows11": "PASS",
-  "published_release": "PUBLISHED_PENDING_ANONYMOUS_VERIFICATION",
+  "published_release": "PUBLIC_ANONYMOUS_BYTES_AND_SMOKE_VERIFIED",
   "human_sessions_used": 1,
   "blockers": [],
   "public_release_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.1"
