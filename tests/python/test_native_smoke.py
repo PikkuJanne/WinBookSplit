@@ -29,10 +29,40 @@ def synthetic_probe():
 def synthetic_export():
     oracle = {"protocol": "winbooksplit.native-oracle", "schema_version": 1, "success": True,
               "plan_sha256": "a" * 64, "application_version": "1.0.1", "policy_sha256": "b" * 64,
-              "runtime_versions": {"python": "3.14.8", "pypdf": "6.20.0", "calibre": "9.15.0"},
+              "runtime_versions": {"python": "3.15.0", "pypdf": "6.20.0", "calibre": "9.15.0"},
               "source_unchanged": True, "cases": [{"id": name, "status": "PASS", "exit_code": 0, "error_code": None} for name in smoke.CASE_IDS],
               "limits": ["No Explorer gesture was performed.", "All native artifacts are preserved locally."]}
-    return {"oracle": oracle, "execution": "USER_LAUNCHED", "os": {"Caption": "Microsoft Windows 10 Pro", "Version": "10.0.19045",
+    policies = [{"scope": scope, "policy": "Bypass" if scope == "Process" else "Undefined"}
+                for scope in ("MachinePolicy", "UserPolicy", "Process", "CurrentUser", "LocalMachine")]
+    identity = {"source": "explicit", "executable_sha256": "f"*64, "version": "3.15.0", "implementation": "cpython",
+                "platform": "win32", "machine": "AMD64", "bits": 64, "gil_disabled": False, "releaselevel": "final",
+                "serial": 0, "isolated": True, "dont_write_bytecode": True, "policy_sha256": "b"*64}
+    routes = []
+    for identifier in ("PS51-fresh", "PS51-stale", "PS51-marked-bat", "CMD-marked-bat", "PS51-organization-simulation"):
+        mock, bat = identifier.endswith("-organization-simulation"), identifier.endswith("-marked-bat")
+        stages = ("simulation",) if mock else ("fresh", "check", "noop", "zeroargs-redirected", "broken-default", "repair", "pdf") if bat else ("direct", "before", "action", "retry")
+        child_stages = () if mock else stages[:-1] if bat else ("action",)
+        route = {"id": identifier, "status": "PASS", "kind": "MOCKED_POLICY_QUERY" if mock else "BAT" if bat else "ACTION",
+                 "fixture": "MOCKED_POLICY_QUERY" if mock else "AUTHORED_BROKEN_VENV" if bat else "AUTHORED_BROKEN_VENV; no legacy Python execution" if identifier.endswith("-stale") else "ACTUAL_BARE315",
+                 "exits": [{"stage": stage, "exit_code": 1 if mock or stage == "direct" else 3 if stage in {"before", "broken-default"} else 0} for stage in stages],
+                 "child_hosts": [{"stage": stage, "executable_status": "observed", "version": "5.1.19041.6000", "edition": "Desktop",
+                                  "execution_policy": {"status": "observed", "effective": "Bypass", "scopes": copy.deepcopy(policies), "reason_code": None},
+                                  "selected_version": None if stage == "broken-default" else "3.15.0",
+                                  "pypdf_version": None if stage == "broken-default" else "6.20.0"} for stage in child_stages],
+                 "pdf": None if mock else {"success": True, "runtime_version": "3.15.0", "written_count": 3, "physical_pages": 10, "source_sha256": "c"*64}}
+        if mock:
+            route["simulated_positive_launch_refused"] = True
+        routes.append(route)
+    return {"oracle": oracle, "execution": "USER_LAUNCHED_AUTOMATED",
+            "runtime_selection": {"owner_version": "3.15.0", "owner_regular315_usable": True, "owner_selected": True,
+                "selected_version": "3.15.0", "required_baseline_version": "3.15.0", "baseline_version": "3.15.0",
+                "baseline_kind": "existing3150_without_pypdf", "reason": "usable_regular315_discovered",
+                "selected_identity": copy.deepcopy(identity), "baseline_identity": copy.deepcopy(identity)},
+            "marked_setup_regressions": {"status": "PASS", "required_runtime_version": "3.15.0", "exact_asset_bound": True,
+                "Action_roundtrips": 2, "marked_BAT_routes": 2, "mocked_policy_refusals": 1, "raw_receipt_sha256": "d"*64,
+                "probe_sha256": "e"*64, "actual_inbox_policy_snapshots": {"before": policies, "after": policies},
+                "fixture": "Authored broken venv, not an owner legacy runtime; marks assigned by automation; all source/ADS/PDF checks verified", "routes": routes},
+            "os": {"Caption": "Microsoft Windows 10 Pro", "Version": "10.0.19045",
             "BuildNumber": "19045", "OSArchitecture": "64-bit", "ProductType": 1, "UBR": 6000,
             "powershell_version": "5.1.19041.6000", "process_bits": 64, "os_bits": 64, "DisplayVersion": "22H2",
             "processor_architectures": [9], "platform_scope": "NATIVE_WINDOWS10"}, "private": "C:\\Users\\secret-owner\\file.pdf"}
@@ -136,7 +166,7 @@ class PureOracleControls(unittest.TestCase):
         text = json.dumps(result)
         for marker in ("secret-owner", "SECRET_HOST", "SECRET_USERNAME", "PRIVATE_DOCUMENT"):
             self.assertNotIn(marker, text)
-        self.assertEqual(result["execution"], "USER_LAUNCHED")
+        self.assertEqual(result["execution"], "USER_LAUNCHED_AUTOMATED")
 
     def test_export_refuses_case_leakage_and_false_success(self):
         mutations = [lambda row: row["oracle"]["cases"][0].update(path="C:\\Users\\PRIVATE"),
@@ -152,6 +182,53 @@ class PureOracleControls(unittest.TestCase):
             mutate(row)
             with self.subTest(mutate=mutate), self.assertRaises(smoke.OracleError):
                 smoke.export_report(row)
+
+    def test_owner_later_patch_and_required_baseline_remain_distinct_in_export(self):
+        row = synthetic_export()
+        row["oracle"]["runtime_versions"]["python"] = "3.15.1"
+        row["runtime_selection"].update(owner_version="3.15.1", selected_version="3.15.1",
+                                        baseline_kind="reviewed_private3150_archive")
+        row["runtime_selection"]["selected_identity"]["version"] = "3.15.1"
+        result = smoke.export_report(row)
+        self.assertEqual(result["runtime_selection"]["selected_version"], "3.15.1")
+        self.assertEqual(result["runtime_selection"]["baseline_version"], "3.15.0")
+        self.assertEqual(result["marked_setup_regressions"]["required_runtime_version"], "3.15.0")
+        for section, key, value in (("runtime_selection", "baseline_version", "3.15.1"),
+                                   ("runtime_selection", "selected_version", "3.15.0"),
+                                   ("marked_setup_regressions", "fixture", "PRIVATE_USER_PATH"),
+                                   ("marked_setup_regressions", "Action_roundtrips", True)):
+            bad = copy.deepcopy(row); bad[section][key] = value
+            with self.subTest(section=section, key=key), self.assertRaises(smoke.OracleError):
+                smoke.export_report(bad)
+
+    def test_export_preserves_fixed_native_runtime_and_marked_route_proofs(self):
+        raw = synthetic_export()
+        result = smoke.export_report(raw)
+        self.assertEqual(result["runtime_selection"]["selected_identity"], raw["runtime_selection"]["selected_identity"])
+        self.assertEqual(result["marked_setup_regressions"]["routes"], raw["marked_setup_regressions"]["routes"])
+        self.assertEqual(result["marked_setup_regressions"]["routes"][0]["child_hosts"][0]["execution_policy"]["effective"], "Bypass")
+
+    def test_fixed_identity_and_route_proof_reject_private_or_false_fields(self):
+        mutations = [lambda r: r["runtime_selection"]["selected_identity"].update(executable="C:\\Users\\PRIVATE"),
+                     lambda r: r["runtime_selection"]["baseline_identity"].update(source="PRIVATE_USERNAME"),
+                     lambda r: r["runtime_selection"]["selected_identity"].update(bits=True),
+                     lambda r: r["runtime_selection"]["selected_identity"].update(gil_disabled=0),
+                     lambda r: r["runtime_selection"]["baseline_identity"].update(policy_sha256="c"*64),
+                     lambda r: r["marked_setup_regressions"]["routes"][0].update(id="PRIVATE_PATH"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0].update(status="FAIL"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["exits"][0].update(exit_code=False),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["exits"].__setitem__(0, "PRIVATE_RAW"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["child_hosts"].__setitem__(0, "PRIVATE_RAW"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["child_hosts"][0].update(executable="C:\\PRIVATE"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["child_hosts"][0]["execution_policy"].update(effective="RemoteSigned"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["child_hosts"][0]["execution_policy"]["scopes"][0].update(policy="AllSigned"),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["pdf"].update(written_count=True),
+                     lambda r: r["marked_setup_regressions"]["routes"][0]["pdf"].update(runtime_version="3.15.1"),
+                     lambda r: r["marked_setup_regressions"]["routes"][-1].update(simulated_positive_launch_refused=1)]
+        for mutation in mutations:
+            raw = synthetic_export(); mutation(raw)
+            with self.subTest(mutation=mutation), self.assertRaises(smoke.OracleError):
+                smoke.export_report(raw)
 
     def test_nonpass_cases_remain_nonpass(self):
         row = synthetic_export()

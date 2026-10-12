@@ -690,8 +690,117 @@ def export_report(raw):
         need(int(safe_os["BuildNumber"]) >= 22000 and safe_os["Caption"].startswith("Microsoft Windows 11 "), "redacted_windows11_identity_invalid")
     else:
         need(oracle["success"] is False, "blocked_platform_cannot_pass")
-    return {"protocol": "winbooksplit.native-result", "schema_version": 1, "evidence_kind": "NATIVE_AUTOMATED", "execution": raw.get("execution") if raw.get("execution") in {"AGENT_LAUNCHED", "USER_LAUNCHED"} else "UNKNOWN",
-            "os": safe_os, "oracle": oracle}
+    selection = raw.get("runtime_selection")
+    selection_keys = {"owner_version", "owner_regular315_usable", "owner_selected", "selected_version",
+                      "required_baseline_version", "baseline_version", "baseline_kind", "reason", "selected_identity", "baseline_identity"}
+    need(isinstance(selection, dict) and set(selection) == selection_keys
+         and type(selection["owner_regular315_usable"]) is bool and type(selection["owner_selected"]) is bool
+         and selection["owner_selected"] == selection["owner_regular315_usable"]
+         and (selection["owner_version"] is None or type(selection["owner_version"]) is str and re.fullmatch(r"3\.(?:13|14|15)\.\d+", selection["owner_version"]))
+         and type(selection["selected_version"]) is str and re.fullmatch(r"3\.15\.\d+", selection["selected_version"])
+         and selection["selected_version"] == oracle["runtime_versions"]["python"]
+         and selection["required_baseline_version"] == selection["baseline_version"] == "3.15.0"
+         and selection["baseline_kind"] in {"explicit3150_test_baseline", "existing3150_without_pypdf",
+                                            "owned3150_venv_without_pip_from_existing3150", "reviewed_private3150_archive"}
+         and selection["reason"] in {"usable_regular315_discovered", "supported_legacy_branch_is_not_315_kit_target", "no_usable_regular315_discovered"},
+         "redacted_runtime_selection_invalid")
+    identity_keys = {"source", "executable_sha256", "version", "implementation", "platform", "machine", "bits",
+                     "gil_disabled", "releaselevel", "serial", "isolated", "dont_write_bytecode", "policy_sha256"}
+    for name, version in (("selected_identity", selection["selected_version"]), ("baseline_identity", "3.15.0")):
+        identity = selection[name]
+        need(isinstance(identity, dict) and set(identity) == identity_keys
+             and identity["source"] in {"explicit", "PATH", "registry", "manager", "py_launcher"}
+             and identity["version"] == version and identity["implementation"] == "cpython"
+             and identity["platform"] == "win32" and identity["machine"] == "AMD64"
+             and type(identity["bits"]) is int and identity["bits"] == 64
+             and identity["gil_disabled"] is False and identity["releaselevel"] == "final"
+             and type(identity["serial"]) is int and identity["serial"] == 0
+             and identity["isolated"] is True and identity["dont_write_bytecode"] is True
+             and identity["policy_sha256"] == oracle["policy_sha256"]
+             and type(identity["executable_sha256"]) is str and re.fullmatch(r"[0-9a-f]{64}", identity["executable_sha256"]),
+             "redacted_runtime_identity_invalid")
+    marked = raw.get("marked_setup_regressions")
+    marked_keys = {"status", "required_runtime_version", "exact_asset_bound", "Action_roundtrips", "marked_BAT_routes",
+                   "mocked_policy_refusals", "raw_receipt_sha256", "probe_sha256", "actual_inbox_policy_snapshots", "fixture", "routes"}
+    need(isinstance(marked, dict) and set(marked) == marked_keys and marked["status"] == "PASS"
+         and marked["required_runtime_version"] == "3.15.0" and marked["exact_asset_bound"] is True
+         and all(type(marked[key]) is int for key in ("Action_roundtrips", "marked_BAT_routes", "mocked_policy_refusals"))
+         and (marked["Action_roundtrips"], marked["marked_BAT_routes"], marked["mocked_policy_refusals"]) in {(2, 2, 1), (4, 3, 2)}
+         and all(type(marked[key]) is str and re.fullmatch(r"[0-9a-f]{64}", marked[key]) for key in ("raw_receipt_sha256", "probe_sha256"))
+         and marked["fixture"] == "Authored broken venv, not an owner legacy runtime; marks assigned by automation; all source/ADS/PDF checks verified",
+         "redacted_marked_regressions_invalid")
+    snapshots = marked["actual_inbox_policy_snapshots"]
+    need(isinstance(snapshots, dict) and set(snapshots) == {"before", "after"} and snapshots["before"] == snapshots["after"], "redacted_policy_snapshots_invalid")
+    scopes = snapshots["before"]
+    need(isinstance(scopes, list) and len(scopes) == 5 and
+         {row.get("scope") for row in scopes if isinstance(row, dict)} == {"MachinePolicy", "UserPolicy", "Process", "CurrentUser", "LocalMachine"}
+         and all(set(row) == {"scope", "policy"} and row["policy"] in {"Undefined", "Restricted", "AllSigned", "RemoteSigned", "Unrestricted", "Bypass", "Default"} for row in scopes),
+         "redacted_policy_snapshots_invalid")
+    hosts = ("PS51", "PS766") if marked["Action_roundtrips"] == 4 else ("PS51",)
+    expected_ids = {host + "-" + state for host in hosts for state in ("fresh", "stale")}
+    expected_ids.update(host + "-marked-bat" for host in (*hosts, "CMD"))
+    expected_ids.update(host + "-organization-simulation" for host in hosts)
+    routes = marked["routes"]
+    need(isinstance(routes, list) and len(routes) == len(expected_ids)
+         and all(isinstance(row, dict) for row in routes) and {row.get("id") for row in routes} == expected_ids,
+         "redacted_marked_routes_invalid")
+    for route in routes:
+        mock = route["id"].endswith("-organization-simulation")
+        bat = route["id"].endswith("-marked-bat")
+        keys = {"id", "status", "kind", "fixture", "exits", "child_hosts", "pdf"}
+        if mock:
+            keys.add("simulated_positive_launch_refused")
+        need(set(route) == keys and route["status"] == "PASS"
+             and route["kind"] == ("MOCKED_POLICY_QUERY" if mock else "BAT" if bat else "ACTION")
+             and route["fixture"] == ("MOCKED_POLICY_QUERY" if mock else "AUTHORED_BROKEN_VENV" if bat else
+                   "AUTHORED_BROKEN_VENV; no legacy Python execution" if route["id"].endswith("-stale") else "ACTUAL_BARE315"),
+             "redacted_marked_route_schema_invalid")
+        stages = ("simulation",) if mock else ("fresh", "check", "noop", "zeroargs-redirected", "broken-default", "repair", "pdf") if bat else ("direct", "before", "action", "retry")
+        exits = route["exits"]
+        need(isinstance(exits, list) and len(exits) == len(stages) and all(isinstance(row, dict) for row in exits)
+             and tuple(row.get("stage") for row in exits) == stages
+             and all(isinstance(row, dict) and set(row) == {"stage", "exit_code"} and type(row["exit_code"]) is int for row in exits),
+             "redacted_marked_exit_schema_invalid")
+        for row in exits:
+            code = row["exit_code"]
+            need(code == (1 if mock else 3 if row["stage"] in {"before", "broken-default"} else 0) if row["stage"] != "direct" else code != 0,
+                 "redacted_marked_exit_differ")
+        children = route["child_hosts"]
+        child_stages = () if mock else stages[:-1] if bat else ("action",)
+        need(isinstance(children, list) and len(children) == len(child_stages) and all(isinstance(row, dict) for row in children)
+             and tuple(row.get("stage") for row in children) == child_stages,
+             "redacted_child_host_schema_invalid")
+        for child in children:
+            need(isinstance(child, dict) and set(child) == {"stage", "executable_status", "version", "edition", "execution_policy", "selected_version", "pypdf_version"}
+                 and child["executable_status"] == "observed" and child["edition"] == "Desktop"
+                 and type(child["version"]) is str and re.fullmatch(r"5\.1\.\d+\.\d+", child["version"]), "redacted_child_host_schema_invalid")
+            policy = child["execution_policy"]
+            need(isinstance(policy, dict) and set(policy) == {"status", "effective", "scopes", "reason_code"}
+                 and policy["status"] == "observed" and policy["effective"] == "Bypass" and policy["reason_code"] is None,
+                 "redacted_child_policy_invalid")
+            child_scopes = policy["scopes"]
+            need(isinstance(child_scopes, list) and len(child_scopes) == 5
+                 and all(isinstance(row, dict) and set(row) == {"scope", "policy"} for row in child_scopes)
+                 and {row["scope"] for row in child_scopes} == {row["scope"] for row in scopes}, "redacted_child_policy_invalid")
+            observed = {row["scope"]: row["policy"] for row in child_scopes}
+            expected = {row["scope"]: row["policy"] for row in scopes}
+            expected["Process"] = "Bypass"
+            need(observed == expected, "redacted_child_policy_changed")
+            broken = child["stage"] == "broken-default"
+            need(child["selected_version"] == (None if broken else "3.15.0")
+                 and child["pypdf_version"] == (None if broken else "6.20.0"), "redacted_child_runtime_invalid")
+        if mock:
+            need(route["simulated_positive_launch_refused"] is True and route["pdf"] is None, "redacted_mock_refusal_invalid")
+        else:
+            pdf = route["pdf"]
+            need(isinstance(pdf, dict) and set(pdf) == {"success", "runtime_version", "written_count", "physical_pages", "source_sha256"}
+                 and pdf["success"] is True and pdf["runtime_version"] == "3.15.0"
+                 and type(pdf["written_count"]) is int and pdf["written_count"] == 3
+                 and type(pdf["physical_pages"]) is int and pdf["physical_pages"] == 10
+                 and type(pdf["source_sha256"]) is str and re.fullmatch(r"[0-9a-f]{64}", pdf["source_sha256"]),
+                 "redacted_marked_pdf_invalid")
+    return {"protocol": "winbooksplit.native-result", "schema_version": 1, "evidence_kind": "NATIVE_AUTOMATED", "execution": raw.get("execution") if raw.get("execution") in {"AGENT_LAUNCHED", "USER_LAUNCHED_AUTOMATED"} else "UNKNOWN",
+            "os": safe_os, "oracle": oracle, "runtime_selection": selection, "marked_setup_regressions": marked}
 
 
 def main(argv=None):

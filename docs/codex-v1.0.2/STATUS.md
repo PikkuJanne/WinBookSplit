@@ -1,8 +1,8 @@
 # v1.0.2 status
 
-V102-07 is complete; public v1.0.2 is not yet published.
+V102-07 is complete and V102-08 source integration is in progress; public v1.0.2 is not yet published.
 
-Marked setup BAT and exact remedies passed 48 native probes, 22 actual child policy snapshots and seven reopened PDF oracles. Fixed reproduced PS7-to-inbox module-autoload diagnostics; all policies, ADS and backups retained. Extend required 3.15 CI and the authenticated one-command native package kit, then freeze final version/docs.
+The required CI matrix now includes actual 3.15.0 beside serviced 3.13.16 and 3.14.8. Focused CI/package/tooling controls passed. The native kit authenticates its 19-helper closure and exact application copies, selects an existing usable regular 3.15 read-only, and reports fixed verified runtime/route evidence. Independent source review found no blocking findings. Hosted CI, the full applicable suite and actual committed-package kit preflight remain pending; source preparation is not final archive acceptance.
 
 Current task: V102-08. Checkpoint branch: `codex/v1.0.2-setup-python315`. Source/evidence references are in TASKS.json. Each commit is followed by normal push and fresh clean/live equality verification outside its own evidence commit.
 

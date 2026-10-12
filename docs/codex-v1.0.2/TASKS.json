@@ -202,7 +202,7 @@
       "id": "V102-08",
       "title": "Extend CI and reuse the automated native kit",
       "milestone": "M3",
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "depends_on": [
         "V102-07"
       ],
@@ -220,7 +220,12 @@
         "V102-AC-047",
         "V102-AC-048"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-08-ci-source.json",
+        "evidence/V102-08-ci-source.md",
+        "evidence/V102-08-kit-source.json",
+        "evidence/V102-08-kit-source.md"
+      ]
     },
     {
       "id": "V102-09",

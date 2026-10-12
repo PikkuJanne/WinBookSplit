@@ -155,7 +155,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        python: ['3.13.16', '3.14.8']
+        python: ['3.13.16', '3.14.8', '3.15.0']
     defaults:
       run:
         shell: pwsh
@@ -236,7 +236,7 @@ jobs:
         run: |
           $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-application'
           $CiDriver = Join-Path $CiRoot 'driver\Scripts\python.exe'
-          & $CiDriver -I -B -c "import json,sys; from pathlib import Path; lock=json.loads(Path('tests/compatibility/runtime-lock.json').read_bytes()); policy=json.loads(Path('engine/WinBookSplit.Compatibility.json').read_bytes()); assert lock['python_versions']==['3.13.16','3.14.8']; assert sorted({tuple(map(int,v.split('.')[:2])) for v in lock['python_versions']})==sorted({(b['major'],b['minor']) for b in policy['python']['branches']}); assert sys.argv[1] in lock['python_versions']" $env:WBS_APPLICATION_VERSION
+          & $CiDriver -I -B -c "import json,sys; from pathlib import Path; lock=json.loads(Path('tests/compatibility/runtime-lock.json').read_bytes()); policy=json.loads(Path('engine/WinBookSplit.Compatibility.json').read_bytes()); assert lock['python_versions']==['3.13.16','3.14.8','3.15.0']; assert sorted({tuple(map(int,v.split('.')[:2])) for v in lock['python_versions']})==sorted({(b['major'],b['minor']) for b in policy['python']['branches']}); assert sys.argv[1] in lock['python_versions']" $env:WBS_APPLICATION_VERSION
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           $CiCommit = (& git rev-parse HEAD).Trim()
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }

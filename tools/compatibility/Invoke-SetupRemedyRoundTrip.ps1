@@ -14,12 +14,13 @@ param(
     [Parameter(Mandatory=$true)][string]$SourceBinding,
     [Parameter(Mandatory=$true)][string]$SourceBindingSha256,
     [Parameter(Mandatory=$true)][string]$Python315,
-    [Parameter(Mandatory=$true)][string]$StalePython,
-    [Parameter(Mandatory=$true)][string]$PowerShell7,
+    [string]$StalePython,
+    [string]$PowerShell7,
     [Parameter(Mandatory=$true)][string]$AuthoredPdf,
     [Parameter(Mandatory=$true)][string]$AuthoredPdfSha256,
     [switch]$IncludeSecurityControls,
-    [string]$Wheelhouse
+    [string]$Wheelhouse,
+    [string]$ApplicationSourceRoot
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
@@ -34,7 +35,11 @@ Import-Module ([IO.Path]::Combine($PSHOME,'Modules','Microsoft.PowerShell.Utilit
 Initialize-WinBookSplitLogTypes;Initialize-WinBookSplitSupport;Initialize-WinBookSplitProcess
 . (Join-Path $RepositoryRoot 'tools\compatibility\Invoke-NativeAcceptance.ps1')
 foreach($path in @($RepositoryRoot,$WorkParent)){ $null=Get-NativeAcceptanceOrdinaryPath $path -Directory }
-foreach($path in @($Python315,$StalePython,$PowerShell7,$AuthoredPdf)){ $null=Get-NativeAcceptanceOrdinaryPath $path }
+if([string]::IsNullOrEmpty($ApplicationSourceRoot)){$ApplicationSourceRoot=$RepositoryRoot}
+$null=Get-NativeAcceptanceOrdinaryPath $ApplicationSourceRoot -Directory
+foreach($path in @($Python315,$AuthoredPdf)){ $null=Get-NativeAcceptanceOrdinaryPath $path }
+foreach($path in @($StalePython,$PowerShell7)){if(-not[string]::IsNullOrEmpty($path)){$null=Get-NativeAcceptanceOrdinaryPath $path}}
+$hostKinds=@('PS51');if(-not[string]::IsNullOrEmpty($PowerShell7)){$hostKinds+='PS766'}
 if($IncludeSecurityControls){$null=Get-NativeAcceptanceOrdinaryPath $Wheelhouse -Directory}
 if((Get-NativeAcceptanceFileHash $SourceBinding 8388608).sha256-cne $SourceBindingSha256){throw 'Source binding hash differs.'}
 $binding=(Read-NativeAcceptanceJson $SourceBinding 8388608).value
@@ -42,6 +47,21 @@ function Assert-RemedySourceBinding {
     foreach($name in $binding.source_manifest.Keys){
         if((Get-NativeAcceptanceFileHash (Join-Path $RepositoryRoot $name) 8388608).sha256-cne $binding.source_manifest[$name]){throw 'Reviewed source bytes changed.'}
     }
+    if($ApplicationSourceRoot-cne $RepositoryRoot){
+        if('application_manifest'-cnotin @($binding.Keys)){throw 'Exact extracted application binding is required.'}
+        foreach($name in $binding.application_manifest.Keys){
+            if((Get-NativeAcceptanceFileHash (Join-Path $ApplicationSourceRoot $name) 8388608).sha256-cne $binding.application_manifest[$name]){throw 'Exact extracted application bytes changed.'}
+        }
+    }
+}
+function Copy-RemedyApplicationMember {
+    param([string]$Name,[string]$Destination)
+    $relative=$Name.Replace('\','/')
+    if($ApplicationSourceRoot-cne $RepositoryRoot -and $relative-cnotin @($binding.application_manifest.Keys)){throw 'Copied member missing from exact application binding.'}
+    [IO.File]::Copy((Join-Path $ApplicationSourceRoot $Name),(Join-Path $Destination $Name),$false)
+    $hash=(Get-NativeAcceptanceFileHash (Join-Path $Destination $Name) 8388608).sha256
+    if($ApplicationSourceRoot-cne $RepositoryRoot -and $hash-cne $binding.application_manifest[$relative]){throw 'Copied member differs from exact extracted application binding.'}
+    return $hash
 }
 Assert-RemedySourceBinding
 if((Get-NativeAcceptanceFileHash $AuthoredPdf 8388608).sha256-cne $AuthoredPdfSha256){throw 'Authored PDF pin differs.'}
@@ -203,9 +223,9 @@ $report=[ordered]@{protocol='winbooksplit.setup-remedy-roundtrip';schema_version
     started_utc=[datetime]::UtcNow.ToString('o');source_binding=$binding;cases=@();source_files_unchanged=$false;
     os=Get-NativeAcceptanceOs -AllowWindows11DryRun;security_controls=@();include_security_controls=[bool]$IncludeSecurityControls}
 $members=@('VERSION','WinBookSplit.ps1','WinBookSplit.bat','Setup-WinBookSplit.ps1','Setup-WinBookSplit.bat','requirements.txt','Export-WinBookSplitDiagnostics.ps1')
-$members+=@(Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'engine') -File|ForEach-Object{'engine\'+$_.Name})
+$members+=@(Get-ChildItem -LiteralPath (Join-Path $ApplicationSourceRoot 'engine') -File|ForEach-Object{'engine\'+$_.Name})
 try{
-foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
+foreach($hostKind in $hostKinds){foreach($state in @('fresh','stale')){
     Assert-RemedySourceBinding
     $id=$hostKind+'-'+$state;$case=New-NativeAcceptanceDirectory (Join-Path $work $id)
     $appName='-'+[char]0xc5+[char]0x65e5+[char]0x672c+" [1] O'Brien & (app)! %WBS_KIT_X%"
@@ -213,8 +233,7 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
     $null=New-NativeAcceptanceDirectory (Join-Path $app 'engine')
     $hashes=@{}
     foreach($name in $members){
-        [IO.File]::Copy((Join-Path $RepositoryRoot $name),(Join-Path $app $name),$false)
-        $hashes[$name]=(Get-NativeAcceptanceFileHash (Join-Path $app $name) 8388608).sha256
+        $hashes[$name]=Copy-RemedyApplicationMember $name $app
     }
     $marks=@(Set-RemedyInternetMarks $app)
     $inputPdf=Join-Path $case '-Authored input [1].pdf';[IO.File]::Copy($AuthoredPdf,$inputPdf,$false)
@@ -222,7 +241,7 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
     $cwd=if($state-ceq 'fresh'){$system}else{New-NativeAcceptanceDirectory (Join-Path $case 'unrelated-cwd')}
     $adapter=Join-Path $case 'parent.ps1';Write-RemedyFixtureText $adapter $parent
     $old=@{}
-    if($state-ceq 'stale'){
+    if($state-ceq 'stale' -and -not[string]::IsNullOrEmpty($StalePython)){
         $created=Invoke-NativeAcceptanceProcessCase $StalePython @('-I','-B','-m','venv',(Join-Path $app '.venv')) $case 120
         if($null-eq $created.probe){throw 'Stale fixture failed before start.'}
         Write-NativeAcceptanceJson (Join-Path $case 'stale-create-process.json') $created.probe
@@ -230,6 +249,11 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
         if($created.failure -or $created.probe.ExitCode-ne 0){throw 'Actual stale venv creation failed.'}
         Write-RemedyFixtureText (Join-Path $app '.venv\owned-preserve.txt') 'Retain this entire authored old environment.'
         $old=Get-RemedyEnvironmentHashes (Join-Path $app '.venv')
+    }elseif($state-ceq 'stale'){
+        $broken=New-NativeAcceptanceDirectory (Join-Path $app '.venv')
+        $null=New-NativeAcceptanceDirectory (Join-Path $broken 'Scripts')
+        Write-RemedyFixtureText (Join-Path $broken 'owned-preserve.txt') 'Retain this authored broken environment.'
+        $old=Get-RemedyEnvironmentHashes $broken
     }
     $operation=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $app 'WinBookSplit.ps1'),'-InputFile',$inputPdf,
         '-OutputDirectory',$output,'-Mode','Manual','-StartPages','1,4,7','-NoPause')
@@ -237,7 +261,8 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
         base_python=$Python315;repair=($state-ceq 'stale');action='';operation_arguments=$operation;
         discovery_path=([IO.Path]::GetDirectoryName($Python315)+';'+$system+';'+[IO.Path]::GetDirectoryName($inbox))}
     $route=[ordered]@{id=$id;status='NOT_RUN';app=$app;state=$state;source_members=$hashes;internet_marks=$marks;
-        old_environment=$old;steps=@();operation_arguments=$operation;original_source_sha256=$AuthoredPdfSha256}
+        old_environment=$old;steps=@();operation_arguments=$operation;original_source_sha256=$AuthoredPdfSha256;
+        environment_fixture=$(if($state-ceq 'fresh'){'ACTUAL_BARE315'}elseif([string]::IsNullOrEmpty($StalePython)){'AUTHORED_BROKEN_VENV; no legacy Python execution'}else{'ACTUAL_STALE3147'})}
     $report.cases+=@($route)
     foreach($stage in @('direct','before','action','retry')){
         Assert-RemedySourceBinding
@@ -271,7 +296,7 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
             $payload.action=$lines[0].Substring('Action (PowerShell): '.Length).TrimEnd([char]13)
             $route.emitted_action=$payload.action
             if($state-ceq 'stale'){
-                if(-not $run.probe.Stdout.Contains('3.14.7; application_venv')){throw 'Actual stale selected identity was not reported.'}
+                if(-not[string]::IsNullOrEmpty($StalePython) -and -not $run.probe.Stdout.Contains('3.14.7; application_venv')){throw 'Actual stale selected identity was not reported.'}
                 Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $old
             }elseif(-not $run.probe.Stdout.Contains('3.15.0; ')-or [IO.Directory]::Exists((Join-Path $app '.venv'))){throw 'Actual bare identity was absent or processing installed a venv.'}
         }elseif($stage-ceq 'action'){
@@ -303,13 +328,13 @@ if($IncludeSecurityControls){
     # percent is covered above by the full emitted host Action, never relabeled
     # as an arbitrary BAT forwarding guarantee.
     $driverBefore=$inboxBaseline
-    foreach($hostKind in @('PS51','PS766','CMD')){
+    foreach($hostKind in @($hostKinds+@('CMD'))){
         Assert-RemedySourceBinding
         $id=$hostKind+'-marked-bat';$case=New-NativeAcceptanceDirectory (Join-Path $work $id)
         $appName='-'+[char]0xc5+[char]0x65e5+[char]0x672c+" [1] O'Brien & (marked app)!"
         $app=New-NativeAcceptanceDirectory (Join-Path $case $appName)
         $null=New-NativeAcceptanceDirectory (Join-Path $app 'engine');$hashes=@{}
-        foreach($name in $members){[IO.File]::Copy((Join-Path $RepositoryRoot $name),(Join-Path $app $name),$false);$hashes[$name]=(Get-NativeAcceptanceFileHash (Join-Path $app $name) 8388608).sha256}
+        foreach($name in $members){$hashes[$name]=Copy-RemedyApplicationMember $name $app}
         $marks=@(Set-RemedyInternetMarks $app)
         $inputPdf=Join-Path $case '-Authored input [1].pdf';[IO.File]::Copy($AuthoredPdf,$inputPdf,$false)
         $output=New-NativeAcceptanceDirectory (Join-Path $case 'output')
@@ -400,7 +425,7 @@ if($IncludeSecurityControls){
     }
     # Fixed safe policy-query simulation, with a native RS parent. It never
     # changes a real scope/GPO and never starts an alternative setup host.
-    foreach($hostKind in @('PS51','PS766')){
+    foreach($hostKind in $hostKinds){
         $case=New-NativeAcceptanceDirectory (Join-Path $work ($hostKind+'-organization-simulation'))
         $adapter=Join-Path $case 'parent.ps1';Write-RemedyFixtureText $adapter $parent
         $payloadPath=Join-Path $case 'payload.json'

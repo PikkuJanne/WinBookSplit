@@ -18,12 +18,13 @@ Gallery, checks fixed package SHA256 values before bounded ordinary-file
 extraction, and leaves global module, trust and execution-policy settings alone.
 The shared shell harness imports only the selected versioned manifests.
 
-Two separate application jobs use the exact test targets in
-`tests/compatibility/runtime-lock.json`: 3.13.16 and 3.14.8. Each uses its own
+Three separate application jobs use the exact test targets in
+`tests/compatibility/runtime-lock.json`: 3.13.16, 3.14.8 and 3.15.0. Each uses its own
 runtime environment containing only pypdf6.20.0 and optional pip; a distinct
 3.14.8 driver generates authored fixtures with the development dependencies.
-The shared application route runs147 stdlib/pypdf methods and eight PDF/native
-wrapper cases under both shell hosts. This bounded Server route explicitly
+The shared application route runs the existing nine stdlib/pypdf unit modules
+and eight PDF/native wrapper cases under both shell hosts. The 3.15 runtime
+contains no fixture or renderer dependencies. This bounded Server route explicitly
 omits Calibre; actual EPUB/AZW3 and native OS gates remain separate. Numeric
 application acceptance comes from the shipped policy, independently of these
 exact reproducible test selections. The workflow checks that every advertised
@@ -39,7 +40,10 @@ Reviewed action revisions:
 | [upload-artifact](https://github.com/actions/upload-artifact/releases/tag/v7.0.2) | 7.0.2 | `cf430e030ddbb5b0abf93d22962f4752f3646cd9` |
 
 The exact [Python 3.14.8 Windows x64 distribution](https://github.com/actions/python-versions/releases/tag/3.14.8-36806082737)
-is available to the pinned setup action. Developer modules are
+and [Python 3.15.0 Windows x64 distribution](https://github.com/actions/python-versions/releases/tag/3.15.0-38076878863)
+are listed as stable regular x64 targets in the official
+[Actions Python catalog](https://github.com/actions/python-versions/blob/main/versions-manifest.json).
+Availability is not an executed CI pass. Developer modules are
 [Pester 6.2.0](https://www.powershellgallery.com/packages/Pester/6.2.0) and
 [PSScriptAnalyzer 1.25.0](https://www.powershellgallery.com/packages/PSScriptAnalyzer/1.25.0).
 Downloads and imports are setup evidence, not executed test passes.
@@ -57,7 +61,8 @@ and shell PS7. Each application artifact contains OS/source facts, package
 prerequisites and its application report. Artifact names include source SHA,
 role/target and run attempt. `validate_reports.py` requires every declared
 report, matching source, Server ProductType, successful non-skipped suites and
-the exact application target; partial artifacts and unrelated older green runs
+the exact application target from the source runtime lock; malformed targets,
+partial artifacts and unrelated older green runs
 cannot satisfy the gate. Native commands keep their nonzero exit codes. No PDFs,
 Documents directory, environment dump or temporary-workspace wildcard is
 uploaded. Reports remain available on failure. A proposed workflow is not

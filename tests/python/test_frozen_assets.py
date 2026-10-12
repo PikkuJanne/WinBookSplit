@@ -113,7 +113,7 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
             cwd=self.work, env=environment, stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=20, check=False)
         self.assertEqual(observed.returncode, 0, observed.stderr)
-        self.assertEqual(json.loads(observed.stdout), {"source_commit": self.commit, "count": 33})
+        self.assertEqual(json.loads(observed.stdout), {"source_commit": self.commit, "count": 34})
 
     def test_dependency_contract_keeps_policy_ranges_separate_from_build_runtime(self):
         policy_bytes = self.base_payload["engine/WinBookSplit.Compatibility.json"]
@@ -159,7 +159,7 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
             lambda value: value["python"].update(bits=True),
             lambda value: value["python"].update(stable_only=False),
             lambda value: value["python"].update(gil_disabled=True),
-            lambda value: value["python"]["branches"][0].update(recommended_patch=0),
+            lambda value: next(branch for branch in value["python"]["branches"] if branch["minor"] == 14).update(recommended_patch=0),
             lambda value: value["pypdf"].update(wheel_sha256="0" * 64))
         for mutation in mutations:
             value = deepcopy(original)

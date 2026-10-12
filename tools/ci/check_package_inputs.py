@@ -16,7 +16,7 @@ import sys
 
 RUNTIME_PATHS = (
     "VERSION", "WinBookSplit.bat", "WinBookSplit.ps1", "Export-WinBookSplitDiagnostics.ps1",
-    "Setup-WinBookSplit.ps1", "requirements.txt",
+    "Setup-WinBookSplit.ps1", "Setup-WinBookSplit.bat", "requirements.txt",
     "engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Process.ps1",
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1", "engine/WinBookSplit.Setup.ps1",
@@ -277,11 +277,13 @@ def validate_inputs(repo: Path, commit: str) -> dict:
                     raise InputError("unresolved_runtime_dependency", path)
                 needed.add("requirements.txt")
             dependencies[path] = sorted(needed)
-    bat = _text(blobs["WinBookSplit.bat"], "WinBookSplit.bat")
-    references = re.findall(r"%~dp0([^\"\r\n]+)", bat, re.IGNORECASE)
-    if not references or any(reference != "WinBookSplit.ps1" for reference in references):
-        raise InputError("launcher_dependency_changed", "WinBookSplit.bat")
-    dependencies["WinBookSplit.bat"] = ["WinBookSplit.ps1"]
+    for launcher, sibling in (("WinBookSplit.bat", "WinBookSplit.ps1"),
+                              ("Setup-WinBookSplit.bat", "Setup-WinBookSplit.ps1")):
+        bat = _text(blobs[launcher], launcher)
+        references = re.findall(r"%~dp0([^\"\r\n]+)", bat, re.IGNORECASE)
+        if not references or any(reference != sibling for reference in references):
+            raise InputError("launcher_dependency_changed", launcher)
+        dependencies[launcher] = [sibling]
     canonical = json.dumps(files, sort_keys=True, separators=(",", ":"), ensure_ascii=True).encode("ascii")
     return {"schema_version": 1, "check": "package_source_inputs", "success": True, "exit_code": 0,
             "source_commit": commit, "source_tree": tree, "input_sha256": sha256(canonical).hexdigest(),

@@ -569,13 +569,13 @@ try{
 function Invoke-NativeAcceptance {
     [CmdletBinding()]
     param([Parameter(Mandatory=$true)][string]$KitRoot,[Parameter(Mandatory=$true)][string]$BindingsSha256,
-        [string]$BarePythonPath,[string]$CalibrePath,[string]$Wheelhouse,[switch]$ProvisionPrerequisites,
-        [switch]$AllowWindows11DryRun,[ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED')][string]$Execution='USER_LAUNCHED')
+        [string]$BarePythonPath,[string]$BaselinePythonPath,[string]$CalibrePath,[string]$Wheelhouse,[string]$PowerShell7,[switch]$ProvisionPrerequisites,
+        [switch]$AllowWindows11DryRun,[ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED_AUTOMATED')][string]$Execution='USER_LAUNCHED_AUTOMATED')
     $ErrorActionPreference='Stop'
     Initialize-WinBookSplitLogTypes;Initialize-WinBookSplitSupport;Initialize-WinBookSplitProcess
-    $started=[DateTime]::UtcNow.ToString('o');$os=$bindings=$safeNative=$oracle=$null;$failure=$failureStage=$null;$work=$null;$unsafe=$false
+    $started=[DateTime]::UtcNow.ToString('o');$os=$bindings=$safeNative=$oracle=$runtimeSelection=$markedSummary=$run=$null;$failure=$failureStage=$null;$work=$null;$unsafe=$false
     $leases=New-Object 'Collections.Generic.List[IDisposable]';$stages=New-Object 'Collections.Generic.List[object]';$controls=New-Object 'Collections.Generic.List[object]'
-    $stageIds=@('os','kit_identity','prerequisites','verify_extract','version','help','setup_install','setup_check','setup_noop','controls','prepare','native_cases','validate','redact','source_identity')
+    $stageIds=@('os','kit_identity','prerequisites','verify_extract','version','help','setup_install','setup_check','setup_noop','marked_setup_remedies','controls','prepare','native_cases','validate','redact','source_identity')
     $stage='os';$productionVerified=$false;$kitVerified=$false
     try {
         $root=Get-NativeAcceptanceOrdinaryPath $KitRoot -Directory
@@ -598,12 +598,15 @@ function Invoke-NativeAcceptance {
         $bindings=$read.value
         if ($bindings -isnot [Collections.IDictionary] -or $bindings.Count -ne 7 -or $bindings.protocol -cne 'winbooksplit.native-kit' -or
             -not(Test-SplitInteger $bindings.schema_version) -or $bindings.schema_version -ne 1 -or
-            $bindings.helpers -isnot [Collections.IDictionary] -or $bindings.helpers.Count -ne 12 -or
+            $bindings.helpers -isnot [Collections.IDictionary] -or $bindings.helpers.Count -ne 19 -or
             $bindings.fixtures -isnot [Collections.IDictionary] -or $bindings.fixtures.Count -ne 6) {throw 'Native kit bindings schema differs from its finite closure.'}
         if(-not(Test-NativeAcceptanceProductionIdentity $bindings.production $bindings.production)){throw 'Expected production pins are not a finite safe identity.'}
         $helperNames=@('engine/WinBookSplit.Logging.ps1','engine/WinBookSplit.Diagnostics.ps1','engine/WinBookSplit.Process.ps1','engine/WinBookSplit.Support.ps1',
             'engine/WinBookSplit.Outcomes.json','engine/winbooksplit_windows.py','tools/compatibility/Invoke-NativeAcceptance.ps1','tools/compatibility/kit_builder.py',
-            'tools/compatibility/native_smoke.py','tools/release/frozen_assets.py','tests/cli/Probe-Help.ps1','tests/process/session_child.py')
+            'tools/compatibility/native_smoke.py','tools/release/frozen_assets.py','tests/cli/Probe-Help.ps1','tests/process/session_child.py',
+            'engine/WinBookSplit.Runtime.ps1','engine/WinBookSplit.Compatibility.ps1','engine/WinBookSplit.Paths.ps1',
+            'engine/WinBookSplit.Compatibility.json','engine/winbooksplit_compatibility.py',
+            'tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1','tests/compatibility/validate_setup_remedy.py')
         $fixtureNames=@('flat-6.pdf','nested-12.pdf','original-three-chapters.azw3','original-three-chapters.epub','simple-10.pdf','native-fixtures.json')
         $kit=$bindings.kit
         if($kit -isnot [Collections.IDictionary] -or $kit.Count -ne 6 -or $kit.helpers_payload_sha256 -isnot [string] -or
@@ -636,13 +639,60 @@ function Invoke-NativeAcceptance {
             $leases.Add((New-Object WinBookSplitLogging.PathLease($path,$false,$false,$true)))
         }
         $kitVerified=$true
+        if($bindings.helpers['engine/WinBookSplit.Compatibility.json'].sha256-cne $bindings.production.policy_sha256){throw 'Authenticated discovery policy differs from exact production.'}
         $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=0;probe_sha256=$null})
         $stage='prerequisites';$downloads=New-NativeAcceptanceDirectory ([IO.Path]::Combine($work,'downloads'))
-        if([string]::IsNullOrEmpty($BarePythonPath)){
-            if(-not $ProvisionPrerequisites){throw 'An explicit trusted bare Python or authorized private provisioning is required.'}
+        $discoveryPolicy=Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root,'engine','WinBookSplit.Compatibility.json'))
+        $owner=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $discoveryPolicy -PythonPath $BarePythonPath
+        $ownerUsable=$null-ne $owner -and $owner.Version -cmatch '\A3\.15\.[0-9]+\z'
+        $runtimeSelection=[ordered]@{owner_version=$(if($owner){$owner.Version}else{$null});owner_regular315_usable=$ownerUsable;
+            owner_selected=$ownerUsable;selected_version=$null;required_baseline_version='3.15.0';baseline_version=$null;baseline_kind='explicit3150_test_baseline';
+            reason=$(if($ownerUsable){'usable_regular315_discovered'}elseif($owner){'supported_legacy_branch_is_not_315_kit_target'}else{'no_usable_regular315_discovered'})}
+        if($ownerUsable){$BarePythonPath=$owner.Path}else{$BarePythonPath=$null}
+        if([string]::IsNullOrEmpty($BaselinePythonPath) -and $ownerUsable -and $owner.Version-ceq '3.15.0'){
+            # Read-only package probe: an already-installed pypdf cannot serve
+            # the required bare missing-pypdf regression. Keep owner selection
+            # primary, and provision a clean baseline only for that fixture.
+            $packageAttempts=New-Object 'Collections.Generic.List[object]'
+            $null=Test-WinBookSplitPythonCandidate $owner.Path 'explicit' $root $packageAttempts 10
+            if($packageAttempts.Count-eq 1 -and $packageAttempts[0].Reason-ceq 'missing_pypdf'){
+                $BaselinePythonPath=$owner.Path
+                $runtimeSelection.baseline_kind='existing3150_without_pypdf'
+            }else{
+                $missingRoot=New-NativeAcceptanceDirectory ([IO.Path]::Combine($work,'owned-missing-package-baseline'))
+                $leases.Add((New-Object WinBookSplitLogging.PathLease($missingRoot,$true)))
+                $run=Invoke-NativeAcceptanceProcessCase $owner.Path @('-I','-B','-m','venv','--without-pip',$missingRoot) $work 120
+                Write-NativeAcceptanceJson ([IO.Path]::Combine($work,'baseline-venv-process.json')) $run.probe
+                Assert-NativeAcceptanceProcess $run.probe
+                if($run.failure -or $run.probe.ExitCode-ne 0){throw 'Owned clean315.0 missing-package baseline creation failed.'}
+                $BaselinePythonPath=[IO.Path]::Combine($missingRoot,'Scripts','python.exe')
+                $runtimeSelection.baseline_kind='owned3150_venv_without_pip_from_existing3150'
+            }
+        }
+        if([string]::IsNullOrEmpty($BaselinePythonPath)){
+            if(-not $ProvisionPrerequisites){throw 'The exact315.0 private test baseline or authorized private provisioning is required.'}
             $zip=Get-NativeAcceptanceDownload $bindings.prerequisites.python ([IO.Path]::Combine($downloads,$bindings.prerequisites.python.name))
-            $BarePythonPath=Expand-NativeAcceptancePython $zip ([IO.Path]::Combine($work,'python')) $bindings.prerequisites.python
-        }else{$BarePythonPath=Get-NativeAcceptanceOrdinaryPath $BarePythonPath}
+            $BaselinePythonPath=Expand-NativeAcceptancePython $zip ([IO.Path]::Combine($work,'python315-baseline')) $bindings.prerequisites.python
+            $runtimeSelection.baseline_kind='reviewed_private3150_archive'
+        }else{$BaselinePythonPath=Get-NativeAcceptanceOrdinaryPath $BaselinePythonPath}
+        $baselineAttempts=New-Object 'Collections.Generic.List[object]'
+        $baseline=Test-WinBookSplitPythonCandidate $BaselinePythonPath 'explicit' $root $baselineAttempts 10 -InterpreterOnly
+        if($null-eq $baseline -or $baseline.Version-cne '3.15.0'){throw 'Required actual regular315.0 baseline differs; no version substitution permitted.'}
+        $runtimeSelection.baseline_version=$baseline.Version
+        if([string]::IsNullOrEmpty($BarePythonPath)){$BarePythonPath=$BaselinePythonPath}
+        $chosenAttempts=New-Object 'Collections.Generic.List[object]'
+        $chosen=Test-WinBookSplitPythonCandidate $BarePythonPath 'explicit' $root $chosenAttempts 10 -InterpreterOnly
+        if($null-eq $chosen -or $chosen.Version-cnotmatch '\A3\.15\.[0-9]+\z'){throw 'Native kit selected runtime is not a usable regular315 branch.'}
+        $runtimeSelection.selected_version=$chosen.Version
+        foreach($kind in @('selected_identity','baseline_identity')){
+            $candidate=if($kind-ceq 'selected_identity'){$chosen}else{$baseline}
+            $details=$candidate.Details
+            $identity=[ordered]@{source=$(if($kind-ceq 'selected_identity' -and $ownerUsable){$owner.Source}else{$candidate.Source});
+                executable_sha256=(Get-NativeAcceptanceFileHash $candidate.Path 8388608).sha256;version=$candidate.Version}
+            foreach($field in @('implementation','platform','machine','bits','gil_disabled','releaselevel','serial','isolated','dont_write_bytecode','policy_sha256')){$identity[$field]=$details.$field}
+            $runtimeSelection[$kind]=$identity
+        }
+        Write-NativeAcceptanceJson ([IO.Path]::Combine($work,'runtime-selection-local.json')) @{selection=$runtimeSelection;selected=$chosen;baseline=$baseline}
         if([string]::IsNullOrEmpty($Wheelhouse)){
             if(-not $ProvisionPrerequisites){throw 'An exact wheelhouse or authorized private provisioning is required.'}
             $Wheelhouse=New-NativeAcceptanceDirectory ([IO.Path]::Combine($work,'wheelhouse'))
@@ -709,7 +759,64 @@ function Invoke-NativeAcceptance {
             }
             $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=0;probe_sha256=(Get-NativeAcceptanceFileHash $rawPath 8388608).sha256})
         }
-        $python=[IO.Path]::Combine($app,'.venv\Scripts\python.exe');$stage='controls'
+        $python=[IO.Path]::Combine($app,'.venv\Scripts\python.exe');$stage='marked_setup_remedies'
+        $sourceMap=@{};foreach($name in $helperNames){$sourceMap[$name]=$bindings.helpers[$name].sha256}
+        $applicationMap=@{};foreach($name in $verified.files.Keys){$applicationMap[$name]=$verified.files[$name].sha256}
+        $remedyBinding=[IO.Path]::Combine($work,'remedy-source-binding.json')
+        Write-NativeAcceptanceJson $remedyBinding @{protocol='winbooksplit.native-kit-remedy-binding';schema_version=1;
+            source_manifest=$sourceMap;application_manifest=$applicationMap;production=$bindings.production;kit=$bindings.kit}
+        $bindingHash=(Get-NativeAcceptanceFileHash $remedyBinding 8388608).sha256
+        $argv=@('-NoProfile','-NonInteractive','-ExecutionPolicy','Bypass','-File',[IO.Path]::Combine($root,'tools','compatibility','Invoke-SetupRemedyRoundTrip.ps1'),
+            '-RepositoryRoot',$root,'-ApplicationSourceRoot',$app,'-WorkParent',$work,'-SourceBinding',$remedyBinding,
+            '-SourceBindingSha256',$bindingHash,'-Python315',$BaselinePythonPath,'-AuthoredPdf',[IO.Path]::Combine($root,'fixtures','simple-10.pdf'),
+            '-AuthoredPdfSha256',$bindings.fixtures['simple-10.pdf'].sha256,'-IncludeSecurityControls','-Wheelhouse',$Wheelhouse)
+        if(-not[string]::IsNullOrEmpty($PowerShell7)){$argv+=@('-PowerShell7',$PowerShell7)}
+        $run=Invoke-NativeAcceptanceProcessCase $inbox $argv $work 600
+        $markedProcess=[IO.Path]::Combine($work,'marked-setup-remedies-process.json');Write-NativeAcceptanceJson $markedProcess $run.probe
+        Assert-NativeAcceptanceProcess $run.probe
+        $paths=@($run.probe.Stdout.Split("`n")|Where-Object{$_.StartsWith('RECEIPT ')})
+        if($paths.Count-ne 1){throw 'Exact extracted-package remedy receipt was not emitted once.'}
+        $markedPath=$paths[0].Substring(8).TrimEnd([char]13)
+        if(-not [IO.Path]::GetFullPath($markedPath).StartsWith($work+'\',[StringComparison]::OrdinalIgnoreCase)){throw 'Remedy receipt escaped owned kit work.'}
+        $marked=(Read-NativeAcceptanceJson $markedPath 8388608).value
+        if($run.failure -or $run.probe.ExitCode-ne 0 -or $marked.success-isnot [bool] -or -not $marked.success -or
+            $marked.source_files_unchanged-isnot [bool] -or -not $marked.source_files_unchanged){throw 'Exact extracted-package marked BAT/Action/repair/PDF regressions failed.'}
+        $markedSummary=[ordered]@{status='PASS';required_runtime_version='3.15.0';exact_asset_bound=$true;
+            Action_roundtrips=$marked.cases.Count;marked_BAT_routes=@($marked.security_controls|Where-Object{$_.scope-ceq 'ACTUAL_MARKED_APPLICATION_BAT'}).Count;
+            mocked_policy_refusals=@($marked.security_controls|Where-Object{$_.scope-like 'MOCKED_POLICY_QUERY*'}).Count;
+            raw_receipt_sha256=(Get-NativeAcceptanceFileHash $markedPath 8388608).sha256;
+            probe_sha256=(Get-NativeAcceptanceFileHash $markedProcess 8388608).sha256;actual_inbox_policy_snapshots=$marked.driver_policies_before_after;
+            fixture='Authored broken venv, not an owner legacy runtime; marks assigned by automation; all source/ADS/PDF checks verified'}
+        $safeRoutes=New-Object 'Collections.Generic.List[object]'
+        foreach($route in @($marked.cases)+@($marked.security_controls)){
+            if($route.status-cne 'PASS'){throw 'Marked route did not actually pass.'}
+            $safeRoute=[ordered]@{id=$route.id;status=$route.status;kind=$(if('simulation'-cin @($route.Keys)){'MOCKED_POLICY_QUERY'}elseif('environment_fixture'-cin @($route.Keys)){'ACTION'}else{'BAT'});
+                fixture=$(if('environment_fixture'-cin @($route.Keys)){$route.environment_fixture}elseif('simulation'-cin @($route.Keys)){'MOCKED_POLICY_QUERY'}else{'AUTHORED_BROKEN_VENV'});
+                exits=@();child_hosts=@();pdf=$null}
+            if('simulation'-cin @($route.Keys)){
+                $safeRoute.exits=@(@{stage='simulation';exit_code=$route.probe.ExitCode})
+                $safeRoute.simulated_positive_launch_refused=$route.simulation.positive_launch_refused
+            }else{
+                foreach($step in $route.steps){
+                    $safeRoute.exits+=@(@{stage=$step.stage;exit_code=$step.probe.ExitCode})
+                    $frames=@($step.probe.Stdout.Split("`n")|Where-Object{$_.StartsWith('[SETUP] ')})
+                    if($frames.Count-eq 1){
+                        $setupRecord=Get-NativeAcceptanceFrame $step.probe.Stdout '[SETUP] '
+                        $safeRoute.child_hosts+=@(@{stage=$step.stage;executable_status=$setupRecord.host.executable_status;
+                            version=$setupRecord.host.version;edition=$setupRecord.host.edition;execution_policy=$setupRecord.host.execution_policy;
+                            selected_version=$setupRecord.selected_version;pypdf_version=$setupRecord.pypdf_version})
+                    }
+                }
+                if($route.pdf_oracle.success-isnot [bool] -or -not $route.pdf_oracle.success){throw 'Marked PDF oracle did not prove success.'}
+                $safeRoute.pdf=@{success=$true;runtime_version=$route.pdf_oracle.console.run_manifest.runtime_versions.python;
+                    written_count=$route.pdf_oracle.written_count;physical_pages=$route.pdf_oracle.physical_pages;
+                    source_sha256=$route.original_source_sha256}
+            }
+            $safeRoutes.Add($safeRoute)
+        }
+        $markedSummary.routes=$safeRoutes.ToArray()
+        $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=0;probe_sha256=$markedSummary.probe_sha256})
+        $stage='controls'
         foreach($kind in @('timeout','cancel')){$controls.Add((Invoke-NativeAcceptanceTransportControl $python ([IO.Path]::Combine($root,'tests\process\session_child.py')) $work $kind))}
         # The second exact extraction has no .venv, preserving authoritative
         # application semantics while the actual full runtime is on PATH.
@@ -722,7 +829,7 @@ function Invoke-NativeAcceptance {
         $documents=Get-NativeAcceptanceOrdinaryPath ([Environment]::GetFolderPath('MyDocuments')) -Directory
         $planPath=[IO.Path]::Combine($work,'plan.json')
         $argv=@('-I','-B',$smoke,'prepare','--application-root',$app,'--fixture-root',[IO.Path]::Combine($root,'fixtures'),
-            '--work-root',$fixtureWork,'--python-path',$python,'--bare-python-path',$BarePythonPath,'--calibre-path',$CalibrePath,
+            '--work-root',$fixtureWork,'--python-path',$python,'--bare-python-path',$BaselinePythonPath,'--calibre-path',$CalibrePath,
             '--documents-root',$documents,'--policy-sha256',$bindings.production.policy_sha256,'--output',$planPath)
         $run=Invoke-NativeAcceptanceProcessCase $python $argv $work 120
         Write-NativeAcceptanceJson ([IO.Path]::Combine($work,'prepare-process.json')) $run.probe;Assert-NativeAcceptanceProcess $run.probe
@@ -758,11 +865,12 @@ function Invoke-NativeAcceptance {
         $stages.Add([ordered]@{id=$stage;status=$(if($oracle.success){'PASS'}else{'FAIL'});code=$(if($oracle.success){'completed'}else{'oracle_failed'});
             exit_code=$run.probe.ExitCode;probe_sha256=(Get-NativeAcceptanceFileHash ([IO.Path]::Combine($work,'validate-process.json')) 8388608).sha256})
         $stage='redact';$raw=[IO.Path]::Combine($work,'oracle-os.json');$safe=[IO.Path]::Combine($work,'sanitized-native.json')
-        Write-NativeAcceptanceJson $raw ([ordered]@{oracle=$oracle;os=$os;execution=$Execution})
+        Write-NativeAcceptanceJson $raw ([ordered]@{oracle=$oracle;os=$os;execution=$Execution;runtime_selection=$runtimeSelection;marked_setup_regressions=$markedSummary})
         $run=Invoke-NativeAcceptanceProcessCase $python @('-I','-B',$smoke,'export','--raw-report',$raw,'--output',$safe) $work 60
         Write-NativeAcceptanceJson ([IO.Path]::Combine($work,'export-process.json')) $run.probe;Assert-NativeAcceptanceProcess $run.probe
         if($run.failure -or $run.probe.ExitCode -ne $(if($oracle.success){0}else{1})){throw 'Fixed native redaction failed.'}
         $safeNative=(Read-NativeAcceptanceJson $safe 8388608).value
+        $runtimeSelection=$safeNative.runtime_selection;$markedSummary=$safeNative.marked_setup_regressions
         $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=$run.probe.ExitCode;probe_sha256=(Get-NativeAcceptanceFileHash ([IO.Path]::Combine($work,'export-process.json')) 8388608).sha256})
         $stage='source_identity'
         foreach($name in $helperNames){if((Get-NativeAcceptanceFileHash ([IO.Path]::Combine($root,$name.Replace('/','\'))) 8388608).sha256 -cne $bindings.helpers[$name].sha256){throw 'Frozen native helper source changed.'}}
@@ -770,6 +878,8 @@ function Invoke-NativeAcceptance {
         $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=0;probe_sha256=$null})
     }catch{
         $primary=$_.Exception;$failure=$primary.Message;$failureStage=$stage
+        if($primary.Data.Contains('FatalDiscovery') -and $primary.Data['FatalDiscovery']){$unsafe=$true}
+        if($primary.Data.Contains('Probe') -and $null-ne $primary.Data['Probe']){try{Assert-NativeAcceptanceProcess $primary.Data['Probe']}catch{$unsafe=$true}}
         if($primary.Data.Contains('ControlUnsafe')){$unsafe=$unsafe -or [bool]$primary.Data['ControlUnsafe']}
         elseif($run -and $run.probe){try{Assert-NativeAcceptanceProcess $run.probe}catch{$unsafe=$true}}
         $blocked=$primary.Data.Contains('NativeBlocked') -and $primary.Data['NativeBlocked'] -ceq 'portable_target_too_long'
@@ -785,7 +895,7 @@ function Invoke-NativeAcceptance {
         bindings_sha256=$BindingsSha256;helpers=$bindings.helpers;fixtures=$bindings.fixtures}}else{$null}
     $result=[ordered]@{protocol='winbooksplit.native-acceptance';schema_version=1;evidence_kind='NATIVE_AUTOMATED';execution=$Execution;
         started_utc=$started;finished_utc=[DateTime]::UtcNow.ToString('o');success=$success;os=$safeOs;oracle=$safeOracle;cases=@($safeCases);identities=$identities;
-        expected_production=$(if($kitVerified){$bindings.production}else{$null});stages=$stages.ToArray();controls=$controls.ToArray();cleanup_safe=(-not $unsafe)}
+        expected_production=$(if($kitVerified){$bindings.production}else{$null});runtime_selection=$(if($kitVerified -and $runtimeSelection){$runtimeSelection}else{$null});marked_setup_regressions=$markedSummary;stages=$stages.ToArray();controls=$controls.ToArray();cleanup_safe=(-not $unsafe)}
     try{if($work){
         if($failure){Write-NativeAcceptanceJson ([IO.Path]::Combine($work,'local-failure.json')) ([ordered]@{stage=$failureStage;message=$failure;unsafe=$unsafe;os=$os})}
         $resultPath=[IO.Path]::Combine($work,'native-result.json');Write-NativeAcceptanceJson $resultPath $result

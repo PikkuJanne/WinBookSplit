@@ -1,0 +1,178 @@
+{
+  "protocol": "winbooksplit.v102-task08-kit-source",
+  "schema_version": 1,
+  "status": "SOURCE_PREPARATION_PASS",
+  "baseline_commit": "3cbc35e5a1636a4eefc481d3a0bf3cfb1665710d",
+  "baseline_tree": "4654747158784288c53cd1dfb45cb1298e75827d",
+  "source_meaning": "Baseline Git IDs identify the prior checkpoint; the scoped map binds actual reviewed uncommitted bytes. This receipt is not a clean checkpoint or a frozen release.",
+  "source_manifest": {
+    "tools/release/payload.json": "cc590cf927dd876a4e545e41bf01527d1aa0f2a9e51b8b0f9b2c4d6386b94f87",
+    "tools/ci/check_package_inputs.py": "e9cd7ac6238fcd826b9deb01cd96915bcc7a8ff5442e8d1b2d3252d8944d4381",
+    "tests/python/test_ci_package_inputs.py": "6ce65eeb99e302d1959d4202df38f48d681e09a89bdc70e76a5cc957771340e3",
+    "tests/python/test_release_package.py": "b4332d75afbffc7d4e626282bd940a1f577741b661edf5c6bee4b4d2f803a9ae",
+    "tools/compatibility/kit_builder.py": "9e76a17516f48f0161e7a807e4414eaa109ae517bb029d31d4564df0ece534a5",
+    "tools/compatibility/Invoke-NativeAcceptance.ps1": "9747a3754e37fe6a342af9f38a58cce49682a2854c90abc2e7d0de06e9c9ef07",
+    "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd",
+    "tools/compatibility/native_smoke.py": "70ad7cb9f13d9aa81e85bb773fcc9ccc20673ad2960f8ba5841b4e05f307569e",
+    "tools/compatibility/README.md": "9ca04b77c7173f04af5f9db11fd229c104ab2cba155c286404d3467b685ef9d4",
+    "tests/python/test_native_smoke.py": "b691ca2844fb813715e4a64ba60c854da2600bc0c8894178e6201c29b3af3b7c",
+    "tests/python/test_native_kit.py": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc",
+    "tests/compatibility/Probe-NativeKit.ps1": "75ae3fd43f3cf49edcdaf48aaa0ac3595c41a4a3da21f8cb125a8285697dc814",
+    "tests/compatibility/validate_setup_remedy.py": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98",
+    "tools/compatibility/Invoke-FinalZipPs7.ps1": "eaef9da460de77741675e484480a808ff6660d1f1d2e57091681e8e46a07f38b",
+    "tools/compatibility/final_zip_ps7.py": "73ca5b727a49410433cc6f3871bcbe0b2b46ddb6e603ae299393b0a546e37db7"
+  },
+  "source_manifest_sha256": "f8e2a1c581822267457f630ed8f42d585897c6cf7fe5ccf63c782fa21bc038b7",
+  "changed_behavior": [
+    "Setup BAT added to 34-member release allowlist; sibling source closure retained.",
+    "All discovery helpers authenticated before loading and bound byte-for-byte to candidate production closure/policy.",
+    "Owner regular315 selected by maintained read-only discovery; serviced legacy branch remains supported but is not315 kit target.",
+    "Exact3150 missing-package regression remains separate from observed later owner patch; existing3150 can supply a newly owned no-pip baseline.",
+    "Marked BAT/Action/Repair/PDF regression reuses maintained SDK and exact authenticated extracted members; owner needs no legacy runtime or PS7 installation.",
+    "Returned fixed proof includes actual selected/baseline identity and executable hashes, finite route exits/actual child scopes/3150 PDF counts; private paths/raw console text rejected."
+  ],
+  "tests": [
+    {
+      "id": "test_native_smoke",
+      "status": "PASS",
+      "runtime": "3.15.0",
+      "count": 31,
+      "source_unchanged": true,
+      "scope": "Developer native tooling controls only"
+    },
+    {
+      "id": "test_native_kit",
+      "status": "PASS",
+      "runtime": "3.15.0",
+      "count": 11,
+      "source_unchanged": true,
+      "scope": "Developer native tooling controls only"
+    },
+    {
+      "id": "sdk-51",
+      "status": "PASS",
+      "shell": "5.1.26100.9444",
+      "count": 13,
+      "source_unchanged": true,
+      "scope": "Controlled native tooling only; no application, ZIP or Windows10 acceptance"
+    },
+    {
+      "id": "sdk-766",
+      "status": "PASS",
+      "shell": "7.6.6",
+      "count": 13,
+      "source_unchanged": true,
+      "scope": "Controlled native tooling only; no application, ZIP or Windows10 acceptance"
+    },
+    {
+      "id": "static-5.1",
+      "status": "PASS",
+      "shell": "5.1.26100.9444",
+      "analyzer": "1.25.0",
+      "parser_errors": 0,
+      "analyzer_findings": 0,
+      "source_unchanged": true,
+      "scope": "Syntax/static only"
+    },
+    {
+      "id": "static-7.6.6",
+      "status": "PASS",
+      "shell": "7.6.6",
+      "analyzer": "1.25.0",
+      "parser_errors": 0,
+      "analyzer_findings": 0,
+      "source_unchanged": true,
+      "scope": "Syntax/static only"
+    }
+  ],
+  "packaging_tests": {
+    "package_inputs": "PASS20/20; actual3150; scoped allowlist expectations corrected21to22runtimepaths",
+    "release_package": "PASS26/26; actual3150; external corrected receipt retains source before/after"
+  },
+  "prior_failures": [
+    {
+      "scope": "Tooling assertion before correction",
+      "actual": "native-smoke28 tests,1failure: obsolete USER_LAUNCHED label; synthetic fixture corrected to USER_LAUNCHED_AUTOMATED. Current31tests pass.",
+      "raw_evidence": "Initial tool output retained in conversation; no separate raw receipt claimed."
+    },
+    {
+      "scope": "Tooling assertion before correction",
+      "actual": "package-input runtime count21 versus new22 failed; corrected scoped expectation,20/20rerun passed.",
+      "raw_evidence": "Initial tool output retained in conversation; no separate raw receipt claimed."
+    },
+    {
+      "scope": "Correctly rejected source drift",
+      "actual": "First release-package run26tests,1error/1failure: builder_source_mismatch while packaging inputs changed. Corrected stable-source26/26 rerun passed.",
+      "raw_evidence": "Initial tool output retained in conversation; corrected raw receipt is hashed separately."
+    }
+  ],
+  "commands": {
+    "alias_definitions": {
+      "REPO": "Actual existing checkout",
+      "PY315": "Reviewed runtime-only CPython3.15.0; pypdf6.20.0",
+      "PS51": "OS inbox64bit PowerShell5.1.26100.9444",
+      "PS766": "Reviewed isolated64bit PowerShell7.6.6",
+      "NEW": "New externally owned task08-tooling-checks directory"
+    },
+    "native_smoke": "PY315 -B -m unittest discover -s tests/python -p test_native_smoke.py -v",
+    "native_kit": "PY315 -B -m unittest discover -s tests/python -p test_native_kit.py -v",
+    "package_inputs": "PY315 -B -m unittest discover -s tests/python -p test_ci_package_inputs.py -v",
+    "release_package": "PY315 -I -B -X utf8 -m unittest discover -s REPO/tests/python -p test_release_package.py",
+    "sdk": "Each PS51 and PS766: -NoProfile -NonInteractive -ExecutionPolicy Bypass -File REPO/tests/compatibility/Probe-NativeKit.ps1 -RepositoryRoot REPO -CoreRoot REPO/tools/compatibility -TestPython PY315 -WorkRoot NEW/sdk-<host> -ReportPath NEW/sdk-<host>.json",
+    "static": "Each PS51 and PS766: -NoProfile -NonInteractive -ExecutionPolicy Bypass -File NEW/Check-KitStatic.ps1 -Report NEW/static-<host>.json"
+  },
+  "raw_references": [
+    {
+      "alias": "test_native_smoke-ee086420a9d6417bba720fea8c7f888d",
+      "sha256": "43be385bc1f6970fd858049175de52abf3ff3e72065e992048666ca9c2ba27ed"
+    },
+    {
+      "alias": "test_native_kit-c1de3e72f13a4d438e7e7590fceb3fe6",
+      "sha256": "6b3eb54ec9502e9512b868c385f4eff337fce7fac777045e8afc6100d3c29efb"
+    },
+    {
+      "alias": "sdk-51",
+      "sha256": "7228ee379c2b54b6dbdb3cd5cf5bfea272bf44c8965a4aff920ea9fc929b7308"
+    },
+    {
+      "alias": "sdk-766",
+      "sha256": "23143addb456b4f20ee50e4d66858ba2840043d30baf4f02345e89bb17ef5734"
+    },
+    {
+      "alias": "static-5.1",
+      "sha256": "d56f31bee03f2ea7e973f36828b0a53946f9282b308e4de176c6476f2044c03a"
+    },
+    {
+      "alias": "static-7.6.6",
+      "sha256": "cd219d395c9118989229b1bd630d7b25510efaacf12a66a4e4834f5da82089f4"
+    },
+    {
+      "alias": "test_release_package-3bb3211f85b44aa2a63ae08f2983e785",
+      "sha256": "7cbc22795fc5c265514ff67c546b80d795f7078b30da16f74190ea2ac84ad472"
+    },
+    {
+      "alias": "Check-KitStatic.ps1",
+      "sha256": "ac65a9e410b238f654eeb770fa01d05241f883e700ca14b8458005667998538d"
+    },
+    {
+      "alias": "Run-FocusedChecks.py",
+      "sha256": "aa440ab69a107e51cda9ea92d311ea7340cb93a9b76cdeb8912727b85c24fcbd"
+    },
+    {
+      "alias": "Write-KitSourceEvidence.py",
+      "sha256": "b472576791a7c8415ae459ab14a5654635ec45b1d50851bca820cd0eda8c8b23"
+    }
+  ],
+  "acceptance": {
+    "V102-AC-046": "PREPARATION_ONLY; source/unit/native SDK proof; real exact committed-kit candidate preflight remains",
+    "V102-AC-047": "PREPARATION_ONLY; one unsigned-MOTW-capable owner command generated; actual committed kit preflight remains",
+    "V102-AC-048": "Source and negative export controls pass; actual fresh kit return still required"
+  },
+  "remaining": [
+    "Root C1 source commit/push/live comparison and hosted/full suite gates.",
+    "Build authentic private current-source VERSION1.0.1 transitional candidate and normal COMMITTED helper kit; run native11preflight and PS7supplement. Tooling rehearsal does not certify old published1.0.1or final1.0.2.",
+    "Task9version/docs and task10final reviewed source/package freeze with fresh finalZIPnative tests remain.",
+    "Actual nativeWindows10withfinalZIPand3.15.0 is NOT_RUN. NoServerCI, old314evidence or dry-run substitution."
+  ],
+  "safety": "No user application/source-ZIP installation, installed runtime, global PATH/registry/persistent policy or published releases modified. Test cleanup owns only authored unit work. Raw acceptance SDK work preserved locally."
+}

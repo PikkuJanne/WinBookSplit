@@ -51,7 +51,7 @@ class PackageInputTests(unittest.TestCase):
     def test_current_committed_inputs_and_helper_closure_are_bound(self):
         result = checker.validate_inputs(self.repo, self.commit)
         self.assertTrue(result["success"])
-        self.assertEqual((result["runtime_count"], result["support_source_count"]), (21, 13))
+        self.assertEqual((result["runtime_count"], result["support_source_count"]), (22, 13))
         self.assertEqual(result["source_commit"], self.commit)
         self.assertEqual(result["source_tree"], self.git("rev-parse", "HEAD^{tree}"))
         self.assertFalse(result["working_tree_inputs_used"])
@@ -69,6 +69,7 @@ class PackageInputTests(unittest.TestCase):
         self.assertIn("engine/winbooksplit_job.py", dependencies["engine/winbooksplit_conversion.py"])
         self.assertIn("engine/WinBookSplit.Support.ps1", dependencies["Export-WinBookSplitDiagnostics.ps1"])
         self.assertIn("engine/WinBookSplit.Setup.ps1", dependencies["Setup-WinBookSplit.ps1"])
+        self.assertEqual(dependencies["Setup-WinBookSplit.bat"], ["Setup-WinBookSplit.ps1"])
         for dependency in ("engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Runtime.ps1",
                            "engine/WinBookSplit.Logging.ps1"):
             self.assertIn(dependency, dependencies["engine/WinBookSplit.Setup.ps1"])
@@ -93,7 +94,7 @@ class PackageInputTests(unittest.TestCase):
                 path.write_text(original, encoding="utf-8")
 
     def test_each_setup_file_must_be_committed_despite_a_working_copy(self):
-        for path in ("Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1"):
+        for path in ("Setup-WinBookSplit.ps1", "Setup-WinBookSplit.bat", "engine/WinBookSplit.Setup.ps1"):
             with self.subTest(path=path):
                 self.git("rm", "--cached", "--", path)
                 self.git("-c", "user.name=Authored input test", "-c", "user.email=authored@example.invalid",

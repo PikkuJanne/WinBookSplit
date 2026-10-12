@@ -89,7 +89,11 @@ def validate(role, commit, reports, python_version=None):
                         and row['path'] and type(row.get(values)) is list and not row[values] for row in rows),
                         'Shell syntax/analysis coverage missing or failed')
         elif name=='application.json':
-            require(type(python_version) is str and re.fullmatch('3\\.(13|14)\\.[0-9]+',python_version) is not None,'Exact matrix test target required')
+            targets=read(ROOT/'tests/compatibility/runtime-lock.json').get('python_versions')
+            require(type(targets) is list and targets
+                    and all(type(target) is str and re.fullmatch(r'[1-9][0-9]*\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)',target) is not None for target in targets)
+                    and len(targets)==len(set(targets)),'Exact source matrix lock required')
+            require(type(python_version) is str and python_version in targets,'Exact matrix test target required')
             require(len(steps)==1 and steps[0]['name']=='application-matrix','Application route missing')
             matrix=steps[0]['evidence']
             units=matrix['runtime_only_units']

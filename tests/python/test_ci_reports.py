@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 ROOT=Path(__file__).resolve().parents[2]
 MODULE_PATH=ROOT/'tools/ci/validate_reports.py'
@@ -87,19 +88,38 @@ class RequiredReportControls(unittest.TestCase):
             'synthetic_input_unchanged':True,'owned_work_directory_removed':True,
             'steps':[{'name':'application-matrix','exit_code':0,'timed_out':False,'evidence':matrix}]}
         self.write()
-        checker.validate('application',self.commit,self.root,'3.13.16')
-        controls=[(units,'python_version','3.14.8'),(units,'skipped',['missing module']),
-                  (units,'tests_run',True),(units,'failures',False),
-                  (matrix,'cleanup_safe',False),(matrix['application_runtime']['full_probe'],'version','3.14.8'),
-                  (matrix['hosts'][1],'product_type',1),(matrix['hosts'][1],'product_type',True),
-                  (matrix['hosts'][0],'shell_version','7.6.6'),(units,'modules',units['modules'][:-1]),
-                  (matrix,'cases',cases[:-1]),(matrix,'cases',cases+[cases[-1]])]
-        for record,key,value in controls:
-            before=record[key]
-            record[key]=value
+        for target in ('3.13.16','3.14.8','3.15.0'):
+            units['python_version']=target
+            matrix['application_runtime']['full_probe']['version']=target
             self.write()
-            with self.assertRaises(ValueError): checker.validate('application',self.commit,self.root,'3.13.16')
-            record[key]=before
+            with self.subTest(target=target):
+                checker.validate('application',self.commit,self.root,target)
+            substitute='3.14.8' if target!='3.14.8' else '3.13.16'
+            controls=[(units,'python_version',substitute),(units,'skipped',['missing module']),
+                      (units,'tests_run',True),(units,'failures',False),
+                      (matrix,'cleanup_safe',False),(matrix['application_runtime']['full_probe'],'version',substitute),
+                      (matrix['hosts'][1],'product_type',1),(matrix['hosts'][1],'product_type',True),
+                      (matrix['hosts'][0],'shell_version','7.6.6'),(units,'modules',units['modules'][:-1]),
+                      (matrix,'cases',cases[:-1]),(matrix,'cases',cases+[cases[-1]])]
+            for record,key,value in controls:
+                before=record[key]
+                record[key]=value
+                self.write()
+                with self.subTest(target=target,field=key),self.assertRaises(ValueError):
+                    checker.validate('application',self.commit,self.root,target)
+                record[key]=before
+        self.write()
+        for target in (None,True,'3.15.0rc1','3.16.0','3.15.99','3.14.1'):
+            with self.subTest(unpinned_target=target),self.assertRaisesRegex(ValueError,'Exact matrix test target required'):
+                checker.validate('application',self.commit,self.root,target)
+        original_read=checker.read
+        for targets in (None,'3.15.0',[],[True],['3.15.0','3.15.0'],['3.15.0rc1'],['03.15.0']):
+            # SYNTHETIC source-lock corruption, not a change to tracked files.
+            def controlled_read(path):
+                if path==ROOT/'tests/compatibility/runtime-lock.json': return {'python_versions':targets}
+                return original_read(path)
+            with self.subTest(malformed_lock=targets),patch.object(checker,'read',side_effect=controlled_read),self.assertRaisesRegex(ValueError,'Exact source matrix lock required'):
+                checker.validate('application',self.commit,self.root,'3.15.0')
 
     def test_boolean_counts_duplicate_cases_and_missing_native_deadline_fail(self):
         for name in ('shell-ps51.json','shell-ps7.json'):

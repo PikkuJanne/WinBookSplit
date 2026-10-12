@@ -28,12 +28,15 @@ HEX = re.compile(r"[0-9a-f]{64}\Z")
 BOOT = ("engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Diagnostics.ps1",
         "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Support.ps1",
         "tools/compatibility/Invoke-NativeAcceptance.ps1")
+DISCOVERY = ("engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Compatibility.ps1",
+             "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Compatibility.json",
+             "engine/winbooksplit_compatibility.py")
 FIXTURES = ("flat-6.pdf", "nested-12.pdf", "original-three-chapters.azw3",
             "original-three-chapters.epub", "simple-10.pdf", "native-fixtures.json")
 PREREQUISITES = {
-    "python": {"name": "python-3.14.8-amd64.zip", "version": "3.14.8", "bytes": 32879974,
-               "url": "https://www.python.org/ftp/python/3.14.8/python-3.14.8-amd64.zip",
-               "sha256": "4873947a8afc037846b180312b83c744a4146a851cfd316a75c3125a4d8299da"},
+    "python": {"name": "python-3.15.0-amd64.zip", "version": "3.15.0", "bytes": 45140897,
+               "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip",
+               "sha256": "6b1a3f885ce416cf3a68af203e62203664eb5224d8d0c1d2a1945fddec5c500b"},
     "pypdf": {"name": "pypdf-6.20.0-py3-none-any.whl", "version": "6.20.0", "bytes": 401710,
               "url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl",
               "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"},
@@ -220,9 +223,9 @@ def wrapper(bindings_digest, helper_rows, logging_source, production):
     import base64
     early_json = base64.b64encode(canonical(bootstrap_report)).decode("ascii")
     code = ["# One-session finite native kit. Generated source is pinned by the delivered kit SHA.",
-            "[CmdletBinding()]", "param([string]$BarePythonPath,[string]$CalibrePath,[string]$Wheelhouse,",
+            "[CmdletBinding()]", "param([string]$BarePythonPath,[string]$BaselinePythonPath,[string]$CalibrePath,[string]$Wheelhouse,[string]$PowerShell7,",
             "      [switch]$ProvisionPrerequisites,[switch]$AllowWindows11DryRun,",
-            "      [ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED')][string]$Execution='USER_LAUNCHED')",
+            "      [ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED_AUTOMATED')][string]$Execution='USER_LAUNCHED_AUTOMATED')",
             "$ErrorActionPreference='Stop'; $PSModuleAutoloadingPreference='None'",
             "Import-Module ([IO.Path]::Combine($PSHOME,'Modules\\Microsoft.PowerShell.Utility\\Microsoft.PowerShell.Utility.psd1')) -ErrorAction Stop",
             "Import-Module ([IO.Path]::Combine($PSHOME,'Modules\\Microsoft.PowerShell.Management\\Microsoft.PowerShell.Management.psd1')) -ErrorAction Stop",
@@ -233,7 +236,7 @@ def wrapper(bindings_digest, helper_rows, logging_source, production):
             "  while ($current) { $ancestors.Add($current); $current=[IO.Path]::GetDirectoryName($current) }",
             "  for ($i=$ancestors.Count-1;$i -ge 0;$i--) { $leases.Add((New-Object WinBookSplitLogging.PathLease($ancestors[$i],$true))) }",
             "  $expected=@{" ]
-    for name in ("kit-bindings.json", "engine/WinBookSplit.Outcomes.json", *BOOT):
+    for name in ("kit-bindings.json", "engine/WinBookSplit.Outcomes.json", *BOOT, *DISCOVERY):
         row = {"sha256": bindings_digest, "bytes": MAX_BINDINGS} if name == "kit-bindings.json" else helper_rows[name]
         code.append(f"    {powershell_quote(name)}=@{{sha256={powershell_quote(row['sha256'])};bytes={row['bytes']}}}")
     code += ["  }", "  foreach ($relative in $expected.Keys) {",
@@ -249,7 +252,9 @@ def wrapper(bindings_digest, helper_rows, logging_source, production):
              "    } finally { $stream.Dispose(); $algorithm.Dispose() }",
              "  }", "  foreach ($relative in @('engine/WinBookSplit.Logging.ps1','engine/WinBookSplit.Diagnostics.ps1','engine/WinBookSplit.Process.ps1','engine/WinBookSplit.Support.ps1','tools/compatibility/Invoke-NativeAcceptance.ps1')) {",
              "    . ([IO.Path]::Combine($root,$relative.Replace('/','\\')))", "  }",
-             f"  $options=@{{KitRoot=$root;BindingsSha256='{bindings_digest}';Execution=$Execution;BarePythonPath=$BarePythonPath;CalibrePath=$CalibrePath;Wheelhouse=$Wheelhouse;ProvisionPrerequisites=$ProvisionPrerequisites;AllowWindows11DryRun=$AllowWindows11DryRun}}",
+             "  . ([IO.Path]::Combine($root,'engine','WinBookSplit.Paths.ps1'))",
+             "  . ([IO.Path]::Combine($root,'engine','WinBookSplit.Runtime.ps1'))",
+             f"  $options=@{{KitRoot=$root;BindingsSha256='{bindings_digest}';Execution=$Execution;BarePythonPath=$BarePythonPath;BaselinePythonPath=$BaselinePythonPath;CalibrePath=$CalibrePath;Wheelhouse=$Wheelhouse;PowerShell7=$PowerShell7;ProvisionPrerequisites=$ProvisionPrerequisites;AllowWindows11DryRun=$AllowWindows11DryRun}}",
              "  $result=Invoke-NativeAcceptance @options", "  exit $(if ($result.success) { 0 } else { 1 })",
              "} catch {",
              "  Write-Host 'Native kit bootstrap failed. No acceptance pass was recorded.'",
@@ -348,7 +353,7 @@ def build(args):
     production = {"version": version, "source_commit": manifest["source_commit"],
                   "source_tree": manifest["source_tree"], "payload_sha256": manifest["payload_sha256"],
                   "policy_sha256": next(row["sha256"] for row in manifest["files"] if row["path"] == "engine/WinBookSplit.Compatibility.json"), "assets": rows(asset_bytes)}
-    verifier.verify_frozen_assets(args.assets_root, production)
+    _, application_payload = verifier.verify_frozen_assets(args.assets_root, production)
     repository_commit, repository_tree = git_identity(root, checker)
     payload = {"assets/" + name: data for name, data in asset_bytes.items()}
     helpers = {name: bounded(root / name, MAX_CODE) for name in BOOT[:-1]}
@@ -360,6 +365,13 @@ def build(args):
                     "tests/cli/Probe-Help.ps1": bounded(root / "tests/cli/Probe-Help.ps1", MAX_CODE),
                     "tests/process/session_child.py": bounded(root / "tests/process/session_child.py", MAX_CODE)})
     helpers["engine/WinBookSplit.Outcomes.json"] = bounded(root / "engine/WinBookSplit.Outcomes.json", MAX_CODE)
+    helpers.update({name: bounded(root / name, MAX_CODE) for name in DISCOVERY})
+    helpers.update({name: bounded(root / name, MAX_CODE) for name in
+                    ("tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1", "tests/compatibility/validate_setup_remedy.py")})
+    for name in (*DISCOVERY, *BOOT[:-1], "engine/WinBookSplit.Outcomes.json"):
+        need(helpers[name] == application_payload[name], "discovery_closure_differs_from_production")
+    need(sha256(helpers["engine/WinBookSplit.Compatibility.json"]).hexdigest() == production["policy_sha256"],
+         "discovery_policy_pin_mismatch")
     if not args.draft_rehearsal:
         for name, data in helpers.items():
             blob = checker.git(root, "cat-file", "blob", repository_commit + ":" + name)

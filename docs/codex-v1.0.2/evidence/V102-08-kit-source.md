@@ -1,0 +1,15 @@
+# V102-08 native kit source preparation
+
+The maintained kit source and scoped packaging prerequisites passed review and focused tooling checks. This is preparation for an actual committed kit run. It certifies no final v1.0.2 ZIP or native Windows 10 execution.
+
+The release allowlist now includes `Setup-WinBookSplit.bat` and retains its required sibling script. The authenticated kit loads the reviewed Runtime/Compatibility/policy closure, verifies its bytes against the exact candidate package, discovers a usable regular x64 owner Python 3.15 read-only, and keeps an observed later patch separate from the required real 3.15.0 baseline. An existing 3.15.0 can supply a new owned environment without pip for the missing-package fixture. Authored broken environments replace any requirement for an owner 3.14 installation. The existing marked BAT, literal emitted Action, Repair and reopened PDF regression operates on authenticated copies of exact extracted members.
+
+The returned report retains fixed selected/baseline executable hashes and identity fields, finite native route exits, observed child policy scopes and actual 3.15.0 PDF counts. Unknown fields, personal paths, false policy/runtime claims and Boolean aliases are rejected. Owner execution defaults to `USER_LAUNCHED_AUTOMATED`; the one generated CMD launcher invokes the explicit inbox host with a process-only policy. Enforced organization controls remain effective.
+
+Actual CPython 3.15.0 ran 31 native-smoke oracle controls and 11 native-kit controls successfully. Inbox PowerShell 5.1.26100.9444 and reviewed PowerShell 7.6.6 each passed 13 actual native SDK controls, with unchanged source. Both hosts reported zero parser errors and zero findings from PSScriptAnalyzer 1.25.0 on the changed PowerShell helpers. Packaging checks passed 20 package-input and 26 release-package tests. The JSON receipt records command aliases, scoped source hashes and independent raw receipt/harness hashes; paths and raw console text stay local.
+
+Initial tooling failures remain disclosed: the obsolete owner execution label and runtime member-count expectation were corrected, and an initial package run correctly rejected source drift while the allowlist changed. These are distinct from the later successful source-bound runs.
+
+Root must commit the coherent source, run full and hosted checks, build the authentic private transitional package and normal COMMITTED kit, and execute that exact kit on native Windows 11 with its PowerShell 7 supplement. A current-source `VERSION=1.0.1` tooling rehearsal cannot certify the old published release or final v1.0.2. Fresh final source/package tests and actual native Windows 10 with Python 3.15 remain required. No installed user application, global Python/PATH/registry/persistent policy, or published release was modified.
+
+The scoped map and proof are in `V102-08-kit-source.json`. This receipt records the prior baseline and actual reviewed worktree bytes; it does not claim a clean checkpoint.
