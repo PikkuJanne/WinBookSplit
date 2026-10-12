@@ -33,6 +33,10 @@ compatibility requirements are in docs/SETUP.md. Output includes a structured
 [CmdletBinding()]
 param([string]$PythonPath, [switch]$Check, [switch]$NonInteractive, [string]$Wheelhouse, [switch]$Repair)
 
+# Machine outcomes and path diagnostics use UTF-8 through every launcher.
+[Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
+[Console]::InputEncoding = New-Object System.Text.UTF8Encoding($false)
+
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
 try {
@@ -43,4 +47,12 @@ try {
 }
 Write-Host $result.message
 Write-Host ('[SETUP] '+($result|ConvertTo-Json -Depth 12 -Compress))
-exit $result.exit_code
+$setupExitCode=[int]$result.exit_code
+# Only a zero-argument console launch waits for its result to be read. Explicit
+# options, redirected automation and cancellation never acquire another prompt.
+if ($PSBoundParameters.Count -eq 0 -and $setupExitCode -ne 130 -and
+    -not [Console]::IsInputRedirected -and -not [Console]::IsOutputRedirected) {
+    try { $null=Read-Host 'Press Enter to close setup' }
+    catch { Write-Verbose 'The console wait was unavailable; preserving the setup exit status.' }
+}
+exit $setupExitCode

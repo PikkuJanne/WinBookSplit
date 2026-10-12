@@ -308,54 +308,78 @@
       "task": "V102-05",
       "title": "Sibling script and trusted host",
       "expected": "Setup BAT invokes sibling setup via trusted Windows PowerShell executable using NoProfile/process-only policy/File, independent of PATH/CWD.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-026",
       "task": "V102-05",
       "title": "Argument forwarding",
       "expected": "NonInteractive, Check, Repair, PythonPath and Wheelhouse reach setup accurately with quoted paths; hostile punctuation cannot become another command.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-027",
       "task": "V102-05",
       "title": "Unattended and interactive behavior",
       "expected": "Unattended setup never reads/pauses; interactive no-argument setup presents useful result without creating another installation path.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-028",
       "task": "V102-05",
       "title": "Exit fidelity",
       "expected": "Child setup exit 0/3/6/130 and host launch/binding failures remain correct nonzero/zero outcomes through BAT; no last echo/pause masks them.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-029",
       "task": "V102-05",
       "title": "Unrelated directory and shell hosts",
       "expected": "BAT works from System32/unrelated directory and PS5.1/PS7/CMD for supported path/argument cases; missing sibling/invalid options fail safely.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-030",
       "task": "V102-05",
       "title": "Policy/security boundaries",
       "expected": "No global policy, ADS stripping, elevation, settings mutation or enterprise-control bypass; enforced organization denial remains a failure with retained native output.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-05-encoding-defect.md",
+        "evidence/V102-05-native.json",
+        "evidence/V102-05-native.md"
+      ]
     },
     {
       "id": "V102-AC-031",
