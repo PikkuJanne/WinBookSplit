@@ -161,6 +161,7 @@ def source_manifest() -> dict[str, str]:
         "docs/EBOOK_SUPPORT.md",
         "docs/codex-v1.0.0/PLAN_ORACLES.json",
         "docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+        "docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json",
     )]
     for directory in (ROOT / "tests", ROOT / "engine", ROOT / "tools/codex-handoff", ROOT / "tools/ci", ROOT / "tools/release", ROOT / "tools/compatibility"):
         paths.extend(path for path in directory.rglob("*")

@@ -31,7 +31,7 @@
       "id": "V102-02",
       "title": "Review and extend the shared Python policy",
       "milestone": "M1",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-01"
       ],
@@ -49,7 +49,12 @@
         "V102-AC-011",
         "V102-AC-012"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-03",

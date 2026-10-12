@@ -86,7 +86,7 @@ BeforeAll {
 Describe 'V101 concise dependency guidance from controlled subordinate reasons' -Tag 'V101-AC-037' {
     It 'uses the actual validator for synthetic unsupported architecture branch flavor and security-floor identities' {
         $policy=Get-WinBookSplitCompatibilityPolicy
-        foreach ($row in @(@('3.14.2','python_security_floor'),@('3.15.0','unsupported_python'),
+        foreach ($row in @(@('3.14.2','python_security_floor'),@('3.16.0','unsupported_python'),
                 @('3.14.8','unsupported_architecture'),@('3.14.8','unsupported_flavor'),@('3.14.8','unstable_python'))) {
             $record=New-AuthoredRuntimeIdentity $row[0]
             if ($row[1] -eq 'unsupported_architecture') {$record.bits=32;$record.machine='X86'}

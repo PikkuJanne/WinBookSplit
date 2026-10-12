@@ -80,54 +80,84 @@
       "task": "V102-02",
       "title": "Reviewed 3.15 policy entry",
       "expected": "Regular stable 3.15.0 is accepted by the shipped shared evaluator with actual upstream review; an authentic new blocker is not silently converted into optional support.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-008",
       "task": "V102-02",
       "title": "Later stable patches",
       "expected": "3.15.1 and synthetic 3.15.99 are numerically accepted; no exact 3.15.0 gate; fixture-only versions not claimed as installed/tested binaries.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-009",
       "task": "V102-02",
       "title": "Retained serviced branches",
       "expected": "Existing 3.13.16/3.14.8 floors and later patches accepted; 3.14.2 remains appropriately below floor unless a documented reviewed change supersedes it.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-010",
       "task": "V102-02",
       "title": "Truthful unknown-minor reason",
       "expected": "An unlisted minor is unsupported/not validated, not automatically insecure; prerelease/architecture/build checks stay distinct.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-011",
       "task": "V102-02",
       "title": "Strict shared policy integrity",
       "expected": "Malformed/duplicate/inconsistent policy records, missing sources and identity mismatches are rejected; setup/preflight/docs/tests reference the same policy.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-012",
       "task": "V102-02",
       "title": "Future patch comparison and preference",
       "expected": "Version comparisons handle multi-digit patches numerically; automatic preference favors accepted 3.15 over 3.14/3.13 without requiring runtime network lookup.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-02-policy.json",
+        "evidence/V102-02-policy.md",
+        "evidence/V102-02-security-review.json",
+        "evidence/V102-02-security-review.md"
+      ]
     },
     {
       "id": "V102-AC-013",

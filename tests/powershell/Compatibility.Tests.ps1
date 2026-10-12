@@ -24,7 +24,7 @@ BeforeAll {
 
 Describe 'V101 offline policy and numeric maintenance releases' -Tag 'V101-AC-011','V101-AC-012','V101-AC-016' {
     It 'accepts floor, current and synthetic later stable patches numerically' {
-        foreach ($version in @('3.14.8','3.14.9','3.14.10','3.14.99','3.13.16','3.13.17','3.13.99')) {
+        foreach ($version in @('3.15.0','3.15.1','3.15.9','3.15.10','3.15.99','3.14.8','3.14.9','3.14.10','3.14.99','3.13.16','3.13.17','3.13.99')) {
             $result = Test-WinBookSplitInterpreterRecord (New-CompatibilityRecord $version) $script:policy
             $result.Ok | Should -BeTrue
             $result.Reason | Should -BeExactly 'supported'
@@ -40,28 +40,31 @@ Describe 'V101 offline policy and numeric maintenance releases' -Tag 'V101-AC-01
             $result.Message | Should -Match 'security floor'
             $result.Message | Should -Not -Match 'exactly'
         }
-        foreach ($version in @('3.11.16','3.12.14','3.15.0','4.0.0')) {
+        foreach ($version in @('3.11.16','3.12.14','3.16.0','4.0.0')) {
             (Test-WinBookSplitPythonVersion $version $script:policy).Reason | Should -BeExactly 'unsupported_python'
         }
         (Test-WinBookSplitPythonVersion '3.12.14' $script:policy).Message | Should -Match 'source-only'
     }
     It 'uses policy data for precise blocked patches and compatibility floors' {
         $blocked = Copy-CompatibilityPolicy
-        $blocked.python.branches[0].blocked_patches = @(8)
-        $blocked.python.branches[0].recommended_patch = 9
+        $blockedBranch = @($blocked.python.branches | Where-Object { $_.minor -eq 14 })[0]
+        $blockedBranch.blocked_patches = @(8)
+        $blockedBranch.recommended_patch = 9
         (Test-WinBookSplitPythonVersion '3.14.8' $blocked).Reason | Should -BeExactly 'python_security_floor'
         (Test-WinBookSplitPythonVersion '3.14.9' $blocked).Ok | Should -BeTrue
         $higher = Copy-CompatibilityPolicy
-        $higher.python.branches[0].compatibility_min_patch = 10
-        $higher.python.branches[0].recommended_patch = 10
+        $higherBranch = @($higher.python.branches | Where-Object { $_.minor -eq 14 })[0]
+        $higherBranch.compatibility_min_patch = 10
+        $higherBranch.recommended_patch = 10
         (Test-WinBookSplitPythonVersion '3.14.8' $higher).Reason | Should -BeExactly 'python_compatibility_floor'
         (Test-WinBookSplitPythonVersion '3.14.10' $higher).Ok | Should -BeTrue
     }
     It 'formats supported floors from the policy without requiring a runtime record' {
-        Get-WinBookSplitPythonPolicyDescription $script:policy | Should -BeExactly 'regular Windows x64 CPython 3.14.8+ or 3.13.16+; later stable patches accepted'
+        Get-WinBookSplitPythonPolicyDescription $script:policy | Should -BeExactly 'regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted'
         $higher = Copy-CompatibilityPolicy
-        $higher.python.branches[0].security_min_patch = 9
-        $higher.python.branches[0].recommended_patch = 9
+        $higherBranch = @($higher.python.branches | Where-Object { $_.minor -eq 14 })[0]
+        $higherBranch.security_min_patch = 9
+        $higherBranch.recommended_patch = 9
         Get-WinBookSplitPythonPolicyDescription $higher | Should -Match '3\.14\.9\+'
     }
 }
@@ -72,7 +75,8 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
         $before = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
         $loaded = Get-WinBookSplitCompatibilityPolicy $path
         $loaded.schema_version | Should -Be 1
-        $loaded.python.branches.Count | Should -Be 2
+        $loaded.policy_version | Should -Be 3
+        $loaded.python.branches.Count | Should -Be 3
         (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash | Should -BeExactly $before
     }
     It 'binds the returned policy to its exact read bytes without changing the default API' {
@@ -122,7 +126,7 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
             { param($p) $p.python.branches[0].security_min_patch=-1 },
             { param($p) $p.python.branches[0].security_min_patch=1000001 },
             { param($p) $p.python.branches[0].security_min_patch=9 },
-            { param($p) $p.python.branches[0].blocked_patches=@(8) },
+            { param($p) $p.python.branches[0].blocked_patches=@(0) },
             { param($p) $p.python.branches[0].blocked_patches=@(9,9) },
             { param($p) $p.python.branches[0].blocked_patches=@($false) },
             { param($p) $p.python.branches+=@($p.python.branches[0]) },
@@ -193,7 +197,7 @@ Describe 'V101 interpreter identity is independently validated' -Tag 'V101-AC-01
         (Test-WinBookSplitInterpreterRecord $record $script:policy).Reason | Should -BeExactly 'python_security_floor'
     }
     It 'matches Python decisions and messages across valid malformed and rejected runtime records' {
-        $records = @('3.14.2','3.14.6','3.14.7','3.14.8','3.14.9','3.14.10','3.14.99','3.13.14','3.13.15','3.13.16','3.13.17','3.13.99','3.12.14','3.15.0') | ForEach-Object { New-CompatibilityRecord $_ }
+        $records = @('3.14.2','3.14.6','3.14.7','3.14.8','3.14.9','3.14.10','3.14.99','3.13.14','3.13.15','3.13.16','3.13.17','3.13.99','3.12.14','3.15.0','3.15.1','3.15.10','3.15.99','3.16.0') | ForEach-Object { New-CompatibilityRecord $_ }
         foreach ($case in @(@('serial',$true),@('serial',1),@('bits',32),@('machine','ARM64'),@('implementation','pypy'),@('isolated',$false),@('gil_disabled',$true),@('version','3.14.8rc1'),@('version','3.14.08'),@('version_info',@(3,14,7)),@('releaselevel','alpha'))) {
             $record=New-CompatibilityRecord; $record[$case[0]]=$case[1]; $records+=@($record)
         }
@@ -210,6 +214,44 @@ Describe 'V101 interpreter identity is independently validated' -Tag 'V101-AC-01
             $powershell.Ok | Should -Be $pythonResults[$index].ok
             $powershell.Reason | Should -BeExactly $pythonResults[$index].reason
             $powershell.Message | Should -BeExactly $pythonResults[$index].message
+        }
+    }
+}
+
+Describe 'V102 supplied version fixtures and shared evaluator parity (SYNTHETIC identities)' -Tag 'V102-AC-007','V102-AC-008','V102-AC-009','V102-AC-010','V102-AC-011' {
+    It 'runs every supplied fixture through the actual PowerShell and Python evaluators' {
+        $fixtures = [IO.File]::ReadAllText((Join-Path $RepositoryRoot 'docs\codex-v1.0.2\RUNTIME_POLICY_CASES.json')) | ConvertFrom-Json
+        $fixtures.not_runtime_configuration | Should -BeTrue
+        $records = @(foreach ($case in $fixtures.cases) {
+            $record = New-CompatibilityRecord
+            $record.version = $case.input
+            if ($case.input -is [string] -and $case.input -cmatch '\A(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\z') {
+                $record.version_info = @($case.input.Split('.') | ForEach-Object { [int]$_ })
+            }
+            $record
+        })
+        $inputPath = Join-Path $TestDrive 'v102-policy-fixtures.json'
+        [IO.File]::WriteAllText($inputPath, (@{policy=$script:policy;records=$records} | ConvertTo-Json -Depth 32), (New-Object Text.UTF8Encoding($false, $true)))
+        $code = 'import importlib.util,json,sys; s=importlib.util.spec_from_file_location("compat",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); d=json.load(open(sys.argv[2],encoding="utf-8")); print(json.dumps([m.validate_interpreter(r,d["policy"]) for r in d["records"]]))'
+        $probe = Invoke-WinBookSplitRuntimeProbe -Path $TestPython -Arguments @('-I','-B','-c',$code,(Join-Path $RepositoryRoot 'engine\winbooksplit_compatibility.py'),$inputPath) -ApplicationRoot $RepositoryRoot
+        $probe.ExitCode | Should -Be 0
+        $probe.StreamsComplete | Should -BeTrue
+        $pythonResults = $probe.Stdout | ConvertFrom-Json
+        $pythonResults.Count | Should -Be $records.Count
+        for ($index=0; $index -lt $records.Count; $index++) {
+            $case = $fixtures.cases[$index]
+            $versionResult = Test-WinBookSplitPythonVersion $case.input $script:policy
+            $powershell = Test-WinBookSplitInterpreterRecord $records[$index] $script:policy
+            $powershell.Ok | Should -Be $case.expected_ok
+            $powershell.Reason | Should -BeExactly $case.expected_reason
+            $versionResult.Ok | Should -Be $powershell.Ok
+            $versionResult.Reason | Should -BeExactly $powershell.Reason
+            $powershell.Ok | Should -Be $pythonResults[$index].ok
+            $powershell.Reason | Should -BeExactly $pythonResults[$index].reason
+            $powershell.Message | Should -BeExactly $pythonResults[$index].message
+            if ($powershell.Reason -ceq 'unsupported_python') {
+                $powershell.Message | Should -Not -Match 'insecure|security floor'
+            }
         }
     }
 }

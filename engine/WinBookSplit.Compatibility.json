@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": 2,
-  "reviewed_on": "2026-10-11",
+  "policy_version": 3,
+  "reviewed_on": "2026-10-12",
   "python": {
     "implementation": "cpython",
     "platform": "win32",
@@ -10,6 +10,15 @@
     "stable_only": true,
     "gil_disabled": false,
     "branches": [
+      {
+        "major": 3,
+        "minor": 15,
+        "compatibility_min_patch": 0,
+        "security_min_patch": 0,
+        "recommended_patch": 0,
+        "blocked_patches": [],
+        "security_sources": ["CVE12003", "Changelog315", "OpenSSL20260929", "OpenSSL3150", "Python315Sbom"]
+      },
       {
         "major": 3,
         "minor": 14,
@@ -50,6 +59,26 @@
     }
   ],
   "sources": [
+    {
+      "id": "Release3150",
+      "url": "https://www.python.org/downloads/release/python-3150/",
+      "relevance": "Stable Python 3.15.0 released October 9, 2026 with official regular Windows x64 artifacts. Metadata establishes artifact availability; actual application execution is recorded separately. Later stable 3.15 maintenance versions remain accepted numerically."
+    },
+    {
+      "id": "Changelog315",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0b3.rst",
+      "relevance": "The final v3.15.0 source carries gh-151544's Windows Modules/Setup.local landmark fallback removal from beta 3. CVE-2026-12003 therefore does not require a later 3.15 maintenance floor; older supported branch floors remain unchanged."
+    },
+    {
+      "id": "OpenSSL3150",
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0rc3.rst",
+      "relevance": "The final v3.15.0 source carries gh-158010's Windows OpenSSL update to 3.5.9 from release candidate 3, addressing CVE-2026-35189 in explicit HTTPS package setup. This supports the 3.15.0 security floor without weakening existing branch floors."
+    },
+    {
+      "id": "Python315Sbom",
+      "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.exe.spdx.json",
+      "relevance": "Official regular Windows x64 3.15.0 SPDX metadata independently identifies bundled OpenSSL 3.5.9. This is artifact metadata evidence, not native WinBookSplit acceptance or a security guarantee for every interpreter distribution."
+    },
     {
       "id": "OpenSSL20260929",
       "url": "https://openssl-library.org/news/secadv/20260929.txt",

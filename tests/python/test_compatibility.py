@@ -5,6 +5,7 @@ import copy
 import importlib.util
 import json
 from pathlib import Path
+import re
 import shutil
 import subprocess
 import sys
@@ -86,7 +87,7 @@ class InterpreterPolicyTests(unittest.TestCase):
         self.assert_reason(synthetic_runtime(14, 10), "supported")
 
     def test_excluded_and_future_minor_are_rejected(self):
-        for minor in (11, 12, 15):
+        for minor in (11, 12, 16):
             with self.subTest(minor=minor):
                 result = self.assert_reason(synthetic_runtime(minor, 99), "unsupported_python")
                 self.assertIn("distribution exclusion" if minor in (11, 12) else "outside", result["message"])
@@ -199,11 +200,15 @@ class PolicyLoaderTests(unittest.TestCase):
                     record = synthetic_runtime(branch["minor"], patch_number)
                     self.assertTrue(compatibility.validate_interpreter(record, policy)["ok"])
 
-    def test_shipped_policy_two_rejects_previous_openssl_floors_and_accepts_later_patches(self):
+    def test_shipped_policy_three_adds_315_without_weakening_existing_floors(self):
         policy = compatibility.load_policy()
-        self.assertEqual(policy["policy_version"], 2)
+        self.assertEqual(policy["policy_version"], 3)
+        self.assertEqual(policy["reviewed_on"], "2026-10-12")
         self.assertEqual([(b["minor"], b["security_min_patch"]) for b in policy["python"]["branches"]],
-                         [(14, 8), (13, 16)])
+                         [(15, 0), (14, 8), (13, 16)])
+        for patch_number in (0, 1, 9, 10, 99):
+            with self.subTest(minor=15, patch=patch_number):
+                self.assertTrue(compatibility.validate_interpreter(synthetic_runtime(15, patch_number), policy)["ok"])
         for minor, old_floor, accepted in ((14, 7, (8, 9, 10, 99)), (13, 15, (16, 17, 99))):
             with self.subTest(minor=minor, old_floor=old_floor):
                 self.assertEqual(compatibility.validate_interpreter(synthetic_runtime(minor, old_floor), policy)["reason"],
@@ -213,6 +218,23 @@ class PolicyLoaderTests(unittest.TestCase):
                     self.assertTrue(compatibility.validate_interpreter(synthetic_runtime(minor, patch_number), policy)["ok"])
         self.assertEqual(policy["pypdf"]["version"], "6.20.0")
         self.assertEqual(policy["calibre"]["version"], "9.15.0")
+
+    def test_supplied_v102_version_fixtures_use_the_shipped_shared_evaluator(self):
+        policy = compatibility.load_policy()
+        fixtures = json.loads((ROOT / "docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json").read_bytes())
+        self.assertTrue(fixtures["not_runtime_configuration"])
+        for case in fixtures["cases"]:
+            record = synthetic_runtime()
+            record["version"] = case["input"]
+            if isinstance(case["input"], str) and re.fullmatch(r"(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)", case["input"]):
+                record["version_info"] = list(map(int, case["input"].split(".")))
+            with self.subTest(case=case["id"]):
+                result = compatibility.validate_interpreter(record, policy)
+                self.assertIs(result["ok"], case["expected_ok"])
+                self.assertEqual(result["reason"], case["expected_reason"])
+                if result["reason"] == "unsupported_python":
+                    self.assertNotIn("insecure", result["message"].lower())
+                    self.assertNotIn("security floor", result["message"].lower())
 
     def test_shipped_policy_version_float_and_boolean_tokens_fail_closed(self):
         policy = compatibility.load_policy()

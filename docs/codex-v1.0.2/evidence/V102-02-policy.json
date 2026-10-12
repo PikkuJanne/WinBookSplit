@@ -1,0 +1,483 @@
+{
+  "schema_version": 1,
+  "task": "V102-02",
+  "observed_at": "2026-10-12T15:25:20.651733+00:00",
+  "scope": "Shared policy/evaluator tests; policy fixtures are synthetic identities; no final-package native OS or release acceptance.",
+  "source_base_commit": "41b281fcaa4302ed9d362c62ee39f64bad7e14f0",
+  "source_base_tree": "4f059b87069ae58bfa334cc79ddb2d6a23582b10",
+  "tested_path_sha256": {
+    "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+    "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+    "engine/WinBookSplit.Runtime.ps1": "e56870195c4c5fd09a8ebdb1c96a3091d088fc80d25764d537811fb83afa4816",
+    "engine/WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+    "tests/python/test_compatibility.py": "e121b8cc6f7e8328f9b4a4bfe387c604f0e4709d72d6679a9d41c7695671cf1a",
+    "tests/powershell/Compatibility.Tests.ps1": "3b6ff1d573037a81a50de446a0f3b2143adfed64662ed6165d51ca177a847dcc",
+    "tests/powershell/Discovery.Tests.ps1": "00425b325143154c959e89a372113655fe3f28ee0a7c5a4277095863ab4d3a05",
+    "tests/powershell/Outcome.Tests.ps1": "619d94e5628bb88f9287d6a57623d522c476472122bfcabf544d32fc1967321c",
+    "tests/run_tests.py": "78ab587ca3dc0e349fcfd3ac8e188b9dd74358b2bc9ec8a9d23cca42bc7a343a",
+    "docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json": "901c70fd2d8886d06daa288b56ec6e6652ff097f244d197163ffa7d72d7c4410"
+  },
+  "tested_paths_digest": "25a62223253199da0d0de200dae8e680d9770b3b2278709eff13f84b26a37ce2",
+  "policy_version": 3,
+  "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+  "python_tests": {
+    "command": "<existing-dev14> -I -B -m unittest discover -s tests/python -p test_compatibility.py -v",
+    "runtime": "3.14.8",
+    "tests": 46,
+    "passed": 46,
+    "skipped": 0,
+    "elapsed_seconds": 1.967,
+    "exit_code": 0
+  },
+  "parent_independent_observations": [
+    {
+      "runtime": "3.13.16",
+      "environment": "existing isolated runtime13",
+      "command": "<runtime13> -I -B -m unittest discover -s tests/python -p test_compatibility.py",
+      "tests": 46,
+      "passed": 46,
+      "skipped": 0,
+      "elapsed_seconds": 2.062,
+      "exit_code": 0
+    },
+    {
+      "runtime": "3.14.8",
+      "environment": "existing isolated runtime14",
+      "command": "<runtime14> -I -B -m unittest discover -s tests/python -p test_compatibility.py",
+      "tests": 46,
+      "passed": 46,
+      "skipped": 0,
+      "elapsed_seconds": 2.269,
+      "exit_code": 0
+    },
+    {
+      "runtime": "3.15.0",
+      "environment": "new isolated runtime15",
+      "command": "<runtime15> -I -B -m unittest discover -s tests/python -p test_compatibility.py",
+      "tests": 46,
+      "passed": 46,
+      "skipped": 0,
+      "elapsed_seconds": 1.86,
+      "exit_code": 0
+    }
+  ],
+  "parent_runtime15_probe": {
+    "command": "<runtime15> -I -B engine/winbooksplit_compatibility.py --probe --policy engine/WinBookSplit.Compatibility.json",
+    "observed_version": "3.15.0",
+    "gil_disabled": false,
+    "isolated": true,
+    "dont_write_bytecode": true,
+    "pypdf_version": "6.20.0",
+    "pypdf_origin": "selected runtime15 trusted package roots",
+    "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "scope": "Actual runtime/dependency identity probe; not PDF or final ZIP native acceptance."
+  },
+  "focused_shell_command": "<explicit-native-shell> -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File <owned-focused.ps1> -RepositoryRoot <actual-checkout> -ToolRoot <reviewed-shell-tools> -TestPython <dev14> -WorkRoot <fresh-owned-work>",
+  "focused_shell_runner_sha256": "10e7eabfa98964c14b6217e900bac42d47f45155d0c1f4afb52e65094169ce00",
+  "focused_shells": [
+    {
+      "report_sha256": "b79f9a225544a10f0bcbb50da6e2deccce1fdc583b5902e2d6a856582109616c",
+      "schema_version": 1,
+      "scope": "Focused compatibility/discovery/outcome tests; version identities are synthetic; no Python3.15 native application or package acceptance",
+      "host": {
+        "powershell": "5.1.26100.9444",
+        "policies": [
+          {
+            "policy": "Undefined",
+            "scope": "MachinePolicy"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "UserPolicy"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "Process"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "CurrentUser"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "LocalMachine"
+          }
+        ],
+        "edition": "Desktop"
+      },
+      "tools": [
+        {
+          "version": "6.2.0",
+          "name": "Pester"
+        },
+        {
+          "version": "1.25.0",
+          "name": "PSScriptAnalyzer"
+        }
+      ],
+      "static": [
+        {
+          "path": "tests/powershell/Compatibility.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Discovery.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Outcome.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        }
+      ],
+      "pester": {
+        "total": 67,
+        "failures": [],
+        "not_run": 0,
+        "failed_containers": 0,
+        "passed": 67,
+        "skipped": 0,
+        "container_errors": [],
+        "failed": 0,
+        "result": "Passed"
+      }
+    },
+    {
+      "report_sha256": "dbd2bec004505257a6355885ff3fb04f562aba5c1f03e7425a5772aad0e1fdcc",
+      "schema_version": 1,
+      "scope": "Focused compatibility/discovery/outcome tests; version identities are synthetic; no Python3.15 native application or package acceptance",
+      "host": {
+        "policies": [
+          {
+            "policy": "Undefined",
+            "scope": "MachinePolicy"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "UserPolicy"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "Process"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "CurrentUser"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "LocalMachine"
+          }
+        ],
+        "powershell": "7.6.6",
+        "edition": "Core"
+      },
+      "tools": [
+        {
+          "name": "Pester",
+          "version": "6.2.0"
+        },
+        {
+          "name": "PSScriptAnalyzer",
+          "version": "1.25.0"
+        }
+      ],
+      "static": [
+        {
+          "path": "tests/powershell/Compatibility.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Discovery.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Outcome.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        }
+      ],
+      "pester": {
+        "total": 67,
+        "failed_containers": 0,
+        "failures": [],
+        "not_run": 0,
+        "result": "Passed",
+        "passed": 67,
+        "container_errors": [],
+        "skipped": 0,
+        "failed": 0
+      }
+    }
+  ],
+  "initial_shell_invocation": {
+    "status": "FAIL",
+    "hosts": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "each_total": 67,
+    "each_passed": 58,
+    "each_failed": 9,
+    "skipped": 0,
+    "cause": "External runner passed forward slash TestPython path; nine existing discovery assertions require canonical ProviderPath. Runner inputs normalized with Resolve-Path and tests rerun in new owned directories. Product and test assertions unchanged for this correction."
+  },
+  "fixture_results": [
+    {
+      "id": "P315-01",
+      "input": "3.15.0",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.15.0 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-02",
+      "input": "3.15.1",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.15.1 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-03",
+      "input": "3.15.10",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.15.10 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-04",
+      "input": "3.15.99",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.15.99 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-05",
+      "input": "3.14.8",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.14.8 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-06",
+      "input": "3.14.9",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.14.9 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-07",
+      "input": "3.14.10",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.14.10 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-08",
+      "input": "3.13.16",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.13.16 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-09",
+      "input": "3.13.17",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": true,
+        "reason": "supported",
+        "message": "Python 3.13.17 is accepted by compatibility policy 3."
+      }
+    },
+    {
+      "id": "P315-10",
+      "input": "3.14.2",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "python_security_floor",
+        "message": "Python 3.14.2 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148."
+      }
+    },
+    {
+      "id": "P315-11",
+      "input": "3.14.7",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "python_security_floor",
+        "message": "Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148."
+      }
+    },
+    {
+      "id": "P315-12",
+      "input": "3.13.15",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "python_security_floor",
+        "message": "Python 3.13.15 is excluded by the reviewed security policy; the branch security floor is 3.13.16. See CVE12003, Changelog313, OpenSSL20260929, OpenSSL31316."
+      }
+    },
+    {
+      "id": "P315-13",
+      "input": "3.16.0",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": false,
+        "reason": "unsupported_python",
+        "message": "Python 3.16.0: This Python minor branch is outside the reviewed compatibility policy."
+      }
+    },
+    {
+      "id": "P315-14",
+      "input": "4.0.0",
+      "synthetic_future_patch": true,
+      "result": {
+        "ok": false,
+        "reason": "unsupported_python",
+        "message": "Python 4.0.0: This Python minor branch is outside the reviewed compatibility policy."
+      }
+    },
+    {
+      "id": "P315-15",
+      "input": "3.12.10",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "unsupported_python",
+        "message": "Python 3.12.10: The Windows import-search-path fix for CVE-2026-12003 is in source-only 3.12.14. The current PSF Windows catalog ends at 3.12.10; no patched official Windows binary is available. End users must not compile Python."
+      }
+    },
+    {
+      "id": "P315-16",
+      "input": "3.15.0rc1",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "unstable_python",
+        "message": "A stable final Python release is required."
+      }
+    },
+    {
+      "id": "P315-17",
+      "input": "3.15.0b1",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "unstable_python",
+        "message": "A stable final Python release is required."
+      }
+    },
+    {
+      "id": "P315-18",
+      "input": "3.15.0.dev1",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "unstable_python",
+        "message": "A stable final Python release is required."
+      }
+    },
+    {
+      "id": "P315-19",
+      "input": "3.15",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    },
+    {
+      "id": "P315-20",
+      "input": "3.015.0",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    },
+    {
+      "id": "P315-21",
+      "input": "3.15.-1",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    },
+    {
+      "id": "P315-22",
+      "input": "3.15.0.1",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    },
+    {
+      "id": "P315-23",
+      "input": "3.15.0;echo bad",
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    },
+    {
+      "id": "P315-24",
+      "input": null,
+      "synthetic_future_patch": false,
+      "result": {
+        "ok": false,
+        "reason": "malformed_runtime",
+        "message": "Runtime version must contain three bounded integers."
+      }
+    }
+  ],
+  "unchanged_guards": "Numeric shared evaluator, older security floors, pypdf6.20.0 wheel lock, pypdf origin validation, explicit/venv precedence, no processing installation, finite discovery and owned process transport.",
+  "source_guard_check": "Actual tests/run_tests.py source_manifest now includes the consumed RUNTIME_POLICY_CASES.json and returned its exact hash.",
+  "structure_validation": {
+    "command": "<dev14> -I -B tools/codex-v1.0.2/validate_plan.py --plan docs/codex-v1.0.2",
+    "exit_code": 0,
+    "status": "STRUCTURE_VALID",
+    "scope": "References/states only."
+  },
+  "future_stable_patch_binary_execution": false,
+  "windows10_final_package": "NOT_RUN",
+  "windows11_final_package": "NOT_RUN"
+}

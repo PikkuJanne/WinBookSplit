@@ -405,19 +405,20 @@ Describe 'V101 authoritative existing environment shapes and native child settin
     }
 }
 
-Describe 'V101 deterministic policy selection (SYNTHETIC later patches)' -Tag 'V101-AC-024' {
+Describe 'V102 deterministic policy selection (SYNTHETIC later patches)' -Tag 'V101-AC-024','V102-AC-012' {
     It 'prefers the policy branch before any higher patch on another branch in either input order' {
-        $preferred = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.8'
-        $other = New-DiscoveryRankCandidate 'C:\B\python.exe' '3.13.99'
-        foreach ($candidates in @(@($other,$preferred),@($preferred,$other))) {
+        $preferred = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.15.0'
+        $other = New-DiscoveryRankCandidate 'C:\B\python.exe' '3.14.99'
+        $older = New-DiscoveryRankCandidate 'C:\C\python.exe' '3.13.99'
+        foreach ($candidates in @(@($older,$other,$preferred),@($preferred,$other,$older))) {
             (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Path | Should -BeExactly $preferred.Path
         }
     }
     It 'compares maintenance patches 9 and 10 numerically in either order' {
-        $nine = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.9'
-        $ten = New-DiscoveryRankCandidate 'C:\Z\python.exe' '3.14.10'
+        $nine = New-DiscoveryRankCandidate 'C:\A\python.exe' '3.15.9'
+        $ten = New-DiscoveryRankCandidate 'C:\Z\python.exe' '3.15.10'
         foreach ($candidates in @(@($nine,$ten),@($ten,$nine))) {
-            (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Version | Should -BeExactly '3.14.10'
+            (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Version | Should -BeExactly '3.15.10'
         }
     }
     It 'uses ordinal canonical path ties even when input order is reversed' {
@@ -432,7 +433,7 @@ Describe 'V101 deterministic policy selection (SYNTHETIC later patches)' -Tag 'V
         $candidates = @((New-DiscoveryRankCandidate 'C:\A\python.exe' '3.14.2'),
             (New-DiscoveryRankCandidate 'C:\D\python.exe' '3.14.7'),
             (New-DiscoveryRankCandidate 'C:\E\python.exe' '3.13.15'),
-            (New-DiscoveryRankCandidate 'C:\B\python.exe' '3.15.0'),
+            (New-DiscoveryRankCandidate 'C:\B\python.exe' '3.16.0'),
             (New-DiscoveryRankCandidate 'C:\C\python.exe' '3.14.9rc1'),$valid)
         (Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $script:discoveryPolicy).Path | Should -BeExactly $valid.Path
     }
