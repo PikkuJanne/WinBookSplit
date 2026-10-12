@@ -51,8 +51,12 @@ Commands/results:
   for the existing reparse guard; no elevation or security setting change.
 - `python -I -B -m unittest discover -s tests/python -p test_compatibility.py`:
   all 45 current evaluator/origin tests passed in 2.902 seconds.
-- Handoff structure validation rerun after evidence/status updates: required
-  before commit; terminal checkpoint supplies the actual outcome.
+- Initial imported plan/sync CLI invocation with `-I -B` failed because isolated
+  mode removes the script directory from import search. The first command did
+  not stop before commit/push, so that commit is not described as a validated
+  complete checkpoint. A focused follow-up makes the helper's own resolved
+  directory explicit (as the bundle importer already does), reruns the checks,
+  and verifies clean/live equality. This is handoff tooling, not runtime code.
 
 Reviewed root routing and evidence for safety/privacy; review identified the
 missing child policy observation, which was added and rerun successfully.

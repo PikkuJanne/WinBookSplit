@@ -8,6 +8,7 @@ from datetime import datetime, timezone
 import json
 from pathlib import Path
 import re
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from handoff_common import EXPECTED_REPO, HandoffError, git, inspect_repository
 
 

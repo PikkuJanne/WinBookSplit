@@ -7,6 +7,7 @@ import argparse
 import json
 from pathlib import Path
 import re
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 from handoff_common import HandoffError, load_json, safe_path
 
 TASK_STATES = {'NOT_STARTED', 'IN_PROGRESS', 'BLOCKED', 'DONE'}
