@@ -971,8 +971,15 @@
       "key": "prepublish_gates",
       "expected": "Actual tests/security review/CI/native evidence and exact accepted artifacts are complete; no NOT_RUN result becomes PASS.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-14-security-review-08.json",
+        "evidence/V101-14-security-review-08.md",
+        "evidence/V101-14-prepublication-gate.json",
+        "evidence/V101-14-draft-inspection.json",
+        "evidence/V101-14-publication.json",
+        "evidence/V101-14-release-notes.md"
+      ]
     },
     {
       "id": "V101-AC-073",
@@ -980,8 +987,15 @@
       "key": "fixed_tag",
       "expected": "Local and live peeled v1.0.1 tag equal R; tag and existing v1.0.0 are not moved or replaced.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-14-security-review-08.json",
+        "evidence/V101-14-security-review-08.md",
+        "evidence/V101-14-prepublication-gate.json",
+        "evidence/V101-14-draft-inspection.json",
+        "evidence/V101-14-publication.json",
+        "evidence/V101-14-release-notes.md"
+      ]
     },
     {
       "id": "V101-AC-074",
@@ -989,8 +1003,15 @@
       "key": "public_publication",
       "expected": "v1.0.1 is published non-draft/non-prerelease with exact expected assets and truthful tested-scope notes.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-14-security-review-08.json",
+        "evidence/V101-14-security-review-08.md",
+        "evidence/V101-14-prepublication-gate.json",
+        "evidence/V101-14-draft-inspection.json",
+        "evidence/V101-14-publication.json",
+        "evidence/V101-14-release-notes.md"
+      ]
     },
     {
       "id": "V101-AC-075",

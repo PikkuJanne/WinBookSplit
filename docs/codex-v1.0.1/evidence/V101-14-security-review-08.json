@@ -1,0 +1,694 @@
+{
+  "kind": "PUBLIC_SAFE_PUBLICATION_DAY_PRIMARY_SECURITY_REFRESH08",
+  "reviewed_utc": "2026-10-12T12:40:49.808191+00:00",
+  "scope": "Fresh12October primary-source/advisory/artifact-metadata review before root-owned v1.0.1 publication. No checkout mutation, installation, native/helper/application acceptance, tag or release action.",
+  "source_observation": {
+    "frozen_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "frozen_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "current_main_at_preparation": "5ac74ad32064f0c82c2e363bdbc6e1cd72bc3340",
+    "current_main_tree_at_preparation": "034c0ee34da8dbf5b5a3a1f5b0d97603e2e1e0cd",
+    "clean_live_main_at_preparation": true,
+    "policy_version": 2,
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "security_minimum_versions": {
+      "3.13": "3.13.16",
+      "3.14": "3.14.8"
+    },
+    "later_stable_patch_acceptance": "Numeric within advertised minors; no patch equality or live-network acceptance gate.",
+    "bound_R_current_files": [
+      {
+        "file": "VERSION",
+        "bytes": 6,
+        "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066",
+        "raw_equals_R_and_current_git_blob": true
+      },
+      {
+        "file": "engine/WinBookSplit.Compatibility.json",
+        "bytes": 6342,
+        "sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+        "raw_equals_R_and_current_git_blob": true
+      },
+      {
+        "file": "tools/release/payload.json",
+        "bytes": 1110,
+        "sha256": "bddb80b5bd45d48f0489990c78f73d408faec651f6944f298402c4474fa86bf4",
+        "raw_equals_R_and_current_git_blob": true
+      },
+      {
+        "file": "SECURITY.md",
+        "bytes": 3655,
+        "sha256": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4",
+        "raw_equals_R_and_current_git_blob": true
+      },
+      {
+        "file": "README.md",
+        "bytes": 11994,
+        "sha256": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441",
+        "raw_equals_R_and_current_git_blob": true
+      },
+      {
+        "file": "docs/SETUP.md",
+        "bytes": 10861,
+        "sha256": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170",
+        "raw_equals_R_and_current_git_blob": true
+      }
+    ],
+    "qualification": "Current main is an observation at collection preparation. This review binds frozen R security/package source; it does not independently certify later evidence commits, CI, native reports or publication."
+  },
+  "collection": {
+    "first_utc": "2026-10-12T12:37:04.645876+00:00",
+    "last_utc": "2026-10-12T12:37:19.701327+00:00",
+    "fresh_http_requests": 41,
+    "http200": 41,
+    "failed_requests": 0,
+    "advisory_objects": {
+      "pypdf": 55,
+      "calibre": 21
+    },
+    "vulnerability_rows": 77,
+    "range_status_counts": {
+      "OUTSIDE_PUBLISHED_RANGE": 73,
+      "SEPARATE_PACKAGE": 4
+    },
+    "affected_or_unknown": [],
+    "withdrawn_count": 0,
+    "pagination": "Both100-row advisory endpoints had no next link; full PSF catalog reached terminal absence after3pages/987records.",
+    "all_reviewed_bodies_unchanged_from07": true,
+    "changed_bodies": [],
+    "sources": [
+      {
+        "id": "pypdf_advisories",
+        "url": "https://api.github.com/repos/py-pdf/pypdf/security-advisories?per_page=100",
+        "status": 200,
+        "response_bytes": 254118,
+        "sha256": "31727cbf92e676fe86a2f8b7c5844a7b088c041590d43609f40078fcc9f70b55",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "calibre_advisories",
+        "url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100",
+        "status": 200,
+        "response_bytes": 223258,
+        "sha256": "5ad8dfba05f8ec0ca5ac088c411c45689af3b74ca939a257dfbf62c57dd0c58e",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "pypdf_artifact",
+        "url": "https://pypi.org/pypi/pypdf/6.20.0/json",
+        "status": 200,
+        "response_bytes": 9370,
+        "sha256": "44e95321cb75cfa6aeeb279c5a0e39523af5558c0665b09ea0e20a39e591b3a7",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "python3148_artifact",
+        "url": "https://www.python.org/ftp/python/3.14.8/windows-3.14.8.json",
+        "status": 200,
+        "response_bytes": 15477,
+        "sha256": "2872929c05697db23bd9d79d2c15df1031b82d853f530d69f1e7f89570419314",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "python31316_artifact",
+        "url": "https://www.python.org/ftp/python/3.13.16/windows-3.13.16.json",
+        "status": 200,
+        "response_bytes": 14967,
+        "sha256": "e95d3e68177b2c459f3b6415245dae02357018d9b0c8de85fd0c877996688c09",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "calibre_portable_sha512",
+        "url": "https://calibre-ebook.com/signatures/calibre-portable-installer-9.15.0.exe.sha512",
+        "status": 200,
+        "response_bytes": 128,
+        "sha256": "08b749deb54217c587a5a8f26e2ea1f3be944a493f4893b55a34677647957e7d",
+        "next_page_link": null,
+        "group": "primary",
+        "retrieval_interval_utc": {
+          "started": "2026-10-12T12:37:04.645876+00:00",
+          "finished": "2026-10-12T12:37:06.529793+00:00",
+          "qualification": "Collector group interval; individual request times were not recorded."
+        }
+      },
+      {
+        "id": "python31117_release",
+        "url": "https://www.python.org/downloads/release/python-31117/",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:05.994609+00:00",
+        "finished_utc": "2026-10-12T12:37:06.113974+00:00",
+        "decoded_sha256": "b08d0da8286e7babddf56b9635293313ed04236170c1bda3de3309263af61656",
+        "decoded_bytes": 40108,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python31215_release",
+        "url": "https://www.python.org/downloads/release/python-31215/",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:06.113985+00:00",
+        "finished_utc": "2026-10-12T12:37:06.188025+00:00",
+        "decoded_sha256": "c431e604e1f19881f3f244e31f60cc0a41025568c657e913d3b1a8517e16c286",
+        "decoded_bytes": 39808,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python31316_release",
+        "url": "https://www.python.org/downloads/release/python-31316/",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:06.188036+00:00",
+        "finished_utc": "2026-10-12T12:37:06.283488+00:00",
+        "decoded_sha256": "95f00bef8ffecb2d5780d138ec20707fb16eb14db44b159d62eda4aeac42be3c",
+        "decoded_bytes": 55811,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python3148_release",
+        "url": "https://www.python.org/downloads/release/python-3148/",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:06.283498+00:00",
+        "finished_utc": "2026-10-12T12:37:06.394931+00:00",
+        "decoded_sha256": "c02d6dfa65ea9516c2610552767f69c53e8c34e670ffe123429572e3ff059a51",
+        "decoded_bytes": 57294,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python31316_news",
+        "url": "https://raw.githubusercontent.com/python/cpython/v3.13.16/Misc/NEWS.d/3.13.16.rst",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:06.394962+00:00",
+        "finished_utc": "2026-10-12T12:37:06.771011+00:00",
+        "decoded_sha256": "0d3e52811637771c2cbdd5f8693e288ae4efb1d240fcdd401494585323274859",
+        "decoded_bytes": 41777,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python3148_news",
+        "url": "https://raw.githubusercontent.com/python/cpython/v3.14.8/Misc/NEWS.d/3.14.8.rst",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:06.771021+00:00",
+        "finished_utc": "2026-10-12T12:37:07.128911+00:00",
+        "decoded_sha256": "39c47ab66955ae683f26f9a6d227e1f1977f1913ea58fe9a898fe4d906c70f5a",
+        "decoded_bytes": 47686,
+        "group": "python_openssl"
+      },
+      {
+        "id": "openssl_september29",
+        "url": "https://openssl-library.org/news/secadv/20260929.txt",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:07.128923+00:00",
+        "finished_utc": "2026-10-12T12:37:07.688090+00:00",
+        "decoded_sha256": "2a6766a213b2dac48b4666aa54c39dbe3af96f73444081a4a25c1e3dc496aeb9",
+        "decoded_bytes": 34045,
+        "group": "python_openssl"
+      },
+      {
+        "id": "openssl_vulnerabilities",
+        "url": "https://openssl-library.org/news/vulnerabilities/",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:07.688100+00:00",
+        "finished_utc": "2026-10-12T12:37:08.122518+00:00",
+        "decoded_sha256": "df5b2fd3e82718c85b806e93a716f13336dd0f20e37a8799c9e0f4afb827bb8d",
+        "decoded_bytes": 759579,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python12003_issue",
+        "url": "https://api.github.com/repos/python/cpython/issues/151544",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.122528+00:00",
+        "finished_utc": "2026-10-12T12:37:08.409021+00:00",
+        "decoded_sha256": "5355f33bee6d956530ba3ffb4d1d102d95d5921ec7c4d4fe627b63ed75105024",
+        "decoded_bytes": 9790,
+        "group": "python_openssl"
+      },
+      {
+        "id": "python_windows_catalog",
+        "url": "https://www.python.org/ftp/python/index-windows.json",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.409031+00:00",
+        "finished_utc": "2026-10-12T12:37:08.542090+00:00",
+        "decoded_sha256": "aa855745b40f9967a52c4f73e307eefa589e6fd6a9331f8ac7ea4cf89178a841",
+        "decoded_bytes": 203322,
+        "group": "python_openssl"
+      },
+      {
+        "id": "expat285_changes",
+        "url": "https://raw.githubusercontent.com/libexpat/libexpat/R_2_8_5/expat/Changes",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.542101+00:00",
+        "finished_utc": "2026-10-12T12:37:08.855462+00:00",
+        "decoded_sha256": "d524be92cf55121cb6cb7bc13625f0498f1d31b4990fb52c93a574edbb372939",
+        "decoded_bytes": 116977,
+        "group": "python_openssl"
+      },
+      {
+        "id": "expat_unfixed_issue",
+        "url": "https://api.github.com/repos/libexpat/libexpat/issues/1160",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.855472+00:00",
+        "finished_utc": "2026-10-12T12:37:09.163423+00:00",
+        "decoded_sha256": "bdd16d7af59111046071e7c6444f39b0da63e1aa8c4be856ed4269f996ebaa72",
+        "decoded_bytes": 6119,
+        "group": "python_openssl"
+      },
+      {
+        "id": "calibre916_changelog",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.16.0/Changelog.txt",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.163442+00:00",
+        "finished_utc": "2026-10-12T12:37:09.492943+00:00",
+        "decoded_sha256": "d835cecdd95e8b0552371d5e64ac6cb7c7064a11375b17b71f3f6159f54aeb8e",
+        "decoded_bytes": 88016,
+        "group": "python_openssl"
+      },
+      {
+        "id": "calibre915_dependencies",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/bypy/sources.json",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.492953+00:00",
+        "finished_utc": "2026-10-12T12:37:09.761605+00:00",
+        "decoded_sha256": "a837f7dc336a70110f362eddb2c907cdef880c12fc9ae899a55c8c868917e6e5",
+        "decoded_bytes": 21693,
+        "group": "python_openssl"
+      },
+      {
+        "id": "calibre916_dependencies",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.16.0/bypy/sources.json",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.761646+00:00",
+        "finished_utc": "2026-10-12T12:37:10.043918+00:00",
+        "decoded_sha256": "854a582aafe451a7fd6706e8b87ecc06e39a39f5c01283a5054cd0c2def1ed2c",
+        "decoded_bytes": 22619,
+        "group": "python_openssl"
+      },
+      {
+        "id": "epub_input",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/conversion/plugins/epub_input.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:07.417396+00:00",
+        "finished_utc": "2026-10-12T12:37:07.729256+00:00",
+        "sha256": "d09dfc6252734f561f5b7ee05f23025e722b8144e42b8b5fc03468fce91ebfe1",
+        "bytes": 19838,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "mobi_input",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/conversion/plugins/mobi_input.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:07.729274+00:00",
+        "finished_utc": "2026-10-12T12:37:08.004626+00:00",
+        "sha256": "6a77879fc41dc118f8c2fcc758e4c3ea7fed612deff12fc05170e8bfc6a6eebc",
+        "bytes": 2212,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "mobi8_reader",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/mobi/reader/mobi8.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.004637+00:00",
+        "finished_utc": "2026-10-12T12:37:08.309048+00:00",
+        "sha256": "3824d3c7049b9f0878aabc69b4f8b403d9602427d4cebd2ec064a79f5213f4fc",
+        "bytes": 24371,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "mobi6_reader",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/mobi/reader/mobi6.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.309086+00:00",
+        "finished_utc": "2026-10-12T12:37:08.593090+00:00",
+        "sha256": "514ac85030d55bfb40958c4acd5e0670e93adbc8cbea9b05a9c3c8805fb6205c",
+        "bytes": 40312,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "opf2_metadata",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/metadata/opf2.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.593102+00:00",
+        "finished_utc": "2026-10-12T12:37:08.903777+00:00",
+        "sha256": "aa8d7367c678a82ec1b5636b49a1284806dc70a880ca2c802c5fbed34b707e67",
+        "bytes": 70415,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "oeb_reader",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/reader.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.903790+00:00",
+        "finished_utc": "2026-10-12T12:37:09.163059+00:00",
+        "sha256": "4e82637e7ad4aa1bf3b04f53fa5f739e010b350c0eeeb3334f3b516ee0939271",
+        "bytes": 28393,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "oeb_parse",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/parse_utils.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.163085+00:00",
+        "finished_utc": "2026-10-12T12:37:09.462833+00:00",
+        "sha256": "95f4dd9ff15ed754160c16d9c658ee1b4c4a0791f64b6d62dbf85b465bbe6cc5",
+        "bytes": 13262,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "xml_parse",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/xml_parse.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.462844+00:00",
+        "finished_utc": "2026-10-12T12:37:09.730632+00:00",
+        "sha256": "ee4142ecd5d3ac866d932651dc9448e67f90968c834113d710786e7d692f5b5c",
+        "bytes": 5238,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "polish_parsing",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/polish/parsing.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.730668+00:00",
+        "finished_utc": "2026-10-12T12:37:09.992111+00:00",
+        "sha256": "01d08046ab71f8a63d8606aa81d8e6a08c4c6a4ea6d91073fbf64bf66f8729b8",
+        "bytes": 5868,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "chardet",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/chardet.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.992124+00:00",
+        "finished_utc": "2026-10-12T12:37:10.277269+00:00",
+        "sha256": "15c9ce700e5c75d5c8e095bd55a4afa886be80828bad2014e08892bad48188b7",
+        "bytes": 6304,
+        "group": "calibre_parser"
+      },
+      {
+        "id": "zipfile",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/zipfile.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:08.810904+00:00",
+        "finished_utc": "2026-10-12T12:37:09.137905+00:00",
+        "sha256": "87e224d26a45a37b624be80442ef5a76343dbf1c311a1cc7ebf8f59d402cf73b",
+        "bytes": 75368,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "localunzip",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/localunzip.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.137951+00:00",
+        "finished_utc": "2026-10-12T12:37:09.421951+00:00",
+        "sha256": "829c5f215a959a93c699e1246017ae018a1c2637b6c654b4ba0b7bc8827c8b00",
+        "bytes": 11078,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "ptempfile",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ptempfile.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.421995+00:00",
+        "finished_utc": "2026-10-12T12:37:09.689883+00:00",
+        "sha256": "ef618d587683ed0170f9f0519dcfc74bb957aeb2ca6035c09f35a601b40c5936",
+        "bytes": 11043,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "safe_atexit",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/safe_atexit.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.689898+00:00",
+        "finished_utc": "2026-10-12T12:37:09.964217+00:00",
+        "sha256": "f0038c4c77e3f0b23b2bb7cd60b28521a65b4fcd9970652da16ada84be62e5be",
+        "bytes": 6150,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "pdf_html_writer",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/pdf/html_writer.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:09.964238+00:00",
+        "finished_utc": "2026-10-12T12:37:10.240782+00:00",
+        "sha256": "a19329f4a94c837fa0a49a183df18c1ceed5bf212c3ed166c0e1b2f07c6b7609",
+        "bytes": 47741,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "webengine",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/webengine.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:10.240795+00:00",
+        "finished_utc": "2026-10-12T12:37:10.493652+00:00",
+        "sha256": "1e8c18ee0c0a76f678202c52e1972892b0a26a8c01fdfc5c97065574a06ce3c5",
+        "bytes": 6292,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "oeb_base",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/base.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:10.493705+00:00",
+        "finished_utc": "2026-10-12T12:37:10.828965+00:00",
+        "sha256": "2d1dc41207080d76ad9ae34e678b2c193ef624e9c470a090fa76238c6b3e0662",
+        "bytes": 72748,
+        "group": "calibre_routes"
+      },
+      {
+        "id": "metadata_xmp",
+        "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/metadata/xmp.py",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:10.828980+00:00",
+        "finished_utc": "2026-10-12T12:37:11.091233+00:00",
+        "sha256": "70edc481d5453ceb37c22cb377e2a1e0c971f787f1e3bf3224737c4f806146b0",
+        "bytes": 23666,
+        "group": "calibre_routes"
+      },
+      {
+        "group": "catalog_extra_pages",
+        "url": "https://www.python.org/ftp/python/index-windows-recent.json",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:19.271486+00:00",
+        "finished_utc": "2026-10-12T12:37:19.521758+00:00",
+        "sha256": "c6020dba154463c1bf383629108aeff70cff18fdc29e5eb88881def54f1597dd",
+        "bytes": 490823,
+        "next_state": "LINK"
+      },
+      {
+        "group": "catalog_extra_pages",
+        "url": "https://www.python.org/ftp/python/index-windows-legacy.json",
+        "status": 200,
+        "started_utc": "2026-10-12T12:37:19.521822+00:00",
+        "finished_utc": "2026-10-12T12:37:19.697103+00:00",
+        "sha256": "fec4854cad9258a24266381fa553478b71972c9f05a19378c78828c0e36c165d",
+        "bytes": 230409,
+        "next_state": "ABSENT"
+      }
+    ]
+  },
+  "artifact_metadata": {
+    "pypdf_wheel": {
+      "filename": "pypdf-6.20.0-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl",
+      "size": 401710,
+      "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+      "yanked": false
+    },
+    "official_regular_windows_x64_python": [
+      {
+        "id": "pythoncore-3.13-64",
+        "sort-version": "3.13.16",
+        "tag": "3.13-64",
+        "display-name": "Python 3.13.16",
+        "url": "https://www.python.org/ftp/python/3.13.16/python-3.13.16-amd64.zip",
+        "hash": {
+          "sha256": "bbf675bb5e763c1efbb09a3a461b259d81598a63c30c4b0d7ea11b9f063df159"
+        },
+        "executable": ".\\python.exe"
+      },
+      {
+        "id": "pythoncore-3.14-64",
+        "sort-version": "3.14.8",
+        "tag": "3.14-64",
+        "display-name": "Python 3.14.8",
+        "url": "https://www.python.org/ftp/python/3.14.8/python-3.14.8-amd64.zip",
+        "hash": {
+          "sha256": "4873947a8afc037846b180312b83c744a4146a851cfd316a75c3125a4d8299da"
+        },
+        "executable": ".\\python.exe"
+      }
+    ],
+    "calibre_portable_sha512": "a0520e0e3325039c89e6837c5b7b3ac1283c3dc529c981beb19d2d4c949c5481710071685e881a324eabff1bab50d95f0964cfcb45e04f56e34c322d877dde20"
+  },
+  "catalog_latest": {
+    "3.11": "3.11.9",
+    "3.12": "3.12.10",
+    "3.13": "3.13.16",
+    "3.14": "3.14.8"
+  },
+  "catalog_latest_changed_from_previous": false,
+  "assessment": {
+    "new_material_reachable_finding": false,
+    "decision": "Retain the frozen policy2 numeric floors and the separate pypdf6.20.0/optional Calibre9.15.0 locks for this bounded release. Fresh observations identify no new material reachable finding requiring a source/lock change. This is not a universal vulnerability-free or sandbox guarantee.",
+    "python": "CVE-2026-35189 is Low severity: crafted relative-CRLDP certificate extensions can allocate disproportionate memory during a normal TLS handshake. No enabled CRL-check flag is required by this path. Explicit online pip setup uses TLS, so the PSF Windows OpenSSL 3.5.9 bundle is the conservative numeric-floor rationale. Exact 3.13.16/3.14.8 NEWS and prior genuine runtime inventories identify 3.5.9; this collection executes no new TLS or exploit test.",
+    "python_11_12": "Primary 3.11.17/3.12.15 releases remain source-only. Full official Windows x64 catalog ends at 3.11.9/3.12.10, below the Windows startup-search-path fix in source-only 3.11.16/3.12.14. Exclusions remain based on patched official binary availability, not language/API inconvenience.",
+    "pypdf": "The current multiple-filter advisory GHSA-7mh2-4gg2-979f affects versions below 6.20.0 and is patched at 6.20.0. The non-yanked reviewed wheel hash is unchanged. Published-range exclusion does not prove absence of every vulnerability; package version/hash/origin and existing size/filter/output/process safeguards remain independently necessary.",
+    "calibre": "Current published repository ranges exclude 9.15.0. Exact vendor portable hash and 18 inspected v9.15 route bodies are unchanged. Earlier genuine vendor inventory remains Python 3.14.7, Expat 2.8.2, OpenSSL 3.5.8, lxml 6.1.1 and libxml2 runtime 2.15.4 (compiled 2.15.3). These older embedded libraries are disclosed. Exact 9.16 dependency sources show meaningful Python/OpenSSL maintenance; public release notes are not asserted to enumerate every embedded-library CVE.",
+    "calibre_route_inference": "Inspected EPUB/AZW3 paths use Calibre custom ZIP/MOBI/KF8 handling and lxml/libxml2 XML/HTML, with remote PDF resources intercepted. No pyexpat or Python TLS call was found in this finite inspected path. This is static source inference, not a complete binary call graph or malformed-book exploit proof; it does not certify every Calibre/plugin path. Expat 2.8.5 fixes CVE-2026-93990 and upstream still publishes a separate unfixed security warning; Calibre 9.15 embeds older Expat.",
+    "bounds": "Owned jobs/deadlines and guarded sources/output do not provide memory/disk quotas, a restricted token, or an OS/network sandbox. Native-parser and crafted-book residual risks remain.",
+    "documentation": "The exact frozen R policy/SECURITY/README/SETUP bytes still equal current observed main at collection preparation. Their numeric-floor/package/origin/servicing/non-sandbox qualifications are preserved. Current nonshipped status/native acceptance/publication is separately assessed by root.",
+    "unknowns": [
+      "Published repository ranges are not a complete vulnerability inventory or a binary call-graph proof.",
+      "Calibre9.15.0 retains older embedded Python/Expat/OpenSSL; no malformed-ebook exploit, native-library binary audit or complete plugin/format assessment is performed here.",
+      "Earlier genuine embedded-library inventories and runtime SSL versions are prior evidence, not reexecuted in this refresh."
+    ],
+    "route_distinction": {
+      "PDF": "Locked pypdf6.20.0 executes locally; published multiple-filter issue is patched in this version. Existing input/package/origin/decoded-stream/output/process guards remain necessary.",
+      "EPUB_AZW3_to_PDF": "Finite exact9.15 source review uses custom ZIP/MOBI/KF8 and lxml/libxml2; no Python TLS or pyexpat call was found on that inspected path. PDF HTML renderer intercepts resources outside the book. This is static inference, not a network/OS sandbox or all-path security guarantee.",
+      "explicit_application_setup_TLS": "Online pip acquisition uses TLS. The known ordinary-handshake relative-CRLDP allocation issue supports the Windows OpenSSL3.5.9-based numeric Python floors; no CRL checking flags are needed for this issue. Ordinary processing does not install or fetch runtime packages.",
+      "verification_kit_provisioning": "Explicit kit provisioning is separate from ordinary application processing. It acquires finite official pinned distributions/wheel/vendor bytes; hashes establish byte identity, not signatures or a comprehensive security guarantee. No kit provisioning was run by this review.",
+      "newer_releases": "9.16 dependency maintenance is meaningful residual context, not proof that every9.15 conversion path is exposed. Current catalog/latest versions are observations; future stable3.13/3.14 patches remain numerically accepted above floors. No latest-patch equality gate is introduced."
+    }
+  },
+  "commands": {
+    "redaction": "The private per-user prefix is represented by $DEV; argv flags and actual script basenames preserved. Actual invocations are recorded in this conversation and private preparation receipt.",
+    "reviewer": "Existing isolated per-user CPython3.14.8, -I -B; no installation or dependency change.",
+    "argv": [
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-primary-refresh-08.py"
+      ],
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-advisory-assessment-08.py"
+      ],
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-python-openssl-refresh-08.py"
+      ],
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-calibre-source-refresh-08.py"
+      ],
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-calibre-routes-refresh-08.py"
+      ],
+      [
+        "$DEV/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "$DEV/V101-10-python-catalog-refresh-09.py"
+      ]
+    ],
+    "actual_execution_order": "Four independent HTTP collectors ran concurrently; advisory assessment and full catalog followed their fetched inputs. All six exit0."
+  },
+  "browser_primary_cross_check": {
+    "scope": "Additional genuine primary pages read on12October; no inferred native or application results.",
+    "urls": [
+      "https://openssl-library.org/news/secadv/20260929.txt",
+      "https://github.com/py-pdf/pypdf/security/advisories",
+      "https://github.com/kovidgoyal/calibre/security/advisories",
+      "https://www.python.org/downloads/release/python-3148/"
+    ]
+  },
+  "input_receipts": [
+    {
+      "file": "V101-14-security-refresh08-preparation.json",
+      "bytes": 5184,
+      "sha256": "e71f220bf94cd212f8e417e8941b33badac9f91f878fa4b087109667716c1898"
+    },
+    {
+      "file": "V101-14-security-refresh08-comparison.json",
+      "bytes": 30209,
+      "sha256": "95bfc3ca0ad742243bf8d5a835796abef8404e6d5cd4b13b2a12c3bdc6a66ab1"
+    },
+    {
+      "file": "V101-10-primary-refresh-08.json",
+      "bytes": 91408,
+      "sha256": "c90f8ae87eee21fd5fdb6faddda0c6dd0a891fa4437f217cc13e968359a5c1e9"
+    },
+    {
+      "file": "V101-10-advisory-assessment-08.json",
+      "bytes": 28717,
+      "sha256": "a1bb6e3b6a4931fd741f3b5516d8bbbd4147a409b6552077ad70bc78788aa2f3"
+    },
+    {
+      "file": "V101-10-python-openssl-refresh-08.json",
+      "bytes": 10606,
+      "sha256": "03d67528afd67483f932fb6eea09d244dd69928dc9213dc3059127758a8df62c"
+    },
+    {
+      "file": "V101-10-python-catalog-refresh-09.json",
+      "bytes": 3990,
+      "sha256": "9c54a60ec030d934afff0ef3fded978348e2ced42515d6b6584c24847ed1151c"
+    },
+    {
+      "file": "V101-10-calibre-source-refresh-08.json",
+      "bytes": 6108,
+      "sha256": "44208019bec71569b0cf70e2e4ef9e90c33f15f660717bd9d2bf7d45b00e832a"
+    },
+    {
+      "file": "V101-10-calibre-routes-08.json",
+      "bytes": 3847,
+      "sha256": "f2becd5a378694b870f5106bc79e2e1296982d3a2e282c9101123026d87180cf"
+    },
+    {
+      "file": "V101-10-security-review-07.json",
+      "bytes": 30063,
+      "sha256": "24393e656803251e6317e08b67625ec0aed43e44dc9ffb607a34a82b349209c6"
+    },
+    {
+      "file": "V101-10-calibre-embedded-02/report.json",
+      "bytes": 4912,
+      "sha256": "a8667d3d4c920087da3e55184d0ee19341dbbb9437bd68869e569873ba4dcce8"
+    }
+  ],
+  "limits": [
+    "Security review does not execute or validate the newly returned Windows10 native report; root must separately authenticate actual native evidence.",
+    "No malformed-document exploit, TLS exploit, full binary/plugin audit or new runtime/Calibre execution was performed.",
+    "Owned jobs/deadlines and source/output guards do not supply memory/disk quotas, restricted tokens or OS/network sandboxing.",
+    "No 9.16 application compatibility test or broad every-interpreter security claim is made.",
+    "Prior source reviews, initial preparation failures and v1.0.0 history remain unchanged."
+  ],
+  "application_runs": 0,
+  "checkout_edits": 0,
+  "publication_actions": 0,
+  "next_required_action": "Root independently reviews this applicability assessment and authenticates all final native/CI/package gates before ordinary exact-R v1.0.1 publication and anonymous byte verification."
+}

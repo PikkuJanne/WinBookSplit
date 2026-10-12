@@ -1,0 +1,32 @@
+{
+  "protocol": "winbooksplit.prepublication-gate",
+  "schema_version": 1,
+  "observed_utc": "2026-10-12T12:50:16.330508+00:00",
+  "checkpoint": "511515c1acae2074e231b53f84cefc532caef4ba",
+  "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "accepted_assets": {
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+    },
+    "WinBookSplit-v1.0.1.zip": {
+      "bytes": 885340,
+      "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+    },
+    "release-manifest.json": {
+      "bytes": 15816,
+      "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+    }
+  },
+  "all33_shipped_raw_modes_blobs_equal_R": true,
+  "all203_tested_sources_equal_actual_K2_CI": true,
+  "native_windows10": "PASS_USER_LAUNCHED_19_CASES",
+  "native_windows11": "PASS_TWO_MINORS_AND_PS7_SUPPLEMENT",
+  "native_report_member_sha256": "4f714fb6bbbd836e5bdf492d38c9f5cbd2ebcfe8615316ca7857d4bba6cfd104",
+  "security_review_raw_sha256": "a10b996378f09f7bcd4d60579b383b56c7fb61bd8ab9fcacb87a990d1784f45f",
+  "parent_security_assessment": "Read current primary/advisory/catalog/source comparison and applicability/older embedded Calibre limitations; unchanged bodies and no new applicable material finding. Retain numeric Python floors and separate locks. No blanket security or sandbox claim.",
+  "release_notes_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+  "tag_and_release_v101": "ABSENT_BEFORE_MUTATION",
+  "old_release_id": 409510027,
+  "publication": "NOT_RUN"
+}

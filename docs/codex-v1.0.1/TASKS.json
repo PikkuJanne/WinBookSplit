@@ -384,8 +384,15 @@
         "V101-AC-073",
         "V101-AC-074"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-14-security-review-08.json",
+        "evidence/V101-14-security-review-08.md",
+        "evidence/V101-14-prepublication-gate.json",
+        "evidence/V101-14-draft-inspection.json",
+        "evidence/V101-14-publication.json",
+        "evidence/V101-14-release-notes.md"
+      ]
     },
     {
       "id": "V101-15",
@@ -404,7 +411,7 @@
         "V101-AC-077",
         "V101-AC-078"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {

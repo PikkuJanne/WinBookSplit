@@ -1,0 +1,123 @@
+{
+  "protocol": "winbooksplit.publication-receipt",
+  "schema_version": 1,
+  "observed_utc": "2026-10-12T12:58:32.588847+00:00",
+  "checkpoint_before_receipt": "511515c1acae2074e231b53f84cefc532caef4ba",
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "tag_object": "113ab73991c9527caf983a8e9e5993a75b226c1a",
+  "remote_peeled_tag": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "release": {
+    "id": 410596171,
+    "url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.1",
+    "title": "WinBookSplit v1.0.1",
+    "tag": "v1.0.1",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-12T12:52:30Z",
+    "assets": [
+      {
+        "id": 633779501,
+        "name": "release-manifest.json",
+        "size": 15816,
+        "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json"
+      },
+      {
+        "id": 633779495,
+        "name": "SHA256SUMS.txt",
+        "size": 178,
+        "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt"
+      },
+      {
+        "id": 633779492,
+        "name": "WinBookSplit-v1.0.1.zip",
+        "size": 885340,
+        "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+        "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip"
+      }
+    ],
+    "notes_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1"
+  },
+  "security_review_raw_sha256": "a10b996378f09f7bcd4d60579b383b56c7fb61bd8ab9fcacb87a990d1784f45f",
+  "parent_security_assessment": "Read current primary/advisory/catalog/source comparison and applicability/older embedded Calibre limitations; unchanged bodies and no new applicable material finding. Retain numeric Python floors and separate locks. No blanket security or sandbox claim.",
+  "actual_commands": [
+    {
+      "argv": [
+        "git",
+        "tag",
+        "-a",
+        "v1.0.1",
+        "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+        "-m",
+        "WinBookSplit v1.0.1"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "git",
+        "push",
+        "origin",
+        "refs/tags/v1.0.1"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "gh",
+        "release",
+        "create",
+        "v1.0.1",
+        "<three exact frozen assets>",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--verify-tag",
+        "--draft",
+        "--title",
+        "WinBookSplit v1.0.1",
+        "--notes-file",
+        "<reviewed notes>"
+      ],
+      "exit_code": 0
+    },
+    {
+      "argv": [
+        "gh",
+        "release",
+        "edit",
+        "v1.0.1",
+        "--repo",
+        "PikkuJanne/WinBookSplit",
+        "--draft=false",
+        "--prerelease=false",
+        "--latest",
+        "--verify-tag"
+      ],
+      "exit_code": 0
+    }
+  ],
+  "unchanged_v100_live_tag_and_asset_metadata": "PASS_PRIOR_AND_PREPUBLICATION_SNAPSHOT",
+  "anonymous_metadata_downloads_smoke": "NOT_RUN",
+  "scope": "Actual authorized public publication, authenticated metadata/server asset digests and fixed live tag. Anonymous full-byte verification and public-ZIP execution remain Task15."
+}

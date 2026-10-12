@@ -1,0 +1,46 @@
+{
+  "protocol": "winbooksplit.release-draft-inspection",
+  "schema_version": 1,
+  "observed_utc": "2026-10-12T12:52:19.858115+00:00",
+  "id": 410596171,
+  "tag_name": "v1.0.1",
+  "title": "WinBookSplit v1.0.1",
+  "draft": true,
+  "prerelease": false,
+  "published_at": null,
+  "target_commitish_metadata": "main",
+  "actual_verified_tag_source": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+  "tag_object": "113ab73991c9527caf983a8e9e5993a75b226c1a",
+  "notes_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+  "assets": [
+    {
+      "id": 633779501,
+      "name": "release-manifest.json",
+      "size": 15816,
+      "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-4f33a0736c9ab8c6fce3/release-manifest.json"
+    },
+    {
+      "id": 633779495,
+      "name": "SHA256SUMS.txt",
+      "size": 178,
+      "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-4f33a0736c9ab8c6fce3/SHA256SUMS.txt"
+    },
+    {
+      "id": 633779492,
+      "name": "WinBookSplit-v1.0.1.zip",
+      "size": 885340,
+      "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+      "state": "uploaded",
+      "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/untagged-4f33a0736c9ab8c6fce3/WinBookSplit-v1.0.1.zip"
+    }
+  ],
+  "actual_commands": [
+    "gh release create v1.0.1 <exact three frozen assets> --repo PikkuJanne/WinBookSplit --verify-tag --draft --title WinBookSplit v1.0.1 --notes-file <reviewed notes>"
+  ],
+  "create_exit_code": 0,
+  "scope": "Authenticated draft assembly and server asset digests match accepted bytes. Anonymous public verification remains pending; a draft is not completion."
+}
