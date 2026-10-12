@@ -1,17 +1,7 @@
 # Status - v1.0.1
 
-V101-01 through V101-12 are DONE. V101-13 is BLOCKED solely on unavailable
-genuine Windows10 22H2 x64 evidence. R remains `6f2c2e5d4d5fc484bcb1530474f09957e09775ef`; the exact ZIP SHA256 is
-`747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`. All 33 shipped raw/Git
-members remain identical to R/original kit K/current K2. Current K2 `ff9c9ea92eaa966d6684ccd448457b86f3d0d8ce` includes
-nonshipped recipe/test/README corrections and evidence; its complete source-bound
-Server CI passed separately. Original COMMITTED kit K `8611da7ca7a4ca6542daf162e6f992a0012ca24c` is unchanged.
+V101-01 through V101-13 are DONE. The returned Windows 10 Home 22H2 x64 report passed all 19 native cases, 15 stages and three controls with Python 3.14.8, pypdf 6.20.0 and Calibre 9.15.0. Windows 11 final-ZIP acceptance already passed on Python 3.13.16 and 3.14.8, inbox5.1 and the four PS7 supplement cases. All AC068–071 are PASS; one USER_LAUNCHED owner session is recorded, with no repeated Explorer/manual programme.
 
-Actual final-ZIP Windows11 native all 19 cases passed on both Python minors,
-including EPUB/AZW3. Actual inbox5.1 and four same-extraction PS 7.6.6 cases passed.
-See [evidence](evidence/V101-13-available-host-blocker.md). AC069/071 PASS;
-AC068/070 BLOCKED because Windows10/both-OS ebook evidence is missing.
+R remains `6f2c2e5d4d5fc484bcb1530474f09957e09775ef`; ZIP SHA256 `747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`. The original committed kit and frozen assets are unchanged. Earlier blocked/failed reports are preserved as history. See [native Windows 10 evidence](evidence/V101-13-native-win10.md).
 
-The measured one-command kit is delivered. Human sessions used: 0. Missing
-Windows10 evidence cannot become PASS; publication/tag/anonymous downloads
-remain NOT_RUN. Existing artwork, BAT and v1.0.0 release assets are unchanged.
+V101-14 is IN_PROGRESS: fresh primary security review, exact tag/publication and subsequent anonymous byte verification remain required. No v1.0.1 publication PASS is claimed here. Artwork, BAT and v1.0.0 release assets remain unchanged.

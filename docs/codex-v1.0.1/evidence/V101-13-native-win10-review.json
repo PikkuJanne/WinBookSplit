@@ -1,0 +1,118 @@
+{
+  "protocol": "winbooksplit.returned-native-report-review",
+  "schema_version": 1,
+  "result": "PASS",
+  "observed_utc": "2026-10-12T12:38:46.421064+00:00",
+  "reviewer_scope": "Independent read-only validation of one returned redacted bundle; no new independent native audit or application rerun.",
+  "review_script_sha256": "f76c6862e179d19223c89fc92302789c28d32371113f8c2ebc12d43bffaa0940",
+  "reader": "Actual bundled bootstrap CPython3.12.14 -I -B; pure report validation, not application-runtime acceptance.",
+  "input_zip": {
+    "name": "native-result.zip",
+    "bytes": 10654,
+    "sha256": "8a26df5a742a17892dae55bba52597a71fa55dec27cbeed6c50755209140b887"
+  },
+  "member": {
+    "name": "native-result.json",
+    "bytes": 10515,
+    "sha256": "4f714fb6bbbd836e5bdf492d38c9f5cbd2ebcfe8615316ca7857d4bba6cfd104"
+  },
+  "source_head": "5ac74ad32064f0c82c2e363bdbc6e1cd72bc3340",
+  "source_tree": "034c0ee34da8dbf5b5a3a1f5b0d97603e2e1e0cd",
+  "source_unchanged": true,
+  "existing_oracle_sha256": "778caa7522c7f672993881a1e9551810ed9a34f58cc5f292fd2ef7cacc519e0d",
+  "execution": "USER_LAUNCHED",
+  "evidence_kind": "NATIVE_AUTOMATED",
+  "started_utc": "2026-10-12T12:15:04.5467580Z",
+  "finished_utc": "2026-10-12T12:18:55.9662090Z",
+  "actual_os": {
+    "Caption": "Microsoft Windows 10 Home",
+    "Version": "10.0.19045",
+    "BuildNumber": "19045",
+    "OSArchitecture": "64-bit",
+    "ProductType": 1,
+    "UBR": 7417,
+    "powershell_version": "5.1.19041.7417",
+    "process_bits": 64,
+    "DisplayVersion": "22H2",
+    "processor_architectures": [
+      9
+    ],
+    "os_bits": 64,
+    "platform_scope": "NATIVE_WINDOWS10"
+  },
+  "actual_runtime": {
+    "python": "3.14.8",
+    "pypdf": "6.20.0",
+    "calibre": "9.15.0"
+  },
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "kit_source": {
+    "fixtures_payload_sha256": "f145d82a1e8cf0125c89517969d54f4dcbcc79ee447c2cc34625992f52312e1f",
+    "helpers_payload_sha256": "85aee0e3286d48a5e1e77d51252d1f951ce3febe1838ab229ab52c5664fc2f88",
+    "mode": "COMMITTED",
+    "repository_observation": null,
+    "source_commit": "8611da7ca7a4ca6542daf162e6f992a0012ca24c",
+    "source_tree": "ff8d9eb99ce7ce45bfa6527d9dd196bbf62208af"
+  },
+  "kit_zip_sha256": "330cf372bfbe37a43ff273ce058146443069340245b60f4ad53830402846a162",
+  "bindings_sha256": "b68bc61289721e0f8f100a7cd19c3c5c4209268582f958a63c45f6b56b23cb84",
+  "prior_committed_Windows11_receipts": [
+    {
+      "name": "V101-13-native-win11-python14.json",
+      "sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa"
+    },
+    {
+      "name": "V101-13-native-win11-python13.json",
+      "sha256": "64cf7d099bd594930e690d39457894307ce1504807936f50e06caaed7e8bfa5d"
+    },
+    {
+      "name": "V101-13-native-win11-ps7.json",
+      "sha256": "263b9e66f4fe6167cac577cb7d9d8a1a47b671670916b59f6d46bef0163cd1d1"
+    }
+  ],
+  "checks": [
+    "single flat bounded unencrypted ZIP member and CRC read; no extraction",
+    "exact ZIP/member input hashes",
+    "existing native_smoke.export_report closed redaction and typed native Windows10 facts",
+    "closed top/case/stage/control rosters and exact expected negative exits/codes",
+    "all19 cases,15 stages,3 controls PASS; cleanup_safe/source_unchanged true",
+    "original delivered kit K/helper12/fixture6 and frozen release R assets exact equality",
+    "committed prior Windows11 reports refer to same frozen production",
+    "all33 current shipped raw/mode/blob bytes equal frozen R; clean source unchanged"
+  ],
+  "case_count": 19,
+  "stage_count": 15,
+  "control_count": 3,
+  "ebook_scope": "Actual reported EPUB/AZW3 reference conversion and discard/keep/page validation on Windows10; same production as prior Windows11 receipts.",
+  "acceptance_scope": "V101-AC-068 and both-OS ebook portion of V101-AC-070 now have validated returned USER_LAUNCHED native evidence; root owns checkpoint transition. Existing blocked history is preserved.",
+  "limitations": [
+    "One planned owner session; no physical Explorer gesture repeated.",
+    "Only the specified redacted result bundle was requested/read; underlying raw local artifacts are retained on the owner machine.",
+    "Wrong-package native kit row is not claimed; separate historical controlled-native and current units/Pester cover wrong version/origin.",
+    "This reader does not publish, tag, commit or change acceptance files."
+  ],
+  "checkout_edits": false,
+  "application_runs": 0,
+  "archive_extraction": false,
+  "publication": "NOT_RUN"
+}

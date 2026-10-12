@@ -350,7 +350,7 @@
         "V101-AC-070",
         "V101-AC-071"
       ],
-      "status": "BLOCKED",
+      "status": "DONE",
       "evidence": [
         "evidence/V101-13-tooling-preflight.json",
         "evidence/V101-13-tooling-preflight.md",
@@ -362,7 +362,10 @@
         "evidence/V101-13-K2-ci.json",
         "evidence/V101-13-kit-delivery.json",
         "evidence/V101-13-available-host-blocker.json",
-        "evidence/V101-13-available-host-blocker.md"
+        "evidence/V101-13-available-host-blocker.md",
+        "evidence/V101-13-native-win10.json",
+        "evidence/V101-13-native-win10-review.json",
+        "evidence/V101-13-native-win10.md"
       ]
     },
     {
@@ -381,7 +384,7 @@
         "V101-AC-073",
         "V101-AC-074"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "evidence": []
     },
     {
