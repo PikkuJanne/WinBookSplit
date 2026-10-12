@@ -1,12 +1,12 @@
 {
   "protocol": "winbooksplit.v102-task08-independent-review",
   "schema_version": 1,
-  "observed_at": "2026-10-12T18:07:10.641796+00:00",
-  "status": "REVIEWED_C1_GATES_AND_C2_FOCUSED_CORRECTIONS_PASS",
+  "observed_at": "2026-10-12T19:35:05.807849+00:00",
+  "status": "REVIEWED_C1_AND_C2_REQUIRED_GATES_PASS",
   "task_complete": false,
   "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
   "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
-  "source_scope": "Reviewed committed C1 code and exact private transitional VERSION1.0.1 package. Current checkout cleanliness is not asserted.",
+  "source_scope": "Reviewed committed C1 package/kit gates plus committed C2 test-only corrections and required CI roles. The private VERSION1.0.1 package remains bound to C1; current checkout cleanliness and final release acceptance are not asserted.",
   "source_controls": {
     "public_paths_equal_C1_blobs": 15,
     "raw_reference_hashes_match": 10,
@@ -145,7 +145,7 @@
     "Private VERSION1.0.1 assets do not certify old published assets or finalv1.0.2.",
     "Final-ZIP Windows10 acceptance is NOT_RUN; new final source/package/native gates remain."
   ],
-  "remaining_task8_gate": "Required CI on committed C2 source and synchronized task checkpoint remain pending; all four actual focused native corrections independently passed.",
+  "remaining_task8_gate": "Technical gates independently reviewed; synchronized task8 evidence checkpoint remains pending. Final R/Z native and publication gates remain separate.",
   "references": {
     "source_controls_review": {
       "alias": "source-controls-default-driver-review.json",
@@ -209,6 +209,26 @@
     "three_C2_independent_reviews": {
       "alias": "three-C2-layer-review.json",
       "sha256": "00c070d8d23d2f4d5f07ccb62ac393a1aec36520abb4605b1d5c1f123f23d270"
+    },
+    "C2_CI_public_receipt": {
+      "alias": "V102-08-ci-c2.json",
+      "bytes": 51382,
+      "sha256": "7010e6aae9bf56dbd77e2e01d817ae1742264fdd84bb180bf24bc4ca8198c4db"
+    },
+    "C2_CI_independent_review": {
+      "alias": "ci-C2-required-role-final-review.json",
+      "bytes": 4182,
+      "sha256": "00fa5e64c9793af27ff8ccaa8c17319b72dc19ef59bad3a61c08268f91b78bf2"
+    },
+    "C2_failed_reference_independent_review": {
+      "alias": "C2-reference-timeout-review.json",
+      "bytes": 2842,
+      "sha256": "b8410bf5a807b2febe46e459f849f586155a1bed1d3e5f3a977978384b2f35a6"
+    },
+    "C2_failed_reference_API_review": {
+      "alias": "C2-reference-failure-API-review.json",
+      "bytes": 604,
+      "sha256": "f99a6bfdb289cf61cd33f7ae7d880cd63e88d21ebef62bec96b2b2bb50f5d7dd"
     }
   },
   "private_detailed_review": {
@@ -222,7 +242,7 @@
     "sha256": "11817e70cd70053b12f426f4cb1754ba22610bd72c4b734b08d1d657a0331262"
   },
   "C2_test_only_correction_review": {
-    "scope": "TEST_ONLY C2 CORRECTION; current reviewed worktree bytes; no new production/helper behavior",
+    "scope": "TEST_ONLY C2 CORRECTION; committed c8e52d7361fbf6bc811bddfb212d0f68e361b057 and tree 7c43aa9f6655ab7e21000f4b86d938a7f692f81f; no new production/helper behavior",
     "source_paths": 207,
     "source_digest": "d0a004cfb9eeb097251947e740ed8d762205ffaecc83168737984f58e2a83809",
     "exact_source_changes_from_C1": {
@@ -309,7 +329,7 @@
       }
     },
     "full_declared_stage_coverage_reconciled": "19 original C1 passing stages plus four source-bound corrected C2 layers. This is combined coverage, not a single original 23-stage PASS.",
-    "remaining": "Required CI on committed C2 source and synchronized task checkpoint; finalR/Z/Windows10/11/release gates remain separate."
+    "remaining": "Synchronized task8 evidence checkpoint only; final R/Z/Windows10/11/release gates remain separate."
   },
   "reproduced_runtime_fixture_failure": {
     "scope": "DIAGNOSTIC_ONLY; exact failed C1 test-fixture assertion; no runtime acceptance",
@@ -346,5 +366,50 @@
       }
     ],
     "resolved_by_four_focused_test_only_corrections": true
+  },
+  "C2_required_CI_review": {
+    "status": "PASS_ACROSS_EXPLICIT_ATTEMPTS",
+    "source_commit": "c8e52d7361fbf6bc811bddfb212d0f68e361b057",
+    "source_tree": "7c43aa9f6655ab7e21000f4b86d938a7f692f81f",
+    "source_paths": 207,
+    "source_digest": "d0a004cfb9eeb097251947e740ed8d762205ffaecc83168737984f58e2a83809",
+    "run_id": 38294176482,
+    "original_attempt1": "FAIL; three application roles passed; reference inbox timeout at300s retained and rejected",
+    "selected_application_attempt": 1,
+    "selected_reference_attempt": 2,
+    "source_flags_policies_limits_unchanged": true,
+    "five_API_ZIP_hash_size_checks": "PASS",
+    "all21_report_members_equal_ZIP_download_hash_records": "PASS",
+    "four_selected_strict_validators": "PASS",
+    "failed_reference1_strict_validator_exit": 1,
+    "failed_reference1_id_digest_size_equal_pinned_first_snapshot": true,
+    "every207_path_matches_C2_Git_and_current_source": true,
+    "application": {
+      "actual_versions": [
+        "3.13.16",
+        "3.14.8",
+        "3.15.0"
+      ],
+      "units_each": 150,
+      "cases_each": 8,
+      "supervised_probes_each": 15,
+      "skips_each": 0,
+      "package": "pypdf 6.20.0 plus pip only"
+    },
+    "reference": {
+      "actual_driver": "3.14.8",
+      "Python_tests": 670,
+      "Python_seconds": 540.312,
+      "inbox_version": "5.1.26100.33438",
+      "PS7_version": "7.6.6",
+      "Pester_each": 204,
+      "skipped_or_notrun": 0,
+      "scoped_syntax_or_analysis_findings": 0,
+      "retry_inbox_step_seconds": 267
+    },
+    "OS_scope": "Windows Server 2025 build 26100 product type 3; no workstation or final ZIP pass",
+    "all_four_rerun_claim": false,
+    "original_full_aggregate_relabelled": false,
+    "cause": "Original inbox timeout cause remains unestablished; earlier successful C1 contained the same first-use progress type."
   }
 }
