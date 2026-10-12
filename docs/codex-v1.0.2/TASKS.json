@@ -221,10 +221,22 @@
         "V102-AC-048"
       ],
       "evidence": [
+        "evidence/V102-08-ci-run.json",
+        "evidence/V102-08-ci-run.md",
         "evidence/V102-08-ci-source.json",
         "evidence/V102-08-ci-source.md",
+        "evidence/V102-08-full-suite.json",
+        "evidence/V102-08-full-suite.md",
         "evidence/V102-08-kit-source.json",
-        "evidence/V102-08-kit-source.md"
+        "evidence/V102-08-kit-source.md",
+        "evidence/V102-08-native-tooling.json",
+        "evidence/V102-08-native-tooling.md",
+        "evidence/V102-08-review.json",
+        "evidence/V102-08-review.md",
+        "evidence/V102-08-runtime-correction.json",
+        "evidence/V102-08-runtime-correction.md",
+        "evidence/V102-08-seam-correction.json",
+        "evidence/V102-08-seam-correction.md"
       ]
     },
     {

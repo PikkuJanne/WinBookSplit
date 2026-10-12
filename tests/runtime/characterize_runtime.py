@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+from contextlib import ExitStack
 from datetime import datetime, timezone
 from hashlib import sha256
 import importlib.util
@@ -51,6 +52,25 @@ history, require = manual.history, manual.require
 
 def digest(path):
     return sha256(path.read_bytes()).hexdigest()
+
+
+def converter_absence_cache_inventory(root):
+    """Accept only the authored empty Windows cache chain, never an install."""
+    result = {}
+    directory = root
+    for expected in ("Microsoft", "Windows", "Caches", None):
+        require(not history.is_reparse(directory) and directory.is_dir(),
+                "Missing-converter cache directory is not ordinary")
+        with os.scandir(directory) as entries:
+            entry = next(entries, None)
+            extra = next(entries, None) if expected is not None else None
+            require((entry is None if expected is None else entry is not None and entry.name == expected and extra is None),
+                    "Missing-converter cache fixture acquired unexpected files or paths")
+        if expected is not None:
+            directory = directory / expected
+            details = directory.lstat()
+            result[directory.relative_to(root).as_posix()] = {"device": details.st_dev, "inode": details.st_ino}
+    return result
 
 
 def prefixed_json(text, prefix):
@@ -215,6 +235,7 @@ class Cases:
         environment = history.clean_environment(case)
         parent_local_app_data = os.environ.get("LOCALAPPDATA")
         isolated_local_app_data = None
+        isolation_before = None
         if category == "converter_failure" and kind in {"missing", "book-cwd-decoys"}:
             # Only these absence controls hide an actual per-user installation.
             require(all(not path.exists() for path in (
@@ -223,6 +244,10 @@ class Cases:
                 "Missing-converter fixture requires both fixed system Calibre paths absent; do not alter an installed converter")
             isolated_local_app_data = case / "empty-local-app-data"
             isolated_local_app_data.mkdir()
+            # The native absence control creates this observed empty Windows chain.
+            # Author it before launch and hold its identities, as conversion does.
+            (isolated_local_app_data / "Microsoft/Windows/Caches").mkdir(parents=True)
+            isolation_before = converter_absence_cache_inventory(isolated_local_app_data)
             environment["LOCALAPPDATA"] = str(isolated_local_app_data)
         environment.update(PSModulePath=str(shell.parent / "Modules"), WBS_RUNTIME_APP=str(app / "WinBookSplit.ps1"),
             WBS_RUNTIME_BAT=str(app / "WinBookSplit.bat"), WBS_RUNTIME_INPUT=str(source), WBS_RUNTIME_BASE=str(base),
@@ -316,7 +341,17 @@ class Cases:
         output_before = [] if not batch else None
         process, log, console_owner, execution, members, record = None, None, None, None, None, None
         cleanup_safe = True
+        isolation_guards = ExitStack()
+        held_isolation = []
         try:
+            if isolated_local_app_data is not None:
+                windows = load("wbs_runtime_isolation_windows", ROOT / "engine/winbooksplit_windows.py")
+                for path in [*reversed(isolated_local_app_data.parents), isolated_local_app_data,
+                             isolated_local_app_data / "Microsoft", isolated_local_app_data / "Microsoft/Windows",
+                             isolated_local_app_data / "Microsoft/Windows/Caches"]:
+                    held_isolation.append(isolation_guards.enter_context(windows.DirectoryGuard(path)))
+                require(converter_absence_cache_inventory(isolated_local_app_data) == isolation_before,
+                        "Missing-converter cache identity changed before guarded launch")
             with paths.read_only_source(source):
                 readonly_observed = bool(source.lstat().st_file_attributes & 1)
                 try:
@@ -410,12 +445,17 @@ class Cases:
                     and not decoy_marker.exists() and not module_marker.exists(), "Untrusted dependency decoy executed/imported or changed")
             require(application_hashes == {name: digest(app / name) for name in APPLICATION_FILES}, "Copied application source changed while running")
             if isolated_local_app_data is not None:
+                for guard in held_isolation:
+                    guard.assert_unchanged()
+                isolation_after = converter_absence_cache_inventory(isolated_local_app_data)
                 require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
-                        and not isolated_local_app_data.is_junction() and not any(isolated_local_app_data.iterdir())
+                        and not isolated_local_app_data.is_junction() and isolation_after == isolation_before
                         and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
                         "Missing-converter child isolation or parent environment changed")
                 record["converter_absence_environment"] = {
-                    "child_local_app_data_isolated": True, "owned_directory_ordinary_and_empty": True,
+                    "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                    "ordinary_directory_guards_unchanged": True,
+                    "cache_directory_identities_before": isolation_before, "cache_directory_identities_after": isolation_after,
                     "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
             record.update(id=identifier, category=category, kind=kind, passed=True, actual_process=True,
                 shell_executable=str(shell), command=command, cwd=str(cwd), output_base=str(base),
@@ -432,12 +472,15 @@ class Cases:
                 controlled_PATH=environment["PATH"], controlled_PYTHONPATH=environment.get("PYTHONPATH"),
                 application_path_sha256=application_hashes, copied_application_unchanged=True, stdin_utf8=answers, **process)
         finally:
-            if cleanup_safe:
-                if execution is not None and members is not None:
-                    launchers.remove_known_directory(Path(execution["final_directory"]), base, members, ".WinBookSplit-owner.json",
-                        {"schema_version": 1, "kind": "run", "run_id": execution["run_id"]})
-                if log is not None and console_owner is not None:
-                    launchers.remove_console_directory(log, base, source_path=source, source_observation=originals[str(source)])
+            try:
+                if cleanup_safe:
+                    if execution is not None and members is not None:
+                        launchers.remove_known_directory(Path(execution["final_directory"]), base, members, ".WinBookSplit-owner.json",
+                            {"schema_version": 1, "kind": "run", "run_id": execution["run_id"]})
+                    if log is not None and console_owner is not None:
+                        launchers.remove_console_directory(log, base, source_path=source, source_observation=originals[str(source)])
+            finally:
+                isolation_guards.close()
         if not batch:
             require(not any(base.iterdir()), "Known runtime outputs or unknown base members remain")
         record["owned_outputs_removed"] = True

@@ -70,14 +70,9 @@ def controlled_application(app, kind, batch):
         else:
             text = (app / "WinBookSplit.ps1").read_text(encoding="utf-8-sig")
             for name in ("OutputDirectory", "PythonPath", "CalibrePath"):
-                before = "[string]$" + name + ","
-                after = "[string]$" + name + " = $env:WBS_LAUNCHER_" + name.upper() + ","
-                require(text.count(before) == 1, "Copied dependency/output control seam changed: " + name)
-                text = text.replace(before, after)
+                text = launchers.controlled_script_parameter_default(text, name, "$env:WBS_LAUNCHER_" + name.upper())
                 modifications.append("copied parameter default " + name)
-            before = "[switch]$NoPause,"
-            require(text.count(before) == 1, "Copied NoPause control seam changed")
-            text = text.replace(before, "[switch]$NoPause = $true,")
+            text = launchers.controlled_script_parameter_default(text, "NoPause", "$true")
             modifications.append("copied NoPause default true")
         if kind in validator.EXTRA:
             (app / "WinBookSplit.ps1").write_bytes(text.encode("utf-8-sig"))

@@ -37,6 +37,38 @@ RUNTIME_POLICY, _policy_bytes = compatibility._read_policy()
 RUNTIME_POLICY_SHA256 = sha256(_policy_bytes).hexdigest()
 
 
+def controlled_script_parameter_default(text, name, value):
+    """Change one reviewed copied-script default, preserving every helper byte."""
+    allowed = {
+        "OutputDirectory": ("string", {"$env:WBS_OUTCOME_BASE", "$env:WBS_LAUNCHER_OUTPUTDIRECTORY", "$env:WBS_POLICY_OUTPUTDIRECTORY"}),
+        "PythonPath": ("string", {"$env:WBS_OUTCOME_PYTHON", "$env:WBS_LAUNCHER_PYTHONPATH", "$env:WBS_POLICY_PYTHONPATH"}),
+        "CalibrePath": ("string", {"$env:WBS_OUTCOME_CONVERTER", "$env:WBS_LAUNCHER_CALIBREPATH"}),
+        "NoPause": ("switch", {"$true"}),
+    }
+    _console_need(type(text) is str and type(name) is str and name in allowed and
+            type(value) is str and value in allowed[name][1], "Undeclared copied script parameter/default")
+    _console_need(len(re.findall(r"(?m)^param \(\r?\n", text)) == 1, "Ambiguous copied script param block")
+    block = re.match(r"\A(?:\s+|#[^\n]*(?:\n|\Z)|<#[\s\S]*?#>)*param \(\r?\n(?P<body>[\s\S]*?)^\)\r?\n", text, re.M)
+    _console_need(block is not None, "Initial copied script param block changed or unterminated")
+    body = block.group("body")
+    names = []
+    for line in body.splitlines():
+        if not line.strip():
+            continue
+        declaration = re.fullmatch(r"[ \t]+(?:\[[^\]\r\n]+\])+\$([A-Za-z][A-Za-z0-9]*)(?:[ \t]*=.*)?[,]?", line)
+        _console_need(declaration is not None, "Copied script parameter declaration changed")
+        names.append(declaration.group(1).casefold())
+    _console_need(len(names) == len(set(names)) and names.count(name.casefold()) == 1,
+            "Copied script parameter identity is duplicate or missing")
+    before = "[" + allowed[name][0] + "]$" + name + ","
+    lines = body.splitlines(keepends=True)
+    matches = [index for index, line in enumerate(lines) if line.strip() == before]
+    _console_need(len(matches) == 1, "Reviewed copied script parameter type/bare declaration changed")
+    index = matches[0]
+    lines[index] = lines[index].replace(before, before[:-1] + " = " + value + ",", 1)
+    return text[:block.start("body")] + "".join(lines) + text[block.end("body"):]
+
+
 def python_version_supported(value):
     """Check a manifest's version against policy; this alone proves no native identity."""
     if type(value) is not str or re.fullmatch(r"\d+\.\d+\.\d+", value) is None:

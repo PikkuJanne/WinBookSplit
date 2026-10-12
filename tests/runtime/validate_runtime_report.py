@@ -382,6 +382,27 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
     streams(case, case["id"])
 
 
+def converter_absence_environment(case: dict) -> None:
+    record = mapping(case.get("converter_absence_environment"), "converter absence environment")
+    require(set(record) == {"child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged",
+                           "ordinary_directory_guards_unchanged", "cache_directory_identities_before",
+                           "cache_directory_identities_after", "parent_local_app_data_unchanged",
+                           "fixed_system_calibre_paths_absent"}, "converter absence environment schema differs")
+    for field in ("child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged",
+                  "ordinary_directory_guards_unchanged", "parent_local_app_data_unchanged", "fixed_system_calibre_paths_absent"):
+        flag(record, field)
+    before = mapping(record["cache_directory_identities_before"], "converter cache identities before")
+    after = mapping(record["cache_directory_identities_after"], "converter cache identities after")
+    required = {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"}
+    require(set(before) == set(after) == required and before == after,
+            "converter absence cache closure or identities differ")
+    for value in before.values():
+        identity = mapping(value, "converter cache directory identity")
+        require(set(identity) == {"device", "inode"} and
+                all(type(identity[field]) is int and identity[field] >= 0 for field in ("device", "inode")),
+                "converter absence cache directory identity invalid")
+
+
 def failure_case(case: dict, supported_version: str, unsupported_version: str) -> None:
     require(case["exit_code"] == 3, "failure: dependency native status 3 required")
     for field in ("preflight_before_output", "no_success_summary", "setup_guidance_verified"):
@@ -398,6 +419,8 @@ def failure_case(case: dict, supported_version: str, unsupported_version: str) -
     expected_code = "runtime_invalid" if case["category"] == "python_failure" else (
         "converter_invalid" if case["kind"] == "wrong-version" else "converter_not_found")
     require(error.get("Code") == expected_code, "failure: wrong dependency category")
+    if case["category"] == "converter_failure" and case["kind"] in {"missing", "book-cwd-decoys"}:
+        converter_absence_environment(case)
     try:
         frames = [json.loads(line.removeprefix("[DEPENDENCY-ERROR] ")) for line in case["stdout"].splitlines()
                   if line.startswith("[DEPENDENCY-ERROR] ")]

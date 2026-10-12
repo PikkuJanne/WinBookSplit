@@ -6,5 +6,5 @@
   "repository_changed_by_bundle_creation": false,
   "application_tests_run_by_bundle_creation": false,
   "release_published_by_bundle_creation": false,
-  "next_action": "Task8 tooling source is reviewed; required 3.15 CI and authenticated native kit are implemented. Complete full regression, hosted CI and an actual clean committed-package private tooling rehearsal. Do not claim final v1.0.2 or Windows10 acceptance from this preparation. Then advance to version/docs task9."
+  "next_action": "Task8 C1 CI and actual private kits passed. Original full suite remains FAIL, 19/23 stages passed, unchanged C1 bytes. Nine reviewed test-only corrections and meaningful controls passed. Four corrected native layers passed on unchanged digest d0a004cfb9eeb097251947e740ed8d762205ffaecc83168737984f58e2a83809: runtime33/outcomes51/launcher70/document-policy75, preservation and safe cleanup true. Holds released. Finish receipt review, commit/push C2 and verify fresh CI before task8 completion. Keep original failures/work and separate rerun identities. Final v1.0.2 source/package and Windows10 acceptance remain open."
 }

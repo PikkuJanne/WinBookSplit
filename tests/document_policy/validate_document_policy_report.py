@@ -58,11 +58,8 @@ def expected_exit(kind):
 def controlled_powershell(raw):
     text = raw.decode('utf-8-sig')
     for name in ('OutputDirectory', 'PythonPath'):
-        before = '[string]$' + name + ','
-        need(text.count(before) == 1, 'Declared copied parameter-default seam changed')
-        text = text.replace(before, '[string]$' + name + ' = $env:WBS_POLICY_' + name.upper() + ',')
-    need(text.count('[switch]$NoPause,') == 1, 'Declared copied NoPause seam changed')
-    return text.replace('[switch]$NoPause,', '[switch]$NoPause = $true,').encode('utf-8-sig')
+        text = console.controlled_script_parameter_default(text, name, '$env:WBS_POLICY_' + name.upper())
+    return console.controlled_script_parameter_default(text, 'NoPause', '$true').encode('utf-8-sig')
 
 
 def records(text, prefix):

@@ -63,7 +63,7 @@ def controlled_application(app, kind, *, batch):
     if batch:
         for parameter, value in (("OutputDirectory", "$env:WBS_OUTCOME_BASE"),
                 ("PythonPath", "$env:WBS_OUTCOME_PYTHON"), ("CalibrePath", "$env:WBS_OUTCOME_CONVERTER")):
-            text = anchored(text, "[string]$" + parameter + ",", "[string]$" + parameter + " = " + value + ",")
+            text = launchers.controlled_script_parameter_default(text, parameter, value)
             modifications.append("copied parameter default " + parameter)
         if noninteractive:
             seam = "# --- Validation ---"

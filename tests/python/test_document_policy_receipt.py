@@ -242,7 +242,7 @@ class DocumentPolicyReceiptTests(unittest.TestCase):
             guard.validate_case(row)
 
     def test_declared_batch_seam_changes_only_three_parameter_defaults(self):
-        source = b'param(\r\n[string]$OutputDirectory,\r\n[string]$PythonPath,\r\n[switch]$NoPause,\r\n[switch]$NonInteractive\r\n)\r\nWrite-Host "authored"\r\n'
+        source = b'param (\r\n    [string]$OutputDirectory,\r\n    [string]$PythonPath,\r\n    [switch]$NoPause,\r\n    [switch]$NonInteractive\r\n)\r\nWrite-Host "authored"\r\n'
         changed = guard.controlled_powershell(source).decode('utf-8-sig')
         self.assertIn('[string]$OutputDirectory = $env:WBS_POLICY_OUTPUTDIRECTORY,', changed)
         self.assertIn('[switch]$NoPause = $true,', changed)

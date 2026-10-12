@@ -1,0 +1,350 @@
+{
+  "protocol": "winbooksplit.v102-task08-independent-review",
+  "schema_version": 1,
+  "observed_at": "2026-10-12T18:07:10.641796+00:00",
+  "status": "REVIEWED_C1_GATES_AND_C2_FOCUSED_CORRECTIONS_PASS",
+  "task_complete": false,
+  "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+  "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+  "source_scope": "Reviewed committed C1 code and exact private transitional VERSION1.0.1 package. Current checkout cleanliness is not asserted.",
+  "source_controls": {
+    "public_paths_equal_C1_blobs": 15,
+    "raw_reference_hashes_match": 10,
+    "native_smoke_units_actual3150": 31,
+    "native_kit_units_actual3150": 11,
+    "native_SDK_controls_per_shell": 13,
+    "SDK_shells": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "syntax_analyzer_findings": 0,
+    "release_package_controls_actual3150": 26
+  },
+  "private_assets_and_kit": {
+    "actual_version": "1.0.1",
+    "application_members_equal_C1_blobs": 34,
+    "checksum_lines_valid": 2,
+    "authenticated_helpers": 19,
+    "authored_fixtures": 6,
+    "shared_helper_application_members_equal": 11,
+    "kit_ZIP_members_equal_directory_manifest": 33,
+    "kit_mode": "COMMITTED",
+    "bindings_sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff",
+    "kit_ZIP_sha256": "050b35ee988d4263dc5a552039730054f0853b276f4ee44420934acd08b0cdf5"
+  },
+  "CI": {
+    "run_id": 38286167981,
+    "scope": "WINDOWS_SERVER_2025_CI_ONLY",
+    "required_jobs_passed": 4,
+    "exact_application_targets": [
+      "3.13.16",
+      "3.14.8",
+      "3.15.0"
+    ],
+    "source_Git_blobs_compared": 207,
+    "downloaded_ZIPs_match_declared_GitHub_digest_size": 4,
+    "raw_reports_match_ZIP_directory_and_hashes": 15,
+    "independent_maintained_validator_passes": 4,
+    "unit_methods_per_actual_application_target": 150,
+    "application_cases_per_target": 8,
+    "reference_python_methods": 664,
+    "reference_Pester_cases_per_host": 204,
+    "skips": 0
+  },
+  "native_tooling": {
+    "scope": "NATIVE_WINDOWS11_DRY_RUN; AGENT_LAUNCHED; private current-source VERSION1.0.1 rehearsal",
+    "OS": "Microsoft Windows11 Pro 26H2 build26300.9457; inbox5.1.26100.9444",
+    "regular_runtime": "CPython3.15.0 x64 AMD64 final with GIL; isolated/no bytecode",
+    "pypdf": "6.20.0",
+    "public_raw_references_match": 64,
+    "fixed_embedded_reports_equal_actual_returns": true,
+    "returned_ZIPs_single_equal_redacted_member": true,
+    "explicit": {
+      "passed_stages": 16,
+      "native_oracle_cases": 19,
+      "controlled_cases": 3,
+      "exact_Action_payloads": 4,
+      "marked_BAT_routes": 3,
+      "mocked_organization_refusals": 2,
+      "raw_JSON_files_inspected": 226,
+      "distinct_serialized_probe_records_stopped_and_drained": 154,
+      "marked_application_members_equal": 154,
+      "actual_marked_ADS_preserved": 77,
+      "outer_kit_ADS_preserved": 11,
+      "authored_backup_frames_hashes_preserved": 5,
+      "independently_reopened_PDF_sets": 7,
+      "per_PDF_set": {
+        "written_files": 3,
+        "physical_pages": 10,
+        "hashes_and_source_page_text_order_match": true
+      }
+    },
+    "default": {
+      "child_options": [
+        "ProvisionPrerequisites",
+        "AllowWindows11DryRun",
+        "Execution AGENT_LAUNCHED"
+      ],
+      "explicit_runtime_tool_or_PATH_selection": false,
+      "owner_discovery": "No usable regular3.15 was discovered; installed-owner availability is not inferred.",
+      "baseline_kind": "reviewed_private3150_archive",
+      "passed_stages": 16,
+      "native_oracle_cases": 19,
+      "controlled_cases": 3,
+      "exact_Action_payloads": 2,
+      "marked_BAT_routes": 2,
+      "mocked_organization_refusals": 1,
+      "raw_JSON_files_inspected": 169,
+      "distinct_serialized_probe_records_stopped_and_drained": 109,
+      "marked_application_members_equal": 88,
+      "actual_marked_ADS_preserved": 44,
+      "outer_kit_ADS_preserved": 11,
+      "authored_backup_frames_hashes_preserved": 3,
+      "independently_reopened_PDF_sets": 4,
+      "per_PDF_set": {
+        "written_files": 3,
+        "physical_pages": 10,
+        "hashes_and_source_page_text_order_match": true
+      },
+      "actual_reviewed_acquisition_bytes": {
+        "python": 45140897,
+        "pypdf": 401710,
+        "calibre": 205319944
+      },
+      "all_acquisition_primary_pins_match": true
+    },
+    "PS7": {
+      "actual_shell": "7.6.6",
+      "same_exact_prior_C1_extraction_and_report": true,
+      "cases": [
+        "Version",
+        "Setup Check",
+        "Manual",
+        "Auto2"
+      ],
+      "passed": 4,
+      "source_immutable_files_hashes_sizes_match_after": 45,
+      "runtime_compatibility_payload_before_after_identical": true,
+      "raw_process_changes_only": [
+        "Pid",
+        "ElapsedSeconds"
+      ],
+      "outer_and_seven_stage_process_stop_drain_proved": true
+    },
+    "all_parent_before_after_policy_snapshots_equal": true,
+    "public_reports_and_evidence_privacy_scan": "PASS; paths/raw console remain private"
+  },
+  "source_security_review": "Trusted helper closure authenticated before load; exact copied application member SHA verified before execution; shared read-only runtime policy/discovery and origin guards retained; unique owned provisioning and authored fixtures only; no global policy/Python/PATH change or organization-control bypass.",
+  "limits": [
+    "Source/syntax/SDK/unit controls are not native acceptance.",
+    "CI is Windows Server, distinct from workstation evidence.",
+    "Mocked organization denials are simulations.",
+    "Default route did not exercise an installed-owner automatic selection; final kit must test that separately.",
+    "No actual unavailable later3.15 patch or retained below-floor3.14.7 pass is claimed.",
+    "No Explorer gesture or manual chapter-viewing programme was performed.",
+    "Private VERSION1.0.1 assets do not certify old published assets or finalv1.0.2.",
+    "Final-ZIP Windows10 acceptance is NOT_RUN; new final source/package/native gates remain."
+  ],
+  "remaining_task8_gate": "Required CI on committed C2 source and synchronized task checkpoint remain pending; all four actual focused native corrections independently passed.",
+  "references": {
+    "source_controls_review": {
+      "alias": "source-controls-default-driver-review.json",
+      "bytes": 4107,
+      "sha256": "41dfaccf8740899ae3b48dc55b6daef80c879318093d9a6d5c3edb27754fdc06"
+    },
+    "asset_kit_driver_review": {
+      "alias": "review-C1-assets-kit-driver.json",
+      "bytes": 3919,
+      "sha256": "4337e614c02bf72026948542959290548867633834031d5da203f8eec4e7c226"
+    },
+    "CI_validator_review": {
+      "alias": "ci-validator-review.json",
+      "bytes": 3710,
+      "sha256": "610aec3a406a293a7c820184c67fd0928b837a3a2d46ec029ad8e3846848ba4b"
+    },
+    "native_raw_reference_review": {
+      "alias": "native-raw-reference-review.json",
+      "bytes": 18568,
+      "sha256": "4e1996d86f7fe1f4139152801dfd901d150e23d1df41ebbc02eaad16b3cf980d"
+    },
+    "CI_public_receipt": {
+      "alias": "V102-08-ci-run.json",
+      "bytes": 45122,
+      "sha256": "f0d6535fae57161a39820fc9cfd15983adb3b8806a37c7279bfd725326337b57"
+    },
+    "native_public_receipt": {
+      "alias": "V102-08-native-tooling.json",
+      "bytes": 128697,
+      "sha256": "6f91a50634b0310d4bbaca0c324723aeef331b42c6ce7a0bf5391b21533ebc70"
+    },
+    "explicit_returned_report": {
+      "alias": "native-result.json",
+      "bytes": 27617,
+      "sha256": "0e8dbdc42977a55d02a987f7132676d0cb90d16d5452f6bf50817e68ffbd9520"
+    },
+    "explicit_returned_ZIP": {
+      "alias": "native-result.zip",
+      "bytes": 27756,
+      "sha256": "0bfb18945c781f9097289b817aaf318de14aaaaadee1b0df339e5405043841d1"
+    },
+    "default_returned_report": {
+      "alias": "native-result.json",
+      "bytes": 22303,
+      "sha256": "b4a3607f3cb9db4f6817d968e4b28e5bcb620cd8bc88f9a655bcb33f052e2c51"
+    },
+    "default_returned_ZIP": {
+      "alias": "native-result.zip",
+      "bytes": 22442,
+      "sha256": "c5a8740d201968c3d4391250055b0e0105a1ed994417814d02e4938310192ec4"
+    },
+    "PS7_result": {
+      "alias": "ps7-result.json",
+      "bytes": 2672,
+      "sha256": "bf61e8299302e46dcaae1a324cca95fe098669ad4b730e18d7e44868037e0a50"
+    },
+    "runtime_C2_independent_review": {
+      "alias": "runtime-C2-focused-review.json",
+      "sha256": "3e42cab4ee4e82c4f5926b4d848208e9b4e29d4dd4735f299b3cb44355a884ec"
+    },
+    "three_C2_independent_reviews": {
+      "alias": "three-C2-layer-review.json",
+      "sha256": "00c070d8d23d2f4d5f07ccb62ac393a1aec36520abb4605b1d5c1f123f23d270"
+    }
+  },
+  "private_detailed_review": {
+    "alias": "actual-C1-CI-native-review.json",
+    "bytes": 9947,
+    "sha256": "59dfcdf6213c9fd75ef05c8e13157d56b14fa6ff4129ed2d7459fbd14893a4e1"
+  },
+  "supplementary_private_review": {
+    "alias": "runtime-fixture-diagnostic-review.json",
+    "bytes": 1648,
+    "sha256": "11817e70cd70053b12f426f4cb1754ba22610bd72c4b734b08d1d657a0331262"
+  },
+  "C2_test_only_correction_review": {
+    "scope": "TEST_ONLY C2 CORRECTION; current reviewed worktree bytes; no new production/helper behavior",
+    "source_paths": 207,
+    "source_digest": "d0a004cfb9eeb097251947e740ed8d762205ffaecc83168737984f58e2a83809",
+    "exact_source_changes_from_C1": {
+      "tests/document_policy/validate_document_policy_report.py": "1cdb7cccf8b9151a2979f18927521e7e00f7707081fcab940570d1f40381c0e4",
+      "tests/launcher/characterize_launcher.py": "f84b8c72a568de7a3a8114808ad30387ed8612dbe2db2d5fc7e7c76ab2054578",
+      "tests/manual/current_launchers.py": "7d7cf22ae3316e49ab2e71804f7e4818c862bd4e58f343845ab71b9fd6b04ab0",
+      "tests/outcomes/characterize_outcomes.py": "5ede8c1816e7807c59d08d10774dd14f360076897ff717978e30f2f01f5a9a01",
+      "tests/python/test_document_policy_receipt.py": "0c533a508e2babbcd3ba3d133dc9bdc5ca0d022bbc5ea4e53d05d13b2564d00e",
+      "tests/python/test_outcomes_receipt.py": "894a0dededfc671184d4d0b6cf515cb18239e79a0d7f5833622162b945b96b94",
+      "tests/python/test_runtime_receipt.py": "b9e46b563b127b210129f636acc22e552ff55935937047eb9c59581549125e9f",
+      "tests/runtime/characterize_runtime.py": "fa25d17a30081a1d68c5ebc4e060a2bf33bc490145073dea3b59408f974dc5ed",
+      "tests/runtime/validate_runtime_report.py": "2b5945da1d7b7ba7eadd2597551c81d7dd0def44d1bfbc32be918a8c6734c335"
+    },
+    "all_four_parent_child_maps_equal_and_live_frozen_hashes_match": true,
+    "all34_production_and19_KIT_helper_bytes_unchanged": true,
+    "source_review": "Exact preauthored cache closure with held ordinary directory identities/typed before-after inode maps, empty leaf, parent preservation and fixed Calibre absence; initial root-param-only finite copied defaults/type/name/declaration guard preserving helper suffix and all other fault seams. No guard removal, global change or production fix.",
+    "original_full": {
+      "aggregate": "FAIL",
+      "passed_stages": 19,
+      "declared_stages": 23,
+      "failures": [
+        "runtime",
+        "outcomes",
+        "launcher",
+        "document-policy"
+      ],
+      "raw_sha256": "209b0e862734fbb63a4258b6b27b956709fed09b59dfa0bf46830104e6ac645d",
+      "retained_work": true,
+      "not_relabelled": true
+    },
+    "corrected_focused_layers": {
+      "runtime": {
+        "status": "PASS",
+        "actual_cases": 33,
+        "raw_alias": "task08-runtime-fixture-retry-02.json",
+        "bytes": 3099300,
+        "sha256": "1fbe4d2f2e87b119475cf03ec8607bd037ced769f29eaa9c71d46a482540922f",
+        "independent_maintained_strict_validator": "PASS",
+        "source_input_and_owned_cleanup_preserved": true,
+        "actual_supported_runtime": "3.14.8",
+        "Python315_evidence_relabelled": false,
+        "negative_only": {
+          "actual_version": "3.14.7",
+          "reason": "python_security_floor"
+        },
+        "guarded_absence_cache_cases": 4
+      },
+      "outcomes": {
+        "status": "PASS",
+        "actual_cases": 51,
+        "raw_alias": "outcomes-corrected.json",
+        "bytes": 2407901,
+        "sha256": "ee28d8b7bd807009ad14348fd7289a64d2d74606ade6d5c27f63a0f825dcba0e",
+        "independent_maintained_strict_validator": "PASS",
+        "source_input_and_owned_cleanup_preserved": true,
+        "actual_supported_runtime": "3.14.8",
+        "Python315_evidence_relabelled": false
+      },
+      "launcher": {
+        "status": "PASS",
+        "actual_cases": 70,
+        "raw_alias": "launcher-corrected.json",
+        "bytes": 9507811,
+        "sha256": "069e7bad3ff9a2e9a97e0e9bc1efa2cf6611838d5de82e654500bf81f37b01a8",
+        "independent_maintained_strict_validator": "PASS",
+        "source_input_and_owned_cleanup_preserved": true,
+        "actual_supported_runtime": "3.14.8",
+        "Python315_evidence_relabelled": false
+      },
+      "document_policy": {
+        "status": "PASS",
+        "actual_cases": 75,
+        "raw_alias": "document-policy-corrected.json",
+        "bytes": 3630905,
+        "sha256": "2c983e7ccd6b06d8f95460b8b63bc8b5a4ceec912ddc7790c6541066e97bebbd",
+        "independent_maintained_strict_validator": "PASS",
+        "source_input_and_owned_cleanup_preserved": true,
+        "actual_supported_runtime": "3.14.8",
+        "Python315_evidence_relabelled": false,
+        "case_breakdown": {
+          "application": 73,
+          "export": 2
+        }
+      }
+    },
+    "full_declared_stage_coverage_reconciled": "19 original C1 passing stages plus four source-bound corrected C2 layers. This is combined coverage, not a single original 23-stage PASS.",
+    "remaining": "Required CI on committed C2 source and synchronized task checkpoint; finalR/Z/Windows10/11/release gates remain separate."
+  },
+  "reproduced_runtime_fixture_failure": {
+    "scope": "DIAGNOSTIC_ONLY; exact failed C1 test-fixture assertion; no runtime acceptance",
+    "original_runtime_only_retry_status": "FAIL",
+    "source_unchanged": true,
+    "source_paths": 207,
+    "source_script": "tests/runtime/characterize_runtime.py",
+    "source_script_sha256": "d2f5532f348dd4e690be2cb05540eb51c1db97d757c03913910c27f5280f3e67",
+    "failed_case": "PS51-converter-book-cwd-decoys",
+    "failure": "Missing-converter child isolation or parent environment changed",
+    "observations": {
+      "ordinary_directory": true,
+      "symlink": false,
+      "junction": false,
+      "parent_LOCALAPPDATA_unchanged": true,
+      "only_owned_empty_ordinary_directory_chain": [
+        "Microsoft",
+        "Microsoft/Windows",
+        "Microsoft/Windows/Caches"
+      ]
+    },
+    "diagnostic_result": "FAILURE_REPRODUCED",
+    "approved_next_step": "After original source hold ends, test-only reuse of existing conversion fixture: preauthor exact empty chain, retained DirectoryGuard identities, exact closure/device/inode equality, empty leaf and parent equality; refuse unexpected paths/files/reparse/replacement. No production fix or blanket cache allowance. New C2 CI and targeted actual runtime remain required.",
+    "references": [
+      {
+        "alias": "task08-runtime-fixture-retry-01.json",
+        "bytes": 26364,
+        "sha256": "4cd486a77ecf679d51fe6d662487ad4d983f54dc5f30ffb9331f9c69ce9c9fdb"
+      },
+      {
+        "alias": "task08-runtime-diagnostic-e2f397b59b3d469e9e03090206fff343/diagnostic-result.json",
+        "bytes": 24014,
+        "sha256": "e66024947bccf6cff5441237f9c6495dbe52ae446e22a2edcdba8ed4494d73b7"
+      }
+    ],
+    "resolved_by_four_focused_test_only_corrections": true
+  }
+}

@@ -20,6 +20,54 @@ spec.loader.exec_module(console_fixture)
 DIGEST = "a" * 64
 
 
+class CopiedScriptParameterControls(unittest.TestCase):
+    """Authored source mutations only; these never launch PowerShell."""
+    @classmethod
+    def setUpClass(cls):
+        spec = importlib.util.spec_from_file_location("wbs_copied_parameter_controls", ROOT / "tests/manual/current_launchers.py")
+        cls.console = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(cls.console)
+
+    def test_nested_helper_declaration_preserved_with_exact_root_default(self):
+        for newline in ("\n", "\r\n"):
+            prefix = "<# Authored script help #>" + newline + newline
+            header = "param (" + newline + "    [string]$PythonPath," + newline + "    [switch]$NoPause," + newline + "    [switch]$Version" + newline + ")" + newline
+            suffix = newline + "function Get-AuthoredAction {" + newline + "    param([string]$PythonPath, [switch]$NoPause)" + newline + "    'AUTHORED_HELPER_BYTES'" + newline + "}" + newline
+            result = self.console.controlled_script_parameter_default(prefix + header + suffix, "PythonPath", "$env:WBS_OUTCOME_PYTHON")
+            expected = prefix + header.replace("[string]$PythonPath,", "[string]$PythonPath = $env:WBS_OUTCOME_PYTHON,") + suffix
+            self.assertEqual(result, expected)
+            self.assertEqual(result[len(expected)-len(suffix):], suffix)
+
+    def test_real_main_root_control_preserves_entire_helper_suffix(self):
+        text = (ROOT / "WinBookSplit.ps1").read_bytes().decode("utf-8-sig")
+        marker = ")\r\n" if "\r\n" in text else ")\n"
+        start = text.index("param (")
+        end = text.index(marker, start) + len(marker)
+        result = self.console.controlled_script_parameter_default(text, "PythonPath", "$env:WBS_POLICY_PYTHONPATH")
+        self.assertEqual(result[result.index(marker, start)+len(marker):], text[end:])
+        self.assertEqual(text.count("[string]$PythonPath,") - result.count("[string]$PythonPath,"), 1)
+
+    def test_ambiguous_missing_duplicate_or_changed_root_declarations_refused(self):
+        text = "param (\n    [string]$PythonPath,\n    [switch]$Version\n)\n"
+        mutations = [text + text, text.replace(")\n", ""),
+                     text.replace("[string]$PythonPath,", "[string]$PythonPath = 'existing',"),
+                     text.replace("[string]$PythonPath,", "[object]$PythonPath,"),
+                     text.replace("[string]$PythonPath,", "[Parameter(Mandatory=$true)][string]$PythonPath,"),
+                     text.replace("[string]$PythonPath,", "[string]$PythonPath,\n    [string]$pythonpath,"),
+                     text.replace("[string]$PythonPath,", "[string]$OtherPath,"),
+                     "Write-Host 'not a root header'\n" + text]
+        for mutation in mutations:
+            with self.subTest(mutation=mutation), self.assertRaises(ValueError):
+                self.console.controlled_script_parameter_default(mutation, "PythonPath", "$env:WBS_OUTCOME_PYTHON")
+
+    def test_undeclared_parameter_and_default_expression_refused(self):
+        text = "param (\n    [string]$PythonPath,\n    [switch]$Version\n)\n"
+        for name, value in (("PythonPath", "$env:PATH"), ("PythonPath", "$(Write-Host 'injected')"),
+                            ("Version", "$true"), (True, "$true"), ("PythonPath", True)):
+            with self.subTest(name=name, value=value), self.assertRaises(ValueError):
+                self.console.controlled_script_parameter_default(text, name, value)
+
+
 def fixture():
     """A transparent invented receipt for validator tests, never runtime evidence."""
     root = Path(tempfile.gettempdir()).resolve() / "synthetic-outcome-receipt"

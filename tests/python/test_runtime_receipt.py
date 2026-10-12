@@ -5,6 +5,7 @@ import importlib.util
 import json
 import ntpath
 from pathlib import Path
+import tempfile
 import unittest
 from unittest.mock import patch
 
@@ -189,6 +190,15 @@ def valid_report():
             if category == "converter_failure" and kind == "book-cwd-decoys":
                 for folder in ("d", "c"):
                     case["decoy_sha256"][directory + "\\" + folder + "\\ebook-convert.exe"] = "d" * 64
+            if category == "converter_failure" and kind in {"missing", "book-cwd-decoys"}:
+                identities = {name: {"device": 1, "inode": index} for index, name in enumerate(
+                    ("Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"), 1)}
+                case["converter_absence_environment"] = {
+                    "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                    "ordinary_directory_guards_unchanged": True,
+                    "cache_directory_identities_before": identities,
+                    "cache_directory_identities_after": deepcopy(identities),
+                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
             case["decoy_sha256_after"] = deepcopy(case["decoy_sha256"])
             if category in {"python_failure", "converter_failure"}:
                 explicit = category == "python_failure" or kind == "wrong-version"
@@ -299,6 +309,60 @@ class RuntimeReceiptTests(unittest.TestCase):
 
     def test_complete_synthetic_receipt_is_structurally_accepted(self):
         self.validate(valid_report())
+
+    def test_converter_absence_cache_proof_rejects_omissions_and_corruption(self):
+        def absence(report): return report["converter_failure_cases"][0]["converter_absence_environment"]
+        mutations = {
+            "missing proof": lambda r: r["converter_failure_cases"][0].pop("converter_absence_environment"),
+            "missing decoy proof": lambda r: r["converter_failure_cases"][2].pop("converter_absence_environment"),
+            "false parent preservation": lambda r: absence(r).update(parent_local_app_data_unchanged=False),
+            "numeric parent promise": lambda r: absence(r).update(parent_local_app_data_unchanged=1),
+            "unheld layout": lambda r: absence(r).update(ordinary_directory_guards_unchanged=False),
+            "system converter present": lambda r: absence(r).update(fixed_system_calibre_paths_absent=False),
+            "root claimed empty": lambda r: absence(r).update(owned_directory_ordinary_and_empty=True),
+            "Programs install": lambda r: absence(r)["cache_directory_identities_before"].update(Programs={"device": 1, "inode": 8}),
+            "Calibre sibling": lambda r: absence(r)["cache_directory_identities_after"].update({"Microsoft/Windows/Calibre": {"device": 1, "inode": 8}}),
+            "cache file": lambda r: absence(r)["cache_directory_identities_after"].update({"Microsoft/Windows/Caches/unknown.dat": {"device": 1, "inode": 8}}),
+            "missing cache leaf": lambda r: absence(r)["cache_directory_identities_before"].pop("Microsoft/Windows/Caches"),
+            "replaced inode": lambda r: absence(r)["cache_directory_identities_after"]["Microsoft"].update(inode=8),
+            "bool device": lambda r: absence(r)["cache_directory_identities_before"]["Microsoft"].update(device=True),
+            "invalid inode": lambda r: absence(r)["cache_directory_identities_before"]["Microsoft"].update(inode=-1),
+            "unexpected identity field": lambda r: absence(r)["cache_directory_identities_before"]["Microsoft"].update(path="../Programs"),
+        }
+        for label, mutate in mutations.items():
+            with self.subTest(defect=label):
+                report = valid_report()
+                mutate(report)
+                # Keep forged layouts internally equal so closure/type guards
+                # are exercised independently of before/after equality.
+                proof = absence(report) if "converter_absence_environment" in report["converter_failure_cases"][0] else None
+                if label in {"Programs install", "bool device", "invalid inode", "unexpected identity field"}:
+                    proof["cache_directory_identities_after"] = deepcopy(proof["cache_directory_identities_before"])
+                elif label in {"Calibre sibling", "cache file"}:
+                    proof["cache_directory_identities_before"] = deepcopy(proof["cache_directory_identities_after"])
+                with self.assertRaises(ValueError): self.validate(report)
+
+    def test_actual_authored_cache_inventory_rejects_unexpected_entries(self):
+        spec = importlib.util.spec_from_file_location("wbs_runtime_cache_fixture", ROOT / "tests/runtime/characterize_runtime.py")
+        producer = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(producer)
+        for unexpected in (None, "Programs/Calibre", "Microsoft/Windows/Calibre", "Microsoft/Windows/Caches/unknown.dat", "Other"):
+            with self.subTest(unexpected=unexpected), tempfile.TemporaryDirectory(prefix="WBS-owned-cache-") as owned:
+                root = Path(owned).resolve(strict=True) / "cache"
+                self.assertTrue(root.is_absolute() and root.is_relative_to(Path(owned).resolve(strict=True)))
+                (root / "Microsoft/Windows/Caches").mkdir(parents=True)
+                before = producer.converter_absence_cache_inventory(root)
+                self.assertEqual(set(before), {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"})
+                if unexpected is not None:
+                    target = root / unexpected
+                    self.assertTrue(target.is_relative_to(root))
+                    if target.suffix:
+                        target.write_bytes(b"Authored unexpected cache file")
+                    else:
+                        target.mkdir(parents=True)
+                    with self.assertRaises(RuntimeError): producer.converter_absence_cache_inventory(root)
+                else:
+                    self.assertEqual(producer.converter_absence_cache_inventory(root), before)
 
     def test_synthetic_policy_versions_and_manager_selection_are_supported(self):
         for version in ('3.13.16', '3.13.17', '3.13.99', '3.14.8', '3.14.10', '3.14.99'):

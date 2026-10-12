@@ -1,0 +1,3577 @@
+{
+  "protocol": "winbooksplit.v102-task08-native-tooling",
+  "schema_version": 1,
+  "status": "ACTUAL_PRIVATE_TOOLING_PREFLIGHT_PASS",
+  "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+  "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+  "source_meaning": "C1 was clean at commit/build/start. Application/helper bytes stayed held and unchanged; new evidence WIP is outside the source/kit closure. This record certifies no current clean Git state.",
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 902668,
+        "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+      },
+      "release-manifest.json": {
+        "bytes": 16593,
+        "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+      }
+    },
+    "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+    "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+    "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+    "version": "1.0.1"
+  },
+  "kit": {
+    "fixtures_payload_sha256": "f145d82a1e8cf0125c89517969d54f4dcbcc79ee447c2cc34625992f52312e1f",
+    "helpers_payload_sha256": "9afe09851bd7859e6bd32c64f186d3b6f955e7f36baea81b3bd0b8e6f3bd1d85",
+    "mode": "COMMITTED",
+    "repository_observation": null,
+    "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+    "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642"
+  },
+  "kit_archive_members": 33,
+  "production_members": 34,
+  "kit_helpers": 19,
+  "kit_fixtures": 6,
+  "kit_zip_member_equality": "PASS; both fresh COMMITTED kit builds exactly equal their bound on-disk members",
+  "routes": [
+    {
+      "id": "explicit",
+      "scope": "PRIVATE_C1_TOOLING_REHEARSAL; actual native Windows11 dry agent execution",
+      "status": "PASS",
+      "returned_zip_equals_single_report": true,
+      "outer_process_stop_and_drain_proved": true,
+      "kit_ps_scripts_marked_and_preserved": 11,
+      "report": {
+        "protocol": "winbooksplit.native-acceptance",
+        "schema_version": 1,
+        "evidence_kind": "NATIVE_AUTOMATED",
+        "execution": "AGENT_LAUNCHED",
+        "started_utc": "2026-10-12T17:47:47.5649537Z",
+        "finished_utc": "2026-10-12T17:54:15.9996657Z",
+        "success": true,
+        "os": {
+          "Caption": "Microsoft Windows 11 Pro",
+          "Version": "10.0.26300",
+          "BuildNumber": "26300",
+          "OSArchitecture": "64-bit",
+          "ProductType": 1,
+          "UBR": 9457,
+          "powershell_version": "5.1.26100.9444",
+          "process_bits": 64,
+          "DisplayVersion": "26H2",
+          "processor_architectures": [
+            9
+          ],
+          "os_bits": 64,
+          "platform_scope": "NATIVE_WINDOWS11_DRY_RUN"
+        },
+        "oracle": {
+          "protocol": "winbooksplit.native-oracle",
+          "schema_version": 1,
+          "success": true,
+          "plan_sha256": "02508e6298aa1dbc083370bbeebf5ae90ae98e38ea62a090802a254569760431",
+          "application_version": "1.0.1",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "runtime_versions": {
+            "python": "3.15.0",
+            "pypdf": "6.20.0",
+            "calibre": "9.15.0"
+          },
+          "source_unchanged": true,
+          "cases": [
+            {
+              "id": "ref-epub",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "ref-azw3",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "manual",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "manual-first",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "auto1",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "auto2",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "repeat",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "preview",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "invalid-manual",
+              "status": "PASS",
+              "exit_code": 2,
+              "error_code": null
+            },
+            {
+              "id": "no-bookmarks",
+              "status": "PASS",
+              "exit_code": 5,
+              "error_code": null
+            },
+            {
+              "id": "cancel-plan",
+              "status": "PASS",
+              "exit_code": 130,
+              "error_code": null
+            },
+            {
+              "id": "missing-python",
+              "status": "PASS",
+              "exit_code": 3,
+              "error_code": null
+            },
+            {
+              "id": "missing-pypdf",
+              "status": "PASS",
+              "exit_code": 3,
+              "error_code": null
+            },
+            {
+              "id": "epub-discard",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "epub-keep",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "azw3-discard",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "azw3-keep",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "bat-one",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "bat-two",
+              "status": "PASS",
+              "exit_code": 2,
+              "error_code": null
+            }
+          ],
+          "limits": [
+            "No Explorer gesture was performed.",
+            "All native artifacts are preserved locally."
+          ]
+        },
+        "cases": [
+          {
+            "id": "ref-epub",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "ref-azw3",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "manual",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "manual-first",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "auto1",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "auto2",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "repeat",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "preview",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "invalid-manual",
+            "status": "PASS",
+            "exit_code": 2,
+            "error_code": null
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS",
+            "exit_code": 5,
+            "error_code": null
+          },
+          {
+            "id": "cancel-plan",
+            "status": "PASS",
+            "exit_code": 130,
+            "error_code": null
+          },
+          {
+            "id": "missing-python",
+            "status": "PASS",
+            "exit_code": 3,
+            "error_code": null
+          },
+          {
+            "id": "missing-pypdf",
+            "status": "PASS",
+            "exit_code": 3,
+            "error_code": null
+          },
+          {
+            "id": "epub-discard",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "epub-keep",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "azw3-discard",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "azw3-keep",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "bat-one",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "bat-two",
+            "status": "PASS",
+            "exit_code": 2,
+            "error_code": null
+          }
+        ],
+        "identities": {
+          "production": {
+            "assets": {
+              "SHA256SUMS.txt": {
+                "bytes": 178,
+                "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+              },
+              "WinBookSplit-v1.0.1.zip": {
+                "bytes": 902668,
+                "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+              },
+              "release-manifest.json": {
+                "bytes": 16593,
+                "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+              }
+            },
+            "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+            "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+            "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+            "version": "1.0.1"
+          },
+          "kit": {
+            "fixtures_payload_sha256": "f145d82a1e8cf0125c89517969d54f4dcbcc79ee447c2cc34625992f52312e1f",
+            "helpers_payload_sha256": "9afe09851bd7859e6bd32c64f186d3b6f955e7f36baea81b3bd0b8e6f3bd1d85",
+            "mode": "COMMITTED",
+            "repository_observation": null,
+            "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+            "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642"
+          },
+          "bindings_sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff",
+          "helpers": {
+            "engine/WinBookSplit.Compatibility.json": {
+              "bytes": 8210,
+              "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+            },
+            "engine/WinBookSplit.Compatibility.ps1": {
+              "bytes": 16904,
+              "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+            },
+            "engine/WinBookSplit.Diagnostics.ps1": {
+              "bytes": 27359,
+              "sha256": "36b6b4dc9bad7046d3b241c94746569024f81763c77fd4a69eefa3ed2578274f"
+            },
+            "engine/WinBookSplit.Logging.ps1": {
+              "bytes": 13060,
+              "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+            },
+            "engine/WinBookSplit.Outcomes.json": {
+              "bytes": 1581,
+              "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+            },
+            "engine/WinBookSplit.Paths.ps1": {
+              "bytes": 4142,
+              "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+            },
+            "engine/WinBookSplit.Process.ps1": {
+              "bytes": 41219,
+              "sha256": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984"
+            },
+            "engine/WinBookSplit.Runtime.ps1": {
+              "bytes": 50397,
+              "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796"
+            },
+            "engine/WinBookSplit.Support.ps1": {
+              "bytes": 27250,
+              "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+            },
+            "engine/winbooksplit_compatibility.py": {
+              "bytes": 20075,
+              "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+            },
+            "engine/winbooksplit_windows.py": {
+              "bytes": 10933,
+              "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+            },
+            "tests/cli/Probe-Help.ps1": {
+              "bytes": 350,
+              "sha256": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c"
+            },
+            "tests/compatibility/validate_setup_remedy.py": {
+              "bytes": 3090,
+              "sha256": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98"
+            },
+            "tests/process/session_child.py": {
+              "bytes": 3370,
+              "sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+            },
+            "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+              "bytes": 77679,
+              "sha256": "9747a3754e37fe6a342af9f38a58cce49682a2854c90abc2e7d0de06e9c9ef07"
+            },
+            "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": {
+              "bytes": 36523,
+              "sha256": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd"
+            },
+            "tools/compatibility/kit_builder.py": {
+              "bytes": 27828,
+              "sha256": "9e76a17516f48f0161e7a807e4414eaa109ae517bb029d31d4564df0ece534a5"
+            },
+            "tools/compatibility/native_smoke.py": {
+              "bytes": 61585,
+              "sha256": "70ad7cb9f13d9aa81e85bb773fcc9ccc20673ad2960f8ba5841b4e05f307569e"
+            },
+            "tools/release/frozen_assets.py": {
+              "bytes": 19085,
+              "sha256": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9"
+            }
+          },
+          "fixtures": {
+            "flat-6.pdf": {
+              "bytes": 5127,
+              "sha256": "a3ada3779ffc7d33a594c45c082069edb3a857bdb1807aa716cee2d1c785b1dd"
+            },
+            "native-fixtures.json": {
+              "bytes": 1984,
+              "sha256": "c8a59e59332d1559962ef9b3c73e65c93f8320aa72584d821a3737b780440dcc"
+            },
+            "nested-12.pdf": {
+              "bytes": 10094,
+              "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+            },
+            "original-three-chapters.azw3": {
+              "bytes": 12844,
+              "sha256": "2d41a450ba015ce978009b6bfadbd5fa8b00660bdd4517d445201ffd6e6a0dd6"
+            },
+            "original-three-chapters.epub": {
+              "bytes": 3244,
+              "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+            },
+            "simple-10.pdf": {
+              "bytes": 8211,
+              "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+            }
+          }
+        },
+        "expected_production": {
+          "assets": {
+            "SHA256SUMS.txt": {
+              "bytes": 178,
+              "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+            },
+            "WinBookSplit-v1.0.1.zip": {
+              "bytes": 902668,
+              "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+            },
+            "release-manifest.json": {
+              "bytes": 16593,
+              "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+            }
+          },
+          "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+          "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+          "version": "1.0.1"
+        },
+        "runtime_selection": {
+          "owner_version": "3.15.0",
+          "owner_regular315_usable": true,
+          "owner_selected": true,
+          "selected_version": "3.15.0",
+          "required_baseline_version": "3.15.0",
+          "baseline_version": "3.15.0",
+          "baseline_kind": "explicit3150_test_baseline",
+          "reason": "usable_regular315_discovered",
+          "selected_identity": {
+            "source": "explicit",
+            "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+            "version": "3.15.0",
+            "implementation": "cpython",
+            "platform": "win32",
+            "machine": "AMD64",
+            "bits": 64,
+            "gil_disabled": false,
+            "releaselevel": "final",
+            "serial": 0,
+            "isolated": true,
+            "dont_write_bytecode": true,
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          },
+          "baseline_identity": {
+            "source": "explicit",
+            "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+            "version": "3.15.0",
+            "implementation": "cpython",
+            "platform": "win32",
+            "machine": "AMD64",
+            "bits": 64,
+            "gil_disabled": false,
+            "releaselevel": "final",
+            "serial": 0,
+            "isolated": true,
+            "dont_write_bytecode": true,
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          }
+        },
+        "marked_setup_regressions": {
+          "status": "PASS",
+          "required_runtime_version": "3.15.0",
+          "exact_asset_bound": true,
+          "Action_roundtrips": 4,
+          "marked_BAT_routes": 3,
+          "mocked_policy_refusals": 2,
+          "raw_receipt_sha256": "600063f3f9a0ea2a11ed7009651d8d7c1b437ea79abf851c2a5af295fa2bfa83",
+          "probe_sha256": "c852749972383a4fb8a45a923d36874ca57fc3863c21766b7a1c5d48a5f10fe6",
+          "actual_inbox_policy_snapshots": {
+            "before": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "Bypass",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ],
+            "after": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "Bypass",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "fixture": "Authored broken venv, not an owner legacy runtime; marks assigned by automation; all source/ADS/PDF checks verified",
+          "routes": [
+            {
+              "id": "PS51-fresh",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "ACTUAL_BARE315",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-stale",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "AUTHORED_BROKEN_VENV; no legacy Python execution",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS766-fresh",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "ACTUAL_BARE315",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS766-stale",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "AUTHORED_BROKEN_VENV; no legacy Python execution",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-marked-bat",
+              "status": "PASS",
+              "kind": "BAT",
+              "fixture": "AUTHORED_BROKEN_VENV",
+              "exits": [
+                {
+                  "exit_code": 0,
+                  "stage": "fresh"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "check"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "noop"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "zeroargs-redirected"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "broken-default"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "repair"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "pdf"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "fresh",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "check",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "noop",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "zeroargs-redirected",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "broken-default",
+                  "edition": "Desktop",
+                  "pypdf_version": null,
+                  "selected_version": null
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "repair",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS766-marked-bat",
+              "status": "PASS",
+              "kind": "BAT",
+              "fixture": "AUTHORED_BROKEN_VENV",
+              "exits": [
+                {
+                  "exit_code": 0,
+                  "stage": "fresh"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "check"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "noop"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "zeroargs-redirected"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "broken-default"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "repair"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "pdf"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "fresh",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "check",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "noop",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "zeroargs-redirected",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "broken-default",
+                  "edition": "Desktop",
+                  "pypdf_version": null,
+                  "selected_version": null
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "repair",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "CMD-marked-bat",
+              "status": "PASS",
+              "kind": "BAT",
+              "fixture": "AUTHORED_BROKEN_VENV",
+              "exits": [
+                {
+                  "exit_code": 0,
+                  "stage": "fresh"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "check"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "noop"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "zeroargs-redirected"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "broken-default"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "repair"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "pdf"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "fresh",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "check",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "noop",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "zeroargs-redirected",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "broken-default",
+                  "edition": "Desktop",
+                  "pypdf_version": null,
+                  "selected_version": null
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "repair",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-organization-simulation",
+              "status": "PASS",
+              "kind": "MOCKED_POLICY_QUERY",
+              "fixture": "MOCKED_POLICY_QUERY",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "simulation"
+                }
+              ],
+              "child_hosts": [],
+              "pdf": null,
+              "simulated_positive_launch_refused": true
+            },
+            {
+              "id": "PS766-organization-simulation",
+              "status": "PASS",
+              "kind": "MOCKED_POLICY_QUERY",
+              "fixture": "MOCKED_POLICY_QUERY",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "simulation"
+                }
+              ],
+              "child_hosts": [],
+              "pdf": null,
+              "simulated_positive_launch_refused": true
+            }
+          ]
+        },
+        "stages": [
+          {
+            "id": "os",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "kit_identity",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "prerequisites",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "verify_extract",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "94d4c1573b0734d8afb708fe809db32638cbbadaf38fa3bbddaffd33e8182511"
+          },
+          {
+            "id": "version",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "472bebc15c7e362d0f49d649bfeb9aa1bc9fc3f9b570b2f5bed53e9339e1031d"
+          },
+          {
+            "id": "help",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "6b5d044c9305e13e6cbb66f8be3cd77e75967db356a9020bf5459708fb3b95a0"
+          },
+          {
+            "id": "setup_install",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "1ee6d875381441a28867805954bb4a2a4c60736ba00ae621c60cbdc45101f7b8"
+          },
+          {
+            "id": "setup_check",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "798ec680d8286f755b31ab82c16a4d0232f84c4ea8b01c53a08d3751d4533592"
+          },
+          {
+            "id": "setup_noop",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "d86db4e5c28335540251be71e21bdbde017c61843fe53189d91574d8050356d4"
+          },
+          {
+            "id": "marked_setup_remedies",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "c852749972383a4fb8a45a923d36874ca57fc3863c21766b7a1c5d48a5f10fe6"
+          },
+          {
+            "id": "controls",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "prepare",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "91cebe4178d78c11755ab2515c169b1fc9ecf61067792dac65ea94dd88247676"
+          },
+          {
+            "id": "native_cases",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "b61d64172c6a3ddae54c11e964e97ce198bac8dd368b76823f08ff1bd4f78c47"
+          },
+          {
+            "id": "validate",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "2933fc563f7d7fb8640db0415cc1e9c7d0bfa49e17ccb3d382b3a3197fcd4a69"
+          },
+          {
+            "id": "redact",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "0f556b3bd0b0847133438e343e32ac16ff0b2c14350cd66db3d1bd4355504d28"
+          },
+          {
+            "id": "source_identity",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          }
+        ],
+        "controls": [
+          {
+            "id": "owned_timeout",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "expected_stop_proved",
+            "probe_sha256": "29395478ba8f70a4edd64236ed75e6e234e2fdc5a8354b0a8fd11c3378ef0929",
+            "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+          },
+          {
+            "id": "owned_cancel",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "expected_stop_proved",
+            "probe_sha256": "1a7f1608897e5598c52c90766051c105b9631315954fb18f973dae0bc828eeca",
+            "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+          },
+          {
+            "id": "failed_legacy_path_fallback",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "failed_listing_then_path_accepted",
+            "probe_sha256": "564071c3d4a3489755159e7b6ae6e2ef73018e35fdd1876f345555b33d6f08c1",
+            "helper_sha256": "3d04efb4dd45e6ba3660967de5ae544891b2254d6043b488c1b5ccd617bec0d0",
+            "fixture_exe_sha256": "452e8b1abd9b29e65a139358f7f93feeb67f7f02106438df3dc3d23f82a0a68c"
+          }
+        ],
+        "cleanup_safe": true
+      }
+    },
+    {
+      "id": "default",
+      "scope": "PRIVATE_C1_TOOLING_REHEARSAL; actual native Windows11 dry agent execution",
+      "status": "PASS",
+      "returned_zip_equals_single_report": true,
+      "outer_process_stop_and_drain_proved": true,
+      "kit_ps_scripts_marked_and_preserved": 11,
+      "report": {
+        "protocol": "winbooksplit.native-acceptance",
+        "schema_version": 1,
+        "evidence_kind": "NATIVE_AUTOMATED",
+        "execution": "AGENT_LAUNCHED",
+        "started_utc": "2026-10-12T17:54:59.1948841Z",
+        "finished_utc": "2026-10-12T18:00:16.9317909Z",
+        "success": true,
+        "os": {
+          "Caption": "Microsoft Windows 11 Pro",
+          "Version": "10.0.26300",
+          "BuildNumber": "26300",
+          "OSArchitecture": "64-bit",
+          "ProductType": 1,
+          "UBR": 9457,
+          "powershell_version": "5.1.26100.9444",
+          "process_bits": 64,
+          "DisplayVersion": "26H2",
+          "processor_architectures": [
+            9
+          ],
+          "os_bits": 64,
+          "platform_scope": "NATIVE_WINDOWS11_DRY_RUN"
+        },
+        "oracle": {
+          "protocol": "winbooksplit.native-oracle",
+          "schema_version": 1,
+          "success": true,
+          "plan_sha256": "10fc00494123af2bc626bd6a94b61892de15b47153e119b0b2117e698df00962",
+          "application_version": "1.0.1",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "runtime_versions": {
+            "python": "3.15.0",
+            "pypdf": "6.20.0",
+            "calibre": "9.15.0"
+          },
+          "source_unchanged": true,
+          "cases": [
+            {
+              "id": "ref-epub",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "ref-azw3",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "manual",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "manual-first",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "auto1",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "auto2",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "repeat",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "preview",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "invalid-manual",
+              "status": "PASS",
+              "exit_code": 2,
+              "error_code": null
+            },
+            {
+              "id": "no-bookmarks",
+              "status": "PASS",
+              "exit_code": 5,
+              "error_code": null
+            },
+            {
+              "id": "cancel-plan",
+              "status": "PASS",
+              "exit_code": 130,
+              "error_code": null
+            },
+            {
+              "id": "missing-python",
+              "status": "PASS",
+              "exit_code": 3,
+              "error_code": null
+            },
+            {
+              "id": "missing-pypdf",
+              "status": "PASS",
+              "exit_code": 3,
+              "error_code": null
+            },
+            {
+              "id": "epub-discard",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "epub-keep",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "azw3-discard",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "azw3-keep",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "bat-one",
+              "status": "PASS",
+              "exit_code": 0,
+              "error_code": null
+            },
+            {
+              "id": "bat-two",
+              "status": "PASS",
+              "exit_code": 2,
+              "error_code": null
+            }
+          ],
+          "limits": [
+            "No Explorer gesture was performed.",
+            "All native artifacts are preserved locally."
+          ]
+        },
+        "cases": [
+          {
+            "id": "ref-epub",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "ref-azw3",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "manual",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "manual-first",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "auto1",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "auto2",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "repeat",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "preview",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "invalid-manual",
+            "status": "PASS",
+            "exit_code": 2,
+            "error_code": null
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS",
+            "exit_code": 5,
+            "error_code": null
+          },
+          {
+            "id": "cancel-plan",
+            "status": "PASS",
+            "exit_code": 130,
+            "error_code": null
+          },
+          {
+            "id": "missing-python",
+            "status": "PASS",
+            "exit_code": 3,
+            "error_code": null
+          },
+          {
+            "id": "missing-pypdf",
+            "status": "PASS",
+            "exit_code": 3,
+            "error_code": null
+          },
+          {
+            "id": "epub-discard",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "epub-keep",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "azw3-discard",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "azw3-keep",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "bat-one",
+            "status": "PASS",
+            "exit_code": 0,
+            "error_code": null
+          },
+          {
+            "id": "bat-two",
+            "status": "PASS",
+            "exit_code": 2,
+            "error_code": null
+          }
+        ],
+        "identities": {
+          "production": {
+            "assets": {
+              "SHA256SUMS.txt": {
+                "bytes": 178,
+                "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+              },
+              "WinBookSplit-v1.0.1.zip": {
+                "bytes": 902668,
+                "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+              },
+              "release-manifest.json": {
+                "bytes": 16593,
+                "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+              }
+            },
+            "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+            "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+            "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+            "version": "1.0.1"
+          },
+          "kit": {
+            "fixtures_payload_sha256": "f145d82a1e8cf0125c89517969d54f4dcbcc79ee447c2cc34625992f52312e1f",
+            "helpers_payload_sha256": "9afe09851bd7859e6bd32c64f186d3b6f955e7f36baea81b3bd0b8e6f3bd1d85",
+            "mode": "COMMITTED",
+            "repository_observation": null,
+            "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+            "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642"
+          },
+          "bindings_sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff",
+          "helpers": {
+            "engine/WinBookSplit.Compatibility.json": {
+              "bytes": 8210,
+              "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+            },
+            "engine/WinBookSplit.Compatibility.ps1": {
+              "bytes": 16904,
+              "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+            },
+            "engine/WinBookSplit.Diagnostics.ps1": {
+              "bytes": 27359,
+              "sha256": "36b6b4dc9bad7046d3b241c94746569024f81763c77fd4a69eefa3ed2578274f"
+            },
+            "engine/WinBookSplit.Logging.ps1": {
+              "bytes": 13060,
+              "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+            },
+            "engine/WinBookSplit.Outcomes.json": {
+              "bytes": 1581,
+              "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+            },
+            "engine/WinBookSplit.Paths.ps1": {
+              "bytes": 4142,
+              "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+            },
+            "engine/WinBookSplit.Process.ps1": {
+              "bytes": 41219,
+              "sha256": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984"
+            },
+            "engine/WinBookSplit.Runtime.ps1": {
+              "bytes": 50397,
+              "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796"
+            },
+            "engine/WinBookSplit.Support.ps1": {
+              "bytes": 27250,
+              "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+            },
+            "engine/winbooksplit_compatibility.py": {
+              "bytes": 20075,
+              "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+            },
+            "engine/winbooksplit_windows.py": {
+              "bytes": 10933,
+              "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+            },
+            "tests/cli/Probe-Help.ps1": {
+              "bytes": 350,
+              "sha256": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c"
+            },
+            "tests/compatibility/validate_setup_remedy.py": {
+              "bytes": 3090,
+              "sha256": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98"
+            },
+            "tests/process/session_child.py": {
+              "bytes": 3370,
+              "sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+            },
+            "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+              "bytes": 77679,
+              "sha256": "9747a3754e37fe6a342af9f38a58cce49682a2854c90abc2e7d0de06e9c9ef07"
+            },
+            "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": {
+              "bytes": 36523,
+              "sha256": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd"
+            },
+            "tools/compatibility/kit_builder.py": {
+              "bytes": 27828,
+              "sha256": "9e76a17516f48f0161e7a807e4414eaa109ae517bb029d31d4564df0ece534a5"
+            },
+            "tools/compatibility/native_smoke.py": {
+              "bytes": 61585,
+              "sha256": "70ad7cb9f13d9aa81e85bb773fcc9ccc20673ad2960f8ba5841b4e05f307569e"
+            },
+            "tools/release/frozen_assets.py": {
+              "bytes": 19085,
+              "sha256": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9"
+            }
+          },
+          "fixtures": {
+            "flat-6.pdf": {
+              "bytes": 5127,
+              "sha256": "a3ada3779ffc7d33a594c45c082069edb3a857bdb1807aa716cee2d1c785b1dd"
+            },
+            "native-fixtures.json": {
+              "bytes": 1984,
+              "sha256": "c8a59e59332d1559962ef9b3c73e65c93f8320aa72584d821a3737b780440dcc"
+            },
+            "nested-12.pdf": {
+              "bytes": 10094,
+              "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+            },
+            "original-three-chapters.azw3": {
+              "bytes": 12844,
+              "sha256": "2d41a450ba015ce978009b6bfadbd5fa8b00660bdd4517d445201ffd6e6a0dd6"
+            },
+            "original-three-chapters.epub": {
+              "bytes": 3244,
+              "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+            },
+            "simple-10.pdf": {
+              "bytes": 8211,
+              "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+            }
+          }
+        },
+        "expected_production": {
+          "assets": {
+            "SHA256SUMS.txt": {
+              "bytes": 178,
+              "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+            },
+            "WinBookSplit-v1.0.1.zip": {
+              "bytes": 902668,
+              "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+            },
+            "release-manifest.json": {
+              "bytes": 16593,
+              "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+            }
+          },
+          "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+          "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+          "version": "1.0.1"
+        },
+        "runtime_selection": {
+          "owner_version": null,
+          "owner_regular315_usable": false,
+          "owner_selected": false,
+          "selected_version": "3.15.0",
+          "required_baseline_version": "3.15.0",
+          "baseline_version": "3.15.0",
+          "baseline_kind": "reviewed_private3150_archive",
+          "reason": "no_usable_regular315_discovered",
+          "selected_identity": {
+            "source": "explicit",
+            "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+            "version": "3.15.0",
+            "implementation": "cpython",
+            "platform": "win32",
+            "machine": "AMD64",
+            "bits": 64,
+            "gil_disabled": false,
+            "releaselevel": "final",
+            "serial": 0,
+            "isolated": true,
+            "dont_write_bytecode": true,
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          },
+          "baseline_identity": {
+            "source": "explicit",
+            "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+            "version": "3.15.0",
+            "implementation": "cpython",
+            "platform": "win32",
+            "machine": "AMD64",
+            "bits": 64,
+            "gil_disabled": false,
+            "releaselevel": "final",
+            "serial": 0,
+            "isolated": true,
+            "dont_write_bytecode": true,
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          }
+        },
+        "marked_setup_regressions": {
+          "status": "PASS",
+          "required_runtime_version": "3.15.0",
+          "exact_asset_bound": true,
+          "Action_roundtrips": 2,
+          "marked_BAT_routes": 2,
+          "mocked_policy_refusals": 1,
+          "raw_receipt_sha256": "2afbe3ff51bd3a3af7a11ca3cb95d15bd61b6624daaefd515e0dc15e9eeadf98",
+          "probe_sha256": "b79e7268bfb3062d4a52c78711a1cb6ce961e5a3f091a3033e1ef6ed1befad77",
+          "actual_inbox_policy_snapshots": {
+            "before": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "Bypass",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ],
+            "after": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "Bypass",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "fixture": "Authored broken venv, not an owner legacy runtime; marks assigned by automation; all source/ADS/PDF checks verified",
+          "routes": [
+            {
+              "id": "PS51-fresh",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "ACTUAL_BARE315",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-stale",
+              "status": "PASS",
+              "kind": "ACTION",
+              "fixture": "AUTHORED_BROKEN_VENV; no legacy Python execution",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "direct"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "before"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "action"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "retry"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "action",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-marked-bat",
+              "status": "PASS",
+              "kind": "BAT",
+              "fixture": "AUTHORED_BROKEN_VENV",
+              "exits": [
+                {
+                  "exit_code": 0,
+                  "stage": "fresh"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "check"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "noop"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "zeroargs-redirected"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "broken-default"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "repair"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "pdf"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "fresh",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "check",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "noop",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "zeroargs-redirected",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "broken-default",
+                  "edition": "Desktop",
+                  "pypdf_version": null,
+                  "selected_version": null
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "repair",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "CMD-marked-bat",
+              "status": "PASS",
+              "kind": "BAT",
+              "fixture": "AUTHORED_BROKEN_VENV",
+              "exits": [
+                {
+                  "exit_code": 0,
+                  "stage": "fresh"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "check"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "noop"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "zeroargs-redirected"
+                },
+                {
+                  "exit_code": 3,
+                  "stage": "broken-default"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "repair"
+                },
+                {
+                  "exit_code": 0,
+                  "stage": "pdf"
+                }
+              ],
+              "child_hosts": [
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "fresh",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "check",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "noop",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "zeroargs-redirected",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "broken-default",
+                  "edition": "Desktop",
+                  "pypdf_version": null,
+                  "selected_version": null
+                },
+                {
+                  "execution_policy": {
+                    "status": "observed",
+                    "effective": "Bypass",
+                    "scopes": [
+                      {
+                        "scope": "MachinePolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "UserPolicy",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "Process",
+                        "policy": "Bypass"
+                      },
+                      {
+                        "scope": "CurrentUser",
+                        "policy": "Undefined"
+                      },
+                      {
+                        "scope": "LocalMachine",
+                        "policy": "Undefined"
+                      }
+                    ],
+                    "reason_code": null
+                  },
+                  "version": "5.1.26100.9444",
+                  "executable_status": "observed",
+                  "stage": "repair",
+                  "edition": "Desktop",
+                  "pypdf_version": "6.20.0",
+                  "selected_version": "3.15.0"
+                }
+              ],
+              "pdf": {
+                "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+                "physical_pages": 10,
+                "runtime_version": "3.15.0",
+                "success": true,
+                "written_count": 3
+              }
+            },
+            {
+              "id": "PS51-organization-simulation",
+              "status": "PASS",
+              "kind": "MOCKED_POLICY_QUERY",
+              "fixture": "MOCKED_POLICY_QUERY",
+              "exits": [
+                {
+                  "exit_code": 1,
+                  "stage": "simulation"
+                }
+              ],
+              "child_hosts": [],
+              "pdf": null,
+              "simulated_positive_launch_refused": true
+            }
+          ]
+        },
+        "stages": [
+          {
+            "id": "os",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "kit_identity",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "prerequisites",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "verify_extract",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "dc36c554ca6181ac1009bb19c0fafac7c425e35bd4fa14285991fbdf4a99b293"
+          },
+          {
+            "id": "version",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "df50c109bb96cf627460a1aba2fceee8fd07667cd4bddd92cbc11d02415aadff"
+          },
+          {
+            "id": "help",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "4401319058631820404fe12e575078df111ab50d0cc0efb229229ddce157b903"
+          },
+          {
+            "id": "setup_install",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "9108dec36f72ecc5c414f33658b30c89f0a031d2b245df233daff818ecb10a80"
+          },
+          {
+            "id": "setup_check",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "9be54de77cc16a0a34c4b62720afa77ada803e807117629bfbdcd4c2e7ca7d19"
+          },
+          {
+            "id": "setup_noop",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "e658cdd0298c793dffd9a0b34717aa78b54173aac9300d57baea231e99a3c28b"
+          },
+          {
+            "id": "marked_setup_remedies",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "b79e7268bfb3062d4a52c78711a1cb6ce961e5a3f091a3033e1ef6ed1befad77"
+          },
+          {
+            "id": "controls",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          },
+          {
+            "id": "prepare",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "a28e1b5f9b05ca2cb20da7c47a561e03ae42c5f98e7b8ce1d13e5b930edc8a28"
+          },
+          {
+            "id": "native_cases",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "a32d2b8aa759bbc9d41e553b419795a76d18b67949fe6297275b0fb781bd1627"
+          },
+          {
+            "id": "validate",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "bc2df17c0f89966274ce152c81308005e2ce67cbc7e3ea7b66c82bf028da4090"
+          },
+          {
+            "id": "redact",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": "78ecf3ee3fecf978b89ae4d838a0accc301bf3e58156c12f908529d999618b15"
+          },
+          {
+            "id": "source_identity",
+            "status": "PASS",
+            "code": "completed",
+            "exit_code": 0,
+            "probe_sha256": null
+          }
+        ],
+        "controls": [
+          {
+            "id": "owned_timeout",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "expected_stop_proved",
+            "probe_sha256": "f73642e4d1539485dbb3f3b7c5f88eda3df4630e0500998d207a744aff0fd742",
+            "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+          },
+          {
+            "id": "owned_cancel",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "expected_stop_proved",
+            "probe_sha256": "447b979fea0a46cc9ef6ed9945a73901a70f627242007d67ea830b97c989c73e",
+            "helper_sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+          },
+          {
+            "id": "failed_legacy_path_fallback",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "failed_listing_then_path_accepted",
+            "probe_sha256": "0deebd67a193d0b46f79a12cd7760f7d822b918e7870e4faa14645fb49db1b31",
+            "helper_sha256": "3d04efb4dd45e6ba3660967de5ae544891b2254d6043b488c1b5ccd617bec0d0",
+            "fixture_exe_sha256": "3c06daa0ab7cb8ee1daa920ec9dfcb7716413ad0ae0dcc8c6d774a16d6d6badb"
+          }
+        ],
+        "cleanup_safe": true
+      }
+    }
+  ],
+  "ps7_supplement": {
+    "protocol": "winbooksplit.final-zip-ps7",
+    "schema_version": 1,
+    "success": true,
+    "evidence_kind": "NATIVE_AUTOMATED",
+    "production": {
+      "assets": {
+        "SHA256SUMS.txt": {
+          "bytes": 178,
+          "sha256": "0b95b901582e7ac9534bf5f97d281355318449d9ead4bfc773d10625ec52c1bb"
+        },
+        "WinBookSplit-v1.0.1.zip": {
+          "bytes": 902668,
+          "sha256": "3dbbbe7928f34b5aa93d4e5ff9c4a8fcf45c97c8cd49a82662daf930f164489b"
+        },
+        "release-manifest.json": {
+          "bytes": 16593,
+          "sha256": "91def77062544a9cda35842f0112a4b0a6607192402b4c24c7a939e98ef19ed5"
+        }
+      },
+      "payload_sha256": "65f8ffcf6cadbfb3a4dd26ccdf7819b8136ad4c4874f7ead1ebf1a5fe695a41c",
+      "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "source_commit": "420ae4f9b57acb4034d7336c922b32e32a08f90a",
+      "source_tree": "dfdde41e0dd061e2a82d3556b753df5539790642",
+      "version": "1.0.1"
+    },
+    "bindings_sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff",
+    "prior_report_sha256": "0e8dbdc42977a55d02a987f7132676d0cb90d16d5452f6bf50817e68ffbd9520",
+    "plan_sha256": "e1dc012ff4c9f11b87b03e3c56170aa3fdd8994c4f7de1d7ba984e7938a64256",
+    "process_report_sha256": "32740996770be24cdb7cf062abe25dbbb13bf0476c35383e4d8faa38b2bdd8d4",
+    "ps7": {
+      "powershell_version": "7.6.6",
+      "clr": "10.0.12",
+      "process_bits": 64,
+      "os_bits": 64,
+      "Caption": "Microsoft Windows 11 Pro",
+      "Version": "10.0.26300",
+      "BuildNumber": "26300",
+      "ProductType": 1,
+      "processor_architectures": [
+        9
+      ]
+    },
+    "pwsh_sha256": "bfb46af89433268872ddb43d1ca7a3f433452ee91ed356a9786940f90118e285",
+    "runtime_versions": {
+      "python": "3.15.0",
+      "pypdf": "6.20.0"
+    },
+    "cases": [
+      {
+        "id": "version",
+        "status": "PASS",
+        "exit_code": 0,
+        "probe_sha256": "e9c528d975fece995c25607eee85a5955d7e71b8aab50f07968e1cb429b71b57"
+      },
+      {
+        "id": "setup-check",
+        "status": "PASS",
+        "exit_code": 0,
+        "probe_sha256": "5be86387b40f798c9035323d57b4921af254e9d285d7442a11681bb7c20bbf94"
+      },
+      {
+        "id": "manual",
+        "status": "PASS",
+        "exit_code": 0,
+        "probe_sha256": "9674e55dba8b4987d442b16036c14e6e1d964ad7a3c30591d15aa8a55fc54008"
+      },
+      {
+        "id": "auto2",
+        "status": "PASS",
+        "exit_code": 0,
+        "probe_sha256": "0572f1f188a5d3ff3e38cc69251d10bc3c426c5aaa7c8ad823381794006d2cc0"
+      }
+    ],
+    "source_unchanged": true,
+    "limits": [
+      "Same authenticated extraction as the inbox5.1 acceptance.",
+      "This supplemental report does not satisfy native Windows10 or repeat ebook/BAT/Explorer cases."
+    ]
+  },
+  "default_private_acquisition": {
+    "python": {
+      "name": "python-3.15.0-amd64.zip",
+      "bytes": 45140897,
+      "sha256": "6b1a3f885ce416cf3a68af203e62203664eb5224d8d0c1d2a1945fddec5c500b",
+      "source_url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip"
+    },
+    "calibre": {
+      "name": "calibre-portable-installer-9.15.0.exe",
+      "bytes": 205319944,
+      "sha256": "55a8c89bc0739a2dc6d496742ea625fccc6dfdec1413eb805805a28e7227536c",
+      "source_url": "https://download.calibre-ebook.com/9.15.0/calibre-portable-installer-9.15.0.exe"
+    },
+    "pypdf": {
+      "name": "pypdf-6.20.0-py3-none-any.whl",
+      "bytes": 401710,
+      "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+      "source_url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl"
+    }
+  },
+  "raw_references": [
+    {
+      "alias": "task08-C1-private-kit-01-bindings",
+      "bytes": 6108,
+      "sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff"
+    },
+    {
+      "alias": "task08-C1-private-kit-01-manifest",
+      "bytes": 5029,
+      "sha256": "c5a9d77dc4cedcad108b6a8f76e9b40879d0f43e4c5440144c82e9bd66b9fbeb"
+    },
+    {
+      "alias": "task08-C1-private-kit-01-archive",
+      "bytes": 1448906,
+      "sha256": "050b35ee988d4263dc5a552039730054f0853b276f4ee44420934acd08b0cdf5"
+    },
+    {
+      "alias": "task08-C1-private-kit-01-build",
+      "bytes": 6536,
+      "sha256": "132c528030772819a17546e75038042a0eb45c7896fd9c20412b833ab07df743"
+    },
+    {
+      "alias": "task08-C1-private-kit-default-01-bindings",
+      "bytes": 6108,
+      "sha256": "2e45a16542ba54baf1111ad801a42d42e84208f142b4e84c473db849f82840ff"
+    },
+    {
+      "alias": "task08-C1-private-kit-default-01-manifest",
+      "bytes": 5029,
+      "sha256": "c5a9d77dc4cedcad108b6a8f76e9b40879d0f43e4c5440144c82e9bd66b9fbeb"
+    },
+    {
+      "alias": "task08-C1-private-kit-default-01-archive",
+      "bytes": 1448906,
+      "sha256": "050b35ee988d4263dc5a552039730054f0853b276f4ee44420934acd08b0cdf5"
+    },
+    {
+      "alias": "task08-C1-private-kit-default-01-build",
+      "bytes": 6536,
+      "sha256": "132c528030772819a17546e75038042a0eb45c7896fd9c20412b833ab07df743"
+    },
+    {
+      "alias": "explicit-native-result.json",
+      "bytes": 27617,
+      "sha256": "0e8dbdc42977a55d02a987f7132676d0cb90d16d5452f6bf50817e68ffbd9520"
+    },
+    {
+      "alias": "explicit-native-result.zip",
+      "bytes": 27756,
+      "sha256": "0bfb18945c781f9097289b817aaf318de14aaaaadee1b0df339e5405043841d1"
+    },
+    {
+      "alias": "explicit-oracle.json",
+      "bytes": 2630,
+      "sha256": "f16feb37cde88bb197d62ee00c2206296cc8a204fb5d35acd471cd5dc062a5ce"
+    },
+    {
+      "alias": "explicit-oracle-os.json",
+      "bytes": 18106,
+      "sha256": "38b8d596387b27db1a5e9f1bc7d465b187f67ffc090293ce710891a3b89ab2ac"
+    },
+    {
+      "alias": "explicit-sanitized-native.json",
+      "bytes": 36430,
+      "sha256": "0ac60536c72c2369dbd1788bde9dd70fe204e5395a0e623426bed95707a7b48f"
+    },
+    {
+      "alias": "explicit-plan.json",
+      "bytes": 66646,
+      "sha256": "02508e6298aa1dbc083370bbeebf5ae90ae98e38ea62a090802a254569760431"
+    },
+    {
+      "alias": "explicit-process-report.json",
+      "bytes": 377613,
+      "sha256": "b61d64172c6a3ddae54c11e964e97ce198bac8dd368b76823f08ff1bd4f78c47"
+    },
+    {
+      "alias": "explicit-runtime-selection-local.json",
+      "bytes": 12097,
+      "sha256": "4742b5cae5bad547a69a9e9b8ad93a2740eb6e974e8e7aaf4076f34b74725cec"
+    },
+    {
+      "alias": "explicit-extraction.json",
+      "bytes": 6052,
+      "sha256": "591a633397bb5068d39d4a272f943c5911cb0641295a80638cc6ab7a68c7d2f2"
+    },
+    {
+      "alias": "explicit-marked-setup-remedies-process.json",
+      "bytes": 851,
+      "sha256": "c852749972383a4fb8a45a923d36874ca57fc3863c21766b7a1c5d48a5f10fe6"
+    },
+    {
+      "alias": "explicit-remedy-source-binding.json",
+      "bytes": 6314,
+      "sha256": "a38de8619fb93d837f71e88bfa531ea9deffb527735bf99d37043df589f905ce"
+    },
+    {
+      "alias": "explicit-control-timeout.json",
+      "bytes": 774,
+      "sha256": "29395478ba8f70a4edd64236ed75e6e234e2fdc5a8354b0a8fd11c3378ef0929"
+    },
+    {
+      "alias": "explicit-control-cancel.json",
+      "bytes": 775,
+      "sha256": "1a7f1608897e5598c52c90766051c105b9631315954fb18f973dae0bc828eeca"
+    },
+    {
+      "alias": "explicit-control-discovery-local.json",
+      "bytes": 14268,
+      "sha256": "03d6bf08976d8243c74eabaee4a3cf5ef4036d18b20a3e8e0fc8b68aadb280c6"
+    },
+    {
+      "alias": "explicit-control-discovery-process.json",
+      "bytes": 33523,
+      "sha256": "564071c3d4a3489755159e7b6ae6e2ef73018e35fdd1876f345555b33d6f08c1"
+    },
+    {
+      "alias": "explicit-marked-native-raw",
+      "bytes": 1215180,
+      "sha256": "600063f3f9a0ea2a11ed7009651d8d7c1b437ea79abf851c2a5af295fa2bfa83"
+    },
+    {
+      "alias": "explicit-outer-process",
+      "bytes": 5583,
+      "sha256": "9b2798d8d597c509fe9301b96a2fb2a7c90473cf64b0e942e65c333232379869"
+    },
+    {
+      "alias": "explicit-outer-driver",
+      "bytes": 25771,
+      "sha256": "d38d9dc7710f8972d8a9446da376a15b0518ee11105ec12dc31080f373b4760d"
+    },
+    {
+      "alias": "default-native-result.json",
+      "bytes": 22303,
+      "sha256": "b4a3607f3cb9db4f6817d968e4b28e5bcb620cd8bc88f9a655bcb33f052e2c51"
+    },
+    {
+      "alias": "default-native-result.zip",
+      "bytes": 22442,
+      "sha256": "c5a8740d201968c3d4391250055b0e0105a1ed994417814d02e4938310192ec4"
+    },
+    {
+      "alias": "default-oracle.json",
+      "bytes": 2630,
+      "sha256": "f263648ee73f0b7e61af0630d400fa2cf165719360b7f0c5e9bd082236fa1fbf"
+    },
+    {
+      "alias": "default-oracle-os.json",
+      "bytes": 12792,
+      "sha256": "966685ce3698b2ce3d7a368ad4a98f3e72c11019f8a4ebd28ac4cfdc2c4c43eb"
+    },
+    {
+      "alias": "default-sanitized-native.json",
+      "bytes": 25044,
+      "sha256": "7d10200d71e64a7a0887a0a2abb105d11fc4526576119eb849e8ed1af7ef387a"
+    },
+    {
+      "alias": "default-plan.json",
+      "bytes": 66639,
+      "sha256": "10fc00494123af2bc626bd6a94b61892de15b47153e119b0b2117e698df00962"
+    },
+    {
+      "alias": "default-process-report.json",
+      "bytes": 377588,
+      "sha256": "a32d2b8aa759bbc9d41e553b419795a76d18b67949fe6297275b0fb781bd1627"
+    },
+    {
+      "alias": "default-runtime-selection-local.json",
+      "bytes": 12054,
+      "sha256": "28e26a867198c1dab3ba7678d52279e44f4714fb596b872a261c558589bb36e6"
+    },
+    {
+      "alias": "default-extraction.json",
+      "bytes": 6052,
+      "sha256": "50188f7fa1caa35276ecd6058cb90d951e66d9a49d7b6ccb16e8aaf07278490b"
+    },
+    {
+      "alias": "default-marked-setup-remedies-process.json",
+      "bytes": 851,
+      "sha256": "b79e7268bfb3062d4a52c78711a1cb6ce961e5a3f091a3033e1ef6ed1befad77"
+    },
+    {
+      "alias": "default-remedy-source-binding.json",
+      "bytes": 6314,
+      "sha256": "a38de8619fb93d837f71e88bfa531ea9deffb527735bf99d37043df589f905ce"
+    },
+    {
+      "alias": "default-control-timeout.json",
+      "bytes": 775,
+      "sha256": "f73642e4d1539485dbb3f3b7c5f88eda3df4630e0500998d207a744aff0fd742"
+    },
+    {
+      "alias": "default-control-cancel.json",
+      "bytes": 773,
+      "sha256": "447b979fea0a46cc9ef6ed9945a73901a70f627242007d67ea830b97c989c73e"
+    },
+    {
+      "alias": "default-control-discovery-local.json",
+      "bytes": 14276,
+      "sha256": "4347ecc9a78feef9ad31437264b57ce67c98664b105a4598290a4f59fe321de0"
+    },
+    {
+      "alias": "default-control-discovery-process.json",
+      "bytes": 33539,
+      "sha256": "0deebd67a193d0b46f79a12cd7760f7d822b918e7870e4faa14645fb49db1b31"
+    },
+    {
+      "alias": "default-marked-native-raw",
+      "bytes": 722163,
+      "sha256": "2afbe3ff51bd3a3af7a11ca3cb95d15bd61b6624daaefd515e0dc15e9eeadf98"
+    },
+    {
+      "alias": "default-outer-process",
+      "bytes": 5149,
+      "sha256": "64516eeb7ee6e39be8f1bd34ed89228097d68d8924ee3d4b6e0d6c96b3e7526f"
+    },
+    {
+      "alias": "default-outer-driver",
+      "bytes": 25975,
+      "sha256": "d5ae27fd8ab6a3f54635a88ff6988566b375acba8868dba31e79eb3c297ac7e1"
+    },
+    {
+      "alias": "ps7-auto2-process.json",
+      "bytes": 23785,
+      "sha256": "ddaa1a27d4974ff7fb8d60fac3b82adabb717c2ffe21c3f91dea4b9e4a7b51c7"
+    },
+    {
+      "alias": "ps7-facts-process.json",
+      "bytes": 4412,
+      "sha256": "a880c98dcceba3494e98b68277f93c94b3290d03764d3dce9a95ca932a8bce1c"
+    },
+    {
+      "alias": "ps7-manual-process.json",
+      "bytes": 16126,
+      "sha256": "31af9b2c6edc0990cc3d6e3c011d90a868ec2cd8e8eeb4c1a493f36d97b3cc29"
+    },
+    {
+      "alias": "ps7-prepare-process.json",
+      "bytes": 571,
+      "sha256": "62f133867d4c29e862adaa49d0ce0e6af206e5a687f9f4e9747db9d288d74e72"
+    },
+    {
+      "alias": "ps7-ps7-plan.json",
+      "bytes": 21718,
+      "sha256": "e1dc012ff4c9f11b87b03e3c56170aa3fdd8994c4f7de1d7ba984e7938a64256"
+    },
+    {
+      "alias": "ps7-ps7-process.json",
+      "bytes": 56028,
+      "sha256": "32740996770be24cdb7cf062abe25dbbb13bf0476c35383e4d8faa38b2bdd8d4"
+    },
+    {
+      "alias": "ps7-ps7-result.json",
+      "bytes": 2672,
+      "sha256": "bf61e8299302e46dcaae1a324cca95fe098669ad4b730e18d7e44868037e0a50"
+    },
+    {
+      "alias": "ps7-runtime-after.json",
+      "bytes": 2530,
+      "sha256": "9b88c19d6b117ac3ff70c3ff050a0dc5ac07abae728189f4185c4f5553fae37b"
+    },
+    {
+      "alias": "ps7-runtime-before.json",
+      "bytes": 2531,
+      "sha256": "f54ab521f2372c8889e28a0aba94812d1f96cb2220efed259a0a7c8ff3311f99"
+    },
+    {
+      "alias": "ps7-setup-check-process.json",
+      "bytes": 10963,
+      "sha256": "29310595f4eaf73cb85f6ac336955a0ac5b591bb411583b7cef8ff9fcb4b873b"
+    },
+    {
+      "alias": "ps7-validate-process.json",
+      "bytes": 571,
+      "sha256": "261ed787e2254bcc38649d9d5d1e7b2f5100047bd726ce63a460e159be086945"
+    },
+    {
+      "alias": "ps7-version-process.json",
+      "bytes": 1067,
+      "sha256": "48ac96dc64aed2fcb20ffa61d551e8919ae7c29c2d83408c23bbeaa5e3b3d865"
+    },
+    {
+      "alias": "ps7-invocation.json",
+      "bytes": 6139,
+      "sha256": "581782523f99fead79f167774f4cf40af64e452e6e42f5f5b9e028998cae494b"
+    },
+    {
+      "alias": "ps7-outer-process.json",
+      "bytes": 1677,
+      "sha256": "967ed2e0c32aade06983a3ffc6d5fc54b79db9d5e864b814ac272ae6eb3cf6c7"
+    },
+    {
+      "alias": "ps7-prepare-receipt.json",
+      "bytes": 6381,
+      "sha256": "55acacbf0b4c4d3267e75f893dc547024cf71dfe8f9f7906ea6b4159f9a30074"
+    },
+    {
+      "alias": "ps7-Invoke-Ps7Supplement.ps1",
+      "bytes": 30136,
+      "sha256": "731628af710afbdf97224b6e938327fdd7204f63cfd68e613b608f053b67b2ba"
+    },
+    {
+      "alias": "ps7-Run-OwnedPs7Supplement.ps1",
+      "bytes": 21622,
+      "sha256": "688e370730343b8861bcb1b7d73bf2b03f9e9b55d5bfcdafdf89caba2f7047fc"
+    },
+    {
+      "alias": "ps7-Prepare-Ps7Supplement.py",
+      "bytes": 5810,
+      "sha256": "4e716973fbd64cda7520630e43fffdb9477f62cdf3d65a519281366739912338"
+    },
+    {
+      "alias": "default-calibre-provision.json",
+      "bytes": 571,
+      "sha256": "d9056d1c07312955493e62de02cf7bdb0e57757fc4ff18ddc98a19ef18b3ce05"
+    },
+    {
+      "alias": "default-calibre-target-local.json",
+      "bytes": 340,
+      "sha256": "d1dc99570e86dde45ba8c6b13d7f8754ea20ec5de1206fecf5f8ff49688d2006"
+    }
+  ],
+  "commands": {
+    "explicit": "PS51 -NoProfile -NonInteractive -ExecutionPolicy Bypass -File KIT/Run-Windows10.ps1 -BarePythonPath BARE3150 -BaselinePythonPath BARE3150 -CalibrePath REVIEWED_CALIBRE915 -Wheelhouse LOCKED_WHEELHOUSE -PowerShell7 PS766 -AllowWindows11DryRun -Execution AGENT_LAUNCHED",
+    "default": "PS51 -NoProfile -NonInteractive -ExecutionPolicy Bypass -File FRESH_KIT/Run-Windows10.ps1 -ProvisionPrerequisites -AllowWindows11DryRun -Execution AGENT_LAUNCHED",
+    "launch_context": "Both actual child invocations used unrelated API-known System32 CWD under the reviewed PS766 retained-lease SDK outer process. Newly owned kit scripts/helpers retained ZoneId3 before/after. The default route had no PATH change or explicit runtime/tool selections.",
+    "supplement": "Existing Invoke-FinalZipPs7Acceptance adapter with exact KIT/bindings/prior-report/native-plan/extraction/adapter hashes and reviewed PS766; same accepted extraction; Version/Check/Manual/Auto2."
+  },
+  "observed_limits": [
+    "The default route observed no usable owner315. Read-only automatic selection of an already installed owner315 was not independently exercised by this default route; explicit validated315 selection and maintained discovery controls are separate evidence.",
+    "Later stable315patch acceptance is policy/oracle fixture coverage. Actual3.15.1 was not run or relabeled as3.15.0.",
+    "Organization denial routes are mocked policy-query controls, not native enforced GPO evidence. Explorer gestures and manual chapter viewing were not performed.",
+    "The current-source private package has transitional VERSION1.0.1. It is neither the old published v1.0.1 asset nor final v1.0.2 acceptance.",
+    "Actual final ZIP on native Windows10 remains NOT_RUN; native11 dry and Server CI do not replace it."
+  ],
+  "prior_harness_failure": "Initial external default-runner materialization command failed Python parsing before file generation or any child launch. Corrected finite materializer created the reviewed driver; the actual unchanged default kit passed. Initial tool output is retained; no separate raw receipt or product failure is claimed.",
+  "acceptance": {
+    "V102-AC-046": "PASS for exact current-source private transitional candidate and actual3150 kit preflight; final source/package gate remains separate",
+    "V102-AC-047": "PASS for actual self-contained default prerequisite/setup/tests/redacted-report route on native11 dry; one owner launcher requires no manual runtime/version/tool selections. Fresh final kit/native10 remains required.",
+    "V102-AC-048": "PASS for fixed observed native11/AGENT/simulation labels and actual returned runtime/route proof; missing native10 remains explicit"
+  },
+  "safety": "No installed user application/source ZIP, original books, installed Python, global PATH/registry/persistent execution policy or historical published release was modified. All tests used authored fixtures and newly owned work; raw diagnostics and artifacts remain local.",
+  "next": "Finish full/hosted gates and task08 completion checkpoint; task09 final version/docs and task10 reviewed final source/package freeze require fresh exact final ZIP native tests and one final Windows10 kit."
+}
