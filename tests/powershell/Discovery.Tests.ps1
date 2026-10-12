@@ -5,6 +5,7 @@ BeforeAll {
     . (Join-Path $RepositoryRoot 'engine\WinBookSplit.Runtime.ps1')
     if (-not [IO.File]::Exists($TestPython)) { throw 'Discovery tests require the concrete accepted TestPython.' }
     $script:discoveryPolicy = Get-WinBookSplitCompatibilityPolicy
+    $script:discoveryExpectedVersion = (Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython -InterpreterOnly).Version
     $script:nativeDiscoveryProbe = (Get-Command Invoke-WinBookSplitRuntimeProbe).ScriptBlock
     $script:discoveryExecutableFixtures = New-Object 'Collections.Generic.List[object]'
     function New-DiscoveryProbe {
@@ -200,7 +201,7 @@ Describe 'V101 independent discovery and optional-listing failures' -Tag 'V101-A
         }
         $result = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot
         $result.Path | Should -BeExactly $TestPython
-        $result.Version | Should -Match '^3\.(?:13|14)\.'
+        $result.Version | Should -BeExactly $script:discoveryExpectedVersion
         $attempt = @($result.Attempts | Where-Object { $_.Source -eq 'py_launcher_listing' })
         $attempt.Count | Should -Be 1
         $attempt[0].Accepted | Should -BeFalse

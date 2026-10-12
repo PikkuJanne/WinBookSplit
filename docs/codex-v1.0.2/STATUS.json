@@ -2,9 +2,9 @@
   "schema_version": 1,
   "target_release": "v1.0.2",
   "overall": "IN_PROGRESS",
-  "current_task": "V102-04",
+  "current_task": "V102-05",
   "repository_changed_by_bundle_creation": false,
   "application_tests_run_by_bundle_creation": false,
   "release_published_by_bundle_creation": false,
-  "next_action": "Actual 3.15 engine/setup/process and both ebook conversions passed; only an obsolete test assertion changed. Verify 3.15 discovery, authoritative healthy older environments, rejected-venv preservation and explicit repair with byte-preserved backup."
+  "next_action": "Native discovery and upgrade tests passed on both shells, preserving healthy older and rejected environments. Add the small setup BAT with trusted host, literal forwarding, unattended behavior and exact exit propagation."
 }

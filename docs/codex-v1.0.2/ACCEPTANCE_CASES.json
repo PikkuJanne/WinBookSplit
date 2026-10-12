@@ -236,54 +236,72 @@
       "task": "V102-04",
       "title": "3.15-only automatic discovery",
       "expected": "Without override/venv, trusted regular 3.15 is discovered and selected automatically; installation is never triggered during processing discovery.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-020",
       "task": "V102-04",
       "title": "Broken optional launcher fallback",
       "expected": "A legacy/manager py listing failure like Unknown option -0 is recorded but a valid direct 3.15 candidate still succeeds.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-021",
       "task": "V102-04",
       "title": "Authoritative existing environment",
       "expected": "Healthy accepted 3.13/3.14 venv remains selected despite PATH 3.15; identity/diagnostics name it accurately; setup is a no-change no-op.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-022",
       "task": "V102-04",
       "title": "Stale environment preserved",
       "expected": "Rejected/broken .venv remains authoritative and is not deleted or silently bypassed; failure names the actual venv version and specific reason.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-023",
       "task": "V102-04",
       "title": "Explicit repair to 3.15",
       "expected": "Valid 3.15 base plus Repair creates working new venv while retaining a unique old backup; rollback/error behavior is honest and non-destructive.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-024",
       "task": "V102-04",
       "title": "Trust and override preservation",
       "expected": "Invalid explicit selection, shadow modules, unsafe aliases/CWD sources and untrusted package origin fail as before; no any-python fallback or auto-download.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-AC-025",

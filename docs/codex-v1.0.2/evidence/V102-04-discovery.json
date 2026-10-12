@@ -1,0 +1,585 @@
+{
+  "schema_version": 1,
+  "task": "V102-04",
+  "observed_at": "2026-10-12T15:44:33.250606+00:00",
+  "source_base_commit": "2c0a1f24717d6e7e448c55b00a5138df73b247d7",
+  "source_base_tree": "9bb938340001350139532ef67542e5b7b2339d79",
+  "scope": "Actual native developer Windows11 source-copy tests and existing Pester cases; no final release ZIP or Windows10 acceptance. All returned reports are redacted.",
+  "native_script_sha256": "c2f0bc0e273c963c58a7c4555d9cd1e03b263a7127ddabdd7582434ddac33988",
+  "pester_script_sha256": "44d7ab1e61b3dc70042a7d9bec586b3c9ebce66de063cf6be191f6d51ade7edb",
+  "source_binding_sha256": "ef6059234938aab91b6fa2444b9f0305a0c0506e99c81e844010a09576cbdf62",
+  "native_command": "<explicit-native-shell> -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File <owned Invoke-FocusedUpgrade.ps1> -RepositoryRoot <actual-checkout> -ExpectedSourceHashes <reviewed task04-source-binding.json> -WorkRoot <fresh-owned-work> -Python315Ready <runtime15/Scripts/python.exe> -Base315 <official regular 3.15.0/python.exe> -Base313 <reviewed regular 3.13.16/python.exe> -Base314 <reviewed regular 3.14.8/python.exe> -Rejected3147 <existing trusted helper 3.14.7/python.exe> -Wheelhouse <reviewed pypdf6.20.0 offline wheelhouse>",
+  "pester_command": "<explicit-native-shell> -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File <owned Invoke-FocusedPester.ps1> -RepositoryRoot <actual-checkout> -ToolRoot <reviewed pinned shell tools> -WorkRoot <fresh-owned-work> -TestPython <runtime15/Scripts/python.exe> -Wheelhouse <reviewed pypdf6.20.0 offline wheelhouse>",
+  "native_checks": [
+    {
+      "safe_receipt_sha256": "d1ae65e3f00235222934b454c0429a35ed1295c7b5187495b1e63b3fdc6b7e82",
+      "outer_native_exit": 0,
+      "protocol": "winbooksplit.v102-upgrade",
+      "schema_version": 1,
+      "task": "V102-04",
+      "scope": "CONTROLLED_NATIVE developer source-copy tests; actual host facts below; no final release ZIP acceptance",
+      "os": {
+        "Caption": "Microsoft Windows 11 Pro",
+        "Version": "10.0.26300",
+        "BuildNumber": "26300",
+        "OSArchitecture": "64-bit",
+        "ProductType": 1,
+        "UBR": 9457,
+        "powershell_version": "5.1.26100.9444",
+        "process_bits": 64,
+        "DisplayVersion": "26H2",
+        "processor_architectures": [
+          9
+        ],
+        "os_bits": 64,
+        "platform_scope": "NATIVE_WINDOWS11_DRY_RUN"
+      },
+      "started_utc": "2026-10-12T15:39:38.1856588Z",
+      "finished_utc": "2026-10-12T15:41:14.6551168Z",
+      "success": true,
+      "source_commit": "2c0a1f24717d6e7e448c55b00a5138df73b247d7",
+      "source_path_sha256": {
+        "CHANGELOG.md": "83cd513c1eafe7d9e8b155dd02d94c1136401be1d54f6da32c719636508e4ae7",
+        "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+        "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+        "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+        "README.md": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441",
+        "SECURITY.md": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4",
+        "Setup-WinBookSplit.ps1": "1d54811fa5c38720d303e734ac46f4f1faee3f56165a1ffa622c836df4516486",
+        "THIRD_PARTY_NOTICES.md": "517eff28010e0f22b775ef209ce1909d574fb0e883086c94ec5831537946b614",
+        "VERSION": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066",
+        "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+        "WinBookSplit.ico": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42",
+        "WinBookSplit.ps1": "2ffe4be6e83c45c22dd339a140e32c33e6fda5929fef85bd8ce9171f1bce01ed",
+        "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+        "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+        "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+        "docs/SETUP.md": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170",
+        "docs/SUPPORT_DIAGNOSTICS.md": "fd4485111d6db0e850d0badf0ae7fe88fc90eaea7979b665a7033c598e3c63f1",
+        "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+        "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+        "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+        "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+        "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "engine/WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+        "engine/WinBookSplit.Runtime.ps1": "e56870195c4c5fd09a8ebdb1c96a3091d088fc80d25764d537811fb83afa4816",
+        "engine/WinBookSplit.Setup.ps1": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473",
+        "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+        "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+        "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+        "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+        "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+        "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+        "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3",
+        "tools/compatibility/Invoke-NativeAcceptance.ps1": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5",
+        "tools/release/payload.json": "bddb80b5bd45d48f0489990c78f73d408faec651f6944f298402c4474fa86bf4"
+      },
+      "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "host": {
+        "edition": "Desktop",
+        "process_bits": 64,
+        "powershell_version": "5.1.26100.9444"
+      },
+      "policies_before": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "RemoteSigned",
+          "scope": "Process"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "LocalMachine"
+        }
+      ],
+      "policies_after": [
+        {
+          "policy": "Undefined",
+          "scope": "MachinePolicy"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "UserPolicy"
+        },
+        {
+          "policy": "RemoteSigned",
+          "scope": "Process"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "CurrentUser"
+        },
+        {
+          "policy": "Undefined",
+          "scope": "LocalMachine"
+        }
+      ],
+      "policies_unchanged": true,
+      "path_restored": true,
+      "cases": [
+        {
+          "id": "only315_path",
+          "status": "PASS",
+          "details": {
+            "source": "PATH",
+            "processing_installation": false,
+            "version": "3.15.0",
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          }
+        },
+        {
+          "id": "optional_py_failure",
+          "status": "PASS",
+          "details": {
+            "id": "failed_legacy_path_fallback",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "failed_listing_then_path_accepted",
+            "probe_sha256": "a0f4f89bea7f29008f450be2b2d41d041bbadcc772c89b3db7e6609f7a02411d",
+            "helper_sha256": "3d04efb4dd45e6ba3660967de5ae544891b2254d6043b488c1b5ccd617bec0d0",
+            "fixture_exe_sha256": "310a08bbd33525bd66ce5f62ce9fc4e030a05e0934cf0ad3cd8feb4cae6b1e14"
+          }
+        },
+        {
+          "id": "healthy313_venv",
+          "status": "PASS",
+          "details": {
+            "check_noop": true,
+            "source": "application_venv",
+            "version": "3.13.16",
+            "environment_unchanged": true,
+            "healthy_setup_noop": true
+          }
+        },
+        {
+          "id": "healthy314_venv",
+          "status": "PASS",
+          "details": {
+            "check_noop": true,
+            "source": "application_venv",
+            "version": "3.14.8",
+            "environment_unchanged": true,
+            "healthy_setup_noop": true
+          }
+        },
+        {
+          "id": "rejected3147_preserved",
+          "status": "PASS",
+          "details": {
+            "source": "application_venv",
+            "environment_unchanged": true,
+            "observed_version": "3.14.7",
+            "automatic_fallback": false,
+            "reason": "python_security_floor",
+            "normal_setup_code": "setup_repair_required"
+          }
+        },
+        {
+          "id": "explicit315_repair",
+          "status": "PASS",
+          "details": {
+            "version": "3.15.0",
+            "source": "application_venv",
+            "repeated_repair_noop": true,
+            "backup_count": 1,
+            "backup_preserved": true,
+            "backup_files_unchanged": true,
+            "pypdf_version": "6.20.0"
+          }
+        }
+      ],
+      "local_receipt_sha256": "002a1a65ca5f7bd94d2a3ef62c337f9c8eb6672068f35ffd59e278817be64711",
+      "failure_stage": null,
+      "artifacts_preserved": true
+    },
+    {
+      "safe_receipt_sha256": "26deb128155d5ed39316e6bb8416f3b97e8c701ace8dfaa2fbee494f071b6ea7",
+      "outer_native_exit": 0,
+      "protocol": "winbooksplit.v102-upgrade",
+      "schema_version": 1,
+      "task": "V102-04",
+      "scope": "CONTROLLED_NATIVE developer source-copy tests; actual host facts below; no final release ZIP acceptance",
+      "os": {
+        "Caption": "Microsoft Windows 11 Pro",
+        "Version": "10.0.26300",
+        "BuildNumber": "26300",
+        "OSArchitecture": "64-bit",
+        "ProductType": 1,
+        "UBR": 9457,
+        "powershell_version": null,
+        "process_bits": 64,
+        "DisplayVersion": "26H2",
+        "processor_architectures": [
+          9
+        ],
+        "os_bits": 64,
+        "platform_scope": "BLOCKED"
+      },
+      "started_utc": "2026-10-12T15:39:39.7281158Z",
+      "finished_utc": "2026-10-12T15:41:16.7005368Z",
+      "success": true,
+      "source_commit": "2c0a1f24717d6e7e448c55b00a5138df73b247d7",
+      "source_path_sha256": {
+        "CHANGELOG.md": "83cd513c1eafe7d9e8b155dd02d94c1136401be1d54f6da32c719636508e4ae7",
+        "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+        "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+        "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+        "README.md": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441",
+        "SECURITY.md": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4",
+        "Setup-WinBookSplit.ps1": "1d54811fa5c38720d303e734ac46f4f1faee3f56165a1ffa622c836df4516486",
+        "THIRD_PARTY_NOTICES.md": "517eff28010e0f22b775ef209ce1909d574fb0e883086c94ec5831537946b614",
+        "VERSION": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066",
+        "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+        "WinBookSplit.ico": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42",
+        "WinBookSplit.ps1": "2ffe4be6e83c45c22dd339a140e32c33e6fda5929fef85bd8ce9171f1bce01ed",
+        "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+        "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+        "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+        "docs/SETUP.md": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170",
+        "docs/SUPPORT_DIAGNOSTICS.md": "fd4485111d6db0e850d0badf0ae7fe88fc90eaea7979b665a7033c598e3c63f1",
+        "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+        "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+        "engine/WinBookSplit.Diagnostics.ps1": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef",
+        "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+        "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "engine/WinBookSplit.Process.ps1": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984",
+        "engine/WinBookSplit.Runtime.ps1": "e56870195c4c5fd09a8ebdb1c96a3091d088fc80d25764d537811fb83afa4816",
+        "engine/WinBookSplit.Setup.ps1": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473",
+        "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+        "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+        "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+        "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+        "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+        "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+        "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3",
+        "tools/compatibility/Invoke-NativeAcceptance.ps1": "b2fe39cde801bf2c8e6fd5e5129b202708a58763c013ef70c9cb68b4c45decc5",
+        "tools/release/payload.json": "bddb80b5bd45d48f0489990c78f73d408faec651f6944f298402c4474fa86bf4"
+      },
+      "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "host": {
+        "edition": "Core",
+        "process_bits": 64,
+        "powershell_version": "7.6.6"
+      },
+      "policies_before": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "RemoteSigned"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "RemoteSigned"
+        }
+      ],
+      "policies_after": [
+        {
+          "scope": "MachinePolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "UserPolicy",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "Process",
+          "policy": "RemoteSigned"
+        },
+        {
+          "scope": "CurrentUser",
+          "policy": "Undefined"
+        },
+        {
+          "scope": "LocalMachine",
+          "policy": "RemoteSigned"
+        }
+      ],
+      "policies_unchanged": true,
+      "path_restored": true,
+      "cases": [
+        {
+          "id": "only315_path",
+          "status": "PASS",
+          "details": {
+            "source": "PATH",
+            "processing_installation": false,
+            "version": "3.15.0",
+            "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+          }
+        },
+        {
+          "id": "optional_py_failure",
+          "status": "PASS",
+          "details": {
+            "id": "failed_legacy_path_fallback",
+            "scope": "CONTROLLED_NATIVE",
+            "status": "PASS",
+            "code": "failed_listing_then_path_accepted",
+            "probe_sha256": "cab6d712665d1244a2a064b6f865baf0c1d544eddb3e12846027c53c1e3b3bbe",
+            "helper_sha256": "3d04efb4dd45e6ba3660967de5ae544891b2254d6043b488c1b5ccd617bec0d0",
+            "fixture_exe_sha256": "adc3ce48ca8041615e88b7bb3558f9a0c2c39ef948af2d7ed36cd82a2fff7e36"
+          }
+        },
+        {
+          "id": "healthy313_venv",
+          "status": "PASS",
+          "details": {
+            "source": "application_venv",
+            "version": "3.13.16",
+            "check_noop": true,
+            "environment_unchanged": true,
+            "healthy_setup_noop": true
+          }
+        },
+        {
+          "id": "healthy314_venv",
+          "status": "PASS",
+          "details": {
+            "source": "application_venv",
+            "version": "3.14.8",
+            "check_noop": true,
+            "environment_unchanged": true,
+            "healthy_setup_noop": true
+          }
+        },
+        {
+          "id": "rejected3147_preserved",
+          "status": "PASS",
+          "details": {
+            "automatic_fallback": false,
+            "reason": "python_security_floor",
+            "observed_version": "3.14.7",
+            "source": "application_venv",
+            "environment_unchanged": true,
+            "normal_setup_code": "setup_repair_required"
+          }
+        },
+        {
+          "id": "explicit315_repair",
+          "status": "PASS",
+          "details": {
+            "repeated_repair_noop": true,
+            "backup_preserved": true,
+            "backup_files_unchanged": true,
+            "version": "3.15.0",
+            "source": "application_venv",
+            "pypdf_version": "6.20.0",
+            "backup_count": 1
+          }
+        }
+      ],
+      "local_receipt_sha256": "1c901f6735988c0c4fbe72be6f90ea3b46e391b92b285b020fd41ac9603eeb73",
+      "failure_stage": null,
+      "artifacts_preserved": true
+    }
+  ],
+  "pester": [
+    {
+      "receipt_sha256": "c5a1094480c0c538d93f73d83116a9f4592c896775a0045b07b2fc20620896f9",
+      "outer_native_exit": 0,
+      "schema_version": 1,
+      "scope": "Existing discovery/runtime/setup Pester tests under actual supplied runtime15; mocked optional-listing cases stay controlled",
+      "reproduce_old_minor_assertion": false,
+      "started_utc": "2026-10-12T15:41:49.9109008Z",
+      "finished_utc": "2026-10-12T15:43:06.2896910Z",
+      "source_path_sha256": {
+        "tests/powershell/Discovery.Tests.ps1": "70dafcf4795d3ef53a98394b8ea8d19c9bbfbd2384867bae6d30d90401fafe3a",
+        "tests/powershell/Runtime.Tests.ps1": "70e44bb41063cfb4f447383a38385d98feb4ccb2775dae3817aa53f96706e086",
+        "tests/powershell/Setup.Tests.ps1": "5a3478e03ba104c3aafbf8c1ffd5f7e61ef115c15ed55d648c0f89e46fb0f941"
+      },
+      "source_files_unchanged": true,
+      "host": {
+        "powershell": "5.1.26100.9444",
+        "policies": [
+          {
+            "policy": "Undefined",
+            "scope": "MachinePolicy"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "UserPolicy"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "Process"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "CurrentUser"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "LocalMachine"
+          }
+        ],
+        "edition": "Desktop"
+      },
+      "tools": {
+        "analyzer": "1.25.0",
+        "pester": "6.2.0"
+      },
+      "static": [
+        {
+          "path": "tests/powershell/Discovery.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Runtime.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/powershell/Setup.Tests.ps1",
+          "findings": [],
+          "parse_errors": []
+        }
+      ],
+      "pester": {
+        "total": 70,
+        "failures": [],
+        "not_run": 0,
+        "failed_containers": 0,
+        "passed": 70,
+        "skipped": 0,
+        "container_errors": [],
+        "failed": 0,
+        "result": "Passed"
+      }
+    },
+    {
+      "receipt_sha256": "209d3b98ee94fd8a2ae5390f51885eb8be69af0a8d50c9f70b6cdb4030de1f4a",
+      "outer_native_exit": 0,
+      "schema_version": 1,
+      "scope": "Existing discovery/runtime/setup Pester tests under actual supplied runtime15; mocked optional-listing cases stay controlled",
+      "reproduce_old_minor_assertion": false,
+      "started_utc": "2026-10-12T15:41:47.7734868Z",
+      "finished_utc": "2026-10-12T15:42:55.6548320Z",
+      "source_path_sha256": {
+        "tests/powershell/Discovery.Tests.ps1": "70dafcf4795d3ef53a98394b8ea8d19c9bbfbd2384867bae6d30d90401fafe3a",
+        "tests/powershell/Runtime.Tests.ps1": "70e44bb41063cfb4f447383a38385d98feb4ccb2775dae3817aa53f96706e086",
+        "tests/powershell/Setup.Tests.ps1": "5a3478e03ba104c3aafbf8c1ffd5f7e61ef115c15ed55d648c0f89e46fb0f941"
+      },
+      "source_files_unchanged": true,
+      "host": {
+        "edition": "Core",
+        "powershell": "7.6.6",
+        "policies": [
+          {
+            "policy": "Undefined",
+            "scope": "MachinePolicy"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "UserPolicy"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "Process"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "CurrentUser"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "LocalMachine"
+          }
+        ]
+      },
+      "tools": {
+        "pester": "6.2.0",
+        "analyzer": "1.25.0"
+      },
+      "static": [
+        {
+          "parse_errors": [],
+          "findings": [],
+          "path": "tests/powershell/Discovery.Tests.ps1"
+        },
+        {
+          "parse_errors": [],
+          "findings": [],
+          "path": "tests/powershell/Runtime.Tests.ps1"
+        },
+        {
+          "parse_errors": [],
+          "findings": [],
+          "path": "tests/powershell/Setup.Tests.ps1"
+        }
+      ],
+      "pester": {
+        "skipped": 0,
+        "failures": [],
+        "not_run": 0,
+        "passed": 70,
+        "result": "Passed",
+        "failed_containers": 0,
+        "container_errors": [],
+        "total": 70,
+        "failed": 0
+      }
+    }
+  ],
+  "obsolete_assertion_reproduction": {
+    "receipt_sha256": "549912973b855698841ab6d3876fd4f7b5c9a1349e8cf0cdddbfc495693ec1a8",
+    "command": "<inbox-PS51> <same scoped Pester command> -ReproduceOldMinorAssertion",
+    "outer_native_exit": 1,
+    "executed": 1,
+    "failed": 1,
+    "filtered_not_run": 69,
+    "skipped": 0,
+    "source_files_unchanged": true,
+    "failure": {
+      "errors": [
+        "Expected regular expression '^3\\.(?:13|14)\\.' to match '3.15.0', but it did not match."
+      ],
+      "name": "V101 independent discovery and optional-listing failures.retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter"
+    }
+  },
+  "initial_external_wrapper_failure": {
+    "status": "FAIL before work was created",
+    "hosts": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "outer_native_exit": 1,
+    "cause": "Module autoloading was disabled but Microsoft.PowerShell.Security was not explicitly imported for Get-ExecutionPolicy. Added only the absolute trusted host module import; no application execution or repository change occurred in those failed invocations."
+  },
+  "production_changes": false,
+  "changed_test": "tests/powershell/Discovery.Tests.ps1 observes the supplied interpreter-only version once and requires the actual selected candidate Version to match it; removes the obsolete 13|14 assertion while retaining launcher diagnostics and policy/trust checks.",
+  "diagnostics_boundary": "Existing Resolve-WinBookSplitRuntime result binds selected Path/Version/Source; its actual rejected3.14.7 authoritative-venv exception names .venv path, observed version and python_security_floor. Concise console rendering and executable repair commands are handled separately by V102-06.",
+  "retained_behavior": "Healthy3.13/3.14 setup and Check remain no-ops even when PATH/base points to3.15. Rejected venv never falls through or is replaced without Repair. Processing discovery never installs. Explicit repair retains entire old file inventory and one unique backup; repeated Repair is a healthy no-op.",
+  "ps7_os_classifier_limit": "The reused final native-kit OS classifier requires inbox5.1, so its PS7 platform_scope remains BLOCKED and powershell_version is null there. Separate host.powershell_version is7.6.6 and these six supplemental developer cases actually passed. This record makes no final-package acceptance claim.",
+  "structure_validation": {
+    "command": "<dev14> -I -B tools/codex-v1.0.2/validate_plan.py --plan docs/codex-v1.0.2",
+    "result": "STRUCTURE_VALID",
+    "exit_code": 0
+  },
+  "windows10_final_package": "NOT_RUN",
+  "windows11_final_package": "NOT_RUN",
+  "publication": "NOT_RUN"
+}

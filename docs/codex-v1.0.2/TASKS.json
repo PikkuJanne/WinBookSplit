@@ -87,7 +87,7 @@
       "id": "V102-04",
       "title": "Validate discovery, selected runtime and venv upgrades",
       "milestone": "M2",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-03"
       ],
@@ -105,7 +105,10 @@
         "V102-AC-023",
         "V102-AC-024"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-04-discovery.json",
+        "evidence/V102-04-discovery.md"
+      ]
     },
     {
       "id": "V102-05",
