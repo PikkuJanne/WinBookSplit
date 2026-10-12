@@ -39,12 +39,46 @@ param([string]$PythonPath, [switch]$Check, [switch]$NonInteractive, [string]$Whe
 
 Set-StrictMode -Version Latest
 $ErrorActionPreference='Stop'
+
+function Get-WinBookSplitSetupHostObservation {
+    # Local, read-only observations after script entry. An unavailable query
+    # never changes the setup result and never substitutes a guessed policy.
+    $observation=[ordered]@{executable=$null;executable_status='unavailable';
+        version=$PSVersionTable.PSVersion.ToString();edition=$PSVersionTable.PSEdition;
+        execution_policy=[ordered]@{status='unavailable';effective=$null;scopes=@();reason_code='query_failed'}}
+    $process=$null
+    try {
+        $process=[Diagnostics.Process]::GetCurrentProcess()
+        $observation.executable=$process.MainModule.FileName
+        $observation.executable_status='observed'
+    } catch { Write-Verbose 'The actual setup host executable could not be observed.' }
+    finally { if($null -ne $process){$process.Dispose()} }
+    try {
+        # A PS7 parent can pass its module search path to the inbox BAT child.
+        # Load this actual host's built-in security module, without changing it.
+        Import-Module -Name (Join-Path $PSHOME 'Modules\Microsoft.PowerShell.Security\Microsoft.PowerShell.Security.psd1') -Scope Local -ErrorAction Stop
+        $policies=@(Get-ExecutionPolicy -List -ErrorAction Stop)
+        $effective=(Get-ExecutionPolicy -ErrorAction Stop).ToString()
+        $scopes=@('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')
+        $values=@('Undefined','Restricted','AllSigned','RemoteSigned','Unrestricted','Bypass','Default')
+        $records=@(foreach($scope in $scopes){
+            $matches=@($policies | Where-Object {$_.Scope.ToString() -ceq $scope})
+            if($matches.Count -ne 1 -or $matches[0].ExecutionPolicy.ToString() -cnotin $values){throw 'Incomplete execution-policy observation.'}
+            [pscustomobject]@{scope=$scope;policy=$matches[0].ExecutionPolicy.ToString()}
+        })
+        if($policies.Count -ne $scopes.Count -or $effective -cnotin $values){throw 'Invalid execution-policy observation.'}
+        $observation.execution_policy=[ordered]@{status='observed';effective=$effective;scopes=$records;reason_code=$null}
+    } catch { Write-Verbose 'Execution-policy observation was unavailable; preserving the setup outcome.' }
+    return [pscustomobject]$observation
+}
+
 try {
     . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Setup.ps1')
     $result=Invoke-WinBookSplitSetup -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -Check:$Check -NonInteractive:$NonInteractive -Wheelhouse $Wheelhouse -Repair:$Repair
 } catch {
     $result=[pscustomobject]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='setup_failed';exit_code=6;changed=$false;message=$_.Exception.Message}
 }
+$result | Add-Member -MemberType NoteProperty -Name host -Value (Get-WinBookSplitSetupHostObservation)
 Write-Host $result.message
 if ($result.PSObject.Properties.Name -contains 'observed_python' -and $null -ne $result.observed_python) {
     $displayVersion='version unavailable';if($null -ne $result.observed_version){$displayVersion=$result.observed_version}

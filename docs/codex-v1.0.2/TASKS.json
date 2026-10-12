@@ -171,7 +171,7 @@
       "id": "V102-07",
       "title": "Automate Internet-marked script and policy regressions",
       "milestone": "M3",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-06"
       ],
@@ -190,7 +190,13 @@
         "V102-AC-041",
         "V102-AC-042"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-08",

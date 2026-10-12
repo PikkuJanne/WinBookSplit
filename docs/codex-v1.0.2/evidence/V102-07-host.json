@@ -1,0 +1,927 @@
+{
+  "schema_version": 1,
+  "task": "V102-07",
+  "part": "host_source_and_focused_tests",
+  "observed_at": "2026-10-12T17:00:24.573674+00:00",
+  "baseline_commit": "ef36fd99325e3d94682b66ff27265e17b8faf5ce",
+  "baseline_tree": "f99c96d4423eec1e135f11b0d32c76ef83e5c53b",
+  "scope": "Developer source tests on actual Windows 11 Pro 10.0.26300 x64; final ZIP and Windows 10 are not tested by this record.",
+  "source_path_sha256": {
+    "Setup-WinBookSplit.ps1": "8be3671e00176f5a425aff4b6bbb5f965492fb1bd764ae4fec5c795055339774",
+    "tests/powershell/Setup.Tests.ps1": "895ea13870d0a85d01f1f6749a0d65de74e33a27a9604dd7d15d13e403452f7d",
+    "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b",
+    "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+    "engine/WinBookSplit.Setup.ps1": "bfc612b6109380d98e8472b1f66df0ab1d15ae3e0b3e7795b121a34835f27bd1",
+    "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+  },
+  "local_only_receipt": "Additive host object in the existing SETUP frame after script entry; support export remains unchanged.",
+  "host_schema": {
+    "executable_status": [
+      "observed",
+      "unavailable"
+    ],
+    "execution_policy_status": [
+      "observed",
+      "unavailable"
+    ],
+    "effective_separate_from_scopes": true,
+    "query_failure": "effective=null, scopes=[], reason_code=query_failed; setup outcome and exit preserved",
+    "builtin_security_import": "Actual $PSHOME Security manifest, Local scope, no Force; import/query failures remain non-fatal unavailable."
+  },
+  "path_symbols": {
+    "<DEV101>": "Reviewed private per-user v1.0.1 development cache",
+    "<DEV102>": "Reviewed private per-user v1.0.2 development cache",
+    "<REPO>": "Actual existing local Git checkout",
+    "<PS7>": "Actual reviewed DEV101/runtimes/powershell-7.6.6-win-x64/pwsh.exe",
+    "<PREP>": "Actual private DEV102/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f"
+  },
+  "commands": [
+    "$env:PSModulePath='C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules'; & 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/Invoke-Task07Setup.ps1' -RepositoryRoot '<REPO>' -ToolRoot '<DEV101>/shell-tools' -WorkRoot '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/task07-setup-ps51-b' -TestPython '<DEV102>/runtime15/Scripts/python.exe' -Wheelhouse '<DEV101>/setup-tests-05-01/wheelhouse'",
+    "$env:PSModulePath='<DEV101>\\runtimes\\powershell-7.6.6-win-x64\\Modules;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules'; & '<DEV101>/runtimes/powershell-7.6.6-win-x64/pwsh.exe' -NoProfile -ExecutionPolicy Bypass -File '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/Invoke-Task07Setup.ps1' -RepositoryRoot '<REPO>' -ToolRoot '<DEV101>/shell-tools' -WorkRoot '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/task07-setup-ps766-b' -TestPython '<DEV102>/runtime15/Scripts/python.exe' -Wheelhouse '<DEV101>/setup-tests-05-01/wheelhouse'"
+  ],
+  "runner": {
+    "private_name": "upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/Invoke-Task07Setup.ps1",
+    "sha256": "ed2bbc773247e9fe2ca600d4eb85f1d0c1b23726950fc144e94e6ef6b1824162",
+    "basis": "Existing focused Pester runner; existing Setup and Support containers and pinned tools."
+  },
+  "test_receipts": [
+    {
+      "shell": "PS51",
+      "private_receipt_name": "task07-setup-ps51-a/result.json",
+      "sha256": "f74938a30ece05140232867953cb9e8dc2523b8b0394c6dcb80fc93e75cbccf6",
+      "size_bytes": 3323,
+      "outer_native_exit": 0,
+      "record": {
+        "schema_version": 1,
+        "scope": "Existing Setup and Support Pester tests under actual supplied runtime15; mocked policy cases stay controlled",
+        "reproduce_old_minor_assertion": false,
+        "started_utc": "2026-10-12T16:44:56.6546323Z",
+        "finished_utc": "2026-10-12T16:47:42.5219863Z",
+        "source_path_sha256": {
+          "tests/powershell/Setup.Tests.ps1": "a9f7a9c07db4d4cf07da8f21d88377ee03f152d5518f1209c736e6a0701d6e82",
+          "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+        },
+        "source_files_unchanged": true,
+        "host": {
+          "powershell": "5.1.26100.9444",
+          "policies": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "Bypass",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ],
+          "edition": "Desktop"
+        },
+        "tools": {
+          "analyzer": "1.25.0",
+          "pester": "6.2.0"
+        },
+        "static": [
+          {
+            "path": "tests/powershell/Setup.Tests.ps1",
+            "findings": [],
+            "parse_errors": []
+          },
+          {
+            "path": "tests/powershell/Support.Tests.ps1",
+            "findings": [],
+            "parse_errors": []
+          },
+          {
+            "path": "Setup-WinBookSplit.ps1",
+            "findings": [],
+            "parse_errors": []
+          }
+        ],
+        "pester": {
+          "total": 39,
+          "failures": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 39,
+          "skipped": 0,
+          "container_errors": [],
+          "failed": 0,
+          "result": "Passed"
+        }
+      },
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "shell": "PS766",
+      "private_receipt_name": "task07-setup-ps766-a/result.json",
+      "sha256": "2e751588126032a01d45f4ac1188034bb273775161a9adb4260eb8dd8439c161",
+      "size_bytes": 1735,
+      "outer_native_exit": 0,
+      "record": {
+        "schema_version": 1,
+        "scope": "Existing Setup and Support Pester tests under actual supplied runtime15; mocked policy cases stay controlled",
+        "reproduce_old_minor_assertion": false,
+        "started_utc": "2026-10-12T16:44:59.0145092Z",
+        "finished_utc": "2026-10-12T16:47:35.9981581Z",
+        "source_path_sha256": {
+          "tests/powershell/Setup.Tests.ps1": "a9f7a9c07db4d4cf07da8f21d88377ee03f152d5518f1209c736e6a0701d6e82",
+          "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+        },
+        "source_files_unchanged": true,
+        "host": {
+          "powershell": "7.6.6",
+          "policies": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "Bypass",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ],
+          "edition": "Core"
+        },
+        "tools": {
+          "analyzer": "1.25.0",
+          "pester": "6.2.0"
+        },
+        "static": [
+          {
+            "parse_errors": [],
+            "path": "tests/powershell/Setup.Tests.ps1",
+            "findings": []
+          },
+          {
+            "parse_errors": [],
+            "path": "tests/powershell/Support.Tests.ps1",
+            "findings": []
+          },
+          {
+            "parse_errors": [],
+            "path": "Setup-WinBookSplit.ps1",
+            "findings": []
+          }
+        ],
+        "pester": {
+          "result": "Passed",
+          "skipped": 0,
+          "failed": 0,
+          "failed_containers": 0,
+          "container_errors": [],
+          "failures": [],
+          "passed": 39,
+          "not_run": 0,
+          "total": 39
+        }
+      },
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "private_receipt_name": "task07-setup-ps51-b/result.json",
+      "sha256": "efee14dfa3290a4e621bd8341eddf3afe430e607959d3b7b794981207d4f73e5",
+      "size_bytes": 3323,
+      "shell": "PS51",
+      "phase": "final_after_builtin_security_import",
+      "outer_native_exit": 0,
+      "record": {
+        "schema_version": 1,
+        "scope": "Existing Setup and Support Pester tests under actual supplied runtime15; mocked policy cases stay controlled",
+        "reproduce_old_minor_assertion": false,
+        "started_utc": "2026-10-12T16:54:11.3424991Z",
+        "finished_utc": "2026-10-12T16:56:53.6440259Z",
+        "source_path_sha256": {
+          "tests/powershell/Setup.Tests.ps1": "895ea13870d0a85d01f1f6749a0d65de74e33a27a9604dd7d15d13e403452f7d",
+          "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+        },
+        "source_files_unchanged": true,
+        "host": {
+          "powershell": "5.1.26100.9444",
+          "policies": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "Bypass",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ],
+          "edition": "Desktop"
+        },
+        "tools": {
+          "analyzer": "1.25.0",
+          "pester": "6.2.0"
+        },
+        "static": [
+          {
+            "path": "tests/powershell/Setup.Tests.ps1",
+            "findings": [],
+            "parse_errors": []
+          },
+          {
+            "path": "tests/powershell/Support.Tests.ps1",
+            "findings": [],
+            "parse_errors": []
+          },
+          {
+            "path": "Setup-WinBookSplit.ps1",
+            "findings": [],
+            "parse_errors": []
+          }
+        ],
+        "pester": {
+          "total": 40,
+          "failures": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 40,
+          "skipped": 0,
+          "container_errors": [],
+          "failed": 0,
+          "result": "Passed"
+        }
+      }
+    },
+    {
+      "private_receipt_name": "task07-setup-ps766-b/result.json",
+      "sha256": "7a3c5d9d0d535b3b5c9b78bdbeef0e2fb1f90589dad998196eb2816c4a37eed7",
+      "size_bytes": 1735,
+      "shell": "PS766",
+      "phase": "final_after_builtin_security_import",
+      "outer_native_exit": 0,
+      "record": {
+        "schema_version": 1,
+        "scope": "Existing Setup and Support Pester tests under actual supplied runtime15; mocked policy cases stay controlled",
+        "reproduce_old_minor_assertion": false,
+        "started_utc": "2026-10-12T16:54:13.6270442Z",
+        "finished_utc": "2026-10-12T16:56:46.7436311Z",
+        "source_path_sha256": {
+          "tests/powershell/Setup.Tests.ps1": "895ea13870d0a85d01f1f6749a0d65de74e33a27a9604dd7d15d13e403452f7d",
+          "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b"
+        },
+        "source_files_unchanged": true,
+        "host": {
+          "edition": "Core",
+          "policies": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ],
+          "powershell": "7.6.6"
+        },
+        "tools": {
+          "analyzer": "1.25.0",
+          "pester": "6.2.0"
+        },
+        "static": [
+          {
+            "parse_errors": [],
+            "path": "tests/powershell/Setup.Tests.ps1",
+            "findings": []
+          },
+          {
+            "parse_errors": [],
+            "path": "tests/powershell/Support.Tests.ps1",
+            "findings": []
+          },
+          {
+            "parse_errors": [],
+            "path": "Setup-WinBookSplit.ps1",
+            "findings": []
+          }
+        ],
+        "pester": {
+          "passed": 40,
+          "container_errors": [],
+          "failed_containers": 0,
+          "failed": 0,
+          "failures": [],
+          "total": 40,
+          "skipped": 0,
+          "result": "Passed",
+          "not_run": 0
+        }
+      }
+    }
+  ],
+  "actual_entered_frontend_failure_receipts": [
+    {
+      "shell": "PS51",
+      "private_receipt_name": "task07-setup-ps51-a/setup-frontend-import-failure-c73c344adf0c40218c1973df7a753013.json",
+      "sha256": "da5a7e813f8a2c67e8ae3f1339a0ec3af82db00e09b92ae3dd201ae5284a48a9",
+      "size_bytes": 7781,
+      "scope": "Actual owned frontend missing-helper failure after script entry; not a policy block.",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "executable_status": "observed",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "Undefined"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      },
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "shell": "PS766",
+      "private_receipt_name": "task07-setup-ps766-a/setup-frontend-import-failure-75b59e4522a94054936847b17d961bf6.json",
+      "sha256": "d6437ab11ee2baee7983f03a78bf2e9092b1575d758965221c1e9baf8df0bd7b",
+      "size_bytes": 5503,
+      "scope": "Actual owned frontend missing-helper failure after script entry; not a policy block.",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "<DEV101>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "executable_status": "observed",
+        "version": "7.6.6",
+        "edition": "Core",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      },
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "private_receipt_name": "task07-setup-ps51-b/setup-frontend-import-failure-7382f268e7d342b7b14fdae81aa1b4be.json",
+      "sha256": "20b535b73a2848ad78a23d4ab24a01613fc242588ffa61d6738be72d15feced7",
+      "size_bytes": 7782,
+      "shell": "PS51",
+      "phase": "final_after_builtin_security_import",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "executable_status": "observed",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "Undefined"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      }
+    },
+    {
+      "private_receipt_name": "task07-setup-ps766-b/setup-frontend-import-failure-ce9c199ef64c4256923e2533396237e7.json",
+      "sha256": "0e2526eb60def9ff5235319b31ed08e0e4c886ae84d8b0dd75130f3f5cba8382",
+      "size_bytes": 5504,
+      "shell": "PS766",
+      "phase": "final_after_builtin_security_import",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "<DEV101>\\runtimes\\powershell-7.6.6-win-x64\\pwsh.exe",
+        "executable_status": "observed",
+        "version": "7.6.6",
+        "edition": "Core",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "RemoteSigned"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      }
+    }
+  ],
+  "actual_offline_setup_receipts": [
+    {
+      "shell": "PS51",
+      "private_receipt_name": "task07-setup-ps51-a/setup-offline-create-7ce09bf692f243969b5a4c9fc6ed17d7.json",
+      "sha256": "787bab5fe643b46a943fde85a96a5ff95083669e2dd49c6142ab9d351bfc408f",
+      "size_bytes": 25832,
+      "selected_version": "3.15.0",
+      "pypdf_version": "6.20.0",
+      "code": "setup_complete",
+      "exit_code": 0,
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "shell": "PS766",
+      "private_receipt_name": "task07-setup-ps766-a/setup-offline-create-0c6d573510524812bb6d0bca692f7d18.json",
+      "sha256": "5aabdb8b1e9f92822d803ab37ee3360c192579612f03e4f1d71525d8ee14d78a",
+      "size_bytes": 16701,
+      "selected_version": "3.15.0",
+      "pypdf_version": "6.20.0",
+      "code": "setup_complete",
+      "exit_code": 0,
+      "phase": "initial_before_builtin_security_import"
+    },
+    {
+      "private_receipt_name": "task07-setup-ps51-b/setup-offline-create-66f0d52c58084825b93a7caf1bfb4adf.json",
+      "sha256": "1f07129ae54efa48190e49fe369954da4608fd219fb8711d9248eefb522f1650",
+      "size_bytes": 25813,
+      "shell": "PS51",
+      "phase": "final_after_builtin_security_import",
+      "selected_version": "3.15.0",
+      "pypdf_version": "6.20.0",
+      "code": "setup_complete",
+      "exit_code": 0
+    },
+    {
+      "private_receipt_name": "task07-setup-ps766-b/setup-offline-create-ed67f62bf49a47959dc035f0da9e0014.json",
+      "sha256": "b39f90f2d6273e4a57cc94bb1bbe278188227653787b05099ab76fa3fc4aa92c",
+      "size_bytes": 16700,
+      "shell": "PS766",
+      "phase": "final_after_builtin_security_import",
+      "selected_version": "3.15.0",
+      "pypdf_version": "6.20.0",
+      "code": "setup_complete",
+      "exit_code": 0
+    }
+  ],
+  "simulations": [
+    "Get-ExecutionPolicy query throws: unavailable local observation without guessed or partial values.",
+    "Synthetic MachinePolicy AllSigned/effective AllSigned with Process Bypass: separate fields, no Set-ExecutionPolicy call. This is not native GPO enforcement evidence."
+  ],
+  "review": "Initial source/evidence and corrected builtin import/actual parent-module-path guard independently reviewed without blocking findings; public checkout-alias miss corrected.",
+  "structure_validation": {
+    "command": "<DEV101>/dev14/Scripts/python.exe -I -B tools/codex-v1.0.2/validate_plan.py --plan docs/codex-v1.0.2",
+    "result": "STRUCTURE_VALID",
+    "exit_code": 0
+  },
+  "whitespace_check": {
+    "command": "git -c core.whitespace=blank-at-eol,blank-at-eof,space-before-tab,cr-at-eol diff --check",
+    "exit_code": 0,
+    "persisted_setting_change": false
+  },
+  "incidental_command_failure": {
+    "command": "git rev-parse HEAD^{tree}",
+    "result": "Unquoted PowerShell scriptblock argument was not passed as the intended tree revision; no source mutation.",
+    "corrected_command": "git rev-parse 'HEAD^{tree}'",
+    "corrected_exit_code": 0
+  },
+  "native_marked_routes": "Separate maintained native evidence; not inferred from focused unit tests.",
+  "windows10_final_zip": "NOT_RUN",
+  "windows11_final_zip": "NOT_RUN",
+  "publication": "NOT_RUN",
+  "initial_source_path_sha256": {
+    "Setup-WinBookSplit.ps1": "7cd4059cf3f89654b981fb43b083ba09677dd15f56c96acea2528de9e62e47e8",
+    "tests/powershell/Setup.Tests.ps1": "a9f7a9c07db4d4cf07da8f21d88377ee03f152d5518f1209c736e6a0701d6e82",
+    "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b",
+    "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+    "engine/WinBookSplit.Setup.ps1": "bfc612b6109380d98e8472b1f66df0ab1d15ae3e0b3e7795b121a34835f27bd1",
+    "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+  },
+  "initial_commands": [
+    "$env:PSModulePath='C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules;C:\\Program Files\\WindowsPowerShell\\Modules'; & 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/Invoke-Task07Setup.ps1' -RepositoryRoot '<REPO>' -ToolRoot '<DEV101>/shell-tools' -WorkRoot '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/task07-setup-ps51-a' -TestPython '<DEV102>/runtime15/Scripts/python.exe' -Wheelhouse '<DEV101>/setup-tests-05-01/wheelhouse'",
+    "$env:PSModulePath='<DEV101>\\runtimes\\powershell-7.6.6-win-x64\\Modules;C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\Modules'; & '<DEV101>/runtimes/powershell-7.6.6-win-x64/pwsh.exe' -NoProfile -ExecutionPolicy Bypass -File '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/Invoke-Task07Setup.ps1' -RepositoryRoot '<REPO>' -ToolRoot '<DEV101>/shell-tools' -WorkRoot '<DEV102>/upgrade-preparation-c8e13849a5c6495b95f3d768f327674f/task07-setup-ps766-a' -TestPython '<DEV102>/runtime15/Scripts/python.exe' -Wheelhouse '<DEV101>/setup-tests-05-01/wheelhouse'"
+  ],
+  "actual_parent_module_path_guard_receipts": [
+    {
+      "private_receipt_name": "task07-setup-ps51-b/setup-frontend-inbox-parent-module-path-95270daa1b9d413087de7804f440f638.json",
+      "sha256": "8203b2041d53fa2ef80b3655127fd81d70c4500bf17a8a329344aab2cf165368",
+      "size_bytes": 7834,
+      "shell": "PS51",
+      "phase": "final_after_builtin_security_import",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "executable_status": "observed",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "Undefined"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      },
+      "parent_version": "5.1.26100.9444"
+    },
+    {
+      "private_receipt_name": "task07-setup-ps766-b/setup-frontend-inbox-parent-module-path-66a024f0995e449e979a8c0872d2efc1.json",
+      "sha256": "d0b5ab2bb7ef18b03999eec28dd0ad60ba95d37fe95ec7803bd18e0fa87e507a",
+      "size_bytes": 5417,
+      "shell": "PS766",
+      "phase": "final_after_builtin_security_import",
+      "exit_code": 6,
+      "status": "failed",
+      "code": "setup_failed",
+      "changed": false,
+      "host": {
+        "executable": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "executable_status": "observed",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "execution_policy": {
+          "status": "observed",
+          "effective": "Bypass",
+          "scopes": [
+            {
+              "scope": "MachinePolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "UserPolicy",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "Process",
+              "policy": "Bypass"
+            },
+            {
+              "scope": "CurrentUser",
+              "policy": "Undefined"
+            },
+            {
+              "scope": "LocalMachine",
+              "policy": "Undefined"
+            }
+          ],
+          "reason_code": null
+        }
+      },
+      "transport": {
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      },
+      "parent_version": "7.6.6"
+    }
+  ],
+  "initial_native_availability_defect": {
+    "private_receipt_name": "T6-1fc2f1d5bbbc43f781e2967cdf87df04/native-result.json",
+    "sha256": "eb41ce58f99cf46acdd1627ed589274e25b07826807a797ef52735688295c9f6",
+    "size_bytes": 1050596,
+    "stage": {
+      "private_receipt_name": "PS766-marked-bat/fresh-process.json",
+      "sha256": "6643c6c9261a351fbaa82039592a7be771d1273344e97c4a1c28276348eb1411",
+      "size_bytes": 34957
+    },
+    "success": false,
+    "observed": {
+      "code": "setup_complete",
+      "exit_code": 0,
+      "selected_version": "3.15.0",
+      "host": {
+        "executable": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "executable_status": "observed",
+        "version": "5.1.26100.9444",
+        "edition": "Desktop",
+        "execution_policy": {
+          "status": "unavailable",
+          "effective": null,
+          "scopes": [],
+          "reason_code": "query_failed"
+        }
+      }
+    },
+    "cause_boundary": "Original observer suppressed query exception; old cause not claimed recovered. Distinct fresh reproduction below."
+  },
+  "separate_cause_probes": [
+    {
+      "private_receipt_name": "task07-policy-cause.json",
+      "sha256": "ff155b77b17a524b3beb120d068be70342decdf543d9d7bf6168e783efa03140",
+      "size_bytes": 2251,
+      "scope": "Reduced direct PowerShell invocation did not reproduce unavailable; delivered module_path was empty. Expected-reproduction gate returned1.",
+      "record": {
+        "version": "5.1.26100.9444",
+        "module_path": "",
+        "before": {
+          "status": "observed",
+          "scopes": [
+            {
+              "Scope": 4,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 3,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 0,
+              "ExecutionPolicy": 4
+            },
+            {
+              "Scope": 1,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 2,
+              "ExecutionPolicy": 5
+            }
+          ]
+        },
+        "after": {
+          "status": "observed",
+          "scopes": [
+            {
+              "Scope": 4,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 3,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 0,
+              "ExecutionPolicy": 4
+            },
+            {
+              "Scope": 1,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 2,
+              "ExecutionPolicy": 5
+            }
+          ],
+          "effective": "Bypass"
+        }
+      },
+      "outer_native_exit": 1
+    },
+    {
+      "private_receipt_name": "task07-policy-cause-sdk-child.json",
+      "sha256": "216afc66cf55ebb317730bcdbddc390b1ddd0c72f09620f2ec081957f8524611",
+      "size_bytes": 1770,
+      "scope": "Fresh actual SDK-owned inbox child retained actual PS7 Modules and reproduced CouldNotAutoloadMatchingModule before explicit native import; after import observes policies. New reproduction, not old-state recovery.",
+      "record": {
+        "version": "5.1.26100.9444",
+        "module_path": "<DEV101>\\runtimes\\powershell-7.6.6-win-x64\\Modules",
+        "before": {
+          "status": "unavailable",
+          "error_id": "CouldNotAutoloadMatchingModule",
+          "message": "The 'Get-ExecutionPolicy' command was found in the module 'Microsoft.PowerShell.Security', but the module could not be loaded. For more information, run 'Import-Module Microsoft.PowerShell.Security'.",
+          "type": "System.Management.Automation.CommandNotFoundException"
+        },
+        "after": {
+          "status": "observed",
+          "scopes": [
+            {
+              "Scope": 4,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 3,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 0,
+              "ExecutionPolicy": 4
+            },
+            {
+              "Scope": 1,
+              "ExecutionPolicy": 5
+            },
+            {
+              "Scope": 2,
+              "ExecutionPolicy": 5
+            }
+          ],
+          "effective": "Bypass"
+        }
+      },
+      "outer_native_exit": 0
+    },
+    {
+      "private_receipt_name": "task07-policy-cause-sdk-parent.json",
+      "sha256": "19443ddc1026f0109f76e1e5f13f653126e263e602fa1b78a7619de868ed4a86",
+      "size_bytes": 1039,
+      "parent_version": "7.6.6",
+      "modules_restored": true,
+      "outer_native_exit": 0,
+      "transport": {
+        "ExitCode": 0,
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "TimedOut": false,
+        "Cancelled": false
+      }
+    }
+  ],
+  "cause_probe_harnesses": {
+    "Probe-Task07PolicyQuery.ps1": "c20e57a8cefbee261273335f59050e3b5139708704bfba0ef271a91da1c01afe",
+    "Invoke-Task07PolicyCause.ps1": "ef42f9895dadfdb4c1147b9d56732120f6a2004869b8f42ae4dd3e528e2f2297"
+  },
+  "cause_probe_command": "<PS7> -NoProfile -ExecutionPolicy Bypass -File <PREP>/Invoke-Task07PolicyCause.ps1 -RepositoryRoot <REPO> -WorkRoot <PREP>; SDK child uses actual inbox -NoProfile -ExecutionPolicy Bypass -File <PREP>/Probe-Task07PolicyQuery.ps1 -ReportPath <PREP>/task07-policy-cause-sdk-child.json",
+  "direct_cause_probe_command": "$env:PSModulePath='<DEV101>/runtimes/powershell-7.6.6-win-x64/Modules'; & 'C:/Windows/System32/WindowsPowerShell/v1.0/powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<PREP>/Probe-Task07PolicyQuery.ps1' -ReportPath '<PREP>/task07-policy-cause.json'",
+  "exact_diagnostic_copy_reference": {
+    "private_receipt_name": "task07-diagnostic-copy-d99368c201ed4d5690dd301b93a05495/diagnostic-result.json",
+    "sha256": "ca81574e2d891ded686256cb25923d7d617ff2b2301bce00c7f57929d12829d1",
+    "scope": "DIAGNOSTIC_COPY_NO_ACCEPTANCE: native_inventory replayed the original BAT chain with only the observer catch instrumented, preserving the original copy and restoring environment.",
+    "observed_exception_type": "System.Management.Automation.CommandNotFoundException",
+    "observed_error_id": "CouldNotAutoloadMatchingModule",
+    "observed_module_path": "Actual inbox5.1 module search path contained PS7 Modules before inbox Modules; no unobserved winning candidate is claimed.",
+    "native_acceptance_credit": false
+  }
+}

@@ -476,54 +476,90 @@
       "task": "V102-07",
       "title": "Verified Internet marks",
       "expected": "ADS ZoneId=3 is present on actual extracted .ps1/helper files before and after positive tests; unsupported filesystem setup cannot count as pass.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-038",
       "task": "V102-07",
       "title": "Negative control proves the incident",
       "expected": "Direct unsigned script invocation fails before setup under process RemoteSigned; failure and absent setup marker recorded.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-039",
       "task": "V102-07",
       "title": "New BAT works on marked files",
       "expected": "Actual setup BAT launches marked setup, creates usable 3.15 environment and permits PDF processing with no Unblock-File or persistent setting change.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-040",
       "task": "V102-07",
       "title": "Generated host remedy works",
       "expected": "Full suggested host action also succeeds from PS5.1/PS7 RemoteSigned parents with real marked setup helpers and preserved return codes.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-041",
       "task": "V102-07",
       "title": "Policies remain unchanged",
       "expected": "Parent Process and persistent/organization scope observations before/after match; only the owned child Process policy differs intentionally.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-042",
       "task": "V102-07",
       "title": "Organization denial not evaded",
       "expected": "Blocked/missing-script/host-failure paths retain meaningful nonzero errors; no alternative encoded/evaluated route circumvents enforced signing; mocks are labeled simulation.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-07-host.json",
+        "evidence/V102-07-host.md",
+        "evidence/V102-07-native.json",
+        "evidence/V102-07-native.md",
+        "evidence/V102-07-review.md"
+      ]
     },
     {
       "id": "V102-AC-043",

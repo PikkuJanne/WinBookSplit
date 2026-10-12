@@ -3,6 +3,12 @@ param([string]$RepositoryRoot, [string]$WorkRoot, [string]$TestPython, [string]$
 BeforeAll {
     . (Join-Path $RepositoryRoot 'engine\WinBookSplit.Diagnostics.ps1')
     . (Join-Path $RepositoryRoot 'engine\WinBookSplit.Setup.ps1')
+    $tokens=$null;$parseErrors=$null
+    $setupAst=[Management.Automation.Language.Parser]::ParseFile((Join-Path $RepositoryRoot 'Setup-WinBookSplit.ps1'),[ref]$tokens,[ref]$parseErrors)
+    if(@($parseErrors).Count -ne 0){throw 'The trusted setup frontend has syntax errors.'}
+    $hostFunctions=@($setupAst.FindAll({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -ceq 'Get-WinBookSplitSetupHostObservation'},$true))
+    if($hostFunctions.Count -ne 1){throw 'Expected one trusted setup host observation function.'}
+    . ([scriptblock]::Create($hostFunctions[0].Extent.Text))
     if (-not [IO.File]::Exists($TestPython)) { throw 'Setup tests require a concrete accepted TestPython.' }
     if (-not [IO.Directory]::Exists($Wheelhouse)) { throw 'Setup tests require an explicit reviewed Wheelhouse; set WBS_TEST_WHEELHOUSE.' }
     $script:setupPolicy=Get-WinBookSplitCompatibilityPolicy
@@ -67,6 +73,100 @@ BeforeAll {
         [IO.File]::WriteAllText($path,($Result | ConvertTo-Json -Depth 16),(New-Object Text.UTF8Encoding($false)))
     }
     $script:healthySetupApp=New-SetupApplication
+}
+
+Describe 'V102 local setup host and policy observations' -Tag 'V102-AC-041','V102-AC-042' {
+    It 'observes the actual current host and policy scopes without changing them' {
+        $before=@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}}) | ConvertTo-Json -Compress
+        $current=[Diagnostics.Process]::GetCurrentProcess()
+        try{$expectedPath=$current.MainModule.FileName}finally{$current.Dispose()}
+        $record=Get-WinBookSplitSetupHostObservation
+        $record.executable_status | Should -BeExactly 'observed'
+        $record.executable | Should -BeExactly $expectedPath
+        $record.version | Should -BeExactly $PSVersionTable.PSVersion.ToString()
+        $record.edition | Should -BeExactly $PSVersionTable.PSEdition
+        $record.execution_policy.status | Should -BeExactly 'observed'
+        $record.execution_policy.effective | Should -BeExactly (Get-ExecutionPolicy).ToString()
+        @($record.execution_policy.scopes).Count | Should -Be 5
+        foreach($scope in @('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')){
+            @($record.execution_policy.scopes | Where-Object {$_.scope -ceq $scope})[0].policy | Should -BeExactly (Get-ExecutionPolicy -Scope $scope).ToString()
+        }
+        (@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}}) | ConvertTo-Json -Compress) | Should -BeExactly $before
+    }
+    It 'reports a diagnostic query failure as unavailable with no partial or guessed scopes' {
+        # Controlled query failure only; this does not enforce or change policy.
+        Mock Get-ExecutionPolicy {throw 'SYNTHETIC inaccessible policy query'}
+        $record=Get-WinBookSplitSetupHostObservation
+        $record.execution_policy.status | Should -BeExactly 'unavailable'
+        $record.execution_policy.reason_code | Should -BeExactly 'query_failed'
+        $record.execution_policy.effective | Should -BeNullOrEmpty
+        @($record.execution_policy.scopes).Count | Should -Be 0
+        $record.executable_status | Should -BeExactly 'observed'
+    }
+    It 'keeps simulated organization effective signing distinct from child Process Bypass' {
+        # SYNTHETIC query records, not native Group Policy enforcement evidence.
+        Mock Get-ExecutionPolicy {
+            if($List){return @('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine') | ForEach-Object {
+                [pscustomobject]@{Scope=$_;ExecutionPolicy=$(if($_ -eq 'MachinePolicy'){'AllSigned'}elseif($_ -eq 'Process'){'Bypass'}else{'Undefined'})}
+            }}
+            return 'AllSigned'
+        }
+        Mock Set-ExecutionPolicy {throw 'A diagnostic must never change policy.'}
+        $record=Get-WinBookSplitSetupHostObservation
+        $record.execution_policy.status | Should -BeExactly 'observed'
+        $record.execution_policy.effective | Should -BeExactly 'AllSigned'
+        @($record.execution_policy.scopes | Where-Object {$_.scope -eq 'Process'})[0].policy | Should -BeExactly 'Bypass'
+        Should-Invoke Set-ExecutionPolicy -Times 0 -Exactly
+    }
+    It 'retains a real frontend import failure and nonzero exit with an actual local host receipt' {
+        $app=New-SetupApplication
+        Remove-Item -LiteralPath (Join-Path $app 'engine\WinBookSplit.Setup.ps1')
+        $before=Get-SetupSnapshot $app
+        $hostPath=(Get-WinBookSplitSetupHostObservation).executable
+        $probe=Invoke-WinBookSplitProcess -Path $hostPath -Arguments @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $app 'Setup-WinBookSplit.ps1'),'-NonInteractive','-Check') -WorkingDirectory $app -TimeoutSeconds 60
+        $probe.ExitCode | Should -Be 6
+        $probe.ParentStopped | Should -BeTrue
+        $probe.DescendantsStopped | Should -BeTrue
+        $probe.StreamsComplete | Should -BeTrue
+        $frames=@([regex]::Matches($probe.Stdout,'(?m)^\[SETUP\] ([^\r\n]+)'))
+        $frames.Count | Should -Be 1
+        $result=$frames[0].Groups[1].Value | ConvertFrom-Json
+        $result.status | Should -BeExactly 'failed'
+        $result.code | Should -BeExactly 'setup_failed'
+        $result.exit_code | Should -Be 6
+        $result.changed | Should -BeFalse
+        $result.host.executable | Should -BeExactly $hostPath
+        $result.host.version | Should -BeExactly $PSVersionTable.PSVersion.ToString()
+        $result.host.execution_policy.status | Should -BeExactly 'observed'
+        Get-SetupSnapshot $app | Should -BeExactly $before
+        Write-SetupObservation 'frontend-import-failure' ([pscustomobject]@{probe=$probe;result=$result})
+    }
+    It 'observes inbox child policy with the actual parent host module search path inherited' {
+        $app=New-SetupApplication
+        Remove-Item -LiteralPath (Join-Path $app 'engine\WinBookSplit.Setup.ps1')
+        $hostPath=Join-Path ([Environment]::GetFolderPath([Environment+SpecialFolder]::System)) 'WindowsPowerShell\v1.0\powershell.exe'
+        $previousModules=$env:PSModulePath
+        try {
+            # The PS7 run passes actual PS7 builtin modules to actual inbox5.1.
+            # This exercises module incompatibility, not simulated policy.
+            $env:PSModulePath=Join-Path $PSHOME 'Modules'
+            $probe=Invoke-WinBookSplitProcess -Path $hostPath -Arguments @('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $app 'Setup-WinBookSplit.ps1'),'-NonInteractive','-Check') -WorkingDirectory $app -TimeoutSeconds 60
+        } finally {$env:PSModulePath=$previousModules}
+        $probe.ExitCode | Should -Be 6
+        $probe.ParentStopped | Should -BeTrue
+        $probe.DescendantsStopped | Should -BeTrue
+        $probe.StreamsComplete | Should -BeTrue
+        $frames=@([regex]::Matches($probe.Stdout,'(?m)^\[SETUP\] ([^\r\n]+)'))
+        $frames.Count | Should -Be 1
+        $result=$frames[0].Groups[1].Value | ConvertFrom-Json
+        Write-SetupObservation 'frontend-inbox-parent-module-path' ([pscustomobject]@{probe=$probe;result=$result;parent_version=$PSVersionTable.PSVersion.ToString()})
+        $result.host.executable | Should -BeExactly $hostPath
+        $result.host.version | Should -Match '\A5\.1\.'
+        $result.host.execution_policy.status | Should -BeExactly 'observed'
+        $result.host.execution_policy.effective | Should -BeExactly 'Bypass'
+        @($result.host.execution_policy.scopes | Where-Object {$_.scope -eq 'Process'})[0].policy | Should -BeExactly 'Bypass'
+        $env:PSModulePath | Should -BeExactly $previousModules
+    }
 }
 
 Describe 'V101 explicit application-local setup with the real reviewed offline wheel' -Tag 'V101-AC-025','V101-AC-026','V101-AC-029','V101-AC-030','V101-AC-031' {

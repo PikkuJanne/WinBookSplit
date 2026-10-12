@@ -17,7 +17,9 @@ param(
     [Parameter(Mandatory=$true)][string]$StalePython,
     [Parameter(Mandatory=$true)][string]$PowerShell7,
     [Parameter(Mandatory=$true)][string]$AuthoredPdf,
-    [Parameter(Mandatory=$true)][string]$AuthoredPdfSha256
+    [Parameter(Mandatory=$true)][string]$AuthoredPdfSha256,
+    [switch]$IncludeSecurityControls,
+    [string]$Wheelhouse
 )
 $ErrorActionPreference='Stop'
 Set-StrictMode -Version Latest
@@ -33,6 +35,7 @@ Initialize-WinBookSplitLogTypes;Initialize-WinBookSplitSupport;Initialize-WinBoo
 . (Join-Path $RepositoryRoot 'tools\compatibility\Invoke-NativeAcceptance.ps1')
 foreach($path in @($RepositoryRoot,$WorkParent)){ $null=Get-NativeAcceptanceOrdinaryPath $path -Directory }
 foreach($path in @($Python315,$StalePython,$PowerShell7,$AuthoredPdf)){ $null=Get-NativeAcceptanceOrdinaryPath $path }
+if($IncludeSecurityControls){$null=Get-NativeAcceptanceOrdinaryPath $Wheelhouse -Directory}
 if((Get-NativeAcceptanceFileHash $SourceBinding 8388608).sha256-cne $SourceBindingSha256){throw 'Source binding hash differs.'}
 $binding=(Read-NativeAcceptanceJson $SourceBinding 8388608).value
 function Assert-RemedySourceBinding {
@@ -87,6 +90,22 @@ function Assert-RemedyInternetMarks {
             [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes((Get-Content -LiteralPath $row.path -Stream Zone.Identifier -Raw -Encoding ASCII -ErrorAction Stop)))-cne $row.ads_base64){throw 'Shipped bytes/Internet metadata changed.'}
     }
 }
+function Assert-RemedyActualChildHost {
+    param($Setup,[object[]]$InboxScopes,[string]$InboxHost)
+    if($null-eq $Setup.host -or -not [StringComparer]::OrdinalIgnoreCase.Equals($Setup.host.executable,$InboxHost) -or
+        $Setup.host.version-cnotmatch '\A5\.1\.[0-9]+\.[0-9]+\z' -or $Setup.host.edition-cne 'Desktop'){throw 'Actual setup child host differs.'}
+    $observed=$Setup.host.execution_policy
+    if($observed.status-cne 'observed' -or $observed.effective-cne 'Bypass' -or $null-ne $observed.reason_code -or
+        $observed.scopes.Count-ne 5){throw 'Actual setup child policies were not observed.'}
+    foreach($scope in @('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')){
+        $child=@($observed.scopes|Where-Object{$_.scope-ceq $scope})
+        $parent=@($InboxScopes|Where-Object{$_.scope-ceq $scope})
+        if($child.Count-ne 1 -or $parent.Count-ne 1){throw 'Observed policy scopes are not complete and unique.'}
+        if($scope-ceq 'Process'){
+            if($child[0].policy-cne 'Bypass'){throw 'Owned child Process policy differs.'}
+        }elseif($child[0].policy-cne $parent[0].policy){throw 'Persistent/organization child policy differs from the inbox policy baseline.'}
+    }
+}
 
 # One fixed parent adapter. Authored paths are JSON data. Only the exact captured
 # Action may become code, after a strict one-command literal AST check against
@@ -100,9 +119,17 @@ Import-Module ([IO.Path]::Combine($PSHOME,'Modules','Microsoft.PowerShell.Utilit
 [Console]::InputEncoding=New-Object Text.UTF8Encoding($false)
 $p=[IO.File]::ReadAllText($env:WBS_KIT_CONTROL_ROOT)|ConvertFrom-Json
 $savedPath=$env:PATH
+function Test-RemedyOrganizationLaunchAllowed {
+    param([object[]]$Scopes)
+    foreach($name in @('MachinePolicy','UserPolicy')){
+        $matches=@($Scopes|Where-Object{$_.scope-ceq $name})
+        if($matches.Count-ne 1 -or $matches[0].policy-cne 'Undefined'){return $false}
+    }
+    return $true
+}
 $before=@(Get-ExecutionPolicy -List|ForEach-Object{@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
 if(@($before|Where-Object{$_.scope-ceq 'Process' -and $_.policy-ceq 'RemoteSigned'}).Count-ne 1 -or
-   @($before|Where-Object{$_.scope-cin @('MachinePolicy','UserPolicy') -and $_.policy-cne 'Undefined'}).Count-ne 0){throw 'Native policy prerequisite unavailable; respect organization controls.'}
+   -not (Test-RemedyOrganizationLaunchAllowed $before)){throw 'Native policy prerequisite unavailable; respect organization controls.'}
 Write-Host ('[PARENT_POLICY_BEFORE] '+($before|ConvertTo-Json -Compress))
 Write-Host ('[PARENT_HOST] '+(@{path=[Diagnostics.Process]::GetCurrentProcess().MainModule.FileName;version=$PSVersionTable.PSVersion.ToString()}|ConvertTo-Json -Compress))
 $childExit=1
@@ -115,6 +142,20 @@ try{
             Write-Host ('[DIRECT_POLICY_DENIAL] '+(@{exception=$_.Exception.GetType().FullName;id=$_.FullyQualifiedErrorId;setup_entered=$false}|ConvertTo-Json -Compress))
             $childExit=1
         }
+    }elseif($p.mode-ceq 'organization-simulation'){
+        # This query result is an authored mock, never an observed native GPO.
+        # Refuse before launching any positive BAT/host recipe. The existing
+        # PowerShell host enforces real GPO before unsigned script entry.
+        $mock=@(@{scope='MachinePolicy';policy='AllSigned'},@{scope='UserPolicy';policy='Undefined'},
+            @{scope='Process';policy='RemoteSigned'},@{scope='CurrentUser';policy='Undefined'},@{scope='LocalMachine';policy='Undefined'})
+        if(-not (Test-RemedyOrganizationLaunchAllowed $mock)){
+            Write-Host ('[ORGANIZATION_POLICY_SIMULATION] '+(@{scope='MOCKED_POLICY_QUERY';policies=$mock;positive_launch_refused=$true;child_launch_count=0;alternate_retry_count=0}|ConvertTo-Json -Compress))
+            [Console]::Error.WriteLine('Simulated organization policy requires an approved signed route; no setup process was launched.')
+            $childExit=1
+        }else{throw 'Organization simulation unexpectedly allowed a positive launch.'}
+    }elseif($p.mode-ceq 'bat'){
+        & ([string]$p.bat_path) @([string[]]$p.setup_arguments)
+        $childExit=$LASTEXITCODE
     }elseif($p.mode-ceq 'action'){
         $tokens=$errors=$null
         $ast=[Management.Automation.Language.Parser]::ParseInput([string]$p.action,[ref]$tokens,[ref]$errors)
@@ -153,11 +194,14 @@ exit $childExit
 '@
 $system=[Environment]::GetFolderPath([Environment+SpecialFolder]::System)
 $inbox=[IO.Path]::Combine($system,'WindowsPowerShell','v1.0','powershell.exe')
+if($IncludeSecurityControls -and ($PSVersionTable.PSVersion.Major-ne 5 -or $PSVersionTable.PSVersion.Minor-ne 1 -or
+    -not [StringComparer]::OrdinalIgnoreCase.Equals([Diagnostics.Process]::GetCurrentProcess().MainModule.FileName,$inbox))){throw 'Policy controls require the actual inbox driver for its own policy-domain baseline.'}
+$inboxBaseline=@(Get-ExecutionPolicy -List|ForEach-Object{@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
 $work=New-NativeAcceptanceDirectory ([IO.Path]::Combine($WorkParent,'T6-'+[guid]::NewGuid().ToString('N')))
 $report=[ordered]@{protocol='winbooksplit.setup-remedy-roundtrip';schema_version=1;success=$false;
     scope='Actual owned-copy Windows native tests; source-bound, not final-ZIP or Explorer acceptance';
     started_utc=[datetime]::UtcNow.ToString('o');source_binding=$binding;cases=@();source_files_unchanged=$false;
-    os=Get-NativeAcceptanceOs -AllowWindows11DryRun}
+    os=Get-NativeAcceptanceOs -AllowWindows11DryRun;security_controls=@();include_security_controls=[bool]$IncludeSecurityControls}
 $members=@('VERSION','WinBookSplit.ps1','WinBookSplit.bat','Setup-WinBookSplit.ps1','Setup-WinBookSplit.bat','requirements.txt','Export-WinBookSplitDiagnostics.ps1')
 $members+=@(Get-ChildItem -LiteralPath (Join-Path $RepositoryRoot 'engine') -File|ForEach-Object{'engine\'+$_.Name})
 try{
@@ -233,6 +277,7 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
         }elseif($stage-ceq 'action'){
             $exact=Get-NativeAcceptanceFrame $run.probe.Stdout '[EXACT_ACTION] '
             $setup=Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] '
+            if($IncludeSecurityControls){Assert-RemedyActualChildHost $setup @($inboxBaseline) $inbox}
             if($exact.text-cne $route.emitted_action -or -not $exact.ast_literal_verified -or $run.probe.ExitCode-ne 0 -or
                 $setup.exit_code-ne 0 -or $setup.code-cne 'setup_complete' -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.20.0'){throw 'Exact emitted remedy did not create selected315 locked runtime.'}
             $route.setup=$setup
@@ -253,6 +298,133 @@ foreach($hostKind in @('PS51','PS766')){foreach($state in @('fresh','stale')){
     }
     $route.status='PASS'
 }}
+if($IncludeSecurityControls){
+    # These actual BAT paths stay inside CMD's representable domain. Paired
+    # percent is covered above by the full emitted host Action, never relabeled
+    # as an arbitrary BAT forwarding guarantee.
+    $driverBefore=$inboxBaseline
+    foreach($hostKind in @('PS51','PS766','CMD')){
+        Assert-RemedySourceBinding
+        $id=$hostKind+'-marked-bat';$case=New-NativeAcceptanceDirectory (Join-Path $work $id)
+        $appName='-'+[char]0xc5+[char]0x65e5+[char]0x672c+" [1] O'Brien & (marked app)!"
+        $app=New-NativeAcceptanceDirectory (Join-Path $case $appName)
+        $null=New-NativeAcceptanceDirectory (Join-Path $app 'engine');$hashes=@{}
+        foreach($name in $members){[IO.File]::Copy((Join-Path $RepositoryRoot $name),(Join-Path $app $name),$false);$hashes[$name]=(Get-NativeAcceptanceFileHash (Join-Path $app $name) 8388608).sha256}
+        $marks=@(Set-RemedyInternetMarks $app)
+        $inputPdf=Join-Path $case '-Authored input [1].pdf';[IO.File]::Copy($AuthoredPdf,$inputPdf,$false)
+        $output=New-NativeAcceptanceDirectory (Join-Path $case 'output')
+        $cwd=New-NativeAcceptanceDirectory (Join-Path $case 'unrelated-cwd')
+        $adapter=Join-Path $case 'parent.ps1';Write-RemedyFixtureText $adapter $parent
+        $payload=[ordered]@{mode='bat';host_path=$inbox;bat_path=(Join-Path $app 'Setup-WinBookSplit.bat');
+            setup_arguments=@();operation_arguments=@('-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $app 'WinBookSplit.ps1'),
+                '-InputFile',$inputPdf,'-OutputDirectory',$output,'-Mode','Manual','-StartPages','1,4,7','-NonInteractive','-NoPause');
+            discovery_path=([IO.Path]::GetDirectoryName($Python315)+';'+$system+';'+[IO.Path]::GetDirectoryName($inbox))}
+        $route=[ordered]@{id=$id;scope='ACTUAL_MARKED_APPLICATION_BAT';status='NOT_RUN';app=$app;source_members=$hashes;
+            internet_marks=$marks;steps=@();original_source_sha256=$AuthoredPdfSha256;parent_route=$hostKind}
+        $report.security_controls+=@($route)
+        foreach($stage in @('fresh','check','noop','zeroargs-redirected','broken-default','repair','pdf')){
+            Assert-RemedySourceBinding
+            if($stage-ceq 'broken-default'){
+                # Preserve the complete healthy test environment before creating
+                # an explicitly owned broken one. No recursive deletion occurs.
+                $oldSource=Get-NativeAcceptanceOrdinaryPath (Join-Path $app '.venv') -Directory
+                $oldDestination=[IO.Path]::GetFullPath((Join-Path $app '.venv-test-original'))
+                if([IO.Path]::GetDirectoryName($oldSource)-cne $app -or [IO.Path]::GetDirectoryName($oldDestination)-cne $app){throw 'Owned environment move target escaped the application.'}
+                [IO.Directory]::Move($oldSource,$oldDestination)
+                $broken=New-NativeAcceptanceDirectory (Join-Path $app '.venv')
+                $null=New-NativeAcceptanceDirectory (Join-Path $broken 'Scripts')
+                Write-RemedyFixtureText (Join-Path $broken 'owned-preserve.txt') 'Preserve this authored broken environment.'
+                $route.old_environment=Get-RemedyEnvironmentHashes $broken
+            }
+            $payload.mode=if($stage-ceq 'pdf'){'operation'}else{'bat'}
+            $argv=@();if($stage-cne 'zeroargs-redirected'){$argv=@('-NonInteractive','-PythonPath',$Python315,'-Wheelhouse',$Wheelhouse)}
+            if($stage-ceq 'check'){$argv+='-Check'};if($stage-ceq 'repair'){$argv+='-Repair'}
+            $payload.setup_arguments=$argv
+            $payloadPath=Join-Path $case ($stage+'-payload.json');Write-NativeAcceptanceJson $payloadPath $payload
+            $environment=@{WBS_KIT_CONTROL_ROOT=$payloadPath;WBS_KIT_BAT=$payload.bat_path;WBS_KIT_CONTROL_PYTHON=$Python315;WBS_KIT_INPUT1=$Wheelhouse}
+            if($hostKind-ceq 'CMD' -and $stage-cne 'pdf'){
+                $wrapper=Join-Path $case ($stage+'-invoke.cmd')
+                $text="@echo off`r`nsetlocal DisableDelayedExpansion`r`n"+'"%WBS_KIT_BAT%"'
+                if($stage-cne 'zeroargs-redirected'){$text+=' -NonInteractive -PythonPath "%WBS_KIT_CONTROL_PYTHON%" -Wheelhouse "%WBS_KIT_INPUT1%"'}
+                if($stage-ceq 'check'){$text+=' -Check'};if($stage-ceq 'repair'){$text+=' -Repair'}
+                Write-RemedyFixtureText $wrapper ($text+"`r`n")
+                $nativeHost=Join-Path $system 'cmd.exe';$arguments=@('/d','/v:off','/c',$wrapper)
+            }else{
+                $nativeHost=if($hostKind-ceq 'PS766'){$PowerShell7}else{$inbox}
+                $arguments=@('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',$adapter)
+            }
+            $actualCwd=if($stage-ceq 'check'){$system}else{$cwd}
+            $run=Invoke-NativeAcceptanceProcessCase $nativeHost @($arguments) $actualCwd 180 -Environment $environment
+            if($null-eq $run.probe){throw 'Marked BAT route failed before start.'}
+            $probePath=Join-Path $case ($stage+'-process.json');Write-NativeAcceptanceJson $probePath $run.probe
+            $route.steps+=@([ordered]@{stage=$stage;command=$run.command;cwd=$run.cwd;probe=$run.probe;environment_restored=$run.environment_before_after_restored})
+            Assert-NativeAcceptanceProcess $run.probe
+            if($run.failure -or -not $run.environment_before_after_restored){throw 'Marked BAT route transport failed.'}
+            $parentScopes=$driverBefore
+            if($hostKind-cne 'CMD' -or $stage-ceq 'pdf'){
+                $parentScopes=Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_POLICY_BEFORE] '
+                $after=Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_POLICY_AFTER] '
+                if(($parentScopes|ConvertTo-Json -Depth 5 -Compress)-cne ($after|ConvertTo-Json -Depth 5 -Compress) -or
+                    -not (Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_PATH_RESTORED] ').restored){throw 'Marked BAT parent policies/PATH changed.'}
+            }
+            Assert-RemedyInternetMarks $marks
+            foreach($name in $hashes.Keys){if((Get-NativeAcceptanceFileHash (Join-Path $app $name) 8388608).sha256-cne $hashes[$name]){throw 'Marked application bytes changed.'}}
+            if((Get-NativeAcceptanceFileHash $inputPdf 8388608).sha256-cne $AuthoredPdfSha256){throw 'Authored PDF changed.'}
+            if($stage-ceq 'pdf'){
+                $outcome=Get-NativeAcceptanceFrame $run.probe.Stdout '[OUTCOME] '
+                if($run.probe.ExitCode-ne 0 -or $outcome.exit_code-ne 0 -or $outcome.written_count-ne 3){throw 'PDF after marked BAT setup failed.'}
+                $oraclePath=Join-Path $case 'pdf-oracle.json'
+                $oracle=Invoke-NativeAcceptanceProcessCase (Join-Path $app '.venv\Scripts\python.exe') @('-I','-B',(Join-Path $RepositoryRoot 'tests\compatibility\validate_setup_remedy.py'),
+                    '--application-root',$app,'--input-file',$inputPdf,'--input-sha256',$AuthoredPdfSha256,'--output-base',$output,'--process-report',$probePath,'--output',$oraclePath) $case 60
+                if($null-eq $oracle.probe){throw 'Marked BAT PDF oracle failed before start.'}
+                Write-NativeAcceptanceJson (Join-Path $case 'pdf-oracle-process.json') $oracle.probe
+                Assert-NativeAcceptanceProcess $oracle.probe
+                if($oracle.failure -or $oracle.probe.ExitCode-ne 0){throw 'Reopened PDF after marked BAT setup failed.'}
+                $route.pdf_oracle=(Read-NativeAcceptanceJson $oraclePath 8388608).value
+                if(-not $route.pdf_oracle.success){throw 'Marked BAT PDF oracle did not pass.'}
+            }else{
+                $setup=Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] '
+                Assert-RemedyActualChildHost $setup @($inboxBaseline) $inbox
+                $route.steps[$route.steps.Count-1].setup=$setup
+                if($stage-ceq 'broken-default'){
+                    if($run.probe.ExitCode-ne 3 -or $setup.code-cne 'setup_repair_required'){throw 'Marked BAT silently replaced broken environment.'}
+                    Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $route.old_environment
+                }else{
+                    $expected=if($stage-cin @('fresh','repair')){'setup_complete'}else{'setup_ready'}
+                    if($run.probe.ExitCode-ne 0 -or $setup.exit_code-ne 0 -or $setup.code-cne $expected -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.20.0'){throw 'Marked BAT actual setup/Check/no-op/zeroargs/Repair differs.'}
+                    if($stage-ceq 'repair'){Assert-RemedyEnvironmentHashes $setup.backup_path $route.old_environment}
+                }
+            }
+        }
+        $route.status='PASS'
+    }
+    # Fixed safe policy-query simulation, with a native RS parent. It never
+    # changes a real scope/GPO and never starts an alternative setup host.
+    foreach($hostKind in @('PS51','PS766')){
+        $case=New-NativeAcceptanceDirectory (Join-Path $work ($hostKind+'-organization-simulation'))
+        $adapter=Join-Path $case 'parent.ps1';Write-RemedyFixtureText $adapter $parent
+        $payloadPath=Join-Path $case 'payload.json'
+        Write-NativeAcceptanceJson $payloadPath @{mode='organization-simulation';discovery_path=([IO.Path]::GetDirectoryName($Python315)+';'+$system)}
+        $nativeHost=if($hostKind-ceq 'PS51'){$inbox}else{$PowerShell7}
+        $run=Invoke-NativeAcceptanceProcessCase $nativeHost @('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',$adapter) $case 30 -Environment @{WBS_KIT_CONTROL_ROOT=$payloadPath}
+        if($null-eq $run.probe){throw 'Safe organization simulation failed before start.'}
+        Write-NativeAcceptanceJson (Join-Path $case 'simulation-process.json') $run.probe
+        Assert-NativeAcceptanceProcess $run.probe
+        $simulation=Get-NativeAcceptanceFrame $run.probe.Stdout '[ORGANIZATION_POLICY_SIMULATION] '
+        if($run.failure -or -not $run.environment_before_after_restored -or $run.probe.ExitCode-ne 1 -or
+            $simulation.scope-cne 'MOCKED_POLICY_QUERY' -or -not $simulation.positive_launch_refused -or
+            $simulation.child_launch_count-ne 0 -or $simulation.alternate_retry_count-ne 0 -or
+            $run.probe.Stdout.Contains('[SETUP] ') -or -not $run.probe.Stderr.Contains('Simulated organization policy')){throw 'Organization simulation incorrectly launched or hid denial.'}
+        $before=Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_POLICY_BEFORE] '
+        $after=Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_POLICY_AFTER] '
+        if(($before|ConvertTo-Json -Depth 5 -Compress)-cne ($after|ConvertTo-Json -Depth 5 -Compress) -or
+            -not (Get-NativeAcceptanceFrame $run.probe.Stdout '[PARENT_PATH_RESTORED] ').restored){throw 'Simulation changed actual parent settings.'}
+        $report.security_controls+=@([ordered]@{id=$hostKind+'-organization-simulation';scope='MOCKED_POLICY_QUERY native-parent simulation, not native GPO enforcement';status='PASS';simulation=$simulation;probe=$run.probe;command=$run.command;cwd=$run.cwd;environment_restored=$run.environment_before_after_restored})
+    }
+    $driverAfter=@(Get-ExecutionPolicy -List|ForEach-Object{@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
+    if(($driverBefore|ConvertTo-Json -Depth 5 -Compress)-cne ($driverAfter|ConvertTo-Json -Depth 5 -Compress)){throw 'Driver policies changed.'}
+    $report.driver_policies_before_after=[ordered]@{before=$driverBefore;after=$driverAfter}
+}
 Assert-RemedySourceBinding;$report.source_files_unchanged=$true;$report.success=$true
 }catch{$report.exception=$_.Exception.ToString();$report.script_stack=$_.ScriptStackTrace;Write-Error $_ -ErrorAction Continue}
 finally{$report.finished_utc=[datetime]::UtcNow.ToString('o');$path=Join-Path $work 'native-result.json';Write-NativeAcceptanceJson $path $report;Write-Output ('RECEIPT '+$path)}
