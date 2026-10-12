@@ -108,8 +108,23 @@ jobs:
           $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
           $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
           $CiShell = Join-Path $env:SystemRoot 'System32\WindowsPowerShell\v1.0\powershell.exe'
-          & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps51.json')
-          exit $LASTEXITCODE
+          $CiTemp = Join-Path $CiRoot 'shell-ps51-temp'
+          if (Test-Path -LiteralPath $CiTemp) { throw 'Owned shell temp directory already exists' }
+          $null = New-Item -ItemType Directory -Path $CiTemp
+          $CiPreviousTemp = $env:TEMP
+          $CiPreviousTmp = $env:TMP
+          $CiRunnerExit = $null
+          try {
+            $env:TEMP = $CiTemp
+            $env:TMP = $CiTemp
+            & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps51.json')
+            $CiRunnerExit = $LASTEXITCODE
+          } finally {
+            if ($null -eq $CiPreviousTemp) { Remove-Item Env:TEMP -ErrorAction SilentlyContinue } else { $env:TEMP = $CiPreviousTemp }
+            if ($null -eq $CiPreviousTmp) { Remove-Item Env:TMP -ErrorAction SilentlyContinue } else { $env:TMP = $CiPreviousTmp }
+          }
+          if ($null -eq $CiRunnerExit) { throw 'Shell runner produced no exit observation' }
+          exit $CiRunnerExit
 
       - name: PowerShell 7 syntax, scoped analysis and Pester
         if: ${{ !cancelled() && steps.dependencies.outcome == 'success' && steps.modules.outcome == 'success' }}
@@ -117,8 +132,23 @@ jobs:
           $CiRoot = Join-Path $env:RUNNER_TEMP 'WinBookSplit-ci'
           $CiPython = Join-Path $CiRoot 'venv\Scripts\python.exe'
           $CiShell = (Get-Command pwsh -CommandType Application -ErrorAction Stop).Source
-          & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps7.json')
-          exit $LASTEXITCODE
+          $CiTemp = Join-Path $CiRoot 'shell-ps7-temp'
+          if (Test-Path -LiteralPath $CiTemp) { throw 'Owned shell temp directory already exists' }
+          $null = New-Item -ItemType Directory -Path $CiTemp
+          $CiPreviousTemp = $env:TEMP
+          $CiPreviousTmp = $env:TMP
+          $CiRunnerExit = $null
+          try {
+            $env:TEMP = $CiTemp
+            $env:TMP = $CiTemp
+            & $CiPython -I -B tests/run_tests.py --layer shell --shell-path $CiShell --tool-root (Join-Path $CiRoot 'tools') --report (Join-Path $CiRoot 'reports\shell-ps7.json')
+            $CiRunnerExit = $LASTEXITCODE
+          } finally {
+            if ($null -eq $CiPreviousTemp) { Remove-Item Env:TEMP -ErrorAction SilentlyContinue } else { $env:TEMP = $CiPreviousTemp }
+            if ($null -eq $CiPreviousTmp) { Remove-Item Env:TMP -ErrorAction SilentlyContinue } else { $env:TMP = $CiPreviousTmp }
+          }
+          if ($null -eq $CiRunnerExit) { throw 'Shell runner produced no exit observation' }
+          exit $CiRunnerExit
 
       - name: Require all source-bound reference reports
         if: ${{ !cancelled() }}

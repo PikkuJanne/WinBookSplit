@@ -276,7 +276,7 @@
       "id": "V102-10",
       "title": "Review, full regression, freeze source and build candidate",
       "milestone": "M4",
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "depends_on": [
         "V102-09"
       ],
@@ -295,7 +295,18 @@
         "V102-AC-059",
         "V102-AC-060"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-ci-failed.json",
+        "evidence/V102-10-ci-failed.md",
+        "evidence/V102-10-ci-temp-checkpoint.json",
+        "evidence/V102-10-ci-temp-checkpoint.md",
+        "evidence/V102-10-control-review.json",
+        "evidence/V102-10-control-review.md",
+        "evidence/V102-10-full-source.json",
+        "evidence/V102-10-full-source.md",
+        "evidence/V102-10-security-review.json",
+        "evidence/V102-10-security-review.md"
+      ]
     },
     {
       "id": "V102-11",

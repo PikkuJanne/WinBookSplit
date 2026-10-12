@@ -839,9 +839,14 @@
       "task": "V102-10",
       "title": "Final source regression and CI",
       "expected": "Required actual tests and CI pass on reviewed R; no failures/skips hidden; diagnostics/action/MOTW cases present in evidence.",
-      "status": "NOT_RUN",
+      "status": "FAIL",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-ci-failed.json",
+        "evidence/V102-10-full-source.json",
+        "evidence/V102-10-ci-temp-checkpoint.json",
+        "evidence/V102-10-control-review.json"
+      ]
     },
     {
       "id": "V102-AC-057",

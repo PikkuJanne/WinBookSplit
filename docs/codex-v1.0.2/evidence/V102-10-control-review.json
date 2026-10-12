@@ -1,0 +1,95 @@
+{
+  "schema_version": 1,
+  "task": "V102-10",
+  "scope": "Independent review of one controlled diagnostic candidate on Windows Server; no requiredCI or client/nativefinalZIP acceptance",
+  "observed_at_utc": "2026-10-12T21:56:13.877698+00:00",
+  "actual_control_result": "PASS_DIAGNOSTIC_ONLY",
+  "application_source_commit": "001669a051077536864b3f787ca0ec111fe06013",
+  "application_source_digest": "a80aa2f1b08d97d9e13fff39f2b08b079d40977120efe72df32a86f2cd7c50c6",
+  "orchestration_commit": "9c2bc69adf8993fb85c74e592ae65fd0a1080560",
+  "run_id": 38311565188,
+  "attempt": 1,
+  "run_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38311565188",
+  "raw_inspection_sha256": "8091da49b75212d8c48d47afdb701436e2f3c08a94439cc6ccbf91815122fcc7",
+  "independent_private_review_sha256": "e81eb554e77c178c9e6e6271e803be4a02d155943e8b4d00890cd92f3328a187",
+  "artifact": {
+    "id": 11775447350,
+    "bytes": 192671,
+    "sha256": "304157dcb72fd583d1c50ea5b439cc2b717613671721875dbe60465cc26f5a09"
+  },
+  "all7_archive_member_and_current_raw_hashes_match": true,
+  "all207_application_source_hashes_equal_original_R_Git_blobs": true,
+  "actual_python_predecessor": {
+    "tests": 670,
+    "seconds": 377.493,
+    "actual_result": "PASS"
+  },
+  "actual_inbox_host": {
+    "version": "5.1.26100.33438",
+    "edition": "Desktop",
+    "clr": "4.0.30319.42000",
+    "execution_policy": [
+      {
+        "policy": "Undefined",
+        "scope": "MachinePolicy"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "UserPolicy"
+      },
+      {
+        "policy": "RemoteSigned",
+        "scope": "Process"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "CurrentUser"
+      },
+      {
+        "policy": "Unrestricted",
+        "scope": "LocalMachine"
+      }
+    ]
+  },
+  "actual_server_OS": {
+    "schema_version": 1,
+    "source_commit": "001669a051077536864b3f787ca0ec111fe06013",
+    "caption": "Microsoft Windows Server 2025 Datacenter",
+    "version": "10.0.26100",
+    "build": "26100",
+    "architecture": "64-bit",
+    "product_type": 3,
+    "process_bits": 64,
+    "powershell": "7.6.6",
+    "clr": "10.0.12",
+    "image_os": "win25-vs2026",
+    "image_version": "20260925.250.1",
+    "run_id": "38311565188",
+    "run_attempt": "1"
+  },
+  "actual_native_exit": 0,
+  "timed_out": false,
+  "pester": {
+    "total": 204,
+    "failed_cases": [],
+    "not_run": 0,
+    "failed_containers": 0,
+    "passed": 204,
+    "skipped": 0,
+    "failed_blocks": [],
+    "failed": 0,
+    "result": "Passed",
+    "failed_container_errors": []
+  },
+  "syntax_files": 28,
+  "scoped_analysis_files": 27,
+  "tool_files_before_after_unchanged": 74,
+  "parent_environment_and_two_binary_hashes_preserved": true,
+  "control": "Original670 predecessor, originalb443 coordinator/OutputNone, same204assertions/rules/nativeargv,300second bound and original lockedwheel on-demand download. Candidate processTEMP/TMP move only to fresh ownedRUNNER_TEMP root, restored after launch.",
+  "native_environment_scope": "Child settings are source-derived; actual reported workparent/nativecwd/exactargv corroborate placement. No direct native environment snapshot.",
+  "original_CI_attempts1_and2": "FAIL preserved: inbox300s timeouts/runner124/nativeexit unavailable/no childreport; no failed Pester assertion observed.",
+  "diagnostic_inspector_history": "First reviewed inspector refused GitHub flat7member layout before extraction. OriginalZIP304157.../192671 preserved; corrected exact-flat inspector reused equal bytes without source/test rerun.",
+  "causal_limit": "One controlled candidate succeeded. The original stalledphase/cause and general reliability remain unestablished; normal requiredCI on newly committed candidateR2 is required.",
+  "full_source_scope": "Completed23stage/21raw-child fullsource regression is bound to originalR1, with independent workflow-only delta review; it is not relabeled to a new source commit.",
+  "final_Z_or_native_Windows10_or_public_release_claimed": false
+}
