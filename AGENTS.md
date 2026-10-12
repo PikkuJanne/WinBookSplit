@@ -1,34 +1,37 @@
 # WinBookSplit working agreement
 
-## Active v1.0.1 compatibility patch
+## Active v1.0.2 compatibility and setup repair
 
-Implement and publicly publish WinBookSplit v1.0.1 under the owner's 11 October
-2026 authorization. Read `docs/codex-v1.0.1/SCOPE.md`, `STATUS.md`,
+Implement and publicly publish WinBookSplit v1.0.2 under the owner's 12 October
+2026 authorization. Read `docs/codex-v1.0.2/SCOPE.md`, `STATUS.md`,
 `NEXT_SESSION.md`, `TASKS.json`, and the selected task and specifications first.
-This scope supersedes historical v1.0.0-only routing, Windows-11-only scope,
-exact Python-patch acceptance, old milestone gates, and repeated owner-test
-programmes. Use `docs/codex-v1.0.1/HUMAN_TESTING.md` for minimal-human native
-acceptance and `docs/codex-v1.0.1/RELEASE_RUNBOOK.md` through public v1.0.1
+Implement tested regular x64 Python 3.15.0 and later stable 3.15 patches,
+reliable setup BAT/generated remedies, and truthful selected-runtime diagnostics.
+Retain serviced 3.13/3.14 support and reviewed security floors. This scope
+supersedes active v1.0.0/v1.0.1 routing, Windows-11-only scope, exact Python-patch
+acceptance, old milestone gates, and repeated owner-test programmes.
+Use `docs/codex-v1.0.2/HUMAN_TESTING.md` for minimal-human native
+acceptance and `docs/codex-v1.0.2/RELEASE_RUNBOOK.md` through public v1.0.2
 publication, anonymous byte verification, and synchronized final main.
 
 Preserve all file safety, dependency-origin, process, privacy, truthful-evidence,
-and Git protection rules below. Historical v1.0.0 reports remain unchanged;
-its published tag and assets are immutable. Scoped isolated per-user dependency
+and Git protection rules below. Historical v1.0.0/v1.0.1 reports remain unchanged;
+their published tags and assets are immutable. Scoped isolated per-user dependency
 setup, ordinary commits/pushes, PRs, passing reviewed merges, and this exact
-v1.0.1 release are authorized. No force push, settings/visibility change,
+v1.0.2 release are authorized. No force push, settings/visibility change,
 spending, or other release version is authorized. Missing native Windows 10
 evidence remains NOT_RUN/BLOCKED; complete independent work and prepare one
 consolidated command/report kit when authorized native access is unavailable.
 
 ## Scope
 
-Incrementally improve this existing local Windows PDF/ebook splitter through the authorized GitHub `v1.0.1` compatibility patch. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Extracting existing Python into a shipped file is allowed; replacing the application/engine with a new framework is not.
+Incrementally improve this existing local Windows PDF/ebook splitter through the authorized GitHub `v1.0.2` repair. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, `Setup-WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Reuse shared policy, discovery, setup, engine and native tools; replacing the application/engine with a new framework is not allowed.
 
 No website, service, uploads, telemetry, native ebook output, OCR/AI chapter inference, DRM removal, installer, updater, or interim public release. No paid/signing prerequisite. Never process private textbooks/documents in CI or commit them.
 
 ## Start each thread
 
-Read `docs/codex-v1.0.0/STATUS.md`, `NEXT_SESSION.md`, `TASKS.json`, `SCOPE_AND_DECISIONS.md`, then the selected task and its specs. Inspect actual Git/origin/branch/worktree and live remote before changing anything. The recorded baseline is evidence, not a reset target. Preserve unrelated edits and existing instructions.
+Read `docs/codex-v1.0.2/SCOPE.md`, `STATUS.md`, `NEXT_SESSION.md`, `TASKS.json`, then the selected task and its specs. Inspect root/nested instructions, actual Git/origin/branch/worktree and live remote before changing anything. The recorded baseline is evidence, not a reset target. Preserve unrelated edits and the user's source-ZIP installations. Prior reports in `docs/codex-v1.0.0/` and `docs/codex-v1.0.1/` are immutable historical evidence, not active routing.
 
 ## Implementation and correctness
 
@@ -44,9 +47,9 @@ Update task/evidence/status/next-session files; stage intended paths only; commi
 
 ## Authority and completion
 
-The user delegated ordinary scoped commits, pushes, PRs, merges of passing reviewed work, and final v1.0.0 publication. Respect environment approvals and existing protection; never bypass them. Destructive Git operations, settings/visibility changes, spending, new release versions, or scope expansion require separate authority.
+The user delegated ordinary scoped commits, pushes, PRs, merges of passing reviewed work, isolated per-user dependency setup, and final v1.0.2 publication. Respect environment approvals and existing protection; never bypass them. Destructive Git operations, settings/visibility changes, spending, other release versions, or scope expansion require separate authority.
 
-A tag or draft is not completion. Follow `docs/codex-v1.0.1/RELEASE_RUNBOOK.md`: tested commit and package, real Windows 10/11 and Calibre checks, public non-draft/non-prerelease v1.0.1, anonymously downloaded matching assets, fixed tag, and synchronized final main. Signing is optional and unsigned status must be disclosed.
+A tag or draft is not completion. Follow `docs/codex-v1.0.2/RELEASE_RUNBOOK.md`: tested commit and frozen package, real Windows 10/11 with Python 3.15, Calibre checks, automated BAT/remedy and RemoteSigned/MOTW acceptance, public non-draft/non-prerelease v1.0.2, anonymously downloaded matching assets, fixed tag, preserved old releases, and synchronized final main. Signing is optional and unsigned status must be disclosed. Missing native evidence remains NOT_RUN/BLOCKED; complete independent work and provide one validated consolidated command/report kit.
 
 ## Code review rules
 

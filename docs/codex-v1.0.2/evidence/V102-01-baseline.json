@@ -1,0 +1,158 @@
+{
+  "schema_version": 1,
+  "task": "V102-01",
+  "source_commit": "8fd38e27925985b86d60ddf0950e15da41189ed6",
+  "source_tree": "4e21f710e99a46f7339e91a4b6b9851b9f6e7417",
+  "helper_runtime": "3.14.7 (tags/v3.14.7:823f032, Aug  5 2026, 10:51:32) [MSC v.1944 64 bit (AMD64)]",
+  "host": "{\"Caption\":\"Microsoft Windows 11 Pro\",\"Version\":\"10.0.26300\",\"BuildNumber\":\"26300\",\"OSArchitecture\":\"64-bit\"}",
+  "synthetic_315_policy_result": {
+    "ok": false,
+    "reason": "unsupported_python",
+    "message": "Python 3.15.0: This Python minor branch is outside the reviewed compatibility policy."
+  },
+  "synthetic_315_pdf_execution": false,
+  "negative_remote_signed": {
+    "exit_code": 1,
+    "stdout": "{\"scopes\":[{\"policy\":\"Undefined\",\"scope\":\"MachinePolicy\"},{\"policy\":\"Undefined\",\"scope\":\"UserPolicy\"},{\"policy\":\"RemoteSigned\",\"scope\":\"Process\"},{\"policy\":\"Undefined\",\"scope\":\"CurrentUser\"},{\"policy\":\"Undefined\",\"scope\":\"LocalMachine\"}],\"effective\":\"RemoteSigned\"}\n",
+    "stderr": "& : File <owned-test-directory>\\Setup-WinBookSplit.ps1 cannot be \nloaded. The file <owned-test-directory>\\Setup-WinBookSplit.ps1 \nis not digitally signed. You cannot run this script on the current system. For more information about running scripts \nand setting execution policy, see about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.\nAt line:1 char:209\n+ ... Compress; & 'D:\\projects\\WinBookSplit-v102-handoff-20261012\\baseline- ...\n+                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n    + CategoryInfo          : SecurityError: (:) [], PSSecurityException\n    + FullyQualifiedErrorId : UnauthorizedAccess\n"
+  },
+  "setup_marker_created": false,
+  "child_command": [
+    "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+    "-NoProfile",
+    "-NonInteractive",
+    "-ExecutionPolicy",
+    "RemoteSigned",
+    "-Command",
+    "@{effective=(Get-ExecutionPolicy).ToString();scopes=@(Get-ExecutionPolicy -List | ForEach-Object { @{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()} })} | ConvertTo-Json -Depth 4 -Compress; & '<owned-test-directory>\\Setup-WinBookSplit.ps1' -Check; if ($?) { exit 0 } else { exit 1 }"
+  ],
+  "child_policy": {
+    "scopes": [
+      {
+        "policy": "Undefined",
+        "scope": "MachinePolicy"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "UserPolicy"
+      },
+      {
+        "policy": "RemoteSigned",
+        "scope": "Process"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "CurrentUser"
+      },
+      {
+        "policy": "Undefined",
+        "scope": "LocalMachine"
+      }
+    ],
+    "effective": "RemoteSigned"
+  },
+  "owned_script_hash": "1ce2c3bb5f7cc23360c5d425e473befe08bdae1b4813b8309a9736b7b8efc604",
+  "owned_script_note": "Copy of shipped setup with entry marker before Set-StrictMode; Internet ZoneId=3 retained. Body never executed.",
+  "policy_before": [
+    {
+      "policy": "Undefined",
+      "scope": "MachinePolicy"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "UserPolicy"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "Process"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "CurrentUser"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "LocalMachine"
+    }
+  ],
+  "policy_after": [
+    {
+      "policy": "Undefined",
+      "scope": "MachinePolicy"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "UserPolicy"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "Process"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "CurrentUser"
+    },
+    {
+      "policy": "Undefined",
+      "scope": "LocalMachine"
+    }
+  ],
+  "persistent_policy_unchanged": true,
+  "releases": [
+    {
+      "id": 410596171,
+      "tag_name": "v1.0.1",
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-10-12T12:52:30Z",
+      "assets": [
+        {
+          "id": 633779501,
+          "name": "release-manifest.json",
+          "size": 15816,
+          "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+        },
+        {
+          "id": 633779495,
+          "name": "SHA256SUMS.txt",
+          "size": 178,
+          "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+        },
+        {
+          "id": 633779492,
+          "name": "WinBookSplit-v1.0.1.zip",
+          "size": 885340,
+          "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+        }
+      ]
+    },
+    {
+      "id": 409510027,
+      "tag_name": "v1.0.0",
+      "draft": false,
+      "prerelease": false,
+      "published_at": "2026-10-11T08:02:26Z",
+      "assets": [
+        {
+          "id": 630123444,
+          "name": "release-manifest.json",
+          "size": 11547,
+          "digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+        },
+        {
+          "id": 630123442,
+          "name": "SHA256SUMS.txt",
+          "size": 178,
+          "digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b"
+        },
+        {
+          "id": 630123440,
+          "name": "WinBookSplit-v1.0.0.zip",
+          "size": 414497,
+          "digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+        }
+      ]
+    }
+  ],
+  "refs": "8fd38e27925985b86d60ddf0950e15da41189ed6\trefs/heads/main\n97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2\trefs/tags/v1.0.0\n73c90d10dc16b1c321737afbdfbe959d61a24573\trefs/tags/v1.0.0^{}\n113ab73991c9527caf983a8e9e5993a75b226c1a\trefs/tags/v1.0.1\n6f2c2e5d4d5fc484bcb1530474f09957e09775ef\trefs/tags/v1.0.1^{}\n"
+}

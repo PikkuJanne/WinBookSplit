@@ -1,0 +1,673 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.2",
+  "scope": "Required application/release cases. All delivered cases NOT_RUN; helper tests are separate.",
+  "cases": [
+    {
+      "id": "V102-AC-001",
+      "task": "V102-01",
+      "title": "Correct repository and live baseline",
+      "expected": "Actual clean or safely reconciled PikkuJanne/WinBookSplit checkout/branch/origin identified; no reset/stash/deletion of owner work.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-002",
+      "task": "V102-01",
+      "title": "Previous releases snapshot",
+      "expected": "Both v1.0.0/v1.0.1 peeled tag targets and public asset identity snapshots recorded; fresh observations distinguished from BASELINE.json.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-003",
+      "task": "V102-01",
+      "title": "3.15 current policy reproduction",
+      "expected": "Existing policy rejects regular stable 3.15.0 as unsupported minor; reproduction is recorded without claiming PDF execution occurred.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-004",
+      "task": "V102-01",
+      "title": "Unsigned setup negative reproduction",
+      "expected": "Owned Internet-marked setup script fails direct invocation in a process-only RemoteSigned context before a setup marker; actual policy recorded.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-005",
+      "task": "V102-01",
+      "title": "Active instructions consistent",
+      "expected": "Root/nested active routing, authority and completion point to v1.0.2; prior safety rules remain; no contradictory active old version gates.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-006",
+      "task": "V102-01",
+      "title": "Focused implementation/evidence map",
+      "expected": "Existing evaluator/setup/native/packaging integration points and minimal-human strategy identified; no new rewrite/test platform planned.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-AC-007",
+      "task": "V102-02",
+      "title": "Reviewed 3.15 policy entry",
+      "expected": "Regular stable 3.15.0 is accepted by the shipped shared evaluator with actual upstream review; an authentic new blocker is not silently converted into optional support.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-008",
+      "task": "V102-02",
+      "title": "Later stable patches",
+      "expected": "3.15.1 and synthetic 3.15.99 are numerically accepted; no exact 3.15.0 gate; fixture-only versions not claimed as installed/tested binaries.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-009",
+      "task": "V102-02",
+      "title": "Retained serviced branches",
+      "expected": "Existing 3.13.16/3.14.8 floors and later patches accepted; 3.14.2 remains appropriately below floor unless a documented reviewed change supersedes it.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-010",
+      "task": "V102-02",
+      "title": "Truthful unknown-minor reason",
+      "expected": "An unlisted minor is unsupported/not validated, not automatically insecure; prerelease/architecture/build checks stay distinct.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-011",
+      "task": "V102-02",
+      "title": "Strict shared policy integrity",
+      "expected": "Malformed/duplicate/inconsistent policy records, missing sources and identity mismatches are rejected; setup/preflight/docs/tests reference the same policy.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-012",
+      "task": "V102-02",
+      "title": "Future patch comparison and preference",
+      "expected": "Version comparisons handle multi-digit patches numerically; automatic preference favors accepted 3.15 over 3.14/3.13 without requiring runtime network lookup.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-013",
+      "task": "V102-03",
+      "title": "Real 3.15 interpreter evidence",
+      "expected": "Official regular GIL x64 CPython 3.15.0 actually executes tests; observed version/identity/path recorded, no fallback interpreter substituted.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-014",
+      "task": "V102-03",
+      "title": "Runtime-only package setup",
+      "expected": "3.15 creates application-local venv, installs the reviewed hash-locked pypdf and validates origin; no global packages or dev fixtures/renderers required.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-015",
+      "task": "V102-03",
+      "title": "PDF engine integration",
+      "expected": "Actual 3.15 manual/Level1/Level2 splitting and shared preview plan pass with correct coverage/page order and source immutability.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-016",
+      "task": "V102-03",
+      "title": "Document safety regression",
+      "expected": "Encrypted/unsupported-active-PDF rejection and existing reader guard tests pass under 3.15; no safeguard removed for compatibility.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-017",
+      "task": "V102-03",
+      "title": "Process and protocol integration",
+      "expected": "Real isolated 3.15 probes/process helpers drain streams, handle Unicode, cancellation/deadlines and meaningful outcomes without deadlock or false success.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-018",
+      "task": "V102-03",
+      "title": "Dev tooling separation",
+      "expected": "Missing cp315 developer wheels cannot masquerade as runtime incompatibility; any per-minor test tooling changes preserve verified dependency hashes and fixture provenance.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-019",
+      "task": "V102-04",
+      "title": "3.15-only automatic discovery",
+      "expected": "Without override/venv, trusted regular 3.15 is discovered and selected automatically; installation is never triggered during processing discovery.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-020",
+      "task": "V102-04",
+      "title": "Broken optional launcher fallback",
+      "expected": "A legacy/manager py listing failure like Unknown option -0 is recorded but a valid direct 3.15 candidate still succeeds.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-021",
+      "task": "V102-04",
+      "title": "Authoritative existing environment",
+      "expected": "Healthy accepted 3.13/3.14 venv remains selected despite PATH 3.15; identity/diagnostics name it accurately; setup is a no-change no-op.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-022",
+      "task": "V102-04",
+      "title": "Stale environment preserved",
+      "expected": "Rejected/broken .venv remains authoritative and is not deleted or silently bypassed; failure names the actual venv version and specific reason.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-023",
+      "task": "V102-04",
+      "title": "Explicit repair to 3.15",
+      "expected": "Valid 3.15 base plus Repair creates working new venv while retaining a unique old backup; rollback/error behavior is honest and non-destructive.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-024",
+      "task": "V102-04",
+      "title": "Trust and override preservation",
+      "expected": "Invalid explicit selection, shadow modules, unsafe aliases/CWD sources and untrusted package origin fail as before; no any-python fallback or auto-download.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-025",
+      "task": "V102-05",
+      "title": "Sibling script and trusted host",
+      "expected": "Setup BAT invokes sibling setup via trusted Windows PowerShell executable using NoProfile/process-only policy/File, independent of PATH/CWD.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-026",
+      "task": "V102-05",
+      "title": "Argument forwarding",
+      "expected": "NonInteractive, Check, Repair, PythonPath and Wheelhouse reach setup accurately with quoted paths; hostile punctuation cannot become another command.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-027",
+      "task": "V102-05",
+      "title": "Unattended and interactive behavior",
+      "expected": "Unattended setup never reads/pauses; interactive no-argument setup presents useful result without creating another installation path.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-028",
+      "task": "V102-05",
+      "title": "Exit fidelity",
+      "expected": "Child setup exit 0/3/6/130 and host launch/binding failures remain correct nonzero/zero outcomes through BAT; no last echo/pause masks them.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-029",
+      "task": "V102-05",
+      "title": "Unrelated directory and shell hosts",
+      "expected": "BAT works from System32/unrelated directory and PS5.1/PS7/CMD for supported path/argument cases; missing sibling/invalid options fail safely.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-030",
+      "task": "V102-05",
+      "title": "Policy/security boundaries",
+      "expected": "No global policy, ADS stripping, elevation, settings mutation or enterprise-control bypass; enforced organization denial remains a failure with retained native output.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-031",
+      "task": "V102-06",
+      "title": "No bare unsigned default remedy",
+      "expected": "All active generated setup remedies use BAT or a full policy-scoped host invocation; no bare direct unsigned ps1 Action remains.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-032",
+      "task": "V102-06",
+      "title": "Correct observed identity",
+      "expected": "Console and structured diagnostics identify actual selected interpreter/version/source even when python --version reports a different PATH interpreter.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-033",
+      "task": "V102-06",
+      "title": "Distinct actionable reasons",
+      "expected": "Security floor, unknown minor, prerelease/build/architecture, missing/wrong/origin-invalid pypdf and pre-script policy failure are not conflated.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-034",
+      "task": "V102-06",
+      "title": "Fresh setup remedy round-trip",
+      "expected": "Exact action emitted for 3.15-only missing-pypdf state executes from a RemoteSigned PowerShell parent with marked scripts, then the original split succeeds.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-035",
+      "task": "V102-06",
+      "title": "Repair remedy round-trip",
+      "expected": "Exact stale-venv repair action selects a valid discovered 3.15 base, preserves backup, and restores application readiness without manual file deletion.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-036",
+      "task": "V102-06",
+      "title": "Quoting and privacy",
+      "expected": "Generated actions preserve spaces/apostrophes/Unicode and shell semantics; local raw diagnostics stay private, redacted reports do not leak user paths or secrets.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-037",
+      "task": "V102-07",
+      "title": "Verified Internet marks",
+      "expected": "ADS ZoneId=3 is present on actual extracted .ps1/helper files before and after positive tests; unsupported filesystem setup cannot count as pass.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-038",
+      "task": "V102-07",
+      "title": "Negative control proves the incident",
+      "expected": "Direct unsigned script invocation fails before setup under process RemoteSigned; failure and absent setup marker recorded.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-039",
+      "task": "V102-07",
+      "title": "New BAT works on marked files",
+      "expected": "Actual setup BAT launches marked setup, creates usable 3.15 environment and permits PDF processing with no Unblock-File or persistent setting change.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-040",
+      "task": "V102-07",
+      "title": "Generated host remedy works",
+      "expected": "Full suggested host action also succeeds from PS5.1/PS7 RemoteSigned parents with real marked setup helpers and preserved return codes.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-041",
+      "task": "V102-07",
+      "title": "Policies remain unchanged",
+      "expected": "Parent Process and persistent/organization scope observations before/after match; only the owned child Process policy differs intentionally.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-042",
+      "task": "V102-07",
+      "title": "Organization denial not evaded",
+      "expected": "Blocked/missing-script/host-failure paths retain meaningful nonzero errors; no alternative encoded/evaluated route circumvents enforced signing; mocks are labeled simulation.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-043",
+      "task": "V102-08",
+      "title": "Required CI matrix",
+      "expected": "Actual 3.15.0 runs in required source CI alongside reviewed legacy branches; no continue-on-error/conditional skip converting absence into success.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-044",
+      "task": "V102-08",
+      "title": "Existing suite retained",
+      "expected": "Full applicable existing regression suite runs; old safety tests remain; changed behavior assertions are individually reviewed rather than removed.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-045",
+      "task": "V102-08",
+      "title": "Secure test pipeline",
+      "expected": "Verified action pins, bounded jobs, least privilege, isolated hashed dependencies and only authored/redacted artifacts; no personal documents or credentials uploaded.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-046",
+      "task": "V102-08",
+      "title": "Kit uses exact candidate and runtime",
+      "expected": "Existing native kit extended, records ZIP/member/hash identity and actual 3.15 executable; does not fake runtime selection or alter owner installation.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-047",
+      "task": "V102-08",
+      "title": "One consolidated owner action",
+      "expected": "When native10 access is unavailable, a self-contained validated command/report kit handles setup/tests/report collection without manual version matching or chapter checks.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-048",
+      "task": "V102-08",
+      "title": "Truthful kit/environment reports",
+      "expected": "OS caption/build distinguishes native Windows10/11 from Server CI; simulations, USER_LAUNCHED_AUTOMATED and missing checks remain explicitly labeled.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-049",
+      "task": "V102-09",
+      "title": "One current application version",
+      "expected": "VERSION, runtime banners, active docs/help/metadata and intended release names are 1.0.2; old historical reports/releases unchanged.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-050",
+      "task": "V102-09",
+      "title": "Consistent primary setup instructions",
+      "expected": "README/help/SETUP/errors/release draft all give tested BAT or process-host remedies; explained shell and repair paths agree.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-051",
+      "task": "V102-09",
+      "title": "Accurate support boundaries",
+      "expected": "3.15 and serviced 3.13/3.14 targets, same-branch numeric patches and unknown-minor distinctions documented without broad untested compatibility promises.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-052",
+      "task": "V102-09",
+      "title": "Complete release inventory",
+      "expected": "New Setup BAT and shared helper/policy files appear in allowlist, manifest, source hashes and tests; extracted package has everything needed.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-053",
+      "task": "V102-09",
+      "title": "Clean distribution and source distinction",
+      "expected": "Runtime ZIP excludes venv/dev dependencies/private logs/kit runtimes/handoff clutter; GitHub source ZIP is not presented as accepted release asset.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-054",
+      "task": "V102-09",
+      "title": "Honest limits and examples",
+      "expected": "Unsigned/policy and Windows10 servicing notices retained; actual quick-start/check/repair/offline examples exercised; no silent requirement to downgrade 3.15.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-055",
+      "task": "V102-10",
+      "title": "Reviewed bounded change",
+      "expected": "Review confirms incremental 3.15/setup/diagnostic fix, no protection weakening or unrelated rewrite; material findings resolved or blocking.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-056",
+      "task": "V102-10",
+      "title": "Final source regression and CI",
+      "expected": "Required actual tests and CI pass on reviewed R; no failures/skips hidden; diagnostics/action/MOTW cases present in evidence.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-057",
+      "task": "V102-10",
+      "title": "Source freeze and synchronization",
+      "expected": "Clean committed R is in intended reviewed branch/main history and freshly synchronized; unpublished v1.0.2 collision checked.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-058",
+      "task": "V102-10",
+      "title": "Exact assets built",
+      "expected": "Versioned ZIP, release-manifest.json and SHA256SUMS.txt built from R with reviewed tooling/dependencies; hashes/sizes recorded.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-059",
+      "task": "V102-10",
+      "title": "Independent package verification",
+      "expected": "Actual archive member names/bytes/version/new BAT/source/dependency data independently match source/manifest; no duplicate/traversal/private material.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-060",
+      "task": "V102-10",
+      "title": "Candidate identity stable",
+      "expected": "One frozen ZIP Z bound to R and native test kit; later runtime/package changes require updated evidence instead of hand-edited hashes.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-061",
+      "task": "V102-11",
+      "title": "Windows10 real 3.15 final ZIP",
+      "expected": "Native Windows10 22H2 x64/inbox PS5.1 executes candidate Z setup/selected-runtime/PDF suite using actual 3.15.0, not Server simulation.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-062",
+      "task": "V102-11",
+      "title": "Windows11 real 3.15 final ZIP",
+      "expected": "Native Windows11 x64/inbox PS5.1 runs same Z with real 3.15.0 and targeted setup/PDF/MOTW checks.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-063",
+      "task": "V102-11",
+      "title": "Final-asset launch and remedy gates",
+      "expected": "New setup BAT plus exact emitted action work with actual marked Z scripts under process RemoteSigned; negative control, exit/status and immutable source checks captured.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-064",
+      "task": "V102-11",
+      "title": "Real ebook integration under 3.15",
+      "expected": "Representative authored EPUB and genuine unencrypted AZW3 convert and split under 3.15 using locked Calibre; original and output validation recorded.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-065",
+      "task": "V102-11",
+      "title": "Existing branches and PS7 preserved",
+      "expected": "Focused same-Z setup/check/PDF smoke on accepted 3.13 and 3.14 plus reviewed PS7 3.15 invocation passes; tested combinations reported exactly.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-066",
+      "task": "V102-11",
+      "title": "Evidence and human scope correct",
+      "expected": "Reports bind R/Z/runtime/machine/commands/results; mandatory failures absent; human work limited to one consolidated kit run only if needed, not fake agent/GUI claims.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-067",
+      "task": "V102-12",
+      "title": "All gates pass before publication",
+      "expected": "Prior tasks and named release gates have real required evidence; Python3.15/native/marked-setup scope is not waived or silently removed.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-068",
+      "task": "V102-12",
+      "title": "Fixed correct tag/source",
+      "expected": "Live peeled v1.0.2 tag equals accepted R; no retag/clobber of an existing conflicting tag and no old-release modification.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-069",
+      "task": "V102-12",
+      "title": "Public intended release",
+      "expected": "v1.0.2 is public non-draft non-prerelease with the exact accepted ZIP/manifest/checksum assets and truthful tested-support/unsigned notes.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-070",
+      "task": "V102-12",
+      "title": "Anonymous assets match",
+      "expected": "Fresh unauthenticated downloads match accepted sizes/hashes and archive/member/version/manifest R; authenticated draft availability not substituted.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-071",
+      "task": "V102-12",
+      "title": "Old releases preserved",
+      "expected": "v1.0.0 and v1.0.1 peeled refs and stable asset identities compare unchanged against initial snapshots; volatile download counts excluded.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    },
+    {
+      "id": "V102-AC-072",
+      "task": "V102-12",
+      "title": "Closure and live main synchronized",
+      "expected": "Final clean local main equals fresh remote main; any closure commit is docs-only with R/package members unchanged; final user report includes public URL, R, hashes and actual test scope.",
+      "status": "NOT_RUN",
+      "required": true,
+      "evidence": []
+    }
+  ]
+}

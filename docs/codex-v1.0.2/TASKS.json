@@ -1,0 +1,297 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.2",
+  "tasks": [
+    {
+      "id": "V102-01",
+      "title": "Baseline, reproduce incidents, reconcile active instructions",
+      "milestone": "M0",
+      "status": "DONE",
+      "depends_on": [],
+      "brief": "tasks/V102-01.md",
+      "read": [
+        "SCOPE.md",
+        "BASELINE.md",
+        "AGENTS_UPDATE.md"
+      ],
+      "acceptance": [
+        "V102-AC-001",
+        "V102-AC-002",
+        "V102-AC-003",
+        "V102-AC-004",
+        "V102-AC-005",
+        "V102-AC-006"
+      ],
+      "evidence": [
+        "evidence/V102-01-baseline.md",
+        "evidence/V102-01-baseline.json"
+      ]
+    },
+    {
+      "id": "V102-02",
+      "title": "Review and extend the shared Python policy",
+      "milestone": "M1",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-01"
+      ],
+      "brief": "tasks/V102-02.md",
+      "read": [
+        "SCOPE.md",
+        "specs/PYTHON315.md",
+        "SOURCES.md"
+      ],
+      "acceptance": [
+        "V102-AC-007",
+        "V102-AC-008",
+        "V102-AC-009",
+        "V102-AC-010",
+        "V102-AC-011",
+        "V102-AC-012"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-03",
+      "title": "Run the real engine and setup under Python 3.15",
+      "milestone": "M1",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-02"
+      ],
+      "brief": "tasks/V102-03.md",
+      "read": [
+        "SCOPE.md",
+        "specs/PYTHON315.md",
+        "TESTING.md"
+      ],
+      "acceptance": [
+        "V102-AC-013",
+        "V102-AC-014",
+        "V102-AC-015",
+        "V102-AC-016",
+        "V102-AC-017",
+        "V102-AC-018"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-04",
+      "title": "Validate discovery, selected runtime and venv upgrades",
+      "milestone": "M2",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-03"
+      ],
+      "brief": "tasks/V102-04.md",
+      "read": [
+        "SCOPE.md",
+        "specs/PYTHON315.md",
+        "specs/DIAGNOSTICS.md"
+      ],
+      "acceptance": [
+        "V102-AC-019",
+        "V102-AC-020",
+        "V102-AC-021",
+        "V102-AC-022",
+        "V102-AC-023",
+        "V102-AC-024"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-05",
+      "title": "Add the setup BAT and safe host invocation",
+      "milestone": "M2",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-04"
+      ],
+      "brief": "tasks/V102-05.md",
+      "read": [
+        "SCOPE.md",
+        "specs/SETUP_LAUNCHER.md"
+      ],
+      "acceptance": [
+        "V102-AC-025",
+        "V102-AC-026",
+        "V102-AC-027",
+        "V102-AC-028",
+        "V102-AC-029",
+        "V102-AC-030"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-06",
+      "title": "Fix diagnostics and every executable setup remedy",
+      "milestone": "M2",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-05"
+      ],
+      "brief": "tasks/V102-06.md",
+      "read": [
+        "SCOPE.md",
+        "specs/DIAGNOSTICS.md",
+        "specs/SETUP_LAUNCHER.md"
+      ],
+      "acceptance": [
+        "V102-AC-031",
+        "V102-AC-032",
+        "V102-AC-033",
+        "V102-AC-034",
+        "V102-AC-035",
+        "V102-AC-036"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-07",
+      "title": "Automate Internet-marked script and policy regressions",
+      "milestone": "M3",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-06"
+      ],
+      "brief": "tasks/V102-07.md",
+      "read": [
+        "SCOPE.md",
+        "specs/SETUP_LAUNCHER.md",
+        "TESTING.md",
+        "HUMAN_TESTING.md"
+      ],
+      "acceptance": [
+        "V102-AC-037",
+        "V102-AC-038",
+        "V102-AC-039",
+        "V102-AC-040",
+        "V102-AC-041",
+        "V102-AC-042"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-08",
+      "title": "Extend CI and reuse the automated native kit",
+      "milestone": "M3",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-07"
+      ],
+      "brief": "tasks/V102-08.md",
+      "read": [
+        "SCOPE.md",
+        "TESTING.md",
+        "HUMAN_TESTING.md"
+      ],
+      "acceptance": [
+        "V102-AC-043",
+        "V102-AC-044",
+        "V102-AC-045",
+        "V102-AC-046",
+        "V102-AC-047",
+        "V102-AC-048"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-09",
+      "title": "Update docs, version, package members and release guidance",
+      "milestone": "M4",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-08"
+      ],
+      "brief": "tasks/V102-09.md",
+      "read": [
+        "SCOPE.md",
+        "specs/DIAGNOSTICS.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V102-AC-049",
+        "V102-AC-050",
+        "V102-AC-051",
+        "V102-AC-052",
+        "V102-AC-053",
+        "V102-AC-054"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-10",
+      "title": "Review, full regression, freeze source and build candidate",
+      "milestone": "M4",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-09"
+      ],
+      "brief": "tasks/V102-10.md",
+      "read": [
+        "SCOPE.md",
+        "RELEASE_RUNBOOK.md",
+        "GITHUB_SYNC.md",
+        "TESTING.md"
+      ],
+      "acceptance": [
+        "V102-AC-055",
+        "V102-AC-056",
+        "V102-AC-057",
+        "V102-AC-058",
+        "V102-AC-059",
+        "V102-AC-060"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-11",
+      "title": "Run final-ZIP native acceptance with minimal human work",
+      "milestone": "M5",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-10"
+      ],
+      "brief": "tasks/V102-11.md",
+      "read": [
+        "SCOPE.md",
+        "TESTING.md",
+        "HUMAN_TESTING.md",
+        "RELEASE_RUNBOOK.md"
+      ],
+      "acceptance": [
+        "V102-AC-061",
+        "V102-AC-062",
+        "V102-AC-063",
+        "V102-AC-064",
+        "V102-AC-065",
+        "V102-AC-066"
+      ],
+      "evidence": []
+    },
+    {
+      "id": "V102-12",
+      "title": "Publish, verify anonymous downloads and close synchronized main",
+      "milestone": "M6",
+      "status": "NOT_STARTED",
+      "depends_on": [
+        "V102-11"
+      ],
+      "brief": "tasks/V102-12.md",
+      "read": [
+        "SCOPE.md",
+        "RELEASE_RUNBOOK.md",
+        "GITHUB_SYNC.md"
+      ],
+      "acceptance": [
+        "V102-AC-067",
+        "V102-AC-068",
+        "V102-AC-069",
+        "V102-AC-070",
+        "V102-AC-071",
+        "V102-AC-072"
+      ],
+      "evidence": []
+    }
+  ]
+}

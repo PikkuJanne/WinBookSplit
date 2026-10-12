@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.2",
+  "not_runtime_configuration": true,
+  "scope": "Version-level fixture expectations for the intended reviewed 3.13.16/3.14.8/3.15.0 policy. Run through the actual shared evaluator. Identity/build tests are separate acceptance cases.",
+  "security_change_rule": "Revised verified floors require an explicit recorded policy decision and updated impacted cases, not blindly weakening a check. Python3.15 support remains mandatory.",
+  "cases": [
+    {
+      "id": "P315-01",
+      "input": "3.15.0",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-02",
+      "input": "3.15.1",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-03",
+      "input": "3.15.10",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-04",
+      "input": "3.15.99",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-05",
+      "input": "3.14.8",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-06",
+      "input": "3.14.9",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-07",
+      "input": "3.14.10",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-08",
+      "input": "3.13.16",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-09",
+      "input": "3.13.17",
+      "expected_ok": true,
+      "expected_reason": "supported",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-10",
+      "input": "3.14.2",
+      "expected_ok": false,
+      "expected_reason": "python_security_floor",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-11",
+      "input": "3.14.7",
+      "expected_ok": false,
+      "expected_reason": "python_security_floor",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-12",
+      "input": "3.13.15",
+      "expected_ok": false,
+      "expected_reason": "python_security_floor",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-13",
+      "input": "3.16.0",
+      "expected_ok": false,
+      "expected_reason": "unsupported_python",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-14",
+      "input": "4.0.0",
+      "expected_ok": false,
+      "expected_reason": "unsupported_python",
+      "synthetic_future_patch": true
+    },
+    {
+      "id": "P315-15",
+      "input": "3.12.10",
+      "expected_ok": false,
+      "expected_reason": "unsupported_python",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-16",
+      "input": "3.15.0rc1",
+      "expected_ok": false,
+      "expected_reason": "unstable_python",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-17",
+      "input": "3.15.0b1",
+      "expected_ok": false,
+      "expected_reason": "unstable_python",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-18",
+      "input": "3.15.0.dev1",
+      "expected_ok": false,
+      "expected_reason": "unstable_python",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-19",
+      "input": "3.15",
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-20",
+      "input": "3.015.0",
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-21",
+      "input": "3.15.-1",
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-22",
+      "input": "3.15.0.1",
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-23",
+      "input": "3.15.0;echo bad",
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    },
+    {
+      "id": "P315-24",
+      "input": null,
+      "expected_ok": false,
+      "expected_reason": "malformed_runtime",
+      "synthetic_future_patch": false
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+# Local/GitHub work and checkpoint protocol
+
+Inspect actual root, origin fetch/push identity, branch and worktree at every session. Match `PikkuJanne/WinBookSplit`. Resolve pre-existing dirty/divergent work without deleting it; no automatic stash/reset/clean. Recorded baseline is observation only. Use a scoped `codex/v1.0.2-setup-python315` branch or the current correctly scoped branch after inspection. Respect existing repository conventions and protection.
+
+For each focused task: reproduce/implement → run relevant tests → review diff and safety impact → update task/case/evidence/status/next-session records → stage intended files → commit → normal push → compare local HEAD/branch/cleanliness against a freshly read live branch. Do not rely on cached origin refs or a successful push message. The supplied `tools/codex-v1.0.2/check_sync.py --repo <root>` is read-only and checks this condition. UNKNOWN/UNSYNCED are not success. This helper does not verify CI, tags, releases, review approval or protected-branch policy.
+
+Keep concise next-session notes: completed task, tests and failures, branch/commit, remote observation, exact next action, any true blocker. Complete ready tasks without routine user reconfirmation; start a fresh context when needed. Never let handover creation become an endless new task.
+
+Use normal reviewed PR/merge or a permitted reviewed fast-forward; no force push, moving published tags or repository settings/visibility changes. Final runtime commit R must be the exact tested package source. Merge before freezing if a merge creates different runtime bytes, or compare those bytes and rebuild/retest as appropriate. A later documentation-only closure commit D is allowed on main; it must contain R in history with unchanged release-member bytes. Do not rebuild/retag R solely to include closure evidence.
+
+Avoid self-reference: a committed evidence record may describe the prior tested commit or current runtime digest; a live sync receipt after a commit is point-in-time terminal output or an external receipt, not an impossible statement that a commit contains its own hash. After the final docs commit, perform a fresh clean-main equality check and report it. Preserve previous release identity snapshots and compare them again after publication.

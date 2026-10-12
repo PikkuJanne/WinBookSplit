@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "template_not_evidence": true,
+  "target_release": "v1.0.2",
+  "source_commit": null,
+  "zip_sha256": null,
+  "harness_commit_or_digest": null,
+  "execution_kind": "NOT_RUN",
+  "os": {
+    "caption": null,
+    "build": null,
+    "architecture": null
+  },
+  "shell": {
+    "path": null,
+    "version": null
+  },
+  "python": {
+    "path": null,
+    "version": null,
+    "implementation": null,
+    "bits": null,
+    "gil_disabled": null,
+    "selection_source": null
+  },
+  "pypdf": {
+    "version": null,
+    "origin": null
+  },
+  "policy_before": null,
+  "policy_after": null,
+  "zone_identifier_before": null,
+  "zone_identifier_after": null,
+  "cases": [],
+  "status": "NOT_RUN",
+  "redaction_reviewed": false
+}

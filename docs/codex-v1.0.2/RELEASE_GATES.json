@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.2",
+  "all_acceptance_cases_required": true,
+  "gates": [
+    {
+      "id": "G01",
+      "title": "Python315PolicyAndRuntime",
+      "required_cases": [
+        "V102-AC-007",
+        "V102-AC-008",
+        "V102-AC-013",
+        "V102-AC-014",
+        "V102-AC-015"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G02",
+      "title": "LegacyAndSafetyPreserved",
+      "required_cases": [
+        "V102-AC-009",
+        "V102-AC-016",
+        "V102-AC-017",
+        "V102-AC-024",
+        "V102-AC-065"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G03",
+      "title": "SetupBatWorks",
+      "required_cases": [
+        "V102-AC-025",
+        "V102-AC-026",
+        "V102-AC-027",
+        "V102-AC-028",
+        "V102-AC-029"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G04",
+      "title": "EmittedActionsExecuted",
+      "required_cases": [
+        "V102-AC-031",
+        "V102-AC-034",
+        "V102-AC-035",
+        "V102-AC-036",
+        "V102-AC-040"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G05",
+      "title": "MarkedFilesAndPolicyBoundary",
+      "required_cases": [
+        "V102-AC-037",
+        "V102-AC-038",
+        "V102-AC-039",
+        "V102-AC-041",
+        "V102-AC-042"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G06",
+      "title": "RequiredCIAndPackage",
+      "required_cases": [
+        "V102-AC-043",
+        "V102-AC-044",
+        "V102-AC-056",
+        "V102-AC-058",
+        "V102-AC-059",
+        "V102-AC-060"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G07",
+      "title": "Windows10Final315",
+      "required_cases": [
+        "V102-AC-061",
+        "V102-AC-063",
+        "V102-AC-066"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G08",
+      "title": "Windows11AndEbooks315",
+      "required_cases": [
+        "V102-AC-062",
+        "V102-AC-064",
+        "V102-AC-065"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G09",
+      "title": "PublicReleaseAndDownloads",
+      "required_cases": [
+        "V102-AC-068",
+        "V102-AC-069",
+        "V102-AC-070"
+      ],
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "G10",
+      "title": "OldReleasesAndFinalSync",
+      "required_cases": [
+        "V102-AC-071",
+        "V102-AC-072"
+      ],
+      "status": "NOT_RUN"
+    }
+  ],
+  "notes": [
+    "Gates are a release checklist, not evidence that tests have run.",
+    "G09/G10 are post-publication verification obligations; every earlier mandatory case must pass before publication.",
+    "No gate may be replaced with historical or synthetic native evidence."
+  ]
+}

@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "observed_on": "2026-10-12",
+  "repository": "PikkuJanne/WinBookSplit",
+  "main_commit": "8fd38e27925985b86d60ddf0950e15da41189ed6",
+  "main_tree": "4e21f710e99a46f7339e91a4b6b9851b9f6e7417",
+  "main_message": "Close verified v1.0.1 release evidence and status",
+  "reset_target": false,
+  "v1_0_1": {
+    "release_id": 410596171,
+    "source_commit_reported_by_release": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "published_at": "2026-10-12T12:52:30Z",
+    "draft": false,
+    "prerelease": false,
+    "asset_digests_reported_by_github": {
+      "WinBookSplit-v1.0.1.zip": {
+        "size": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "size": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      },
+      "SHA256SUMS.txt": {
+        "size": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      }
+    }
+  },
+  "policy_observed": {
+    "version": 2,
+    "accepted_branches": [
+      "3.13.16+ within 3.13",
+      "3.14.8+ within 3.14"
+    ],
+    "pypdf": "6.20.0",
+    "calibre": "9.15.0"
+  },
+  "observation_limits": [
+    "No repository changes or Windows application tests during handoff creation.",
+    "API-reported asset digests are not fresh independent downloads.",
+    "Refresh old tags/peeled commits/assets and current branch before editing.",
+    "User signature error prevents setup execution; it is not a Python 3.15 runtime failure trace."
+  ]
+}

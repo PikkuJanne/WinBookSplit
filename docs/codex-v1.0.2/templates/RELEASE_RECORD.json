@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "template_not_evidence": true,
+  "target_release": "v1.0.2",
+  "source_R": null,
+  "closure_D": null,
+  "zip_sha256_Z": null,
+  "public_url": null,
+  "peeled_tag_commit": null,
+  "assets": [],
+  "native_reports": [],
+  "anonymous_verification": "NOT_RUN",
+  "old_releases_unchanged": "NOT_RUN",
+  "local_main_clean_and_live_equal": "NOT_RUN",
+  "status": "NOT_RUN"
+}

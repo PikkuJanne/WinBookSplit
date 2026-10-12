@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "reviewed_on": "2026-10-12",
+  "sources": [
+    {
+      "id": "R1",
+      "title": "Repository main baseline",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/branches/main",
+      "verification": "GITHUB_CONNECTOR",
+      "relevance": "Observed main commit; refresh before work."
+    },
+    {
+      "id": "R2",
+      "title": "Published v1.0.1",
+      "url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.1",
+      "verification": "GITHUB_CONNECTOR",
+      "relevance": "Release metadata and API digests, not independently downloaded bytes."
+    },
+    {
+      "id": "R3",
+      "title": "Working agreement",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/8fd38e27925985b86d60ddf0950e15da41189ed6/AGENTS.md",
+      "verification": "GITHUB_CONNECTOR",
+      "relevance": "Active and historical routing must be reconciled."
+    },
+    {
+      "id": "R4",
+      "title": "Shared evaluator",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/8fd38e27925985b86d60ddf0950e15da41189ed6/engine/WinBookSplit.Compatibility.ps1",
+      "verification": "GITHUB_CONNECTOR",
+      "relevance": "Numeric patch checks and distinct unsupported/security-floor reasons already exist."
+    },
+    {
+      "id": "R5",
+      "title": "Setup entry point",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/8fd38e27925985b86d60ddf0950e15da41189ed6/Setup-WinBookSplit.ps1",
+      "verification": "GITHUB_CONNECTOR",
+      "relevance": "Reuse setup parameters and structured native exit handling."
+    },
+    {
+      "id": "R6",
+      "title": "Console remedy",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/8fd38e27925985b86d60ddf0950e15da41189ed6/WinBookSplit.ps1",
+      "verification": "GITHUB_CONNECTOR_SEARCH_EXCERPT",
+      "relevance": "setupCommand is built as direct unsigned ps1 invocation."
+    },
+    {
+      "id": "S1",
+      "title": "Python 3.15.0 release",
+      "url": "https://www.python.org/downloads/release/python-3150/",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Stable 3.15.0 released October 9, 2026; official Windows artifacts listed. Application acceptance still required."
+    },
+    {
+      "id": "S2",
+      "title": "Python 3.15 Windows documentation",
+      "url": "https://docs.python.org/3.15/using/windows.html",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Verify manager/launcher listing and Windows installation behavior; do not auto-install during discovery."
+    },
+    {
+      "id": "S3",
+      "title": "PowerShell execution policies",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_execution_policies?view=powershell-7.6",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "RemoteSigned treats Internet-marked scripts differently; Process settings do not override enforced Group Policy."
+    },
+    {
+      "id": "S4",
+      "title": "Windows PowerShell command line",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/about_powershell_exe?view=powershell-5.1",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Use -File and process-scoped policy with correct shell-specific arguments and explicit exit propagation."
+    },
+    {
+      "id": "S5",
+      "title": "pypdf 6.20.0 metadata",
+      "url": "https://pypi.org/project/pypdf/6.20.0/",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Existing reviewed package candidate; metadata is not a Python 3.15 end-to-end pass."
+    },
+    {
+      "id": "S6",
+      "title": "GitHub hosted runners",
+      "url": "https://docs.github.com/en/actions/reference/runners/github-hosted-runners",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Server runner evidence must not be labeled Windows 10 desktop evidence."
+    },
+    {
+      "id": "S7",
+      "title": "Python 3.15 changes",
+      "url": "https://docs.python.org/3.15/whatsnew/3.15.html",
+      "verification": "PRIMARY_OPENED",
+      "relevance": "Review startup/stdlib/encoding changes affecting isolated probes, pip and ctypes. Do not infer failures just from a changelog."
+    }
+  ]
+}

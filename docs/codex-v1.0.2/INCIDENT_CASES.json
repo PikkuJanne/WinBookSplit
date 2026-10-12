@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "target_release": "v1.0.2",
+  "scope": "Reproduction specifications only; no application executions claimed.",
+  "cases": [
+    {
+      "id": "INC-01",
+      "name": "Python315Only",
+      "given": "No .venv or override; ordinary regular x64 3.15.0 on trusted PATH, pypdf absent",
+      "expected": "Setup selects 3.15, creates local venv, then original PDF processing succeeds. No downgrade or global pip.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-02",
+      "name": "UnsignedDirectSetup",
+      "given": "Internet-marked actual setup/helpers, RemoteSigned child, direct ps1 command",
+      "expected": "Blocked before entry; no claimed Python run; real negative control.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-03",
+      "name": "UnsignedSetupBat",
+      "given": "Same marked extracted package and policy, invoke new setup BAT from System32",
+      "expected": "Setup succeeds under process-scoped child policy; markings/persistent scopes preserved.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-04",
+      "name": "EmittedActionRoundTrip",
+      "given": "Capture application Action for missing package on 3.15; execute exact command under RemoteSigned",
+      "expected": "Action reaches setup and makes original operation succeed; path quoting tested.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-05",
+      "name": "StaleVenvAfterUpgrade",
+      "given": "PATH now 3.15; authoritative .venv points at an unavailable/rejected old runtime",
+      "expected": "Failure identifies actual venv; no silent fallback; explicit repair action preserves backup and selects usable 3.15 base.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-06",
+      "name": "OlderSecurityPatch",
+      "given": "Regular 3.14.2 candidate",
+      "expected": "Observed 3.14.2 and current security floor shown; no ambiguous no-Python or unsupported-3.15 wording.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-07",
+      "name": "UnknownFutureMinor",
+      "given": "Synthetic regular 3.16.0 identity record",
+      "expected": "Unsupported/not-yet-validated distinction; not labeled unsafe or a failed PDF run.",
+      "status": "NOT_RUN"
+    },
+    {
+      "id": "INC-08",
+      "name": "ForwardedLauncherFlag",
+      "given": "py listing returns Unknown option -0; ordinary trusted Python315 exists",
+      "expected": "Optional diagnostic retained; actual valid direct candidate selected.",
+      "status": "NOT_RUN"
+    }
+  ]
+}
