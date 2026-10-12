@@ -84,6 +84,10 @@ BeforeAll {
 }
 
 Describe 'V101 concise dependency guidance from controlled subordinate reasons' -Tag 'V101-AC-037' {
+    BeforeEach {
+        # Existing formatter cases use synthetic reasons, not native discovery.
+        Mock Find-WinBookSplitSetupBase { return $null }
+    }
     It 'uses the actual validator for synthetic unsupported architecture branch flavor and security-floor identities' {
         $policy=Get-WinBookSplitCompatibilityPolicy
         foreach ($row in @(@('3.14.2','python_security_floor'),@('3.16.0','unsupported_python'),
@@ -109,6 +113,7 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
         }
     }
     It 'separates missing version-mismatched and wrong-origin packages while keeping a compatible explicit base actionable' {
+        Mock Find-WinBookSplitSetupBase { return [pscustomobject]@{Path=$TestPython} }
         # SYNTHETIC formatter records only; real package probes are covered by the external native cases.
         foreach ($reason in @('missing_pypdf','pypdf_version_mismatch','pypdf_origin_invalid')) {
             $summary=Get-WinBookSplitDependencySummary -Failure (New-AuthoredDependencyFailure $reason) -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
@@ -118,6 +123,41 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
             $summary.Action | Should-MatchString -Expected '-PythonPath'
             $summary.Message | Should -Not -Match 'PRIVATE|SYNTHETIC|exactly'
         }
+    }
+    It 'uses a complete executable PowerShell action and preserves literal argument characters' {
+        $command=Get-WinBookSplitSetupCommand -ApplicationRoot "C:\Owned O'Neil Å [%PAIR%] &! (a)" -PythonPath "C:\Trusted O'Neil\python.exe" -Wheelhouse 'C:\Owned wheels [1]' -Repair -Check
+        $command | Should -Match '\A& ''[A-Za-z]:\\.*powershell\.exe'' -NoProfile -ExecutionPolicy Bypass -File '
+        $command | Should -Match "O''Neil"
+        $command | Should -Match '\[%PAIR%\] &! \(a\)'
+        foreach($option in @('-NonInteractive','-Repair','-Check','-PythonPath','-Wheelhouse')){$command | Should -Match ([regex]::Escape($option))}
+        {Get-WinBookSplitSetupCommand -ApplicationRoot "C:\bad`npath"} | Should -Throw
+    }
+    It 'keeps authoritative unknown-minor identity separate from unrelated below-floor noise' {
+        $failure=New-AuthoredDependencyFailure 'unsupported_python'
+        $failure.Data['Attempts']=@([pscustomobject]@{Source='PATH';Path='C:\Synthetic old\python.exe';Reason='python_security_floor';IdentityVerified=$true;ObservedVersion='3.14.2'},
+            [pscustomobject]@{Source='explicit';Path=$TestPython;Reason='unsupported_python';IdentityVerified=$true;ObservedVersion='3.16.0'})
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
+        $summary.Reason | Should -BeExactly 'unsupported_python'
+        $summary.ObservedVersion | Should -BeExactly '3.16.0'
+        $summary.ObservedSource | Should -BeExactly 'explicit'
+        $summary.Message | Should -Not -Match 'insecure|security floor'
+        $summary.ActionIsCommand | Should -BeTrue
+        $summary.ActionShell | Should -BeExactly 'PowerShell'
+    }
+    It 'chooses the preferred compatible missing-package candidate and concrete discovered repair base' {
+        $failure=New-AuthoredDependencyFailure 'python_security_floor' 'PATH' 'runtime_not_found'
+        $failure.Data['Attempts']=@([pscustomobject]@{Source='PATH';Path='C:\Synthetic old\python.exe';Reason='python_security_floor';IdentityVerified=$true;ObservedVersion='3.14.2'},
+            [pscustomobject]@{Source='PATH';Path='C:\Synthetic315\python.exe';Reason='missing_pypdf';IdentityVerified=$true;ObservedVersion='3.15.0'})
+        Mock Find-WinBookSplitSetupBase { return [pscustomobject]@{Path='C:\Synthetic315\python.exe'} }
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Reason | Should -BeExactly 'missing_pypdf'
+        $summary.ObservedVersion | Should -BeExactly '3.15.0'
+        $summary.Action | Should -Match '-PythonPath ''C:\\Synthetic315\\python.exe'''
+        $failure.Data['Attempts']=@([pscustomobject]@{Source='application_venv';Path='C:\Owned\.venv\Scripts\python.exe';Reason='python_security_floor';IdentityVerified=$true;ObservedVersion='3.14.7'})
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Action | Should -Match '-Repair'
+        $summary.Action | Should -Not -Match '-PythonPath ''C:\\Owned\\.venv'
+        $summary.ObservedSource | Should -BeExactly 'application_venv'
     }
     It 'does not allow optional listing noise to hide the concrete interpreter rejection' {
         $failure=New-AuthoredDependencyFailure 'python_security_floor' 'PATH' 'runtime_not_found'
@@ -176,11 +216,18 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
     }
     It 'keeps converter guidance separate and requires preservation when synthetic shutdown proof is incomplete' {
         foreach ($code in @('converter_invalid','converter_not_found')) {
-            $summary=Get-WinBookSplitDependencySummary -Failure (New-WinBookSplitFailure $code 'PRIVATE converter detail') -ApplicationRoot $RepositoryRoot
+            $failure=New-WinBookSplitFailure $code 'PRIVATE converter detail'
+            $failure.Data['Attempts']=@([pscustomobject]@{Path='C:\Synthetic rejected Calibre\ebook-convert.exe';Source='explicit';Accepted=$false;
+                Message='SYNTHETIC missing converter fixture';Probe=$null})
+            $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
             $summary.Reason | Should-Be -Expected 'converter_unavailable'
+            $summary.ObservedPath | Should -BeNullOrEmpty
+            $summary.ObservedVersion | Should -BeNullOrEmpty
+            $summary.ObservedSource | Should -BeNullOrEmpty
             $summary.Action | Should-MatchString -Expected 'Calibre'
             $summary.Action | Should -Not -Match 'Setup-WinBookSplit|PythonPath|PRIVATE'
         }
+        Should-Invoke Find-WinBookSplitSetupBase -Times 0 -Exactly
         foreach ($code in @('processor_cancelled','processor_timeout')) {
             foreach ($unproved in @('ParentStopped','DescendantsStopped','StopError')) {
                 $failure=New-WinBookSplitFailure $code 'SYNTHETIC converter-interruption transport control'

@@ -186,6 +186,21 @@ Describe 'V101 independent discovery and optional-listing failures' -Tag 'V101-A
         $result.Probe.StreamsComplete | Should -BeTrue
         @($result.Attempts | Where-Object { $_.Source -eq 'selection' -and $_.Accepted }).Count | Should -Be 1
     }
+    It 'excludes the document directory during separate read-only setup-base discovery' {
+        $bookPython=New-DiscoveryExecutable -Name 'python.exe'
+        $savedPath=$env:PATH
+        try {
+            $env:PATH=[IO.Path]::GetDirectoryName($bookPython)+';'+[IO.Path]::GetDirectoryName($TestPython)
+            $base=Find-WinBookSplitSetupBase -ApplicationRoot $RepositoryRoot -Policy $script:discoveryPolicy -DocumentPath (Join-Path ([IO.Path]::GetDirectoryName($bookPython)) 'authored-book.pdf')
+            $base.Path | Should -BeExactly $TestPython
+            $base.InterpreterOnly | Should -BeTrue
+            $excluded=@($base.Attempts | Where-Object {$_.Path -ceq $bookPython})
+            $excluded.Count | Should -Be 1
+            $excluded[0].Accepted | Should -BeFalse
+            $excluded[0].Probe | Should -BeNullOrEmpty
+            $excluded[0].Message | Should -Match 'Document-directory'
+        } finally {$env:PATH=$savedPath}
+    }
     It 'retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter' {
         $script:discoveryLauncher = New-DiscoveryExecutable
         Mock Get-WinBookSplitPathCandidates {

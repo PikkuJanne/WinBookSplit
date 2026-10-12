@@ -27,6 +27,35 @@ function ConvertTo-NativeArgument {
     return '"' + $escaped + '"'
 }
 
+function ConvertTo-WinBookSplitPowerShellLiteral {
+    param([Parameter(Mandatory=$true)][string]$Value)
+    if ($Value.Length -gt 32768 -or $Value -match '[\x00-\x1f\x7f-\x9f\u2028\u2029]') {
+        throw 'A setup command argument contains unsupported control characters.'
+    }
+    return "'" + $Value.Replace("'", "''") + "'"
+}
+
+function Get-WinBookSplitSetupCommand {
+    param([Parameter(Mandatory=$true)][string]$ApplicationRoot, [string]$PythonPath,
+        [string]$Wheelhouse, [switch]$Check, [switch]$Repair)
+    # Pure formatting only. Literal arguments target PowerShell, never CMD or
+    # -Command source, and Bypass applies only to the new inbox-shell process.
+    if ($ApplicationRoot -notmatch '\A(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)') { throw 'Setup needs an absolute application path.' }
+    $system = [Environment]::GetFolderPath([Environment+SpecialFolder]::System)
+    if ([Environment]::Is64BitOperatingSystem -and -not [Environment]::Is64BitProcess) {
+        $system = [IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::Windows), 'Sysnative')
+    }
+    $hostPath = [IO.Path]::Combine($system, 'WindowsPowerShell', 'v1.0', 'powershell.exe')
+    $setupPath = [IO.Path]::Combine([IO.Path]::GetFullPath($ApplicationRoot), 'Setup-WinBookSplit.ps1')
+    $command = '& ' + (ConvertTo-WinBookSplitPowerShellLiteral $hostPath) + ' -NoProfile -ExecutionPolicy Bypass -File ' +
+        (ConvertTo-WinBookSplitPowerShellLiteral $setupPath) + ' -NonInteractive'
+    if ($Check) { $command += ' -Check' }
+    if ($Repair) { $command += ' -Repair' }
+    if (-not [string]::IsNullOrWhiteSpace($PythonPath)) { $command += ' -PythonPath ' + (ConvertTo-WinBookSplitPowerShellLiteral $PythonPath) }
+    if (-not [string]::IsNullOrWhiteSpace($Wheelhouse)) { $command += ' -Wheelhouse ' + (ConvertTo-WinBookSplitPowerShellLiteral $Wheelhouse) }
+    return $command
+}
+
 function Assert-SplitPreviewSourceIdentity {
     param($Identity, [string]$Binding)
     if ($null -eq $Identity) { throw 'Missing preview source identity.' }

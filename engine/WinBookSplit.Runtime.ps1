@@ -2,6 +2,7 @@
 # Probe transport shares the owned engine job; discovery never owns file cleanup.
 . (Join-Path $PSScriptRoot 'WinBookSplit.Process.ps1')
 . (Join-Path $PSScriptRoot 'WinBookSplit.Compatibility.ps1')
+. (Join-Path $PSScriptRoot 'WinBookSplit.Diagnostics.ps1')
 function Assert-WinBookSplitProbeNotInterrupted {
     param($Probe)
     if ($null -ne $Probe -and ($Probe.Cancelled -or $Probe.TimedOut)) {
@@ -518,6 +519,7 @@ function Test-WinBookSplitPythonCandidate {
     $probe = $null
     $reason = 'runtime_probe_failed'
     $pathAccepted = $false
+    $observedVersion = $null; $identityVerified = $false
     try {
         $path = Get-WinBookSplitTrustedPath -Path $Path -Automatic:($Source -in @('PATH', 'py_launcher', 'manager', 'registry'))
         $pathAccepted = $true
@@ -554,17 +556,29 @@ function Test-WinBookSplitPythonCandidate {
             $record.policy_sha256 -cne $policyIdentity.Sha256) {
             throw 'Invalid interpreter protocol or compatibility policy identity.'
         }
+        if ($record.executable -notmatch '\A(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)' -or
+            -not ([IO.Path]::GetFullPath($record.executable).Equals($path, [StringComparison]::OrdinalIgnoreCase))) {
+            $reason = 'malformed_runtime'
+            throw 'Interpreter executable identity does not match the selected trusted path.'
+        }
         $decision = Test-WinBookSplitInterpreterRecord -Record $strictRecord -Policy $policy
+        $parts = ConvertTo-WinBookSplitCompatibilityVersion $record.version
+        if ($null -eq $parts -and $record.version -cmatch '\A(0|[1-9][0-9]{0,6})\.(0|[1-9][0-9]{0,6})\.(0|[1-9][0-9]{0,6})(?:(?:a|b|rc)[0-9]{1,6}|\.dev[0-9]{1,6}|\+)\z') {
+            $parts = @([long]$Matches[1], [long]$Matches[2], [long]$Matches[3])
+        }
+        if ($decision.Reason -cnotin @('malformed_runtime','malformed_policy') -and $null -ne $parts -and
+            $record.isolated -is [bool] -and $record.isolated -and $record.dont_write_bytecode -is [bool] -and $record.dont_write_bytecode -and
+            $record.version_info -is [array] -and $record.version_info.Count -eq 3 -and
+            $parts[0] -eq $record.version_info[0] -and $parts[1] -eq $record.version_info[1] -and $parts[2] -eq $record.version_info[2]) {
+            $observedVersion = $record.version; $identityVerified = $true
+        }
         if (-not $decision.Ok) {
             $reason = $decision.Reason
-            throw ('Incompatible interpreter: ' + $decision.Message + ' Observed Python ' + $record.version + '.')
+            throw ('Incompatible interpreter: ' + $decision.Message)
         }
         if (-not $record.ok -or $probe.ExitCode -ne 0) {
             $reason = $record.reason
             throw ('Incompatible interpreter/dependency: ' + $record.message + ' Observed Python ' + $record.version + '.')
-        }
-        if (-not ([IO.Path]::GetFullPath($record.executable).Equals($path, [StringComparison]::OrdinalIgnoreCase))) {
-            throw 'Interpreter executable identity does not match the selected trusted path.'
         }
         $pypdfVersion, $pypdfPath = $null, $null
         if (-not $InterpreterOnly) {
@@ -576,7 +590,8 @@ function Test-WinBookSplitPythonCandidate {
             $pypdfVersion = $record.pypdf_version
         }
         $reason = 'supported'
-        $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Reason = $reason; Message = $record.message; Probe = $probe })
+        $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Reason = $reason; Message = $record.message; Probe = $probe;
+            ObservedVersion = $observedVersion; IdentityVerified = $identityVerified })
         return [pscustomobject]@{ Path = $path; Version = $record.version; Source = $Source;
             PypdfVersion = $pypdfVersion; PypdfPath = $pypdfPath; PolicyVersion = $record.policy_version;
             PolicySha256 = $record.policy_sha256; InterpreterOnly = [bool]$InterpreterOnly;
@@ -588,7 +603,8 @@ function Test-WinBookSplitPythonCandidate {
             while ($pathFailure.InnerException) { $pathFailure = $pathFailure.InnerException }
             if ($pathFailure -is [IO.FileNotFoundException] -or $pathFailure -is [IO.DirectoryNotFoundException]) { $reason = 'missing_python' }
         }
-        $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Reason = $reason; Message = $_.Exception.Message; Probe = $probe })
+        $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Reason = $reason; Message = $_.Exception.Message; Probe = $probe;
+            ObservedVersion = $observedVersion; IdentityVerified = $identityVerified })
         return $null
     }
 }
@@ -600,7 +616,7 @@ function Resolve-WinBookSplitRuntime {
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
     catch { throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Shipped compatibility policy is missing or invalid: ' + $_.Exception.Message) $attempts 'malformed_policy') }
-    $setup = 'Use ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ' and locked pypdf ' + $policy['pypdf']['version'] + '. Set -PythonPath or run Setup-WinBookSplit.ps1 explicitly to create the application .venv.'
+    $setup = 'Use ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ' and locked pypdf ' + $policy['pypdf']['version'] + '. Select a trusted -PythonPath or create the application .venv. PowerShell setup: ' + (Get-WinBookSplitSetupCommand -ApplicationRoot $root)
 
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         $selected = Test-WinBookSplitPythonCandidate $PythonPath 'explicit' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
@@ -628,11 +644,33 @@ function Resolve-WinBookSplitRuntime {
         }
         $selected = Test-WinBookSplitPythonCandidate $candidate 'application_venv' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' Use Setup-WinBookSplit.ps1 -Repair explicitly to repair the application .venv with a compatible base interpreter.') $attempts)
+        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' PowerShell repair: ' + (Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair)) $attempts)
     }
     $selected = Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $policy -TimeoutSeconds $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
     if ($selected) { return $selected }
     throw (New-WinBookSplitDependencyError 'runtime_not_found' ('No compatible trusted Python was found. ' + $setup) $attempts)
+}
+
+function Find-WinBookSplitSetupBase {
+    param([string]$ApplicationRoot, $Policy, [string]$PythonPath, [string]$DocumentPath)
+    # Separate read-only remedy discovery. Never replaces a processing choice,
+    # requires pypdf, or appends these attempts to its authoritative failure.
+    $root = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
+    $venv = [IO.Path]::Combine($root, '.venv')
+    $prefixes = @([IO.Path]::Combine($root,'.WinBookSplit-venv-backup-'),[IO.Path]::Combine($root,'.WinBookSplit-incomplete-'))
+    $attempts = New-Object 'Collections.Generic.List[object]'
+    if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
+        try {
+            $explicit = Get-WinBookSplitTrustedPath $PythonPath
+            $excluded = $explicit.StartsWith($venv+'\',[StringComparison]::OrdinalIgnoreCase)
+            foreach ($prefix in $prefixes) { $excluded = $excluded -or $explicit.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase) }
+            if (-not $excluded) {
+                $base = Test-WinBookSplitPythonCandidate $explicit 'explicit' $root $attempts 5 -InterpreterOnly
+                if ($base) { return $base }
+            }
+        } catch { if (Test-WinBookSplitInterruption $_.Exception) { throw } }
+    }
+    return (Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $Policy -TimeoutSeconds 2 -InterpreterOnly -ExcludedDirectories @($venv) -ExcludedDirectoryPrefixes $prefixes)
 }
 
 function Test-WinBookSplitConverterCandidate {

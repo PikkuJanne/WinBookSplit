@@ -194,7 +194,8 @@ function Invoke-WinBookSplitSetup {
     $root=$null; $venv=$null; $backup=$null; $incomplete=$null
     $result=[pscustomobject][ordered]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='setup_failed';exit_code=6;
         message='Setup did not complete.';check=[bool]$Check;changed=$false;environment_path=$null;backup_path=$null;incomplete_path=$null;
-        rollback_status='not_needed';selected_python=$null;selected_version=$null;pypdf_version=$null;operations=@();attempts=@()}
+        rollback_status='not_needed';selected_python=$null;selected_version=$null;pypdf_version=$null;operations=@();attempts=@();
+        observed_python=$null;observed_version=$null;observed_source=$null;action=$null;action_shell=$null}
     try {
         Assert-WinBookSplitSetupNotCancelled $CancellationToken
         $root=Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
@@ -202,7 +203,7 @@ function Invoke-WinBookSplitSetup {
         $policyPath=Get-WinBookSplitTrustedPath ([IO.Path]::Combine($root,'engine','WinBookSplit.Compatibility.json'))
         $policyIdentity=Get-WinBookSplitCompatibilityPolicy -PolicyPath $policyPath -WithIdentity
         $policy=$policyIdentity.Policy
-        $guidance='Use '+(Get-WinBookSplitPythonPolicyDescription $policy)+'. Run Setup-WinBookSplit.ps1 -NonInteractive with a trusted -PythonPath when needed.'
+        $guidance='Use '+(Get-WinBookSplitPythonPolicyDescription $policy)+'. PowerShell setup: '+(Get-WinBookSplitSetupCommand -ApplicationRoot $root)
         $lockPath=[IO.Path]::Combine($root,'.WinBookSplit-setup.lock')
         try { $busy=Test-WinBookSplitSetupEntryExists $lockPath }
         catch { throw (New-WinBookSplitSetupError 'setup_busy' 'The setup lock cannot be inspected safely; preserve it and retry after the other setup exits.') }
@@ -223,7 +224,18 @@ function Invoke-WinBookSplitSetup {
                 $result.selected_python=$healthy.Path;$result.selected_version=$healthy.Version;$result.pypdf_version=$healthy.PypdfVersion
                 return $result
             }
-            if ($Check -or -not $Repair) { throw (New-WinBookSplitSetupError 'setup_repair_required' ('Existing application .venv was preserved. Run Setup-WinBookSplit.ps1 -Repair -NonInteractive with a compatible base -PythonPath. '+$attempts[$attempts.Count-1].Message)) }
+            if ($Check -or -not $Repair) {
+                $rejected=$attempts[$attempts.Count-1]
+                $result.observed_python=$rejected.Path;$result.observed_source='application_venv'
+                if ($rejected.IdentityVerified) {
+                    $result.observed_version=$rejected.ObservedVersion
+                }
+                $hintBase=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $policy -PythonPath $PythonPath
+                $hintPath=$null;if($hintBase){$hintPath=$hintBase.Path}
+                $result.action=Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair -PythonPath $hintPath -Wheelhouse $Wheelhouse
+                $result.action_shell='PowerShell'
+                throw (New-WinBookSplitSetupError 'setup_repair_required' ('Existing application .venv was preserved. '+$rejected.Message+' PowerShell repair: '+$result.action))
+            }
         }
         if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
             try { $explicit=Get-WinBookSplitTrustedPath $PythonPath }
@@ -249,7 +261,11 @@ function Invoke-WinBookSplitSetup {
             if (-not $base) { throw (New-WinBookSplitSetupError 'runtime_not_found' ('No compatible trusted base Python was found. '+$guidance)) }
         }
         $result.selected_python=$base.Path;$result.selected_version=$base.Version
-        if ($Check) { throw (New-WinBookSplitSetupError 'setup_required' 'Compatible Python is available; run Setup-WinBookSplit.ps1 -NonInteractive to create the application environment and install locked pypdf.') }
+        if ($Check) {
+            $result.action=Get-WinBookSplitSetupCommand -ApplicationRoot $root -PythonPath $base.Path -Wheelhouse $Wheelhouse
+            $result.action_shell='PowerShell'
+            throw (New-WinBookSplitSetupError 'setup_required' ('Compatible Python is available; create the application environment and install locked pypdf. PowerShell setup: '+$result.action))
+        }
         Initialize-WinBookSplitLogTypes
         $fileLeases.Add([WinBookSplitLogging.PathLease]::new($policyPath,$false,$false,$true))
         try { $heldPolicyIdentity=Get-WinBookSplitCompatibilityPolicy -PolicyPath $policyPath -WithIdentity }

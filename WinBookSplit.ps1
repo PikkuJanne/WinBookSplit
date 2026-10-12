@@ -231,7 +231,7 @@ function ConvertTo-WinBookSplitDisplayText {
 
 function Get-WinBookSplitDependencySummary {
     param([Parameter(Mandatory = $true)][Exception]$Failure,
-          [Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$PythonPath)
+          [Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$PythonPath, [string]$DocumentPath)
     # Only validated reason codes choose human text. Raw paths, probe streams and
     # exception messages remain in the local diagnostic record.
     $reason = 'runtime_probe_failed'; $source = ''; $code = ''; $hasKnownReason = $false
@@ -246,7 +246,36 @@ function Get-WinBookSplitDependencySummary {
         pypdf_version_mismatch = 5; pypdf_origin_invalid = 5; malformed_policy = 6 }
     $attempts = @()
     if ($Failure.Data.Contains('Attempts')) { $attempts = @($Failure.Data['Attempts']) }
-    foreach ($attempt in $attempts) {
+    $policy = $null
+    try {
+        $trustedRoot = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
+        $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($trustedRoot, 'engine', 'WinBookSplit.Compatibility.json'))
+    } catch { }
+    $relevant = $null
+    foreach ($authority in @('explicit','application_venv')) {
+        $matches = @($attempts | Where-Object { $null -ne $_ -and $_.PSObject.Properties.Name -contains 'Source' -and $_.Source -ceq $authority })
+        if ($matches.Count -gt 0) { $relevant = $matches[0]; break }
+    }
+    if ($null -eq $relevant -and $null -ne $policy) {
+        $candidates = @(foreach ($attempt in $attempts) {
+            if ($null -ne $attempt -and $attempt.PSObject.Properties.Name -contains 'IdentityVerified' -and $attempt.IdentityVerified -ceq $true -and
+                $attempt.PSObject.Properties.Name -contains 'ObservedVersion' -and $attempt.ObservedVersion -is [string] -and
+                $attempt.Reason -cin @('missing_pypdf','pypdf_version_mismatch','pypdf_origin_invalid')) {
+                [pscustomobject]@{Path=$attempt.Path;Version=$attempt.ObservedVersion;Attempt=$attempt}
+            }
+        })
+        $preferred = Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $policy
+        if ($preferred) { $relevant = $preferred.Attempt }
+        else {
+            $versions = @($attempts | Where-Object { $null -ne $_ -and $_.PSObject.Properties.Name -contains 'IdentityVerified' -and $_.IdentityVerified -ceq $true -and
+                $_.PSObject.Properties.Name -contains 'ObservedVersion' -and $null -ne (ConvertTo-WinBookSplitCompatibilityVersion $_.ObservedVersion) } |
+                Sort-Object -Property @{Expression={[version]$_.ObservedVersion};Descending=$true},Path)
+            if ($versions.Count -gt 0) { $relevant = $versions[0] }
+        }
+    }
+    $reasonAttempts = $attempts
+    if ($null -ne $relevant) { $reasonAttempts = @($relevant) }
+    foreach ($attempt in $reasonAttempts) {
         if ($null -eq $attempt) { continue }
         if ($attempt.PSObject.Properties.Name -contains 'Source' -and $attempt.Source -is [string] -and
             $attempt.Source -cin @('explicit', 'application_venv')) { $source = $attempt.Source }
@@ -260,8 +289,20 @@ function Get-WinBookSplitDependencySummary {
         $Failure.Data['Reason'] -cin $knownReasons) { $reason = $Failure.Data['Reason'] }
     if ($code -ceq 'runtime_not_found' -and -not $hasKnownReason -and -not $Failure.Data.Contains('Reason')) { $reason = 'missing_python' }
 
-    $setupPath = [IO.Path]::Combine($ApplicationRoot, 'Setup-WinBookSplit.ps1')
-    $setupCommand = "& '" + $setupPath.Replace("'", "''") + "'"
+    $observedPath = $null; $observedVersion = $null; $observedSource = $null
+    if ($null -ne $relevant -and $relevant.PSObject.Properties.Name -contains 'Path' -and $relevant.Path -is [string] -and
+        $relevant.PSObject.Properties.Name -contains 'Source' -and $relevant.Source -cin @('explicit','application_venv','PATH','manager','py_launcher')) {
+        $observedPath = $relevant.Path; $observedSource = $relevant.Source
+    }
+    if ($null -ne $relevant -and $relevant.PSObject.Properties.Name -contains 'IdentityVerified' -and $relevant.IdentityVerified -ceq $true -and
+        $relevant.PSObject.Properties.Name -contains 'ObservedVersion' -and $relevant.ObservedVersion -is [string]) {
+        $observedPath = $relevant.Path; $observedVersion = $relevant.ObservedVersion; $observedSource = $relevant.Source
+    }
+    if ($code -cin @('converter_invalid','converter_not_found')) {
+        # Converter candidates also have explicit/PATH sources; those paths
+        # cannot identify the already selected Python interpreter.
+        $observedPath = $null; $observedVersion = $null; $observedSource = $null
+    }
     $ownVenv = $false; $preservedBase = $false
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         try {
@@ -275,18 +316,8 @@ function Get-WinBookSplitDependencySummary {
             }
         } catch { $preservedBase = $true }
     }
-    if ($source -ceq 'application_venv' -or $ownVenv) { $setupCommand += ' -Repair' }
-    if ($reason -cin @('missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid') -and
-        $source -ceq 'explicit' -and -not $ownVenv -and -not $preservedBase -and
-        -not [string]::IsNullOrWhiteSpace($PythonPath)) {
-        $setupCommand += " -PythonPath '" + $PythonPath.Replace("'", "''") + "'"
-    }
-    $setupCommand += ' -NonInteractive'
-    $policy = $null
-    try {
-        $trustedRoot = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
-        $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($trustedRoot, 'engine', 'WinBookSplit.Compatibility.json'))
-    } catch { $reason = 'malformed_policy' }
+    $needsRepair = $source -ceq 'application_venv' -or $ownVenv
+    if ($null -eq $policy) { $reason = 'malformed_policy' }
     $messages = @{
         missing_python = 'No usable Python interpreter was found.'
         unsupported_python = 'The selected Python branch is outside the reviewed compatibility policy.'
@@ -303,6 +334,14 @@ function Get-WinBookSplitDependencySummary {
         runtime_probe_failed = 'The selected dependency could not be checked safely.'
     }
     $message = $messages[$reason]
+    if ($null -ne $observedVersion) {
+        if ($reason -cin @('python_security_floor','python_compatibility_floor','unsupported_python')) {
+            $versionDecision = Test-WinBookSplitPythonVersion -Version $observedVersion -Policy $policy
+            if ($versionDecision.Reason -ceq $reason) { $message = $versionDecision.Message }
+        }
+        else { $message = 'Python ' + $observedVersion + ': ' + $message }
+    }
+    elseif ($reason -cin @('python_security_floor','python_compatibility_floor')) { $message += ' Required: ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + '.' }
     if ($reason -cin @('missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid')) {
         $lockedVersion = $policy['pypdf']['version']
         if ($reason -ceq 'missing_pypdf') { $message = 'Required pypdf ' + $lockedVersion + ' is missing or cannot be imported.' }
@@ -323,7 +362,7 @@ function Get-WinBookSplitDependencySummary {
             $unsafeStop = $true
         }
     }
-    $action = 'Run this explicit local setup command: ' + $setupCommand
+    $action = ''; $actionShell = $null; $actionIsCommand = $false
     if ($unsafeStop -or $code -ceq 'processor_failed') {
         $reason = 'processor_failed'; $message = 'Safe shutdown of the dependency check could not be verified.'
         $action = 'Preserve the application and diagnostic files and inspect the full diagnostic record before continuing.'
@@ -347,11 +386,32 @@ function Get-WinBookSplitDependencySummary {
         $reason = 'converter_unavailable'; $message = 'A compatible trusted Calibre converter was not found.'
         $action = 'Select trusted Calibre ' + $policy['calibre']['version'] + ' ebook-convert.exe with -CalibrePath, then retry.'
     }
-    elseif ($reason -cin @('missing_python', 'unsupported_python', 'python_security_floor',
-        'python_compatibility_floor', 'unsupported_architecture', 'unsupported_flavor', 'unstable_python')) {
-        $action = 'Install or select ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ', then run: ' + $setupCommand
+    else {
+        $basePath = $null
+        if ($reason -cin @('missing_python','unsupported_python','python_security_floor','python_compatibility_floor','unsupported_architecture','unsupported_flavor','unstable_python',
+            'missing_pypdf','pypdf_version_mismatch','pypdf_origin_invalid')) {
+            try {
+                $preferredPath = $PythonPath
+                if ($ownVenv -or $preservedBase) { $preferredPath = $null }
+                $setupBase = Find-WinBookSplitSetupBase -ApplicationRoot $ApplicationRoot -Policy $policy -PythonPath $preferredPath -DocumentPath $DocumentPath
+                if ($setupBase) { $basePath = $setupBase.Path }
+            } catch {
+                if (Test-WinBookSplitInterruption $_.Exception) {
+                    if ($_.Exception.Data.Contains('FatalDiscovery') -and $_.Exception.Data['FatalDiscovery']) {
+                        $action = 'Preserve the application and diagnostic files; safe shutdown of remedy discovery could not be verified.'
+                    }
+                    elseif ($_.Exception.Data['Code'] -ceq 'processor_cancelled') { $action = 'Remedy discovery was cancelled; retry when ready.' }
+                    else { $action = 'Remedy discovery timed out; retry with an available trusted interpreter.' }
+                }
+            }
+        }
+        if ($action.Length -eq 0) {
+            $action = Get-WinBookSplitSetupCommand -ApplicationRoot $ApplicationRoot -PythonPath $basePath -Repair:$needsRepair
+            $actionShell = 'PowerShell'; $actionIsCommand = $true
+        }
     }
-    return [pscustomobject]@{ Reason = $reason; Message = $message; Action = $action }
+    return [pscustomobject]@{ Reason = $reason; Message = $message; Action = $action; ActionShell = $actionShell; ActionIsCommand = $actionIsCommand;
+        ObservedPath = $observedPath; ObservedVersion = $observedVersion; ObservedSource = $observedSource }
 }
 
 function Open-WinBookSplitConsoleRecords {
@@ -726,10 +786,20 @@ catch {
         if ($null -ne $dependencyFrame) { Write-Host $dependencyFrame }
     }
     else {
-        $summary = Get-WinBookSplitDependencySummary -Failure $preflightFailure -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath
+        $summary = Get-WinBookSplitDependencySummary -Failure $preflightFailure -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile
         $outcome.message = $summary.Message
+        $displayPath = $summary.ObservedPath; $displaySource = $summary.ObservedSource
+        if ($null -eq $displayPath -and $null -ne $runtime) { $displayPath = $runtime.Path; $displaySource = $runtime.Source }
+        if ($null -ne $displayPath) {
+            $displayVersion = 'version unavailable'
+            if ($null -ne $summary.ObservedVersion) { $displayVersion = $summary.ObservedVersion }
+            elseif ($null -ne $runtime) { $displayVersion = $runtime.Version }
+            Write-Host (ConvertTo-WinBookSplitDisplayText ('Python selection: ' + $displayPath + ' (' + $displayVersion + '; ' + $displaySource + ')')) -ForegroundColor Gray
+        }
         Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $summary.Message)) -ForegroundColor Red
-        Write-Host ('Action: ' + (ConvertTo-WinBookSplitDisplayText $summary.Action)) -ForegroundColor Yellow
+        $actionLabel = 'Action: '
+        if ($summary.ActionIsCommand) { $actionLabel = 'Action (PowerShell): ' }
+        Write-Host ($actionLabel + (ConvertTo-WinBookSplitDisplayText $summary.Action)) -ForegroundColor Yellow
         $diagnosticFailure = $null
         try {
             $sourceItem = Get-Item -LiteralPath $InputFile -Force -ErrorAction Stop

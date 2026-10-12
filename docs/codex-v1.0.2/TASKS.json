@@ -141,7 +141,7 @@
       "id": "V102-06",
       "title": "Fix diagnostics and every executable setup remedy",
       "milestone": "M2",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-05"
       ],
@@ -159,7 +159,13 @@
         "V102-AC-035",
         "V102-AC-036"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-07",

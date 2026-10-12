@@ -126,6 +126,34 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
             { Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython } | Should-Throw
         }
     }
+    It 'rejects an inconsistent executable before trusting a rejected version claim' {
+        $record=$script:pinned.Details | ConvertTo-Json -Depth 8 | ConvertFrom-Json
+        $record.executable='C:\Synthetic unrelated\python.exe';$record.version='3.14.2';$record.version_info=@(3,14,2)
+        $record.ok=$false;$record.reason='python_security_floor'
+        $script:malformedJson=$record|ConvertTo-Json -Depth 8 -Compress
+        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:malformedJson }
+        $failure=$null
+        try {Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython} catch {$failure=$_.Exception}
+        $failure.Data['Attempts'][0].Reason | Should -BeExactly 'malformed_runtime'
+        $failure.Data['Attempts'][0].IdentityVerified | Should -BeFalse
+        $failure.Data['Attempts'][0].ObservedVersion | Should -BeNullOrEmpty
+        $failure.Message | Should -Not -Match 'Observed Python 3\.14\.2'
+    }
+    It 'keeps malformed numeric and nonisolated prerelease claims in raw evidence only' {
+        foreach($control in @('numeric','isolation','relative')) {
+            $record=$script:pinned.Details | ConvertTo-Json -Depth 8 | ConvertFrom-Json
+            if($control -eq 'numeric'){$record.version_info=@(3,14,$true)}
+            elseif($control -eq 'relative'){$record.executable='python.exe'}
+            else {$record.version='3.15.0rc1';$record.version_info=@(3,15,0);$record.releaselevel='candidate';$record.serial=1;$record.isolated=$false}
+            $record.ok=$false
+            $script:malformedJson=$record|ConvertTo-Json -Depth 8 -Compress
+            Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:malformedJson }
+            $failure=$null
+            try {Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython} catch {$failure=$_.Exception}
+            $failure.Data['Attempts'][0].IdentityVerified | Should -BeFalse
+            $failure.Data['Attempts'][0].ObservedVersion | Should -BeNullOrEmpty
+        }
+    }
 }
 
 Describe 'M2 narrow bounded native preflight' -Tag 'AC-043' {

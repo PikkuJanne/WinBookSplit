@@ -19,11 +19,11 @@ Installation is offline and hash-locked; there is no online fallback.
 Explicitly preserve a broken .venv in a unique backup before creating a fresh one.
 Healthy environments are unchanged. The backup is not overwritten or deleted.
 .EXAMPLE
-.\Setup-WinBookSplit.ps1
+.\Setup-WinBookSplit.bat
 .EXAMPLE
-.\Setup-WinBookSplit.ps1 -Check
+.\Setup-WinBookSplit.bat -Check -NonInteractive
 .EXAMPLE
-.\Setup-WinBookSplit.ps1 -PythonPath 'C:\Tools\Python\python.exe' -NonInteractive -Wheelhouse 'C:\Tools\Wheels'
+& "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File .\Setup-WinBookSplit.ps1 -PythonPath 'C:\Tools\Python\python.exe' -NonInteractive -Wheelhouse 'C:\Tools\Wheels'
 .NOTES
 Unsigned; follow enforced organizational script policy. Full setup and runtime
 compatibility requirements are in docs/SETUP.md. Output includes a structured
@@ -46,6 +46,10 @@ try {
     $result=[pscustomobject]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='setup_failed';exit_code=6;changed=$false;message=$_.Exception.Message}
 }
 Write-Host $result.message
+if ($result.PSObject.Properties.Name -contains 'observed_python' -and $null -ne $result.observed_python) {
+    $displayVersion='version unavailable';if($null -ne $result.observed_version){$displayVersion=$result.observed_version}
+    Write-Host ('Python selection: '+$result.observed_python+' ('+$displayVersion+'; '+$result.observed_source+')')
+}
 Write-Host ('[SETUP] '+($result|ConvertTo-Json -Depth 12 -Compress))
 $setupExitCode=[int]$result.exit_code
 # Only a zero-argument console launch waits for its result to be read. Explicit

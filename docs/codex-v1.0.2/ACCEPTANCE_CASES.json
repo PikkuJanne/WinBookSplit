@@ -386,54 +386,90 @@
       "task": "V102-06",
       "title": "No bare unsigned default remedy",
       "expected": "All active generated setup remedies use BAT or a full policy-scoped host invocation; no bare direct unsigned ps1 Action remains.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-032",
       "task": "V102-06",
       "title": "Correct observed identity",
       "expected": "Console and structured diagnostics identify actual selected interpreter/version/source even when python --version reports a different PATH interpreter.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-033",
       "task": "V102-06",
       "title": "Distinct actionable reasons",
       "expected": "Security floor, unknown minor, prerelease/build/architecture, missing/wrong/origin-invalid pypdf and pre-script policy failure are not conflated.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-034",
       "task": "V102-06",
       "title": "Fresh setup remedy round-trip",
       "expected": "Exact action emitted for 3.15-only missing-pypdf state executes from a RemoteSigned PowerShell parent with marked scripts, then the original split succeeds.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-035",
       "task": "V102-06",
       "title": "Repair remedy round-trip",
       "expected": "Exact stale-venv repair action selects a valid discovered 3.15 base, preserves backup, and restores application readiness without manual file deletion.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-036",
       "task": "V102-06",
       "title": "Quoting and privacy",
       "expected": "Generated actions preserve spaces/apostrophes/Unicode and shell semantics; local raw diagnostics stay private, redacted reports do not leak user paths or secrets.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-06-diagnostics.json",
+        "evidence/V102-06-diagnostics.md",
+        "evidence/V102-06-native.json",
+        "evidence/V102-06-native.md",
+        "evidence/V102-06-review.md"
+      ]
     },
     {
       "id": "V102-AC-037",
