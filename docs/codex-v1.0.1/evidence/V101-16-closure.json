@@ -1,0 +1,960 @@
+{
+  "BAT_unchanged": true,
+  "Task15_commit_paths": [
+    "docs/codex-v1.0.1/ACCEPTANCE_CASES.json",
+    "docs/codex-v1.0.1/NEXT_SESSION.md",
+    "docs/codex-v1.0.1/STATUS.json",
+    "docs/codex-v1.0.1/STATUS.md",
+    "docs/codex-v1.0.1/TASKS.json",
+    "docs/codex-v1.0.1/evidence/V101-15-A63-ci.json",
+    "docs/codex-v1.0.1/evidence/V101-15-anonymous-audit.json",
+    "docs/codex-v1.0.1/evidence/V101-15-public-zip-smoke.json",
+    "docs/codex-v1.0.1/evidence/V101-15-verification.json",
+    "docs/codex-v1.0.1/evidence/V101-15-verification.md"
+  ],
+  "actual_public_zip_native": {
+    "cases": 19,
+    "controls": 3,
+    "no_new_owner_session": true,
+    "scope": "NATIVE_WINDOWS11_DRY_RUN",
+    "source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "stages": 15
+  },
+  "all16_task_scopes": [
+    {
+      "evidence": [
+        {
+          "bytes": 2369,
+          "file": "evidence/V101-01-baseline.md",
+          "sha256": "5f868d88a2fa2bf180cc33ea2310a90ecf55e275ab50324bdebd467501988bee"
+        },
+        {
+          "bytes": 2097,
+          "file": "evidence/V101-01-baseline.json",
+          "sha256": "ba38b7f3375b078b35e0680d42198b6db3fb0f8ed6b3a85cf434d1f8c5d1f5d4"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-01"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 12893,
+          "file": "evidence/V101-02-security-review.md",
+          "sha256": "a9038d1b0eed2ba241de71ead81ba6bd6274ddca3a237dab5578cd42d8f1c8d3"
+        },
+        {
+          "bytes": 2682,
+          "file": "evidence/V101-02-policy.md",
+          "sha256": "64aa9056c6e9f48f6951182da15af8672a79d412f035a9bd12efb56f9c435a11"
+        },
+        {
+          "bytes": 2135,
+          "file": "evidence/V101-02-policy.json",
+          "sha256": "54f69bcb4879c55e98864b769d3a54739eca328e49edb8e6825f123ad59ac841"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-02"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 3115,
+          "file": "evidence/V101-03-entrypoints.md",
+          "sha256": "49584d0d7f935c215be9fe5105df1614352c2d70ed1563e20dd0925d9cf3d239"
+        },
+        {
+          "bytes": 8661,
+          "file": "evidence/V101-03-entrypoints.json",
+          "sha256": "6d39406a5578786c323d334811c0fdb016d903b2930bbcc7181d0cc72d219bec"
+        },
+        {
+          "bytes": 6221,
+          "file": "evidence/V101-03-package-review.md",
+          "sha256": "3b03d61d35cb2a873373a2190211836c3f0660ba6f9b0f60e615bfe5be4a289f"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-03"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 2856,
+          "file": "evidence/V101-04-discovery.md",
+          "sha256": "c3b0118ed3a55fce1d572141c8a6b54883e08e2e2f9e9212fdc5df62511ed282"
+        },
+        {
+          "bytes": 20258,
+          "file": "evidence/V101-04-discovery.json",
+          "sha256": "da7191989a08b6f51a8f806be8e37ce0d378086ae68ce19198e8fd5b462682d1"
+        },
+        {
+          "bytes": 6968,
+          "file": "evidence/V101-04-review.md",
+          "sha256": "285c11381d6ca55adb009192afcf9f9372934f076a1d3e830bc7d6491f405149"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-04"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 6219,
+          "file": "evidence/V101-05-setup.md",
+          "sha256": "c35e8f692cf7fc53437a5b7c4f0db3bd9206fb160b5ade6a80a59a044d4ba763"
+        },
+        {
+          "bytes": 19542,
+          "file": "evidence/V101-05-setup.json",
+          "sha256": "b7e6ad130f03a878cf394ddbcf4cd1b2d7866ab4b00674f8b33adeae25e0b170"
+        },
+        {
+          "bytes": 2586,
+          "file": "evidence/V101-05-ci.md",
+          "sha256": "fbfb2bd635f5d7ffb64962d0390ca4205b23d6a32ac9463704e553523521c716"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-05"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 4945,
+          "file": "evidence/V101-06-diagnostics.md",
+          "sha256": "a6bbda35f968668d848cefa7c9a14cc02d0004efc44a90534acca1ee4a5baeda"
+        },
+        {
+          "bytes": 18005,
+          "file": "evidence/V101-06-diagnostics.json",
+          "sha256": "b0855c7ec34dc24c8547cb5d39304d92085bff5f5ba43c995f899f799b4e7d75"
+        },
+        {
+          "bytes": 6878,
+          "file": "evidence/V101-06-api-review.md",
+          "sha256": "7418a24e35d484c9a9e60e136214b9620a56f72536e50989cc80024a92ac3681"
+        },
+        {
+          "bytes": 2121,
+          "file": "evidence/V101-06-ci.md",
+          "sha256": "03dd2f87b1c584aa5731b249bf0d8040274c996747694ac78c2f294e953ef05b"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-06"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 5263,
+          "file": "evidence/V101-07-regression.md",
+          "sha256": "d1b1b58c8439a04eaad4738af38a27792173172e310ab16449324a1a32f858f3"
+        },
+        {
+          "bytes": 43526,
+          "file": "evidence/V101-07-regression.json",
+          "sha256": "4ccd1109fcbb8d904c82993b26fa3607eec3044b04764dbc33bf99d5b846bf1a"
+        },
+        {
+          "bytes": 12112,
+          "file": "evidence/V101-07-review.md",
+          "sha256": "48e45b06c928b32e568514625ff1ad391e92594bd7ea5c8129ce3dcb4b97e949"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-07"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 3229,
+          "file": "evidence/V101-08-native-kit.md",
+          "sha256": "3fd5392855ccd1df622046d0356efa4d9dfdf1b8d082a4bbec375d8afd922f3c"
+        },
+        {
+          "bytes": 30487,
+          "file": "evidence/V101-08-native-kit.json",
+          "sha256": "e308f37037d99eb6f32e270c211ad4f7f5d154f532f1f2403a3e1ed170c055c6"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-08"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 6931,
+          "file": "evidence/V101-09-ci.md",
+          "sha256": "16e28a10f95b40dbbb0245e8f3d99575c3f5ce27c4a89731b234ef71bd3bff87"
+        },
+        {
+          "bytes": 74214,
+          "file": "evidence/V101-09-ci.json",
+          "sha256": "8dea22270c058fa48c24b9d12bd7b73b1e9ed7dc768f9dfb29804001369bb422"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-09"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 3121,
+          "file": "evidence/V101-10-regressions.md",
+          "sha256": "ff5d26487fbb2793a2c45d9046f423127b9e782c4b932e7cdefd65b409756158"
+        },
+        {
+          "bytes": 113601,
+          "file": "evidence/V101-10-regressions.json",
+          "sha256": "2a8014e79a1166fa944ca92ed62a818b2510e5869d00742f0ac4a157509be814"
+        },
+        {
+          "bytes": 78115,
+          "file": "evidence/V101-10-ci.json",
+          "sha256": "7c1b4e5e437709878b180823ac0929efd78aed62c42adaef7764b3c51443eb46"
+        },
+        {
+          "bytes": 3804,
+          "file": "evidence/V101-10-security-review.md",
+          "sha256": "6df55a8355187e4db52fbcca5d8f49e6858aa536b256bb8a327cd39f16db6d40"
+        },
+        {
+          "bytes": 34387,
+          "file": "evidence/V101-10-security-review.json",
+          "sha256": "f09c33562224063102e47bebfc311f7f920b24bc60758272bb82f595c8b3f9b6"
+        },
+        {
+          "bytes": 1606,
+          "file": "evidence/V101-10-implementation-partial.md",
+          "sha256": "5284d13b103806c91bab880e7d983da799634af560241af5985b1045b25e0790"
+        },
+        {
+          "bytes": 22580,
+          "file": "evidence/V101-10-implementation-partial.json",
+          "sha256": "d5a3fb7ddd8b791f4e66b510e8fe0292bfa913e7a3a40f9d9c9d0a9c2e20f142"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-10"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 903,
+          "file": "evidence/V101-11-import.md",
+          "sha256": "5dbb377a00ac028f5342e1d2f484066f5a050ecefed9b88a2e76e475b8addb7a"
+        },
+        {
+          "bytes": 8391,
+          "file": "evidence/V101-11-import.json",
+          "sha256": "96884103e8529e09ffa05ff911c483603e05d392216464458d3a9432d6845098"
+        },
+        {
+          "bytes": 1686,
+          "file": "evidence/V101-11-fixture-correction.md",
+          "sha256": "6c10476808c1402160a7693eb15bb6ef62c948d71badeab3191ab774c065924e"
+        },
+        {
+          "bytes": 26021,
+          "file": "evidence/V101-11-fixture-correction.json",
+          "sha256": "7058e69b092f16d62e20be1a6ac52d37e5dbe0fbe897095d7fddd5bda39c7e48"
+        },
+        {
+          "bytes": 1693,
+          "file": "evidence/V101-11-completion.md",
+          "sha256": "8113047f42a0986e68adfa51dc49421ba13580c44a7a792413fdf04405741fb3"
+        },
+        {
+          "bytes": 9317,
+          "file": "evidence/V101-11-completion.json",
+          "sha256": "3a20e441d2d11abc6f1e2efdb84df0532860b48337704f43e481eaf03887388a"
+        },
+        {
+          "bytes": 78115,
+          "file": "evidence/V101-11-ci.json",
+          "sha256": "4c24bc98532fe5ebc48de57222dbb1b24a863fc511f9ae3c5a8e8e0d0128ca9f"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-11"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 78115,
+          "file": "evidence/V101-12-main-ci.json",
+          "sha256": "a70da3a6a48f19b48edde0ffc4cd6d5c10389852c90ab35bbef1fccaefc1a8b1"
+        },
+        {
+          "bytes": 14580,
+          "file": "evidence/V101-12-release-freeze.json",
+          "sha256": "879fad127f0c8346c17fc07829d7d583ccfa31834b4496b4a9972df198d8e243"
+        },
+        {
+          "bytes": 765,
+          "file": "evidence/V101-12-production-expectations.json",
+          "sha256": "94a4d879b8461811b60346e665820d4bae03b2879f862fcb64cf81b9e4520ea6"
+        },
+        {
+          "bytes": 13667,
+          "file": "evidence/V101-12-review-freeze.json",
+          "sha256": "2a4d80594a3dd4e45ab3fab91362188738b885c57a8abd4ccb87866523a14983"
+        },
+        {
+          "bytes": 2743,
+          "file": "evidence/V101-12-review-freeze.md",
+          "sha256": "948a52dda04d2a13eefbb159a3d486f85912be076fc39eae1ccefeadb0c66362"
+        },
+        {
+          "bytes": 30063,
+          "file": "evidence/V101-12-security-refresh.json",
+          "sha256": "24393e656803251e6317e08b67625ec0aed43e44dc9ffb607a34a82b349209c6"
+        },
+        {
+          "bytes": 3563,
+          "file": "evidence/V101-12-security-refresh.md",
+          "sha256": "6e22e3ae07ea454c8d1f868fba382a9aa68916b8fe998a3618b534730974ad7b"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-12"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 4720,
+          "file": "evidence/V101-13-tooling-preflight.json",
+          "sha256": "5a1d3d1308b7937f409a9af3c7761cdcd724dde0570898d13723597ba8b4e197"
+        },
+        {
+          "bytes": 2735,
+          "file": "evidence/V101-13-tooling-preflight.md",
+          "sha256": "810e91fabc65403da0594a829cd1189e72d85e2e5c9f49031e55084d7c24cc92"
+        },
+        {
+          "bytes": 5516,
+          "file": "evidence/V101-13-ps7-recipe-correction.json",
+          "sha256": "8754113b9047d385dc8f5ebff87ced14ea79794de9a51980fa4ad7cab9cf41a6"
+        },
+        {
+          "bytes": 1655,
+          "file": "evidence/V101-13-ps7-recipe-correction.md",
+          "sha256": "15a85582d125a7222b6ba368d633a8d74514f7d6cc4caae5181bf81e1ec1a4d2"
+        },
+        {
+          "bytes": 10523,
+          "file": "evidence/V101-13-native-win11-python14.json",
+          "sha256": "682c200e602cfc9e67538bc10e4f30cf8bdde8799ea3414e4f4dcf88b7b329aa"
+        },
+        {
+          "bytes": 10524,
+          "file": "evidence/V101-13-native-win11-python13.json",
+          "sha256": "64cf7d099bd594930e690d39457894307ce1504807936f50e06caaed7e8bfa5d"
+        },
+        {
+          "bytes": 2672,
+          "file": "evidence/V101-13-native-win11-ps7.json",
+          "sha256": "263b9e66f4fe6167cac577cb7d9d8a1a47b671670916b59f6d46bef0163cd1d1"
+        },
+        {
+          "bytes": 79189,
+          "file": "evidence/V101-13-K2-ci.json",
+          "sha256": "5d894baec47bf5f15993aa32f5e1ab5d4f2866ee027e96f19a029251d9ac8ee0"
+        },
+        {
+          "bytes": 986,
+          "file": "evidence/V101-13-kit-delivery.json",
+          "sha256": "6d3eca3eb53a7d03654be24519d3c260d5381a358bba66d2f398cc86ae60f488"
+        },
+        {
+          "bytes": 18828,
+          "file": "evidence/V101-13-available-host-blocker.json",
+          "sha256": "34d6fc093f0a8f6e7e962429c6e9209965f814be00fd1134454492cfbb188960"
+        },
+        {
+          "bytes": 3381,
+          "file": "evidence/V101-13-available-host-blocker.md",
+          "sha256": "e73ce70907a90d1aa6bbb854976d10a87ad7056d1d420309316d566607365c43"
+        },
+        {
+          "bytes": 10515,
+          "file": "evidence/V101-13-native-win10.json",
+          "sha256": "4f714fb6bbbd836e5bdf492d38c9f5cbd2ebcfe8615316ca7857d4bba6cfd104"
+        },
+        {
+          "bytes": 5274,
+          "file": "evidence/V101-13-native-win10-review.json",
+          "sha256": "ccff4b1c93c2e08d7fd3ad57273c71c1cec7235d0b59786fabeb02940aef6e57"
+        },
+        {
+          "bytes": 2997,
+          "file": "evidence/V101-13-native-win10.md",
+          "sha256": "086fe44760d303dcb281a1d5fb95b8f1151477b36f1704dc5136005dcfb2830a"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-13"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 33223,
+          "file": "evidence/V101-14-security-review-08.json",
+          "sha256": "a10b996378f09f7bcd4d60579b383b56c7fb61bd8ab9fcacb87a990d1784f45f"
+        },
+        {
+          "bytes": 3577,
+          "file": "evidence/V101-14-security-review-08.md",
+          "sha256": "4b9eceddcb75850f10445ed276a3cc44a84ea051a253f33d26d8e3ce6d89343e"
+        },
+        {
+          "bytes": 1615,
+          "file": "evidence/V101-14-prepublication-gate.json",
+          "sha256": "acfbeef1a095a326ce7a5e380ece179a749448941e796724458929a2e5755ab7"
+        },
+        {
+          "bytes": 2007,
+          "file": "evidence/V101-14-draft-inspection.json",
+          "sha256": "7858d3186813fb7f867938551362d0c3c787d7ab3b949ed93ead8b16fc75c749"
+        },
+        {
+          "bytes": 4224,
+          "file": "evidence/V101-14-publication.json",
+          "sha256": "65ab3a53233128ae62548b894bc43448a199eaa7f2480efad79a7ee2d336e1f6"
+        },
+        {
+          "bytes": 3856,
+          "file": "evidence/V101-14-release-notes.md",
+          "sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-14"
+    },
+    {
+      "evidence": [
+        {
+          "bytes": 20014,
+          "file": "evidence/V101-15-anonymous-audit.json",
+          "sha256": "51aaff90a0a6808f2728f5e26be3f52ba47d30a6d4cd6360e1e6d51915bcc321"
+        },
+        {
+          "bytes": 10523,
+          "file": "evidence/V101-15-public-zip-smoke.json",
+          "sha256": "21e639e7cf7505293fb67df30d5ec2466a28e58307d3f0eeec13b208ef58fc27"
+        },
+        {
+          "bytes": 18395,
+          "file": "evidence/V101-15-verification.json",
+          "sha256": "ae3fb999dbdb4f9fffe2ab21119ccc5cc07d5c5ef3182d83b841a7704184ae73"
+        },
+        {
+          "bytes": 1294,
+          "file": "evidence/V101-15-verification.md",
+          "sha256": "9ffa913cef5c16758304f9cdcd26b5b50840a084ed031037480371f3c190fe4f"
+        },
+        {
+          "bytes": 79189,
+          "file": "evidence/V101-15-A63-ci.json",
+          "sha256": "828b10d665a0581472b169b124b5776cf989dff6b52f4bb8431e1f89f642520e"
+        }
+      ],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "DONE",
+      "task": "V101-15"
+    },
+    {
+      "evidence": [],
+      "qualification": "Recorded prior actual/synthetic scopes remain as labelled; no tests are rerun or promoted by this audit.",
+      "status": "IN_PROGRESS",
+      "task": "V101-16"
+    }
+  ],
+  "asset_redownloads": 0,
+  "audited_current_head": "8a3f43a3378ba808553048225751d3d1c042d378",
+  "current_tree": "a5890e0296db7fc0e8abedf1e62d993a7a4cbe51",
+  "deadline_seconds": 900,
+  "final_C_minus_P_paths": [],
+  "fixed_tags": {
+    "v1.0.0": {
+      "http": [
+        {
+          "bytes": 341,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.0",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.0",
+          "sha256": "724763be84ca0a27ce98884c99d14769ad52d6e6d5c2587de24ba6401d2c891a",
+          "status": 200
+        },
+        {
+          "bytes": 708,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+          "sha256": "e8ccfd32cfcc64fff92d0cdd329fff63a1f7bda49977b16f6d477da418bd2496",
+          "status": 200
+        }
+      ],
+      "peeled_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "tag_object": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2"
+    },
+    "v1.0.1": {
+      "http": [
+        {
+          "bytes": 341,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.1",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/ref/tags/v1.0.1",
+          "sha256": "989de35df0009ed5e1e51838d91eef5f9de36887934ed1c88b66461878289f2b",
+          "status": 200
+        },
+        {
+          "bytes": 708,
+          "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/113ab73991c9527caf983a8e9e5993a75b226c1a",
+          "redirects_without_queries": [],
+          "request_headers": {
+            "Accept": "application/vnd.github+json",
+            "Accept-Encoding": "identity",
+            "User-Agent": "WinBookSplit-anonymous-release-verification"
+          },
+          "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/git/tags/113ab73991c9527caf983a8e9e5993a75b226c1a",
+          "sha256": "c69543263b8dcc666928440f6bc326a8ed35e750cf0cb9fdd2c4249a8adbe568",
+          "status": 200
+        }
+      ],
+      "peeled_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+      "tag_object": "113ab73991c9527caf983a8e9e5993a75b226c1a"
+    }
+  },
+  "fresh_metadata_http": [
+    {
+      "bytes": 10161,
+      "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.1",
+      "redirects_without_queries": [],
+      "request_headers": {
+        "Accept": "application/vnd.github+json",
+        "Accept-Encoding": "identity",
+        "User-Agent": "WinBookSplit-anonymous-release-verification"
+      },
+      "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.1",
+      "sha256": "32433ab8cd37ad77028d9f69ad5a7edc8d8e3778cbaa5c7bb99536a7e435c6f0",
+      "status": 200
+    },
+    {
+      "bytes": 13816,
+      "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+      "redirects_without_queries": [],
+      "request_headers": {
+        "Accept": "application/vnd.github+json",
+        "Accept-Encoding": "identity",
+        "User-Agent": "WinBookSplit-anonymous-release-verification"
+      },
+      "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/tags/v1.0.0",
+      "sha256": "d2f4fd86ae6327e49df71d0ee645faeabae53263d9cfe78d38f4d7c9acffc7b5",
+      "status": 200
+    },
+    {
+      "bytes": 10161,
+      "final_url_without_query": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/latest",
+      "redirects_without_queries": [],
+      "request_headers": {
+        "Accept": "application/vnd.github+json",
+        "Accept-Encoding": "identity",
+        "User-Agent": "WinBookSplit-anonymous-release-verification"
+      },
+      "requested_url": "https://api.github.com/repos/PikkuJanne/WinBookSplit/releases/latest",
+      "sha256": "32433ab8cd37ad77028d9f69ad5a7edc8d8e3778cbaa5c7bb99536a7e435c6f0",
+      "status": 200
+    }
+  ],
+  "live_public_release": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "id": 633779495,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "id": 633779492,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "id": 633779501,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json"
+      }
+    },
+    "draft": false,
+    "id": 410596171,
+    "latest": true,
+    "notes_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+    "prerelease": false,
+    "published_at": "2026-10-12T12:52:30Z",
+    "tag": "v1.0.1"
+  },
+  "network_policy": "Reused pinned anonymous metadata/tag routines: no auth/cookies/proxy, fixed primary GitHub HTTPS allowlist. Seven fresh metadata requests only, no asset/body redownload or application run.",
+  "observed_utc": "2026-10-12T13:33:54.317849+00:00",
+  "old_release": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "id": 630123442,
+        "sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt"
+      },
+      "WinBookSplit-v1.0.0.zip": {
+        "bytes": 414497,
+        "id": 630123440,
+        "sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip"
+      },
+      "release-manifest.json": {
+        "bytes": 11547,
+        "id": 630123444,
+        "sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json"
+      }
+    },
+    "id": 409510027,
+    "preserved": true
+  },
+  "phase": "preclosure",
+  "prior_Task15_P": "8a3f43a3378ba808553048225751d3d1c042d378",
+  "prior_six_byte_downloads_audit_sha256": "51aaff90a0a6808f2728f5e26be3f52ba47d30a6d4cd6360e1e6d51915bcc321",
+  "production": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+      },
+      "WinBookSplit-v1.0.1.zip": {
+        "bytes": 885340,
+        "sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+      },
+      "release-manifest.json": {
+        "bytes": 15816,
+        "sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+      }
+    },
+    "payload_sha256": "2319ce283d2a4c5ef6a0048f6450ce8b77f431f71112a6547963e1342a55287a",
+    "policy_sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0",
+    "source_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "source_tree": "5bc1a6e045e6abfc04689087bb0e25692ab9dd08",
+    "version": "1.0.1"
+  },
+  "protocol": "winbooksplit.final-closure-audit",
+  "schema_version": 1,
+  "scope": "Point-in-time source/status/live synchronization and public metadata/tag closure checks. Existing native/CI/anonymous-byte evidence remains in its actual labelled scope; no new test/publication action.",
+  "shipped_count": 33,
+  "shipped_members": [
+    {
+      "bytes": 3464,
+      "path": "CHANGELOG.md",
+      "sha256": "83cd513c1eafe7d9e8b155dd02d94c1136401be1d54f6da32c719636508e4ae7"
+    },
+    {
+      "bytes": 1839,
+      "path": "CONTRIBUTING.md",
+      "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+    },
+    {
+      "bytes": 863,
+      "path": "Export-WinBookSplitDiagnostics.ps1",
+      "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+    },
+    {
+      "bytes": 1070,
+      "path": "LICENSE",
+      "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+    },
+    {
+      "bytes": 11994,
+      "path": "README.md",
+      "sha256": "ef9239dc0ab04e1a001cbbca9a1757ffee3c9ce33cdd842cbda1a95c4d709441"
+    },
+    {
+      "bytes": 3655,
+      "path": "SECURITY.md",
+      "sha256": "6bbacd0f122e6fc9cbb553607a80a3ebfacec4756a5d777f7d1ef13194756cd4"
+    },
+    {
+      "bytes": 2226,
+      "path": "Setup-WinBookSplit.ps1",
+      "sha256": "1d54811fa5c38720d303e734ac46f4f1faee3f56165a1ffa622c836df4516486"
+    },
+    {
+      "bytes": 2688,
+      "path": "THIRD_PARTY_NOTICES.md",
+      "sha256": "517eff28010e0f22b775ef209ce1909d574fb0e883086c94ec5831537946b614"
+    },
+    {
+      "bytes": 6,
+      "path": "VERSION",
+      "sha256": "44e161e4495cac2cf7858043e9e6418e9579f0ddcfae826f9a372622968ce066"
+    },
+    {
+      "bytes": 1145,
+      "path": "WinBookSplit.bat",
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+    },
+    {
+      "bytes": 370070,
+      "path": "WinBookSplit.ico",
+      "sha256": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42"
+    },
+    {
+      "bytes": 67492,
+      "path": "WinBookSplit.ps1",
+      "sha256": "2ffe4be6e83c45c22dd339a140e32c33e6fda5929fef85bd8ce9171f1bce01ed"
+    },
+    {
+      "bytes": 3352,
+      "path": "docs/EBOOK_SUPPORT.md",
+      "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+    },
+    {
+      "bytes": 3344,
+      "path": "docs/PDF_FIDELITY.md",
+      "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+    },
+    {
+      "bytes": 4143,
+      "path": "docs/PDF_POLICY.md",
+      "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+    },
+    {
+      "bytes": 10861,
+      "path": "docs/SETUP.md",
+      "sha256": "0ee1315cdd61c74ceed4b2b7ca57a00afdedfaf48d691459e6e16dc80716f170"
+    },
+    {
+      "bytes": 5892,
+      "path": "docs/SUPPORT_DIAGNOSTICS.md",
+      "sha256": "fd4485111d6db0e850d0badf0ae7fe88fc90eaea7979b665a7033c598e3c63f1"
+    },
+    {
+      "bytes": 6342,
+      "path": "engine/WinBookSplit.Compatibility.json",
+      "sha256": "ac309429a7720c3665f86164ddaa383c4823f569fc1a0770eea9dbd11d05b1a0"
+    },
+    {
+      "bytes": 16904,
+      "path": "engine/WinBookSplit.Compatibility.ps1",
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+    },
+    {
+      "bytes": 25458,
+      "path": "engine/WinBookSplit.Diagnostics.ps1",
+      "sha256": "c372868e488d47fc9e14d6c68d38a716f86fa131f3b71487ca3b71cfcc7beeef"
+    },
+    {
+      "bytes": 13060,
+      "path": "engine/WinBookSplit.Logging.ps1",
+      "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+    },
+    {
+      "bytes": 1581,
+      "path": "engine/WinBookSplit.Outcomes.json",
+      "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+    },
+    {
+      "bytes": 4142,
+      "path": "engine/WinBookSplit.Paths.ps1",
+      "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+    },
+    {
+      "bytes": 41219,
+      "path": "engine/WinBookSplit.Process.ps1",
+      "sha256": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984"
+    },
+    {
+      "bytes": 47612,
+      "path": "engine/WinBookSplit.Runtime.ps1",
+      "sha256": "e56870195c4c5fd09a8ebdb1c96a3091d088fc80d25764d537811fb83afa4816"
+    },
+    {
+      "bytes": 27716,
+      "path": "engine/WinBookSplit.Setup.ps1",
+      "sha256": "866d419a1b2de90f304cdff8a2587a4fc7d9a03431dc1814b724661c23750473"
+    },
+    {
+      "bytes": 27250,
+      "path": "engine/WinBookSplit.Support.ps1",
+      "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+    },
+    {
+      "bytes": 20075,
+      "path": "engine/winbooksplit_compatibility.py",
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    },
+    {
+      "bytes": 27985,
+      "path": "engine/winbooksplit_conversion.py",
+      "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+    },
+    {
+      "bytes": 101647,
+      "path": "engine/winbooksplit_engine.py",
+      "sha256": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+    },
+    {
+      "bytes": 14965,
+      "path": "engine/winbooksplit_job.py",
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    {
+      "bytes": 10933,
+      "path": "engine/winbooksplit_windows.py",
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    {
+      "bytes": 255,
+      "path": "requirements.txt",
+      "sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+    }
+  ],
+  "source_query_timeout_seconds": 30,
+  "status_snapshot": {
+    "accepted_zip_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+    "baseline_commit": "be1fa1e271aa2bd031d907e9dbc9e7bfc32bbb62",
+    "blockers": [],
+    "current_task": "V101-16",
+    "human_sessions_used": 1,
+    "last_verified_sync": {
+      "branch": "main",
+      "commit": "a63b65659ae1d48104ba7fd20e74556c9debf728",
+      "observed_at": "2026-10-12T13:31:33.441104+00:00"
+    },
+    "native_windows10": "PASS",
+    "native_windows11": "PASS",
+    "phase": "IN_PROGRESS",
+    "public_release_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.1",
+    "published_release": "PUBLIC_ANONYMOUS_BYTES_AND_SMOKE_VERIFIED",
+    "release_source_R": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "schema_version": 1,
+    "target_release": "v1.0.1",
+    "work_branch": "main"
+  },
+  "success": true,
+  "sync_after": {
+    "branch": "main",
+    "local_head": "8a3f43a3378ba808553048225751d3d1c042d378",
+    "observed_at": "2026-10-12T13:33:52.548910+00:00",
+    "read_only": true,
+    "reason": "Clean local HEAD equals fresh live branch at observation time",
+    "remote_head": "8a3f43a3378ba808553048225751d3d1c042d378",
+    "repository": "PikkuJanne/WinBookSplit",
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "status": "SYNCED",
+    "worktree_clean": true
+  },
+  "sync_before": {
+    "branch": "main",
+    "local_head": "8a3f43a3378ba808553048225751d3d1c042d378",
+    "observed_at": "2026-10-12T13:32:52.357550+00:00",
+    "read_only": true,
+    "reason": "Clean local HEAD equals fresh live branch at observation time",
+    "remote_head": "8a3f43a3378ba808553048225751d3d1c042d378",
+    "repository": "PikkuJanne/WinBookSplit",
+    "scope": "Branch/worktree equality only; not CI, review, tags or release validation.",
+    "status": "SYNCED",
+    "worktree_clean": true
+  },
+  "tested_source": {
+    "digest": "a8186bcd6d40ad5581aef0964fb7bb32fbc2e003055d26c4061a70ed701e1518",
+    "fresh_tests_run": false,
+    "paths": 203,
+    "same_current_raw_Git_modes_blobs_as_A63_K2": true
+  },
+  "tracked_artwork_unchanged": [
+    "WinBookSplit.ico",
+    "WinBookSplit.png",
+    "WinBookSplit_poster.png"
+  ],
+  "whole_post_R_scope": {
+    "other_nonshipped_paths": [
+      "docs/codex-v1.0.1/ACCEPTANCE_CASES.json",
+      "docs/codex-v1.0.1/NEXT_SESSION.md",
+      "docs/codex-v1.0.1/STATUS.json",
+      "docs/codex-v1.0.1/STATUS.md",
+      "docs/codex-v1.0.1/TASKS.json",
+      "docs/codex-v1.0.1/evidence/V101-12-main-ci.json",
+      "docs/codex-v1.0.1/evidence/V101-12-production-expectations.json",
+      "docs/codex-v1.0.1/evidence/V101-12-release-freeze.json",
+      "docs/codex-v1.0.1/evidence/V101-12-review-freeze.json",
+      "docs/codex-v1.0.1/evidence/V101-12-review-freeze.md",
+      "docs/codex-v1.0.1/evidence/V101-12-security-refresh.json",
+      "docs/codex-v1.0.1/evidence/V101-12-security-refresh.md",
+      "docs/codex-v1.0.1/evidence/V101-13-K2-ci.json",
+      "docs/codex-v1.0.1/evidence/V101-13-available-host-blocker.json",
+      "docs/codex-v1.0.1/evidence/V101-13-available-host-blocker.md",
+      "docs/codex-v1.0.1/evidence/V101-13-kit-delivery.json",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win10-review.json",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win10.json",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win10.md",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win11-ps7.json",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win11-python13.json",
+      "docs/codex-v1.0.1/evidence/V101-13-native-win11-python14.json",
+      "docs/codex-v1.0.1/evidence/V101-13-ps7-recipe-correction.json",
+      "docs/codex-v1.0.1/evidence/V101-13-ps7-recipe-correction.md",
+      "docs/codex-v1.0.1/evidence/V101-13-tooling-preflight.json",
+      "docs/codex-v1.0.1/evidence/V101-13-tooling-preflight.md",
+      "docs/codex-v1.0.1/evidence/V101-14-draft-inspection.json",
+      "docs/codex-v1.0.1/evidence/V101-14-prepublication-gate.json",
+      "docs/codex-v1.0.1/evidence/V101-14-publication.json",
+      "docs/codex-v1.0.1/evidence/V101-14-release-notes.md",
+      "docs/codex-v1.0.1/evidence/V101-14-security-review-08.json",
+      "docs/codex-v1.0.1/evidence/V101-14-security-review-08.md",
+      "docs/codex-v1.0.1/evidence/V101-15-A63-ci.json",
+      "docs/codex-v1.0.1/evidence/V101-15-anonymous-audit.json",
+      "docs/codex-v1.0.1/evidence/V101-15-public-zip-smoke.json",
+      "docs/codex-v1.0.1/evidence/V101-15-verification.json",
+      "docs/codex-v1.0.1/evidence/V101-15-verification.md"
+    ],
+    "qualification": "Post-R history includes earlier nonshipped PS7 tooling/code/tests; it is not all documentation-only. P and final C are narrowly audited evidence/status revisions; published source/tag remain R.",
+    "supplemental_tooling_test_paths": [
+      "tests/Invoke-ShellTests.ps1",
+      "tests/python/test_final_zip_ps7.py",
+      "tools/compatibility/Invoke-FinalZipPs7.ps1",
+      "tools/compatibility/README.md",
+      "tools/compatibility/final_zip_ps7.py"
+    ]
+  }
+}

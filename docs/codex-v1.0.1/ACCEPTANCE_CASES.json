@@ -1079,8 +1079,11 @@
       "key": "closure_audit",
       "expected": "Post-R closure changes are non-shipped evidence only; release source/tag remain R.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-16-closure.json",
+        "evidence/V101-16-closure.md"
+      ]
     },
     {
       "id": "V101-AC-080",
@@ -1088,8 +1091,11 @@
       "key": "final_sync",
       "expected": "Clean local main equals a fresh live remote main at closure C; no cached-ref or failed-push success.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-16-closure.json",
+        "evidence/V101-16-closure.md"
+      ]
     },
     {
       "id": "V101-AC-081",
@@ -1097,8 +1103,11 @@
       "key": "done_evidence",
       "expected": "Final status has public URL/R/artifact hashes/actual coverage/limits and truthful task completion; project is not marked done at a tag/draft.",
       "verification_kind": "RELEASE_OR_SYNC_VERIFICATION",
-      "status": "NOT_RUN",
-      "evidence": []
+      "status": "PASS",
+      "evidence": [
+        "evidence/V101-16-closure.json",
+        "evidence/V101-16-closure.md"
+      ]
     }
   ]
 }

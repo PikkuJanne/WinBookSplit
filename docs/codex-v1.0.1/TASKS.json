@@ -437,8 +437,11 @@
         "V101-AC-080",
         "V101-AC-081"
       ],
-      "status": "IN_PROGRESS",
-      "evidence": []
+      "status": "DONE",
+      "evidence": [
+        "evidence/V101-16-closure.json",
+        "evidence/V101-16-closure.md"
+      ]
     }
   ]
 }
