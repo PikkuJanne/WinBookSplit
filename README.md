@@ -4,7 +4,7 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This is the **v1.0.1 compatibility update**. The first public release,
+This is the **v1.0.2 Python 3.15 and setup repair**. The first public release,
 [v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
 published on 11 October 2026. [VERSION](VERSION) is the application version
 source. The older `2.1` banner was development naming, not an earlier public
@@ -16,22 +16,26 @@ semantic version.
 | --- | --- |
 | Windows target | Windows 10 **22H2 x64** and Windows 11 x64; ordinary local filesystem paths |
 | PowerShell | Inbox Windows PowerShell **5.1**; **7.6.6** is the tested PowerShell 7 host |
-| Python | Regular GIL Windows x64 CPython **3.13.16 or later stable 3.13 patch**, or **3.14.8 or later stable 3.14 patch** |
+| Python | Regular GIL Windows x64 CPython **3.15.0 or later stable 3.15 patch**, **3.14.8 or later stable 3.14 patch**, or **3.13.16 or later stable 3.13 patch** |
 | pypdf | Plain **6.20.0**, controlled by its separate package version and SHA-256 lock |
 | Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
 
-The exact source-test interpreters are **3.13.16 and 3.14.8**. Later stable
-patches in those two branches are accepted by the shipped policy; acceptance is
+The exact source-test interpreters are **3.13.16, 3.14.8 and 3.15.0**. Later stable
+patches in those three branches are accepted numerically by the shipped policy; acceptance is
 not a claim that each patch has been tested. Windows 11 source checks and
 Windows Server 2025 CI are distinct from final-package Windows 10 acceptance.
-The [release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.1/evidence)
+The [release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.2/evidence)
 and [release assets](https://github.com/PikkuJanne/WinBookSplit/releases) identify
-the exact archive and native platform tested. Source-test results alone do not
+the exact archive and native platform tested. Use the named
+`WinBookSplit-v1.0.2.zip`, manifest and checksums from the same public release
+when available. GitHub's automatic **Source code (zip)** or tarball is a source
+checkout, not the accepted distribution. Source-test results alone do not
 certify a final release package.
 
 The [shipped policy](engine/WinBookSplit.Compatibility.json) rejects prereleases,
 free-threaded Python, PyPy, 32-bit/ARM processes and unlisted minor branches,
-including 3.15. The reviewed security floors include the bundled OpenSSL fix
+such as 3.16. An unknown minor is not yet validated for this release; it is
+not labeled insecure. The reviewed security floors include the bundled OpenSSL fix
 used by explicit HTTPS setup; earlier 3.13/3.14 patches, including 3.13.15 and
 3.14.7, are excluded. Python 3.11 and 3.12 were evaluated and excluded because the
 applicable Windows security fix is available only in their source releases,
@@ -61,18 +65,26 @@ These checks do not make the application a document sanitizer or security sandbo
 ## Set up once
 
 Keep the entry points, `VERSION`, requirements and `engine` folder together in
-a writable per-user folder. Install a compatible Python separately, then run
-this command from the application directory:
+a writable per-user folder. Use an existing accepted Python installation,
+including regular x64 Python 3.15; no precisely matching patch or downgrade is
+required. If Python is absent, obtain it separately from
+[Python.org](https://www.python.org/downloads/windows/). From the application
+directory in PowerShell, run:
 
 ```powershell
-powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\Setup-WinBookSplit.ps1 -NonInteractive
+.\Setup-WinBookSplit.bat -NonInteractive
 ```
 
-This execution-policy setting applies only to the new PowerShell process; it
-does not change global execution policy. Enforced organization policy still
-applies. For direct script commands below, use the same
-`powershell.exe -NoProfile -ExecutionPolicy Bypass -File` prefix if your local
-default policy blocks unsigned scripts.
+The setup BAT resolves inbox Windows PowerShell from the Windows system
+location and uses Bypass only for its child process. It works with Internet-marked
+unsigned scripts where organization policy permits. It does not change persistent
+policy or remove Internet marks. A complete PowerShell-host alternative is:
+
+```powershell
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\Setup-WinBookSplit.ps1' -NonInteractive
+```
+
+Enforced organization controls still apply; follow them if execution is denied.
 
 Setup creates an application-local `.venv` and downloads only the hash-locked
 pypdf package from PyPI. Use `-PythonPath` for a concrete trusted base interpreter,
@@ -116,41 +128,40 @@ Level 2 bookmarks for the preview example; the EPUB needs usable Level 1 bookmar
 The AZW3 example needs at least three converted physical pages.
 
 ```powershell
-.\WinBookSplit.ps1 -Version
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -Version
 ```
 
-```powershell
-Get-Help .\WinBookSplit.ps1 -Full
-```
+The parameter comments at the start of `WinBookSplit.ps1` describe the
+supported options; the examples below show their invocation.
 
 Interactive PDF selection and confirmation:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
 ```
 
 Create manual chapters without prompts:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
 ```
 
 Inspect a Level 2 plan without publishing chapter PDFs or disk diagnostics:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
 ```
 
 Convert an EPUB, split Level 1 sections and retain the full converted PDF:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
 ```
 
 Create AZW3 chapters from converted physical start pages:
 
 ```powershell
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.azw3' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,2,3' -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Book.azw3' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,2,3' -NonInteractive
 ```
 
 `-Mode Auto` requires `-BookmarkLevel 1` or `2`; `-Mode Manual` requires
@@ -168,7 +179,7 @@ is 1–86400 seconds (default 1800); `-ProcessTimeout` is 1–172800 seconds
 (default the larger of 3600 and conversion timeout plus 1800). Both process
 streams are bounded and drained; cancellation/deadlines preserve a nonzero result.
 `-Version` needs no document or installed runtime and cannot be mixed with processing
-parameters. Full help lists every parameter.
+parameters. The script's parameter comments describe every supported option.
 
 ## Outputs and troubleshooting
 

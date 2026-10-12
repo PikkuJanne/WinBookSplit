@@ -3,13 +3,16 @@
 Explicitly prepare or check the application-local WinBookSplit Python environment.
 .DESCRIPTION
 Selects a trusted policy-supported base Python without requiring pypdf first.
+Accepts regular GIL Windows x64 CPython 3.15.0 and later stable 3.15 patches,
+3.14.8+ within 3.14, or 3.13.16+ within 3.13; unknown minors remain unvalidated.
 Setup creates a fresh .venv and installs only the separately hash-locked runtime
 requirement. Processing never runs installation. No activation, elevation,
 global packages/PATH change or global execution-policy change is required.
 .PARAMETER PythonPath
 Trusted absolute base Python executable. Discovery is read-only when omitted.
 .PARAMETER Check
-Read-only validation of the existing application .venv; never installs or repairs.
+Read-only readiness check of the authoritative environment or trusted processing
+runtime; never installs or repairs.
 .PARAMETER NonInteractive
 Explicitly authorize unattended setup with no prompts; missing prerequisites fail.
 .PARAMETER Wheelhouse
@@ -23,7 +26,7 @@ Healthy environments are unchanged. The backup is not overwritten or deleted.
 .EXAMPLE
 .\Setup-WinBookSplit.bat -Check -NonInteractive
 .EXAMPLE
-& "$env:SystemRoot\System32\WindowsPowerShell\v1.0\powershell.exe" -NoProfile -ExecutionPolicy Bypass -File .\Setup-WinBookSplit.ps1 -PythonPath 'C:\Tools\Python\python.exe' -NonInteractive -Wheelhouse 'C:\Tools\Wheels'
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\Setup-WinBookSplit.ps1' -PythonPath 'C:\Tools\Python\python.exe' -NonInteractive -Wheelhouse 'C:\Tools\Wheels'
 .NOTES
 Unsigned; follow enforced organizational script policy. Full setup and runtime
 compatibility requirements are in docs/SETUP.md. Output includes a structured

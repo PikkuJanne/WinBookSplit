@@ -18,8 +18,8 @@ BeforeAll {
 
 Describe 'Canonical application VERSION' -Tag 'AC-082', 'AC-083' {
     It 'reads the same shipped candidate in Main and support without their runtime helpers' {
-        Get-WinBookSplitApplicationVersion -Root $RepositoryRoot | Should -BeExactly '1.0.1'
-        Get-WinBookSplitSupportApplicationVersion -Root $RepositoryRoot | Should -BeExactly '1.0.1'
+        Get-WinBookSplitApplicationVersion -Root $RepositoryRoot | Should -BeExactly '1.0.2'
+        Get-WinBookSplitSupportApplicationVersion -Root $RepositoryRoot | Should -BeExactly '1.0.2'
     }
     It 'accepts bounded ASCII numeric versions with one optional LF or CRLF' {
         foreach ($text in @('1.0.0', "1.0.0`n", "1.0.0`r`n", '0.0.0', "1234567890.1234567890.1234567890`r`n")) {

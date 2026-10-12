@@ -6,8 +6,12 @@ Preserves every physical PDF page using the existing Python/pypdf planner.
 Without Mode, select a method interactively. Scripted calls supply Mode plus
 BookmarkLevel or StartPages. NonInteractive and Preview require complete choices.
 EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Preview.
-Requires regular Windows x64 CPython accepted by the shipped compatibility policy,
-with its locked pypdf; ebooks also require the locked Calibre version.
+Requires regular GIL Windows x64 CPython 3.15.0 or later stable 3.15 patch,
+3.14.8 or later stable 3.14 patch, or 3.13.16 or later stable 3.13 patch. Unknown
+minors remain unvalidated. Use .\Setup-WinBookSplit.bat -NonInteractive to prepare
+the application-local environment with its locked pypdf. Host execution policy
+is process-scoped; enforced organization controls still apply. Processing never
+installs dependencies. Ebooks also require the locked Calibre version.
 See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
@@ -44,15 +48,15 @@ Converter deadline in seconds, 1 through 86400; default 1800.
 .PARAMETER ProcessTimeout
 Engine/tree/stream deadline in seconds, 1 through 172800; default at least 3600.
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns'
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 2 -Preview -NonInteractive
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Manual.pdf' -OutputDirectory 'C:\LocalRuns' -Mode Manual -StartPages '1,4,7' -NonInteractive
 .EXAMPLE
-.\WinBookSplit.ps1 -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -InputFile 'C:\Books\Book.epub' -OutputDirectory 'C:\LocalRuns' -Mode Auto -BookmarkLevel 1 -KeepConvertedPdf -NonInteractive
 .EXAMPLE
-.\WinBookSplit.ps1 -Version
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\WinBookSplit.ps1' -Version
 .NOTES
 Application exits: 0 execution/preview/version, 2 invalid input/arguments/path,
 3 dependency, 4 conversion, 5 no requested bookmark plan, 6 PDF/output failure,

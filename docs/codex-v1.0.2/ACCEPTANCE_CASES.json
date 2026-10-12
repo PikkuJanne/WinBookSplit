@@ -734,54 +734,96 @@
       "task": "V102-09",
       "title": "One current application version",
       "expected": "VERSION, runtime banners, active docs/help/metadata and intended release names are 1.0.2; old historical reports/releases unchanged.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-050",
       "task": "V102-09",
       "title": "Consistent primary setup instructions",
       "expected": "README/help/SETUP/errors/release draft all give tested BAT or process-host remedies; explained shell and repair paths agree.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-051",
       "task": "V102-09",
       "title": "Accurate support boundaries",
       "expected": "3.15 and serviced 3.13/3.14 targets, same-branch numeric patches and unknown-minor distinctions documented without broad untested compatibility promises.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-052",
       "task": "V102-09",
       "title": "Complete release inventory",
       "expected": "New Setup BAT and shared helper/policy files appear in allowlist, manifest, source hashes and tests; extracted package has everything needed.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-053",
       "task": "V102-09",
       "title": "Clean distribution and source distinction",
       "expected": "Runtime ZIP excludes venv/dev dependencies/private logs/kit runtimes/handoff clutter; GitHub source ZIP is not presented as accepted release asset.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-054",
       "task": "V102-09",
       "title": "Honest limits and examples",
       "expected": "Unsigned/policy and Windows10 servicing notices retained; actual quick-start/check/repair/offline examples exercised; no silent requirement to downgrade 3.15.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-AC-055",

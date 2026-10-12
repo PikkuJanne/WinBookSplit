@@ -1,17 +1,20 @@
 # Local verification
 
-Use the explicit fresh developer-venv interpreter from
-`docs/codex-v1.0.0/SUPPORT_AND_SETUP.md`. Run the same entry point from any
+Follow the active [v1.0.2 testing contract](../docs/codex-v1.0.2/TESTING.md)
+and use an explicit trusted isolated developer interpreter. The historical
+v1.0.0/v1.0.1 reports remain evidence of their original scope. Run the same entry point from any
 working directory; it resolves the trusted repository from its own location.
 Do not activate a venv or install dependencies globally.
 
-The v1.0.1 `--layer application` route keeps the developer driver separate from
-the application interpreter. Run it once for each reviewed runtime-only Python
-3.13 and 3.14 environment containing the locked pypdf (and optional pip). Supply
+The v1.0.2 `--layer application` route keeps the developer driver separate from
+the application interpreter. Run it once for each exact source-test target
+3.13.16, 3.14.8 and 3.15.0 in a runtime-only environment containing the locked
+pypdf (and optional pip). Numeric same-branch patch acceptance is a separate
+policy test; an unavailable later patch is not relabeled as an actual run. Supply
 both actual shell hosts. Fixture generation and PDF inspection stay on the
 developer Python; the explicit application Python runs a fixed nine-module
 stdlib/pypdf unit set and real manual, Auto1, Auto2 and failure cases. Both native
-PowerShell wrappers run the copied 21-file application with that same candidate.
+PowerShell wrappers run the copied 22-file application with that same candidate.
 
 ```powershell
 & $TestPython -I -B $Runner --layer application --application-python-path 'C:\Tools\WinBookSplit-runtime13\Scripts\python.exe' --shell-path $PS51 --shell-path $PS7 --report $Report
@@ -30,7 +33,7 @@ The existing complete developer unit child has a finite 1200-second harness
 deadline after a measured 584.951-second local reference run approached the old
 600-second bound. Application production deadlines are unchanged.
 
-The v1.0.1 shell suite also exercises explicit setup in authored copied
+The v1.0.2 shell suite also exercises explicit setup in authored copied
 applications. Before a normal shell/full run, the shared runner acquires the
 one reviewed pypdf wheel in its owned temporary directory using hash-required,
 binary-only pip download with child-local configuration isolation. To reuse
@@ -49,15 +52,24 @@ $PS7 = 'C:\Program Files\PowerShell\7\pwsh.exe'
 $Calibre = 'C:\Tools\Calibre\ebook-convert.exe'
 $Renderer = 'C:\Tools\Poppler\pdftoppm.exe'
 $RendererPython = 'C:\Tools\PDFium-dev\python.exe'
+$env:WBS_TEST_UNSUPPORTED_PYTHON = 'C:\Tools\WinBookSplit-negative-control\Python3147\python.exe'
 $Report = Join-Path $env:TEMP ('WinBookSplit-tests-' + [guid]::NewGuid().ToString('N') + '.json')
 & $TestPython -I -B $Runner --layer full --tool-root $ToolRoot --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --renderer-path $Renderer --secondary-python-path $RendererPython --report $Report
 if ($LASTEXITCODE -ne 0) { throw 'Local verification failed; inspect the report' }
 ```
 
-Substitute actual absolute interpreter/tool/host paths. Every report must be a
+Substitute actual absolute interpreter/tool/host paths. The runtime/full layer
+requires a real observed 3.14.7 interpreter only as its below-floor rejection
+control; use an already available trusted fixture or the explicit test-only path
+above. It is not an accepted processing runtime or an owner-kit prerequisite.
+The runtime validator refuses a missing or substituted control. Every report must be a
 new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
-the reviewed summary with hashes in `docs/codex-v1.0.0/evidence/`.
+the reviewed current summary with hashes in `docs/codex-v1.0.2/evidence/`.
+Use the finite [native kit](../tools/compatibility/README.md) for exact frozen
+release-package workstation acceptance. Server CI, source layers and synthetic
+controls do not substitute for the final Windows 10/11 gates. Historical milestone
+notes below describe the inherited regression layers, not active release routing.
 
 M4-T01 adds `--layer fidelity` as the nineteenth full stage. Fidelity/full
 requires both supported shell paths, the absolute development-only Poppler

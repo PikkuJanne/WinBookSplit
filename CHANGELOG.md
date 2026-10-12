@@ -1,5 +1,29 @@
 # Changelog
 
+## 1.0.2
+
+- Adds tested regular GIL Windows x64 CPython 3.15.0 and numeric acceptance of
+  later stable patches in 3.15, while retaining serviced 3.13.16+ and 3.14.8+
+  branches and their reviewed security floors. Unknown minors remain unvalidated,
+  without being labeled insecure. pypdf 6.20.0 and its wheel hash remain unchanged.
+- Adds `Setup-WinBookSplit.bat`, using the OS-known inbox PowerShell host and a
+  process-scoped invocation for Internet-marked unsigned setup scripts where
+  organization controls permit. Persistent policies and Internet marks remain
+  unchanged; enforced signing and application controls still apply.
+- Generates complete, literally quoted PowerShell setup and repair actions and
+  reports the authoritative selected runtime, observed version and specific
+  reason. A rejected or broken environment cannot silently fall back to another
+  interpreter, and processing never installs dependencies.
+- Preserves application-local setup, read-only Check, reviewed offline wheel use,
+  explicit Repair backups, safe output ownership and bounded process/stream checks.
+  Setup output is UTF-8, including direct CMD invocation at Unicode paths.
+- Extends the maintained CI matrix and finite native acceptance kit for Python
+  3.15, marked setup BAT/remedy round-trips and observed host policy scopes.
+  [Release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.2/evidence)
+  distinguishes actual source/Server checks from exact-package Windows 10/11
+  acceptance and records any unavailable gates. A source ZIP or candidate alone
+  is not the accepted release distribution.
+
 ## 1.0.1
 
 - Adds the Windows 10 22H2 x64 compatibility target alongside Windows 11, while

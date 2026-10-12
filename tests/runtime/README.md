@@ -20,8 +20,12 @@ explicit `WBS_TEST_UNSUPPORTED_PYTHON` path to that exact real version. Its vers
 is probed before the cases; a stub cannot replace this control.
 
 Missing/decoy converter cases alone redirect child `LOCALAPPDATA` to a fresh
-empty owned directory, so a real per-user Calibre installation cannot satisfy
-their absence premise. Both fixed system Calibre paths must actually be absent;
+owned directory with the exact preauthored empty `Microsoft/Windows/Caches`
+chain, so a real per-user Calibre installation cannot satisfy their absence
+premise. Held ordinary directory identities must remain unchanged; the exact
+closure and empty leaf are verified after the process. Unexpected files, extra
+directories, reparse paths or replacement fail the fixture. Both fixed system
+Calibre paths must actually be absent;
 otherwise these controls fail clearly without modifying any installation.
 Parent environment, explicit wrong-version rejection and positive discovery
 cases remain unchanged; no mandatory assertion is skipped.
@@ -29,8 +33,9 @@ cases remain unchanged; no mandatory assertion is skipped.
 Failures must occur before console/stage/output creation and conversion, preserve
 the exact source/neighbor identities, and report actual candidate probe/reason plus
 exact setup targets. Success records read the application's actual prefixed
-dependency/engine log records: selected absolute Python, 3.14.8 regular Windows
-x64 metadata, pinned pypdf import origin, isolated probe and `-I -B -X utf8` execution
+dependency/engine log records: selected absolute Python, its actual observed
+accepted regular GIL Windows x64 version/build metadata, pinned pypdf import
+origin, isolated probe and `-I -B -X utf8` execution
 must agree. Complete reopened source page identities/content, manifests and
 literal arguments are checked; real ebook outputs match an independent actual
 conversion. PDF processing must leave a real converter version-spy uncalled.

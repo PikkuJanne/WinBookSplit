@@ -18,10 +18,14 @@ before sharing it.
 ## Runtime maintenance
 
 Use regular stable Windows x64 CPython accepted by the shipped
-[compatibility policy](engine/WinBookSplit.Compatibility.json): Python 3.13.16
-or later in 3.13, or 3.14.8 or later in 3.14. The reviewed/tested recommendations
-are 3.13.16 and 3.14.8; later stable maintenance patches in these branches remain
-accepted. These floors include the Windows startup import-path
+[compatibility policy](engine/WinBookSplit.Compatibility.json): Python 3.15.0
+or later in 3.15, 3.14.8 or later in 3.14, or 3.13.16 or later in 3.13. The
+exact source-test targets are 3.15.0, 3.14.8 and 3.13.16. Later stable maintenance
+patches in those branches are accepted numerically; that is not a claim that
+each patch was tested. Unlisted minors, such as 3.16, are not yet validated
+for this release and are not labeled insecure. Prereleases, free-threaded,
+PyPy and non-x64 builds remain excluded. The reviewed floors include the
+Windows startup import-path
 [fix](https://github.com/python/cpython/issues/151544) and patched bundled
 OpenSSL for [CVE-2026-35189](https://openssl-library.org/news/secadv/20260929.txt),
 which can affect TLS clients during explicit online setup. They do not declare
@@ -34,7 +38,10 @@ including the upstream
 [multiple-filter fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f).
 Optional ebook conversion remains locked to Calibre 9.15.0. Do not bypass
 origin, document-feature, encryption, process or cleanup checks to resolve a
-dependency error. Run the explicit [application-local setup](docs/SETUP.md).
+dependency error. Run the explicit [application-local setup](docs/SETUP.md)
+through `Setup-WinBookSplit.bat` or the complete process-host command. The
+scripts are unsigned; Internet marks remain intact and persistent execution
+policy is unchanged. Enforced organization controls still apply.
 
 Windows 10 22H2 compatibility does not extend Microsoft's servicing lifecycle.
 Standard Home/Pro support

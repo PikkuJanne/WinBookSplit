@@ -43,13 +43,16 @@ from the application directory in Windows PowerShell 5.1 or the tested PowerShel
 7 host. Replace the illustrative absolute input and destination paths below:
 
 ```powershell
-.\Export-WinBookSplitDiagnostics.ps1 `
+& ([System.IO.Path]::Combine([Environment]::SystemDirectory, 'WindowsPowerShell\v1.0\powershell.exe')) -NoProfile -ExecutionPolicy Bypass -File '.\Export-WinBookSplitDiagnostics.ps1' `
     -ManifestPath 'C:\LocalRuns\.WinBookSplit-console-0123456789abcdef0123456789abcdef\WinBookSplit_Run.json' `
     -OutputPath 'C:\LocalRuns\SupportSummary.json'
 ```
 
 Select the finalized manifest beside your own printed `console.log` path; the
-example run ID does not identify an existing run. The destination directory must
+example run ID does not identify an existing run. The complete command uses
+the OS-known inbox host and Bypass only for its child process, so Internet-marked
+unsigned scripts can start where organization policy permits. It does not change
+persistent policy or remove marks; enforced controls still apply. The destination directory must
 already exist. The command creates the destination exclusively and never overwrites an existing
 file. Success returns native exit code `0`; a rejected export returns `2` and
 a fixed error message. No export is automatic, and nothing is uploaded or sent
@@ -74,8 +77,8 @@ versions are rejected instead of copied into the summary.
 
 The run's `application_version` must match the export command's canonical root
 `VERSION`. Use the same trusted application version for processing and export.
-Earlier `1.0.0`/`1.0.0-dev` records do not match a `1.0.1` exporter and are
-rejected; do not edit a local manifest to make it pass.
+Earlier `1.0.0`, `1.0.0-dev` and `1.0.1` records do not match a `1.0.2`
+exporter and are rejected; do not edit a local manifest to make it pass.
 
 Only version `1` of the finalized `winbooksplit.run` schema is accepted, with
 `diagnostics_finalized` set to Boolean `true`. Pending records are rejected.

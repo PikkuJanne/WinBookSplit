@@ -245,7 +245,7 @@
       "id": "V102-09",
       "title": "Update docs, version, package members and release guidance",
       "milestone": "M4",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-08"
       ],
@@ -263,7 +263,14 @@
         "V102-AC-053",
         "V102-AC-054"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-09-native-docs.json",
+        "evidence/V102-09-native-docs.md",
+        "evidence/V102-09-review.json",
+        "evidence/V102-09-review.md",
+        "evidence/V102-09-source-tests.json",
+        "evidence/V102-09-source-tests.md"
+      ]
     },
     {
       "id": "V102-10",

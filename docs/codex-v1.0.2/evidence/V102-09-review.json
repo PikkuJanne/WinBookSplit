@@ -1,0 +1,172 @@
+{
+  "protocol": "winbooksplit.v102.independent-review",
+  "schema_version": 1,
+  "task": "V102-09",
+  "observed_at": "2026-10-12T20:16:49.314341+00:00",
+  "status": "REVIEW_PASS_CHECKPOINT_PENDING",
+  "task_complete": false,
+  "scope": "Actual reviewed task9 worktree and owned 1.0.2 pre-candidate commands; no clean committed R, final ZIP, Windows10 or public-release acceptance claim.",
+  "source": {
+    "base_commit": "3c37cc30cb325da2d823bcace1f1f5bdb4e52662",
+    "current_paths": 207,
+    "current_digest": "a80aa2f1b08d97d9e13fff39f2b08b079d40977120efe72df32a86f2cd7c50c6",
+    "current_all207_hashes_match": true,
+    "prior_focused_test_digest": "dcd28311bdb0e958e7bc88dc060ff29fc3a16f6a00743e46ea21e508cd6f863b",
+    "bridge": "Only README prose changed after focused tests. Those actual test receipts retain their original source digest; the complete current native matrix uses the new digest.",
+    "source_paths_changed_from_base": 20,
+    "frontend_bodies_after_help_byte_identical": true,
+    "historical_changelog_tail_byte_identical": true,
+    "historical_v100_v101_directories_unchanged": true,
+    "compatibility_policy_and_requirements_unchanged": true,
+    "independent_old_version_native_smoke_vectors_unchanged": true
+  },
+  "documentation_and_inventory": {
+    "application_version": "1.0.2",
+    "payload_members": 34,
+    "runtime_copied_files": 22,
+    "relative_payload_document_links_checked": 32,
+    "new_setup_BAT_and_shared_helper_present": true,
+    "VERSION_builder_payload_shipped_assertions_consistent": true,
+    "primary_setup": ".\\Setup-WinBookSplit.bat -NonInteractive",
+    "alternate_host": "Complete OS-known Environment.SystemDirectory inbox host; NoProfile, child-only Bypass and literal File/arguments.",
+    "support_boundaries": "Regular stable GIL Windows x64 CPython 3.15.0 and numeric later stable 3.15 patches; retained 3.14.8/3.13.16 floors. Unknown minors remain unvalidated without an insecure label. Existing package/origin, source/output, encrypted-document and process limits retained.",
+    "unsigned_MOTW_organization_lifecycle_notices": "Retained; no persistent policy, mark removal or organization-control bypass.",
+    "source_ZIP_and_named_distribution_distinguished": true,
+    "release_note_draft": "Documentation consistency reviewed; exact passed primary BAT and CPython/GIL scope match active docs. R/Z/final native/public download identities explicitly pending; no release gate certified."
+  },
+  "actual_focused_source_checks": {
+    "Python": "Regular Windows x64 3.15.0 with policy 3 and pypdf 6.20.0; no fallback.",
+    "modules": {
+      "version": 5,
+      "release_package": 26,
+      "CI_inputs": 20,
+      "frozen_assets": 15,
+      "native_smoke": 31
+    },
+    "total": 97,
+    "skips": 0,
+    "Pester": {
+      "5.1.26100.9444": {
+        "passed": 76,
+        "total": 76
+      },
+      "7.6.6": {
+        "passed": 76,
+        "total": 76
+      }
+    },
+    "SDK_job_stop_tree_stream_input_proofs": "PASS",
+    "source207_original_binding_exact": true,
+    "scopes_unchanged": true,
+    "legacy_analyzer": "Scoped1/default82 findings on each host; typed exact rule/severity/message multisets match exact pre-task9 Git source. Findings are retained observations, not zero-findings passes. Four original comparator failures stay failed.",
+    "source_test_public_raw_references_checked": 17
+  },
+  "actual_current_native_checks": {
+    "OS": "Windows 11 Pro build 26300, workstation product type 1; no Windows10 or Server substitution.",
+    "parent_hosts": [
+      "5.1.26100.9444",
+      "7.6.6"
+    ],
+    "active_original_snippets": 24,
+    "unique_application_commands": 15,
+    "literal_cases": 34,
+    "skips": 0,
+    "actual_SDK_processes": 53,
+    "setup_child_snapshots": 18,
+    "runtime": "Observed regular GIL Windows x64 CPython 3.15.0 and locked pypdf 6.20.0.",
+    "independently_reopened_publications": 8,
+    "empty_Auto2_previews": 2,
+    "strict_redacted_support_exports": 2,
+    "full_authored_broken_environment_backups_preserved": 2,
+    "copied_apps": 14,
+    "copied_member_hashes_checked": 476,
+    "copied_Internet_marks_intact": 154,
+    "all97_public_raw_references_size_SHA_match": true,
+    "all207_current_source_hashes_match": true,
+    "parent_policy_PATH_provider_and_conversion_environment_restoration": "Verified from actual controlled invocations and source-bound guards.",
+    "ebooks": "Current genuine EPUB/AZW3 conversions and source/output oracles passed; authenticated Calibre9.15 physical reference PDFs retain their separate prior provenance.",
+    "checksum_example": "Two actual read-only commands on labeled private 34-member ZIP fixture; no accepted R/Z identity claim.",
+    "public_privacy": "PASS; private paths/raw text remain outside public records."
+  },
+  "preserved_failures": [
+    "Original authored 180s Python controller timeout retained; no unavailable partial stream or result hash invented. Only unfinished modules rerun under maintained SDK 300 with unchanged source; no production/CI limit change.",
+    "Four external analyzer comparator failures preserved; basename/order defects and separate typed multiset audit distinguished.",
+    "Native01 cold-module preparation failure and native02 provider-context failure retained; no product defect or setup pass inferred.",
+    "Native03 exact optional Get-Help lookup failed; -? returned native zero with no useful output. Two unfinished read-only metadata variants were stopped via exact checked handles; their SDK job proof is unavailable and not invented. Cause remains unestablished.",
+    "After nine independently checked SDK shutdown proofs, diagnostic parent/direct-child absence and source-hold release, only two README prose references changed. Old failures and focused-test digest were preserved before a complete current-source native rerun.",
+    "Prior03 inner helper retention explicitly distinguishes inverse-digest reconstruction with matching tested SHA from unchanged-copy provenance; it provides no new acceptance pass."
+  ],
+  "references": {
+    "current_native_public": {
+      "alias": "V102-09-native-docs.json",
+      "bytes": 143948,
+      "sha256": "edbe08a3c2330ea2b565b027560b4d04db9bd313a233b3f3909f761b32526287"
+    },
+    "focused_source_public": {
+      "alias": "V102-09-source-tests.json",
+      "bytes": 46387,
+      "sha256": "540be12eb3aa2dda3d758470cb99665b0692841a2d152609827c75e24878e7a2"
+    },
+    "current_source_freeze": {
+      "alias": "task09-source-freeze-02.json",
+      "bytes": 22601,
+      "sha256": "50c4d5f310355af9b0c6cfb49b518b427ea3ebd0b406ff4968cf14282efaaca1"
+    },
+    "original_source_freeze": {
+      "alias": "task09-source-freeze-01.json",
+      "bytes": 22503,
+      "sha256": "12e625315913018ea30ce80429b83fb8b7c6b7379ba2f954932780207a5269de"
+    },
+    "applied20_source_review": {
+      "alias": "applied20-source-review.json",
+      "bytes": 6960,
+      "sha256": "7c155eac9b553ba21ac2278624e66918a7bb9f6d04fc5e694662cd569b13ed20"
+    },
+    "focused_pester_analysis_review": {
+      "alias": "focused-pester-analysis-review.json",
+      "bytes": 4846,
+      "sha256": "1ecc4113d2583cae08e1503a4f679aedea200f9be0d1d3debf60f909ac911199"
+    },
+    "source_test_public_raw_review": {
+      "alias": "source-test-public-review.json",
+      "bytes": 4837,
+      "sha256": "1e0ad6e8d44494fda330b8fc194fedefd54d2c01eefbaa5967f1936509a3bf97"
+    },
+    "README_safe_edit_review": {
+      "alias": "readme-help-safe-edit-review.json",
+      "bytes": 1309,
+      "sha256": "21e5324607ef8723cde9c0e6e57ed3816262f537c0d36525c3199719f7c257aa"
+    },
+    "README_source_bridge_review": {
+      "alias": "readme-source-bridge-review.json",
+      "bytes": 974,
+      "sha256": "e4cd6e08f4ad63d6fef6dfa3ead5ea635e972386ed3e446c86b41b7bcf38aa37"
+    },
+    "native04_preflight_review": {
+      "alias": "native04-preflight-review.json",
+      "bytes": 875,
+      "sha256": "2ee0b35725f2fa831103e5818f0ff4eef66198f9b5a58936a5a3a6147e646e11"
+    },
+    "native04_actual_review": {
+      "alias": "native04-actual-review.json",
+      "bytes": 21217,
+      "sha256": "d61939b9f34e129b3c087cfa9e4618a1d3290006350b9a1f0d5b1f5b44ac3e73"
+    },
+    "README_correction_ledger": {
+      "alias": "task09-readme-help-correction-01.json",
+      "bytes": 1235,
+      "sha256": "e7d6f0ed18141a0146d4e466f258a36cf761d39159871f90e2cdabaeeb66effa"
+    },
+    "source_hold_release": {
+      "alias": "source-hold-release-proof.json",
+      "bytes": 5150,
+      "sha256": "1a7fa7915d6304cc596987a72efcdd95e8d61fa66269c6a0acf4df8b5a3436f1"
+    },
+    "private_release_note_draft": {
+      "alias": "v102-release-notes-DRAFT.md",
+      "bytes": 2956,
+      "sha256": "24d7682543e27a4adffa80ed8e3c2019f728afb8c57f1a7bd3828add9570ad05"
+    }
+  },
+  "remaining": "Synchronized task9 checkpoint, then exact committed R/full CI/local source, frozen package/native Windows 10/11 and public-release gates under RELEASE_RUNBOOK. Windows10 and final-ZIP acceptance remain NOT_RUN."
+}
