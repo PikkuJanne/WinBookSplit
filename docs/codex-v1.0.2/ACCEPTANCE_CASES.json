@@ -830,22 +830,31 @@
       "task": "V102-10",
       "title": "Reviewed bounded change",
       "expected": "Review confirms incremental 3.15/setup/diagnostic fix, no protection weakening or unrelated rewrite; material findings resolved or blocking.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-security-review.json",
+        "evidence/V102-10-ci-temp-checkpoint.json",
+        "evidence/V102-10-freeze-build.json"
+      ]
     },
     {
       "id": "V102-AC-056",
       "task": "V102-10",
       "title": "Final source regression and CI",
       "expected": "Required actual tests and CI pass on reviewed R; no failures/skips hidden; diagnostics/action/MOTW cases present in evidence.",
-      "status": "FAIL",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/V102-10-ci-failed.json",
         "evidence/V102-10-full-source.json",
         "evidence/V102-10-ci-temp-checkpoint.json",
-        "evidence/V102-10-control-review.json"
+        "evidence/V102-10-control-review.json",
+        "evidence/V102-10-full-source-r2.json",
+        "evidence/V102-10-ci-r2.json",
+        "evidence/V102-06-native.json",
+        "evidence/V102-07-native.json",
+        "evidence/V102-10-freeze-build.json"
       ]
     },
     {
@@ -853,36 +862,46 @@
       "task": "V102-10",
       "title": "Source freeze and synchronization",
       "expected": "Clean committed R is in intended reviewed branch/main history and freshly synchronized; unpublished v1.0.2 collision checked.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-freeze-build.json"
+      ]
     },
     {
       "id": "V102-AC-058",
       "task": "V102-10",
       "title": "Exact assets built",
       "expected": "Versioned ZIP, release-manifest.json and SHA256SUMS.txt built from R with reviewed tooling/dependencies; hashes/sizes recorded.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-package-review.json",
+        "evidence/V102-10-freeze-build.json"
+      ]
     },
     {
       "id": "V102-AC-059",
       "task": "V102-10",
       "title": "Independent package verification",
       "expected": "Actual archive member names/bytes/version/new BAT/source/dependency data independently match source/manifest; no duplicate/traversal/private material.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-package-review.json",
+        "evidence/V102-10-freeze-build.json"
+      ]
     },
     {
       "id": "V102-AC-060",
       "task": "V102-10",
       "title": "Candidate identity stable",
       "expected": "One frozen ZIP Z bound to R and native test kit; later runtime/package changes require updated evidence instead of hand-edited hashes.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-10-freeze-build.json"
+      ]
     },
     {
       "id": "V102-AC-061",

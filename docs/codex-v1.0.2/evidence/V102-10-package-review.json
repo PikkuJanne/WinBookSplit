@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "task": "V102-10",
+  "scope": "Actual once-built R2 package and fresh main/source provenance review; native final-Z and publication remain separate",
+  "observed_at_utc": "2026-10-12T23:09:20.508431+00:00",
+  "actual_result": "PASS",
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "main_clean_and_equal_fresh_live_origin_main": true,
+  "build": {
+    "receipt_alias": "<HANDOFF>/task10-R2-build-receipt.json",
+    "receipt_sha256": "959d4530850f2fd5973e0366144ae41d16bb2c53c4c45c3b34c63c568ca10dbf",
+    "start_utc": "2026-10-12T23:07:17.9549212Z",
+    "finish_utc": "2026-10-12T23:07:22.9906902Z",
+    "native_exit": 0,
+    "runtime_version": "3.14.8",
+    "runtime_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603",
+    "committed_builder_sha256": "264a07def715c9b292ad2a977d73b57c683ca5920e4038874d612e0762a07341",
+    "exported_four_builder_members_equal_R_Git_blobs": true,
+    "independent_export_receipt_sha256": "9caf791774ddc2718ca3d46ecf53c01766751491086554688f583c8d7fcb96ee",
+    "literal_argv_sha256": "fe264bf02b0e667f4821a6fe8f7ba3cdf674a98250a9c6f269dafc5cc6bf5bf6"
+  },
+  "independent_inspection": {
+    "alias": "<DEV102>/task10-security-review-01/R2-independent-assets/stdout.json",
+    "sha256": "2c535d1462d684f39fa01b750617f86f49a455ea913d486071272735e4c2aa6b",
+    "operator_sha256": "7b253bc5632278839f1d4ac037d3f8e6ced26da56f0b5dcbfa9829117cfdefd3",
+    "native_exit": 0,
+    "stderr_bytes": 0,
+    "payload_members": 34,
+    "all_member_bytes_equal_R_Git_blobs": true,
+    "canonical_ZIP_headers_mode_order_and_recipe_equal": true,
+    "strict_manifest_dependencies_sibling_builder_projection_equal": true,
+    "checksum_lines_equal": true,
+    "no_private_or_handoff_payload": true,
+    "no_application_or_builder_imports": true,
+    "no_asset_rebuilds_or_writes": true
+  },
+  "assets": {
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e"
+    },
+    "WinBookSplit-v1.0.2.zip": {
+      "bytes": 909557,
+      "sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e"
+    },
+    "release-manifest.json": {
+      "bytes": 16593,
+      "sha256": "a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03"
+    }
+  },
+  "unsigned": true,
+  "native_final_Z_test_claimed": false,
+  "public_release_or_tag_claimed": false,
+  "old_release_changes_claimed": false
+}

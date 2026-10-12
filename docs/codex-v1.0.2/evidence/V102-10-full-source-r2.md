@@ -1,0 +1,9 @@
+# V102-10 completed full source regression
+
+The maintained full route reports **PASS** across all 23 declared stages on clean committed R `483baf858569bc838ac8a809d329b2595cdacf57` / tree `818de909908c95395691dc962395f270c1cd5735`. The 207-path raw/current source map matched exact R Git blobs before projection; full start/finish evidence confirms unchanged source, seven tool binaries and pinned wheel. Each consumed child report's retained raw length/SHA and parsed object matched the attached aggregate before the original maintained validator was rerun. Python reported 670 tests in 527.293 seconds; actual shell Pester counts are in the companion JSON.
+
+The actual developer driver was regular x64 Python 3.14.8, separate from required actual 3.15 application CI and final ZIP validation. Both native shell results, original commands (redacted) and their exact argument hashes, exits/timeouts/skips, all 21 child identities, native process command/exit/stop/drain scopes and source/input/owned-cleanup fields are retained. The existing limits were unchanged; planned negative native exits stay visible rather than becoming all-zero claims.
+
+Required reference CI covers Python/scaffold/shell checks; the 19 additional full integration layers are separate local evidence. Actual runtime-only 3.13.16/3.14.8/3.15.0 hosted matrices have separate receipts. Baseline/extraction historical characterization is an excluded explicit layer, and earlier task 8/task 9 failures and both original required R1 reference timeouts retain their original outcomes. This record claims no final ZIP native Windows 10 or public release acceptance.
+
+Aggregate SHA: `1e6cdb884a58598612d4dc08a96ebb505e3699c2c1354233c02fb335e97a1021` (52764738 bytes). Common source digest: `ddb74dc5009810fdad29359a451f67fbad4d86a220969732d51a8b1626ae71c5`.

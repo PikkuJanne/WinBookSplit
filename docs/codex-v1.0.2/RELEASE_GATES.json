@@ -13,7 +13,7 @@
         "V102-AC-014",
         "V102-AC-015"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G02",
@@ -37,7 +37,7 @@
         "V102-AC-028",
         "V102-AC-029"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G04",
@@ -49,7 +49,7 @@
         "V102-AC-036",
         "V102-AC-040"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G05",
@@ -61,7 +61,7 @@
         "V102-AC-041",
         "V102-AC-042"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G06",
@@ -74,7 +74,7 @@
         "V102-AC-059",
         "V102-AC-060"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G07",
