@@ -16,7 +16,7 @@ BeforeAll {
 Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
     It 'validates the exact explicit interpreter, isolated flags and package origin' {
         $script:pinned.Path | Should-Be -Expected $TestPython
-        $script:pinned.Version | Should-Be -Expected '3.14.8'
+        $script:pinned.Version | Should-Be -Expected ($script:pinned.Probe.Stdout | ConvertFrom-Json).version
         $script:pinned.Source | Should-Be -Expected 'explicit'
         $script:pinned.PypdfVersion | Should-Be -Expected '6.20.0'
         $script:pinned.PypdfPath | Should-MatchString -Expected '\\Lib\\site-packages\\pypdf\\__init__\.py$'

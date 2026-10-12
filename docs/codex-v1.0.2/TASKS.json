@@ -60,7 +60,7 @@
       "id": "V102-03",
       "title": "Run the real engine and setup under Python 3.15",
       "milestone": "M1",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-02"
       ],
@@ -78,7 +78,10 @@
         "V102-AC-017",
         "V102-AC-018"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-04",

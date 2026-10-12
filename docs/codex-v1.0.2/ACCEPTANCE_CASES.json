@@ -164,54 +164,72 @@
       "task": "V102-03",
       "title": "Real 3.15 interpreter evidence",
       "expected": "Official regular GIL x64 CPython 3.15.0 actually executes tests; observed version/identity/path recorded, no fallback interpreter substituted.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-014",
       "task": "V102-03",
       "title": "Runtime-only package setup",
       "expected": "3.15 creates application-local venv, installs the reviewed hash-locked pypdf and validates origin; no global packages or dev fixtures/renderers required.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-015",
       "task": "V102-03",
       "title": "PDF engine integration",
       "expected": "Actual 3.15 manual/Level1/Level2 splitting and shared preview plan pass with correct coverage/page order and source immutability.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-016",
       "task": "V102-03",
       "title": "Document safety regression",
       "expected": "Encrypted/unsupported-active-PDF rejection and existing reader guard tests pass under 3.15; no safeguard removed for compatibility.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-017",
       "task": "V102-03",
       "title": "Process and protocol integration",
       "expected": "Real isolated 3.15 probes/process helpers drain streams, handle Unicode, cancellation/deadlines and meaningful outcomes without deadlock or false success.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-018",
       "task": "V102-03",
       "title": "Dev tooling separation",
       "expected": "Missing cp315 developer wheels cannot masquerade as runtime incompatibility; any per-minor test tooling changes preserve verified dependency hashes and fixture provenance.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-03-engine.json",
+        "evidence/V102-03-engine.md"
+      ]
     },
     {
       "id": "V102-AC-019",
