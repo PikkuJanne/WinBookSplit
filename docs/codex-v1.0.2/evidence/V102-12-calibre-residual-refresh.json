@@ -1,0 +1,240 @@
+{
+  "all18_reviewed_EPUB_AZW3_PDF_route_bodies_unchanged": true,
+  "calibre": "9.15.0",
+  "http200": 22,
+  "limits": [
+    "Vendor-tag build declarations are source metadata and are not relabeled as actual binary inventory.",
+    "Older embedded Python/Expat/OpenSSL and upstream Expat warnings remain disclosed; no universal converter/plugin/library-safety assertion.",
+    "Only reviewed local unencrypted EPUB/AZW3-to-PDF route is in scope; no software install, application run or source change occurred."
+  ],
+  "observed_at_utc": "2026-10-13T17:07:17.056968+00:00",
+  "previous_genuine_binary_inventory": {
+    "Expat": "2.8.2",
+    "OpenSSL": "3.5.8",
+    "basis": "Previously authenticated unchanged9.15 portable bytes; inventory is prior evidence, not reexecuted today.",
+    "libxml2_runtime": "2.15.4",
+    "lxml": "6.1.1",
+    "python": "3.14.7"
+  },
+  "prior_review_identity": {
+    "bytes": 33223,
+    "sha256": "a10b996378f09f7bcd4d60579b383b56c7fb61bd8ab9fcacb87a990d1784f45f"
+  },
+  "protocol": "winbooksplit.v102.calibre-release-residual-refresh",
+  "residuals": "Owned jobs/deadlines and guarded sources/output do not provide memory/disk quotas, a restricted token, or an OS/network sandbox. Native-parser and crafted-book residual risks remain.",
+  "result": "CLEAR_SCOPED_LOCK_RETAINED",
+  "route_inference": "Inspected EPUB/AZW3 paths use Calibre custom ZIP/MOBI/KF8 handling and lxml/libxml2 XML/HTML, with remote PDF resources intercepted. No pyexpat or Python TLS call was found in this finite inspected path. This is static source inference, not a complete binary call graph or malformed-book exploit proof; it does not certify every Calibre/plugin path. Expat 2.8.5 fixes CVE-2026-93990 and upstream still publishes a separate unfixed security warning; Calibre 9.15 embeds older Expat.",
+  "source_requests": 22,
+  "sources": {
+    "chardet": {
+      "bytes": 6304,
+      "finished_utc": "2026-10-13T17:07:15.644923+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "15c9ce700e5c75d5c8e095bd55a4afa886be80828bad2014e08892bad48188b7",
+      "started_utc": "2026-10-13T17:07:15.379970+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/chardet.py"
+    },
+    "epub_input": {
+      "bytes": 19838,
+      "finished_utc": "2026-10-13T17:07:15.019315+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "d09dfc6252734f561f5b7ee05f23025e722b8144e42b8b5fc03468fce91ebfe1",
+      "started_utc": "2026-10-13T17:07:14.690019+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/conversion/plugins/epub_input.py"
+    },
+    "expat285_changes": {
+      "bytes": 116977,
+      "finished_utc": "2026-10-13T17:07:16.531336+00:00",
+      "prior_pinned_source_equal": null,
+      "sha256": "d524be92cf55121cb6cb7bc13625f0498f1d31b4990fb52c93a574edbb372939",
+      "started_utc": "2026-10-13T17:07:16.216104+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/libexpat/libexpat/R_2_8_5/expat/Changes"
+    },
+    "expat_unfixed_warning": {
+      "bytes": 318778,
+      "finished_utc": "2026-10-13T17:07:17.035432+00:00",
+      "prior_pinned_source_equal": null,
+      "sha256": "11ccf7da7e94edf06ee3a8452d5ab99753ae2a65c8de760c6f7cf6884e962435",
+      "started_utc": "2026-10-13T17:07:16.265267+00:00",
+      "status": 200,
+      "url": "https://github.com/libexpat/libexpat/issues/1160"
+    },
+    "localunzip": {
+      "bytes": 11078,
+      "finished_utc": "2026-10-13T17:07:15.771446+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "829c5f215a959a93c699e1246017ae018a1c2637b6c654b4ba0b7bc8827c8b00",
+      "started_utc": "2026-10-13T17:07:15.471967+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/localunzip.py"
+    },
+    "metadata_xmp": {
+      "bytes": 23666,
+      "finished_utc": "2026-10-13T17:07:16.265182+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "70edc481d5453ceb37c22cb377e2a1e0c971f787f1e3bf3224737c4f806146b0",
+      "started_utc": "2026-10-13T17:07:15.956716+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/metadata/xmp.py"
+    },
+    "mobi6_reader": {
+      "bytes": 40312,
+      "finished_utc": "2026-10-13T17:07:15.163704+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "514ac85030d55bfb40958c4acd5e0670e93adbc8cbea9b05a9c3c8805fb6205c",
+      "started_utc": "2026-10-13T17:07:14.692068+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/mobi/reader/mobi6.py"
+    },
+    "mobi8_reader": {
+      "bytes": 24371,
+      "finished_utc": "2026-10-13T17:07:15.045574+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "3824d3c7049b9f0878aabc69b4f8b403d9602427d4cebd2ec064a79f5213f4fc",
+      "started_utc": "2026-10-13T17:07:14.691525+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/mobi/reader/mobi8.py"
+    },
+    "mobi_input": {
+      "bytes": 2212,
+      "finished_utc": "2026-10-13T17:07:15.028302+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "6a77879fc41dc118f8c2fcc758e4c3ea7fed612deff12fc05170e8bfc6a6eebc",
+      "started_utc": "2026-10-13T17:07:14.690938+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/conversion/plugins/mobi_input.py"
+    },
+    "oeb_base": {
+      "bytes": 72748,
+      "finished_utc": "2026-10-13T17:07:16.215874+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "2d1dc41207080d76ad9ae34e678b2c193ef624e9c470a090fa76238c6b3e0662",
+      "started_utc": "2026-10-13T17:07:15.909226+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/base.py"
+    },
+    "oeb_parse": {
+      "bytes": 13262,
+      "finished_utc": "2026-10-13T17:07:15.379866+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "95f4dd9ff15ed754160c16d9c658ee1b4c4a0791f64b6d62dbf85b465bbe6cc5",
+      "started_utc": "2026-10-13T17:07:15.045658+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/parse_utils.py"
+    },
+    "oeb_reader": {
+      "bytes": 28393,
+      "finished_utc": "2026-10-13T17:07:15.364712+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "4e82637e7ad4aa1bf3b04f53fa5f739e010b350c0eeeb3334f3b516ee0939271",
+      "started_utc": "2026-10-13T17:07:15.028371+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/reader.py"
+    },
+    "opf2_metadata": {
+      "bytes": 70415,
+      "finished_utc": "2026-10-13T17:07:15.410099+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "aa8d7367c678a82ec1b5636b49a1284806dc70a880ca2c802c5fbed34b707e67",
+      "started_utc": "2026-10-13T17:07:15.019455+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/metadata/opf2.py"
+    },
+    "pdf_html_writer": {
+      "bytes": 47741,
+      "finished_utc": "2026-10-13T17:07:16.007248+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "a19329f4a94c837fa0a49a183df18c1ceed5bf212c3ed166c0e1b2f07c6b7609",
+      "started_utc": "2026-10-13T17:07:15.757328+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/pdf/html_writer.py"
+    },
+    "polish_parsing": {
+      "bytes": 5868,
+      "finished_utc": "2026-10-13T17:07:15.632628+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "01d08046ab71f8a63d8606aa81d8e6a08c4c6a4ea6d91073fbf64bf66f8729b8",
+      "started_utc": "2026-10-13T17:07:15.364799+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ebooks/oeb/polish/parsing.py"
+    },
+    "ptempfile": {
+      "bytes": 11043,
+      "finished_utc": "2026-10-13T17:07:15.908958+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "ef618d587683ed0170f9f0519dcfc74bb957aeb2ca6035c09f35a601b40c5936",
+      "started_utc": "2026-10-13T17:07:15.632837+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/ptempfile.py"
+    },
+    "safe_atexit": {
+      "bytes": 6150,
+      "finished_utc": "2026-10-13T17:07:15.956655+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "f0038c4c77e3f0b23b2bb7cd60b28521a65b4fcd9970652da16ada84be62e5be",
+      "started_utc": "2026-10-13T17:07:15.644994+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/safe_atexit.py"
+    },
+    "vendor915_dependency_sources": {
+      "bytes": 21693,
+      "finished_utc": "2026-10-13T17:07:16.279366+00:00",
+      "prior_pinned_source_equal": null,
+      "sha256": "a837f7dc336a70110f362eddb2c907cdef880c12fc9ae899a55c8c868917e6e5",
+      "started_utc": "2026-10-13T17:07:16.007386+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/bypy/sources.json"
+    },
+    "vendor916_dependency_sources": {
+      "bytes": 22619,
+      "finished_utc": "2026-10-13T17:07:16.403431+00:00",
+      "prior_pinned_source_equal": null,
+      "sha256": "854a582aafe451a7fd6706e8b87ecc06e39a39f5c01283a5054cd0c2def1ed2c",
+      "started_utc": "2026-10-13T17:07:16.093031+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.16.0/bypy/sources.json"
+    },
+    "webengine": {
+      "bytes": 6292,
+      "finished_utc": "2026-10-13T17:07:16.092837+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "1e8c18ee0c0a76f678202c52e1972892b0a26a8c01fdfc5c97065574a06ce3c5",
+      "started_utc": "2026-10-13T17:07:15.771514+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/webengine.py"
+    },
+    "xml_parse": {
+      "bytes": 5238,
+      "finished_utc": "2026-10-13T17:07:15.471901+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "ee4142ecd5d3ac866d932651dc9448e67f90968c834113d710786e7d692f5b5c",
+      "started_utc": "2026-10-13T17:07:15.163938+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/xml_parse.py"
+    },
+    "zipfile": {
+      "bytes": 75368,
+      "finished_utc": "2026-10-13T17:07:15.757132+00:00",
+      "prior_pinned_source_equal": true,
+      "sha256": "87e224d26a45a37b624be80442ef5a76343dbf1c311a1cc7ebf8f59d402cf73b",
+      "started_utc": "2026-10-13T17:07:15.410292+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.15.0/src/calibre/utils/zipfile.py"
+    }
+  },
+  "vendor_tag_source_dependency_declarations": {
+    "vendor915_dependency_sources": [
+      "expat 2.7.3",
+      "openssl 3.5.8",
+      "python 3.14.7"
+    ],
+    "vendor916_dependency_sources": [
+      "expat 2.7.3",
+      "openssl 3.5.9",
+      "python 3.14.8"
+    ]
+  }
+}

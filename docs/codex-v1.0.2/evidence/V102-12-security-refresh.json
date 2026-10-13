@@ -1,0 +1,380 @@
+{
+  "bundled_OpenSSL": "3.5.9",
+  "calibre": {
+    "current_advisories": 21,
+    "current_release_notice": "Official changelog also lists9.16; latest availability is not a reason to change reviewed9.15 lock.",
+    "latest_listed_disclosure": "GHSA-p6rh-fpfg-37w2",
+    "latest_listed_patch": "9.15",
+    "latest_listed_range": "<=9.14",
+    "palmdoc_compress_disclosure": {
+      "id": "GHSA-8rcp-ffwf-rf64",
+      "patched": "9.13.0",
+      "range": "<=9.12.0"
+    },
+    "scope": "Reviewed local unencrypted EPUB/AZW3-to-PDF operations only; no content server, external recipes/plugins, native ebook output, DRM removal or claim of universal hostile-document safety.",
+    "version": "9.15.0"
+  },
+  "floors": {
+    "3.13": "3.13.16",
+    "3.14": "3.14.8",
+    "3.15": "3.15.0"
+  },
+  "fresh_anonymous_HEAD_only": {
+    "calibre9150": {
+      "bytes": 205319944,
+      "date": "Tue, 13 Oct 2026 17:00:03 GMT",
+      "etag": "\"6aaca9ff-c3cef08\"",
+      "final_url": "https://download.calibre-ebook.com/9.15.0/calibre-portable-installer-9.15.0.exe",
+      "last_modified": "Fri, 18 Sep 2026 03:03:27 GMT",
+      "status": 200,
+      "url": "https://download.calibre-ebook.com/9.15.0/calibre-portable-installer-9.15.0.exe"
+    },
+    "locked_pypdf620": {
+      "bytes": 401710,
+      "date": "Tue, 13 Oct 2026 17:00:03 GMT",
+      "etag": "\"fd6d4457b46381ad0b69b28951c2c109\"",
+      "final_url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl",
+      "last_modified": "Fri, 09 Oct 2026 10:49:38 GMT",
+      "status": 200,
+      "url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl"
+    },
+    "regular3150": {
+      "bytes": 45140897,
+      "date": "Tue, 13 Oct 2026 17:00:03 GMT",
+      "etag": "\"6ac8f213-2b0cba1\"",
+      "final_url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip",
+      "last_modified": "Fri, 09 Oct 2026 13:54:27 GMT",
+      "status": 200,
+      "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip"
+    }
+  },
+  "fresh_snapshot_manifest_sha256": "0f42d6f06407d104a3ef8f568e4a259181a6f68c88b0e53085fdde2364d1aa6d",
+  "limits": [
+    "HEAD proves present status/length, not re-downloaded byte equality or native execution.",
+    "Security review is scoped static required-path analysis; no generally-unaffected dependency or all-malicious-document guarantee.",
+    "Windows10/11 acceptance is separate actual evidence; publication/tag/anonymous assets/final sync remain separate gates."
+  ],
+  "mutations": {
+    "dependency": false,
+    "global_Python": false,
+    "policy": false,
+    "settings": false,
+    "source": false
+  },
+  "observed_at_utc": "2026-10-13T17:00:03.346737+00:00",
+  "openssl_review": "Fresh official current vulnerability list equals the prior reviewed list; September29 fixes prescribe3.5.9 for its branch. No new required-path issue identified.",
+  "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+  "primary_snapshots": {
+    "calibre-advisories": {
+      "bytes": 223258,
+      "final_url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100",
+      "finished_utc": "2026-10-13T16:53:23.315937+00:00",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:23 GMT",
+        "etag": "W/\"bd86b2a4bd854fd16b98ad873a14998e0d9d2bdc302bda5824b6b19fd4b32c35\"",
+        "last-modified": "Fri, 18 Sep 2026 13:12:37 GMT",
+        "x-github-request-id": "FC38:16F9D1:16601B4:2141F7B:6ACE6202"
+      },
+      "sha256": "5ad8dfba05f8ec0ca5ac088c411c45689af3b74ca939a257dfbf62c57dd0c58e",
+      "started_utc": "2026-10-13T16:53:22.745329+00:00",
+      "status": 200,
+      "url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100"
+    },
+    "calibre-releases": {
+      "bytes": 218610,
+      "final_url": "https://calibre-ebook.com/whats-new",
+      "finished_utc": "2026-10-13T16:53:23.605065+00:00",
+      "headers": {
+        "content-length": "218610",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:23 GMT",
+        "etag": "\"6ac85a6f-355f2\"",
+        "last-modified": "Fri, 09 Oct 2026 03:07:27 GMT"
+      },
+      "sha256": "68563ae2739717a566eda821ec33824e9b1bc9a41f72e9a883a24984a2de5948",
+      "started_utc": "2026-10-13T16:53:22.767840+00:00",
+      "status": 200,
+      "url": "https://calibre-ebook.com/whats-new"
+    },
+    "calibre915-assets": {
+      "bytes": 1422,
+      "final_url": "https://download.calibre-ebook.com/9.15.0/",
+      "finished_utc": "2026-10-13T16:53:23.210817+00:00",
+      "headers": {
+        "content-length": "1422",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:23 GMT",
+        "etag": "\"6ac859e5-58e\"",
+        "last-modified": "Fri, 09 Oct 2026 03:05:09 GMT"
+      },
+      "sha256": "a982a994bbc929d36e0168483792d7574a2786e8b47ac4ca65348c68b216782f",
+      "started_utc": "2026-10-13T16:53:23.056623+00:00",
+      "status": 200,
+      "url": "https://download.calibre-ebook.com/9.15.0/"
+    },
+    "openssl-current": {
+      "bytes": 759579,
+      "final_url": "https://openssl-library.org/news/vulnerabilities/",
+      "finished_utc": "2026-10-13T16:53:23.098706+00:00",
+      "headers": {
+        "content-length": "759579",
+        "content-type": "text/html",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"eec6b23ab30d78cba137bc8658e3b7b7\"",
+        "last-modified": "Tue, 29 Sep 2026 15:22:03 GMT"
+      },
+      "sha256": "df5b2fd3e82718c85b806e93a716f13336dd0f20e37a8799c9e0f4afb827bb8d",
+      "started_utc": "2026-10-13T16:53:22.359424+00:00",
+      "status": 200,
+      "url": "https://openssl-library.org/news/vulnerabilities/"
+    },
+    "openssl-september": {
+      "bytes": 34045,
+      "final_url": "https://openssl-library.org/news/secadv/20260929.txt",
+      "finished_utc": "2026-10-13T16:53:23.054804+00:00",
+      "headers": {
+        "content-length": "34045",
+        "content-type": "text/plain; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:23 GMT",
+        "etag": "\"406aeaf0b83bd11bc3152da765e0f289\"",
+        "last-modified": "Tue, 29 Sep 2026 15:22:01 GMT"
+      },
+      "sha256": "2a6766a213b2dac48b4666aa54c39dbe3af96f73444081a4a25c1e3dc496aeb9",
+      "started_utc": "2026-10-13T16:53:22.532381+00:00",
+      "status": 200,
+      "url": "https://openssl-library.org/news/secadv/20260929.txt"
+    },
+    "pypdf-advisories": {
+      "bytes": 266192,
+      "final_url": "https://api.github.com/repos/py-pdf/pypdf/security-advisories?per_page=100",
+      "finished_utc": "2026-10-13T16:53:22.766588+00:00",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "W/\"f28cd29cd865e637a58baa478c681ec5332c28a44cd5966c9a0bd8e40c16b322\"",
+        "last-modified": "Mon, 12 Oct 2026 16:17:31 GMT",
+        "x-github-request-id": "FAE2:26FF80:15D9E62:207DC6E:6ACE6202"
+      },
+      "sha256": "3061f89d644d7a517720d2f863125a32b94e9793cbc46f77c8e7f9f8261ed9e8",
+      "started_utc": "2026-10-13T16:53:22.166160+00:00",
+      "status": 200,
+      "url": "https://api.github.com/repos/py-pdf/pypdf/security-advisories?per_page=100"
+    },
+    "pypdf-patched-call-paths": {
+      "bytes": 12650,
+      "final_url": "https://api.github.com/repos/py-pdf/pypdf/pulls/4188/files?per_page=100",
+      "finished_utc": "2026-10-13T16:53:22.744530+00:00",
+      "headers": {
+        "content-type": "application/json; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "W/\"323cf2bbbf09545090919be75708f19783962ff5c8429a70db5949cfe5539634\"",
+        "last-modified": "Mon, 12 Oct 2026 15:54:16 GMT",
+        "x-github-request-id": "EF0F:F01EB:169728A:217B43D:6ACE6202"
+      },
+      "sha256": "59cf44900271093ba257bd1966ed16fb92a98724125ed1fcc6805d01354dbf53",
+      "started_utc": "2026-10-13T16:53:22.344625+00:00",
+      "status": 200,
+      "url": "https://api.github.com/repos/py-pdf/pypdf/pulls/4188/files?per_page=100"
+    },
+    "pypdf620-pypi": {
+      "bytes": 9370,
+      "final_url": "https://pypi.org/pypi/pypdf/6.20.0/json",
+      "finished_utc": "2026-10-13T16:53:22.531392+00:00",
+      "headers": {
+        "content-length": "9370",
+        "content-type": "application/json",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"K7VBLeF291wAUuksFDDrAw\""
+      },
+      "sha256": "71def374ca0ef9a6ff22cf0f99e52b50aaf3375d9b66abe4a5e338881daa8c98",
+      "started_utc": "2026-10-13T16:53:22.342121+00:00",
+      "status": 200,
+      "url": "https://pypi.org/pypi/pypdf/6.20.0/json"
+    },
+    "python-advisories": {
+      "bytes": 2,
+      "final_url": "https://api.github.com/repos/python/cpython/security-advisories?per_page=100",
+      "finished_utc": "2026-10-13T16:53:22.344016+00:00",
+      "headers": {
+        "content-length": "2",
+        "content-type": "application/json; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"74d1db57f0fec3481bb6b4d9bcdc020d656635ec6c53ee589d27a8831cbbe280\"",
+        "x-github-request-id": "ED8A:31E293:16F23A6:21FE98B:6ACE6202"
+      },
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "started_utc": "2026-10-13T16:53:22.077415+00:00",
+      "status": 200,
+      "url": "https://api.github.com/repos/python/cpython/security-advisories?per_page=100"
+    },
+    "python31316-release": {
+      "bytes": 12947,
+      "final_url": "https://www.python.org/downloads/release/python-31316/",
+      "finished_utc": "2026-10-13T16:53:22.066675+00:00",
+      "headers": {
+        "content-length": "12947",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT"
+      },
+      "sha256": "515b5b510e6ed741896cc3a2e1079ad917ab92802bbfcccb69a1665cb808cd8e",
+      "started_utc": "2026-10-13T16:53:21.897413+00:00",
+      "status": 200,
+      "url": "https://www.python.org/downloads/release/python-31316/"
+    },
+    "python3148-release": {
+      "bytes": 13350,
+      "final_url": "https://www.python.org/downloads/release/python-3148/",
+      "finished_utc": "2026-10-13T16:53:22.074417+00:00",
+      "headers": {
+        "content-length": "13350",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT"
+      },
+      "sha256": "9497a41680d4ccda3d922522c716aa04f91eb2bb6e776e21a7b3bc9699f86e9a",
+      "started_utc": "2026-10-13T16:53:21.896932+00:00",
+      "status": 200,
+      "url": "https://www.python.org/downloads/release/python-3148/"
+    },
+    "python315-catalog": {
+      "bytes": 15342,
+      "final_url": "https://www.python.org/ftp/python/3.15.0/windows-3.15.0.json",
+      "finished_utc": "2026-10-13T16:53:22.076588+00:00",
+      "headers": {
+        "content-length": "15342",
+        "content-type": "application/json",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"6ac8f23e-3bee\"",
+        "last-modified": "Fri, 09 Oct 2026 13:55:10 GMT"
+      },
+      "sha256": "ebbd6a12b77ee2cbba5bf9fbb034c609c8336877823f7989126be10a237c11df",
+      "started_utc": "2026-10-13T16:53:21.897860+00:00",
+      "status": 200,
+      "url": "https://www.python.org/ftp/python/3.15.0/windows-3.15.0.json"
+    },
+    "python315-final-b3-news": {
+      "bytes": 18272,
+      "final_url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0b3.rst",
+      "finished_utc": "2026-10-13T16:53:22.341394+00:00",
+      "headers": {
+        "content-length": "18272",
+        "content-type": "text/plain; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"c6c4af0532b75e1e8350d2346f3a4ccd68569e204b58372b7799c925dff47f1e\"",
+        "x-github-request-id": "E54C:16F93B:247F87:25FED6:6ACE6202"
+      },
+      "sha256": "24341f318ac0ee49c3a570a7ae356545b166049cf587ef2a9c2bedd0c9ac0cd9",
+      "started_utc": "2026-10-13T16:53:22.075812+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0b3.rst"
+    },
+    "python315-final-rc3-news": {
+      "bytes": 20535,
+      "final_url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0rc3.rst",
+      "finished_utc": "2026-10-13T16:53:22.357504+00:00",
+      "headers": {
+        "content-length": "20535",
+        "content-type": "text/plain; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"99ba156a01088caac2d8310476dc86916192ae978957018d834252ebb6b38fcd\"",
+        "x-github-request-id": "71F0:C7345:24479F:25C78E:6ACE6202"
+      },
+      "sha256": "a860eb6f75de5aa6d8b306869f62431de2ee44d815abb79c2694d05fba85b363",
+      "started_utc": "2026-10-13T16:53:22.067343+00:00",
+      "status": 200,
+      "url": "https://raw.githubusercontent.com/python/cpython/v3.15.0/Misc/NEWS.d/3.15.0rc3.rst"
+    },
+    "python315-release": {
+      "bytes": 11785,
+      "final_url": "https://www.python.org/downloads/release/python-3150/",
+      "finished_utc": "2026-10-13T16:53:22.049311+00:00",
+      "headers": {
+        "content-length": "11785",
+        "content-type": "text/html; charset=utf-8",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT"
+      },
+      "sha256": "982453d1d4cd8f29f188fab853e89df5df994ec7011ac607244e4d026ab2276e",
+      "started_utc": "2026-10-13T16:53:21.896094+00:00",
+      "status": 200,
+      "url": "https://www.python.org/downloads/release/python-3150/"
+    },
+    "python315-sbom": {
+      "bytes": 34113,
+      "final_url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.exe.spdx.json",
+      "finished_utc": "2026-10-13T16:53:22.165378+00:00",
+      "headers": {
+        "content-length": "34113",
+        "content-type": "application/json",
+        "date": "Tue, 13 Oct 2026 16:53:22 GMT",
+        "etag": "\"6ac8f1a7-8541\"",
+        "last-modified": "Fri, 09 Oct 2026 13:52:39 GMT"
+      },
+      "sha256": "1d92f4a489d167e6d5edbeb4acf99c207350cf54772578a9ffaf0798b307a7cc",
+      "started_utc": "2026-10-13T16:53:22.050573+00:00",
+      "status": 200,
+      "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.exe.spdx.json"
+    }
+  },
+  "protocol": "winbooksplit.v102.release-security-refresh",
+  "pypdf": {
+    "all59_installed_sources_equal_pinned_wheel": true,
+    "current_advisories": 58,
+    "decision": "Retain exact6.20.0 for current required pipeline; dependency remains generally within the two<6.20.1 affected ranges.",
+    "limits": "This is static reachability of the current fixed engine, not a universal proof for arbitrary pypdf use or all malicious PDFs. The two advisory affected ranges remain applicable to the dependency version generally; future outline search/removal or document-cloning features require a renewed dependency review. Existing finite process controls do not make the dependency unaffected.",
+    "patched_floor_notices": [
+      {
+        "id": "GHSA-39mj-jf6j-2qj3",
+        "patched": ">=6.20.0",
+        "range": "<6.20.0"
+      },
+      {
+        "id": "GHSA-7mh2-4gg2-979f",
+        "patched": ">=6.20.0",
+        "range": "<6.20.0"
+      }
+    ],
+    "pipeline_source_equal_prior_review": {
+      "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+    },
+    "scope": "Scoped static review found no direct or indirect production invocation of find_outline_item, remove_child, remove_from_tree or removal delegates. Fresh non-cloning PdfWriter creates a new Catalog/Pages; add_page excludes source parent/Annots/B/AA and clones ordinary page data; projected annotation clone/add_annotation builds remapped destinations. add_outline_item(title,0) creates one new node with default parent/before; get_outline_root builds a new empty root, insert_child takes the empty-tree insertion branch and generated parent counters terminate. Normal non-incremental write/write_stream resolves the intentionally empty original-link list and serializes objects/xref/trailer; it does not use the vulnerable searches/removals. Whole-wheel AST call sites are self-recursion/removal delegates only, reviewed alongside actual method bodies and upstream patched paths.",
+    "version": "6.20.0",
+    "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+    "within_affected_ranges": [
+      {
+        "id": "GHSA-qfv9-64jg-mh7p",
+        "patched": ">= 6.20.1",
+        "range": "< 6.20.1",
+        "summary": "Possible infinite loop in PdfWriter.find_outline_item",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-qfv9-64jg-mh7p"
+      },
+      {
+        "id": "GHSA-9mx8-4j7g-633p",
+        "patched": ">= 6.20.1",
+        "range": "< 6.20.1",
+        "summary": "Possible infinite loop when removing tree items",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-9mx8-4j7g-633p"
+      }
+    ]
+  },
+  "python315_official_catalog": {
+    "id": "pythoncore-3.15-64",
+    "sha256": "6b1a3f885ce416cf3a68af203e62203664eb5224d8d0c1d2a1945fddec5c500b",
+    "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip",
+    "version": "3.15.0"
+  },
+  "regular_windows_x64_only": true,
+  "release_zip_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+  "result": "CLEAR_RETAIN_FROZEN_LOCKS",
+  "same_authoritative_content_as_prior_review": {
+    "OpenSSL_current": true,
+    "pypdf_advisories": true,
+    "pypdf_patch_call_paths": true
+  },
+  "schema_version": 1,
+  "snapshot_encoding": "Primary snapshots preserve received raw bytes. Gzip-encoded Python release pages were independently decoded with a16MiB bound before checking their text; the first raw-text-only observer refusal and preimage are preserved.",
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "unknown_minor_classification": "unsupported_unvalidated_not_insecure"
+}

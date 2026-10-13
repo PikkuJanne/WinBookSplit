@@ -104,7 +104,7 @@
         "V102-AC-069",
         "V102-AC-070"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G10",
@@ -113,7 +113,7 @@
         "V102-AC-071",
         "V102-AC-072"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     }
   ],
   "notes": [

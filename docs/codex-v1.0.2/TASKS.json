@@ -364,7 +364,7 @@
       "id": "V102-12",
       "title": "Publish, verify anonymous downloads and close synchronized main",
       "milestone": "M6",
-      "status": "NOT_STARTED",
+      "status": "DONE",
       "depends_on": [
         "V102-11"
       ],
@@ -382,7 +382,18 @@
         "V102-AC-071",
         "V102-AC-072"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     }
   ]
 }

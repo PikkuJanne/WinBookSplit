@@ -1016,54 +1016,120 @@
       "task": "V102-12",
       "title": "All gates pass before publication",
       "expected": "Prior tasks and named release gates have real required evidence; Python3.15/native/marked-setup scope is not waived or silently removed.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     },
     {
       "id": "V102-AC-068",
       "task": "V102-12",
       "title": "Fixed correct tag/source",
       "expected": "Live peeled v1.0.2 tag equals accepted R; no retag/clobber of an existing conflicting tag and no old-release modification.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     },
     {
       "id": "V102-AC-069",
       "task": "V102-12",
       "title": "Public intended release",
       "expected": "v1.0.2 is public non-draft non-prerelease with the exact accepted ZIP/manifest/checksum assets and truthful tested-support/unsigned notes.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     },
     {
       "id": "V102-AC-070",
       "task": "V102-12",
       "title": "Anonymous assets match",
       "expected": "Fresh unauthenticated downloads match accepted sizes/hashes and archive/member/version/manifest R; authenticated draft availability not substituted.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     },
     {
       "id": "V102-AC-071",
       "task": "V102-12",
       "title": "Old releases preserved",
       "expected": "v1.0.0 and v1.0.1 peeled refs and stable asset identities compare unchanged against initial snapshots; volatile download counts excluded.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     },
     {
       "id": "V102-AC-072",
       "task": "V102-12",
       "title": "Closure and live main synchronized",
       "expected": "Final clean local main equals fresh remote main; any closure commit is docs-only with R/package members unchanged; final user report includes public URL, R, hashes and actual test scope.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-12-anonymous.json",
+        "evidence/V102-12-anonymous.md",
+        "evidence/V102-12-calibre-residual-refresh.json",
+        "evidence/V102-12-release-notes.md",
+        "evidence/V102-12-release-review.json",
+        "evidence/V102-12-release-review.md",
+        "evidence/V102-12-release.json",
+        "evidence/V102-12-release.md",
+        "evidence/V102-12-security-refresh.json",
+        "evidence/V102-12-security-refresh.md"
+      ]
     }
   ]
 }

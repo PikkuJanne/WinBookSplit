@@ -1,0 +1,244 @@
+{
+  "schema": "winbooksplit.v102.independent-public-release-review/1",
+  "reviewed_at_utc": "2026-10-13T17:36:29.141413+00:00",
+  "result": "CLEAR",
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "release_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.2",
+  "release_id": 411934002,
+  "annotated_tag_object": "c7ef8c4aa0421c553089319cf170ab9958fc2195",
+  "published_at": "2026-10-13T17:28:52Z",
+  "public_non_draft_non_prerelease": true,
+  "release_notes_sha256": "9cd0d9ed7293c86e262019452e096cdd9bad4ccb0edf0f2d5a6ec70ff40dfe91",
+  "tag_message_sha256": "19bf3934ee4a57fdbd45a90b0a388fb3a4eca7b33d3c683c76c437856ab23984",
+  "actions": [
+    {
+      "record": "tagcreate-01",
+      "receipt_sha256": "6e6bc323deff5f6bc4c5d38e5631a9efa325c0c5dfa9d3acaaaa51fb5f534d2a",
+      "result": "FAILED_OR_UNKNOWN",
+      "command_count": 0,
+      "mutation_commands": 0,
+      "native_mutation_exits": []
+    },
+    {
+      "record": "tagcreate-02",
+      "receipt_sha256": "159ead0b8953f53e036593349e5185eac7f2c1871b8d1912e0556d8079212c3e",
+      "result": "FAILED_OR_UNKNOWN",
+      "command_count": 14,
+      "mutation_commands": 0,
+      "native_mutation_exits": []
+    },
+    {
+      "record": "tagcreate-03",
+      "receipt_sha256": "12a3e90cacd9d2b804a1a5ceb855631537c98ea4861ebfb550bfdd399edbc5af",
+      "result": "PASS",
+      "command_count": 23,
+      "mutation_commands": 1,
+      "native_mutation_exits": [
+        0
+      ]
+    },
+    {
+      "record": "tagpush-01",
+      "receipt_sha256": "7d9fbacfb37bdff6a05e6e83ffabef79b3103e3d4e0af6e41a28cd07fad3fc7c",
+      "result": "PASS",
+      "command_count": 23,
+      "mutation_commands": 1,
+      "native_mutation_exits": [
+        0
+      ]
+    },
+    {
+      "record": "draftcreate-01",
+      "receipt_sha256": "e368ab6d3ec0f8a8146a5c459146c4be1db4b2826f493beed885304c53c8c53a",
+      "result": "FAILED_OR_UNKNOWN",
+      "command_count": 21,
+      "mutation_commands": 1,
+      "native_mutation_exits": [
+        0
+      ]
+    },
+    {
+      "record": "inspect-draft-01",
+      "receipt_sha256": "fa38e318ecf973a19131998853b2e6f9e5cb1328bc7fa8b8cc432157e975000d",
+      "result": "PASS",
+      "command_count": 21,
+      "mutation_commands": 0,
+      "native_mutation_exits": []
+    },
+    {
+      "record": "upload-01",
+      "receipt_sha256": "e3d213765eb52c8c917216f61058c617cece88b2ea0a8b0833217c92241b8ced",
+      "result": "PASS",
+      "command_count": 23,
+      "mutation_commands": 1,
+      "native_mutation_exits": [
+        0
+      ]
+    },
+    {
+      "record": "publish-01",
+      "receipt_sha256": "0c900cdea2da536aad82577b2b0a68c54e815c21d10f13f2c2cb153fd884425b",
+      "result": "PASS",
+      "command_count": 23,
+      "mutation_commands": 1,
+      "native_mutation_exits": [
+        0
+      ]
+    },
+    {
+      "record": "inspect-public-01",
+      "receipt_sha256": "4a555bab2befb11c53deb16fdaec566bed826a121b4ee19a28729b6485c43541",
+      "result": "PASS",
+      "command_count": 21,
+      "mutation_commands": 0,
+      "native_mutation_exits": []
+    }
+  ],
+  "authenticated_command_count": 169,
+  "authenticated_stream_count": 338,
+  "publication_history": {
+    "tagcreate01": "Refused inherited pager guard before commands or mutation; exact GIT_PAGER=cat later reviewed without changing parent environment.",
+    "tagcreate02": "Absent-ref hash command exit128; fourteen read-only commands, zero mutations.",
+    "draftcreate01": "Draft-create native exit0 created the intended draft; overall FAILED_OR_UNKNOWN because by-tag post-query returned404. ID-based inspection authenticated that same draft; no recreate.",
+    "normal_tag_push": true,
+    "single_exact_asset_upload": true,
+    "single_publication_edit": true
+  },
+  "anonymous": {
+    "receipt_sha256": "15d1ef44f473e6584979795fd4cd19ce43b7d1358bb90bf618fff870b4f0f77f",
+    "operator_sha256": "9924ab48f4fbadaacd6b0365f9f7c93dc1405b84d9e8c960a9c44651f1cc0564",
+    "metadata_gets": 4,
+    "asset_gets": 3,
+    "successful_final_http_200": 7,
+    "official_http_302_redirects": 3,
+    "authentication_context": {
+      "authorization_headers": false,
+      "cookie_handler": false,
+      "environment_tokens": false,
+      "fresh_opener_per_request": true,
+      "minimum_tls": "1.2",
+      "netrc": false,
+      "proxy_inheritance": false,
+      "tls_verify": true
+    },
+    "all_three_downloaded_assets_equal_accepted_bytes": true,
+    "members_compared_independently_to_R_git_blobs": 34,
+    "downloaded_inspection_sha256": "e782da06733d84911002ef52b0b0a0682bc29c3de076068249e477578e087c79",
+    "package_or_application_executed": false
+  },
+  "assets": {
+    "WinBookSplit-v1.0.2.zip": {
+      "bytes": 909557,
+      "sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+      "github_asset_id": 637748441
+    },
+    "release-manifest.json": {
+      "bytes": 16593,
+      "sha256": "a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03",
+      "github_asset_id": 637748440
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e",
+      "github_asset_id": 637748443
+    }
+  },
+  "old_release_preservation": {
+    "versions": [
+      "v1.0.0",
+      "v1.0.1"
+    ],
+    "annotated_and_peeled_refs_equal_prepublication": true,
+    "release_ids_names_bodies_targets_statuses_and_asset_ids_sizes_digests_equal_prepublication": true,
+    "download_counts_excluded_as_volatile": true
+  },
+  "raw_references": {
+    "action-tagcreate-01": {
+      "bytes": 1238,
+      "sha256": "6e6bc323deff5f6bc4c5d38e5631a9efa325c0c5dfa9d3acaaaa51fb5f534d2a"
+    },
+    "action-tagcreate-02": {
+      "bytes": 21185,
+      "sha256": "159ead0b8953f53e036593349e5185eac7f2c1871b8d1912e0556d8079212c3e"
+    },
+    "action-tagcreate-03": {
+      "bytes": 30306,
+      "sha256": "12a3e90cacd9d2b804a1a5ceb855631537c98ea4861ebfb550bfdd399edbc5af"
+    },
+    "action-tagpush-01": {
+      "bytes": 30171,
+      "sha256": "7d9fbacfb37bdff6a05e6e83ffabef79b3103e3d4e0af6e41a28cd07fad3fc7c"
+    },
+    "action-draftcreate-01": {
+      "bytes": 29263,
+      "sha256": "e368ab6d3ec0f8a8146a5c459146c4be1db4b2826f493beed885304c53c8c53a"
+    },
+    "action-inspect-draft-01": {
+      "bytes": 29246,
+      "sha256": "fa38e318ecf973a19131998853b2e6f9e5cb1328bc7fa8b8cc432157e975000d"
+    },
+    "action-upload-01": {
+      "bytes": 33709,
+      "sha256": "e3d213765eb52c8c917216f61058c617cece88b2ea0a8b0833217c92241b8ced"
+    },
+    "action-publish-01": {
+      "bytes": 33512,
+      "sha256": "0c900cdea2da536aad82577b2b0a68c54e815c21d10f13f2c2cb153fd884425b"
+    },
+    "action-inspect-public-01": {
+      "bytes": 29991,
+      "sha256": "4a555bab2befb11c53deb16fdaec566bed826a121b4ee19a28729b6485c43541"
+    },
+    "anonymous": {
+      "bytes": 9155,
+      "sha256": "15d1ef44f473e6584979795fd4cd19ce43b7d1358bb90bf618fff870b4f0f77f"
+    },
+    "metadata-release": {
+      "bytes": 11806,
+      "sha256": "bded6a42ff163411fd0c9a9f5603eb494d007266c34751627a1af6bebcb32aa6"
+    },
+    "metadata-tag-ref": {
+      "bytes": 341,
+      "sha256": "95621b84cfc82f16dfc0a6180744bb8b18b7bfe624884fc51e40b554e1c68c44"
+    },
+    "metadata-tag-object": {
+      "bytes": 1153,
+      "sha256": "6f3519a928b8236bb5c28e1be2d0431cf652d334f71beffe3555a4bba9b0862c"
+    },
+    "metadata-source-commit": {
+      "bytes": 1221,
+      "sha256": "f9b87cf9f29dc5e49cc6d4daa28742db93c195791f28841f6ec256ac0d002083"
+    },
+    "download-WinBookSplit-v1.0.2.zip": {
+      "bytes": 909557,
+      "sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e"
+    },
+    "download-release-manifest.json": {
+      "bytes": 16593,
+      "sha256": "a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03"
+    },
+    "download-SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e"
+    },
+    "downloaded-package-inspection": {
+      "bytes": 11910,
+      "sha256": "e782da06733d84911002ef52b0b0a0682bc29c3de076068249e477578e087c79"
+    },
+    "anonymous-md": {
+      "bytes": 2862,
+      "sha256": "dcc1e9e8058dec6e348b5b3c3debfad9e8e3844327003eb69fe9aaad10e44ada"
+    }
+  },
+  "reviewer_authoring_history": [
+    "Initial reviewer expected a projected http_status on the failed draft-after command; that projection was unavailable. The unchanged authenticated raw HTTP status line directly records404, and the reviewer was corrected to consume that line.",
+    "Initial member review assumed a ZIP folder prefix. The accepted deterministic archive contains the exact34 canonical flat relative names; the reviewer now requires that exact set and reads those names. Both refused reviewer preimages remain external. No producer, report, asset or action rerun."
+  ],
+  "limits": [
+    "Publication and anonymous package-byte acceptance are complete. Final docs closure commit/push and fresh final-main synchronization remain a separate checkpoint.",
+    "Native Windows10 acceptance consumes the owner-returned redacted maintained report; owner-local raw PDFs/process streams were not independently reopened.",
+    "Known pypdf6.20.0 affected outline-search/tree-removal ranges and Calibre residual embedded-library limits remain disclosed; required-path review is scoped.",
+    "This read-only review issued no release, source, settings or application mutations."
+  ]
+}
