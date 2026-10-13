@@ -908,54 +908,100 @@
       "task": "V102-11",
       "title": "Windows10 real 3.15 final ZIP",
       "expected": "Native Windows10 22H2 x64/inbox PS5.1 executes candidate Z setup/selected-runtime/PDF suite using actual 3.15.0, not Server simulation.",
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-blocker.json",
+        "evidence/V102-11-blocker.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-062",
       "task": "V102-11",
       "title": "Windows11 real 3.15 final ZIP",
       "expected": "Native Windows11 x64/inbox PS5.1 runs same Z with real 3.15.0 and targeted setup/PDF/MOTW checks.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-native.json",
+        "evidence/V102-11-native.md",
+        "evidence/V102-11-operator-correction.json",
+        "evidence/V102-11-operator-correction.md",
+        "evidence/V102-11-supplement-correction.json",
+        "evidence/V102-11-supplement-correction.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-063",
       "task": "V102-11",
       "title": "Final-asset launch and remedy gates",
       "expected": "New setup BAT plus exact emitted action work with actual marked Z scripts under process RemoteSigned; negative control, exit/status and immutable source checks captured.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-native.json",
+        "evidence/V102-11-native.md",
+        "evidence/V102-11-operator-correction.json",
+        "evidence/V102-11-operator-correction.md",
+        "evidence/V102-11-supplement-correction.json",
+        "evidence/V102-11-supplement-correction.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-064",
       "task": "V102-11",
       "title": "Real ebook integration under 3.15",
       "expected": "Representative authored EPUB and genuine unencrypted AZW3 convert and split under 3.15 using locked Calibre; original and output validation recorded.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-native.json",
+        "evidence/V102-11-native.md",
+        "evidence/V102-11-operator-correction.json",
+        "evidence/V102-11-operator-correction.md",
+        "evidence/V102-11-supplement-correction.json",
+        "evidence/V102-11-supplement-correction.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-065",
       "task": "V102-11",
       "title": "Existing branches and PS7 preserved",
       "expected": "Focused same-Z setup/check/PDF smoke on accepted 3.13 and 3.14 plus reviewed PS7 3.15 invocation passes; tested combinations reported exactly.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-native.json",
+        "evidence/V102-11-native.md",
+        "evidence/V102-11-operator-correction.json",
+        "evidence/V102-11-operator-correction.md",
+        "evidence/V102-11-supplement-correction.json",
+        "evidence/V102-11-supplement-correction.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-066",
       "task": "V102-11",
       "title": "Evidence and human scope correct",
       "expected": "Reports bind R/Z/runtime/machine/commands/results; mandatory failures absent; human work limited to one consolidated kit run only if needed, not fake agent/GUI claims.",
-      "status": "NOT_RUN",
+      "status": "BLOCKED",
       "required": true,
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-blocker.json",
+        "evidence/V102-11-blocker.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md"
+      ]
     },
     {
       "id": "V102-AC-067",

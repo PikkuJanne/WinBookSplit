@@ -1,0 +1,136 @@
+{
+  "actual_policy_domains": {
+    "controller": "Pinned PowerShell7.6.6 Process=Bypass",
+    "entry_routes": "Explicit child Process=Bypass; actual observations retained in core report",
+    "inner_parent": "API-known inbox5.1 effective/Process=RemoteSigned",
+    "machine_or_user_policy_changed": false,
+    "organization_control": "Clearly labeled simulation; no claim of native GPO enforcement"
+  },
+  "completed_core": {
+    "actual_inbox_path_and_policy_before_after_preserved": true,
+    "application_suite_reexecuted": false,
+    "base315_runtime_members": 2478,
+    "cases": 19,
+    "cleanup_safe": true,
+    "error": "Untyped PowerShell Split separators selected an overload yielding one line despite actual LF/CR characters",
+    "execution": "AGENT_LAUNCHED",
+    "native_child_exit": 0,
+    "original_outer_ephemeral_snapshots": "UNAVAILABLE_NOT_POPULATED",
+    "outer_postprocess_exit": 1,
+    "outer_postprocess_status": "FAIL_PRESERVED",
+    "prelaunch_to_current_resource_byte_count": 3480,
+    "recovery": "Read-only retained-result postprocessing with explicit System.String[] separators",
+    "recovery_native_exit": 0,
+    "recovery_only_host_and_policy_observations_labeled": true,
+    "selected_runtime_members": 960,
+    "stages": 16,
+    "success": true
+  },
+  "fresh_context_provenance": {
+    "all_33_member_bytes_equal": true,
+    "asset_bytes_changed": false,
+    "copied_from_exact_accepted_kit_archive": true,
+    "kit_rebuilt": false,
+    "prior_marks_removed": false
+  },
+  "native_windows10": "NOT_RUN",
+  "operator_only_refusals": [
+    {
+      "before_sdk_or_core": true,
+      "id": "original-inbox-host",
+      "marks_already_written": 11,
+      "native_exit": 1,
+      "reason": "Outer controller requires pinned PowerShell7.6.6; script marking occurs before that host guard"
+    },
+    {
+      "before_sdk_or_core": true,
+      "id": "original-already-marked-context",
+      "marks_preserved": 11,
+      "native_exit": 1,
+      "reason": "Fresh-script guard refused the already marked original owned kit"
+    },
+    {
+      "before_sdk_or_core": true,
+      "id": "run02-marked-sdk-controller",
+      "marks_preserved": 11,
+      "native_exit": 1,
+      "reason": "Controller RemoteSigned blocked its newly Internet-marked SDK dot-source"
+    }
+  ],
+  "preparation_control_failure": {
+    "application_launched": false,
+    "native_exit": 1,
+    "output_created": false,
+    "reason": "Duplicate locked-wheel path refused at finite generator uniqueness guard; source preimage retained and duplicate removed"
+  },
+  "production_zip_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+  "protocol": "winbooksplit.v102.operator-correction-evidence",
+  "publication_claimed": false,
+  "raw_references": {
+    "actual_complete_contract": {
+      "bytes": 2301,
+      "sha256": "1947c84be67b57522fd085e73413bfb25bb348ec1e8f64b9c20262e05d51a344"
+    },
+    "actual_core_returned_zip": {
+      "bytes": 27770,
+      "sha256": "7f6e476941ac85948fbc30223efe117d37c324ef7cb9a649a55bfeaa39f4a0a9"
+    },
+    "actual_native_core": {
+      "bytes": 27631,
+      "sha256": "c7c8dd6abf790ad3b7b01c6bfbec295ffcc00f79afb8a0beaca8f7b0fdf11c32"
+    },
+    "actual_retained_core_bridge": {
+      "bytes": 16605,
+      "sha256": "4be10d30441d207c23cb7caf12a5f301d79361256631838685ae351bcc747759"
+    },
+    "controller_refusal_correction": {
+      "bytes": 5244,
+      "sha256": "0c2ba0d604e8b1e080bf19afc2fe73ddf64d5e7e0f4c72611cbd1e41762df050"
+    },
+    "fresh_exact_copy_run03": {
+      "bytes": 8791,
+      "sha256": "edd2ff9051333411cd98a1357fdb8dd9213e2b71dabd86ec3b3e0a59326f690d"
+    },
+    "read_only_recovery_command": {
+      "bytes": 755,
+      "sha256": "e91fc6444db8c9a3ca251bdc071a362a6e9f0e5a89bf0f35b01a19aa2fb99518"
+    },
+    "read_only_supplement_preparation_failure": {
+      "bytes": 486,
+      "sha256": "ebce499eabef0beacd52bd7a1264762725ba088b37fb95602546caa83ba3fa64"
+    },
+    "refused_already_marked_context": {
+      "bytes": 942,
+      "sha256": "4b91af622f929007462d0d066d6702c4038052da1341f8e043354b400adbc372"
+    },
+    "refused_inbox_host": {
+      "bytes": 887,
+      "sha256": "89ca09f8852f5b8f482bfc1981a6c5d869d115d63e6c8aa482b9efeba92221cb"
+    },
+    "refused_marked_sdk_under_controller_remotesigned": {
+      "bytes": 1835,
+      "sha256": "90a9706fed9e4c922e25f1b88c3cd0f6c238511bc2efbb577361f1c2c1dd4dcc"
+    },
+    "run03_command": {
+      "bytes": 1389,
+      "sha256": "f2ca579cf7c11d509d692f89bb7fc0058c0629c5d68f8470da36ed2678d10ad0"
+    },
+    "run03_outer_postprocess_failure": {
+      "bytes": 20699,
+      "sha256": "d78e880871df4215506851a296e83778c5dea8b0172470e4a0364bca569107e9"
+    },
+    "run03_outer_process": {
+      "bytes": 24765,
+      "sha256": "f79c9f89f38fadfea41aa9d823f96d1c185816a583c5bfad3f12a921c64682eb"
+    }
+  },
+  "schema_version": 1,
+  "scope": "External operator attempts and recovery of actual final-Z native Windows11 core; this record does not certify combined supplemental acceptance",
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "static_prelaunch_finding": {
+    "executed": false,
+    "reason": "Inner fixed kit path needed the same run03 owned root as its caller; one inner literal and fixed materializer slot were reviewed before launch"
+  },
+  "unchanged_owner_kit_zip_sha256": "5e596dead97e6696f2b936e91afe66ed9e968475f642ad2b59321e4853d11049"
+}

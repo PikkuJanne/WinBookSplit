@@ -1,0 +1,190 @@
+{
+  "schema_version": 1,
+  "task": "V102-11",
+  "scope": "Supplemental automatic main-R2 CI cancellation history only; no native final-Z or publication claim",
+  "observed_at_utc": "2026-10-12T23:26:15.734000+00:00",
+  "actual_run_conclusion": "CANCELLED",
+  "run_id": 38320429067,
+  "run_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/38320429067",
+  "run_attempt": 1,
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "source_map": {
+    "paths": 207,
+    "digest": "ddb74dc5009810fdad29359a451f67fbad4d86a220969732d51a8b1626ae71c5",
+    "all_available_maps_equal": true,
+    "all_current_D10_raw_equal_R2_Git": true
+  },
+  "current_clean_metadata_checkpoint": "94d9436ecf7902518daca9e3c445e47bfe8520f9",
+  "raw_capture": {
+    "sha256": "1d5023d2ce56ec8fe9e7352632cfd0aee54f296cf662486b632d1ceb8a6eaa66",
+    "bytes": 259084,
+    "api_headers_request_ids_and_original_commands_retained_privately": true
+  },
+  "artifacts": [
+    {
+      "role": "application",
+      "version": "3.13.16",
+      "artifact": {
+        "id": 11778537696,
+        "name": "windows-application-3.13.16-483baf858569bc838ac8a809d329b2595cdacf57-1",
+        "size_in_bytes": 53570,
+        "digest": "sha256:a70dc9815d84b88f42b42e6343d222c6fbc7d115ebf425db07af155cca2b1e0f"
+      },
+      "ZIP_sha256": "a70dc9815d84b88f42b42e6343d222c6fbc7d115ebf425db07af155cca2b1e0f",
+      "reports": {
+        "package-inputs.json": {
+          "bytes": 12381,
+          "sha256": "2064740e232dfaaa004252fb7a1dde1cb74db3f4ffdb5cbb77809670776f9cc0"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9d4b12d6f3a1ba830f0168cb532a34dde1557a79053ae051a390d910bba5732f"
+        },
+        "application.json": {
+          "bytes": 480752,
+          "sha256": "ecc4ce6b47dae845d8372235c15ed4fb77dbd4bc3d480659d98add98d16ad8d6"
+        }
+      },
+      "missing_reports": [],
+      "consumer_result": "PASS",
+      "job": {
+        "id": 115046958535,
+        "name": "Application 3.13.16 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-12T23:07:07Z",
+        "completed_at": "2026-10-12T23:10:49Z"
+      }
+    },
+    {
+      "role": "reference",
+      "version": null,
+      "artifact": {
+        "id": 11778444297,
+        "name": "windows-reference-483baf858569bc838ac8a809d329b2595cdacf57-1",
+        "size_in_bytes": 41665,
+        "digest": "sha256:990704b069b677cf07f2e10c94ad9e54068a1adc6072158da573694119f04c52"
+      },
+      "ZIP_sha256": "990704b069b677cf07f2e10c94ad9e54068a1adc6072158da573694119f04c52",
+      "reports": {
+        "tools-bootstrap.json": {
+          "bytes": 10038,
+          "sha256": "4243e18fe0bd2ec595bdb599660956d4a694790493e6f51f0ad42fb2f8fdc9ed"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9d4b12d6f3a1ba830f0168cb532a34dde1557a79053ae051a390d910bba5732f"
+        },
+        "package-inputs.json": {
+          "bytes": 12381,
+          "sha256": "2064740e232dfaaa004252fb7a1dde1cb74db3f4ffdb5cbb77809670776f9cc0"
+        },
+        "python.json": {
+          "bytes": 164161,
+          "sha256": "1b655278cd1562d75af1aa8d9d7f25b1668b570d6b8be5c5427b3f7ce694740d"
+        }
+      },
+      "missing_reports": [
+        "shell-ps51.json",
+        "shell-ps7.json"
+      ],
+      "consumer_result": "CANCELLED_REFERENCE_INCOMPLETE",
+      "job": {
+        "id": 115046958415,
+        "name": "Python and PowerShell regression (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "cancelled",
+        "started_at": "2026-10-12T23:07:07Z",
+        "completed_at": "2026-10-12T23:19:46Z"
+      }
+    },
+    {
+      "role": "application",
+      "version": "3.15.0",
+      "artifact": {
+        "id": 11778348514,
+        "name": "windows-application-3.15.0-483baf858569bc838ac8a809d329b2595cdacf57-1",
+        "size_in_bytes": 53542,
+        "digest": "sha256:50e5cc336ee2adc8688c4cda83b3549fc105736efcc6b6d7b1ada10b06e810ec"
+      },
+      "ZIP_sha256": "50e5cc336ee2adc8688c4cda83b3549fc105736efcc6b6d7b1ada10b06e810ec",
+      "reports": {
+        "package-inputs.json": {
+          "bytes": 12381,
+          "sha256": "2064740e232dfaaa004252fb7a1dde1cb74db3f4ffdb5cbb77809670776f9cc0"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9d4b12d6f3a1ba830f0168cb532a34dde1557a79053ae051a390d910bba5732f"
+        },
+        "application.json": {
+          "bytes": 480590,
+          "sha256": "ffd843c8e6a360a6ff3dfec9495582ce41a828ad138b0d4012571e915ba3d8d0"
+        }
+      },
+      "missing_reports": [],
+      "consumer_result": "PASS",
+      "job": {
+        "id": 115046958647,
+        "name": "Application 3.15.0 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-12T23:10:06Z",
+        "completed_at": "2026-10-12T23:14:04Z"
+      }
+    },
+    {
+      "role": "application",
+      "version": "3.14.8",
+      "artifact": {
+        "id": 11778153072,
+        "name": "windows-application-3.14.8-483baf858569bc838ac8a809d329b2595cdacf57-1",
+        "size_in_bytes": 53553,
+        "digest": "sha256:2c0abf3f49545460af188d02b5fbf48d567b95b176e45b4583c216e75b0f5103"
+      },
+      "ZIP_sha256": "2c0abf3f49545460af188d02b5fbf48d567b95b176e45b4583c216e75b0f5103",
+      "reports": {
+        "package-inputs.json": {
+          "bytes": 12381,
+          "sha256": "2064740e232dfaaa004252fb7a1dde1cb74db3f4ffdb5cbb77809670776f9cc0"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9d4b12d6f3a1ba830f0168cb532a34dde1557a79053ae051a390d910bba5732f"
+        },
+        "application.json": {
+          "bytes": 480579,
+          "sha256": "e666eeaca2e1f91dc2e5cdd432d1a26040e442e277072be7f074e0aab3c3a09e"
+        }
+      },
+      "missing_reports": [],
+      "consumer_result": "PASS",
+      "job": {
+        "id": 115046958562,
+        "name": "Application 3.14.8 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "started_at": "2026-10-12T23:07:07Z",
+        "completed_at": "2026-10-12T23:10:05Z"
+      }
+    }
+  ],
+  "authenticated_ZIPs": 4,
+  "authenticated_report_members": 13,
+  "application_roles_strict_PASS": 3,
+  "reference_native_exit": "UNKNOWN/NOT_AVAILABLE",
+  "reference_Pester": "UNKNOWN/NOT_AVAILABLE",
+  "all_four_complete_roles_PASS": false,
+  "product_regression_inferred": false,
+  "accepted_branch_R2_run_38314775718_not_replaced": true,
+  "cancellation_context": "Existing same-ref cancel-in-progress policy and later authorized docs-only main push are consistent with timing. API records CANCELLED; no sole cause or missing assertion outcome is inferred.",
+  "newer_docs_main_run": 38321456294,
+  "newer_run_result_claimed": false,
+  "no_rerun_dispatch_source_setting_or_asset_change": true,
+  "not_claimed": [
+    "reference Pester/native PASS or FAIL",
+    "final-Z Windows10/11 evidence",
+    "public release or anonymous-download acceptance"
+  ]
+}

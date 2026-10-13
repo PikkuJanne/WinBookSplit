@@ -25,7 +25,7 @@
         "V102-AC-024",
         "V102-AC-065"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G03",
@@ -84,7 +84,7 @@
         "V102-AC-063",
         "V102-AC-066"
       ],
-      "status": "NOT_RUN"
+      "status": "BLOCKED"
     },
     {
       "id": "G08",
@@ -94,7 +94,7 @@
         "V102-AC-064",
         "V102-AC-065"
       ],
-      "status": "NOT_RUN"
+      "status": "PASS"
     },
     {
       "id": "G09",

@@ -1,0 +1,11 @@
+# V102-11 external operator corrections
+
+The unchanged final release ZIP and COMMITTED owner kit were used throughout. Three external controller attempts stopped before SDK/core entry: the initial inbox-host refusal, the already-marked-context refusal, and the RemoteSigned controller's blocked SDK import. The pin loop had already written 11 Internet marks before the first host refusal; the earlier “pre-MOTW” description was corrected. All original marks and failed receipts remain preserved.
+
+Fresh owned contexts contain the same 33 accepted kit members copied from its frozen ZIP; they are not rebuilds. A fixed inner/caller path mismatch was corrected and reviewed before run03 launched. The authenticated PowerShell7.6.6 controller uses process-scoped Bypass, while the actual inbox parent and remedy test contexts retain RemoteSigned. Organization-denial checks remain explicitly simulated. No machine/user policy, source, package byte or safety guard changed.
+
+The actual final-Z Windows11 core completed with native child exit 0, all 16 stages and 19 cases successful, and safe stopped/drained supervision. Its outer controller then failed during output parsing: an untyped Split separator array selected the wrong overload. That outer failure remains FAIL. Reviewed read-only postprocessing parsed the already completed records with explicit string-array separators, authenticated the report and returned ZIP, and revalidated all 3480 prelaunch resource hashes and runtime member inventories. The application suite was not rerun.
+
+Original transient outer timestamp/environment/policy snapshots were unavailable after that failure and are not reconstructed as observed data. The bridge separately records actual retained inbox PATH/policy/OS observations, prelaunch-to-current byte/member comparisons, and newly observed recovery-only host/policy snapshots. A duplicate-wheel preparation guard also failed before any supplemental output or application launch; its preimage and failure receipt remain retained.
+
+This record covers those operator attempts and retained-core recovery. Combined supplemental acceptance is recorded separately. Native Windows10 execution remains NOT_RUN; no publication claim is made here. The companion JSON binds every private raw receipt by length and SHA-256 without exporting paths or account data.

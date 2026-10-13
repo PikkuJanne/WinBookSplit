@@ -320,7 +320,7 @@
       "id": "V102-11",
       "title": "Run final-ZIP native acceptance with minimal human work",
       "milestone": "M5",
-      "status": "NOT_STARTED",
+      "status": "BLOCKED",
       "depends_on": [
         "V102-10"
       ],
@@ -339,7 +339,22 @@
         "V102-AC-065",
         "V102-AC-066"
       ],
-      "evidence": []
+      "evidence": [
+        "evidence/V102-11-native.json",
+        "evidence/V102-11-native.md",
+        "evidence/V102-11-operator-correction.json",
+        "evidence/V102-11-operator-correction.md",
+        "evidence/V102-11-supplement-correction.json",
+        "evidence/V102-11-supplement-correction.md",
+        "evidence/V102-11-review.json",
+        "evidence/V102-11-review.md",
+        "evidence/V102-11-blocker.json",
+        "evidence/V102-11-blocker.md",
+        "evidence/V102-11-supplemental-ci-cancelled.json",
+        "evidence/V102-11-supplemental-ci-cancelled.md",
+        "evidence/V102-11-supplemental-ci-d10.json",
+        "evidence/V102-11-supplemental-ci-d10.md"
+      ]
     },
     {
       "id": "V102-12",

@@ -1,0 +1,101 @@
+{
+  "bindings_sha256": "ae5d00bf2539d89afe0c67a4ce80f8c396ca5d5f81243f0a6be80e6e14dd058d",
+  "distinct_supplement_history_cited": true,
+  "evidence_limits": [
+    "Native client Windows11, Server source CI and pending Windows10 remain separate.",
+    "Core selected regular x64 Python3.15.0 through an authored private child-PATH fixture, without claiming global owner installation.",
+    "Actual serviced application and verified oracle drivers are3.13.16 and3.14.8 with locked pypdf6.20.0; independent read-only reviewer used trusted dev14.8.",
+    "Organization-denial controls are simulations; controller process Bypass is distinct from actual RemoteSigned test contexts.",
+    "Original transient outer snapshots and original313 processing environment are unavailable; current/recovery observations are separately labeled.",
+    "Controller refusals, parser failures, bare-driver oracle failure and read-only reviewer authoring corrections remain preserved; completed native operations were not rerun.",
+    "No Explorer gesture, Windows10, publication, anonymous asset download or final-main synchronization pass is inferred."
+  ],
+  "joined_public_projection": {
+    "independent_byte_replay_equal": true,
+    "private_fields_or_paths_exported": false,
+    "raw_aliases": 6,
+    "reviewed_projector_sha256": "3c9868877479b8b518c21d3ae15372f6585b8c3de32aeb96a32181eb862f6172"
+  },
+  "native_windows10": "NOT_RUN",
+  "native_windows11": "PASS",
+  "original_history_immutable": true,
+  "owner_command": ".\\Run-Windows10.cmd",
+  "owner_kit_zip_sha256": "5e596dead97e6696f2b936e91afe66ed9e968475f642ad2b59321e4853d11049",
+  "physical_consumers": {
+    "PS7": "unchanged same-Z maintained four-case consumer passed",
+    "console": "genuine unredirected result-before-wait/automated-Enter/native0 and retained-source proof passed",
+    "core": "unchanged maintained PDF/console/ebook publication consumer passed",
+    "serviced313": "unchanged physical/source/console oracle independently replayed and object-equal to retained record",
+    "serviced314": "unchanged physical/source/console oracle independently replayed and object-equal to new record"
+  },
+  "protocol": "winbooksplit.v102.independent-final-native-review",
+  "publication": "BLOCKED_NATIVE_WINDOWS10",
+  "references": {
+    "blocker_json": {
+      "bytes": 6674,
+      "sha256": "2d737d0d2d4be0442bd44ca88e6e8078a0dc73c0dc88117d71fa96843518c1ae"
+    },
+    "completed_PS7_review": {
+      "bytes": 3529,
+      "sha256": "d997a1f1181e93b5f666eccf2448e5f89f566b6c8f2b87e21939a3bdb2d22c5a"
+    },
+    "completed_console_review": {
+      "bytes": 1175,
+      "sha256": "9c4a63d9d27f4593490e2485546f6382cc666b53faa635aa2ef4f8af73f8c797"
+    },
+    "completed_core_physical_review": {
+      "bytes": 4245,
+      "sha256": "a5be233e9b0c2971baca8eaaaf22add1acd8b0e46b221570070676a32bc266f3"
+    },
+    "history_blocker_review": {
+      "bytes": 14080,
+      "sha256": "cd5c5a36e64b90e76f0b66e0e68008e0a74ce1d456a6cc8b5080c46f6f5f069e"
+    },
+    "joined_native_raw_physical_review": {
+      "bytes": 13866,
+      "sha256": "9b535fb94d4777e67760f0cab379a891413823cfb9533932c0dae5dc528f1c92"
+    },
+    "native_public_json": {
+      "bytes": 43342,
+      "sha256": "d8af54e6c2b24fa87588e084b0293befe3f608013747bf40788cd4b9880a606b"
+    },
+    "native_public_markdown": {
+      "bytes": 3635,
+      "sha256": "e7bcd47b4cd1e3ca9bf19e631b73b00ea9b2eafc52be245a2a992637c112d33d"
+    },
+    "original_operator_history_json": {
+      "bytes": 5462,
+      "sha256": "c284732094277c5083b6475e4ec7f44f8dda108381f279bfa6232510f25a3693"
+    },
+    "original_operator_history_markdown": {
+      "bytes": 2348,
+      "sha256": "8f239b90c27a61cab52a34013a8178415c81240684b69b335fca35a6e9b0c3e0"
+    },
+    "recovered_core_bridge_review": {
+      "bytes": 1087,
+      "sha256": "7efe0018419e14fcfcbbb377a24ffa4934640c882873f9b7c8a0ef4a9d51fb07"
+    },
+    "supplement_history_json": {
+      "bytes": 9860,
+      "sha256": "b27cb727c90550ed0d446bc5dd9a5e7dbf93ee618a0707fd9152d5d38416552c"
+    },
+    "supplement_history_markdown": {
+      "bytes": 4144,
+      "sha256": "285c61c0f8f32c5bd3bbb2914949c352c694ef20d03210dd68afd7bc3e1f1b0a"
+    }
+  },
+  "release_zip_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+  "return_only": "native-result.zip",
+  "review_scope": {
+    "PS7_cases": 4,
+    "blocker_input_pin_count": 20,
+    "core_cases": 19,
+    "core_stages": 16,
+    "history_raw_reference_count": 28,
+    "serviced_setup_check_pdf_cases": 6,
+    "zero_argument_console_cases": 1
+  },
+  "schema_version": 1,
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735"
+}

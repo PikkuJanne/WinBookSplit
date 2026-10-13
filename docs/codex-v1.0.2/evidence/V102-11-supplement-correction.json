@@ -1,0 +1,246 @@
+{
+  "actual_policy_domains": {
+    "controller": "Pinned PowerShell7.6.6 Process=Bypass",
+    "entry_routes": "Explicit child Process=Bypass; actual observations retained in core report",
+    "inner_parent": "API-known inbox5.1 effective/Process=RemoteSigned",
+    "machine_or_user_policy_changed": false,
+    "organization_control": "Clearly labeled simulation; no claim of native GPO enforcement"
+  },
+  "additional_external_parser_failure": {
+    "completed_PS7_cases": 4,
+    "completed_PS7_reexecuted": false,
+    "completed_PS7_report_success": true,
+    "completed_console_fresh_setup_native_exit": 0,
+    "completed_console_fresh_setup_reexecuted": false,
+    "completed_core_reexecuted": false,
+    "correction": "Separately preserved helpers receive only explicit string-array separator types; a finite authenticated continuation reuses the exact successful marked console fixture",
+    "error": "The same untyped two-separator Split overload yielded zero setup frames under actual PowerShell7.6.6",
+    "native_controller_exit": 1,
+    "retained_stdout_control": {
+      "PS766_typed_frames": 1,
+      "PS766_untyped_frames": 0,
+      "inbox51_typed_frames": 1,
+      "inbox51_untyped_frames": 1
+    },
+    "serviced_cases_not_yet_reached_by_failed_operator": true,
+    "unredirected_console_not_yet_reached_by_failed_operator": true
+  },
+  "completed_core": {
+    "actual_inbox_path_and_policy_before_after_preserved": true,
+    "application_suite_reexecuted": false,
+    "base315_runtime_members": 2478,
+    "cases": 19,
+    "cleanup_safe": true,
+    "error": "Untyped PowerShell Split separators selected an overload yielding one line despite actual LF/CR characters",
+    "execution": "AGENT_LAUNCHED",
+    "native_child_exit": 0,
+    "original_outer_ephemeral_snapshots": "UNAVAILABLE_NOT_POPULATED",
+    "outer_postprocess_exit": 1,
+    "outer_postprocess_status": "FAIL_PRESERVED",
+    "prelaunch_to_current_resource_byte_count": 3480,
+    "recovery": "Read-only retained-result postprocessing with explicit System.String[] separators",
+    "recovery_native_exit": 0,
+    "recovery_only_host_and_policy_observations_labeled": true,
+    "selected_runtime_members": 960,
+    "stages": 16,
+    "success": true
+  },
+  "fresh_context_provenance": {
+    "all_33_member_bytes_equal": true,
+    "asset_bytes_changed": false,
+    "copied_from_exact_accepted_kit_archive": true,
+    "kit_rebuilt": false,
+    "prior_marks_removed": false
+  },
+  "native_windows10": "NOT_RUN",
+  "operator_only_refusals": [
+    {
+      "before_sdk_or_core": true,
+      "id": "original-inbox-host",
+      "marks_already_written": 11,
+      "native_exit": 1,
+      "reason": "Outer controller requires pinned PowerShell7.6.6; script marking occurs before that host guard"
+    },
+    {
+      "before_sdk_or_core": true,
+      "id": "original-already-marked-context",
+      "marks_preserved": 11,
+      "native_exit": 1,
+      "reason": "Fresh-script guard refused the already marked original owned kit"
+    },
+    {
+      "before_sdk_or_core": true,
+      "id": "run02-marked-sdk-controller",
+      "marks_preserved": 11,
+      "native_exit": 1,
+      "reason": "Controller RemoteSigned blocked its newly Internet-marked SDK dot-source"
+    }
+  ],
+  "preparation_control_failure": {
+    "application_launched": false,
+    "native_exit": 1,
+    "output_created": false,
+    "reason": "Duplicate locked-wheel path refused at finite generator uniqueness guard; source preimage retained and duplicate removed"
+  },
+  "preserved_prior_projection": {
+    "bytes": 5462,
+    "sha256": "c284732094277c5083b6475e4ec7f44f8dda108381f279bfa6232510f25a3693"
+  },
+  "preserved_prior_projection02": {
+    "bytes": 7475,
+    "sha256": "95621ceba924b84214437da9c05bcd222d181fc35fe38583af8a1e53f16dc195"
+  },
+  "production_zip_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+  "protocol": "winbooksplit.v102.operator-correction-evidence",
+  "publication_claimed": false,
+  "raw_references": {
+    "actual_complete_contract": {
+      "bytes": 2301,
+      "sha256": "1947c84be67b57522fd085e73413bfb25bb348ec1e8f64b9c20262e05d51a344"
+    },
+    "actual_core_returned_zip": {
+      "bytes": 27770,
+      "sha256": "7f6e476941ac85948fbc30223efe117d37c324ef7cb9a649a55bfeaa39f4a0a9"
+    },
+    "actual_native_core": {
+      "bytes": 27631,
+      "sha256": "c7c8dd6abf790ad3b7b01c6bfbec295ffcc00f79afb8a0beaca8f7b0fdf11c32"
+    },
+    "actual_retained_core_bridge": {
+      "bytes": 16605,
+      "sha256": "4be10d30441d207c23cb7caf12a5f301d79361256631838685ae351bcc747759"
+    },
+    "completed_combined_serviced_cases": {
+      "bytes": 1283218,
+      "sha256": "4b3e27eaa3fe4f5b767a2a95ddf357ec8d2c7604aa829e26633b34c13c1c0530"
+    },
+    "controller_refusal_correction": {
+      "bytes": 5244,
+      "sha256": "0c2ba0d604e8b1e080bf19afc2fe73ddf64d5e7e0f4c72611cbd1e41762df050"
+    },
+    "failed_bare315_serviced_oracle": {
+      "bytes": 1268,
+      "sha256": "15d68f3985268fa14c24b293012008a31d143fc5b9c62d9f6ea46f57f735d7d5"
+    },
+    "fresh_exact_copy_run03": {
+      "bytes": 8791,
+      "sha256": "edd2ff9051333411cd98a1357fdb8dd9213e2b71dabd86ec3b3e0a59326f690d"
+    },
+    "read_only_recovery_command": {
+      "bytes": 755,
+      "sha256": "e91fc6444db8c9a3ca251bdc071a362a6e9f0e5a89bf0f35b01a19aa2fb99518"
+    },
+    "read_only_supplement_preparation_failure": {
+      "bytes": 486,
+      "sha256": "ebce499eabef0beacd52bd7a1264762725ba088b37fb95602546caa83ba3fa64"
+    },
+    "refused_already_marked_context": {
+      "bytes": 942,
+      "sha256": "4b91af622f929007462d0d066d6702c4038052da1341f8e043354b400adbc372"
+    },
+    "refused_inbox_host": {
+      "bytes": 887,
+      "sha256": "89ca09f8852f5b8f482bfc1981a6c5d869d115d63e6c8aa482b9efeba92221cb"
+    },
+    "refused_marked_sdk_under_controller_remotesigned": {
+      "bytes": 1835,
+      "sha256": "90a9706fed9e4c922e25f1b88c3cd0f6c238511bc2efbb577361f1c2c1dd4dcc"
+    },
+    "remaining_console_serviced_command": {
+      "bytes": 1478,
+      "sha256": "fee4a79d4c86ca691a1e95ce2e6b86cac25342d3bacc286eeee64ce60eeea6de"
+    },
+    "remaining_operator_source": {
+      "bytes": 3019696,
+      "sha256": "1732009ea9725cb35a954c10f0ca02ead960459973ede36e0e2442b67fb7ada1"
+    },
+    "retained313_pdf_native_operation": {
+      "bytes": 14497,
+      "sha256": "f7d9a209d4d1ea93252638c6e0f438595f803c703a6ea3dc2ea3e1637cb68e36"
+    },
+    "retained_console_actual_extraction": {
+      "bytes": 6069,
+      "sha256": "a66e3a8a967b7f3b83c1252d8945b7a409ab990210104c111c886228b41e7271"
+    },
+    "retained_console_successful_fresh_setup": {
+      "bytes": 31189,
+      "sha256": "a19c8fa398c32857da0468835732a128751d11752354f273ee8b2ad61f32d6f5"
+    },
+    "run03_command": {
+      "bytes": 1389,
+      "sha256": "f2ca579cf7c11d509d692f89bb7fc0058c0629c5d68f8470da36ed2678d10ad0"
+    },
+    "run03_outer_postprocess_failure": {
+      "bytes": 20699,
+      "sha256": "d78e880871df4215506851a296e83778c5dea8b0172470e4a0364bca569107e9"
+    },
+    "run03_outer_process": {
+      "bytes": 24765,
+      "sha256": "f79c9f89f38fadfea41aa9d823f96d1c185816a583c5bfad3f12a921c64682eb"
+    },
+    "serviced_completion_command": {
+      "bytes": 1256,
+      "sha256": "d11f48637fde0d77bf24fbc044a7e104ac96edcd88a4cc8c7720b023e00520e2"
+    },
+    "successful_PS7_actual_report": {
+      "bytes": 2672,
+      "sha256": "6a98e7c8931c8c01dc738af51cc9ae6becf6c44365665ddb019c84889ead1c51"
+    },
+    "successful_actual_console": {
+      "bytes": 714617,
+      "sha256": "f2bc3aa6b30e449532c5ee43a1d60ae47949699ff54b2e2f6a6216e52a2e4fb5"
+    },
+    "successful_pending314_pure_oracle": {
+      "bytes": 48840,
+      "sha256": "235293347d0828993555def5ce445d8a7a53bbd7a64de4fceb813290a6ffb15d"
+    },
+    "successful_retained313_pure_oracle": {
+      "bytes": 48624,
+      "sha256": "fb8129e1a4a53ec15b7e3cdcae5de98098ddd22c1a8bfbd7a5637dfdc09cef65"
+    },
+    "supplement_controller_first_command": {
+      "bytes": 883,
+      "sha256": "f96b3070c86ee2b59bb5f9c2f77927d6d3e236b8ea56b7faf55d82b328432688"
+    },
+    "typed_helpers_continuation_preparation": {
+      "bytes": 1474,
+      "sha256": "2b14327a8edefa4bc0898e91ae3a46b98ecf90afc91dcbdf604efef9f100c470"
+    }
+  },
+  "schema_version": 1,
+  "scope": "External operator attempts and recovery of actual final-Z native Windows11 core; this record does not certify combined supplemental acceptance",
+  "serviced_oracle_driver_failure": {
+    "actual313_setup_check_pdf_native_exits": [
+      0,
+      0,
+      0
+    ],
+    "actual_console_already_passed": true,
+    "actual_oracle_validation_drivers": [
+      "3.13.16",
+      "3.14.8"
+    ],
+    "caller_correction": "Unchanged oracle runs through the already verified respective app-local serviced interpreter with locked pypdf6.20",
+    "completed313_native_operations_reexecuted": false,
+    "completed_core_ps7_console_setup_reexecuted": false,
+    "error": "External oracle was launched with intentionally bare3.15 missing pypdf; ModuleNotFoundError occurred at PDF snapshot import",
+    "failed_data_oracle_exit": 1,
+    "native_controller_exit": 1,
+    "new_pure_oracle_replay_snapshots_labeled": true,
+    "original313_transient_environment_snapshot": "CHECK_EXECUTED_BUT_NOT_REPORTED_NOT_RECONSTRUCTED",
+    "packages_installed_to_fix_driver": false,
+    "pending314_native_exits": [
+      0,
+      0,
+      0
+    ],
+    "retained313_pure_oracle_exit": 0
+  },
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "static_prelaunch_finding": {
+    "executed": false,
+    "reason": "Inner fixed kit path needed the same run03 owned root as its caller; one inner literal and fixed materializer slot were reviewed before launch"
+  },
+  "unchanged_owner_kit_zip_sha256": "5e596dead97e6696f2b936e91afe66ed9e968475f642ad2b59321e4853d11049"
+}
