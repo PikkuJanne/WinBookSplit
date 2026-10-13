@@ -908,13 +908,17 @@
       "task": "V102-11",
       "title": "Windows10 real 3.15 final ZIP",
       "expected": "Native Windows10 22H2 x64/inbox PS5.1 executes candidate Z setup/selected-runtime/PDF suite using actual 3.15.0, not Server simulation.",
-      "status": "BLOCKED",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/V102-11-blocker.json",
         "evidence/V102-11-blocker.md",
         "evidence/V102-11-review.json",
-        "evidence/V102-11-review.md"
+        "evidence/V102-11-review.md",
+        "evidence/V102-11-windows10.json",
+        "evidence/V102-11-windows10.md",
+        "evidence/V102-11-windows10-review.json",
+        "evidence/V102-11-windows10-review.md"
       ]
     },
     {
@@ -994,13 +998,17 @@
       "task": "V102-11",
       "title": "Evidence and human scope correct",
       "expected": "Reports bind R/Z/runtime/machine/commands/results; mandatory failures absent; human work limited to one consolidated kit run only if needed, not fake agent/GUI claims.",
-      "status": "BLOCKED",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/V102-11-blocker.json",
         "evidence/V102-11-blocker.md",
         "evidence/V102-11-review.json",
-        "evidence/V102-11-review.md"
+        "evidence/V102-11-review.md",
+        "evidence/V102-11-windows10.json",
+        "evidence/V102-11-windows10.md",
+        "evidence/V102-11-windows10-review.json",
+        "evidence/V102-11-windows10-review.md"
       ]
     },
     {

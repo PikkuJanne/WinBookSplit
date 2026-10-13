@@ -320,7 +320,7 @@
       "id": "V102-11",
       "title": "Run final-ZIP native acceptance with minimal human work",
       "milestone": "M5",
-      "status": "BLOCKED",
+      "status": "DONE",
       "depends_on": [
         "V102-10"
       ],
@@ -353,7 +353,11 @@
         "evidence/V102-11-supplemental-ci-cancelled.json",
         "evidence/V102-11-supplemental-ci-cancelled.md",
         "evidence/V102-11-supplemental-ci-d10.json",
-        "evidence/V102-11-supplemental-ci-d10.md"
+        "evidence/V102-11-supplemental-ci-d10.md",
+        "evidence/V102-11-windows10.json",
+        "evidence/V102-11-windows10.md",
+        "evidence/V102-11-windows10-review.json",
+        "evidence/V102-11-windows10-review.md"
       ]
     },
     {

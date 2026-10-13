@@ -1,0 +1,101 @@
+{
+  "Action_roundtrips": 2,
+  "bindings_sha256": "ae5d00bf2539d89afe0c67a4ce80f8c396ca5d5f81243f0a6be80e6e14dd058d",
+  "core_cases": 19,
+  "core_stages": 16,
+  "exact_bindings_helpers_and_fixtures": true,
+  "execution": "USER_LAUNCHED_AUTOMATED",
+  "existing_windows10_gate_evidence": "PASS",
+  "fixed_controls": 3,
+  "limits": [
+    "Submitted owner-launched automated return is reviewed as a redacted receipt; private native raw files/PDFs are intentionally retained on the owner machine.",
+    "No additional application/native/GUI operation or uploaded ZIP code was executed by this review.",
+    "Organization-denial control is simulated; actual policy snapshots remain unchanged and separately observed.",
+    "Private reviewed3150 fallback was selected; no global owner installation or all future patches claim.",
+    "Publication, anonymous downloads, tag identity and final main synchronization remain separate gates."
+  ],
+  "maintained_strict_export_consumer": "PASS",
+  "marked_BAT_routes": 2,
+  "mocked_policy_refusals": 1,
+  "observed_at_utc": "2026-10-13T16:55:41.628857+00:00",
+  "os": {
+    "BuildNumber": "19045",
+    "Caption": "Microsoft Windows 10 Home",
+    "DisplayVersion": "22H2",
+    "OSArchitecture": "64-bit",
+    "ProductType": 1,
+    "UBR": 7417,
+    "Version": "10.0.19045",
+    "os_bits": 64,
+    "platform_scope": "NATIVE_WINDOWS10",
+    "powershell_version": "5.1.19041.7417",
+    "process_bits": 64,
+    "processor_architectures": [
+      9
+    ]
+  },
+  "owner_kit_zip_sha256": "5e596dead97e6696f2b936e91afe66ed9e968475f642ad2b59321e4853d11049",
+  "privacy": "CLEAR",
+  "protocol": "winbooksplit.v102.independent-owner-windows10-review",
+  "release_zip_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+  "result": "CLEAR",
+  "reviewer_authoring_history": "Read-only observer initially expected inner native-result protocol, omitted wrapper probe_sha256, and compared full binding with the fixed redacted identity projection. Both refused preimages are preserved; verified shipped wrapper/export schema and exact fixed projection before correction. No uploaded code or application was executed.",
+  "runtime_selection": {
+    "baseline_identity": {
+      "bits": 64,
+      "dont_write_bytecode": true,
+      "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+      "gil_disabled": false,
+      "implementation": "cpython",
+      "isolated": true,
+      "machine": "AMD64",
+      "platform": "win32",
+      "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "releaselevel": "final",
+      "serial": 0,
+      "source": "explicit",
+      "version": "3.15.0"
+    },
+    "baseline_kind": "reviewed_private3150_archive",
+    "baseline_version": "3.15.0",
+    "owner_regular315_usable": false,
+    "owner_selected": false,
+    "owner_version": null,
+    "reason": "no_usable_regular315_discovered",
+    "required_baseline_version": "3.15.0",
+    "selected_identity": {
+      "bits": 64,
+      "dont_write_bytecode": true,
+      "executable_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+      "gil_disabled": false,
+      "implementation": "cpython",
+      "isolated": true,
+      "machine": "AMD64",
+      "platform": "win32",
+      "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "releaselevel": "final",
+      "serial": 0,
+      "source": "explicit",
+      "version": "3.15.0"
+    },
+    "selected_version": "3.15.0"
+  },
+  "runtime_versions": {
+    "calibre": "9.15.0",
+    "pypdf": "6.20.0",
+    "python": "3.15.0"
+  },
+  "safe_cleanup_reported": true,
+  "schema_version": 1,
+  "source_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "source_tree": "818de909908c95395691dc962395f270c1cd5735",
+  "source_unchanged_reported_and_bound": true,
+  "submitted_report": {
+    "bytes": 22353,
+    "sha256": "5b20e68a337ef26ec424c1fc256fb7a33875100db0378d2e271086afcd98b2bf"
+  },
+  "submitted_zip": {
+    "bytes": 22492,
+    "sha256": "8c00df022d20ab9e32f24ae690b3792f038c57389bd096233af48f1045594993"
+  }
+}
