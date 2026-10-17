@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "scenario": "existing_owner_windows10_store_installation",
+  "evidence_kind": "template",
+  "status": "not_run",
+  "application_version": "1.0.3",
+  "run_id": null,
+  "source_commit": null,
+  "zip_sha256": null,
+  "host": {
+    "execution_kind": null,
+    "owner_desktop": null,
+    "os": null,
+    "build": null,
+    "architecture": null,
+    "powershell_version": null
+  },
+  "registration": {
+    "family": null,
+    "publisher": null,
+    "signature_kind": null,
+    "status": null,
+    "architecture": null,
+    "version": null
+  },
+  "forbidden_substitutions": {
+    "python_installed_or_updated_by_kit": null,
+    "manager_installed_or_updated_by_kit": null,
+    "private_runtime_fallback_used": null,
+    "runtime_copied_or_cloned": null,
+    "explicit_python_path_supplied": null,
+    "hidden_runtime_selection_supplied": null,
+    "parent_path_changed": null,
+    "child_path_injected": null,
+    "localappdata_overridden": null,
+    "virtual_env_overridden": null,
+    "application_venv_prebuilt": null,
+    "alias_settings_changed": null
+  },
+  "before": {
+    "application_venv_exists": null,
+    "runtimes": []
+  },
+  "after": {
+    "application_venv_exists": null,
+    "runtimes": []
+  },
+  "discovery": {
+    "mode": null,
+    "route": null,
+    "provenance": null,
+    "runtime_ref": null,
+    "version": null,
+    "interpreter_probe_exit": null,
+    "package_state": null
+  },
+  "setup": {
+    "entry": null,
+    "runtime_selection": null,
+    "exit_code": null,
+    "base_runtime_ref": null,
+    "venv_base_runtime_ref": null
+  },
+  "checks": {
+    "registration_binding_verified": null,
+    "installed_only_listing": null,
+    "bounded_probe_completed": null,
+    "isolated_interpreter_verified": null,
+    "normal_setup_bat_passed": null,
+    "second_setup_noop": null,
+    "readiness_readonly": null,
+    "ordinary_application_bat_passed": null,
+    "manual_pdf_valid": null,
+    "auto1_pdf_valid": null,
+    "auto2_pdf_valid": null,
+    "full_page_coverage": null,
+    "source_and_neighbors_unchanged": null,
+    "unique_output_no_overwrite": null,
+    "unrelated_cwd_passed": null,
+    "manager_state_unchanged": null,
+    "global_packages_unchanged": null,
+    "parent_environment_unchanged": null
+  },
+  "artifacts": [],
+  "notes": "Pending template, NOT native evidence. Automated kit must produce correlated actual records; never edit fields to force success."
+}

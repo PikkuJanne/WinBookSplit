@@ -1,0 +1,74 @@
+{
+  "reviewed_on": "2026-10-17",
+  "reviewed_main": "4cc6b00b99685607f3214e731edaaec7d65926df",
+  "release_source": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "sources": [
+    {
+      "id": "OWNER",
+      "kind": "user_report",
+      "title": "Owner Windows10 discovery report",
+      "local": "fixtures/discovery-report.sanitized.txt",
+      "original_sha256": "de89ef2a67aa676c2d75f22534d329bfee84e65d470e87df2e21209d2b88feb0",
+      "claims": "Captured shell identity, manager identity and original rejection records; pypdf unknown."
+    },
+    {
+      "id": "MAIN",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/commit/4cc6b00b99685607f3214e731edaaec7d65926df",
+      "claims": "Reviewed main checkpoint, not reset target."
+    },
+    {
+      "id": "RUNTIME",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.2/engine/WinBookSplit.Runtime.ps1",
+      "claims": "Publisher filter, downstream identity checks, alias/path gates and discovery pipeline."
+    },
+    {
+      "id": "SUMMARY",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.2/WinBookSplit.ps1",
+      "claims": "Get-WinBookSplitDependencySummary fallback and setup remedies."
+    },
+    {
+      "id": "POLICY",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.2/engine/WinBookSplit.Compatibility.json",
+      "claims": "3.15.0 accepted; retained branch/package policy."
+    },
+    {
+      "id": "OLD_NATIVE",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/4cc6b00b99685607f3214e731edaaec7d65926df/docs/codex-v1.0.2/evidence/V102-11-windows10-review.json",
+      "claims": "Prior reviewed_private3150_archive route is not existing-install automatic discovery."
+    },
+    {
+      "id": "KIT",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/4cc6b00b99685607f3214e731edaaec7d65926df/tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "claims": "Existing kit to reuse; remove fallback only from new mandatory Store scenario."
+    },
+    {
+      "id": "KIT_VALIDATOR",
+      "kind": "repository",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/blob/4cc6b00b99685607f3214e731edaaec7d65926df/tools/compatibility/native_smoke.py",
+      "claims": "Existing runtime_selection report validation needs explicit new scenario."
+    },
+    {
+      "id": "PYWIN",
+      "kind": "official_documentation",
+      "url": "https://docs.python.org/3.15/using/windows.html",
+      "sections": [
+        "4.1.4 Listing runtimes",
+        "4.1.10 Advanced installation",
+        "4.1.11 Administrative configuration"
+      ],
+      "claims": "Two package families; family-specific WindowsApps entry points; installed listing formats; hard-link entry points. Recheck details at implementation."
+    },
+    {
+      "id": "APPX",
+      "kind": "official_documentation",
+      "url": "https://learn.microsoft.com/en-us/powershell/module/appx/get-appxpackage?view=windowsserver2025-ps",
+      "claims": "Current-user package query and publisher filtering; not WinBookSplit native proof."
+    }
+  ]
+}

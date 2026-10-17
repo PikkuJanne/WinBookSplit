@@ -1,0 +1,155 @@
+{
+  "schema_version": 1,
+  "target_version": "1.0.3",
+  "pause_after_each_task": true,
+  "tasks": [
+    {
+      "id": "T01",
+      "title": "Baseline and reproduce",
+      "depends_on": [],
+      "status": "COMPLETE",
+      "brief": "tasks/01-T01.md",
+      "acceptance_ids": [
+        "STORE-001",
+        "STORE-002",
+        "STORE-003",
+        "STORE-004",
+        "STORE-005",
+        "STORE-006"
+      ],
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    {
+      "id": "T02",
+      "title": "Official manager identity and entry points",
+      "depends_on": [
+        "T01"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/02-T02.md",
+      "acceptance_ids": [
+        "STORE-007",
+        "STORE-008",
+        "STORE-009",
+        "STORE-010",
+        "STORE-011",
+        "STORE-012"
+      ]
+    },
+    {
+      "id": "T03",
+      "title": "Installed runtime resolution",
+      "depends_on": [
+        "T02"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/03-T03.md",
+      "acceptance_ids": [
+        "STORE-013",
+        "STORE-014",
+        "STORE-015",
+        "STORE-016",
+        "STORE-017",
+        "STORE-018"
+      ]
+    },
+    {
+      "id": "T04",
+      "title": "Setup and truthful diagnostics",
+      "depends_on": [
+        "T03"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/04-T04.md",
+      "acceptance_ids": [
+        "STORE-019",
+        "STORE-020",
+        "STORE-021",
+        "STORE-022",
+        "STORE-023",
+        "STORE-024"
+      ]
+    },
+    {
+      "id": "T05",
+      "title": "Regression and native kit",
+      "depends_on": [
+        "T04"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/05-T05.md",
+      "acceptance_ids": [
+        "STORE-025",
+        "STORE-026",
+        "STORE-027",
+        "STORE-028",
+        "STORE-029",
+        "STORE-030"
+      ]
+    },
+    {
+      "id": "T06",
+      "title": "Package and prepare desktop verification",
+      "depends_on": [
+        "T05"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/06-T06.md",
+      "acceptance_ids": [
+        "STORE-031",
+        "STORE-032",
+        "STORE-033",
+        "STORE-034",
+        "STORE-035",
+        "STORE-036"
+      ]
+    },
+    {
+      "id": "T07",
+      "title": "Existing Windows10 Store gate",
+      "depends_on": [
+        "T06"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/07-T07.md",
+      "acceptance_ids": [
+        "STORE-037",
+        "STORE-038",
+        "STORE-039",
+        "STORE-040",
+        "STORE-041",
+        "STORE-042"
+      ]
+    },
+    {
+      "id": "T08",
+      "title": "Publish and close",
+      "depends_on": [
+        "T07"
+      ],
+      "status": "NOT_STARTED",
+      "brief": "tasks/08-T08.md",
+      "acceptance_ids": [
+        "STORE-043",
+        "STORE-044",
+        "STORE-045",
+        "STORE-046",
+        "STORE-047",
+        "STORE-048"
+      ]
+    }
+  ],
+  "progression_policy": "Dependencies order implementation checkpoints. A task may be IMPLEMENTED_PENDING_NATIVE and independent later work may proceed. Deferred native cases stay NOT_RUN/DEFERRED_NATIVE, never PASS; all required cases must pass before publication. Consolidate owner-only checks into T07.",
+  "task_statuses": [
+    "NOT_STARTED",
+    "IN_PROGRESS",
+    "IMPLEMENTED_PENDING_NATIVE",
+    "COMPLETE",
+    "BLOCKED"
+  ]
+}

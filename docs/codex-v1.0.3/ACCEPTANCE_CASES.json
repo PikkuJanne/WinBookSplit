@@ -1,0 +1,432 @@
+{
+  "schema_version": 1,
+  "meaning": "Requirements and checkpoint outcomes. T01 PASS means baseline/reproduction only; later unexecuted requirements remain NOT_RUN.",
+  "cases": [
+    {
+      "id": "STORE-001",
+      "task": "T01",
+      "name": "Live baseline",
+      "expected": "Read live Git/ref/release state; preserve work; reconcile new active routing. No reset to baseline.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-002",
+      "task": "T01",
+      "name": "Incident replay",
+      "expected": "Store family/publisher and all four original rejection paths are reproduced in focused tests against old behavior.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-003",
+      "task": "T01",
+      "name": "Double exclusion",
+      "expected": "A test proves changing the publisher query alone still fails downstream identity validation.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-004",
+      "task": "T01",
+      "name": "Summary regression",
+      "expected": "The old uncategorized-rejection path produces missing_python; add a failing assertion for a truthful reason.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-005",
+      "task": "T01",
+      "name": "Evidence boundary",
+      "expected": "PS5.1 collector failure and pypdf unknown remain explicit; no assumed package/setup pass.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-006",
+      "task": "T01",
+      "name": "No substituted acceptance",
+      "expected": "A regression proves old private-runtime acceptance cannot satisfy the new Store-existing scenario.",
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ],
+      "result_scope": "Baseline/reproduction only; desired repair contracts remain RED."
+    },
+    {
+      "id": "STORE-007",
+      "task": "T02",
+      "name": "Store recognized",
+      "expected": "Accept the complete verified Store identity, including correct publisher/family/signature pairing.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-008",
+      "task": "T02",
+      "name": "python.org retained",
+      "expected": "Retain legitimate python.org manager recognition and stable manager-version variation.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-009",
+      "task": "T02",
+      "name": "Mixed identity rejected",
+      "expected": "Reject cross-paired publisher/family/signature and incomplete/development/malformed registrations.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-010",
+      "task": "T02",
+      "name": "Bound entry point",
+      "expected": "Resolve a documented package-family entry point bound to current-user registration; no arbitrary PATH manager execution.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-011",
+      "task": "T02",
+      "name": "Alias guard scope",
+      "expected": "Unverified reparse/hardlink/CWD/book decoys remain rejected; no global path-guard removal.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-012",
+      "task": "T02",
+      "name": "Actual manager launch",
+      "expected": "Verify recognized packaged-manager listing works under bounded supervision on real Windows, not only mocks.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-013",
+      "task": "T03",
+      "name": "Installed-only",
+      "expected": "List only existing runtimes; never exec/install/online/refresh; no parent configuration changes.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-014",
+      "task": "T03",
+      "name": "Concrete interpreter",
+      "expected": "Reach and independently verify the concrete existing interpreter rather than require alias == sys.executable.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-015",
+      "task": "T03",
+      "name": "Listing validation",
+      "expected": "Handle paths/Unicode/spaces; reject malformed, oversized, truncated, duplicate-key or invalid-path output.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-016",
+      "task": "T03",
+      "name": "No packages and no runtimes",
+      "expected": "Distinguish empty registration from empty listing and a rejected identity; query completion is not acceptance.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-017",
+      "task": "T03",
+      "name": "Selection continuity",
+      "expected": "A failed optional route preserves a valid independent candidate; deterministic ranking and authoritative explicit/venv behavior remain.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-018",
+      "task": "T03",
+      "name": "Missing pypdf",
+      "expected": "Setup can discover a compatible base lacking pypdf; processing reports setup required, not missing Python.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-019",
+      "task": "T04",
+      "name": "Categorized rejections",
+      "expected": "Every rejected discovery route has reason/stage/source; original Store case no longer collapses to missing_python.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-020",
+      "task": "T04",
+      "name": "Accurate remediation",
+      "expected": "Compatible-base failure recommends setup without Python reinstall; actual selected runtime/version is reported when verified.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-021",
+      "task": "T04",
+      "name": "Exact generated command",
+      "expected": "Execute the emitted setup action as printed; no reconstructed command used as evidence.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-022",
+      "task": "T04",
+      "name": "BAT setup contract",
+      "expected": "Setup BAT works from unrelated CWD with spaces/Unicode, forwards supported options and exit codes.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-023",
+      "task": "T04",
+      "name": "Idempotence and repair",
+      "expected": "Fresh setup works, healthy second run is no-op, broken existing venv requires explicit repair and preserves old state.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-024",
+      "task": "T04",
+      "name": "Policy/privacy preservation",
+      "expected": "Process-scoped invocation, MOTW preservation, enforced policy denial and safe local diagnostics remain; no global changes.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-025",
+      "task": "T05",
+      "name": "Existing suite",
+      "expected": "Run maintained Python/Pester/native relevant regression; retain PDF/page/source/process protections and actual failure records.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-026",
+      "task": "T05",
+      "name": "Negative launch tests",
+      "expected": "Store alias binding decoys, timeouts, hung streams/children and nonzero listing failures are tested with positive controls.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-027",
+      "task": "T05",
+      "name": "Compatibility regression",
+      "expected": "Keep PS5.1/PS7 and serviced 3.13/3.14/3.15 coverage; retain pypdf lock/isolation and PDF-without-Calibre.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-028",
+      "task": "T05",
+      "name": "No-fallback scenario",
+      "expected": "Native Store-existing scenario fails before private acquisition and its validator rejects supplied/cloned/injected-runtime reports.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-029",
+      "task": "T05",
+      "name": "Kit independence",
+      "expected": "Kit bootstraps in inbox PowerShell without app Python, captures UTF8 safely and does not repeat old nested-XML collector failure.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-030",
+      "task": "T05",
+      "name": "Unchanged env contract",
+      "expected": "Separate independent inventory from app inputs; record no injected PythonPath/PATH/LOCALAPPDATA/venv and no Python install/update/copy.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-031",
+      "task": "T06",
+      "name": "Package source",
+      "expected": "Freeze committed source R and complete distribution ZIP; record exact hashes and allowlisted members.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-032",
+      "task": "T06",
+      "name": "Only intended files",
+      "expected": "No private report, test dependency, prebuilt venv, Python archive or handoff tool in production ZIP.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-033",
+      "task": "T06",
+      "name": "Kit self-test",
+      "expected": "Validate exact owner launch command, no-fallback failure behavior, report schema, artifact hashes and stdout/stderr capture.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-034",
+      "task": "T06",
+      "name": "Authored workflow",
+      "expected": "Prepare manual/Auto1/Auto2 and ordinary BAT inputs with independent page/coverage/source validation.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-035",
+      "task": "T06",
+      "name": "Native11 retention",
+      "expected": "Run short actual Windows11 regression and authored EPUB/AZW3 smoke with existing Calibre; do not relabel as owner Store proof.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-036",
+      "task": "T06",
+      "name": "Minimal handoff",
+      "expected": "One consolidated existing-desktop launch/report handoff if needed, not repeated screenshots/install steps; unavailable desktop explicitly BLOCKED.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-037",
+      "task": "T07",
+      "name": "Native target",
+      "expected": "Verify actual owner Windows10 x64, inbox PS5.1 and healthy registered Store manager; fresh extraction without .venv.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-038",
+      "task": "T07",
+      "name": "Existing runtime discovered",
+      "expected": "Production automatic discovery selects a pre-existing Store-managed runtime, with correlated listing/probe and before-inventory identity.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-039",
+      "task": "T07",
+      "name": "Normal setup",
+      "expected": "Normal setup BAT no runtime override creates venv from that discovered base; second run no-op and read-only check correct.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-040",
+      "task": "T07",
+      "name": "Normal processing",
+      "expected": "Ordinary BAT plus manual/Auto1/Auto2 create valid chapters with full coverage, correct order and unchanged source/neighbors.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-041",
+      "task": "T07",
+      "name": "Preserved owner install",
+      "expected": "Runtime/manager/aliases/PATH unchanged; no private fallback, hidden selection, interpreter provisioning, copied baseline or prebuilt app venv.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-042",
+      "task": "T07",
+      "name": "Complete reviewed receipt",
+      "expected": "Same frozen ZIP/source identifiers, hash-bound sanitized receipts and independent validator pass; no manual assertion substituted for missing native data.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-043",
+      "task": "T08",
+      "name": "Release gate",
+      "expected": "All required acceptance evidence reviewed; native actual Store gate passed for exact immutable candidate bytes.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-044",
+      "task": "T08",
+      "name": "Tested commit/tag",
+      "expected": "Passing reviewed source merged/tagged as v1.0.3 at tested R; version/docs/package consistent; no retag or changed ZIP.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-045",
+      "task": "T08",
+      "name": "Public assets",
+      "expected": "Publish non-draft/non-prerelease release with frozen ZIP, manifest, checksum and truthful limits.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-046",
+      "task": "T08",
+      "name": "Anonymous byte verification",
+      "expected": "Unauthenticated downloads match accepted hashes; tag peeled commit verified; mismatch blocks completion.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-047",
+      "task": "T08",
+      "name": "Old releases preserved",
+      "expected": "Verify existing v1.0.0-v1.0.2 tags and assets unchanged; no force-push/settings/history edits.",
+      "status": "NOT_RUN",
+      "required": true
+    },
+    {
+      "id": "STORE-048",
+      "task": "T08",
+      "name": "Synced closure",
+      "expected": "Record closure evidence and exact usable launcher/setup instructions; local main clean and equal to freshly queried live main.",
+      "status": "NOT_RUN",
+      "required": true
+    }
+  ]
+}

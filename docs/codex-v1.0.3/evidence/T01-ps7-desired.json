@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "layer": "SYNTHETIC T01 behavioral reproduction, not native Store acceptance",
+  "host": "7.6.5",
+  "desired": true,
+  "result": "Failed",
+  "total": 9,
+  "passed": 0,
+  "failed": 3,
+  "skipped": 0,
+  "not_run": 6,
+  "failed_containers": 0,
+  "test_sha256": "2d2bc38ac4c1e792e502062b4ca6171b0c1d2b618289b3cc168ba4a9b391f96e",
+  "failed_cases": [
+    {
+      "name": "T01 desired Store repair contracts (expected RED until the repair).does not remove an official Store tuple from the emitted current-user query",
+      "errors": [
+        "Expected 1, but got 0."
+      ]
+    },
+    {
+      "name": "T01 desired Store repair contracts (expected RED until the repair).accepts the complete paired official Store identity once the query returns it",
+      "errors": [
+        "Unrecognized or duplicate Python manager registration identity."
+      ]
+    },
+    {
+      "name": "T01 desired Store repair contracts (expected RED until the repair).does not categorize captured discovery rejections as absent Python",
+      "errors": [
+        "Expected 'missing_python' to be different from the actual value, but got exactly the same value."
+      ]
+    }
+  ],
+  "container_errors": []
+}

@@ -1,0 +1,20 @@
+{
+    "schema_version":  1,
+    "layer":  "SYNTHETIC T01 behavioral reproduction, not native Store acceptance",
+    "host":  "5.1.26100.9711",
+    "desired":  false,
+    "result":  "Passed",
+    "total":  9,
+    "passed":  6,
+    "failed":  0,
+    "skipped":  0,
+    "not_run":  3,
+    "failed_containers":  0,
+    "test_sha256":  "2d2bc38ac4c1e792e502062b4ca6171b0c1d2b618289b3cc168ba4a9b391f96e",
+    "failed_cases":  [
+
+                     ],
+    "container_errors":  [
+
+                         ]
+}

@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "evidence_kind": "sanitized_observed_failure",
+  "application_version": "1.0.2",
+  "original_report_sha256": "de89ef2a67aa676c2d75f22534d329bfee84e65d470e87df2e21209d2b88feb0",
+  "redaction": "Local account name replaced with WBS_USER; line endings normalized. No other content correction.",
+  "application_venv_exists": false,
+  "shells": {
+    "interactive": "7.6.7",
+    "inbox": "5.1.19041.7417"
+  },
+  "python_probe": {
+    "host": "PowerShell 7",
+    "exit_code": 0,
+    "version": "3.15.0",
+    "implementation": "cpython",
+    "machine": "AMD64",
+    "bits": 64,
+    "gil_disabled": false,
+    "executable_ref": "%LOCALAPPDATA%\\Python\\pythoncore-3.15-64\\python.exe"
+  },
+  "ps51_python_probe": {
+    "status": "COLLECTOR_FAILED",
+    "exit_code": 1,
+    "reason": "Nested PowerShell error-stream/XML parse errors; not Python compatibility evidence"
+  },
+  "manager_registration": {
+    "Name": "PythonSoftwareFoundation.PythonManager",
+    "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+    "PublisherId": "qbz5n2kfra8p0",
+    "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+    "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+    "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+    "Architecture": "X64",
+    "SignatureKind": "Store",
+    "Status": "Ok"
+  },
+  "original_attempts": [
+    {
+      "source": "PATH",
+      "path_ref": "%LOCALAPPDATA%\\Python\\bin\\python.exe",
+      "accepted": false,
+      "message": "Automatic dependency discovery refuses hard-linked executable aliases; select a trusted ordinary executable explicitly.",
+      "probe_ran": false
+    },
+    {
+      "source": "manager_registration",
+      "accepted": true,
+      "query_exit_code": 0,
+      "packages": [],
+      "meaning": "query completed, not interpreter accepted"
+    },
+    {
+      "source": "manager_listing",
+      "path_ref": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\pymanager.exe",
+      "accepted": false,
+      "message": "Unverified PATH manager name excluded; installed-only listing requires verified physical registration.",
+      "probe_ran": false
+    },
+    {
+      "source": "py_launcher_listing",
+      "path_ref": "%LOCALAPPDATA%\\Microsoft\\WindowsApps\\py.exe",
+      "accepted": false,
+      "message": "Dependency paths and their ancestors must not be reparse points.",
+      "probe_ran": false
+    }
+  ],
+  "pypdf_in_base": "UNKNOWN",
+  "original_outcome": "runtime_not_found",
+  "local_file_sha256": {
+    "WinBookSplit.ps1": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+    "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+    "engine/WinBookSplit.Runtime.ps1": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+    "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+  }
+}

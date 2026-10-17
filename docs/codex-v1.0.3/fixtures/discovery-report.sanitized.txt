@@ -1,0 +1,192 @@
+=== APPLICATION IDENTITY ===
+1.0.2
+Application .venv exists: False
+
+Algorithm : SHA256
+Hash      : 7D62BFD45FF312248BF215F2B6C29DE93DD6B3E7A74EEBBEB1BD7A3D0A3B398A
+Path      : C:\projects\WinBookSplit-main\WinBookSplit.ps1
+
+
+
+Algorithm : SHA256
+Hash      : C48E10B06E1177C723488944BCC0280FF4B51D1CC6D2F138206E6E3CAB482893
+Path      : C:\projects\WinBookSplit-main\WinBookSplit.bat
+
+
+
+Algorithm : SHA256
+Hash      : 88F452BF14B75A6BAB2883E945FF9BD2FF3B780FB3813083C2A8F239DB7D5796
+Path      : C:\projects\WinBookSplit-main\engine\WinBookSplit.Runtime.ps1
+
+
+
+Algorithm : SHA256
+Hash      : 57811A77C837BD891750EA126D19C876E0AD7099793B490445D126720BAF4582
+Path      : C:\projects\WinBookSplit-main\engine\WinBookSplit.Compatibility.json
+
+
+=== CURRENT POWERSHELL SESSION ===
+PowerShell: 7.6.7
+64-bit process: True
+Working directory: C:\Windows\System32
+
+Name        : python.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Python\bin\python.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Python\bin\python.exe
+
+Name        : py.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\py.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\py.exe
+
+Name        : pymanager.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\pymanager.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\pymanager.exe
+
+
+--- Interpreter actually launched by python ---
+{
+  "executable": "C:\\Users\\WBS_USER\\AppData\\Local\\Python\\pythoncore-3.15-64\\python.exe",
+  "version": "3.15.0 (tags/v3.15.0:d220409, Oct  9 2026, 11:55:56) [MSC v.1951 64 bit (AMD64)]",
+  "implementation": "cpython",
+  "bits": 64,
+  "machine": "AMD64",
+  "gil_disabled": false
+}
+Python probe exit code: 0
+=== INBOX POWERSHELL 5.1, NO PROFILE ===
+PowerShell: 5.1.19041.7417
+64-bit process: True
+Working directory: C:\Windows\System32
+
+
+Name        : python.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Python\bin\python.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Python\bin\python.exe
+
+Name        : py.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\py.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\py.exe
+
+Name        : pymanager.exe
+CommandType : Application
+Source      : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\pymanager.exe
+Path        : C:\Users\WBS_USER\AppData\Local\Microsoft\WindowsApps\pymanager.exe
+
+
+
+
+--- Interpreter actually launched by python ---
+powershell.exe: 
+Line |
+  67 |          & $Inbox -NoProfile -NonInteractive -EncodedCommand $Encoded
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot process the XML from the 'Error' stream of 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe': Data at the root level is invalid. Line 1, position 1.
+powershell.exe: 
+Line |
+  67 |          & $Inbox -NoProfile -NonInteractive -EncodedCommand $Encoded
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot process the XML from the 'Error' stream of 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe': Data at the root level is invalid. Line 1, position 3.
+powershell.exe: 
+Line |
+  67 |          & $Inbox -NoProfile -NonInteractive -EncodedCommand $Encoded
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot process the XML from the 'Error' stream of 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe': Data at the root level is invalid. Line 1, position 5.
+powershell.exe: 
+Line |
+  67 |          & $Inbox -NoProfile -NonInteractive -EncodedCommand $Encoded
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot process the XML from the 'Error' stream of 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe': Data at the root level is invalid. Line 1, position 66.
+powershell.exe: 
+Line |
+  67 |          & $Inbox -NoProfile -NonInteractive -EncodedCommand $Encoded
+     |          ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+     | Cannot process the XML from the 'Error' stream of 'C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe': Data at the root level is invalid. Line 1, position 1.
+Python probe exit code: 1
+--- Registered Python Install Manager ---
+
+
+Name              : PythonSoftwareFoundation.PythonManager
+Publisher         : CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B
+PublisherId       : qbz5n2kfra8p0
+PackageFamilyName : PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0
+PackageFullName   : PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0
+InstallLocation   : C:\Program Files\WindowsApps\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0
+Architecture      : X64
+SignatureKind     : Store
+Status            : Ok
+
+
+
+
+=== ORIGINAL DEPENDENCY FAILURE ===
+{
+  "Attempts": [
+    {
+      "Path": "C:\\Users\\WBS_USER\\AppData\\Local\\Python\\bin\\python.exe",
+      "Source": "PATH",
+      "Accepted": false,
+      "Message": "Automatic dependency discovery refuses hard-linked executable aliases; select a trusted ordinary executable explicitly.",
+      "Probe": null
+    },
+    {
+      "Path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "Source": "manager_registration",
+      "Accepted": true,
+      "Message": "Bounded current-user registered Python manager query; no runtime launch or install.",
+      "Probe": {
+        "Pid": 17392,
+        "ExitCode": 0,
+        "TimedOut": false,
+        "Cancelled": false,
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "JobAssigned": true,
+        "StartError": null,
+        "StopError": null,
+        "StreamError": null,
+        "ResultError": null,
+        "InteractionError": null,
+        "InputError": null,
+        "Stdout": "{\"schema_version\":1,\"packages\":[]}\r\n",
+        "Stderr": "",
+        "HumanStdout": "",
+        "StdoutTotalBytes": 36,
+        "StderrTotalBytes": 0,
+        "InteractionCount": 0,
+        "InteractionTotalBytes": 0,
+        "QueuedReplyCount": 0,
+        "ReplyCount": 0,
+        "ReplyTotalBytes": 0,
+        "StdoutTruncated": false,
+        "StderrTruncated": false,
+        "InputWriterStopped": true,
+        "ResultRecords": [
+          "{\"schema_version\":1,\"packages\":[]}"
+        ],
+        "ElapsedSeconds": 0.8105133
+      }
+    },
+    {
+      "Path": "C:\\Users\\WBS_USER\\AppData\\Local\\Microsoft\\WindowsApps\\pymanager.exe",
+      "Source": "manager_listing",
+      "Accepted": false,
+      "Message": "Unverified PATH manager name excluded; installed-only listing requires verified physical registration.",
+      "Probe": null
+    },
+    {
+      "Path": "C:\\Users\\WBS_USER\\AppData\\Local\\Microsoft\\WindowsApps\\py.exe",
+      "Source": "py_launcher_listing",
+      "Accepted": false,
+      "Message": "Dependency paths and their ancestors must not be reparse points.",
+      "Probe": null
+    }
+  ],
+  "Code": "runtime_not_found",
+  "Probe": null
+}

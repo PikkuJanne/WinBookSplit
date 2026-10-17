@@ -1,0 +1,270 @@
+{
+  "schema_version": 1,
+  "note": "Fixtures are test inputs, never native results. Acceptance means identity tuple valid only; alias/runtime verification still required.",
+  "cases": [
+    {
+      "id": "REG01",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": true,
+      "note": "Observed Store identity plus synthetic Version/flags completed for schema testing; not a new observation."
+    },
+    {
+      "id": "REG02",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US",
+        "PublisherId": "3847v3x7pw1km",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_3847v3x7pw1km",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Developer",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": true,
+      "note": "Existing python.org route, synthetic complete registration."
+    },
+    {
+      "id": "REG03",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Cross-paired publisher and Store family."
+    },
+    {
+      "id": "REG04",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Developer",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Cross-paired signature kind."
+    },
+    {
+      "id": "REG05",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Similar name is not an official identity."
+    },
+    {
+      "id": "REG06",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": true,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Development package."
+    },
+    {
+      "id": "REG07",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": true,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Incomplete staging."
+    },
+    {
+      "id": "REG08",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X86",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Outside retained architecture scope."
+    },
+    {
+      "id": "REG09",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Modified",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Non-OK registration."
+    },
+    {
+      "id": "REG10",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.5.100.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.5.100.0_x64__qbz5n2kfra8p0",
+        "Version": "26.5.100.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": true,
+      "note": "Version variation is synthetic, not a claimed upstream release."
+    },
+    {
+      "id": "REG11",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Books\\spoof",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Unbound document-directory package location."
+    },
+    {
+      "id": "REG12",
+      "kind": "SYNTHETIC_TEST_INPUT",
+      "registration": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B",
+        "PublisherId": "qbz5n2kfra8p0",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__qbz5n2kfra8p0",
+        "Version": "26.4.240.0",
+        "Architecture": "X64",
+        "SignatureKind": "Store",
+        "Status": "Ok",
+        "IsDevelopmentMode": "false",
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      },
+      "expected_identity_accept": false,
+      "note": "Malformed boolean must not pass coercion."
+    }
+  ]
+}

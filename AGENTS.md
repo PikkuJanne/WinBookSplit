@@ -1,37 +1,50 @@
 # WinBookSplit working agreement
 
-## Active v1.0.2 compatibility and setup repair
+## Active v1.0.3 Store discovery repair
 
-Implement and publicly publish WinBookSplit v1.0.2 under the owner's 12 October
-2026 authorization. Read `docs/codex-v1.0.2/SCOPE.md`, `STATUS.md`,
-`NEXT_SESSION.md`, `TASKS.json`, and the selected task and specifications first.
-Implement tested regular x64 Python 3.15.0 and later stable 3.15 patches,
-reliable setup BAT/generated remedies, and truthful selected-runtime diagnostics.
-Retain serviced 3.13/3.14 support and reviewed security floors. This scope
-supersedes active v1.0.0/v1.0.1 routing, Windows-11-only scope, exact Python-patch
-acceptance, old milestone gates, and repeated owner-test programmes.
-Use `docs/codex-v1.0.2/HUMAN_TESTING.md` for minimal-human native
-acceptance and `docs/codex-v1.0.2/RELEASE_RUNBOOK.md` through public v1.0.2
-publication, anonymous byte verification, and synchronized final main.
+The owner's 17 October 2026 request authorizes repair of the captured Microsoft
+Store Python Install Manager failure and publication of the next patch v1.0.3
+only after its real acceptance gates pass. Read `docs/codex-v1.0.3/SCOPE.md`,
+`STATUS.md`, `NEXT_SESSION.md`, `TASKS.json`, `ROOT_CAUSE.md`, `IMPLEMENTATION.md`,
+and the selected task first. These instructions supersede v1.0.2-only routing
+and acceptance that permitted private runtime substitution. Preserve serviced
+regular x64 Python 3.13/3.14/3.15 support and the reviewed security floors.
+
+Reproduce and repair both the package query and downstream identity validation,
+resolve verified official manager entry points to concrete installed interpreters,
+and report discovery failures truthfully. Do not install or update the desktop's Python/Manager,
+change PATH/aliases, or globally weaken path guards to hide the failure. Normal
+automatic setup may create its application-local venv only after discovering
+the existing interpreter. Retain authoritative explicit-runtime setup outside
+the Store gate. Preserve isolated package checks and bounded processes.
+
+Use `docs/codex-v1.0.3/NATIVE_ACCEPTANCE.md` for the exact-ZIP Windows 10
+existing-Store gate: no private runtime, explicit PythonPath, injected environment,
+prebuilt app venv, or hidden controller selection. Disable test-time fallback
+acquisition for this scenario and reject an attempted fallback in its validator.
+Missing native evidence remains NOT_RUN/BLOCKED. Complete independent work and
+consolidate owner-only checks into T07's one validated command/report kit.
+Use `docs/codex-v1.0.3/RELEASE_RUNBOOK.md` through public publication,
+anonymous byte verification, and synchronized final main.
 
 Preserve all file safety, dependency-origin, process, privacy, truthful-evidence,
-and Git protection rules below. Historical v1.0.0/v1.0.1 reports remain unchanged;
+and Git protection rules below. Historical v1.0.0-v1.0.2 reports remain unchanged;
 their published tags and assets are immutable. Scoped isolated per-user dependency
 setup, ordinary commits/pushes, PRs, passing reviewed merges, and this exact
-v1.0.2 release are authorized. No force push, settings/visibility change,
+v1.0.3 release are authorized. No force push, settings/visibility change,
 spending, or other release version is authorized. Missing native Windows 10
 evidence remains NOT_RUN/BLOCKED; complete independent work and prepare one
 consolidated command/report kit when authorized native access is unavailable.
 
 ## Scope
 
-Incrementally improve this existing local Windows PDF/ebook splitter through the authorized GitHub `v1.0.2` repair. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, `Setup-WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Reuse shared policy, discovery, setup, engine and native tools; replacing the application/engine with a new framework is not allowed.
+Incrementally improve this existing local Windows PDF/ebook splitter through the authorized GitHub `v1.0.3` repair. Preserve `WinBookSplit.bat`, `WinBookSplit.ps1`, `Setup-WinBookSplit.bat`, `Setup-WinBookSplit.ps1`, the console/drag-and-drop workflow, Python/pypdf, and optional Calibre. Reuse shared policy, discovery, setup, engine and native tools; replacing the application/engine with a new framework is not allowed.
 
 No website, service, uploads, telemetry, native ebook output, OCR/AI chapter inference, DRM removal, installer, updater, or interim public release. No paid/signing prerequisite. Never process private textbooks/documents in CI or commit them.
 
 ## Start each thread
 
-Read `docs/codex-v1.0.2/SCOPE.md`, `STATUS.md`, `NEXT_SESSION.md`, `TASKS.json`, then the selected task and its specs. Inspect root/nested instructions, actual Git/origin/branch/worktree and live remote before changing anything. The recorded baseline is evidence, not a reset target. Preserve unrelated edits and the user's source-ZIP installations. Prior reports in `docs/codex-v1.0.0/` and `docs/codex-v1.0.1/` are immutable historical evidence, not active routing.
+Read `docs/codex-v1.0.3/SCOPE.md`, `STATUS.md`, `NEXT_SESSION.md`, `TASKS.json`, `ROOT_CAUSE.md`, `IMPLEMENTATION.md`, then the selected task and its specs. Inspect root/nested instructions, actual Git/origin/branch/worktree and live remote before changing anything. The recorded baseline is evidence, not a reset target. Import only the new handoff docs/tools directories after conflict and diff review; reconcile root routing deliberately. Preserve unrelated edits and the user's source-ZIP installations. Prior reports in `docs/codex-v1.0.0/`, `docs/codex-v1.0.1/` and `docs/codex-v1.0.2/` are immutable historical evidence, not active routing.
 
 ## Implementation and correctness
 
@@ -43,13 +56,13 @@ Run both process streams safely. No shell evaluation of paths/bookmark text. Tem
 
 Use `TESTING.md` and each task's acceptance IDs. Record commands, runtime versions, source commit/tree digest, actual outcomes, skips, and defects. No fabricated/manual/Windows/Calibre passes. Ordinary syntax/unit success is not an end-to-end Windows test.
 
-Update task/evidence/status/next-session files; stage intended paths only; commit; push normally; verify clean local HEAD equals the live remote branch. Missing network/auth or a failed push means UNKNOWN/UNSYNCED. `GITHUB_WORKFLOW.md` explains historical receipts and avoids self-referential commit hashes. Never force push, reset hard, auto-stash, or delete work.
+After EACH task update task/evidence/status/next-session files; stage intended paths only; commit; push normally; verify clean local HEAD equals the freshly queried live remote branch; then STOP with a verbose handover and an exact next-task continuation prompt. Missing network/auth or a failed push means UNKNOWN/UNSYNCED. Follow `docs/codex-v1.0.3/RELEASE_RUNBOOK.md` for receipts without self-referential commit hashes. Never force push, reset hard, auto-stash, or delete work.
 
 ## Authority and completion
 
-The user delegated ordinary scoped commits, pushes, PRs, merges of passing reviewed work, isolated per-user dependency setup, and final v1.0.2 publication. Respect environment approvals and existing protection; never bypass them. Destructive Git operations, settings/visibility changes, spending, other release versions, or scope expansion require separate authority.
+The user delegated ordinary scoped commits, pushes, PRs, merges of passing reviewed work, isolated per-user dependency setup, and final v1.0.3 publication after the real gates pass. Respect environment approvals and existing protection; never bypass them. Destructive Git operations, settings/visibility changes, spending, other release versions, or scope expansion require separate authority.
 
-A tag or draft is not completion. Follow `docs/codex-v1.0.2/RELEASE_RUNBOOK.md`: tested commit and frozen package, real Windows 10/11 with Python 3.15, Calibre checks, automated BAT/remedy and RemoteSigned/MOTW acceptance, public non-draft/non-prerelease v1.0.2, anonymously downloaded matching assets, fixed tag, preserved old releases, and synchronized final main. Signing is optional and unsigned status must be disclosed. Missing native evidence remains NOT_RUN/BLOCKED; complete independent work and provide one validated consolidated command/report kit.
+A tag or draft is not completion. Follow `docs/codex-v1.0.3/RELEASE_RUNBOOK.md`: tested commit and frozen package, actual existing Windows 10 Store installation through automatic setup and BAT, native Windows 11 and supported-runtime regressions, Calibre checks, automated BAT/remedy and RemoteSigned/MOTW acceptance, public non-draft/non-prerelease v1.0.3, anonymously downloaded matching assets, fixed tag, preserved old releases, and synchronized final main. Signing is optional and unsigned status must be disclosed. Missing native evidence remains NOT_RUN/BLOCKED; complete independent work and provide one validated consolidated command/report kit. Historical private-runtime acceptance cannot satisfy the new Store gate.
 
 ## Code review rules
 

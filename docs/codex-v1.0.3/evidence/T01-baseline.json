@@ -1,0 +1,738 @@
+{
+  "schema_version": 1,
+  "task": "T01",
+  "evidence_kind": "live_baseline_and_anonymous_exact_byte_comparison",
+  "observed_at_utc": "2026-10-17T11:19:14.861501+00:00",
+  "status": "PASS_FOR_READ_ONLY_BASELINE_SUBSCOPE",
+  "source": {
+    "commit": "4cc6b00b99685607f3214e731edaaec7d65926df",
+    "tree": "8a5a246d2d18b3e2b3fd746a9347f77fb95f6e08",
+    "branch": "codex/v1.0.3-store-discovery",
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "v1_0_2_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+    "v1_0_2_tree": "818de909908c95395691dc962395f270c1cd5735"
+  },
+  "baseline_status_porcelain": [
+    " M AGENTS.md",
+    "?? docs/codex-v1.0.3/",
+    "?? tests/powershell/StoreDiscovery.Tests.ps1",
+    "?? tests/python/test_store_gate.py",
+    "?? tools/codex-v1.0.3/"
+  ],
+  "baseline_worktree_list_sanitized": [
+    "worktree <WORKSPACE>",
+    "HEAD 4cc6b00b99685607f3214e731edaaec7d65926df",
+    "branch refs/heads/codex/v1.0.3-store-discovery"
+  ],
+  "live_origin_refs": {
+    "refs/heads/codex/v1.0.1-compatibility": "ace5b9ef7e5a90cd40d180771fedda2bc9aeae20",
+    "refs/heads/codex/v1.0.2-setup-python315": "483baf858569bc838ac8a809d329b2595cdacf57",
+    "refs/heads/codex/v1.0.2-shell-timeout-diagnostic": "9c2bc69adf8993fb85c74e592ae65fd0a1080560",
+    "refs/heads/codex/winbooksplit-v1-m0": "01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee",
+    "refs/heads/codex/winbooksplit-v1-m1": "dee49ac233650e12511a3597077523527de76c5e",
+    "refs/heads/codex/winbooksplit-v1-m2": "45db4e2a41a1ad04a9fc58a35b24d01b34f59de4",
+    "refs/heads/codex/winbooksplit-v1-m3": "792c6fca2524a7e65e4a85e39b3f5360914e9272",
+    "refs/heads/codex/winbooksplit-v1-m4": "123bb3e9bb1ad6e15e3bf6e060f35fc8a7f15cb4",
+    "refs/heads/codex/winbooksplit-v1-m5": "fc46376a52c5fa6aa232103b508aceee934de9b1",
+    "refs/heads/main": "4cc6b00b99685607f3214e731edaaec7d65926df",
+    "refs/tags/v1.0.0": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+    "refs/tags/v1.0.0^{}": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+    "refs/tags/v1.0.1": "113ab73991c9527caf983a8e9e5993a75b226c1a",
+    "refs/tags/v1.0.1^{}": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+    "refs/tags/v1.0.2": "c7ef8c4aa0421c553089319cf170ab9958fc2195",
+    "refs/tags/v1.0.2^{}": "483baf858569bc838ac8a809d329b2595cdacf57"
+  },
+  "main_equals_recorded_source_HEAD": true,
+  "v1_0_3_release_present": false,
+  "releases": [
+    {
+      "id": 409510027,
+      "tag_name": "v1.0.0",
+      "target_commitish": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "name": "WinBookSplit v1.0.0",
+      "draft": false,
+      "prerelease": false,
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0",
+      "created_at": "2026-10-11T07:41:49Z",
+      "updated_at": "2026-10-11T08:02:26Z",
+      "published_at": "2026-10-11T08:02:26Z",
+      "tag_object_sha": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+      "peeled_commit_sha": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "body_utf8_sha256": "f4c5473da1aa558931130d388cbafc4d658b6456d7fcfec0d09b68303f405004",
+      "body": "# WinBookSplit v1.0.0\n\nWinBookSplit v1.0.0 uses frozen source `73c90d10dc16b1c321737afbdfbe959d61a24573` and the exact accepted assets below. Final-ZIP acceptance includes independently audited native Windows/Calibre/PDF fidelity checks and seven owner-attested Explorer guide results (F01-F07, USER_ATTESTED_PASS). The additional six-run GUI artifact audit was explicitly waived by the owner and was not performed (WAIVED_BY_USER_NOT_RUN); independent GUI logs/output hashes, captured BAT exit codes and viewer actions are not claimed.\n\nWinBookSplit splits a local PDF into chapter PDFs using existing bookmarks or one-based physical page starts. EPUB and genuine, unencrypted AZW3/KF8 inputs are converted to PDF through separately installed Calibre, then use the same splitter. Processing keeps the source file unchanged and does not upload documents or add telemetry.\n\n## Included behavior\n\n- The existing BAT/PowerShell console workflow supports one-file drag-and-drop and no-file path selection. Multiple dropped files are rejected.\n- Manual starts and Level 1/Level 2 bookmarks share a validated plan covering every physical page exactly once. Front matter and parent-opening pages are retained; Level 2 sections stay within their Level 1 parent.\n- Interactive runs show the complete plan before chapter creation. Scripted parameters support explicit choices, noninteractive execution and plan-only preview.\n- Chapters are checked before publication into a unique new output directory. Existing outputs and neighboring files are preserved. Ebook runs can optionally retain the complete converted PDF.\n- Bounded process handling preserves conversion errors, cancellation and timeout results. Local logs and manifests support troubleshooting; a redacted support export is an explicit local action.\n- PDF output retains the documented page content/resources, limited metadata, chapter-start bookmarks, tested static annotations and supported links within a chapter. Navigation exclusions produce categorized warnings.\n\n## Supported setup\n\n| Component | v1.0.0 scope |\n| --- | --- |\n| Windows | Windows 11 x64; ordinary local filesystem paths |\n| PowerShell | Windows PowerShell 5.1 and PowerShell 7.6.6 |\n| Python | Regular GIL CPython 3.14.8 x64 |\n| PDF library | Plain, hash-pinned pypdf 6.20.0 |\n| Ebook converter | Windows x64 Calibre 9.15.0, required only for EPUB/AZW3 |\n\nKeep the entry points, `VERSION`, requirements and `engine` folder together. Use the included setup guide to create a fresh application `.venv` with the exact Python/pypdf pins. Install Calibre separately for ebooks. Python, pypdf, PowerShell and Calibre binaries, test packages and renderers are not bundled. Processing does not install dependencies, request elevation or change global execution policy.\n\nDrop one supported file onto `WinBookSplit.bat`, or double-click it and enter a literal path. Select Level 1, Level 2 or manual mode and review the plan. Manual starts such as `1,4,7` are physical PDF page numbers, not printed page labels or ranges. For an ebook, use the converted PDF's physical pages; conversion can change layout and introduce a table-of-contents page. The PowerShell entry point also provides `-Version`, full help and scripted parameters.\n\n## Limits and privacy\n\nEncrypted PDFs are rejected, including owner-password cases with an empty opening password. Interactive forms, signatures, attachments, portfolios and detected unsupported active features are rejected according to the PDF policy. Other narrowly defined annotation/navigation relationships are omitted with warnings. Complete metadata, original outlines, signatures and links across chapters are not generally preserved. Read the included PDF policy and fidelity guides before relying on specialized document features.\n\nAutomatic splitting requires actual outline destinations. Image-only scans can use manual starts; there is no OCR or inferred chapter detection. Output is PDF only. Password processing, DRM removal, native ebook output and batch jobs are outside scope.\n\nWindows 10, ARM, other runtime versions, Linux/macOS, network paths and arbitrary long paths are outside the support claim. Recorded Windows checks used isolated extractions on an existing workstation, not a clean operating system. Document fixtures and bounded resource checks do not establish compatibility with every PDF or ebook. WinBookSplit is not a document sanitizer or security sandbox; Calibre/plugins and external ebook resources are not isolated by an OS network-denial mechanism. Prefer trusted dependencies and self-contained ebooks.\n\nLocal logs may contain sensitive paths, titles, messages and source identities. Keep raw diagnostics private and review a redacted support summary before sharing it. Follow the included security and contributing guides; use an authored minimal reproducer rather than uploading private documents.\n\n## Assets and checksum verification\n\nThe release assets are `WinBookSplit-v1.0.0.zip`, `release-manifest.json` and `SHA256SUMS.txt`. The manifest identifies source R, package members, dependencies and per-file hashes. `SHA256SUMS.txt` lists the ZIP and manifest; it does not contain its own hash. Final asset sizes and hashes belong to the inspected release record and checksum file.\n\nThese exact package files passed the recorded final-ZIP acceptance scope described above and remain frozen. Their sizes and SHA-256 values are:\n\n| Asset | Bytes | SHA-256 |\n| --- | ---: | --- |\n| WinBookSplit-v1.0.0.zip | 414497 | e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3 |\n| release-manifest.json | 11547 | ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f |\n| SHA256SUMS.txt | 178 | 1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b |\n\nApplication scripts are unsigned. After obtaining all three assets from the intended publisher, compare the complete SHA-256 values before extraction. From their download directory, run:\n\n```powershell\nGet-FileHash -LiteralPath '.\\WinBookSplit-v1.0.0.zip' -Algorithm SHA256\nGet-FileHash -LiteralPath '.\\release-manifest.json' -Algorithm SHA256\nGet-Content -LiteralPath '.\\SHA256SUMS.txt'\n```\n\nMatch all 64 hexadecimal digits for each named file against the checksum file and trusted expected release values. Stop on a mismatch. Matching hashes check bytes; they do not authenticate the publisher, sign scripts or guarantee SmartScreen acceptance. Follow your organization's script policy.\n\nProject code and artwork use the MIT license and are supplied without warranty. Separately installed dependencies retain their upstream licenses; see the included `LICENSE` and `THIRD_PARTY_NOTICES.md`.\n\nThe frozen [README](https://github.com/PikkuJanne/WinBookSplit/blob/73c90d10dc16b1c321737afbdfbe959d61a24573/README.md), [setup guide](https://github.com/PikkuJanne/WinBookSplit/blob/73c90d10dc16b1c321737afbdfbe959d61a24573/docs/SETUP.md), [PDF policy](https://github.com/PikkuJanne/WinBookSplit/blob/73c90d10dc16b1c321737afbdfbe959d61a24573/docs/PDF_POLICY.md), [fidelity guide](https://github.com/PikkuJanne/WinBookSplit/blob/73c90d10dc16b1c321737afbdfbe959d61a24573/docs/PDF_FIDELITY.md) and [ebook guide](https://github.com/PikkuJanne/WinBookSplit/blob/73c90d10dc16b1c321737afbdfbe959d61a24573/docs/EBOOK_SUPPORT.md) describe the same source. Their candidate labels record the state at source freeze and do not establish later final-asset acceptance or publication.\n",
+      "assets": [
+        {
+          "id": 630123442,
+          "name": "SHA256SUMS.txt",
+          "label": "",
+          "content_type": "text/plain; charset=utf-8",
+          "state": "uploaded",
+          "size": 178,
+          "digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+          "created_at": "2026-10-11T07:42:15Z",
+          "updated_at": "2026-10-11T07:42:15Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/SHA256SUMS.txt",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+          "anonymous_download_size": 178,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 630123440,
+          "name": "WinBookSplit-v1.0.0.zip",
+          "label": "",
+          "content_type": "application/zip",
+          "state": "uploaded",
+          "size": 414497,
+          "digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+          "created_at": "2026-10-11T07:42:14Z",
+          "updated_at": "2026-10-11T07:42:15Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/WinBookSplit-v1.0.0.zip",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+          "anonymous_download_size": 414497,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 630123444,
+          "name": "release-manifest.json",
+          "label": "",
+          "content_type": "application/json",
+          "state": "uploaded",
+          "size": 11547,
+          "digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+          "created_at": "2026-10-11T07:42:15Z",
+          "updated_at": "2026-10-11T07:42:15Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.0/release-manifest.json",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+          "anonymous_download_size": 11547,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        }
+      ]
+    },
+    {
+      "id": 410596171,
+      "tag_name": "v1.0.1",
+      "target_commitish": "main",
+      "name": "WinBookSplit v1.0.1",
+      "draft": false,
+      "prerelease": false,
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.1",
+      "created_at": "2026-10-12T12:50:34Z",
+      "updated_at": "2026-10-12T12:52:30Z",
+      "published_at": "2026-10-12T12:52:30Z",
+      "tag_object_sha": "113ab73991c9527caf983a8e9e5993a75b226c1a",
+      "peeled_commit_sha": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+      "body_utf8_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+      "body": "WinBookSplit v1.0.1 fixes Python discovery and setup while preserving the Windows BAT shortcut, console, single-file drag-and-drop, PDF splitting and optional EPUB/AZW3 conversion.\n\n- Supports regular GIL Windows x64 CPython **3.13.16 or later stable 3.13 patches**, and **3.14.8 or later stable 3.14 patches**. These are numeric security floors, not exact-patch requirements. The exact tested Python versions are 3.13.16 and 3.14.8; every later patch has not been tested. Python 3.11/3.12, other minors, x86, ARM, free-threaded Python and PyPy are outside this release policy.\n- Keeps **pypdf 6.20.0** separately hash-locked, with isolated imports and dependency-origin checks. Calibre **9.15.0** is separately installed and required only for EPUB or unencrypted AZW3 input.\n- Adds explicit application-local setup, read-only readiness checks, offline reviewed-wheel support and repair that preserves the old environment. Processing never installs packages or replaces a global Python installation.\n- A failed optional launcher listing preserves discovery of a valid trusted PATH interpreter. Automatic selection is deterministic. Explicit Python selections and an existing application `.venv` remain authoritative.\n- Dependency failures give a concise reason and a concrete setup action, with full local technical diagnostics retained.\n\nExtract the complete ZIP to a short writable per-user directory. Install compatible regular x64 Python separately, then run this once from the application directory:\n\n```powershell\npowershell.exe -NoProfile -ExecutionPolicy Bypass -File .\\Setup-WinBookSplit.ps1 -NonInteractive\n```\n\nThe execution-policy switch affects only that PowerShell process. No elevation, global PATH change, environment activation or global package installation is needed. Organization policy still applies. PDF input needs no Calibre. See the included [setup guide](https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.1/docs/SETUP.md) for explicit `-PythonPath`, `-Check`, offline wheels and `-Repair`.\n\nThe same frozen ZIP was exercised on native Windows10 22H2 x64 with Python3.14.8 and inbox PowerShell5.1.19041.7417 through a USER_LAUNCHED automated kit, including actual EPUB/AZW3 conversion; Windows11 x64 with Python3.13.16 and3.14.8/inbox5.1; and four supplemental same-extraction cases under PowerShell7.6.6. Source CI runs on Windows Server and is separate from workstation acceptance. The unchanged Explorer route was not repeated; BAT argument forwarding was automated. No repeated manual fidelity programme or clean-OS claim is made.\n\nWindows 10 Home/Pro 22H2 standard servicing ended on 14 October 2025. OS security servicing is separate from application compatibility; this tool does not enroll a machine in servicing or require a purchase.\n\nCalibre 9.15.0 retains older embedded libraries. Its reviewed EPUB/AZW3 conversion path and published advisory ranges do not establish that every converter/plugin path is vulnerability-free. Process deadlines are not an OS/network sandbox; see the included SECURITY.md for limits.\n\nScripts and the ZIP are **unsigned**. SHA256SUMS detects changes against the published values; a hash is not a publisher signature. Keep accepted Python branches serviced with current security updates. Existing document, source-preservation, process and output-safety policies remain in force. Encrypted/DRM content and the documented unsupported PDF structures remain excluded; there is no new OCR, GUI, telemetry, uploader or ebook-output feature.\n\nRelease source: `6f2c2e5d4d5fc484bcb1530474f09957e09775ef`. ZIP SHA256: `747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a`. The v1.0.0 tag and published assets remain unchanged. Detailed source/native/security scope is recorded in the [v1.0.1 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.1/evidence).",
+      "assets": [
+        {
+          "id": 633779495,
+          "name": "SHA256SUMS.txt",
+          "label": "",
+          "content_type": "text/plain; charset=utf-8",
+          "state": "uploaded",
+          "size": 178,
+          "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+          "created_at": "2026-10-12T12:50:47Z",
+          "updated_at": "2026-10-12T12:50:47Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/SHA256SUMS.txt",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+          "anonymous_download_size": 178,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 633779492,
+          "name": "WinBookSplit-v1.0.1.zip",
+          "label": "",
+          "content_type": "application/zip",
+          "state": "uploaded",
+          "size": 885340,
+          "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+          "created_at": "2026-10-12T12:50:47Z",
+          "updated_at": "2026-10-12T12:50:47Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/WinBookSplit-v1.0.1.zip",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+          "anonymous_download_size": 885340,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 633779501,
+          "name": "release-manifest.json",
+          "label": "",
+          "content_type": "application/json",
+          "state": "uploaded",
+          "size": 15816,
+          "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+          "created_at": "2026-10-12T12:50:47Z",
+          "updated_at": "2026-10-12T12:50:47Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.1/release-manifest.json",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+          "anonymous_download_size": 15816,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        }
+      ]
+    },
+    {
+      "id": 411934002,
+      "tag_name": "v1.0.2",
+      "target_commitish": "483baf858569bc838ac8a809d329b2595cdacf57",
+      "name": "WinBookSplit v1.0.2",
+      "draft": false,
+      "prerelease": false,
+      "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.2",
+      "created_at": "2026-10-13T17:25:47Z",
+      "updated_at": "2026-10-13T17:28:52Z",
+      "published_at": "2026-10-13T17:28:52Z",
+      "tag_object_sha": "c7ef8c4aa0421c553089319cf170ab9958fc2195",
+      "peeled_commit_sha": "483baf858569bc838ac8a809d329b2595cdacf57",
+      "body_utf8_sha256": "9cd0d9ed7293c86e262019452e096cdd9bad4ccb0edf0f2d5a6ec70ff40dfe91",
+      "body": "WinBookSplit v1.0.2 adds regular x64 Python 3.15 support and fixes setup commands that could be blocked before unsigned setup started. It preserves the BAT/PowerShell console, drag-and-drop workflow, local PDF splitting and optional Calibre EPUB/AZW3-to-PDF conversion.\n\n- Accepts regular GIL Windows x64 CPython **3.15.0 or later stable 3.15 patches**, **3.14.8 or later stable 3.14 patches**, and **3.13.16 or later stable 3.13 patches**. These are numeric branch floors, not exact-patch requirements. The executed versions are 3.15.0, 3.14.8 and 3.13.16; every later patch has not been executed. Unlisted minors are unsupported/unvalidated, rather than automatically labeled insecure. Prerelease, x86, ARM, free-threaded Python and PyPy remain outside this policy.\n- Adds `Setup-WinBookSplit.bat` and executable setup remedies using a trusted PowerShell host with a process-scoped policy. Internet marks remain intact, organization-enforced controls still apply, and no persistent execution policy or global PATH change is made.\n- Reports the selected runtime and reason accurately. Processing does not install packages or silently fall back from an invalid application `.venv`. Setup and explicit repair remain separate operations.\n- Retains the exact **pypdf 6.20.0** wheel lock, isolated imports, dependency-origin validation, source preservation, no-overwrite output checks, encryption policy and finite process supervision. Optional conversion uses separately installed **Calibre 9.15.0**.\n\nExtract the complete distribution ZIP to an ordinary writable per-user folder. With a supported Python installed, run once from that folder:\n\n```powershell\n.\\Setup-WinBookSplit.bat -NonInteractive\n```\n\nThen use `WinBookSplit.bat` as before. See the included [setup guide](https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.2/docs/SETUP.md) for explicit runtime selection, read-only checks, reviewed offline wheels and repair. PDF input does not require Calibre.\n\nThe **same frozen distribution ZIP** was tested in these exact combinations:\n\n| Native environment | Runtime and automation |\n| --- | --- |\n| Windows 10 Home 22H2 x64, build 19045.7417, inbox PowerShell 5.1.19041.7417 | Regular Python 3.15.0 and pypdf 6.20.0; owner-launched automated kit, all 16 stages and 19 cases, including authored PDF and genuine Calibre EPUB/AZW3 checks. The default marked-script matrix ran 23 steps. No usable owner 3.15 was discovered on this host, so the explicitly provisioned reviewed private 3.15.0 archive was selected; no global owner installation is claimed. |\n| Windows 11 Pro 26H2 x64, build 26300.9457, inbox PowerShell 5.1.26100.9444 | Regular Python 3.15.0 and pypdf 6.20.0; agent-launched automated acceptance, all 16 stages and 19 cases, with an authored private child-PATH runtime fixture and 39 marked-script/control steps. |\n| Windows 11 x64, PowerShell 7.6.6 | Four same-ZIP Python 3.15.0 cases: version, setup check, manual split and Auto2. Separately, a genuine inbox PowerShell 5.1-hosted unredirected zero-argument setup BAT pause/Enter case was automated. |\n| Windows 11 x64, inbox PowerShell 5.1 | Separate same-ZIP Python 3.13.16 and 3.14.8 setup/check/PDF checks, with independently validated page coverage and preserved sources. |\n\nThe full source regression passed 23 stages, 670 Python units and both 204-case Pester routes. Required source CI passed all four jobs. Windows Server CI is supplemental source evidence, not workstation acceptance. Organization-denial controls are simulations; Explorer was not manually exercised, and no repeated chapter-viewing programme was imposed. The returned Windows 10 report was validated against the unchanged maintained report contract; its raw local artifacts were not returned for independent reopening. Earlier external controller and validation-driver failures remain disclosed in the [release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.2/evidence).\n\nWindows 10 Home/Pro 22H2 standard servicing ended on 14 October 2025. OS security servicing is separate from this application compatibility result; the tool does not enroll a machine in servicing or require a purchase.\n\nThe retained pypdf 6.20.0 dependency is generally affected by newer outline/tree advisories. The required application paths were reviewed against those operations; this does not establish that the dependency is generally unaffected or every possible document is safe. Calibre 9.15.0 also retains older embedded libraries. Process deadlines are not an OS/network sandbox. See [SECURITY.md](https://github.com/PikkuJanne/WinBookSplit/blob/v1.0.2/SECURITY.md) and the scoped security evidence for the exact limits. There is no new OCR, DRM removal, uploader, telemetry, installer, updater or native ebook-output feature.\n\nThe scripts and ZIP are **unsigned**. SHA-256 values detect byte changes against the published values; they are not a publisher signature.\n\nRelease source: `483baf858569bc838ac8a809d329b2595cdacf57`, tree `818de909908c95395691dc962395f270c1cd5735`.\n\n| Accepted asset | SHA-256 |\n| --- | --- |\n| `WinBookSplit-v1.0.2.zip` | `37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e` |\n| `release-manifest.json` | `a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03` |\n| `SHA256SUMS.txt` | `5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e` |\n\nThe published v1.0.0 and v1.0.1 tags, release text and assets are preserved.\n",
+      "assets": [
+        {
+          "id": 637748443,
+          "name": "SHA256SUMS.txt",
+          "label": "",
+          "content_type": "text/plain; charset=utf-8",
+          "state": "uploaded",
+          "size": 178,
+          "digest": "sha256:5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e",
+          "created_at": "2026-10-13T17:28:31Z",
+          "updated_at": "2026-10-13T17:28:31Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.2/SHA256SUMS.txt",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e",
+          "anonymous_download_size": 178,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 637748441,
+          "name": "WinBookSplit-v1.0.2.zip",
+          "label": "",
+          "content_type": "application/zip",
+          "state": "uploaded",
+          "size": 909557,
+          "digest": "sha256:37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+          "created_at": "2026-10-13T17:28:31Z",
+          "updated_at": "2026-10-13T17:28:31Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.2/WinBookSplit-v1.0.2.zip",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+          "anonymous_download_size": 909557,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        },
+        {
+          "id": 637748440,
+          "name": "release-manifest.json",
+          "label": "",
+          "content_type": "application/json",
+          "state": "uploaded",
+          "size": 16593,
+          "digest": "sha256:a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03",
+          "created_at": "2026-10-13T17:28:31Z",
+          "updated_at": "2026-10-13T17:28:31Z",
+          "browser_download_url": "https://github.com/PikkuJanne/WinBookSplit/releases/download/v1.0.2/release-manifest.json",
+          "anonymous_download_http_status": 200,
+          "anonymous_download_sha256": "a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03",
+          "anonymous_download_size": 16593,
+          "matches_api_digest": true,
+          "matches_api_size": true
+        }
+      ]
+    }
+  ],
+  "immutable_comparison_policy": "Use tag object and peeled commit, release identity/name/body text hash/draft/prerelease/timestamps, asset IDs/names/size/digest/timestamps and anonymous downloaded hashes. Download counts are deliberately excluded because normal read-only downloads change them.",
+  "captured_file_comparison": [
+    {
+      "path": "WinBookSplit.ps1",
+      "captured_incident_sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+      "sources": {
+        "working_tree": {
+          "bytes": 73803,
+          "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "crlf_count": 1179,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "f1805f33c3b724204e8276620a8b23446ad3b9b6e2def9b57fb2c15426b3ed8d",
+          "crlf_normalized_sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "matches_captured_exact_bytes": true
+        },
+        "git_HEAD_blob": {
+          "bytes": 73803,
+          "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "crlf_count": 1179,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "f1805f33c3b724204e8276620a8b23446ad3b9b6e2def9b57fb2c15426b3ed8d",
+          "crlf_normalized_sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "matches_captured_exact_bytes": true
+        },
+        "git_v1_0_2_blob": {
+          "bytes": 73803,
+          "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "crlf_count": 1179,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "f1805f33c3b724204e8276620a8b23446ad3b9b6e2def9b57fb2c15426b3ed8d",
+          "crlf_normalized_sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "matches_captured_exact_bytes": true
+        },
+        "anonymous_v1_0_2_zip_member": {
+          "bytes": 73803,
+          "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "crlf_count": 1179,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "f1805f33c3b724204e8276620a8b23446ad3b9b6e2def9b57fb2c15426b3ed8d",
+          "crlf_normalized_sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+          "matches_captured_exact_bytes": true
+        }
+      },
+      "all_four_sources_byte_identical": true
+    },
+    {
+      "path": "WinBookSplit.bat",
+      "captured_incident_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "sources": {
+        "working_tree": {
+          "bytes": 1145,
+          "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "crlf_count": 29,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "228f034f3ce9766caf5fa6cf58916faceb7d6e822b25ee971c4940af7cc9a893",
+          "crlf_normalized_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "matches_captured_exact_bytes": true
+        },
+        "git_HEAD_blob": {
+          "bytes": 1145,
+          "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "crlf_count": 29,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "228f034f3ce9766caf5fa6cf58916faceb7d6e822b25ee971c4940af7cc9a893",
+          "crlf_normalized_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "matches_captured_exact_bytes": true
+        },
+        "git_v1_0_2_blob": {
+          "bytes": 1145,
+          "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "crlf_count": 29,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "228f034f3ce9766caf5fa6cf58916faceb7d6e822b25ee971c4940af7cc9a893",
+          "crlf_normalized_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "matches_captured_exact_bytes": true
+        },
+        "anonymous_v1_0_2_zip_member": {
+          "bytes": 1145,
+          "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "crlf_count": 29,
+          "bare_lf_count": 0,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "228f034f3ce9766caf5fa6cf58916faceb7d6e822b25ee971c4940af7cc9a893",
+          "crlf_normalized_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+          "matches_captured_exact_bytes": true
+        }
+      },
+      "all_four_sources_byte_identical": true
+    },
+    {
+      "path": "engine/WinBookSplit.Runtime.ps1",
+      "captured_incident_sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+      "sources": {
+        "working_tree": {
+          "bytes": 50397,
+          "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_count": 0,
+          "bare_lf_count": 726,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_normalized_sha256": "96f3636bcfee413d52311bec51dd018ca9f9b86292c60c08a9ed3759ac896f8e",
+          "matches_captured_exact_bytes": true
+        },
+        "git_HEAD_blob": {
+          "bytes": 50397,
+          "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_count": 0,
+          "bare_lf_count": 726,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_normalized_sha256": "96f3636bcfee413d52311bec51dd018ca9f9b86292c60c08a9ed3759ac896f8e",
+          "matches_captured_exact_bytes": true
+        },
+        "git_v1_0_2_blob": {
+          "bytes": 50397,
+          "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_count": 0,
+          "bare_lf_count": 726,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_normalized_sha256": "96f3636bcfee413d52311bec51dd018ca9f9b86292c60c08a9ed3759ac896f8e",
+          "matches_captured_exact_bytes": true
+        },
+        "anonymous_v1_0_2_zip_member": {
+          "bytes": 50397,
+          "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_count": 0,
+          "bare_lf_count": 726,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+          "crlf_normalized_sha256": "96f3636bcfee413d52311bec51dd018ca9f9b86292c60c08a9ed3759ac896f8e",
+          "matches_captured_exact_bytes": true
+        }
+      },
+      "all_four_sources_byte_identical": true
+    },
+    {
+      "path": "engine/WinBookSplit.Compatibility.json",
+      "captured_incident_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "sources": {
+        "working_tree": {
+          "bytes": 8210,
+          "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_count": 0,
+          "bare_lf_count": 163,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_normalized_sha256": "1bba009ff41c94f8b7613e13ed868fa29606c57ab984b0d17dffb8e5a670e13d",
+          "matches_captured_exact_bytes": true
+        },
+        "git_HEAD_blob": {
+          "bytes": 8210,
+          "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_count": 0,
+          "bare_lf_count": 163,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_normalized_sha256": "1bba009ff41c94f8b7613e13ed868fa29606c57ab984b0d17dffb8e5a670e13d",
+          "matches_captured_exact_bytes": true
+        },
+        "git_v1_0_2_blob": {
+          "bytes": 8210,
+          "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_count": 0,
+          "bare_lf_count": 163,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_normalized_sha256": "1bba009ff41c94f8b7613e13ed868fa29606c57ab984b0d17dffb8e5a670e13d",
+          "matches_captured_exact_bytes": true
+        },
+        "anonymous_v1_0_2_zip_member": {
+          "bytes": 8210,
+          "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_count": 0,
+          "bare_lf_count": 163,
+          "bare_cr_count": 0,
+          "lf_normalized_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "crlf_normalized_sha256": "1bba009ff41c94f8b7613e13ed868fa29606c57ab984b0d17dffb8e5a670e13d",
+          "matches_captured_exact_bytes": true
+        }
+      },
+      "all_four_sources_byte_identical": true
+    }
+  ],
+  "line_ending_conclusion": "All four captured fingerprints exactly match the working tree, raw HEAD blobs, raw v1.0.2 blobs and anonymous published ZIP members. WinBookSplit.ps1 has 1179 CRLFs and WinBookSplit.bat 29 CRLFs, with no bare LF; Runtime.ps1 has 726 LF and Compatibility.json 163 LF, with no CRLF. No line-ending normalization was needed to match. Git configuration does not override these directly measured bytes.",
+  "git_line_ending_context": {
+    "check_attr_all_output": "",
+    "core_autocrlf_show_origin": "file:<GIT_INSTALL>/etc/gitconfig\ttrue",
+    "core_eol": null,
+    "root_gitattributes_exists": false
+  },
+  "v1_0_2_anonymous_zip_member_count": 34,
+  "v1_0_2_anonymous_zip_member_inventory": [
+    {
+      "path": "CHANGELOG.md",
+      "size": 5095,
+      "sha256": "b4dc43ff2f74767d1245eddc3f893df64f85bd533dc8d7d101490ffa9ebb01ed"
+    },
+    {
+      "path": "CONTRIBUTING.md",
+      "size": 1839,
+      "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+    },
+    {
+      "path": "Export-WinBookSplitDiagnostics.ps1",
+      "size": 863,
+      "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+    },
+    {
+      "path": "LICENSE",
+      "size": 1070,
+      "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+    },
+    {
+      "path": "README.md",
+      "size": 13759,
+      "sha256": "1656a357c0017613ec174d52cd3210593db711e4e97aba50e4d152eda5a32ea5"
+    },
+    {
+      "path": "SECURITY.md",
+      "size": 4130,
+      "sha256": "3e67814d48e7261aa45434957b6a059858a4a4f46e36f4b7262066a0966af718"
+    },
+    {
+      "path": "Setup-WinBookSplit.bat",
+      "size": 938,
+      "sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500"
+    },
+    {
+      "path": "Setup-WinBookSplit.ps1",
+      "size": 6006,
+      "sha256": "fbc34a6694845a371b59a48fc253d4d1fc782df5e6df12af7f219db65d0cd1fa"
+    },
+    {
+      "path": "THIRD_PARTY_NOTICES.md",
+      "size": 2754,
+      "sha256": "782e08a51031e58c7526b1076d18037f30a1f3c795ca1b16a270c8da0856fbe8"
+    },
+    {
+      "path": "VERSION",
+      "size": 6,
+      "sha256": "9fd28642d3aca191e5c7fc2383cfd6fabb2aac8743f029dabb8989ac584e31bc"
+    },
+    {
+      "path": "WinBookSplit.bat",
+      "size": 1145,
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+    },
+    {
+      "path": "WinBookSplit.ico",
+      "size": 370070,
+      "sha256": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42"
+    },
+    {
+      "path": "WinBookSplit.ps1",
+      "size": 73803,
+      "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a"
+    },
+    {
+      "path": "docs/EBOOK_SUPPORT.md",
+      "size": 3352,
+      "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+    },
+    {
+      "path": "docs/PDF_FIDELITY.md",
+      "size": 3344,
+      "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+    },
+    {
+      "path": "docs/PDF_POLICY.md",
+      "size": 4143,
+      "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+    },
+    {
+      "path": "docs/SETUP.md",
+      "size": 12117,
+      "sha256": "5b881187d5413b684e92834a8ca777e2fd79bac913f6d447b25cb8dda4612598"
+    },
+    {
+      "path": "docs/SUPPORT_DIAGNOSTICS.md",
+      "size": 6306,
+      "sha256": "0a5ef958186a5c258816a0dd299b23560d7fb3ad8fcd2984b35444d0348a11f6"
+    },
+    {
+      "path": "engine/WinBookSplit.Compatibility.json",
+      "size": 8210,
+      "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+    },
+    {
+      "path": "engine/WinBookSplit.Compatibility.ps1",
+      "size": 16904,
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+    },
+    {
+      "path": "engine/WinBookSplit.Diagnostics.ps1",
+      "size": 27359,
+      "sha256": "36b6b4dc9bad7046d3b241c94746569024f81763c77fd4a69eefa3ed2578274f"
+    },
+    {
+      "path": "engine/WinBookSplit.Logging.ps1",
+      "size": 13060,
+      "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+    },
+    {
+      "path": "engine/WinBookSplit.Outcomes.json",
+      "size": 1581,
+      "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+    },
+    {
+      "path": "engine/WinBookSplit.Paths.ps1",
+      "size": 4142,
+      "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+    },
+    {
+      "path": "engine/WinBookSplit.Process.ps1",
+      "size": 41219,
+      "sha256": "445c378181b3d829b191fb83ce8c04428851a4c7d2975338f0944e83c8aab984"
+    },
+    {
+      "path": "engine/WinBookSplit.Runtime.ps1",
+      "size": 50397,
+      "sha256": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796"
+    },
+    {
+      "path": "engine/WinBookSplit.Setup.ps1",
+      "size": 28623,
+      "sha256": "bfc612b6109380d98e8472b1f66df0ab1d15ae3e0b3e7795b121a34835f27bd1"
+    },
+    {
+      "path": "engine/WinBookSplit.Support.ps1",
+      "size": 27250,
+      "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+    },
+    {
+      "path": "engine/winbooksplit_compatibility.py",
+      "size": 20075,
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    },
+    {
+      "path": "engine/winbooksplit_conversion.py",
+      "size": 27985,
+      "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+    },
+    {
+      "path": "engine/winbooksplit_engine.py",
+      "size": 101647,
+      "sha256": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+    },
+    {
+      "path": "engine/winbooksplit_job.py",
+      "size": 14965,
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    {
+      "path": "engine/winbooksplit_windows.py",
+      "size": 10933,
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    {
+      "path": "requirements.txt",
+      "size": 255,
+      "sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+    }
+  ],
+  "host_sanitized": {
+    "os_system": "Windows",
+    "os_version": "10.0.26300",
+    "machine": "AMD64",
+    "python_purpose": "Bundled Codex developer Python used only for read-only hashing/API/download collector; no application-runtime discovery or acceptance claim.",
+    "python_version": "3.12.14",
+    "powershell_7_version": "7.6.5",
+    "inbox_powershell_5_1_version": "5.1.26100.9711",
+    "git_version": "git version 2.56.0.windows.1",
+    "gh_version_first_line": "gh version 2.97.0 (2026-07-31)"
+  },
+  "commands_and_method": [
+    {
+      "argv": [
+        "git",
+        "ls-remote",
+        "--heads",
+        "--tags",
+        "origin"
+      ],
+      "outcome": "PASS; recorded exact live refs"
+    },
+    {
+      "argv": [
+        "git",
+        "worktree",
+        "list",
+        "--porcelain"
+      ],
+      "outcome": "PASS; one existing checkout, public path redacted"
+    },
+    {
+      "argv": [
+        "git",
+        "status",
+        "--porcelain=v1"
+      ],
+      "outcome": "PASS; exact porcelain records concurrent scoped handoff/routing/test edits; no production-file changes"
+    },
+    {
+      "argv": [
+        "gh",
+        "api",
+        "repos/PikkuJanne/WinBookSplit/releases",
+        "--paginate",
+        "--slurp"
+      ],
+      "outcome": "PASS; exactly v1.0.0, v1.0.1 and v1.0.2"
+    },
+    {
+      "argv": [
+        "<BUNDLED_PYTHON>",
+        "<OWNED_TEMP>/collect_t01_baseline.py"
+      ],
+      "outcome": "PASS; full sanitized collector source below"
+    },
+    {
+      "method": "urllib.request.Request(asset.browser_download_url, headers={User-Agent: WinBookSplit-T01-baseline}); urllib.request.urlopen(timeout=30); read cap=10MiB",
+      "outcome": "PASS; nine assets downloaded; no Authorization header, token, authenticated cookie jar or gh asset-download helper used"
+    },
+    {
+      "argv": [
+        "git",
+        "show",
+        "<source-commit>:<one of four incident paths>"
+      ],
+      "outcome": "PASS; bytes consumed directly from subprocess.PIPE without PowerShell text redirection"
+    },
+    {
+      "argv": [
+        "git",
+        "check-attr",
+        "-a",
+        "--",
+        "WinBookSplit.ps1",
+        "WinBookSplit.bat",
+        "engine/WinBookSplit.Runtime.ps1",
+        "engine/WinBookSplit.Compatibility.json"
+      ],
+      "outcome": "PASS; no attributes reported"
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "--show-origin",
+        "--get",
+        "core.autocrlf"
+      ],
+      "outcome": "PASS; true from Git system configuration"
+    },
+    {
+      "argv": [
+        "git",
+        "config",
+        "--get",
+        "core.eol"
+      ],
+      "outcome": "UNSET; command exit 1, no output"
+    }
+  ],
+  "evidence_boundary": {
+    "raw_owner_report_examined": false,
+    "captured_report": "Only supplied sanitized report/incident fixture used; original report not copied.",
+    "original_ps5_1_python_probe": "COLLECTOR_FAILED; not a Python compatibility result",
+    "pypdf_in_captured_base": "UNKNOWN",
+    "owner_windows10_store_gate": "NOT_RUN; this read-only Windows11 baseline/byte comparison cannot satisfy STORE-037 through STORE-042",
+    "environment_changes": "No Python/manager installation, package installation, PATH/alias setting change, application venv creation, processing of working documents, reset/stash/deletion, Git ref mutation or release mutation.",
+    "local_only_artifacts": "Unique <OWNED_TEMP>/WinBookSplit-T01-baseline-* retains collector and anonymously downloaded public assets; no private input or diagnostics added."
+  },
+  "collector_source_utf8": "from pathlib import Path\nimport datetime as dt\nimport hashlib\nimport json\nimport os\nimport platform\nimport subprocess\nimport sys\nimport urllib.request\nimport zipfile\n\nROOT = Path.cwd()\nOWNED_TEMP = Path(__file__).parent\nOUT = ROOT / 'docs/codex-v1.0.3/evidence/T01-baseline.json'\nLIMIT = 10 * 1024 * 1024\n\ndef sha(data):\n    return hashlib.sha256(data).hexdigest()\n\ndef run(args):\n    result = subprocess.run(args, cwd=ROOT, stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=60, check=False)\n    if result.returncode:\n        raise RuntimeError('Command failed: ' + repr(args) + ': ' + result.stderr.decode('utf-8', 'replace'))\n    return result.stdout\n\ndef text(args):\n    return run(args).decode('utf-8').strip()\n\ndef bytes_record(data):\n    lf = data.replace(b'\\r\\n', b'\\n')\n    return {\n        'bytes': len(data), 'sha256': sha(data),\n        'crlf_count': data.count(b'\\r\\n'),\n        'bare_lf_count': data.count(b'\\n') - data.count(b'\\r\\n'),\n        'bare_cr_count': data.count(b'\\r') - data.count(b'\\r\\n'),\n        'lf_normalized_sha256': sha(lf),\n        'crlf_normalized_sha256': sha(lf.replace(b'\\n', b'\\r\\n')),\n    }\n\nobserved_at = dt.datetime.now(dt.timezone.utc).isoformat()\nhead = text(['git', 'rev-parse', 'HEAD'])\ntree = text(['git', 'rev-parse', 'HEAD^{tree}'])\nbranch = text(['git', 'branch', '--show-current'])\nremote = text(['git', 'remote', 'get-url', 'origin'])\nremote_refs_text = text(['git', 'ls-remote', '--heads', '--tags', 'origin'])\nremote_refs = dict(line.split('\\t')[::-1] for line in remote_refs_text.splitlines())\nstatus = run(['git', 'status', '--porcelain=v1']).decode('utf-8').rstrip('\\r\\n')\nworktrees = text(['git', 'worktree', 'list', '--porcelain']).replace(str(ROOT).replace('\\\\', '/'), '<WORKSPACE>').replace(str(ROOT), '<WORKSPACE>')\nrelease_pages = json.loads(run(['gh', 'api', 'repos/PikkuJanne/WinBookSplit/releases', '--paginate', '--slurp']))\nreleases = [r for page in release_pages for r in page]\nassert {r['tag_name'] for r in releases} == {'v1.0.0', 'v1.0.1', 'v1.0.2'}, 'Unexpected release set; inspect conflict before continuing.'\nrelease_records = []\npublic_bytes = {}\nfor release in sorted(releases, key=lambda r: r['tag_name']):\n    tag = release['tag_name']\n    body = release['body'] or ''\n    record = {k: release[k] for k in ('id','tag_name','target_commitish','name','draft','prerelease','html_url','created_at','updated_at','published_at')}\n    record['tag_object_sha'] = remote_refs['refs/tags/' + tag]\n    record['peeled_commit_sha'] = remote_refs.get('refs/tags/' + tag + '^{}', record['tag_object_sha'])\n    record['body_utf8_sha256'] = sha(body.encode('utf-8'))\n    record['body'] = body\n    record['assets'] = []\n    for asset in sorted(release['assets'], key=lambda a: a['name']):\n        url = asset['browser_download_url']\n        request = urllib.request.Request(url, headers={'User-Agent':'WinBookSplit-T01-baseline'})\n        with urllib.request.urlopen(request, timeout=30) as response:\n            assert response.status == 200\n            data = response.read(LIMIT + 1)\n            assert len(data) <= LIMIT, 'Oversized asset'\n            status_code = response.status\n        folder = OWNED_TEMP / tag\n        folder.mkdir(exist_ok=True)\n        (folder / asset['name']).write_bytes(data)\n        actual_sha = sha(data)\n        assert asset['digest'] == 'sha256:' + actual_sha, 'Asset digest mismatch'\n        assert len(data) == asset['size'], 'Asset size mismatch'\n        item = {k: asset[k] for k in ('id','name','label','content_type','state','size','digest','created_at','updated_at','browser_download_url')}\n        item.update({'anonymous_download_http_status':status_code,'anonymous_download_sha256':actual_sha,'anonymous_download_size':len(data),'matches_api_digest':True,'matches_api_size':True})\n        record['assets'].append(item)\n        public_bytes[(tag, asset['name'])] = data\n    release_records.append(record)\n\nfixture = json.loads((ROOT / 'docs/codex-v1.0.3/fixtures/incident.json').read_text(encoding='utf-8'))\ncomparison = []\nzip_path = OWNED_TEMP / 'v1.0.2/WinBookSplit-v1.0.2.zip'\nwith zipfile.ZipFile(zip_path) as archive:\n    archive_names = archive.namelist()\n    assert len(archive_names) == len(set(archive_names)), 'Duplicate archive names'\n    for name, expected in fixture['local_file_sha256'].items():\n        sources = {\n            'working_tree': (ROOT / name).read_bytes(),\n            'git_HEAD_blob': run(['git','show',head + ':' + name]),\n            'git_v1_0_2_blob': run(['git','show','v1.0.2:' + name]),\n            'anonymous_v1_0_2_zip_member': archive.read(name),\n        }\n        row = {'path':name,'captured_incident_sha256':expected,'sources':{}}\n        for label, data in sources.items():\n            metrics = bytes_record(data)\n            metrics['matches_captured_exact_bytes'] = metrics['sha256'] == expected\n            assert metrics['matches_captured_exact_bytes'], 'Captured hash does not exactly match ' + label + ':' + name\n            row['sources'][label] = metrics\n        row['all_four_sources_byte_identical'] = len({data for data in sources.values()}) == 1\n        assert row['all_four_sources_byte_identical']\n        comparison.append(row)\n    member_inventory = [{'path':name,'size':len(archive.read(name)),'sha256':sha(archive.read(name))} for name in archive_names]\n\nattrs = text(['git','check-attr','-a','--',*fixture['local_file_sha256']])\nautocrlf = text(['git','config','--show-origin','--get','core.autocrlf']).replace('file:C:/Program Files/Git/etc/gitconfig','file:<GIT_INSTALL>/etc/gitconfig')\neol = subprocess.run(['git','config','--get','core.eol'],stdout=subprocess.PIPE,stderr=subprocess.PIPE,timeout=10)\nassert eol.returncode in (0,1)\nps51 = text([str(Path(os.environ['WINDIR'])/'System32/WindowsPowerShell/v1.0/powershell.exe'),'-NoProfile','-Command','$PSVersionTable.PSVersion.ToString()'])\nps7 = text(['pwsh','-NoProfile','-Command','$PSVersionTable.PSVersion.ToString()'])\nrecord = {\n    'schema_version':1,\n    'task':'T01',\n    'evidence_kind':'live_baseline_and_anonymous_exact_byte_comparison',\n    'observed_at_utc':observed_at,\n    'status':'PASS_FOR_READ_ONLY_BASELINE_SUBSCOPE',\n    'source':{'commit':head,'tree':tree,'branch':branch,'origin':remote,'v1_0_2_commit':text(['git','rev-parse','v1.0.2^{commit}']),'v1_0_2_tree':text(['git','rev-parse','v1.0.2^{tree}'])},\n    'baseline_status_porcelain':status.splitlines(),\n    'baseline_worktree_list_sanitized':worktrees.splitlines(),\n    'live_origin_refs':remote_refs,\n    'main_equals_recorded_source_HEAD':remote_refs['refs/heads/main']==head,\n    'v1_0_3_release_present':False,\n    'releases':release_records,\n    'immutable_comparison_policy':'Use tag object and peeled commit, release identity/name/body text hash/draft/prerelease/timestamps, asset IDs/names/size/digest/timestamps and anonymous downloaded hashes. Download counts are deliberately excluded because normal read-only downloads change them.',\n    'captured_file_comparison':comparison,\n    'line_ending_conclusion':'All four captured fingerprints exactly match the working tree, raw HEAD blobs, raw v1.0.2 blobs and anonymous published ZIP members. WinBookSplit.ps1 has 1179 CRLFs and WinBookSplit.bat 29 CRLFs, with no bare LF; Runtime.ps1 has 726 LF and Compatibility.json 163 LF, with no CRLF. No line-ending normalization was needed to match. Git configuration does not override these directly measured bytes.',\n    'git_line_ending_context':{'check_attr_all_output':attrs,'core_autocrlf_show_origin':autocrlf,'core_eol':eol.stdout.decode('utf-8').strip() or None,'root_gitattributes_exists':(ROOT/'.gitattributes').exists()},\n    'v1_0_2_anonymous_zip_member_count':len(member_inventory),\n    'v1_0_2_anonymous_zip_member_inventory':member_inventory,\n    'host_sanitized':{'os_system':platform.system(),'os_version':platform.version(),'machine':platform.machine(),'python_purpose':'Bundled Codex developer Python used only for read-only hashing/API/download collector; no application-runtime discovery or acceptance claim.','python_version':platform.python_version(),'powershell_7_version':ps7,'inbox_powershell_5_1_version':ps51,'git_version':text(['git','--version']),'gh_version_first_line':text(['gh','--version']).splitlines()[0]},\n    'commands_and_method':[\n        {'argv':['git','ls-remote','--heads','--tags','origin'],'outcome':'PASS; recorded exact live refs'},\n        {'argv':['git','worktree','list','--porcelain'],'outcome':'PASS; one existing checkout, public path redacted'},\n        {'argv':['git','status','--porcelain=v1'],'outcome':'PASS; exact porcelain records concurrent scoped handoff/routing/test edits; no production-file changes'},\n        {'argv':['gh','api','repos/PikkuJanne/WinBookSplit/releases','--paginate','--slurp'],'outcome':'PASS; exactly v1.0.0, v1.0.1 and v1.0.2'},\n        {'argv':['<BUNDLED_PYTHON>','<OWNED_TEMP>/collect_t01_baseline.py'],'outcome':'PASS; full sanitized collector source below'},\n        {'method':'urllib.request.Request(asset.browser_download_url, headers={User-Agent: WinBookSplit-T01-baseline}); urllib.request.urlopen(timeout=30); read cap=10MiB','outcome':'PASS; nine assets downloaded; no Authorization header, token, authenticated cookie jar or gh asset-download helper used'},\n        {'argv':['git','show','<source-commit>:<one of four incident paths>'],'outcome':'PASS; bytes consumed directly from subprocess.PIPE without PowerShell text redirection'},\n        {'argv':['git','check-attr','-a','--','WinBookSplit.ps1','WinBookSplit.bat','engine/WinBookSplit.Runtime.ps1','engine/WinBookSplit.Compatibility.json'],'outcome':'PASS; no attributes reported'},\n        {'argv':['git','config','--show-origin','--get','core.autocrlf'],'outcome':'PASS; true from Git system configuration'},\n        {'argv':['git','config','--get','core.eol'],'outcome':'UNSET; command exit 1, no output'},\n    ],\n    'evidence_boundary':{\n        'raw_owner_report_examined':False,\n        'captured_report':'Only supplied sanitized report/incident fixture used; original report not copied.',\n        'original_ps5_1_python_probe':'COLLECTOR_FAILED; not a Python compatibility result',\n        'pypdf_in_captured_base':'UNKNOWN',\n        'owner_windows10_store_gate':'NOT_RUN; this read-only Windows11 baseline/byte comparison cannot satisfy STORE-037 through STORE-042',\n        'environment_changes':'No Python/manager installation, package installation, PATH/alias setting change, application venv creation, processing of working documents, reset/stash/deletion, Git ref mutation or release mutation.',\n        'local_only_artifacts':'Unique <OWNED_TEMP>/WinBookSplit-T01-baseline-* retains collector and anonymously downloaded public assets; no private input or diagnostics added.',\n    },\n    'collector_source_utf8':Path(__file__).read_text(encoding='utf-8'),\n}\nOUT.parent.mkdir(exist_ok=True)\nOUT.write_text(json.dumps(record,indent=2,ensure_ascii=False)+'\\n',encoding='utf-8',newline='\\n')\nprint(json.dumps({'evidence_path':OUT.relative_to(ROOT).as_posix(),'old_releases':len(release_records),'anonymous_assets_verified':sum(len(r['assets']) for r in release_records),'captured_files_exact_match':len(comparison),'source_commit':head,'source_tree':tree,'evidence_sha256':sha(OUT.read_bytes())},indent=2))\nprint('Local-only owned artifacts: ' + str(OWNED_TEMP))\n"
+}

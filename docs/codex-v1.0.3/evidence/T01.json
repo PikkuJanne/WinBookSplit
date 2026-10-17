@@ -1,0 +1,622 @@
+{
+  "schema_version": 1,
+  "task": "T01",
+  "status": "COMPLETE_REPRODUCTION_ONLY",
+  "observed_at_utc": "2026-10-17T11:21:51.794202+00:00",
+  "source": {
+    "base_commit": "4cc6b00b99685607f3214e731edaaec7d65926df",
+    "base_tree": "8a5a246d2d18b3e2b3fd746a9347f77fb95f6e08",
+    "branch": "codex/v1.0.3-store-discovery",
+    "meaning": "Uncommitted test/import/documentation bytes are fingerprinted separately; production is unchanged from base."
+  },
+  "initial_checkout": {
+    "branch": "main",
+    "status_porcelain": "",
+    "worktrees": 1,
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "live_main_equals_HEAD": true,
+    "ancestor_AGENTS_present": false,
+    "nested_AGENTS_present": false
+  },
+  "handoff": {
+    "zip_sha256": "9d2170c67b690be9ee768219c630c1b5f8c36014f5b1d95c492556e40cf768e8",
+    "original_manifest_sha256": "0e866e387e30946471ee0ef940676bbd96031c7b30bdac7f04b5517bf0a6dcad",
+    "verified_original_members": 39,
+    "imported_original_members": [
+      {
+        "path": "docs/codex-v1.0.3/ACCEPTANCE_CASES.json",
+        "bytes": 13573,
+        "sha256": "644cbbcfc3e1389f0ea2ff83588c2aab62c5ee93be18887a037679cc7c113b8c"
+      },
+      {
+        "path": "docs/codex-v1.0.3/AGENTS_ADDITION.md",
+        "bytes": 1540,
+        "sha256": "2e4787e68a9798969ad06f2f7a98a0a9789fe1d6c9fe9bc18a6dd1ff27bad4fe"
+      },
+      {
+        "path": "docs/codex-v1.0.3/BASELINE.json",
+        "bytes": 456,
+        "sha256": "38265ecca5f8addc8305531b37e41a270920a4a9e60a61fac9fa9c873cc7bbe9"
+      },
+      {
+        "path": "docs/codex-v1.0.3/IMPLEMENTATION.md",
+        "bytes": 8541,
+        "sha256": "733431da8f825931bec9755fb06e6f1814cf09fcf6957f5774f3fdbe1200a5ae"
+      },
+      {
+        "path": "docs/codex-v1.0.3/NATIVE_ACCEPTANCE.md",
+        "bytes": 6032,
+        "sha256": "0dc7860f01c66abfdbcbcf7510f358e503916cd17aa16a641d66d07229478726"
+      },
+      {
+        "path": "docs/codex-v1.0.3/NEXT_SESSION.md",
+        "bytes": 950,
+        "sha256": "6a22eb676c4e0fe23c5bb0de3a331c899e355f4c5d56ed0bb14b8874f2c8b1bf"
+      },
+      {
+        "path": "docs/codex-v1.0.3/README.md",
+        "bytes": 665,
+        "sha256": "c16e6a52cc655a9bac64eb9612a9f5c586757902cceec743e08a176463a63702"
+      },
+      {
+        "path": "docs/codex-v1.0.3/RELEASE_RUNBOOK.md",
+        "bytes": 5120,
+        "sha256": "910eab2fb438658c6895760bedf6202e0c228a94b6042c399a6a01e063b0b89d"
+      },
+      {
+        "path": "docs/codex-v1.0.3/ROOT_CAUSE.md",
+        "bytes": 3697,
+        "sha256": "5a36d267aec099fc80ac47d79a7ebb70efd689792efe2988c267e2713f992a6e"
+      },
+      {
+        "path": "docs/codex-v1.0.3/SCOPE.md",
+        "bytes": 3589,
+        "sha256": "1a30ca9f3cfc1a3b190b888c13434a565054f4ca7c2f310efda61ef05c1663e2"
+      },
+      {
+        "path": "docs/codex-v1.0.3/SOURCES.md",
+        "bytes": 1559,
+        "sha256": "ff693f533dcf511a96c67595c27fd4674575ed18b4091390d95cd9b38118255b"
+      },
+      {
+        "path": "docs/codex-v1.0.3/SOURCE_MAP.json",
+        "bytes": 3217,
+        "sha256": "14c1e6350762ecc4112460e9155d960e36d73102e1eb56225978ceb99b5e0485"
+      },
+      {
+        "path": "docs/codex-v1.0.3/STATUS.md",
+        "bytes": 522,
+        "sha256": "b91298ec3e9a52db084a38cf3ffed311f7d7f9dabe362c3e68c5e288724f6565"
+      },
+      {
+        "path": "docs/codex-v1.0.3/TASKS.json",
+        "bytes": 3313,
+        "sha256": "d335e6251572b95c9af525a20ea40c8a77a9f200a85616e86ac3299186350ba9"
+      },
+      {
+        "path": "docs/codex-v1.0.3/TESTING.md",
+        "bytes": 3906,
+        "sha256": "1b89ab99d894ddb17d14e9b117926501ea7a9bb0c2e7cf5bfde652811eb5b959"
+      },
+      {
+        "path": "docs/codex-v1.0.3/fixtures/discovery-report.sanitized.txt",
+        "bytes": 7169,
+        "sha256": "dc8e5bed2999c8eafcd5950b665cf3cbe0c2ccc5e2289afc0166c70553b7bc24"
+      },
+      {
+        "path": "docs/codex-v1.0.3/fixtures/incident.json",
+        "bytes": 3018,
+        "sha256": "c3ac8e8beaad51da3add0ec6b2d638e8f124b1af0f76bebbad33a31bfe6c0242"
+      },
+      {
+        "path": "docs/codex-v1.0.3/fixtures/registration-cases.json",
+        "bytes": 11495,
+        "sha256": "3c9dd92d1c44327740bc67b5a18331be1b38701369150b29df9a9fc0d2bebf48"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/01-T01.md",
+        "bytes": 1832,
+        "sha256": "33eb0616e7bfd914ac8e327f7bc28e370018b2d818086768e9fb6c0d0ec65b74"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/02-T02.md",
+        "bytes": 1834,
+        "sha256": "a3f72cac423010bfefb11fa16bf52995173456d28e1a9660274bf2d7dcf7120b"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/03-T03.md",
+        "bytes": 1897,
+        "sha256": "0ab1b96cb2bd5048d00a9641d778621623ad95f9fdbe02ce6320a105a68aaa36"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/04-T04.md",
+        "bytes": 1885,
+        "sha256": "eee591bf1ea7a1a23515b74443ab3534daeba574f6de9392fafd7aa47f09d5fc"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/05-T05.md",
+        "bytes": 1970,
+        "sha256": "b60f579d6e33f0fad0d90942644720d275637fb1642b2902f16bf0aea8aab62f"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/06-T06.md",
+        "bytes": 1930,
+        "sha256": "c9059200b9b47eb4c7985064064fe4b79aae8cb3adb900cb30e9ba6883eb3db6"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/07-T07.md",
+        "bytes": 2046,
+        "sha256": "dc24b1de5ed36c9d3f2876c3a5be18cf3366d57bfa63049d0f6966f27ce4cab8"
+      },
+      {
+        "path": "docs/codex-v1.0.3/tasks/08-T08.md",
+        "bytes": 1849,
+        "sha256": "fe1dca080eeb66ee0710690a73cd2ab3c6e596b3f72dfe09eee50c7a244bcab2"
+      },
+      {
+        "path": "docs/codex-v1.0.3/templates/native-store-report.json",
+        "bytes": 2418,
+        "sha256": "8c301905adcb31c9ebcc53638faa78bfb6bf82e274301459444b46222f8ae2f7"
+      },
+      {
+        "path": "docs/codex-v1.0.3/templates/task-evidence.md",
+        "bytes": 635,
+        "sha256": "c86fec064ffaf29bad4fd5bbae78bb81d5fa60782f1f570969b6b4e6c2424191"
+      },
+      {
+        "path": "tools/codex-v1.0.3/README.md",
+        "bytes": 3380,
+        "sha256": "e91126481e94b559cb40f39b180d4c7b78b0d6c060252b7880182010f05ac850"
+      },
+      {
+        "path": "tools/codex-v1.0.3/check_handoff.py",
+        "bytes": 4455,
+        "sha256": "e9a0e4528110b02bdc526a6c3b6ec6368e40823d260de21cd45a286c88292969"
+      },
+      {
+        "path": "tools/codex-v1.0.3/check_native_store_report.py",
+        "bytes": 13261,
+        "sha256": "fb028b5531541e0ad64a7f7ee975d61d842d20c58cde6d01e77adbaa0647f298"
+      },
+      {
+        "path": "tools/codex-v1.0.3/tests/test_handoff.py",
+        "bytes": 1455,
+        "sha256": "560ee9502cf118a79315742b2b33c5a24fa229c25c17cef24ed691213a254d73"
+      },
+      {
+        "path": "tools/codex-v1.0.3/tests/test_native_gate.py",
+        "bytes": 10280,
+        "sha256": "3f3bdfa3f10cf6e734b9a49e52f4dde12ee51c8081f881fbf3b5398f162e1d0d"
+      }
+    ],
+    "destination_conflicts": [],
+    "only_new_directories_imported": true,
+    "root_AGENTS_deliberately_reconciled": true
+  },
+  "tested_path_sha256": {
+    "tests/powershell/StoreDiscovery.Tests.ps1": "2d2bc38ac4c1e792e502062b4ca6171b0c1d2b618289b3cc168ba4a9b391f96e",
+    "tests/python/test_store_gate.py": "c2acee8357b19e908fd8f257a7be7f73757c2edb24ec45efdb65ac7047b98fc0",
+    "tools/codex-v1.0.3/check_handoff.py": "c16623cbc78a69e97dfafee0cf0cb38c8ac720e94b28a820338a23a8eec7dbb7",
+    "tools/codex-v1.0.3/check_native_store_report.py": "fb028b5531541e0ad64a7f7ee975d61d842d20c58cde6d01e77adbaa0647f298",
+    "tools/codex-v1.0.3/tests/test_handoff.py": "172eac64d1e38fdba46612a4e994d29c5ae9588a0084226e76eb7dfe6fbd35b4",
+    "tools/codex-v1.0.3/tests/test_native_gate.py": "3f3bdfa3f10cf6e734b9a49e52f4dde12ee51c8081f881fbf3b5398f162e1d0d",
+    "engine/WinBookSplit.Runtime.ps1": "88f452bf14b75a6bab2883e945ff9bd2ff3b780fb3813083c2a8f239db7d5796",
+    "WinBookSplit.ps1": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+    "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+    "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+    "tools/compatibility/Invoke-NativeAcceptance.ps1": "9747a3754e37fe6a342af9f38a58cce49682a2854c90abc2e7d0de06e9c9ef07",
+    "tools/compatibility/native_smoke.py": "70ad7cb9f13d9aa81e85bb773fcc9ccc20673ad2960f8ba5841b4e05f307569e"
+  },
+  "host": {
+    "os": "Windows 11",
+    "build": 26300,
+    "architecture": "x64",
+    "developer_python": "3.12.14",
+    "pypdf_in_developer_bundle": "6.10.0 (not application acceptance)",
+    "powershell_versions": [
+      "5.1.26100.9711",
+      "7.6.5"
+    ]
+  },
+  "developer_tools": {
+    "command": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "tools/ci/bootstrap.py",
+      "--tool-root",
+      "<NEW_EXTERNAL_TOOLS>",
+      "--report",
+      "<NEW_EXTERNAL_REPORT>"
+    ],
+    "exit_code": 0,
+    "bootstrap_report_sha256": "58f7e09d3c3b38743e374c44995b73442295a45e5f4f8f824dc0697ce556b9f5",
+    "packages": [
+      {
+        "name": "Pester",
+        "version": "6.2.0",
+        "url": "https://www.powershellgallery.com/api/v2/package/Pester/6.2.0",
+        "sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+        "bytes": 465109,
+        "state": "verified_and_extracted",
+        "extracted_files_digest": "9b5154714711f537daf32216507b005efe6cdafc466d4567e1a968356bfe95eb"
+      },
+      {
+        "name": "PSScriptAnalyzer",
+        "version": "1.25.0",
+        "url": "https://www.powershellgallery.com/api/v2/package/PSScriptAnalyzer/1.25.0",
+        "sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+        "bytes": 14658674,
+        "state": "verified_and_extracted",
+        "extracted_files_digest": "2077ee6da0522507756c252b418ba81ca97eea80164487ee0a89dcceee8052c2"
+      }
+    ],
+    "scope": "Existing hash-pinned bootstrap, new external tools only; no global install or persistent policy change."
+  },
+  "command_recipes": {
+    "pester_baseline": [
+      "<PS51_OR_PS7>",
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "RemoteSigned",
+      "-File",
+      "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+      "-ReportPath",
+      "<NEW_EXTERNAL_JSON>"
+    ],
+    "pester_desired": [
+      "<PS51_OR_PS7>",
+      "-NoProfile",
+      "-NonInteractive",
+      "-ExecutionPolicy",
+      "RemoteSigned",
+      "-File",
+      "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+      "-Desired",
+      "-ReportPath",
+      "<NEW_EXTERNAL_JSON>"
+    ],
+    "module_bootstrap": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "tools/ci/bootstrap.py",
+      "--tool-root",
+      "<NEW_EXTERNAL_TOOLS>",
+      "--report",
+      "<NEW_EXTERNAL_REPORT>"
+    ],
+    "pristine_validation": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "<HANDOFF>/tools/codex-v1.0.3/check_handoff.py",
+      "<HANDOFF>"
+    ],
+    "pristine_tests": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "<HANDOFF>/tools/codex-v1.0.3/tests",
+      "-v"
+    ],
+    "checkout_validation": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "tools/codex-v1.0.3/check_handoff.py",
+      "--mode",
+      "checkout"
+    ],
+    "checkout_tests": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tools/codex-v1.0.3/tests",
+      "-v"
+    ],
+    "fallback_tests": [
+      "<DEV_PYTHON>",
+      "-I",
+      "-B",
+      "tests/python/test_store_gate.py"
+    ]
+  },
+  "pester_receipts": [
+    {
+      "path": "evidence/T01-ps51-baseline.json",
+      "sha256": "e597900c40e04e08189b86a2d5e1ead748fd574b4f8d897e1d9f90c4aa03f839",
+      "command": [
+        "<PS51_OR_PS7>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+        "-ReportPath",
+        "<NEW_EXTERNAL_JSON>"
+      ],
+      "exit_code": 0,
+      "scope": "synthetic incident replay/desired contracts only"
+    },
+    {
+      "path": "evidence/T01-ps51-desired.json",
+      "sha256": "db17ae6d09071d2a4eeee43f176e15ad6c972af7559684f29db478b1179f910a",
+      "command": [
+        "<PS51_OR_PS7>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+        "-Desired",
+        "-ReportPath",
+        "<NEW_EXTERNAL_JSON>"
+      ],
+      "exit_code": 1,
+      "scope": "synthetic incident replay/desired contracts only"
+    },
+    {
+      "path": "evidence/T01-ps7-baseline.json",
+      "sha256": "07d6fa673bd00d632b99564bdf362d86164d2649495cdb22405576cc015bbb1c",
+      "command": [
+        "<PS51_OR_PS7>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+        "-ReportPath",
+        "<NEW_EXTERNAL_JSON>"
+      ],
+      "exit_code": 0,
+      "scope": "synthetic incident replay/desired contracts only"
+    },
+    {
+      "path": "evidence/T01-ps7-desired.json",
+      "sha256": "a33830fcf16eccbb14ceca24be615daf2d53efccf407f374292709547d0256d4",
+      "command": [
+        "<PS51_OR_PS7>",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<EXTERNAL_T01>/Invoke-T01-Store.ps1",
+        "-Desired",
+        "-ReportPath",
+        "<NEW_EXTERNAL_JSON>"
+      ],
+      "exit_code": 1,
+      "scope": "synthetic incident replay/desired contracts only"
+    }
+  ],
+  "pester_wrapper_sanitized_source": "param([switch]$Desired, [Parameter(Mandatory=$true)][string]$ReportPath)\nSet-StrictMode -Version Latest\n$ErrorActionPreference='Stop'\n$repository='<WORKSPACE>'\n$work='<EXTERNAL_T01>'\n$oldTemp=$env:TEMP; $oldTmp=$env:TMP\ntry {\n    $env:TEMP=$work; $env:TMP=$work\n    Import-Module '<EXTERNAL_TOOLS>\\Pester\\6.2.0\\Pester.psd1' -Force -ErrorAction Stop\n    $config=New-PesterConfiguration\n    $config.Run.Container=@(New-PesterContainer -Path (Join-Path $repository 'tests\\powershell\\StoreDiscovery.Tests.ps1') -Data @{RepositoryRoot=$repository;WorkRoot=$work;DesiredStoreBehavior=[bool]$Desired})\n    $config.Run.PassThru=$true; $config.Run.Exit=$false\n    $config.Filter.Tag=if($Desired){@('T01-Store-Desired')}else{@('T01-Store')}\n    $config.Output.Verbosity='Detailed'\n    $result=Invoke-Pester -Configuration $config\n    $report=[ordered]@{schema_version=1;layer='SYNTHETIC T01 behavioral reproduction, not native Store acceptance';host=$PSVersionTable.PSVersion.ToString();desired=[bool]$Desired;result=$result.Result.ToString();total=$result.TotalCount;passed=$result.PassedCount;failed=$result.FailedCount;skipped=$result.SkippedCount;not_run=$result.NotRunCount;failed_containers=$result.FailedContainersCount;test_sha256=(Get-FileHash -LiteralPath (Join-Path $repository 'tests\\powershell\\StoreDiscovery.Tests.ps1') -Algorithm SHA256).Hash.ToLowerInvariant();failed_cases=@($result.Failed | ForEach-Object {@{name=$_.ExpandedPath;errors=@($_.ErrorRecord | ForEach-Object {$_.Exception.Message})}});container_errors=@($result.FailedContainers | ForEach-Object {@($_.ErrorRecord | ForEach-Object {$_.Exception.Message})})}\n    $json=$report|ConvertTo-Json -Depth 8\n    $stream=[IO.File]::Open($ReportPath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)\n    try {$writer=New-Object IO.StreamWriter($stream,(New-Object Text.UTF8Encoding($false))); try {$writer.Write($json)}finally{$writer.Dispose()}}finally{$stream.Dispose()}\n    if($result.FailedCount -gt 0 -or $result.FailedContainersCount -gt 0){exit 1}\n    exit 0\n}finally{$env:TEMP=$oldTemp;$env:TMP=$oldTmp}\n",
+  "other_checks": [
+    {
+      "name": "pristine handoff validation",
+      "command": [
+        "<DEV_PYTHON>",
+        "-I",
+        "-B",
+        "<HANDOFF>/tools/codex-v1.0.3/check_handoff.py",
+        "<HANDOFF>"
+      ],
+      "exit_code": 0,
+      "manifest_integrity": "passed"
+    },
+    {
+      "name": "pristine handoff suite",
+      "command": [
+        "<DEV_PYTHON>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<HANDOFF>/tools/codex-v1.0.3/tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "total": 48,
+      "passed": 47,
+      "skipped": 1,
+      "skip_reason": "symlink creation unavailable"
+    },
+    {
+      "name": "checkout helper privacy initial draft",
+      "exit_code": 2,
+      "outcome": "Draft fallback evidence exposed a local developer account path; replaced it with <DEV_PYTHON>, then validation passed. No unredacted draft was committed."
+    },
+    {
+      "name": "checkout mode manifest-priority regression before fix",
+      "exit_code": 1,
+      "total": 6,
+      "failed": 1,
+      "outcome": "Manifest could be skipped when AGENTS existed; actual failing AssertionError-not-raised reproduced before helper fix."
+    },
+    {
+      "name": "checkout handoff suite after helper fix",
+      "command": [
+        "<DEV_PYTHON>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/codex-v1.0.3/tests",
+        "-v"
+      ],
+      "exit_code": 0,
+      "total": 49,
+      "passed": 48,
+      "skipped": 1,
+      "skip_reason": "symlink creation unavailable"
+    },
+    {
+      "name": "fallback contract suite",
+      "command": [
+        "<DEV_PYTHON>",
+        "-I",
+        "-B",
+        "tests/python/test_store_gate.py"
+      ],
+      "exit_code": 0,
+      "total": 8,
+      "passed": 7,
+      "expected_failures": 1,
+      "outcome": "Historical substitution is rejected; attempted-acquisition requirement remains RED."
+    },
+    {
+      "name": "unmasked fallback-attempt regression",
+      "exit_code": 1,
+      "total": 1,
+      "failed": 1,
+      "outcome": "AssertionError: GateError not raised; see T01-fallback.md for exact invocation."
+    },
+    {
+      "name": "new PowerShell test parser and pinned analyzer",
+      "parse_errors": 0,
+      "analyzer_findings": 0,
+      "settings": "tests/PSScriptAnalyzerSettings.psd1",
+      "host_version": "7.6.5",
+      "exit_code": 0,
+      "command_recipe": "Import-Module '<EXTERNAL_TOOLS>/PSScriptAnalyzer/1.25.0/PSScriptAnalyzer.psd1' -Force -ErrorAction Stop; $tokens=$null; $errors=$null; $null=[System.Management.Automation.Language.Parser]::ParseFile('<WORKSPACE>/tests/powershell/StoreDiscovery.Tests.ps1',[ref]$tokens,[ref]$errors); $findings=@(Invoke-ScriptAnalyzer -Path '<WORKSPACE>/tests/powershell/StoreDiscovery.Tests.ps1' -Settings '<WORKSPACE>/tests/PSScriptAnalyzerSettings.psd1' -ErrorAction Stop); if (@($errors).Count -or $findings.Count) { throw 'Focused test syntax/analysis failed' }"
+    },
+    {
+      "name": "staged whitespace check including original sanitized fixture",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 2,
+      "outcome": "Only five supplied collector trailing-space lines (84,89,94,99,104); preserve exact fixture bytes."
+    },
+    {
+      "name": "authored staged whitespace check",
+      "command": [
+        "git",
+        "diff",
+        "--cached",
+        "--check",
+        "--",
+        ".",
+        ":(exclude)docs/codex-v1.0.3/fixtures/discovery-report.sanitized.txt"
+      ],
+      "exit_code": 0
+    },
+    {
+      "name": "raw shell receipts versus staged blobs",
+      "outcome": "Initial four CRLF-to-LF mismatches reproduced. Scoped evidence/.gitattributes entries (-text, whitespace=cr-at-eol) and receipt-only git add --renormalize refresh preserve exact bytes; all four staged blobs now match recorded SHA256. No global setting changed."
+    }
+  ],
+  "acceptance": {
+    "STORE-001": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    "STORE-002": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    "STORE-003": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    "STORE-004": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    "STORE-005": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    },
+    "STORE-006": {
+      "status": "PASS",
+      "scope": "T01 baseline/reproduction requirement only",
+      "evidence": [
+        "evidence/T01.md",
+        "evidence/T01.json",
+        "evidence/T01-baseline.json",
+        "evidence/T01-fallback.md"
+      ]
+    }
+  },
+  "unresolved_defects": [
+    "Store excluded by publisher query",
+    "Store rejected independently by identity validator",
+    "No working verified official manager-to-concrete-runtime route established",
+    "Uncategorized candidate rejections collapse to missing_python",
+    "Gate lacks mandatory fallback-acquisition-attempt observation"
+  ],
+  "evidence_boundary": {
+    "owner_windows10_exact_zip_store_gate": "NOT_RUN",
+    "publication": "BLOCKED_UNTIL_ALL_REAL_GATES_PASS",
+    "original_ps51_python_probe": "COLLECTOR_FAILED",
+    "pypdf_in_incident_base": "UNKNOWN",
+    "application_runtime_or_VERSION_changed": false,
+    "desktop_installation_or_PATH_or_alias_modified": false,
+    "owner_documents_processed": false,
+    "prebuilt_application_venv_created": false,
+    "historical_evidence_changed": false,
+    "existing_releases_changed": false,
+    "full_application_or_CI_tests": "NOT_RUN for this T01 checkpoint"
+  },
+  "git_checkpoint": {
+    "intended_paths": [
+      "AGENTS.md",
+      "docs/codex-v1.0.3/",
+      "tools/codex-v1.0.3/",
+      "tests/powershell/StoreDiscovery.Tests.ps1",
+      "tests/python/test_store_gate.py"
+    ],
+    "procedure": "Stage intended paths, commit and normal push, fresh ls-remote/clean HEAD comparison. Actual new commit/sync receipt lives outside its own committed contents."
+  },
+  "next_task": "T02; stop after this checkpoint"
+}

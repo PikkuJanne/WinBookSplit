@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "prepared_on": "2026-10-17",
+  "repository": "PikkuJanne/WinBookSplit",
+  "main_commit": "4cc6b00b99685607f3214e731edaaec7d65926df",
+  "v1_0_2_source": "483baf858569bc838ac8a809d329b2595cdacf57",
+  "known_tags": [
+    "v1.0.0",
+    "v1.0.1",
+    "v1.0.2"
+  ],
+  "target_release": "v1.0.3",
+  "rule": "Baseline is evidence, not reset target; live state must be inspected.",
+  "raw_repository_bytes_verified_in_container": false
+}

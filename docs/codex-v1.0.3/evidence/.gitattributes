@@ -1,0 +1,5 @@
+# Preserve exact native-shell receipt bytes bound by T01.json.
+T01-ps51-baseline.json -text whitespace=cr-at-eol
+T01-ps51-desired.json -text whitespace=cr-at-eol
+T01-ps7-baseline.json -text whitespace=cr-at-eol
+T01-ps7-desired.json -text whitespace=cr-at-eol
