@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. Existing T07 STORE-037 through STORE-042 PASS reconfirmed for unchanged accepted owner Windows10 packet at frozen R/exact ZIP. STORE-024 actual enforced organization-policy denial remains NOT_RUN. Current primary-source technical review completed; retained pypdf 6.20.0 parser exposure leaves security release disposition unresolved/BLOCKED. STORE-043 through STORE-048 remain NOT_RUN; no acceptance status changed. No publish/tag/main merge or product/package/kit changes.",
+      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. Existing T07 STORE-037 through STORE-042 PASS reconfirmed for unchanged accepted owner Windows10 packet at frozen R/exact ZIP. STORE-024 actual enforced organization-policy denial remains NOT_RUN. Current primary-source technical review completed; retained pypdf 6.20.0 parser exposure leaves security release disposition unresolved/BLOCKED. STORE-043 through STORE-048 remain NOT_RUN; no acceptance status changed. No publish/tag/main merge or product/package/kit changes. Follow-up independent gate review from 64e726b reconfirms unchanged accepted/frozen bindings; the retained Store kit cannot clear separate STORE-024 by rerun. No new enforced-policy evidence or acceptance promotion.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -235,7 +235,9 @@
         "evidence/T07-owner-return.md",
         "evidence/T07-owner-return.json",
         "evidence/T08-gate-review.md",
-        "evidence/T08-gate-review.json"
+        "evidence/T08-gate-review.json",
+        "evidence/T08-gate-recheck.md",
+        "evidence/T08-gate-recheck.json"
       ]
     }
   ],

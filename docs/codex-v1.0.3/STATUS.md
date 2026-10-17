@@ -27,6 +27,13 @@ disposition remains unresolved because retained pypdf 6.20.0 has reachable
 array/dictionary parser exposure before application limits. No security clearance
 or dependency change is claimed.
 
+The continuation from checkpoint 64e726b is recorded separately in
+evidence/T08-gate-recheck.md/JSON. Fresh archive/raw-Git/checker, live metadata and
+independent gate/security reviews confirm the same decision. The retained Store
+kit deliberately records enforced-policy testing NOT_RUN and cannot clear
+STORE-024 by rerunning it. No new enforced-policy target or receipt was supplied;
+no acceptance status changed. Preserve the accepted owner result and original kit.
+
 T04 remains **IMPLEMENTED_PENDING_NATIVE**: STORE-024 actual enforced
 organization-policy denial is still NOT_RUN. The Store packet's authored local
 MOTW/RemoteSigned component passed, but MachinePolicy/UserPolicy are Undefined;
