@@ -25,6 +25,20 @@ function Add-OwnerDeliveryAncestors {
     }
 }
 
+function ConvertFrom-OwnerDeliveryPrintedProfile {
+    param([string]$Candidate, [string]$Profile, [Text.Encoding]$Encoding)
+    # Inbox console encodings can replace characters in a Unicode account name.
+    # Recover only our independently known profile prefix and the frozen kit's
+    # ASCII return suffix. This never searches directories or selects a runtime.
+    $printedPrefix = $Encoding.GetString($Encoding.GetBytes($Profile)) + '\'
+    if (-not $Candidate.StartsWith($printedPrefix, [StringComparison]::OrdinalIgnoreCase)) { return $null }
+    $suffix = $Candidate.Substring($printedPrefix.Length)
+    if ($suffix -cnotmatch '\A(?:\.cache\\WBS-Native-[0-9a-f]{32}\\native-(?:store-result|result)\.zip|WBS-native-bootstrap-[0-9a-f]{32}\.zip)\z') {
+        return $null
+    }
+    return $Profile + '\' + $suffix
+}
+
 function Get-OwnerDeliveryPrintedReport {
     param([string]$StdoutPath)
     $stream = [IO.File]::Open($StdoutPath, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
@@ -52,6 +66,8 @@ function Get-OwnerDeliveryPrintedReport {
         if ($lines.Count -eq 1) {
             $candidate = $lines[0].Groups[1].Value
             if ([IO.File]::Exists($candidate)) { $null = $candidates.Add($candidate) }
+            $mapped = ConvertFrom-OwnerDeliveryPrintedProfile $candidate ([Environment]::GetFolderPath('UserProfile')) $encoding
+            if ($mapped -and [IO.File]::Exists($mapped)) { $null = $candidates.Add($mapped) }
         }
     }
     if ($candidates.Count -ne 1) { throw 'The test did not identify one readable return ZIP. No cached or older report was selected.' }
@@ -65,8 +81,8 @@ function Copy-OwnerDeliveryReport {
     $bootstrapPrefix = $profile + '\'
     $cacheName = if ($Source.StartsWith($cachePrefix, [StringComparison]::OrdinalIgnoreCase)) { $Source.Substring($cachePrefix.Length) } else { '' }
     $bootstrapName = if ($Source.StartsWith($bootstrapPrefix, [StringComparison]::OrdinalIgnoreCase)) { $Source.Substring($bootstrapPrefix.Length) } else { '' }
-    if ($cacheName -cnotmatch '^WBS-Native-[0-9a-f]{32}\\native-(?:store-result|result)\.zip$' -and
-        $bootstrapName -cnotmatch '^WBS-native-bootstrap-[0-9a-f]{32}\.zip$') {
+    if ($cacheName -cnotmatch '\AWBS-Native-[0-9a-f]{32}\\native-(?:store-result|result)\.zip\z' -and
+        $bootstrapName -cnotmatch '\AWBS-native-bootstrap-[0-9a-f]{32}\.zip\z') {
         throw 'The printed return ZIP is outside the frozen kit return locations.'
     }
     $null = Get-NativeAcceptanceOrdinaryPath $Source
