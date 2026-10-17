@@ -184,7 +184,7 @@
       "depends_on": [
         "T06"
       ],
-      "status": "NOT_STARTED",
+      "status": "BLOCKED",
       "brief": "tasks/07-T07.md",
       "acceptance_ids": [
         "STORE-037",
@@ -193,6 +193,14 @@
         "STORE-040",
         "STORE-041",
         "STORE-042"
+      ],
+      "completion_scope": "Available read-only frozen-artifact, receipt and source review checkpoint only; NOT complete. No authorized connection to actual unchanged owner Windows10 desktop or returned owner ZIP supplied. STORE-037 through STORE-042 remain NOT_RUN; STORE-024 enforced organization-policy denial remains NOT_RUN. Retained T06 Windows11 packet and offline refusal are tooling evidence only. R/final kit unchanged.",
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json",
+        "evidence/T07-baseline.json",
+        "evidence/T07-artifact-review.json",
+        "OWNER_KIT.md"
       ]
     },
     {
@@ -201,7 +209,7 @@
       "depends_on": [
         "T07"
       ],
-      "status": "NOT_STARTED",
+      "status": "BLOCKED",
       "brief": "tasks/08-T08.md",
       "acceptance_ids": [
         "STORE-043",
@@ -210,7 +218,8 @@
         "STORE-046",
         "STORE-047",
         "STORE-048"
-      ]
+      ],
+      "completion_scope": "Publication not started and blocked by T07 STORE-037 through STORE-042 and T04 STORE-024 missing actual native evidence. Next session may review gates only; no publish/tag/main merge while required evidence is absent."
     }
   ],
   "progression_policy": "Dependencies order implementation checkpoints. A task may be IMPLEMENTED_PENDING_NATIVE and independent later work may proceed. Deferred native cases stay NOT_RUN/DEFERRED_NATIVE, never PASS; all required cases must pass before publication. Consolidate owner-only checks into T07.",

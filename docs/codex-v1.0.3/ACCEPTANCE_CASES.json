@@ -488,7 +488,12 @@
       "name": "Native target",
       "expected": "Verify actual owner Windows10 x64, inbox PS5.1 and healthy registered Store manager; fresh extraction without .venv.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-038",
@@ -496,7 +501,12 @@
       "name": "Existing runtime discovered",
       "expected": "Production automatic discovery selects a pre-existing Store-managed runtime, with correlated listing/probe and before-inventory identity.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-039",
@@ -504,7 +514,12 @@
       "name": "Normal setup",
       "expected": "Normal setup BAT no runtime override creates venv from that discovered base; second run no-op and read-only check correct.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-040",
@@ -512,7 +527,12 @@
       "name": "Normal processing",
       "expected": "Ordinary BAT plus manual/Auto1/Auto2 create valid chapters with full coverage, correct order and unchanged source/neighbors.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-041",
@@ -520,7 +540,12 @@
       "name": "Preserved owner install",
       "expected": "Runtime/manager/aliases/PATH unchanged; no private fallback, hidden selection, interpreter provisioning, copied baseline or prebuilt app venv.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-042",
@@ -528,7 +553,12 @@
       "name": "Complete reviewed receipt",
       "expected": "Same frozen ZIP/source identifiers, hash-bound sanitized receipts and independent validator pass; no manual assertion substituted for missing native data.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T07.md",
+        "evidence/T07.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
     },
     {
       "id": "STORE-043",

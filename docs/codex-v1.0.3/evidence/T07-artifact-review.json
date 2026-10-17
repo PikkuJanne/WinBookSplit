@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "task": "T07",
+  "scope": "INDEPENDENT_READ_ONLY_FROZEN_BYTES_AND_RETAINED_T06_BLOCKED_PACKET_AUDIT_NOT_NATIVE_ACCEPTANCE",
+  "status": "PASS_SCOPED_NATIVE_GATES_REMAIN_NOT_RUN_BLOCKED",
+  "reviewed_utc": "2026-10-17T15:41:23.719672+00:00",
+  "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "version": "1.0.3",
+  "tooling": {
+    "python_version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "interpreter": "<EXISTING_DEVELOPER_TOOLS>/dev14/Scripts/python.exe",
+    "invocation_flags": [
+      "-I",
+      "-B",
+      "-"
+    ],
+    "application_or_setup_selection": false
+  },
+  "commands": [
+    {
+      "command": "git show <R>:<member>",
+      "purpose": "Read raw Git blobs for all 34 production members, all 21 helper members, payload allowlist and builder; subprocess binary stdout, no text conversion."
+    },
+    {
+      "command": "git rev-parse <R>^{tree}",
+      "purpose": "Verify exact frozen source tree."
+    },
+    {
+      "command": "<EXISTING_DEVELOPER_TOOLS>/dev14/Scripts/python.exe -I -B -",
+      "purpose": "Independent standard-library in-memory ZIP/hash/member/JSON/correlation checks and pure generated-wrapper recomputation; no extraction, launch, install or checker execution."
+    },
+    {
+      "command": "PowerShell Get-Content / rg --files / Get-ChildItem (scoped existing kit, evidence and native-cache locations)",
+      "purpose": "Locate/read existing source instructions, frozen artifacts and previously retained report bytes."
+    }
+  ],
+  "kit": {
+    "archive": {
+      "bytes": 1559722,
+      "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+    },
+    "bindings": {
+      "bytes": 6460,
+      "sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b"
+    },
+    "kit_member_count": 35,
+    "all_unique_ordinary_bounded_members": true,
+    "build_record_matching_member_count": 35,
+    "kit_manifest_matching_member_count": 34,
+    "helpers_equal_raw_R_Git_blobs": 21,
+    "fixture_hashes_match": 6,
+    "production_assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+      },
+      "WinBookSplit-v1.0.3.zip": {
+        "bytes": 932894,
+        "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      },
+      "release-manifest.json": {
+        "bytes": 16593,
+        "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+      }
+    },
+    "production_allowlist_exactly_equal_R": true,
+    "production_members_equal_raw_R_Git_blobs": 34,
+    "generated_ps1_exactly_recomputed_from_R_builder": true,
+    "cmd_scenario": "store-existing",
+    "cmd_provisioning_argument_present": false,
+    "production_and_helper_provenance": "COMMITTED_AT_R",
+    "runtime_or_prebuilt_venv_bundled": false
+  },
+  "retained_packet": {
+    "archive": {
+      "bytes": 10907,
+      "sha256": "6338317753927c9dd59bbc3804334c226b9ce61c2380d7ebf526dc57b6f78efe"
+    },
+    "member_count": 7,
+    "envelope_count": 6,
+    "schema_version": 2,
+    "run_id": "store_645538ba22f643208918a0c3a12ee274",
+    "host": {
+      "execution_kind": "native",
+      "owner_desktop": false,
+      "os": "Windows 11",
+      "build": 26300,
+      "architecture": "x64",
+      "powershell_version": "5.1.26100.9711"
+    },
+    "status": "blocked",
+    "failure": {
+      "message": "Existing Store registration is absent or ambiguous; Python fallback acquisition is disabled.",
+      "stage": "independent_existing_inventory"
+    },
+    "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+    "all_envelope_hash_source_zip_run_kind_and_summary_bindings_match": true,
+    "existing_report_directory_all_seven_members_equal_unchanged_zip": true,
+    "envelopes": [
+      {
+        "member": "registration.json",
+        "kind": "registration",
+        "bytes": 4004,
+        "sha256": "de8088d4a7e23aa989b67416c59df4c457208b143d818f23f9638c158fe87e40",
+        "record_count": 1,
+        "record_role": "failed_stage",
+        "record_status": null
+      },
+      {
+        "member": "discovery.json",
+        "kind": "discovery",
+        "bytes": 372,
+        "sha256": "826e462910de04c56f1fd6226a85735e5f2d3450744b26bd7a28f92b45bf5263",
+        "record_count": 1,
+        "record_role": "not_run",
+        "record_status": "NOT_RUN"
+      },
+      {
+        "member": "setup.json",
+        "kind": "setup",
+        "bytes": 368,
+        "sha256": "ff165440c9ad1c371bbea86cc7be77e0d2469999e6f9557095a219b63dbaf1b7",
+        "record_count": 1,
+        "record_role": "not_run",
+        "record_status": "NOT_RUN"
+      },
+      {
+        "member": "bat.json",
+        "kind": "bat",
+        "bytes": 432,
+        "sha256": "8b4454b2f879135e116872b7bbc9947de89789e7907e2dd37dcca3b45e5b934c",
+        "record_count": 1,
+        "record_role": "not_run",
+        "record_status": "NOT_RUN"
+      },
+      {
+        "member": "pdf_validation.json",
+        "kind": "pdf_validation",
+        "bytes": 548,
+        "sha256": "50ca7a3b693c29ac010d8ab7a9589275a284b5d053e6613226e69f5b8d9300db",
+        "record_count": 1,
+        "record_role": "not_run",
+        "record_status": "NOT_RUN"
+      },
+      {
+        "member": "preservation.json",
+        "kind": "preservation",
+        "bytes": 1316,
+        "sha256": "0425ac567d8b690554697c3df75220455b1551046a7333590e34a0c14bd0b8ca",
+        "record_count": 1,
+        "record_role": "not_run",
+        "record_status": "NOT_RUN"
+      }
+    ],
+    "fallback_acquisition": {
+      "policy": "disabled_before_discovery",
+      "attempted": false,
+      "used": false
+    },
+    "inventory": {
+      "purpose": "verification_only",
+      "supplied_to_application": false
+    },
+    "all_native_check_flags_false": true,
+    "listing": null,
+    "runtime_probe_count": 0,
+    "registration_channel_observed": "python.org Developer family _3847v3x7pw1km; actual Store registration absent",
+    "downstream_records": "NOT_RUN/prerequisite_failed at independent_existing_inventory",
+    "organization_policy_denial": {
+      "status": "NOT_RUN",
+      "reason": "Native policy component has not executed."
+    }
+  },
+  "exploratory_read_only_failures": [
+    {
+      "stage": "initial_payload_allowlist_lookup",
+      "result": "KeyError on expected files key. Corrected to actual paths key from raw R payload.json; final independent comparison passed."
+    },
+    {
+      "stage": "initial_release_source_search",
+      "result": "rg reported nonexistent build_release.py and invalid release* operand. Subsequent direct tools/release/payload.json read succeeded. No mutation or gate result depended on failed search."
+    }
+  ],
+  "not_run_blocked": [
+    "STORE-037 through STORE-042 actual unchanged owner Windows10 Store/fresh automatic setup/BAT exact-ZIP acceptance",
+    "STORE-024 actual enforced organization-policy denial",
+    "new native application execution in T07",
+    "publication/tag/anonymous new-release verification"
+  ],
+  "limitations": [
+    "Only existing final kit/production/retained T06 packet bytes were reviewed. No new owner packet was supplied or created.",
+    "The retained packet is the already known Windows11 dry-run failure, owner_desktop=false. It cannot establish actual owner Windows10 Store registration, runtime identity, fresh normal setup, ordinary BAT/PDF output or preservation acceptance.",
+    "All downstream proof is absent/NOT_RUN after prerequisite failure. Structural and hash consistency are not native execution attestation.",
+    "The separate offline checker is intentionally left to the root T07 agent; this audit did not invoke it.",
+    "No product/source/assets/packets/Git mutation, archive extraction, application/controller launch, Python/Manager install/update, runtime acquisition, PATH/alias change or receipt editing occurred. Only this authorized external JSON evidence file was written."
+  ],
+  "path_tokens": {
+    "<EXISTING_DEVELOPER_TOOLS>": "Existing developer tooling root outside owner scenario; never app/setup input",
+    "<R>": "Frozen committed source R"
+  }
+}
