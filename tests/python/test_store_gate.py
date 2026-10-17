@@ -1,4 +1,4 @@
-"""STORE-006 contract regressions; synthetic receipts are NEVER native evidence.
+"""STORE-006/028 contract regressions; synthetic receipts are NEVER native evidence.
 
 The immutable v1.0.2 reports are read as historical evidence. Every newly written
 report/receipt below is an explicitly labelled, temporary SYNTHETIC unit fixture.
@@ -56,6 +56,10 @@ def synthetic_contract():
         "version": "26.4.999.0",
     }
     report["forbidden_substitutions"] = {key: False for key in report["forbidden_substitutions"]}
+    report["fallback_acquisition"] = {
+        "policy": "disabled_before_discovery", "attempted": False, "used": False,
+    }
+    report["inventory"] = {"purpose": "verification_only", "supplied_to_application": False}
     runtime = {"runtime_ref": "SYNTHETIC_STORE_RUNTIME", "sha256": "c" * 64,
                "version": "3.15.0", "managed_by_store": True}
     report["before"] = {"application_venv_exists": False, "runtimes": [deepcopy(runtime)]}
@@ -81,10 +85,22 @@ def write_synthetic_contract(directory, report, *, preservation_record=None):
         record = {"fixture_kind": "SYNTHETIC", "note": SYNTHETIC_NOTE}
         if kind == "preservation" and preservation_record is not None:
             record.update(preservation_record)
+        probe = {"Pid": 12345, "ExitCode": 0, "ElapsedSeconds": 0.1,
+                 "Stdout": "SYNTHETIC", "Stderr": "", "StdoutTotalBytes": 9, "StderrTotalBytes": 0,
+                 "redacted_stream_bytes": {"stdout": 9, "stderr": 0},
+                 "raw_stream_sha256": {"stdout": sha256(b"SYNTHETIC").hexdigest(), "stderr": sha256(b"").hexdigest()}}
+        probe.update(dict.fromkeys(("JobAssigned", "ParentStopped", "DescendantsStopped", "StreamsComplete", "InputWriterStopped"), True))
+        probe.update(dict.fromkeys(("TimedOut", "Cancelled", "StdoutTruncated", "StderrTruncated"), False))
+        probe.update(dict.fromkeys(("StartError", "StopError", "StreamError", "ResultError", "InteractionError", "InputError"), None))
+        application = {"role": "application", "environment": {}, "synthetic_test_fixture": True,
+                       "process": {"command": ["SYNTHETIC_APPLICATION.bat"], "cwd": "SYNTHETIC_CWD", "answers": [],
+                                   "environment_before_after_restored": True, "failure": None, "probe": probe}}
         receipt = {
-            "schema_version": 1, "kind": kind, "run_id": report["run_id"],
+            "schema_version": gate.SCHEMA_VERSION, "kind": kind, "run_id": report["run_id"],
             "source_commit": SYNTHETIC_COMMIT, "zip_sha256": SYNTHETIC_ZIP_SHA256,
-            "summary": summary, "records": [record], "synthetic_test_fixture": True,
+            "summary": summary, "records": [record] +
+            [deepcopy(application) for _ in range(gate.APPLICATION_RECORD_MINIMUM.get(kind, 0))],
+            "synthetic_test_fixture": True,
         }
         raw = (json.dumps(receipt, ensure_ascii=True, indent=2) + "\n").encode("utf-8")
         name = "SYNTHETIC-" + kind + ".json"
@@ -132,7 +148,7 @@ class StoreExistingGateTests(unittest.TestCase):
                 commit = production["source_commit"]
                 zip_hash = (production["assets"]["WinBookSplit-v1.0.2.zip"]["sha256"]
                             if "assets" in production else historical["release_zip_sha256"])
-                with self.assertRaisesRegex(gate.GateError, "not the existing-owner Store scenario"):
+                with self.assertRaisesRegex(gate.GateError, "unsupported report schema"):
                     gate.validate(path, commit, zip_hash)
                 self.assertEqual(path.read_bytes(), before)
 
@@ -141,7 +157,7 @@ class StoreExistingGateTests(unittest.TestCase):
         # Copy exact old-schema data only to a test-owned path. Do not relabel it.
         path = self.directory / "historical-returned-report.json"
         path.write_text(json.dumps(historical["returned_report"]), encoding="utf-8")
-        with self.assertRaisesRegex(gate.GateError, "not the existing-owner Store scenario"):
+        with self.assertRaisesRegex(gate.GateError, "unsupported report schema"):
             gate.validate(path, historical["production"]["source_commit"],
                           historical["production"]["assets"]["WinBookSplit-v1.0.2.zip"]["sha256"])
 
@@ -169,7 +185,8 @@ class StoreExistingGateTests(unittest.TestCase):
                     self.validate_synthetic(report)
 
     def test_each_hidden_runtime_substitution_disqualifies_contract(self):
-        for key in ("runtime_copied_or_cloned", "explicit_python_path_supplied",
+        for key in ("runtime_supplied_by_kit", "runtime_copied_or_cloned", "runtime_environment_injected",
+                    "explicit_python_path_supplied",
                     "hidden_runtime_selection_supplied", "child_path_injected",
                     "application_venv_prebuilt"):
             with self.subTest(substitution=key):
@@ -178,18 +195,42 @@ class StoreExistingGateTests(unittest.TestCase):
                 with self.assertRaisesRegex(gate.GateError, key):
                     self.validate_synthetic(report)
 
-    @unittest.expectedFailure
     def test_attempted_private_acquisition_disqualifies_even_when_not_used(self):
-        # T01 preserved RED requirement: the supplied checker only checks USED.
-        # An attempted acquisition must also block this scenario. The hashes and
-        # all other declarations remain valid, so malformed evidence is no excuse.
+        # This was T01's reproduced expected failure. T05 requires rejecting any
+        # attempted acquisition even if no downloaded/supplied runtime was used.
         report = synthetic_contract()
-        attempt = {"private_runtime_fallback_attempted": True,
-                   "private_runtime_fallback_used": False,
-                   "outcome": "SYNTHETIC acquisition refused before download"}
+        attempt = {"policy": "disabled_before_discovery", "attempted": True, "used": False}
         report["fallback_acquisition"] = attempt
         with self.assertRaisesRegex(gate.GateError, "fallback|substitution|acquisition"):
             self.validate_synthetic(report, preservation_record=attempt)
+
+    def test_attempted_fallback_flag_also_disqualifies_even_if_acquisition_block_claims_false(self):
+        report = synthetic_contract()
+        report["forbidden_substitutions"]["private_runtime_fallback_attempted"] = True
+        with self.assertRaisesRegex(gate.GateError, "private_runtime_fallback_attempted"):
+            self.validate_synthetic(report)
+
+    def test_old_store_schema_cannot_be_promoted_by_adding_new_fields(self):
+        report = synthetic_contract()
+        report["schema_version"] = 1
+        with self.assertRaisesRegex(gate.GateError, "unsupported report schema"):
+            self.validate_synthetic(report)
+
+    def test_independent_inventory_may_not_select_runtime_for_application(self):
+        report = synthetic_contract()
+        report["inventory"]["supplied_to_application"] = True
+        with self.assertRaisesRegex(gate.GateError, "independent inventory"):
+            self.validate_synthetic(report)
+
+    def test_receipt_attempt_cannot_hide_behind_false_summary_flags(self):
+        with self.assertRaisesRegex(gate.GateError, "private_runtime_fallback_attempted"):
+            self.validate_synthetic(synthetic_contract(), preservation_record={"private_runtime_fallback_attempted": True})
+
+    def test_receipt_private_baseline_cannot_hide_behind_false_summary_flags(self):
+        with self.assertRaisesRegex(gate.GateError, "baseline"):
+            self.validate_synthetic(synthetic_contract(), preservation_record={
+                "runtime_selection": {"baseline_kind": "reviewed_private3150_archive", "owner_regular315_usable": False},
+            })
 
 
 if __name__ == "__main__":

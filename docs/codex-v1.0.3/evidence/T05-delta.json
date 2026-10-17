@@ -1,0 +1,684 @@
+{
+  "schema_version": 1,
+  "task": "T05",
+  "scope": "Final narrow tooling delta after stable broad-suite snapshot; product and actual PDF recipe oracle unchanged",
+  "success": true,
+  "changes": [
+    "retain rejected runtime probes",
+    "finite leased seven-member return ZIP",
+    "correct generated ZIP return wording",
+    "both native Python drivers preserve failed/timeout bytes and enclosing runner evidence; mocked retention controls"
+  ],
+  "tested_paths_sha256": {
+    "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+    "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+    "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+    "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+    "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b",
+    "tests/python/test_native_store_scenario.py": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+    "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+    "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+    "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+    "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+    "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729"
+  },
+  "store_native_controls": {
+    "original_local_sha256": "b86640c10578e57d578c61ce054b2f1d35cda35f6e98c55c7beb909cb4b55e7b",
+    "receipt": {
+      "scope": "T05_FINAL_SCENARIO_DELTA_CONTROLLED_TOOLING_NOT_NATIVE_STORE",
+      "source_unchanged": true,
+      "syntax_errors": [],
+      "probe_hosts": [
+        {
+          "id": "PS51",
+          "report": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": true,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "actual-redacted-stream-lengths-pass-rejecting-validator"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "rejected-runtime-probe-survives-returned-failure"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "finite-return-zip-positive-and-foreign-member-refusal"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "command": [
+            "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-InputFormat",
+            "Text",
+            "-OutputFormat",
+            "Text",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-File",
+            "<WORKSPACE>\\tests\\compatibility\\Probe-StoreExisting.ps1",
+            "-RepositoryRoot",
+            "<WORKSPACE>",
+            "-TestPython",
+            "<DEV_PYTHON_3148>",
+            "-WorkRoot",
+            "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS51-owned",
+            "-ReportPath",
+            "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS51-probe.json"
+          ],
+          "report_sha256": "738e97669de711cbc7442cf82a0f1cc03ecf851a2b5cd7268ad04f828a5f6639",
+          "exit_code": 0
+        },
+        {
+          "id": "PS7",
+          "report": {
+            "cases": [
+              {
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "store-inputs-refuse-runtime-environment",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "redaction-parses-nested-json-case-and-key-paths",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "actual-redacted-stream-lengths-pass-rejecting-validator",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "no-store-registration-before-any-bootstrap-or-fallback",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "inventory-positive-control-real-child-is-actually-used",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "inventory-nonzero-listing-refuses-runtime-probe",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "rejected-runtime-probe-survives-returned-failure",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "finite-return-zip-positive-and-foreign-member-refusal",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              },
+              {
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition",
+                "status": "PASS",
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "error": null
+              }
+            ],
+            "success": true,
+            "schema_version": 1,
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "host": {
+              "shell": "7.6.5",
+              "edition": "Core"
+            },
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING"
+          },
+          "command": [
+            "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-InputFormat",
+            "Text",
+            "-OutputFormat",
+            "Text",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-File",
+            "<WORKSPACE>\\tests\\compatibility\\Probe-StoreExisting.ps1",
+            "-RepositoryRoot",
+            "<WORKSPACE>",
+            "-TestPython",
+            "<DEV_PYTHON_3148>",
+            "-WorkRoot",
+            "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS7-owned",
+            "-ReportPath",
+            "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS7-probe.json"
+          ],
+          "report_sha256": "72c0d8dce28b02a9a4c9175bdd1fe1bd7fdd14e2d694ad2624b3efc37d065a94",
+          "exit_code": 0
+        }
+      ],
+      "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+      "source_after": {
+        "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+        "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+        "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+        "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+        "tests/python/test_native_store_scenario.py": "e04bf36cbe692fba3f0d87c47b4d1ee5b1fa187a8543545804b13cd960ce71f0",
+        "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b"
+      },
+      "source_before": {
+        "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+        "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+        "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+        "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+        "tests/python/test_native_store_scenario.py": "e04bf36cbe692fba3f0d87c47b4d1ee5b1fa187a8543545804b13cd960ce71f0",
+        "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b"
+      },
+      "analyzer": {
+        "findings": [],
+        "version": "1.25.0",
+        "manifest_sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791"
+      },
+      "success": true
+    }
+  },
+  "collector_driver_final": {
+    "original_local_sha256": "19d578bf7c729d0d0c5675f5a3926e1ae88ec5ff83b1598a5587f23840f34545",
+    "receipt": {
+      "schema_version": 1,
+      "task": "T05",
+      "scope": "NATIVE_COLLECTOR_DRIVER_FAILURE_RETENTION_DELTA_ONLY",
+      "observed_at_utc": "2026-10-17T14:35:17.229938+00:00",
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "<WORKSPACE>\\tests\\python\\test_native_discovery_collector.py",
+        "-v"
+      ],
+      "cwd": "<WORKSPACE>",
+      "python_version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+      "python_executable": "<DEV_PYTHON_3148>",
+      "exit_code": 0,
+      "elapsed_seconds": 73.91937349999716,
+      "stdout": "",
+      "stderr": "test_failed_driver_retains_raw_bytes_and_outer_runner_marker (__main__.NativeCollectorDriverFailureRetentionControls.test_failed_driver_retains_raw_bytes_and_outer_runner_marker) ... ok\r\ntest_timeout_retains_partial_bytes_and_outer_runner_marker (__main__.NativeCollectorDriverFailureRetentionControls.test_timeout_retains_partial_bytes_and_outer_runner_marker) ... ok\r\ntest_inbox_controller_inbox_child (__main__.NativeDiscoveryCollectorControls.test_inbox_controller_inbox_child) ... ok\r\ntest_inbox_controller_ps7_child (__main__.NativeDiscoveryCollectorControls.test_inbox_controller_ps7_child) ... ok\r\ntest_ps7_controller_inbox_child (__main__.NativeDiscoveryCollectorControls.test_ps7_controller_inbox_child) ... ok\r\ntest_ps7_controller_ps7_child (__main__.NativeDiscoveryCollectorControls.test_ps7_controller_ps7_child) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 73.591s\r\n\r\nOK\r\n",
+      "tested_path_sha256_before": {
+        "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+        "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      "tested_path_sha256_after": {
+        "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+        "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      "source_unchanged": true,
+      "actual_native_pairs": 4,
+      "native_controls_per_pair": 9,
+      "mocked_failure_retention_cases": 2,
+      "success": true,
+      "original_wrapper_success": false,
+      "original_wrapper_receipt_sha256": "530120cf57566dbdd3c1f403ceb6ca1dc39dd6954e8827d31c43095539f0478b",
+      "raw_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "raw_stderr_sha256": "23036da50052425ef9ad29d6feb531e3380547cd6c0f3c74b9fc0e70602ccf22",
+      "receipt_review": "The original wrapper LF-only success matcher rejected Windows CRLF despite actual test command exit0 and 6/6 PASS. Original result.json is preserved. This receipt verifies its raw stream bytes and normalizes CRLF only to recognize the unittest summary. No native/application outcome changed."
+    }
+  },
+  "store_driver_final": {
+    "original_local_sha256": "858025980b367cf672cb74ed56835e8a5426a61800ecdf3876912a8e0237eccc",
+    "receipt": {
+      "source_before": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+      "success": true,
+      "exit_code": 0,
+      "elapsed_seconds": 17.5660112,
+      "stdout": "",
+      "stderr": "test_nonzero_driver_retains_raw_bytes_and_outer_marker (test_native_store_scenario.StoreDriverFailureRetentionControls.test_nonzero_driver_retains_raw_bytes_and_outer_marker) ... ok\r\ntest_timeout_driver_retains_partial_bytes_and_outer_marker (test_native_store_scenario.StoreDriverFailureRetentionControls.test_timeout_driver_retains_partial_bytes_and_outer_marker) ... ok\r\ntest_inbox_no_fallback_and_positive_controls (test_native_store_scenario.StoreScenarioControls.test_inbox_no_fallback_and_positive_controls) ... ok\r\ntest_ps7_no_fallback_and_positive_controls (test_native_store_scenario.StoreScenarioControls.test_ps7_no_fallback_and_positive_controls) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 17.181s\r\n\r\nOK\r\n",
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/python",
+        "-p",
+        "test_native_store_scenario.py",
+        "-v"
+      ],
+      "source_unchanged": true,
+      "source_after": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+      "scope": "T05_FINAL_STORE_DRIVER_RETENTION_DELTA",
+      "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d"
+    }
+  },
+  "kit_builder_final": {
+    "command": [
+      "<DEV_PYTHON_3148>",
+      "-I",
+      "-B",
+      "-m",
+      "unittest",
+      "discover",
+      "-s",
+      "tests/python",
+      "-p",
+      "test_native_kit.py",
+      "-v"
+    ],
+    "exit_code": 0,
+    "elapsed_seconds": 0.6964984000005643,
+    "stdout": "",
+    "stderr": "test_bool_code_size_does_not_execute (test_native_kit.Controls.test_bool_code_size_does_not_execute) ... ok\r\ntest_case_and_ancestor_collisions_rejected_before_create (test_native_kit.Controls.test_case_and_ancestor_collisions_rejected_before_create) ... ok\r\ntest_developer_git_identity_ignores_repository_environment (test_native_kit.Controls.test_developer_git_identity_ignores_repository_environment) ... ok\r\ntest_duplicate_case_json (test_native_kit.Controls.test_duplicate_case_json) ... ok\r\ntest_existing_target_preserved (test_native_kit.Controls.test_existing_target_preserved) ... ok\r\ntest_nonfinite_json (test_native_kit.Controls.test_nonfinite_json) ... ok\r\ntest_output_identities_held_through_archive_and_receipt (test_native_kit.Controls.test_output_identities_held_through_archive_and_receipt) ... ok\r\ntest_positive_native_guarded_tree (test_native_kit.Controls.test_positive_native_guarded_tree) ... ok\r\ntest_recreated_archive_is_not_adopted (test_native_kit.Controls.test_recreated_archive_is_not_adopted) ... ok\r\ntest_unsafe_paths_rejected_before_target_creation (test_native_kit.Controls.test_unsafe_paths_rejected_before_target_creation) ... ok\r\ntest_wrong_code_hash_does_not_execute (test_native_kit.Controls.test_wrong_code_hash_does_not_execute) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 11 tests in 0.357s\r\n\r\nOK\r\n",
+    "source_before": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+    "source_after": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d"
+  },
+  "exploratory": {
+    "collector_evidence_wrapper": "Original LF-only summary matcher returned false despite actual exit0/6PASS under Windows CRLF. Reviewed receipt preserves original wrapper receipt hash/false flag and actual raw output hashes; only summary newline handling normalized.",
+    "store_fixture_development": [
+      "Initial PS51 token assertion failed because ConvertTo-Json escaped <USER> brackets; initial Unicode fixture source lacked BOM. Corrected fixture assertion/encoding then both shells passed.",
+      "Initial synthetic oracle fixture set stdout text while leaving native byte count zero; fixture corrected to measured UTF8 length then32/32passed.",
+      "Initial direct PSSA command unavailable in default PS7; pinned existing analyzer1.25.0 later loaded explicitly and passed."
+    ],
+    "intermediate_store_probes": [
+      {
+        "original_local_sha256": "cf80be19bb623170dd6dc986dd64e4456b871c9c6cc2c17eaf39541bb03ab7f0",
+        "receipt": {
+          "host": {
+            "shell": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "schema_version": 1,
+          "success": true,
+          "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+          "limits": [
+            "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+            "No Python install/update/download/copy/clone or PATH/alias change was performed."
+          ],
+          "cases": [
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-runtime-environment"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "redaction-parses-nested-json-case-and-key-paths"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "actual-redacted-stream-lengths-pass-rejecting-validator"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "no-store-registration-before-any-bootstrap-or-fallback"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-positive-control-real-child-is-actually-used"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-nonzero-listing-refuses-runtime-probe"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+            }
+          ]
+        },
+        "scope": "Exploratory/source-overlapping input, not final acceptance"
+      },
+      {
+        "original_local_sha256": "7ef3c0f3b3ee81211ccd74f5c169e7bd0b0da9f0c64cc9d6edae8a7d7001c90a",
+        "receipt": {
+          "host": {
+            "shell": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "schema_version": 1,
+          "success": true,
+          "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+          "limits": [
+            "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+            "No Python install/update/download/copy/clone or PATH/alias change was performed."
+          ],
+          "cases": [
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-runtime-environment"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "redaction-parses-nested-json-case-and-key-paths"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "no-store-registration-before-any-bootstrap-or-fallback"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-positive-control-real-child-is-actually-used"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-nonzero-listing-refuses-runtime-probe"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+            }
+          ]
+        },
+        "scope": "Exploratory/source-overlapping input, not final acceptance"
+      },
+      {
+        "original_local_sha256": "e25e303a42b439e98f3130cbb97a24bb4ff6f7477df25bc14db84daaa10eb31a",
+        "receipt": {
+          "host": {
+            "shell": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "schema_version": 1,
+          "success": false,
+          "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+          "limits": [
+            "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+            "No Python install/update/download/copy/clone or PATH/alias change was performed."
+          ],
+          "cases": [
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-runtime-environment"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "FAIL",
+              "error": "Returned redacted bytes retained a path spelling/JSON/key.",
+              "id": "redaction-parses-nested-json-case-and-key-paths"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "no-store-registration-before-any-bootstrap-or-fallback"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-positive-control-real-child-is-actually-used"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-nonzero-listing-refuses-runtime-probe"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+            }
+          ]
+        },
+        "scope": "Exploratory/source-overlapping input, not final acceptance"
+      },
+      {
+        "original_local_sha256": "7ef3c0f3b3ee81211ccd74f5c169e7bd0b0da9f0c64cc9d6edae8a7d7001c90a",
+        "receipt": {
+          "host": {
+            "shell": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "schema_version": 1,
+          "success": true,
+          "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+          "limits": [
+            "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+            "No Python install/update/download/copy/clone or PATH/alias change was performed."
+          ],
+          "cases": [
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-runtime-environment"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "redaction-parses-nested-json-case-and-key-paths"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "no-store-registration-before-any-bootstrap-or-fallback"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-positive-control-real-child-is-actually-used"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-nonzero-listing-refuses-runtime-probe"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+            }
+          ]
+        },
+        "scope": "Exploratory/source-overlapping input, not final acceptance"
+      },
+      {
+        "original_local_sha256": "e25e303a42b439e98f3130cbb97a24bb4ff6f7477df25bc14db84daaa10eb31a",
+        "receipt": {
+          "host": {
+            "shell": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "schema_version": 1,
+          "success": false,
+          "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+          "limits": [
+            "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+            "No Python install/update/download/copy/clone or PATH/alias change was performed."
+          ],
+          "cases": [
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "store-inputs-refuse-runtime-environment"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "FAIL",
+              "error": "Returned redacted bytes retained a path spelling/JSON/key.",
+              "id": "redaction-parses-nested-json-case-and-key-paths"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "no-store-registration-before-any-bootstrap-or-fallback"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-positive-control-real-child-is-actually-used"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "inventory-nonzero-listing-refuses-runtime-probe"
+            },
+            {
+              "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+              "status": "PASS",
+              "error": null,
+              "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+            }
+          ]
+        },
+        "scope": "Exploratory/source-overlapping input, not final acceptance"
+      }
+    ]
+  },
+  "limitations": [
+    "No actual native Store/owner Windows10/fresh automatic setup/enforced policy acceptance.",
+    "Prior broad snapshot and final scoped delta have distinct hashes.",
+    "New recipe4actual positive run uses explicit developer fixture, unchanged oracle hash95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729."
+  ]
+}

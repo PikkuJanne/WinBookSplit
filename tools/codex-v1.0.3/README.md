@@ -38,16 +38,27 @@ unknown, not false. Hashes are lowercase SHA256; source commit is a full 40-char
 Git SHA. `runtime_ref` is a stable normalized/redacted identity token, not a
 runtime path to be supplied to application discovery. The before/after Store
 inventory must be unchanged; setup's base and the new app venv's base both match
-the discovered member. Configuration observations are made by the real kit.
+the discovered member. Configuration observations are made by the real kit. Schema 2 requires the
+explicit disabled-before-discovery acquisition policy, false attempted/used
+flags, and verification-only inventory that never supplies selection to the app.
+A fallback attempt disqualifies this scenario even when no runtime was acquired.
+Schema 1 and historical private-runtime reports cannot satisfy this gate.
 
 Each `artifacts` entry names one of `registration`, `discovery`, `setup`, `bat`,
 `pdf_validation`, `preservation` and contains `path` (a relative forward-slash
 path) and `sha256` for the returned redacted receipt. Each receipt is plain UTF8
-JSON with `schema_version: 1`, `kind`, `run_id`, `source_commit`, `zip_sha256`,
+JSON with `schema_version: 2`, `kind`, `run_id`, `source_commit`, `zip_sha256`,
 `summary`, and a nonempty `records` list of actual sanitized command/output and
 observation records. `summary` must match the corresponding report projection;
 `expected_summaries` documents this mapping. The maintained native/PDF report can
 be included in those records; preserve detailed argument vectors and exit codes.
+
+Application records carry `role: application`, an empty override environment,
+and literal process argv plus successful bounded supervision. The checker rejects
+contradictory runtime inputs in these records. Native stream totals and
+`raw_stream_sha256` describe the local original bytes; `redacted_stream_bytes`
+measures the returned sanitized strings separately. Sanitizing paths must not
+silently relabel shortened strings as the original process byte totals.
 
 The tests generate synthetic positive/negative contract inputs inside temporary
 directories. Even their positive inputs are NOT executed-native reports. No

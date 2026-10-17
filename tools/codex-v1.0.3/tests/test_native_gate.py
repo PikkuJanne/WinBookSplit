@@ -14,12 +14,24 @@ COMMIT='a'*40
 ZIP='b'*64
 RUNTIME='c'*64
 
+def synthetic_application_record():
+    probe={'Pid':12345,'ExitCode':0,'ElapsedSeconds':0.1,'Stdout':'SYNTHETIC','Stderr':'',
+           'StdoutTotalBytes':9,'StderrTotalBytes':0,
+           'redacted_stream_bytes':{'stdout':9,'stderr':0},
+           'raw_stream_sha256':{'stdout':hashlib.sha256(b'SYNTHETIC').hexdigest(),'stderr':hashlib.sha256(b'').hexdigest()}}
+    probe.update(dict.fromkeys(('JobAssigned','ParentStopped','DescendantsStopped','StreamsComplete','InputWriterStopped'),True))
+    probe.update(dict.fromkeys(('TimedOut','Cancelled','StdoutTruncated','StderrTruncated'),False))
+    probe.update(dict.fromkeys(('StartError','StopError','StreamError','ResultError','InteractionError','InputError'),None))
+    return {'role':'application','environment':{},'synthetic_test_fixture':True,
+            'process':{'command':['SYNTHETIC_APPLICATION.bat'],'cwd':'SYNTHETIC_CWD','answers':[],
+                       'environment_before_after_restored':True,'failure':None,'probe':probe}}
+
 class GateTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
         self.root=Path(self.temp.name);self.path=self.root/'report.json'
         self.report={
-          'schema_version':1,'scenario':'existing_owner_windows10_store_installation',
+          'schema_version':gate.SCHEMA_VERSION,'scenario':'existing_owner_windows10_store_installation',
           'evidence_kind':'native_execution','status':'passed','application_version':'1.0.3',
           'run_id':'SYNTHETIC_UNIT_ONLY','source_commit':COMMIT,'zip_sha256':ZIP,
           'host':{'execution_kind':'native','owner_desktop':True,'os':'Windows 10','build':19045,
@@ -27,6 +39,8 @@ class GateTests(unittest.TestCase):
           'registration':{'family':gate.FAMILY,'publisher':gate.PUBLISHER,'signature_kind':'Store',
                           'architecture':'X64','status':'Ok','version':'26.4.240.0'},
           'forbidden_substitutions':dict.fromkeys(gate.FORBIDDEN,False),
+          'fallback_acquisition':{'policy':'disabled_before_discovery','attempted':False,'used':False},
+          'inventory':{'purpose':'verification_only','supplied_to_application':False},
           'before':{'application_venv_exists':False,'runtimes':[{'runtime_ref':'OWNER_PYTHON_315',
                      'sha256':RUNTIME,'version':'3.15.0','managed_by_store':True}]},
           'after':{'application_venv_exists':True,'runtimes':[{'runtime_ref':'OWNER_PYTHON_315',
@@ -43,13 +57,18 @@ class GateTests(unittest.TestCase):
         self.report['artifacts']=[]
         for kind,summary in gate.expected_summaries(self.report).items():
             path=self.root/(kind+'.json')
-            data={'schema_version':1,'kind':kind,'run_id':self.report['run_id'],
+            data={'schema_version':gate.SCHEMA_VERSION,'kind':kind,'run_id':self.report['run_id'],
                   'source_commit':self.report['source_commit'],'zip_sha256':self.report['zip_sha256'],
-                  'summary':summary,'records':[{'test_only':'synthetic unit input, not execution'}]}
+                  'summary':summary,'records':[{'test_only':'synthetic unit input, not execution'}]+
+                  [synthetic_application_record() for _ in range(gate.APPLICATION_RECORD_MINIMUM.get(kind,0))]}
             raw=(json.dumps(data,ensure_ascii=False)+'\n').encode('utf8');path.write_bytes(raw)
             self.report['artifacts'].append({'kind':kind,'path':path.name,'sha256':hashlib.sha256(raw).hexdigest()})
         self.save()
     def save(self):self.path.write_text(json.dumps(self.report),encoding='utf8')
+    def edit_receipt(self,kind,edit):
+        item=next(item for item in self.report['artifacts'] if item['kind']==kind);p=self.root/item['path']
+        receipt=json.loads(p.read_bytes());edit(receipt)
+        raw=json.dumps(receipt).encode('utf8');p.write_bytes(raw);item['sha256']=hashlib.sha256(raw).hexdigest();self.save()
     def validate(self):return gate.validate(self.path,COMMIT,ZIP)
     def rejected(self):
         with self.assertRaises((gate.GateError,OSError,ValueError,KeyError,TypeError)):
@@ -64,6 +83,33 @@ class GateTests(unittest.TestCase):
         self.report['evidence_kind']='synthetic';self.save();self.rejected()
     def test_private_fallback_rejected(self):
         self.report['forbidden_substitutions']['private_runtime_fallback_used']=True;self.write();self.rejected()
+    def test_attempted_fallback_without_use_rejected(self):
+        self.report['fallback_acquisition']['attempted']=True;self.write();self.rejected()
+    def test_disabled_fallback_policy_required_before_discovery(self):
+        for policy in ('allowed','disabled_after_discovery',None):
+            with self.subTest(policy=policy):
+                self.report['fallback_acquisition']['policy']=policy;self.write();self.rejected()
+    def test_unknown_missing_or_non_boolean_acquisition_observations_rejected(self):
+        for key in ('attempted','used'):
+            for value in (None,'false',0,'missing'):
+                with self.subTest(key=key,value=value):
+                    self.report['fallback_acquisition']={'policy':'disabled_before_discovery','attempted':False,'used':False}
+                    if value=='missing':del self.report['fallback_acquisition'][key]
+                    else:self.report['fallback_acquisition'][key]=value
+                    self.write();self.rejected()
+    def test_independent_inventory_cannot_configure_application(self):
+        self.report['inventory']['supplied_to_application']=True;self.write();self.rejected()
+    def test_inventory_purpose_cannot_be_runtime_selection(self):
+        self.report['inventory']['purpose']='runtime_selection';self.write();self.rejected()
+    def test_unknown_inventory_input_rejected(self):
+        self.report['inventory']['supplied_to_application']=None;self.write();self.rejected()
+    def test_old_report_schema_cannot_be_promoted_to_new_gate(self):
+        self.report['schema_version']=1;self.save();self.rejected()
+    def test_old_receipt_schema_cannot_be_promoted_to_new_gate(self):
+        item=self.report['artifacts'][0];p=self.root/item['path']
+        raw=json.loads(p.read_text());raw['schema_version']=1
+        data=json.dumps(raw).encode();p.write_bytes(data);item['sha256']=hashlib.sha256(data).hexdigest()
+        self.save();self.rejected()
     def test_every_substitution_rejected(self):
         for key in gate.FORBIDDEN:
             with self.subTest(key=key):
@@ -136,6 +182,45 @@ class GateTests(unittest.TestCase):
         raw=json.loads(p.read_text());raw['records']=[]
         data=json.dumps(raw).encode();p.write_bytes(data);item['sha256']=hashlib.sha256(data).hexdigest()
         self.save();self.rejected()
+    def test_app_command_pythonpath_rejected_despite_false_top_flags(self):
+        for parameter in ('-PythonPath','-pythonpath:C:/SYNTHETIC','-Py','-P','--python-path'):
+            with self.subTest(parameter=parameter):
+                self.write()
+                self.edit_receipt('setup',lambda receipt:receipt['records'][1]['process']['command'].append(parameter))
+                self.rejected()
+    def test_app_environment_injection_rejected_despite_false_top_flags(self):
+        self.edit_receipt('setup',lambda receipt:receipt['records'][1].update(environment={'PATH':'SYNTHETIC_SUPPLIED_RUNTIME'}))
+        self.rejected()
+    def test_pythonpath_command_cannot_hide_behind_tooling_role(self):
+        self.edit_receipt('preservation',lambda receipt:receipt['records'].append(
+            {'role':'tooling','command':['Setup-WinBookSplit.bat','-Py','SYNTHETIC_SUPPLIED_RUNTIME']}))
+        self.rejected()
+    def test_receipt_attempt_flag_cannot_contradict_no_attempt_declaration(self):
+        self.edit_receipt('preservation',lambda receipt:receipt['records'][0].update(private_runtime_fallback_attempted=True))
+        self.rejected()
+    def test_private_baseline_cannot_hide_inside_receipt(self):
+        self.edit_receipt('preservation',lambda receipt:receipt['records'][0].update(runtime_selection={'baseline_kind':'reviewed_private3150_archive'}))
+        self.rejected()
+    def test_nonempty_arbitrary_records_cannot_replace_app_commands(self):
+        self.edit_receipt('setup',lambda receipt:receipt.update(records=[{'test_only':'SYNTHETIC arbitrary record'}]))
+        self.rejected()
+    def test_app_receipt_transport_failure_cannot_contradict_passed_checks(self):
+        for key,value in (('TimedOut',True),('StreamsComplete',False),('ExitCode',3),('ElapsedSeconds',700),('ElapsedSeconds',10**400),('StderrTotalBytes',-1)):
+            with self.subTest(key=key):
+                self.write()
+                self.edit_receipt('setup',lambda receipt:receipt['records'][1]['process']['probe'].update({key:value}))
+                self.rejected()
+    def test_redacted_streams_preserve_distinct_original_totals(self):
+        def redact(receipt):
+            probe=receipt['records'][1]['process']['probe'];probe['Stdout']='<SYNTHETIC_PATH>'
+            probe['redacted_stream_bytes']['stdout']=len(probe['Stdout'].encode('utf8'))
+        self.edit_receipt('setup',redact);self.validate()
+    def test_redacted_stream_count_mutation_rejected(self):
+        self.edit_receipt('setup',lambda receipt:receipt['records'][1]['process']['probe']['redacted_stream_bytes'].update(stdout=1))
+        self.rejected()
+    def test_original_stream_hash_required_after_redaction(self):
+        self.edit_receipt('setup',lambda receipt:receipt['records'][1]['process']['probe']['raw_stream_sha256'].update(stdout=None))
+        self.rejected()
     def test_path_traversal_rejected(self):
         self.report['artifacts'][0]['path']='../outside.json';self.save();self.rejected()
     def test_backslash_path_rejected(self):
@@ -148,7 +233,7 @@ class GateTests(unittest.TestCase):
         except OSError:self.skipTest('symlinks unavailable in this test environment')
         self.rejected()
     def test_duplicate_json_key_rejected(self):
-        text=self.path.read_text();self.path.write_text(text.replace('"schema_version": 1', '"schema_version": 1, "schema_version": 1',1));self.rejected()
+        text=self.path.read_text();self.path.write_text(text.replace('"schema_version": 2', '"schema_version": 2, "schema_version": 2',1));self.rejected()
     def test_nonfinite_json_rejected(self):
         text=self.path.read_text();self.path.write_text(text[:-1]+',"bad":NaN}');self.rejected()
     def test_oversized_report_rejected(self):

@@ -331,48 +331,78 @@
       "task": "T05",
       "name": "Existing suite",
       "expected": "Run maintained Python/Pester/native relevant regression; retain PDF/page/source/process protections and actual failure records.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-026",
       "task": "T05",
       "name": "Negative launch tests",
       "expected": "Store alias binding decoys, timeouts, hung streams/children and nonzero listing failures are tested with positive controls.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-027",
       "task": "T05",
       "name": "Compatibility regression",
       "expected": "Keep PS5.1/PS7 and serviced 3.13/3.14/3.15 coverage; retain pypdf lock/isolation and PDF-without-Calibre.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-028",
       "task": "T05",
       "name": "No-fallback scenario",
       "expected": "Native Store-existing scenario fails before private acquisition and its validator rejects supplied/cloned/injected-runtime reports.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-029",
       "task": "T05",
       "name": "Kit independence",
       "expected": "Kit bootstraps in inbox PowerShell without app Python, captures UTF8 safely and does not repeat old nested-XML collector failure.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-030",
       "task": "T05",
       "name": "Unchanged env contract",
       "expected": "Separate independent inventory from app inputs; record no injected PythonPath/PATH/LOCALAPPDATA/venv and no Python install/update/copy.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json"
+      ],
+      "result_scope": "T05 tooling/regression scope: actual PS5.1/PS7 bounded controls and supported explicit 3.13.16/3.14.8/3.15.0 processing. Synthetic manager/validator seams remain labelled. New PDF recipe rehearsal uses explicit offline developer setup then healthy automatic no-op. Actual Store/owner Windows10/fresh automatic setup/enforced policy are NOT_RUN at T07; exact frozen ZIP/command/checker integration belongs to T06."
     },
     {
       "id": "STORE-031",

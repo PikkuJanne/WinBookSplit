@@ -1,8 +1,8 @@
 # Local verification
 
-Follow the active [v1.0.2 testing contract](../docs/codex-v1.0.2/TESTING.md)
-and use an explicit trusted isolated developer interpreter. The historical
-v1.0.0/v1.0.1 reports remain evidence of their original scope. Run the same entry point from any
+Follow the active [v1.0.3 testing contract](../docs/codex-v1.0.3/TESTING.md)
+and use an explicit trusted isolated developer interpreter. Historical
+v1.0.0-v1.0.2 reports retain their original scope. Run the same entry point from any
 working directory; it resolves the trusted repository from its own location.
 Do not activate a venv or install dependencies globally.
 

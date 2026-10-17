@@ -1,0 +1,69 @@
+{
+  "task": "T05",
+  "scope": "Preserved intentional RED reproductions, never final passes",
+  "cases": {
+    "fallback_attempt_validator": {
+      "original_local_sha256": "d6aded18a718092a7442f5ad6aa466a5619590271ef983b34fd0bd9fc6dabe63",
+      "record": {
+        "expected": "GateError for attempted acquisition with used=false",
+        "actual": "validator accepted otherwise complete synthetic report",
+        "regression": "RED reproduced",
+        "assertion": "GateError not raised",
+        "evidence_kind": "synthetic_developer_fixture",
+        "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+        "command": [
+          "<T05_VALIDATOR>\\capture-red.py",
+          "<T05_VALIDATOR>\\red.json"
+        ],
+        "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+        "file_sha256": {
+          "tests/python/test_store_gate.py": "c2acee8357b19e908fd8f257a7be7f73757c2edb24ec45efdb65ac7047b98fc0",
+          "tools/codex-v1.0.3/check_native_store_report.py": "fb028b5531541e0ad64a7f7ee975d61d842d20c58cde6d01e77adbaa0647f298"
+        }
+      }
+    },
+    "raw_command_contradiction": {
+      "original_local_sha256": "1d2abdf26db05c9573a5b54e437b0c71a02534558ef467ebfcb0ebcabc763128",
+      "record": {
+        "evidence_kind": "synthetic_developer_fixture",
+        "actual": {
+          "status": "CONSISTENT_NATIVE_REPORT",
+          "run_id": "SYNTHETIC_UNIT_ONLY_006",
+          "source_commit": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "zip_sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+          "receipt_count": 6,
+          "limitation": "Checks declarations and receipt bytes, not physical execution truth. Review native receipts and application validators."
+        },
+        "contradiction": "Raw preservation record declares acquisition attempted and supplied PythonPath while required top-level flags claim false. Current byte/declaration validator does not inspect records."
+      }
+    },
+    "old_collector_stream": {
+      "original_local_sha256": "6db8183c8061f887c848659fdc0956a4be2779017f6b0d38296e74b4b1cbc74b",
+      "record": {
+        "kind": "REPRODUCTION_OF_OLD_NESTED_FORWARDING",
+        "controller": "7.6.5",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-EncodedCommand",
+          "WwBDAG8AbgBzAG8AbABlAF0AOgA6AE8AdQB0AHAAdQB0AEUAbgBjAG8AZABpAG4AZwA9AE4AZQB3AC0ATwBiAGoAZQBjAHQAIABUAGUAeAB0AC4AVQBUAEYAOABFAG4AYwBvAGQAaQBuAGcAKAAkAGYAYQBsAHMAZQApADsAIABbAEMAbwBuAHMAbwBsAGUAXQA6ADoATwB1AHQALgBXAHIAaQB0AGUATABpAG4AZQAoACIAQQBVAFQASABPAFIARQBEAF8AcwB0AGQAbwB1AHQAIgApADsAIABbAEMAbwBuAHMAbwBsAGUAXQA6ADoARQByAHIAbwByAC4AVwByAGkAdABlAEwAaQBuAGUAKAAiAEEAVQBUAEgATwBSAEUARABfAHMAdABkAGUAcgByACIAKQA7ACAAZQB4AGkAdAAgADIAMwA="
+        ],
+        "exit_code": 23,
+        "output": [
+          "AUTHORED_stdout",
+          "Cannot process the XML from the 'Error' stream of 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe': Data at the root level is invalid. Line 1, position 1."
+        ]
+      }
+    },
+    "old_prerequisite_block": {
+      "original_local_sha256": "2cbebde2c936a5756c1027698467baca93957ff67a29266b16741cbfc1f5c299",
+      "record": {
+        "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+        "scope": "ORIGINAL_HEAD_BLOCK_SYNTHETIC_ABSENT_RUNTIME_NO_NETWORK",
+        "private_download_stub_calls": 1,
+        "failure": "CONTROLLED_EXPECTED_OLD_PRIVATE_ACQUISITION_ATTEMPT"
+      }
+    }
+  }
+}

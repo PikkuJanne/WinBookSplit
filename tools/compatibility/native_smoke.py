@@ -803,6 +803,106 @@ def export_report(raw):
             "os": safe_os, "oracle": oracle, "runtime_selection": selection, "marked_setup_regressions": marked}
 
 
+def prepare_store(args):
+    """Finite PDF-only automatic recipes; inventory is never an application input."""
+    app = bind_application(args.application_root, args.policy_sha256)
+    python = ordinary(args.python_path)
+    need(Path(sys.executable) == python == app / ".venv/Scripts/python.exe", "application_python_required")
+    runtime = compatibility.probe_interpreter(policy_path=app / "engine/WinBookSplit.Compatibility.json")
+    need(runtime.get("ok") is True, "application_runtime_invalid")
+    fixtures = fixture_catalog(args.fixture_root)
+    work = ordinary(args.work_root, directory=True)
+    need(not any(work.iterdir()), "case_work_not_empty")
+    documents = ordinary(args.documents_root, directory=True)
+    cases, immutable = [], []
+    definitions = (("manual", "simple10", "Manual", "1,4,7", None, [[0, 3], [3, 6], [6, 10]]),
+                   ("auto1", "nested12", "Auto", None, "1", [[0, 2], [2, 8], [8, 12]]),
+                   ("auto2", "nested12", "Auto", None, "2", [[0, 2], [2, 3], [3, 6], [6, 8], [8, 10], [10, 12]]),
+                   ("bat", "simple10", None, None, None, [[0, 3], [3, 6], [6, 10]]))
+    for identifier, fixture, mode, starts, level, ranges in definitions:
+        folder = work / identifier
+        folder.mkdir()
+        cwd, base, source = folder / "unrelated-cwd", folder / "output", folder / "Authored Å日.pdf"
+        cwd.mkdir()
+        base.mkdir()
+        source.write_bytes((args.fixture_root / fixtures["files"][fixture]["name"]).read_bytes())
+        neighbor, prior = folder / "neighbor.txt", base / "prior-output.pdf"
+        neighbor.write_bytes(b"Authored neighbor must remain unchanged\n")
+        prior.write_bytes(b"Authored prior output must remain unchanged\n")
+        for path in (source, neighbor, prior):
+            immutable.append(observation(path))
+        for name in ("pypdf.py", "winbooksplit_compatibility.py"):
+            decoy = cwd / name
+            decoy.write_bytes(b"raise RuntimeError('STORE_CWD_DECOY_MUST_NOT_EXECUTE')\n")
+            immutable.append(observation(decoy))
+        if identifier == "bat":
+            # No controller environment is supplied, including benign BAT path
+            # variables. Refuse cmd expansion in an unusual owner path instead.
+            need(not any(character in str(app) + str(source) for character in '%\r\n"'), "store_bat_path_requires_literal_route")
+            wrapper = folder / "ordinary-bat.cmd"
+            # cmd reads batch files in its current code page. ASCII-only wrapper
+            # paths preserve Unicode arguments through the native wide argv.
+            wrapper.write_bytes(b'@echo off\r\nsetlocal DisableDelayedExpansion\r\nchcp 65001 >nul\r\n' + ('"' + str(app / "WinBookSplit.bat") + '" "' + str(source) + '"\r\n').encode("utf-8"))
+            immutable.append(observation(wrapper))
+            arguments, selector, answers, base = ["/d", "/v:off", "/c", str(wrapper)], "cmd", ["1", "Y", "N", " "], documents
+        else:
+            arguments = ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", str(app / "WinBookSplit.ps1"),
+                         "-InputFile", str(source), "-OutputDirectory", str(base), "-Mode", mode]
+            arguments += ["-StartPages", starts] if starts else ["-BookmarkLevel", level]
+            arguments += ["-NonInteractive"]
+            selector, answers = "inbox_ps", []
+        need("-PythonPath" not in arguments, "store_runtime_override_forbidden")
+        cases.append({"id": identifier, "exe_selector": selector, "arguments": arguments, "cwd": str(cwd), "answers": answers,
+                      "environment": {}, "timeout_seconds": 180, "source_path": str(source), "output_base": str(base),
+                      "ranges": ranges, "prior_members": ["prior-output.pdf"] if identifier != "bat" else []})
+    return {"protocol": "winbooksplit.native-store-plan", "schema_version": 2, "application_root": str(app),
+            "python_path": str(python), "runtime": runtime, "policy_sha256": args.policy_sha256,
+            "immutable_files": immutable, "cases": cases}
+
+
+def validate_store(plan, raw, plan_digest):
+    need(plan.get("protocol") == "winbooksplit.native-store-plan" and type(plan.get("schema_version")) is int
+         and plan["schema_version"] == 2, "store_plan_schema_invalid")
+    need(tuple(case.get("id") for case in plan.get("cases", [])) == ("manual", "auto1", "auto2", "bat"), "store_plan_members_invalid")
+    need(raw.get("protocol") == "winbooksplit.native-store-process" and raw.get("schema_version") == 2
+         and type(raw.get("schema_version")) is int and raw.get("plan_sha256") == plan_digest
+         and len(raw.get("cases", [])) == 4, "store_process_binding_invalid")
+    app = bind_application(Path(plan["application_root"]), plan["policy_sha256"])
+    need(plan["python_path"] == str(app / ".venv/Scripts/python.exe"), "store_venv_identity_invalid")
+    for item in plan["immutable_files"]:
+        unchanged(item)
+    results, publications = [], set()
+    for case, row in zip(plan["cases"], raw["cases"]):
+        expected_exe = Path(windows_system_directory()) / ("cmd.exe" if case["exe_selector"] == "cmd" else "WindowsPowerShell/v1.0/powershell.exe")
+        need(row.get("id") == case["id"] and row.get("command") == [str(expected_exe), *case["arguments"]]
+             and row.get("cwd") == case["cwd"] and row.get("answers") == case["answers"]
+             and row.get("environment_before_after_restored") is True and case["environment"] == {}
+             and row.get("failure") is None and "-PythonPath" not in case["arguments"], "store_process_recipe_differ")
+        probe = row["probe"]
+        native_probe(probe)
+        need(probe["ExitCode"] == 0, "store_application_failed")
+        final = outcome(probe["Stdout"])
+        need(final["status"] == "success" and final["code"] == "split_complete" and final["exit_code"] == 0, "store_outcome_failed")
+        source = Path(case["source_path"])
+        base = Path(case["output_base"])
+        published = validate_publication(base, final["engine_result"]["execution"], pdf_snapshot(source), case["ranges"], False, APP_VERSION)
+        publication_once(published, publications)
+        need(final["written_count"] == len(case["ranges"]) and final["final_directory"] == str(published), "store_output_differ")
+        logs = [Path(line[5:].strip()) for line in probe["Stdout"].splitlines() if line.startswith("Log: ")]
+        need(len(logs) == 1 and logs[0].parent.parent == base, "store_console_path_differ")
+        receipt = authenticate_console_manifest(logs[0], final, source_path=source, source_observation=observation(source),
+                                                expected_python_version=plan["runtime"]["version"])
+        dependency = fixed_frame(logs[0].read_text(encoding="utf-8"), "[DEPENDENCY] ")["Runtime"]
+        need(dependency.get("Path") == plan["python_path"] and dependency.get("Details") == plan["runtime"]
+             and dependency.get("Source") == "application_venv", "store_console_runtime_differ")
+        if case["id"] != "bat":
+            need({child.name for child in base.iterdir()} == set(case["prior_members"]) | {published.name, logs[0].parent.name}, "store_output_members_differ")
+        results.append({"id": case["id"], "status": "PASS", "exit_code": 0, "written_count": final["written_count"],
+                        "full_page_coverage": True, "console_receipt": receipt})
+    return {"protocol": "winbooksplit.native-store-oracle", "schema_version": 2, "success": True,
+            "source_unchanged": True, "plan_sha256": plan_digest, "cases": results}
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     sub = parser.add_subparsers(dest="command", required=True)
@@ -815,13 +915,24 @@ def main(argv=None):
     v.add_argument("--process-report", type=Path, required=True)
     e = sub.add_parser("export")
     e.add_argument("--raw-report", type=Path, required=True)
-    for child in (p, v, e):
+    sp = sub.add_parser("prepare-store")
+    for name in ("application-root", "fixture-root", "work-root", "python-path", "documents-root"):
+        sp.add_argument("--" + name, type=Path, required=True)
+    sp.add_argument("--policy-sha256", required=True)
+    sv = sub.add_parser("validate-store")
+    sv.add_argument("--plan", type=Path, required=True)
+    sv.add_argument("--process-report", type=Path, required=True)
+    for child in (p, v, e, sp, sv):
         child.add_argument("--output", type=Path, required=True)
     args = parser.parse_args(argv)
     try:
         need(sys.flags.isolated and sys.dont_write_bytecode, "isolated_python_required")
         if args.command == "prepare":
             value = prepare(args)
+        elif args.command == "prepare-store":
+            value = prepare_store(args)
+        elif args.command == "validate-store":
+            value = validate_store(read_json(args.plan), read_json(args.process_report), observation(args.plan)["sha256"])
         elif args.command == "validate":
             value = validate(read_json(args.plan), read_json(args.process_report), observation(args.plan)["sha256"])
         else:

@@ -9,6 +9,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import math
 from pathlib import Path, PurePosixPath
 import re
 import stat
@@ -17,9 +18,11 @@ from typing import Any
 
 FAMILY = 'PythonSoftwareFoundation.PythonManager_qbz5n2kfra8p0'
 PUBLISHER = 'CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B'
+SCHEMA_VERSION = 2
 FORBIDDEN = (
     'python_installed_or_updated_by_kit', 'manager_installed_or_updated_by_kit',
-    'private_runtime_fallback_used', 'runtime_copied_or_cloned',
+    'private_runtime_fallback_attempted', 'private_runtime_fallback_used',
+    'runtime_supplied_by_kit', 'runtime_copied_or_cloned', 'runtime_environment_injected',
     'explicit_python_path_supplied', 'hidden_runtime_selection_supplied',
     'parent_path_changed', 'child_path_injected', 'localappdata_overridden',
     'virtual_env_overridden', 'application_venv_prebuilt', 'alias_settings_changed',
@@ -34,6 +37,7 @@ CHECKS = (
     'global_packages_unchanged', 'parent_environment_unchanged',
 )
 KINDS = ('registration', 'discovery', 'setup', 'bat', 'pdf_validation', 'preservation')
+APPLICATION_RECORD_MINIMUM = {'discovery': 1, 'setup': 3, 'bat': 1, 'pdf_validation': 4}
 
 class GateError(ValueError):
     """Malformed, missing, disqualifying or inconsistent evidence."""
@@ -125,14 +129,97 @@ def expected_summaries(report: dict[str, Any]) -> dict[str, Any]:
                             'full_page_coverage', 'source_and_neighbors_unchanged',
                             'unique_output_no_overwrite')},
         'preservation': {'before': report['before'], 'after': report['after'],
-                         'forbidden_substitutions': report['forbidden_substitutions']},
+                         'forbidden_substitutions': report['forbidden_substitutions'],
+                         'fallback_acquisition': report['fallback_acquisition'],
+                         'inventory': report['inventory']},
     }
+
+def validate_receipt_records(records: list[Any], kind: str) -> None:
+    """Check the kit's structured app-command contract, never guess from log text."""
+    application_count = 0
+
+    def visit(value: Any) -> None:
+        nonlocal application_count
+        if isinstance(value, list):
+            for item in value:
+                visit(item)
+        elif isinstance(value, dict):
+            for key in FORBIDDEN:
+                if key in value:
+                    need(value[key] is False, 'receipt contradicts no-substitution declaration: ' + key)
+            if 'baseline_kind' in value:
+                need(value['baseline_kind'] == 'pre_existing_owner_install',
+                     'private or unproven runtime baseline in native receipt')
+            if 'owner_regular315_usable' in value:
+                need(value['owner_regular315_usable'] is True,
+                     'receipt declares owner runtime unusable')
+            if isinstance(value.get('command'), list):
+                # Toolkit CLI --python-path names its already-created venv for
+                # PDF verification. The PowerShell application -PythonPath and
+                # its abbreviations are forbidden even in a mislabelled record.
+                for argument in value['command']:
+                    if isinstance(argument, str):
+                        parameter = argument.casefold().split(':', 1)[0]
+                        need(not (len(parameter) >= 2 and '-pythonpath'.startswith(parameter)),
+                             'supplied PythonPath in native command receipt')
+            if value.get('role') == 'application':
+                application_count += 1
+                need(value.get('environment') == {}, 'application receipt contains environment overrides')
+                process = obj(value.get('process'), 'application process receipt')
+                command = process.get('command')
+                need(isinstance(command, list) and 1 <= len(command) <= 128,
+                     'application receipt requires a literal argument vector')
+                for argument in command:
+                    ref(argument, 'application argument')
+                    parameter = argument.casefold().split(':', 1)[0]
+                    need(not (len(parameter) >= 2 and '-pythonpath'.startswith(parameter)) and
+                         parameter != '--python-path' and not parameter.startswith('--python-path='),
+                         'supplied PythonPath in application receipt')
+                need(process.get('failure') is None and
+                     process.get('environment_before_after_restored') is True,
+                     'application process failed or environment restoration is unproved')
+                probe = obj(process.get('probe'), 'application process probe')
+                need(type(probe.get('Pid')) is int and probe['Pid'] > 0 and
+                     type(probe.get('ExitCode')) is int and probe['ExitCode'] == 0,
+                     'application receipt has no successful native process')
+                need(all(probe.get(key) is True for key in
+                         ('JobAssigned', 'ParentStopped', 'DescendantsStopped', 'StreamsComplete', 'InputWriterStopped')) and
+                     all(probe.get(key) is False for key in
+                         ('TimedOut', 'Cancelled', 'StdoutTruncated', 'StderrTruncated')) and
+                     all(key in probe and probe[key] is None for key in
+                         ('StartError', 'StopError', 'StreamError', 'ResultError', 'InteractionError', 'InputError')),
+                     'application receipt lacks safe completed process supervision')
+                elapsed = probe.get('ElapsedSeconds')
+                need(type(elapsed) in (int, float) and 0 <= elapsed <= 608 and math.isfinite(elapsed),
+                     'application receipt process duration is unbounded')
+                redacted_bytes = obj(probe.get('redacted_stream_bytes'), 'redacted stream bytes')
+                raw_hashes = obj(probe.get('raw_stream_sha256'), 'raw stream hashes')
+                need(set(redacted_bytes) == set(raw_hashes) == {'stdout', 'stderr'},
+                     'application receipt stream redaction provenance missing')
+                for stream in ('Stdout', 'Stderr'):
+                    # Native totals describe original local bytes. Redaction can
+                    # change lengths, so never overwrite those measurements with
+                    # the returned text's size or claim the two are equal.
+                    name = stream.casefold()
+                    need(type(probe.get(stream + 'TotalBytes')) is int and
+                         0 <= probe[stream + 'TotalBytes'] <= 1048576,
+                         'application receipt original stream byte bound is invalid')
+                    digest(raw_hashes[name], 64, 'original stream hash')
+                    need(isinstance(probe.get(stream), str) and type(redacted_bytes[name]) is int and
+                         redacted_bytes[name] == len(probe[stream].encode('utf-8', errors='strict')),
+                         'application receipt redacted stream bytes differ')
+            for item in value.values():
+                visit(item)
+
+    visit(records)
+    need(application_count >= APPLICATION_RECORD_MINIMUM.get(kind, 0),
+         'structured application command receipts missing: ' + kind)
 
 def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) -> dict[str, Any]:
     digest(expected_commit, 40, 'expected commit')
     digest(expected_zip_sha256, 64, 'expected ZIP SHA256')
     report = obj(parse_json(read_regular(report_path, 2 * 1024 * 1024)), 'report')
-    need(type(report.get('schema_version')) is int and report['schema_version'] == 1,
+    need(type(report.get('schema_version')) is int and report['schema_version'] == SCHEMA_VERSION,
          'unsupported report schema')
     need(report.get('scenario') == 'existing_owner_windows10_store_installation',
          'not the existing-owner Store scenario')
@@ -165,6 +252,16 @@ def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) 
     need(set(denied) == set(FORBIDDEN), 'missing/unknown no-substitution observations')
     for key in FORBIDDEN:
         need(denied[key] is False, 'disqualifying or unknown substitution: ' + key)
+    acquisition = obj(report.get('fallback_acquisition'), 'fallback acquisition')
+    need(set(acquisition) == {'policy', 'attempted', 'used'} and
+         acquisition.get('policy') == 'disabled_before_discovery' and
+         acquisition.get('attempted') is False and acquisition.get('used') is False,
+         'fallback acquisition must be disabled before discovery without any attempt or use')
+    inventory = obj(report.get('inventory'), 'inventory')
+    need(set(inventory) == {'purpose', 'supplied_to_application'} and
+         inventory.get('purpose') == 'verification_only' and
+         inventory.get('supplied_to_application') is False,
+         'independent inventory must not supply runtime selection to the application')
     before = obj(report.get('before'), 'before')
     after = obj(report.get('after'), 'after')
     need(before.get('application_venv_exists') is False, 'application venv existed before discovery')
@@ -215,13 +312,14 @@ def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) 
         need(hashlib.sha256(raw).hexdigest() == digest(artifact.get('sha256'), 64, 'receipt hash'),
              'receipt byte hash mismatch: ' + relative)
         receipt = obj(parse_json(raw), 'receipt')
-        need(type(receipt.get('schema_version')) is int and receipt['schema_version'] == 1 and
+        need(type(receipt.get('schema_version')) is int and receipt['schema_version'] == SCHEMA_VERSION and
              receipt.get('kind') == kind and receipt.get('run_id') == run_id and
              receipt.get('source_commit') == expected_commit and
              receipt.get('zip_sha256') == expected_zip_sha256, 'receipt identity mismatch: ' + relative)
         need(receipt.get('summary') == expected[kind], 'receipt/report summary mismatch: ' + kind)
         need(isinstance(receipt.get('records'), list) and 1 <= len(receipt['records']) <= 256,
              'actual command/output receipt records missing: ' + kind)
+        validate_receipt_records(receipt['records'], kind)
     return {'status': 'CONSISTENT_NATIVE_REPORT', 'run_id': run_id,
             'source_commit': expected_commit, 'zip_sha256': expected_zip_sha256,
             'receipt_count': len(artifacts),

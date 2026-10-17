@@ -69,6 +69,49 @@ def synthetic_export():
 
 
 class PureOracleControls(unittest.TestCase):
+    def test_store_positive_recipes_validate_then_reject_command_substitution(self):
+        # Synthetic receipts exercise the complete new oracle function; actual
+        # native PDF recipes are also run as explicitly labelled developer work.
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder).resolve()
+            app = root / "app"
+            app.mkdir()
+            python = app / ".venv/Scripts/python.exe"
+            runtime = {"version": "3.14.8", "ok": True}
+            cases, rows, immutable = [], [], []
+            for identifier in ("manual", "auto1", "auto2", "bat"):
+                base = root / identifier
+                base.mkdir()
+                published, console = base / "publication", base / "console"
+                published.mkdir()
+                console.mkdir()
+                log = console / "console.log"
+                log.write_text('[DEPENDENCY] ' + json.dumps({"Runtime": {"Path": str(python), "Source": "application_venv", "Details": runtime}}), encoding="utf-8")
+                source = root / (identifier + ".pdf")
+                source.write_bytes(b"Authored immutable source")
+                immutable.append(smoke.observation(source))
+                arguments = ["/d", "/c", "authored.cmd"] if identifier == "bat" else ["-File", str(app / "WinBookSplit.ps1")]
+                selector = "cmd" if identifier == "bat" else "inbox_ps"
+                cases.append({"id": identifier, "exe_selector": selector, "arguments": arguments, "cwd": str(root), "answers": [], "environment": {},
+                              "source_path": str(source), "output_base": str(base), "ranges": [[0, 1]], "prior_members": []})
+                probe = synthetic_probe()
+                final = {"protocol": "winbooksplit.outcome", "version": 1, "status": "success", "code": "split_complete", "message": "Authored synthetic receipt", "mode": "Manual",
+                         "exit_code": 0, "written_count": 1, "final_directory": str(published), "engine_result": {"execution": {}}}
+                probe["Stdout"] = '[OUTCOME] ' + json.dumps(final) + '\nLog: ' + str(log) + '\n'
+                probe["StdoutTotalBytes"] = len(probe["Stdout"].encode("utf-8"))
+                executable = str(root / ("cmd.exe" if identifier == "bat" else "WindowsPowerShell/v1.0/powershell.exe"))
+                rows.append({"id": identifier, "command": [executable, *arguments], "cwd": str(root), "answers": [], "environment_before_after_restored": True, "failure": None, "probe": probe})
+            plan = {"protocol": "winbooksplit.native-store-plan", "schema_version": 2, "application_root": str(app), "policy_sha256": "b"*64,
+                    "python_path": str(python), "runtime": runtime, "immutable_files": immutable, "cases": cases}
+            raw = {"protocol": "winbooksplit.native-store-process", "schema_version": 2, "plan_sha256": "a"*64, "cases": rows}
+            with patch.object(smoke, "bind_application", return_value=app), patch.object(smoke, "windows_system_directory", return_value=str(root)), \
+                 patch.object(smoke, "pdf_snapshot", return_value={}), patch.object(smoke, "validate_publication", side_effect=lambda base, *unused: base / "publication"), \
+                 patch.object(smoke, "authenticate_console_manifest", return_value={}):
+                self.assertTrue(smoke.validate_store(plan, raw, "a"*64)["success"])
+                rows[0]["command"][0] = "C:\\authored-decoy\\powershell.exe"
+                with self.assertRaisesRegex(smoke.OracleError, "store_process_recipe_differ"):
+                    smoke.validate_store(plan, raw, "a"*64)
+
     def test_oracle_never_launches_or_deletes(self):
         source = (HELPER_ROOT / "native_smoke.py").read_text(encoding="utf-8")
         tree = ast.parse(source)

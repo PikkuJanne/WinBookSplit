@@ -570,7 +570,8 @@ function Invoke-NativeAcceptance {
     [CmdletBinding()]
     param([Parameter(Mandatory=$true)][string]$KitRoot,[Parameter(Mandatory=$true)][string]$BindingsSha256,
         [string]$BarePythonPath,[string]$BaselinePythonPath,[string]$CalibrePath,[string]$Wheelhouse,[string]$PowerShell7,[switch]$ProvisionPrerequisites,
-        [switch]$AllowWindows11DryRun,[ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED_AUTOMATED')][string]$Execution='USER_LAUNCHED_AUTOMATED')
+        [switch]$AllowWindows11DryRun,[ValidateSet('legacy-explicit','store-existing')][string]$Scenario='legacy-explicit',
+        [ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED_AUTOMATED')][string]$Execution='USER_LAUNCHED_AUTOMATED')
     $ErrorActionPreference='Stop'
     Initialize-WinBookSplitLogTypes;Initialize-WinBookSplitSupport;Initialize-WinBookSplitProcess
     $started=[DateTime]::UtcNow.ToString('o');$os=$bindings=$safeNative=$oracle=$runtimeSelection=$markedSummary=$run=$null;$failure=$failureStage=$null;$work=$null;$unsafe=$false
@@ -598,7 +599,7 @@ function Invoke-NativeAcceptance {
         $bindings=$read.value
         if ($bindings -isnot [Collections.IDictionary] -or $bindings.Count -ne 7 -or $bindings.protocol -cne 'winbooksplit.native-kit' -or
             -not(Test-SplitInteger $bindings.schema_version) -or $bindings.schema_version -ne 1 -or
-            $bindings.helpers -isnot [Collections.IDictionary] -or $bindings.helpers.Count -ne 19 -or
+            $bindings.helpers -isnot [Collections.IDictionary] -or $bindings.helpers.Count -ne 21 -or
             $bindings.fixtures -isnot [Collections.IDictionary] -or $bindings.fixtures.Count -ne 6) {throw 'Native kit bindings schema differs from its finite closure.'}
         if(-not(Test-NativeAcceptanceProductionIdentity $bindings.production $bindings.production)){throw 'Expected production pins are not a finite safe identity.'}
         $helperNames=@('engine/WinBookSplit.Logging.ps1','engine/WinBookSplit.Diagnostics.ps1','engine/WinBookSplit.Process.ps1','engine/WinBookSplit.Support.ps1',
@@ -606,7 +607,8 @@ function Invoke-NativeAcceptance {
             'tools/compatibility/native_smoke.py','tools/release/frozen_assets.py','tests/cli/Probe-Help.ps1','tests/process/session_child.py',
             'engine/WinBookSplit.Runtime.ps1','engine/WinBookSplit.Compatibility.ps1','engine/WinBookSplit.Paths.ps1',
             'engine/WinBookSplit.Compatibility.json','engine/winbooksplit_compatibility.py',
-            'tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1','tests/compatibility/validate_setup_remedy.py')
+            'tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1','tests/compatibility/validate_setup_remedy.py',
+            'tools/compatibility/Invoke-NativeDiscoveryCollector.ps1','tools/compatibility/Invoke-StoreExistingAcceptance.ps1')
         $fixtureNames=@('flat-6.pdf','nested-12.pdf','original-three-chapters.azw3','original-three-chapters.epub','simple-10.pdf','native-fixtures.json')
         $kit=$bindings.kit
         if($kit -isnot [Collections.IDictionary] -or $kit.Count -ne 6 -or $kit.helpers_payload_sha256 -isnot [string] -or
@@ -641,6 +643,12 @@ function Invoke-NativeAcceptance {
         $kitVerified=$true
         if($bindings.helpers['engine/WinBookSplit.Compatibility.json'].sha256-cne $bindings.production.policy_sha256){throw 'Authenticated discovery policy differs from exact production.'}
         $stages.Add([ordered]@{id=$stage;status='PASS';code='completed';exit_code=0;probe_sha256=$null})
+        if($Scenario-ceq 'store-existing'){
+            . ([IO.Path]::Combine($root,'tools','compatibility','Invoke-NativeDiscoveryCollector.ps1'))
+            . ([IO.Path]::Combine($root,'tools','compatibility','Invoke-StoreExistingAcceptance.ps1'))
+            try{return (Invoke-NativeStoreExistingAcceptance -KitRoot $root -BindingsSha256 $BindingsSha256 -Bindings $bindings -WorkRoot $work -Inbox $inbox -Os $os -Execution $Execution -BarePythonPath $BarePythonPath -BaselinePythonPath $BaselinePythonPath -ProvisionPrerequisites:$ProvisionPrerequisites -Wheelhouse $Wheelhouse)}
+            finally{for($i=$leases.Count-1;$i-ge 0;$i--){$leases[$i].Dispose()}}
+        }
         $stage='prerequisites';$downloads=New-NativeAcceptanceDirectory ([IO.Path]::Combine($work,'downloads'))
         $discoveryPolicy=Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root,'engine','WinBookSplit.Compatibility.json'))
         $owner=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $discoveryPolicy -PythonPath $BarePythonPath

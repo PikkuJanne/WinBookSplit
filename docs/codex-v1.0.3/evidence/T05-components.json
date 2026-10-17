@@ -1,0 +1,602 @@
+{
+  "collector_summary": {
+    "original_local_sha256": "23b28e5b8f0b914506b6dcc753f097b1ecf6ac1b26de062e03c9fee0c34cede0",
+    "record": {
+      "scope": "ACTUAL_CONTROLLED_NATIVE_COLLECTOR_ONLY_NOT_STORE_OR_APP_ACCEPTANCE",
+      "pairs": [
+        {
+          "pair": "ps51-ps51",
+          "status": "PASS",
+          "controller": "5.1.26100.9711",
+          "cases": 9,
+          "sha256": "145618ded3fda959353ddede4644515882a2c96cf0050551e88f34caf0f21da6"
+        },
+        {
+          "pair": "ps7-ps51",
+          "status": "PASS",
+          "controller": "7.6.5",
+          "cases": 9,
+          "sha256": "02a227d14eeb8db8a3da4aa67dd7c002785e3fc5fabb99a380580e6d2ee1e441"
+        },
+        {
+          "pair": "ps51-ps7",
+          "status": "PASS",
+          "controller": "5.1.26100.9711",
+          "cases": 9,
+          "sha256": "816af7747fed87bbebfbad4359ee937e1b7230b8d4efdbcb569d89488d9c992e"
+        },
+        {
+          "pair": "ps7-ps7",
+          "status": "PASS",
+          "controller": "7.6.5",
+          "cases": 9,
+          "sha256": "7171e19d3fc9c969a244985c98f88de59299db3239e7c5256772ef0644016070"
+        }
+      ],
+      "component_hashes_observed_after_raw_runs": {
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+        "tests/python/test_native_discovery_collector.py": "1b48e6e1fb80bb5f57620867469b728fc3cd9c17df88810fa4cb12dde947616b",
+        "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      "old_nested_reproduction": "red.json",
+      "python_driver_focused_result": {
+        "receipt": "driver.txt",
+        "tests": 4,
+        "scope": "Probe behavior passed; final driver raw-output preservation addition subsequently syntax-checked and awaits final suite",
+        "passed": 4,
+        "duration_seconds": 86.465
+      }
+    }
+  },
+  "pairs": {
+    "ps51-ps51": {
+      "original_local_sha256": "145618ded3fda959353ddede4644515882a2c96cf0050551e88f34caf0f21da6",
+      "record": {
+        "protocol": "winbooksplit.native-discovery-collector-tests",
+        "schema_version": 1,
+        "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY",
+        "controller_version": "5.1.26100.9711",
+        "controller_edition": "Desktop",
+        "child_powershell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "app_python_required": false,
+        "status": "PASS",
+        "cases": [
+          {
+            "id": "dual-unicode-streams-and-plain-json-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "nonzero-listing-retains-both-streams",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "missing-launch-is-explicit-failure",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "timeout-stops-child-after-positive-reach-marker",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "descendant-inherited-stream-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "hung-descendant-and-inherited-streams-are-bounded",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "bounded-output-cannot-become-success",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "existing-receipt-is-preserved",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "application-environment-is-unchanged",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          }
+        ]
+      }
+    },
+    "ps51-ps7": {
+      "original_local_sha256": "816af7747fed87bbebfbad4359ee937e1b7230b8d4efdbcb569d89488d9c992e",
+      "record": {
+        "protocol": "winbooksplit.native-discovery-collector-tests",
+        "schema_version": 1,
+        "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY",
+        "controller_version": "5.1.26100.9711",
+        "controller_edition": "Desktop",
+        "child_powershell": "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "app_python_required": false,
+        "status": "PASS",
+        "cases": [
+          {
+            "id": "dual-unicode-streams-and-plain-json-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "nonzero-listing-retains-both-streams",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "missing-launch-is-explicit-failure",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "timeout-stops-child-after-positive-reach-marker",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "descendant-inherited-stream-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "hung-descendant-and-inherited-streams-are-bounded",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "bounded-output-cannot-become-success",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "existing-receipt-is-preserved",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "application-environment-is-unchanged",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          }
+        ]
+      }
+    },
+    "ps7-ps51": {
+      "original_local_sha256": "02a227d14eeb8db8a3da4aa67dd7c002785e3fc5fabb99a380580e6d2ee1e441",
+      "record": {
+        "protocol": "winbooksplit.native-discovery-collector-tests",
+        "schema_version": 1,
+        "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY",
+        "controller_version": "7.6.5",
+        "controller_edition": "Core",
+        "child_powershell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "app_python_required": false,
+        "status": "PASS",
+        "cases": [
+          {
+            "id": "dual-unicode-streams-and-plain-json-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "nonzero-listing-retains-both-streams",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "missing-launch-is-explicit-failure",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "timeout-stops-child-after-positive-reach-marker",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "descendant-inherited-stream-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "hung-descendant-and-inherited-streams-are-bounded",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "bounded-output-cannot-become-success",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "existing-receipt-is-preserved",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "application-environment-is-unchanged",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          }
+        ]
+      }
+    },
+    "ps7-ps7": {
+      "original_local_sha256": "7171e19d3fc9c969a244985c98f88de59299db3239e7c5256772ef0644016070",
+      "record": {
+        "protocol": "winbooksplit.native-discovery-collector-tests",
+        "schema_version": 1,
+        "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY",
+        "controller_version": "7.6.5",
+        "controller_edition": "Core",
+        "child_powershell": "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+        "app_python_required": false,
+        "status": "PASS",
+        "cases": [
+          {
+            "id": "dual-unicode-streams-and-plain-json-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "nonzero-listing-retains-both-streams",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "missing-launch-is-explicit-failure",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "timeout-stops-child-after-positive-reach-marker",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "descendant-inherited-stream-positive-control",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "hung-descendant-and-inherited-streams-are-bounded",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "bounded-output-cannot-become-success",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "existing-receipt-is-preserved",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          },
+          {
+            "id": "application-environment-is-unchanged",
+            "status": "PASS",
+            "error": null,
+            "scope": "CONTROLLED_NATIVE_COLLECTOR_ONLY"
+          }
+        ]
+      }
+    }
+  },
+  "store_recipes": {
+    "original_local_sha256": "fde3d4af8037138110f1b739864c112728678fdc9e1fc9038aeb7385941b2195",
+    "record": {
+      "scope": "EXPLICIT_DEVELOPER_FIXTURE_ONLY_NOT_STORE_OR_FRESH_AUTOMATIC_ACCEPTANCE",
+      "success": true,
+      "failure": null,
+      "native_store_acceptance": "NOT_RUN",
+      "windows10_acceptance": "NOT_RUN",
+      "automatic_setup": "Healthy authoritative venv no-op after labelled explicit offline developer setup",
+      "runtime_version": "3.14.8",
+      "pypdf_version": "6.20.0",
+      "app_version": "1.0.2",
+      "source_smoke_sha256_before": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+      "source_smoke_sha256_after": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+      "payload_unchanged": true,
+      "processes": [
+        {
+          "id": "explicit_developer_setup",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-InputFormat",
+            "Text",
+            "-OutputFormat",
+            "Text",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-File",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\Setup-WinBookSplit.ps1",
+            "-PythonPath",
+            "<DEV_PYTHON_3148>",
+            "-Wheelhouse",
+            "<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\setup-tests-05-01\\wheelhouse",
+            "-NonInteractive"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer",
+          "environment_restored": true
+        },
+        {
+          "id": "automatic_setup_bat_healthy_noop",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\cmd.exe",
+            "/d",
+            "/v:off",
+            "/c",
+            "<T05_COLLECTOR>\\store-recipe-developer\\setup-noop.cmd"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer",
+          "environment_restored": true
+        },
+        {
+          "id": "prepare_store",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\.venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "<WORKSPACE>\\tools\\compatibility\\native_smoke.py",
+            "prepare-store",
+            "--application-root",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application",
+            "--fixture-root",
+            "<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\task13-fixtures-01",
+            "--work-root",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases",
+            "--python-path",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\.venv\\Scripts\\python.exe",
+            "--documents-root",
+            "<USERPROFILE>\\Documents",
+            "--policy-sha256",
+            "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+            "--output",
+            "<T05_COLLECTOR>\\store-recipe-developer\\plan.json"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer",
+          "environment_restored": true
+        },
+        {
+          "id": "recipe_manual",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\WinBookSplit.ps1",
+            "-InputFile",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\manual\\Authored Å日.pdf",
+            "-OutputDirectory",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\manual\\output",
+            "-Mode",
+            "Manual",
+            "-StartPages",
+            "1,4,7",
+            "-NonInteractive"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer\\cases\\manual\\unrelated-cwd",
+          "environment_restored": true
+        },
+        {
+          "id": "recipe_auto1",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\WinBookSplit.ps1",
+            "-InputFile",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto1\\Authored Å日.pdf",
+            "-OutputDirectory",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto1\\output",
+            "-Mode",
+            "Auto",
+            "-BookmarkLevel",
+            "1",
+            "-NonInteractive"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto1\\unrelated-cwd",
+          "environment_restored": true
+        },
+        {
+          "id": "recipe_auto2",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\WinBookSplit.ps1",
+            "-InputFile",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto2\\Authored Å日.pdf",
+            "-OutputDirectory",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto2\\output",
+            "-Mode",
+            "Auto",
+            "-BookmarkLevel",
+            "2",
+            "-NonInteractive"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer\\cases\\auto2\\unrelated-cwd",
+          "environment_restored": true
+        },
+        {
+          "id": "recipe_bat",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "C:\\WINDOWS\\system32\\cmd.exe",
+            "/d",
+            "/v:off",
+            "/c",
+            "<T05_COLLECTOR>\\store-recipe-developer\\cases\\bat\\ordinary-bat.cmd"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer\\cases\\bat\\unrelated-cwd",
+          "environment_restored": true
+        },
+        {
+          "id": "validate_store",
+          "exit_code": 0,
+          "job_assigned": true,
+          "parent_stopped": true,
+          "descendants_stopped": true,
+          "streams_complete": true,
+          "timed_out": false,
+          "argv": [
+            "<T05_COLLECTOR>\\store-recipe-developer\\application\\.venv\\Scripts\\python.exe",
+            "-I",
+            "-B",
+            "<WORKSPACE>\\tools\\compatibility\\native_smoke.py",
+            "validate-store",
+            "--plan",
+            "<T05_COLLECTOR>\\store-recipe-developer\\plan.json",
+            "--process-report",
+            "<T05_COLLECTOR>\\store-recipe-developer\\processes.json",
+            "--output",
+            "<T05_COLLECTOR>\\store-recipe-developer\\oracle.json"
+          ],
+          "cwd": "<T05_COLLECTOR>\\store-recipe-developer",
+          "environment_restored": true
+        }
+      ],
+      "cases": [
+        {
+          "id": "manual",
+          "status": "PASS",
+          "written_count": 3,
+          "full_page_coverage": true
+        },
+        {
+          "id": "auto1",
+          "status": "PASS",
+          "written_count": 3,
+          "full_page_coverage": true
+        },
+        {
+          "id": "auto2",
+          "status": "PASS",
+          "written_count": 6,
+          "full_page_coverage": true
+        },
+        {
+          "id": "bat",
+          "status": "PASS",
+          "written_count": 3,
+          "full_page_coverage": true
+        }
+      ],
+      "raw_artifacts": {
+        "developer-recipe-report.json": {
+          "bytes": 133845,
+          "sha256": "64d0cf8e62b2033f0900a51e11fa9d54f3981a5127061108d631369b374195c2"
+        },
+        "plan.json": {
+          "bytes": 15740,
+          "sha256": "917dd86b7b78b66f24d394d2674279316e500de64500ecf8c724ad3f282f2bca"
+        },
+        "processes.json": {
+          "bytes": 78611,
+          "sha256": "42f4ab2b0c3d1ecc0561a1e9ea62d016bc1adcadd3ac70d2d68de3271965a247"
+        },
+        "oracle.json": {
+          "bytes": 268425,
+          "sha256": "dec73f70d50f4765d77e25d38149db48624409cbd9669c2db37f0f0798d99233"
+        }
+      }
+    }
+  },
+  "store_recipe_driver_original_sha256": "49eba90ff5bf2a6d02114ac79183ea79dfe5f8c759be0ee57e018e588f7d1f47"
+}

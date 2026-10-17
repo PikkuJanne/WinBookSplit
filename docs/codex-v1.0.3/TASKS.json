@@ -121,7 +121,7 @@
       "depends_on": [
         "T04"
       ],
-      "status": "NOT_STARTED",
+      "status": "COMPLETE",
       "brief": "tasks/05-T05.md",
       "acceptance_ids": [
         "STORE-025",
@@ -130,6 +130,16 @@
         "STORE-028",
         "STORE-029",
         "STORE-030"
+      ],
+      "completion_scope": "Maintained tooling/regression component scope only. Actual native Store, owner Windows10 exact-ZIP/fresh automatic setup and enforced policy remain NOT_RUN at T07; T06 must freeze and self-test the exact generated command/report/checker integration.",
+      "evidence": [
+        "evidence/T05.md",
+        "evidence/T05.json",
+        "evidence/T05-red.json",
+        "evidence/T05-suites.json",
+        "evidence/T05-runtime-regression.json",
+        "evidence/T05-components.json",
+        "evidence/T05-delta.json"
       ]
     },
     {

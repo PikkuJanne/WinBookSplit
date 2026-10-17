@@ -1,5 +1,17 @@
 # Testing: prove the route, not just the algorithm
 
+T05 adds a separate store-existing route, schema2 no-substitution/attempt gate,
+bounded UTF8 collector, actual negative launch controls with positive controls,
+failed diagnostic return ZIPs and new automatic application PDF recipes. The
+normal Python suite maintains collector PS5.1/PS7 pairs and Store scenario probes;
+shell syntax/analysis includes the new tools/probes. Three separate supported
+explicit runtimes retain policy/origin/package/PDF coverage. See evidence/T05.md
+for counts, preserved RED/exploratory failures, skips and source bindings. Broad
+suite bytes and the final narrow failure-receipt/README delta are recorded
+separately, with focused reruns/analysis for that delta. The actual new PDF recipe
+rehearsal used explicit offline developer setup and automatic healthy no-op.
+No actual existing-Store/fresh automatic setup/owner exact-ZIP result is inferred.
+
 T04 adds maintained rejection-category, coherent summary, actual emitted setup
 Action/BAT, no-op/repair and MOTW/process-policy/privacy cases. These use owned
 explicit developer fixtures separately from native automatic discovery. The

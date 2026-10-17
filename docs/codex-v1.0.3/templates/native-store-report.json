@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "scenario": "existing_owner_windows10_store_installation",
   "evidence_kind": "template",
   "status": "not_run",
@@ -26,8 +26,11 @@
   "forbidden_substitutions": {
     "python_installed_or_updated_by_kit": null,
     "manager_installed_or_updated_by_kit": null,
+    "private_runtime_fallback_attempted": null,
     "private_runtime_fallback_used": null,
+    "runtime_supplied_by_kit": null,
     "runtime_copied_or_cloned": null,
+    "runtime_environment_injected": null,
     "explicit_python_path_supplied": null,
     "hidden_runtime_selection_supplied": null,
     "parent_path_changed": null,
@@ -36,6 +39,15 @@
     "virtual_env_overridden": null,
     "application_venv_prebuilt": null,
     "alias_settings_changed": null
+  },
+  "fallback_acquisition": {
+    "policy": "disabled_before_discovery",
+    "attempted": null,
+    "used": null
+  },
+  "inventory": {
+    "purpose": "verification_only",
+    "supplied_to_application": null
   },
   "before": {
     "application_venv_exists": null,

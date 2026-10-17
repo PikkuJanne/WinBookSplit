@@ -31,6 +31,8 @@ BOOT = ("engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Diagnostics.ps1"
 DISCOVERY = ("engine/WinBookSplit.Runtime.ps1", "engine/WinBookSplit.Compatibility.ps1",
              "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Compatibility.json",
              "engine/winbooksplit_compatibility.py")
+STORE_HELPERS = ("tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+                 "tools/compatibility/Invoke-StoreExistingAcceptance.ps1")
 FIXTURES = ("flat-6.pdf", "nested-12.pdf", "original-three-chapters.azw3",
             "original-three-chapters.epub", "simple-10.pdf", "native-fixtures.json")
 PREREQUISITES = {
@@ -208,7 +210,7 @@ def powershell_quote(value):
     return "'" + value.replace("'", "''") + "'"
 
 
-def wrapper(bindings_digest, helper_rows, logging_source, production):
+def wrapper(bindings_digest, helper_rows, logging_source, production, scenario="legacy-explicit"):
     # Embed the already existing native lease definition, byte-for-byte. This
     # keeps pre-import authentication independent of an unverified helper file.
     logging_text = logging_source.decode("utf-8-sig").replace("\r\n", "\n")
@@ -225,6 +227,7 @@ def wrapper(bindings_digest, helper_rows, logging_source, production):
     code = ["# One-session finite native kit. Generated source is pinned by the delivered kit SHA.",
             "[CmdletBinding()]", "param([string]$BarePythonPath,[string]$BaselinePythonPath,[string]$CalibrePath,[string]$Wheelhouse,[string]$PowerShell7,",
             "      [switch]$ProvisionPrerequisites,[switch]$AllowWindows11DryRun,",
+            "      [ValidateSet('legacy-explicit','store-existing')][string]$Scenario='" + scenario + "',",
             "      [ValidateSet('AGENT_LAUNCHED','USER_LAUNCHED_AUTOMATED')][string]$Execution='USER_LAUNCHED_AUTOMATED')",
             "$ErrorActionPreference='Stop'; $PSModuleAutoloadingPreference='None'",
             "Import-Module ([IO.Path]::Combine($PSHOME,'Modules\\Microsoft.PowerShell.Utility\\Microsoft.PowerShell.Utility.psd1')) -ErrorAction Stop",
@@ -254,7 +257,7 @@ def wrapper(bindings_digest, helper_rows, logging_source, production):
              "    . ([IO.Path]::Combine($root,$relative.Replace('/','\\')))", "  }",
              "  . ([IO.Path]::Combine($root,'engine','WinBookSplit.Paths.ps1'))",
              "  . ([IO.Path]::Combine($root,'engine','WinBookSplit.Runtime.ps1'))",
-             f"  $options=@{{KitRoot=$root;BindingsSha256='{bindings_digest}';Execution=$Execution;BarePythonPath=$BarePythonPath;BaselinePythonPath=$BaselinePythonPath;CalibrePath=$CalibrePath;Wheelhouse=$Wheelhouse;PowerShell7=$PowerShell7;ProvisionPrerequisites=$ProvisionPrerequisites;AllowWindows11DryRun=$AllowWindows11DryRun}}",
+             f"  $options=@{{KitRoot=$root;BindingsSha256='{bindings_digest}';Scenario=$Scenario;Execution=$Execution;BarePythonPath=$BarePythonPath;BaselinePythonPath=$BaselinePythonPath;CalibrePath=$CalibrePath;Wheelhouse=$Wheelhouse;PowerShell7=$PowerShell7;ProvisionPrerequisites=$ProvisionPrerequisites;AllowWindows11DryRun=$AllowWindows11DryRun}}",
              "  $result=Invoke-NativeAcceptance @options", "  exit $(if ($result.success) { 0 } else { 1 })",
              "} catch {",
              "  Write-Host 'Native kit bootstrap failed. No acceptance pass was recorded.'",
@@ -366,6 +369,7 @@ def build(args):
                     "tests/process/session_child.py": bounded(root / "tests/process/session_child.py", MAX_CODE)})
     helpers["engine/WinBookSplit.Outcomes.json"] = bounded(root / "engine/WinBookSplit.Outcomes.json", MAX_CODE)
     helpers.update({name: bounded(root / name, MAX_CODE) for name in DISCOVERY})
+    helpers.update({name: bounded(root / name, MAX_CODE) for name in STORE_HELPERS})
     helpers.update({name: bounded(root / name, MAX_CODE) for name in
                     ("tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1", "tests/compatibility/validate_setup_remedy.py")})
     for name in (*DISCOVERY, *BOOT[:-1], "engine/WinBookSplit.Outcomes.json"):
@@ -392,13 +396,18 @@ def build(args):
     payload.update(helpers)
     payload.update({"fixtures/" + name: data for name, data in fixtures.items()})
     payload["kit-bindings.json"] = binding_bytes
-    payload["Run-Windows10.ps1"] = wrapper(digest, bindings["helpers"], helpers["engine/WinBookSplit.Logging.ps1"], production)
+    scenario = getattr(args, "scenario", "store-existing")
+    payload["Run-Windows10.ps1"] = wrapper(digest, bindings["helpers"], helpers["engine/WinBookSplit.Logging.ps1"], production, scenario)
+    prerequisite_argument = " -ProvisionPrerequisites" if scenario == "legacy-explicit" else ""
     payload["Run-Windows10.cmd"] = ("@echo off\r\nsetlocal DisableDelayedExpansion\r\n"
-        '"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "%~dp0Run-Windows10.ps1" -ProvisionPrerequisites\r\n'
+        '"%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -NoProfile -NonInteractive -ExecutionPolicy Bypass -File "%~dp0Run-Windows10.ps1" -Scenario ' + scenario + prerequisite_argument + '\r\n'
         "exit /b %errorlevel%\r\n").encode("ascii")
     payload["README.txt"] = ("Run Run-Windows10.cmd once on regular Windows 10 22H2 x64.\r\n"
-        "It explicitly provisions pinned private tools, tests the exact bundled release and retains raw local work.\r\n"
-        "Return only the printed native-result.zip. It excludes personal paths and raw console text.\r\n"
+        + ("Store-existing scenario: existing Store runtime only; no Python acquisition, copy or clone.\r\n"
+           "Automatic setup and processing receive no selected runtime or injected environment.\r\n"
+           "Return only the printed native-store-result.zip; raw diagnostics stay local.\r\n" if scenario == "store-existing" else
+           "Legacy explicit-runtime regression: provisions reviewed private tools; cannot satisfy Store-existing acceptance.\r\n"
+           "Return only the printed native-result.zip. Raw diagnostics stay local.\r\n") +
         "Byte-identical BAT forwarding is automated. The Explorer path is unchanged; no repeated manual sign-off is requested.\r\n"
         "Do not edit pins or reuse a result for different production/kit bytes.\r\n").encode("ascii")
     payload["kit-manifest.json"] = canonical({"protocol": "winbooksplit.native-kit-files", "schema_version": 1,
@@ -419,6 +428,8 @@ def main(argv=None):
         developer.add_argument("--" + name, type=Path, required=True)
     developer.add_argument("--draft-rehearsal", action="store_true",
                            help="Disclose external/uncommitted helper bytes; never claim a committed kit source identity.")
+    developer.add_argument("--scenario", choices=("store-existing", "legacy-explicit"), default="store-existing",
+                           help="Store-existing disables runtime provisioning before discovery; legacy explicit tests stay separate.")
     args = parser.parse_args(argv)
     try:
         record = verify_extract(args) if args.command == "verify-extract" else build(args)

@@ -1,15 +1,50 @@
 # Finite native package acceptance kit
 
-This developer tool builds a self-contained kit for testing one exact release ZIP on regular Windows 10 22H2 x64. The kit carries the three frozen release assets, original authored fixtures, and a small authenticated helper closure. It verifies the external asset hashes and committed kit helper bytes before extracting or running application code. Owner verification and extraction require no Git checkout. The accepted runtime ZIP is the named
-`WinBookSplit-v1.0.2.zip`, with its manifest and checksums; GitHub's automatic
-source ZIP or tarball does not substitute for that distribution. An explicitly
-labeled private tooling rehearsal remains separate from final-package acceptance.
+This developer tool builds a self-contained kit for one exact distribution ZIP
+on regular Windows 10 22H2 x64. It carries the frozen release assets, authored
+fixtures and authenticated helpers. GitHub's automatic source archive does not
+substitute for the distribution. Owner startup uses inbox PowerShell without
+application Python or Git. T06 will freeze v1.0.3 and validate its exact delivered
+launch command; T05 source/component checks do not certify that future archive.
 
-Run the delivered `Run-Windows10.cmd` once. Its explicit inbox host applies Bypass only to that process, so Internet-marked unsigned kit scripts can start where organization policy permits. The authenticated Runtime/Compatibility/policy closure first discovers a usable regular x64 Python 3.15 without installing anything. The kit uses it when available; otherwise it privately provisions the reviewed ordinary 3.15.0 archive. A later stable owner patch remains separately observed, while an exact 3.15.0 baseline supplies the mandatory regression. If existing 3.15.0 already has pypdf, an owned `--without-pip` environment supplies the missing-package fixture. All provisioning stays in new private work. Global packages, PATH, registry and persistent execution-policy settings remain unchanged.
+The builder defaults to `--scenario store-existing`. Its generated
+`Run-Windows10.cmd` explicitly selects that scenario without provisioning. After
+authenticating the kit, this route refuses supplied runtime paths, activated or
+injected Python configuration and prebuilt application environments. Independent
+Store registration/listing/runtime inventory is verification and helper-bootstrap
+evidence only. Fresh application discovery and normal setup/BAT receive no
+selected interpreter or environment overrides. An unavailable existing Store
+runtime blocks before Python acquisition, copying or cloning. Ordinary setup may
+create the new app-local venv and install the locked pypdf after discovering the
+existing interpreter. A reviewed wheelhouse is a package source only.
 
-Return only the printed `native-result.zip`; raw local diagnostics, fixtures and outputs remain local. The fixed report labels the owner run `USER_LAUNCHED_AUTOMATED` and excludes personal paths and raw console text. A prerequisite or process failure produces FAIL/BLOCKED/NOT_RUN evidence; it never counts as a pass. Enforced organization signing rules require an approved route and are never overridden or retried through encoded code.
+The Store report and its six receipt envelopes use schema 2. The offline
+`tools/codex-v1.0.3/check_native_store_report.py` additionally rejects attempted
+fallback even when unused, supplied/copied/cloned/injected runtimes, inventory
+used as application selection, and old schemas. These consistency checks do not
+attest native execution. Actual Windows 10 owner acceptance remains required.
+Store-existing returns the printed `native-store-result.zip`, including sanitized
+completed/failure receipts. Its raw working extraction, venv and outputs remain
+local. Retain a blocked return for diagnosis; never edit it into a passing report.
 
-The finite cases cover Version/help, installation, Check/no-op, actual setup BAT on Internet-marked scripts, exact emitted PowerShell Action execution, preserved broken-environment Repair, RemoteSigned direct-script denial, observed child/parent policy scopes, manual and both Auto modes, a later first start, repeat publication, Preview, invalid input, missing bookmarks, cancellation, missing Python/pypdf, genuine EPUB/AZW3 keep/discard, and the byte-identical processing BAT's one/two-source forwarding. The maintained remedy regression uses authenticated copies of the exact extracted ZIP members and original authored PDFs. It requires no owner Python 3.14 or PowerShell 7 installation. Optional reviewed PS7 is supplied only for agent workstation coverage. Timeout, cancellation, failed-legacy-launcher and mocked organization-policy controls retain explicit controlled/simulation labels. A mocked organization refusal
+The separate `--scenario legacy-explicit` retains the established explicit and
+private-runtime regression recipes below. Its schema 1 reports and private
+baseline can never satisfy the v1.0.3 Store-existing gate. Historical reports and
+published release bytes remain unchanged.
+
+The generated launcher applies Bypass only to its inbox child process where
+organization policy permits. Enforced controls remain meaningful failures. In
+the **legacy-explicit scenario only**, a usable regular x64 Python 3.15 may be
+selected or the reviewed private 3.15.0 archive provisioned. Its missing-package
+baseline may use an owned `--without-pip` fixture. These are separate regression
+inputs, never Store-existing acceptance.
+
+The legacy suite returns the printed `native-result.zip`; raw local diagnostics,
+fixtures and outputs remain local. A prerequisite or process failure produces
+FAIL/BLOCKED/NOT_RUN evidence and never counts as a pass. Enforced organization
+signing rules require an approved route and are never retried through encoded code.
+
+The legacy finite cases cover Version/help, installation, Check/no-op, actual setup BAT on Internet-marked scripts, exact emitted PowerShell Action execution, preserved broken-environment Repair, RemoteSigned direct-script denial, observed child/parent policy scopes, manual and both Auto modes, a later first start, repeat publication, Preview, invalid input, missing bookmarks, cancellation, missing Python/pypdf, genuine EPUB/AZW3 keep/discard, and the byte-identical processing BAT's one/two-source forwarding. The maintained remedy regression uses authenticated copies of the exact extracted ZIP members and original authored PDFs. It requires no owner Python 3.14 or PowerShell 7 installation. Optional reviewed PS7 is supplied only for agent workstation coverage. Timeout, cancellation, failed-legacy-launcher and mocked organization-policy controls retain explicit controlled/simulation labels. A mocked organization refusal
 is a guard control, not a claim that real organization enforcement was tested. Physical pages, exact source/fixture hashes, selected interpreter/package origins, console ownership and complete process stop/drain are validated before PASS.
 
 BAT cases retain its actual default Documents directory and authenticate only emitted owned paths. The Explorer path is unchanged; no repeated manual sign-off is requested. The harness retains all raw work and performs no recursive acceptance-work cleanup.
@@ -24,6 +59,7 @@ Prepare original fixtures once with the existing fixture generators and a develo
   --calibre-path $Calibre --report $FreshPreparationReport
 
 & $BarePython -I -B tools/compatibility/kit_builder.py build `
+  --scenario store-existing `
   --repository-root $Repository --assets-root $FrozenAssets `
   --fixture-root $FreshFixtures `
   --core-path "$Repository/tools/compatibility/Invoke-NativeAcceptance.ps1" `
@@ -34,13 +70,26 @@ Prepare original fixtures once with the existing fixture generators and a develo
 
 Use absolute ordinary paths and a new output name. The builder emits the kit directory, sibling ZIP and build receipt through exclusive writes. Its default COMMITTED mode requires every helper's raw bytes to match the recorded Git commit; Git queries reuse the existing bounded, sanitized package-input helper. `--draft-rehearsal` instead records null kit source identities and a separate repository observation. Such a rehearsal never certifies different public or final release bytes. Keep the independent kit ZIP hash with the delivery.
 
-Agent preflight may supply explicit ordinary `-BarePythonPath`, `-BaselinePythonPath` (regular 3.15.0 without pypdf), reviewed `-CalibrePath`, exact `-Wheelhouse` and optional reviewed `-PowerShell7`. These avoid duplicate acquisition while retaining exact verification. Owner defaults need none of those manual selections. Private Calibre acquisition keeps the vendor's 58 UTF-16-unit path bound and records BLOCKED when it cannot fit. `-AllowWindows11DryRun` labels Windows 11 separately and supplies no Windows 10 evidence; `-Execution AGENT_LAUNCHED` is explicit for agent runs. The one owner launcher defaults to `USER_LAUNCHED_AUTOMATED`.
+Legacy preflight may supply explicit ordinary `-BarePythonPath`,
+`-BaselinePythonPath` (regular 3.15.0 without pypdf), reviewed `-CalibrePath`, exact
+`-Wheelhouse` and optional reviewed `-PowerShell7`. Store-existing refuses runtime
+parameters and `-ProvisionPrerequisites`; it may receive only the wheelhouse as
+a package source. `-AllowWindows11DryRun` labels Windows 11 separately and supplies
+no Windows 10 evidence; `-Execution AGENT_LAUNCHED` is explicit for agent runs.
 
 ## Developer controls
 
 `tests/python/test_native_kit.py` exercises strict JSON, authentication, guarded exclusive output, preserved collisions, sanitized Git environment, held directory identity and refusal to adopt an unlinked/recreated archive. Its temporary work is limited to authored fixtures. Run it through the existing Python test runner.
 
 `tests/compatibility/Probe-NativeKit.ps1` accepts explicit RepositoryRoot, CoreRoot, TestPython, a fresh WorkRoot and ReportPath. Its thirteen controls exercise bounded reads, strict receipts, absent/empty environment restoration, malformed proof refusal, fixed OS redaction, the vendor's UTF-16 path bound and actual owned descendant timeout/cancellation under the selected native shell. These controls are tooling checks, not final-ZIP or Windows 10 acceptance. The normal scoped shell syntax and analyzer checks remain required.
+
+`Invoke-NativeDiscoveryCollector.ps1` reuses the production job supervisor to
+capture both UTF-8 streams as text into bounded, exclusive plain JSON receipts.
+The collector never forwards nested PS5.1 stderr through a PowerShell pipeline.
+Its no-Python probe covers positive Unicode streams, nonzero failure, launch
+failure, timeout, inherited hung streams/descendants, truncation and unchanged
+environment. The maintained Python suite runs this probe under actual PS5.1/PS7
+controller/child combinations; unavailable hosts are reported as skips.
 
 ## Supplemental PowerShell 7 checks
 

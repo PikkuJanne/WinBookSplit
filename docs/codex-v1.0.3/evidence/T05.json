@@ -1,0 +1,1149 @@
+{
+  "schema_version": 1,
+  "task": "T05",
+  "status": "COMPLETE_TOOLING_SCOPE_ONLY",
+  "recorded_at_utc": "2026-10-17T14:37:37.980716+00:00",
+  "source": {
+    "parent_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+    "parent_tree": "6006d8f40494ebfa1552445e7a7e5bb4a29d160e",
+    "branch": "codex/v1.0.3-store-discovery",
+    "broad_suite_source": {
+      "base_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+      "base_tree": "6006d8f40494ebfa1552445e7a7e5bb4a29d160e",
+      "tested_path_sha256": {
+        ".github/workflows/windows-ci.yml": "30a4838d430808023331c9bdedcc5e91fbbd163a64ab6ccee50e843ec7f95a3e",
+        ".gitignore": "9be16ca5bdc3d65dde11d26e81b17ecec2d03f87b0a1e4f99b0f3dcf13ebb50d",
+        "CHANGELOG.md": "b4dc43ff2f74767d1245eddc3f893df64f85bd533dc8d7d101490ffa9ebb01ed",
+        "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+        "docs/codex-v1.0.0/ACCEPTANCE_CASES.json": "10f7f225b176d832f208f681923e0a4bf7e8c2ce74f079d4b56813ee0324a6d2",
+        "docs/codex-v1.0.0/PLAN_ORACLES.json": "b2a2d7aa5ed127b7d0bd7e4417a130e8bb3981f748bae10ebf42a3cc6249c38a",
+        "docs/codex-v1.0.0/SUPPORT_AND_SETUP.md": "f3e5b168f2dcd7ad6e2286b93798b34f238686a9c4d41290db79a295c1812655",
+        "docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json": "901c70fd2d8886d06daa288b56ec6e6652ff097f244d197163ffa7d72d7c4410",
+        "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+        "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+        "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+        "docs/SETUP.md": "a153a490554d017b62eb3bd50a55d0e3628da681126e30b9f535109ca7d83e3b",
+        "docs/SUPPORT_DIAGNOSTICS.md": "0a5ef958186a5c258816a0dd299b23560d7fb3ad8fcd2984b35444d0348a11f6",
+        "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+        "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+        "engine/WinBookSplit.Diagnostics.ps1": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5",
+        "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+        "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+        "engine/WinBookSplit.Runtime.ps1": "2206b938b6a8f9790ab848f2f5e50904d2dea99ee2ee300a545ad621b75768c7",
+        "engine/WinBookSplit.Setup.ps1": "c2be57f1a1d44d34ff0bfef3d7844fc4f144ea2ddd7c8c563b3930583bea2d4e",
+        "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+        "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+        "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+        "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+        "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+        "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+        "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+        "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+        "README.md": "1656a357c0017613ec174d52cd3210593db711e4e97aba50e4d152eda5a32ea5",
+        "requirements-dev.txt": "04a870413523755e303a03513790290549502f9621f0e51e6954c2a34b516f94",
+        "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3",
+        "SECURITY.md": "3e67814d48e7261aa45434957b6a059858a4a4f46e36f4b7262066a0966af718",
+        "Setup-WinBookSplit.bat": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+        "Setup-WinBookSplit.ps1": "b82a7861a9e520a4f5d00073d49ebafb06cfd396ea24b5e48ef13d761c0315a9",
+        "tests/baseline/characterize_original.py": "79e2c16d83d1843c0b8fcc6043129d48ca4d78b3c6bdaf9e6f38829751ebbab1",
+        "tests/baseline/expected_original.json": "1ac2a8eadb51bbc7e32a437763231bd0db2adb7a4ab30f41ee498dace6f7aea0",
+        "tests/baseline/README.md": "a29f824dbd00fe3ca7d6e4045b967364fa7d9fd8e68455bca5432996de437494",
+        "tests/bookmarks/characterize_level1.py": "05455474243bc980392727ede9f84621f35be94ccca843769f81ae7de83b6be1",
+        "tests/bookmarks/characterize_level2.py": "1495772b0993a91434252298859c5a44b4ea7f35a76d009b13fd0ae1a53d96cf",
+        "tests/bookmarks/README.md": "5f33cf924572db9b8aa900139052a59336a66233eff166489dc0b6b24adae7a5",
+        "tests/cli/characterize_cli.py": "fc6963ddb05d0f833209ad6d85f2f3e5a68326cb6fe9745c9f695313efda2eac",
+        "tests/cli/Probe-Help.ps1": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c",
+        "tests/cli/README.md": "500be7db1d011e75e234c6bad352677f1db3acc04adb85cc9c75cebd9a61f07f",
+        "tests/cli/validate_cli_report.py": "000695c5b2fd8e72a0a8bbe8edfe79556cb2771bfb326c6f05a91c3ae91181a7",
+        "tests/compatibility/application_matrix.py": "86c5431f6c1fc1375ada9cef6e56bc83004b5d038710a9114b473eab8bb8b44e",
+        "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+        "tests/compatibility/Probe-NativeKit.ps1": "75ae3fd43f3cf49edcdaf48aaa0ac3595c41a4a3da21f8cb125a8285697dc814",
+        "tests/compatibility/Probe-StoreExisting.ps1": "21b083f3e04cee146d0fd4bb361c5212302e1d18e2cb12a767d65b02b6062cb0",
+        "tests/compatibility/runtime-lock.json": "5e8ff86b5daf2dec20aaaecda78f10a91fa81845a5694de5a703330e471d5ab1",
+        "tests/compatibility/validate_setup_remedy.py": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98",
+        "tests/conversion/characterize_conversion.py": "c6597a164d88466ff4beef59e453a58bb3040ee2b2bc174538d08576726b2198",
+        "tests/conversion/generate_ebook_fixtures.py": "2e5b5d9ef0d053a833b2887512a4edf7a60e9e63593d017a9a75610ee796db5e",
+        "tests/conversion/README.md": "f379faae20fdda09db30ca825a1e1667d637218535f8d8839061599a9dba1dac",
+        "tests/diagnostics/characterize_diagnostics.py": "4dbca24a35901f38eb56b5b150678757738b8792c95a15a6f66fe0be798c4620",
+        "tests/diagnostics/Probe-Diagnostics.ps1": "849b03b9975ba7754e8d056264dae6ddf8debf952dc214f2bab91a685517f309",
+        "tests/diagnostics/README.md": "7c869a0de93b00b3f9666085f29f052052ee0c50d1c653d6f4c81564609c6280",
+        "tests/document_policy/characterize_document_policy.py": "6f3ec2162e1a6cccc916d9a701a92502c22c23f83c0490e77af807523f342cb1",
+        "tests/document_policy/generate_document_policy_fixtures.py": "ffee655427a836ac23e96163d6e0b869c5431f9d82b34b4142c54fe246bf249e",
+        "tests/document_policy/README.md": "c2a3f8440b82626ce5608ff17a568d3c6ab564b5b42bd847be9ab4401335acdb",
+        "tests/document_policy/validate_document_policy_report.py": "1cdb7cccf8b9151a2979f18927521e7e00f7707081fcab940570d1f40381c0e4",
+        "tests/ebooks/assets.py": "8acc47de906ea95f4d33aaaa37120bff7dcecb99be2a22b194bfbe953143a647",
+        "tests/ebooks/behavior.py": "3924609fb339425ecd097dc7f4786ecd6b13e552ccbba962e0b4690b04102098",
+        "tests/ebooks/characterize_ebooks.py": "5b03c9f6569faeec575de31a5bd9436ee09bb2c3f23a31878fab8497701a0143",
+        "tests/ebooks/README.md": "af53b9225a39e7e1f21419e53778ac0b7e238875f0f73200fb7efae8fab12ac3",
+        "tests/ebooks/validate_ebooks_report.py": "977f81b9f74c7fb9a0862393a83efb52ad6143d57f7fe931cb6f78e7905a2c4b",
+        "tests/extraction/characterize_extraction.py": "9bf54ec9a4dd6d2bcb5da379cd7117620a749b247d291112c596a68d58f712e8",
+        "tests/extraction/README.md": "2ac3ad72b9c86cb56d50f0743191b51abf88f294c4f6866a264d8e54211133f8",
+        "tests/failures/fail_python.py": "24be7d811e1b715f61ae03bb859853fc99654ee92ae5e957cc4ddcc69ff0d9d5",
+        "tests/faults/characterize_faults.py": "8597112c779b8c7c3c30ca19f8e7063008dd4be08c0902c47012c09406608d5d",
+        "tests/faults/characterize_isolation.py": "3d019864b3c3a525fc277c152549a680b4a42370562d727f3b6d420781dd3bcc",
+        "tests/faults/cross_host.py": "59c7bd31c0385f766befd76bd8796e9f6913f063b33c34f0dfa989ed743a828a",
+        "tests/faults/invariants.py": "dc8a0473f5aa2ab0d6f430e8f78615ed5b8e1175a5db500f8b296d2a7a04f464",
+        "tests/faults/README.md": "faa7ee1f38b0afcf5775fc11964ca10a573120a4e23583abea58cef6d084207a",
+        "tests/faults/validate_cross_host_report.py": "96396d2e78fe34982149dbdd2ddd5345ab3b7bf2739eba9ff8a5747a0ef71a0b",
+        "tests/faults/validate_faults_report.py": "a45902e5f3ef16f63fc004f3d0e9938a4df65f37ebe62c123f4c1057c7a5826a",
+        "tests/faults/validate_isolation.py": "ae469c108de46cc35867266784c2f28db4e2c4c66e97a220e8d0581cefffd5ce",
+        "tests/faults/worker.py": "0d67cdbaceffa02e8271dfda8fbaabc0b0ccf999a6dcc09a6a4ad823c2f50b65",
+        "tests/fidelity/characterize_fidelity.py": "a1c92c96b8a5a810462ecb53039515eb83f2f1dd41fc5402cb7e7ec6d9b00fc8",
+        "tests/fidelity/generate_fidelity_fixtures.py": "e1bd7c339c439b53b155b5342882ae8e4a9d588459108339c271f33dbcacb9ab",
+        "tests/fidelity/README.md": "4b6c95eda84fbba4ca5df5fca1be98a92caebf8af0f34e44f0916d8c68f0d660",
+        "tests/fidelity/render_pdfium.py": "b6ce921960d4354caaa350721861e1e45a038cfdc7f19981c293179100b2f67a",
+        "tests/fidelity/validate_fidelity_report.py": "077fda002d7d3f221265caf965026b1f0971bb3576b62a896c048b25f19f8487",
+        "tests/fixtures/generate_pdf_fixtures.py": "d0d3c715a0184ff87a1a8f49aa651b0189131faf64210ba5078d8a8144386108",
+        "tests/fixtures/README.md": "a6c7d71c886909ea338f14b47b310edff566ffda810d1fc64fd68ce9e436e4e3",
+        "tests/Invoke-ShellTests.ps1": "aa5d3fbbea27094752a1ccd3eb3fae58aef70596c5459a28db91332da218dceb",
+        "tests/launcher/characterize_launcher.py": "f84b8c72a568de7a3a8114808ad30387ed8612dbe2db2d5fc7e7c76ab2054578",
+        "tests/launcher/README.md": "efd824e58345fafa6c4fefa5d78d86639ee1a9b616544d92eaf386c7b0eee616",
+        "tests/launcher/validate_launcher_report.py": "91ecb413a57114fdee8ff64fa30f72c7986f05dad76103299fa7865f92279f20",
+        "tests/manual/characterize_manual.py": "47161ff84f71a28385528f44ff535adce66586bfe497b64466040459cec31561",
+        "tests/manual/current_launchers.py": "7d7cf22ae3316e49ab2e71804f7e4818c862bd4e58f343845ab71b9fd6b04ab0",
+        "tests/manual/interaction_receipts.py": "91f7a37b67d52c72fc484f52fde0c4d688c1e9cd7a1bac2c19578a7247baa4fb",
+        "tests/manual/README.md": "3a1ecf06ce0a991c160a9f8702bb5d5d003308a0caf25399c77ac0d53975560f",
+        "tests/outcomes/characterize_outcomes.py": "5ede8c1816e7807c59d08d10774dd14f360076897ff717978e30f2f01f5a9a01",
+        "tests/outcomes/fault_engine.py": "b14af7daf3a5316e50951e87961f5d62e7dd3a49447c90dd093590984fc05707",
+        "tests/outcomes/OwnedConverter.cs": "f9457f2d05829dc67d0234197c2d777373dc77cc18b5126b448134530e7850f8",
+        "tests/outcomes/README.md": "8d0859d902921844e35db7c9fb45a2cbc2cc5b38f337982ec7a946104e4d6ac2",
+        "tests/outcomes/validate_outcomes_report.py": "ba53f92d415db301780b383dda3b3e3a899338ed1bd83cfd45faef0c2b0a3fdc",
+        "tests/output/characterize_output.py": "27a08c633e43a5331f6bf81988907a67d28e28c7dfbe2c29f0425c281669feb9",
+        "tests/output/README.md": "b3aee167b6b647a3f52c8c852cb33d29c6ead1d11b7762d7929eef934e4a06ba",
+        "tests/paths/characterize_paths.py": "bbc965cca298d9307a9b76512e648a80703766f8e47aaf0fbb0e044230609002",
+        "tests/paths/README.md": "54b794d2ad1ec8a9867548cfac07b12eb8305cd6b6fcc7dff2833b0b0ed34403",
+        "tests/plans/characterize_plan.py": "5f63d47bbe1624567d422ed7c44a5e2de1edf560adc9c63f171f0df6c4b530e6",
+        "tests/plans/README.md": "eaeffb9ea6fec5f11c1badc39f92d33ac3f8091576f7ebe212703ef280a4d656",
+        "tests/powershell/Compatibility.Tests.ps1": "3b6ff1d573037a81a50de446a0f3b2143adfed64662ed6165d51ca177a847dcc",
+        "tests/powershell/Discovery.Tests.ps1": "00022e94b82c99f23a0b6603a8181820c6959559d9d74151738d30621f728ccd",
+        "tests/powershell/FailureProbe.ps1": "7f5d74f6d8b2a2c1607b9b7ca88d901c6b9b93b5dbf3197e626d311de5470022",
+        "tests/powershell/Harness.Tests.ps1": "201b531f9c4352fe1a21be531481dd582fd62508fcb6b70f17f496a86d07cb52",
+        "tests/powershell/HarnessSupport.psm1": "01567cc99415500be581be00428b1ba20a2a0dcd8463ac3b0cff253985e266cc",
+        "tests/powershell/Launcher.Tests.ps1": "b8ece5693a438e7e7212a278915a42fcf4be32f034d4e2b7e60b3bedbbd25417",
+        "tests/powershell/Logging.Tests.ps1": "8920cd2a769f3b2ab1b1372a8094bfe5c2fa84fd08e32b2b7c1fb987d15fbdd5",
+        "tests/powershell/Manager.Tests.ps1": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7",
+        "tests/powershell/Outcome.Tests.ps1": "beef01f939c645c9ac46b76bd28e919b03dae901b4a2fdd188f94268aba77c35",
+        "tests/powershell/Process.Tests.ps1": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605",
+        "tests/powershell/Runtime.Tests.ps1": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3",
+        "tests/powershell/Session.Tests.ps1": "d18d4caac414607e207ecca881d5267eedca82d11547d45bb5aab38476df3315",
+        "tests/powershell/Setup.Tests.ps1": "0e7c2bc05ed2c628adab4673aaa82c0a4513be4635d5d40551c9d072dacbe27a",
+        "tests/powershell/StoreDiscovery.Tests.ps1": "2d2bc38ac4c1e792e502062b4ca6171b0c1d2b618289b3cc168ba4a9b391f96e",
+        "tests/powershell/Support.Tests.ps1": "f765f01bac503131ac560e36552357cf81b4243302c9391b3ec3636acd76c40b",
+        "tests/powershell/Version.Tests.ps1": "d630f9327870fd4c79f122a1544b0cf62b06d61a42db3e212e6f9e98c70c3453",
+        "tests/process/characterize_process.py": "94f474fe9cba82894ab787e9e46de6cc8604888ec928d02e892587fd065e7b98",
+        "tests/process/fake_engine.py": "12bc80526a73d46c241578cfc44a2a391c49ff5ab2ccded7c8c99c460e69fe59",
+        "tests/process/native_child.py": "efd685fa3df1053b7d569216d7f1e105ee2d76b09ae0e82d0bece4881efac2ff",
+        "tests/process/Probe-Process.ps1": "e727f7d61be4374e3163a252a2508edff50aa302530b5092e951e7fda3a0a286",
+        "tests/process/README.md": "274fa2b3ceeab658fbf5c48343631909a3954288300004b01247d8df49e19e78",
+        "tests/process/session_child.py": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb",
+        "tests/process/validate_process_report.py": "98966b10dc4cfbf660cf02cecaef94a164a55e763d559982748b5738f1bfdc48",
+        "tests/PSScriptAnalyzerSettings.psd1": "dc9a25e5de2ab9fc6ade343068dd9a34f99b43586f37b3a1e52dadf3bf9f3476",
+        "tests/python/console_receipt_fixture.py": "2ce676b5983ebddac356da2aced56d0d58523b1bc87c3a6ff3c8996ef6516637",
+        "tests/python/session_receipt_fixture.py": "9017b58cb1865921569d8ec8ca74be9862263bf70f4e2315cb555128dd3b0a84",
+        "tests/python/test_ci_bootstrap.py": "eb86780f732ceee84f9cc283713fc6bc97f5ac395b1239d9f23ead3ccb176810",
+        "tests/python/test_ci_package_inputs.py": "e8a09713dbb0fd045595322a226db4c031f6d93ae1de2a7147d1477c50dfc5a8",
+        "tests/python/test_ci_reports.py": "34271cc5e9a92ce1eff5b770203848e017dba1625ce5d4dba7eaf7a3d3107b86",
+        "tests/python/test_cli_receipt.py": "96fe4663fccb6a1f864fb2ba43e401b2ea6ca12c2c5626cefc61607e0dc4e4d2",
+        "tests/python/test_compatibility.py": "e121b8cc6f7e8328f9b4a4bfe387c604f0e4709d72d6679a9d41c7695671cf1a",
+        "tests/python/test_console_manifest.py": "e221bf99dbbea208f0fc918d6feba76b3edd8409008867cd0a66ed611342ded8",
+        "tests/python/test_conversion.py": "7a0fd00ee1c64126f61d2313c2c73b18c711612dacee875c5b0a29cbc2fc349d",
+        "tests/python/test_cross_host_receipt.py": "0b268aa655a35bab382667638f1cec5d007e64c82f0263a91ae073a853af9529",
+        "tests/python/test_diagnostics.py": "b5e1e8e3c171577c027d76fce2d9ddbabd45d9454351ecf47dd510e8fe09d0c7",
+        "tests/python/test_document_policy_receipt.py": "0c533a508e2babbcd3ba3d133dc9bdc5ca0d022bbc5ea4e53d05d13b2564d00e",
+        "tests/python/test_ebook_assets.py": "a936dfdc3dec656f2db989a9629306b698069483d37e1f3a4f4fec85fcde09a5",
+        "tests/python/test_ebook_behavior.py": "d73c76eb333c05e8837dfdddc9163c3633d4ef7e70812efc646df4864878c5e1",
+        "tests/python/test_ebooks_receipt.py": "6d83abadb5fec9c31718bac88332d96b94dd1ab3c7114ed1c0514bea95d420bf",
+        "tests/python/test_extraction.py": "6d74d8f09fe936f37cc345199590c44fcc5a03963ce8a0a5941bd84239ce8ea6",
+        "tests/python/test_fault_invariants.py": "081846d2175603d1062b21ce51cafd4566413df25fceccfe123f8dd127436a16",
+        "tests/python/test_fault_isolation.py": "8c5a7b6cbcd09b44179421df83b6e9e1576e1a8185de8087b2d9de5d49a72156",
+        "tests/python/test_faults_receipt.py": "238a1e4e0fa77cff10d58c371b91204c14308bc2e10f2bad15d2f8e668753c90",
+        "tests/python/test_fidelity_receipt.py": "b9a9c585cc2f6255171bc6c01b302d1cb4d9778bd36255b8c8566b6a244797ef",
+        "tests/python/test_filenames.py": "47a27ab76cc57174bd59b05ff8c9ca85dd97e80393921d0cef7f2294b321f0cb",
+        "tests/python/test_final_zip_ps7.py": "cc6f0ef0222a11eb6d5d74fd4f271fe02bc424da4524403ec85cc7d65e21bb2f",
+        "tests/python/test_frozen_assets.py": "758ce817d7de1698f81aef8b3b9ed1f25466c8cdbe1daa996b1fff83537f86d6",
+        "tests/python/test_interaction_receipt.py": "13312c71782cc475c80ca7798d29f62ec089708454b62011d3390f2f1d247ef0",
+        "tests/python/test_interactive.py": "2b134c77abf4e7e6cbfca075f14e5c0ef96cf0a403d6afb4c0f34998144408b8",
+        "tests/python/test_launcher_receipt.py": "b77872d6ee86cf0679c927845ff99007970a6a96d17250992fca70690aec9aca",
+        "tests/python/test_level1.py": "b95937968e8c9d821fdd55954a5569a90fb09af15cbf58fe169d249d472a1578",
+        "tests/python/test_level2.py": "f60d71cf48e4888a064995a634bf8a98892a7a4519446665b075b61ec41bdc79",
+        "tests/python/test_manual.py": "43ef12a97881ca4238bc9de65db255e7b462477e0c75824f861014c49c79643a",
+        "tests/python/test_native_discovery_collector.py": "1b48e6e1fb80bb5f57620867469b728fc3cd9c17df88810fa4cb12dde947616b",
+        "tests/python/test_native_fixture_preparation.py": "8878fc5630d04dd47d4cee726d7c4097fec132314f31b6b16885058c2fb28ef4",
+        "tests/python/test_native_kit.py": "1959404ea76846e575bc80932eb7cd2f70457c3a790ce733862976301c3575dc",
+        "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b",
+        "tests/python/test_native_store_scenario.py": "8f098e2d81c77f9cb75348fbd6b008be533c7481bbd9c79b718563e30bc07c82",
+        "tests/python/test_outcomes.py": "1cfdfc2f1a2dcee95f9f00572c1195cfb73e3a5389e0a75029df9c3e4d695313",
+        "tests/python/test_outcomes_receipt.py": "894a0dededfc671184d4d0b6cf515cb18239e79a0d7f5833622162b945b96b94",
+        "tests/python/test_output.py": "300c89f7ff76020cad6ae9b972a2aa2d45e13db791dec31526261f88c0d16eb6",
+        "tests/python/test_pdf_fidelity.py": "8f00a67577d416a891f6059a483ad15bfc7c30d05e1845b69136e35ed9b2d728",
+        "tests/python/test_pdf_policy.py": "beda241f2cc0a4a7d42adc57e699c468a513b3077d9546394603321b3dffd074",
+        "tests/python/test_plan.py": "e6ba535ff0578fd420e893848f3c0533737bce392075d13d5477ea0d225f76fc",
+        "tests/python/test_preview.py": "8cd8068252601d01e0327932452a8649df2ae8a492cd9bb2fc343968534f0ee4",
+        "tests/python/test_process_receipt.py": "2fd6a71aafe88ebf2de514db2cda6a6bbaaffa632c541fda184d5567cced269b",
+        "tests/python/test_release_package.py": "2f8ea38d45ab6b9d93f5e51b92ebaf4ae61e5ce1701020b08b72bdb941efc932",
+        "tests/python/test_release_security.py": "589e3ed8ae3c47fc9171ffaf9f4cac00c4346c467fad7503141ad5c5dd43df09",
+        "tests/python/test_runner.py": "4f02a5ba8b8d15acad893a4fbb4431f2fb782c02eed796a57b185c77f46c9c5a",
+        "tests/python/test_runtime_receipt.py": "b9e46b563b127b210129f636acc22e552ff55935937047eb9c59581549125e9f",
+        "tests/python/test_store_gate.py": "b3dbc11925f55f492fe725e67cb912135941514ae5e8bf93e667e27e3a4ff6d1",
+        "tests/python/test_support_receipt.py": "db21649dcfd7f83655dbb09734ca7b936a53429ba27802cc11091c942ac375ad",
+        "tests/python/test_ux_receipt.py": "655035a27745203cf4981c1ee57307345e45ba0d14522ee0e79fa6cdb154b54d",
+        "tests/python/test_version.py": "ec49c55e488a56ed1cd48bde61f9840f0b0cc6ec1178c0d0d44300ca60a46245",
+        "tests/python/test_warnings.py": "01310e6753dd0c37064b25ea0952b734db00e61239f313f369220c52ee287422",
+        "tests/README.md": "021ea83411b2038fbf04591c3acd0e77991970dc2d15732a37a6e20418b5daa6",
+        "tests/run_tests.py": "3c803c95730f1ef2af282c381e8b2ebcae1cfbfb6f65ea0f5e2fd19b38411e7e",
+        "tests/runtime/characterize_runtime.py": "fa25d17a30081a1d68c5ebc4e060a2bf33bc490145073dea3b59408f974dc5ed",
+        "tests/runtime/README.md": "b59b5a191fad6f00bb42b00d9e1ca0f3a69ad0d93be3381d62d54bc4eb6e1681",
+        "tests/runtime/validate_runtime_report.py": "2b5945da1d7b7ba7eadd2597551c81d7dd0def44d1bfbc32be918a8c6734c335",
+        "tests/support/characterize_support.py": "13609e9a7e8a211c9789be23f5a17023f7651a18bfd2d0d27b0b49922c714488",
+        "tests/support/README.md": "2e6b11d47501f3b38a97791e910bf7180eb1f36446f8c9cfba2900852dc634b4",
+        "tests/support/validate_support_report.py": "011ec615d4d4b87520241e10c1b7a542733744be97a4fab650548b4cdab1c7f7",
+        "tests/ux/characterize_ux.py": "b24d077b87f9edad6bf0083d27796bb4e1b7a6dc96a221ffcf1836907895b8aa",
+        "tests/ux/README.md": "85ce4cc41a52e35e43203cfdca42f081d787515d29c90ac2062907e453174582",
+        "tests/ux/validate_ux_report.py": "5e7502297970fc6ea0b7b33f818fc042d6ca832486d3994a8dcdfca3e9152a9f",
+        "THIRD_PARTY_NOTICES.md": "782e08a51031e58c7526b1076d18037f30a1f3c795ca1b16a270c8da0856fbe8",
+        "tools/ci/bootstrap.py": "47ea20b6d4a543bca4390201fb9e45b37ca02983223fefd7abb3ef7640bbb2ce",
+        "tools/ci/check_package_inputs.py": "e9cd7ac6238fcd826b9deb01cd96915bcc7a8ff5442e8d1b2d3252d8944d4381",
+        "tools/ci/README.md": "523b12e5c70e99aa1bab7a43672d8c774f9d056726cf2b3dfd00eae435892647",
+        "tools/ci/validate_reports.py": "5d9d637586fb146ca9e5dc47f40718f81b95b957496a10f34b02a78eed5ad487",
+        "tools/codex-handoff/check_sync.py": "408bb6764041411be2dc35eca1a6997181703467e086c98e490c8f191405b908",
+        "tools/codex-handoff/handoff_common.py": "f0f28c7ded600a6d363e8dd462190594ad7e665872dd5d4b9b99944a5171a898",
+        "tools/codex-handoff/validate_plan.py": "5af8617bb55280f6bbdd43c2d449d2a30b3bf3204ca273d10c97e1cea4fb9d39",
+        "tools/compatibility/final_zip_ps7.py": "73ca5b727a49410433cc6f3871bcbe0b2b46ddb6e603ae299393b0a546e37db7",
+        "tools/compatibility/Invoke-FinalZipPs7.ps1": "eaef9da460de77741675e484480a808ff6660d1f1d2e57091681e8e46a07f38b",
+        "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+        "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+        "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd",
+        "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "4a511cde1407063741e140ad897a6dd6e9e65b851e31cd4c101b8b48d7996062",
+        "tools/compatibility/kit_builder.py": "9440407c442cdbcb7a03fc1e8b1fe1aa1f5dff37b29a05f13c04f32edce168e6",
+        "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+        "tools/compatibility/prepare_fixtures.py": "be35bae460e822f2436d0a1c381186a9d80d16331f7ebb44f8a08c5ab7e1a519",
+        "tools/compatibility/README.md": "13160868003359ba1525abee50c1b4a66a6d29acbc94c81e28843575503c228e",
+        "tools/release/build_package.py": "264a07def715c9b292ad2a977d73b57c683ca5920e4038874d612e0762a07341",
+        "tools/release/frozen_assets.py": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9",
+        "tools/release/payload.json": "9a360dcc1f10095bbb06bd1607546dc09755a352b0e72aacda8f73a7b4bf85ab",
+        "tools/release/README.md": "fc259eb7185ac0f07546aeb3a307e29c00317ad18ff1ab753024796f9ac7dffd",
+        "VERSION": "9fd28642d3aca191e5c7fc2383cfd6fabb2aac8743f029dabb8989ac584e31bc",
+        "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+        "WinBookSplit.ps1": "fb4be7e8104f21fb6c7e9aba6e5c838bfcdb8841f834e67b53c66b8f03786332"
+      },
+      "tested_paths_digest": "34b27dec1e779ce179e1952d93e5ca04605bbb93ed63e89f87dc8e18e86a7f93",
+      "meaning": "Actual worktree bytes; Git identity alone does not imply a clean checkout",
+      "source_unchanged": true
+    },
+    "final_changed_file_sha256": {
+      "tests/Invoke-ShellTests.ps1": "aa5d3fbbea27094752a1ccd3eb3fae58aef70596c5459a28db91332da218dceb",
+      "tests/README.md": "021ea83411b2038fbf04591c3acd0e77991970dc2d15732a37a6e20418b5daa6",
+      "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b",
+      "tests/python/test_store_gate.py": "b3dbc11925f55f492fe725e67cb912135941514ae5e8bf93e667e27e3a4ff6d1",
+      "tools/codex-v1.0.3/README.md": "07a28989abec33dd2b38f25cbe25e8fd0882fcc7dee22223f9aff88932ded5e4",
+      "tools/codex-v1.0.3/check_native_store_report.py": "8dafe415805eec4464a9c79edc9f3b8289900dabd259545fd228ea0eb83f2c69",
+      "tools/codex-v1.0.3/tests/test_native_gate.py": "0540c837cb93b2ee2dd43efdfed3d9e4b85ae9f58bea973f7072693dcb735e5e",
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+      "tools/compatibility/README.md": "13160868003359ba1525abee50c1b4a66a6d29acbc94c81e28843575503c228e",
+      "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+      "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+      "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+      "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+      "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+      "tests/python/test_native_store_scenario.py": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+      "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d"
+    }
+  },
+  "results": {
+    "python": {
+      "tests_run": 690,
+      "skip_lines": [],
+      "exit_code": 0
+    },
+    "shell": {
+      "ps51": {
+        "total": 252,
+        "failed_cases": [],
+        "not_run": 0,
+        "failed_containers": 0,
+        "passed": 252,
+        "skipped": 0,
+        "failed_blocks": [],
+        "failed": 0,
+        "result": "Passed",
+        "failed_container_errors": []
+      },
+      "ps7": {
+        "skipped": 0,
+        "failed": 0,
+        "failed_blocks": [],
+        "total": 252,
+        "not_run": 0,
+        "passed": 252,
+        "result": "Passed",
+        "failed_container_errors": [],
+        "failed_cases": [],
+        "failed_containers": 0
+      }
+    },
+    "supported_explicit_runtimes": {
+      "313": {
+        "version": "3.13.16",
+        "units": 150,
+        "cases": 8
+      },
+      "314": {
+        "version": "3.14.8",
+        "units": 150,
+        "cases": 8
+      },
+      "315": {
+        "version": "3.15.0",
+        "units": 150,
+        "cases": 8
+      }
+    },
+    "helpers": {
+      "tests_run": 67,
+      "passed": 66,
+      "skipped": 1,
+      "skip_lines": [
+        "test_symlink_receipt_rejected (test_native_gate.GateTests.test_symlink_receipt_rejected) ... skipped 'symlinks unavailable in this test environment'"
+      ],
+      "original_local_log_sha256": "0cec9fc95482fea426d7a57f824501bb997b80e0d1971caf27c03a641b9c54f0"
+    },
+    "collector": "36/36 actual native controls across PS5.1/PS7 controller/child pairs; final maintained Python suite repeats final driver bytes",
+    "new_pdf_recipes": "8 actual native probes exit0; explicit offline fixture setup then automatic healthy no-op plus prepare/manual/Auto1/Auto2/BAT/validate; NOT fresh automatic Store acceptance"
+  },
+  "final_scoped_delta": {
+    "schema_version": 1,
+    "task": "T05",
+    "scope": "Final narrow tooling delta after stable broad-suite snapshot; product and actual PDF recipe oracle unchanged",
+    "success": true,
+    "changes": [
+      "retain rejected runtime probes",
+      "finite leased seven-member return ZIP",
+      "correct generated ZIP return wording",
+      "both native Python drivers preserve failed/timeout bytes and enclosing runner evidence; mocked retention controls"
+    ],
+    "tested_paths_sha256": {
+      "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+      "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+      "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+      "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b",
+      "tests/python/test_native_store_scenario.py": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+      "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+      "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+      "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729"
+    },
+    "store_native_controls": {
+      "original_local_sha256": "b86640c10578e57d578c61ce054b2f1d35cda35f6e98c55c7beb909cb4b55e7b",
+      "receipt": {
+        "scope": "T05_FINAL_SCENARIO_DELTA_CONTROLLED_TOOLING_NOT_NATIVE_STORE",
+        "source_unchanged": true,
+        "syntax_errors": [],
+        "probe_hosts": [
+          {
+            "id": "PS51",
+            "report": {
+              "host": {
+                "shell": "5.1.26100.9711",
+                "edition": "Desktop"
+              },
+              "schema_version": 1,
+              "success": true,
+              "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+              "limits": [
+                "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+                "No Python install/update/download/copy/clone or PATH/alias change was performed."
+              ],
+              "cases": [
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "store-inputs-refuse-runtime-environment"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "redaction-parses-nested-json-case-and-key-paths"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "actual-redacted-stream-lengths-pass-rejecting-validator"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "no-store-registration-before-any-bootstrap-or-fallback"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "inventory-positive-control-real-child-is-actually-used"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "inventory-nonzero-listing-refuses-runtime-probe"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "rejected-runtime-probe-survives-returned-failure"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "finite-return-zip-positive-and-foreign-member-refusal"
+                },
+                {
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "status": "PASS",
+                  "error": null,
+                  "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+                }
+              ]
+            },
+            "command": [
+              "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+              "-NoProfile",
+              "-NonInteractive",
+              "-InputFormat",
+              "Text",
+              "-OutputFormat",
+              "Text",
+              "-ExecutionPolicy",
+              "RemoteSigned",
+              "-File",
+              "<WORKSPACE>\\tests\\compatibility\\Probe-StoreExisting.ps1",
+              "-RepositoryRoot",
+              "<WORKSPACE>",
+              "-TestPython",
+              "<DEV_PYTHON_3148>",
+              "-WorkRoot",
+              "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS51-owned",
+              "-ReportPath",
+              "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS51-probe.json"
+            ],
+            "report_sha256": "738e97669de711cbc7442cf82a0f1cc03ecf851a2b5cd7268ad04f828a5f6639",
+            "exit_code": 0
+          },
+          {
+            "id": "PS7",
+            "report": {
+              "cases": [
+                {
+                  "id": "store-inputs-refuse-explicit-baseline-and-provisioning",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "store-inputs-refuse-runtime-environment",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "redaction-parses-nested-json-case-and-key-paths",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "actual-redacted-stream-lengths-pass-rejecting-validator",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "no-store-registration-before-any-bootstrap-or-fallback",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "inventory-positive-control-real-child-is-actually-used",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "inventory-nonzero-listing-refuses-runtime-probe",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "rejected-runtime-probe-survives-returned-failure",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "finite-return-zip-positive-and-foreign-member-refusal",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                },
+                {
+                  "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition",
+                  "status": "PASS",
+                  "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                  "error": null
+                }
+              ],
+              "success": true,
+              "schema_version": 1,
+              "limits": [
+                "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+                "No Python install/update/download/copy/clone or PATH/alias change was performed."
+              ],
+              "host": {
+                "shell": "7.6.5",
+                "edition": "Core"
+              },
+              "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING"
+            },
+            "command": [
+              "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+              "-NoProfile",
+              "-NonInteractive",
+              "-InputFormat",
+              "Text",
+              "-OutputFormat",
+              "Text",
+              "-ExecutionPolicy",
+              "RemoteSigned",
+              "-File",
+              "<WORKSPACE>\\tests\\compatibility\\Probe-StoreExisting.ps1",
+              "-RepositoryRoot",
+              "<WORKSPACE>",
+              "-TestPython",
+              "<DEV_PYTHON_3148>",
+              "-WorkRoot",
+              "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS7-owned",
+              "-ReportPath",
+              "<USERPROFILE>\\AppData\\Local\\Temp\\T05-scenario-final-d12b1383cbb54079a5e9ec7affe714f3\\PS7-probe.json"
+            ],
+            "report_sha256": "72c0d8dce28b02a9a4c9175bdd1fe1bd7fdd14e2d694ad2624b3efc37d065a94",
+            "exit_code": 0
+          }
+        ],
+        "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+        "source_after": {
+          "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+          "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+          "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+          "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+          "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+          "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+          "tests/python/test_native_store_scenario.py": "e04bf36cbe692fba3f0d87c47b4d1ee5b1fa187a8543545804b13cd960ce71f0",
+          "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b"
+        },
+        "source_before": {
+          "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "e249d3422ff9b80316533f9bf9b75ccef27a2c2cdf8c2479fe015b3544051b1d",
+          "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+          "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+          "tools/compatibility/kit_builder.py": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+          "tools/compatibility/native_smoke.py": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729",
+          "tests/compatibility/Probe-StoreExisting.ps1": "1ff166c002b262bd810db16f7cee14b907bf08fe072c86209ecf5f53d8c5e756",
+          "tests/python/test_native_store_scenario.py": "e04bf36cbe692fba3f0d87c47b4d1ee5b1fa187a8543545804b13cd960ce71f0",
+          "tests/python/test_native_smoke.py": "a4f34db5ac82732d2b1ed9c25916ec8ff68a2150add37a930adabe50c0d83a6b"
+        },
+        "analyzer": {
+          "findings": [],
+          "version": "1.25.0",
+          "manifest_sha256": "2b219f688bcdd67101040f845e530b22907d39bbf49089b4b5b2afaba7996791"
+        },
+        "success": true
+      }
+    },
+    "collector_driver_final": {
+      "original_local_sha256": "19d578bf7c729d0d0c5675f5a3926e1ae88ec5ff83b1598a5587f23840f34545",
+      "receipt": {
+        "schema_version": 1,
+        "task": "T05",
+        "scope": "NATIVE_COLLECTOR_DRIVER_FAILURE_RETENTION_DELTA_ONLY",
+        "observed_at_utc": "2026-10-17T14:35:17.229938+00:00",
+        "command": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "<WORKSPACE>\\tests\\python\\test_native_discovery_collector.py",
+          "-v"
+        ],
+        "cwd": "<WORKSPACE>",
+        "python_version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+        "python_executable": "<DEV_PYTHON_3148>",
+        "exit_code": 0,
+        "elapsed_seconds": 73.91937349999716,
+        "stdout": "",
+        "stderr": "test_failed_driver_retains_raw_bytes_and_outer_runner_marker (__main__.NativeCollectorDriverFailureRetentionControls.test_failed_driver_retains_raw_bytes_and_outer_runner_marker) ... ok\r\ntest_timeout_retains_partial_bytes_and_outer_runner_marker (__main__.NativeCollectorDriverFailureRetentionControls.test_timeout_retains_partial_bytes_and_outer_runner_marker) ... ok\r\ntest_inbox_controller_inbox_child (__main__.NativeDiscoveryCollectorControls.test_inbox_controller_inbox_child) ... ok\r\ntest_inbox_controller_ps7_child (__main__.NativeDiscoveryCollectorControls.test_inbox_controller_ps7_child) ... ok\r\ntest_ps7_controller_inbox_child (__main__.NativeDiscoveryCollectorControls.test_ps7_controller_inbox_child) ... ok\r\ntest_ps7_controller_ps7_child (__main__.NativeDiscoveryCollectorControls.test_ps7_controller_ps7_child) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 6 tests in 73.591s\r\n\r\nOK\r\n",
+        "tested_path_sha256_before": {
+          "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+          "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+          "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+          "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+        },
+        "tested_path_sha256_after": {
+          "tests/python/test_native_discovery_collector.py": "f801da44e0eced9b6c221b987ea0089ef87591fcb5d43d955c0dbda07ef3bb5e",
+          "tests/compatibility/Probe-NativeDiscoveryCollector.ps1": "d25602677a702a3951e42023f33a5b2e2ce08bf7e3570563f980672ff44f931d",
+          "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+          "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+        },
+        "source_unchanged": true,
+        "actual_native_pairs": 4,
+        "native_controls_per_pair": 9,
+        "mocked_failure_retention_cases": 2,
+        "success": true,
+        "original_wrapper_success": false,
+        "original_wrapper_receipt_sha256": "530120cf57566dbdd3c1f403ceb6ca1dc39dd6954e8827d31c43095539f0478b",
+        "raw_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "raw_stderr_sha256": "23036da50052425ef9ad29d6feb531e3380547cd6c0f3c74b9fc0e70602ccf22",
+        "receipt_review": "The original wrapper LF-only success matcher rejected Windows CRLF despite actual test command exit0 and 6/6 PASS. Original result.json is preserved. This receipt verifies its raw stream bytes and normalizes CRLF only to recognize the unittest summary. No native/application outcome changed."
+      }
+    },
+    "store_driver_final": {
+      "original_local_sha256": "858025980b367cf672cb74ed56835e8a5426a61800ecdf3876912a8e0237eccc",
+      "receipt": {
+        "source_before": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+        "success": true,
+        "exit_code": 0,
+        "elapsed_seconds": 17.5660112,
+        "stdout": "",
+        "stderr": "test_nonzero_driver_retains_raw_bytes_and_outer_marker (test_native_store_scenario.StoreDriverFailureRetentionControls.test_nonzero_driver_retains_raw_bytes_and_outer_marker) ... ok\r\ntest_timeout_driver_retains_partial_bytes_and_outer_marker (test_native_store_scenario.StoreDriverFailureRetentionControls.test_timeout_driver_retains_partial_bytes_and_outer_marker) ... ok\r\ntest_inbox_no_fallback_and_positive_controls (test_native_store_scenario.StoreScenarioControls.test_inbox_no_fallback_and_positive_controls) ... ok\r\ntest_ps7_no_fallback_and_positive_controls (test_native_store_scenario.StoreScenarioControls.test_ps7_no_fallback_and_positive_controls) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 4 tests in 17.181s\r\n\r\nOK\r\n",
+        "command": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/python",
+          "-p",
+          "test_native_store_scenario.py",
+          "-v"
+        ],
+        "source_unchanged": true,
+        "source_after": "2441cd6b813f89f46e3001871983c33bb73595afcb84cdc150d96054791c22e9",
+        "scope": "T05_FINAL_STORE_DRIVER_RETENTION_DELTA",
+        "source_commit": "c82690ecef66508921e32677ffe0aba76ebd0e9d"
+      }
+    },
+    "kit_builder_final": {
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tests/python",
+        "-p",
+        "test_native_kit.py",
+        "-v"
+      ],
+      "exit_code": 0,
+      "elapsed_seconds": 0.6964984000005643,
+      "stdout": "",
+      "stderr": "test_bool_code_size_does_not_execute (test_native_kit.Controls.test_bool_code_size_does_not_execute) ... ok\r\ntest_case_and_ancestor_collisions_rejected_before_create (test_native_kit.Controls.test_case_and_ancestor_collisions_rejected_before_create) ... ok\r\ntest_developer_git_identity_ignores_repository_environment (test_native_kit.Controls.test_developer_git_identity_ignores_repository_environment) ... ok\r\ntest_duplicate_case_json (test_native_kit.Controls.test_duplicate_case_json) ... ok\r\ntest_existing_target_preserved (test_native_kit.Controls.test_existing_target_preserved) ... ok\r\ntest_nonfinite_json (test_native_kit.Controls.test_nonfinite_json) ... ok\r\ntest_output_identities_held_through_archive_and_receipt (test_native_kit.Controls.test_output_identities_held_through_archive_and_receipt) ... ok\r\ntest_positive_native_guarded_tree (test_native_kit.Controls.test_positive_native_guarded_tree) ... ok\r\ntest_recreated_archive_is_not_adopted (test_native_kit.Controls.test_recreated_archive_is_not_adopted) ... ok\r\ntest_unsafe_paths_rejected_before_target_creation (test_native_kit.Controls.test_unsafe_paths_rejected_before_target_creation) ... ok\r\ntest_wrong_code_hash_does_not_execute (test_native_kit.Controls.test_wrong_code_hash_does_not_execute) ... ok\r\n\r\n----------------------------------------------------------------------\r\nRan 11 tests in 0.357s\r\n\r\nOK\r\n",
+      "source_before": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d",
+      "source_after": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d"
+    },
+    "exploratory": {
+      "collector_evidence_wrapper": "Original LF-only summary matcher returned false despite actual exit0/6PASS under Windows CRLF. Reviewed receipt preserves original wrapper receipt hash/false flag and actual raw output hashes; only summary newline handling normalized.",
+      "store_fixture_development": [
+        "Initial PS51 token assertion failed because ConvertTo-Json escaped <USER> brackets; initial Unicode fixture source lacked BOM. Corrected fixture assertion/encoding then both shells passed.",
+        "Initial synthetic oracle fixture set stdout text while leaving native byte count zero; fixture corrected to measured UTF8 length then32/32passed.",
+        "Initial direct PSSA command unavailable in default PS7; pinned existing analyzer1.25.0 later loaded explicitly and passed."
+      ],
+      "intermediate_store_probes": [
+        {
+          "original_local_sha256": "cf80be19bb623170dd6dc986dd64e4456b871c9c6cc2c17eaf39541bb03ab7f0",
+          "receipt": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": true,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "actual-redacted-stream-lengths-pass-rejecting-validator"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "scope": "Exploratory/source-overlapping input, not final acceptance"
+        },
+        {
+          "original_local_sha256": "7ef3c0f3b3ee81211ccd74f5c169e7bd0b0da9f0c64cc9d6edae8a7d7001c90a",
+          "receipt": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": true,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "scope": "Exploratory/source-overlapping input, not final acceptance"
+        },
+        {
+          "original_local_sha256": "e25e303a42b439e98f3130cbb97a24bb4ff6f7477df25bc14db84daaa10eb31a",
+          "receipt": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": false,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "FAIL",
+                "error": "Returned redacted bytes retained a path spelling/JSON/key.",
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "scope": "Exploratory/source-overlapping input, not final acceptance"
+        },
+        {
+          "original_local_sha256": "7ef3c0f3b3ee81211ccd74f5c169e7bd0b0da9f0c64cc9d6edae8a7d7001c90a",
+          "receipt": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": true,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "scope": "Exploratory/source-overlapping input, not final acceptance"
+        },
+        {
+          "original_local_sha256": "e25e303a42b439e98f3130cbb97a24bb4ff6f7477df25bc14db84daaa10eb31a",
+          "receipt": {
+            "host": {
+              "shell": "5.1.26100.9711",
+              "edition": "Desktop"
+            },
+            "schema_version": 1,
+            "success": false,
+            "kind": "T05_STORE_SCENARIO_CONTROLLED_NATIVE_TOOLING",
+            "limits": [
+              "Synthetic manager seams and authored inputs only; no native Store registration/owner Windows10/exact-ZIP acceptance is claimed.",
+              "No Python install/update/download/copy/clone or PATH/alias change was performed."
+            ],
+            "cases": [
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-explicit-baseline-and-provisioning"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "store-inputs-refuse-runtime-environment"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "FAIL",
+                "error": "Returned redacted bytes retained a path spelling/JSON/key.",
+                "id": "redaction-parses-nested-json-case-and-key-paths"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "no-store-registration-before-any-bootstrap-or-fallback"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-positive-control-real-child-is-actually-used"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "inventory-nonzero-listing-refuses-runtime-probe"
+              },
+              {
+                "scope": "SYNTHETIC_MANAGER_SEAMS_ACTUAL_WINDOWS_TOOLING_ONLY",
+                "status": "PASS",
+                "error": null,
+                "id": "existing-inventory-positive-reaches-bootstrap-no-acquisition"
+              }
+            ]
+          },
+          "scope": "Exploratory/source-overlapping input, not final acceptance"
+        }
+      ]
+    },
+    "limitations": [
+      "No actual native Store/owner Windows10/fresh automatic setup/enforced policy acceptance.",
+      "Prior broad snapshot and final scoped delta have distinct hashes.",
+      "New recipe4actual positive run uses explicit developer fixture, unchanged oracle hash95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729."
+    ]
+  },
+  "review": {
+    "independent_reviewers": 2,
+    "remaining_actionable_defects": 0,
+    "fixed_review_findings": [
+      "new oracle positive immutable check",
+      "native executable path type and full argv",
+      "actual package and manager/alias preservation",
+      "nested path redaction and separate stream provenance",
+      "blocked diagnostic receipt ZIP",
+      "extracted source lease and final source hashes",
+      "retained rejected-runtime probes"
+    ],
+    "limitations": "Source/component/developer fixtures only; checker verifies declarations and returned bytes, not execution truth. Package preservation inventories distribution metadata, not every global file."
+  },
+  "acceptance": {
+    "STORE-025": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07",
+    "STORE-026": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07",
+    "STORE-027": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07",
+    "STORE-028": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07",
+    "STORE-029": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07",
+    "STORE-030": "PASS for T05 tooling/regression scope; actual Store/owner exact-ZIP chain remains NOT_RUN at T07"
+  },
+  "deferred": {
+    "existing_owner_windows10_store_exact_zip": "NOT_RUN/BLOCKED until T07",
+    "native_store_channel": "NOT_RUN/T07",
+    "fresh_automatic_store_setup": "NOT_RUN/T07",
+    "real_enforced_organization_policy_denial": "NOT_RUN/T07",
+    "frozen_v1.0.3_and_exact_generated_command_selftest": "T06; VERSION remains 1.0.2",
+    "native11_ebook_and_combined_owner_kit": "T06/T07",
+    "publication": "BLOCKED; T08 only after real gates"
+  },
+  "preservation": "No desktop Python/Manager install/update, PATH/alias change, checkout/owner venv, source-ZIP change, private documents, historical report edit, tag/release/publication. Authored developer fixture app/runtime environments and generated outputs remain separate.",
+  "receipt_byte_policy": "Public evidence UTF8/LF, recursively normalized paths including escaped JSON and path-bearing EncodedCommand values. Original local SHA256 values remain separate from public byte digests. Original byte-exact raw artifacts stay local.",
+  "baseline": {
+    "task": "T05",
+    "head": "c82690ecef66508921e32677ffe0aba76ebd0e9d",
+    "tree": "6006d8f40494ebfa1552445e7a7e5bb4a29d160e",
+    "branch": "codex/v1.0.3-store-discovery",
+    "status": [],
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "worktrees": [
+      "<WORKSPACE> c82690e [codex/v1.0.3-store-discovery]"
+    ],
+    "heads": [
+      "ace5b9ef7e5a90cd40d180771fedda2bc9aeae20\trefs/heads/codex/v1.0.1-compatibility",
+      "483baf858569bc838ac8a809d329b2595cdacf57\trefs/heads/codex/v1.0.2-setup-python315",
+      "9c2bc69adf8993fb85c74e592ae65fd0a1080560\trefs/heads/codex/v1.0.2-shell-timeout-diagnostic",
+      "c82690ecef66508921e32677ffe0aba76ebd0e9d\trefs/heads/codex/v1.0.3-store-discovery",
+      "01ab01bccbbe16ea2bc03eeca0153b18b7c5bfee\trefs/heads/codex/winbooksplit-v1-m0",
+      "dee49ac233650e12511a3597077523527de76c5e\trefs/heads/codex/winbooksplit-v1-m1",
+      "45db4e2a41a1ad04a9fc58a35b24d01b34f59de4\trefs/heads/codex/winbooksplit-v1-m2",
+      "792c6fca2524a7e65e4a85e39b3f5360914e9272\trefs/heads/codex/winbooksplit-v1-m3",
+      "123bb3e9bb1ad6e15e3bf6e060f35fc8a7f15cb4\trefs/heads/codex/winbooksplit-v1-m4",
+      "fc46376a52c5fa6aa232103b508aceee934de9b1\trefs/heads/codex/winbooksplit-v1-m5",
+      "4cc6b00b99685607f3214e731edaaec7d65926df\trefs/heads/main"
+    ],
+    "tags": [
+      "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2\trefs/tags/v1.0.0",
+      "73c90d10dc16b1c321737afbdfbe959d61a24573\trefs/tags/v1.0.0^{}",
+      "113ab73991c9527caf983a8e9e5993a75b226c1a\trefs/tags/v1.0.1",
+      "6f2c2e5d4d5fc484bcb1530474f09957e09775ef\trefs/tags/v1.0.1^{}",
+      "c7ef8c4aa0421c553089319cf170ab9958fc2195\trefs/tags/v1.0.2",
+      "483baf858569bc838ac8a809d329b2595cdacf57\trefs/tags/v1.0.2^{}"
+    ],
+    "releases": [
+      {
+        "tag_name": "v1.0.2",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-13T17:28:52Z",
+        "assets": [
+          {
+            "name": "release-manifest.json",
+            "digest": "sha256:a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03",
+            "size": 16593
+          },
+          {
+            "name": "SHA256SUMS.txt",
+            "digest": "sha256:5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e",
+            "size": 178
+          },
+          {
+            "name": "WinBookSplit-v1.0.2.zip",
+            "digest": "sha256:37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e",
+            "size": 909557
+          }
+        ]
+      },
+      {
+        "tag_name": "v1.0.1",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-12T12:52:30Z",
+        "assets": [
+          {
+            "name": "release-manifest.json",
+            "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6",
+            "size": 15816
+          },
+          {
+            "name": "SHA256SUMS.txt",
+            "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32",
+            "size": 178
+          },
+          {
+            "name": "WinBookSplit-v1.0.1.zip",
+            "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a",
+            "size": 885340
+          }
+        ]
+      },
+      {
+        "tag_name": "v1.0.0",
+        "draft": false,
+        "prerelease": false,
+        "published_at": "2026-10-11T08:02:26Z",
+        "assets": [
+          {
+            "name": "release-manifest.json",
+            "digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f",
+            "size": 11547
+          },
+          {
+            "name": "SHA256SUMS.txt",
+            "digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b",
+            "size": 178
+          },
+          {
+            "name": "WinBookSplit-v1.0.0.zip",
+            "digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3",
+            "size": 414497
+          }
+        ]
+      }
+    ],
+    "tools": {
+      "developer_python": "<DEV_PYTHON_3148>",
+      "ps51": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "ps7": "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+      "tool_root": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4"
+    }
+  },
+  "artifact_sha256": {
+    "T05-components.json": "aebb637bff369bbfc436281f6ec29a409238359182489d9ac4e8e31c10bf72ef",
+    "T05-delta.json": "ba2623edc6b6cebadc292a2672057da1b34728abee001bbfe45146c20b5c4fdf",
+    "T05-red.json": "197f195d3bd95e5171a90c0ddaa241bf7e295a8a9d001f4e60c019654864a0c3",
+    "T05-runtime-regression.json": "66f1c55a7432077f0108f17cb720c18c7949b23e808047b35072d6da95b31521",
+    "T05-suites.json": "2757abbd67ca4f77b5ea2e23b134c0ce4a2764a126cb10a41fba943bee37cda1"
+  }
+}
