@@ -74,6 +74,9 @@ def synthetic_contract():
         "base_runtime_ref": runtime["runtime_ref"], "venv_base_runtime_ref": runtime["runtime_ref"],
     }
     report["checks"] = {key: True for key in report["checks"]}
+    report['policy_component'].update(status='PASS', **dict.fromkeys(
+        ('direct_remotesigned_denied','marked_setup_bat_noop','exact_formatter_action_noop',
+         'source_bytes_and_marks_preserved','venv_unchanged','inbox_policy_unchanged'),True))
     return report
 
 
@@ -102,6 +105,28 @@ def write_synthetic_contract(directory, report, *, preservation_record=None):
             [deepcopy(application) for _ in range(gate.APPLICATION_RECORD_MINIMUM.get(kind, 0))],
             "synthetic_test_fixture": True,
         }
+        if kind == 'preservation':
+            # Synthetic literal command controls, never native execution data.
+            policy={'effective':'Bypass','scopes':[{'scope':scope,'policy':'Bypass' if scope=='Process' else 'Undefined'}
+                for scope in ('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')]}
+            marks=[{'path':'<APP>\\'+leaf,'sha256':'d'*64,'ads':'[ZoneTransfer]\r\nZoneId=3\r\n'}
+                   for leaf in ('WinBookSplit.ps1','Setup-WinBookSplit.ps1')]
+            denial=deepcopy(application);denial.update(role='expected_policy_denial',stage='direct_file_remotesigned')
+            denial['process']['command']=['SYNTHETIC_INBOX','-NoProfile','-NonInteractive','-InputFormat','Text','-OutputFormat','Text',
+                '-ExecutionPolicy','RemoteSigned','-File',marks[0]['path'],'-Version']
+            denial['process']['probe'].update(ExitCode=1,Stdout='',Stderr='SYNTHETIC PSSecurityException',StdoutTotalBytes=0,StderrTotalBytes=29,
+                redacted_stream_bytes={'stdout':0,'stderr':29},
+                raw_stream_sha256={'stdout':sha256(b'').hexdigest(),'stderr':sha256(b'SYNTHETIC PSSecurityException').hexdigest()})
+            bat=deepcopy(application);bat['stage']='marked_setup_bat_check'
+            action=deepcopy(application);action['stage']='exact_automatic_formatter_action'
+            action['action']="& 'SYNTHETIC_INBOX' -NoProfile -ExecutionPolicy Bypass -File '<APP>\\Setup-WinBookSplit.ps1' -NonInteractive"
+            output='[EXACT_ACTION] '+action['action']
+            action['process']['probe'].update(Stdout=output,StdoutTotalBytes=len(output),
+                redacted_stream_bytes={'stdout':len(output),'stderr':0},
+                raw_stream_sha256={'stdout':sha256(output.encode()).hexdigest(),'stderr':sha256(b'').hexdigest()})
+            receipt['records'] += [{'role':'policy_observation','stage':'before','inbox_policy':policy},
+                {'role':'policy_observation','stage':'authored_motw','marks':marks},denial,bat,action,
+                {'role':'policy_observation','stage':'after','inbox_policy':policy}]
         raw = (json.dumps(receipt, ensure_ascii=True, indent=2) + "\n").encode("utf-8")
         name = "SYNTHETIC-" + kind + ".json"
         (directory / name).write_bytes(raw)

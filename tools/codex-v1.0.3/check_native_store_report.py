@@ -37,7 +37,7 @@ CHECKS = (
     'global_packages_unchanged', 'parent_environment_unchanged',
 )
 KINDS = ('registration', 'discovery', 'setup', 'bat', 'pdf_validation', 'preservation')
-APPLICATION_RECORD_MINIMUM = {'discovery': 1, 'setup': 3, 'bat': 1, 'pdf_validation': 4}
+APPLICATION_RECORD_MINIMUM = {'discovery': 1, 'setup': 3, 'bat': 1, 'pdf_validation': 4, 'preservation': 2}
 
 class GateError(ValueError):
     """Malformed, missing, disqualifying or inconsistent evidence."""
@@ -131,7 +131,7 @@ def expected_summaries(report: dict[str, Any]) -> dict[str, Any]:
         'preservation': {'before': report['before'], 'after': report['after'],
                          'forbidden_substitutions': report['forbidden_substitutions'],
                          'fallback_acquisition': report['fallback_acquisition'],
-                         'inventory': report['inventory']},
+                         'inventory': report['inventory'], 'policy_component': report['policy_component']},
     }
 
 def validate_receipt_records(records: list[Any], kind: str) -> None:
@@ -215,6 +215,79 @@ def validate_receipt_records(records: list[Any], kind: str) -> None:
     need(application_count >= APPLICATION_RECORD_MINIMUM.get(kind, 0),
          'structured application command receipts missing: ' + kind)
 
+def validate_policy_records(records: list[Any]) -> None:
+    """Correlate the local policy component's structured native operations."""
+    stages: dict[str, list[dict[str, Any]]] = {}
+    def visit(value: Any) -> None:
+        if isinstance(value, list):
+            for item in value: visit(item)
+        elif isinstance(value, dict):
+            if isinstance(value.get('stage'), str): stages.setdefault(value['stage'], []).append(value)
+            for item in value.values(): visit(item)
+    visit(records)
+    def one(stage: str) -> dict[str, Any]:
+        rows = stages.get(stage, [])
+        need(len(rows) == 1, 'missing/duplicate policy operation: ' + stage)
+        return rows[0]
+    before, after = one('before'), one('after')
+    need(before.get('role') == after.get('role') == 'policy_observation' and
+         before.get('inbox_policy') == after.get('inbox_policy'), 'inbox policy observations differ')
+    policy = obj(before.get('inbox_policy'), 'inbox policy observation')
+    scopes = policy.get('scopes')
+    names = {'MachinePolicy', 'UserPolicy', 'Process', 'CurrentUser', 'LocalMachine'}
+    need(isinstance(scopes, list) and len(scopes) == 5 and all(isinstance(row, dict) for row in scopes) and
+         {row.get('scope') for row in scopes} == names, 'inbox policy observation scopes incomplete')
+    allowed = {'Undefined', 'Restricted', 'AllSigned', 'RemoteSigned', 'Unrestricted', 'Bypass', 'Default'}
+    need(policy.get('effective') in allowed and all(row.get('policy') in allowed for row in scopes),
+         'inbox policy observation values invalid')
+    marks = one('authored_motw').get('marks')
+    need(isinstance(marks, list) and len(marks) == 2, 'two actual entry-script Internet marks required')
+    marked = {}
+    for mark in marks:
+        mark = obj(mark, 'Internet mark')
+        path = ref(mark.get('path'), 'marked script path')
+        leaf = path.replace('\\', '/').rsplit('/', 1)[-1]
+        need(leaf in {'WinBookSplit.ps1', 'Setup-WinBookSplit.ps1'} and leaf not in marked and
+             mark.get('ads') == '[ZoneTransfer]\r\nZoneId=3\r\n', 'invalid/duplicate Internet mark')
+        digest(mark.get('sha256'), 64, 'marked script data hash')
+        marked[leaf] = path
+    denial = one('direct_file_remotesigned')
+    process = obj(denial.get('process'), 'direct policy process')
+    command = process.get('command')
+    need(denial.get('role') == 'expected_policy_denial' and denial.get('environment') == {} and
+         isinstance(command, list) and command[1:] == ['-NoProfile', '-NonInteractive', '-InputFormat', 'Text',
+             '-OutputFormat', 'Text', '-ExecutionPolicy', 'RemoteSigned', '-File', marked['WinBookSplit.ps1'], '-Version'] and
+         len(command) == 12 and isinstance(command[0], str) and process.get('failure') is None and
+         process.get('environment_before_after_restored') is True, 'direct marked policy command differs')
+    probe = obj(process.get('probe'), 'direct policy probe')
+    need(type(probe.get('ExitCode')) is int and probe['ExitCode'] != 0 and type(probe.get('Pid')) is int and probe['Pid'] > 0 and
+         all(probe.get(key) is True for key in ('JobAssigned', 'ParentStopped', 'DescendantsStopped', 'StreamsComplete', 'InputWriterStopped')) and
+         all(probe.get(key) is False for key in ('TimedOut', 'Cancelled', 'StdoutTruncated', 'StderrTruncated')) and
+         all(key in probe and probe[key] is None for key in ('StartError', 'StopError', 'StreamError', 'ResultError', 'InteractionError', 'InputError')) and
+         isinstance(probe.get('Stderr'), str) and re.search('PSSecurityException|UnauthorizedAccess', probe['Stderr']) and
+         isinstance(probe.get('Stdout'), str) and not re.search(r'(?m)^WinBookSplit ', probe['Stdout']),
+         'direct policy refusal is not a safely completed native denial')
+    elapsed = probe.get('ElapsedSeconds')
+    need(type(elapsed) in (int, float) and 0 <= elapsed <= 38 and math.isfinite(elapsed),
+         'direct policy refusal duration is unbounded')
+    lengths = obj(probe.get('redacted_stream_bytes'), 'policy redacted stream bytes')
+    hashes = obj(probe.get('raw_stream_sha256'), 'policy original stream hashes')
+    need(set(lengths) == set(hashes) == {'stdout', 'stderr'}, 'policy stream provenance missing')
+    for stream in ('Stdout', 'Stderr'):
+        name = stream.casefold()
+        need(type(probe.get(stream + 'TotalBytes')) is int and 0 <= probe[stream + 'TotalBytes'] <= 1048576 and
+             type(lengths[name]) is int and lengths[name] == len(probe[stream].encode('utf-8', errors='strict')),
+             'policy refusal original/redacted stream measurements differ')
+        digest(hashes[name], 64, 'policy original stream hash')
+    bat, action = one('marked_setup_bat_check'), one('exact_automatic_formatter_action')
+    need(bat.get('role') == action.get('role') == 'application', 'marked positive policy operations missing')
+    text = action.get('action')
+    need(isinstance(text, str) and text.endswith(" -File '" + marked['Setup-WinBookSplit.ps1'].replace("'", "''") + "' -NonInteractive") and
+         re.fullmatch(r"& '(?:[^']|'')+' -NoProfile -ExecutionPolicy Bypass -File '(?:[^']|'')+' -NonInteractive", text) is not None and
+         '[EXACT_ACTION] ' + text in action['process']['probe']['Stdout'],
+         'exact automatic formatter Action differs or was not retained')
+
+
 def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) -> dict[str, Any]:
     digest(expected_commit, 40, 'expected commit')
     digest(expected_zip_sha256, 64, 'expected ZIP SHA256')
@@ -293,6 +366,15 @@ def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) 
     need(set(checks) == set(CHECKS), 'missing/unknown native checks')
     for key in CHECKS:
         need(checks[key] is True, 'native check not passed: ' + key)
+    policy = obj(report.get('policy_component'), 'policy component')
+    need(policy.get('status') == 'PASS' and policy.get('scope') == 'OWNED_EXACT_EXTRACTION_HEALTHY_VENV',
+         'exact-extraction local policy component not passed')
+    for key in ('direct_remotesigned_denied', 'marked_setup_bat_noop', 'exact_formatter_action_noop',
+                'source_bytes_and_marks_preserved', 'venv_unchanged', 'inbox_policy_unchanged'):
+        need(policy.get(key) is True, 'local policy component check not passed: ' + key)
+    organization = obj(policy.get('organization_policy_denial'), 'organization policy denial')
+    need(organization.get('status') == 'NOT_RUN' and isinstance(organization.get('reason'), str)
+         and bool(organization['reason']), 'local MOTW must not claim real organization-policy denial')
     artifacts = report.get('artifacts')
     need(isinstance(artifacts, list) and len(artifacts) == len(KINDS), 'incomplete native receipt set')
     expected = expected_summaries(report)
@@ -320,6 +402,7 @@ def validate(report_path: Path, expected_commit: str, expected_zip_sha256: str) 
         need(isinstance(receipt.get('records'), list) and 1 <= len(receipt['records']) <= 256,
              'actual command/output receipt records missing: ' + kind)
         validate_receipt_records(receipt['records'], kind)
+        if kind == 'preservation': validate_policy_records(receipt['records'])
     return {'status': 'CONSISTENT_NATIVE_REPORT', 'run_id': run_id,
             'source_commit': expected_commit, 'zip_sha256': expected_zip_sha256,
             'receipt_count': len(artifacts),

@@ -23,6 +23,8 @@ IDS = {"store-inputs-refuse-explicit-baseline-and-provisioning", "store-inputs-r
        "no-store-registration-before-any-bootstrap-or-fallback", "inventory-positive-control-real-child-is-actually-used",
        "inventory-nonzero-listing-refuses-runtime-probe", "existing-inventory-positive-reaches-bootstrap-no-acquisition",
        "rejected-runtime-probe-survives-returned-failure", "finite-return-zip-positive-and-foreign-member-refusal"}
+IDS.update({"policy-action-refuses-runtime-expression-and-extra-command",
+            "policy-actual-authored-motw-positive-and-controller-domain"})
 
 
 @unittest.skipUnless(os.name == "nt", "Actual Windows Store-scenario tooling controls")

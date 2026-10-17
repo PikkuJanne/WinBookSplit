@@ -49,6 +49,60 @@ Case 'actual-redacted-stream-lengths-pass-rejecting-validator' {
     Assert-NativeAcceptanceProcess $checked.probe
     Require ($checked.probe.ExitCode-eq 0 -and $checked.probe.Stdout.Contains('ACTUAL_REDACTION_ACCEPTED_MUTATED_LENGTH_REJECTED')) 'Redacted bytes did not roundtrip through rejecting Store validator.'
 }
+Case 'policy-action-refuses-runtime-expression-and-extra-command' {
+    $inbox=[IO.Path]::Combine([Environment]::SystemDirectory,'WindowsPowerShell\v1.0\powershell.exe')
+    $action=Get-WinBookSplitSetupCommand -ApplicationRoot $WorkRoot
+    Assert-NativeStoreExistingSetupAction $action $WorkRoot $inbox
+    foreach($bad in @($action+" -PythonPath 'AUTHORED_RUNTIME'",$action+'; Write-Host AUTHORED_EXTRA',
+        $action.Replace("'"+$inbox+"'",'$(Write-Host AUTHORED_EXPRESSION)'))){
+        $failed=$false;try{Assert-NativeStoreExistingSetupAction $bad $WorkRoot $inbox}catch{$failed=$true}
+        Require $failed 'Automatic policy Action admitted supplied runtime, expression or extra command.'
+    }
+}
+Case 'policy-actual-authored-motw-positive-and-controller-domain' {
+    $app=New-NativeAcceptanceDirectory ([IO.Path]::Combine($WorkRoot,'authored-policy-app'))
+    $work=New-NativeAcceptanceDirectory ([IO.Path]::Combine($WorkRoot,'authored-policy-work'))
+    $venv=New-NativeAcceptanceDirectory ([IO.Path]::Combine($app,'.venv'))
+    [IO.File]::WriteAllText([IO.Path]::Combine($venv,'AUTHORED_SENTINEL'),'No runtime is present; this is only a policy transport control.')
+    $main=[IO.Path]::Combine($app,'WinBookSplit.ps1')
+    [IO.File]::WriteAllText($main,'param([switch]$Version);Write-Host "WinBookSplit AUTHORED_POLICY_CONTROL"',[Text.UTF8Encoding]::new($true))
+    [IO.File]::Copy([IO.Path]::Combine($RepositoryRoot,'Setup-WinBookSplit.bat'),[IO.Path]::Combine($app,'Setup-WinBookSplit.bat'),$false)
+    $parseTokens=$parseErrors=$null
+    $ast=[Management.Automation.Language.Parser]::ParseFile([IO.Path]::Combine($RepositoryRoot,'Setup-WinBookSplit.ps1'),[ref]$parseTokens,[ref]$parseErrors)
+    $hostFunction=$ast.Find({param($node)$node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name-ceq 'Get-WinBookSplitSetupHostObservation'},$true).Extent.Text
+    $source='param([switch]$Check,[switch]$NonInteractive);'+"`r`n"+$hostFunction+"`r`n"+@'
+$record=@{status='success';exit_code=0;code='setup_ready';changed=$false;operations=@();host=(Get-WinBookSplitSetupHostObservation)}
+Write-Host ('[SETUP] '+($record|ConvertTo-Json -Depth 10 -Compress));exit 0
+'@
+    [IO.File]::WriteAllText([IO.Path]::Combine($app,'Setup-WinBookSplit.ps1'),$source,[Text.UTF8Encoding]::new($true))
+    $inbox=[IO.Path]::Combine([Environment]::SystemDirectory,'WindowsPowerShell\v1.0\powershell.exe')
+    if($PSVersionTable.PSEdition-ceq 'Desktop'){
+        $policyLeases=New-Object 'Collections.Generic.List[IDisposable]'
+        try{
+            foreach($path in @($main,[IO.Path]::Combine($app,'Setup-WinBookSplit.ps1'))){$policyLeases.Add((New-Object WinBookSplitLogging.PathLease($path,$false,$false,$true)))}
+            $result=Invoke-NativeStoreExistingPolicyComponent $app $work $inbox
+            foreach($lease in $policyLeases){$lease.AssertUnchanged()}
+        }finally{foreach($lease in $policyLeases){$lease.Dispose()}}
+        Require ($result.component.status-ceq 'PASS' -and $result.component.direct_remotesigned_denied -and $result.component.marked_setup_bat_noop -and
+            $result.component.exact_formatter_action_noop -and $result.component.venv_unchanged -and $result.component.source_bytes_and_marks_preserved -and
+            $result.component.organization_policy_denial.status-ceq 'NOT_RUN') 'Actual authored MOTW/BAT/Action control failed or invented organization denial.'
+        Require (@($result.records|Where-Object{$_.stage-ceq 'direct_file_remotesigned'}).Count-eq 1 -and @($result.records|Where-Object{$_.role-ceq 'application'}).Count-eq 2) 'Policy controls did not retain native positive/negative process evidence.'
+        $tokens=[ordered]@{};$tokens[$WorkRoot]='<WORK>'
+        $safe=ConvertTo-NativeStoreSafeValue $result $tokens
+        $path=[IO.Path]::Combine($work,'policy-returned-records.json');Write-NativeAcceptanceJson $path $safe
+        $validator=[IO.Path]::Combine($RepositoryRoot,'tools','codex-v1.0.3','check_native_store_report.py')
+        $code='import importlib.util,json,sys;s=importlib.util.spec_from_file_location("gate",sys.argv[1]);m=importlib.util.module_from_spec(s);s.loader.exec_module(m);r=json.load(open(sys.argv[2],encoding="utf-8"))["records"];m.validate_receipt_records(r,"preservation");m.validate_policy_records(r);print("ACTUAL_POLICY_RECEIPTS_ACCEPTED")'
+        $checked=Invoke-NativeAcceptanceProcessCase $TestPython @('-I','-B','-c',$code,$validator,$path) $work 10
+        Assert-NativeAcceptanceProcess $checked.probe
+        Require ($checked.probe.ExitCode-eq 0 -and $checked.probe.Stdout.Contains('ACTUAL_POLICY_RECEIPTS_ACCEPTED')) 'Actual redacted policy operations were not accepted by the separate checker.'
+    }else{
+        $failed=$false;try{$null=Invoke-NativeStoreExistingPolicyComponent $app $work $inbox}catch{
+            $failed=$_.Exception.Message.Contains('actual inbox controller policy domain') -and $_.Exception.Data.Contains('StorePolicyReceipt')
+        }
+        Require $failed 'Policy component compared the Core and inbox policy domains.'
+        Require ($null-eq (Get-Item -LiteralPath $main -Stream Zone.Identifier -ErrorAction SilentlyContinue)) 'Rejected policy controller wrote marks.'
+    }
+}
 Case 'no-store-registration-before-any-bootstrap-or-fallback' {
     $script:queryCalls=0;$script:processCalls=0;$script:downloadCalls=0;$script:expandCalls=0
     function Get-WinBookSplitRegisteredManagerPaths {$script:queryCalls++;return @()}

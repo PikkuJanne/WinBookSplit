@@ -148,7 +148,7 @@
       "depends_on": [
         "T05"
       ],
-      "status": "NOT_STARTED",
+      "status": "IN_PROGRESS",
       "brief": "tasks/06-T06.md",
       "acceptance_ids": [
         "STORE-031",

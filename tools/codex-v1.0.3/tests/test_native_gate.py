@@ -26,6 +26,29 @@ def synthetic_application_record():
             'process':{'command':['SYNTHETIC_APPLICATION.bat'],'cwd':'SYNTHETIC_CWD','answers':[],
                        'environment_before_after_restored':True,'failure':None,'probe':probe}}
 
+def synthetic_policy_records():
+    scopes=[{'scope':scope,'policy':'Bypass' if scope=='Process' else 'Undefined'} for scope in
+            ('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')]
+    policy={'effective':'Bypass','scopes':scopes}
+    marks=[{'path':'<APP>\\'+leaf,'sha256':'d'*64,'ads':'[ZoneTransfer]\r\nZoneId=3\r\n'}
+           for leaf in ('WinBookSplit.ps1','Setup-WinBookSplit.ps1')]
+    denial=synthetic_application_record();denial.update(role='expected_policy_denial',stage='direct_file_remotesigned')
+    denial['process']['command']=['SYNTHETIC_INBOX','-NoProfile','-NonInteractive','-InputFormat','Text','-OutputFormat','Text',
+        '-ExecutionPolicy','RemoteSigned','-File',marks[0]['path'],'-Version']
+    denial['process']['probe'].update(ExitCode=1,Stdout='',Stderr='SYNTHETIC PSSecurityException',StdoutTotalBytes=0,StderrTotalBytes=29,
+        redacted_stream_bytes={'stdout':0,'stderr':29},
+        raw_stream_sha256={'stdout':hashlib.sha256(b'').hexdigest(),'stderr':hashlib.sha256(b'SYNTHETIC PSSecurityException').hexdigest()})
+    bat=synthetic_application_record();bat['stage']='marked_setup_bat_check'
+    action=synthetic_application_record();action['stage']='exact_automatic_formatter_action'
+    action['action']="& 'SYNTHETIC_INBOX' -NoProfile -ExecutionPolicy Bypass -File '<APP>\\Setup-WinBookSplit.ps1' -NonInteractive"
+    output='[EXACT_ACTION] '+action['action']
+    action['process']['probe'].update(Stdout=output,StdoutTotalBytes=len(output),
+        redacted_stream_bytes={'stdout':len(output),'stderr':0},
+        raw_stream_sha256={'stdout':hashlib.sha256(output.encode()).hexdigest(),'stderr':hashlib.sha256(b'').hexdigest()})
+    return [{'role':'policy_observation','stage':'before','inbox_policy':policy},
+            {'role':'policy_observation','stage':'authored_motw','marks':marks},denial,bat,action,
+            {'role':'policy_observation','stage':'after','inbox_policy':policy}]
+
 class GateTests(unittest.TestCase):
     def setUp(self):
         self.temp=tempfile.TemporaryDirectory();self.addCleanup(self.temp.cleanup)
@@ -50,6 +73,10 @@ class GateTests(unittest.TestCase):
                        'version':'3.15.0','interpreter_probe_exit':0,'package_state':'setup_required'},
           'setup':{'entry':'Setup-WinBookSplit.bat','runtime_selection':'automatic','exit_code':0,
                    'base_runtime_ref':'OWNER_PYTHON_315','venv_base_runtime_ref':'OWNER_PYTHON_315'},
+          'policy_component':{'status':'PASS','scope':'OWNED_EXACT_EXTRACTION_HEALTHY_VENV',
+              **dict.fromkeys(('direct_remotesigned_denied','marked_setup_bat_noop','exact_formatter_action_noop',
+                               'source_bytes_and_marks_preserved','venv_unchanged','inbox_policy_unchanged'),True),
+              'organization_policy_denial':{'status':'NOT_RUN','reason':'SYNTHETIC local fixture does not exercise organization policy.'}},
           'checks':dict.fromkeys(gate.CHECKS,True),'artifacts':[],
           'notes':'Entire report is a synthetic unit-test fixture, NOT observed native evidence.'}
         self.write()
@@ -60,7 +87,8 @@ class GateTests(unittest.TestCase):
             data={'schema_version':gate.SCHEMA_VERSION,'kind':kind,'run_id':self.report['run_id'],
                   'source_commit':self.report['source_commit'],'zip_sha256':self.report['zip_sha256'],
                   'summary':summary,'records':[{'test_only':'synthetic unit input, not execution'}]+
-                  [synthetic_application_record() for _ in range(gate.APPLICATION_RECORD_MINIMUM.get(kind,0))]}
+                  (synthetic_policy_records() if kind=='preservation' else
+                   [synthetic_application_record() for _ in range(gate.APPLICATION_RECORD_MINIMUM.get(kind,0))])}
             raw=(json.dumps(data,ensure_ascii=False)+'\n').encode('utf8');path.write_bytes(raw)
             self.report['artifacts'].append({'kind':kind,'path':path.name,'sha256':hashlib.sha256(raw).hexdigest()})
         self.save()
@@ -77,6 +105,24 @@ class GateTests(unittest.TestCase):
         self.assertEqual(self.validate()['status'],'CONSISTENT_NATIVE_REPORT')
     def test_existing_global_package_ready_also_allowed(self):
         self.report['discovery']['package_state']='ready';self.write();self.validate()
+    def test_local_policy_component_cannot_be_missing_or_unexecuted(self):
+        self.report.pop('policy_component');self.save();self.rejected()
+    def test_local_policy_component_cannot_claim_real_organization_denial(self):
+        self.report['policy_component']['organization_policy_denial']['status']='PASS';self.write();self.rejected()
+    def test_local_policy_component_requires_actual_controls(self):
+        self.report['policy_component']['direct_remotesigned_denied']=False;self.write();self.rejected()
+    def test_declared_policy_pass_requires_named_native_operations(self):
+        self.edit_receipt('preservation',lambda r:r.update(records=[synthetic_application_record(),synthetic_application_record()]))
+        self.rejected()
+    def test_expected_policy_denial_requires_completed_supervision(self):
+        self.edit_receipt('preservation',lambda r:next(row for row in r['records'] if row.get('stage')=='direct_file_remotesigned')['process']['probe'].update(StreamsComplete=False))
+        self.rejected()
+    def test_policy_denial_cannot_add_extra_arguments(self):
+        self.edit_receipt('preservation',lambda r:next(row for row in r['records'] if row.get('stage')=='direct_file_remotesigned')['process']['command'].insert(1,'-ExtraArgument'))
+        self.rejected()
+    def test_policy_denial_requires_stream_provenance(self):
+        self.edit_receipt('preservation',lambda r:next(row for row in r['records'] if row.get('stage')=='direct_file_remotesigned')['process']['probe'].pop('raw_stream_sha256'))
+        self.rejected()
     def test_unexecuted_template_rejected(self):
         self.report['status']='not_run';self.save();self.rejected()
     def test_synthetic_evidence_label_rejected(self):

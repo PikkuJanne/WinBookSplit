@@ -73,6 +73,20 @@
     "base_runtime_ref": null,
     "venv_base_runtime_ref": null
   },
+  "policy_component": {
+    "status": "NOT_RUN",
+    "scope": "OWNED_EXACT_EXTRACTION_HEALTHY_VENV",
+    "direct_remotesigned_denied": null,
+    "marked_setup_bat_noop": null,
+    "exact_formatter_action_noop": null,
+    "source_bytes_and_marks_preserved": null,
+    "venv_unchanged": null,
+    "inbox_policy_unchanged": null,
+    "organization_policy_denial": {
+      "status": "NOT_RUN",
+      "reason": "Local authored MOTW controls cannot demonstrate real enforced organization-policy denial."
+    }
+  },
   "checks": {
     "registration_binding_verified": null,
     "installed_only_listing": null,

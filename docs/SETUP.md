@@ -216,18 +216,20 @@ for operating-system servicing options.
 
 Public release assets are listed on the
 [GitHub releases page](https://github.com/PikkuJanne/WinBookSplit/releases).
-Use the named `WinBookSplit-v1.0.2.zip`, `release-manifest.json` and
-`SHA256SUMS.txt` from the same public release when available. GitHub's automatic
+After v1.0.3 acceptance and publication, use the named `WinBookSplit-v1.0.3.zip`,
+`release-manifest.json` and `SHA256SUMS.txt` from the same public release. GitHub's automatic
 **Source code (zip)** and tarball are source checkouts, not the accepted runtime
 distribution. The named ZIP contains no Python/Calibre runtime, wheel or `.venv`.
 Exact-package native results are recorded in the
-[release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.2/evidence).
-An unpublished candidate or source-test report is not release certification.
+[v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
+This v1.0.3 candidate remains blocked on the existing Windows 10 Store automatic
+setup/BAT and remaining native policy gates. An unpublished candidate or
+source-test report is not release certification.
 
 Compute the archive's hash before extraction, replacing this example path:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.2.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.3.zip' -Algorithm SHA256
 ```
 
 Compare all 64 hexadecimal digits with the intended publisher's checksum. Stop

@@ -4,8 +4,9 @@ This developer tool builds a self-contained kit for one exact distribution ZIP
 on regular Windows 10 22H2 x64. It carries the frozen release assets, authored
 fixtures and authenticated helpers. GitHub's automatic source archive does not
 substitute for the distribution. Owner startup uses inbox PowerShell without
-application Python or Git. T06 will freeze v1.0.3 and validate its exact delivered
-launch command; T05 source/component checks do not certify that future archive.
+application Python or Git. The v1.0.3 T06 evidence records the frozen candidate
+and exact delivered launch-command checks; T05 source/component checks alone
+do not certify those archive bytes. T07 owns the remaining Windows 10 Store gate.
 
 The builder defaults to `--scenario store-existing`. Its generated
 `Run-Windows10.cmd` explicitly selects that scenario without provisioning. After
@@ -26,6 +27,20 @@ attest native execution. Actual Windows 10 owner acceptance remains required.
 Store-existing returns the printed `native-store-result.zip`, including sanitized
 completed/failure receipts. Its raw working extraction, venv and outputs remain
 local. Retain a blocked return for diagnosis; never edit it into a passing report.
+
+After the automatic Store setup and PDF chain, the same launch runs a separate
+local policy component against that owned extraction and its healthy venv. It
+authors ZoneId=3 alternate streams on the two entry scripts while preserving
+their package data bytes, proves direct inbox `RemoteSigned -File ... -Version`
+denial, runs the actual setup BAT read-only check, and executes the exact shared
+formatter's automatic setup command as a healthy no-op. It supplies no Python
+path, clones no environment and performs no package operations in this component.
+The same inbox policy scopes, script bytes, retained marks and venv are compared
+before/after. These command/observation records enter the existing preservation
+receipt and its hash-bound `policy_component` summary. A refusal is retained and
+never retried through another policy route. These authored MOTW checks leave
+real enforced organization-policy denial explicitly `NOT_RUN`; they do not clear
+that separate T07 publication blocker.
 
 The separate `--scenario legacy-explicit` retains the established explicit and
 private-runtime regression recipes below. Its schema 1 reports and private

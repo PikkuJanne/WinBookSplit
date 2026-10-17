@@ -60,6 +60,14 @@ contradictory runtime inputs in these records. Native stream totals and
 measures the returned sanitized strings separately. Sanitizing paths must not
 silently relabel shortened strings as the original process byte totals.
 
+The preservation envelope also binds `policy_component`: the same owned exact
+extraction receives authored Internet marks after its automatic Store/PDF chain.
+Direct RemoteSigned denial, the actual setup BAT check, unchanged automatic
+formatter Action execution as a healthy no-op, script/mark preservation and
+same-inbox policy/venv preservation must pass. This local component explicitly
+records real enforced organization-policy denial as `NOT_RUN`; its success does
+not clear that independent native/release requirement.
+
 The tests generate synthetic positive/negative contract inputs inside temporary
 directories. Even their positive inputs are NOT executed-native reports. No
 passing native report is distributed. The shipped template must fail the gate.

@@ -171,6 +171,126 @@ function Write-NativeStoreExistingReturnZip {
     return @{members=$identities;archive=(Get-NativeAcceptanceFileHash $Destination 33554432)}
 }
 
+function Get-NativeStoreExistingPolicyObservation {
+    # The central controller is inbox PS5.1; do not compare a PS7 policy store.
+    Import-Module -Name ([IO.Path]::Combine($PSHOME,'Modules','Microsoft.PowerShell.Security','Microsoft.PowerShell.Security.psd1')) -Scope Local -ErrorAction Stop
+    $policies=@(Get-ExecutionPolicy -List -ErrorAction Stop)
+    $scopes=@('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')
+    $rows=@(foreach($scope in $scopes){
+        $matches=@($policies|Where-Object{$_.Scope.ToString()-ceq $scope})
+        if($matches.Count-ne 1){throw 'Incomplete inbox execution-policy observation.'}
+        @{scope=$scope;policy=$matches[0].ExecutionPolicy.ToString()}
+    })
+    return @{effective=(Get-ExecutionPolicy -ErrorAction Stop).ToString();scopes=$rows}
+}
+
+function Assert-NativeStoreExistingSetupAction {
+    param([string]$Action,[string]$ApplicationRoot,[string]$Inbox)
+    # Reuse the emitted command unchanged only after proving its finite literal
+    # AST. In particular no runtime, wheelhouse, repair, expression or redirect.
+    $tokens=$errors=$null
+    $ast=[Management.Automation.Language.Parser]::ParseInput($Action,[ref]$tokens,[ref]$errors)
+    if($errors.Count-ne 0 -or $ast.EndBlock.Statements.Count-ne 1){throw 'Invalid automatic setup Action.'}
+    $pipeline=$ast.EndBlock.Statements[0]
+    if($pipeline -isnot [Management.Automation.Language.PipelineAst] -or $pipeline.PipelineElements.Count-ne 1){throw 'Automatic setup Action is not a single command.'}
+    $command=$pipeline.PipelineElements[0]
+    if($command -isnot [Management.Automation.Language.CommandAst] -or $command.InvocationOperator.ToString()-cne 'Ampersand' -or $command.Redirections.Count-ne 0){throw 'Automatic setup Action is not a literal invocation.'}
+    $values=@(foreach($element in $command.CommandElements){
+        if($element -is [Management.Automation.Language.StringConstantExpressionAst]){[string]$element.Value}
+        elseif($element -is [Management.Automation.Language.CommandParameterAst] -and $null-eq $element.Argument){'-'+$element.ParameterName}
+        else{throw 'Automatic setup Action contains a nonliteral element.'}
+    })
+    $expected=@($Inbox,'-NoProfile','-ExecutionPolicy','Bypass','-File',[IO.Path]::Combine($ApplicationRoot,'Setup-WinBookSplit.ps1'),'-NonInteractive')
+    if(($values|ConvertTo-Json -Compress)-cne ($expected|ConvertTo-Json -Compress)){throw 'Automatic setup Action differs from the no-runtime command.'}
+}
+
+function Assert-NativeStoreExistingSetupPolicy {
+    param($Frame,$Baseline,[string]$Inbox)
+    if($Frame.status-cne 'success' -or $Frame.exit_code-ne 0 -or $Frame.code-cne 'setup_ready' -or $Frame.changed-isnot [bool] -or $Frame.changed -or @($Frame.operations).Count-ne 0 -or
+        $Frame.host.edition-cne 'Desktop' -or $Frame.host.version-cnotmatch '^5\.1\.' -or
+        -not [StringComparer]::OrdinalIgnoreCase.Equals($Frame.host.executable,$Inbox) -or
+        $Frame.host.execution_policy.status-cne 'observed' -or $Frame.host.execution_policy.effective-cne 'Bypass'){
+        throw 'Marked automatic setup was not an observed healthy inbox no-op.'
+    }
+    foreach($scope in @('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')){
+        $actual=@($Frame.host.execution_policy.scopes|Where-Object{$_.scope-ceq $scope})
+        $before=@($Baseline.scopes|Where-Object{$_.scope-ceq $scope})
+        $expected=if($scope-ceq 'Process'){'Bypass'}else{$before[0].policy}
+        if($actual.Count-ne 1 -or $before.Count-ne 1 -or $actual[0].policy-cne $expected){throw 'Marked setup changed or misreported persistent/process policy.'}
+    }
+}
+
+function Invoke-NativeStoreExistingPolicyComponent {
+    param([string]$ApplicationRoot,[string]$WorkRoot,[string]$Inbox)
+    $component=[ordered]@{status='NOT_RUN';scope='OWNED_EXACT_EXTRACTION_HEALTHY_VENV';
+        direct_remotesigned_denied=$false;marked_setup_bat_noop=$false;exact_formatter_action_noop=$false;
+        source_bytes_and_marks_preserved=$false;venv_unchanged=$false;inbox_policy_unchanged=$false;
+        organization_policy_denial=@{status='NOT_RUN';reason='No real enforced organization-policy denial has been demonstrated.'}}
+    $records=New-Object 'Collections.Generic.List[object]'
+    try{
+        if(-not [StringComparer]::OrdinalIgnoreCase.Equals([IO.Path]::GetFullPath($PSHOME),[IO.Path]::GetDirectoryName($Inbox))){throw 'Policy component requires the actual inbox controller policy domain.'}
+        $null=Get-NativeAcceptanceOrdinaryPath $ApplicationRoot -Directory
+        if((New-Object IO.DriveInfo([IO.Path]::GetPathRoot($ApplicationRoot))).DriveFormat-cne 'NTFS'){throw 'Policy component requires owned NTFS alternate streams.'}
+        $baseline=Get-NativeStoreExistingPolicyObservation
+        $records.Add(@{role='policy_observation';stage='before';inbox_policy=$baseline})
+        $venv=[IO.Path]::Combine($ApplicationRoot,'.venv');$venvBefore=Get-NativeAcceptanceEnvironmentSnapshot $venv
+        $marks=New-Object 'Collections.Generic.List[object]'
+        foreach($name in @('WinBookSplit.ps1','Setup-WinBookSplit.ps1')){
+            $path=[IO.Path]::Combine($ApplicationRoot,$name);$hash=Get-NativeAcceptanceFileHash $path 8388608
+            if($null-ne (Get-Item -LiteralPath $path -Stream Zone.Identifier -ErrorAction SilentlyContinue)){throw 'Fresh extraction unexpectedly already has Internet marks.'}
+            $ads="[ZoneTransfer]`r`nZoneId=3`r`n"
+            Set-Content -LiteralPath $path -Stream Zone.Identifier -Value $ads -Encoding ASCII -NoNewline -ErrorAction Stop
+            $marks.Add(@{path=$path;sha256=$hash.sha256;ads=$ads})
+        }
+        $records.Add(@{role='policy_observation';stage='authored_motw';marks=$marks.ToArray();note='ZoneId=3 is authored only on this owned extraction; package data bytes are unchanged.'})
+        $main=[IO.Path]::Combine($ApplicationRoot,'WinBookSplit.ps1')
+        $run=Invoke-NativeAcceptanceProcessCase $Inbox @('-NoProfile','-NonInteractive','-InputFormat','Text','-OutputFormat','Text','-ExecutionPolicy','RemoteSigned','-File',$main,'-Version') $WorkRoot 30
+        $records.Add(@{role='expected_policy_denial';environment=@{};stage='direct_file_remotesigned';process=$run})
+        Assert-NativeAcceptanceProcess $run.probe
+        if($run.failure -or $run.probe.ExitCode-eq 0 -or -not $run.environment_before_after_restored -or
+            $run.probe.Stderr-cnotmatch 'PSSecurityException|UnauthorizedAccess' -or $run.probe.Stdout-cmatch '(?m)^WinBookSplit '){throw 'Marked direct -File execution did not prove policy denial.'}
+        $component.direct_remotesigned_denied=$true
+        $setupBat=[IO.Path]::Combine($ApplicationRoot,'Setup-WinBookSplit.bat')
+        if($setupBat-match '[%"\r\n]'){throw 'Marked setup BAT requires a literal cmd route.'}
+        $wrapper=[IO.Path]::Combine($WorkRoot,'policy-setup-check.cmd')
+        $stream=[IO.File]::Open($wrapper,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::Read)
+        try{$bytes=[Text.Encoding]::UTF8.GetBytes("@echo off`r`nsetlocal DisableDelayedExpansion`r`nchcp 65001 >nul`r`n"+'"'+$setupBat+'" -Check -NonInteractive'+"`r`n");$stream.Write($bytes,0,$bytes.Length)}finally{$stream.Dispose()}
+        $cmd=[IO.Path]::Combine([Environment]::SystemDirectory,'cmd.exe')
+        $run=Invoke-NativeAcceptanceProcessCase $cmd @('/d','/v:off','/c',$wrapper) $WorkRoot 120
+        $records.Add(@{role='application';environment=@{};stage='marked_setup_bat_check';process=$run})
+        Assert-NativeAcceptanceProcess $run.probe
+        if($run.failure -or $run.probe.ExitCode-ne 0 -or -not $run.environment_before_after_restored){throw 'Marked setup BAT failed; no policy bypass retry is permitted.'}
+        Assert-NativeStoreExistingSetupPolicy (Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] ') $baseline $Inbox
+        $component.marked_setup_bat_noop=$true
+        $action=Get-WinBookSplitSetupCommand -ApplicationRoot $ApplicationRoot
+        Assert-NativeStoreExistingSetupAction $action $ApplicationRoot $Inbox
+        $literal=ConvertTo-WinBookSplitPowerShellLiteral $action
+        $body='$action='+$literal+"`r`n"+'Write-Host (''[EXACT_ACTION] ''+$action); & ([scriptblock]::Create($action));exit $LASTEXITCODE'
+        $run=Invoke-NativeStoreExistingChild $Inbox $WorkRoot 'policy-exact-action' $body
+        $records.Add(@{role='application';environment=@{};stage='exact_automatic_formatter_action';action=$action;process=$run;note='Actual shared formatter output executed unchanged on the healthy venv; no fresh remediation or package installation is claimed.'})
+        $text=$run.probe.Stdout
+        Assert-NativeStoreExistingSetupPolicy (Get-NativeAcceptanceFrame $text '[SETUP] ') $baseline $Inbox
+        if(-not $text.Contains('[EXACT_ACTION] '+$action)){throw 'Executed automatic Action differs from formatter output.'}
+        $component.exact_formatter_action_noop=$true
+        foreach($mark in $marks){
+            if((Get-NativeAcceptanceFileHash $mark.path 8388608).sha256-cne $mark.sha256 -or
+                (Get-Content -LiteralPath $mark.path -Stream Zone.Identifier -Raw -Encoding ASCII -ErrorAction Stop)-cne $mark.ads){throw 'Marked package bytes or authored Internet metadata changed.'}
+        }
+        $component.source_bytes_and_marks_preserved=$true
+        if((Get-NativeAcceptanceEnvironmentSnapshot $venv)-cne $venvBefore){throw 'Marked healthy no-op changed the application environment.'}
+        $component.venv_unchanged=$true
+        $after=Get-NativeStoreExistingPolicyObservation
+        $records.Add(@{role='policy_observation';stage='after';inbox_policy=$after})
+        if(($baseline|ConvertTo-Json -Depth 8 -Compress)-cne ($after|ConvertTo-Json -Depth 8 -Compress)){throw 'Inbox controller policy changed.'}
+        $component.inbox_policy_unchanged=$true;$component.status='PASS'
+        return @{component=$component;records=$records.ToArray()}
+    }catch{
+        $component.status='FAIL'
+        $_.Exception.Data['StorePolicyReceipt']=@{component=$component;records=$records.ToArray();failure=$_.Exception.Message}
+        throw
+    }
+}
+
 function Invoke-NativeStoreExistingAcceptance {
     [CmdletBinding()]
     param([string]$KitRoot,[string]$BindingsSha256,$Bindings,[string]$WorkRoot,[string]$Inbox,$Os,[string]$Execution,
@@ -181,7 +301,7 @@ function Invoke-NativeStoreExistingAcceptance {
         host=[ordered]@{execution_kind='native';owner_desktop=($Execution-ceq 'USER_LAUNCHED_AUTOMATED');os=$(if($Os.platform_scope-ceq 'NATIVE_WINDOWS10'){'Windows 10'}else{'Windows 11'});build=[int]$Os.BuildNumber;architecture='x64';powershell_version=$PSVersionTable.PSVersion.ToString()};
         registration=$null;forbidden_substitutions=[ordered]@{};fallback_acquisition=[ordered]@{policy='disabled_before_discovery';attempted=$false;used=$false};
         inventory=[ordered]@{purpose='verification_only';supplied_to_application=$false};before=@{application_venv_exists=$false;runtimes=@()};after=$null;
-        discovery=$null;setup=$null;checks=[ordered]@{};artifacts=@();notes='NOT_RUN until every native stage actually succeeds; no runtime acquisition exists in this route.'}
+        discovery=$null;setup=$null;policy_component=@{status='NOT_RUN';organization_policy_denial=@{status='NOT_RUN';reason='Native policy component has not executed.'}};checks=[ordered]@{};artifacts=@();notes='NOT_RUN until every native stage actually succeeds; no runtime acquisition exists in this route.'}
     foreach($name in @('python_installed_or_updated_by_kit','manager_installed_or_updated_by_kit','private_runtime_fallback_attempted','private_runtime_fallback_used','runtime_supplied_by_kit','runtime_copied_or_cloned','explicit_python_path_supplied','hidden_runtime_selection_supplied','parent_path_changed','child_path_injected','localappdata_overridden','virtual_env_overridden','runtime_environment_injected','application_venv_prebuilt','alias_settings_changed')){$report.forbidden_substitutions[$name]=$false}
     foreach($name in @('registration_binding_verified','installed_only_listing','bounded_probe_completed','isolated_interpreter_verified','normal_setup_bat_passed','second_setup_noop','readiness_readonly','ordinary_application_bat_passed','manual_pdf_valid','auto1_pdf_valid','auto2_pdf_valid','full_page_coverage','source_and_neighbors_unchanged','unique_output_no_overwrite','unrelated_cwd_passed','manager_state_unchanged','global_packages_unchanged','parent_environment_unchanged')){$report.checks[$name]=$false}
     $records=[ordered]@{};foreach($kind in @('registration','discovery','setup','bat','pdf_validation','preservation')){$records[$kind]=New-Object 'Collections.Generic.List[object]'}
@@ -274,6 +394,9 @@ try{$result.base=Resolve-WinBookSplitRuntime -ApplicationRoot $app -InterpreterO
         $applicationRecords=@($rows.ToArray()|ForEach-Object{@{role='application';environment=@{};process=$_}})
         $records.pdf_validation.Add(@{role='post_setup_verification';process=$run;oracle=$oracle;cases=$applicationRecords})
         foreach($name in @('ordinary_application_bat_passed','manual_pdf_valid','auto1_pdf_valid','auto2_pdf_valid','full_page_coverage','source_and_neighbors_unchanged','unique_output_no_overwrite','unrelated_cwd_passed')){$report.checks[$name]=$true}
+        $stage='policy_component';$policy=Invoke-NativeStoreExistingPolicyComponent $app $WorkRoot $Inbox
+        $report.policy_component=$policy.component
+        foreach($record in $policy.records){$records.preservation.Add($record)}
         $stage='preservation';$after=Get-NativeStoreExistingInventory $KitRoot
         if(($after.registration.Package|ConvertTo-Json -Depth 10 -Compress)-cne ($inventoryBefore.registration.Package|ConvertTo-Json -Depth 10 -Compress)){throw 'Store manager registration changed.'}
         $managerAfter=Get-NativeStoreExistingManagerState $after.registration
@@ -302,9 +425,10 @@ try{$result.base=Resolve-WinBookSplitRuntime -ApplicationRoot $app -InterpreterO
     }catch{
         $failure=$_.Exception.Message;$report.notes='Blocked at '+$stage+'. Native acceptance has not passed.'
         $report.failure=@{stage=$stage;message=$failure}
-        $kind=if($stage-eq 'independent_existing_inventory'){'registration'}elseif($stage-like '*setup*'){'setup'}elseif($stage-like 'pdf*'){'pdf_validation'}elseif($stage-eq 'preservation'){'preservation'}else{'discovery'}
+        $kind=if($stage-eq 'independent_existing_inventory'){'registration'}elseif($stage-like '*setup*'){'setup'}elseif($stage-like 'pdf*'){'pdf_validation'}elseif($stage-in @('preservation','policy_component')){'preservation'}else{'discovery'}
         $failedRecord=@{role='failed_stage';stage=$stage;message=$failure}
-        foreach($key in @('StoreInventoryReceipt','StoreChildReceipt','Probe')){if($_.Exception.Data.Contains($key)){$failedRecord[$key]=$_.Exception.Data[$key]}}
+        foreach($key in @('StoreInventoryReceipt','StoreChildReceipt','StorePolicyReceipt','Probe')){if($_.Exception.Data.Contains($key)){$failedRecord[$key]=$_.Exception.Data[$key]}}
+        if($_.Exception.Data.Contains('StorePolicyReceipt')){$report.policy_component=$_.Exception.Data['StorePolicyReceipt'].component}
         $records[$kind].Add($failedRecord)
     }
     finally{foreach($lease in $leases){$lease.Dispose()}}
@@ -315,7 +439,7 @@ try{$result.base=Resolve-WinBookSplitRuntime -ApplicationRoot $app -InterpreterO
         $summaries=@{registration=$safe.registration;discovery=$safe.discovery;setup=$safe.setup;
             bat=@{ordinary_application_bat_passed=$safe.checks.ordinary_application_bat_passed;unrelated_cwd_passed=$safe.checks.unrelated_cwd_passed};
             pdf_validation=@{manual_pdf_valid=$safe.checks.manual_pdf_valid;auto1_pdf_valid=$safe.checks.auto1_pdf_valid;auto2_pdf_valid=$safe.checks.auto2_pdf_valid;full_page_coverage=$safe.checks.full_page_coverage;source_and_neighbors_unchanged=$safe.checks.source_and_neighbors_unchanged;unique_output_no_overwrite=$safe.checks.unique_output_no_overwrite};
-            preservation=@{before=$safe.before;after=$safe.after;forbidden_substitutions=$safe.forbidden_substitutions;fallback_acquisition=$safe.fallback_acquisition;inventory=$safe.inventory}}
+            preservation=@{before=$safe.before;after=$safe.after;forbidden_substitutions=$safe.forbidden_substitutions;fallback_acquisition=$safe.fallback_acquisition;inventory=$safe.inventory;policy_component=$safe.policy_component}}
         foreach($kind in $records.Keys){
             $relative=$kind+'.json';$path=[IO.Path]::Combine($returnRoot,$relative)
             if($records[$kind].Count-eq 0){$records[$kind].Add(@{role='not_run';status='NOT_RUN';reason='prerequisite_failed';failed_stage=$stage})}

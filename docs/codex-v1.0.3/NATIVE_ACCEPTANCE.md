@@ -55,6 +55,17 @@ E. Record original installed-runtime hash and manager/PATH state afterward; conf
    Explain that a desktop shortcut still targeting the old v1.0.2 directory must
    target the verified v1.0.3 launcher; do not silently modify unrelated shortcuts.
 
+The same launch then records a separate local policy component on that owned
+extraction: authored ZoneId=3 streams on the processing/setup entry scripts,
+actual direct inbox RemoteSigned denial, setup BAT read-only success and exact
+automatic formatter command execution as a healthy no-op. It retains the marks,
+package data bytes and venv, compares the same inbox policy scopes, and includes
+all observations in the existing preservation envelope. It selects no runtime
+and installs nothing. This is an authored local MOTW check; actual enforced
+organization-policy denial remains `NOT_RUN` until independently demonstrated.
+A policy refusal remains a meaningful failure and is never retried through
+another launch/bypass route.
+
 ## Forbidden substitutions
 
 No interpreter installation/download/copy, private runtime fallback, `-PythonPath`,

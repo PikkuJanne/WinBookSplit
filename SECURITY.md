@@ -43,6 +43,21 @@ through `Setup-WinBookSplit.bat` or the complete process-host command. The
 scripts are unsigned; Internet marks remain intact and persistent execution
 policy is unchanged. Enforced organization controls still apply.
 
+The 17 October 2026 advisory review identified remaining pypdf 6.20.0 exposure:
+upstream reports large-memory parsing of
+[arrays/dictionaries](https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57)
+and [content streams](https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c)
+in versions below 6.21.0, plus
+[form-field retrieval](https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7)
+and [image-loading](https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv)
+advisories. The latter names a 6.21.1 fix. WinBookSplit reads PDF structures and
+content streams, so it cannot claim general exemption. Its production code does
+not call form-field retrieval or image extraction APIs; that limited observation
+does not prove hostile documents harmless. Bounded child-process supervision
+is not a memory or network sandbox. This narrow Store-discovery repair retains
+the existing dependency lock; release review must consider this advisory scope
+separately from discovery and native acceptance results.
+
 Windows 10 22H2 compatibility does not extend Microsoft's servicing lifecycle.
 Standard Home/Pro support
 [ended October 14, 2025](https://learn.microsoft.com/en-us/lifecycle/products/windows-10-home-and-pro).

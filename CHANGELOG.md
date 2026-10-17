@@ -1,5 +1,22 @@
 # Changelog
 
+## 1.0.3 — candidate, publication blocked
+
+- Repairs automatic discovery of official Microsoft Store Python Install Manager
+  registrations, validates each official channel's complete identity tuple, and
+  resolves its verified package-bound entry point to existing concrete runtimes.
+- Keeps regular x64 Python 3.13.16+, 3.14.8+ and 3.15.0+ support, reviewed security
+  floors, isolated package-origin checks and authoritative explicit/app-venv setup.
+- Reports rejected manager, listing, interpreter and package routes distinctly,
+  retaining bounded local technical records and complete setup/repair actions.
+- Adds an existing-Store native verification route that blocks before fallback
+  acquisition and rejects runtime substitution or contradictory process evidence.
+  The frozen distribution and separate returned-receipt checker remain required.
+- Records native Windows 10 existing-Store automatic setup/BAT and enforced
+  organization-policy acceptance as pending, with publication blocked until real
+  receipts pass review. See the
+  [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
+
 ## 1.0.2
 
 - Adds tested regular GIL Windows x64 CPython 3.15.0 and numeric acceptance of

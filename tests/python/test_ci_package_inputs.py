@@ -57,7 +57,7 @@ class PackageInputTests(unittest.TestCase):
         self.assertFalse(result["working_tree_inputs_used"])
         self.assertFalse(result["package_built"])
         self.assertEqual({row["path"] for row in result["files"]}, set(checker.INPUT_PATHS))
-        self.assertEqual(result["application_version"], "1.0.2")
+        self.assertEqual(result["application_version"], "1.0.3")
         dependencies = result["runtime_sibling_dependencies"]
         for consumer in ("WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Support.ps1"):
             self.assertIn("VERSION", dependencies[consumer])

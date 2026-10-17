@@ -1170,6 +1170,8 @@ class RunnerTests(unittest.TestCase):
                 "tools/compatibility/kit_builder.py": b"Source-bound native kit producer\n",
                 "tools/compatibility/Invoke-NativeAcceptance.ps1": b"Owned native process harness\n",
                 "tools/compatibility/native_smoke.py": b"Original physical page oracles\n",
+                "tools/codex-v1.0.3/check_native_store_report.py": b"Independent Store receipt gate\n",
+                "tools/codex-v1.0.3/tests/test_native_gate.py": b"Store gate controls\n",
             }
             for name, data in content.items():
                 target = root / name

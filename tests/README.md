@@ -6,7 +6,7 @@ v1.0.0-v1.0.2 reports retain their original scope. Run the same entry point from
 working directory; it resolves the trusted repository from its own location.
 Do not activate a venv or install dependencies globally.
 
-The v1.0.2 `--layer application` route keeps the developer driver separate from
+The maintained `--layer application` route keeps the developer driver separate from
 the application interpreter. Run it once for each exact source-test target
 3.13.16, 3.14.8 and 3.15.0 in a runtime-only environment containing the locked
 pypdf (and optional pip). Numeric same-branch patch acceptance is a separate
@@ -33,7 +33,7 @@ The existing complete developer unit child has a finite 1200-second harness
 deadline after a measured 584.951-second local reference run approached the old
 600-second bound. Application production deadlines are unchanged.
 
-The v1.0.2 shell suite also exercises explicit setup in authored copied
+The maintained shell suite also exercises explicit setup in authored copied
 applications. Before a normal shell/full run, the shared runner acquires the
 one reviewed pypdf wheel in its owned temporary directory using hash-required,
 binary-only pip download with child-local configuration isolation. To reuse
@@ -65,7 +65,7 @@ above. It is not an accepted processing runtime or an owner-kit prerequisite.
 The runtime validator refuses a missing or substituted control. Every report must be a
 new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
-the reviewed current summary with hashes in `docs/codex-v1.0.2/evidence/`.
+the reviewed current summary with hashes in `docs/codex-v1.0.3/evidence/`.
 Use the finite [native kit](../tools/compatibility/README.md) for exact frozen
 release-package workstation acceptance. Server CI, source layers and synthetic
 controls do not substitute for the final Windows 10/11 gates. Historical milestone

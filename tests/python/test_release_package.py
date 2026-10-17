@@ -31,7 +31,7 @@ INPUT_SPEC.loader.exec_module(checker)
 
 PAYLOAD_PATHS = tuple(sorted(set(checker.INPUT_PATHS) - {"docs/codex-v1.0.0/SUPPORT_AND_SETUP.md"}))
 BUILDER_PATHS = ("tools/release/build_package.py", "tools/release/payload.json", "tools/ci/check_package_inputs.py", "tools/release/frozen_assets.py")
-ASSET_NAMES = ("WinBookSplit-v1.0.2.zip", "release-manifest.json", "SHA256SUMS.txt")
+ASSET_NAMES = ("WinBookSplit-v1.0.3.zip", "release-manifest.json", "SHA256SUMS.txt")
 
 
 def fixture_git(repo, *args, data=None):
@@ -180,7 +180,7 @@ class ReleasePackageTests(unittest.TestCase):
         self.assertEqual(manifest, self.base_manifest)
         self.assertEqual(manifest["source_commit"], self.commit)
         self.assertEqual(manifest["source_tree"], self.git("rev-parse", self.commit + "^{tree}"))
-        self.assertEqual(manifest["version"], "1.0.2")
+        self.assertEqual(manifest["version"], "1.0.3")
         self.assertFalse(manifest["signed"])
         self.assertEqual([row["path"] for row in manifest["files"]], list(PAYLOAD_PATHS))
         for row in manifest["files"] + manifest["builder"]["files"]:

@@ -4,7 +4,11 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This is the **v1.0.2 Python 3.15 and setup repair**. The first public release,
+This is the **v1.0.3 Store discovery repair candidate**. It repairs the package
+query, identity validation and installed-runtime resolution for the official
+Python Install Manager. Publication remains blocked until the existing Windows 10
+Store installation passes automatic setup and BAT processing on the frozen ZIP,
+and the remaining native policy checks are reviewed. The first public release,
 [v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
 published on 11 October 2026. [VERSION](VERSION) is the application version
 source. The older `2.1` banner was development naming, not an earlier public
@@ -24,11 +28,11 @@ The exact source-test interpreters are **3.13.16, 3.14.8 and 3.15.0**. Later sta
 patches in those three branches are accepted numerically by the shipped policy; acceptance is
 not a claim that each patch has been tested. Windows 11 source checks and
 Windows Server 2025 CI are distinct from final-package Windows 10 acceptance.
-The [release evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/codex-v1.0.2/evidence)
-and [release assets](https://github.com/PikkuJanne/WinBookSplit/releases) identify
-the exact archive and native platform tested. Use the named
-`WinBookSplit-v1.0.2.zip`, manifest and checksums from the same public release
-when available. GitHub's automatic **Source code (zip)** or tarball is a source
+The [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence)
+records source checks, frozen candidate bytes and deferred native gates separately.
+After acceptance and publication, use the named `WinBookSplit-v1.0.3.zip`, manifest
+and checksums from the same [public release](https://github.com/PikkuJanne/WinBookSplit/releases).
+GitHub's automatic **Source code (zip)** or tarball is a source
 checkout, not the accepted distribution. Source-test results alone do not
 certify a final release package.
 
