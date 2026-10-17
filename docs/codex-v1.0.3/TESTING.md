@@ -1,5 +1,17 @@
 # Testing: prove the route, not just the algorithm
 
+T03 extends maintained `Discovery.Tests.ps1` with descriptor-to-concrete-child
+regressions, strict manager line-format negatives, distinct empty/rejected/failed
+outcomes, optional-failure continuity, authority and a disposable real package-free
+interpreter. That interpreter is created only in an owned developer fixture with
+`venv --without-pip`; setup-base success, processing `missing_pypdf` identity and
+the existing setup summary are checked separately. This is not the owner scenario.
+Actual Windows 11/python.org automatic discovery on both shells now reaches its
+existing concrete 3.14.7, verifies identity and rejects the reviewed 3.14.8 floor.
+No compatible native success or Store-channel launch is claimed by those results.
+See `evidence/T03.md` and its hash-bound receipts. Native Store/owner exact-ZIP
+requirements remain deferred to T07; T04 still owns full diagnostic/remedy UX.
+
 T02 adds maintained `tests/powershell/Manager.Tests.ps1` to the normal shell
 runner. It executes the emitted query against labelled synthetic inventories,
 checks both identity tuples and malformed/cross-paired negatives, and inspects

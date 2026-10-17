@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "purpose": "T03 focused maintained contracts; synthetic seams labelled in test names/comments. Actual children are isolated developer Python regression, not owner Store acceptance.",
+  "shell": "5.1.26100.9711",
+  "execution_policy": 1,
+  "test_python": "<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe",
+  "passed": 103,
+  "failed": 0,
+  "skipped": 0,
+  "source_unchanged": true,
+  "source_before": [
+    {
+      "path": "engine\\WinBookSplit.Runtime.ps1",
+      "sha256": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be"
+    },
+    {
+      "path": "engine\\WinBookSplit.Process.ps1",
+      "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+    },
+    {
+      "path": "WinBookSplit.ps1",
+      "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a"
+    },
+    {
+      "path": "tests\\powershell\\Discovery.Tests.ps1",
+      "sha256": "13692da51fcc654e379e636fadb1735e746a70f176d32de3d8b9d266fac03615"
+    },
+    {
+      "path": "tests\\powershell\\Manager.Tests.ps1",
+      "sha256": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7"
+    },
+    {
+      "path": "tests\\powershell\\Runtime.Tests.ps1",
+      "sha256": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3"
+    },
+    {
+      "path": "tests\\powershell\\Process.Tests.ps1",
+      "sha256": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+    }
+  ],
+  "source_after": [
+    {
+      "path": "engine\\WinBookSplit.Runtime.ps1",
+      "sha256": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be"
+    },
+    {
+      "path": "engine\\WinBookSplit.Process.ps1",
+      "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+    },
+    {
+      "path": "WinBookSplit.ps1",
+      "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a"
+    },
+    {
+      "path": "tests\\powershell\\Discovery.Tests.ps1",
+      "sha256": "13692da51fcc654e379e636fadb1735e746a70f176d32de3d8b9d266fac03615"
+    },
+    {
+      "path": "tests\\powershell\\Manager.Tests.ps1",
+      "sha256": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7"
+    },
+    {
+      "path": "tests\\powershell\\Runtime.Tests.ps1",
+      "sha256": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3"
+    },
+    {
+      "path": "tests\\powershell\\Process.Tests.ps1",
+      "sha256": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+    }
+  ],
+  "tests": [
+    {
+      "name": "accepts every valid fixture and rejects every invalid fixture without treating identity as alias proof",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "binds the alias adapter to the complete validated package and application/document exclusions",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains validated package data only when explicitly requested for supervised launch",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects all six cross-paired publisher family and signature combinations before alias binding",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "accepts canonical manager version variation through the unsigned 16-bit component boundary for both channels",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects out-of-range noncanonical or malformed versions even when full name and location agree",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "requires every exact identity string field and rejects mismatched full names and families",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects true and nonboolean development staging framework or resource flags",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects missing and unknown package fields and duplicate package or JSON identities",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects malformed oversized or unknown registration schema before alias binding",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an otherwise valid identity if physical registration origin or the narrow alias binding fails",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains complete bounded stream and process-result requirements for registration records",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "passes Store and python.org positive controls through the real exact-name query without a publisher filter or all-users scope",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "returns an empty query without accepting any manager entry point",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "records an invalid queried identity separately from a successful empty inventory",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "keeps nonzero and timeout query results bounded failures with the actual probe attached",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "asks the ordinary directory guard for only the documented KnownFolder package-family directory",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains document and unrelated-CWD exclusion before inspecting any alias file",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an ordinary file and hard-linked file as AppExecutionAlias decoys without executing either",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects a junction carrying the alias filename without following it as an AppExecutionAlias",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "revalidates and passes the exact installed-only argument vector package and physical image to the bounded supervisor",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not reach the supervisor after the narrow helper rejects the alias, with a transport positive control",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects a changed registered alias or invalid identity before supervisor execution",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "parses legacy numeric and tagged lines with literal spaces and punctuation",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "parses path-only manager format as data without evaluating it",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects empty and mixed malformed relative non-executable quoted or NUL records",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "fails at explicit byte line character and candidate limits without work proportional to unbounded data",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects incomplete truncated failed timed-out and unsafe process records",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "requires the complete PSF identity and delegates its bound package-family alias after physical location validation",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects mismatched publisher package location architecture status flags duplicate or unknown fields",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects a valid claimed identity when its physical origin or narrow package-family alias validation fails",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "selects an actual accepted PATH interpreter with no launcher available",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "excludes the document directory during separate read-only setup-base discovery",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "returns runtime_not_found with no viable direct or listed interpreter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves an already accepted PATH interpreter when the optional discovery budget is exhausted",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not execute an unregistered PATH file merely named pymanager.exe",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "deduplicates the same concrete interpreter listed by two sources and direct PATH",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "resolves a SYNTHETIC registered alias descriptor to an independently probed actual interpreter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "independently rejects a listed executable whose child reports another identity",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves an actual independent PATH success through manager listing failures and retains their original probes",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not hide cancellation or unproved manager shutdown behind an accepted PATH candidate",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "records a recognized manager with no installed runtimes separately from a failed listing",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves authoritative explicit success without querying a competing registered manager",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "distinguishes an empty completed query from rejected registration and failed transport without accepting a manager",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "finds a real package-free base for setup and preserves missing_pypdf processing evidence",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "keeps an actual package-free app venv authoritative instead of using a competing manager",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not bypass an application .venv that is a file",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not bypass a reparse .venv and preserves its unrelated owned target",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "sets install-disabling child values without changing the parent environment",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "prefers the policy branch before any higher patch on another branch in either input order",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "compares maintenance patches 9 and 10 numerically in either order",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "uses ordinal canonical path ties even when input order is reversed",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "never ranks below-floor unsupported or prerelease candidates as eligible",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "validates the exact explicit interpreter, isolated flags and package origin",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "does not import a book or CWD shadow despite injected PYTHONPATH and PYTHONHOME",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "fails a missing or relative explicit path without PATH substitution",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "fails a non-Python ordinary executable before any usable PATH substitute",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "hard-fails an existing application venv with no Scripts interpreter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an incompatible PATH candidate then selects the actual pinned interpreter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "excludes empty, relative, document and unrelated-CWD automatic candidates",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an actual hard-linked executable alias before automatic probing",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects array or boolean substitutions in the one-record runtime protocol",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an inconsistent executable before trusting a rejected version claim",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "keeps malformed numeric and nonisolated prerelease claims in raw evidence only",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "marshals literal arguments without shell evaluation",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "drains both large streams and retains bounded final tails without newlines",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "bounds owned-tree timeout and records stopped descendants",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "bounds inherited pipe EOF after the original parent already exited",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects a zero-exit non-Calibre executable without PATH fallback",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "requires the exact converter version even when the version command succeeds",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "accepts a supported complete version record and retains its actual probe",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects extra output after an otherwise supported converter version",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "accepts the exact two-line banner observed from the real pinned converter",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects unrelated text or an altered creator following the supported version",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "halts automatic discovery on unproved parent shutdown before another candidate",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "halts automatic discovery on unproved descendant shutdown before another candidate",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "halts automatic discovery on unproved stoperror shutdown before another candidate",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains fatal exact-probe evidence for an explicit unproved parent shutdown",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains fatal exact-probe evidence for an explicit unproved descendant shutdown",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains fatal exact-probe evidence for an explicit unproved stoperror shutdown",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "prioritizes unproved shutdown over an interrupted timeout probe",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "prioritizes unproved shutdown over an interrupted cancel probe",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves the proved interrupted timeout primary code",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves the proved interrupted cancel primary code",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects an unpackaged marker child before resuming a package-bound launch",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "requires both binding values before creating a package-bound child",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "drains dual two-MiB streams and retains a separate valid final frame",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "retains immediate blank lines and both no-newline tails",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "captures a valid frame larger than the bounded human stream tail",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "reports a result frame that exceeds its separate bounded budget",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "keeps human text after a partial large frame without displaying machine fragments",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects duplicate structured frames rather than selecting a final success",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "rejects absent and malformed frames after complete native failure",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "bounds an exact owned parent timeout and waits for confirmed stop",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "distinguishes injected cancellation from timeout",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "checks an already-cancelled token before launching executable side effects",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "preserves UTF-8 final text when a byte budget splits a multibyte character",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "marshals empty, quoted, trailing-backslash and executable-looking text literally",
+      "result": "Passed",
+      "errors": []
+    },
+    {
+      "name": "removes child PIP options and sets the exact Windows null sentinel while preserving caller and ordinary defaults",
+      "result": "Passed",
+      "errors": []
+    }
+  ],
+  "execution_policy_name": "RemoteSigned (original enum value 1 retained)",
+  "raw_local_sha256": "08fab1b8f04f31819d8afbb6bc6d63fcf0729cef0029a4db6b66e8cea53ae097"
+}

@@ -1,0 +1,162 @@
+{
+  "schema_version": 1,
+  "task": "T03",
+  "kind": "READ_ONLY_TARGETED_RUNTIME_OBSERVATION",
+  "provenance": {
+    "Kind": "ACTUAL_WINDOWS11_PYTHONORG_MANAGED_PROVENANCE",
+    "Shell": "7.6.5",
+    "ExecutionPolicy": "RemoteSigned",
+    "Registration": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\\pymanager.exe",
+        "Package": {
+          "Name": "PythonSoftwareFoundation.PythonManager",
+          "Publisher": "CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US",
+          "PublisherId": "3847v3x7pw1km",
+          "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_3847v3x7pw1km",
+          "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+          "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+          "Architecture": "X64",
+          "SignatureKind": "Developer",
+          "Status": "Ok",
+          "Version": "26.4.240.0",
+          "IsDevelopmentMode": false,
+          "IsPartiallyStaged": false,
+          "IsFramework": false,
+          "IsResourcePackage": false
+        }
+      }
+    ],
+    "Listing": {
+      "Pid": 2024,
+      "ExitCode": 0,
+      "TimedOut": false,
+      "Cancelled": false,
+      "ParentStopped": true,
+      "DescendantsStopped": true,
+      "StreamsComplete": true,
+      "JobAssigned": true,
+      "StartError": null,
+      "StopError": null,
+      "StreamError": null,
+      "ResultError": null,
+      "InteractionError": null,
+      "InputError": null,
+      "Stdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+      "Stderr": "",
+      "HumanStdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+      "StdoutTotalBytes": 67,
+      "StderrTotalBytes": 0,
+      "InteractionCount": 0,
+      "InteractionTotalBytes": 0,
+      "QueuedReplyCount": 0,
+      "ReplyCount": 0,
+      "ReplyTotalBytes": 0,
+      "StdoutTruncated": false,
+      "StderrTruncated": false,
+      "InputWriterStopped": true,
+      "PackageIdentityVerified": true,
+      "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+      "ImagePath": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\\pymanager.exe",
+      "ResultRecords": [],
+      "ElapsedSeconds": 0.1418014
+    },
+    "RuntimeDetails": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Canonical": {
+          "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "Links": 1
+        },
+        "AutomaticTrustedPath": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "AutomaticFailure": null,
+        "Hardlinks": [
+          "Error 50: The request is not supported."
+        ],
+        "Metadata": "{\"schema\": 1, \"id\": \"pythoncore-3.14-64\", \"sort-version\": \"3.14.7\", \"company\": \"PythonCore\", \"tag\": \"3.14-64\", \"install-for\": [\"3.14.7-64\", \"3.14-64\", \"3-64\", \"3.14-dev-64\", \"3-dev-64\"], \"alias\": [{\"target\": \"python.exe\", \"name\": \"python3.14.exe\"}, {\"target\": \"python.exe\", \"name\": \"python3.14-64.exe\"}, {\"target\": \"python.exe\", \"name\": \"python3.exe\"}, {\"target\": \"python.exe\", \"name\": \"python3-64.exe\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"name\": \"pythonw3.14.exe\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"name\": \"pythonw3.14-64.exe\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"name\": \"pythonw3.exe\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"name\": \"pythonw3-64.exe\"}], \"display-name\": \"Python 3.14.7\", \"executable\": \".\\\\python.exe\", \"url\": \"https://www.python.org/ftp/python/3.14.7/python-3.14.7-amd64.zip\", \"hash\": {\"sha256\": \"ac1a727a71738e11de80b76e975f9b8a258aea6412bfc31696b929d59c6aafd0\"}, \"source\": \"https://www.python.org/ftp/python/index-windows.json\", \"run-for\": [{\"target\": \"python.exe\", \"tag\": \"3.14.7-64\"}, {\"target\": \"python.exe\", \"tag\": \"3.14-dev-64\"}, {\"target\": \"python.exe\", \"tag\": \"3-dev-64\"}, {\"target\": \"python.exe\", \"tag\": \"3.14-64\"}, {\"target\": \"python.exe\", \"tag\": \"3-64\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"tag\": \"3.14.7-64\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"tag\": \"3.14-dev-64\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"tag\": \"3-dev-64\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"tag\": \"3.14-64\"}, {\"target\": \"pythonw.exe\", \"windowed\": 1, \"tag\": \"3-64\"}], \"shortcuts\": [{\"kind\": \"pep514\", \"Key\": \"PythonCore\\\\3.14\", \"DisplayName\": \"Python 3.14.7\", \"SupportUrl\": \"https://www.python.org/\", \"SysArchitecture\": \"64bit\", \"SysVersion\": \"3.14\", \"Version\": \"3.14.7\", \"InstallPath\": {\"_\": \"%PREFIX%\", \"ExecutablePath\": \"%PREFIX%python.exe\", \"WindowedExecutablePath\": \"%PREFIX%pythonw.exe\", \"IdlePath\": \"%PREFIX%Lib\\\\idlelib\\\\idle.pyw\"}, \"Help\": {\"Online Python Documentation\": {\"_\": \"https://docs.python.org/3.14/\"}, \"Main Python Documentation\": {\"_\": \"%PREFIX%Doc\\\\html\\\\index.html\"}}}, {\"kind\": \"start\", \"Name\": \"Python 3.14\", \"Items\": [{\"Name\": \"Python 3.14\", \"Target\": \"%PREFIX%python.exe\", \"Icon\": \"%PREFIX%python.exe\"}, {\"Name\": \"Python 3.14 Online Documentation\", \"Icon\": \"%SystemRoot%\\\\System32\\\\SHELL32.dll\", \"IconIndex\": 13, \"Target\": \"https://docs.python.org/3.14/\"}, {\"Name\": \"IDLE (Python 3.14)\", \"Target\": \"%PREFIX%pythonw.exe\", \"Arguments\": \"\\\"%PREFIX%Lib\\\\idlelib\\\\idle.pyw\\\"\", \"Icon\": \"%PREFIX%Lib\\\\idlelib\\\\Icons\\\\idle.ico\", \"IconIndex\": 0}, {\"Name\": \"PyDoc (Python 3.14)\", \"Target\": \"%PREFIX%python.exe\", \"Arguments\": \"-m pydoc -b\", \"Icon\": \"%PREFIX%Lib\\\\idlelib\\\\Icons\\\\idle.ico\", \"IconIndex\": 0}, {\"Name\": \"Python 3.14 Manuals\", \"Target\": \"%PREFIX%Doc\\\\html\\\\index.html\"}]}, {\"kind\": \"uninstall\", \"Publisher\": \"Python Software Foundation\", \"HelpLink\": \"https://docs.python.org/3.14/\"}], \"__original-shortcuts\": [{\"kind\": \"pep514\", \"Key\": \"PythonCore\\\\3.14\", \"DisplayName\": \"Python 3.14.7\", \"SupportUrl\": \"https://www.python.org/\", \"SysArchitecture\": \"64bit\", \"SysVersion\": \"3.14\", \"Version\": \"3.14.7\", \"InstallPath\": {\"_\": \"%PREFIX%\", \"ExecutablePath\": \"%PREFIX%python.exe\", \"WindowedExecutablePath\": \"%PREFIX%pythonw.exe\", \"IdlePath\": \"%PREFIX%Lib\\\\idlelib\\\\idle.pyw\"}, \"Help\": {\"Online Python Documentation\": {\"_\": \"https://docs.python.org/3.14/\"}, \"Main Python Documentation\": {\"_\": \"%PREFIX%Doc\\\\html\\\\index.html\"}}}, {\"kind\": \"start\", \"Name\": \"Python 3.14\", \"Items\": [{\"Name\": \"Python 3.14\", \"Target\": \"%PREFIX%python.exe\", \"Icon\": \"%PREFIX%python.exe\"}, {\"Name\": \"Python 3.14 Online Documentation\", \"Icon\": \"%SystemRoot%\\\\System32\\\\SHELL32.dll\", \"IconIndex\": 13, \"Target\": \"https://docs.python.org/3.14/\"}, {\"Name\": \"IDLE (Python 3.14)\", \"Target\": \"%PREFIX%pythonw.exe\", \"Arguments\": \"\\\"%PREFIX%Lib\\\\idlelib\\\\idle.pyw\\\"\", \"Icon\": \"%PREFIX%Lib\\\\idlelib\\\\Icons\\\\idle.ico\", \"IconIndex\": 0}, {\"Name\": \"PyDoc (Python 3.14)\", \"Target\": \"%PREFIX%python.exe\", \"Arguments\": \"-m pydoc -b\", \"Icon\": \"%PREFIX%Lib\\\\idlelib\\\\Icons\\\\idle.ico\", \"IconIndex\": 0}, {\"Name\": \"Python 3.14 Manuals\", \"Target\": \"%PREFIX%Doc\\\\html\\\\index.html\"}]}, {\"kind\": \"uninstall\", \"Publisher\": \"Python Software Foundation\", \"HelpLink\": \"https://docs.python.org/3.14/\"}]}",
+        "Pep514InstallPath": {
+          "(default)": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64",
+          "ExecutablePath": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "WindowedExecutablePath": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\pythonw.exe"
+        },
+        "Sha256": "4942b86a6597e5aee0128daa00050ed79bc21f6e709a78eb19cbfeb0c2f39ac9"
+      }
+    ],
+    "Limitations": [
+      "Listing+read-only metadata inspection, not setup or native Store acceptance",
+      "fsutil used solely for bounded single-known-file read-only hardlink enumeration"
+    ]
+  },
+  "independent_interpreter_probe": {
+    "Kind": "ACTUAL_WINDOWS11_PYTHONORG_LISTED_RUNTIME_COMPONENT",
+    "Shell": "7.6.5",
+    "Policy": "RemoteSigned",
+    "SourceSha256": "1c29cd28bc5011ff7ee396ef11283ed912ead662ab4969255449c457a91c352c",
+    "ProbeResults": [
+      {
+        "VerificationOnlyListedPath": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Selected": null,
+        "Attempts": [
+          {
+            "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+            "Source": "manager",
+            "Accepted": false,
+            "Reason": "python_security_floor",
+            "Message": "Incompatible interpreter: Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.",
+            "Probe": {
+              "Pid": 18848,
+              "ExitCode": 1,
+              "TimedOut": false,
+              "Cancelled": false,
+              "ParentStopped": true,
+              "DescendantsStopped": true,
+              "StreamsComplete": true,
+              "JobAssigned": true,
+              "StartError": null,
+              "StopError": null,
+              "StreamError": null,
+              "ResultError": null,
+              "InteractionError": null,
+              "InputError": null,
+              "Stdout": "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}\r\n",
+              "Stderr": "",
+              "HumanStdout": "",
+              "StdoutTotalBytes": 710,
+              "StderrTotalBytes": 0,
+              "InteractionCount": 0,
+              "InteractionTotalBytes": 0,
+              "QueuedReplyCount": 0,
+              "ReplyCount": 0,
+              "ReplyTotalBytes": 0,
+              "StdoutTruncated": false,
+              "StderrTruncated": false,
+              "InputWriterStopped": true,
+              "PackageIdentityVerified": false,
+              "PackageFullName": null,
+              "ImagePath": null,
+              "ResultRecords": [
+                "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}"
+              ],
+              "ElapsedSeconds": 0.7943151
+            },
+            "ObservedVersion": "3.14.7",
+            "IdentityVerified": true
+          }
+        ]
+      }
+    ],
+    "Limitations": [
+      "Individual independently listed runtime verification only; no controller-selected automatic/setup input",
+      "Not native Store, Windows10, setup or exact-ZIP acceptance"
+    ]
+  },
+  "collector_sources": {
+    "provenance.ps1": "param([string]$ApplicationRoot,[string]$OutputPath)\n$ErrorActionPreference='Stop'\nSet-Location -LiteralPath $ApplicationRoot\n. (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1')\n$attempts=New-Object 'Collections.Generic.List[object]'\n$registrations=@(Get-WinBookSplitRegisteredManagerPaths -ApplicationRoot $ApplicationRoot -Attempts $attempts -TimeoutSeconds 5 -WithRegistration)\nif($registrations.Count -ne 1){throw 'Expected this host existing sole python.org registration'}\n$listing=Invoke-WinBookSplitManagerListing -Registration $registrations[0] -ApplicationRoot $ApplicationRoot -TimeoutSeconds 5\n$paths=@(ConvertFrom-WinBookSplitPythonListing -Probe $listing -Kind Manager)\n$details=@(foreach($path in $paths){\n$normal=$null;$normalFailure=$null\ntry {$normal=Get-WinBookSplitTrustedPath -Path $path -Automatic}catch{$normalFailure=$_.Exception.Message}\n$canonical=[WinBookSplit.Preflight.Probe]::Canonical($path)\n$metadataPath=Join-Path ([IO.Path]::GetDirectoryName($path)) '__install__.json'\n$metadata=Get-Content -LiteralPath $metadataPath -Raw\n[ordered]@{Path=$path;Canonical=$canonical;AutomaticTrustedPath=$normal;AutomaticFailure=$normalFailure;Hardlinks=@(& fsutil.exe hardlink list $path);Metadata=$metadata;Pep514InstallPath=(Get-ItemProperty -LiteralPath 'HKCU:\\Software\\Python\\PythonCore\\3.14\\InstallPath'|Select-Object '(default)',ExecutablePath,WindowedExecutablePath);Sha256=(Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()}\n})\n$receipt=[ordered]@{Kind='ACTUAL_WINDOWS11_PYTHONORG_MANAGED_PROVENANCE';Shell=$PSVersionTable.PSVersion.ToString();ExecutionPolicy=(Get-ExecutionPolicy).ToString();Registration=$registrations;Listing=$listing;RuntimeDetails=$details;Limitations=@('Listing+read-only metadata inspection, not setup or native Store acceptance','fsutil used solely for bounded single-known-file read-only hardlink enumeration')}\n$json=$receipt|ConvertTo-Json -Depth 15\n$json=$json.Replace($env:USERPROFILE.Replace('\\','\\\\'),'<USERPROFILE>').Replace($env:USERPROFILE,'<USERPROFILE>').Replace($ApplicationRoot.Replace('\\','\\\\'),'<WORKSPACE>').Replace($ApplicationRoot,'<WORKSPACE>')\n[IO.File]::WriteAllText($OutputPath,$json+\"`n\",(New-Object Text.UTF8Encoding($false)))\n[ordered]@{Output=$OutputPath;Paths=$paths;LinkInfo=$details}|ConvertTo-Json -Depth 6",
+    "listed-runtime-component.ps1": "param([string]$ApplicationRoot,[string]$OutputPath)\n$ErrorActionPreference='Stop'\nSet-Location -LiteralPath $ApplicationRoot\n. (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1')\n$attempts=New-Object 'Collections.Generic.List[object]'\n$registrations=@(Get-WinBookSplitRegisteredManagerPaths -ApplicationRoot $ApplicationRoot -Attempts $attempts -TimeoutSeconds 5 -WithRegistration)\n$listing=Invoke-WinBookSplitManagerListing -Registration $registrations[0] -ApplicationRoot $ApplicationRoot -TimeoutSeconds 5\n$paths=@(ConvertFrom-WinBookSplitPythonListing -Probe $listing -Kind Manager)\n$probeResults=@(foreach($path in $paths){\n$runtimeAttempts=New-Object 'Collections.Generic.List[object]'\n$selected=Test-WinBookSplitPythonCandidate -Path $path -Source manager -ApplicationRoot $ApplicationRoot -Attempts $runtimeAttempts -TimeoutSeconds 5 -InterpreterOnly\n[ordered]@{VerificationOnlyListedPath=$path;Selected=$selected;Attempts=$runtimeAttempts}\n})\n$receipt=[ordered]@{Kind='ACTUAL_WINDOWS11_PYTHONORG_LISTED_RUNTIME_COMPONENT';Shell=$PSVersionTable.PSVersion.ToString();Policy=(Get-ExecutionPolicy).ToString();SourceSha256=(Get-FileHash -LiteralPath (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1') -Algorithm SHA256).Hash.ToLowerInvariant();ProbeResults=$probeResults;Limitations=@('Individual independently listed runtime verification only; no controller-selected automatic/setup input','Not native Store, Windows10, setup or exact-ZIP acceptance')}\n$json=$receipt|ConvertTo-Json -Depth 15\n$json=$json.Replace($env:USERPROFILE.Replace('\\','\\\\'),'<USERPROFILE>').Replace($env:USERPROFILE,'<USERPROFILE>').Replace($ApplicationRoot.Replace('\\','\\\\'),'<WORKSPACE>').Replace($ApplicationRoot,'<WORKSPACE>')\n[IO.File]::WriteAllText($OutputPath,$json+\"`n\",(New-Object Text.UTF8Encoding($false)))\n[ordered]@{Output=$OutputPath;Results=@($probeResults|ForEach-Object { [ordered]@{Accepted=($null -ne $_.Selected);Attempts=$_.Attempts}})} | ConvertTo-Json -Depth 5"
+  },
+  "raw_local_sha256": {
+    "provenance.json": "12008db07413c3f10f3aa42cc96dde422d62e977591b98ca15a3d888babe2bb2",
+    "listed-runtime-component.json": "ecc47eaecd757618e6e8abd29c3a94f9f71aac63636ad134975b15bc49bd63e3"
+  },
+  "interpretation": "Existing concrete executable Canonical.Links=1; no hardlink exemption needed. fsutil enumeration failed Error50 and is not a successful link inventory. User-writable metadata/PEP514 support observed path but are not authenticity evidence. Actual regular x64 isolated 3.14.7 identity verified then correctly rejected at reviewed 3.14.8 floor."
+}

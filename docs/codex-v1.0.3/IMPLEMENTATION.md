@@ -13,9 +13,14 @@ Windows resolves it into a suspended child whose package full name and physical
 image must match registration before resume. The existing job, deadlines,
 cancellation and stream handling remain in force. Real python.org component
 listing passed on Windows 11/PS5.1/PS7; Store-channel native evidence is NOT_RUN.
-T03 must wire this component into the existing automatic resolver. Until then,
-that resolver still applies its ordinary executable guard to the returned alias
-and rejects it. No end-to-end automatic-discovery repair is claimed at T02.
+T03 wires these descriptors and this adapter into the existing automatic resolver.
+Manager path-only listings and legacy `-0p` listings remain separate. Concrete
+runtime candidates still pass unchanged ordinary/automatic path guards and the
+independent isolated identity/policy/package probe; no hardlink exception was
+needed for the observed concrete Windows 11 runtime. Query completion/count and
+empty/rejected/failed outcomes are retained in attempts. See T03 evidence for
+real below-floor rejection versus supported synthetic-listing/actual-child tests.
+Store-channel/owner Windows 10 exact-ZIP acceptance remains NOT_RUN at T07.
 
 ## 1. Current-user manager registration
 

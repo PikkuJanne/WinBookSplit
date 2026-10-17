@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "meaning": "T01 PASS means baseline/reproduction only. T02 PASS means scoped identity/entry-point component coverage, including real Windows11 python.org launch. Owner Windows10 Store gate and later requirements remain NOT_RUN.",
+  "meaning": "T01 PASS means baseline/reproduction only. T02 PASS means identity/entry-point component coverage. T03 PASS means installed-runtime resolver component coverage: real Windows11 python.org below-floor rejection plus synthetic listings with actual supported children. Native Store and owner Windows10 exact-ZIP acceptance remain NOT_RUN at T07; no compatible native automatic success claimed.",
   "cases": [
     {
       "id": "STORE-001",
@@ -175,48 +175,78 @@
       "task": "T03",
       "name": "Installed-only",
       "expected": "List only existing runtimes; never exec/install/online/refresh; no parent configuration changes.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-014",
       "task": "T03",
       "name": "Concrete interpreter",
       "expected": "Reach and independently verify the concrete existing interpreter rather than require alias == sys.executable.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-015",
       "task": "T03",
       "name": "Listing validation",
       "expected": "Handle paths/Unicode/spaces; reject malformed, oversized, truncated, duplicate-key or invalid-path output.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-016",
       "task": "T03",
       "name": "No packages and no runtimes",
       "expected": "Distinguish empty registration from empty listing and a rejected identity; query completion is not acceptance.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-017",
       "task": "T03",
       "name": "Selection continuity",
       "expected": "A failed optional route preserves a valid independent candidate; deterministic ranking and authoritative explicit/venv behavior remain.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-018",
       "task": "T03",
       "name": "Missing pypdf",
       "expected": "Setup can discover a compatible base lacking pypdf; processing reports setup required, not missing Python.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json"
+      ],
+      "result_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07."
     },
     {
       "id": "STORE-019",

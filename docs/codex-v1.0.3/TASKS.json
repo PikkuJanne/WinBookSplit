@@ -59,7 +59,7 @@
       "depends_on": [
         "T02"
       ],
-      "status": "NOT_STARTED",
+      "status": "COMPLETE",
       "brief": "tasks/03-T03.md",
       "acceptance_ids": [
         "STORE-013",
@@ -68,6 +68,19 @@
         "STORE-016",
         "STORE-017",
         "STORE-018"
+      ],
+      "completion_scope": "Installed-runtime resolution component only. Windows11/python.org automatic discovery reaches actual 3.14.7 and correctly rejects security floor; compatible selection uses labelled synthetic manager seams and real supported children. Native Store/owner exact-ZIP Windows10 remains NOT_RUN at T07.",
+      "evidence": [
+        "evidence/T03.md",
+        "evidence/T03.json",
+        "evidence/T03-baseline.json",
+        "evidence/T03-red.json",
+        "evidence/T03-provenance.json",
+        "evidence/T03-native-ps51.json",
+        "evidence/T03-native-ps7.json",
+        "evidence/T03-focused-ps51.json",
+        "evidence/T03-focused-ps7.json",
+        "evidence/T03-shell.json"
       ]
     },
     {

@@ -1,0 +1,538 @@
+{
+  "schema_version": 1,
+  "kind": "ACTUAL_WINDOWS11_PYTHONORG_AUTOMATIC_T03",
+  "policy": {
+    "Process": "RemoteSigned",
+    "Effective": "RemoteSigned",
+    "Purpose": "RemoteSigned automatic discovery component; not MOTW acceptance"
+  },
+  "host": {
+    "PowerShell": "5.1.26100.9711",
+    "Edition": "Desktop",
+    "OS": "Microsoft Windows NT 10.0.26300.0",
+    "Process64Bit": true
+  },
+  "source": {
+    "Head": "e474320f90b68416839fc985c9139b410a54faf0",
+    "Tree": "4255bf5c1fe7a7283e8556b3a31c24ba39707747",
+    "WorktreeSourceHashesBefore": {
+      "Runtime": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be",
+      "Process": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "Policy": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "Helper": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    },
+    "WorktreeSourceHashesAfter": {
+      "Runtime": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be",
+      "Process": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "Policy": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "Helper": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    }
+  },
+  "commands": [
+    "Get-WinBookSplitRegisteredManagerPaths -ApplicationRoot <WORKSPACE> -Attempts <LIST> -TimeoutSeconds 5 -WithRegistration [verification-only inventory]",
+    "Invoke-WinBookSplitManagerListing -Registration <REAL_REGISTRATION> -ApplicationRoot <WORKSPACE> -TimeoutSeconds 5 [verification-only inventory]",
+    "Resolve-WinBookSplitRuntime -ApplicationRoot <WORKSPACE> -InterpreterOnly -TimeoutSeconds 3",
+    "Resolve-WinBookSplitRuntime -ApplicationRoot <WORKSPACE> -TimeoutSeconds 3"
+  ],
+  "verificationInventory": {
+    "Registration": {
+      "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\\pymanager.exe",
+      "Package": {
+        "Name": "PythonSoftwareFoundation.PythonManager",
+        "Publisher": "CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US",
+        "PublisherId": "3847v3x7pw1km",
+        "PackageFamilyName": "PythonSoftwareFoundation.PythonManager_3847v3x7pw1km",
+        "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+        "InstallLocation": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+        "Architecture": "X64",
+        "SignatureKind": "Developer",
+        "Status": "Ok",
+        "Version": "26.4.240.0",
+        "IsDevelopmentMode": false,
+        "IsPartiallyStaged": false,
+        "IsFramework": false,
+        "IsResourcePackage": false
+      }
+    },
+    "Attempts": [
+      {
+        "Path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "Source": "manager_registration",
+        "Stage": "registration",
+        "Accepted": true,
+        "QueryCompleted": true,
+        "RegisteredCount": 1,
+        "Reason": "manager_registered",
+        "Message": "Bounded current-user registered Python manager query; no runtime launch or install.",
+        "Probe": {
+          "Pid": 7456,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 687,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}"
+          ],
+          "ElapsedSeconds": 2.106051
+        }
+      }
+    ],
+    "Listing": {
+      "Pid": 9556,
+      "ExitCode": 0,
+      "TimedOut": false,
+      "Cancelled": false,
+      "ParentStopped": true,
+      "DescendantsStopped": true,
+      "StreamsComplete": true,
+      "JobAssigned": true,
+      "StartError": null,
+      "StopError": null,
+      "StreamError": null,
+      "ResultError": null,
+      "InteractionError": null,
+      "InputError": null,
+      "Stdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+      "Stderr": "",
+      "HumanStdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+      "StdoutTotalBytes": 67,
+      "StderrTotalBytes": 0,
+      "InteractionCount": 0,
+      "InteractionTotalBytes": 0,
+      "QueuedReplyCount": 0,
+      "ReplyCount": 0,
+      "ReplyTotalBytes": 0,
+      "StdoutTruncated": false,
+      "StderrTruncated": false,
+      "InputWriterStopped": true,
+      "PackageIdentityVerified": true,
+      "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+      "ImagePath": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\\pymanager.exe",
+      "ResultRecords": [],
+      "ElapsedSeconds": 0.2063069
+    }
+  },
+  "stateBefore": {
+    "PathEnvironmentSha256": "1873d6170dea84bf1f8ded826e5da08d8737285d8718d4e2b83110c3ca38e584",
+    "ManagerPackage": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+    "ManagerExeSha256": "734faa1a06444a60b189d78f206243da05314787b70c9be28e266e2b434d13d8",
+    "RuntimeHashesVerificationOnly": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Sha256": "4942b86a6597e5aee0128daa00050ed79bc21f6e709a78eb19cbfeb0c2f39ac9",
+        "Canonical": {
+          "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "Links": 1
+        }
+      }
+    ],
+    "AliasAttributes": "Archive, ReparsePoint",
+    "AppVenvExists": false
+  },
+  "interpreterOnly": {
+    "InterpreterOnly": true,
+    "Success": false,
+    "Result": null,
+    "Code": "runtime_not_found",
+    "Message": "No compatible trusted Python was found. Use regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted and locked pypdf 6.20.0. Select a trusted -PythonPath or create the application .venv. PowerShell setup: & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<WORKSPACE>\\Setup-WinBookSplit.ps1' -NonInteractive",
+    "Attempts": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\bin\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Automatic dependency discovery refuses hard-linked executable aliases; select a trusted ordinary executable explicitly.",
+        "Probe": null
+      },
+      {
+        "Path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "Source": "manager_registration",
+        "Stage": "registration",
+        "Accepted": true,
+        "QueryCompleted": true,
+        "RegisteredCount": 1,
+        "Reason": "manager_registered",
+        "Message": "Bounded current-user registered Python manager query; no runtime launch or install.",
+        "Probe": {
+          "Pid": 21992,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 687,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}"
+          ],
+          "ElapsedSeconds": 1.6216967999999998
+        }
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\pymanager.exe",
+        "Source": "manager_listing",
+        "Accepted": false,
+        "Message": "Unverified PATH manager name excluded; installed-only listing requires verified physical registration.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\\pymanager.exe",
+        "Source": "manager_listing",
+        "Stage": "listing",
+        "Accepted": true,
+        "Reason": "installed_runtimes_listed",
+        "Message": "Read-only installed-runtime listing; no runtime launch/install requested.",
+        "Probe": {
+          "Pid": 19128,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+          "Stderr": "",
+          "HumanStdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+          "StdoutTotalBytes": 67,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": true,
+          "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+          "ImagePath": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\\pymanager.exe",
+          "ResultRecords": [],
+          "ElapsedSeconds": 0.1307568
+        }
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\py.exe",
+        "Source": "py_launcher_listing",
+        "Stage": "listing",
+        "Accepted": false,
+        "Reason": "launcher_listing_failed",
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Source": "manager",
+        "Accepted": false,
+        "Reason": "python_security_floor",
+        "Message": "Incompatible interpreter: Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.",
+        "Probe": {
+          "Pid": 22312,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 710,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}"
+          ],
+          "ElapsedSeconds": 0.3893758
+        },
+        "ObservedVersion": "3.14.7",
+        "IdentityVerified": true
+      }
+    ]
+  },
+  "processing": {
+    "InterpreterOnly": false,
+    "Success": false,
+    "Result": null,
+    "Code": "runtime_not_found",
+    "Message": "No compatible trusted Python was found. Use regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted and locked pypdf 6.20.0. Select a trusted -PythonPath or create the application .venv. PowerShell setup: & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<WORKSPACE>\\Setup-WinBookSplit.ps1' -NonInteractive",
+    "Attempts": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\bin\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Automatic dependency discovery refuses hard-linked executable aliases; select a trusted ordinary executable explicitly.",
+        "Probe": null
+      },
+      {
+        "Path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "Source": "manager_registration",
+        "Stage": "registration",
+        "Accepted": true,
+        "QueryCompleted": true,
+        "RegisteredCount": 1,
+        "Reason": "manager_registered",
+        "Message": "Bounded current-user registered Python manager query; no runtime launch or install.",
+        "Probe": {
+          "Pid": 19340,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 687,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}"
+          ],
+          "ElapsedSeconds": 1.8398553999999998
+        }
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\pymanager.exe",
+        "Source": "manager_listing",
+        "Accepted": false,
+        "Message": "Unverified PATH manager name excluded; installed-only listing requires verified physical registration.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\\pymanager.exe",
+        "Source": "manager_listing",
+        "Stage": "listing",
+        "Accepted": true,
+        "Reason": "installed_runtimes_listed",
+        "Message": "Read-only installed-runtime listing; no runtime launch/install requested.",
+        "Probe": {
+          "Pid": 19128,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+          "Stderr": "",
+          "HumanStdout": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe\r\n",
+          "StdoutTotalBytes": 67,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": true,
+          "PackageFullName": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+          "ImagePath": "C:\\Program Files\\WindowsApps\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\\pymanager.exe",
+          "ResultRecords": [],
+          "ElapsedSeconds": 0.1181541
+        }
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\py.exe",
+        "Source": "py_launcher_listing",
+        "Stage": "listing",
+        "Accepted": false,
+        "Reason": "launcher_listing_failed",
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Source": "manager",
+        "Accepted": false,
+        "Reason": "python_security_floor",
+        "Message": "Incompatible interpreter: Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.",
+        "Probe": {
+          "Pid": 12008,
+          "ExitCode": 1,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 710,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"protocol\": \"winbooksplit.runtime\", \"schema_version\": 1, \"ok\": false, \"executable\": \"<USERPROFILE>\\\\AppData\\\\Local\\\\Python\\\\pythoncore-3.14-64\\\\python.exe\", \"version\": \"3.14.7\", \"version_info\": [3, 14, 7], \"releaselevel\": \"final\", \"serial\": 0, \"implementation\": \"cpython\", \"platform\": \"win32\", \"machine\": \"AMD64\", \"bits\": 64, \"gil_disabled\": false, \"isolated\": true, \"dont_write_bytecode\": true, \"policy_version\": 3, \"policy_sha256\": \"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\", \"reason\": \"python_security_floor\", \"message\": \"Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.\"}"
+          ],
+          "ElapsedSeconds": 0.4044731
+        },
+        "ObservedVersion": "3.14.7",
+        "IdentityVerified": true
+      }
+    ]
+  },
+  "stateAfter": {
+    "PathEnvironmentSha256": "1873d6170dea84bf1f8ded826e5da08d8737285d8718d4e2b83110c3ca38e584",
+    "ManagerPackage": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+    "ManagerExeSha256": "734faa1a06444a60b189d78f206243da05314787b70c9be28e266e2b434d13d8",
+    "RuntimeHashesVerificationOnly": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+        "Sha256": "4942b86a6597e5aee0128daa00050ed79bc21f6e709a78eb19cbfeb0c2f39ac9",
+        "Canonical": {
+          "Path": "<USERPROFILE>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+          "Links": 1
+        }
+      }
+    ],
+    "AliasAttributes": "Archive, ReparsePoint",
+    "AppVenvExists": false
+  },
+  "checks": {
+    "RealRegistration": true,
+    "VerificationListingBound": true,
+    "NoAppVenv": true,
+    "InstallationAndPathUnchanged": true,
+    "SourceUnchanged": true,
+    "InterpreterOnlyRejectedUnsupportedRuntime": true,
+    "InterpreterOnlyBoundManagerListing": true,
+    "InterpreterOnlyConcreteIdentity": true,
+    "ProcessingRejectedUnsupportedRuntime": true,
+    "ProcessingBoundManagerListing": true,
+    "ProcessingConcreteIdentity": true
+  },
+  "limitations": [
+    "Actual automatic discovery reaches and independently verifies existing Python 3.14.7, then preserves reviewed security-floor rejection; no compatible runtime success claimed.",
+    "Windows11/python.org component only; native Store and owner Windows10 exact-ZIP gate remain NOT_RUN.",
+    "No explicit PythonPath, hidden selected-runtime input, injected environment, setup, installation/update, PATH/alias setting change, venv creation or fallback acquisition.",
+    "Independently enumerated runtime paths are hashed only for unchanged installation verification and are never passed into automatic application discovery.",
+    "Get-WinBookSplitDependencySummary UX is T04 and was not repaired or accepted by this test."
+  ]
+}

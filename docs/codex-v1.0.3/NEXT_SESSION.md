@@ -1,70 +1,66 @@
 # Next session
 
-T02 is COMPLETE for its identity/entry-point component scope. STOP after the
-normal scoped commit, push and fresh live-branch equality check. The actual new
-commit belongs in the external handover, not in its own contents. Continue on
+T03 is COMPLETE for installed-runtime resolution component scope. STOP after
+normal scoped commit/push and fresh live-branch equality verification. The new
+commit belongs in the external handover, not its own contents. Continue on
 `codex/v1.0.3-store-discovery`; parent source was
-`15a646df512898024e3adf59a690395ecfa381fa`. Do not reset to that source.
+`e474320f90b68416839fc985c9139b410a54faf0`. Do not reset to that source.
 
-Read root/nested instructions, active handoff docs, `tasks/03-T03.md`, and T02
-evidence. The query and both identity tuples are repaired. The family alias is
-checked narrowly; the existing supervisor verifies the child package full name
-and physical image before resume. `Get-WinBookSplitRegisteredManagerPaths
--WithRegistration` returns `{Path,Package}` descriptors for
-`Invoke-WinBookSplitManagerListing`, which uses `list --format=exe` with child
-automatic installation disabled by the existing environment isolation. The
-default string-path return remains for compatibility.
+Read root/nested instructions, active handoff docs, `tasks/04-T04.md` and T03
+evidence. Automatic discovery now uses `Get-WinBookSplitRegisteredManagerPaths
+-WithRegistration` and `Invoke-WinBookSplitManagerListing`, then independently
+probes concrete installed interpreters. Manager `list --format=exe` and genuine
+legacy `-0p` routes are separate. Strict bounded parsing, general alias/hardlink
+guards, isolation, pypdf origin, selection ranking and explicit/venv authority
+remain. Setup's interpreter-only discovery accepts a supported base without
+pypdf; maintained tests run an actual package-free disposable interpreter and
+verify its existing dependency summary remains missing_pypdf with setup guidance.
 
-T03 MUST wire descriptors and this adapter into the existing automatic resolver.
-At T02 that resolver still applies its ordinary executable guard to registered
-aliases, so manager-based automatic runtime discovery remains incomplete. Do not
-relax the general guard, execute arbitrary PATH managers, or retain `-0p` parsing
-for the new manager route. Genuine legacy launchers remain separate. Independently
-verify concrete interpreter identity, inspect real managed-runtime hardlink
-provenance if needed, preserve branch/patch ranking, explicit/venv authority,
-isolation, pypdf origin checks and bounded failure handling. Empty registration,
-empty listing, rejected identity and failed listing must remain distinguishable.
-Setup's interpreter-only discovery must accept a supported base without pypdf.
+Registration attempts now have Stage, QueryCompleted, RegisteredCount and Reason;
+zero packages no longer marks a manager accepted. Listing attempts distinguish
+manager_no_runtimes from manager_listing_failed. T04 must finish consistent
+Reason/stage/source coverage and accurate summaries/remedies across all routes;
+do not assume those few fields complete its acceptance. Keep detailed technical
+evidence local and sanitize display text. Execute the exact emitted setup command,
+verify setup BAT from unrelated CWD with spaces/Unicode, idempotence/repair,
+MOTW/process-only policy and privacy. Reuse current setup/diagnostic helpers.
 
-T02 verification: 95 maintained focused tests per PS5.1/PS7; 23 are new manager
-contracts. Final full shell: 229 tests per shell, no failures/skips, unchanged
-source, clean syntax/scoped analysis. Handoff helpers: 48 passes, one skip. Actual Windows 11/python.org packaged manager passed 13 checks per
-shell under RemoteSigned, including real listing and wrong-package/image
-pre-resume negatives. Full shell and exploratory outcomes are in `T02-shell.json`
-and `T02-exploratory.json`. T01 old-behavior reproduction files remain historical;
-normal maintained coverage uses Manager.Tests.ps1. Original pypdf UNKNOWN and
-PS5.1 COLLECTOR_FAILED remain unchanged facts.
+T03 receipts distinguish real and synthetic scopes. Actual Windows 11/python.org
+Manager 26.4.240.0 automatic discovery reached its concrete regular x64 Python
+3.14.7 and correctly rejected it below the retained 3.14.8 floor on both shells
+under RemoteSigned. No compatible native automatic success is claimed. Supported
+selection tests use explicitly labelled manager seams and actual child probes.
+The real concrete executable has one link; no general or speculative hardlink
+exception was introduced. Do not update desktop Python/Manager to clear this.
 
-No Store manager exists on this agent host. Store-channel native launch and the
-owner's Windows 10 exact-ZIP Store gate remain NOT_RUN, consolidated at T07.
-The new component PASS cannot substitute for that gate. Do not request another
-broad owner report, install/update desktop Python/Manager, change PATH/aliases,
-or pass a controller-selected runtime into automatic setup. Do not alter the
-owner's source-ZIP installations or historical releases/evidence. T04 owns
-truthful summary diagnostics; T05 owns the known fallback-attempt validator gap
-(seven tests pass, one expected failure). VERSION remains 1.0.2 until T06.
-Publication stays BLOCKED until every real release gate passes.
+Native Store-channel launch and owner Windows 10 exact-ZIP evidence stay NOT_RUN,
+consolidated at T07. Do not request broad owner diagnostics or substitute private
+runtimes, selected PythonPath/environment inputs or prebuilt app venvs. T05 owns
+the fallback-attempt validator gap; T06 owns VERSION/package preparation; T08
+publication stays BLOCKED until real gates pass. Preserve historical evidence,
+published tags/assets and the owner's source-ZIP installations.
 
 Exact continuation prompt:
 
 ```text
-Continue T03 only in D:\projects\WinBookSplit-main on codex/v1.0.3-store-discovery.
+Continue T04 only in D:\projects\WinBookSplit-main on codex/v1.0.3-store-discovery.
 Read root/nested AGENTS.md, docs/codex-v1.0.3/{SCOPE,STATUS,NEXT_SESSION,ROOT_CAUSE,IMPLEMENTATION,TESTING}.md,
-TASKS.json, tasks/03-T03.md and T02 evidence. Inspect live Git/origin/worktree/tags/releases;
-preserve current work and historical records. T02 repaired the exact-name query,
-paired official manager identities and narrow family-alias launch component;
-real python.org Manager listing and package/image rejection passed on Windows11
-under PS5.1/PS7 RemoteSigned. Native Store/owner Windows10 exact-ZIP evidence is
-still NOT_RUN and deferred to T07. Wire -WithRegistration descriptors and
-Invoke-WinBookSplitManagerListing into the EXISTING automatic resolver, then
-independently validate concrete installed interpreters. Preserve installed-only
-listing, strict bounded parsing, ranking, explicit/venv authority, isolated
-package-origin checks, and compatible-base-without-pypdf setup behavior. Do not
-globally relax alias/hardlink guards or install/update desktop Python/Manager,
-change PATH/aliases, inject a selected runtime, or repeat broad diagnostics.
-Keep summary UX repair scoped to T04 and the fallback-attempt validator gap to
-T05. After T03 update evidence/task/status/next-session records, review, stage
-intended paths, commit, push normally, verify clean HEAD against freshly queried
-live remote, then STOP with a verbose handover and exact T04 continuation prompt.
-Do not publish early.
+TASKS.json, tasks/04-T04.md and T03 evidence. Inspect live Git/origin/worktree/tags/releases;
+preserve current work and historical records. T03 wired validated manager descriptors
+and installed-only list --format=exe into the existing automatic resolver; concrete
+interpreters retain independent isolated identity/policy/package-origin checks and
+strict path guards. Actual Windows11/python.org discovery now reaches its existing
+3.14.7 and correctly rejects the retained 3.14.8 floor on PS5.1/PS7 RemoteSigned;
+this is not compatible native automatic-runtime acceptance. Native Store/owner
+Windows10 exact-ZIP evidence remains NOT_RUN, deferred to T07. Complete truthful
+Reason/stage/source summaries and exact setup remedies, verify emitted commands
+verbatim, setup BAT from unrelated CWD with spaces/Unicode, idempotence/repair and
+process-only policy/MOTW/privacy. Preserve explicit/venv authority, compatible-base
+without-pypdf setup, bounded processes, isolation and origin checks. Do not install
+or update desktop Python/Manager, change PATH/aliases, relax guards, inject selected
+runtimes, repeat broad owner diagnostics, or fix T05's fallback-attempt validator
+gap in this task. After T04 update evidence/task/status/next-session records,
+review, stage intended paths, commit, push normally, verify clean HEAD against
+freshly queried live remote, then STOP with a verbose handover and exact T05
+continuation prompt. Do not publish early.
 ```

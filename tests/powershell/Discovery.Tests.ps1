@@ -7,6 +7,13 @@ BeforeAll {
     $script:discoveryPolicy = Get-WinBookSplitCompatibilityPolicy
     $script:discoveryExpectedVersion = (Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython -InterpreterOnly).Version
     $script:nativeDiscoveryProbe = (Get-Command Invoke-WinBookSplitRuntimeProbe).ScriptBlock
+    $tokens = $null; $syntaxErrors = $null
+    $applicationAst = [Management.Automation.Language.Parser]::ParseFile((Join-Path $RepositoryRoot 'WinBookSplit.ps1'), [ref]$tokens, [ref]$syntaxErrors)
+    if (@($syntaxErrors).Count -ne 0) { throw 'The trusted application has syntax errors.' }
+    $summaryFunctions = @($applicationAst.FindAll({ param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and
+        $node.Name -ceq 'Get-WinBookSplitDependencySummary' }, $true))
+    if ($summaryFunctions.Count -ne 1) { throw 'Expected one trusted dependency summary function.' }
+    . ([scriptblock]::Create($summaryFunctions[0].Extent.Text))
     $script:discoveryExecutableFixtures = New-Object 'Collections.Generic.List[object]'
     function New-DiscoveryProbe {
         param([AllowEmptyString()][string]$Stdout = '', [AllowEmptyString()][string]$Stderr = '', [int]$ExitCode = 0)
@@ -57,6 +64,11 @@ BeforeAll {
             Architecture='X64';SignatureKind='Developer';Status='Ok';Version=$version;
             IsDevelopmentMode=$false;IsPartiallyStaged=$false;IsFramework=$false;IsResourcePackage=$false}) }
     }
+    function New-DiscoveryManagerDescriptor {
+        # SYNTHETIC registration/entry seam; only a returned TestPython runs.
+        $record = New-DiscoveryManagerRegistration
+        return [pscustomobject]@{ Path=(Join-Path $TestDrive 'SYNTHETIC family alias\pymanager.exe'); Package=$record.packages[0] }
+    }
 }
 
 AfterAll {
@@ -67,7 +79,7 @@ AfterAll {
     }
 }
 
-Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Tag 'V101-AC-017','V101-AC-018','V101-AC-020','V101-AC-023' {
+Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Tag 'V101-AC-017','V101-AC-018','V101-AC-020','V101-AC-023','STORE-015' {
     It 'parses legacy numeric and tagged lines with literal spaces and punctuation' {
         $text = " -V:PythonCore/3.14 * C:\Trusted Python\python.exe`r`n -3.13-64 C:\Other [&!]\python.exe`r`n"
         $paths = @(ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout $text) -Kind Legacy)
@@ -78,14 +90,19 @@ Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Ta
         @(ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stderr $text) -Kind Legacy).Count | Should -Be 2
     }
     It 'parses path-only manager format as data without evaluating it' {
-        $text = "C:\Trusted Python\python.exe`n\\server\share\Python [&!]\python.exe`n"
+        $unicode = ([char]0x65E5).ToString() + [char]0x672C + [char]0x00E4
+        $unicodePath = 'C:\Trusted ' + $unicode + ' Python [&!]\python.exe'
+        $text = $unicodePath + "`n\\server\share\Python [&!]\python.exe`n"
         $paths = @(ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout $text) -Kind Manager)
         $paths.Count | Should -Be 2
+        $paths[0] | Should -BeExactly $unicodePath
         $paths[1] | Should -BeExactly '\\server\share\Python [&!]\python.exe'
     }
     It 'rejects empty and mixed malformed relative non-executable quoted or NUL records' {
         foreach ($text in @('', "`r`n `t`r`n", 'python.exe', 'C:\Python\python.bat', '"C:\Python\python.exe"',
-                "C:\Python\python.exe`nWelcome to Python", ('C:\Python\py' + [char]0 + 'thon.exe'))) {
+                "C:\Python\python.exe`nWelcome to Python", ('C:\Python\py' + [char]0 + 'thon.exe'),
+                'C:\Python*\python.exe', 'C:\Python?\python.exe', 'C:\Python\py:thon.exe', 'C:\Python|bad\python.exe',
+                "C:\Python`there\python.exe", ('C:\Python' + [char]1 + '\python.exe'))) {
             { ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout $text) -Kind Manager } | Should -Throw
         }
         foreach ($text in @('C:\Python\python.exe', '-V: C:\Python\python.exe', '-3.14 python.exe',
@@ -93,6 +110,10 @@ Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Ta
             { ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout $text) -Kind Legacy } | Should -Throw
         }
         { ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout 'C:\Python\python.exe' -Stderr 'unexpected') -Kind Manager } | Should -Throw
+        # Manager exe format never accepts legacy decorations or JSON as paths.
+        foreach ($text in @('-V:3.14 C:\Python\python.exe', '{"path":"C:\\Python\\python.exe","path":"C:\\Other\\python.exe"}')) {
+            { ConvertFrom-WinBookSplitPythonListing -Probe (New-DiscoveryProbe -Stdout $text) -Kind Manager } | Should -Throw
+        }
     }
     It 'fails at explicit byte line character and candidate limits without work proportional to unbounded data' {
         $cases = @(
@@ -329,17 +350,18 @@ Describe 'V101 independent discovery and optional-listing failures' -Tag 'V101-A
     }
     It 'deduplicates the same concrete interpreter listed by two sources and direct PATH' {
         $script:discoveryLauncher = New-DiscoveryExecutable
-        $script:discoveryManager = New-DiscoveryExecutable -Name 'pymanager.exe'
+        $script:discoveryManager = New-DiscoveryManagerDescriptor
         # Registration is a controlled seam here, not a native package-registration claim.
         Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:discoveryManager) }
         Mock Get-WinBookSplitPathCandidates {
             if ($Name -eq 'python.exe') { return @($TestPython,$TestPython) }
             if ($Name -eq 'py.exe') { return @($script:discoveryLauncher) }
-            if ($Name -eq 'pymanager.exe') { return @($script:discoveryManager) }
+            if ($Name -eq 'pymanager.exe') { return @($script:discoveryManager.Path) }
             return @()
         }
+        Mock Invoke-WinBookSplitManagerListing { return New-DiscoveryProbe -Stdout $TestPython }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            if ($Path -eq $script:discoveryLauncher -or $Path -eq $script:discoveryManager) {
+            if ($Path -eq $script:discoveryLauncher) {
                 return New-DiscoveryProbe -Stdout (' -V:3.14 * ' + $TestPython)
             }
             return & $script:nativeDiscoveryProbe -Path $Path -Arguments $Arguments -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
@@ -348,26 +370,200 @@ Describe 'V101 independent discovery and optional-listing failures' -Tag 'V101-A
         $result.Path | Should -BeExactly $TestPython
         $result.Source | Should -BeExactly 'PATH'
         Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly -ParameterFilter { $Path -eq $TestPython }
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 1 -Exactly
         @($result.Attempts | Where-Object { $_.Source -in @('py_launcher_listing','manager_listing') -and $_.Accepted }).Count | Should -Be 2
         @($result.Attempts | Where-Object { $_.Source -eq 'selection' -and $_.Accepted }).Count | Should -Be 1
     }
-    It 'queries a controlled registered physical manager with only -0p then validates its actual interpreter' {
-        $script:discoveryManager = New-DiscoveryExecutable -Name 'pymanager.exe'
+    It 'resolves a SYNTHETIC registered alias descriptor to an independently probed actual interpreter' -Tag 'T03-Baseline','STORE-013','STORE-014' {
+        $script:discoveryManager = New-DiscoveryManagerDescriptor
         Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:discoveryManager) }
         Mock Get-WinBookSplitPathCandidates { return @() }
+        Mock Invoke-WinBookSplitManagerListing { return New-DiscoveryProbe -Stdout ($TestPython + "`r`n") }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            if ($Path -eq $script:discoveryManager) {
-                return New-DiscoveryProbe -Stdout (' -V:3.14-64 * ' + $TestPython)
-            }
             return & $script:nativeDiscoveryProbe -Path $Path -Arguments $Arguments -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
         }
         $result = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot
         $result.Path | Should -BeExactly $TestPython
         $result.Source | Should -BeExactly 'manager'
-        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly -ParameterFilter { $Path -eq $script:discoveryManager -and ($Arguments -join ',') -eq '-0p' -and $TimeoutSeconds -le 2 }
-        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 0 -Exactly -ParameterFilter { $Path -eq $script:discoveryManager -and ($Arguments -join ',') -ne '-0p' }
+        Should-Invoke Get-WinBookSplitRegisteredManagerPaths -Times 1 -Exactly -ParameterFilter { $WithRegistration }
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 1 -Exactly -ParameterFilter { $Registration.Path -ceq $script:discoveryManager.Path -and $TimeoutSeconds -le 2 }
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 0 -Exactly -ParameterFilter { $Path -eq $script:discoveryManager.Path }
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly -ParameterFilter { $Path -ceq $TestPython -and $Arguments[0] -ceq '-I' -and $Arguments -contains '--probe' }
+        $result.Details.executable | Should -BeExactly $TestPython
         $result.Details.isolated | Should -BeTrue
         $result.PypdfVersion | Should -BeExactly '6.20.0'
+    }
+}
+
+Describe 'T03 manager resolution contracts (SYNTHETIC registration/listing seams)' -Tag 'STORE-013','STORE-014','STORE-016','STORE-017' {
+    BeforeEach {
+        $script:discoveryManager = New-DiscoveryManagerDescriptor
+        Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:discoveryManager) }
+        Mock Get-WinBookSplitPathCandidates { return @() }
+    }
+    It 'independently rejects a listed executable whose child reports another identity' {
+        $script:listedInterpreter = New-DiscoveryExecutable -Name 'python.exe'
+        Mock Invoke-WinBookSplitManagerListing { return New-DiscoveryProbe -Stdout $script:listedInterpreter }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            # Actual trusted child response is deliberately replayed for another
+            # SYNTHETIC candidate; that identity mismatch must never be accepted.
+            return & $script:nativeDiscoveryProbe -Path $TestPython -Arguments $Arguments -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        }
+        $failure = $null
+        try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot } catch { $failure = $_.Exception }
+        $failure.Data['Code'] | Should -BeExactly 'runtime_not_found'
+        $listed = @($failure.Data['Attempts'] | Where-Object { $_.Source -eq 'manager' })
+        $listed.Count | Should -Be 1
+        $listed[0].Reason | Should -BeExactly 'malformed_runtime'
+        $listed[0].IdentityVerified | Should -BeFalse
+        $listed[0].Probe.StreamsComplete | Should -BeTrue
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly -ParameterFilter { $Path -ceq $script:listedInterpreter }
+    }
+    It 'preserves an actual independent PATH success through manager listing failures and retains their original probes' {
+        Mock Get-WinBookSplitPathCandidates { if ($Name -eq 'python.exe') { return @($TestPython) }; return @() }
+        Mock Invoke-WinBookSplitManagerListing { return $script:managerFailedProbe }
+        foreach ($kind in @('nonzero','timeout','truncated','malformed')) {
+            $script:managerFailedProbe = New-DiscoveryProbe -Stdout $TestPython -Stderr 'SYNTHETIC manager listing diagnostic' -ExitCode 2
+            if ($kind -eq 'timeout') { $script:managerFailedProbe.TimedOut = $true }
+            if ($kind -eq 'truncated') { $script:managerFailedProbe.StdoutTruncated = $true }
+            if ($kind -eq 'malformed') { $script:managerFailedProbe = New-DiscoveryProbe -Stdout "relative-python.exe`n" }
+            $result = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot
+            $result.Path | Should -BeExactly $TestPython
+            $attempt = @($result.Attempts | Where-Object { $_.Source -eq 'manager_listing' })
+            $attempt.Count | Should -Be 1
+            $attempt[0].Accepted | Should -BeFalse
+            $attempt[0].Reason | Should -BeExactly 'manager_listing_failed'
+            [object]::ReferenceEquals($attempt[0].Probe,$script:managerFailedProbe) | Should -BeTrue
+        }
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 4 -Exactly
+    }
+    It 'does not hide cancellation or unproved manager shutdown behind an accepted PATH candidate' {
+        Mock Get-WinBookSplitPathCandidates { if ($Name -eq 'python.exe') { return @($TestPython) }; return @() }
+        Mock Invoke-WinBookSplitManagerListing { return $script:managerFailedProbe }
+        $script:managerFailedProbe = New-DiscoveryProbe -Stdout $TestPython
+        $script:managerFailedProbe.Cancelled = $true
+        { Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot } | Should -Throw
+        $script:managerFailedProbe.Cancelled = $false
+        $script:managerFailedProbe.DescendantsStopped = $false
+        { Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot } | Should -Throw
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 2 -Exactly
+    }
+    It 'records a recognized manager with no installed runtimes separately from a failed listing' {
+        Mock Invoke-WinBookSplitManagerListing { return New-DiscoveryProbe }
+        $failure = $null
+        try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot } catch { $failure = $_.Exception }
+        $failure.Data['Code'] | Should -BeExactly 'runtime_not_found'
+        $attempt = @($failure.Data['Attempts'] | Where-Object { $_.Source -eq 'manager_listing' })
+        $attempt.Count | Should -Be 1
+        $attempt[0].Accepted | Should -BeFalse
+        $attempt[0].Reason | Should -BeExactly 'manager_no_runtimes'
+        $attempt[0].Stage | Should -BeExactly 'listing'
+        $attempt[0].Probe.ExitCode | Should -Be 0
+        $attempt[0].Probe.StreamsComplete | Should -BeTrue
+        @($failure.Data['Attempts'] | Where-Object { $_.Source -eq 'manager' }).Count | Should -Be 0
+    }
+    It 'preserves authoritative explicit success without querying a competing registered manager' {
+        Mock Invoke-WinBookSplitManagerListing { throw 'Automatic manager fallback must not occur.' }
+        $result = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
+        $result.Source | Should -BeExactly 'explicit'
+        $result.Path | Should -BeExactly $TestPython
+        Should-Invoke Get-WinBookSplitRegisteredManagerPaths -Times 0 -Exactly
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 0 -Exactly
+    }
+}
+
+Describe 'T03 registration outcomes (SYNTHETIC query transport)' -Tag 'STORE-016' {
+    BeforeEach {
+        Mock Invoke-WinBookSplitRuntimeProbe { return $script:registrationOutcomeProbe }
+        Mock Get-WinBookSplitManagerEntryPoint { throw 'Rejected records must not reach alias validation.' }
+    }
+    It 'distinguishes an empty completed query from rejected registration and failed transport without accepting a manager' {
+        foreach ($kind in @('empty','rejected','failed')) {
+            $script:registrationOutcomeProbe = New-DiscoveryProbe -Stdout '{"schema_version":1,"packages":[]}'
+            $reason = 'manager_not_registered'
+            if ($kind -eq 'rejected') {
+                $record = New-DiscoveryManagerRegistration
+                $record.packages[0].SignatureKind = 'Store'
+                $script:registrationOutcomeProbe.Stdout = $record | ConvertTo-Json -Depth 6 -Compress
+                $reason = 'manager_registration_rejected'
+            }
+            if ($kind -eq 'failed') { $script:registrationOutcomeProbe.ExitCode = 2; $reason = 'manager_registration_failed' }
+            $attempts = New-Object 'Collections.Generic.List[object]'
+            @(Get-WinBookSplitRegisteredManagerPaths -ApplicationRoot $RepositoryRoot -Attempts $attempts -WithRegistration).Count | Should -Be 0
+            $attempts.Count | Should -Be 1
+            $attempts[0].Accepted | Should -BeFalse
+            $attempts[0].Reason | Should -BeExactly $reason
+            $attempts[0].Stage | Should -BeExactly 'registration'
+            $attempts[0].QueryCompleted | Should -Be ($kind -ne 'failed')
+            if ($kind -eq 'empty') { $attempts[0].RegisteredCount | Should -Be 0 }
+        }
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 3 -Exactly
+        Should-Invoke Get-WinBookSplitManagerEntryPoint -Times 0 -Exactly
+    }
+}
+
+Describe 'T03 compatible base without pypdf (actual isolated children)' -Tag 'STORE-018' {
+    It 'finds a real package-free base for setup and preserves missing_pypdf processing evidence' {
+        $app = New-DiscoveryApplication
+        $baseDirectory = Join-Path $TestDrive 'owned package-free runtime'
+        $creation = Invoke-WinBookSplitRuntimeProbe -Path $TestPython -Arguments @('-I','-B','-m','venv','--without-pip',$baseDirectory) -ApplicationRoot $RepositoryRoot
+        $creation.ExitCode | Should -Be 0
+        $creation.StreamsComplete | Should -BeTrue
+        $script:packageFreePython = Join-Path $baseDirectory 'Scripts\python.exe'
+        $script:discoveryManager = New-DiscoveryManagerDescriptor
+        # Only listing/registration are synthetic; both compatibility probes run
+        # the newly authored venv. No package installation is requested.
+        Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:discoveryManager) }
+        Mock Get-WinBookSplitPathCandidates { return @() }
+        Mock Invoke-WinBookSplitManagerListing { return New-DiscoveryProbe -Stdout $script:packageFreePython }
+        $location = Get-Location
+        try {
+            Set-Location -LiteralPath $app
+            $base = Find-WinBookSplitSetupBase -ApplicationRoot $app -Policy $script:discoveryPolicy
+            $base.Path | Should -BeExactly $script:packageFreePython
+            $base.InterpreterOnly | Should -BeTrue
+            $base.Source | Should -BeExactly 'manager'
+            $base.PypdfVersion | Should -BeNullOrEmpty
+            $base.Details.executable | Should -BeExactly $script:packageFreePython
+            $base.Probe.StreamsComplete | Should -BeTrue
+            $failure = $null
+            try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app } catch { $failure = $_.Exception }
+            $failure.Data['Code'] | Should -BeExactly 'runtime_not_found'
+            $attempt = @($failure.Data['Attempts'] | Where-Object { $_.Source -eq 'manager' })
+            $attempt.Count | Should -Be 1
+            $attempt[0].Reason | Should -BeExactly 'missing_pypdf'
+            $attempt[0].IdentityVerified | Should -BeTrue
+            $attempt[0].ObservedVersion | Should -BeExactly $base.Version
+            $attempt[0].Probe.StreamsComplete | Should -BeTrue
+            $summary = Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $app
+            $summary.Reason | Should -BeExactly 'missing_pypdf'
+            $summary.ObservedVersion | Should -BeExactly $base.Version
+            $summary.ObservedPath | Should -BeExactly $script:packageFreePython
+            $summary.ActionIsCommand | Should -BeTrue
+            $summary.Action | Should -Match 'Setup-WinBookSplit\.ps1'
+            [IO.Directory]::Exists((Join-Path $app '.venv')) | Should -BeFalse
+        } finally { Set-Location -LiteralPath $location.ProviderPath }
+    }
+    It 'keeps an actual package-free app venv authoritative instead of using a competing manager' -Tag 'STORE-017' {
+        $app = New-DiscoveryApplication
+        $venv = Join-Path $app '.venv'
+        $creation = Invoke-WinBookSplitRuntimeProbe -Path $TestPython -Arguments @('-I','-B','-m','venv','--without-pip',$venv) -ApplicationRoot $RepositoryRoot
+        $creation.ExitCode | Should -Be 0
+        $creation.StreamsComplete | Should -BeTrue
+        Mock Get-WinBookSplitRegisteredManagerPaths { throw 'Existing app venv must remain authoritative.' }
+        Mock Invoke-WinBookSplitManagerListing { throw 'Existing app venv must remain authoritative.' }
+        $selected = Resolve-WinBookSplitRuntime -ApplicationRoot $app -InterpreterOnly
+        $selected.Source | Should -BeExactly 'application_venv'
+        $selected.Path | Should -BeExactly (Join-Path $venv 'Scripts\python.exe')
+        $selected.Probe.StreamsComplete | Should -BeTrue
+        $failure = $null
+        try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app } catch { $failure = $_.Exception }
+        $failure.Data['Code'] | Should -BeExactly 'runtime_invalid'
+        $failure.Data['Attempts'][0].Source | Should -BeExactly 'application_venv'
+        $failure.Data['Attempts'][0].Reason | Should -BeExactly 'missing_pypdf'
+        $failure.Data['Attempts'][0].IdentityVerified | Should -BeTrue
+        Should-Invoke Get-WinBookSplitRegisteredManagerPaths -Times 0 -Exactly
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 0 -Exactly
     }
 }
 

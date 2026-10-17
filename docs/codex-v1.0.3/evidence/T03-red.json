@@ -1,0 +1,392 @@
+{
+  "schema_version": 1,
+  "task": "T03",
+  "kind": "EXPECTED_BASELINE_REPRODUCTIONS",
+  "source_commit": "e474320f90b68416839fc985c9139b410a54faf0",
+  "source_tree": "4255bf5c1fe7a7283e8556b3a31c24ba39707747",
+  "native_automatic_baseline": {
+    "Kind": "ACTUAL_WINDOWS11_PYTHONORG_AUTOMATIC_BASELINE",
+    "PowerShell": "7.6.5",
+    "ExecutionPolicy": "RemoteSigned",
+    "SourceHead": "e474320f90b68416839fc985c9139b410a54faf0",
+    "RuntimeSourceBeforeSha256": "1c29cd28bc5011ff7ee396ef11283ed912ead662ab4969255449c457a91c352c",
+    "RuntimeSourceAfterSha256": "1c29cd28bc5011ff7ee396ef11283ed912ead662ab4969255449c457a91c352c",
+    "Success": false,
+    "Result": null,
+    "FailureCode": "runtime_not_found",
+    "FailureMessage": "No compatible trusted Python was found. Use regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted and locked pypdf 6.20.0. Select a trusted -PythonPath or create the application .venv. PowerShell setup: & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<WORKSPACE>\\Setup-WinBookSplit.ps1' -NonInteractive",
+    "Attempts": [
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Python\\bin\\python.exe",
+        "Source": "PATH",
+        "Accepted": false,
+        "Message": "Automatic dependency discovery refuses hard-linked executable aliases; select a trusted ordinary executable explicitly.",
+        "Probe": null
+      },
+      {
+        "Path": "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "Source": "manager_registration",
+        "Accepted": true,
+        "Message": "Bounded current-user registered Python manager query; no runtime launch or install.",
+        "Probe": {
+          "Pid": 14104,
+          "ExitCode": 0,
+          "TimedOut": false,
+          "Cancelled": false,
+          "ParentStopped": true,
+          "DescendantsStopped": true,
+          "StreamsComplete": true,
+          "JobAssigned": true,
+          "StartError": null,
+          "StopError": null,
+          "StreamError": null,
+          "ResultError": null,
+          "InteractionError": null,
+          "InputError": null,
+          "Stdout": "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}\r\n",
+          "Stderr": "",
+          "HumanStdout": "",
+          "StdoutTotalBytes": 687,
+          "StderrTotalBytes": 0,
+          "InteractionCount": 0,
+          "InteractionTotalBytes": 0,
+          "QueuedReplyCount": 0,
+          "ReplyCount": 0,
+          "ReplyTotalBytes": 0,
+          "StdoutTruncated": false,
+          "StderrTruncated": false,
+          "InputWriterStopped": true,
+          "PackageIdentityVerified": false,
+          "PackageFullName": null,
+          "ImagePath": null,
+          "ResultRecords": [
+            "{\"schema_version\":1,\"packages\":[{\"Name\":\"PythonSoftwareFoundation.PythonManager\",\"Publisher\":\"CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US\",\"PublisherId\":\"3847v3x7pw1km\",\"PackageFamilyName\":\"PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\",\"PackageFullName\":\"PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"InstallLocation\":\"C:\\\\Program Files\\\\WindowsApps\\\\PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km\",\"Architecture\":\"X64\",\"SignatureKind\":\"Developer\",\"Status\":\"Ok\",\"Version\":\"26.4.240.0\",\"IsDevelopmentMode\":false,\"IsPartiallyStaged\":false,\"IsFramework\":false,\"IsResourcePackage\":false}]}"
+          ],
+          "ElapsedSeconds": 1.4763883
+        }
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\pymanager.exe",
+        "Source": "manager_listing",
+        "Accepted": false,
+        "Message": "Unverified PATH manager name excluded; installed-only listing requires verified physical registration.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\PythonSoftwareFoundation.PythonManager_3847v3x7pw1km\\pymanager.exe",
+        "Source": "manager_listing",
+        "Accepted": false,
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      },
+      {
+        "Path": "<USERPROFILE>\\AppData\\Local\\Microsoft\\WindowsApps\\py.exe",
+        "Source": "py_launcher_listing",
+        "Accepted": false,
+        "Message": "Dependency paths and their ancestors must not be reparse points.",
+        "Probe": null
+      }
+    ],
+    "Limitations": [
+      "Not owner Windows10 Store-channel exact-ZIP acceptance",
+      "No chosen runtime passed; no environment injection, setup, acquisition, or venv creation"
+    ]
+  },
+  "pester_descriptor_baselines": {
+    "PS5.1": {
+      "shell": "5.1.26100.9711",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "parses legacy numeric and tagged lines with literal spaces and punctuation",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "parses path-only manager format as data without evaluating it",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects empty and mixed malformed relative non-executable quoted or NUL records",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "fails at explicit byte line character and candidate limits without work proportional to unbounded data",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects incomplete truncated failed timed-out and unsafe process records",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "requires the complete PSF identity and delegates its bound package-family alias after physical location validation",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects mismatched publisher package location architecture status flags duplicate or unknown fields",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects a valid claimed identity when its physical origin or narrow package-family alias validation fails",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "selects an actual accepted PATH interpreter with no launcher available",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "excludes the document directory during separate read-only setup-base discovery",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "returns runtime_not_found with no viable direct or listed interpreter",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "preserves an already accepted PATH interpreter when the optional discovery budget is exhausted",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "does not execute an unregistered PATH file merely named pymanager.exe",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "deduplicates the same concrete interpreter listed by two sources and direct PATH",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "resolves a SYNTHETIC registered alias descriptor to an independently probed actual interpreter",
+          "result": "Failed",
+          "errors": [
+            "No compatible trusted Python was found. Use regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted and locked pypdf 6.20.0. Select a trusted -PythonPath or create the application .venv. PowerShell setup: & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<WORKSPACE>\\Setup-WinBookSplit.ps1' -NonInteractive"
+          ]
+        },
+        {
+          "name": "does not bypass an application .venv that is a file",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "does not bypass a reparse .venv and preserves its unrelated owned target",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "sets install-disabling child values without changing the parent environment",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "prefers the policy branch before any higher patch on another branch in either input order",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "compares maintenance patches 9 and 10 numerically in either order",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "uses ordinal canonical path ties even when input order is reversed",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "never ranks below-floor unsupported or prerelease candidates as eligible",
+          "result": "NotRun",
+          "errors": []
+        }
+      ]
+    },
+    "PS7": {
+      "shell": "7.6.5",
+      "passed": 0,
+      "failed": 1,
+      "skipped": 0,
+      "tests": [
+        {
+          "name": "parses legacy numeric and tagged lines with literal spaces and punctuation",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "parses path-only manager format as data without evaluating it",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects empty and mixed malformed relative non-executable quoted or NUL records",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "fails at explicit byte line character and candidate limits without work proportional to unbounded data",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects incomplete truncated failed timed-out and unsafe process records",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "requires the complete PSF identity and delegates its bound package-family alias after physical location validation",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects mismatched publisher package location architecture status flags duplicate or unknown fields",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "rejects a valid claimed identity when its physical origin or narrow package-family alias validation fails",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "selects an actual accepted PATH interpreter with no launcher available",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "excludes the document directory during separate read-only setup-base discovery",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "returns runtime_not_found with no viable direct or listed interpreter",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "preserves an already accepted PATH interpreter when the optional discovery budget is exhausted",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "does not execute an unregistered PATH file merely named pymanager.exe",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "deduplicates the same concrete interpreter listed by two sources and direct PATH",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "resolves a SYNTHETIC registered alias descriptor to an independently probed actual interpreter",
+          "result": "Failed",
+          "errors": [
+            "No compatible trusted Python was found. Use regular Windows x64 CPython 3.15.0+ or 3.14.8+ or 3.13.16+; later stable patches accepted and locked pypdf 6.20.0. Select a trusted -PythonPath or create the application .venv. PowerShell setup: & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<WORKSPACE>\\Setup-WinBookSplit.ps1' -NonInteractive"
+          ]
+        },
+        {
+          "name": "does not bypass an application .venv that is a file",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "does not bypass a reparse .venv and preserves its unrelated owned target",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "sets install-disabling child values without changing the parent environment",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "prefers the policy branch before any higher patch on another branch in either input order",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "compares maintenance patches 9 and 10 numerically in either order",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "uses ordinal canonical path ties even when input order is reversed",
+          "result": "NotRun",
+          "errors": []
+        },
+        {
+          "name": "never ranks below-floor unsupported or prerelease candidates as eligible",
+          "result": "NotRun",
+          "errors": []
+        }
+      ]
+    }
+  },
+  "baseline_test_source_at_run": "Descriptor-to-real-child regression introduced and run before production change; historical HEAD tests are not relabelled as this test.",
+  "raw_local_sha256": {
+    "native": "b653f64ad015ea89744d839fc92c870c01dd99d5ab4cfcaa0cdaf828bf2d8e82",
+    "PS5.1": "aaadb5819b63e3f5d61fe1e1a2ddea8a97181aabf0c644ba678059f1821faca6",
+    "PS7": "619428ac0dd37831b1ff0531294cc74e654ec6684f600c497dfd20538202a826"
+  },
+  "baseline_collector_source": "param([string]$ApplicationRoot,[string]$OutputPath)\n$ErrorActionPreference='Stop'\nSet-Location -LiteralPath $ApplicationRoot\n. (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1')\n$before=(Get-FileHash -LiteralPath (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1') -Algorithm SHA256).Hash.ToLowerInvariant()\n$failure=$null;$result=$null\ntry { $result=Resolve-WinBookSplitRuntime -ApplicationRoot $ApplicationRoot -InterpreterOnly -TimeoutSeconds 3 }\ncatch {$failure=$_.Exception}\n$receipt=[ordered]@{Kind='ACTUAL_WINDOWS11_PYTHONORG_AUTOMATIC_BASELINE';PowerShell=$PSVersionTable.PSVersion.ToString();ExecutionPolicy=(Get-ExecutionPolicy).ToString();SourceHead=(& git rev-parse HEAD);RuntimeSourceBeforeSha256=$before;RuntimeSourceAfterSha256=(Get-FileHash -LiteralPath (Join-Path $ApplicationRoot 'engine/WinBookSplit.Runtime.ps1') -Algorithm SHA256).Hash.ToLowerInvariant();Success=($null -ne $result);Result=$result;FailureCode=$null;FailureMessage=$null;Attempts=$null;Limitations=@('Not owner Windows10 Store-channel exact-ZIP acceptance','No chosen runtime passed; no environment injection, setup, acquisition, or venv creation')}\nif($failure){$receipt.FailureCode=$failure.Data['Code'];$receipt.FailureMessage=$failure.Message;$receipt.Attempts=$failure.Data['Attempts']}\n$json=$receipt|ConvertTo-Json -Depth 15\n$json=$json.Replace($env:USERPROFILE.Replace('\\','\\\\'),'<USERPROFILE>').Replace($env:USERPROFILE,'<USERPROFILE>').Replace($ApplicationRoot.Replace('\\','\\\\'),'<WORKSPACE>').Replace($ApplicationRoot,'<WORKSPACE>')\n[IO.File]::WriteAllText($OutputPath,$json+\"`n\",(New-Object Text.UTF8Encoding($false)))\n[ordered]@{OutputPath=$OutputPath;Success=$receipt.Success;Code=$receipt.FailureCode;RuntimeSourceBeforeSha256=$before;RuntimeSourceAfterSha256=$receipt.RuntimeSourceAfterSha256;Attempts=$receipt.Attempts.Count}|ConvertTo-Json -Compress",
+  "limitation": "Native Windows11 python.org route rejection and synthetic descriptor regression; not owner Store acceptance."
+}

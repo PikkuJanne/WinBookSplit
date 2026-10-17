@@ -64,13 +64,18 @@ function ConvertFrom-WinBookSplitPythonListing {
             }
             $literal = $Matches['literal']
         }
-        if ($literal -notmatch '\A(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\).+\.exe\z' -or $literal.IndexOf([char]0) -ge 0 -or $literal.IndexOf('"') -ge 0) {
+        if ($literal -notmatch '\A(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\).+\.exe\z' -or
+            $literal -match '[\x00-\x1f"*?<>|]' -or $literal.Substring(2).Contains(':')) {
             throw 'Installed-runtime listings must contain absolute literal executable paths.'
         }
         $paths.Add($literal)
         if ($paths.Count -gt 32) { throw 'Python listing exceeds the 32-runtime limit.' }
     }
-    if ($paths.Count -eq 0) { throw 'Installed-runtime listing is empty.' }
+    if ($paths.Count -eq 0) {
+        $failure = New-Object InvalidOperationException('Installed-runtime listing is empty.')
+        if ($Kind -eq 'Manager') { $failure.Data['Reason'] = 'manager_no_runtimes' }
+        throw $failure
+    }
     return $paths.ToArray()
 }
 
@@ -126,7 +131,7 @@ function ConvertFrom-WinBookSplitManagerRegistration {
 
 function Get-WinBookSplitRegisteredManagerPaths {
     param([string]$ApplicationRoot, [string]$DocumentPath, $Attempts, [double]$TimeoutSeconds = 5, [switch]$WithRegistration)
-    $probe = $null; $path = $null
+    $probe = $null; $path = $null; $queryCompleted = $false
     try {
         # This exact OS-known inbox executable may have legitimate servicing
         # hard links. It is not a PATH-discovered dependency or alias.
@@ -153,12 +158,18 @@ $records=@(foreach ($package in $packages) {
 '@
         $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
         $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments @('-NoProfile','-NonInteractive','-EncodedCommand',$encoded) -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        Assert-WinBookSplitListingProbe $probe
+        $queryCompleted = $true
         $paths = @(ConvertFrom-WinBookSplitManagerRegistration -Probe $probe -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath -WithRegistration:$WithRegistration)
-        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Accepted=$true;Message='Bounded current-user registered Python manager query; no runtime launch or install.';Probe=$probe})
+        $reason = 'manager_not_registered'; if ($paths.Count -gt 0) { $reason = 'manager_registered' }
+        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Stage='registration';Accepted=($paths.Count -gt 0);
+            QueryCompleted=$queryCompleted;RegisteredCount=$paths.Count;Reason=$reason;Message='Bounded current-user registered Python manager query; no runtime launch or install.';Probe=$probe})
         return $paths
     } catch {
         if (Test-WinBookSplitInterruption $_.Exception) { throw }
-        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Accepted=$false;Message=$_.Exception.Message;Probe=$probe})
+        $reason = 'manager_registration_failed'; if ($queryCompleted) { $reason = 'manager_registration_rejected' }
+        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Stage='registration';Accepted=$false;
+            QueryCompleted=$queryCompleted;RegisteredCount=0;Reason=$reason;Message=$_.Exception.Message;Probe=$probe})
         return @()
     }
 }
@@ -188,7 +199,7 @@ function Invoke-WinBookSplitManagerListing {
     param($Registration, [string]$ApplicationRoot, [string]$DocumentPath,
         [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 2)
     # Revalidate the complete registration and alias immediately before launch.
-    # This component is wired into automatic runtime selection by T03.
+    # The automatic resolver passes the complete descriptor, never an arbitrary PATH manager.
     $record = [ordered]@{schema_version=1;packages=@($Registration.Package)}
     $validation = [pscustomobject]@{Stdout=($record | ConvertTo-Json -Depth 6 -Compress);Stderr='';ExitCode=0;
         ParentStopped=$true;DescendantsStopped=$true;JobAssigned=$true;StreamsComplete=$true;
@@ -279,16 +290,21 @@ function Resolve-WinBookSplitAutomaticPython {
     $processed = $candidates.Count
     $listingTimeout = [Math]::Min($TimeoutSeconds, 2.0)
     $timeout = Get-WinBookSplitDiscoveryTimeout $clock ([Math]::Min($TimeoutSeconds, 5.0)) -Optional
-    $registered = [string[]]@()
-    if ($timeout -gt 0) { $registered = [string[]]@(Get-WinBookSplitRegisteredManagerPaths $ApplicationRoot $DocumentPath $Attempts $timeout) }
-    [Array]::Sort($registered, [StringComparer]::Ordinal)
+    $registered = @()
+    if ($timeout -gt 0) { $registered = @(Get-WinBookSplitRegisteredManagerPaths $ApplicationRoot $DocumentPath $Attempts $timeout -WithRegistration) }
     $managers = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
-    foreach ($path in $registered) { $null = $managers.Add($path) }
+    foreach ($registration in $registered) { $null = $managers.Add($registration.Path) }
     foreach ($path in @(Get-WinBookSplitPathCandidates 'pymanager.exe' $ApplicationRoot $DocumentPath $Attempts)) {
         if (-not $managers.Contains($path)) { $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_listing';Accepted=$false;Message='Unverified PATH manager name excluded; installed-only listing requires verified physical registration.';Probe=$null}) }
     }
     $queries = New-Object 'Collections.Generic.List[object]'
-    foreach ($path in $registered) { $queries.Add([pscustomobject]@{Path=$path;Kind='Legacy';Source='manager_listing'}) }
+    # Registration order cannot affect the bounded route budget or final selection.
+    $managerPaths = [string[]]@($managers)
+    [Array]::Sort($managerPaths, [StringComparer]::Ordinal)
+    foreach ($path in $managerPaths) {
+        $registration = @($registered | Where-Object { $_.Path -ceq $path })[0]
+        $queries.Add([pscustomobject]@{Path=$path;Kind='Manager';Source='manager_listing';Registration=$registration})
+    }
     $legacy = [string[]]@(Get-WinBookSplitPathCandidates 'py.exe' $ApplicationRoot $DocumentPath $Attempts)
     [Array]::Sort($legacy, [StringComparer]::Ordinal)
     foreach ($path in $legacy) { $queries.Add([pscustomobject]@{Path=$path;Kind='Legacy';Source='py_launcher_listing'}) }
@@ -302,18 +318,27 @@ function Resolve-WinBookSplitAutomaticPython {
                 break
             }
             if ($launchers.Count -ge 4) { throw 'Read-only discovery exceeds the four-launcher limit.' }
-            $path = Get-WinBookSplitTrustedPath $query.Path -Automatic
-            if (-not (Test-WinBookSplitAutomaticPath $path $ApplicationRoot $DocumentPath)) { throw 'Automatic launcher is in an excluded directory.' }
+            $path = $query.Path
+            if ($query.Kind -eq 'Legacy') {
+                $path = Get-WinBookSplitTrustedPath $path -Automatic
+                if (-not (Test-WinBookSplitAutomaticPath $path $ApplicationRoot $DocumentPath)) { throw 'Automatic launcher is in an excluded directory.' }
+            }
             if (-not $launchers.Add($path)) { continue }
-            $probe = Invoke-WinBookSplitRuntimeProbe $path @('-0p') $ApplicationRoot $timeout
+            if ($query.Kind -eq 'Manager') {
+                $probe = Invoke-WinBookSplitManagerListing -Registration $query.Registration -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath -TimeoutSeconds $timeout
+            } else {
+                $probe = Invoke-WinBookSplitRuntimeProbe $path @('-0p') $ApplicationRoot $timeout
+            }
             $paths = [string[]]@(ConvertFrom-WinBookSplitPythonListing $probe $query.Kind)
             [Array]::Sort($paths, [StringComparer]::Ordinal)
-            $Attempts.Add([pscustomobject]@{Path=$path;Source=$query.Source;Accepted=$true;Message='Read-only installed-runtime listing; no runtime launch/install requested.';Probe=$probe})
+            $Attempts.Add([pscustomobject]@{Path=$path;Source=$query.Source;Stage='listing';Accepted=$true;Reason='installed_runtimes_listed';Message='Read-only installed-runtime listing; no runtime launch/install requested.';Probe=$probe})
             $source = 'py_launcher'; if ($query.Source -eq 'manager_listing') { $source = 'manager' }
             foreach ($candidate in $paths) { Add-WinBookSplitPythonDiscoveryCandidate $candidate $source $ApplicationRoot $DocumentPath $candidates $seen $Attempts -ExcludedDirectories $ExcludedDirectories -ExcludedDirectoryPrefixes $ExcludedDirectoryPrefixes }
         } catch {
             if (Test-WinBookSplitInterruption $_.Exception) { throw }
-            $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Accepted=$false;Message=$_.Exception.Message;Probe=$probe})
+            $reason = 'launcher_listing_failed'; if ($query.Kind -eq 'Manager') { $reason = 'manager_listing_failed' }
+            if ($_.Exception.Data.Contains('Reason')) { $reason = $_.Exception.Data['Reason'] }
+            $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Stage='listing';Accepted=$false;Reason=$reason;Message=$_.Exception.Message;Probe=$probe})
         }
     }
     for ($index = $processed; $index -lt $candidates.Count; $index++) {

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "task": "T03",
+  "status": "COMPLETE_COMPONENT_SCOPE_ONLY",
+  "recorded_at_utc": "2026-10-17T12:07:47.864940+00:00",
+  "source": {
+    "parent_commit": "e474320f90b68416839fc985c9139b410a54faf0",
+    "parent_tree": "4255bf5c1fe7a7283e8556b3a31c24ba39707747",
+    "branch": "codex/v1.0.3-store-discovery",
+    "tested_files_sha256": {
+      "engine/WinBookSplit.Runtime.ps1": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be",
+      "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "WinBookSplit.ps1": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a",
+      "tests/Invoke-ShellTests.ps1": "bd68837631e974c1eebf0f78f0508fe81398b9fa514df7bacf417964fd9194d8",
+      "tests/powershell/Discovery.Tests.ps1": "13692da51fcc654e379e636fadb1735e746a70f176d32de3d8b9d266fac03615",
+      "tests/powershell/Manager.Tests.ps1": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7",
+      "tests/powershell/Runtime.Tests.ps1": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3",
+      "tests/powershell/Process.Tests.ps1": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+    },
+    "full_runner_tested_paths_digest": "a32971916192ffc4e910b2a5c824210b0c60f0b387e21bfad4df093e12616cfb",
+    "digest_algorithm": "Runner SHA256 of sorted compact JSON path-to-actual-worktree-byte-SHA256 mapping"
+  },
+  "results": {
+    "focused": {
+      "PS5.1": "103 passed, 0 failed/skipped",
+      "PS7": "103 passed, 0 failed/skipped"
+    },
+    "full_shell": {
+      "hosts": {
+        "5.1.26100.9711": {
+          "total": 237,
+          "failed_cases": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 237,
+          "skipped": 0,
+          "failed_blocks": [],
+          "failed": 0,
+          "result": "Passed",
+          "failed_container_errors": []
+        },
+        "7.6.5": {
+          "failed_container_errors": [],
+          "not_run": 0,
+          "passed": 237,
+          "failed": 0,
+          "total": 237,
+          "skipped": 0,
+          "failed_containers": 0,
+          "failed_blocks": [],
+          "result": "Passed",
+          "failed_cases": []
+        }
+      },
+      "driver_exit_code": 0,
+      "source_unchanged": true
+    },
+    "real_pythonorg_automatic": {
+      "PS5.1": "11 checks passed",
+      "PS7": "11 checks passed",
+      "meaning": "Actual unchanged regular x64 isolated 3.14.7 independently reached then correctly rejected at security floor; not compatible automatic runtime acceptance.",
+      "host": "Windows11 x64 build26300",
+      "policy": "RemoteSigned"
+    },
+    "handoff_helpers": {
+      "validation_exit_code": 0,
+      "suite_exit_code": 0,
+      "passed": 48,
+      "failed": 0,
+      "skipped": 1,
+      "skip_reason": "Symlink creation unavailable in helper fixture; no native acceptance equivalence.",
+      "raw_local_log_sha256": "de2de96ccdb192468f6b7257d6d7d268dae35d3df5fcd9b0d09651a43ec9f6d0"
+    },
+    "review": "Independent read-only production review found no actionable defect; invalid-path test feedback incorporated before final runs. Independent receipt/privacy review confirmed native scopes, exact collector, original hashes and nested path redaction. Test-owning agent reviewed final diff."
+  },
+  "acceptance": {
+    "STORE-013": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-014": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-015": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-016": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-017": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-018": "PASS for installed-runtime resolver component scope; see ACCEPTANCE_CASES result_scope"
+  },
+  "deferred": {
+    "native_store_channel": "NOT_RUN, no Store package on host; T07",
+    "owner_windows10_exact_zip": "NOT_RUN/BLOCKED for publication; T07",
+    "truthful_summary_and_exact_remediation": "T04",
+    "fallback_attempt_validator_gap": "T05",
+    "release_version_package": "T06",
+    "publication": "T08 after real gates"
+  },
+  "exploratory": {
+    "missing_pwsh_wrapper_path": "Initial absent Program Files pwsh invocation failed before child/tests; actual Get-Command path used for final.",
+    "intermediate_discovery": "PS7 33/0/0 before final summary/app-venv assertions; not final-source evidence.",
+    "hardlink_inventory": "fsutil Error50 unsupported; Canonical.Links=1 observed; no hardlink exception added."
+  },
+  "commands": [
+    "<PS51_OR_PS7> -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File <EXTERNAL_T03>/focused-final.ps1 -RepositoryRoot <WORKSPACE> -WorkRoot <NEW_EXTERNAL_WORK> -TestPython <DEV_PYTHON_3148> -ReportPath <NEW_EXTERNAL_JSON>",
+    "<DEV_PYTHON_3148> -I -B tests/run_tests.py --layer shell --tool-root <EXTERNAL_TOOLS> --shell-path <PS51> --shell-path <PS7> --report <NEW_EXTERNAL_JSON>",
+    "<PS51_OR_PS7> -NoProfile -NonInteractive -ExecutionPolicy RemoteSigned -File <EXTERNAL_T03>/automatic-fixed-component.ps1 -ApplicationRoot <WORKSPACE> -OutputPath <NEW_EXTERNAL_JSON>",
+    "<DEV_PYTHON_3148> -I -B tools/codex-v1.0.3/check_handoff.py --mode checkout",
+    "<DEV_PYTHON_3148> -I -B -m unittest discover -s tools/codex-v1.0.3/tests -v",
+    "git diff --check"
+  ],
+  "artifacts_sha256": {
+    "T03-baseline.json": "39716e959fc9bbe07cf7aeed983f5e2bf8c8cc292c565fa704fa3af56135f14f",
+    "T03-component.ps1": "005faf5cf7b775555a508bd3a0a5591fcc0efdc638d88c3592f282fd56b70f14",
+    "T03-focused-ps51.json": "0332b68ea340fc3554bf82281fdce240c3b83e7fa71c3607d7f00efd98a10a91",
+    "T03-focused-ps7.json": "12c9ca649341de4090ef16fe71d1e9627a070a24df0fc6eb0d33e3ce91971005",
+    "T03-native-ps51.json": "abb182a4f40e52da0052fa27c0210d7db860458930523fc8c0cac1b12a35de70",
+    "T03-native-ps7.json": "e92bd8fa0b8e8eef294f183ddd24c74ae209fd46b3313ec2a1ec6c2c91188e32",
+    "T03-provenance.json": "c773067884ad25564fca8c426cae3bf09a12a491e97664b8c7c28e49134f4acb",
+    "T03-red.json": "9217242695c4b06ab9c0be4b8753a96ac536442cf35355eb18948cf8fad74f40",
+    "T03-shell.json": "8aaaf034f0beb1c673d8a728f82700d27c122eeb89ec3b99b2108d0866f4075f",
+    "T03.md": "305f7f0e9a600ceff3ae924db2ed1bce51388edb77ad93b8db2b5ea1341a74fa"
+  },
+  "receipt_byte_policy": "Public T03 text normalized to LF. Post-collection recursive redaction includes multiply-escaped nested runtime stdout/ResultRecords paths. Original local collected-byte hashes are separate; historical bytes unchanged.",
+  "native_original_local_receipt_sha256": {
+    "automatic-fixed-ps51.json": "924a8b24c79ef86f8e668595c83941df921389e6140aeecfdc1d0a80f5e7eba4",
+    "automatic-fixed-ps7.json": "5665725c503d2495ab7de0546d48cf7cb2ffd02a1d8d2f88ae436b1ed0ff654c"
+  },
+  "focused_wrapper_source": "param([string]$RepositoryRoot,[string]$WorkRoot,[string]$TestPython,[string]$ReportPath)\n$ErrorActionPreference='Stop'\n$RepositoryRoot=(Resolve-Path -LiteralPath $RepositoryRoot).ProviderPath\n$TestPython=(Resolve-Path -LiteralPath $TestPython).ProviderPath\n$null=New-Item -ItemType Directory -Path $WorkRoot\nSet-Location -LiteralPath $WorkRoot\nImport-Module '<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\Pester\\6.2.0\\Pester.psd1' -Force\n$sourcePaths=@('engine\\WinBookSplit.Runtime.ps1','engine\\WinBookSplit.Process.ps1','WinBookSplit.ps1','tests\\powershell\\Discovery.Tests.ps1','tests\\powershell\\Manager.Tests.ps1','tests\\powershell\\Runtime.Tests.ps1','tests\\powershell\\Process.Tests.ps1')\n$before=@($sourcePaths | ForEach-Object {[ordered]@{path=$_;sha256=(Get-FileHash -LiteralPath (Join-Path $RepositoryRoot $_) -Algorithm SHA256).Hash.ToLowerInvariant()}})\n$config=New-PesterConfiguration\n$config.Run.Container=@(foreach ($name in @('Manager','Discovery','Runtime','Process')) {\n    New-PesterContainer -Path (Join-Path $RepositoryRoot ('tests\\powershell\\'+$name+'.Tests.ps1')) -Data @{RepositoryRoot=$RepositoryRoot;WorkRoot=$WorkRoot;TestPython=$TestPython}\n})\n$config.Run.PassThru=$true\n$config.Output.Verbosity='Detailed'\n$result=Invoke-Pester -Configuration $config\n$after=@($sourcePaths | ForEach-Object {[ordered]@{path=$_;sha256=(Get-FileHash -LiteralPath (Join-Path $RepositoryRoot $_) -Algorithm SHA256).Hash.ToLowerInvariant()}})\n$unchanged=($before | ConvertTo-Json -Compress) -ceq ($after | ConvertTo-Json -Compress)\n[ordered]@{schema_version=1;purpose='T03 focused maintained contracts; synthetic seams labelled in test names/comments. Actual children are isolated developer Python regression, not owner Store acceptance.';shell=$PSVersionTable.PSVersion.ToString();execution_policy=(Get-ExecutionPolicy);test_python=$TestPython;passed=$result.PassedCount;failed=$result.FailedCount;skipped=$result.SkippedCount;source_unchanged=$unchanged;source_before=$before;source_after=$after;tests=@($result.Tests | ForEach-Object {[ordered]@{name=$_.ExpandedName;result=[string]$_.Result;errors=@($_.ErrorRecord | ForEach-Object {$_.ToString()})}})} | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath $ReportPath -Encoding utf8\nif ($result.FailedCount -gt 0 -or -not $unchanged) {exit 1}\n",
+  "focused_wrapper_original_sha256": "789fa141b05a7b49a3a691bd235c9d1e4dd13afe84a7741d90141f315b1b2f0f",
+  "developer_regression_python_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603",
+  "preservation": "No desktop Python/Manager install/update, PATH/alias change, owner/checkout app venv creation, source-ZIP installation change, private-document processing, old record/release mutation or early publication. Owned disposable developer test venvs only."
+}
