@@ -44,10 +44,19 @@ not replace R. A product/package change requires a new committed freeze and new
 exact-byte native acceptance, never changed receipts. Preserve owner installations,
 venvs, shortcuts, historical reports and published assets.
 
+The 18 October candidate review is evidence/T08-security-candidate-review.md/JSON,
+with its public bounded probe. The official non-yanked 6.21.1 wheel is 405134
+bytes, SHA256 553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b.
+Three reduced-limit parser checks passed in a separate developer-only 3.12.14
+experiment. This prepares a concrete remedial scope without dependency or
+acceptance changes. The explicit scope question is pending before product writes;
+honor a later direct owner answer. STORE-024 remains a separate missing observation.
+
 ## Exact continuation prompt
 
 ```text
 Continue T08 gate review only in D:\projects\WinBookSplit-main on codex/v1.0.3-store-discovery.
+Read evidence/T08-security-candidate-review.md/JSON and T08-security-candidate-guard.py as well. Verified official 6.21.1 wheel and three small reduced-limit dependency checks prepare a concrete repair scope only; no production pin changed. Apply any later explicit owner answer to the pending dependency-repair scope question before product writes. Preserve frozen R and old acceptance, and require new freeze/exact-byte acceptance for changed bytes. Do not rerun unchanged preparation merely to create another checkpoint.
 Read root/nested AGENTS.md, docs/codex-v1.0.3/{SCOPE,STATUS,NEXT_SESSION,ROOT_CAUSE,IMPLEMENTATION,TESTING,NATIVE_ACCEPTANCE,RELEASE_RUNBOOK,OWNER_KIT,OWNER_TRANSFER}.md, TASKS.json, tasks/08-T08.md, tasks/07-T07.md and T08-gate-review/T07-owner-return/T08-owner-delivery/T08/T07/T06/T05/T04/T03 evidence. Inspect actual Git/origin/branch/worktree and fresh live remote/tags/releases; preserve current work, historical reports and published assets.
 Also read evidence/T08-gate-recheck.md/JSON. This checkpoint independently reconfirmed unchanged gates, accepted owner/archive/checker bindings and live metadata. The existing Store kit explicitly retains organization_policy_denial NOT_RUN and its checker rejects a local-component PASS; rerunning it cannot clear STORE-024. No new enforced-policy evidence/access or validated separate human check was supplied.
 Also read evidence/T08-gate-continuation.md/JSON, the later gate-only review from 4711c9e. Three independent audits, unchanged-R checker and fresh live metadata retain all statuses; official 6.21.1 release corroboration adds no clearance for frozen 6.20.0. No new enforced-policy receipt/target or separate validated human check exists. Do not repeat already completed unchanged checks merely to generate another identical checkpoint; make any further review responsive to new evidence, access or an explicitly authorized remedial scope, preserving the precise blockers meanwhile.

@@ -8,6 +8,14 @@ See evidence/T07-owner-return.md, T07-owner-return.json and
 T07-owner-return-audit.json. Earlier blocked T07/T08 reports remain unchanged as
 historical checkpoints; their missing-owner-evidence statements describe then.
 
+The 18 October candidate review is in evidence/T08-security-candidate-review.md/
+JSON and its bounded probe. The exact official pypdf 6.21.1 wheel is verified;
+three small reduced-limit parser guards passed in a separate developer experiment.
+This prepares a concrete repair scope without application compatibility, security
+clearance, dependency change or acceptance promotion. The explicit scope question
+before production writes is pending. Frozen R/T07 remain unchanged; STORE-024
+still needs genuine separate enforced-policy evidence. Do not repeat accepted T07.
+
 The returned SEND-THIS-REPORT.zip is 377606 bytes, SHA256
 `1ac523bfb8aebc1511c27629af5134fa9000a08db361a6e207c33280d184a06e`, run
 `store_f61d4a88eef1415c9ccf811613c6d694`. Its seven members/six envelopes bind to

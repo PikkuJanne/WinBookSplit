@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. Existing T07 STORE-037 through STORE-042 PASS reconfirmed for unchanged accepted owner Windows10 packet at frozen R/exact ZIP. STORE-024 actual enforced organization-policy denial remains NOT_RUN. Current primary-source technical review completed; retained pypdf 6.20.0 parser exposure leaves security release disposition unresolved/BLOCKED. STORE-043 through STORE-048 remain NOT_RUN; no acceptance status changed. No publish/tag/main merge or product/package/kit changes. Follow-up independent gate review from 64e726b reconfirms unchanged accepted/frozen bindings; the retained Store kit cannot clear separate STORE-024 by rerun. No new enforced-policy evidence or acceptance promotion. Further gate-only continuation from 4711c9e independently preserves accepted/frozen bindings and unchanged blockers; no new enforced-policy evidence/access, native execution, security clearance or publication.",
+      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. Existing T07 STORE-037 through STORE-042 PASS reconfirmed for unchanged accepted owner Windows10 packet at frozen R/exact ZIP. STORE-024 actual enforced organization-policy denial remains NOT_RUN. Current primary-source technical review completed; retained pypdf 6.20.0 parser exposure leaves security release disposition unresolved/BLOCKED. STORE-043 through STORE-048 remain NOT_RUN; no acceptance status changed. No publish/tag/main merge or product/package/kit changes. Follow-up independent gate review from 64e726b reconfirms unchanged accepted/frozen bindings; the retained Store kit cannot clear separate STORE-024 by rerun. No new enforced-policy evidence or acceptance promotion. Further gate-only continuation from 4711c9e independently preserves accepted/frozen bindings and unchanged blockers; no new enforced-policy evidence/access, native execution, security clearance or publication. Candidate feasibility review from bc3c3fc verifies official6.21.1 wheel and three tiny reduced-limit dependency guards under separate developer3.12.14; no production pin, application compatibility or acceptance change. Explicit dependency-repair scope question pending.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -239,7 +239,10 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-candidate-review.md",
+        "evidence/T08-security-candidate-review.json",
+        "evidence/T08-security-candidate-guard.py"
       ]
     }
   ],

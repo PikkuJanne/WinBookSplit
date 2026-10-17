@@ -1,0 +1,291 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "status": "BLOCKED",
+  "scope": "DEPENDENCY_CANDIDATE_FEASIBILITY_ONLY_NO_PRODUCT_CHANGE_OR_RELEASE_CLEARANCE",
+  "reviewed_date": "2026-10-18",
+  "recorded_utc": "2026-10-17T23:28:59.486060+00:00",
+  "initial_commit": "bc3c3fc720ea954083ab6b7e380eb5582d9e3360",
+  "initial_tree": "07fc72ada298d87af1b11d04871c8f2fd1fca003",
+  "initial_clean": true,
+  "initial_HEAD_equals_fresh_live_origin": true,
+  "branch": "codex/v1.0.3-store-discovery",
+  "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree_R": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "accepted_zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+  "frozen_bytes_scope": "No rebuild, replacement, rehash or native receipt rerun. Existing accepted source/ZIP bindings retained.",
+  "production_pin_changed": false,
+  "acceptance_statuses_changed": false,
+  "scope_question": "Earlier gate-review-only instruction remains; question asking whether to expand to separate pypdf repair is pending. Honor later direct owner answer before product writes.",
+  "candidate": {
+    "version": "6.21.1",
+    "wheel": "pypdf-6.21.1-py3-none-any.whl",
+    "url": "https://files.pythonhosted.org/packages/85/e6/24c944e473c34e818cf1b98085796fcd780465ecfe17663f2bf8fee1958b/pypdf-6.21.1-py3-none-any.whl",
+    "bytes": 405134,
+    "sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b",
+    "yanked": false,
+    "requires_python": ">=3.9",
+    "extras_proposed": false,
+    "license_bytes": 1605,
+    "license_sha256": "a97ac230e5f33ef10a5367a850eb01f91f1a0b064e34742c7794d2294557f524",
+    "license_equal_old_wheel": true,
+    "pypi_vulnerabilities": [],
+    "metadata_is_not_clearance": true
+  },
+  "developer_python": "3.12.14 (main, Aug 25 2026, 14:01:42) [MSC v.1944 64 bit (AMD64)]",
+  "developer_experiment_scope": "Direct wheel zipimport under bundled developer Python3.12.14, outside supported application policy. No package installation, engine/application invocation, origin-check bypass or native acceptance.",
+  "experiments": [
+    {
+      "version": "6.20.0",
+      "redacted_argv": [
+        "<BUNDLED_DEV_PYTHON>",
+        "-I",
+        "-B",
+        "<EXTERNAL_REVIEW>/bounded_guard_probe.py",
+        "<EXTERNAL_REVIEW>/pypdf-6.20.0-py3-none-any.whl"
+      ],
+      "cwd": "<CHECKOUT>",
+      "timeout_seconds": 20,
+      "exit_code": 0,
+      "stderr": "",
+      "result": {
+        "version": "6.20.0",
+        "developer_python": "3.12.14",
+        "import_origin": "<EXTERNAL_REVIEW>\\pypdf-6.20.0-py3-none-any.whl\\pypdf\\__init__.py",
+        "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+        "result": "OLD_VERSION_GUARDS_ABSENT_REPRODUCED",
+        "cases": [
+          {
+            "case": "array",
+            "configuration_field": "array_maximum_element_count",
+            "default": null,
+            "lowered_limit": null,
+            "positive_control_length": 3,
+            "over_limit_rejected": false,
+            "message": "accepted 4 elements/operations",
+            "restored_default": null
+          },
+          {
+            "case": "dictionary",
+            "configuration_field": "dictionary_maximum_element_count",
+            "default": null,
+            "lowered_limit": null,
+            "positive_control_length": 3,
+            "over_limit_rejected": false,
+            "message": "accepted 4 elements/operations",
+            "restored_default": null
+          },
+          {
+            "case": "content",
+            "configuration_field": "stream_parsing_work_maximum_count",
+            "default": null,
+            "lowered_limit": null,
+            "positive_control_length": 3,
+            "over_limit_rejected": false,
+            "message": "accepted 4 elements/operations",
+            "restored_default": null
+          }
+        ]
+      }
+    },
+    {
+      "version": "6.21.1",
+      "redacted_argv": [
+        "<BUNDLED_DEV_PYTHON>",
+        "-I",
+        "-B",
+        "<EXTERNAL_REVIEW>/bounded_guard_probe.py",
+        "<EXTERNAL_REVIEW>/pypdf-6.21.1-py3-none-any.whl"
+      ],
+      "cwd": "<CHECKOUT>",
+      "timeout_seconds": 20,
+      "exit_code": 0,
+      "stderr": "",
+      "result": {
+        "version": "6.21.1",
+        "developer_python": "3.12.14",
+        "import_origin": "<EXTERNAL_REVIEW>\\pypdf-6.21.1-py3-none-any.whl\\pypdf\\__init__.py",
+        "wheel_sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b",
+        "result": "CANDIDATE_GUARDS_PASS",
+        "cases": [
+          {
+            "case": "array",
+            "configuration_field": "array_maximum_element_count",
+            "default": 100000,
+            "lowered_limit": 3,
+            "positive_control_length": 3,
+            "over_limit_rejected": true,
+            "message": "Reached maximum array element count.",
+            "restored_default": 100000
+          },
+          {
+            "case": "dictionary",
+            "configuration_field": "dictionary_maximum_element_count",
+            "default": 100000,
+            "lowered_limit": 3,
+            "positive_control_length": 3,
+            "over_limit_rejected": true,
+            "message": "Reached maximum number of dictionary entries.",
+            "restored_default": 100000
+          },
+          {
+            "case": "content",
+            "configuration_field": "stream_parsing_work_maximum_count",
+            "default": 2000000,
+            "lowered_limit": 3,
+            "positive_control_length": 3,
+            "over_limit_rejected": true,
+            "message": "Reached maximum number of tokens per stream.",
+            "restored_default": 2000000
+          }
+        ]
+      }
+    }
+  ],
+  "raw_external_artifacts": [
+    {
+      "name": "bounded_guard_probe.py",
+      "bytes": 2037,
+      "sha256": "331085ee6328f35d47ea8a4cca02873b9730e0180df82499de3780782c7eb965"
+    },
+    {
+      "name": "configuration-6.20.0.py",
+      "bytes": 11586,
+      "sha256": "18ede031a2b52daf316cae71d04254599549941de1d92dbdf85f336476e09b3f"
+    },
+    {
+      "name": "configuration-6.21.1.py",
+      "bytes": 12244,
+      "sha256": "14533a53409e022f05a4b25adfa00189afffaf672176bf7f1f5ea6208bacec09"
+    },
+    {
+      "name": "metadata-6.20.0.json",
+      "bytes": 9370,
+      "sha256": "ba597168f80ce7888104b12ffe18edc6a0e7ada22c975975a50a90b874d4f235"
+    },
+    {
+      "name": "metadata-6.21.1.json",
+      "bytes": 9370,
+      "sha256": "681f1f79c29a12f41944563a482a25ed28cf44a89f607125c87551022babe5bb"
+    },
+    {
+      "name": "probe-6.20.0.json",
+      "bytes": 1272,
+      "sha256": "3c2fa63471498e7a1382941f50f5e61d96a61a4662e56d4c827d29a2b14ffc0d"
+    },
+    {
+      "name": "probe-6.21.1.json",
+      "bytes": 1294,
+      "sha256": "1d1051c7d0b2376a0818fc4a8e12a57cc0f20c61192d11209aa3019405920045"
+    },
+    {
+      "name": "pypdf-6.20.0-py3-none-any.whl",
+      "bytes": 401710,
+      "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+    },
+    {
+      "name": "pypdf-6.21.1-py3-none-any.whl",
+      "bytes": 405134,
+      "sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
+    },
+    {
+      "name": "wheel-review.json",
+      "bytes": 9232,
+      "sha256": "9fe157e940f96f7870a0def8da4e95baf195283ac3639379749e2958110c04b1"
+    }
+  ],
+  "public_probe_copy": {
+    "original_external": {
+      "name": "bounded_guard_probe.py",
+      "bytes": 2037,
+      "sha256": "331085ee6328f35d47ea8a4cca02873b9730e0180df82499de3780782c7eb965"
+    },
+    "public": {
+      "name": "T08-security-candidate-guard.py",
+      "bytes": 2010,
+      "sha256": "445cd0705b41066dfc7a9ccb6ce5456b3f8c8b415265ce7049595c551e4778f6"
+    },
+    "normalization": "UTF8/LF copy of exact external probe source; CRLF-only conversion, no code change."
+  },
+  "sources": [
+    "https://pypi.org/pypi/pypdf/6.21.1/json",
+    "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57",
+    "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c",
+    "https://github.com/py-pdf/pypdf/releases/tag/6.21.0",
+    "https://github.com/py-pdf/pypdf/releases/tag/6.21.1",
+    "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv",
+    "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7"
+  ],
+  "upstream_form_field_discrepancy": "Prior affected<6.21.0, patched field>=6.2.10 and prose6.21.0 remain explicitly recorded in T08-gate-review; not silently corrected.",
+  "proposed_implementation_paths": [
+    "requirements.txt",
+    "engine/WinBookSplit.Compatibility.json",
+    "tests/compatibility/runtime-lock.json",
+    "tools/ci/check_package_inputs.py",
+    "tools/compatibility/kit_builder.py",
+    "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+    "tools/compatibility/native_smoke.py",
+    "Maintained mutable synthetic expectations and current dependency documentation"
+  ],
+  "required_followup": "After explicit scope answer: isolated pinned dependency repair with meaningful guard/origin/hash/PDF/setup/supported-runtime/both-shell regressions; new committed freeze and exact-byte native acceptance before release. Preserve old accepted R and evidence.",
+  "remaining": {
+    "STORE-024": "NOT_RUN: no new enforced-policy evidence/target supplied",
+    "T04": "IMPLEMENTED_PENDING_NATIVE",
+    "T07": "COMPLETE for original R/exact ZIP only",
+    "T08": "BLOCKED",
+    "STORE-043_through_STORE-048": "NOT_RUN",
+    "retained_pypdf_security_release_disposition": "UNRESOLVED"
+  },
+  "independent_review": "Read-only probe/results/wheel audit corroborated three low-limit observations; no rerun. No supported-runtime or application compatibility inference.",
+  "limitations": [
+    "No exploit or memory measurement; old accepts tiny valid4-item inputs without new configuration fields; only candidate uses lowered limit3.",
+    "No full-threshold/nested-budget/malformed-input/form-field/image/previous-filter guard, complete-PDF or application test.",
+    "Explicit lazy ContentStream.operations probe does not establish production reachability.",
+    "Post-context defaults observed, without separate equality assertion.",
+    "No setup/BAT/native/Calibre/package/Explorer acceptance or security clearance."
+  ],
+  "commands": [
+    "git status --short --branch; git rev-parse HEAD; git branch --show-current; git remote -v; git worktree list --porcelain; git log -5 --format=%h:%s (read-only inspections)",
+    "git ls-remote origin refs/heads/codex/v1.0.3-store-discovery refs/heads/main refs/tags/v1.0.*",
+    "gh api repos/PikkuJanne/WinBookSplit/releases --paginate (fresh read-only context query)",
+    "Official upstream browsing; Invoke-RestMethod https://pypi.org/pypi/pypdf/6.21.1/json -TimeoutSec30",
+    "<BUNDLED_DEV_PYTHON> -I -B - (bounded urllib/ZipFile metadata+wheel review, new external mkdtemp, no extraction/installation)",
+    "<BUNDLED_DEV_PYTHON> -I -B <EXTERNAL_REVIEW>/bounded_guard_probe.py <EXTERNAL_REVIEW>/pypdf-<VERSION>-py3-none-any.whl (two isolated subprocess.run calls; timeout20; captured streams)",
+    "Independent read-only raw-source/result/wheel audit; no rerun"
+  ],
+  "exploratory_failures": [
+    "Initial literal filename wildcard rg arguments and guessed config/runtime-policy.json/ci.yml paths failed read-only lookups; discovered actual files; no product action.",
+    "Initial full wheel-review output exceeded output budget and JSON.parse failed after completed downloads; retained files reused without rerunning acquisition.",
+    "First combined apply_patch failed context verification atomically; clean status/new-file absence confirmed before corrected patch."
+  ],
+  "evidence_files": [
+    {
+      "name": "T08-security-candidate-review.md",
+      "bytes": 5639,
+      "sha256": "6a6ff8b4952c885e65b72d9444c67e164bf8ff3152857d0b2b7545653851c0dd"
+    }
+  ],
+  "checkpoint_rule": "Final commit/push and actual clean/fresh live equality belong in external handover, without self-referential commit hash.",
+  "verification": {
+    "handoff": {
+      "status": "HANDOFF_STRUCTURALLY_VALID",
+      "mode": "checkout",
+      "tasks": 8,
+      "acceptance_requirements": 48,
+      "synthetic_registration_inputs": 12
+    },
+    "active_json_parse_count": 73,
+    "all_acceptance_bytes_unchanged": true,
+    "all_task_statuses_unchanged": true,
+    "T01_through_T07_records_unchanged": true,
+    "exactly_seven_intended_active_paths": true,
+    "new_changed_files_UTF8_LF_without_BOM": true,
+    "private_account_path_control_character_scan": "PASS",
+    "evidence_pins_and_public_probe_syntax": "PASS",
+    "whitespace_check_exit_code": 0,
+    "broad_suites": "NOT_RUN: candidate feasibility review; no product/tooling implementation change.",
+    "independent_experiment_review": "No material finding; limitations recorded.",
+    "staged_Git_bytes": "Verify after staging; final receipt belongs in external handover.",
+    "independent_diff_review": "CLEAN: independent read-only audit of all seven intended paths, source normalization, pins, privacy and acceptance scope found no actionable finding."
+  }
+}
