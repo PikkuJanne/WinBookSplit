@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "task": "T04",
+  "kind": "ORIGINAL_LOCAL_RECEIPT_HASH_MAP",
+  "note": "Original local byte SHA256 values differ from public normalized sanitized bytes. Native source hashes remain identical before/after and to final production at assembly. Public script is a redacted recipe; original exact script bytes remain local.",
+  "files": [
+    {
+      "public": "T04-native-ps51.json",
+      "local_original": "<T04_NATIVE_WORK>\\actual-final-ps51.json",
+      "original_local_sha256": "8e3006965505bfef1fd61561c0307d23d65c9209ba7eea763a7ef74660d726fd",
+      "original_bytes": 166707
+    },
+    {
+      "public": "T04-native-ps7.json",
+      "local_original": "<T04_NATIVE_WORK>\\actual-final-ps7.json",
+      "original_local_sha256": "2c50ef3875069b4512041b1498cfe4864069a2049a2fe69f7564a16e425332ec",
+      "original_bytes": 108840
+    },
+    {
+      "public": "T04-component.ps1",
+      "local_original": "<T04_NATIVE_WORK>\\actual-diagnostics.ps1",
+      "original_local_sha256": "dbe2bbac5fb64337664d5b8eb7d08b92800ac8966a6ea74ac05aae078e10d8bc",
+      "original_bytes": 10345,
+      "normalization": "LF, public recipe comments and verification-only runtime path replaced with token; no runtime-selection input added"
+    },
+    {
+      "public": "T04-runtime-red.json#red/PS5.1",
+      "local_original": "<T04_RUNTIME_WORK>\\red-ps51.json",
+      "original_local_sha256": "e31cbc8726bd54edf8cd686a3a8f9460ae26438a4904a5a88da79b1e29abfa6e",
+      "original_bytes": 10105
+    },
+    {
+      "public": "T04-runtime-red.json#red/PS7",
+      "local_original": "<T04_RUNTIME_WORK>\\red-ps7.json",
+      "original_local_sha256": "0fcda53115142b5e7e0ccf8b183c8d5865bb00271970f35a1a881bea094d9848",
+      "original_bytes": 5977
+    },
+    {
+      "public": "T04-runtime-red.json#final_category_focus/PS5.1",
+      "local_original": "<T04_RUNTIME_WORK>\\category-final-ps51.json",
+      "original_local_sha256": "10199fe4ba6fa2624790f3a19f6aebc19c8fe5090f9b28f268095177dfe927c5",
+      "original_bytes": 11427
+    },
+    {
+      "public": "T04-runtime-red.json#final_category_focus/PS7",
+      "local_original": "<T04_RUNTIME_WORK>\\category-final-ps7.json",
+      "original_local_sha256": "0df2819d4d5a99010605c45bc3fbc0a88841dab085ea81270e74f8c8f92f29a8",
+      "original_bytes": 6748
+    },
+    {
+      "public": "T04-runtime-red.json#commands/runner_source",
+      "local_original": "<T04_RUNTIME_WORK>\\focused.ps1",
+      "original_local_sha256": "17ae41e2120a4f6fa276bdebeedc46f78ad9ef2c4c4224c86ae7a25b62f230e4",
+      "original_bytes": 1088
+    },
+    {
+      "public": null,
+      "local_original": "<T04_NATIVE_WORK>\\actual-ps51.json",
+      "original_local_sha256": "9c4627357cd30225639e91cb4ea1dd37bc185862b35611a87f8481e6a7212277",
+      "original_bytes": 166606,
+      "scope": "Preserved local exploratory PS5.1 receipt. All behavioral checks passed; source-unchanged failed because final source edits overlapped collection. Superseded by same-script final PS5.1 receipt."
+    }
+  ]
+}

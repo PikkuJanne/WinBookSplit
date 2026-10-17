@@ -191,11 +191,12 @@ function Invoke-WinBookSplitSetup {
     $attempts=New-Object 'Collections.Generic.List[object]'
     $fileLeases=New-Object 'Collections.Generic.List[object]'
     $parents=$null; $lock=$null; $marker=$null; $newEnvironment=$null; $oldEnvironment=$null
-    $root=$null; $venv=$null; $backup=$null; $incomplete=$null
+    $root=$null; $venv=$null; $backup=$null; $incomplete=$null; $policy=$null
     $result=[pscustomobject][ordered]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='setup_failed';exit_code=6;
         message='Setup did not complete.';check=[bool]$Check;changed=$false;environment_path=$null;backup_path=$null;incomplete_path=$null;
         rollback_status='not_needed';selected_python=$null;selected_version=$null;pypdf_version=$null;operations=@();attempts=@();
-        observed_python=$null;observed_version=$null;observed_source=$null;action=$null;action_shell=$null}
+        observed_python=$null;observed_version=$null;observed_source=$null;action=$null;action_shell=$null;
+        reason=$null;stage=$null;source=$null;rejections=@();display_message=$null}
     try {
         Assert-WinBookSplitSetupNotCancelled $CancellationToken
         $root=Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
@@ -208,12 +209,21 @@ function Invoke-WinBookSplitSetup {
         try { $busy=Test-WinBookSplitSetupEntryExists $lockPath }
         catch { throw (New-WinBookSplitSetupError 'setup_busy' 'The setup lock cannot be inspected safely; preserve it and retry after the other setup exits.') }
         if ($busy) { throw (New-WinBookSplitSetupError 'setup_busy' 'Another setup or a preserved setup lock exists. Wait for it to finish; no environment was changed.') }
-        $exists=Test-WinBookSplitSetupEntryExists $venv
+        try { $exists=Test-WinBookSplitSetupEntryExists $venv }
+        catch {
+            $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Stage='venv';Accepted=$false;Reason='invalid_application_venv';Message=$_.Exception.Message;Probe=$null})
+            throw (New-WinBookSplitSetupError 'runtime_invalid' ('Application .venv presence could not be checked safely; existing state was preserved. '+$_.Exception.Message))
+        }
         $existingIdentity=$null
         if ($exists) {
-            $null=Get-WinBookSplitTrustedPath -Path $venv -Directory
-            Initialize-WinBookSplitSetupTypes
-            $existingIdentity=[WinBookSplitSetup.DirectoryLease]::ReadIdentity($venv)
+            try {
+                $null=Get-WinBookSplitTrustedPath -Path $venv -Directory
+                Initialize-WinBookSplitSetupTypes
+                $existingIdentity=[WinBookSplitSetup.DirectoryLease]::ReadIdentity($venv)
+            } catch {
+                $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Stage='venv';Accepted=$false;Reason='invalid_application_venv';Message=$_.Exception.Message;Probe=$null})
+                throw (New-WinBookSplitSetupError 'runtime_invalid' ('Existing application .venv could not be inspected safely and was preserved. '+$_.Exception.Message))
+            }
         }
         $preservedPrefixes=@([IO.Path]::Combine($root,'.WinBookSplit-venv-backup-'),[IO.Path]::Combine($root,'.WinBookSplit-incomplete-'))
         $probeTimeout=[Math]::Min($TimeoutSeconds,10.0)
@@ -222,6 +232,7 @@ function Invoke-WinBookSplitSetup {
             if ($healthy) {
                 $result.status='success';$result.code='setup_ready';$result.exit_code=0;$result.message='Application .venv is healthy; no setup changes or package downloads were needed.'
                 $result.selected_python=$healthy.Path;$result.selected_version=$healthy.Version;$result.pypdf_version=$healthy.PypdfVersion
+                $result.source=$healthy.Source
                 return $result
             }
             if ($Check -or -not $Repair) {
@@ -230,7 +241,9 @@ function Invoke-WinBookSplitSetup {
                 if ($rejected.IdentityVerified) {
                     $result.observed_version=$rejected.ObservedVersion
                 }
-                $hintBase=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $policy -PythonPath $PythonPath
+                $hintBase=$null
+                try { $hintBase=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $policy -PythonPath $PythonPath }
+                catch { if (Test-WinBookSplitInterruption $_.Exception) { throw } }
                 $hintPath=$null;if($hintBase){$hintPath=$hintBase.Path}
                 $result.action=Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair -PythonPath $hintPath -Wheelhouse $Wheelhouse
                 $result.action_shell='PowerShell'
@@ -239,10 +252,19 @@ function Invoke-WinBookSplitSetup {
         }
         if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
             try { $explicit=Get-WinBookSplitTrustedPath $PythonPath }
-            catch { throw (New-WinBookSplitSetupError 'runtime_invalid' ('The explicit base interpreter path is not trusted: '+$_.Exception.Message+' '+$guidance)) }
-            if ($explicit.StartsWith($venv+'\',[StringComparison]::OrdinalIgnoreCase)) { throw (New-WinBookSplitSetupError 'runtime_invalid' 'Select a base interpreter outside the application .venv; repair must not move its selected interpreter.') }
+            catch {
+                $attempts.Add([pscustomobject]@{Path=$PythonPath;Source='explicit';Stage='entry';Accepted=$false;Reason='rejected_entry_point';Message=$_.Exception.Message;Probe=$null})
+                throw (New-WinBookSplitSetupError 'runtime_invalid' ('The explicit base interpreter path is not trusted: '+$_.Exception.Message+' '+$guidance))
+            }
+            if ($explicit.StartsWith($venv+'\',[StringComparison]::OrdinalIgnoreCase)) {
+                $attempts.Add([pscustomobject]@{Path=$explicit;Source='explicit';Stage='entry';Accepted=$false;Reason='rejected_entry_point';Message='The application .venv is not an eligible setup base.';Probe=$null})
+                throw (New-WinBookSplitSetupError 'runtime_invalid' 'Select a base interpreter outside the application .venv; repair must not move its selected interpreter.')
+            }
             foreach ($prefix in $preservedPrefixes) {
-                if ($explicit.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase)) { throw (New-WinBookSplitSetupError 'runtime_invalid' 'Preserved setup artifacts are not working environments. Select a trusted base interpreter outside the application preservation directories.') }
+                if ($explicit.StartsWith($prefix,[StringComparison]::OrdinalIgnoreCase)) {
+                    $attempts.Add([pscustomobject]@{Path=$explicit;Source='explicit';Stage='entry';Accepted=$false;Reason='rejected_entry_point';Message='Preserved setup artifacts are not eligible setup bases.';Probe=$null})
+                    throw (New-WinBookSplitSetupError 'runtime_invalid' 'Preserved setup artifacts are not working environments. Select a trusted base interpreter outside the application preservation directories.')
+                }
             }
         }
         if (-not $exists -and $Check) {
@@ -250,8 +272,14 @@ function Invoke-WinBookSplitSetup {
                 $ready=Resolve-WinBookSplitRuntime -ApplicationRoot $root -PythonPath $PythonPath -TimeoutSeconds $probeTimeout
                 $result.status='success';$result.code='setup_ready';$result.exit_code=0;$result.message='Processing dependencies are ready; Check made no setup changes.'
                 $result.selected_python=$ready.Path;$result.selected_version=$ready.Version;$result.pypdf_version=$ready.PypdfVersion
+                $result.source=$ready.Source
                 return $result
-            } catch { if (Test-WinBookSplitInterruption $_.Exception) { throw } }
+            } catch {
+                if (Test-WinBookSplitInterruption $_.Exception) { throw }
+                if ($_.Exception.Data.Contains('Attempts')) {
+                    foreach ($attempt in @($_.Exception.Data['Attempts'])) { $attempts.Add($attempt) }
+                }
+            }
         }
         if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
             $base=Test-WinBookSplitPythonCandidate $explicit 'explicit' $root $attempts $probeTimeout -InterpreterOnly
@@ -261,6 +289,7 @@ function Invoke-WinBookSplitSetup {
             if (-not $base) { throw (New-WinBookSplitSetupError 'runtime_not_found' ('No compatible trusted base Python was found. '+$guidance)) }
         }
         $result.selected_python=$base.Path;$result.selected_version=$base.Version
+        $result.source=$base.Source
         if ($Check) {
             $result.action=Get-WinBookSplitSetupCommand -ApplicationRoot $root -PythonPath $base.Path -Wheelhouse $Wheelhouse
             $result.action_shell='PowerShell'
@@ -278,8 +307,8 @@ function Invoke-WinBookSplitSetup {
         if ($backup.Length -gt 247 -or [IO.Path]::Combine($venv,'.WinBookSplit-setup-owner.json').Length -gt 259) { throw (New-WinBookSplitSetupError 'setup_failed' 'The application path is too long for safe setup records. Extract to a shorter per-user directory.') }
         Assert-WinBookSplitSetupNotCancelled $CancellationToken
         if (-not $NonInteractive) {
-            Write-Host ('Python '+$base.Version+': '+$base.Path)
-            Write-Host ('Environment: '+$venv+'. Package source: '+$source.Description+'. Existing repair backups will be preserved.')
+            Write-Host (ConvertTo-WinBookSplitDiagnosticDisplayText ('Python '+$base.Version+': '+$base.Path))
+            Write-Host (ConvertTo-WinBookSplitDiagnosticDisplayText ('Environment: '+$venv+'. Package source: '+$source.Description+'. Existing repair backups will be preserved.'))
             $answer=Read-Host 'Proceed with local setup? [y/N]'
             if ($answer.Trim() -notin @('y','yes')) { throw (New-WinBookSplitSetupError 'setup_cancelled' 'Setup was cancelled before changes.') }
         }
@@ -332,6 +361,7 @@ function Invoke-WinBookSplitSetup {
         foreach ($lease in $fileLeases) { $lease.AssertUnchanged() }
         $result.status='success';$result.code='setup_complete';$result.exit_code=0;$result.message='Application environment is ready. Drag a PDF onto WinBookSplit.bat to begin.'
         $result.selected_python=$healthy.Path;$result.selected_version=$healthy.Version;$result.pypdf_version=$healthy.PypdfVersion
+        $result.source=$healthy.Source
         if ($oldEnvironment) { $result.rollback_status='backup_preserved';$result.message+=' Previous environment backup: '+$backup }
     } catch {
         $failure=$_.Exception
@@ -339,6 +369,15 @@ function Invoke-WinBookSplitSetup {
         if ($failure.Data.Contains('SetupCode')) { $code=[string]$failure.Data['SetupCode'] }
         elseif ($failure.Data.Contains('Code')) { $code=[string]$failure.Data['Code'] }
         $result.code=$code;$result.message=$failure.Message
+        if ($code -cin @('runtime_invalid','runtime_not_found','setup_required','setup_repair_required')) {
+            $failureReason='';if($failure.Data.Contains('Reason')){$failureReason=[string]$failure.Data['Reason']}
+            $summary=Get-WinBookSplitDiscoverySummary -Attempts $attempts.ToArray() -Policy $policy -Code $code -FailureReason $failureReason
+            $result.reason=$summary.Reason;$result.stage=$summary.Stage;$result.source=$summary.Source;$result.rejections=$summary.Rejections
+            $result.observed_python=$summary.ObservedPath;$result.observed_version=$summary.ObservedVersion;$result.observed_source=$summary.ObservedSource
+            $result.display_message=$summary.Message
+            if($code -ceq 'setup_required'){$result.display_message='Compatible Python is available; setup is required to install locked pypdf in the application .venv.'}
+            if($code -ceq 'setup_repair_required'){$result.display_message+=' Existing application .venv was preserved; explicit -Repair is required.'}
+        }
         if ($code -in @('setup_cancelled','processor_cancelled')) { $result.status='cancelled';$result.exit_code=130 }
         elseif ($code -in @('setup_timeout','processor_timeout')) { $result.status='timeout';$result.exit_code=130 }
         elseif ($code -in @('runtime_invalid','runtime_not_found','setup_required','setup_repair_required','setup_source_invalid')) { $result.exit_code=3 }
@@ -368,6 +407,10 @@ function Invoke-WinBookSplitSetup {
         if ($parents) { foreach ($lease in $parents) { $lease.Dispose() } }
         foreach ($lease in $fileLeases) { $lease.Dispose() }
         $result.operations=$operations.ToArray();$result.attempts=$attempts.ToArray()
+        if ($result.status -ceq 'success') {
+            $result.reason='supported';$result.stage='verified'
+            if ($null -eq $result.source -and $attempts.Count -gt 0) {$result.source=$attempts[$attempts.Count-1].Source}
+        }
     }
     return $result
 }

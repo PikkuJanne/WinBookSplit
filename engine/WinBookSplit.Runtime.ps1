@@ -73,6 +73,7 @@ function ConvertFrom-WinBookSplitPythonListing {
     }
     if ($paths.Count -eq 0) {
         $failure = New-Object InvalidOperationException('Installed-runtime listing is empty.')
+        $failure.Data['Reason'] = 'launcher_no_runtimes'
         if ($Kind -eq 'Manager') { $failure.Data['Reason'] = 'manager_no_runtimes' }
         throw $failure
     }
@@ -122,7 +123,11 @@ function ConvertFrom-WinBookSplitManagerRegistration {
         $expected = [IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::ProgramFiles), 'WindowsApps', $package.PackageFullName)
         $location = Get-WinBookSplitTrustedPath -Path $package.InstallLocation -Directory
         if (-not $location.Equals($expected, [StringComparison]::OrdinalIgnoreCase)) { throw 'Registered Python manager location does not match its physical package identity.' }
-        $path = Get-WinBookSplitManagerEntryPoint -Package $package -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath
+        try { $path = Get-WinBookSplitManagerEntryPoint -Package $package -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath }
+        catch {
+            $_.Exception.Data['Reason'] = 'manager_entry_rejected'; $_.Exception.Data['Stage'] = 'entry'
+            throw
+        }
         if ($WithRegistration) { $paths.Add([pscustomobject]@{Path=$path;Package=$package}) }
         else { $paths.Add($path) }
     }
@@ -168,7 +173,10 @@ $records=@(foreach ($package in $packages) {
     } catch {
         if (Test-WinBookSplitInterruption $_.Exception) { throw }
         $reason = 'manager_registration_failed'; if ($queryCompleted) { $reason = 'manager_registration_rejected' }
-        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Stage='registration';Accepted=$false;
+        $stage = 'registration'
+        if ($_.Exception.Data.Contains('Reason')) { $reason = $_.Exception.Data['Reason'] }
+        if ($_.Exception.Data.Contains('Stage')) { $stage = $_.Exception.Data['Stage'] }
+        $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Stage=$stage;Accepted=$false;
             QueryCompleted=$queryCompleted;RegisteredCount=0;Reason=$reason;Message=$_.Exception.Message;Probe=$probe})
         return @()
     }
@@ -205,8 +213,15 @@ function Invoke-WinBookSplitManagerListing {
         ParentStopped=$true;DescendantsStopped=$true;JobAssigned=$true;StreamsComplete=$true;
         Cancelled=$false;TimedOut=$false;StartError=$null;StopError=$null;StreamError=$null;
         StdoutTruncated=$false;StderrTruncated=$false}
-    $paths = @(ConvertFrom-WinBookSplitManagerRegistration $validation $ApplicationRoot $DocumentPath)
-    if ($paths.Count -ne 1 -or $Registration.Path -cne $paths[0]) { throw 'Manager entry point does not match its registration.' }
+    try { $paths = @(ConvertFrom-WinBookSplitManagerRegistration $validation $ApplicationRoot $DocumentPath) }
+    catch {
+        if (-not $_.Exception.Data.Contains('Reason')) { $_.Exception.Data['Reason'] = 'manager_registration_rejected'; $_.Exception.Data['Stage'] = 'registration' }
+        throw
+    }
+    if ($paths.Count -ne 1 -or $Registration.Path -cne $paths[0]) {
+        $failure = New-Object InvalidOperationException('Manager entry point does not match its registration.')
+        $failure.Data['Reason'] = 'manager_entry_rejected'; $failure.Data['Stage'] = 'entry'; throw $failure
+    }
     return Invoke-WinBookSplitProcess -Path $paths[0] -Arguments @('list','--format=exe') -WorkingDirectory $ApplicationRoot -TimeoutSeconds $TimeoutSeconds `
         -ExpectedPackageFullName $Registration.Package.PackageFullName -ExpectedImagePath ([IO.Path]::Combine($Registration.Package.InstallLocation,'pymanager.exe'))
 }
@@ -235,7 +250,7 @@ function Add-WinBookSplitPythonDiscoveryCandidate {
         $null = $Seen.Add($path)
         $Candidates.Add([pscustomobject]@{Path=$path;Source=$Source})
     } catch {
-        $Attempts.Add([pscustomobject]@{Path=$Path;Source=$Source;Accepted=$false;Message=$_.Exception.Message;Probe=$null})
+        $Attempts.Add([pscustomobject]@{Path=$Path;Source=$Source;Stage='entry';Accepted=$false;Reason='rejected_entry_point';Message=$_.Exception.Message;Probe=$null})
     }
 }
 
@@ -295,7 +310,7 @@ function Resolve-WinBookSplitAutomaticPython {
     $managers = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
     foreach ($registration in $registered) { $null = $managers.Add($registration.Path) }
     foreach ($path in @(Get-WinBookSplitPathCandidates 'pymanager.exe' $ApplicationRoot $DocumentPath $Attempts)) {
-        if (-not $managers.Contains($path)) { $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_listing';Accepted=$false;Message='Unverified PATH manager name excluded; installed-only listing requires verified physical registration.';Probe=$null}) }
+        if (-not $managers.Contains($path)) { $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_listing';Stage='entry';Accepted=$false;Reason='manager_entry_rejected';Message='Unverified PATH manager name excluded; installed-only listing requires verified physical registration.';Probe=$null}) }
     }
     $queries = New-Object 'Collections.Generic.List[object]'
     # Registration order cannot affect the bounded route budget or final selection.
@@ -310,25 +325,28 @@ function Resolve-WinBookSplitAutomaticPython {
     foreach ($path in $legacy) { $queries.Add([pscustomobject]@{Path=$path;Kind='Legacy';Source='py_launcher_listing'}) }
     $launchers = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
     foreach ($query in $queries) {
-        $probe = $null
+        $probe = $null; $stage = 'listing'
         try {
             $timeout = Get-WinBookSplitDiscoveryTimeout $clock $listingTimeout -Optional
             if ($timeout -eq 0) {
-                $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Accepted=$false;Message='Optional listing skipped at the overall discovery deadline; validated independent candidates retained.';Probe=$null})
+                $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Stage='listing';Accepted=$false;Reason='discovery_deadline';Message='Optional listing skipped at the overall discovery deadline; validated independent candidates retained.';Probe=$null})
                 break
             }
             if ($launchers.Count -ge 4) { throw 'Read-only discovery exceeds the four-launcher limit.' }
             $path = $query.Path
             if ($query.Kind -eq 'Legacy') {
+                $stage = 'entry'
                 $path = Get-WinBookSplitTrustedPath $path -Automatic
                 if (-not (Test-WinBookSplitAutomaticPath $path $ApplicationRoot $DocumentPath)) { throw 'Automatic launcher is in an excluded directory.' }
             }
             if (-not $launchers.Add($path)) { continue }
+            $stage = 'listing'
             if ($query.Kind -eq 'Manager') {
                 $probe = Invoke-WinBookSplitManagerListing -Registration $query.Registration -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath -TimeoutSeconds $timeout
             } else {
                 $probe = Invoke-WinBookSplitRuntimeProbe $path @('-0p') $ApplicationRoot $timeout
             }
+            if ($null -ne $probe -and -not [string]::IsNullOrWhiteSpace($probe.StartError)) { $stage = 'entry' }
             $paths = [string[]]@(ConvertFrom-WinBookSplitPythonListing $probe $query.Kind)
             [Array]::Sort($paths, [StringComparer]::Ordinal)
             $Attempts.Add([pscustomobject]@{Path=$path;Source=$query.Source;Stage='listing';Accepted=$true;Reason='installed_runtimes_listed';Message='Read-only installed-runtime listing; no runtime launch/install requested.';Probe=$probe})
@@ -337,15 +355,20 @@ function Resolve-WinBookSplitAutomaticPython {
         } catch {
             if (Test-WinBookSplitInterruption $_.Exception) { throw }
             $reason = 'launcher_listing_failed'; if ($query.Kind -eq 'Manager') { $reason = 'manager_listing_failed' }
+            if ($stage -eq 'entry') {
+                $reason = 'rejected_entry_point'
+                if ($query.Kind -eq 'Manager') { $reason = 'manager_entry_rejected' }
+            }
             if ($_.Exception.Data.Contains('Reason')) { $reason = $_.Exception.Data['Reason'] }
-            $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Stage='listing';Accepted=$false;Reason=$reason;Message=$_.Exception.Message;Probe=$probe})
+            if ($_.Exception.Data.Contains('Stage')) { $stage = $_.Exception.Data['Stage'] }
+            $Attempts.Add([pscustomobject]@{Path=$query.Path;Source=$query.Source;Stage=$stage;Accepted=$false;Reason=$reason;Message=$_.Exception.Message;Probe=$probe})
         }
     }
     for ($index = $processed; $index -lt $candidates.Count; $index++) {
         $candidate = $candidates[$index]
         $timeout = Get-WinBookSplitDiscoveryTimeout $clock $TimeoutSeconds -Optional
         if ($timeout -eq 0) {
-            $Attempts.Add([pscustomobject]@{Path=$candidate.Path;Source=$candidate.Source;Accepted=$false;Message='Optional listed candidate skipped at the overall discovery deadline; validated independent candidates retained.';Probe=$null})
+            $Attempts.Add([pscustomobject]@{Path=$candidate.Path;Source=$candidate.Source;Stage='probe';Accepted=$false;Reason='discovery_deadline';Message='Optional listed candidate skipped at the overall discovery deadline; validated independent candidates retained.';Probe=$null})
             break
         }
         try {
@@ -357,14 +380,17 @@ function Resolve-WinBookSplitAutomaticPython {
             if ($failure.Data['Code'] -eq 'processor_timeout' -and -not $failure.Data['FatalDiscovery'] -and
                 $null -ne $probe -and $probe.TimedOut -and -not $probe.Cancelled -and
                 $probe.ParentStopped -and $probe.DescendantsStopped -and -not $probe.StopError) {
-                $Attempts.Add([pscustomobject]@{Path=$candidate.Path;Source=$candidate.Source;Accepted=$false;Reason='runtime_probe_failed';Message='Optional listed interpreter timed out; its owned process tree was proved stopped and independent candidates were retained.';Probe=$probe})
+                $Attempts.Add([pscustomobject]@{Path=$candidate.Path;Source=$candidate.Source;Stage='probe';Accepted=$false;Reason='runtime_probe_failed';Message='Optional listed interpreter timed out; its owned process tree was proved stopped and independent candidates were retained.';Probe=$probe})
             } else { throw }
         }
     }
     $selected = Select-WinBookSplitPythonCandidate -Candidates $accepted -Policy $Policy
     if ($selected) {
-        $Attempts.Add([pscustomobject]@{Path=$selected.Path;Source='selection';Accepted=$true;Reason='supported';Message='Selected by policy branch preference, highest numeric stable patch, then ordinal canonical path.';Probe=$null})
+        $Attempts.Add([pscustomobject]@{Path=$selected.Path;Source='selection';Stage='selection';Accepted=$true;Reason='supported';Message='Selected by policy branch preference, highest numeric stable patch, then ordinal canonical path.';Probe=$null})
         $selected.Attempts = @($Attempts.ToArray())
+    }
+    elseif ($candidates.Count -eq 0) {
+        $Attempts.Add([pscustomobject]@{Path=$null;Source='discovery';Stage='discovery';Accepted=$false;Reason='no_candidates';Message='No concrete interpreter candidates passed discovery entry checks.';Probe=$null})
     }
     return $selected
 }
@@ -585,12 +611,12 @@ function Get-WinBookSplitPathCandidates {
             $candidate = [IO.Path]::Combine([IO.Path]::GetFullPath($directory), $Name)
             if ($seen.ContainsKey($candidate)) { continue }; $seen[$candidate] = $true
             if (-not (Test-WinBookSplitAutomaticPath $candidate $ApplicationRoot $DocumentPath)) {
-                $Attempts.Add([pscustomobject]@{ Path = $candidate; Source = 'PATH'; Accepted = $false; Message = 'Document-directory or unrelated-CWD candidate excluded.'; Probe = $null })
+                $Attempts.Add([pscustomobject]@{ Path = $candidate; Source = 'PATH'; Stage = 'entry'; Accepted = $false; Reason = 'rejected_entry_point'; Message = 'Document-directory or unrelated-CWD candidate excluded.'; Probe = $null })
                 continue
             }
             if ([IO.File]::Exists($candidate)) { $candidate }
         } catch {
-            $Attempts.Add([pscustomobject]@{ Path = $directory; Source = 'PATH'; Accepted = $false; Message = $_.Exception.Message; Probe = $null })
+            $Attempts.Add([pscustomobject]@{ Path = $directory; Source = 'PATH'; Stage = 'entry'; Accepted = $false; Reason = 'rejected_entry_point'; Message = $_.Exception.Message; Probe = $null })
         }
     }
 }
@@ -607,24 +633,27 @@ function Test-WinBookSplitPythonCandidate {
     param([string]$Path, [string]$Source, [string]$ApplicationRoot, $Attempts,
           [double]$TimeoutSeconds, [switch]$InterpreterOnly)
     $probe = $null
-    $reason = 'runtime_probe_failed'
+    $reason = 'rejected_entry_point'; $stage = 'entry'
     $pathAccepted = $false
     $observedVersion = $null; $identityVerified = $false
     try {
         $path = Get-WinBookSplitTrustedPath -Path $Path -Automatic:($Source -in @('PATH', 'py_launcher', 'manager', 'registry'))
         $pathAccepted = $true
+        $reason = 'malformed_policy'; $stage = 'identity'
         $policyPath = Get-WinBookSplitTrustedPath ([IO.Path]::Combine($ApplicationRoot, 'engine', 'WinBookSplit.Compatibility.json'))
         $policyIdentity = Get-WinBookSplitCompatibilityPolicy -PolicyPath $policyPath -WithIdentity
         $policy = $policyIdentity.Policy
         $helper = Get-WinBookSplitTrustedPath ([IO.Path]::Combine($ApplicationRoot, 'engine', 'winbooksplit_compatibility.py'))
         $arguments = @('-I', '-B', '-X', 'utf8', $helper, '--probe', '--policy', $policyPath)
         if ($InterpreterOnly) { $arguments += '--interpreter-only' }
+        $reason = 'runtime_probe_failed'; $stage = 'probe'
         $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments $arguments -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
         Assert-WinBookSplitDiscoveryStopped $probe
         Assert-WinBookSplitProbeNotInterrupted $probe
         if ($probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated) {
             throw 'The bounded interpreter probe did not complete safely.'
         }
+        $reason = 'malformed_runtime'; $stage = 'identity'
         $lines = @($probe.Stdout -split '\r?\n' | Where-Object { -not [string]::IsNullOrWhiteSpace($_) })
         if ($lines.Count -ne 1) { throw 'Expected one isolated interpreter JSON record.' }
         if (-not $lines[0].TrimStart().StartsWith('{')) { throw 'The interpreter JSON root must be an object.' }
@@ -664,23 +693,27 @@ function Test-WinBookSplitPythonCandidate {
         }
         if (-not $decision.Ok) {
             $reason = $decision.Reason
+            if ($reason -cnotin @('malformed_runtime','malformed_policy')) { $stage = 'compatibility' }
             throw ('Incompatible interpreter: ' + $decision.Message)
         }
         if (-not $record.ok -or $probe.ExitCode -ne 0) {
             $reason = $record.reason
+            $stage = 'package'
+            if ($reason -cin @('malformed_runtime','malformed_policy')) { $stage = 'identity' }
             throw ('Incompatible interpreter/dependency: ' + $record.message + ' Observed Python ' + $record.version + '.')
         }
         $pypdfVersion, $pypdfPath = $null, $null
         if (-not $InterpreterOnly) {
+            $stage = 'package'; $reason = 'pypdf_origin_invalid'
             foreach ($field in @('pypdf_version', 'pypdf_path')) {
                 if ($record.$field -isnot [string] -or [string]::IsNullOrWhiteSpace($record.$field)) { throw ('Interpreter JSON requires a nonempty scalar string: ' + $field) }
             }
-            if ($record.pypdf_version -cne $policy['pypdf']['version']) { throw 'The locked pypdf version was not imported.' }
+            if ($record.pypdf_version -cne $policy['pypdf']['version']) { $reason = 'pypdf_version_mismatch'; throw 'The locked pypdf version was not imported.' }
             $pypdfPath = Get-WinBookSplitTrustedPath $record.pypdf_path
             $pypdfVersion = $record.pypdf_version
         }
         $reason = 'supported'
-        $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Reason = $reason; Message = $record.message; Probe = $probe;
+        $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Stage = 'verified'; Accepted = $true; Reason = $reason; Message = $record.message; Probe = $probe;
             ObservedVersion = $observedVersion; IdentityVerified = $identityVerified })
         return [pscustomobject]@{ Path = $path; Version = $record.version; Source = $Source;
             PypdfVersion = $pypdfVersion; PypdfPath = $pypdfPath; PolicyVersion = $record.policy_version;
@@ -693,7 +726,7 @@ function Test-WinBookSplitPythonCandidate {
             while ($pathFailure.InnerException) { $pathFailure = $pathFailure.InnerException }
             if ($pathFailure -is [IO.FileNotFoundException] -or $pathFailure -is [IO.DirectoryNotFoundException]) { $reason = 'missing_python' }
         }
-        $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Reason = $reason; Message = $_.Exception.Message; Probe = $probe;
+        $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Stage = $stage; Accepted = $false; Reason = $reason; Message = $_.Exception.Message; Probe = $probe;
             ObservedVersion = $observedVersion; IdentityVerified = $identityVerified })
         return $null
     }
@@ -721,7 +754,7 @@ function Resolve-WinBookSplitRuntime {
         while ($failure.InnerException) { $failure = $failure.InnerException }
         if ($failure -is [IO.FileNotFoundException] -or $failure -is [IO.DirectoryNotFoundException]) { $venvExists = $false }
         else {
-            $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Accepted=$false;Message=$_.Exception.Message;Probe=$null})
+            $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Stage='venv';Accepted=$false;Reason='invalid_application_venv';Message=$_.Exception.Message;Probe=$null})
             throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Application .venv presence could not be checked safely. ' + $setup) $attempts)
         }
     }
@@ -729,7 +762,7 @@ function Resolve-WinBookSplitRuntime {
         $candidate = [IO.Path]::Combine($venv, 'Scripts\python.exe')
         try { $null = Get-WinBookSplitTrustedPath -Path $venv -Directory }
         catch {
-            $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Accepted=$false;Message=$_.Exception.Message;Probe=$null})
+            $attempts.Add([pscustomobject]@{Path=$venv;Source='application_venv';Stage='venv';Accepted=$false;Reason='invalid_application_venv';Message=$_.Exception.Message;Probe=$null})
             throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Application .venv is not a trusted ordinary directory: ' + $_.Exception.Message + ' ' + $setup) $attempts)
         }
         $selected = Test-WinBookSplitPythonCandidate $candidate 'application_venv' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly

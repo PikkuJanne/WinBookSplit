@@ -1,5 +1,18 @@
 # Testing: prove the route, not just the algorithm
 
+T04 adds maintained rejection-category, coherent summary, actual emitted setup
+Action/BAT, no-op/repair and MOTW/process-policy/privacy cases. These use owned
+explicit developer fixtures separately from native automatic discovery. The
+application-summary Action is executed unchanged against the healthy authoritative
+fixture venv after offline setup, not as fresh online application acceptance.
+Actual Windows11/python.org automatic processing and setup readiness consistently
+report the unchanged verified 3.14.7 security-floor rejection on PS5.1/PS7. See
+`evidence/T04.md` and source-bound receipts. Enforced organization-policy denial,
+native Store and owner Windows10 exact-ZIP evidence remain NOT_RUN/T07. The full
+shell test controller is bounded at 600 seconds per suite; production inner
+probe/setup deadlines are unchanged. Policy comparisons use the same host edition
+before/after; PS7 and inbox WindowsPowerShell persistent stores can differ.
+
 T03 extends maintained `Discovery.Tests.ps1` with descriptor-to-concrete-child
 regressions, strict manager line-format negatives, distinct empty/rejected/failed
 outcomes, optional-failure continuity, authority and a disposable real package-free

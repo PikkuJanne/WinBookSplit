@@ -1558,7 +1558,10 @@ def execute(args: argparse.Namespace) -> dict:
                 step = {"name": f"shell-{index}", "shell_executable": str(shell),
                         "process_policy_requested": "RemoteSigned (fresh child only)",
                         "builtin_module_path": shell_environment["PSModulePath"],
-                        **run_command(command, shell_work, environment=shell_environment)}
+                        # Native setup/action fixtures include several fresh
+                        # environments; bound the full suite separately from
+                        # each production probe/setup operation's own deadline.
+                        **run_command(command, shell_work, environment=shell_environment, timeout=600)}
                 attach_child_report(step, child_report, "shell")
                 steps.append(step)
         if not args.failure_probe and args.layer == "baseline":

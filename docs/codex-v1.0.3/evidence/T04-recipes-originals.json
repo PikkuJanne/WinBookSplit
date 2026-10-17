@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "task": "T04",
+  "scope": "Original local hashes are separate from normalized public-byte hashes. Final parallel600 runner only; old300 and overlapped600 observations are excluded.",
+  "hosts": {
+    "ps51": {
+      "run_root": "<T04_SHELL_PS51>",
+      "runner_original_name": "final-ps51.json",
+      "runner_raw_local_sha256": "ca10bee6a057c642fca79b03efbdbe6520eee0f710806a62c912eec26e9c86a3",
+      "receipts": [
+        {
+          "kind": "t04-verbatim-action",
+          "local_original_name": "setup-t04-verbatim-action-128fcd9d3e844dc4b06e0d86426ae6d5.json",
+          "raw_local_sha256": "f6e38018b5869acc0a4e9b6a19189e04885c2755f2e9ac05e7706134e5df9166",
+          "raw_size_bytes": 167961
+        },
+        {
+          "kind": "t04-bat-repair",
+          "local_original_name": "setup-t04-bat-repair-8271518a8f2a45d6926e71492ff6e1ad.json",
+          "raw_local_sha256": "c0c8a527add6fbc41084da354b0621f296f4c7f5fa84e2f956133d057307de57",
+          "raw_size_bytes": 200974
+        },
+        {
+          "kind": "t04-motw-policy",
+          "local_original_name": "setup-t04-motw-policy-df160302d97a484a8554a8c325b0be6f.json",
+          "raw_local_sha256": "b63082bbe60be142dcc26fc1e9d5802d844eaf8d73c1a66defcba32c94c335ec",
+          "raw_size_bytes": 121941
+        },
+        {
+          "kind": "t04-display-privacy",
+          "local_original_name": "setup-t04-display-privacy-5b09da2a603945c58b5d079631e9fadd.json",
+          "raw_local_sha256": "75dd569acffd1ddff3d0e6a05a586af11718b0133fda3cc8fcfcb91462114703",
+          "raw_size_bytes": 7648
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-0de9bc2685e54d509405a213338b10cc.json",
+          "raw_local_sha256": "702e7b60405ba6438a8b70736bdc889f24ac2d5333b552c858efb9640820cfe5",
+          "raw_size_bytes": 707
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-116e4f01fc494604b7144e3fe1ccfc47.json",
+          "raw_local_sha256": "42643a618dbb222d4a5e1f723a1355e7fb291578096de8b0d67663551554c73f",
+          "raw_size_bytes": 688
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-16bf5b46e2d041b4bc08f87d0271b87e.json",
+          "raw_local_sha256": "4e6433eaad0a11c94464e5cc1a4ce32b8d9a1bd5b58074a1cd4a4f718e3f6d6b",
+          "raw_size_bytes": 689
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-41025ce844cd436a96223f6f1874c4f2.json",
+          "raw_local_sha256": "2c8517743549fb83247f85cb6131e806dad19b0f214e36a740011530a80dc09b",
+          "raw_size_bytes": 558
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-4f3cf3013000494fb31b898b707256d5.json",
+          "raw_local_sha256": "c516ed08889426cc8aec6992da9d31a294031b36adf190e1ac22adaf3242b753",
+          "raw_size_bytes": 675
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-5b685a21dc844155ad0c9c444b379b37.json",
+          "raw_local_sha256": "450414359bb0d37e69a6e8a60d797720d1898b40158cd1a83b725016641f8a31",
+          "raw_size_bytes": 673
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-6b5d27f1b30040fba5ec48ab91c42aee.json",
+          "raw_local_sha256": "4187b56f950275ec14440533c29c76e3f82737a8cb28b3ff0f233fc83f2606e2",
+          "raw_size_bytes": 702
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-8e9904c4e7954d5ba81487aff4e5557c.json",
+          "raw_local_sha256": "78ef153ef3aa96c792f162e3b79502e197825fb9951392158945b2d316380861",
+          "raw_size_bytes": 688
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-a802b76ee35741749fe69f34d1e98509.json",
+          "raw_local_sha256": "4187b56f950275ec14440533c29c76e3f82737a8cb28b3ff0f233fc83f2606e2",
+          "raw_size_bytes": 702
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-be04fab3ab574165894e182e5db93db6.json",
+          "raw_local_sha256": "46823e70cabe1527e04a20e0b15395be6e0f1a0462dc43b6bbcce5ac05e8d80a",
+          "raw_size_bytes": 688
+        }
+      ]
+    },
+    "ps7": {
+      "run_root": "<T04_SHELL_PS7>",
+      "runner_original_name": "final-ps7.json",
+      "runner_raw_local_sha256": "cc299eb609ff1b904b1824c0eeeb78f7046d38df74223ec4f59ad4e6fb19ede1",
+      "receipts": [
+        {
+          "kind": "t04-verbatim-action",
+          "local_original_name": "setup-t04-verbatim-action-5c1dc8afc44546268e8ddd1f4314fe96.json",
+          "raw_local_sha256": "a0960a6349eb9b5701a77a941167de3399e34b36e835b7425aa31bccf54c15c2",
+          "raw_size_bytes": 130811
+        },
+        {
+          "kind": "t04-bat-repair",
+          "local_original_name": "setup-t04-bat-repair-1e6e0bbfd9334f04bb0f2fa34e650663.json",
+          "raw_local_sha256": "389dcc5980a86b0da01b2292d2069a449ef7f054269e7ca7b4a7454f03addfee",
+          "raw_size_bytes": 152476
+        },
+        {
+          "kind": "t04-motw-policy",
+          "local_original_name": "setup-t04-motw-policy-17f2b338001f43e5b8cd1f4d53026135.json",
+          "raw_local_sha256": "60c0392e1a8756eeac8d5b4cd2b2f039f4db7c5648c87c4cf079e835580f328d",
+          "raw_size_bytes": 92929
+        },
+        {
+          "kind": "t04-display-privacy",
+          "local_original_name": "setup-t04-display-privacy-5aac58cdcfe94020af881585e5084d8b.json",
+          "raw_local_sha256": "2f687d0c31b516b6d47ae9c7c5c1bdc793e1f65bcd835e8dad9aa8f4231fd371",
+          "raw_size_bytes": 5235
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-2bb28dda48e04a6bb9ac0f0d99c82e7b.json",
+          "raw_local_sha256": "7aa22a827d6938e9a0ee6cdf2a5ddb74c18df735c83c5032b34b52990da2dbfc",
+          "raw_size_bytes": 547
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-3092b9f1cd8048009d57bf397af726ef.json",
+          "raw_local_sha256": "9d087fd2ced162eb9703194f762ca2a3f65edabce30fe4454631b59b03f21701",
+          "raw_size_bytes": 632
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-479fbe3733e749dcade05d3e7e1bc673.json",
+          "raw_local_sha256": "ffdeea55b17c8d28a73ea8cfda6f3a2a50a59b95a1fd7469536104471e88b8e1",
+          "raw_size_bytes": 618
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-4f5946f805c1488687ebde4653e9d0d9.json",
+          "raw_local_sha256": "599d3ee26fc1a1f98d94111d9a357888b35df0c4e16c6cf1cb7968d84d805c7e",
+          "raw_size_bytes": 547
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-6d681408e7094a33b6c14ce1500b11b6.json",
+          "raw_local_sha256": "9d087fd2ced162eb9703194f762ca2a3f65edabce30fe4454631b59b03f21701",
+          "raw_size_bytes": 632
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-72cec528ce86424e8b7aa8a6e83ab2e2.json",
+          "raw_local_sha256": "41c763bbe6c4045cde081538c0e9137cc8e55ac3cc8376083c6ae423a0e9d178",
+          "raw_size_bytes": 508
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-7e755825022d4947b1fdfd288a56f25e.json",
+          "raw_local_sha256": "dd954c46fcbc9b2be31705fd7996a479b2e28bd50aad4bd60cd677a541adb64e",
+          "raw_size_bytes": 542
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-a436866837f24f3b9d74e9ffc6f4a76c.json",
+          "raw_local_sha256": "069c710f97961bc764c7394c017897e5aee76bca1b7908d6088b0eec77ee1283",
+          "raw_size_bytes": 637
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-d831e99567b34108b01b240e7a6bbf84.json",
+          "raw_local_sha256": "6c6e0302e1c7857c48ab3f98bbbec0a85243730d03e3ee371f551fb7121453c2",
+          "raw_size_bytes": 548
+        },
+        {
+          "kind": "invocation_control",
+          "local_original_name": "setup-control-f2d73b939a874eac882722a3e84ec854.json",
+          "raw_local_sha256": "02ba450f150eea018f06d32febfe9aa03078e35c5cb755e7f12858c9b3ab98a1",
+          "raw_size_bytes": 547
+        }
+      ]
+    }
+  },
+  "public_outputs": {
+    "ps51": {
+      "file": "T04-recipes-ps51.json",
+      "sha256": "b66c443f25b4d83cf4383eb48411287906202324d0ef338632513e08b8230a11",
+      "size_bytes": 361587
+    },
+    "ps7": {
+      "file": "T04-recipes-ps7.json",
+      "sha256": "eb0cbfe00e60b285b711d9b4399fe267f9d764d55b611968e2d131a5fde28561",
+      "size_bytes": 361142
+    }
+  }
+}

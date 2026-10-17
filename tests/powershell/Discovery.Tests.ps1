@@ -79,6 +79,138 @@ AfterAll {
     }
 }
 
+Describe 'T04 categorized discovery failures (SYNTHETIC routes)' -Tag 'STORE-019' {
+    It 'categorizes a rejected concrete entry without claiming interpreter failure' {
+        $attempts = New-Object 'Collections.Generic.List[object]'
+        $candidates = New-Object 'Collections.Generic.List[object]'
+        $seen = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+        Mock Test-WinBookSplitAutomaticPath { return $true }
+        Mock Get-WinBookSplitTrustedPath { throw 'SYNTHETIC unsafe alias or hardlink.' }
+        Add-WinBookSplitPythonDiscoveryCandidate 'C:\SYNTHETIC\python.exe' 'manager' $RepositoryRoot $null $candidates $seen $attempts
+        $attempts.Count | Should -Be 1
+        $attempts[0].Reason | Should -BeExactly 'rejected_entry_point'
+        $attempts[0].Stage | Should -BeExactly 'entry'
+        $attempts[0].Source | Should -BeExactly 'manager'
+        $attempts[0].Message | Should -BeExactly 'SYNTHETIC unsafe alias or hardlink.'
+        $candidates.Count | Should -Be 0
+    }
+    It 'keeps source stage and raw probe for verified compatibility and package failures' {
+        # A real supported child supplies the positive control. Mutations below
+        # are labelled SYNTHETIC identity/package records, never native acceptance.
+        $actual = Resolve-WinBookSplitRuntime -ApplicationRoot $RepositoryRoot -PythonPath $TestPython
+        $actual.Attempts[0].Stage | Should -BeExactly 'verified'
+        $script:categoryProbe = $actual.Probe
+        Mock Invoke-WinBookSplitRuntimeProbe { return $script:categoryProbe }
+        $cases = @(
+            @{Reason='unsupported_flavor';Stage='compatibility';Field='gil_disabled';Value=$true},
+            @{Reason='python_security_floor';Stage='compatibility';Field='version';Value='3.14.7'},
+            @{Reason='missing_pypdf';Stage='package';Field='reason';Value='missing_pypdf'},
+            @{Reason='malformed_runtime';Stage='identity';Field='executable';Value='C:\SYNTHETIC\different.exe'}
+        )
+        foreach ($case in $cases) {
+            $record = $actual.Probe.Stdout | ConvertFrom-Json
+            $record.($case.Field) = $case.Value
+            if ($case.Reason -eq 'python_security_floor') { $record.version_info = @(3,14,7) }
+            if ($case.Stage -eq 'package') { $record.ok=$false; $record.message='SYNTHETIC missing locked package.' }
+            $script:categoryProbe = New-DiscoveryProbe -Stdout ($record | ConvertTo-Json -Depth 8 -Compress) -ExitCode 1
+            $attempts = New-Object 'Collections.Generic.List[object]'
+            $result = Test-WinBookSplitPythonCandidate $TestPython 'manager' $RepositoryRoot $attempts 5
+            $result | Should -BeNullOrEmpty
+            $attempts.Count | Should -Be 1
+            $attempts[0].Reason | Should -BeExactly $case.Reason
+            $attempts[0].Stage | Should -BeExactly $case.Stage
+            $attempts[0].Source | Should -BeExactly 'manager'
+            [object]::ReferenceEquals($attempts[0].Probe,$script:categoryProbe) | Should -BeTrue
+        }
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 4 -Exactly
+    }
+    It 'separates rejected manager entries from rejected registration identities and failed queries' {
+        Mock Get-WinBookSplitTrustedPath { return $Path }
+        Mock Get-WinBookSplitManagerEntryPoint { throw 'SYNTHETIC invalid manager alias binding.' }
+        $script:categoryProbe = New-DiscoveryProbe -Stdout (New-DiscoveryManagerRegistration | ConvertTo-Json -Depth 8 -Compress)
+        Mock Invoke-WinBookSplitRuntimeProbe { return $script:categoryProbe }
+        $attempts = New-Object 'Collections.Generic.List[object]'
+        @(Get-WinBookSplitRegisteredManagerPaths $RepositoryRoot $null $attempts 2).Count | Should -Be 0
+        $attempts[0].QueryCompleted | Should -BeTrue
+        $attempts[0].Reason | Should -BeExactly 'manager_entry_rejected'
+        $attempts[0].Stage | Should -BeExactly 'entry'
+        $attempts[0].Source | Should -BeExactly 'manager_registration'
+        $record = New-DiscoveryManagerRegistration
+        $record.packages[0].Publisher='SYNTHETIC wrong publisher'
+        $script:categoryProbe = New-DiscoveryProbe -Stdout ($record | ConvertTo-Json -Depth 8 -Compress)
+        $attempts.Clear()
+        @(Get-WinBookSplitRegisteredManagerPaths $RepositoryRoot $null $attempts 2).Count | Should -Be 0
+        $attempts[0].QueryCompleted | Should -BeTrue
+        $attempts[0].Reason | Should -BeExactly 'manager_registration_rejected'
+        $attempts[0].Stage | Should -BeExactly 'registration'
+        $script:categoryProbe = New-DiscoveryProbe -ExitCode 2 -Stderr 'SYNTHETIC failed registration query.'
+        $attempts.Clear()
+        @(Get-WinBookSplitRegisteredManagerPaths $RepositoryRoot $null $attempts 2).Count | Should -Be 0
+        $attempts[0].QueryCompleted | Should -BeFalse
+        $attempts[0].Reason | Should -BeExactly 'manager_registration_failed'
+        $attempts[0].Stage | Should -BeExactly 'registration'
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 3 -Exactly
+        Should-Invoke Get-WinBookSplitManagerEntryPoint -Times 1 -Exactly
+    }
+    It 'distinguishes recognized empty manager listings from transport failures and no concrete candidates' {
+        $script:categoryDescriptor = New-DiscoveryManagerDescriptor
+        Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:categoryDescriptor) }
+        Mock Get-WinBookSplitPathCandidates { return @() }
+        Mock Invoke-WinBookSplitManagerListing { return $script:categoryProbe }
+        foreach ($exitCode in @(0,2)) {
+            $script:categoryProbe = New-DiscoveryProbe -ExitCode $exitCode
+            $attempts = New-Object 'Collections.Generic.List[object]'
+            $result = Resolve-WinBookSplitAutomaticPython $RepositoryRoot $null $attempts $script:discoveryPolicy
+            $result | Should -BeNullOrEmpty
+            $listing = @($attempts | Where-Object { $_.Source -ceq 'manager_listing' })
+            $listing.Count | Should -Be 1
+            $expected = 'manager_no_runtimes'; if ($exitCode -ne 0) { $expected='manager_listing_failed' }
+            $listing[0].Reason | Should -BeExactly $expected
+            $listing[0].Stage | Should -BeExactly 'listing'
+            [object]::ReferenceEquals($listing[0].Probe,$script:categoryProbe) | Should -BeTrue
+            $attempts[-1].Reason | Should -BeExactly 'no_candidates'
+            $attempts[-1].Stage | Should -BeExactly 'discovery'
+            $attempts[-1].Source | Should -BeExactly 'discovery'
+        }
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 2 -Exactly
+    }
+    It 'categorizes a pre-resume manager child rejection as entry failure with its raw probe' {
+        $script:categoryDescriptor = New-DiscoveryManagerDescriptor
+        Mock Get-WinBookSplitRegisteredManagerPaths { return @($script:categoryDescriptor) }
+        Mock Get-WinBookSplitPathCandidates { return @() }
+        $script:categoryProbe = New-DiscoveryProbe -ExitCode 1
+        $script:categoryProbe.StartError='SYNTHETIC manager package binding rejection before resume.'
+        $script:categoryProbe.JobAssigned=$false
+        $script:categoryProbe.StreamsComplete=$false
+        Mock Invoke-WinBookSplitManagerListing { return $script:categoryProbe }
+        $attempts = New-Object 'Collections.Generic.List[object]'
+        $null = Resolve-WinBookSplitAutomaticPython $RepositoryRoot $null $attempts $script:discoveryPolicy
+        $attempts[0].Reason | Should -BeExactly 'manager_entry_rejected'
+        $attempts[0].Stage | Should -BeExactly 'entry'
+        $attempts[0].Source | Should -BeExactly 'manager_listing'
+        [object]::ReferenceEquals($attempts[0].Probe,$script:categoryProbe) | Should -BeTrue
+        Should-Invoke Invoke-WinBookSplitManagerListing -Times 1 -Exactly
+    }
+    It 'categorizes authoritative missing explicit paths and structural invalid app environments' {
+        $app = New-DiscoveryApplication
+        Mock Resolve-WinBookSplitAutomaticPython { throw 'Automatic fallback must not occur.' }
+        try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app -PythonPath (Join-Path $app 'absent.exe'); throw 'Expected rejection.' }
+        catch {
+            $_.Exception.Data['Attempts'][0].Reason | Should -BeExactly 'missing_python'
+            $_.Exception.Data['Attempts'][0].Stage | Should -BeExactly 'entry'
+            $_.Exception.Data['Attempts'][0].Source | Should -BeExactly 'explicit'
+        }
+        [IO.File]::WriteAllText((Join-Path $app '.venv'),'SYNTHETIC invalid environment shape.')
+        try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app; throw 'Expected rejection.' }
+        catch {
+            $_.Exception.Data['Attempts'][0].Reason | Should -BeExactly 'invalid_application_venv'
+            $_.Exception.Data['Attempts'][0].Stage | Should -BeExactly 'venv'
+            $_.Exception.Data['Attempts'][0].Source | Should -BeExactly 'application_venv'
+        }
+        Should-Invoke Resolve-WinBookSplitAutomaticPython -Times 0 -Exactly
+    }
+}
+
 Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Tag 'V101-AC-017','V101-AC-018','V101-AC-020','V101-AC-023','STORE-015' {
     It 'parses legacy numeric and tagged lines with literal spaces and punctuation' {
         $text = " -V:PythonCore/3.14 * C:\Trusted Python\python.exe`r`n -3.13-64 C:\Other [&!]\python.exe`r`n"

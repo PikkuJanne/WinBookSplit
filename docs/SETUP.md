@@ -67,6 +67,23 @@ external processing runtime even when the application has no `.venv`. A compatib
 base interpreter without the locked package produces a setup-required result.
 Use the normal setup command above to create the application environment.
 
+Discovery reports a reason, stage and source for rejected routes. It distinguishes
+a rejected manager identity or entry point, a failed installed-runtime listing,
+a recognized manager with no runtimes, an interpreter policy rejection, and a
+missing or wrong-origin pypdf package. Failed alternatives remain in the local
+diagnostic record. A completed package query alone does not mean a manager or
+interpreter was accepted. A Python path/version is reported as observed only
+after its independent isolated identity check.
+
+Automatic discovery uses verified current-user Python Install Manager registration
+and its installed-only runtime listing. It does not install Python or change
+aliases. An existing compatible base without pypdf needs application setup; it
+does not need Python reinstallation. Follow the printed **Action (PowerShell)**
+verbatim in PowerShell. It quotes literal paths and may name a verified base for
+an explicit repair; `-Check` itself never executes that action. Keep the full
+structured records local because they can contain workstation paths and probe
+details. Human messages escape control characters.
+
 After script entry the setup command prints a `[SETUP]` JSON record with the
 actual selected runtime/reason and host executable/version/policy scopes. A host
 policy error before script entry has no setup record and is not a Python failure. Exit 0 means ready or completed;

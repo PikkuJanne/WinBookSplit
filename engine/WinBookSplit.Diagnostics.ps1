@@ -56,6 +56,102 @@ function Get-WinBookSplitSetupCommand {
     return $command
 }
 
+function ConvertTo-WinBookSplitDiagnosticDisplayText {
+    param([AllowNull()][string]$Text)
+    return [regex]::Replace([string]$Text, '[\x00-\x1f\x7f-\x9f\u2028\u2029]', {
+        param($match)
+        '\u{0:x4}' -f [int][char]$match.Value
+    })
+}
+
+function Get-WinBookSplitDiscoverySummary {
+    param($Attempts, $Policy, [string]$Code, [string]$FailureReason)
+    # Choose one failure before describing it. Only fixed categories enter the
+    # human summary; raw messages, paths and transport records stay local.
+    $categories = @{
+        missing_python=@(0,'entry','No usable Python interpreter was found.')
+        no_candidates=@(0,'discovery','No Python interpreter candidates were found.')
+        manager_not_registered=@(0,'registration','No registered Python Install Manager was found.')
+        rejected_entry_point=@(10,'entry','A Python discovery entry point was rejected by the path safety checks.')
+        discovery_rejected=@(10,'discovery','Python discovery found a candidate or route that could not be validated.')
+        manager_registration_failed=@(20,'registration','The registered Python Install Manager query failed.')
+        manager_registration_rejected=@(21,'registration','The registered Python Install Manager identity was rejected.')
+        manager_entry_rejected=@(22,'entry','The registered Python Install Manager entry point could not be verified.')
+        manager_listing_failed=@(30,'listing','The verified Python Install Manager could not list installed runtimes.')
+        launcher_listing_failed=@(30,'listing','The Python launcher could not list installed runtimes.')
+        manager_no_runtimes=@(31,'listing','The verified Python Install Manager reported no installed runtimes.')
+        launcher_no_runtimes=@(31,'listing','The Python launcher reported no installed runtimes.')
+        discovery_deadline=@(32,'discovery','An optional discovery route was skipped at the discovery deadline.')
+        runtime_probe_failed=@(40,'probe','The selected dependency could not be checked safely.')
+        malformed_runtime=@(41,'identity','The selected interpreter did not provide a valid isolated runtime identity.')
+        unsupported_python=@(50,'compatibility','The selected Python branch is outside the reviewed compatibility policy.')
+        unsupported_architecture=@(50,'compatibility','The selected Python is not regular Windows x64 Python.')
+        unsupported_flavor=@(50,'compatibility','The selected Python is not regular GIL-enabled CPython.')
+        unstable_python=@(50,'compatibility','The selected Python is not a stable final release.')
+        python_compatibility_floor=@(51,'compatibility','The selected Python is below the supported maintenance version.')
+        python_security_floor=@(51,'compatibility','The selected Python is excluded by the reviewed security policy.')
+        missing_pypdf=@(60,'package','The required pypdf package is missing or cannot be imported.')
+        pypdf_version_mismatch=@(60,'package','The installed pypdf version does not match the application lock.')
+        pypdf_origin_invalid=@(60,'package',"The pypdf package did not come from the selected environment's trusted package directory.")
+        invalid_application_venv=@(70,'venv','The existing application .venv could not be validated and was preserved.')
+        malformed_policy=@(80,'policy','The shipped compatibility policy is missing or invalid.')
+    }
+    $sources=@('explicit','application_venv','PATH','manager','py_launcher','registry',
+        'manager_registration','manager_listing','py_launcher_listing','discovery')
+    $stages=@('entry','registration','listing','discovery','probe','identity','compatibility','package','venv','policy')
+    $rejections=@(foreach ($attempt in @($Attempts)) {
+        if ($null -eq $attempt) { continue }
+        $fields=@($attempt.PSObject.Properties.Name)
+        if ($fields -contains 'Accepted' -and $attempt.Accepted -is [bool] -and $attempt.Accepted) { continue }
+        $reason='discovery_rejected'
+        if ($fields -contains 'Reason' -and $attempt.Reason -is [string] -and $attempt.Reason -cin @($categories.Keys)) { $reason=$attempt.Reason }
+        $source='discovery';if ($fields -contains 'Source' -and $attempt.Source -is [string] -and $attempt.Source -cin $sources) {$source=$attempt.Source}
+        $stage=$categories[$reason][1]
+        if ($fields -contains 'Stage' -and $attempt.Stage -is [string] -and $attempt.Stage -cin $stages) {$stage=$attempt.Stage}
+        [pscustomobject]@{Reason=$reason;Stage=$stage;Source=$source;Attempt=$attempt;Rank=$categories[$reason][0]}
+    })
+    $selected=$null
+    foreach ($authority in @('explicit','application_venv')) {
+        $matches=@($rejections | Where-Object {$_.Source -ceq $authority})
+        if ($matches.Count -gt 0) {$selected=$matches[0];break}
+    }
+    if ($null -eq $selected -and $null -ne $Policy) {
+        $candidates=@(foreach ($item in $rejections) {
+            $attempt=$item.Attempt
+            if ($item.Reason -cin @('missing_pypdf','pypdf_version_mismatch','pypdf_origin_invalid') -and
+                $attempt.PSObject.Properties.Name -contains 'IdentityVerified' -and $attempt.IdentityVerified -is [bool] -and $attempt.IdentityVerified -and
+                $attempt.PSObject.Properties.Name -contains 'ObservedVersion' -and $attempt.ObservedVersion -is [string] -and
+                $attempt.PSObject.Properties.Name -contains 'Path' -and $attempt.Path -is [string]) {
+                [pscustomobject]@{Path=$attempt.Path;Version=$attempt.ObservedVersion;Item=$item}
+            }
+        })
+        $preferred=Select-WinBookSplitPythonCandidate -Candidates $candidates -Policy $Policy
+        if ($preferred) {$selected=$preferred.Item}
+    }
+    if ($null -eq $selected) {
+        foreach ($item in $rejections) {
+            if ($null -eq $selected -or $item.Rank -gt $selected.Rank) {$selected=$item}
+        }
+    }
+    $reason='runtime_probe_failed';$stage='probe';$source='discovery';$relevant=$null
+    if ($null -ne $selected) {$reason=$selected.Reason;$stage=$selected.Stage;$source=$selected.Source;$relevant=$selected.Attempt}
+    elseif ($Code -ceq 'runtime_not_found') {$reason='missing_python';$stage='discovery'}
+    # A top-level policy failure has no candidate; it must remain authoritative.
+    if ($FailureReason -ceq 'malformed_policy' -or ($null -eq $selected -and $FailureReason -cin @($categories.Keys))) {
+        $reason=$FailureReason;$stage=$categories[$reason][1]
+    }
+    if ($reason -cin @('no_candidates','manager_not_registered')) {$reason='missing_python'}
+    $observedPath=$null;$observedVersion=$null;$observedSource=$null
+    if ($null -ne $relevant -and $relevant.PSObject.Properties.Name -contains 'IdentityVerified' -and $relevant.IdentityVerified -is [bool] -and $relevant.IdentityVerified -and
+        $relevant.PSObject.Properties.Name -contains 'ObservedVersion' -and $relevant.ObservedVersion -is [string] -and
+        $relevant.PSObject.Properties.Name -contains 'Path' -and $relevant.Path -is [string]) {
+        $observedPath=$relevant.Path;$observedVersion=$relevant.ObservedVersion;$observedSource=$source
+    }
+    return [pscustomobject]@{Reason=$reason;Stage=$stage;Source=$source;Message=$categories[$reason][2];Relevant=$relevant;
+        ObservedPath=$observedPath;ObservedVersion=$observedVersion;ObservedSource=$observedSource;
+        Rejections=@($rejections | ForEach-Object {[pscustomobject]@{Reason=$_.Reason;Stage=$_.Stage;Source=$_.Source}})}
+}
+
 function Assert-SplitPreviewSourceIdentity {
     param($Identity, [string]$Binding)
     if ($null -eq $Identity) { throw 'Missing preview source identity.' }

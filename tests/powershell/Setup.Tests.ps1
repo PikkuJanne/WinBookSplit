@@ -9,6 +9,11 @@ BeforeAll {
     $hostFunctions=@($setupAst.FindAll({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -ceq 'Get-WinBookSplitSetupHostObservation'},$true))
     if($hostFunctions.Count -ne 1){throw 'Expected one trusted setup host observation function.'}
     . ([scriptblock]::Create($hostFunctions[0].Extent.Text))
+    $applicationAst=[Management.Automation.Language.Parser]::ParseFile((Join-Path $RepositoryRoot 'WinBookSplit.ps1'),[ref]$tokens,[ref]$parseErrors)
+    if(@($parseErrors).Count -ne 0){throw 'The trusted application has syntax errors.'}
+    $summaryFunctions=@($applicationAst.FindAll({param($node) $node -is [Management.Automation.Language.FunctionDefinitionAst] -and $node.Name -ceq 'Get-WinBookSplitDependencySummary'},$true))
+    if($summaryFunctions.Count -ne 1){throw 'Expected one trusted application dependency summary function.'}
+    . ([scriptblock]::Create($summaryFunctions[0].Extent.Text))
     if (-not [IO.File]::Exists($TestPython)) { throw 'Setup tests require a concrete accepted TestPython.' }
     if (-not [IO.Directory]::Exists($Wheelhouse)) { throw 'Setup tests require an explicit reviewed Wheelhouse; set WBS_TEST_WHEELHOUSE.' }
     $script:setupPolicy=Get-WinBookSplitCompatibilityPolicy
@@ -26,10 +31,12 @@ BeforeAll {
     }
     (Get-SetupFileDigest $script:setupWheel) | Should -BeExactly $script:setupPolicy.pypdf.wheel_sha256
     function New-SetupApplication {
-        $app=Join-Path $TestDrive ('a'+[guid]::NewGuid().ToString('N').Substring(0,12))
+        param([string]$Name)
+        if ([string]::IsNullOrWhiteSpace($Name)) { $Name='a'+[guid]::NewGuid().ToString('N').Substring(0,12) }
+        $app=Join-Path $TestDrive $Name
         $engine=Join-Path $app 'engine'
         $null=New-Item -ItemType Directory -Path $engine
-        foreach ($name in @('Setup-WinBookSplit.ps1','requirements.txt')) {
+        foreach ($name in @('Setup-WinBookSplit.ps1','Setup-WinBookSplit.bat','requirements.txt')) {
             Copy-Item -LiteralPath (Join-Path $RepositoryRoot $name) -Destination $app
         }
         foreach ($name in @('WinBookSplit.Setup.ps1','WinBookSplit.Runtime.ps1','WinBookSplit.Process.ps1','WinBookSplit.Diagnostics.ps1',
@@ -72,10 +79,301 @@ BeforeAll {
         $path=Join-Path $WorkRoot ('setup-'+$Name+'-'+[guid]::NewGuid().ToString('N')+'.json')
         [IO.File]::WriteAllText($path,($Result | ConvertTo-Json -Depth 16),(New-Object Text.UTF8Encoding($false)))
     }
+    function Read-SetupFrontendResult {
+        param($Probe)
+        $Probe.ParentStopped | Should -BeTrue
+        $Probe.DescendantsStopped | Should -BeTrue
+        $Probe.StreamsComplete | Should -BeTrue
+        $Probe.TimedOut | Should -BeFalse
+        $frames=@([regex]::Matches($Probe.Stdout,'(?m)^\[SETUP\] ([^\r\n]+)'))
+        $frames.Count | Should -Be 1
+        $record=$frames[0].Groups[1].Value | ConvertFrom-Json
+        $record.exit_code | Should -Be $Probe.ExitCode
+        return $record
+    }
+    function Invoke-SetupOwnedRecipe {
+        param([string]$WorkingDirectory,[string]$Action,[string]$Bat,[string[]]$Arguments,[string]$DirectScript)
+        # The command is captured only from the current owned frontend. Other
+        # paths/argument vectors remain JSON data, never interpolated shell code.
+        $control=Join-Path $WorkRoot ('setup-control-'+[guid]::NewGuid().ToString('N')+'.json')
+        $driver=Join-Path $WorkRoot ('setup-recipe-'+[guid]::NewGuid().ToString('N')+'.ps1')
+        $data=[ordered]@{action=$Action;bat=$Bat;arguments=@($Arguments);direct_script=$DirectScript}
+        [IO.File]::WriteAllText($control,($data | ConvertTo-Json -Depth 4),(New-Object Text.UTF8Encoding($false)))
+        $source=@'
+param([string]$Control)
+$ErrorActionPreference='Stop'
+[Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)
+$p=[IO.File]::ReadAllText($Control)|ConvertFrom-Json
+$before=@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
+Write-Host ('[POLICY_BEFORE] '+($before|ConvertTo-Json -Compress))
+$code=1
+try {
+    if (-not [string]::IsNullOrEmpty($p.action)) {
+        # Preserve the emitted text as the executed command. The parent already
+        # verifies its finite literal AST and source before writing this control.
+        Write-Host ('[EXACT_ACTION] '+([string]$p.action))
+        & ([scriptblock]::Create([string]$p.action))
+        $code=$LASTEXITCODE
+    } elseif (-not [string]::IsNullOrEmpty($p.bat)) {
+        & ([string]$p.bat) @([string[]]$p.arguments)
+        $code=$LASTEXITCODE
+    } else {
+        try { & ([string]$p.direct_script) @([string[]]$p.arguments);$code=$LASTEXITCODE }
+        catch [Management.Automation.PSSecurityException] {
+            Write-Host '[DIRECT_POLICY_DENIAL] PSSecurityException'
+            $code=1
+        }
+    }
+} finally {
+    $after=@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
+    Write-Host ('[POLICY_AFTER] '+($after|ConvertTo-Json -Compress))
+}
+exit $code
+'@
+        [IO.File]::WriteAllText($driver,$source,(New-Object Text.UTF8Encoding($true)))
+        $hostPath=(Get-WinBookSplitSetupHostObservation).executable
+        $probe=Invoke-WinBookSplitProcess -Path $hostPath -Arguments @('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',$driver,'-Control',$control) -WorkingDirectory $WorkingDirectory -TimeoutSeconds 120
+        $probe.ParentStopped | Should -BeTrue
+        $probe.DescendantsStopped | Should -BeTrue
+        $probe.StreamsComplete | Should -BeTrue
+        $probe.TimedOut | Should -BeFalse
+        return $probe
+    }
+    function Assert-SetupActionLiterals {
+        param([string]$Action,[string]$App,[string]$Base,[string]$Wheels,[switch]$Repair)
+        $tokens=$null;$errors=$null
+        $ast=[Management.Automation.Language.Parser]::ParseInput($Action,[ref]$tokens,[ref]$errors)
+        @($errors).Count | Should -Be 0
+        $ast.EndBlock.Statements.Count | Should -Be 1
+        $pipeline=$ast.EndBlock.Statements[0]
+        $pipeline | Should -BeOfType Management.Automation.Language.PipelineAst
+        $pipeline.PipelineElements.Count | Should -Be 1
+        $command=$pipeline.PipelineElements[0]
+        $command | Should -BeOfType Management.Automation.Language.CommandAst
+        $command.InvocationOperator.ToString() | Should -BeExactly 'Ampersand'
+        @($command.Redirections).Count | Should -Be 0
+        $values=@(foreach($element in $command.CommandElements) {
+            if ($element -is [Management.Automation.Language.StringConstantExpressionAst]) { [string]$element.Value }
+            elseif ($element -is [Management.Automation.Language.CommandParameterAst] -and $null -eq $element.Argument) { '-'+$element.ParameterName }
+            else { throw 'An emitted setup command must contain only literal command elements.' }
+        })
+        $hostPath=Join-Path ([Environment]::GetFolderPath([Environment+SpecialFolder]::System)) 'WindowsPowerShell\v1.0\powershell.exe'
+        $expected=@($hostPath,'-NoProfile','-ExecutionPolicy','Bypass','-File',(Join-Path $App 'Setup-WinBookSplit.ps1'),'-NonInteractive')
+        if ($Repair) { $expected+='-Repair' }
+        $expected+=@('-PythonPath',$Base)
+        if (-not [string]::IsNullOrWhiteSpace($Wheels)) { $expected+=@('-Wheelhouse',$Wheels) }
+        ($values|ConvertTo-Json -Compress) | Should -BeExactly ($expected|ConvertTo-Json -Compress)
+    }
+    function Assert-SetupRecipePolicies {
+        param($Probe)
+        $before=[regex]::Match($Probe.Stdout,'(?m)^\[POLICY_BEFORE\] ([^\r\n]+)').Groups[1].Value
+        $after=[regex]::Match($Probe.Stdout,'(?m)^\[POLICY_AFTER\] ([^\r\n]+)').Groups[1].Value
+        $before | Should -Not -BeNullOrEmpty
+        $after | Should -BeExactly $before
+        $scopes=ConvertFrom-Json -InputObject $before
+        @($scopes|Where-Object {$_.scope -eq 'Process'})[0].policy | Should -BeExactly 'RemoteSigned'
+    }
     $script:healthySetupApp=New-SetupApplication
 }
 
+Describe 'T04 exact emitted setup and native BAT contracts in explicit developer fixtures' -Tag 'STORE-021','STORE-022','STORE-023','STORE-024' {
+    BeforeAll {
+        # A disposable package-free developer base is intentionally explicit.
+        # It is not the existing-Store automatic-discovery acceptance scenario.
+        $script:bareSetupRoot=Join-Path $TestDrive 'base without packages'
+        $create=Invoke-WinBookSplitProcess -Path $TestPython -Arguments @('-I','-B','-m','venv','--without-pip',$script:bareSetupRoot) -WorkingDirectory $TestDrive -TimeoutSeconds 60
+        $create.ExitCode | Should -Be 0
+        $create.ParentStopped | Should -BeTrue
+        $create.DescendantsStopped | Should -BeTrue
+        $script:bareSetupPython=Join-Path $script:bareSetupRoot 'Scripts\python.exe'
+        $script:setupUnrelated=Join-Path $TestDrive ('cwd '+[char]0xc5+[char]0x65e5)
+        $null=New-Item -ItemType Directory -Path $script:setupUnrelated
+        $script:spacedSetupWheels=Join-Path $TestDrive ('wheels '+[char]0xc5+" O'Brien")
+        $null=New-Item -ItemType Directory -Path $script:spacedSetupWheels
+        Copy-Item -LiteralPath $script:setupWheel -Destination $script:spacedSetupWheels
+    }
+    It 'executes the actual printed Check action verbatim, then repeats it as a healthy no-op' {
+        $app=New-SetupApplication -Name ('action '+[char]0xc5+[char]0x65e5+" O'Brien & [1]")
+        $before=Get-SetupSnapshot $app
+        $hostPath=(Get-WinBookSplitSetupHostObservation).executable
+        $checkProbe=Invoke-WinBookSplitProcess -Path $hostPath -Arguments @('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',(Join-Path $app 'Setup-WinBookSplit.ps1'),'-NonInteractive','-Check','-PythonPath',$script:bareSetupPython,'-Wheelhouse',$script:spacedSetupWheels) -WorkingDirectory $script:setupUnrelated -TimeoutSeconds 60
+        $check=Read-SetupFrontendResult $checkProbe
+        $check.code | Should -BeExactly 'setup_required'
+        $check.reason | Should -BeExactly 'missing_pypdf'
+        $check.stage | Should -BeExactly 'package'
+        $check.source | Should -BeExactly 'explicit'
+        $check.observed_python | Should -BeExactly $script:bareSetupPython
+        $check.observed_version | Should -BeExactly $script:setupExpectedVersion
+        $check.observed_source | Should -BeExactly 'explicit'
+        $check.selected_version | Should -BeExactly $script:setupExpectedVersion
+        $check.message.Contains($check.action) | Should -BeTrue
+        Assert-SetupActionLiterals $check.action $app $script:bareSetupPython $script:spacedSetupWheels
+        Assert-SetupNoMutation $app $before
+        $processingFailure=$null
+        try { $null=Resolve-WinBookSplitRuntime -ApplicationRoot $app -PythonPath $script:bareSetupPython }
+        catch { $processingFailure=$_.Exception }
+        $processingFailure | Should -Not -BeNullOrEmpty
+        $applicationSummary=Get-WinBookSplitDependencySummary -Failure $processingFailure -ApplicationRoot $app -PythonPath $script:bareSetupPython
+        $applicationSummary.Reason | Should -BeExactly 'missing_pypdf'
+        $applicationSummary.Stage | Should -BeExactly 'package'
+        $applicationSummary.Source | Should -BeExactly 'explicit'
+        $applicationSummary.ObservedVersion | Should -BeExactly $script:setupExpectedVersion
+        $applicationSummary.ActionIsCommand | Should -BeTrue
+        Assert-SetupActionLiterals -Action $applicationSummary.Action -App $app -Base $script:bareSetupPython
+        Assert-SetupNoMutation $app $before
+        $firstProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Action $check.action
+        $first=Read-SetupFrontendResult $firstProbe
+        $first.code | Should -BeExactly 'setup_complete'
+        $first.changed | Should -BeTrue
+        $firstProbe.Stdout.Contains('[EXACT_ACTION] '+$check.action) | Should -BeTrue
+        Assert-SetupRecipePolicies $firstProbe
+        $healthy=Get-SetupSnapshot $app
+        $secondProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Action $check.action
+        $second=Read-SetupFrontendResult $secondProbe
+        $second.code | Should -BeExactly 'setup_ready'
+        $second.changed | Should -BeFalse
+        @($second.operations).Count | Should -Be 0
+        Get-SetupSnapshot $app | Should -BeExactly $healthy
+        Assert-SetupRecipePolicies $secondProbe
+        # The application's own emitted Action has no offline-wheel option.
+        # Execute it verbatim against the now-healthy authoritative .venv: this
+        # proves the recipe while healthy no-op rules prohibit package activity.
+        $applicationActionProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Action $applicationSummary.Action
+        $applicationAction=Read-SetupFrontendResult $applicationActionProbe
+        $applicationAction.code | Should -BeExactly 'setup_ready'
+        $applicationAction.changed | Should -BeFalse
+        @($applicationAction.operations).Count | Should -Be 0
+        Get-SetupSnapshot $app | Should -BeExactly $healthy
+        Assert-SetupRecipePolicies $applicationActionProbe
+        Write-SetupObservation 't04-verbatim-action' ([pscustomobject]@{scope='EXPLICIT_DEVELOPER_FIXTURE_NOT_STORE_GATE';check_probe=$checkProbe;check=$check;action=$check.action;first_probe=$firstProbe;first=$first;second_probe=$secondProbe;second=$second;application_summary=$applicationSummary;application_action_probe=$applicationActionProbe;application_action=$applicationAction})
+    }
+    It 'forwards all setup BAT options and exits from unrelated Unicode CWD while preserving an explicitly repaired old environment' {
+        $app=New-SetupApplication -Name ('bat '+[char]0xc5+[char]0x65e5+" O'Brien & [1]")
+        $null=New-Item -ItemType Directory -Path (Join-Path $app '.venv\Scripts')
+        [IO.File]::WriteAllText((Join-Path $app '.venv\preserve-old.txt'),'Authored old BAT environment must survive.')
+        $old=Get-SetupSnapshot (Join-Path $app '.venv')
+        $arguments=@('-NonInteractive','-PythonPath',$script:bareSetupPython,'-Wheelhouse',$script:spacedSetupWheels)
+        $bat=Join-Path $app 'Setup-WinBookSplit.bat'
+        $rejectProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Bat $bat -Arguments $arguments
+        $rejected=Read-SetupFrontendResult $rejectProbe
+        $rejectProbe.ExitCode | Should -Be 3
+        $rejected.code | Should -BeExactly 'setup_repair_required'
+        Get-SetupSnapshot (Join-Path $app '.venv') | Should -BeExactly $old
+        Assert-SetupActionLiterals $rejected.action $app $script:bareSetupPython $script:spacedSetupWheels -Repair
+        # Execute the actual displayed repair Action before independently testing
+        # BAT's Repair forwarding against another owned broken environment.
+        $repairActionProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Action $rejected.action
+        $repairAction=Read-SetupFrontendResult $repairActionProbe
+        $repairAction.code | Should -BeExactly 'setup_complete'
+        Get-SetupSnapshot $repairAction.backup_path | Should -BeExactly $old
+        $batApp=New-SetupApplication -Name ('repair bat '+[char]0xc5)
+        $null=New-Item -ItemType Directory -Path (Join-Path $batApp '.venv\Scripts')
+        [IO.File]::WriteAllText((Join-Path $batApp '.venv\preserve-old.txt'),'Authored old BAT environment must survive.')
+        $batOld=Get-SetupSnapshot (Join-Path $batApp '.venv')
+        $bat=Join-Path $batApp 'Setup-WinBookSplit.bat'
+        $repairProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Bat $bat -Arguments ($arguments+@('-Repair'))
+        $repaired=Read-SetupFrontendResult $repairProbe
+        $repairProbe.ExitCode | Should -Be 0
+        $repaired.code | Should -BeExactly 'setup_complete'
+        Get-SetupSnapshot $repaired.backup_path | Should -BeExactly $batOld
+        $healthy=Get-SetupSnapshot $batApp
+        $checkProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Bat $bat -Arguments ($arguments+@('-Check'))
+        $check=Read-SetupFrontendResult $checkProbe
+        $check.code | Should -BeExactly 'setup_ready'
+        $check.changed | Should -BeFalse
+        @($check.operations).Count | Should -Be 0
+        Get-SetupSnapshot $batApp | Should -BeExactly $healthy
+        foreach($probe in @($rejectProbe,$repairActionProbe,$repairProbe,$checkProbe)){Assert-SetupRecipePolicies $probe}
+        Write-SetupObservation 't04-bat-repair' ([pscustomobject]@{scope='EXPLICIT_DEVELOPER_FIXTURE_NOT_STORE_GATE';rejected_probe=$rejectProbe;rejected=$rejected;repair_action_probe=$repairActionProbe;repair_action=$repairAction;bat_repair_probe=$repairProbe;bat_repair=$repaired;bat_check_probe=$checkProbe;bat_check=$check;old_preserved=$true})
+    }
+    It 'retains real MOTW through RemoteSigned direct denial and process-only BAT Check invocation' {
+        $app=New-SetupApplication
+        $marks=@(foreach($file in Get-ChildItem -LiteralPath $app -Filter '*.ps1' -File -Recurse) {
+            $ads="[ZoneTransfer]`r`nZoneId=3`r`n"
+            Set-Content -LiteralPath $file.FullName -Stream Zone.Identifier -Value $ads -Encoding ASCII -NoNewline
+            [pscustomobject]@{path=$file.FullName;ads=$ads;sha256=Get-SetupFileDigest $file.FullName}
+        })
+        $marks.Count | Should -BeGreaterThan 3
+        $before=Get-SetupSnapshot $app
+        $arguments=@('-NonInteractive','-Check','-PythonPath',$script:bareSetupPython,'-Wheelhouse',$script:spacedSetupWheels)
+        $denied=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -DirectScript (Join-Path $app 'Setup-WinBookSplit.ps1') -Arguments $arguments
+        $denied.ExitCode | Should -Be 1
+        $denied.Stdout | Should -Match '\[DIRECT_POLICY_DENIAL\] PSSecurityException'
+        $denied.Stdout | Should -Not -Match '(?m)^\[SETUP\] '
+        Assert-SetupNoMutation $app $before
+        # PowerShell Core and inbox Windows PowerShell can read different
+        # persistent policy stores. Observe the actual inbox host separately;
+        # compare each process only with its own policy domain.
+        $inboxHost=Join-Path ([Environment]::GetFolderPath([Environment+SpecialFolder]::System)) 'WindowsPowerShell\v1.0\powershell.exe'
+        $inboxPolicyScript=Join-Path $WorkRoot ('setup-inbox-policy-'+[guid]::NewGuid().ToString('N')+'.ps1')
+        $inboxPolicySource="[Console]::OutputEncoding=New-Object Text.UTF8Encoding(`$false)`r`n"+$hostFunctions[0].Extent.Text+"`r`nWrite-Host ('[INBOX_POLICY] '+(Get-WinBookSplitSetupHostObservation|ConvertTo-Json -Depth 6 -Compress))`r`n"
+        [IO.File]::WriteAllText($inboxPolicyScript,$inboxPolicySource,(New-Object Text.UTF8Encoding($true)))
+        $inboxPolicyProbe=Invoke-WinBookSplitProcess -Path $inboxHost -Arguments @('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',$inboxPolicyScript) -WorkingDirectory $script:setupUnrelated -TimeoutSeconds 60
+        $inboxPolicyProbe.ExitCode | Should -Be 0
+        $inboxPolicyProbe.ParentStopped | Should -BeTrue
+        $inboxPolicyProbe.DescendantsStopped | Should -BeTrue
+        $inboxPolicyProbe.StreamsComplete | Should -BeTrue
+        $inboxPolicyFrames=@([regex]::Matches($inboxPolicyProbe.Stdout,'(?m)^\[INBOX_POLICY\] ([^\r\n]+)'))
+        $inboxPolicyFrames.Count | Should -Be 1
+        $inboxPolicy=$inboxPolicyFrames[0].Groups[1].Value|ConvertFrom-Json
+        $inboxPolicy.executable | Should -BeExactly $inboxHost
+        $inboxPolicy.edition | Should -BeExactly 'Desktop'
+        $inboxPolicy.version | Should -Match '\A5\.1\.'
+        $inboxPolicy.execution_policy.status | Should -BeExactly 'observed'
+        $batProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Bat (Join-Path $app 'Setup-WinBookSplit.bat') -Arguments $arguments
+        $checked=Read-SetupFrontendResult $batProbe
+        $batProbe.ExitCode | Should -Be 3
+        $checked.code | Should -BeExactly 'setup_required'
+        $checked.changed | Should -BeFalse
+        @($checked.operations).Count | Should -Be 0
+        $checked.host.execution_policy.effective | Should -BeExactly 'Bypass'
+        foreach($scope in @('MachinePolicy','UserPolicy','Process','CurrentUser','LocalMachine')) {
+            $childPolicy=@($checked.host.execution_policy.scopes | Where-Object {$_.scope -eq $scope})[0].policy
+            if ($scope -eq 'Process') { $childPolicy | Should -BeExactly 'Bypass' }
+            else { $childPolicy | Should -BeExactly @($inboxPolicy.execution_policy.scopes | Where-Object {$_.scope -eq $scope})[0].policy }
+        }
+        Assert-SetupNoMutation $app $before
+        Assert-SetupActionLiterals $checked.action $app $script:bareSetupPython $script:spacedSetupWheels
+        $actionProbe=Invoke-SetupOwnedRecipe -WorkingDirectory $script:setupUnrelated -Action $checked.action
+        $installed=Read-SetupFrontendResult $actionProbe
+        $installed.code | Should -BeExactly 'setup_complete'
+        foreach($mark in $marks) {
+            Get-SetupFileDigest $mark.path | Should -BeExactly $mark.sha256
+            Get-Content -LiteralPath $mark.path -Stream Zone.Identifier -Raw -Encoding ASCII | Should -BeExactly $mark.ads
+        }
+        Assert-SetupRecipePolicies $denied
+        Assert-SetupRecipePolicies $batProbe
+        Assert-SetupRecipePolicies $actionProbe
+        Write-SetupObservation 't04-motw-policy' ([pscustomobject]@{scope='ACTUAL_WINDOWS_OWNED_COPY_MOTW_NOT_ENFORCED_GPO';direct_probe=$denied;inbox_policy_probe=$inboxPolicyProbe;inbox_policy=$inboxPolicy;bat_probe=$batProbe;bat_check=$checked;action_probe=$actionProbe;installed=$installed;script_marks_preserved=$true;enforced_organization_policy='NOT_RUN: no enforced policy on this host'})
+    }
+}
+
 Describe 'V102 local setup host and policy observations' -Tag 'V102-AC-041','V102-AC-042' {
+    It 'escapes human frontend controls while preserving raw structured local diagnostics' {
+        $app=New-SetupApplication
+        # SYNTHETIC provider output, actual unchanged frontend and host process.
+        $raw='Authored local detail '+[char]27+"[31m`r`nnext line"
+        $stub=@'
+. (Join-Path $PSScriptRoot 'WinBookSplit.Diagnostics.ps1')
+function Invoke-WinBookSplitSetup {
+    $raw='Authored local detail '+[char]27+"[31m`r`nnext line"
+    return [pscustomobject]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='runtime_invalid';exit_code=3;changed=$false;
+        message=$raw;display_message=$raw;reason='rejected_entry_point';stage='entry';source='explicit';observed_python=$raw;observed_version='3.14.8';observed_source='explicit';action=$null}
+}
+'@
+        [IO.File]::WriteAllText((Join-Path $app 'engine\WinBookSplit.Setup.ps1'),$stub,(New-Object Text.UTF8Encoding($true)))
+        $hostPath=(Get-WinBookSplitSetupHostObservation).executable
+        $probe=Invoke-WinBookSplitProcess -Path $hostPath -Arguments @('-NoProfile','-NonInteractive','-ExecutionPolicy','RemoteSigned','-File',(Join-Path $app 'Setup-WinBookSplit.ps1'),'-NonInteractive','-Check') -WorkingDirectory $app -TimeoutSeconds 60
+        $record=Read-SetupFrontendResult $probe
+        $record.message | Should -BeExactly $raw
+        $record.display_message | Should -BeExactly $raw
+        $record.observed_python | Should -BeExactly $raw
+        $human=$probe.Stdout.Substring(0,$probe.Stdout.IndexOf('[SETUP] '))
+        $human.Contains([string][char]27) | Should -BeFalse
+        $human | Should -Match '\\u001b\[31m\\u000d\\u000anext line'
+        $human | Should -Match 'Discovery: rejected_entry_point; stage=entry; source=explicit'
+        Write-SetupObservation 't04-display-privacy' ([pscustomobject]@{scope='SYNTHETIC_PROVIDER_ACTUAL_FRONTEND';probe=$probe;record=$record;raw_local_detail_preserved=$true;human_controls_escaped=$true})
+    }
     It 'observes the actual current host and policy scopes without changing them' {
         $before=@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}}) | ConvertTo-Json -Compress
         $current=[Diagnostics.Process]::GetCurrentProcess()
@@ -225,6 +523,33 @@ Describe 'V101 explicit application-local setup with the real reviewed offline w
 }
 
 Describe 'V101 damaged environment authority and ownership-limited rollback' -Tag 'V101-AC-027','V101-AC-028','V101-AC-032','V101-AC-033' {
+    It 'preserves repair-required authority when an optional base hint fails' {
+        $app=New-BrokenSetupApplication
+        $before=Get-SetupSnapshot $app
+        Mock Find-WinBookSplitSetupBase { throw 'SYNTHETIC optional base hint failure.' }
+        $result=Invoke-WinBookSplitSetup -ApplicationRoot $app -PythonPath $TestPython -Wheelhouse $Wheelhouse -NonInteractive
+        $result.code | Should -BeExactly 'setup_repair_required'
+        $result.exit_code | Should -Be 3
+        $result.changed | Should -BeFalse
+        $result.source | Should -BeExactly 'application_venv'
+        $result.action | Should -Match ' -Repair(?: |$)'
+        Get-SetupSnapshot $app | Should -BeExactly $before
+    }
+    It 'keeps interruption fatal when finding an optional repair base hint' {
+        $app=New-BrokenSetupApplication
+        $before=Get-SetupSnapshot $app
+        Mock Find-WinBookSplitSetupBase {
+            $failure=New-Object InvalidOperationException('SYNTHETIC interruption in the optional hint route.')
+            $failure.Data['Code']='processor_cancelled'
+            throw $failure
+        }
+        $result=Invoke-WinBookSplitSetup -ApplicationRoot $app -PythonPath $TestPython -Wheelhouse $Wheelhouse -NonInteractive
+        $result.code | Should -BeExactly 'processor_cancelled'
+        $result.exit_code | Should -Be 130
+        $result.changed | Should -BeFalse
+        $result.action | Should -BeNullOrEmpty
+        Get-SetupSnapshot $app | Should -BeExactly $before
+    }
     It 'preserves a broken existing environment by default and explains explicit Repair' {
         $app=New-BrokenSetupApplication
         $before=Get-SetupSnapshot $app

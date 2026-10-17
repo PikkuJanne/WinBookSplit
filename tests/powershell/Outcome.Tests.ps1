@@ -88,6 +88,55 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
         # Existing formatter cases use synthetic reasons, not native discovery.
         Mock Find-WinBookSplitSetupBase { return $null }
     }
+    It 'categorizes rejected discovery routes instead of claiming absent Python and keeps alternatives' {
+        foreach ($row in @(@('manager_registration_rejected','registration','manager_registration'),
+                @('manager_entry_rejected','entry','manager_registration'),
+                @('manager_listing_failed','listing','manager_listing'),
+                @('manager_no_runtimes','listing','manager_listing'),
+                @('rejected_entry_point','entry','PATH'),
+                @('invalid_application_venv','venv','application_venv'))) {
+            $failure=New-AuthoredDependencyFailure $row[0] $row[2] 'runtime_not_found'
+            $failure.Data['Attempts'][0] | Add-Member NoteProperty Stage $row[1]
+            $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+            $summary.Reason | Should -BeExactly $row[0]
+            $summary.Stage | Should -BeExactly $row[1]
+            $summary.Source | Should -BeExactly $row[2]
+            @($summary.Rejections).Count | Should -Be 1
+            $summary.Message | Should -Not -Match 'PRIVATE|SYNTHETIC|No usable Python'
+        }
+        $failure=New-AuthoredDependencyFailure $null 'PATH' 'runtime_not_found'
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Reason | Should -BeExactly 'discovery_rejected'
+        $summary.ObservedPath | Should -BeNullOrEmpty
+    }
+    It 'reports one coherent deepest reason stage source and verified version with failed alternatives' {
+        $failure=New-AuthoredDependencyFailure 'manager_listing_failed' 'manager_listing' 'runtime_not_found'
+        $failure.Data['Attempts']=@($failure.Data['Attempts'][0],
+            [pscustomobject]@{Source='manager';Stage='compatibility';Path='C:\Synthetic verified\python.exe';Accepted=$false;
+                Reason='python_security_floor';IdentityVerified=$true;ObservedVersion='3.14.7'},
+            [pscustomobject]@{Source='PATH';Stage='entry';Path='C:\Synthetic rejected\python.exe';Accepted=$false;Reason='rejected_entry_point'})
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Reason | Should -BeExactly 'python_security_floor'
+        $summary.Stage | Should -BeExactly 'compatibility'
+        $summary.Source | Should -BeExactly 'manager'
+        $summary.ObservedVersion | Should -BeExactly '3.14.7'
+        @($summary.Rejections).Count | Should -Be 3
+        ($summary.Rejections | ConvertTo-Json -Compress) | Should -Not -Match 'PRIVATE|"(?:Message|Path|Probe)":'
+    }
+    It 'keeps malformed identity claims safe and terminal process summaries coherent' {
+        foreach ($verified in @($true,1)) {
+            $failure=New-AuthoredDependencyFailure 'missing_pypdf' 'PATH' 'runtime_not_found'
+            $failure.Data['Attempts']=@([pscustomobject]@{Reason='missing_pypdf';Source='PATH';IdentityVerified=$verified;ObservedVersion='3.14.8'})
+            $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+            $summary.ObservedPath | Should -BeNullOrEmpty
+            $summary.Reason | Should -BeExactly 'missing_pypdf'
+        }
+        $failure=New-AuthoredDependencyFailure 'python_security_floor' 'manager' 'processor_timeout'
+        $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
+        $summary.Reason | Should -BeExactly 'processor_timeout'
+        $summary.Stage | Should -BeExactly 'probe'
+        $summary.Source | Should -BeExactly 'process'
+    }
     It 'uses the actual validator for synthetic unsupported architecture branch flavor and security-floor identities' {
         $policy=Get-WinBookSplitCompatibilityPolicy
         foreach ($row in @(@('3.14.2','python_security_floor'),@('3.16.0','unsupported_python'),

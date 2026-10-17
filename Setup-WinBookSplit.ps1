@@ -82,10 +82,23 @@ try {
     $result=[pscustomobject]@{protocol='winbooksplit.setup';schema_version=1;status='failed';code='setup_failed';exit_code=6;changed=$false;message=$_.Exception.Message}
 }
 $result | Add-Member -MemberType NoteProperty -Name host -Value (Get-WinBookSplitSetupHostObservation)
-Write-Host $result.message
+if ($result.PSObject.Properties.Name -contains 'display_message' -and $null -ne $result.display_message) {
+    Write-Host (ConvertTo-WinBookSplitDiagnosticDisplayText $result.display_message)
+} else {
+    # Dot-sourcing may itself fail; escape controls even before shared helpers load.
+    Write-Host ([regex]::Replace([string]$result.message,'[\x00-\x1f\x7f-\x9f\u2028\u2029]',{param($m) '\u{0:x4}' -f [int][char]$m.Value}))
+}
+if ($result.PSObject.Properties.Name -contains 'reason' -and $null -ne $result.reason) {
+    Write-Host ('Discovery: '+$result.reason+'; stage='+$result.stage+'; source='+$result.source)
+}
 if ($result.PSObject.Properties.Name -contains 'observed_python' -and $null -ne $result.observed_python) {
     $displayVersion='version unavailable';if($null -ne $result.observed_version){$displayVersion=$result.observed_version}
-    Write-Host ('Python selection: '+$result.observed_python+' ('+$displayVersion+'; '+$result.observed_source+')')
+    Write-Host (ConvertTo-WinBookSplitDiagnosticDisplayText ('Python selection: '+$result.observed_python+' ('+$displayVersion+'; '+$result.observed_source+')'))
+} elseif ($result.PSObject.Properties.Name -contains 'selected_python' -and $null -ne $result.selected_python) {
+    Write-Host (ConvertTo-WinBookSplitDiagnosticDisplayText ('Python selection: '+$result.selected_python+' ('+$result.selected_version+'; '+$result.source+')'))
+}
+if ($result.PSObject.Properties.Name -contains 'action' -and $null -ne $result.action) {
+    Write-Host ('Action (PowerShell): '+(ConvertTo-WinBookSplitDiagnosticDisplayText $result.action))
 }
 Write-Host ('[SETUP] '+($result|ConvertTo-Json -Depth 12 -Compress))
 $setupExitCode=[int]$result.exit_code

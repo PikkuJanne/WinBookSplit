@@ -1,0 +1,255 @@
+{
+  "task": "T04",
+  "kind": "SYNTHETIC_SUMMARY_RED_REGRESSION",
+  "meaning": "Baseline before shared summary production edit; two new cases intentionally fail. Original raw bytes retained locally.",
+  "original_local_sha256": "ee06ee8922b1b9db36265b8e06be04b4992fb972b786cfa585132d32db7cf19d",
+  "receipt": {
+    "schema_version": 1,
+    "purpose": "T03 focused maintained contracts; synthetic seams labelled in test names/comments. Actual children are isolated developer Python regression, not owner Store acceptance.",
+    "shell": "5.1.26100.9711",
+    "execution_policy": 1,
+    "test_python": "<DEV_PYTHON_3148>",
+    "passed": 32,
+    "failed": 2,
+    "skipped": 0,
+    "source_unchanged": true,
+    "source_before": [
+      {
+        "path": "engine\\WinBookSplit.Runtime.ps1",
+        "sha256": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be"
+      },
+      {
+        "path": "engine\\WinBookSplit.Process.ps1",
+        "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      {
+        "path": "WinBookSplit.ps1",
+        "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a"
+      },
+      {
+        "path": "tests\\powershell\\Discovery.Tests.ps1",
+        "sha256": "03dcbd8de55ad8543702e616cd95c4a71498fde3e607aa16c2d1ddabb4ef0e4b"
+      },
+      {
+        "path": "tests\\powershell\\Manager.Tests.ps1",
+        "sha256": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7"
+      },
+      {
+        "path": "tests\\powershell\\Runtime.Tests.ps1",
+        "sha256": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3"
+      },
+      {
+        "path": "tests\\powershell\\Process.Tests.ps1",
+        "sha256": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+      }
+    ],
+    "source_after": [
+      {
+        "path": "engine\\WinBookSplit.Runtime.ps1",
+        "sha256": "7e28c8bb77f2bf4e317185b7eb5f5506144cd0946976ce65b7f2405e5c3d84be"
+      },
+      {
+        "path": "engine\\WinBookSplit.Process.ps1",
+        "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      {
+        "path": "WinBookSplit.ps1",
+        "sha256": "7d62bfd45ff312248bf215f2b6c29de93dd6b3e7a74eebbeb1bd7a3d0a3b398a"
+      },
+      {
+        "path": "tests\\powershell\\Discovery.Tests.ps1",
+        "sha256": "03dcbd8de55ad8543702e616cd95c4a71498fde3e607aa16c2d1ddabb4ef0e4b"
+      },
+      {
+        "path": "tests\\powershell\\Manager.Tests.ps1",
+        "sha256": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7"
+      },
+      {
+        "path": "tests\\powershell\\Runtime.Tests.ps1",
+        "sha256": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3"
+      },
+      {
+        "path": "tests\\powershell\\Process.Tests.ps1",
+        "sha256": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+      }
+    ],
+    "tests": [
+      {
+        "name": "categorizes rejected discovery routes instead of claiming absent Python and keeps alternatives",
+        "result": "Failed",
+        "errors": [
+          "Expected strings to be the same, but they were different.\nExpected length: 29\nActual length:   14\nStrings differ at index 1.\nExpected: 'manager_registration_rejected'\nBut was:  'missing_python'\n           -^"
+        ]
+      },
+      {
+        "name": "reports one coherent deepest reason stage source and verified version with failed alternatives",
+        "result": "Failed",
+        "errors": [
+          "Expected exactly 'compatibility', but got $null."
+        ]
+      },
+      {
+        "name": "uses the actual validator for synthetic unsupported architecture branch flavor and security-floor identities",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "separates missing version-mismatched and wrong-origin packages while keeping a compatible explicit base actionable",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "uses a complete executable PowerShell action and preserves literal argument characters",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "keeps authoritative unknown-minor identity separate from unrelated below-floor noise",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "chooses the preferred compatible missing-package candidate and concrete discovered repair base",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "does not allow optional listing noise to hide the concrete interpreter rejection",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "gives explicit Repair guidance for a rejected application environment without selecting its base",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "uses fixed generic messages for malformed reasons and does not render raw controls or diagnostic injection",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "quotes a setup path as literal data and preserves primary cancellation or timeout codes",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "keeps converter guidance separate and requires preservation when synthetic shutdown proof is incomplete",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "keeps application version separate from the outcome protocol contract",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "accepts a complete ordered preview only when explicitly requested",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "rejects execution success or retained published output for a requested preview",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "never promotes malformed, missing or contradictory preview output to success",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "preserves valid non-BMP Unicode filenames",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "escapes plan display controls and spoofed outcome lines while preserving raw Unicode metadata",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "requires ebook original/generated identity agreement and proved temporary cleanup",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "preserves an ordinary no-plan failure when preview was requested",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "rejects wrong session, sequence, mode, protocol and stage before any reply",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "requires an exact digest and equivalent plan data with the selected source and destination",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "compares JSON objects independently of property order without accepting changed values",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "requires every completed output to match the confirmed immutable entries and source",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "maps every documented code with the actual host JSON integer representation",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "requires explicit cancellation or timeout and rejects output claims on either",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "keeps primary conversion cancellation or timeout through failed cleanup",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "validates retained incomplete execution with every completed-result guard",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "renders child receipt-like lines safely while saving stdout and stderr byte-for-byte as text",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "retains completed engine evidence when the later console record write fails",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "preserves an engine failure through a secondary console record error",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "retains completed evidence after supervisor finalization failure only when shutdown is proved",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "preserves native cancellation or timeout through a secondary console record error",
+        "result": "Passed",
+        "errors": []
+      },
+      {
+        "name": "propagates preflight cancellation or timeout without trying another dependency candidate",
+        "result": "Passed",
+        "errors": []
+      }
+    ]
+  },
+  "runner_source": "param([string]$RepositoryRoot,[string]$WorkRoot,[string]$TestPython,[string]$ReportPath)\n$ErrorActionPreference='Stop'\n$RepositoryRoot=(Resolve-Path -LiteralPath $RepositoryRoot).ProviderPath\n$TestPython=(Resolve-Path -LiteralPath $TestPython).ProviderPath\n$null=New-Item -ItemType Directory -Path $WorkRoot\nSet-Location -LiteralPath $WorkRoot\nImport-Module '<EXTERNAL_TOOLS>\\Pester\\6.2.0\\Pester.psd1' -Force\n$sourcePaths=@('engine\\WinBookSplit.Runtime.ps1','engine\\WinBookSplit.Process.ps1','WinBookSplit.ps1','tests\\powershell\\Discovery.Tests.ps1','tests\\powershell\\Manager.Tests.ps1','tests\\powershell\\Runtime.Tests.ps1','tests\\powershell\\Process.Tests.ps1')\n$before=@($sourcePaths | ForEach-Object {[ordered]@{path=$_;sha256=(Get-FileHash -LiteralPath (Join-Path $RepositoryRoot $_) -Algorithm SHA256).Hash.ToLowerInvariant()}})\n$config=New-PesterConfiguration\n$config.Run.Container=@(foreach ($name in @('Outcome')) {\n    New-PesterContainer -Path (Join-Path $RepositoryRoot ('tests\\powershell\\'+$name+'.Tests.ps1')) -Data @{RepositoryRoot=$RepositoryRoot;WorkRoot=$WorkRoot;TestPython=$TestPython}\n})\n$config.Run.PassThru=$true\n$config.Output.Verbosity='Detailed'\n$result=Invoke-Pester -Configuration $config\n$after=@($sourcePaths | ForEach-Object {[ordered]@{path=$_;sha256=(Get-FileHash -LiteralPath (Join-Path $RepositoryRoot $_) -Algorithm SHA256).Hash.ToLowerInvariant()}})\n$unchanged=($before | ConvertTo-Json -Compress) -ceq ($after | ConvertTo-Json -Compress)\n[ordered]@{schema_version=1;purpose='T03 focused maintained contracts; synthetic seams labelled in test names/comments. Actual children are isolated developer Python regression, not owner Store acceptance.';shell=$PSVersionTable.PSVersion.ToString();execution_policy=(Get-ExecutionPolicy);test_python=$TestPython;passed=$result.PassedCount;failed=$result.FailedCount;skipped=$result.SkippedCount;source_unchanged=$unchanged;source_before=$before;source_after=$after;tests=@($result.Tests | ForEach-Object {[ordered]@{name=$_.ExpandedName;result=[string]$_.Result;errors=@($_.ErrorRecord | ForEach-Object {$_.ToString()})}})} | ConvertTo-Json -Depth 9 | Set-Content -LiteralPath $ReportPath -Encoding utf8\nif ($result.FailedCount -gt 0 -or -not $unchanged) {exit 1}\n",
+  "runner_original_sha256": "b8a18bc90edf85df4c644144be56b0b4e527499a1282c789c098f4553264d0a3"
+}

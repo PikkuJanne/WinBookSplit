@@ -253,48 +253,78 @@
       "task": "T04",
       "name": "Categorized rejections",
       "expected": "Every rejected discovery route has reason/stage/source; original Store case no longer collapses to missing_python.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-020",
       "task": "T04",
       "name": "Accurate remediation",
       "expected": "Compatible-base failure recommends setup without Python reinstall; actual selected runtime/version is reported when verified.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-021",
       "task": "T04",
       "name": "Exact generated command",
       "expected": "Execute the emitted setup action as printed; no reconstructed command used as evidence.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-022",
       "task": "T04",
       "name": "BAT setup contract",
       "expected": "Setup BAT works from unrelated CWD with spaces/Unicode, forwards supported options and exit codes.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-023",
       "task": "T04",
       "name": "Idempotence and repair",
       "expected": "Fresh setup works, healthy second run is no-op, broken existing venv requires explicit repair and preserves old state.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-024",
       "task": "T04",
       "name": "Policy/privacy preservation",
       "expected": "Process-scoped invocation, MOTW preservation, enforced policy denial and safe local diagnostics remain; no global changes.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "DEFERRED_NATIVE",
+      "required": true,
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json"
+      ],
+      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-025",

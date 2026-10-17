@@ -89,7 +89,7 @@
       "depends_on": [
         "T03"
       ],
-      "status": "NOT_STARTED",
+      "status": "IMPLEMENTED_PENDING_NATIVE",
       "brief": "tasks/04-T04.md",
       "acceptance_ids": [
         "STORE-019",
@@ -98,6 +98,21 @@
         "STORE-022",
         "STORE-023",
         "STORE-024"
+      ],
+      "completion_scope": "Setup/diagnostic components and labelled explicit developer command/BAT/no-op/repair/MOTW/privacy checks. Actual enforced organization-policy denial NOT_RUN at T07. Actual Windows11 automatic runtime remains unchanged 3.14.7 security-floor rejection, not compatible automatic acceptance. Store/owner exact-ZIP Windows10 gate NOT_RUN at T07.",
+      "evidence": [
+        "evidence/T04.md",
+        "evidence/T04.json",
+        "evidence/T04-runtime-red.json",
+        "evidence/T04-summary-red.json",
+        "evidence/T04-native-ps51.json",
+        "evidence/T04-native-ps7.json",
+        "evidence/T04-native-originals.json",
+        "evidence/T04-component.ps1",
+        "evidence/T04-shell.json",
+        "evidence/T04-recipes-ps51.json",
+        "evidence/T04-recipes-ps7.json",
+        "evidence/T04-recipes-originals.json"
       ]
     },
     {
