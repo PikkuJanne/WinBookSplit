@@ -1,5 +1,13 @@
 # Testing: prove the route, not just the algorithm
 
+Current native result: T07 STORE-037 through STORE-042 PASS for the unchanged
+actual owner Windows10 Store return at frozen R/exact production ZIP. Review and
+offline checker results are in evidence/T07-owner-return.md/JSON and independent
+audit JSON. The owner need not repeat the accepted test. Actual enforced-policy
+STORE-024 remains NOT_RUN; T08 publication stays BLOCKED and final security review
+is pending. The T02-T06 checkpoint observations below describe their historical
+component/tooling scope; they do not retract or substitute for the T07 result.
+
 T06 freezes committed source R and exact assets, with one generated owner
 launch/report action in `OWNER_KIT.md`. Its default command must fail on a
 non-target OS, and its separately flagged Windows11 self-test must block before

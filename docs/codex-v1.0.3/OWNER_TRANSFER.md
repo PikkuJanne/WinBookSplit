@@ -54,10 +54,12 @@ errors and the original nonzero exit is retained.
 Review the returned bytes using NATIVE_ACCEPTANCE.md and the separate checker from
 R. A normal Store return must still have seven members/six envelopes. An early
 OS/policy/bootstrap failure may have a different failure ZIP; preserve it and
-do not treat it as a Store pass. The actual owner Windows10 STORE-037 through
-STORE-042 and separate enforced-policy STORE-024 remain NOT_RUN/BLOCKED until
-their real evidence is supplied and reviewed. The local MOTW component cannot
-clear STORE-024. SECURITY.md's retained pypdf exposure still needs release review.
+do not treat it as a Store pass. The actual owner return has now passed reviewed
+Windows10 STORE-037 through STORE-042 acceptance for frozen R/exact ZIP; see
+evidence/T07-owner-return.md and JSON. The owner need not repeat this accepted
+test. Separate actual enforced-policy STORE-024 remains NOT_RUN and publication
+stays BLOCKED. The local MOTW component cannot clear STORE-024. SECURITY.md's
+retained pypdf exposure still needs final release review.
 
 Preparation, real Windows11 OS-refusal launch/report rehearsal, independent
 controls, preserved failures and source scope are in evidence/T08-owner-delivery.md

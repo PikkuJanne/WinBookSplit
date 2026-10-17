@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "meaning": "T01 PASS means baseline/reproduction only. T02 PASS means identity/entry-point component coverage. T03 PASS means installed-runtime resolver component coverage: real Windows11 python.org below-floor rejection plus synthetic listings with actual supported children. Native Store and owner Windows10 exact-ZIP acceptance remain NOT_RUN at T07; no compatible native automatic success claimed.",
+  "meaning": "T01-T06 PASS and result_scope retain their recorded historical baseline/component/tooling scope. Current T07 STORE-037 through STORE-042 PASS means reviewed actual unchanged owner Windows10 Store native acceptance for frozen R/exact production ZIP, not inferred from earlier Windows11/developer results. STORE-024 actual enforced organization-policy denial remains NOT_RUN/DEFERRED_NATIVE; T08 remains BLOCKED.",
   "cases": [
     {
       "id": "STORE-001",
@@ -487,78 +487,96 @@
       "task": "T07",
       "name": "Native target",
       "expected": "Verify actual owner Windows10 x64, inbox PS5.1 and healthy registered Store manager; fresh extraction without .venv.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Actual owner Windows10 x64 build19045/inbox PS5.1, healthy registered Store Manager 26.4.240.0, fresh exact extraction without app venv."
     },
     {
       "id": "STORE-038",
       "task": "T07",
       "name": "Existing runtime discovered",
       "expected": "Production automatic discovery selects a pre-existing Store-managed runtime, with correlated listing/probe and before-inventory identity.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Production automatic discovery reaches pre-existing regular isolated x64 Python 3.15.0 through bound registered Store-manager listing and concrete identity probe; inventory is verification/tooling only."
     },
     {
       "id": "STORE-039",
       "task": "T07",
       "name": "Normal setup",
       "expected": "Normal setup BAT no runtime override creates venv from that discovered base; second run no-op and read-only check correct.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Fresh normal setup BAT automatically creates app venv from discovered base, installs locked pypdf 6.20.0 and passes pip check. Read-only Check and next setup have no changes/operations."
     },
     {
       "id": "STORE-040",
       "task": "T07",
       "name": "Normal processing",
       "expected": "Ordinary BAT plus manual/Auto1/Auto2 create valid chapters with full coverage, correct order and unchanged source/neighbors.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Manual, Auto1, Auto2 and ordinary BAT from unrelated CWD pass native full-page oracle and correlated engine/console/manifests; ordered nonempty coverage, sources/neighbors preserved."
     },
     {
       "id": "STORE-041",
       "task": "T07",
       "name": "Preserved owner install",
       "expected": "Runtime/manager/aliases/PATH unchanged; no private fallback, hidden selection, interpreter provisioning, copied baseline or prebuilt app venv.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Runtime/Manager images/registration, aliases, PATH, parent environment and base distribution inventory unchanged; fallback disabled before discovery with no attempt/use; all 15 substitutions false."
     },
     {
       "id": "STORE-042",
       "task": "T07",
       "name": "Complete reviewed receipt",
       "expected": "Same frozen ZIP/source identifiers, hash-bound sanitized receipts and independent validator pass; no manual assertion substituted for missing native data.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T07.md",
-        "evidence/T07.json"
+        "evidence/T07.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: actual unchanged owner Windows10 connection and final-kit returned owner ZIP unavailable in T07. Existing Windows11/developer/tooling receipts cannot satisfy this native observation."
+      "result_scope": "PASS at frozen R/exact production ZIP: Unchanged seven-member/six-envelope owner packet binds R/ZIP/run/hashes; unchanged-R checker exit0 plus independent 79-check native receipt audit. Native PDFs remain on owner PC; reviewed recorded oracle, no local PDF reopen."
     },
     {
       "id": "STORE-043",
@@ -571,7 +589,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-044",
@@ -584,7 +602,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-045",
@@ -597,7 +615,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-046",
@@ -610,7 +628,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-047",
@@ -623,7 +641,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-048",
@@ -636,7 +654,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
     }
   ]
 }

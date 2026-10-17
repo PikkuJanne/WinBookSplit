@@ -1,0 +1,467 @@
+{
+  "audit_kind": "independent_read_only_returned_owner_packet_review",
+  "returned_zip_sha256": "1ac523bfb8aebc1511c27629af5134fa9000a08db361a6e207c33280d184a06e",
+  "returned_zip_bytes": 377606,
+  "run_id": "store_f61d4a88eef1415c9ccf811613c6d694",
+  "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "production_zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+  "checks": [
+    {
+      "check": "returned ZIP hash and length",
+      "pass": true
+    },
+    {
+      "check": "seven exact unique ordinary bounded unencrypted members",
+      "pass": true
+    },
+    {
+      "check": "native report frozen R/ZIP identity",
+      "pass": true
+    },
+    {
+      "check": "actual owner Windows10 x64 inbox PS5.1 reported",
+      "pass": true
+    },
+    {
+      "check": "registration six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "discovery six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "setup six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "bat six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "pdf_validation six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "preservation six-envelope hash/source/run/kind/summary binding",
+      "pass": true
+    },
+    {
+      "check": "healthy complete Store tuple and genuine inventory listing",
+      "pass": true
+    },
+    {
+      "check": "inventory isolated regular supported pre-existing runtime",
+      "pass": true
+    },
+    {
+      "check": "fresh extraction source tree and payload binding",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: CHANGELOG.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: CONTRIBUTING.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: Export-WinBookSplitDiagnostics.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: LICENSE",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: README.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: SECURITY.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: Setup-WinBookSplit.bat",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: Setup-WinBookSplit.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: THIRD_PARTY_NOTICES.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: VERSION",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: WinBookSplit.bat",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: WinBookSplit.ico",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: WinBookSplit.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: docs/EBOOK_SUPPORT.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: docs/PDF_FIDELITY.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: docs/PDF_POLICY.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: docs/SETUP.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: docs/SUPPORT_DIAGNOSTICS.md",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Compatibility.json",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Compatibility.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Diagnostics.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Logging.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Outcomes.json",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Paths.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Process.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Runtime.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Setup.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/WinBookSplit.Support.ps1",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/winbooksplit_compatibility.py",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/winbooksplit_conversion.py",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/winbooksplit_engine.py",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/winbooksplit_job.py",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: engine/winbooksplit_windows.py",
+      "pass": true
+    },
+    {
+      "check": "extracted member equals R blob: requirements.txt",
+      "pass": true
+    },
+    {
+      "check": "production resolver independently reaches inventoried runtime through bound Store alias",
+      "pass": true
+    },
+    {
+      "check": "package readiness records setup required without changing installed base",
+      "pass": true
+    },
+    {
+      "check": "setup install bounded process with empty injected environment",
+      "pass": true
+    },
+    {
+      "check": "setup install exact typed result",
+      "pass": true
+    },
+    {
+      "check": "normal setup created venv from existing runtime and installed exact locked package",
+      "pass": true
+    },
+    {
+      "check": "setup check bounded process with empty injected environment",
+      "pass": true
+    },
+    {
+      "check": "setup check exact typed result",
+      "pass": true
+    },
+    {
+      "check": "check has no write/install operations",
+      "pass": true
+    },
+    {
+      "check": "setup noop bounded process with empty injected environment",
+      "pass": true
+    },
+    {
+      "check": "setup noop exact typed result",
+      "pass": true
+    },
+    {
+      "check": "noop has no write/install operations",
+      "pass": true
+    },
+    {
+      "check": "venv concrete base identity independently verified",
+      "pass": true
+    },
+    {
+      "check": "native physical-page oracle actually completed",
+      "pass": true
+    },
+    {
+      "check": "manual bounded automatic application with no selection override",
+      "pass": true
+    },
+    {
+      "check": "manual engine/manifest/outcome/raw-manifest consistency",
+      "pass": true
+    },
+    {
+      "check": "manual ordered complete nonempty physical-page recipe",
+      "pass": true
+    },
+    {
+      "check": "auto1 bounded automatic application with no selection override",
+      "pass": true
+    },
+    {
+      "check": "auto1 engine/manifest/outcome/raw-manifest consistency",
+      "pass": true
+    },
+    {
+      "check": "auto1 ordered complete nonempty physical-page recipe",
+      "pass": true
+    },
+    {
+      "check": "auto2 bounded automatic application with no selection override",
+      "pass": true
+    },
+    {
+      "check": "auto2 engine/manifest/outcome/raw-manifest consistency",
+      "pass": true
+    },
+    {
+      "check": "auto2 ordered complete nonempty physical-page recipe",
+      "pass": true
+    },
+    {
+      "check": "bat bounded automatic application with no selection override",
+      "pass": true
+    },
+    {
+      "check": "bat engine/manifest/outcome/raw-manifest consistency",
+      "pass": true
+    },
+    {
+      "check": "bat ordered complete nonempty physical-page recipe",
+      "pass": true
+    },
+    {
+      "check": "ordinary BAT probe is identical in two receipt contexts",
+      "pass": true
+    },
+    {
+      "check": "runtime manager registration alias PATH preservation",
+      "pass": true
+    },
+    {
+      "check": "base package inventory stdout unchanged",
+      "pass": true
+    },
+    {
+      "check": "no acquisition attempt and all forbidden substitutions false",
+      "pass": true
+    },
+    {
+      "check": "authored local MOTW denial preserved separately",
+      "pass": true
+    },
+    {
+      "check": "actual enforced organization policy remains NOT_RUN",
+      "pass": true
+    },
+    {
+      "check": "no unredacted drive Users path or email in return",
+      "pass": true
+    }
+  ],
+  "host": {
+    "execution_kind": "native",
+    "owner_desktop": true,
+    "os": "Windows 10",
+    "build": 19045,
+    "architecture": "x64",
+    "powershell_version": "5.1.19041.7417"
+  },
+  "manager_version": "26.4.240.0",
+  "runtime_version": "3.15.0",
+  "runtime_sha256": "727b92dc55e1ac0f17a48cbd20557427fdb8d9f50731de0355c4fd4c08d2f473",
+  "setup": [
+    {
+      "stage": "install",
+      "code": "setup_complete",
+      "changed": true,
+      "check": false,
+      "operations": [
+        "venv_create",
+        "pip_install",
+        "pip_check"
+      ]
+    },
+    {
+      "stage": "check",
+      "code": "setup_ready",
+      "changed": false,
+      "check": true,
+      "operations": []
+    },
+    {
+      "stage": "noop",
+      "code": "setup_ready",
+      "changed": false,
+      "check": false,
+      "operations": []
+    }
+  ],
+  "pdf_recipes": [
+    {
+      "id": "manual",
+      "pages": 10,
+      "outputs": 3,
+      "ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    },
+    {
+      "id": "auto1",
+      "pages": 12,
+      "outputs": 3,
+      "ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          8
+        ],
+        [
+          8,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "auto2",
+      "pages": 12,
+      "outputs": 6,
+      "ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          8
+        ],
+        [
+          8,
+          10
+        ],
+        [
+          10,
+          12
+        ]
+      ]
+    },
+    {
+      "id": "bat",
+      "pages": 10,
+      "outputs": 3,
+      "ranges": [
+        [
+          0,
+          3
+        ],
+        [
+          3,
+          6
+        ],
+        [
+          6,
+          10
+        ]
+      ]
+    }
+  ],
+  "findings": [
+    "Reviewed actual native process/listing/probe/setup/engine receipts as well as envelope structure.",
+    "No product or delivery-tool failure identified in this returned run.",
+    "Actual enforced organization-policy STORE-024 remains NOT_RUN; publication remains blocked."
+  ],
+  "limits": [
+    "No code contained in returned archive was executed.",
+    "Root runs separate unchanged-R offline checker; checker result is intentionally not asserted by this subagent.",
+    "Returned archive contains receipts, not PDF binaries; reviewed same-run native physical-page oracle and correlated engine/console/manifest receipts rather than reopening PDFs locally.",
+    "Global package preservation proves distribution names, versions and locations unchanged, not a complete global filesystem hash.",
+    "Owner-supplied native automation evidence is reviewed evidence, not remote cryptographic machine attestation."
+  ]
+}

@@ -5,6 +5,11 @@ existing functions and supervisor. Inspect all call sites and package allowlists
 before editing. Avoid adding a second independent runtime resolver or test-only
 production path. Primary source links are in SOURCES.md.
 
+Current acceptance: T07's unchanged actual owner Windows10 Store return passed
+for frozen R/exact ZIP; see evidence/T07-owner-return.md and JSON. Separate actual
+enforced-policy STORE-024 remains NOT_RUN and T08 publication stays BLOCKED.
+The T02/T03 checkpoint observations below retain their original component scope.
+
 T02 checkpoint: the exact-name current-user query and paired identities are
 implemented. `Get-WinBookSplitRegisteredManagerPaths -WithRegistration` retains
 validated package data for `Invoke-WinBookSplitManagerListing`. The documented

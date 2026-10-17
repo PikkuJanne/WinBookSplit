@@ -184,7 +184,7 @@
       "depends_on": [
         "T06"
       ],
-      "status": "BLOCKED",
+      "status": "COMPLETE",
       "brief": "tasks/07-T07.md",
       "acceptance_ids": [
         "STORE-037",
@@ -194,13 +194,16 @@
         "STORE-041",
         "STORE-042"
       ],
-      "completion_scope": "Available read-only frozen-artifact, receipt and source review checkpoint only; NOT complete. No authorized connection to actual unchanged owner Windows10 desktop or returned owner ZIP supplied. STORE-037 through STORE-042 remain NOT_RUN; STORE-024 enforced organization-policy denial remains NOT_RUN. Retained T06 Windows11 packet and offline refusal are tooling evidence only. R/final kit unchanged.",
+      "completion_scope": "Actual owner Windows10 Store exact-ZIP native acceptance at frozen R: STORE-037 through STORE-042 PASS after unchanged returned seven-member/six-envelope packet review, unchanged-R offline checker exit0 and independent 79-check audit. Earlier blocked reports remain historical. Separate STORE-024 enforced organization-policy denial remains NOT_RUN; T08 remains BLOCKED.",
       "evidence": [
         "evidence/T07.md",
         "evidence/T07.json",
         "evidence/T07-baseline.json",
         "evidence/T07-artifact-review.json",
-        "OWNER_KIT.md"
+        "OWNER_KIT.md",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json",
+        "evidence/T07-owner-return-audit.json"
       ]
     },
     {
@@ -219,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. No new actual owner Windows10 report/access supplied. T07 STORE-037 through STORE-042 and T04 STORE-024 remain NOT_RUN. Frozen R/final assets and OWNER_KIT unchanged. Old-release metadata/CI and retained Windows11 failed-report refusal do not clear native gates or release closure. Owner-requested simple transfer carrier prepared and validated within delivery-tooling scope; no native acceptance promotion. See OWNER_TRANSFER.md and T08-owner-delivery evidence.",
+      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. T07 STORE-037 through STORE-042 now PASS for actual unchanged owner Windows10 returned evidence at frozen R/exact ZIP. T04 STORE-024 actual enforced organization-policy denial remains NOT_RUN and final pypdf security review pending. STORE-043 through STORE-048 remain NOT_RUN. No publish/tag/main merge. Frozen R/assets/kit and historical evidence unchanged; owner need not repeat accepted test.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -228,7 +231,9 @@
         "OWNER_KIT.md",
         "OWNER_TRANSFER.md",
         "evidence/T08-owner-delivery.md",
-        "evidence/T08-owner-delivery.json"
+        "evidence/T08-owner-delivery.json",
+        "evidence/T07-owner-return.md",
+        "evidence/T07-owner-return.json"
       ]
     }
   ],
