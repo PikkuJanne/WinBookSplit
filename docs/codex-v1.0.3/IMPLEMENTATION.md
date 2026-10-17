@@ -10,6 +10,14 @@ for frozen R/exact ZIP; see evidence/T07-owner-return.md and JSON. Separate actu
 enforced-policy STORE-024 remains NOT_RUN and T08 publication stays BLOCKED.
 The T02/T03 checkpoint observations below retain their original component scope.
 
+The owner explicitly authorized a separate pypdf repair on 18 October. The current
+implementation changes the exact dependency to 6.21.1 with wheel SHA256
+553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b, policy4,
+necessary maintained pins/assertions and three small parser guard regressions.
+Runtime/Calibre policy and engine/guards remain intact. This creates new candidate
+bytes: original R/T07 remain preserved and cannot satisfy the changed candidate's
+native acceptance. See tasks/08-T08-security-repair.md and current evidence.
+
 T02 checkpoint: the exact-name current-user query and paired identities are
 implemented. `Get-WinBookSplitRegisteredManagerPaths -WithRegistration` retains
 validated package data for `Invoke-WinBookSplitManagerListing`. The documented

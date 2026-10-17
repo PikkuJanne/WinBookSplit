@@ -1,0 +1,340 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "scope": "AUTHORIZED_SECURITY_REPAIR_IMPLEMENTATION_CHECKPOINT_NOT_RELEASE_CLEARANCE",
+  "recorded_utc": "2026-10-17T23:50:34.403329+00:00",
+  "initial_commit": "b2ab77ed4fb28986d3ab9798c6de788af50476ec",
+  "initial_tree": "795cba33e2c03ce4341b0f3d005bfc3412d31cff",
+  "branch": "codex/v1.0.3-store-discovery",
+  "authorization": "Owner explicit answer: Yes - implement the pypdf security repair. Separate dependency/new candidate scope; no acceptance waiver.",
+  "pin": {
+    "version": "6.21.1",
+    "wheel_sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
+  },
+  "policy_version": 4,
+  "runtime_floors_unchanged": true,
+  "engine_and_runtime_setup_origin_process_implementations_unchanged": true,
+  "red": {
+    "tests": 8,
+    "passed": 5,
+    "errors": 3,
+    "reason": "Old6.20.0 lacks3new configuration fields",
+    "exit_code": 1,
+    "raw_receipt": {
+      "name": "red.json",
+      "bytes": 694,
+      "sha256": "c8705f80223d25f8d00e734b551ab1ff4dae28a7df00a83bfee7d64b5d0a4b78"
+    }
+  },
+  "green_guard_targets": [
+    "3.13.16",
+    "3.14.8",
+    "3.15.0"
+  ],
+  "green_guard_tests_per_target": 8,
+  "pip_check_per_target": "PASS",
+  "application_matrix": [
+    {
+      "target": "3.13.16",
+      "success": true,
+      "source_unchanged": true,
+      "source_paths": 225,
+      "tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "units": {
+        "tests_run": 150,
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "cases": 10,
+      "native_probe_records": 21,
+      "conversion_status": "PASS",
+      "host_count": 2,
+      "application_executable_sha256": "21bba195c88bcc007c8fd8e99603e9c0d82be1e08cff2f23bd5b2264f3148289",
+      "package_origin_sha256": "d7786f1b3cb2e52e28b1085f0ea150fa7f029baad252b29af7415c790871f7df",
+      "report": {
+        "name": "runtime13-application.json",
+        "bytes": 770096,
+        "sha256": "c3d9041624df4490dee206b57714032f34a74a9d045304b77e2f70180d115beb"
+      }
+    },
+    {
+      "target": "3.14.8",
+      "success": true,
+      "source_unchanged": true,
+      "source_paths": 225,
+      "tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "units": {
+        "tests_run": 150,
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "cases": 10,
+      "native_probe_records": 21,
+      "conversion_status": "PASS",
+      "host_count": 2,
+      "application_executable_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603",
+      "package_origin_sha256": "d7786f1b3cb2e52e28b1085f0ea150fa7f029baad252b29af7415c790871f7df",
+      "report": {
+        "name": "runtime14-application.json",
+        "bytes": 769969,
+        "sha256": "1fafca0d3fa22f54aca48cdcaf012528cfaf268fb9f4bcab8b89aca6402e3e97"
+      }
+    },
+    {
+      "target": "3.15.0",
+      "success": true,
+      "source_unchanged": true,
+      "source_paths": 225,
+      "tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "units": {
+        "tests_run": 150,
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "cases": 10,
+      "native_probe_records": 21,
+      "conversion_status": "PASS",
+      "host_count": 2,
+      "application_executable_sha256": "553a3ab1745f76010992beb8be8e37252e064324fdd878a11bb04d34f861dac5",
+      "package_origin_sha256": "d7786f1b3cb2e52e28b1085f0ea150fa7f029baad252b29af7415c790871f7df",
+      "report": {
+        "name": "runtime15-application.json",
+        "bytes": 769957,
+        "sha256": "d4d42fbcd5cc2555b3fc430bf9c3dc108613ca6b371c8f026f584fe045ce6557"
+      }
+    }
+  ],
+  "broad_python_and_shell": "IN_PROGRESS at this implementation checkpoint; last3reviewed files corrected after suite start. Follow-up candidate receipt must record actual outcome/source-change limits.",
+  "independent_review": "Initial P2 stale runtime characterization assertion fixed to current policy; subsequent independent read-only review clean.",
+  "original_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "original_zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+  "original_T07_acceptance": "COMPLETE/PASS only for originalR/exactZIP; unchanged",
+  "new_candidate_native_store": "NOT_RUN",
+  "STORE-024": "NOT_RUN: no already-enforced target/new denial receipt",
+  "T08_publication": "BLOCKED pending all required real gates",
+  "publication_tag_main_merge": false,
+  "existing_desktop_or_old_runtime_changes": false,
+  "raw_artifacts": [
+    {
+      "name": "application-runs.json",
+      "bytes": 3461,
+      "sha256": "092f4a04d84c7573fb880b6b0c3d636cb114828099dc964e2538e57c783b1d92"
+    },
+    {
+      "name": "dev14-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "dev14-install.stdout",
+      "bytes": 970,
+      "sha256": "e55c41bfaad8d6255414a23ffd15a33a32de47371f61fd496ed231aaf1a72bd5"
+    },
+    {
+      "name": "fixtures-reuse.json",
+      "bytes": 1208,
+      "sha256": "eaf8475059f8d633d2daf5ab58967d152a61fa8d39609c6c5e51e05960a6948e"
+    },
+    {
+      "name": "install.json",
+      "bytes": 1766,
+      "sha256": "907b9043320113696e5b4b1f71deb63ce1a4fe50876a7ba296e0f77f4f034759"
+    },
+    {
+      "name": "red.json",
+      "bytes": 694,
+      "sha256": "c8705f80223d25f8d00e734b551ab1ff4dae28a7df00a83bfee7d64b5d0a4b78"
+    },
+    {
+      "name": "red.stderr",
+      "bytes": 3862,
+      "sha256": "c2ff434189c4cfd1aee6db7ccc6e81d37f224b321fba71a2f141068fab02b8be"
+    },
+    {
+      "name": "red.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime-guards.json",
+      "bytes": 4341,
+      "sha256": "2ebe2427cc37ccac318a1225fe410015e6bd69f67a064ce413546be5bf609155"
+    },
+    {
+      "name": "runtime13-application.json",
+      "bytes": 770096,
+      "sha256": "c3d9041624df4490dee206b57714032f34a74a9d045304b77e2f70180d115beb"
+    },
+    {
+      "name": "runtime13-application.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime13-application.stdout",
+      "bytes": 110,
+      "sha256": "f30617417722287ef63befd14831119b82b65101335820efa4bde7381c1a9ca2"
+    },
+    {
+      "name": "runtime13-guards.stderr",
+      "bytes": 1467,
+      "sha256": "d55a58c543b4ec9c91f42e9f0dd8bc9550c0786781975b51e66fe551a2ace7c2"
+    },
+    {
+      "name": "runtime13-guards.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime13-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime13-install.stdout",
+      "bytes": 221,
+      "sha256": "e7adc4ad66c97049c004486d291c9a2545103b77f75abf586108bb7e984090fb"
+    },
+    {
+      "name": "runtime13-pip-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime13-pip-check.stdout",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "name": "runtime14-application.json",
+      "bytes": 769969,
+      "sha256": "1fafca0d3fa22f54aca48cdcaf012528cfaf268fb9f4bcab8b89aca6402e3e97"
+    },
+    {
+      "name": "runtime14-application.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime14-application.stdout",
+      "bytes": 110,
+      "sha256": "c932f82d5ce2ceecda271261b982fbd3fd1b7322e9a45abf8058656e2dd1da16"
+    },
+    {
+      "name": "runtime14-guards.stderr",
+      "bytes": 1467,
+      "sha256": "f7d3d10a2c733e74037f3b95e239b6dff0e71cb1ebbf57082157f980c3eae29f"
+    },
+    {
+      "name": "runtime14-guards.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime14-pip-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime14-pip-check.stdout",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "name": "runtime14-prepare.json",
+      "bytes": 1141,
+      "sha256": "7edecac8b51f535528dca43b0ace06b3eedb91e66f7eea8cd48d237a465b234c"
+    },
+    {
+      "name": "runtime15-application.json",
+      "bytes": 769957,
+      "sha256": "d4d42fbcd5cc2555b3fc430bf9c3dc108613ca6b371c8f026f584fe045ce6557"
+    },
+    {
+      "name": "runtime15-application.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime15-application.stdout",
+      "bytes": 110,
+      "sha256": "c89f0aa7a3cfd87ee6ba04ed44b47682c39f856ed14d3fc828397e4c07ef5a6d"
+    },
+    {
+      "name": "runtime15-guards.stderr",
+      "bytes": 1467,
+      "sha256": "914ea53f06d636cbec46b95c7dd904221bbeba35e47ec0144e66ded69c61c157"
+    },
+    {
+      "name": "runtime15-guards.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime15-install.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime15-install.stdout",
+      "bytes": 221,
+      "sha256": "e7adc4ad66c97049c004486d291c9a2545103b77f75abf586108bb7e984090fb"
+    },
+    {
+      "name": "runtime15-pip-check.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "name": "runtime15-pip-check.stdout",
+      "bytes": 31,
+      "sha256": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf"
+    },
+    {
+      "name": "tools-bootstrap.json",
+      "bytes": 10038,
+      "sha256": "ee2124ae58f83bf8bc61b0e8402af1881906359131cc1f5bf6dcda1835ea4fd8"
+    },
+    {
+      "name": "venv-create.json",
+      "bytes": 1109,
+      "sha256": "878b73f0e2db618ff518dc1395de187c993439ed89b2c627d1f8bb8dceaee7ed"
+    }
+  ],
+  "new_fixtures_provenance": {
+    "name": "fixtures-reuse.json",
+    "bytes": 1208,
+    "sha256": "eaf8475059f8d633d2daf5ab58967d152a61fa8d39609c6c5e51e05960a6948e"
+  },
+  "commands": [
+    "<OLD_DEV_RUNTIME14> -I -B -m unittest discover -s <CHECKOUT>/tests/python -p test_release_security.py -v (RED)",
+    "<EXISTING_BASE_RUNTIME> -I -B -m venv <NEW_EXTERNAL_ENV>; new isolated hash-required binary-only PyPI requirements installation",
+    "<NEW_RUNTIME> -I -B -m pip check; <NEW_RUNTIME> -I -B -m unittest discover -s <CHECKOUT>/tests/python -p test_release_security.py -v",
+    "<NEW_DEV14> -I -B tests/run_tests.py --layer application --application-python-path <NEW_RUNTIME> --shell-path <PS51> --shell-path <PS766> --calibre-path <EXISTING_CALIBRE915> --report <NEW_EXTERNAL_REPORT> (all3targets)",
+    "<NEW_DEV14> -I -B tools/ci/bootstrap.py --tool-root <NEW_EXTERNAL_TOOLS> --report <NEW_EXTERNAL_REPORT>",
+    "<NEW_DEV14> -I -B tests/run_tests.py --layer python --report <NEW_EXTERNAL_REPORT>; --layer shell --tool-root <NEW_EXTERNAL_TOOLS> --shell-path <PS51> --shell-path <PS766> --report <NEW_EXTERNAL_REPORT> (started, no result inferred here)"
+  ],
+  "evidence_files": [
+    {
+      "name": "T08-security-repair.md",
+      "bytes": 3667,
+      "sha256": "d7b7be186bac4bdc2ace74bad436d0b87044c816fab79a7201287ddbaf92c773"
+    }
+  ],
+  "checkpoint_rule": "Source/checkpoint hashes belong in subsequent receipt/external handover, not recursively in their own commit.",
+  "exploratory_corrections": [
+    "Independent review found a UTF8-stdin author-quote serialization defect; corrected to ASCII before staging. No product/receipt bytes affected."
+  ]
+}

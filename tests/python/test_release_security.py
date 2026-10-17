@@ -1,4 +1,5 @@
 """Bounded dependency guards and actual BAT shell-shadowing regression."""
+from io import BytesIO
 import os
 from pathlib import Path
 import shutil
@@ -10,12 +11,45 @@ import unittest
 from pypdf import apply_configuration, get_configuration
 from pypdf.errors import LimitReachedError
 from pypdf.filters import decode_stream_data
-from pypdf.generic import ArrayObject, EncodedStreamObject, NameObject
+from pypdf.generic import (ArrayObject, ContentStream, DecodedStreamObject,
+                           DictionaryObject, EncodedStreamObject, NameObject)
 
 ROOT = Path(__file__).resolve().parents[2]
 
 
 class StreamResourceGuardTests(unittest.TestCase):
+    def test_array_parser_bounds_elements_and_restores_configuration(self):
+        original = get_configuration().array_maximum_element_count
+        self.assertEqual(original, 100_000)
+        with apply_configuration(array_maximum_element_count=3):
+            self.assertEqual(len(ArrayObject.read_from_stream(BytesIO(b'[0 1 2]'), None)), 3)
+            with self.assertRaisesRegex(LimitReachedError, 'maximum array element count'):
+                ArrayObject.read_from_stream(BytesIO(b'[0 1 2 3]'), None)
+        self.assertEqual(get_configuration().array_maximum_element_count, original)
+
+    def test_dictionary_parser_bounds_entries_and_restores_configuration(self):
+        original = get_configuration().dictionary_maximum_element_count
+        self.assertEqual(original, 100_000)
+        with apply_configuration(dictionary_maximum_element_count=3):
+            self.assertEqual(len(DictionaryObject.read_from_stream(
+                BytesIO(b'<</A 0 /B 1 /C 2>>'), None)), 3)
+            with self.assertRaisesRegex(LimitReachedError, 'maximum number of dictionary entries'):
+                DictionaryObject.read_from_stream(BytesIO(b'<</A 0 /B 1 /C 2 /D 3>>'), None)
+        self.assertEqual(get_configuration().dictionary_maximum_element_count, original)
+
+    def test_content_parser_bounds_tokens_and_restores_configuration(self):
+        original = get_configuration().stream_parsing_work_maximum_count
+        self.assertEqual(original, 2_000_000)
+        def operations(data):
+            stream = DecodedStreamObject()
+            stream.set_data(data)
+            return ContentStream(stream, None).operations
+        with apply_configuration(stream_parsing_work_maximum_count=3):
+            self.assertEqual(len(operations(b'q Q q')), 3)
+            with self.assertRaisesRegex(LimitReachedError, 'maximum number of tokens per stream'):
+                operations(b'q Q q Q')
+        self.assertEqual(get_configuration().stream_parsing_work_maximum_count, original)
+
     def test_many_filters_reject_without_large_allocation(self):
         stream = EncodedStreamObject()
         stream._data = b"x"

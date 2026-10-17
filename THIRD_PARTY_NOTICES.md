@@ -16,7 +16,7 @@ continue to apply to those installations.
 | Component used by WinBookSplit | Upstream license and primary source |
 | --- | --- |
 | CPython 3.13, 3.14 and 3.15 (tested 3.13.16 / 3.14.8 / 3.15.0) | PSF License Version 2 and incorporated-software notices: [3.13](https://docs.python.org/3.13/license.html), [3.14](https://docs.python.org/3.14/license.html), [3.15](https://docs.python.org/3.15/license.html) |
-| pypdf 6.20.0 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.20.0/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.20.0/pyproject.toml) |
+| pypdf 6.21.1 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.21.1/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.21.1/pyproject.toml) |
 | PowerShell 7.6.6 | [MIT license, Microsoft Corporation](https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt) |
 | Calibre 9.15.0, for EPUB/AZW3 | [GNU GPL version 3](https://github.com/kovidgoyal/calibre/blob/v9.15.0/LICENSE) |
 

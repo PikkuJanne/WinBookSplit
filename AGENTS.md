@@ -2,6 +2,13 @@
 
 ## Active v1.0.3 Store discovery repair
 
+The owner's 18 October 2026 explicit answer authorizes the separate minimal
+pypdf security repair and preparation of a new candidate for fresh native
+acceptance. Follow `docs/codex-v1.0.3/tasks/08-T08-security-repair.md` and current
+status/continuation. Preserve original frozen R, its archives, owner contracts
+and accepted T07 receipts. Changed candidate bytes need their own committed
+freeze and native evidence; this authority does not waive missing acceptance.
+
 The owner's 17 October 2026 request authorizes repair of the captured Microsoft
 Store Python Install Manager failure and publication of the next patch v1.0.3
 only after its real acceptance gates pass. Read `docs/codex-v1.0.3/SCOPE.md`,

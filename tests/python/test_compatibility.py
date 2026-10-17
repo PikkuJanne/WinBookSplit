@@ -32,7 +32,7 @@ def synthetic_policy():
                                  "security_min_patch": minimum, "recommended_patch": latest,
                                  "blocked_patches": [], "security_sources": ["SyntheticSecurity"]}
                                 for minor, minimum, latest in ((14, 7, 8), (13, 15, 16))]},
-        "pypdf": {"version": "6.20.0", "wheel_sha256": "a" * 64},
+        "pypdf": {"version": "6.21.1", "wheel_sha256": "a" * 64},
         "calibre": {"version": "9.15.0"},
         "excluded_python_branches": [{"major": 3, "minor": minor,
                                       "reason": "Synthetic evidence-based distribution exclusion"}
@@ -155,7 +155,7 @@ class InterpreterPolicyTests(unittest.TestCase):
 
     def test_candidate_ok_flag_and_package_fields_do_not_override_identity(self):
         record = synthetic_runtime(14, 2)
-        record.update(ok=True, pypdf_version="6.20.0", protocol="winbooksplit.runtime", schema_version=1)
+        record.update(ok=True, pypdf_version="6.21.1", protocol="winbooksplit.runtime", schema_version=1)
         self.assert_reason(record, "python_security_floor")
 
     def test_required_isolation_flags_are_enforced(self):
@@ -200,10 +200,10 @@ class PolicyLoaderTests(unittest.TestCase):
                     record = synthetic_runtime(branch["minor"], patch_number)
                     self.assertTrue(compatibility.validate_interpreter(record, policy)["ok"])
 
-    def test_shipped_policy_three_adds_315_without_weakening_existing_floors(self):
+    def test_shipped_policy_four_locks_repaired_package_without_weakening_python_floors(self):
         policy = compatibility.load_policy()
-        self.assertEqual(policy["policy_version"], 3)
-        self.assertEqual(policy["reviewed_on"], "2026-10-12")
+        self.assertEqual(policy["policy_version"], 4)
+        self.assertEqual(policy["reviewed_on"], "2026-10-18")
         self.assertEqual([(b["minor"], b["security_min_patch"]) for b in policy["python"]["branches"]],
                          [(15, 0), (14, 8), (13, 16)])
         for patch_number in (0, 1, 9, 10, 99):
@@ -216,7 +216,9 @@ class PolicyLoaderTests(unittest.TestCase):
             for patch_number in accepted:
                 with self.subTest(minor=minor, patch=patch_number):
                     self.assertTrue(compatibility.validate_interpreter(synthetic_runtime(minor, patch_number), policy)["ok"])
-        self.assertEqual(policy["pypdf"]["version"], "6.20.0")
+        self.assertEqual(policy["pypdf"]["version"], "6.21.1")
+        self.assertEqual(policy["pypdf"]["wheel_sha256"],
+                         "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b")
         self.assertEqual(policy["calibre"]["version"], "9.15.0")
 
     def test_supplied_v102_version_fixtures_use_the_shipped_shared_evaluator(self):
@@ -392,12 +394,12 @@ class PackageProbeTests(unittest.TestCase):
         package = self.packages / "pypdf"
         package.mkdir(parents=True)
         (package / "__init__.py").write_text("# Synthetic package-origin fixture", encoding="utf-8")
-        dist_info = self.packages / "pypdf-6.20.0.dist-info"
+        dist_info = self.packages / "pypdf-6.21.1.dist-info"
         dist_info.mkdir()
-        (dist_info / "METADATA").write_text("Name: pypdf\nVersion: 6.20.0\n", encoding="utf-8")
-        self.package = SimpleNamespace(__file__=str(package / "__init__.py"), __version__="6.20.0")
-        self.distribution = SimpleNamespace(version="6.20.0", metadata={"Name": "pypdf"},
-            files=[Path("pypdf-6.20.0.dist-info/METADATA")], locate_file=lambda item: self.packages / str(item))
+        (dist_info / "METADATA").write_text("Name: pypdf\nVersion: 6.21.1\n", encoding="utf-8")
+        self.package = SimpleNamespace(__file__=str(package / "__init__.py"), __version__="6.21.1")
+        self.distribution = SimpleNamespace(version="6.21.1", metadata={"Name": "pypdf"},
+            files=[Path("pypdf-6.21.1.dist-info/METADATA")], locate_file=lambda item: self.packages / str(item))
         self.identity = synthetic_runtime()
         self.identity.update(protocol="winbooksplit.runtime", schema_version=1, ok=False,
                              policy_version=0, policy_sha256="", reason="malformed_runtime", message="Synthetic identity")
@@ -447,11 +449,11 @@ class PackageProbeTests(unittest.TestCase):
     def test_full_package_probe_verifies_import_and_distribution_versions(self):
         result = self.probe()
         self.assertTrue(result["ok"], result)
-        self.assertEqual(result["pypdf_version"], "6.20.0")
+        self.assertEqual(result["pypdf_version"], "6.21.1")
         self.assertEqual(Path(result["pypdf_path"]), Path(self.package.__file__))
         self.package.__version__ = "6.19.0"
         self.assertEqual(self.probe()["reason"], "pypdf_version_mismatch")
-        self.package.__version__ = "6.20.0"
+        self.package.__version__ = "6.21.1"
         self.distribution.version = "6.19.0"
         self.assertEqual(self.probe()["reason"], "pypdf_version_mismatch")
 
@@ -467,7 +469,7 @@ class PackageProbeTests(unittest.TestCase):
         self.distribution.locate_file = lambda item: self.packages / str(item)
         self.distribution.files = None
         self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
-        self.distribution.files = [Path("pypdf-6.20.0.dist-info/METADATA")]
+        self.distribution.files = [Path("pypdf-6.21.1.dist-info/METADATA")]
         self.distribution.metadata = {"Name": "some-other-project"}
         self.assertEqual(self.probe()["reason"], "pypdf_origin_invalid")
 
@@ -607,7 +609,7 @@ class NativeProbeEntrypointTests(unittest.TestCase):
         elif not metadata_present:
             reason, code = "missing_pypdf", "dependency_missing"
         else:
-            reason = "pypdf_origin_invalid" if package_version == "6.20.0" else "pypdf_version_mismatch"
+            reason = "pypdf_origin_invalid" if package_version == compatibility.load_policy()["pypdf"]["version"] else "pypdf_version_mismatch"
             code = "runtime_invalid"
         self.assertEqual(child.returncode, 3)
         self.assertEqual(record["diagnostic"]["reason"], reason)
@@ -619,7 +621,7 @@ class NativeProbeEntrypointTests(unittest.TestCase):
         self.assertEqual(list(output.iterdir()), [neighbor])
 
     def test_direct_engine_rejects_controlled_wrong_package_origin_before_document(self):
-        self.assert_direct_shadow_package_rejection("6.20.0")
+        self.assert_direct_shadow_package_rejection(compatibility.load_policy()["pypdf"]["version"])
 
     def test_direct_engine_rejects_controlled_wrong_package_version_before_document(self):
         self.assert_direct_shadow_package_rejection("6.19.0")

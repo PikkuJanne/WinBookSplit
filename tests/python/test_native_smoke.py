@@ -29,7 +29,7 @@ def synthetic_probe():
 def synthetic_export():
     oracle = {"protocol": "winbooksplit.native-oracle", "schema_version": 1, "success": True,
               "plan_sha256": "a" * 64, "application_version": "1.0.1", "policy_sha256": "b" * 64,
-              "runtime_versions": {"python": "3.15.0", "pypdf": "6.20.0", "calibre": "9.15.0"},
+              "runtime_versions": {"python": "3.15.0", "pypdf": "6.21.1", "calibre": "9.15.0"},
               "source_unchanged": True, "cases": [{"id": name, "status": "PASS", "exit_code": 0, "error_code": None} for name in smoke.CASE_IDS],
               "limits": ["No Explorer gesture was performed.", "All native artifacts are preserved locally."]}
     policies = [{"scope": scope, "policy": "Bypass" if scope == "Process" else "Undefined"}
@@ -48,7 +48,7 @@ def synthetic_export():
                  "child_hosts": [{"stage": stage, "executable_status": "observed", "version": "5.1.19041.6000", "edition": "Desktop",
                                   "execution_policy": {"status": "observed", "effective": "Bypass", "scopes": copy.deepcopy(policies), "reason_code": None},
                                   "selected_version": None if stage == "broken-default" else "3.15.0",
-                                  "pypdf_version": None if stage == "broken-default" else "6.20.0"} for stage in child_stages],
+                                  "pypdf_version": None if stage == "broken-default" else "6.21.1"} for stage in child_stages],
                  "pdf": None if mock else {"success": True, "runtime_version": "3.15.0", "written_count": 3, "physical_pages": 10, "source_sha256": "c"*64}}
         if mock:
             route["simulated_positive_launch_refused"] = True
@@ -377,7 +377,7 @@ class PublicationOracleControls(unittest.TestCase):
         self.run_id = "a" * 32
         self.final = self.base / ("Original_" + self.run_id)
         self.final.mkdir()
-        smoke.RUNTIME_POLICY = {"pypdf": {"version": "6.20.0"}}
+        smoke.RUNTIME_POLICY = {"pypdf": {"version": "6.21.1"}}
         source = self.base / "source.pdf"
         writer = PdfWriter()
         for width in (101, 102, 103):
@@ -394,7 +394,7 @@ class PublicationOracleControls(unittest.TestCase):
             reader = PdfReader(source)
             for page in reader.pages[start:end]:
                 writer.add_page(page)
-            writer.add_metadata({"/Title": title, "/Creator": "WinBookSplit", "/Producer": "WinBookSplit 1.0.1 (pypdf 6.20.0)"})
+            writer.add_metadata({"/Title": title, "/Creator": "WinBookSplit", "/Producer": "WinBookSplit 1.0.1 (pypdf 6.21.1)"})
             writer.add_outline_item(title, 0)
             with target.open("xb") as stream:
                 writer.write(stream)

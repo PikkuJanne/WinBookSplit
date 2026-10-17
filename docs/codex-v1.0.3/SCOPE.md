@@ -45,6 +45,14 @@ gate blocks publication, not all remaining independent work.
 
 ## Dependency/security scope
 
+On 18 October the owner explicitly authorized the separate pypdf security repair
+and a new candidate for fresh native acceptance. The scoped change updates the
+verified exact wheel to 6.21.1 and its necessary maintained locks, tooling,
+tests and current documentation. Preserve Python/Calibre floors and the existing
+engine/guards. Original R and accepted T07 are immutable evidence for old bytes;
+the new candidate needs separate freeze/package/native bindings. No release-gate
+waiver, desktop Python/Manager change or organization-policy change is authorized.
+
 Retain the current runtime policy and pypdf/Calibre lock unless a newly verified,
 release-relevant issue requires a separate small remedial change with evidence.
 Record current advisory review and scope honestly. Do not turn an unrelated

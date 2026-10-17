@@ -386,7 +386,8 @@ class Cases:
                 require(len(dependency) == len(invocation) == len(frames) == 1 and frames[0]["status"] == "success", "Missing actual dependency/execution records")
                 selected = dependency[0]["Runtime"]
                 require(os.path.normcase(selected["Path"]) == os.path.normcase(candidate) and selected["Version"] == self.python_details["version"]
-                        and selected["Source"] == expected_source and selected["PypdfVersion"] == "6.20.0", "Selected actual interpreter differs from case")
+                        and selected["Source"] == expected_source
+                        and selected["PypdfVersion"] == launchers.RUNTIME_POLICY["pypdf"]["version"], "Selected actual interpreter differs from case")
                 require(invocation[0]["path"] == selected["Path"] and invocation[0]["arguments"][:4] == ["-I", "-B", "-X", "utf8"]
                         and invocation[0]["arguments"][4:9] == [str(app / "engine/winbooksplit_engine.py"), str(source), str(base), "manual", ""], "Engine did not use exact selected interpreter and literal isolated UTF-8 argv")
                 require(selected["Details"]["isolated"] is True and selected["Details"]["dont_write_bytecode"] is True

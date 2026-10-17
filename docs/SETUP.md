@@ -3,7 +3,7 @@
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
 from one of the accepted branches below. The application uses plain **pypdf
-6.20.0**; EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.15.0**.
+6.21.1**; EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.15.0**.
 Developer renderers, Pester and fixture packages are not application requirements.
 Final-release platform evidence belongs to the exact release archive; these
 setup instructions do not certify an untested ZIP or a clean operating system.
@@ -121,11 +121,11 @@ are not promised to be portable.
 
 ## Offline package setup
 
-Place the exact reviewed file `pypdf-6.20.0-py3-none-any.whl` in an ordinary local
+Place the exact reviewed file `pypdf-6.21.1-py3-none-any.whl` in an ordinary local
 wheelhouse directory. Its SHA-256 must be:
 
 ```text
-f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad
+553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b
 ```
 
 Then run:
@@ -182,7 +182,7 @@ Windows binaries are unavailable in the reviewed catalog. End users are not
 required to compile Python, so these branches are excluded. Prereleases,
 free-threaded builds, PyPy and 32-bit/ARM processes are also excluded. Unlisted
 minors such as 3.16 are not yet validated for this release; that reason does not
-label an unknown minor insecure. The exact pypdf 6.20.0 lock and Calibre 9.15.0 check remain
+label an unknown minor insecure. The exact pypdf 6.21.1 lock and Calibre 9.15.0 check remain
 separate from Python's multi-minor policy.
 
 For processing, an explicit `-PythonPath` is authoritative, followed by an existing

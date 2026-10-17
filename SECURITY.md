@@ -33,8 +33,8 @@ every accepted interpreter or document secure. The patched 3.11/3.12 releases
 are source-only and lack a patched official Windows binary in the reviewed
 catalog, so those branches are excluded from this application policy.
 
-pypdf remains separately locked to 6.20.0 and its reviewed wheel SHA256,
-including the upstream
+pypdf is separately locked to 6.21.1 and its reviewed wheel SHA256,
+retaining the upstream
 [multiple-filter fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f).
 Optional ebook conversion remains locked to Calibre 9.15.0. Do not bypass
 origin, document-feature, encryption, process or cleanup checks to resolve a
@@ -43,20 +43,27 @@ through `Setup-WinBookSplit.bat` or the complete process-host command. The
 scripts are unsigned; Internet marks remain intact and persistent execution
 policy is unchanged. Enforced organization controls still apply.
 
-The 17 October 2026 advisory review identified remaining pypdf 6.20.0 exposure:
-upstream reports large-memory parsing of
+The 18 October 2026 dependency repair selects 6.21.1 for upstream fixes to
+excessive memory consumption while parsing
 [arrays/dictionaries](https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57)
 and [content streams](https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c)
-in versions below 6.21.0, plus
+in versions below 6.21.0, plus the fixes described for
 [form-field retrieval](https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7)
 and [image-loading](https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv)
-advisories. The latter names a 6.21.1 fix. WinBookSplit reads PDF structures and
-content streams, so it cannot claim general exemption. Its production code does
+advisories. The JPEG advisory names 6.21.1 as fixed. The form-field advisory's
+patched-version metadata disagrees with its affected range and prose; that
+discrepancy remains recorded in the historical gate-review evidence. Small
+developer experiments demonstrate the selected dependency's array, dictionary
+and content-stream guards with temporarily reduced limits. They do not measure
+memory use or establish full application or native acceptance.
+
+WinBookSplit reads PDF structures and content streams. Its production code does
 not call form-field retrieval or image extraction APIs; that limited observation
 does not prove hostile documents harmless. Bounded child-process supervision
-is not a memory or network sandbox. This narrow Store-discovery repair retains
-the existing dependency lock; release review must consider this advisory scope
-separately from discovery and native acceptance results.
+is not a memory or network sandbox. The changed dependency requires a new frozen
+package and exact-byte native acceptance before release; earlier accepted
+receipts remain evidence only for their original bytes. The reviewed fixes do
+not establish general security clearance for the application or documents.
 
 Windows 10 22H2 compatibility does not extend Microsoft's servicing lifecycle.
 Standard Home/Pro support

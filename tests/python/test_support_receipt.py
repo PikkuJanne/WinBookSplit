@@ -81,7 +81,7 @@ def synthetic_success():
     row['command'] += ['-PythonPath', python]
     row['run_manifest'] = {'protocol': 'winbooksplit.run', 'version': 1, 'application_version': validator.console.APPLICATION_VERSION, 'run_id': 'e' * 32,
         'started_utc': '2026-10-10T00:00:00+00:00', 'finished_utc': '2026-10-10T00:00:01+00:00', 'diagnostics_finalized': True,
-        'runtime_versions': {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': '6.20.0', 'calibre': None},
+        'runtime_versions': {'powershell': row['host_version'], 'python': '3.14.8', 'pypdf': validator.console.RUNTIME_POLICY['pypdf']['version'], 'calibre': None},
         'settings': {'mode': 'manual', 'input_kind': 'pdf', 'preview': False, 'non_interactive': True, 'no_pause': False,
                      'keep_converted_pdf': False, 'conversion_timeout': 1800, 'process_timeout': 3600, 'normalized_inputs': plan['normalized_inputs']},
         'source_identity': source_identity, 'plan': deepcopy(plan), 'engine_result': deepcopy(engine), 'outcome': deepcopy(final),
@@ -158,7 +158,7 @@ class SupportReceiptTests(unittest.TestCase):
 
     def test_resealed_manifest_cannot_change_final_status_or_versions(self):
         for field, value in (('outcome', {**synthetic_success()['outcome'], 'status': 'failed'}),
-                             ('runtime_versions', {'powershell': '7.6.6', 'python': '3.14.8', 'pypdf': '6.20.0', 'calibre': None}),
+                             ('runtime_versions', {'powershell': '7.6.6', 'python': '3.14.8', 'pypdf': validator.console.RUNTIME_POLICY['pypdf']['version'], 'calibre': None}),
                              ('diagnostics_finalized', False)):
             row = synthetic_success()
             row['run_manifest'][field] = value

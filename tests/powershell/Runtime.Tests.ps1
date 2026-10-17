@@ -18,7 +18,7 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
         $script:pinned.Path | Should-Be -Expected $TestPython
         $script:pinned.Version | Should-Be -Expected ($script:pinned.Probe.Stdout | ConvertFrom-Json).version
         $script:pinned.Source | Should-Be -Expected 'explicit'
-        $script:pinned.PypdfVersion | Should-Be -Expected '6.20.0'
+        $script:pinned.PypdfVersion | Should-Be -Expected (Get-WinBookSplitCompatibilityPolicy).pypdf.version
         $script:pinned.PypdfPath | Should-MatchString -Expected '\\Lib\\site-packages\\pypdf\\__init__\.py$'
         ($script:pinned.Arguments -join ',') | Should-Be -Expected '-I,-B'
         $script:pinned.Details.isolated | Should-BeTrue
@@ -30,7 +30,8 @@ Describe 'M2 dependency selection and isolated import' -Tag 'AC-043' {
         $null = New-Item -ItemType Directory -Path $book
         $marker = Join-Path $book 'shadow-imported.txt'
         $pythonMarker = $marker.Replace('\','\\').Replace("'","\'")
-        [IO.File]::WriteAllText((Join-Path $book 'pypdf.py'), "from pathlib import Path; Path('$pythonMarker').write_text('Owned controlled shadow imported'); __version__='6.20.0'")
+        $pypdfVersion=(Get-WinBookSplitCompatibilityPolicy).pypdf.version
+        [IO.File]::WriteAllText((Join-Path $book 'pypdf.py'), "from pathlib import Path; Path('$pythonMarker').write_text('Owned controlled shadow imported'); __version__='$pypdfVersion'")
         $savedPath=$env:PYTHONPATH; $savedHome=$env:PYTHONHOME; $savedLocation=Get-Location
         try {
             $env:PYTHONPATH=$book; $env:PYTHONHOME=$book; Set-Location -LiteralPath $book

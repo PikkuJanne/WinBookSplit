@@ -523,7 +523,7 @@ Describe 'V101 independent discovery and optional-listing failures' -Tag 'V101-A
         Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 1 -Exactly -ParameterFilter { $Path -ceq $TestPython -and $Arguments[0] -ceq '-I' -and $Arguments -contains '--probe' }
         $result.Details.executable | Should -BeExactly $TestPython
         $result.Details.isolated | Should -BeTrue
-        $result.PypdfVersion | Should -BeExactly '6.20.0'
+        $result.PypdfVersion | Should -BeExactly $script:discoveryPolicy.pypdf.version
     }
 }
 

@@ -80,7 +80,7 @@ recommended patches, blocked patches, exclusions and the exact policy hash.
 The source-test targets 3.13.16, 3.14.8 and 3.15.0 are not patch-equality gates.
 Later stable patches are accepted numerically only within these reviewed branches;
 unlisted minors are not yet validated and are not labeled insecure. pypdf
-6.20.0 and its reviewed wheel SHA remain separately controlled, and the selected
+6.21.1 and its reviewed wheel SHA remain separately controlled, and the selected
 requirements must agree with the policy. Calibre remains separately installed.
 The manifest's builder Python/Git strings identify what actually built those
 bytes; they do not narrow application acceptance to that Python patch.

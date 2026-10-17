@@ -39,9 +39,9 @@ PREREQUISITES = {
     "python": {"name": "python-3.15.0-amd64.zip", "version": "3.15.0", "bytes": 45140897,
                "url": "https://www.python.org/ftp/python/3.15.0/python-3.15.0-amd64.zip",
                "sha256": "6b1a3f885ce416cf3a68af203e62203664eb5224d8d0c1d2a1945fddec5c500b"},
-    "pypdf": {"name": "pypdf-6.20.0-py3-none-any.whl", "version": "6.20.0", "bytes": 401710,
-              "url": "https://files.pythonhosted.org/packages/18/42/a945f65cc61c739ec80f4112c4b78ed1791f25d33f45f19389c9c9e247e2/pypdf-6.20.0-py3-none-any.whl",
-              "sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"},
+    "pypdf": {"name": "pypdf-6.21.1-py3-none-any.whl", "version": "6.21.1", "bytes": 405134,
+              "url": "https://files.pythonhosted.org/packages/85/e6/24c944e473c34e818cf1b98085796fcd780465ecfe17663f2bf8fee1958b/pypdf-6.21.1-py3-none-any.whl",
+              "sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"},
     "calibre": {"name": "calibre-portable-installer-9.15.0.exe", "version": "9.15.0", "bytes": 205319944,
                 "url": "https://download.calibre-ebook.com/9.15.0/calibre-portable-installer-9.15.0.exe",
                 "sha256": "55a8c89bc0739a2dc6d496742ea625fccc6dfdec1413eb805805a28e7227536c"}}

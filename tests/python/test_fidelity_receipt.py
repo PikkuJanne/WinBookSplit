@@ -55,7 +55,7 @@ class FidelityReceiptTests(unittest.TestCase):
         self.check()
 
     def test_producer_binds_canonical_application_version_and_locked_package(self):
-        for producer in ("WinBookSplit 0.0.0 (pypdf 6.20.0)",
+        for producer in (f"WinBookSplit 0.0.0 (pypdf {guard.console.RUNTIME_POLICY['pypdf']['version']})",
                          f"WinBookSplit {guard.console.APPLICATION_VERSION} (pypdf 9.99.0)"):
             with self.subTest(producer=producer), self.assertRaises(ValueError):
                 self.check(lambda row, out, entry, source: out['metadata'].update({'/Producer': producer}))

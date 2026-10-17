@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "reviewed_on": "2026-10-12",
+  "reviewed_on": "2026-10-18",
   "python_versions": ["3.13.16", "3.14.8", "3.15.0"],
   "pypdf": {
-    "version": "6.20.0",
-    "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+    "version": "6.21.1",
+    "wheel_sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
   },
   "calibre": {
     "version": "9.15.0"

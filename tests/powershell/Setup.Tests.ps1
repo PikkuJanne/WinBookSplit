@@ -479,7 +479,7 @@ Describe 'V101 explicit application-local setup with the real reviewed offline w
         $selected=Resolve-WinBookSplitRuntime -ApplicationRoot $script:healthySetupApp
         $selected.Path | Should -BeExactly (Join-Path $venv 'Scripts\python.exe')
         $selected.Version | Should -BeExactly $script:setupExpectedVersion
-        $selected.PypdfVersion | Should -BeExactly '6.20.0'
+        $selected.PypdfVersion | Should -BeExactly $script:setupPolicy.pypdf.version
         $selected.Source | Should -BeExactly 'application_venv'
         $install=@($result.operations | Where-Object { $_.phase -eq 'pip_install' })
         $install.Count | Should -Be 1
@@ -792,7 +792,7 @@ Describe 'V101 precise prerequisite and reviewed wheel failures' -Tag 'V101-AC-0
         $null=New-Item -ItemType Directory -Path $trap
         $wheel=Join-Path $trap ([IO.Path]::GetFileName($script:setupWheel))
         Copy-Item -LiteralPath $script:setupWheel -Destination $wheel
-        [IO.File]::WriteAllText((Join-Path $trap 'index.html'),'<a href="http://127.0.0.1:1/forbidden/pypdf-6.20.0-py3-none-any.whl">remote trap</a>')
+        [IO.File]::WriteAllText((Join-Path $trap 'index.html'),('<a href="http://127.0.0.1:1/forbidden/'+[IO.Path]::GetFileName($script:setupWheel)+'">remote trap</a>'))
         $result=Invoke-WinBookSplitSetup -ApplicationRoot $app -PythonPath $TestPython -Wheelhouse $trap -NonInteractive
         $result.code | Should -BeExactly 'setup_complete'
         $install=@($result.operations | Where-Object { $_.phase -eq 'pip_install' })[0]

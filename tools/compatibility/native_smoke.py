@@ -788,7 +788,7 @@ def export_report(raw):
             need(observed == expected, "redacted_child_policy_changed")
             broken = child["stage"] == "broken-default"
             need(child["selected_version"] == (None if broken else "3.15.0")
-                 and child["pypdf_version"] == (None if broken else "6.20.0"), "redacted_child_runtime_invalid")
+                 and child["pypdf_version"] == (None if broken else RUNTIME_POLICY["pypdf"]["version"]), "redacted_child_runtime_invalid")
         if mock:
             need(route["simulated_positive_launch_refused"] is True and route["pdf"] is None, "redacted_mock_refusal_invalid")
         else:

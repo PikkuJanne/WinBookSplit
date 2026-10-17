@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": 3,
-  "reviewed_on": "2026-10-12",
+  "policy_version": 4,
+  "reviewed_on": "2026-10-18",
   "python": {
     "implementation": "cpython",
     "platform": "win32",
@@ -40,8 +40,8 @@
     ]
   },
   "pypdf": {
-    "version": "6.20.0",
-    "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad"
+    "version": "6.21.1",
+    "wheel_sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
   },
   "calibre": {
     "version": "9.15.0"
@@ -136,13 +136,33 @@
     },
     {
       "id": "PypdfMetadata",
-      "url": "https://pypi.org/pypi/pypdf/6.20.0/json",
-      "relevance": "Exact non-yanked pypdf 6.20.0 wheel hash and Python >=3.9 feasibility metadata; metadata is not application test evidence."
+      "url": "https://pypi.org/pypi/pypdf/6.21.1/json",
+      "relevance": "Exact non-yanked pypdf 6.21.1 wheel hash and Python >=3.9 feasibility metadata verified on 2026-10-18; metadata is not application test or security-clearance evidence."
     },
     {
       "id": "PypdfMultipleFilters",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f",
-      "relevance": "The October 9 multiple-filter memory-consumption advisory is patched in 6.20.0; retain the separate exact package lock and existing guards."
+      "relevance": "The October 9 multiple-filter memory-consumption advisory was patched in 6.20.0; 6.21.1 retains that fix. Preserve the separate exact package lock and existing guards."
+    },
+    {
+      "id": "PypdfArrayDictionary",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57",
+      "relevance": "Large-array/dictionary parsing memory consumption affects versions below 6.21.0. Upstream identifies 6.21.0 as fixed; selected 6.21.1 includes the parser-limit fields. Small reduced-limit checks are separate dependency evidence, not full application or memory-sandbox acceptance."
+    },
+    {
+      "id": "PypdfContentParsing",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c",
+      "relevance": "Many-small-operation content-stream parsing memory consumption affects versions below 6.21.0. Selected 6.21.1 includes the upstream parsing-work budget. Explicit developer operations parsing does not establish application reachability or universal protection."
+    },
+    {
+      "id": "PypdfFormFields",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7",
+      "relevance": "Advisory prose identifies the form-field entry/depth fix in 6.21.0. Its patched-version field is inconsistent with its affected range and prose; that discrepancy remains recorded in historical T08 gate-review evidence. Selected 6.21.1 includes form-field limit fields; no production form-field API call or comprehensive exemption is claimed."
+    },
+    {
+      "id": "PypdfJpegLoading",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv",
+      "relevance": "The JPEG image-loading advisory affects versions below 6.21.1 and names 6.21.1 as fixed. The exact selected wheel includes that release; production does not call image-extraction APIs, which is not a general hostile-document exemption."
     },
     {
       "id": "CalibreWindows",

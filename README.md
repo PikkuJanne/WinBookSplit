@@ -4,11 +4,13 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This is the **v1.0.3 Store discovery repair candidate**. It repairs the package
-query, identity validation and installed-runtime resolution for the official
-Python Install Manager. Publication remains blocked until the existing Windows 10
-Store installation passes automatic setup and BAT processing on the frozen ZIP,
-and the remaining native policy checks are reviewed. The first public release,
+This is the **v1.0.3 Store discovery and dependency repair candidate**. It repairs
+the package query, identity validation and installed-runtime resolution for the official
+Python Install Manager and updates the exact pypdf lock to 6.21.1 for reviewed
+upstream parser and JPEG fixes. The accepted Windows 10 Store result applies to
+the earlier frozen bytes. This changed candidate requires a new committed freeze,
+exact-ZIP automatic setup/BAT acceptance and the remaining native policy evidence
+before publication. The first public release,
 [v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
 published on 11 October 2026. [VERSION](VERSION) is the application version
 source. The older `2.1` banner was development naming, not an earlier public
@@ -21,7 +23,7 @@ semantic version.
 | Windows target | Windows 10 **22H2 x64** and Windows 11 x64; ordinary local filesystem paths |
 | PowerShell | Inbox Windows PowerShell **5.1**; **7.6.6** is the tested PowerShell 7 host |
 | Python | Regular GIL Windows x64 CPython **3.15.0 or later stable 3.15 patch**, **3.14.8 or later stable 3.14 patch**, or **3.13.16 or later stable 3.13 patch** |
-| pypdf | Plain **6.20.0**, controlled by its separate package version and SHA-256 lock |
+| pypdf | Plain **6.21.1**, controlled by its separate package version and SHA-256 lock |
 | Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
 
 The exact source-test interpreters are **3.13.16, 3.14.8 and 3.15.0**. Later stable

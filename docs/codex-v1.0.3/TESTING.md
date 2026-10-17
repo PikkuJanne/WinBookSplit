@@ -1,5 +1,15 @@
 # Testing: prove the route, not just the algorithm
 
+For the separately authorized 18 October security repair, maintain the three
+small array/dictionary/content parsing regressions in test_release_security.py:
+boundary positives, reduced-limit rejection and default restoration. The old
+6.20.0 environment actually lacks these three fields; all eight security/BAT
+tests pass under new isolated 3.13.16/3.14.8/3.15.0 environments with 6.21.1.
+Keep full supported-runtime, PDF, Calibre, both-shell, origin/hash/setup and CI
+evidence source-bound. Changed package bytes require a new freeze and exact-ZIP
+native acceptance; original R's accepted T07 is preserved only for its own bytes.
+See tasks/08-T08-security-repair.md and the new implementation evidence.
+
 Current native result: T07 STORE-037 through STORE-042 PASS for the unchanged
 actual owner Windows10 Store return at frozen R/exact production ZIP. Review and
 offline checker results are in evidence/T07-owner-return.md/JSON and independent

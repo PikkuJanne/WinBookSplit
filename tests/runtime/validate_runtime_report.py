@@ -474,7 +474,8 @@ def failure_case(case: dict, supported_version: str, unsupported_version: str) -
                             "failure: missing-pypdf control mislabeled")
                 else:
                     require(details.get("version") == supported_version and decision["ok"] is True and
-                            details.get("reason") == "pypdf_version_mismatch" and "pypdf 6.20.0" in message,
+                            details.get("reason") == "pypdf_version_mismatch" and
+                            "pypdf " + console.RUNTIME_POLICY["pypdf"]["version"] in message,
                             "failure: altered owned pypdf control mislabeled")
                 require("pypdf_version" not in details and "pypdf_path" not in details,
                         "failure: rejected package/interpreter claims an accepted pypdf")

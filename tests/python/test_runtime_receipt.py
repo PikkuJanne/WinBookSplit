@@ -50,12 +50,12 @@ def selected_runtime(executable, source, version="3.14.8"):
                "executable": executable, "version": version, "version_info": [int(part) for part in version.split(".")],
                "releaselevel": "final", "serial": 0, "implementation": "cpython",
                "platform": "win32", "machine": "AMD64", "bits": 64, "gil_disabled": False,
-               "isolated": True, "dont_write_bytecode": True, "pypdf_version": "6.20.0",
+               "isolated": True, "dont_write_bytecode": True, "pypdf_version": validator.console.RUNTIME_POLICY["pypdf"]["version"],
                "pypdf_path": origin, "policy_version": validator.console.RUNTIME_POLICY["policy_version"],
                "policy_sha256": validator.console.RUNTIME_POLICY_SHA256, "reason": "supported",
                "message": "Synthetic supported interpreter and locked pypdf record."}
     probe = native_probe(json.dumps(details) + "\r\n")
-    result = {"Path": executable, "Version": version, "Source": source, "PypdfVersion": "6.20.0",
+    result = {"Path": executable, "Version": version, "Source": source, "PypdfVersion": validator.console.RUNTIME_POLICY["pypdf"]["version"],
             "PolicyVersion": details["policy_version"], "PolicySha256": details["policy_sha256"], "InterpreterOnly": False,
             "PypdfPath": origin, "Details": details, "Probe": probe, "Arguments": ["-I", "-B"],
             "Attempts": [{"Path": executable, "Source": source, "Accepted": True,
@@ -73,7 +73,7 @@ def rejected_details(executable, version, reason):
     details.update(ok=False, reason=reason, message={
         "unsupported_python": "This synthetic Python branch is excluded by the policy.",
         "missing_pypdf": "The locked package cannot be imported: No module named 'pypdf'",
-        "pypdf_version_mismatch": "Expected locked pypdf 6.20.0 in both import and distribution metadata.",
+        "pypdf_version_mismatch": f"Expected locked pypdf {validator.console.RUNTIME_POLICY['pypdf']['version']} in both import and distribution metadata.",
     }[reason])
     return details
 
@@ -222,7 +222,7 @@ def valid_report():
                                  "Message": "Excluded automatic candidate", "Probe": None} for filename in case["decoy_sha256"]]
                 error = {"Code": "runtime_invalid" if category == "python_failure" else
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
-                guidance = ("Reviewed Python policy 6.20.0 -PythonPath Setup-WinBookSplit.ps1 .venv " + candidate if category == "python_failure"
+                guidance = (f"Reviewed Python policy {validator.console.RUNTIME_POLICY['pypdf']['version']} -PythonPath Setup-WinBookSplit.ps1 .venv " + candidate if category == "python_failure"
                             else "Calibre 9.15.0 -CalibrePath")
                 case.update(dependency_error=error, candidate_path=candidate, exit_code=3,
                             stdout="Dependency preflight failed " + guidance + "\n[DEPENDENCY-ERROR] " + json.dumps(error) + "\n",
