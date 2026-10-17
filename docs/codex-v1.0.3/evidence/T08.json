@@ -186,7 +186,11 @@
     "intended_nine_paths_only": true,
     "privacy": "check_handoff active-doc/tool scan passed; new public evidence uses location tokens.",
     "broad_suites": "NOT_RERUN: documentation-only checkpoint; no new product/tooling concern. Existing suites retain actual source/scope.",
-    "review": "CLEAN: independent final review of intended nine paths; frozen bindings, all evidence digests, unchanged acceptance statuses/history/OWNER_KIT, privacy and truthful blocked gate scope confirmed. Verification-only update then incorporated actual completed checks."
+    "review": "CLEAN: independent nine-path review and follow-up binary raw-Git review confirmed truthful blocked scope, frozen bindings, privacy and preservation. Corrected evidence hashes match both local and staged bytes; unchanged baseline/artifact also equal HEAD blobs.",
+    "post_push_first_checkpoint": "FAILED raw-Git evidence hash comparison on fa18271 for two new JSON files due CRLF normalization; corrected without altering native receipts or packages.",
+    "staged_raw_Git_evidence_bytes_match": true,
+    "all_four_new_T08_evidence_files_explicit_LF": true,
+    "reviewer_exploratory": "Initial read-only .NET binary reader returned a VoidTaskResult into its result array; reviewer suppressed it and reran successfully. No files, native receipts, Git or gate state affected."
   },
   "exploratory_read_only_failures": [
     {
@@ -196,6 +200,11 @@
     {
       "stage": "initial_developer_path_lookup",
       "result": "Test-Path on guessed v1.0.2 developer tools location returned false; retained T07 raw checker argv identified actual v1.0.1 tooling path. No wrong runtime launch or installation."
+    },
+    {
+      "stage": "post_push_raw_Git_evidence_hash_check",
+      "checkpoint": "fa18271",
+      "result": "FAILED: local CRLF hashes for two new T08 JSON evidence files did not match Git-normalized LF blobs. Source R, native reports and package bytes unchanged. Corrected explicit UTF8/LF new T08 evidence bytes and recomputed bindings; ordinary follow-up commit, no amend/force/configuration change."
     }
   ],
   "changed_paths": [
@@ -217,7 +226,8 @@
     "<EXISTING_DEV_PYTHON> -I -B tools/codex-v1.0.3/check_handoff.py --mode checkout",
     "git -c core.whitespace=cr-at-eol diff --check",
     "git diff --exit-code <R> -- . :(exclude)docs/codex-v1.0.3/**",
-    "Bounded read-only JSON/link/privacy/hash/preservation checks using existing developer Python -I -B"
+    "Bounded read-only JSON/link/privacy/hash/preservation checks using existing developer Python -I -B",
+    "git show :docs/codex-v1.0.3/<evidence-file> via binary stdout; compare exact staged bytes/hash to local and declared evidence_files"
   ],
   "checkpoint_rule": "Stage intended paths only; ordinary commit/push and clean HEAD comparison to fresh live origin. Checkpoint commit/post-push receipt belong in external handover, not recursively in committed evidence.",
   "limitations": [
@@ -228,18 +238,19 @@
   "evidence_files": [
     {
       "path": "evidence/T08.md",
-      "bytes": 8553,
-      "sha256": "04606809f0170b4a99fd037cc5490d84a19ab9eaeadde8bfcf107ff9613e3ce4"
+      "bytes": 9195,
+      "sha256": "f058add209b0bd2eb445876eda5075be9634ada6a9f37cfd75acae2555417d31"
     },
     {
       "path": "evidence/T08-baseline.json",
-      "bytes": 5825,
-      "sha256": "09cafcbec7fe30925012afaf404cca1393c3f378592188085f5f9fe619f55405"
+      "bytes": 5675,
+      "sha256": "0c6fb5b5f9f94ba3ced6975c446b3f4fbb715227ff02168c52084a2833a6daa1"
     },
     {
       "path": "evidence/T08-artifact-review.json",
-      "bytes": 7634,
-      "sha256": "74134d1afc9c4cede9895ee08c9301aed3ed89467f4279dc08824c710ecb8c42"
+      "bytes": 7442,
+      "sha256": "6500cbe82c67dc55162a77839e74820f7350d320d709ad8d6010cec2b9d918a2"
     }
-  ]
+  ],
+  "evidence_byte_policy": "New T08 public JSON/Markdown bytes are explicit UTF8/LF. evidence_files hashes bind both current files and normalized staged/raw Git blobs. Native returned ZIP/envelope bytes and all historical evidence remain unchanged."
 }
