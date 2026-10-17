@@ -1,5 +1,12 @@
 # Status
 
+The first broad run exposed a standalone historical-export policy-loading error,
+now corrected with 47 focused passing tests. See
+evidence/T08-security-repair-correction.md/JSON. The provisional 9f7e081 assets
+are retained and must be superseded by corrected-source CI/manifest/kit bindings.
+Both first broad aggregates are non-passing; their child results and source-
+change limits are recorded honestly. Final candidate receipts follow separately.
+
 State: **Security repair implemented; new candidate preparation in progress.**
 The owner explicitly authorized the separate pypdf repair on 18 October 2026.
 The exact 6.21.1 lock, policy 4, necessary maintained pins/tests and current docs

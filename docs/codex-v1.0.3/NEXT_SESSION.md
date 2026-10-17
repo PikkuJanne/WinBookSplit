@@ -1,5 +1,12 @@
 # Next session - authorized security repair/new candidate
 
+The first broad run exposed a standalone historical-export policy-loading error,
+now corrected with 47 focused passing tests. See
+evidence/T08-security-repair-correction.md/JSON. The provisional 9f7e081 assets
+are retained and must be superseded by corrected-source CI/manifest/kit bindings.
+Both first broad aggregates are non-passing; their child results and source-
+change limits are recorded honestly. Final candidate receipts follow separately.
+
 The owner explicitly answered Yes to the separate pypdf security repair on
 18 October 2026. The earlier gate-review-only scope is superseded for this narrow
 repair and new candidate preparation. Read tasks/08-T08-security-repair.md and

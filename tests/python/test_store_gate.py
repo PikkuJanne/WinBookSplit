@@ -11,6 +11,7 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -152,7 +153,12 @@ class StoreExistingGateTests(unittest.TestCase):
         historical = json.loads(before)
         self.assertEqual(historical["status"], "PASS")
         raw = historical["returned_report"]
-        accepted = legacy.export_report(raw)
+        self.assertEqual(raw["oracle"]["runtime_versions"]["pypdf"], "6.20.0")
+        for route in raw["marked_setup_regressions"]["routes"]:
+            for child in route["child_hosts"]:
+                self.assertEqual(child["pypdf_version"], None if child["stage"] == "broken-default" else "6.20.0")
+        with patch.object(legacy, "RUNTIME_POLICY", None):
+            accepted = legacy.export_report(raw)
         self.assertTrue(accepted["oracle"]["success"])
         self.assertFalse(accepted["runtime_selection"]["owner_regular315_usable"])
         self.assertFalse(accepted["runtime_selection"]["owner_selected"])

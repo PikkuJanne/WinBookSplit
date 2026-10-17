@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "scope": "CORRECTION_OF_DISCOVERED_LEGACY_EXPORT_REGRESSION",
+  "recorded_utc": "2026-10-17T23:57:58.726518+00:00",
+  "source_checkpoint_before_correction": "9f7e0811df1c398597e5ec9c88947fd42614c56d",
+  "python_first": {
+    "success": false,
+    "source_unchanged": false,
+    "unit_exit_code": 1,
+    "tests_run": 708,
+    "passed": 707,
+    "errors": 1,
+    "reason": "Standalone historical export RUNTIME_POLICY was None",
+    "raw_report": {
+      "name": "python-suite.json",
+      "bytes": 174068,
+      "sha256": "69eceb3a9d397e172ce34bf98d4b3713d63ee8662ab73be908da22058429bf54"
+    }
+  },
+  "shell_first": {
+    "success": false,
+    "source_unchanged": false,
+    "children": [
+      {
+        "name": "shell-0",
+        "exit_code": 0,
+        "pester": {
+          "total": 252,
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 252,
+          "skipped": 0,
+          "failed": 0,
+          "result": "Passed"
+        },
+        "syntax_count": 35,
+        "scoped_analysis_count": 34,
+        "outcomes_count": 73
+      },
+      {
+        "name": "shell-1",
+        "exit_code": 0,
+        "pester": {
+          "skipped": 0,
+          "failed": 0,
+          "failed_containers": 0,
+          "not_run": 0,
+          "total": 252,
+          "result": "Passed",
+          "passed": 252
+        },
+        "syntax_count": 35,
+        "scoped_analysis_count": 34,
+        "outcomes_count": 73
+      }
+    ],
+    "raw_report": {
+      "name": "shell-suite.json",
+      "bytes": 1213687,
+      "sha256": "e3e4bc385efe0abf21b06142b949f9685b4086a6eacf53edf09b457650b55657"
+    }
+  },
+  "fix": "Legacy exporter child package coheres with schema-validated oracle runtime_versions.pypdf; broken children still None. Live bound-policy/version/origin and Store2 checks unchanged.",
+  "focused": {
+    "tests_run": 47,
+    "passed": 47,
+    "exit_code": 0,
+    "source_sha256": {
+      "tools/compatibility/native_smoke.py": "7d38381275483b3ffa5bae9aa7afd7f51908179940fc5198d1cf3daecd0211af",
+      "tests/python/test_native_smoke.py": "d061405a86c066c1f3269595cbf27c244bb6550736f0d29c2d41d0f9f1fef3d4",
+      "tests/python/test_store_gate.py": "b45e57c0e13fc4624d335dbd2d6278af12dd7a34e06e7e99e4f3b17996cbed9c"
+    },
+    "raw_receipt": {
+      "name": "legacy-fix.json",
+      "bytes": 1062,
+      "sha256": "a8341e838740d589f74612a32eb5fa666ac043ab5c0e22f76972302c09983cec"
+    },
+    "stdout": {
+      "name": "legacy-fix.stdout",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "stderr": {
+      "name": "legacy-fix.stderr",
+      "bytes": 7933,
+      "sha256": "1942c6826e4508883bf2deb817543134b24455a3bf036e8f6bd0d11df865614c"
+    }
+  },
+  "independent_review": "CLEAN: historical/current standalone coherence, mismatch controls, live policy/origin and Store2 scope verified read-only.",
+  "provisional_9f7e081_artifacts": "Retained, not final candidate. Need corrected committed source/manifest/kit and final CI. Product34payload files not changed by this correction.",
+  "original_R_T07": "Unchanged accepted original243d31e only; no promotion to changed bytes.",
+  "STORE-024": "NOT_RUN",
+  "new_candidate_native": "NOT_RUN",
+  "publication": false,
+  "evidence_files": [
+    {
+      "name": "T08-security-repair-correction.md",
+      "bytes": 2412,
+      "sha256": "850c40746ce04ff20da11191ad491ad5b9cbc0484a35b22193c33d00f74a58d3"
+    }
+  ],
+  "checkpoint_rule": "Record correction commit in subsequent receipt/external handover only."
+}

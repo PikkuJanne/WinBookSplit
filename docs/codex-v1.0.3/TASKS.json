@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "Separately authorized 18 October 2026 pypdf 6.21.1 implementation complete and independently reviewed. New guard tests and all three supported-runtime application matrices pass. Broad-suite results, exact-source CI and new candidate freeze/package/kit receipts follow separately. Original T07 PASS applies only to original R/exact ZIP; changed bytes require fresh native acceptance. STORE-024 NOT_RUN; T08 publication BLOCKED; STORE-043 through STORE-048 NOT_RUN. No acceptance promotion.",
+      "completion_scope": "Separately authorized 18 October 2026 pypdf 6.21.1 implementation complete and independently reviewed. New guard tests and all three supported-runtime application matrices pass. Broad-suite results, exact-source CI and new candidate freeze/package/kit receipts follow separately. Original T07 PASS applies only to original R/exact ZIP; changed bytes require fresh native acceptance. STORE-024 NOT_RUN; T08 publication BLOCKED; STORE-043 through STORE-048 NOT_RUN. No acceptance promotion. First broad run found one standalone legacy-export error; corrected and 47 focused tests pass. Provisional 9f7e081 assets retained; final corrected-source CI/package/kit bindings pending.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -245,7 +245,9 @@
         "evidence/T08-security-candidate-guard.py",
         "tasks/08-T08-security-repair.md",
         "evidence/T08-security-repair.md",
-        "evidence/T08-security-repair.json"
+        "evidence/T08-security-repair.json",
+        "evidence/T08-security-repair-correction.md",
+        "evidence/T08-security-repair-correction.json"
       ]
     }
   ],
