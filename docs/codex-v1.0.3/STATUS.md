@@ -34,6 +34,13 @@ kit deliberately records enforced-policy testing NOT_RUN and cannot clear
 STORE-024 by rerunning it. No new enforced-policy target or receipt was supplied;
 no acceptance status changed. Preserve the accepted owner result and original kit.
 
+The next gate-only continuation from 4711c9e is recorded in
+evidence/T08-gate-continuation.md/JSON. Three independent audits, a fresh retained-R
+checker invocation and live metadata comparison leave the gates unchanged.
+Official 6.21.1 release corroboration adds no clearance for retained pypdf 6.20.0.
+No new enforced-policy evidence/access or separate validated human check exists;
+the accepted owner Store run must not be repeated to try to clear STORE-024.
+
 T04 remains **IMPLEMENTED_PENDING_NATIVE**: STORE-024 actual enforced
 organization-policy denial is still NOT_RUN. The Store packet's authored local
 MOTW/RemoteSigned component passed, but MachinePolicy/UserPolicy are Undefined;

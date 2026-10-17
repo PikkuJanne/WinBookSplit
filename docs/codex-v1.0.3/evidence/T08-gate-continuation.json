@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "status": "BLOCKED",
+  "reviewed_utc": "2026-10-17T21:48:45.255636+00:00",
+  "initial_commit": "4711c9e6156f532413e071a4d18c0d2958be99a2",
+  "initial_tree": "9b6c59bc660da800f871e956a6e7f6eb1587bba4",
+  "initial_clean": true,
+  "initial_branch_equals_fresh_live_origin": true,
+  "branch": "codex/v1.0.3-store-discovery",
+  "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+  "scope": "T08_GATE_CONTINUATION_ONLY_NO_NEW_NATIVE_EXECUTION_NO_PUBLICATION",
+  "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "application_version": "1.0.3",
+  "host_build": 26300,
+  "developer_python_version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+  "gate_decision": "BLOCKED: actual enforced organization-policy denial STORE-024 NOT_RUN; retained pypdf security release disposition unresolved.",
+  "acceptance_statuses_changed": false,
+  "publication_started": false,
+  "policy_gate": {
+    "STORE-024_actual_enforced_denial": "NOT_RUN",
+    "STORE-024_acceptance_index_status": "DEFERRED_NATIVE",
+    "owner_MachinePolicy_before_after": "Undefined",
+    "owner_UserPolicy_before_after": "Undefined",
+    "accessible_host_MachinePolicy_and_UserPolicy": "Undefined",
+    "new_enforced_policy_receipt_or_authorized_target_supplied": false,
+    "retained_kit_can_clear_missing_gate_by_rerun": false,
+    "controller_reference": "tools/compatibility/Invoke-StoreExistingAcceptance.ps1:228",
+    "checker_reference": "tools/codex-v1.0.3/check_native_store_report.py:375",
+    "contract": "Authored local MOTW component and checker retain organization_policy_denial NOT_RUN. Genuine separate enforced-policy evidence is required.",
+    "new_human_kit_prepared_or_validated": false,
+    "accepted_owner_store_rerun_required": false
+  },
+  "security_review": {
+    "retrieved_date": "2026-10-17",
+    "result": "TECHNICAL_REVIEW_COMPLETE_SECURITY_RELEASE_DISPOSITION_UNRESOLVED_BLOCKED",
+    "pypdf_version": "6.20.0",
+    "advisory_ranges_equal_prior": true,
+    "advisories": [
+      {
+        "id": "GHSA-7mh2-4gg2-979f",
+        "affected": "<6.20.0",
+        "patched": ">=6.20.0",
+        "scope": "Fix included.",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f"
+      },
+      {
+        "id": "GHSA-f54x-cmq8-qg57",
+        "affected": "<6.21.0",
+        "patched": ">=6.21.0",
+        "scope": "Reachable array/dictionary parser exposure before application bounds remains unresolved.",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57"
+      },
+      {
+        "id": "GHSA-cgf9-327m-v77c",
+        "affected": "<6.21.0",
+        "patched": ">=6.21.0",
+        "scope": "Version affected; particular many-small-operations trigger not demonstrated by static review.",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c"
+      },
+      {
+        "id": "GHSA-6vvc-x485-93v7",
+        "affected": "<6.21.0",
+        "patched_field": ">=6.2.10",
+        "description_fix": "6.21.0",
+        "scope": "Upstream metadata/prose discrepancy preserved; no direct production form retrieval API found.",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7"
+      },
+      {
+        "id": "GHSA-5hx5-vpf9-5wcv",
+        "affected": "<6.21.1",
+        "patched": ">=6.21.1",
+        "scope": "No direct production image-loading API found; no general exemption.",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv"
+      }
+    ],
+    "corroborating_primary_sources": [
+      "https://github.com/py-pdf/pypdf/releases/tag/6.21.0",
+      "https://github.com/py-pdf/pypdf/pull/4218",
+      "https://github.com/py-pdf/pypdf/releases/tag/6.21.1",
+      "https://raw.githubusercontent.com/py-pdf/pypdf/6.20.0/pypdf/_page.py",
+      "https://raw.githubusercontent.com/py-pdf/pypdf/6.20.0/pypdf/generic/_data_structures.py"
+    ],
+    "static_observations": [
+      "engine/winbooksplit_conversion.py:217 initializes pypdf before preflight at218; indirect get_object at50 precedes array/dictionary checks198/204.",
+      "Converted validation393/394 calls get_contents/get_data; upstream operations parsing is lazy.",
+      "No direct engine Python .operations/extract_text/get_fields/get_form_text_fields/.images/PIL/Image.open calls found; static absence is not comprehensive immunity.",
+      "engine/WinBookSplit.Process.ps1:435/436 configures kill-on-close, without a process/job heap cap."
+    ],
+    "earlier_outline_tree_residuals": "Unchanged as recorded; affected <6.20.1, fixed >=6.20.1; no corresponding direct production APIs found.",
+    "limitation": "No exploit or memory-pressure test, security clearance, dependency selection or product change. Any necessary remedial package requires new freeze and exact-byte acceptance.",
+    "earlier_outline_tree_primary_sources": [
+      "https://github.com/py-pdf/pypdf/security/advisories/GHSA-qfv9-64jg-mh7p",
+      "https://github.com/py-pdf/pypdf/security/advisories/GHSA-9mx8-4j7g-633p"
+    ]
+  },
+  "frozen_byte_review": {
+    "production_zip": {
+      "bytes": 932894,
+      "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    },
+    "original_kit": {
+      "bytes": 1559722,
+      "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+    },
+    "kit_bindings_sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b",
+    "convenience_carrier": {
+      "bytes": 3148240,
+      "sha256": "adc6d1cb89fc90123cd5ef9c0f71c121f74761b8205fea7a1c4c6947e8a97745"
+    },
+    "production_members_equal_raw_R_and_HEAD": 34,
+    "kit_members": 35,
+    "manifest_pins": 34,
+    "helpers_equal_R": 21,
+    "fixture_pins": 6,
+    "existing_extracted_kit_members_equal": 35,
+    "carrier_members": 41,
+    "carrier_embedded_kit_and_35_files_equal": true,
+    "no_rebuild_or_native_launch": true,
+    "carrier_manifest_pins": 40,
+    "carrier_delivery_files_equal_committed_cb45a87": 4
+  },
+  "owner_return": {
+    "bytes": 377606,
+    "sha256": "1ac523bfb8aebc1511c27629af5134fa9000a08db361a6e207c33280d184a06e",
+    "all_seven_accepted_member_pins_and_retained_files_equal": true,
+    "checker_equals_raw_R": true,
+    "checker_bytes": 26163,
+    "checker_sha256": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+    "checker_exit_code": 0,
+    "checker_status": "CONSISTENT_NATIVE_REPORT",
+    "checker_run_id": "store_f61d4a88eef1415c9ccf811613c6d694",
+    "checker_receipt_count": 6,
+    "checker_stderr_emitted": false,
+    "prior_79_check_audit_unchanged_not_rerun": true,
+    "scope": "Offline consistency recheck only; no new native execution, returned-code execution or local PDF reopening.",
+    "public_79_check_audit_sha256": "a6d92781b3f9fa51284509cd08fbd0cfbcee0b3af1a55a71112e74581066142f"
+  },
+  "live_metadata_comparison": {
+    "prior_evidence": "evidence/T08-gate-recheck.json",
+    "all_six_old_tag_object_and_peeled_identities_equal": true,
+    "all_three_release_bodies_and_nine_asset_records_equal": true,
+    "v1_0_3_tag_or_release_exists": false,
+    "main": "4cc6b00b99685607f3214e731edaaec7d65926df",
+    "scope": "Fresh metadata queries/programmatic comparison only; no anonymous asset-byte download or release-closure acceptance.",
+    "prior_evidence_sha256": "71ec0e860522edfda623f1f34bdcde8645e50d4c6012692671797835d6a81526"
+  },
+  "source_CI": {
+    "id": 39043915939,
+    "head_sha": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "all_four_jobs_success": true,
+    "new_CI_execution": false,
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939"
+  },
+  "independent_reviews": {
+    "gate_audit": "No material contradiction; current index DEFERRED_NATIVE and actual enforced-denial NOT_RUN are consistent. Store rerun cannot supply STORE-024.",
+    "security_audit": "Official ranges/discrepancy unchanged; official 6.21.1 release corroborates image fix without clearing frozen 6.20.0.",
+    "receipt_audit": "Read-only archive/raw-Git/pin comparisons pass; original accepted return and frozen artifacts preserved."
+  },
+  "remaining": {
+    "STORE-024": "NOT_RUN",
+    "T04": "IMPLEMENTED_PENDING_NATIVE",
+    "T07": "COMPLETE",
+    "T08": "BLOCKED",
+    "STORE-043_through_STORE-048": "NOT_RUN"
+  },
+  "commands": [
+    "Read required root/active docs, selected tasks and evidence; ancestor/nested AGENTS inspection.",
+    "git status --short --branch; git remote -v; git worktree list; git rev-parse HEAD (separate inspections)",
+    "git rev-parse 'HEAD^{tree}'; git rev-parse '243d31ee03efac35dc6f7e88c0c1dfd1203081ed^{tree}'",
+    "git ls-remote --heads --tags origin",
+    "gh api repos/PikkuJanne/WinBookSplit/releases --paginate",
+    "gh api repos/PikkuJanne/WinBookSplit/actions/runs/39043915939",
+    "gh api repos/PikkuJanne/WinBookSplit/actions/runs/39043915939/jobs",
+    "<EXISTING_DEV_PYTHON> -I -B -c <READ_ONLY_REMOTE_SNAPSHOT_COMPARISON> (Git/API objects compared with T08-gate-recheck.json)",
+    "Independent Python standard-library read-only archive/hash/raw-Git audit; accepted seven-member policy receipt inspection; Get-ExecutionPolicy -List.",
+    "<EXISTING_DEV_PYTHON> -I -B <RETAINED_FROZEN_R_CHECKER> <UNCHANGED_RETAINED_RETURN>/native-store-report.json --expected-commit 243d31ee03efac35dc6f7e88c0c1dfd1203081ed --expected-zip-sha256 70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+    "<EXISTING_DEV_PYTHON> -I -B tools/codex-v1.0.3/check_handoff.py --mode checkout",
+    "Independent current official-source advisory and production static-call review.",
+    "git -c core.whitespace=cr-at-eol diff --check",
+    "git add -- <SEVEN_INTENDED_ACTIVE_DOC_PATHS>",
+    "git -c core.whitespace=cr-at-eol diff --cached --check; raw staged blob/worktree/pin comparison"
+  ],
+  "exploratory_read_only_failures": [
+    "Independent receipt audit initially used unquoted R^{tree} in PowerShell; Git rejected the argument. Quoted lookup succeeded. No mutation or acceptance effect.",
+    "Independent diff audit initially passed a literal filename wildcard to rg on Windows; explicit-file retry passed. No mutation or acceptance effect."
+  ],
+  "limitations": [
+    "No new native Store/setup/BAT/policy/PDF/Calibre/physical Explorer scenario or broad implementation suites; docs-only checkpoint.",
+    "Offline consistency and existing CI preserve their recorded scope; no new execution attestation or security clearance.",
+    "No new enforced-policy target/evidence or validated separate human test kit. Preserve accepted T07 and do not request its repeat.",
+    "No publication/tag/main merge, old-release mutation, installation/update, PATH/alias/policy or settings change."
+  ],
+  "checkpoint_rule": "Final commit/push and actual clean HEAD/fresh live branch equality are recorded only in external handover. Frozen R unchanged; STOP after checkpoint.",
+  "evidence_files": [
+    {
+      "path": "evidence/T08-gate-continuation.md",
+      "bytes": 6828,
+      "sha256": "cd5cec627377d83b695506d3906af8a3cacba612f772ec74df22c2f4fddb847b"
+    }
+  ],
+  "verification": {
+    "handoff": {
+      "status": "HANDOFF_STRUCTURALLY_VALID",
+      "mode": "checkout",
+      "tasks": 8,
+      "acceptance_requirements": 48,
+      "synthetic_registration_inputs": 12,
+      "manifest_integrity": "not_applicable_mutable_checkout",
+      "limitation": "Not application, Windows, or native execution acceptance."
+    },
+    "active_JSON_parse_count": 72,
+    "task_case_evidence_links_exist": true,
+    "all_48_acceptance_statuses_and_non_evidence_case_fields_unchanged": true,
+    "all_task_statuses_unchanged": true,
+    "T01_through_T07_task_records_unchanged": true,
+    "seven_intended_paths_only": true,
+    "existing_evidence_owner_contracts_product_helpers_and_historical_files_unchanged": true,
+    "changed_files_UTF8_LF_without_BOM": true,
+    "private_account_path_control_character_scan": "PASS",
+    "new_evidence_md_and_prior_reference_pins_verified": true,
+    "whitespace_check_exit_code": 0,
+    "broad_suites": "NOT_RERUN: documentation-only checkpoint; no product/tooling change.",
+    "independent_security_diff_review": "No material finding; optional primary residual-advisory URLs added.",
+    "independent_gate_diff_review": "No actionable finding; statuses, evidence links, intended paths, privacy and preservation independently checked.",
+    "staged_raw_Git_bytes_match_worktree_and_evidence_pins": true,
+    "staged_whitespace_check_exit_code": 0
+  },
+  "changed_paths": [
+    "docs/codex-v1.0.3/ACCEPTANCE_CASES.json",
+    "docs/codex-v1.0.3/NEXT_SESSION.md",
+    "docs/codex-v1.0.3/STATUS.md",
+    "docs/codex-v1.0.3/TASKS.json",
+    "docs/codex-v1.0.3/evidence/T08-gate-continuation.json",
+    "docs/codex-v1.0.3/evidence/T08-gate-continuation.md",
+    "docs/codex-v1.0.3/tasks/08-T08.md"
+  ]
+}
