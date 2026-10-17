@@ -1,0 +1,245 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "status": "BLOCKED",
+  "reviewed_utc": "2026-10-17T16:00:30.242731+00:00",
+  "source": {
+    "initial_commit": "06090f658c04cd68ec4b5ed4d834dfa3cd29294d",
+    "initial_tree": "616b5288182c35a7979971a580db65a93c6b2c68",
+    "branch": "codex/v1.0.3-store-discovery",
+    "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+    "version": "1.0.3"
+  },
+  "publication_started": false,
+  "actual_owner_return_supplied": false,
+  "native_execution_this_session": "NOT_RUN",
+  "blocker": "No authorized connection to actual unchanged owner Windows10 desktop or unchanged owner final-kit report supplied. STORE-037 through STORE-042 and separate STORE-024 actual enforced organization-policy denial remain NOT_RUN.",
+  "frozen_assets": {
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+    },
+    "WinBookSplit-v1.0.3.zip": {
+      "bytes": 932894,
+      "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    },
+    "release-manifest.json": {
+      "bytes": 16593,
+      "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+    }
+  },
+  "final_kit_archive": {
+    "bytes": 1559722,
+    "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+  },
+  "kit_bindings": {
+    "bytes": 6460,
+    "sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b"
+  },
+  "offline_checker": {
+    "source_sha256": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+    "equals_raw_R_git_blob": true,
+    "argv": [
+      "<EXISTING_DEV_PYTHON>",
+      "-I",
+      "-B",
+      "tools/codex-v1.0.3/check_native_store_report.py",
+      "<T06_BLOCKED_REPORT>/native-store-report.json",
+      "--expected-commit",
+      "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "--expected-zip-sha256",
+      "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    ],
+    "exit_code": 2,
+    "result": {
+      "status": "BLOCKED",
+      "reason": "native gate not executed/passed"
+    },
+    "stderr_empty": true,
+    "retained_archive_sha256": "6338317753927c9dd59bbc3804334c226b9ce61c2380d7ebf526dc57b6f78efe",
+    "retained_archive_unchanged_after_checker": true,
+    "existing_seven_report_files_equal_unchanged_zip": true,
+    "scope": "Prior T06 Windows11 failed-report refusal only; actual owner Windows10 packet check NOT_RUN."
+  },
+  "independent_frozen_audit": {
+    "result": "PASS_TOOLING_SCOPE_ONLY",
+    "kit_members": 35,
+    "production_members_equal_raw_R": 34,
+    "helpers_equal_raw_R": 21,
+    "fixtures": 6,
+    "retained_packet_members": 7,
+    "retained_envelopes": 6,
+    "scope": "Read-only frozen bytes and prior failed tooling receipt consistency; no actual owner acceptance."
+  },
+  "independent_gate_review": "No actionable inconsistency in existing routing/evidence. Missing actual owner Windows10 and separate enforced-policy observations remain release blockers. Schema2 fallback/contradictory process evidence guards retained. No product change justified.",
+  "source_CI": {
+    "scope": "Fresh read-only status of existing R CI only, not a new test run or owner acceptance.",
+    "id": 39043915939,
+    "head_sha": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "status": "completed",
+    "conclusion": "success",
+    "run_attempt": 1,
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939",
+    "jobs": [
+      {
+        "id": 117428740921,
+        "name": "Python and PowerShell regression (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 117428741132,
+        "name": "Application 3.14.8 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 117428741153,
+        "name": "Application 3.15.0 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success"
+      },
+      {
+        "id": 117428741189,
+        "name": "Application 3.13.16 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success"
+      }
+    ]
+  },
+  "missing_required_native": {
+    "STORE-037": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-038": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-039": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-040": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-041": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-042": "NOT_RUN: actual unchanged owner Windows10 Store exact-ZIP chain unavailable.",
+    "STORE-024": "NOT_RUN: actual enforced organization-policy denial unavailable. Local authored MOTW and Store packet cannot clear it."
+  },
+  "acceptance_results": {
+    "STORE-043": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    },
+    "STORE-044": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    },
+    "STORE-045": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    },
+    "STORE-046": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    },
+    "STORE-047": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    },
+    "STORE-048": {
+      "status": "NOT_RUN",
+      "gate_decision": "BLOCKED",
+      "scope": "Publication not started; missing required native gates. Old-release metadata comparison only for STORE-047, not final release/anonymous-byte acceptance."
+    }
+  },
+  "preservation": {
+    "R_payload_helpers_and_dependencies_unchanged": true,
+    "OWNER_KIT_unchanged": true,
+    "historical_and_T03_through_T07_reports_unchanged": true,
+    "all_48_acceptance_statuses_unchanged": true,
+    "old_live_tags_release_body_asset_metadata_match_T07": true,
+    "desktop_python_manager_or_alias_path_changes": false,
+    "new_application_venv_or_runtime": false,
+    "source_zip_venv_shortcut_changes": false,
+    "publish_tag_main_merge_force_git_settings_changes": false,
+    "serviced_runtime_floors_origin_isolation_explicit_venv_authority_retained": true,
+    "retained_pypdf_exposure_release_review": "PENDING; SECURITY.md unchanged; no new advisory clearance."
+  },
+  "checkpoint_verification": {
+    "structural_handoff": {
+      "exit_code": 0,
+      "result": {
+        "status": "HANDOFF_STRUCTURALLY_VALID",
+        "mode": "checkout",
+        "tasks": 8,
+        "acceptance_requirements": 48,
+        "synthetic_registration_inputs": 12,
+        "manifest_integrity": "not_applicable_mutable_checkout",
+        "limitation": "Not application, Windows, or native execution acceptance."
+      }
+    },
+    "whitespace_diff_check_exit_code": 0,
+    "outside_active_docs_equal_R_exit_code": 0,
+    "historical_and_T03_through_T07_evidence_OWNER_KIT_unchanged": true,
+    "all_48_acceptance_statuses_unchanged": true,
+    "all_task_statuses_unchanged": true,
+    "task_case_evidence_links_exist": true,
+    "evidence_hashes_match": true,
+    "all_active_JSON_parse": true,
+    "intended_nine_paths_only": true,
+    "privacy": "check_handoff active-doc/tool scan passed; new public evidence uses location tokens.",
+    "broad_suites": "NOT_RERUN: documentation-only checkpoint; no new product/tooling concern. Existing suites retain actual source/scope.",
+    "review": "CLEAN: independent final review of intended nine paths; frozen bindings, all evidence digests, unchanged acceptance statuses/history/OWNER_KIT, privacy and truthful blocked gate scope confirmed. Verification-only update then incorporated actual completed checks."
+  },
+  "exploratory_read_only_failures": [
+    {
+      "stage": "initial_builder_source_lookup",
+      "result": "Get-Content of nonexistent tools/codex-v1.0.3/build_native_kit.py failed. rg located actual tools/compatibility/kit_builder.py; no mutation or gate result depended on lookup."
+    },
+    {
+      "stage": "initial_developer_path_lookup",
+      "result": "Test-Path on guessed v1.0.2 developer tools location returned false; retained T07 raw checker argv identified actual v1.0.1 tooling path. No wrong runtime launch or installation."
+    }
+  ],
+  "changed_paths": [
+    "docs/codex-v1.0.3/ACCEPTANCE_CASES.json",
+    "docs/codex-v1.0.3/NEXT_SESSION.md",
+    "docs/codex-v1.0.3/STATUS.md",
+    "docs/codex-v1.0.3/TASKS.json",
+    "docs/codex-v1.0.3/tasks/08-T08.md",
+    "docs/codex-v1.0.3/evidence/T08.md",
+    "docs/codex-v1.0.3/evidence/T08.json",
+    "docs/codex-v1.0.3/evidence/T08-baseline.json",
+    "docs/codex-v1.0.3/evidence/T08-artifact-review.json"
+  ],
+  "commands": [
+    "git ls-remote --heads --tags origin",
+    "gh api repos/PikkuJanne/WinBookSplit/releases --paginate",
+    "gh api repos/PikkuJanne/WinBookSplit/actions/runs/39043915939",
+    "gh api repos/PikkuJanne/WinBookSplit/actions/runs/39043915939/jobs",
+    "<EXISTING_DEV_PYTHON> -I -B tools/codex-v1.0.3/check_handoff.py --mode checkout",
+    "git -c core.whitespace=cr-at-eol diff --check",
+    "git diff --exit-code <R> -- . :(exclude)docs/codex-v1.0.3/**",
+    "Bounded read-only JSON/link/privacy/hash/preservation checks using existing developer Python -I -B"
+  ],
+  "checkpoint_rule": "Stage intended paths only; ordinary commit/push and clean HEAD comparison to fresh live origin. Checkpoint commit/post-push receipt belong in external handover, not recursively in committed evidence.",
+  "limitations": [
+    "No actual owner Windows10 packet/checker/native/PDF pass or fresh automatic Store setup. No actual enforced organization-policy denial.",
+    "No new application, physical Explorer, Calibre, runtime, setup or policy execution; no new release or anonymous asset download.",
+    "Structural validity and old blocked-packet consistency are not native proof; no report bytes edited."
+  ],
+  "evidence_files": [
+    {
+      "path": "evidence/T08.md",
+      "bytes": 8553,
+      "sha256": "04606809f0170b4a99fd037cc5490d84a19ab9eaeadde8bfcf107ff9613e3ce4"
+    },
+    {
+      "path": "evidence/T08-baseline.json",
+      "bytes": 5825,
+      "sha256": "09cafcbec7fe30925012afaf404cca1393c3f378592188085f5f9fe619f55405"
+    },
+    {
+      "path": "evidence/T08-artifact-review.json",
+      "bytes": 7634,
+      "sha256": "74134d1afc9c4cede9895ee08c9301aed3ed89467f4279dc08824c710ecb8c42"
+    }
+  ]
+}

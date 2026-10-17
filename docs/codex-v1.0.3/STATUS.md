@@ -1,11 +1,18 @@
 # Status
 
-State: **T07 BLOCKED**, STORE-037 through STORE-042 NOT_RUN. This session has no
+State: **T08 BLOCKED** after gate review; publication has not started. T07 remains
+**BLOCKED**, not complete, with STORE-037 through STORE-042 NOT_RUN. This session has no
 authorized connection to the actual unchanged owner Windows10 desktop and no
 unchanged report ZIP produced there by the final kit. The accessible host is
 Windows11 x64 build26300.9711. T04 remains IMPLEMENTED_PENDING_NATIVE because
 STORE-024 actual enforced organization-policy denial is still NOT_RUN. T08 is
 BLOCKED; no tag/publication or main merge occurred.
+
+T08's docs-only checkpoint is recorded in evidence/T08.md, T08.json and
+T08-baseline.json. No new owner report was supplied. Fresh remote tag objects,
+peeled commits and old release body/asset metadata still match T07; v1.0.3 is
+absent. Final R's existing hosted CI run still reports all four jobs successful.
+These checks and the retained blocked-packet refusal do not clear native gates.
 
 T07 completed available read-only source/artifact/receipt review and records the
 precise blocker in evidence/T07.md, T07.json, T07-baseline.json and
@@ -17,7 +24,7 @@ Windows10/fresh automatic Store setup/BAT or enforced-policy pass is inferred.
 
 T06 remains COMPLETE for source/package/tooling preparation only. Frozen source R
 is `243d31ee03efac35dc6f7e88c0c1dfd1203081ed`, tree
-`ea0db1cc5f5494b508f140deaf25eff87a7e39d9`, VERSION 1.0.3. Later T06/T07 docs
+`ea0db1cc5f5494b508f140deaf25eff87a7e39d9`, VERSION 1.0.3. Later T06/T07/T08 docs
 checkpoints do not replace R. Final R's four hosted CI jobs, scoped Windows11 and
 Calibre regressions and labelled exact-ZIP developer PDF/local-policy rehearsals
 retain the actual source/scope recorded in evidence/T06.md and evidence/T06.json.
@@ -44,4 +51,5 @@ v1.0.3 is absent. This is metadata preservation, not new anonymous download proo
 SECURITY.md's retained pypdf exposure remains subject to final release review.
 Follow RELEASE_RUNBOOK.md only after every real required gate passes. Final
 checkpoint hash and clean/fresh live-branch synchronization belong in the external
-handover. STOP after this T07 checkpoint; NEXT_SESSION.md is T08's gated review.
+handover. STOP after this T08 review checkpoint. NEXT_SESSION.md permits a further
+gate review when missing evidence/access becomes available; publication stays blocked.

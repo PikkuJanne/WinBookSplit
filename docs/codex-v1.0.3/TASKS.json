@@ -219,7 +219,14 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "Publication not started and blocked by T07 STORE-037 through STORE-042 and T04 STORE-024 missing actual native evidence. Next session may review gates only; no publish/tag/main merge while required evidence is absent."
+      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. No new actual owner Windows10 report/access supplied. T07 STORE-037 through STORE-042 and T04 STORE-024 remain NOT_RUN. Frozen R/final assets and OWNER_KIT unchanged. Old-release metadata/CI and retained Windows11 failed-report refusal do not clear native gates or release closure.",
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json",
+        "evidence/T08-baseline.json",
+        "evidence/T08-artifact-review.json",
+        "OWNER_KIT.md"
+      ]
     }
   ],
   "progression_policy": "Dependencies order implementation checkpoints. A task may be IMPLEMENTED_PENDING_NATIVE and independent later work may proceed. Deferred native cases stay NOT_RUN/DEFERRED_NATIVE, never PASS; all required cases must pass before publication. Consolidate owner-only checks into T07.",

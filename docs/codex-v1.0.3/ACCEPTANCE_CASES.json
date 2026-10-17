@@ -566,7 +566,12 @@
       "name": "Release gate",
       "expected": "All required acceptance evidence reviewed; native actual Store gate passed for exact immutable candidate bytes.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-044",
@@ -574,7 +579,12 @@
       "name": "Tested commit/tag",
       "expected": "Passing reviewed source merged/tagged as v1.0.3 at tested R; version/docs/package consistent; no retag or changed ZIP.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-045",
@@ -582,7 +592,12 @@
       "name": "Public assets",
       "expected": "Publish non-draft/non-prerelease release with frozen ZIP, manifest, checksum and truthful limits.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-046",
@@ -590,7 +605,12 @@
       "name": "Anonymous byte verification",
       "expected": "Unauthenticated downloads match accepted hashes; tag peeled commit verified; mismatch blocks completion.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-047",
@@ -598,7 +618,12 @@
       "name": "Old releases preserved",
       "expected": "Verify existing v1.0.0-v1.0.2 tags and assets unchanged; no force-push/settings/history edits.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     },
     {
       "id": "STORE-048",
@@ -606,7 +631,12 @@
       "name": "Synced closure",
       "expected": "Record closure evidence and exact usable launcher/setup instructions; local main clean and equal to freshly queried live main.",
       "status": "NOT_RUN",
-      "required": true
+      "required": true,
+      "evidence": [
+        "evidence/T08.md",
+        "evidence/T08.json"
+      ],
+      "result_scope": "NOT_RUN/BLOCKED: gate-review checkpoint only. T07 actual owner Windows10 STORE-037 through STORE-042 and T04 STORE-024 enforced-policy denial missing; no publish/tag/main merge. Existing old-release metadata comparison is scoped preservation evidence, not anonymous asset-byte or final release acceptance."
     }
   ]
 }
