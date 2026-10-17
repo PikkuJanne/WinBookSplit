@@ -117,6 +117,7 @@ def valid_report():
     """An authored complete receipt fixture, with no claim that its processes ran."""
     source_map = {name: f"{n:064x}" for n, name in enumerate(APP_FILES, 1)}
     for name in ("tests/runtime/characterize_runtime.py", "tests/runtime/validate_runtime_report.py",
+                 "tests/runtime/converter_cache.py", "tests/runtime/Observe-ManagerCache.ps1",
                  "tests/runtime/README.md", "tests/python/test_runtime_receipt.py",
                  "tests/baseline/expected_original.json", "tests/extraction/characterize_extraction.py",
                  "tests/fixtures/generate_pdf_fixtures.py"):
@@ -194,11 +195,13 @@ def valid_report():
                 identities = {name: {"device": 1, "inode": index} for index, name in enumerate(
                     ("Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"), 1)}
                 case["converter_absence_environment"] = {
-                    "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+                    "schema_version": 2,
+                    "child_local_app_data_isolated": True, "windows_cache_inventory_unchanged": True,
                     "ordinary_directory_guards_unchanged": True,
                     "cache_directory_identities_before": identities,
                     "cache_directory_identities_after": deepcopy(identities),
-                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
+                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True,
+                    "manager_cache_observation": {"before": None, "after": None, "reference": None}}
             case["decoy_sha256_after"] = deepcopy(case["decoy_sha256"])
             if category in {"python_failure", "converter_failure"}:
                 explicit = category == "python_failure" or kind == "wrong-version"
@@ -319,6 +322,8 @@ class RuntimeReceiptTests(unittest.TestCase):
             "numeric parent promise": lambda r: absence(r).update(parent_local_app_data_unchanged=1),
             "unheld layout": lambda r: absence(r).update(ordinary_directory_guards_unchanged=False),
             "system converter present": lambda r: absence(r).update(fixed_system_calibre_paths_absent=False),
+            "manager observation omitted": lambda r: absence(r).pop("manager_cache_observation"),
+            "legacy whole-cache empty claim": lambda r: absence(r).update(owned_empty_cache_inventory_unchanged=True),
             "root claimed empty": lambda r: absence(r).update(owned_directory_ordinary_and_empty=True),
             "Programs install": lambda r: absence(r)["cache_directory_identities_before"].update(Programs={"device": 1, "inode": 8}),
             "Calibre sibling": lambda r: absence(r)["cache_directory_identities_after"].update({"Microsoft/Windows/Calibre": {"device": 1, "inode": 8}}),
@@ -352,7 +357,7 @@ class RuntimeReceiptTests(unittest.TestCase):
                 self.assertTrue(root.is_absolute() and root.is_relative_to(Path(owned).resolve(strict=True)))
                 (root / "Microsoft/Windows/Caches").mkdir(parents=True)
                 before = producer.converter_absence_cache_inventory(root)
-                self.assertEqual(set(before), {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"})
+                self.assertEqual(set(before["windows_directories"]), {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"})
                 if unexpected is not None:
                     target = root / unexpected
                     self.assertTrue(target.is_relative_to(root))

@@ -48,29 +48,19 @@ paths = load("wbs_runtime_paths", ROOT / "tests/paths/characterize_paths.py")
 conversion = load("wbs_runtime_conversion", ROOT / "tests/conversion/characterize_conversion.py")
 runner = load("wbs_runtime_runner", ROOT / "tests/run_tests.py")
 history, require = manual.history, manual.require
+cache = load("wbs_runtime_cache", ROOT / "tests/runtime/converter_cache.py")
 
 
 def digest(path):
     return sha256(path.read_bytes()).hexdigest()
 
 
-def converter_absence_cache_inventory(root):
-    """Accept only the authored empty Windows cache chain, never an install."""
-    result = {}
-    directory = root
-    for expected in ("Microsoft", "Windows", "Caches", None):
-        require(not history.is_reparse(directory) and directory.is_dir(),
-                "Missing-converter cache directory is not ordinary")
-        with os.scandir(directory) as entries:
-            entry = next(entries, None)
-            extra = next(entries, None) if expected is not None else None
-            require((entry is None if expected is None else entry is not None and entry.name == expected and extra is None),
-                    "Missing-converter cache fixture acquired unexpected files or paths")
-        if expected is not None:
-            directory = directory / expected
-            details = directory.lstat()
-            result[directory.relative_to(root).as_posix()] = {"device": details.st_dev, "inode": details.st_ino}
-    return result
+def converter_absence_cache_inventory(root, windows=None):
+    """Separate the empty Windows cache from a verified manager side effect."""
+    try:
+        return cache.observe(root, windows)
+    except ValueError as error:
+        raise RuntimeError(str(error)) from error
 
 
 def prefixed_json(text, prefix):
@@ -447,16 +437,18 @@ class Cases:
             if isolated_local_app_data is not None:
                 for guard in held_isolation:
                     guard.assert_unchanged()
-                isolation_after = converter_absence_cache_inventory(isolated_local_app_data)
+                isolation_after = converter_absence_cache_inventory(isolated_local_app_data, windows)
                 require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
-                        and not isolated_local_app_data.is_junction() and isolation_after == isolation_before
+                        and not isolated_local_app_data.is_junction()
+                        and isolation_after["windows_directories"] == isolation_before["windows_directories"]
                         and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
                         "Missing-converter child isolation or parent environment changed")
-                record["converter_absence_environment"] = {
-                    "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
-                    "ordinary_directory_guards_unchanged": True,
-                    "cache_directory_identities_before": isolation_before, "cache_directory_identities_after": isolation_after,
-                    "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
+                reference = None
+                if isolation_after["manager_marker"] is not None:
+                    cleanup_safe = False
+                    reference = cache.reference(isolated_local_app_data, ROOT, self.ps51, history, windows)
+                    cleanup_safe = True
+                record["converter_absence_environment"] = cache.environment_record(isolation_before, isolation_after, reference)
             record.update(id=identifier, category=category, kind=kind, passed=True, actual_process=True,
                 shell_executable=str(shell), command=command, cwd=str(cwd), output_base=str(base),
                 source_path=str(source), source_format=source.suffix[1:], source_read_only_attribute_observed=readonly_observed,

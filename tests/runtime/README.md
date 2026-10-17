@@ -23,12 +23,25 @@ Missing/decoy converter cases alone redirect child `LOCALAPPDATA` to a fresh
 owned directory with the exact preauthored empty `Microsoft/Windows/Caches`
 chain, so a real per-user Calibre installation cannot satisfy their absence
 premise. Held ordinary directory identities must remain unchanged; the exact
-closure and empty leaf are verified after the process. Unexpected files, extra
-directories, reparse paths or replacement fail the fixture. Both fixed system
+Windows closure and empty leaf are verified after the process. A separately
+recorded `Python/_cache/last_welcome.txt` is permitted only when its bounded,
+ordinary, single-link bytes match a new independent verified registered-manager
+`list --format=exe` control. Its numeric welcome version is observed, never pinned
+to one installation. That probe is test-side provenance, not runtime selection
+or application/setup input; manager image bytes and parent environment remain
+unchanged. Every other file/directory, reparse path, hardlink or replacement fails
+the fixture. Both fixed system
 Calibre paths must actually be absent;
 otherwise these controls fail clearly without modifying any installation.
 Parent environment, explicit wrong-version rejection and positive discovery
 cases remain unchanged; no mandatory assertion is skipped.
+The maintained receipt names `windows_cache_inventory_unchanged` precisely and
+records the optional manager side effect separately as `manager_cache_observation`;
+it does not claim the whole redirected LOCALAPPDATA stayed empty.
+This test-only `converter_absence_environment` record now explicitly uses nested
+`schema_version: 2`; current consumers reject the earlier shape. Historical
+reports retain their original source/contract and are unchanged. This does not
+change the separate legacy native acceptance report schema.
 
 Failures must occur before console/stage/output creation and conversion, preserve
 the exact source/neighbor identities, and report actual candidate probe/reason plus

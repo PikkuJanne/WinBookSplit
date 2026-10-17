@@ -16,6 +16,9 @@ spec.loader.exec_module(interactions)
 spec = importlib.util.spec_from_file_location("wbs_runtime_console_validation", Path(__file__).resolve().parents[2] / "tests/manual/current_launchers.py")
 console = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(console)
+spec = importlib.util.spec_from_file_location("wbs_runtime_cache_validation", Path(__file__).with_name("converter_cache.py"))
+cache = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(cache)
 
 
 HOSTS = ("PS51", "PS7")
@@ -383,24 +386,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
 
 
 def converter_absence_environment(case: dict) -> None:
-    record = mapping(case.get("converter_absence_environment"), "converter absence environment")
-    require(set(record) == {"child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged",
-                           "ordinary_directory_guards_unchanged", "cache_directory_identities_before",
-                           "cache_directory_identities_after", "parent_local_app_data_unchanged",
-                           "fixed_system_calibre_paths_absent"}, "converter absence environment schema differs")
-    for field in ("child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged",
-                  "ordinary_directory_guards_unchanged", "parent_local_app_data_unchanged", "fixed_system_calibre_paths_absent"):
-        flag(record, field)
-    before = mapping(record["cache_directory_identities_before"], "converter cache identities before")
-    after = mapping(record["cache_directory_identities_after"], "converter cache identities after")
-    required = {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"}
-    require(set(before) == set(after) == required and before == after,
-            "converter absence cache closure or identities differ")
-    for value in before.values():
-        identity = mapping(value, "converter cache directory identity")
-        require(set(identity) == {"device", "inode"} and
-                all(type(identity[field]) is int and identity[field] >= 0 for field in ("device", "inode")),
-                "converter absence cache directory identity invalid")
+    cache.validate_environment(case.get("converter_absence_environment"))
 
 
 def failure_case(case: dict, supported_version: str, unsupported_version: str) -> None:
@@ -656,6 +642,7 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
     required_source = {"VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "requirements.txt",
                        "engine/WinBookSplit.Runtime.ps1", "tests/runtime/characterize_runtime.py",
                        "tests/runtime/validate_runtime_report.py", "tests/runtime/README.md",
+                       "tests/runtime/converter_cache.py", "tests/runtime/Observe-ManagerCache.ps1",
                        "tests/python/test_runtime_receipt.py", "tests/baseline/expected_original.json",
                        "tests/extraction/characterize_extraction.py", "tests/fixtures/generate_pdf_fixtures.py"}
     require(required_source <= source_map.keys(), "runtime: tested implementation/harness/historical map incomplete")

@@ -803,16 +803,10 @@ def validate_conversion_bat_diagnostics(bat: dict) -> None:
             or any(line.startswith("Output: ") for line in (stdout + text).splitlines()):
         raise ValueError("BAT dependency failure must precede every engine, interaction, conversion and publication")
     isolation = bat.get("converter_absence_environment")
-    if not isinstance(isolation, dict) or any(isolation.get(key) is not True for key in (
-            "child_local_app_data_isolated", "owned_empty_cache_inventory_unchanged", "parent_local_app_data_unchanged", "fixed_system_calibre_paths_absent")):
-        raise ValueError("BAT missing-converter discovery isolation was not preserved")
-    identities = isolation.get("cache_directory_identities_before")
-    if not isinstance(identities, dict) or set(identities) != {"Microsoft", "Microsoft/Windows", "Microsoft/Windows/Caches"} \
-            or identities != isolation.get("cache_directory_identities_after") \
-            or any(not isinstance(item, dict) or set(item) != {"device", "inode"}
-                   or type(item["device"]) is not int or item["device"] < 0
-                   or type(item["inode"]) is not int or item["inode"] <= 0 for item in identities.values()):
-        raise ValueError("BAT missing-converter owned empty cache-directory closure or identity changed")
+    spec = importlib.util.spec_from_file_location("wbs_conversion_cache_validator", ROOT / "tests/runtime/converter_cache.py")
+    cache = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(cache)
+    cache.validate_environment(isolation)
 
 
 def validate_conversion_report(child: dict, requested_shells: list[str], calibre_path: str) -> None:

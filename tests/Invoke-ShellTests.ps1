@@ -92,6 +92,7 @@ try {
         (Join-Path -Path $repository -ChildPath 'tests\compatibility\Probe-NativeKit.ps1'),
         (Join-Path -Path $repository -ChildPath 'tests\compatibility\Probe-NativeDiscoveryCollector.ps1'),
         (Join-Path -Path $repository -ChildPath 'tests\compatibility\Probe-StoreExisting.ps1'),
+        (Join-Path -Path $repository -ChildPath 'tests\runtime\Observe-ManagerCache.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Process.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Logging.ps1'),
         (Join-Path -Path $repository -ChildPath 'engine\WinBookSplit.Support.ps1'),

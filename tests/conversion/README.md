@@ -26,10 +26,21 @@ missing-converter failure. It supplies scripted manual starts `2,3`; conversion
 uses exactly `--output-profile tablet`. These fixtures demonstrate the reviewed
 profile's actual behavior without claiming that it improves every ebook layout.
 The BAT failure must contain the actual `converter_not_found` dependency record
-and exact-version guidance, return 3, and create no console or engine result.
+and exact-version guidance, return 3, and retain authenticated console diagnostics
+without invoking the engine or writing chapters.
 It preserves the source and neighbor; successful discovery is tested separately.
-Only this negative case redirects child `LOCALAPPDATA` to a fresh empty owned
-directory, leaving the parent's environment and real per-user Calibre unchanged.
+Only this negative case redirects child `LOCALAPPDATA` to an owned directory
+with a preauthored empty Windows cache chain, leaving the parent's environment
+and real per-user Calibre unchanged. The Windows cache closure and guarded
+identities remain unchanged. The sole optional manager side effect,
+`Python/_cache/last_welcome.txt`, must be ordinary, single-link, bounded and
+byte-identical to a same-run independent verified installed-only manager listing
+control. No observed hash/version becomes an allowlist; all other files, paths,
+links or replacements fail. The separate manager observation never supplies an
+application runtime and never claims that the whole redirected cache stayed empty.
+The test-only `converter_absence_environment` record uses nested `schema_version: 2`;
+current source-bound consumers require that shape. Historical reports and the
+separate legacy native acceptance schema remain unchanged.
 Both fixed system Calibre paths must actually be absent; the test fails clearly
 if this missing-dependency premise cannot be established. No installation is
 altered and no mandatory assertion is skipped.

@@ -35,6 +35,7 @@ launchers = load("wbs_conversion_launchers", ROOT / "tests/manual/current_launch
 paths = load("wbs_conversion_paths", ROOT / "tests/paths/characterize_paths.py")
 runner = load("wbs_conversion_runner", ROOT / "tests/run_tests.py")
 fixtures = load("wbs_conversion_fixtures", ROOT / "tests/conversion/generate_ebook_fixtures.py")
+cache = load("wbs_conversion_cache", ROOT / "tests/runtime/converter_cache.py")
 history, require = manual.history, manual.require
 
 
@@ -241,23 +242,11 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
     parent_local_app_data = os.environ.get("LOCALAPPDATA")
     isolated_local_app_data = None
     isolation_guards = ExitStack()
+    held_isolation = []
     isolation_before = None
 
     def isolation_inventory():
-        result = {}
-        directory = isolated_local_app_data
-        for expected in ("Microsoft", "Windows", "Caches", None):
-            with os.scandir(directory) as entries:
-                entry = next(entries, None)
-                extra = next(entries, None) if expected is not None else None
-                require((entry is None if expected is None else entry is not None and entry.name == expected and extra is None),
-                        "Missing-converter cache fixture acquired unexpected files or paths")
-            if expected is not None:
-                directory = directory / expected
-                require(not history.is_reparse(directory) and directory.is_dir(), "Missing-converter cache directory is not ordinary")
-                details = directory.lstat()
-                result[directory.relative_to(isolated_local_app_data).as_posix()] = {"device": details.st_dev, "inode": details.st_ino}
-        return result
+        return cache.observe(isolated_local_app_data, windows)
     with isolation_guards:
         if batch:
             # The missing-converter case must not discover the user's real install.
@@ -274,7 +263,7 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
             for path in [*reversed(isolated_local_app_data.parents), isolated_local_app_data,
                          isolated_local_app_data / "Microsoft", isolated_local_app_data / "Microsoft/Windows",
                          isolated_local_app_data / "Microsoft/Windows/Caches"]:
-                isolation_guards.enter_context(windows.DirectoryGuard(path))
+                held_isolation.append(isolation_guards.enter_context(windows.DirectoryGuard(path)))
             isolation_before = isolation_inventory()
             environment["LOCALAPPDATA"] = str(isolated_local_app_data)
         environment.update(PATH=os.pathsep.join((str(Path(sys.executable).parent), str(ps51.parent), str(system / "System32"), str(system))),
@@ -376,14 +365,20 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                                   console_evidence=authentication, console_log_text=text,
                                   console_log_sha256=sha256(console_bytes).hexdigest(), console_path=str(log), input_path=str(source),
                                   source_observation=observed_source)
+                    for guard in held_isolation:
+                        guard.assert_unchanged()
+                    isolation_after = isolation_inventory()
                     require(isolated_local_app_data.is_dir() and not isolated_local_app_data.is_symlink()
-                            and not isolated_local_app_data.is_junction() and isolation_inventory() == isolation_before
+                            and not isolated_local_app_data.is_junction()
+                            and isolation_after["windows_directories"] == isolation_before["windows_directories"]
                             and os.environ.get("LOCALAPPDATA") == parent_local_app_data,
                             "Missing-converter child isolation or parent environment changed")
-                    record["converter_absence_environment"] = {
-                        "child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
-                        "cache_directory_identities_before": isolation_before, "cache_directory_identities_after": isolation_inventory(),
-                        "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True}
+                    reference = None
+                    if isolation_after["manager_marker"] is not None:
+                        cleanup_safe = False
+                        reference = cache.reference(isolated_local_app_data, ROOT, ps51, history, windows)
+                        cleanup_safe = True
+                    record["converter_absence_environment"] = cache.environment_record(isolation_before, isolation_after, reference)
             require(before == {path: history.file_digest(Path(path)) for path in before}, "Conversion changed original ebook or same-basename neighboring PDF")
             record.update(id=identifier, passed=True, actual_process=True, shell_executable=str(shell), command=command, cwd=str(cwd),
                           input_unchanged=True, neighbor_unchanged=True, stdin_utf8=answers, **process)

@@ -300,9 +300,11 @@ def complete_conversion_bat_failure():
             "console_path": log, "console_log_text": text, "console_log_sha256": digest, "console_evidence": receipt,
             "stdout": "Action: Select trusted Calibre 9.15.0 with -CalibrePath\r\nLog: " + log + "\r\n[OUTCOME] " + json.dumps(outcome) + "\r\n",
             "interaction": {key: [] for key in ("engine_invocations", "requests", "replies", "displayed_plans")}, "process_summaries": [],
-            "converter_absence_environment": {"child_local_app_data_isolated": True, "owned_empty_cache_inventory_unchanged": True,
+            "converter_absence_environment": {"schema_version": 2, "child_local_app_data_isolated": True, "windows_cache_inventory_unchanged": True,
+                "ordinary_directory_guards_unchanged": True,
                 "cache_directory_identities_before": cache, "cache_directory_identities_after": deepcopy(cache),
-                "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True},
+                "parent_local_app_data_unchanged": True, "fixed_system_calibre_paths_absent": True,
+                "manager_cache_observation": {"before": None, "after": None, "reference": None}},
             "scope": "actual-unchanged-BAT-missing-trusted-converter; successful-discovery-separately-covered-by-runtime-acceptance"}
 
 
