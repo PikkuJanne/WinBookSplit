@@ -54,6 +54,13 @@ Run both process streams safely. No shell evaluation of paths/bookmark text. Tem
 
 ## Evidence and checkpoint
 
+Human verification must be easy to carry out on the target machine. Deliver one
+transferable test bundle with a short numbered start guide, one obvious launcher,
+automatic checks and an obvious report to return, including failures. Do not make
+the owner reconstruct commands, find hidden cache folders or repeat broad
+diagnostics. Validate the delivered launch/report flow before handing it over;
+keep tooling rehearsals separate from actual target-machine acceptance.
+
 Use `TESTING.md` and each task's acceptance IDs. Record commands, runtime versions, source commit/tree digest, actual outcomes, skips, and defects. No fabricated/manual/Windows/Calibre passes. Ordinary syntax/unit success is not an end-to-end Windows test.
 
 After EACH task update task/evidence/status/next-session files; stage intended paths only; commit; push normally; verify clean local HEAD equals the freshly queried live remote branch; then STOP with a verbose handover and an exact next-task continuation prompt. Missing network/auth or a failed push means UNKNOWN/UNSYNCED. Follow `docs/codex-v1.0.3/RELEASE_RUNBOOK.md` for receipts without self-referential commit hashes. Never force push, reset hard, auto-stash, or delete work.

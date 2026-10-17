@@ -1,0 +1,34 @@
+WINBOOKSPLIT: WINDOWS 10 TEST
+
+Use the original Windows 10 computer where WinBookSplit could not find Python.
+This bundle runs the checks for you. You do not need to type any commands.
+
+1. COPY
+   Copy WinBookSplit-Windows10-Test-243d31e.zip to that computer's Downloads.
+
+2. EXTRACT
+   Right-click the ZIP, choose Extract All, then click Extract.
+   Open the extracted folder. Do not run the test from inside the ZIP.
+
+3. START
+   Double-click START-TEST.cmd once. Keep its window open and wait.
+   The checks use the included sample documents, not your personal books.
+   A new test copy may prepare its own application-local Python environment.
+
+4. SEND THE REPORT
+   When the results folder opens, send back SEND-THIS-REPORT.zip in this chat.
+   Send it even if the test reports a failure. Do not open, edit or re-zip it.
+
+Do not run as administrator. Leave your existing WinBookSplit installation,
+Python, Python Manager, PATH and app aliases as they are. Do not install or update
+Python or change security settings for this test.
+
+If Windows or your organization's policy blocks the test, stop. If a results
+folder has SEND-THIS-REPORT.zip, send that file. Otherwise send the short error
+message shown in the test window. Do not retry with another launch method.
+
+The test keeps its raw diagnostic files on this computer. Send only the report
+ZIP above, not the whole results folder or any personal documents. A completed
+run still needs independent review; it does not publish or replace the app.
+
+For the same instructions in a larger, easy-to-read layout, open START-HERE.html.
