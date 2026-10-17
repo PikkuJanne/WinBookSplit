@@ -20,12 +20,19 @@ ordinary BAT passed complete-page native validation. Runtime/Manager, aliases,
 PATH, base package inventories, sources and neighbors were preserved. Fallback
 acquisition was disabled before discovery, with no attempt or use.
 
+Current gate-only recheck: evidence/T08-gate-review.md and JSON reconfirm the
+accepted owner return, frozen bytes and live old-release metadata. No acceptance
+status changed. Official-source technical security review is complete; release
+disposition remains unresolved because retained pypdf 6.20.0 has reachable
+array/dictionary parser exposure before application limits. No security clearance
+or dependency change is claimed.
+
 T04 remains **IMPLEMENTED_PENDING_NATIVE**: STORE-024 actual enforced
 organization-policy denial is still NOT_RUN. The Store packet's authored local
 MOTW/RemoteSigned component passed, but MachinePolicy/UserPolicy are Undefined;
-this cannot clear STORE-024. SECURITY.md's retained pypdf exposure still requires
-final release review. T08 publication remains BLOCKED; STORE-043 through
-STORE-048 remain NOT_RUN. No publish/tag or main merge occurred.
+this cannot clear STORE-024. SECURITY.md's retained pypdf exposure requires a
+resolved security release disposition; see the current gate-review evidence.
+T08 publication remains BLOCKED; STORE-043 through STORE-048 remain NOT_RUN. No publish/tag or main merge occurred.
 
 Frozen source R remains `243d31ee03efac35dc6f7e88c0c1dfd1203081ed`, tree
 `ea0db1cc5f5494b508f140deaf25eff87a7e39d9`, VERSION 1.0.3. The 34-file production

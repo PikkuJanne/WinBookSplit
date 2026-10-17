@@ -322,7 +322,9 @@
       "required": true,
       "evidence": [
         "evidence/T04.md",
-        "evidence/T04.json"
+        "evidence/T04.json",
+        "evidence/T08-gate-review.md",
+        "evidence/T08-gate-review.json"
       ],
       "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
     },
@@ -589,7 +591,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     },
     {
       "id": "STORE-044",
@@ -602,7 +604,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     },
     {
       "id": "STORE-045",
@@ -615,7 +617,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     },
     {
       "id": "STORE-046",
@@ -628,7 +630,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     },
     {
       "id": "STORE-047",
@@ -641,7 +643,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     },
     {
       "id": "STORE-048",
@@ -654,7 +656,7 @@
         "evidence/T08.md",
         "evidence/T08.json"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: T07 actual owner Store gate passed, but STORE-024 actual enforced organization-policy denial remains missing and final security review pending. No publish/tag/main merge. Old-release metadata comparison is scoped preservation only, not anonymous asset-byte or final release acceptance."
+      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
     }
   ]
 }
