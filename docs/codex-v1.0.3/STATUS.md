@@ -8,6 +8,16 @@ Windows11 x64 build26300.9711. T04 remains IMPLEMENTED_PENDING_NATIVE because
 STORE-024 actual enforced organization-policy denial is still NOT_RUN. T08 is
 BLOCKED; no tag/publication or main merge occurred.
 
+The owner now has a straightforward transferable test bundle. Follow
+OWNER_TRANSFER.md: copy WinBookSplit-Windows10-Test-243d31e.zip to the original
+Windows10 PC, Extract All, double-click START-TEST.cmd, send SEND-THIS-REPORT.zip
+from the results folder. No typed command or hidden-cache lookup is needed.
+Outer ZIP SHA256 is
+`adc6d1cb89fc90123cd5ef9c0f71c121f74761b8205fea7a1c4c6947e8a97745`.
+Delivery source cb45a87 is separate from R. Final carrier bytes and actual default
+CMD failure/report flow were validated on Windows11; this is tooling only and
+does not clear any native gate. See evidence/T08-owner-delivery.md and JSON.
+
 T08's docs-only checkpoint is recorded in evidence/T08.md, T08.json and
 T08-baseline.json. No new owner report was supplied. Fresh remote tag objects,
 peeled commits and old release body/asset metadata still match T07; v1.0.3 is
@@ -35,7 +45,8 @@ The retained 34-file production ZIP SHA256 is
 Use only final `WinBookSplit-v103-native-kit-243d31e.zip`, SHA256
 `e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc`, bindings
 `446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b`.
-OWNER_KIT.md is unchanged and remains the single authoritative launch/report action.
+OWNER_KIT.md is unchanged and retains the original technical launch/gate contract;
+OWNER_TRANSFER.md supplies the simple default owner-facing handoff around it.
 The earlier R1 kit/manifest/command stay superseded; historical evidence is intact.
 
 Store-existing blocks before fallback acquisition/copy/clone/bootstrap without a

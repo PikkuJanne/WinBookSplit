@@ -1,0 +1,430 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "status": "BLOCKED",
+  "delivery_preparation": "COMPLETE_TOOLING_SCOPE_ONLY",
+  "reviewed_utc": "2026-10-17T16:26:25.538389+00:00",
+  "initial_commit": "7ac61fa1428687a82486e27d23aa477d86751ec8",
+  "branch": "codex/v1.0.3-store-discovery",
+  "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "version": "1.0.3",
+  "delivery_source": {
+    "commit": "cb45a878237231e4d5cc82a8c8925975681f432f",
+    "tree": "c246efcb51f4658df916adf5835b71af21a554c1"
+  },
+  "bundle": {
+    "bytes": 3148240,
+    "path": "WinBookSplit-Windows10-Test-243d31e.zip",
+    "sha256": "adc6d1cb89fc90123cd5ef9c0f71c121f74761b8205fea7a1c4c6947e8a97745"
+  },
+  "original_kit": {
+    "bindings_sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b",
+    "bytes": 1559722,
+    "path": "WinBookSplit-v103-native-kit-243d31e.zip",
+    "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+  },
+  "production_zip": {
+    "bytes": 932894,
+    "path": "assets/WinBookSplit-v1.0.3.zip",
+    "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+  },
+  "retained_original_owner_kit_command": true,
+  "default_owner_action": "Copy ZIP to unchanged original Windows10 Downloads; Extract All; double-click START-TEST.cmd once; return unchanged SEND-THIS-REPORT.zip from results folder.",
+  "native_owner_execution": "NOT_RUN",
+  "enforced_organization_policy": "NOT_RUN",
+  "publication_started": false,
+  "acceptance_statuses_unchanged": true,
+  "final_bundle_rehearsal": {
+    "scope": "ACTUAL_FINAL_BUNDLE_CMD_WINDOWS11_OS_REFUSAL_AND_RETURN_FLOW_ONLY_NOT_OWNER_ACCEPTANCE",
+    "delivery_source": {
+      "commit": "cb45a878237231e4d5cc82a8c8925975681f432f",
+      "tree": "c246efcb51f4658df916adf5835b71af21a554c1"
+    },
+    "frozen_source": {
+      "commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+      "version": "1.0.3"
+    },
+    "bundle": {
+      "bytes": 3148240,
+      "sha256": "adc6d1cb89fc90123cd5ef9c0f71c121f74761b8205fea7a1c4c6947e8a97745"
+    },
+    "members": 41,
+    "manifest_pins": 40,
+    "all_35_inner_members_unchanged": true,
+    "original_kit_zip_unchanged": true,
+    "delivery_files_equal_raw_committed_Git": true,
+    "repeat_build_byte_identical": true,
+    "cmd_argv": [
+      "<CMD_EXE>",
+      "/d",
+      "/c",
+      "START-TEST.cmd"
+    ],
+    "cmd_cwd": "<FINAL_DELIVERY_UNICODE_SPACES_APOSTROPHE_AMPERSAND_FOLDER>",
+    "cmd_exit_code": 1,
+    "cmd_pause_message_observed": true,
+    "cmd_stderr_empty": true,
+    "report": {
+      "bytes": 4235,
+      "sha256": "e8458a01746f5616fa24a4fdc8dd380308ff62179cf2e45cf75d5f1a7739121f",
+      "source_bytes_equal": true,
+      "native_success": false,
+      "failed_stage": "os",
+      "returned_zip_member_count": 1
+    },
+    "explorer": "Default Explorer selection call executed; no physical Windows10 UI acceptance or visual selection claim.",
+    "all_41_delivered_files_unchanged": true,
+    "all_native_Store_and_enforced_policy_gates": "NOT_RUN/BLOCKED",
+    "exploratory_failures": [
+      "Two external CMD command-line quoting forms failed before the script started. Fixed test driver by using literal START-TEST.cmd from the extracted folder. Native kit/receipts were never changed."
+    ],
+    "limits": "Real Windows11 wrong-OS failure and transfer/launch/report UX rehearsal only. Actual unchanged owner Windows10 execution still missing."
+  },
+  "helper_controls": [
+    {
+      "scope": "initial_CJK_console_loss",
+      "raw_local_sha256": "44cd0f288d5313c2fb4dfcdfc80f6b142d4ab7abd38e20bdc6d03be918ec707e",
+      "raw_local_bytes": 6879,
+      "source": {
+        "helper_sha256": "6703550c0f4554e908f81e76ed7d4850f20a2da0c684e0f5029dcd5395030053",
+        "script_sha256": "111d964f98597c20e53893954d96cfe63da25924506f5722bccabc55ad3a2f40",
+        "original_kit_sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc",
+        "frozen_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "files": {
+          "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+          "engine\\WinBookSplit.Diagnostics.ps1": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5",
+          "tools\\compatibility\\Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+          "harmless-fixture.ps1": "89475c85304669ebd89607aef0deaf541d4129ea27ff68ba0da47b6e0ba58d98"
+        }
+      },
+      "tool": {
+        "host": "Windows11 developer workstation",
+        "powershell": "5.1.26100.9711",
+        "executable_sha256": "60c9b29843624dd8af6b6a7b26147753be6aeef65098b9a503cc50850afe410f"
+      },
+      "results": [
+        {
+          "id": "utf8_literal_return_path",
+          "status": "PASS"
+        },
+        {
+          "id": "duplicate_return_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "oversized_console_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "outside_return_prefix_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "current_allowed_report_copied_exactly",
+          "status": "PASS"
+        },
+        {
+          "id": "existing_copy_not_overwritten",
+          "status": "PASS"
+        },
+        {
+          "id": "startprocess_unicode_console_roundtrip",
+          "status": "FAIL"
+        },
+        {
+          "id": "runtime_environment_inherited_unchanged",
+          "status": "PASS"
+        },
+        {
+          "id": "helper_source_unchanged",
+          "status": "PASS"
+        }
+      ],
+      "native_acceptance": "NOT_RUN",
+      "limitation": "Authored helper/harmless-child controls only. Initial CJK failure and pre-anchor failure preserved; final recovery covers only known profile + frozen ASCII suffix. Original initial console control observation describes intended condition; actual status FAIL records the observed loss."
+    },
+    {
+      "scope": "OEM_scoped_controls",
+      "raw_local_sha256": "f972a0aee3a398653eccc09803f9ff6c04cef603adf3aab5cde3168b359adcbd",
+      "raw_local_bytes": 6923,
+      "source": {
+        "helper_sha256": "6703550c0f4554e908f81e76ed7d4850f20a2da0c684e0f5029dcd5395030053",
+        "script_sha256": "05c1ecdcd947cf90c374037257427af75d0253f7c9d1d4e860daa8035b8ad765",
+        "original_kit_sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc",
+        "frozen_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "files": {
+          "engine\\WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+          "engine\\WinBookSplit.Diagnostics.ps1": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5",
+          "tools\\compatibility\\Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+          "harmless-fixture.ps1": "89475c85304669ebd89607aef0deaf541d4129ea27ff68ba0da47b6e0ba58d98"
+        }
+      },
+      "tool": {
+        "host": "Windows11 developer workstation",
+        "powershell": "5.1.26100.9711",
+        "executable_sha256": "60c9b29843624dd8af6b6a7b26147753be6aeef65098b9a503cc50850afe410f"
+      },
+      "results": [
+        {
+          "id": "utf8_literal_return_path",
+          "status": "PASS"
+        },
+        {
+          "id": "duplicate_return_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "oversized_console_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "outside_return_prefix_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "current_allowed_report_copied_exactly",
+          "status": "PASS"
+        },
+        {
+          "id": "existing_copy_not_overwritten",
+          "status": "PASS"
+        },
+        {
+          "id": "startprocess_oem_representable_unicode_roundtrip",
+          "status": "PASS"
+        },
+        {
+          "id": "runtime_environment_inherited_unchanged",
+          "status": "PASS"
+        },
+        {
+          "id": "helper_source_unchanged",
+          "status": "PASS"
+        }
+      ],
+      "native_acceptance": "NOT_RUN",
+      "limitation": "Authored helper/harmless-child controls only. Initial CJK failure and pre-anchor failure preserved; final recovery covers only known profile + frozen ASCII suffix. Original initial console control observation describes intended condition; actual status FAIL records the observed loss."
+    },
+    {
+      "scope": "pre_anchor_profile_controls",
+      "raw_local_sha256": "a4329ddd08e6d05fe5a504d6ef8a3b732dacf69541c7ed9941120e8715c797b7",
+      "raw_local_bytes": 3186,
+      "source": null,
+      "tool": null,
+      "results": [
+        {
+          "id": "cp437_profile_loss_present",
+          "status": "PASS"
+        },
+        {
+          "id": "cache_store_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "cache_early_result_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "bootstrap_result_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "wrong_profile_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "profile_prefix_extension_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "traversal_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "unexpected_basename_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "nonascii_suffix_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "extra_directory_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "unexpected_ascii_extension_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "trailing_newline_refused",
+          "status": "FAIL"
+        }
+      ],
+      "native_acceptance": "NOT_RUN",
+      "limitation": "Authored helper/harmless-child controls only. Initial CJK failure and pre-anchor failure preserved; final recovery covers only known profile + frozen ASCII suffix. Original initial console control observation describes intended condition; actual status FAIL records the observed loss."
+    },
+    {
+      "scope": "final_profile_controls",
+      "raw_local_sha256": "3bb826dba65eb6398adccd5c825a5eceb70740f7b1e883f5bf377ab28e47bd34",
+      "raw_local_bytes": 3185,
+      "source": null,
+      "tool": null,
+      "results": [
+        {
+          "id": "cp437_profile_loss_present",
+          "status": "PASS"
+        },
+        {
+          "id": "cache_store_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "cache_early_result_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "bootstrap_result_recovered",
+          "status": "PASS"
+        },
+        {
+          "id": "wrong_profile_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "profile_prefix_extension_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "traversal_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "unexpected_basename_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "nonascii_suffix_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "extra_directory_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "unexpected_ascii_extension_refused",
+          "status": "PASS"
+        },
+        {
+          "id": "trailing_newline_refused",
+          "status": "PASS"
+        }
+      ],
+      "native_acceptance": "NOT_RUN",
+      "limitation": "Authored helper/harmless-child controls only. Initial CJK failure and pre-anchor failure preserved; final recovery covers only known profile + frozen ASCII suffix. Original initial console control observation describes intended condition; actual status FAIL records the observed loss."
+    }
+  ],
+  "review": "CLEAN: independent final source/carrier audit and eight-path active-doc review; source/hash/privacy/task-status/native-blocker and prior-evidence checks passed. No actionable remaining delivery finding.",
+  "verification": {
+    "state": "PASS_DOCUMENTATION_AND_DELIVERY_SCOPE_ONLY",
+    "structural_handoff": {
+      "status": "HANDOFF_STRUCTURALLY_VALID",
+      "mode": "checkout",
+      "tasks": 8,
+      "acceptance_requirements": 48,
+      "synthetic_registration_inputs": 12,
+      "manifest_integrity": "not_applicable_mutable_checkout",
+      "limitation": "Not application, Windows, or native execution acceptance."
+    },
+    "all_48_acceptance_cases_unchanged": true,
+    "all_8_task_statuses_unchanged": true,
+    "evidence_links_and_hashes_match": true,
+    "all_active_JSON_parse": true,
+    "privacy_scan_passed": true,
+    "whitespace_exit_code": 0,
+    "frozen_product_and_original_native_helpers_unchanged": true,
+    "all_prior_evidence_and_OWNER_KIT_unchanged": true,
+    "intended_14_cumulative_paths_only": true,
+    "broad_application_suites": "NOT_RERUN: no product/frozen helper change; existing R suites retain scope.",
+    "staged_raw_Git_evidence_binding": "PASS: new public evidence and guide bytes match staged raw Git blobs; declared markdown size/SHA256 match both. Explicit UTF8/LF."
+  },
+  "exploratory_failures": [
+    {
+      "stage": "external_control_harness_authoring",
+      "result": "Nested here-string parse error before any execution; corrected external harness."
+    },
+    {
+      "stage": "external_CMD_runner",
+      "result": "Two path-quoting forms failed before START-TEST.cmd began. Corrected driver used literal START-TEST.cmd in extracted folder; final command preserved native exit1 and pause."
+    },
+    {
+      "stage": "initial_CJK_console_control",
+      "result": "Inbox OEM console redirection replaced CJK account characters. Retained failed control; final recovery uses only independently known profile + exact ASCII frozen suffix, not arbitrary Unicode console paths."
+    },
+    {
+      "stage": "initial_pure_anchor_control",
+      "result": "Dollar-end regex tolerated a final newline in a pure helper input. Final absolute/end anchors reject it; unchanged isolated script passes12/12."
+    },
+    {
+      "stage": "read_only_source_lookups",
+      "result": "Initial root instruction patch context assumed wrapped lines; corrected heading-only patch. Initial rg shell glob operand was invalid; direct known source read succeeded."
+    },
+    {
+      "stage": "reviewer_ref_lookup",
+      "result": "Read-only unquoted caret-brace ref was parsed by host PowerShell; corrected quoted query succeeded."
+    }
+  ],
+  "preservation": {
+    "product_and_original_native_helpers_unchanged": true,
+    "OWNER_KIT_and_prior_reports_unchanged": true,
+    "existing_desktop_python_manager_alias_PATH_venv_shortcuts_unchanged": true,
+    "no_runtime_or_prebuilt_venv_added": true,
+    "no_receipt_bytes_edited": true,
+    "no_private_book_used": true,
+    "no_publication_tag_main_merge_force_or_settings_change": true,
+    "pypdf_final_release_review": "PENDING; SECURITY.md unchanged."
+  },
+  "commands": [
+    "<EXISTING_DEV_PYTHON> -I -B tools/codex-v1.0.3/build_owner_test_bundle.py --kit <ORIGINAL_FINAL_KIT> --output <NEW_TRANSFER_ZIP> --source-commit <DELIVERY_SOURCE>",
+    "<CMD_EXE> /d /c START-TEST.cmd from <FINAL_DELIVERY> with an Enter supplied only for final pause",
+    "Inbox PS5.1 AST syntax validation of new delivery helper",
+    "<EXISTING_DEV_PYTHON> -I -B tools/codex-v1.0.3/check_handoff.py --mode checkout",
+    "git -c core.whitespace=cr-at-eol diff --check",
+    "Independent in-memory ZIP/manifest/raw-Git equality and bounded fixture checks; no target execution claim"
+  ],
+  "missing_required_native": [
+    "STORE-037",
+    "STORE-038",
+    "STORE-039",
+    "STORE-040",
+    "STORE-041",
+    "STORE-042",
+    "STORE-024"
+  ],
+  "checkpoint_rule": "Ordinary scoped commits/push, clean HEAD against fresh live origin, then STOP. Final checkpoint hash/post-push receipt belong in external handover; delivery source does not replace R.",
+  "evidence_files": [
+    {
+      "path": "evidence/T08-owner-delivery.md",
+      "bytes": 8200,
+      "sha256": "89a68c721c52e8bc64f7978f4e9d2edcdfb87854eea8de232693e5b25d8ea8d5"
+    }
+  ],
+  "changed_paths": [
+    "AGENTS.md",
+    "tools/codex-v1.0.3/build_owner_test_bundle.py",
+    "tools/codex-v1.0.3/owner-test-delivery/START-HERE.html",
+    "tools/codex-v1.0.3/owner-test-delivery/READ-ME.txt",
+    "tools/codex-v1.0.3/owner-test-delivery/START-TEST.cmd",
+    "tools/codex-v1.0.3/owner-test-delivery/Start-OwnerTest.ps1",
+    "docs/codex-v1.0.3/OWNER_TRANSFER.md",
+    "docs/codex-v1.0.3/STATUS.md",
+    "docs/codex-v1.0.3/NEXT_SESSION.md",
+    "docs/codex-v1.0.3/TASKS.json",
+    "docs/codex-v1.0.3/tasks/07-T07.md",
+    "docs/codex-v1.0.3/tasks/08-T08.md",
+    "docs/codex-v1.0.3/evidence/T08-owner-delivery.md",
+    "docs/codex-v1.0.3/evidence/T08-owner-delivery.json"
+  ]
+}

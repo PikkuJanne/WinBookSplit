@@ -219,13 +219,16 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. No new actual owner Windows10 report/access supplied. T07 STORE-037 through STORE-042 and T04 STORE-024 remain NOT_RUN. Frozen R/final assets and OWNER_KIT unchanged. Old-release metadata/CI and retained Windows11 failed-report refusal do not clear native gates or release closure.",
+      "completion_scope": "BLOCKED gate-review checkpoint only; publication not started. No new actual owner Windows10 report/access supplied. T07 STORE-037 through STORE-042 and T04 STORE-024 remain NOT_RUN. Frozen R/final assets and OWNER_KIT unchanged. Old-release metadata/CI and retained Windows11 failed-report refusal do not clear native gates or release closure. Owner-requested simple transfer carrier prepared and validated within delivery-tooling scope; no native acceptance promotion. See OWNER_TRANSFER.md and T08-owner-delivery evidence.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
         "evidence/T08-baseline.json",
         "evidence/T08-artifact-review.json",
-        "OWNER_KIT.md"
+        "OWNER_KIT.md",
+        "OWNER_TRANSFER.md",
+        "evidence/T08-owner-delivery.md",
+        "evidence/T08-owner-delivery.json"
       ]
     }
   ],
