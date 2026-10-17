@@ -1,0 +1,37 @@
+{
+  "schema_version": 1,
+  "task": "T02",
+  "kind": "FOCUSED_MAINTAINED_COMPONENT_AND_PROCESS_REGRESSION",
+  "host": "7.6.5",
+  "policy": "RemoteSigned",
+  "result": "Passed",
+  "total": 95,
+  "passed": 95,
+  "failed": 0,
+  "skipped": 0,
+  "not_run": 0,
+  "failed_containers": 0,
+  "test_python": "<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe",
+  "test_sha256": [
+    {
+      "sha256": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7",
+      "path": "tests/powershell/Manager.Tests.ps1"
+    },
+    {
+      "sha256": "ea82de5baf91c4c489eb6a8e890bd2c81be0c9d9ea38b21f4ea1cc116f489813",
+      "path": "tests/powershell/Discovery.Tests.ps1"
+    },
+    {
+      "sha256": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605",
+      "path": "tests/powershell/Process.Tests.ps1"
+    },
+    {
+      "sha256": "e303b1cd05e9dfa2d13b36516e681d896904f6e9df2f5a06d6afb48b393c90b3",
+      "path": "tests/powershell/Runtime.Tests.ps1"
+    }
+  ],
+  "failed_cases": [],
+  "container_errors": [],
+  "raw_local_sha256": "bf7da3e7b47fb83db48fa572797c665bf52c9dc81639a3fe044f2d5b9eab0b18",
+  "limitation": "Developer regression using existing isolated 3.14.8/pypdf6.20.0; not native Store acceptance or hidden application configuration."
+}

@@ -1,5 +1,16 @@
 # Testing: prove the route, not just the algorithm
 
+T02 adds maintained `tests/powershell/Manager.Tests.ps1` to the normal shell
+runner. It executes the emitted query against labelled synthetic inventories,
+checks both identity tuples and malformed/cross-paired negatives, and inspects
+real authored ordinary/hardlink/junction decoys without executing them.
+`Process.Tests.ps1` adds an actual marker-child positive control and proves a
+package-bound rejection prevents that child from running. T01 reproduction
+receipts/tests remain historical old-behavior evidence; their bug-expecting
+assertions are not part of the maintained normal runner. T02 real Windows 11
+python.org component receipts are separate from those synthetic tests and from
+the still-NOT_RUN owner Windows 10 exact-ZIP Store gate. See `evidence/T02.md`.
+
 ## Layers
 
 1. Reproduction and unit/contract tests: replay sanitized records, original query

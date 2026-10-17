@@ -1,36 +1,46 @@
 # Status
 
-State: T01 COMPLETE — baseline/reproduction only; STOP at this checkpoint.
+State: T02 COMPLETE for official identity and entry-point components; STOP at
+this checkpoint after normal commit/push/live-branch verification.
 Target: v1.0.3. Branch: `codex/v1.0.3-store-discovery`.
-Source before checkpoint: `4cc6b00b99685607f3214e731edaaec7d65926df`, tree
-`8a5a246d2d18b3e2b3fd746a9347f77fb95f6e08`; initially clean main matched live origin.
-Baseline release source: `483baf858569bc838ac8a809d329b2595cdacf57` (v1.0.2).
+Source before T02: `15a646df512898024e3adf59a690395ecfa381fa`, tree
+`541aa6edc0b2a2ea5ac9e41ab50672a5ea499a53`. The checkout began clean and equal
+to live origin on that branch. Main and all published tags/releases are preserved.
 
-Root routing is reconciled to the new owner request; only the two new handoff
-directories were imported after conflict/manifest review. Historical evidence,
-all production files and VERSION remain unchanged. All four captured hashes match
-worktree/HEAD/tag/anonymous v1.0.2 ZIP exactly; all nine existing release assets
-match their published size/digests. There is no v1.0.3 tag/release collision.
+The exact-name current-user query now retains both official distribution channels.
+Validation pairs publisher/family/signature, checks canonical uint16 package
+versions, and retains the complete package schema/flags/status/architecture and
+physical location constraints. The documented KnownFolder family alias has
+ordinary trusted ancestors and an AppExecutionAlias tag. A narrow listing adapter
+uses the existing supervisor to verify the resolved child's exact package and
+physical image while suspended, before resume. Ordinary path guards are unchanged.
 
-STORE-001 through STORE-006 PASS their T01 reproduction requirements. Actual
-PS5.1.26100.9711 and PS7.6.5 each passed six selected synthetic baseline tests and
-failed all three desired assertions, proving query exclusion, independent
-downstream rejection and the misleading missing_python summary. These failures
-remain RED. New fallback tests: seven pass, one expected failure; historical
-private-runtime evidence cannot satisfy the new Store scenario. The checker
-currently misses attempted acquisition when fallback was not used; T05 must close
-that explicit RED requirement. Imported helper suite: 48 passed, one symlink skip.
-See `evidence/T01.md`, `T01.json`, baseline, focused shell and fallback receipts.
+STORE-007 through STORE-012 PASS their scoped component requirements. Maintained
+focused Pester coverage passed 95 tests per actual PS5.1.26100.9711 and PS7.6.5,
+including 23 new manager cases and real authored decoy/marker controls. Existing
+python.org Manager 26.4.240.0 also passed 13 real component checks per shell under
+process-only RemoteSigned: bound installed-only listing, wrong-package/image
+pre-resume rejection, stopped trees, and unchanged observed installation state.
+Final full shell regression also passed 229 tests per shell, zero failures/skips,
+with unchanged source, clean syntax and scoped pinned analysis. Handoff helpers:
+48 passed and one symlink-capability skip. See `evidence/T02.md`, `T02.json` and
+the focused/native/shell/exploratory receipts.
 
-No application repair/setup pass or native Windows 10 acceptance is claimed.
-The owner's exact-ZIP Store gate remains NOT_RUN; publication is BLOCKED until
-all real gates pass. Captured base pypdf remains UNKNOWN; the original PS5.1
-nested collector failure remains COLLECTOR_FAILED, not incompatibility evidence.
-This task used a Windows 11 developer host, synthetic fixtures and unchanged
-production functions; no desktop Python/Manager/PATH/alias or working-document
-changes occurred. No new release/tag was created and no existing release edited.
+Native Store-channel launch is NOT_RUN on this Windows 11/python.org host. The
+owner's exact-ZIP Windows 10 Store gate remains NOT_RUN/deferred to T07, and
+publication is BLOCKED until all real gates pass. Component success is not
+automatic runtime/application acceptance. T03 must wire the new adapter into
+the existing resolver: its old ordinary-executable gate still rejects the
+returned alias at this checkpoint. VERSION and dependency/security policy stay
+unchanged. The T04 summary repair and T05 fallback-attempt validator gap remain
+open; fallback tests retain seven passes and one expected failure.
 
-Next task: T02, official manager identity and entry points. Verify narrow alias
-binding/actual supervised launch questions; do not request another broad report.
-Record the actual checkpoint commit/push/live-remote comparison in the external
-handover after committing these files, avoiding self-reference here.
+Historical T01/v1.0.0-v1.0.2 records and published assets are unchanged. Captured
+base pypdf remains UNKNOWN and the original PS5.1 collector remains COLLECTOR_FAILED.
+No desktop Python/Manager installation/update, PATH/alias change, checkout/owner
+app venv creation, source-ZIP installation change, private-document processing,
+new tag/release or early publication occurred. Existing isolated developer
+runtime use is labelled regression-only and cannot satisfy the Store gate.
+
+Next task: T03 only, installed runtime resolution. Record this checkpoint's actual
+commit/push/live-remote equality externally after commit to avoid self-reference.

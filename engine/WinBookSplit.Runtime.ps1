@@ -75,7 +75,7 @@ function ConvertFrom-WinBookSplitPythonListing {
 }
 
 function ConvertFrom-WinBookSplitManagerRegistration {
-    param($Probe, [string]$ApplicationRoot, [string]$DocumentPath)
+    param($Probe, [string]$ApplicationRoot, [string]$DocumentPath, [switch]$WithRegistration)
     Assert-WinBookSplitListingProbe $Probe
     if (-not [string]::IsNullOrWhiteSpace($Probe.Stderr) -or [Text.Encoding]::UTF8.GetByteCount($Probe.Stdout) -gt 32768) { throw 'Invalid or oversized manager registration result.' }
     if (-not ('WinBookSplitSupport.StrictJson' -as [type])) {
@@ -87,10 +87,13 @@ function ConvertFrom-WinBookSplitManagerRegistration {
     if (-not (Test-WinBookSplitCompatibilityInteger $record.schema_version) -or $record.schema_version -ne 1 -or
         $record.packages -isnot [array] -or $record.packages.Count -gt 16) { throw 'Invalid manager registration schema or package count.' }
     $name = 'PythonSoftwareFoundation.PythonManager'
-    $publisher = 'CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US'
-    $family = $name + '_3847v3x7pw1km'
+    # Each distribution is one complete tuple, never independent allowlists.
+    $identities = @(
+        @{PublisherId='qbz5n2kfra8p0';Publisher='CN=4975D53F-AA7E-49A5-8B49-EA4FDC1BB66B';SignatureKind='Store'},
+        @{PublisherId='3847v3x7pw1km';Publisher='CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US';SignatureKind='Developer'}
+    )
     $seen = New-Object 'Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
-    $paths = New-Object 'Collections.Generic.List[string]'
+    $paths = New-Object 'Collections.Generic.List[object]'
     foreach ($package in $record.packages) {
         Assert-WinBookSplitCompatibilityKeys $package @('Name','Publisher','PublisherId','PackageFamilyName','PackageFullName','InstallLocation','Architecture','SignatureKind','Status','Version','IsDevelopmentMode','IsPartiallyStaged','IsFramework','IsResourcePackage') 'registered manager package'
         foreach ($field in @('Name','Publisher','PublisherId','PackageFamilyName','PackageFullName','InstallLocation','Architecture','SignatureKind','Status','Version')) {
@@ -99,23 +102,30 @@ function ConvertFrom-WinBookSplitManagerRegistration {
         foreach ($field in @('IsDevelopmentMode','IsPartiallyStaged','IsFramework','IsResourcePackage')) {
             if ((Get-WinBookSplitCompatibilityField $package $field) -isnot [bool] -or (Get-WinBookSplitCompatibilityField $package $field)) { throw 'Registered manager package is not a complete ordinary application.' }
         }
-        if ($package.Name -cne $name -or $package.Publisher -cne $publisher -or $package.PublisherId -cne '3847v3x7pw1km' -or
-            $package.PackageFamilyName -cne $family -or $package.Architecture -cne 'X64' -or $package.SignatureKind -cne 'Developer' -or $package.Status -cne 'Ok' -or
-            $package.Version -cnotmatch '\A[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}\.[0-9]{1,5}\z' -or
-            $package.PackageFullName -cne ($name + '_' + $package.Version + '_x64__3847v3x7pw1km') -or
+        $identity = @($identities | Where-Object { $_.PublisherId -ceq $package.PublisherId -and
+            $_.Publisher -ceq $package.Publisher -and $_.SignatureKind -ceq $package.SignatureKind })
+        $version = $null
+        if ($package.Version -cnotmatch '\A(?:0|[1-9][0-9]{0,4})(?:\.(?:0|[1-9][0-9]{0,4})){3}\z' -or
+            -not [Version]::TryParse($package.Version, [ref]$version) -or
+            $version.Major -gt 65535 -or $version.Minor -gt 65535 -or $version.Build -gt 65535 -or $version.Revision -gt 65535) {
+            throw 'Invalid Python manager package version.'
+        }
+        if ($identity.Count -ne 1 -or $package.Name -cne $name -or
+            $package.PackageFamilyName -cne ($name + '_' + $package.PublisherId) -or $package.Architecture -cne 'X64' -or $package.Status -cne 'Ok' -or
+            $package.PackageFullName -cne ($name + '_' + $package.Version + '_x64__' + $package.PublisherId) -or
             -not $seen.Add($package.PackageFullName)) { throw 'Unrecognized or duplicate Python manager registration identity.' }
         $expected = [IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::ProgramFiles), 'WindowsApps', $package.PackageFullName)
         $location = Get-WinBookSplitTrustedPath -Path $package.InstallLocation -Directory
         if (-not $location.Equals($expected, [StringComparison]::OrdinalIgnoreCase)) { throw 'Registered Python manager location does not match its physical package identity.' }
-        $path = Get-WinBookSplitTrustedPath -Path ([IO.Path]::Combine($location, 'pymanager.exe')) -Automatic
-        if (-not (Test-WinBookSplitAutomaticPath $path $ApplicationRoot $DocumentPath)) { throw 'Registered manager is in an excluded document or current directory.' }
-        $paths.Add($path)
+        $path = Get-WinBookSplitManagerEntryPoint -Package $package -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath
+        if ($WithRegistration) { $paths.Add([pscustomobject]@{Path=$path;Package=$package}) }
+        else { $paths.Add($path) }
     }
     return $paths.ToArray()
 }
 
 function Get-WinBookSplitRegisteredManagerPaths {
-    param([string]$ApplicationRoot, [string]$DocumentPath, $Attempts, [double]$TimeoutSeconds = 5)
+    param([string]$ApplicationRoot, [string]$DocumentPath, $Attempts, [double]$TimeoutSeconds = 5, [switch]$WithRegistration)
     $probe = $null; $path = $null
     try {
         # This exact OS-known inbox executable may have legitimate servicing
@@ -128,7 +138,7 @@ $ErrorActionPreference='Stop'
 $PSModuleAutoloadingPreference='None'
 Import-Module -Name ([IO.Path]::Combine($PSHOME,'Modules','Microsoft.PowerShell.Utility','Microsoft.PowerShell.Utility.psd1')) -ErrorAction Stop
 Import-Module -Name ([IO.Path]::Combine($PSHOME,'Modules','Appx','Appx.psd1')) -ErrorAction Stop
-$packages=@(Get-AppxPackage -Name 'PythonSoftwareFoundation.PythonManager' -Publisher 'CN=Python Software Foundation, O=Python Software Foundation, L=Beaverton, S=Oregon, C=US' -ErrorAction Stop)
+$packages=@(Get-AppxPackage -Name 'PythonSoftwareFoundation.PythonManager' -ErrorAction Stop)
 if ($packages.Count -gt 16) { throw 'Registered manager count exceeds 16.' }
 $records=@(foreach ($package in $packages) {
     [ordered]@{Name=[string]$package.Name;Publisher=[string]$package.Publisher;PublisherId=[string]$package.PublisherId;
@@ -143,7 +153,7 @@ $records=@(foreach ($package in $packages) {
 '@
         $encoded = [Convert]::ToBase64String([Text.Encoding]::Unicode.GetBytes($command))
         $probe = Invoke-WinBookSplitRuntimeProbe -Path $path -Arguments @('-NoProfile','-NonInteractive','-EncodedCommand',$encoded) -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
-        $paths = @(ConvertFrom-WinBookSplitManagerRegistration -Probe $probe -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath)
+        $paths = @(ConvertFrom-WinBookSplitManagerRegistration -Probe $probe -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath -WithRegistration:$WithRegistration)
         $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Accepted=$true;Message='Bounded current-user registered Python manager query; no runtime launch or install.';Probe=$probe})
         return $paths
     } catch {
@@ -151,6 +161,43 @@ $records=@(foreach ($package in $packages) {
         $Attempts.Add([pscustomobject]@{Path=$path;Source='manager_registration';Accepted=$false;Message=$_.Exception.Message;Probe=$probe})
         return @()
     }
+}
+
+function Get-WinBookSplitManagerEntryPoint {
+    param($Package, [string]$ApplicationRoot, [string]$DocumentPath)
+    # Only the documented family-specific alias is eligible. Its actual package
+    # and physical image are proved on the suspended child before any code runs.
+    # Ordinary dependency guards remain unchanged, including at the alias parent.
+    $directory = [IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData),
+        'Microsoft', 'WindowsApps', $Package.PackageFamilyName)
+    $directory = Get-WinBookSplitTrustedPath -Path $directory -Directory
+    $path = [IO.Path]::Combine($directory, 'pymanager.exe')
+    foreach ($candidate in @($Package.InstallLocation, $path)) {
+        if (-not (Test-WinBookSplitAutomaticPath $candidate $ApplicationRoot $DocumentPath)) {
+            throw 'Registered manager is in an excluded document or current directory.'
+        }
+    }
+    Initialize-WinBookSplitRuntimeProbe
+    if (-not [WinBookSplit.Preflight.Probe]::IsAppExecutionAlias($path)) {
+        throw 'Registered manager entry point must be an AppExecutionAlias.'
+    }
+    return $path
+}
+
+function Invoke-WinBookSplitManagerListing {
+    param($Registration, [string]$ApplicationRoot, [string]$DocumentPath,
+        [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 2)
+    # Revalidate the complete registration and alias immediately before launch.
+    # This component is wired into automatic runtime selection by T03.
+    $record = [ordered]@{schema_version=1;packages=@($Registration.Package)}
+    $validation = [pscustomobject]@{Stdout=($record | ConvertTo-Json -Depth 6 -Compress);Stderr='';ExitCode=0;
+        ParentStopped=$true;DescendantsStopped=$true;JobAssigned=$true;StreamsComplete=$true;
+        Cancelled=$false;TimedOut=$false;StartError=$null;StopError=$null;StreamError=$null;
+        StdoutTruncated=$false;StderrTruncated=$false}
+    $paths = @(ConvertFrom-WinBookSplitManagerRegistration $validation $ApplicationRoot $DocumentPath)
+    if ($paths.Count -ne 1 -or $Registration.Path -cne $paths[0]) { throw 'Manager entry point does not match its registration.' }
+    return Invoke-WinBookSplitProcess -Path $paths[0] -Arguments @('list','--format=exe') -WorkingDirectory $ApplicationRoot -TimeoutSeconds $TimeoutSeconds `
+        -ExpectedPackageFullName $Registration.Package.PackageFullName -ExpectedImagePath ([IO.Path]::Combine($Registration.Package.InstallLocation,'pymanager.exe'))
 }
 
 function Add-WinBookSplitPythonDiscoveryCandidate {
@@ -366,6 +413,24 @@ namespace WinBookSplit.Preflight {
         static extern uint GetFinalPathNameByHandleW(IntPtr handle, StringBuilder path, uint size, uint flags);
         [DllImport("kernel32.dll", SetLastError=true)] static extern bool GetFileInformationByHandle(IntPtr handle, out FileInfo info);
         [DllImport("kernel32.dll", SetLastError=true)] static extern bool CloseHandle(IntPtr handle);
+        [DllImport("kernel32.dll", SetLastError=true)]
+        static extern bool DeviceIoControl(IntPtr handle, uint code, IntPtr input, uint inputLength, byte[] output, uint outputLength, out uint returned, IntPtr overlapped);
+        public static bool IsAppExecutionAlias(string path) {
+            // OPEN_REPARSE_POINT: inspect the file itself, never its redirect.
+            IntPtr handle=CreateFileW(path,0,7,IntPtr.Zero,3,0x02200000,IntPtr.Zero);
+            if (handle==new IntPtr(-1)) throw new Win32Exception(Marshal.GetLastWin32Error());
+            try {
+                byte[] data=new byte[16384]; uint count;
+                if (!DeviceIoControl(handle,0x000900A8,IntPtr.Zero,0,data,(uint)data.Length,out count,IntPtr.Zero)) {
+                    int error=Marshal.GetLastWin32Error();
+                    if (error==4390) return false; // ERROR_NOT_A_REPARSE_POINT
+                    throw new Win32Exception(error);
+                }
+                // Only the documented tag is read; no undocumented payload layout.
+                return count>=8 && count<=data.Length && BitConverter.ToUInt32(data,0)==0x8000001B &&
+                    BitConverter.ToUInt16(data,4)+8==count;
+            } finally { if (!CloseHandle(handle)) throw new Win32Exception(Marshal.GetLastWin32Error()); }
+        }
         public static PathDetails Canonical(string path) {
             IntPtr handle=CreateFileW(path,0x80,7,IntPtr.Zero,3,0x02200000,IntPtr.Zero);
             if (handle==new IntPtr(-1)) throw new Win32Exception(Marshal.GetLastWin32Error());

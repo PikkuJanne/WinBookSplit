@@ -13,6 +13,32 @@ BeforeAll {
 }
 
 Describe 'M2 bounded owned executable supervision' -Tag 'AC-046', 'AC-047' {
+    It 'rejects an unpackaged marker child before resuming a package-bound launch' {
+        $marker = Join-Path $TestDrive 'unbound-child-must-not-run.txt'
+        $controlMarker = Join-Path $TestDrive 'ordinary-child-positive-control.txt'
+        $markerCode = 'import pathlib,sys;pathlib.Path(sys.argv[1]).write_text("UNSAFE")'
+        $control = Invoke-WinBookSplitProcess -Path $TestPython -WorkingDirectory $RepositoryRoot -TimeoutSeconds 2 `
+            -Arguments @('-I','-B','-c',$markerCode,$controlMarker)
+        $control.ExitCode | Should -Be 0
+        [IO.File]::ReadAllText($controlMarker) | Should -BeExactly 'UNSAFE'
+        $result = Invoke-WinBookSplitProcess -Path $TestPython -WorkingDirectory $RepositoryRoot -TimeoutSeconds 2 `
+            -Arguments @('-I','-B','-c',$markerCode,$marker) `
+            -ExpectedPackageFullName 'PythonSoftwareFoundation.PythonManager_1.0.0.0_x64__3847v3x7pw1km' -ExpectedImagePath $TestPython
+        $result.StartError | Should -BeExactly 'Manager child has no bounded package identity.'
+        $result.PackageIdentityVerified | Should -BeFalse
+        $result.ParentStopped | Should -BeTrue
+        $result.DescendantsStopped | Should -BeTrue
+        # Binding rejection precedes drain startup. No EOF proof is claimed.
+        $result.StreamsComplete | Should -BeFalse
+        $result.Stdout | Should -BeNullOrEmpty
+        [IO.File]::Exists($marker) | Should -BeFalse
+    }
+    It 'requires both binding values before creating a package-bound child' {
+        { Invoke-WinBookSplitProcess -Path $TestPython -Arguments @('-V') -WorkingDirectory $RepositoryRoot `
+            -ExpectedPackageFullName 'SYNTHETIC missing image' } | Should -Throw
+        { Invoke-WinBookSplitProcess -Path $TestPython -Arguments @('-V') -WorkingDirectory $RepositoryRoot `
+            -ExpectedImagePath $TestPython } | Should -Throw
+    }
     It 'drains dual two-MiB streams and retains a separate valid final frame' {
         $result = Invoke-Control 'flood'
         $result.ExitCode | Should-Be -Expected 2

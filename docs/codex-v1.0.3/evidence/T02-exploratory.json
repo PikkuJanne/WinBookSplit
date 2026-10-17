@@ -1,0 +1,242 @@
+{
+  "schema_version": 1,
+  "task": "T02",
+  "focus_wrapper_initial_runs": [
+    {
+      "host": "5.1.26100.9711",
+      "exit_code": 1,
+      "passed": 79,
+      "failed": 16,
+      "skipped": 0,
+      "cause": "External focused wrapper supplied forward-slash TestPython. Exact-path assertions and equality-filtered mock controls did not match canonical backslash paths. Wrapper now resolves all path arguments; production/tests were not weakened.",
+      "failed_cases": [
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.selects an actual accepted PATH interpreter with no launcher available"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.excludes the document directory during separate read-only setup-base discovery"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.treats empty or malformed optional listings as bounded failures alongside a real PATH success"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.preserves an already accepted PATH interpreter when the optional discovery budget is exhausted"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.does not execute an unregistered PATH file merely named pymanager.exe"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.deduplicates the same concrete interpreter listed by two sources and direct PATH"
+        },
+        {
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ],
+          "name": "V101 independent discovery and optional-listing failures.queries a controlled registered physical manager with only -0p then validates its actual interpreter"
+        },
+        {
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ],
+          "name": "M2 dependency selection and isolated import.validates the exact explicit interpreter, isolated flags and package origin"
+        },
+        {
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ],
+          "name": "M2 dependency selection and isolated import.rejects an incompatible PATH candidate then selects the actual pinned interpreter"
+        },
+        {
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ],
+          "name": "M2 dependency selection and isolated import.excludes empty, relative, document and unrelated-CWD automatic candidates"
+        },
+        {
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ],
+          "name": "V101 converter stop proof.halts automatic discovery on unproved parent shutdown before another candidate"
+        },
+        {
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ],
+          "name": "V101 converter stop proof.halts automatic discovery on unproved descendant shutdown before another candidate"
+        },
+        {
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ],
+          "name": "V101 converter stop proof.halts automatic discovery on unproved stoperror shutdown before another candidate"
+        }
+      ],
+      "raw_local_sha256": "743379e789a717fa831cb4bf2f2ff25e3f96e2585bddf3c8a308b9a180e20b2a"
+    },
+    {
+      "host": "7.6.5",
+      "exit_code": 1,
+      "passed": 79,
+      "failed": 16,
+      "skipped": 0,
+      "cause": "External focused wrapper supplied forward-slash TestPython. Exact-path assertions and equality-filtered mock controls did not match canonical backslash paths. Wrapper now resolves all path arguments; production/tests were not weakened.",
+      "failed_cases": [
+        {
+          "name": "V101 independent discovery and optional-listing failures.selects an actual accepted PATH interpreter with no launcher available",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.excludes the document directory during separate read-only setup-base discovery",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.preserves an already accepted PATH interpreter when the optional discovery budget is exhausted",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.does not execute an unregistered PATH file merely named pymanager.exe",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.deduplicates the same concrete interpreter listed by two sources and direct PATH",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "V101 independent discovery and optional-listing failures.queries a controlled registered physical manager with only -0p then validates its actual interpreter",
+          "errors": [
+            "Expected strings to be the same, but they were different.\nString lengths are both 79.\nStrings differ at index 2.\nExpected: '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe'\nBut was:  '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'\n           --^"
+          ]
+        },
+        {
+          "name": "M2 dependency selection and isolated import.validates the exact explicit interpreter, isolated flags and package origin",
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ]
+        },
+        {
+          "name": "M2 dependency selection and isolated import.rejects an incompatible PATH candidate then selects the actual pinned interpreter",
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ]
+        },
+        {
+          "name": "M2 dependency selection and isolated import.excludes empty, relative, document and unrelated-CWD automatic candidates",
+          "errors": [
+            "Expected [string] '<USERPROFILE>/.cache/WinBookSplit-Dev/v1.0.1-20261011/dev14/Scripts/python.exe', but got [string] '<USERPROFILE>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\dev14\\Scripts\\python.exe'."
+          ]
+        },
+        {
+          "name": "V101 converter stop proof.halts automatic discovery on unproved parent shutdown before another candidate",
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ]
+        },
+        {
+          "name": "V101 converter stop proof.halts automatic discovery on unproved descendant shutdown before another candidate",
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ]
+        },
+        {
+          "name": "V101 converter stop proof.halts automatic discovery on unproved stoperror shutdown before another candidate",
+          "errors": [
+            "Expected [bool] $true, but got: [bool] $false."
+          ]
+        }
+      ],
+      "raw_local_sha256": "176d832e7a74fbe65a1f5490232ba13b32b4646e72b7045c8d08f685622e7a49"
+    }
+  ],
+  "policy_observations": [
+    {
+      "host": "PS5.1",
+      "attempt": "default-policy dot-source",
+      "outcome": "PSSecurityException: scripts disabled; no alias launch. Nonterminating errors left wrapper exit0; not a test pass."
+    },
+    {
+      "host": "PS5.1 and PS7",
+      "attempt": "earlier process-only Bypass component observation",
+      "outcome": "Successful component observations excluded from intended-policy acceptance; RemoteSigned reruns on final bytes replace them."
+    }
+  ],
+  "test_review_correction": "Before final focused runs, corrected new marker assertion to StreamsComplete=false: binding rejection occurs before drains start. Positive marker control added. Production stream reporting preserved.",
+  "fallback_attempt_gap": "Unchanged T05 RED requirement; test_store_gate.py reports 7 passes and 1 expected failure.",
+  "handoff_helper_initial": {
+    "exit_code": 1,
+    "passed": 47,
+    "failed": 1,
+    "skipped": 1,
+    "cause": "Evidence-link assertion ran before T02.json was assembled. No test or validator was weakened; complete final records passed 48 with one skip.",
+    "raw_local_sha256": "587cdcdce58fba67a8216698e8c6fa5142af2eacfea68261ebd2597861083613"
+  }
+}

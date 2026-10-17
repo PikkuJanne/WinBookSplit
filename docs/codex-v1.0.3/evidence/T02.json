@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "task": "T02",
+  "status": "COMPLETE_COMPONENT_SCOPE_ONLY",
+  "recorded_at_utc": "2026-10-17T11:40:49.910578+00:00",
+  "source": {
+    "parent_commit": "15a646df512898024e3adf59a690395ecfa381fa",
+    "parent_tree": "541aa6edc0b2a2ea5ac9e41ab50672a5ea499a53",
+    "branch": "codex/v1.0.3-store-discovery",
+    "tested_files_sha256": {
+      "engine/WinBookSplit.Runtime.ps1": "1c29cd28bc5011ff7ee396ef11283ed912ead662ab4969255449c457a91c352c",
+      "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "tests/Invoke-ShellTests.ps1": "bd68837631e974c1eebf0f78f0508fe81398b9fa514df7bacf417964fd9194d8",
+      "tests/powershell/Manager.Tests.ps1": "05fa15e9230b40d630e655d93c1472ce2784bdcb25798b7aaf72e93d6ce967c7",
+      "tests/powershell/Discovery.Tests.ps1": "ea82de5baf91c4c489eb6a8e890bd2c81be0c9d9ea38b21f4ea1cc116f489813",
+      "tests/powershell/Process.Tests.ps1": "4b197e2cf816c4180a83f0b82bce54d40181850a3a99706829196af06ef0a605"
+    },
+    "digest_algorithm": "SHA256 of sorted path + NUL + sha256 + LF records, UTF8",
+    "tested_files_digest": "04f43cc3c5dfb2cf5198325f82ea1085aa7a696ea9e232a2dea35c447fef955f",
+    "full_runner_tested_paths_digest": "e7ec68fdae3371f80589cdb70dcbc0b07f0e4e81e35074ed1253c2859cb59be1"
+  },
+  "results": {
+    "focused": {
+      "PS5.1": "95 passed, 0 failed/skipped",
+      "PS7": "95 passed, 0 failed/skipped"
+    },
+    "full_shell": {
+      "PS5.1": "229 passed, 0 failed/skipped",
+      "PS7": "229 passed, 0 failed/skipped",
+      "driver_exit_code": 0,
+      "source_unchanged": true
+    },
+    "real_pythonorg_component": {
+      "PS5.1": "13 checks passed",
+      "PS7": "13 checks passed",
+      "host": "Windows11 x64 build26300",
+      "policy": "RemoteSigned"
+    },
+    "fallback_checker": "7 passes and 1 expected failure; attempted-acquisition RED remains T05",
+    "handoff_helpers": {
+      "validation_exit_code": 0,
+      "suite_exit_code": 0,
+      "passed": 48,
+      "failed": 0,
+      "skipped": 1,
+      "skip_reason": "Symlink creation unavailable in helper fixture; no native acceptance equivalence.",
+      "raw_local_log_sha256": "04ad1a7a50f8de176d494c2fd48def9a94b75f6f3e69c26913af3a5b75c35a1e"
+    },
+    "review": "Independent read-only production and evidence review; no unresolved actionable findings. Marker stream assertion corrected; sanitizer suspicion tested and retracted."
+  },
+  "acceptance": {
+    "STORE-007": "PASS for component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-008": "PASS for component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-009": "PASS for component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-010": "PASS for component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-011": "PASS for component scope; see ACCEPTANCE_CASES result_scope",
+    "STORE-012": "PASS for component scope; see ACCEPTANCE_CASES result_scope"
+  },
+  "deferred": {
+    "native_store_channel": "NOT_RUN; no Store package on agent host; consolidate T07",
+    "owner_windows10_exact_zip": "NOT_RUN/BLOCKED for publication, T07",
+    "automatic_runtime_resolution": "NOT_IMPLEMENTED at this checkpoint; T03 must wire descriptor/adapter into existing resolver",
+    "truthful_summary": "T04",
+    "fallback_attempt_validator_gap": "T05",
+    "release_version_and_package": "T06",
+    "publication": "T08 after real gates"
+  },
+  "artifacts_sha256": {
+    "evidence/T02-baseline.json": "68f27276c473a1378b856869a4bb8c4071150844f5b3c8ddbb59db845fdadbb1",
+    "evidence/T02-component.ps1": "4ab9c100bbd6e737722d0af7b6cdc900a4832eaaf82eb7772137f94e12224848",
+    "evidence/T02-exploratory.json": "f55d7b5e36e41a64cc8fd88d1cc3e7d6185166c2854856124e6efeb59d3f1dc2",
+    "evidence/T02-native-ps51.json": "687df458b9abec1a2e1c8da7a2e0b297a81483760ba1f9349ba475b5fffc934d",
+    "evidence/T02-native-ps7.json": "bfbc3c332ba43a58e3b96eb1f4dd0e3b5bb1c2e2ef6f3e2dd471b12108870988",
+    "evidence/T02-ps51-focused.json": "06d8a3f010df8d45fa2bac11c407ba19786a07cae8d43f85deef431d8c41016c",
+    "evidence/T02-ps7-focused.json": "a943cb838544fab605fe816fd34fc39b7091426fb5d4c436e612d3a6a013255b",
+    "evidence/T02-shell.json": "75636282700acc9b27aecd47d02f510bce3964aa3e6ed31eb28818e7b15f792d",
+    "evidence/T02.md": "6adf021b3377bb51ef263de28d4dae8a2f7b7bb2084523a461590893ddaff5a8"
+  },
+  "receipt_byte_policy": "New T02 public/redacted text normalized to LF before these digests; escaped native stdout CRLF data is unchanged. Raw-local byte hashes are separate. No historical bytes normalized.",
+  "native_raw_local_sha256": {
+    "ps51-remotesigned-final.json": "86b3e4d5fe8654a6a5a42dbc8516720fc0dc621ad384b7243895274c070dc685",
+    "ps7-remotesigned-final.json": "e3e2e1bb5a7eea2f76c3c11958d5d22115432daa9068de920bfa4a81a8036015"
+  },
+  "focused_wrapper_source": "param([string]$RepositoryRoot,[string]$ToolRoot,[string]$WorkRoot,[string]$TestPython,[string]$ReportPath)\nSet-StrictMode -Version Latest\n$ErrorActionPreference='Stop'\n$RepositoryRoot=(Resolve-Path -LiteralPath $RepositoryRoot).ProviderPath\n$ToolRoot=(Resolve-Path -LiteralPath $ToolRoot).ProviderPath\n$WorkRoot=(Resolve-Path -LiteralPath $WorkRoot).ProviderPath\n$TestPython=(Resolve-Path -LiteralPath $TestPython).ProviderPath\n$oldTemp=$env:TEMP; $oldTmp=$env:TMP\ntry {\n    $env:TEMP=$WorkRoot; $env:TMP=$WorkRoot\n    Import-Module (Join-Path $ToolRoot 'Pester/6.2.0/Pester.psd1') -Force -ErrorAction Stop\n    $config=New-PesterConfiguration\n    $names=@('Manager.Tests.ps1','Discovery.Tests.ps1','Process.Tests.ps1','Runtime.Tests.ps1')\n    $config.Run.Container=@(foreach($name in $names){New-PesterContainer -Path (Join-Path $RepositoryRoot ('tests/powershell/'+$name)) -Data @{RepositoryRoot=$RepositoryRoot;WorkRoot=$WorkRoot;TestPython=$TestPython}})\n    $config.Run.PassThru=$true; $config.Run.Exit=$false; $config.Output.Verbosity='Detailed'\n    $result=Invoke-Pester -Configuration $config\n    $record=[ordered]@{schema_version=1;task='T02';kind='FOCUSED_MAINTAINED_COMPONENT_AND_PROCESS_REGRESSION';host=$PSVersionTable.PSVersion.ToString();policy=(Get-ExecutionPolicy).ToString();result=$result.Result.ToString();total=$result.TotalCount;passed=$result.PassedCount;failed=$result.FailedCount;skipped=$result.SkippedCount;not_run=$result.NotRunCount;failed_containers=$result.FailedContainersCount;\n        test_python=$TestPython;test_sha256=@(foreach($name in $names){@{path=('tests/powershell/'+$name);sha256=(Get-FileHash -LiteralPath (Join-Path $RepositoryRoot ('tests/powershell/'+$name)) -Algorithm SHA256).Hash.ToLowerInvariant()}});\n        failed_cases=@($result.Failed|ForEach-Object{@{name=$_.ExpandedPath;errors=@($_.ErrorRecord|ForEach-Object{$_.Exception.Message})}});container_errors=@($result.FailedContainers|ForEach-Object{@($_.ErrorRecord|ForEach-Object{$_.Exception.Message})})}\n    $stream=[IO.File]::Open($ReportPath,[IO.FileMode]::CreateNew,[IO.FileAccess]::Write,[IO.FileShare]::None)\n    try{$writer=New-Object IO.StreamWriter($stream,(New-Object Text.UTF8Encoding($false)));try{$writer.Write(($record|ConvertTo-Json -Depth 12))}finally{$writer.Dispose()}}finally{$stream.Dispose()}\n    if($result.FailedCount -or $result.FailedContainersCount){exit 1}\n    exit 0\n}finally{$env:TEMP=$oldTemp;$env:TMP=$oldTmp}\n",
+  "focused_wrapper_raw_sha256": "55e0447fb23c8604c2e87d7dcc0e53bffdab3f68998ffbc66de27a838452a7de",
+  "developer_regression_python_sha256": "16a377d348c3a0c8d3a58d222d96807065dd0dcd9438c6025900c842ec836603",
+  "checkpoint": "Commit and normal push follow this file; actual SHA and fresh live-branch equality belong in external handover, avoiding self-reference.",
+  "preservation": "No install/update desktop Python/Manager, PATH/alias edit, checkout app venv, source-ZIP change, private-document processing, tag/release or historical record mutation."
+}

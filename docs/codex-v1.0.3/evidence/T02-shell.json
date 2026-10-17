@@ -1,0 +1,167 @@
+{
+  "schema_version": 1,
+  "task": "T02",
+  "kind": "MAINTAINED_FULL_SHELL_REGRESSION",
+  "source": {
+    "parent_commit": "15a646df512898024e3adf59a690395ecfa381fa",
+    "parent_tree": "541aa6edc0b2a2ea5ac9e41ab50672a5ea499a53",
+    "tested_paths_digest": "e7ec68fdae3371f80589cdb70dcbc0b07f0e4e81e35074ed1253c2859cb59be1",
+    "source_unchanged": true
+  },
+  "driver_success": true,
+  "driver_exit_code": 0,
+  "raw_local_sha256": "fa39c9f3033d67e993b0d2d0c2e9fe6943b44b9863442908a918ae0320b2f070",
+  "hosts": [
+    {
+      "shell": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+      "exit_code": 0,
+      "policy_requested": "RemoteSigned (fresh child only)",
+      "host": {
+        "version": "5.1.26100.9711",
+        "edition": "Desktop",
+        "clr": "4.0.30319.42000",
+        "execution_policy": [
+          {
+            "policy": "Undefined",
+            "scope": "MachinePolicy"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "UserPolicy"
+          },
+          {
+            "policy": "RemoteSigned",
+            "scope": "Process"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "CurrentUser"
+          },
+          {
+            "policy": "Undefined",
+            "scope": "LocalMachine"
+          }
+        ]
+      },
+      "imports": [
+        {
+          "path": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\Pester\\6.2.0\\Pester.psm1",
+          "name": "Pester",
+          "version": "6.2.0",
+          "manifest": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\Pester\\6.2.0\\Pester.psd1"
+        },
+        {
+          "path": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+          "name": "PSScriptAnalyzer",
+          "version": "1.25.0",
+          "manifest": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+        }
+      ],
+      "pester": {
+        "total": 229,
+        "failed_cases": [],
+        "not_run": 0,
+        "failed_containers": 0,
+        "passed": 229,
+        "skipped": 0,
+        "failed_blocks": [],
+        "failed": 0,
+        "result": "Passed",
+        "failed_container_errors": []
+      },
+      "syntax_files": 30,
+      "syntax_errors": 0,
+      "scaffold_files_analyzed": 29,
+      "scaffold_findings": 0,
+      "legacy_application_findings_observed": 82,
+      "legacy_analysis_is_acceptance_pass": false,
+      "failed_outcomes": [],
+      "raw_child_evidence_sha256": "d61670388c7a30190e4aba39cb19f69dafffe9f5b6d204c0425add87f4c2af44"
+    },
+    {
+      "shell": "<USERPROFILE>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+      "exit_code": 0,
+      "policy_requested": "RemoteSigned (fresh child only)",
+      "host": {
+        "version": "7.6.5",
+        "edition": "Core",
+        "clr": "10.0.11",
+        "execution_policy": [
+          {
+            "scope": "MachinePolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "UserPolicy",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "Process",
+            "policy": "RemoteSigned"
+          },
+          {
+            "scope": "CurrentUser",
+            "policy": "Undefined"
+          },
+          {
+            "scope": "LocalMachine",
+            "policy": "RemoteSigned"
+          }
+        ]
+      },
+      "imports": [
+        {
+          "manifest": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\Pester\\6.2.0\\Pester.psd1",
+          "path": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\Pester\\6.2.0\\Pester.psm1",
+          "name": "Pester",
+          "version": "6.2.0"
+        },
+        {
+          "manifest": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1",
+          "path": "<USERPROFILE>\\AppData\\Local\\Temp\\WinBookSplit-v103-tools-dba854774368479bb05315d8084591f4\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+          "name": "PSScriptAnalyzer",
+          "version": "1.25.0"
+        }
+      ],
+      "pester": {
+        "failed_blocks": [],
+        "failed_container_errors": [],
+        "skipped": 0,
+        "failed_containers": 0,
+        "result": "Passed",
+        "passed": 229,
+        "failed": 0,
+        "not_run": 0,
+        "failed_cases": [],
+        "total": 229
+      },
+      "syntax_files": 30,
+      "syntax_errors": 0,
+      "scaffold_files_analyzed": 29,
+      "scaffold_findings": 0,
+      "legacy_application_findings_observed": 82,
+      "legacy_analysis_is_acceptance_pass": false,
+      "failed_outcomes": [],
+      "raw_child_evidence_sha256": "5f5c50f79935e44c9b9fae1b2695609c23019b5bc330df92fe985a16c1c95c3b"
+    }
+  ],
+  "sentinel_unchanged": true,
+  "owned_work_removed": true,
+  "developer_runtime": "Existing isolated CPython3.14.8 x64/pypdf6.20.0; regression only, not Store gate",
+  "first_exploratory_run": {
+    "driver_exit_code": 1,
+    "raw_local_sha256": "f7f2fd4b749110234269ba4706c1a3801d0bfe70251fb535be3ae13319d29176",
+    "success": false,
+    "all_step_exit_codes_zero": true,
+    "pester_passed_per_shell": [
+      229,
+      229
+    ],
+    "source_unchanged": false,
+    "changed_since_initial_manifest": [
+      "tests/powershell/Process.Tests.ps1"
+    ],
+    "meaning": "Marker test strengthened during initial run; source provenance correctly failed aggregate despite all behavioral steps passing. Final immutable-source run replaces it."
+  },
+  "limitation": "Shell harness/synthetic controls and authored processes; not actual Store, exact ZIP, MOTW, BAT/Calibre/native release acceptance."
+}

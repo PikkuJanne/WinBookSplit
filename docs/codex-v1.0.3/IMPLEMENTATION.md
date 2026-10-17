@@ -5,6 +5,18 @@ existing functions and supervisor. Inspect all call sites and package allowlists
 before editing. Avoid adding a second independent runtime resolver or test-only
 production path. Primary source links are in SOURCES.md.
 
+T02 checkpoint: the exact-name current-user query and paired identities are
+implemented. `Get-WinBookSplitRegisteredManagerPaths -WithRegistration` retains
+validated package data for `Invoke-WinBookSplitManagerListing`. The documented
+family alias must have ordinary trusted ancestors and the AppExecutionAlias tag;
+Windows resolves it into a suspended child whose package full name and physical
+image must match registration before resume. The existing job, deadlines,
+cancellation and stream handling remain in force. Real python.org component
+listing passed on Windows 11/PS5.1/PS7; Store-channel native evidence is NOT_RUN.
+T03 must wire this component into the existing automatic resolver. Until then,
+that resolver still applies its ordinary executable guard to the returned alias
+and rejects it. No end-to-end automatic-discovery repair is claimed at T02.
+
 ## 1. Current-user manager registration
 
 Read `Get-WinBookSplitRegisteredManagerPaths` and

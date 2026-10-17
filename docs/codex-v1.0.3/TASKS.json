@@ -30,7 +30,7 @@
       "depends_on": [
         "T01"
       ],
-      "status": "NOT_STARTED",
+      "status": "COMPLETE",
       "brief": "tasks/02-T02.md",
       "acceptance_ids": [
         "STORE-007",
@@ -39,7 +39,19 @@
         "STORE-010",
         "STORE-011",
         "STORE-012"
-      ]
+      ],
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json",
+        "evidence/T02-baseline.json",
+        "evidence/T02-ps51-focused.json",
+        "evidence/T02-ps7-focused.json",
+        "evidence/T02-native-ps51.json",
+        "evidence/T02-native-ps7.json",
+        "evidence/T02-shell.json",
+        "evidence/T02-exploratory.json"
+      ],
+      "completion_scope": "Identity/entry-point component only. Actual python.org packaged-manager listing on Windows11/PS5.1/PS7 satisfies STORE-012; native Store-channel and owner exact-ZIP Windows10 gate remain NOT_RUN, consolidated at T07. Automatic resolver wiring is T03."
     },
     {
       "id": "T03",

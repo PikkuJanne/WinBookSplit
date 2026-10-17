@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "meaning": "Requirements and checkpoint outcomes. T01 PASS means baseline/reproduction only; later unexecuted requirements remain NOT_RUN.",
+  "meaning": "T01 PASS means baseline/reproduction only. T02 PASS means scoped identity/entry-point component coverage, including real Windows11 python.org launch. Owner Windows10 Store gate and later requirements remain NOT_RUN.",
   "cases": [
     {
       "id": "STORE-001",
@@ -97,48 +97,78 @@
       "task": "T02",
       "name": "Store recognized",
       "expected": "Accept the complete verified Store identity, including correct publisher/family/signature pairing.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "Paired Store identity accepted in maintained synthetic tests, supported by captured owner tuple and official family metadata; native Store launch NOT_RUN."
     },
     {
       "id": "STORE-008",
       "task": "T02",
       "name": "python.org retained",
       "expected": "Retain legitimate python.org manager recognition and stable manager-version variation.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "Actual current python.org registration/launch on Windows11; synthetic canonical uint16 version variation retained."
     },
     {
       "id": "STORE-009",
       "task": "T02",
       "name": "Mixed identity rejected",
       "expected": "Reject cross-paired publisher/family/signature and incomplete/development/malformed registrations.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "Maintained fixtures, six cross-pair combinations, malformed/partial/development/schema negatives; no native decoy package registration."
     },
     {
       "id": "STORE-010",
       "task": "T02",
       "name": "Bound entry point",
       "expected": "Resolve a documented package-family entry point bound to current-user registration; no arbitrary PATH manager execution.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "KnownFolder family alias, ordinary ancestor guards, AppExecutionAlias tag, suspended package/image binding. Actual python.org positive and wrong bindings on both shells; native Store NOT_RUN."
     },
     {
       "id": "STORE-011",
       "task": "T02",
       "name": "Alias guard scope",
       "expected": "Unverified reparse/hardlink/CWD/book decoys remain rejected; no global path-guard removal.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "Actual authored ordinary/hardlink/junction decoys; generic PATH/CWD/book guards and package-bound marker prevention. No global guard relaxation."
     },
     {
       "id": "STORE-012",
       "task": "T02",
       "name": "Actual manager launch",
       "expected": "Verify recognized packaged-manager listing works under bounded supervision on real Windows, not only mocks.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T02.md",
+        "evidence/T02.json"
+      ],
+      "result_scope": "Actual existing python.org packaged manager on Windows11/PS5.1 and PS7, installed-only list exit0 with bound image/package, job ownership, complete streams and stopped tree. Store-channel native launch and exact-ZIP owner Windows10 gate NOT_RUN/deferred T07."
     },
     {
       "id": "STORE-013",

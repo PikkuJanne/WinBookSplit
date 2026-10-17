@@ -25,6 +25,8 @@ namespace WinBookSplit.Supervision {
         public long InteractionCount, InteractionTotalBytes, QueuedReplyCount, ReplyCount, ReplyTotalBytes;
         public bool StdoutTruncated, StderrTruncated;
         public bool InputWriterStopped = true;
+        public bool PackageIdentityVerified;
+        public string PackageFullName, ImagePath;
         public string[] ResultRecords = new string[0];
         public double ElapsedSeconds;
     }
@@ -331,6 +333,8 @@ namespace WinBookSplit.Supervision {
         [DllImport("kernel32.dll",SetLastError=true)] static extern bool SetHandleInformation(IntPtr handle,uint mask,uint flags);
         [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern IntPtr CreateFileW(string path,uint access,uint share,ref Security security,uint creation,uint flags,IntPtr template);
         [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern bool CreateProcessW(string executable,StringBuilder command,IntPtr processSecurity,IntPtr threadSecurity,bool inherit,uint flags,IntPtr environment,string cwd,ref StartupEx startup,out ProcessInfo process);
+        [DllImport("kernel32.dll",CharSet=CharSet.Unicode)] static extern int GetPackageFullName(IntPtr process,ref uint length,StringBuilder name);
+        [DllImport("kernel32.dll",CharSet=CharSet.Unicode,SetLastError=true)] static extern bool QueryFullProcessImageNameW(IntPtr process,uint flags,StringBuilder name,ref uint length);
         [DllImport("kernel32.dll",SetLastError=true)] static extern bool InitializeProcThreadAttributeList(IntPtr list,int count,uint flags,ref IntPtr size);
         [DllImport("kernel32.dll",SetLastError=true)] static extern bool UpdateProcThreadAttribute(IntPtr list,uint flags,IntPtr attribute,IntPtr value,IntPtr size,IntPtr previous,IntPtr returned);
         [DllImport("kernel32.dll")] static extern void DeleteProcThreadAttributeList(IntPtr list);
@@ -390,20 +394,24 @@ namespace WinBookSplit.Supervision {
             return Marshal.StringToHGlobalUni(block.ToString());
         }
         public static Result Run(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation) {
-            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,false);
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,false,null,null);
         }
         public static Result Run(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,bool isolatePipConfiguration) {
-            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,isolatePipConfiguration);
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,isolatePipConfiguration,null,null);
+        }
+        public static Result RunBoundPackage(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,string package,string image) {
+            if (String.IsNullOrEmpty(package) || String.IsNullOrEmpty(image)) throw new ArgumentException("Package and image binding are required.");
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,null,false,package,image);
         }
         public static Session StartSession(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation) {
             return new Session(path,command,cwd,timeout,captureLimit,resultLimit,cancellation);
         }
         internal static Result RunSession(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session) {
-            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,session,false);
+            return RunCore(path,command,cwd,timeout,captureLimit,resultLimit,cancellation,session,false,null,null);
         }
         // Ordinary and interactive invocations share the same owned job,
         // restricted startup handles, drains, deadline and shutdown proofs.
-        static Result RunCore(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session,bool isolatePipConfiguration) {
+        static Result RunCore(string path,string command,string cwd,int timeout,int captureLimit,int resultLimit,CancellationToken cancellation,Session session,bool isolatePipConfiguration,string expectedPackage,string expectedImage) {
             Result result = new Result(); Stopwatch clock = Stopwatch.StartNew();
             IntPtr job=IntPtr.Zero, input=IntPtr.Zero, inputWrite=IntPtr.Zero, outputRead=IntPtr.Zero, outputWrite=IntPtr.Zero,errorRead=IntPtr.Zero,errorWrite=IntPtr.Zero, env=IntPtr.Zero,attributes=IntPtr.Zero,handles=IntPtr.Zero;
             ProcessInfo process=new ProcessInfo(); bool created=false, attributeReady=false; int consoleCancelled=0;
@@ -442,6 +450,23 @@ namespace WinBookSplit.Supervision {
                 env=EnvironmentBlock(isolatePipConfiguration);
                 if (!CreateProcessW(path,new StringBuilder(command),IntPtr.Zero,IntPtr.Zero,true,0x08080404,env,cwd,ref startup,out process)) throw Failure("Start the suspended engine executable");
                 created=true; result.Pid=(int)process.ProcessId;
+                if (expectedPackage!=null) {
+                    // The alias has been resolved by Windows, but its primary
+                    // thread is still suspended. Never run an unbound redirect.
+                    uint length=0; int code=GetPackageFullName(process.Process,ref length,null);
+                    if (code!=122 || length==0 || length>4096) throw new IOException("Manager child has no bounded package identity.");
+                    StringBuilder package=new StringBuilder((int)length);
+                    code=GetPackageFullName(process.Process,ref length,package);
+                    if (code!=0) throw new Win32Exception(code,"Read suspended manager package identity");
+                    result.PackageFullName=package.ToString();
+                    StringBuilder image=new StringBuilder(32768); length=(uint)image.Capacity;
+                    if (!QueryFullProcessImageNameW(process.Process,0,image,ref length)) throw Failure("Read suspended manager image");
+                    result.ImagePath=image.ToString();
+                    if (!String.Equals(result.PackageFullName,expectedPackage,StringComparison.Ordinal) ||
+                        !String.Equals(result.ImagePath,expectedImage,StringComparison.OrdinalIgnoreCase))
+                        throw new IOException("Suspended manager package or image does not match its current-user registration.");
+                    result.PackageIdentityVerified=true;
+                }
                 if (!AssignProcessToJobObject(job,process.Process)) throw Failure("Assign the suspended engine to its owned job");
                 result.JobAssigned=true; bool belongs;
                 if (!IsProcessInJob(process.Process,job,out belongs) || !belongs) throw Failure("Verify engine job ownership");
@@ -524,7 +549,7 @@ function Invoke-WinBookSplitProcess {
           [ValidateRange(1024, 1048576)][int]$CaptureLimitBytes = 65536,
           [ValidateRange(1024, 33554432)][int]$ResultLimitBytes = 8388608,
           [Threading.CancellationToken]$CancellationToken = [Threading.CancellationToken]::None,
-          [switch]$IsolatePipConfiguration)
+          [switch]$IsolatePipConfiguration, [string]$ExpectedPackageFullName, [string]$ExpectedImagePath)
     if ($Path -notmatch '^(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)' -or $Path.IndexOf([char]0) -ge 0 -or
         $WorkingDirectory -notmatch '^(?:[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+\\)' -or $WorkingDirectory.IndexOf([char]0) -ge 0) {
         throw 'Engine launch requires absolute literal executable and working-directory paths.'
@@ -534,6 +559,11 @@ function Invoke-WinBookSplitProcess {
     }
     Initialize-WinBookSplitProcess
     $command = (ConvertTo-NativeArgument -Value $Path) + ' ' + (($Arguments | ForEach-Object { ConvertTo-NativeArgument -Value $_ }) -join ' ')
+    if (-not [string]::IsNullOrEmpty($ExpectedPackageFullName) -or -not [string]::IsNullOrEmpty($ExpectedImagePath)) {
+        if ($IsolatePipConfiguration) { throw 'Package-bound discovery cannot request package installation configuration.' }
+        return [WinBookSplit.Supervision.Child]::RunBoundPackage($Path, $command, $WorkingDirectory,
+            [int]($TimeoutSeconds * 1000), $CaptureLimitBytes, $ResultLimitBytes, $CancellationToken, $ExpectedPackageFullName, $ExpectedImagePath)
+    }
     return [WinBookSplit.Supervision.Child]::Run($Path, $command, $WorkingDirectory,
         [int]($TimeoutSeconds * 1000), $CaptureLimitBytes, $ResultLimitBytes, $CancellationToken, [bool]$IsolatePipConfiguration)
 }

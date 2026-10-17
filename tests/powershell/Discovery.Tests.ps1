@@ -127,22 +127,27 @@ Describe 'V101 bounded installed-runtime listing parser (SYNTHETIC records)' -Ta
     }
 }
 
-Describe 'V101 physical manager registration identity (SYNTHETIC registration records)' -Tag 'V101-AC-018','V101-AC-022','V101-AC-023' {
-    It 'requires the complete PSF identity and routes trust checks through the physical package paths' {
+Describe 'V101 registered manager identity (SYNTHETIC registration records)' -Tag 'V101-AC-018','V101-AC-022','V101-AC-023' {
+    It 'requires the complete PSF identity and delegates its bound package-family alias after physical location validation' {
         $record = New-DiscoveryManagerRegistration
         $script:registeredLocation = $record.packages[0].InstallLocation
+        $script:registeredAlias = [IO.Path]::Combine([Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData),
+            'Microsoft','WindowsApps',$record.packages[0].PackageFamilyName,'pymanager.exe')
         Mock Get-WinBookSplitTrustedPath { return $Path }
-        Mock Test-WinBookSplitAutomaticPath { return $true }
+        Mock Get-WinBookSplitManagerEntryPoint { return $script:registeredAlias }
         $text = $record | ConvertTo-Json -Depth 6 -Compress
         $paths = @(ConvertFrom-WinBookSplitManagerRegistration -Probe (New-DiscoveryProbe -Stdout $text) -ApplicationRoot $RepositoryRoot)
         $paths.Count | Should -Be 1
-        $paths[0] | Should -BeExactly ([IO.Path]::Combine($script:registeredLocation,'pymanager.exe'))
+        $paths[0] | Should -BeExactly $script:registeredAlias
         Should-Invoke Get-WinBookSplitTrustedPath -Times 1 -Exactly -ParameterFilter { $Path -eq $script:registeredLocation -and $Directory }
-        Should-Invoke Get-WinBookSplitTrustedPath -Times 1 -Exactly -ParameterFilter { $Path -eq [IO.Path]::Combine($script:registeredLocation,'pymanager.exe') -and $Automatic }
+        Should-Invoke Get-WinBookSplitManagerEntryPoint -Times 1 -Exactly -ParameterFilter {
+            $Package.InstallLocation -ceq $script:registeredLocation -and
+            $Package.PackageFamilyName -ceq 'PythonSoftwareFoundation.PythonManager_3847v3x7pw1km' -and $ApplicationRoot -ceq $RepositoryRoot
+        }
     }
     It 'rejects mismatched publisher package location architecture status flags duplicate or unknown fields' {
         Mock Get-WinBookSplitTrustedPath { return $Path }
-        Mock Test-WinBookSplitAutomaticPath { return $true }
+        Mock Get-WinBookSplitManagerEntryPoint { return 'C:\SYNTHETIC\pymanager.exe' }
         foreach ($field in @('Name','Publisher','PublisherId','PackageFamilyName','PackageFullName','InstallLocation','Architecture','SignatureKind','Status','Version',
                 'IsDevelopmentMode','IsPartiallyStaged','IsFramework','IsResourcePackage')) {
             $record = New-DiscoveryManagerRegistration
@@ -164,12 +169,12 @@ Describe 'V101 physical manager registration identity (SYNTHETIC registration re
             { ConvertFrom-WinBookSplitManagerRegistration -Probe (New-DiscoveryProbe -Stdout $text) -ApplicationRoot $RepositoryRoot } | Should -Throw
         }
     }
-    It 'rejects a valid claimed identity when its physical origin or automatic directory check fails' {
+    It 'rejects a valid claimed identity when its physical origin or narrow package-family alias validation fails' {
         $text = New-DiscoveryManagerRegistration | ConvertTo-Json -Depth 6 -Compress
         Mock Get-WinBookSplitTrustedPath { throw 'SYNTHETIC reparse or unsafe physical origin.' }
         { ConvertFrom-WinBookSplitManagerRegistration -Probe (New-DiscoveryProbe -Stdout $text) -ApplicationRoot $RepositoryRoot } | Should -Throw
         Mock Get-WinBookSplitTrustedPath { return $Path }
-        Mock Test-WinBookSplitAutomaticPath { return $false }
+        Mock Get-WinBookSplitManagerEntryPoint { throw 'SYNTHETIC excluded document/CWD or unverified alias binding.' }
         { ConvertFrom-WinBookSplitManagerRegistration -Probe (New-DiscoveryProbe -Stdout $text) -ApplicationRoot $RepositoryRoot } | Should -Throw
     }
 }

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "task": "T02",
+  "kind": "READ_ONLY_LIVE_GIT_AND_RELEASE_METADATA",
+  "observed_at_utc": "2026-10-17T11:30:09.241889+00:00",
+  "source_commit": "15a646df512898024e3adf59a690395ecfa381fa",
+  "source_tree": "541aa6edc0b2a2ea5ac9e41ab50672a5ea499a53",
+  "branch": "codex/v1.0.3-store-discovery",
+  "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+  "live_branch": "15a646df512898024e3adf59a690395ecfa381fa",
+  "live_main": "4cc6b00b99685607f3214e731edaaec7d65926df",
+  "initial_status": "clean (before T02 edits); one worktree, no nested/ancestor AGENTS",
+  "no_v103_tag_or_release": true,
+  "existing_releases": [
+    {
+      "tag": "v1.0.0",
+      "tag_object": "97df3d364e9bde0b2c2c6c3655d073b7b56b5dd2",
+      "peeled_commit": "73c90d10dc16b1c321737afbdfbe959d61a24573",
+      "body_sha256": "f4c5473da1aa558931130d388cbafc4d658b6456d7fcfec0d09b68303f405004",
+      "assets": [
+        {
+          "id": 630123444,
+          "name": "release-manifest.json",
+          "size": 11547,
+          "digest": "sha256:ea5c29faaaeda9132ae75546e1fe0751d8f6417b109b23047c7590875a2f182f"
+        },
+        {
+          "id": 630123442,
+          "name": "SHA256SUMS.txt",
+          "size": 178,
+          "digest": "sha256:1bdff00a4589049e41901417784d58b43b31371ca2b74cd98f14a5c4f535548b"
+        },
+        {
+          "id": 630123440,
+          "name": "WinBookSplit-v1.0.0.zip",
+          "size": 414497,
+          "digest": "sha256:e78a1d0b976223832fcff1c7f17d0d53473112324b05eeec3ec7f74e575ccdc3"
+        }
+      ],
+      "unchanged_from_T01": true
+    },
+    {
+      "tag": "v1.0.1",
+      "tag_object": "113ab73991c9527caf983a8e9e5993a75b226c1a",
+      "peeled_commit": "6f2c2e5d4d5fc484bcb1530474f09957e09775ef",
+      "body_sha256": "7e3b39bee8200810fa8f95c4b8812c7428b1097df4bfaf7e2ccfc8c3a83d86e1",
+      "assets": [
+        {
+          "id": 633779501,
+          "name": "release-manifest.json",
+          "size": 15816,
+          "digest": "sha256:0e3fec4a6422c52534ba09b832b780a5f68c39f6a6afc9e1a8ba1bae6fd819b6"
+        },
+        {
+          "id": 633779495,
+          "name": "SHA256SUMS.txt",
+          "size": 178,
+          "digest": "sha256:4f0a230366a441a3ead4d07cb6047fda92680e827d4eaf833b90d2f24902bd32"
+        },
+        {
+          "id": 633779492,
+          "name": "WinBookSplit-v1.0.1.zip",
+          "size": 885340,
+          "digest": "sha256:747d578209b3b3e84734620c3e071af828dbe038b55af779ace8508dbb7a6b3a"
+        }
+      ],
+      "unchanged_from_T01": true
+    },
+    {
+      "tag": "v1.0.2",
+      "tag_object": "c7ef8c4aa0421c553089319cf170ab9958fc2195",
+      "peeled_commit": "483baf858569bc838ac8a809d329b2595cdacf57",
+      "body_sha256": "9cd0d9ed7293c86e262019452e096cdd9bad4ccb0edf0f2d5a6ec70ff40dfe91",
+      "assets": [
+        {
+          "id": 637748440,
+          "name": "release-manifest.json",
+          "size": 16593,
+          "digest": "sha256:a8f8109bc8a49dadf890a10989a92accf6c0f6a038f29aac4ea51474f0792c03"
+        },
+        {
+          "id": 637748443,
+          "name": "SHA256SUMS.txt",
+          "size": 178,
+          "digest": "sha256:5aea43906c7cd55b841fad51e4d1e36b3c2425edd162f8b0cc388440f979a00e"
+        },
+        {
+          "id": 637748441,
+          "name": "WinBookSplit-v1.0.2.zip",
+          "size": 909557,
+          "digest": "sha256:37d017e2a7bf704676b637f89239ec2cbaaa67e76f190f3dbbd17fec87e5092e"
+        }
+      ],
+      "unchanged_from_T01": true
+    }
+  ],
+  "anonymous_assets_redownloaded": false,
+  "limitation": "T01 anonymous byte verification retained. T02 checks current public release metadata only; no release mutation or publication."
+}

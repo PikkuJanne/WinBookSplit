@@ -127,6 +127,9 @@ try {
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Discovery.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON
         }
+        $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Manager.Tests.ps1') -Data @{
+            RepositoryRoot = $repository; WorkRoot = $work
+        }
         $containers += New-PesterContainer -Path (Join-Path -Path $repository -ChildPath 'tests\powershell\Setup.Tests.ps1') -Data @{
             RepositoryRoot = $repository; WorkRoot = $work; TestPython = $env:WBS_TEST_PYTHON; Wheelhouse = $env:WBS_TEST_WHEELHOUSE
         }
