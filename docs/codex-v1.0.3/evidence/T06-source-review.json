@@ -1,0 +1,494 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "evidence_kind": "SOURCE_REVIEW_AND_SUPPLEMENTAL_REGRESSION",
+  "status": "PASS_SCOPED",
+  "source_base_commit": "870d4b0504a10eb1d9eb9bc698891ce2f795e197",
+  "source_binding": {
+    "kind": "reviewed_current_worktree_file_bytes",
+    "files": [
+      {
+        "path": "VERSION",
+        "bytes": 6,
+        "sha256": "f5e5c9534532840fcd45bb002e69ed85c61dba2753450e26b448b7df1481e24d",
+        "frozen_git_blob_sha256": "f5e5c9534532840fcd45bb002e69ed85c61dba2753450e26b448b7df1481e24d",
+        "frozen_git_blob_bytes": 6,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "README.md",
+        "bytes": 14130,
+        "sha256": "b13e2ff92e8f76cf1975fa4ea31cc01570e6c939b6269a0d342df51ab2c82e70",
+        "frozen_git_blob_sha256": "b13e2ff92e8f76cf1975fa4ea31cc01570e6c939b6269a0d342df51ab2c82e70",
+        "frozen_git_blob_bytes": 14130,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "CHANGELOG.md",
+        "bytes": 6267,
+        "sha256": "730343ffb6c0ebe8d739adc5e69ad9462c03ceb4878cd31f166a12b52c2d9b40",
+        "frozen_git_blob_sha256": "730343ffb6c0ebe8d739adc5e69ad9462c03ceb4878cd31f166a12b52c2d9b40",
+        "frozen_git_blob_bytes": 6267,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "SECURITY.md",
+        "bytes": 5196,
+        "sha256": "3a488780ad454f02fcae8822e503641eedddbda8800f7492dd502d536a768ac5",
+        "frozen_git_blob_sha256": "3a488780ad454f02fcae8822e503641eedddbda8800f7492dd502d536a768ac5",
+        "frozen_git_blob_bytes": 5196,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "docs/SETUP.md",
+        "bytes": 13423,
+        "sha256": "f08edbbc2ebe8b4fa5e54aba46ff3e56d2288899f31a472f8e1589d39b055684",
+        "frozen_git_blob_sha256": "f08edbbc2ebe8b4fa5e54aba46ff3e56d2288899f31a472f8e1589d39b055684",
+        "frozen_git_blob_bytes": 13423,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/README.md",
+        "bytes": 21539,
+        "sha256": "b852770f8a216d75c9f6cdd1a9a082d2d67a1418565613e05f1bcdee322ac3cb",
+        "frozen_git_blob_sha256": "b852770f8a216d75c9f6cdd1a9a082d2d67a1418565613e05f1bcdee322ac3cb",
+        "frozen_git_blob_bytes": 21539,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_release_package.py",
+        "bytes": 30517,
+        "sha256": "64abd9ad7f1c009a7d56844b15149fb9086230f67aaa7d6f5aa98846f04615d0",
+        "frozen_git_blob_sha256": "64abd9ad7f1c009a7d56844b15149fb9086230f67aaa7d6f5aa98846f04615d0",
+        "frozen_git_blob_bytes": 30517,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_ci_package_inputs.py",
+        "bytes": 21745,
+        "sha256": "2acfc1b7016cdb4eef10252b9fef11e1354c2e564d53e479e1e7e119b1bfeded",
+        "frozen_git_blob_sha256": "2acfc1b7016cdb4eef10252b9fef11e1354c2e564d53e479e1e7e119b1bfeded",
+        "frozen_git_blob_bytes": 21745,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_version.py",
+        "bytes": 5910,
+        "sha256": "2a162844895d4b6f27bc859f382e6dbbc59f7d15e6606a29ba8de45fa1080232",
+        "frozen_git_blob_sha256": "2a162844895d4b6f27bc859f382e6dbbc59f7d15e6606a29ba8de45fa1080232",
+        "frozen_git_blob_bytes": 5910,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_runner.py",
+        "bytes": 153935,
+        "sha256": "7989d21c5fd3108b2966b8b48fbd2d90efc00d33e9eadcd5bdaf4c0cbe73a61e",
+        "frozen_git_blob_sha256": "7989d21c5fd3108b2966b8b48fbd2d90efc00d33e9eadcd5bdaf4c0cbe73a61e",
+        "frozen_git_blob_bytes": 153935,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/powershell/Version.Tests.ps1",
+        "bytes": 3504,
+        "sha256": "a0a234d09f723f9faab8af5abe05562a6549659b1110a02ffd5474e659803f0e",
+        "frozen_git_blob_sha256": "a0a234d09f723f9faab8af5abe05562a6549659b1110a02ffd5474e659803f0e",
+        "frozen_git_blob_bytes": 3504,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/powershell/Outcome.Tests.ps1",
+        "bytes": 50715,
+        "sha256": "375ea9b3cbea80002ff41dd16c63fb1075e7be448d3e206c2b9837b6e466f4ab",
+        "frozen_git_blob_sha256": "375ea9b3cbea80002ff41dd16c63fb1075e7be448d3e206c2b9837b6e466f4ab",
+        "frozen_git_blob_bytes": 50715,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/run_tests.py",
+        "bytes": 143435,
+        "sha256": "74900b3124b72dd6bc259fbfd71476769040bec53519dd46337c448a69b70d78",
+        "frozen_git_blob_sha256": "74900b3124b72dd6bc259fbfd71476769040bec53519dd46337c448a69b70d78",
+        "frozen_git_blob_bytes": 143435,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/release/README.md",
+        "bytes": 7792,
+        "sha256": "07ce1671cd30ed5372efe262a9e399adf51b636dda78c55951fe6b8ee49c68a6",
+        "frozen_git_blob_sha256": "07ce1671cd30ed5372efe262a9e399adf51b636dda78c55951fe6b8ee49c68a6",
+        "frozen_git_blob_bytes": 7792,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/release/build_package.py",
+        "bytes": 11901,
+        "sha256": "1c0d9e296a88f8e7bb3ccb732352a27a31a51412103e31ba1513569a23af5025",
+        "frozen_git_blob_sha256": "1c0d9e296a88f8e7bb3ccb732352a27a31a51412103e31ba1513569a23af5025",
+        "frozen_git_blob_bytes": 11901,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/release/payload.json",
+        "bytes": 1140,
+        "sha256": "b562bdae3e758b9f27619c19a27ea66eab68a1458fce7f0693099d0c8ad3ec4c",
+        "frozen_git_blob_sha256": "b562bdae3e758b9f27619c19a27ea66eab68a1458fce7f0693099d0c8ad3ec4c",
+        "frozen_git_blob_bytes": 1140,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/compatibility/README.md",
+        "bytes": 11129,
+        "sha256": "b8c0fdac9c6062f01e38c2d7d9cf2dbdd6f82debf3d5d713fc38360102f05522",
+        "frozen_git_blob_sha256": "b8c0fdac9c6062f01e38c2d7d9cf2dbdd6f82debf3d5d713fc38360102f05522",
+        "frozen_git_blob_bytes": 11129,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+        "bytes": 46618,
+        "sha256": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4",
+        "frozen_git_blob_sha256": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4",
+        "frozen_git_blob_bytes": 46618,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/codex-v1.0.3/check_native_store_report.py",
+        "bytes": 26163,
+        "sha256": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+        "frozen_git_blob_sha256": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+        "frozen_git_blob_bytes": 26163,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tools/codex-v1.0.3/tests/test_native_gate.py",
+        "bytes": 20817,
+        "sha256": "10e1c2cb3f32bd28b556e7fc7fb382294a42b54873145727c55f573de9217655",
+        "frozen_git_blob_sha256": "10e1c2cb3f32bd28b556e7fc7fb382294a42b54873145727c55f573de9217655",
+        "frozen_git_blob_bytes": 20817,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_store_gate.py",
+        "bytes": 15512,
+        "sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+        "frozen_git_blob_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+        "frozen_git_blob_bytes": 15512,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/compatibility/Probe-StoreExisting.ps1",
+        "bytes": 20645,
+        "sha256": "8e0d290442ae39bfed3289280d2abf8427de23243b2dfbd5b109df67bf06ec8e",
+        "frozen_git_blob_sha256": "8e0d290442ae39bfed3289280d2abf8427de23243b2dfbd5b109df67bf06ec8e",
+        "frozen_git_blob_bytes": 20645,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "tests/python/test_native_store_scenario.py",
+        "bytes": 8477,
+        "sha256": "ea91716084cf969e84c5fcfbe79c741b89c105beb685195694bf1cffb7120013",
+        "frozen_git_blob_sha256": "ea91716084cf969e84c5fcfbe79c741b89c105beb685195694bf1cffb7120013",
+        "frozen_git_blob_bytes": 8477,
+        "worktree_equals_frozen_blob": true
+      },
+      {
+        "path": "docs/codex-v1.0.3/templates/native-store-report.json",
+        "bytes": 3264,
+        "sha256": "b4f6a4f855fea6bed4205982f7287767a5d7e8abe3f6a3d490d23f02b81b2b46",
+        "frozen_git_blob_sha256": "b4f6a4f855fea6bed4205982f7287767a5d7e8abe3f6a3d490d23f02b81b2b46",
+        "frozen_git_blob_bytes": 3264,
+        "worktree_equals_frozen_blob": true
+      }
+    ],
+    "limitation": "Each reviewed current file matches its frozen R Git blob. These current hashes are not a claim that all supplemental commands captured the full final snapshot: targeted commands used stable relevant version/build/test code; SECURITY text and final native-kit refinements were added separately. Parent T06 full-suite evidence is authoritative for exact final-source regression.",
+    "all_reviewed_worktree_files_match_frozen_git_blobs": true
+  },
+  "supplemental_tests": [
+    {
+      "id": "release_package",
+      "status": "PASS",
+      "tests_run": 26,
+      "failures": 0,
+      "skips": 0,
+      "duration_seconds": 201.682,
+      "exit_code": 0,
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<WORKSPACE>/tests/python",
+        "-p",
+        "test_release_package.py",
+        "-v"
+      ],
+      "stdout_sha256": null,
+      "stderr_sha256": null,
+      "receipt_limitation": "Observed direct execution-tool transcript; original process streams were not saved to disk. No raw byte hash is invented."
+    },
+    {
+      "id": "frozen_assets",
+      "status": "PASS",
+      "tests_run": 15,
+      "failures": 0,
+      "skips": 0,
+      "duration_seconds": 19.147,
+      "exit_code": 0,
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<WORKSPACE>/tests/python",
+        "-p",
+        "test_frozen_assets.py",
+        "-v"
+      ],
+      "stdout_sha256": null,
+      "stderr_sha256": null,
+      "receipt_limitation": "Observed direct execution-tool transcript; original process streams were not saved to disk. No raw byte hash is invented."
+    },
+    {
+      "id": "ci_package_inputs",
+      "status": "PASS",
+      "tests_run": 20,
+      "failures": 0,
+      "skips": 0,
+      "duration_seconds": 220.597,
+      "exit_code": 0,
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<WORKSPACE>/tests/python",
+        "-p",
+        "test_ci_package_inputs.py",
+        "-v"
+      ],
+      "stdout_sha256": null,
+      "stderr_sha256": null,
+      "receipt_limitation": "Observed direct execution-tool transcript; original process streams were not saved to disk. No raw byte hash is invented."
+    },
+    {
+      "id": "application_version",
+      "status": "PASS",
+      "tests_run": 5,
+      "failures": 0,
+      "skips": 0,
+      "duration_seconds": 0.963,
+      "exit_code": 0,
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "<WORKSPACE>/tests/python",
+        "-p",
+        "test_version.py",
+        "-v"
+      ],
+      "stdout_sha256": null,
+      "stderr_sha256": null,
+      "receipt_limitation": "Observed direct execution-tool transcript; original process streams were not saved to disk. No raw byte hash is invented."
+    },
+    {
+      "id": "active_helper_source_guard",
+      "status": "PASS",
+      "tests_run": 1,
+      "failures": 0,
+      "skips": 0,
+      "duration_seconds": 0.109,
+      "exit_code": 0,
+      "command": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-c",
+        "Explicit tests/python import; loadTestsFromName(test_runner.RunnerTests.test_ci_workflow_helpers_and_readme_are_bound_in_source_manifest); TextTestRunner; exit from wasSuccessful"
+      ],
+      "stdout_sha256": null,
+      "stderr_sha256": null,
+      "receipt_limitation": "Observed direct execution-tool transcript; original process streams were not saved to disk. No raw byte hash is invented."
+    }
+  ],
+  "exploratory": [
+    {
+      "status": "STOPPED_NO_RESULT_CLAIM",
+      "operation": "Duplicate release_package invocation",
+      "reason": "The initial controller call discarded its returned session identifier. A separately captured invocation supplied the reported pass. The duplicate scoped launcher was stopped after command-line/PID verification; its child had already vanished during the follow-up stop. Its owned temporary fixture work was preserved.",
+      "stdout_sha256": null,
+      "stderr_sha256": null
+    }
+  ],
+  "review": {
+    "status": "NO_REMAINING_ACTIONABLE_FINDING",
+    "areas": [
+      "production version/allowlist/build provenance",
+      "current user/release documentation",
+      "active helper source guard",
+      "bounded native policy operations and stream completion",
+      "owned ADS/data-file leases and preservation",
+      "same-inbox execution-policy scope observation",
+      "literal unchanged no-runtime formatter Action",
+      "schema2 named positive/negative policy receipts and no-substitution consistency"
+    ],
+    "findings": [
+      {
+        "id": "active_helper_source_guard",
+        "status": "RESOLVED",
+        "resolution": "tools/codex-v1.0.3 included in the maintained source manifest; existing fixture mutation test covers its checker and helper test."
+      },
+      {
+        "id": "policy_receipt_omission",
+        "status": "RESOLVED",
+        "resolution": "Preservation requires two structured application records plus unique named policy stages. Local policy PASS alone is insufficient."
+      },
+      {
+        "id": "negative_policy_record_consistency",
+        "status": "RESOLVED",
+        "resolution": "Direct denial requires full literal argv, supervised nonzero completion, finite duration and distinct raw-hash/redacted-length observations."
+      },
+      {
+        "id": "active_synthetic_contract",
+        "status": "RESOLVED",
+        "resolution": "Both maintained synthetic report generators include explicitly synthetic local-policy records; old historical evidence remains unchanged."
+      },
+      {
+        "id": "ads_under_source_leases",
+        "status": "RESOLVED",
+        "resolution": "Maintained component control and explicit offline product-helper rehearsal hold strict data-file leases; actual redacted receipt independently passes both record validators."
+      }
+    ],
+    "limits": [
+      "No actual Store registration/Windows10 owner/fresh automatic setup/native organization-policy denial is inferred.",
+      "Formatter Action executes on an already healthy developer fixture venv; this is not a fresh emitted application-remedy acceptance.",
+      "No test status is physical execution attestation by the offline checker."
+    ]
+  },
+  "independent_policy_receipt_review": {
+    "status": "CONSISTENT_COMPONENT_RECEIPT",
+    "classification": "EXPLICIT_OFFLINE_DEVELOPER_PRODUCT_HELPER_REHEARSAL",
+    "records": 6,
+    "component_status": "PASS",
+    "organization_policy_denial": "NOT_RUN",
+    "command": [
+      "<DEV_PYTHON_3148>",
+      "-I",
+      "-B",
+      "-c",
+      "Import current checker; read returned redacted policy-component records; run validate_receipt_records(records, preservation) and validate_policy_records(records)"
+    ],
+    "exit_code": 0,
+    "returned_redacted_sha256": "3c159e13cbbc70e0a82d061b145d283ded9e59c27ddf5e95ec4735fe07999a5a",
+    "artifacts": [
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/actual-product-policy-component-stdout.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/actual-product-policy-component-stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/explicit-offline-developer-setup-stdout.bin",
+        "bytes": 13602,
+        "sha256": "f2f3d284e5b2530b2c842945aa8da4259ef12a06eeb53803b9664121e04ce708"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/explicit-offline-developer-setup-stderr.bin",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/policy-component.json",
+        "bytes": 28090,
+        "sha256": "35e8ff915aa8c1b70c29f2dca7add64707a795b01dcfbb7fd2f4759b206b485c"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/policy-component.json.redacted.json",
+        "bytes": 25544,
+        "sha256": "3c159e13cbbc70e0a82d061b145d283ded9e59c27ddf5e95ec4735fe07999a5a"
+      },
+      {
+        "path": "<T06_POLICY_PRODUCT_WORK>/rehearsal.json",
+        "bytes": 6623,
+        "sha256": "8b976453091a24e2a39546b7cdb80d4027fe706dc1456cf03781c1d030cc69d9"
+      }
+    ]
+  },
+  "dependency_review": {
+    "reviewed_on": "2026-10-17",
+    "policy": "Retain existing pypdf6.20.0 wheel lock and serviced Python floors within this narrow Store repair. No dependency upgrade or generally-unaffected claim.",
+    "official_sources": [
+      {
+        "id": "GHSA-f54x-cmq8-qg57",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57",
+        "observation": "Array/dictionary memory advisory affects versions below6.21.0."
+      },
+      {
+        "id": "GHSA-cgf9-327m-v77c",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c",
+        "observation": "Content-stream memory advisory affects versions below6.21.0."
+      },
+      {
+        "id": "GHSA-6vvc-x485-93v7",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7",
+        "observation": "Form-retrieval advisory lists affected below6.21.0 and narrative fix6.21.0. Page patched-version metadata says6.2.10 inconsistently; that metadata is not adopted as a reviewed floor."
+      },
+      {
+        "id": "GHSA-5hx5-vpf9-5wcv",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv",
+        "observation": "Image-loading advisory lists fix6.21.1."
+      },
+      {
+        "id": "GHSA-39mj-jf6j-2qj3",
+        "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-39mj-jf6j-2qj3",
+        "observation": "Older incomplete-xref loop advisory fixed in6.20.0."
+      }
+    ],
+    "application_observation": "Production code uses PdfReader, page.get_object/get_contents and PdfWriter.add_page. Direct form-field retrieval/image-extraction calls were not found. The limited API observation is not a hostile-document exemption. PDF structures/content remain relevant to the retained memory-advisory exposure.",
+    "limits": "Advisory refresh is scoped review, not an exhaustive dependency security assessment or exploit test. Bounded subprocess handling is not a memory/network sandbox. Release review must consider retained exposure separately from discovery/native success."
+  },
+  "preservation": {
+    "application_engine_changed_by_this_source_subtask": false,
+    "compatibility_policy_or_requirements_changed": false,
+    "historical_reports_changed": false,
+    "tags_or_published_assets_changed": false,
+    "commit_or_push_by_subagent": false
+  },
+  "whitespace_check": {
+    "command": [
+      "git",
+      "-c",
+      "core.whitespace=cr-at-eol",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "frozen_source_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+  "frozen_source_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+  "hosted_ci_observation": {
+    "head_sha": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+    "run_id": 39042487253,
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39042487253",
+    "status": "pending",
+    "conclusion": null,
+    "limitation": "Read-only observation before jobs completed; no hosted CI pass is claimed here."
+  }
+}

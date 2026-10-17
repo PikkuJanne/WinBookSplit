@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "status": "COMPLETE_PREPARATION_SCOPE_ONLY",
+  "acceptance_ids": [
+    "STORE-031",
+    "STORE-032",
+    "STORE-033",
+    "STORE-034",
+    "STORE-035",
+    "STORE-036"
+  ],
+  "source_commit_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "version": "1.0.3",
+  "reviewed_utc": "2026-10-17T15:32:50.123531+00:00",
+  "frozen_assets": {
+    "release-manifest.json": {
+      "bytes": 16593,
+      "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+    },
+    "SHA256SUMS.txt": {
+      "bytes": 178,
+      "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+    },
+    "WinBookSplit-v1.0.3.zip": {
+      "bytes": 932894,
+      "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    }
+  },
+  "final_kit_archive": {
+    "bytes": 1559722,
+    "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+  },
+  "final_kit_bindings_sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b",
+  "source_CI": {
+    "run_id": "39043915939",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939",
+    "head_sha": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": [
+      {
+        "name": "Python and PowerShell regression (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428740921"
+      },
+      {
+        "name": "Application 3.14.8 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741132"
+      },
+      {
+        "name": "Application 3.15.0 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741153"
+      },
+      {
+        "name": "Application 3.13.16 (Windows Server 2025)",
+        "status": "completed",
+        "conclusion": "success",
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741189"
+      }
+    ]
+  },
+  "acceptance_results": {
+    "STORE-031": {
+      "status": "PASS",
+      "scope": "Committed R, VERSION 1.0.3 and two identical complete allowlisted builds; final manifests/kit bind R, not later docs checkpoint."
+    },
+    "STORE-032": {
+      "status": "PASS",
+      "scope": "All 34 distribution members independently equal raw R Git blobs; no private report, test dependency, runtime, prebuilt venv or handoff helper ships."
+    },
+    "STORE-033": {
+      "status": "PASS",
+      "scope": "Exact final owner command actually refused non-target Windows11 OS; separate no-input dryrun returned truthful blocked schema2 before fallback/bootstrap. Seven members/six envelopes/hashes independently audited; separate offline checker actual exit2. This passes tooling self-test only, not native Windows10 acceptance."
+    },
+    "STORE-034": {
+      "status": "PASS",
+      "scope": "Original authored fixtures and final exact-ZIP developer PDF/policy rehearsal passed all four full-page/source/neighbor/no-overwrite oracles and independent15-output reopening. Initial venv creation was explicit offline developer setup; automatic second setup was healthy no-op, not fresh Store acceptance."
+    },
+    "STORE-035": {
+      "status": "PASS",
+      "scope": "Actual independent Windows11 PS5.1/PS7 native checks truthfully reject unchanged 3.14.7 below the floor; R1 execution is labelled and product equality to R proved. Complete maintained R EPUB/AZW3 positive/direct/invalid/BAT characterization passed with approved existing Calibre 9.15.0."
+    },
+    "STORE-036": {
+      "status": "PASS",
+      "scope": "One final validated kit/command/unchanged returned-ZIP action in OWNER_KIT.md. Actual Store/owner Windows10/fresh automatic setup and enforced organization-policy denial remain NOT_RUN/BLOCKED. No repeated broad owner diagnostics or substituted runtime evidence."
+    }
+  },
+  "evidence_files": [
+    {
+      "path": "evidence/T06.md",
+      "bytes": 11571,
+      "sha256": "7e76b4498a839e1aa455bc839ceabff2c8400e6d753fb7542a7576af6126fd7d"
+    },
+    {
+      "path": "evidence/T06-baseline.json",
+      "bytes": 4096,
+      "sha256": "f4705134a283ff4bb0e177990c02d2866988cc578ed3c6c8fd5d5c220067a907"
+    },
+    {
+      "path": "evidence/T06-cache-repair.json",
+      "bytes": 17658,
+      "sha256": "01248b288c5fdb7b3357eb4161def00992c665a1a9d04dcb97ab8d5717166bc2"
+    },
+    {
+      "path": "evidence/T06-ci.json",
+      "bytes": 33820,
+      "sha256": "15e1bfb2e49c1f13f40bc2c069a6a3fdadaec2210e9b4a8c001b8ed95bdcf84d"
+    },
+    {
+      "path": "evidence/T06-conversion-final.json",
+      "bytes": 2716410,
+      "sha256": "6a7c41b7dd358a90b3322493f79e5d61efc058a4b4897e71cc59250a954fe50a"
+    },
+    {
+      "path": "evidence/T06-final-package-review.json",
+      "bytes": 21872,
+      "sha256": "3af54724de05ca7f6bb6bc8bfe5fc6dab60dd18906190645e9b00d39fc3bedde"
+    },
+    {
+      "path": "evidence/T06-final-package.json",
+      "bytes": 46302,
+      "sha256": "d4df39a6f9a2e6d76c0ec5aebccaef0835fcce7a9eb90d037d0fda811bd36ab5"
+    },
+    {
+      "path": "evidence/T06-native11.json",
+      "bytes": 2751694,
+      "sha256": "a7e77c11dd52855e0b86ea9bb73fc611454638e3642ed8eead4e5ac0c8136def"
+    },
+    {
+      "path": "evidence/T06-package-review.json",
+      "bytes": 13764,
+      "sha256": "b92b5c14313ea77270875fbe7d26d496fa649cc548bd0bcd61b6594422337dc0"
+    },
+    {
+      "path": "evidence/T06-package.json",
+      "bytes": 48031,
+      "sha256": "3f139730d906fecd888076ef27e9ce93d9eabebada348206e3f49071353e5552"
+    },
+    {
+      "path": "evidence/T06-policy.json",
+      "bytes": 48688,
+      "sha256": "cba40b390b036c367d171d425a634ed070c45aecb0a46b276fd4df742c4f56f6"
+    },
+    {
+      "path": "evidence/T06-source-equivalence.json",
+      "bytes": 7787,
+      "sha256": "5cbac7711ee08603ebfe89cefc37d81174e21232a02d49d96de9b939150bb1f7"
+    },
+    {
+      "path": "evidence/T06-source-review.json",
+      "bytes": 20627,
+      "sha256": "742e6977b09f202d831632215ff27d8de186eaf5b001e005f760fbc9a1df765f"
+    },
+    {
+      "path": "evidence/T06-suites.json",
+      "bytes": 21291,
+      "sha256": "80528a90b961b45ea6eebd62d9178ad7be0eedae12fbe1f66927904a0ca2b6b3"
+    },
+    {
+      "path": "OWNER_KIT.md",
+      "bytes": 5534,
+      "sha256": "86d72703c24ba8aaf58a9eabc879b5a72980fd40bbc657996dad7484e9c2be75"
+    }
+  ],
+  "not_run_blocked": [
+    "STORE-024 actual enforced organization-policy denial",
+    "STORE-037 through STORE-042 actual owner Windows10 existing-Store automatic/fresh-setup/BAT exact-ZIP acceptance",
+    "physical Explorer interaction",
+    "STORE-043 through STORE-048 publication/tag/anonymous downloads/finalmain closure"
+  ],
+  "unchanged_authority": "T06 only. No desktop runtime/Manager update/install, PATH/aliases, selected automatic runtime inputs, owner installation/venv/shortcut changes, private inputs, historical reports/releases, force Git, settings or public publication.",
+  "checkpoint_rule": "Later active-docs-only checkpoint C is not source R. Its hash and actual clean/fresh live-branch synchronization result are external handover receipts, never self-referential committed hashes."
+}

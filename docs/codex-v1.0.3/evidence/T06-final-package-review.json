@@ -1,0 +1,656 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "scope": "INDEPENDENT_FINAL_R2_PACKAGE_KIT_AND_BLOCKED_RECEIPT_REVIEW_NOT_NATIVE_ACCEPTANCE",
+  "status": "PASS_SCOPED",
+  "source_commit_R2": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "assets": [
+    {
+      "path": "<T06_FINAL>\\assets\\WinBookSplit-v1.0.3.zip",
+      "bytes": 932894,
+      "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    },
+    {
+      "path": "<T06_FINAL>\\assets\\release-manifest.json",
+      "bytes": 16593,
+      "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+    },
+    {
+      "path": "<T06_FINAL>\\assets\\SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+    }
+  ],
+  "distribution": {
+    "allowlisted_members": 34,
+    "all_members_equal_R2_Git_blobs": true,
+    "all_product_members_also_equal_R1": true,
+    "repeat_assets_identical": true,
+    "fixed_recipe_checked": true,
+    "checksum_lines_checked": true,
+    "member_names": [
+      "CHANGELOG.md",
+      "CONTRIBUTING.md",
+      "Export-WinBookSplitDiagnostics.ps1",
+      "LICENSE",
+      "README.md",
+      "SECURITY.md",
+      "Setup-WinBookSplit.bat",
+      "Setup-WinBookSplit.ps1",
+      "THIRD_PARTY_NOTICES.md",
+      "VERSION",
+      "WinBookSplit.bat",
+      "WinBookSplit.ico",
+      "WinBookSplit.ps1",
+      "docs/EBOOK_SUPPORT.md",
+      "docs/PDF_FIDELITY.md",
+      "docs/PDF_POLICY.md",
+      "docs/SETUP.md",
+      "docs/SUPPORT_DIAGNOSTICS.md",
+      "engine/WinBookSplit.Compatibility.json",
+      "engine/WinBookSplit.Compatibility.ps1",
+      "engine/WinBookSplit.Diagnostics.ps1",
+      "engine/WinBookSplit.Logging.ps1",
+      "engine/WinBookSplit.Outcomes.json",
+      "engine/WinBookSplit.Paths.ps1",
+      "engine/WinBookSplit.Process.ps1",
+      "engine/WinBookSplit.Runtime.ps1",
+      "engine/WinBookSplit.Setup.ps1",
+      "engine/WinBookSplit.Support.ps1",
+      "engine/winbooksplit_compatibility.py",
+      "engine/winbooksplit_conversion.py",
+      "engine/winbooksplit_engine.py",
+      "engine/winbooksplit_job.py",
+      "engine/winbooksplit_windows.py",
+      "requirements.txt"
+    ]
+  },
+  "kit": {
+    "archive": {
+      "path": "<DELIVERED_KIT>.zip",
+      "bytes": 1559722,
+      "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+    },
+    "build_record": {
+      "path": "<DELIVERED_KIT>.build.json",
+      "bytes": 6888,
+      "sha256": "f2c84eef6d221ecb0ccce544d70a1534adb0d89dfaa548f5c7b40abfea1c2c20"
+    },
+    "bindings_sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b",
+    "mode": "COMMITTED",
+    "helper_count": 21,
+    "fixture_count": 6,
+    "all_helpers_equal_R2_Git_blobs": true,
+    "all_members_match_build_record_and_zip": true,
+    "generated_ps1_recomputed_exactly_from_R2_builder": true,
+    "default_cmd_scenario": "store-existing",
+    "default_cmd_provisioning_argument_present": false
+  },
+  "launch": {
+    "original_command_file": {
+      "path": "<T06_FINAL>\\launch-command.ps1",
+      "bytes": 117,
+      "sha256": "f2f74aa68fbc61651bfeb6bf8544c035e17d61acbad6a37833f5da76c9517d5a"
+    },
+    "exact_command": "& (Join-Path $env:USERPROFILE 'Downloads\\WinBookSplit-v103-native-kit-243d31e\\Run-Windows10.cmd')\nexit $LASTEXITCODE\n",
+    "owner_launch_wrapper": {
+      "argv": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<T06_FINAL>\\launch-command.ps1"
+      ],
+      "cwd": "<WORKSPACE>",
+      "started_utc": "2026-10-17T15:11:51Z",
+      "timeout_seconds": 180,
+      "test_wheelhouse": null,
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_seconds": 5.43607890000203,
+      "stdout": {
+        "bytes": 193,
+        "sha256": "ec6af3b94778fbbcb37424a5e1ec6bb8c8476fe135ef0b7572bcb506cef2a6cc"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    "win11_store_rehearsal_wrapper": {
+      "argv": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<DELIVERED_KIT>\\Run-Windows10.ps1",
+        "-AllowWindows11DryRun",
+        "-Execution",
+        "AGENT_LAUNCHED"
+      ],
+      "cwd": "<WORKSPACE>",
+      "started_utc": "2026-10-17T15:11:56Z",
+      "timeout_seconds": 180,
+      "test_wheelhouse": null,
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_seconds": 7.897377000001143,
+      "stdout": {
+        "bytes": 199,
+        "sha256": "c56e2204f318534d2d9b5981f386720c92f8bc113a71ef72584479d6f41b7eb5"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "blocked_return": {
+    "archive": {
+      "path": "<STORE_REHEARSAL_WORK>\\native-store-result.zip",
+      "bytes": 10907,
+      "sha256": "6338317753927c9dd59bbc3804334c226b9ce61c2380d7ebf526dc57b6f78efe"
+    },
+    "status": "blocked",
+    "host": {
+      "execution_kind": "native",
+      "owner_desktop": false,
+      "os": "Windows 11",
+      "build": 26300,
+      "architecture": "x64",
+      "powershell_version": "5.1.26100.9711"
+    },
+    "failure": {
+      "message": "Existing Store registration is absent or ambiguous; Python fallback acquisition is disabled.",
+      "stage": "independent_existing_inventory"
+    },
+    "run_id": "store_645538ba22f643208918a0c3a12ee274",
+    "fallback_acquisition": {
+      "policy": "disabled_before_discovery",
+      "attempted": false,
+      "used": false
+    },
+    "inventory": {
+      "purpose": "verification_only",
+      "supplied_to_application": false
+    },
+    "receipt_members": [
+      {
+        "kind": "registration",
+        "bytes": 4004,
+        "sha256": "de8088d4a7e23aa989b67416c59df4c457208b143d818f23f9638c158fe87e40",
+        "record_count": 1
+      },
+      {
+        "kind": "discovery",
+        "bytes": 372,
+        "sha256": "826e462910de04c56f1fd6226a85735e5f2d3450744b26bd7a28f92b45bf5263",
+        "record_count": 1
+      },
+      {
+        "kind": "setup",
+        "bytes": 368,
+        "sha256": "ff165440c9ad1c371bbea86cc7be77e0d2469999e6f9557095a219b63dbaf1b7",
+        "record_count": 1
+      },
+      {
+        "kind": "bat",
+        "bytes": 432,
+        "sha256": "8b4454b2f879135e116872b7bbc9947de89789e7907e2dd37dcca3b45e5b934c",
+        "record_count": 1
+      },
+      {
+        "kind": "pdf_validation",
+        "bytes": 548,
+        "sha256": "50ca7a3b693c29ac010d8ab7a9589275a284b5d053e6613226e69f5b8d9300db",
+        "record_count": 1
+      },
+      {
+        "kind": "preservation",
+        "bytes": 1316,
+        "sha256": "0425ac567d8b690554697c3df75220455b1551046a7333590e34a0c14bd0b8ca",
+        "record_count": 1
+      }
+    ],
+    "complete_seven_members_and_hashes_checked": true,
+    "application_and_downloads_not_created": true,
+    "separate_offline_checker": "EXPECTED_REFUSAL: native gate not executed/passed",
+    "checker_wrapper": {
+      "argv": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "tools/codex-v1.0.3/check_native_store_report.py",
+        "<STORE_REHEARSAL_WORK>\\store-return\\native-store-report.json",
+        "--expected-commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--expected-zip-sha256",
+        "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      ],
+      "cwd": "<WORKSPACE>",
+      "started_utc": "2026-10-17T15:12:46Z",
+      "timeout_seconds": 90,
+      "test_wheelhouse": null,
+      "exit_code": 2,
+      "timed_out": false,
+      "elapsed_seconds": 0.15855670000019018,
+      "stdout": {
+        "bytes": 68,
+        "sha256": "571ef501907893ac8d5f21912da95c60d189ad35a47ee53180bba9e9a1274bc4"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  },
+  "limitations": [
+    "Default exact owner command was actually executed on Windows11 and refused the OS gate; it does not prove Windows10 launch success.",
+    "Separate actual PS1 Windows11 rehearsal used AllowWindows11DryRun and AGENT_LAUNCHED, reached schema2 no-Store failure and never supplied a runtime.",
+    "Hash/structure review is independent consistency review rather than execution attestation. Existing owner Windows10 Store/fresh automatic setup and enforced organization-policy denial remain NOT_RUN/BLOCKED.",
+    "The final exact PDF/policy results were independently reopened/reviewed after completion and remain explicitly scoped to an offline developer fixture."
+  ],
+  "exact_developer_pdf_policy_and_owner_doc_review": {
+    "scope": "EXACT_ZIP_EXPLICIT_OFFLINE_DEVELOPER_WORKFLOW_REVIEW_NOT_STORE_ACCEPTANCE",
+    "status": "PASS_SCOPED",
+    "original_receipts": [
+      {
+        "path": "<T06_FINAL>\\exact-pdf-rehearsal.json",
+        "bytes": 322539,
+        "sha256": "f4e4d862167ae3436d4908d9d10f411aea31cd45dd40dcc40ce9bdef55dd32ae"
+      },
+      {
+        "path": "<T06_FINAL>\\exact-pdf-work\\plan.json",
+        "bytes": 12733,
+        "sha256": "694382c9fc62b8f9f74e1f5439ee3fb4d755a508d604c0659503845755695dc3"
+      },
+      {
+        "path": "<T06_FINAL>\\exact-pdf-work\\process.json",
+        "bytes": 70620,
+        "sha256": "14461ee28b6c03c54b204974aa12951b6ac8d13d62e7ecaf9c34f5ff146ad3c1"
+      },
+      {
+        "path": "<T06_FINAL>\\exact-pdf-work\\oracle.json",
+        "bytes": 254382,
+        "sha256": "ce982c8bdd5ff2966d22e6f8498a5dbfc027551545f04886fff3f6d1c8d2882d"
+      },
+      {
+        "path": "<T06_FINAL>\\exact-policy-redacted.json",
+        "bytes": 27134,
+        "sha256": "a34d084dc79b54e2856e53d2b8c64f034ff5b966a480dea7a46cdbb8f4270c1d"
+      },
+      {
+        "path": "<T06_FINAL>\\developer-extraction.json",
+        "bytes": 6036,
+        "sha256": "6d20e008e7f59e801d65af6b685976823b4be286422dcc4ffc7cb2decaf93879"
+      }
+    ],
+    "physical_pdf_review": [
+      {
+        "id": "manual",
+        "source_pages": 10,
+        "output_count": 3,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "all_pages_covered_exactly_once_in_order": true,
+        "reopened_content_text_geometry_xobjects_match_source": true,
+        "output_hashes_and_manifests_match_actual_bytes": true,
+        "console_receipt_hashes_match_files": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "pages": 3,
+            "bytes": 3250,
+            "sha256": "231c1997d5506e64a1df58102bdc1713e24f60ba67ee7f1b3521aeb86c7d9d0f"
+          },
+          {
+            "sequence": 2,
+            "pages": 3,
+            "bytes": 3256,
+            "sha256": "a6d295bd2c87192a39cf11ba008c7998965ab912d477f74eec6d426ef0343942"
+          },
+          {
+            "sequence": 3,
+            "pages": 4,
+            "bytes": 3916,
+            "sha256": "55d0697183a0c06689861cc4c8df4daa45dd3e4ef134836eae1dcd802ed54508"
+          }
+        ]
+      },
+      {
+        "id": "auto1",
+        "source_pages": 12,
+        "output_count": 3,
+        "ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "all_pages_covered_exactly_once_in_order": true,
+        "reopened_content_text_geometry_xobjects_match_source": true,
+        "output_hashes_and_manifests_match_actual_bytes": true,
+        "console_receipt_hashes_match_files": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "pages": 2,
+            "bytes": 2557,
+            "sha256": "d818e0e6b9e114bf09c786ff33f74c74a89156bc689ada05fdd6793b468e25c3"
+          },
+          {
+            "sequence": 2,
+            "pages": 6,
+            "bytes": 5192,
+            "sha256": "5fd7a6c1e2e514fbb905902f37172a5c0777c92327af333e46dab3e6fd20ba8b"
+          },
+          {
+            "sequence": 3,
+            "pages": 4,
+            "bytes": 3866,
+            "sha256": "b2322d51f3a866bb902d367c33251b21e43820aceb35875644b5835dec6224b7"
+          }
+        ]
+      },
+      {
+        "id": "auto2",
+        "source_pages": 12,
+        "output_count": 6,
+        "ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "all_pages_covered_exactly_once_in_order": true,
+        "reopened_content_text_geometry_xobjects_match_source": true,
+        "output_hashes_and_manifests_match_actual_bytes": true,
+        "console_receipt_hashes_match_files": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "pages": 2,
+            "bytes": 2557,
+            "sha256": "d818e0e6b9e114bf09c786ff33f74c74a89156bc689ada05fdd6793b468e25c3"
+          },
+          {
+            "sequence": 2,
+            "pages": 1,
+            "bytes": 1912,
+            "sha256": "a506ea2a06c80f452430bdb765069c54d58a1e08ac81ae51b40d45eb0fb8447f"
+          },
+          {
+            "sequence": 3,
+            "pages": 3,
+            "bytes": 3206,
+            "sha256": "86a6434e8ce0a765cc2ef846b39fa2ed7cbff66452c0b383ee3d39ae4d74eb63"
+          },
+          {
+            "sequence": 4,
+            "pages": 2,
+            "bytes": 2540,
+            "sha256": "34acd3267779ccc3c1c700c2627f639d488f08802d5a011740664531e6141bb8"
+          },
+          {
+            "sequence": 5,
+            "pages": 2,
+            "bytes": 2577,
+            "sha256": "fbd3372a187422cb2195c2d5ae091162f72d3a7ecec892baa520a246ef0adc9c"
+          },
+          {
+            "sequence": 6,
+            "pages": 2,
+            "bytes": 2541,
+            "sha256": "4a59a049a664680b6879940aeca7ffd497eac0bf470cee77e70060fc05bec3d7"
+          }
+        ]
+      },
+      {
+        "id": "bat",
+        "source_pages": 10,
+        "output_count": 3,
+        "ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "all_pages_covered_exactly_once_in_order": true,
+        "reopened_content_text_geometry_xobjects_match_source": true,
+        "output_hashes_and_manifests_match_actual_bytes": true,
+        "console_receipt_hashes_match_files": true,
+        "outputs": [
+          {
+            "sequence": 1,
+            "pages": 3,
+            "bytes": 3220,
+            "sha256": "441ba3e96f57521335f5a29a06e8d1ee77e8581b7e1184bde8ec2b65c2f744c6"
+          },
+          {
+            "sequence": 2,
+            "pages": 3,
+            "bytes": 3204,
+            "sha256": "84dde3ed3c17603650926bcc261cb2e4b1b9f8c56a57e5002f1bd8b836007301"
+          },
+          {
+            "sequence": 3,
+            "pages": 4,
+            "bytes": 3862,
+            "sha256": "870694ab6755bd3052a2fab818cdd79e348bb6d623bd380d93863652923f51a5"
+          }
+        ]
+      }
+    ],
+    "immutable_files_independently_rehashed": 21,
+    "immutable_source_neighbor_decoy_prior_output_and_identity_checks_passed": true,
+    "extracted_distribution_files_independently_rehashed": 34,
+    "setup_receipts": [
+      {
+        "stage": "EXPLICIT_OFFLINE_DEVELOPER_SETUP_NOT_STORE",
+        "code": "setup_complete",
+        "changed": true,
+        "operations": [
+          {
+            "phase": "venv_create",
+            "path": "<USER>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\runtimes\\python-3.14.8-amd64\\python.exe",
+            "arguments": [
+              "-I",
+              "-B",
+              "-X",
+              "utf8",
+              "-m",
+              "venv",
+              "--copies",
+              "<T06_FINAL>\\developer-application\\.venv"
+            ],
+            "exit_code": 0,
+            "elapsed_seconds": 7.6954324,
+            "bounded_process_complete": true,
+            "original_native_stream_totals": {
+              "stdout": 0,
+              "stderr": 0
+            },
+            "original_decoded_stream_utf8_sha256": {
+              "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stream_text": "OMITTED: original receipt identity retained above; counters describe original local process bytes."
+          },
+          {
+            "phase": "pip_install",
+            "path": "<T06_FINAL>\\developer-application\\.venv\\Scripts\\python.exe",
+            "arguments": [
+              "-I",
+              "-B",
+              "-X",
+              "utf8",
+              "-m",
+              "pip",
+              "--isolated",
+              "--disable-pip-version-check",
+              "--no-input",
+              "install",
+              "--require-hashes",
+              "--only-binary=:all:",
+              "--no-deps",
+              "--no-cache-dir",
+              "--retries",
+              "2",
+              "--timeout",
+              "15",
+              "--no-index",
+              "--find-links",
+              "<USER>\\.cache\\WinBookSplit-Dev\\v1.0.1-20261011\\setup-tests-05-01\\wheelhouse\\pypdf-6.20.0-py3-none-any.whl",
+              "-r",
+              "<T06_FINAL>\\developer-application\\requirements.txt"
+            ],
+            "exit_code": 0,
+            "elapsed_seconds": 2.7426774999999997,
+            "bounded_process_complete": true,
+            "original_native_stream_totals": {
+              "stdout": 432,
+              "stderr": 0
+            },
+            "original_decoded_stream_utf8_sha256": {
+              "stdout": "4b0db63f9812f9dd8b388a59d63c96bcaae874586522a2e944269042feff6fd4",
+              "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stream_text": "OMITTED: original receipt identity retained above; counters describe original local process bytes."
+          },
+          {
+            "phase": "pip_check",
+            "path": "<T06_FINAL>\\developer-application\\.venv\\Scripts\\python.exe",
+            "arguments": [
+              "-I",
+              "-B",
+              "-X",
+              "utf8",
+              "-m",
+              "pip",
+              "--isolated",
+              "--disable-pip-version-check",
+              "--no-input",
+              "check"
+            ],
+            "exit_code": 0,
+            "elapsed_seconds": 0.7384691,
+            "bounded_process_complete": true,
+            "original_native_stream_totals": {
+              "stdout": 31,
+              "stderr": 0
+            },
+            "original_decoded_stream_utf8_sha256": {
+              "stdout": "672aec65a45bed50e70229c70934a7eebf0462595c459b83023027645d57cccf",
+              "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            },
+            "stream_text": "OMITTED: original receipt identity retained above; counters describe original local process bytes."
+          }
+        ],
+        "selected_version": "3.14.8",
+        "pypdf_version": "6.20.0"
+      },
+      {
+        "stage": "automatic_healthy_noop_not_fresh_store_setup",
+        "code": "setup_ready",
+        "changed": false,
+        "operations": [],
+        "selected_version": "3.14.8",
+        "pypdf_version": "6.20.0"
+      },
+      {
+        "stage": "healthy_readonly_check",
+        "code": "setup_ready",
+        "changed": false,
+        "operations": [],
+        "selected_version": "3.14.8",
+        "pypdf_version": "6.20.0"
+      }
+    ],
+    "policy_component": {
+      "status": "PASS",
+      "scope": "OWNED_EXACT_EXTRACTION_HEALTHY_VENV",
+      "direct_remotesigned_denied": true,
+      "marked_setup_bat_noop": true,
+      "exact_formatter_action_noop": true,
+      "source_bytes_and_marks_preserved": true,
+      "venv_unchanged": true,
+      "inbox_policy_unchanged": true,
+      "organization_policy_denial": {
+        "status": "NOT_RUN",
+        "reason": "No real enforced organization-policy denial has been demonstrated."
+      }
+    },
+    "raw_redacted_native_stream_provenance": {
+      "native_probe_records_correlated": 3,
+      "streams_with_changed_redacted_lengths": 3,
+      "raw_total_fields_preserved": true,
+      "original_string_hashes_match_raw": true,
+      "redacted_string_lengths_match_returned_bytes": true,
+      "both_offline_record_validators_pass": true
+    },
+    "owner_document_review": {
+      "document_sha256": "86d72703c24ba8aaf58a9eabc879b5a72980fd40bbc657996dad7484e9c2be75",
+      "final_R2_tree_assets_kit_and_bindings_pins_match": true,
+      "displayed_owner_command_matches_actual_executed_launch_file": true,
+      "truthful_Win11_failure_validation_and_remaining_native_limits": true
+    },
+    "limitations": [
+      "Actual venv creation used explicit offline developer Python3.14.8; subsequent automatic setup was a healthy no-op, not fresh Store setup.",
+      "The controller recorded full venv before/after equality in its reviewed helper; independent review checked the retained no-op/readonly process receipts and application data/fixture hashes, without inventing an unavailable external pre-run venv snapshot.",
+      "No owner Windows10/Store, physical Explorer or real enforced organization-policy denial is claimed."
+    ]
+  }
+}

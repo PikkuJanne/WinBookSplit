@@ -1,0 +1,598 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "scope": "Maintained full Python and PS5.1/PS7 shell suites on original committed source R1; offline handoff helper checks",
+  "all_suites_success": true,
+  "source_snapshot_role": "R1_BROAD_SUITE_SNAPSHOT; no automatic claim for a later candidate/source freeze",
+  "source_commit_R1": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+  "source_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+  "source_closure_audit": {
+    "original_receipt": {
+      "path": "<T06_WORK>\\suite-source-audit.json",
+      "bytes": 48447,
+      "sha256": "604f2e47acdea8fa9f0cdfc57cb34fe31a5d6f7d3c35ea8364742b129c6c0751"
+    },
+    "compared_paths": 220,
+    "tested_paths_digest": "c4e3763a12b7dd878cf9a3e2b128acf3938a3dbadbbf574bfddfbfe0d004f544",
+    "all_paths_equal_R_git_blobs": true,
+    "mismatches": [],
+    "method": "Each reported actual-file SHA256 compared to the independent SHA256 of the corresponding frozen R Git blob; replacement objects disabled by the maintained Git helper."
+  },
+  "runs": {
+    "python-final": {
+      "original_report": {
+        "path": "<T06_WORK>\\python-final.json",
+        "bytes": 170018,
+        "sha256": "c9ffe15e89742c9cc15a02b84438417133f3fc04051747d0d9aa6f5327ab7344"
+      },
+      "wrapper": {
+        "raw_record": {
+          "path": "<T06_WORK>\\python-final.command.json",
+          "bytes": 921,
+          "sha256": "bd6cb6a2498db42aa9b146a84f8343e0a3e0765311fc1b4137b8eb8813465be6"
+        },
+        "started_utc": "2026-10-17T14:51:06Z",
+        "timeout_seconds": 1350,
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 795.5588217999975,
+        "cwd": "<WORKSPACE>",
+        "test_wheelhouse": "<REVIEWED_WHEELHOUSE>",
+        "argv": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "tests/run_tests.py",
+          "--layer",
+          "python",
+          "--report",
+          "<T06_WORK>\\python-final.json"
+        ],
+        "encoded_arguments": [],
+        "stdout": {
+          "path": "<T06_WORK>\\python-final.stdout.txt",
+          "bytes": 75,
+          "sha256": "11ea9d5c38398237b489afc36d0c2a9bb050b72fcff7fc385f80bf5cb9f57a00"
+        },
+        "stderr": {
+          "path": "<T06_WORK>\\python-final.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "observed_at": "2026-10-17T14:51:06.872382+00:00",
+      "layer": "python",
+      "environment": {
+        "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+        "python_executable": "<DEV_PYTHON_3148>",
+        "python_isolated": true,
+        "python_no_bytecode": true,
+        "platform": "Windows-11-10.0.26300-SP0",
+        "machine": "AMD64",
+        "packages": {
+          "pypdf": "6.20.0",
+          "reportlab": "5.0.1",
+          "Pillow": "12.3.0",
+          "charset-normalizer": "3.5.2"
+        }
+      },
+      "source": {
+        "base_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+        "base_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+        "tested_paths_digest": "c4e3763a12b7dd878cf9a3e2b128acf3938a3dbadbbf574bfddfbfe0d004f544",
+        "source_unchanged": true
+      },
+      "tested_paths_compared_to_R_git_blobs": 220,
+      "all_tested_path_hashes_match_R": true,
+      "success": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "steps": [
+        {
+          "name": "stdlib-unittest",
+          "exit_code": 0,
+          "timed_out": false,
+          "timeout_seconds": 1200,
+          "stdout_sha256": "1273e72c7ff3745f34145a8b2e511031051882591e2ed7e4b24486ee21c0f7a9",
+          "stderr_sha256": "fd57e956607ee91f11281c8e4ade261a858d5c587eb205b1cd62cfed323b101c",
+          "argv": [
+            "<DEV_PYTHON_3148>",
+            "-I",
+            "-B",
+            "<WORKSPACE>\\tests\\run_tests.py",
+            "--_python-child"
+          ],
+          "encoded_arguments": [],
+          "unittest": {
+            "tests": 694,
+            "passed": 694,
+            "skipped": 0,
+            "skipped_cases": [],
+            "expected_failures": [],
+            "unexpected_successes": [],
+            "failures": [],
+            "failure_summaries": [],
+            "unittest_elapsed_seconds": 786.857,
+            "success": true
+          }
+        }
+      ]
+    },
+    "shell-ps51-final": {
+      "original_report": {
+        "path": "<T06_WORK>\\shell-ps51-final.json",
+        "bytes": 1080853,
+        "sha256": "317b9fbb894c3ea9c04b5e6956b90ebf8e40b80aa6595febb529f2a26cdb8b4c"
+      },
+      "wrapper": {
+        "raw_record": {
+          "path": "<T06_WORK>\\shell-ps51-final.command.json",
+          "bytes": 1118,
+          "sha256": "287b4a8ed6a215dbcdd1eed280f7e11d32a7b196720f5a417c19b4072955b815"
+        },
+        "started_utc": "2026-10-17T14:51:06Z",
+        "timeout_seconds": 1350,
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 500.31014519999735,
+        "cwd": "<WORKSPACE>",
+        "test_wheelhouse": "<REVIEWED_WHEELHOUSE>",
+        "argv": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "tests/run_tests.py",
+          "--layer",
+          "shell",
+          "--tool-root",
+          "<EXTERNAL_SHELL_TOOLS>",
+          "--shell-path",
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "--report",
+          "<T06_WORK>\\shell-ps51-final.json"
+        ],
+        "encoded_arguments": [],
+        "stdout": {
+          "path": "<T06_WORK>\\shell-ps51-final.stdout.txt",
+          "bytes": 79,
+          "sha256": "12502d70732842a47b90ced767c2f1f24321a5f96539e4669f5824adcf507122"
+        },
+        "stderr": {
+          "path": "<T06_WORK>\\shell-ps51-final.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "observed_at": "2026-10-17T14:51:06.890865+00:00",
+      "layer": "shell",
+      "environment": {
+        "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+        "python_executable": "<DEV_PYTHON_3148>",
+        "python_isolated": true,
+        "python_no_bytecode": true,
+        "platform": "Windows-11-10.0.26300-SP0",
+        "machine": "AMD64",
+        "packages": {
+          "pypdf": "6.20.0",
+          "reportlab": "5.0.1",
+          "Pillow": "12.3.0",
+          "charset-normalizer": "3.5.2"
+        }
+      },
+      "source": {
+        "base_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+        "base_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+        "tested_paths_digest": "c4e3763a12b7dd878cf9a3e2b128acf3938a3dbadbbf574bfddfbfe0d004f544",
+        "source_unchanged": true
+      },
+      "tested_paths_compared_to_R_git_blobs": 220,
+      "all_tested_path_hashes_match_R": true,
+      "success": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "steps": [
+        {
+          "name": "setup-test-wheel",
+          "exit_code": 0,
+          "source": "supplied-read-only-wheelhouse",
+          "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "wheelhouse": "<REVIEWED_WHEELHOUSE>"
+        },
+        {
+          "name": "shell-0",
+          "exit_code": 0,
+          "timed_out": false,
+          "timeout_seconds": 600,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "7e95f9622b4a2fb745c888148a8dbc63b1547f6794096754733bc119f7f475ea",
+          "argv": [
+            "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-EncodedCommand",
+            "<ENCODED_ARGUMENT_OMITTED>"
+          ],
+          "encoded_arguments": [
+            {
+              "argument_index": 6,
+              "utf8_bytes": 720,
+              "sha256": "8af16e3ca43852b5a8aca64eea14307e2e78e3f3ab4b8fdf599f9d58dfe3d544"
+            }
+          ],
+          "child_evidence_original_sha256": "9abf626f11f1a6db3c9e98de4ce5a04d60db3aea29509118e5bd553e86169357",
+          "shell_host": {
+            "version": "5.1.26100.9711",
+            "edition": "Desktop",
+            "clr": "4.0.30319.42000",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "imports": [
+            {
+              "path": "<EXTERNAL_SHELL_TOOLS>\\Pester\\6.2.0\\Pester.psm1",
+              "name": "Pester",
+              "version": "6.2.0",
+              "manifest": "<EXTERNAL_SHELL_TOOLS>\\Pester\\6.2.0\\Pester.psd1"
+            },
+            {
+              "path": "<EXTERNAL_SHELL_TOOLS>\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+              "name": "PSScriptAnalyzer",
+              "version": "1.25.0",
+              "manifest": "<EXTERNAL_SHELL_TOOLS>\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1"
+            }
+          ],
+          "pester": {
+            "total": 252,
+            "failed_cases": [],
+            "not_run": 0,
+            "failed_containers": 0,
+            "passed": 252,
+            "skipped": 0,
+            "failed_blocks": [],
+            "failed": 0,
+            "result": "Passed",
+            "failed_container_errors": []
+          },
+          "syntax": {
+            "entries": 34,
+            "errors": 0,
+            "failed_entries": []
+          },
+          "scoped_analysis": {
+            "entries": 33,
+            "findings": 0,
+            "entries_with_findings": []
+          },
+          "outcomes": {
+            "count": 71,
+            "all_passed": true,
+            "failed": []
+          },
+          "legacy_application_analysis": {
+            "findings": 82,
+            "by_rule": {
+              "PSAvoidUsingPositionalParameters": 3,
+              "PSUseShouldProcessForStateChangingFunctions": 3,
+              "PSUseApprovedVerbs": 2,
+              "PSUseSingularNouns": 2,
+              "PSAvoidAssignmentToAutomaticVariable": 3,
+              "PSAvoidInvokingEmptyMembers": 1,
+              "PSAvoidUsingWriteHost": 67,
+              "PSAvoidUsingEmptyCatchBlock": 1
+            },
+            "by_severity": {
+              "Information": 3,
+              "Warning": 79
+            },
+            "acceptance_pass": false
+          }
+        }
+      ]
+    },
+    "shell-ps7-final": {
+      "original_report": {
+        "path": "<T06_WORK>\\shell-ps7-final.json",
+        "bytes": 156591,
+        "sha256": "7696eb229a4f0068b14f1eee5a088c6f08fb71c7538f83331a79345934ad0442"
+      },
+      "wrapper": {
+        "raw_record": {
+          "path": "<T06_WORK>\\shell-ps7-final.command.json",
+          "bytes": 1160,
+          "sha256": "6d110d6535d8e054a0b2d2733b25431c6c60f787f20a2311deb9b076c504623a"
+        },
+        "started_utc": "2026-10-17T14:51:06Z",
+        "timeout_seconds": 1350,
+        "exit_code": 0,
+        "timed_out": false,
+        "elapsed_seconds": 367.2028621000027,
+        "cwd": "<WORKSPACE>",
+        "test_wheelhouse": "<REVIEWED_WHEELHOUSE>",
+        "argv": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "tests/run_tests.py",
+          "--layer",
+          "shell",
+          "--tool-root",
+          "<EXTERNAL_SHELL_TOOLS>",
+          "--shell-path",
+          "<USER>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+          "--report",
+          "<T06_WORK>\\shell-ps7-final.json"
+        ],
+        "encoded_arguments": [],
+        "stdout": {
+          "path": "<T06_WORK>\\shell-ps7-final.stdout.txt",
+          "bytes": 78,
+          "sha256": "d85371b335b08dad622edd418726c9e782c35670531b2ffe1e66b75646d754e0"
+        },
+        "stderr": {
+          "path": "<T06_WORK>\\shell-ps7-final.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "observed_at": "2026-10-17T14:51:06.910407+00:00",
+      "layer": "shell",
+      "environment": {
+        "python": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+        "python_executable": "<DEV_PYTHON_3148>",
+        "python_isolated": true,
+        "python_no_bytecode": true,
+        "platform": "Windows-11-10.0.26300-SP0",
+        "machine": "AMD64",
+        "packages": {
+          "pypdf": "6.20.0",
+          "reportlab": "5.0.1",
+          "Pillow": "12.3.0",
+          "charset-normalizer": "3.5.2"
+        }
+      },
+      "source": {
+        "base_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+        "base_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+        "tested_paths_digest": "c4e3763a12b7dd878cf9a3e2b128acf3938a3dbadbbf574bfddfbfe0d004f544",
+        "source_unchanged": true
+      },
+      "tested_paths_compared_to_R_git_blobs": 220,
+      "all_tested_path_hashes_match_R": true,
+      "success": true,
+      "synthetic_input_unchanged": true,
+      "owned_work_directory_removed": true,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "steps": [
+        {
+          "name": "setup-test-wheel",
+          "exit_code": 0,
+          "source": "supplied-read-only-wheelhouse",
+          "wheel_sha256": "f003fc2014814d264fe7dd3f9d435c158e23e1a85a2233f87a0a2d6d21c914ad",
+          "policy_sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "wheelhouse": "<REVIEWED_WHEELHOUSE>"
+        },
+        {
+          "name": "shell-0",
+          "exit_code": 0,
+          "timed_out": false,
+          "timeout_seconds": 600,
+          "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stderr_sha256": "9f6e9bc16865c88e48920d90b4ed36737a6231beb9d068e0d0a019dfd29f45ec",
+          "argv": [
+            "<USER>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\native\\powershell\\pwsh.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-EncodedCommand",
+            "<ENCODED_ARGUMENT_OMITTED>"
+          ],
+          "encoded_arguments": [
+            {
+              "argument_index": 6,
+              "utf8_bytes": 720,
+              "sha256": "8af16e3ca43852b5a8aca64eea14307e2e78e3f3ab4b8fdf599f9d58dfe3d544"
+            }
+          ],
+          "child_evidence_original_sha256": "874b6e89170cd510eb411d2b497e1a5cd66f5447a80c8a509f14baf6c91966ed",
+          "shell_host": {
+            "version": "7.6.5",
+            "edition": "Core",
+            "clr": "10.0.11",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "LocalMachine"
+              }
+            ]
+          },
+          "imports": [
+            {
+              "path": "<EXTERNAL_SHELL_TOOLS>\\Pester\\6.2.0\\Pester.psm1",
+              "version": "6.2.0",
+              "manifest": "<EXTERNAL_SHELL_TOOLS>\\Pester\\6.2.0\\Pester.psd1",
+              "name": "Pester"
+            },
+            {
+              "path": "<EXTERNAL_SHELL_TOOLS>\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psm1",
+              "version": "1.25.0",
+              "manifest": "<EXTERNAL_SHELL_TOOLS>\\PSScriptAnalyzer\\1.25.0\\PSScriptAnalyzer.psd1",
+              "name": "PSScriptAnalyzer"
+            }
+          ],
+          "pester": {
+            "passed": 252,
+            "failed_cases": [],
+            "failed_blocks": [],
+            "total": 252,
+            "not_run": 0,
+            "failed": 0,
+            "failed_container_errors": [],
+            "result": "Passed",
+            "failed_containers": 0,
+            "skipped": 0
+          },
+          "syntax": {
+            "entries": 34,
+            "errors": 0,
+            "failed_entries": []
+          },
+          "scoped_analysis": {
+            "entries": 33,
+            "findings": 0,
+            "entries_with_findings": []
+          },
+          "outcomes": {
+            "count": 71,
+            "all_passed": true,
+            "failed": []
+          },
+          "legacy_application_analysis": {
+            "findings": 82,
+            "by_rule": {
+              "PSAvoidUsingEmptyCatchBlock": 1,
+              "PSUseApprovedVerbs": 2,
+              "PSAvoidInvokingEmptyMembers": 1,
+              "PSAvoidAssignmentToAutomaticVariable": 3,
+              "PSAvoidUsingWriteHost": 67,
+              "PSUseShouldProcessForStateChangingFunctions": 3,
+              "PSUseSingularNouns": 2,
+              "PSAvoidUsingPositionalParameters": 3
+            },
+            "by_severity": {
+              "Warning": 79,
+              "Information": 3
+            },
+            "acceptance_pass": false
+          }
+        }
+      ]
+    }
+  },
+  "offline_helpers": {
+    "wrapper": {
+      "raw_record": {
+        "path": "<T06_WORK>\\helpers-final.command.json",
+        "bytes": 9801,
+        "sha256": "32a7dd448d635047c006dd6b964439be939e599f397b3011726f8a5062803543"
+      },
+      "started_utc": "2026-10-17T14:54:54Z",
+      "timeout_seconds": 120,
+      "exit_code": 0,
+      "timed_out": false,
+      "elapsed_seconds": 3.9212254999983998,
+      "cwd": "<WORKSPACE>",
+      "test_wheelhouse": null,
+      "argv": [
+        "<DEV_PYTHON_3148>",
+        "-I",
+        "-B",
+        "-m",
+        "unittest",
+        "discover",
+        "-s",
+        "tools/codex-v1.0.3/tests",
+        "-v"
+      ],
+      "encoded_arguments": [],
+      "stdout": {
+        "path": "<T06_WORK>\\helpers-final.stdout.txt",
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "path": "<T06_WORK>\\helpers-final.stderr.txt",
+        "bytes": 8929,
+        "sha256": "5fbb6003a8f17d3163e0086e3ee59fe4bc2ea94b82686199fdeab2b8a4eb6cd1"
+      }
+    },
+    "unittest": {
+      "tests": 74,
+      "passed": 73,
+      "skipped": 1,
+      "skipped_cases": [
+        {
+          "test": "test_symlink_receipt_rejected (test_native_gate.GateTests.test_symlink_receipt_rejected)",
+          "reason": "'symlinks unavailable in this test environment'"
+        }
+      ],
+      "expected_failures": [],
+      "unexpected_successes": [],
+      "failures": [],
+      "failure_summaries": [],
+      "unittest_elapsed_seconds": 3.603,
+      "success": true
+    },
+    "source_binding": "Helper source/tests are included in the same 220-path audited R closure."
+  },
+  "related_evidence": [
+    "T06-policy.json",
+    "T06-source-review.json"
+  ],
+  "limits": [
+    "No suite result substitutes for actual Windows10 existing-Store/fresh automatic setup/exact-ZIP or enforced organization-policy denial.",
+    "These broad local results bind R1 only. A later source freeze requires its own explicit source-equivalence/delta evidence and final CI; this file does not relabel R1 tests as execution of later source bytes.",
+    "Developer Python, Pester/analyzer and reviewed wheelhouse remain external tooling. Their inputs are separate from the native automatic Store gate.",
+    "Legacy application static findings are retained observations and are never counted as a scoped analysis or native acceptance pass.",
+    "Raw local wrapper/report/stream bytes remain outside the repository. This evidence records their original identities, complete skip lists, source comparisons and compact outcomes; large streams and encoded argument bodies are omitted."
+  ]
+}

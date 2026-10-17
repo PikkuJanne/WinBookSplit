@@ -1,0 +1,203 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "kind": "FINAL_SOURCE_EQUIVALENCE_NOT_NEW_EXECUTION",
+  "prior_source_R1": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+  "final_source_R": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "final_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "all_34_distribution_members_and_all_21_kit_helpers_unchanged": true,
+  "compared_files": {
+    "CHANGELOG.md": {
+      "bytes": 6267,
+      "sha256": "730343ffb6c0ebe8d739adc5e69ad9462c03ceb4878cd31f166a12b52c2d9b40"
+    },
+    "CONTRIBUTING.md": {
+      "bytes": 1839,
+      "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+    },
+    "Export-WinBookSplitDiagnostics.ps1": {
+      "bytes": 863,
+      "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+    },
+    "LICENSE": {
+      "bytes": 1070,
+      "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+    },
+    "README.md": {
+      "bytes": 14130,
+      "sha256": "b13e2ff92e8f76cf1975fa4ea31cc01570e6c939b6269a0d342df51ab2c82e70"
+    },
+    "SECURITY.md": {
+      "bytes": 5196,
+      "sha256": "3a488780ad454f02fcae8822e503641eedddbda8800f7492dd502d536a768ac5"
+    },
+    "Setup-WinBookSplit.bat": {
+      "bytes": 938,
+      "sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500"
+    },
+    "Setup-WinBookSplit.ps1": {
+      "bytes": 7110,
+      "sha256": "b82a7861a9e520a4f5d00073d49ebafb06cfd396ea24b5e48ef13d761c0315a9"
+    },
+    "THIRD_PARTY_NOTICES.md": {
+      "bytes": 2754,
+      "sha256": "782e08a51031e58c7526b1076d18037f30a1f3c795ca1b16a270c8da0856fbe8"
+    },
+    "VERSION": {
+      "bytes": 6,
+      "sha256": "f5e5c9534532840fcd45bb002e69ed85c61dba2753450e26b448b7df1481e24d"
+    },
+    "WinBookSplit.bat": {
+      "bytes": 1145,
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+    },
+    "WinBookSplit.ico": {
+      "bytes": 370070,
+      "sha256": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42"
+    },
+    "WinBookSplit.ps1": {
+      "bytes": 69485,
+      "sha256": "fb4be7e8104f21fb6c7e9aba6e5c838bfcdb8841f834e67b53c66b8f03786332"
+    },
+    "docs/EBOOK_SUPPORT.md": {
+      "bytes": 3352,
+      "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+    },
+    "docs/PDF_FIDELITY.md": {
+      "bytes": 3344,
+      "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+    },
+    "docs/PDF_POLICY.md": {
+      "bytes": 4143,
+      "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+    },
+    "docs/SETUP.md": {
+      "bytes": 13423,
+      "sha256": "f08edbbc2ebe8b4fa5e54aba46ff3e56d2288899f31a472f8e1589d39b055684"
+    },
+    "docs/SUPPORT_DIAGNOSTICS.md": {
+      "bytes": 6306,
+      "sha256": "0a5ef958186a5c258816a0dd299b23560d7fb3ad8fcd2984b35444d0348a11f6"
+    },
+    "engine/WinBookSplit.Compatibility.json": {
+      "bytes": 8210,
+      "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+    },
+    "engine/WinBookSplit.Compatibility.ps1": {
+      "bytes": 16904,
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+    },
+    "engine/WinBookSplit.Diagnostics.ps1": {
+      "bytes": 34881,
+      "sha256": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5"
+    },
+    "engine/WinBookSplit.Logging.ps1": {
+      "bytes": 13060,
+      "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+    },
+    "engine/WinBookSplit.Outcomes.json": {
+      "bytes": 1581,
+      "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+    },
+    "engine/WinBookSplit.Paths.ps1": {
+      "bytes": 4142,
+      "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+    },
+    "engine/WinBookSplit.Process.ps1": {
+      "bytes": 44221,
+      "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+    },
+    "engine/WinBookSplit.Runtime.ps1": {
+      "bytes": 58979,
+      "sha256": "2206b938b6a8f9790ab848f2f5e50904d2dea99ee2ee300a545ad621b75768c7"
+    },
+    "engine/WinBookSplit.Setup.ps1": {
+      "bytes": 32153,
+      "sha256": "c2be57f1a1d44d34ff0bfef3d7844fc4f144ea2ddd7c8c563b3930583bea2d4e"
+    },
+    "engine/WinBookSplit.Support.ps1": {
+      "bytes": 27250,
+      "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+    },
+    "engine/winbooksplit_compatibility.py": {
+      "bytes": 20075,
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+    },
+    "engine/winbooksplit_conversion.py": {
+      "bytes": 27985,
+      "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+    },
+    "engine/winbooksplit_engine.py": {
+      "bytes": 101647,
+      "sha256": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+    },
+    "engine/winbooksplit_job.py": {
+      "bytes": 14965,
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+    },
+    "engine/winbooksplit_windows.py": {
+      "bytes": 10933,
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+    },
+    "requirements.txt": {
+      "bytes": 255,
+      "sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+    },
+    "tests/cli/Probe-Help.ps1": {
+      "bytes": 350,
+      "sha256": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c"
+    },
+    "tests/compatibility/validate_setup_remedy.py": {
+      "bytes": 3090,
+      "sha256": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98"
+    },
+    "tests/process/session_child.py": {
+      "bytes": 3370,
+      "sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+    },
+    "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+      "bytes": 78577,
+      "sha256": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69"
+    },
+    "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": {
+      "bytes": 3236,
+      "sha256": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679"
+    },
+    "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": {
+      "bytes": 36523,
+      "sha256": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd"
+    },
+    "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": {
+      "bytes": 46618,
+      "sha256": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4"
+    },
+    "tools/compatibility/kit_builder.py": {
+      "bytes": 28995,
+      "sha256": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d"
+    },
+    "tools/compatibility/native_smoke.py": {
+      "bytes": 69909,
+      "sha256": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729"
+    },
+    "tools/release/frozen_assets.py": {
+      "bytes": 19085,
+      "sha256": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9"
+    }
+  },
+  "changed_source_paths": [
+    "docs/codex-v1.0.3/evidence/T06.md",
+    "tests/Invoke-ShellTests.ps1",
+    "tests/conversion/README.md",
+    "tests/conversion/characterize_conversion.py",
+    "tests/python/test_converter_cache.py",
+    "tests/python/test_runner.py",
+    "tests/python/test_runtime_receipt.py",
+    "tests/run_tests.py",
+    "tests/runtime/Observe-ManagerCache.ps1",
+    "tests/runtime/README.md",
+    "tests/runtime/characterize_runtime.py",
+    "tests/runtime/converter_cache.py",
+    "tests/runtime/validate_runtime_report.py"
+  ],
+  "meaning": "R1 broad regressions remain R1 execution evidence. Exact product/helper byte equality is independently proved; new test-harness behavior requires separate focused/full conversion and final-source CI evidence. Final kit metadata/receipts must bind the new R and must be executed again."
+}

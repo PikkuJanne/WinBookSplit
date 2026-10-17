@@ -1,0 +1,1070 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "kind": "FINAL_SOURCE_HOSTED_CI",
+  "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "run_id": 39043915939,
+  "run_attempt": 1,
+  "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939",
+  "status": "completed",
+  "conclusion": "success",
+  "success": true,
+  "jobs": [
+    {
+      "id": 117428740921,
+      "name": "Python and PowerShell regression (Windows Server 2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428740921",
+      "started_at": "2026-10-17T15:10:58Z",
+      "completed_at": "2026-10-17T15:30:14Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create owned report directory",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact regular x64 Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Install hash-pinned development dependencies in a fresh venv",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Bootstrap exact isolated shell tools",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check committed package prerequisites without building a package",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Python regression through the shared runner",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "PowerShell 7 syntax, scoped analysis and Pester",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require all source-bound reference reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve only declared synthetic test and prerequisite reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact regular x64 Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "raw_log": {
+        "path": "<T06_WORK>/ci-39043915939/job-117428740921.log.txt",
+        "bytes": 71405,
+        "sha256": "7976ee802b24207a637ee7b8d559a39e985a6432a6f8a03df0aadc3c65652272"
+      }
+    },
+    {
+      "id": 117428741132,
+      "name": "Application 3.14.8 (Windows Server 2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741132",
+      "started_at": "2026-10-17T15:10:59Z",
+      "completed_at": "2026-10-17T15:13:25Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create separate owned driver and runtime environments",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check source and runtime-matrix coverage",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actual runtime-only application matrix",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require all source-bound application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve declared application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "raw_log": {
+        "path": "<T06_WORK>/ci-39043915939/job-117428741132.log.txt",
+        "bytes": 59328,
+        "sha256": "f95f508d327fef39e522a4ff3a2ba7942ff436a0861a59415b0cb26acf07ccd5"
+      }
+    },
+    {
+      "id": 117428741153,
+      "name": "Application 3.15.0 (Windows Server 2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741153",
+      "started_at": "2026-10-17T15:13:21Z",
+      "completed_at": "2026-10-17T15:16:46Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create separate owned driver and runtime environments",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check source and runtime-matrix coverage",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actual runtime-only application matrix",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require all source-bound application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve declared application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "raw_log": {
+        "path": "<T06_WORK>/ci-39043915939/job-117428741153.log.txt",
+        "bytes": 66547,
+        "sha256": "212eecd72b3719ae75a8ba33a05a9fba29cce6235663c81d38e59a2ee567f023"
+      }
+    },
+    {
+      "id": 117428741189,
+      "name": "Application 3.13.16 (Windows Server 2025)",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/39043915939/job/117428741189",
+      "started_at": "2026-10-17T15:10:58Z",
+      "completed_at": "2026-10-17T15:13:19Z",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Create separate owned driver and runtime environments",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Check source and runtime-matrix coverage",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Run actual runtime-only application matrix",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Require all source-bound application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Preserve declared application reports",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact application test target",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Set up exact fixture-driver Python",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Post Checkout tested source",
+          "status": "completed",
+          "conclusion": "success"
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success"
+        }
+      ],
+      "raw_log": {
+        "path": "<T06_WORK>/ci-39043915939/job-117428741189.log.txt",
+        "bytes": 59713,
+        "sha256": "e4b4e8ba00e609343668b27b91c81a2dbfc8366aede0646d4ee1b9d3b92bf59d"
+      }
+    }
+  ],
+  "metadata": [
+    {
+      "path": "<T06_WORK>/ci-39043915939/run.json",
+      "bytes": 13170,
+      "sha256": "7ad5e7228af98cf5b6d7d1b0ce835897b1ecc2d6f9f07cdf34e51a861351ff98"
+    },
+    {
+      "path": "<T06_WORK>/ci-39043915939/jobs.json",
+      "bytes": 13382,
+      "sha256": "a511c76a20d26bdd1bf107cb552b7865519c39dcc6edf0e173f6e3a82bc9104f"
+    },
+    {
+      "path": "<T06_WORK>/ci-39043915939/artifacts.json",
+      "bytes": 3092,
+      "sha256": "8666a4eb693b1fa762d4383dfca33084b2aa960951e4004bc10b3121d0807b03"
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 12105776360,
+      "name": "windows-reference-243d31ee03efac35dc6f7e88c0c1dfd1203081ed-1",
+      "role": "reference",
+      "python_version": null,
+      "archive": {
+        "path": "<T06_WORK>/ci-39043915939/artifact-12105776360.zip",
+        "bytes": 106343,
+        "sha256": "aa97c1c4f82a0fb05711b80dc847901d40cb8356d0c0209062617ec9fe11360d"
+      },
+      "members": [
+        {
+          "path": "os.json",
+          "bytes": 439,
+          "sha256": "89a707a83ae4bd9ed085e9f64ec07ab6b07474a8ddfb1a86c6912df797e2a263"
+        },
+        {
+          "path": "tools-bootstrap.json",
+          "bytes": 10038,
+          "sha256": "e8caeba46d46ae5595a4fd056865f0279e3d7700950d00ad12151df69b763a66"
+        },
+        {
+          "path": "package-inputs.json",
+          "bytes": 12381,
+          "sha256": "94e5c2deca009e476b93720568feaf15308831502af52e37234f7eb99af1a2f2"
+        },
+        {
+          "path": "python.json",
+          "bytes": 172174,
+          "sha256": "1234fff5a687aaec1bf4cdb82d17d1caad1ee762e1698af94d966bb7df6ca4ac"
+        },
+        {
+          "path": "shell-ps51.json",
+          "bytes": 1082809,
+          "sha256": "ebccf827906c4b1687430ac5f41993158eb113e60912d0e7191a317793c66a1a"
+        },
+        {
+          "path": "shell-ps7.json",
+          "bytes": 157920,
+          "sha256": "b9054ebc4614e07c4ce256803241b8a6304a404632d681d73f7579e293701535"
+        }
+      ],
+      "validator": {
+        "exit_code": 0,
+        "stdout": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105776360.stdout.txt",
+          "bytes": 117,
+          "sha256": "2a6bb222442c9c9ae074ecb300147a374366ad737cf7e321c4ee2a1b4e2a60b3"
+        },
+        "stderr": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105776360.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "github_sha256_digest": "sha256:aa97c1c4f82a0fb05711b80dc847901d40cb8356d0c0209062617ec9fe11360d",
+      "download_matches_github_digest": true
+    },
+    {
+      "id": 12105400468,
+      "name": "windows-application-3.13.16-243d31ee03efac35dc6f7e88c0c1dfd1203081ed-1",
+      "role": "application",
+      "python_version": "3.13.16",
+      "archive": {
+        "path": "<T06_WORK>/ci-39043915939/artifact-12105400468.zip",
+        "bytes": 54518,
+        "sha256": "7f1bfb0218295403c89fb6671328ec45fc80edef9e84631e252c25feaff58b81"
+      },
+      "members": [
+        {
+          "path": "package-inputs.json",
+          "bytes": 12381,
+          "sha256": "94e5c2deca009e476b93720568feaf15308831502af52e37234f7eb99af1a2f2"
+        },
+        {
+          "path": "os.json",
+          "bytes": 439,
+          "sha256": "89a707a83ae4bd9ed085e9f64ec07ab6b07474a8ddfb1a86c6912df797e2a263"
+        },
+        {
+          "path": "application.json",
+          "bytes": 486135,
+          "sha256": "0a678c86aee45c1d67ea0f5d6bfe47316a7f537f0eacbe9ffcb478c62a321188"
+        }
+      ],
+      "validator": {
+        "exit_code": 0,
+        "stdout": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105400468.stdout.txt",
+          "bytes": 67,
+          "sha256": "47183b80743072ea7e84b0a962d1c5b70cfee8de486bc18cb097c70799bf36d8"
+        },
+        "stderr": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105400468.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "github_sha256_digest": "sha256:7f1bfb0218295403c89fb6671328ec45fc80edef9e84631e252c25feaff58b81",
+      "download_matches_github_digest": true
+    },
+    {
+      "id": 12105281796,
+      "name": "windows-application-3.15.0-243d31ee03efac35dc6f7e88c0c1dfd1203081ed-1",
+      "role": "application",
+      "python_version": "3.15.0",
+      "archive": {
+        "path": "<T06_WORK>/ci-39043915939/artifact-12105281796.zip",
+        "bytes": 54462,
+        "sha256": "5a8ae24cd22281c4973a14a09dc1e2d83d3b5e9e51d395c4cf4a2b51df597192"
+      },
+      "members": [
+        {
+          "path": "package-inputs.json",
+          "bytes": 12381,
+          "sha256": "94e5c2deca009e476b93720568feaf15308831502af52e37234f7eb99af1a2f2"
+        },
+        {
+          "path": "os.json",
+          "bytes": 439,
+          "sha256": "89a707a83ae4bd9ed085e9f64ec07ab6b07474a8ddfb1a86c6912df797e2a263"
+        },
+        {
+          "path": "application.json",
+          "bytes": 486011,
+          "sha256": "8c4cbb0f00dff1a2ba819af75232be523431cc12d89f0bc482b7d939463b2985"
+        }
+      ],
+      "validator": {
+        "exit_code": 0,
+        "stdout": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105281796.stdout.txt",
+          "bytes": 67,
+          "sha256": "47183b80743072ea7e84b0a962d1c5b70cfee8de486bc18cb097c70799bf36d8"
+        },
+        "stderr": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12105281796.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "github_sha256_digest": "sha256:5a8ae24cd22281c4973a14a09dc1e2d83d3b5e9e51d395c4cf4a2b51df597192",
+      "download_matches_github_digest": true
+    },
+    {
+      "id": 12104543286,
+      "name": "windows-application-3.14.8-243d31ee03efac35dc6f7e88c0c1dfd1203081ed-1",
+      "role": "application",
+      "python_version": "3.14.8",
+      "archive": {
+        "path": "<T06_WORK>/ci-39043915939/artifact-12104543286.zip",
+        "bytes": 54500,
+        "sha256": "791d274dc832d483ba173386362795676388a634fbddc7d759dbd72813350682"
+      },
+      "members": [
+        {
+          "path": "package-inputs.json",
+          "bytes": 12381,
+          "sha256": "94e5c2deca009e476b93720568feaf15308831502af52e37234f7eb99af1a2f2"
+        },
+        {
+          "path": "os.json",
+          "bytes": 439,
+          "sha256": "89a707a83ae4bd9ed085e9f64ec07ab6b07474a8ddfb1a86c6912df797e2a263"
+        },
+        {
+          "path": "application.json",
+          "bytes": 485957,
+          "sha256": "d8dbfa898846af7c9fbdbbf01db32a19c4b70accfe8cfe69edab3680372344e4"
+        }
+      ],
+      "validator": {
+        "exit_code": 0,
+        "stdout": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12104543286.stdout.txt",
+          "bytes": 67,
+          "sha256": "47183b80743072ea7e84b0a962d1c5b70cfee8de486bc18cb097c70799bf36d8"
+        },
+        "stderr": {
+          "path": "<T06_WORK>/ci-39043915939/validator-12104543286.stderr.txt",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      },
+      "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "github_sha256_digest": "sha256:791d274dc832d483ba173386362795676388a634fbddc7d759dbd72813350682",
+      "download_matches_github_digest": true
+    }
+  ],
+  "reports": {
+    "reference": {
+      "os": {
+        "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "caption": "Microsoft Windows Server 2025 Datacenter",
+        "version": "10.0.26100",
+        "build": "26100",
+        "architecture": "64-bit",
+        "product_type": 3,
+        "process_bits": 64,
+        "powershell": "7.6.6",
+        "clr": "10.0.12",
+        "image_os": "win25-vs2026",
+        "image_version": "20261007.264.1",
+        "run_id": "39043915939",
+        "run_attempt": "1"
+      },
+      "python": {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "tests_run": 705,
+        "test_duration_seconds": 600.816,
+        "failures": 0,
+        "errors": 0,
+        "skips": [],
+        "expected_failures": [],
+        "unexpected_successes": [],
+        "step_exit_code": 0,
+        "stdout_text_identity": {
+          "utf8_bytes": 16303,
+          "sha256": "1273e72c7ff3745f34145a8b2e511031051882591e2ed7e4b24486ee21c0f7a9"
+        },
+        "stderr_text_identity": {
+          "utf8_bytes": 126341,
+          "sha256": "6e6692557a96dcaabd6551ab465815fb11eb710bedf12206c87e573ba1ad5b7d"
+        },
+        "count_method": "Actual unittest final Ran line and standalone OK in original preserved report stderr; no skips/expected-failure suffix accepted."
+      },
+      "shell_ps51": {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "host": {
+          "version": "5.1.26100.33438",
+          "edition": "Desktop"
+        },
+        "pester": {
+          "total": 252,
+          "failed_cases": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 252,
+          "skipped": 0,
+          "failed_blocks": [],
+          "failed": 0,
+          "result": "Passed",
+          "failed_container_errors": []
+        },
+        "syntax": {
+          "entries": 35,
+          "errors": 0
+        },
+        "scoped_analysis": {
+          "entries": 34,
+          "findings": 0
+        },
+        "outcomes": {
+          "count": 73,
+          "all_passed": true
+        },
+        "step_exit_code": 0
+      },
+      "shell_ps7": {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "host": {
+          "version": "7.6.6",
+          "edition": "Core"
+        },
+        "pester": {
+          "failed_blocks": [],
+          "failed_cases": [],
+          "skipped": 0,
+          "result": "Passed",
+          "passed": 252,
+          "failed_containers": 0,
+          "failed_container_errors": [],
+          "not_run": 0,
+          "total": 252,
+          "failed": 0
+        },
+        "syntax": {
+          "entries": 35,
+          "errors": 0
+        },
+        "scoped_analysis": {
+          "entries": 34,
+          "findings": 0
+        },
+        "outcomes": {
+          "count": 73,
+          "all_passed": true
+        },
+        "step_exit_code": 0
+      }
+    },
+    "applications": [
+      {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "python_version": "3.13.16",
+        "os": {
+          "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+          "caption": "Microsoft Windows Server 2025 Datacenter",
+          "version": "10.0.26100",
+          "build": "26100",
+          "architecture": "64-bit",
+          "product_type": 3,
+          "process_bits": 64,
+          "powershell": "7.6.6",
+          "clr": "10.0.12",
+          "image_os": "win25-vs2026",
+          "image_version": "20261007.264.1",
+          "run_id": "39043915939",
+          "run_attempt": "1"
+        },
+        "unit_tests_run": 150,
+        "unit_modules": [
+          {
+            "name": "test_compatibility",
+            "test_count": 46
+          },
+          {
+            "name": "test_filenames",
+            "test_count": 14
+          },
+          {
+            "name": "test_interactive",
+            "test_count": 14
+          },
+          {
+            "name": "test_pdf_policy",
+            "test_count": 22
+          },
+          {
+            "name": "test_pdf_fidelity",
+            "test_count": 11
+          },
+          {
+            "name": "test_conversion",
+            "test_count": 17
+          },
+          {
+            "name": "test_outcomes",
+            "test_count": 11
+          },
+          {
+            "name": "test_version",
+            "test_count": 5
+          },
+          {
+            "name": "test_warnings",
+            "test_count": 10
+          }
+        ],
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skips": [],
+        "isolated": true,
+        "no_bytecode": true,
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "cleanup_safe": true,
+        "timed_out": false
+      },
+      {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "python_version": "3.14.8",
+        "os": {
+          "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+          "caption": "Microsoft Windows Server 2025 Datacenter",
+          "version": "10.0.26100",
+          "build": "26100",
+          "architecture": "64-bit",
+          "product_type": 3,
+          "process_bits": 64,
+          "powershell": "7.6.6",
+          "clr": "10.0.12",
+          "image_os": "win25-vs2026",
+          "image_version": "20261007.264.1",
+          "run_id": "39043915939",
+          "run_attempt": "1"
+        },
+        "unit_tests_run": 150,
+        "unit_modules": [
+          {
+            "name": "test_compatibility",
+            "test_count": 46
+          },
+          {
+            "name": "test_filenames",
+            "test_count": 14
+          },
+          {
+            "name": "test_interactive",
+            "test_count": 14
+          },
+          {
+            "name": "test_pdf_policy",
+            "test_count": 22
+          },
+          {
+            "name": "test_pdf_fidelity",
+            "test_count": 11
+          },
+          {
+            "name": "test_conversion",
+            "test_count": 17
+          },
+          {
+            "name": "test_outcomes",
+            "test_count": 11
+          },
+          {
+            "name": "test_version",
+            "test_count": 5
+          },
+          {
+            "name": "test_warnings",
+            "test_count": 10
+          }
+        ],
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skips": [],
+        "isolated": true,
+        "no_bytecode": true,
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "cleanup_safe": true,
+        "timed_out": false
+      },
+      {
+        "base_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "base_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "tested_path_count": 223,
+        "source_unchanged": true,
+        "synthetic_input_unchanged": true,
+        "owned_work_directory_removed": true,
+        "success": true,
+        "python_version": "3.15.0",
+        "os": {
+          "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+          "caption": "Microsoft Windows Server 2025 Datacenter",
+          "version": "10.0.26100",
+          "build": "26100",
+          "architecture": "64-bit",
+          "product_type": 3,
+          "process_bits": 64,
+          "powershell": "7.6.6",
+          "clr": "10.0.12",
+          "image_os": "win25-vs2026",
+          "image_version": "20261007.264.1",
+          "run_id": "39043915939",
+          "run_attempt": "1"
+        },
+        "unit_tests_run": 150,
+        "unit_modules": [
+          {
+            "name": "test_compatibility",
+            "test_count": 46
+          },
+          {
+            "name": "test_filenames",
+            "test_count": 14
+          },
+          {
+            "name": "test_interactive",
+            "test_count": 14
+          },
+          {
+            "name": "test_pdf_policy",
+            "test_count": 22
+          },
+          {
+            "name": "test_pdf_fidelity",
+            "test_count": 11
+          },
+          {
+            "name": "test_conversion",
+            "test_count": 17
+          },
+          {
+            "name": "test_outcomes",
+            "test_count": 11
+          },
+          {
+            "name": "test_version",
+            "test_count": 5
+          },
+          {
+            "name": "test_warnings",
+            "test_count": 10
+          }
+        ],
+        "failures": 0,
+        "errors": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skips": [],
+        "isolated": true,
+        "no_bytecode": true,
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "cleanup_safe": true,
+        "timed_out": false
+      }
+    ]
+  },
+  "source_closure_audit": {
+    "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "reports": [
+      {
+        "path": "reports-12104543286\\application.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      },
+      {
+        "path": "reports-12105281796\\application.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      },
+      {
+        "path": "reports-12105400468\\application.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      },
+      {
+        "path": "reports-12105776360\\python.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      },
+      {
+        "path": "reports-12105776360\\shell-ps51.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      },
+      {
+        "path": "reports-12105776360\\shell-ps7.json",
+        "tested_paths_digest": "14c18529a7b0096da7edbb866e900294fbf5a76944371f5a3d8d2846677b9c4a",
+        "path_count": 223
+      }
+    ],
+    "compared_paths": 223,
+    "all_reported_closures_identical": true,
+    "all_paths_match_raw_R_git_blobs": true,
+    "mismatches": [],
+    "raw_receipt": {
+      "path": "<T06_WORK>/ci-39043915939/source-closure-audit.json",
+      "bytes": 1342,
+      "sha256": "68fda1af4bc0e372a13d86722254497015288929e86e2b7a362543ee8ca2c745"
+    },
+    "method": "Read every reported path directly from committed R using one git cat-file --batch request; SHA256 all raw Git blobs; all six original report maps agree."
+  },
+  "collector_summary": {
+    "path": "<T06_WORK>/ci-39043915939/collected-summary.json",
+    "bytes": 20216,
+    "sha256": "27a6cd386e1710437a0d63a19edaf368f3c07831bbc2891733837a7e5aeb64b3"
+  },
+  "normalization": {
+    "public_view": "Compact result and identity fields only. Original GitHub JSON metadata, raw job logs, ZIPs and reports remain external with SHA256.",
+    "stream_lengths": "Report stderr/stdout text identities are UTF-8 bytes of preserved report text, not re-labelled native process-stream counters.",
+    "source_checkout_after_CI": "The later active-docs-only evidence checkpoint is not the tested source commit."
+  },
+  "scope_limits": [
+    "Actual hosted Windows Server 2025 jobs are source/runtime regression, not native owner Windows10 existing-Store or fresh automatic Store acceptance.",
+    "Enforced organization-policy denial and physical Explorer owner interaction remain NOT_RUN/BLOCKED.",
+    "Earlier R1 preparation and its CI remain separate source evidence; the final all-four-job receipt here binds only R2 run39043915939.",
+    "No publication, tag, anonymous new-release byte verification or old-release mutation is claimed."
+  ]
+}

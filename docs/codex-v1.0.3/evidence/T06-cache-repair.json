@@ -1,0 +1,400 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "kind": "TEST_ONLY_CONVERTER_CACHE_ORACLE_REPAIR",
+  "status": "PASS_SCOPED_PENDING_R2_FULL_CONVERSION",
+  "source_base_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+  "production_files_changed": false,
+  "policy_runtime_dependency_or_launcher_changed": false,
+  "changed_test_files": {
+    "tests/Invoke-ShellTests.ps1": {
+      "bytes": 13101,
+      "sha256": "6d804b6eb5fcdf8e4fff050d695567c635aeeda013b6ebdab3e9986116d5dbf8",
+      "frozen_git_blob_sha256": "6d804b6eb5fcdf8e4fff050d695567c635aeeda013b6ebdab3e9986116d5dbf8",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/conversion/README.md": {
+      "bytes": 4935,
+      "sha256": "c5e27f844469c7ae0a91f753827fb90ecd0dd36ce835ca0c06e116912fbd0934",
+      "frozen_git_blob_sha256": "c5e27f844469c7ae0a91f753827fb90ecd0dd36ce835ca0c06e116912fbd0934",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/conversion/characterize_conversion.py": {
+      "bytes": 38698,
+      "sha256": "ce69c1c1396653cb96083e54c6352f7b16ed6e881e6f643265c0e884619c565e",
+      "frozen_git_blob_sha256": "ce69c1c1396653cb96083e54c6352f7b16ed6e881e6f643265c0e884619c565e",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/python/test_runner.py": {
+      "bytes": 154110,
+      "sha256": "9345ebf8597753c5ba83e5ffd7698bf9ca4001f9ef3e5129d34ac3d2f053243b",
+      "frozen_git_blob_sha256": "9345ebf8597753c5ba83e5ffd7698bf9ca4001f9ef3e5129d34ac3d2f053243b",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/python/test_runtime_receipt.py": {
+      "bytes": 39795,
+      "sha256": "2cd24e4b0844a9b6e4cfa164a9f0d420ecdaf1712dc5515eadc083d2a18fc07e",
+      "frozen_git_blob_sha256": "2cd24e4b0844a9b6e4cfa164a9f0d420ecdaf1712dc5515eadc083d2a18fc07e",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/python/test_converter_cache.py": {
+      "bytes": 10764,
+      "sha256": "23216a63e569d99d251fcb4ec727f0c35062288871f28c852a873359c633c671",
+      "frozen_git_blob_sha256": "23216a63e569d99d251fcb4ec727f0c35062288871f28c852a873359c633c671",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/run_tests.py": {
+      "bytes": 142702,
+      "sha256": "e10a2e0958fba507a34ed24a7f3ade795425a40b41b82ea50bf4ed12c84c3c1d",
+      "frozen_git_blob_sha256": "e10a2e0958fba507a34ed24a7f3ade795425a40b41b82ea50bf4ed12c84c3c1d",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/runtime/README.md": {
+      "bytes": 4886,
+      "sha256": "b778a6ae8db0582d4553657b4076a36bffc26087e298c22ee4f23cc5abb1f985",
+      "frozen_git_blob_sha256": "b778a6ae8db0582d4553657b4076a36bffc26087e298c22ee4f23cc5abb1f985",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/runtime/characterize_runtime.py": {
+      "bytes": 40902,
+      "sha256": "09cbb82781a1c652b95af3b2975c49eb65bf70a63c8de83eceac57d867ef3d92",
+      "frozen_git_blob_sha256": "09cbb82781a1c652b95af3b2975c49eb65bf70a63c8de83eceac57d867ef3d92",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/runtime/validate_runtime_report.py": {
+      "bytes": 51225,
+      "sha256": "ff3630435148a9bec4526413305b46e3277c58be5243e8e74e140966712231fd",
+      "frozen_git_blob_sha256": "ff3630435148a9bec4526413305b46e3277c58be5243e8e74e140966712231fd",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/runtime/converter_cache.py": {
+      "bytes": 13323,
+      "sha256": "4c72a5a7000411953c422701b756815b0387093a7fc4e93ab6bfcf0ccdec9b03",
+      "frozen_git_blob_sha256": "4c72a5a7000411953c422701b756815b0387093a7fc4e93ab6bfcf0ccdec9b03",
+      "worktree_equals_frozen_git_blob": true
+    },
+    "tests/runtime/Observe-ManagerCache.ps1": {
+      "bytes": 3449,
+      "sha256": "78939d52b7de3e231175d59486c360507711d3d9512590809593bd88ffeb2dc3",
+      "frozen_git_blob_sha256": "78939d52b7de3e231175d59486c360507711d3d9512590809593bd88ffeb2dc3",
+      "worktree_equals_frozen_git_blob": true
+    }
+  },
+  "binding": {
+    "actual_fixture_source_guard_unchanged": true,
+    "all_current_changed_code_hashes_equal_fixture_source_snapshot": true,
+    "documentation_delta": "After component completion, one conversion README sentence was corrected to describe retained authenticated console diagnostics, no engine invocation and no chapters. No executable source changed after final focused/native component tests.",
+    "R2": "Parent freeze/CI/conversion evidence records the final new source commit; these current worktree tests are not relabelled as an R2 full-suite pass.",
+    "all_12_changed_test_and_doc_files_match_R2_git_blobs": true
+  },
+  "reproduced_defect": {
+    "kind": "STALE_TEST_ROOT_CLOSURE_PREMISE",
+    "actual_BAT_exit_code": 3,
+    "actual_dependency_code": "converter_not_found",
+    "old_cache_assertion_failed": true,
+    "manager_listing_reference_proves_legitimate_side_effect": true,
+    "original_marker": {
+      "bytes": 163,
+      "sha256": "00d966115a1caee96a100850b228846c8f58afdb13560cb639a324646fbea174"
+    },
+    "raw_receipts": [
+      {
+        "path": "<T06_WORK>/native11/manager-cache-control.json",
+        "bytes": 4766,
+        "sha256": "5ef1023a93401532449ea7d584e6f49da22be42435afd763b88b60a01e79edf8"
+      },
+      {
+        "path": "<T06_WORK>/native11/manager-cache-control-process.json",
+        "bytes": 1680,
+        "sha256": "8cf251f75eccbb68ec7641ad79a4e65983c644a367d632f2211e3783ab0a5bdf"
+      },
+      {
+        "path": "<T06_WORK>/native11/manager-cache-control.ps1",
+        "bytes": 2713,
+        "sha256": "9edbd50f67c20beb23557dbe9c5e13b875f0a5cb8c612fbb824c570b6baae848"
+      },
+      {
+        "path": "<T06_WORK>/native11/bat-failure-repro/result.json",
+        "bytes": 59791,
+        "sha256": "c18818e38c189f95a8907591ff3d9f716d3347411fbce994a673ccb51091dbc1"
+      },
+      {
+        "path": "<T06_WORK>/native11/bat-cache-reproduction-process.json",
+        "bytes": 1153,
+        "sha256": "ea51b5e1ec62d5edde343b06f1772c39c5dd63e83c25eaea401b5ff5de8abd2f"
+      }
+    ],
+    "meaning": "A verified package-bound installed-only manager listing creates its informational welcome marker in the isolated developer cache. This is not runtime acquisition or a product discovery failure."
+  },
+  "repair_contract": {
+    "cache_record_schema_version": 2,
+    "explicit_version_scope": "Nested converter_absence_environment v2; current source-bound consumers reject the prior shape. Historical reports and the separate legacy native acceptance schema remain unchanged.",
+    "windows_cache": "The same three preauthored Microsoft/Windows/Caches directories remain empty, ordinary, guarded and identity-equal.",
+    "optional_manager_cache": "Only Python/_cache/last_welcome.txt, with ordinary non-reparse directories, ordinary single-link file, at most4096 bytes and exact known numeric-version welcome syntax.",
+    "dynamic_provenance": "Marker bytes/hash must match a same-run independent verified official-manager list --format=exe reference. No captured manager hash/version is an application or test acceptance allowlist.",
+    "no_selection": "Reference inventory is test side-effect provenance only; no runtime or manager configuration is supplied to application/setup, no install or acquisition is allowed.",
+    "bounds": "Tiny fixed directory enumerations reject extras immediately; native reference query/listing is bounded and supervised.",
+    "field_truth": "windows_cache_inventory_unchanged replaces the false whole-cache-empty promise; manager_cache_observation records the optional side effect separately."
+  },
+  "negative_controls": [
+    "Unknown root/Windows/cache/Python paths and files",
+    "Empty, oversized, malformed or foreign-URL welcome bytes",
+    "Actual authored hardlinked marker",
+    "Actual authored Windows directory junction",
+    "Simulated symlink/reparse marker attributes",
+    "Prebuilt marker or missing observation",
+    "Missing/cross-paired full official package identity",
+    "Install argv, attempted acquisition, supplied selection or changed manager hash",
+    "Nonzero listing, missing package binding, incomplete streams or duration bound violation",
+    "Changed Windows identities, boolean/invalid IDs, legacy field/schema omissions",
+    "Bounded enumeration refuses before a fourth root entry"
+  ],
+  "focused_runs": [
+    {
+      "record": "<T06_WORK>/cache-unit-v2-final.command.json",
+      "bytes": 2712,
+      "sha256": "a5002926320725ab2e771fd8060fa255078400545f08f92708b2848bdd843ebb",
+      "exit_code": 0,
+      "elapsed_seconds": 0.5196404999987863,
+      "tests_run": 11,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 1938,
+        "sha256": "c02b0d9b9721a3b7b66e769a05107cdb2cbbf2dab7def4c833e1e8f3ce2cd4e4"
+      }
+    },
+    {
+      "record": "<T06_WORK>/cache-runtime-receipt-v2-final.command.json",
+      "bytes": 2650,
+      "sha256": "6b4cdf4682e930e0d16572ca824e0ad29cb728c9391b332cbda7515844a2e393",
+      "exit_code": 0,
+      "elapsed_seconds": 3.0989828999991005,
+      "tests_run": 10,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 1878,
+        "sha256": "2d23ab75140e9eb5df50662137934b8e30f95b6648bbd0c969a2f9ae678e6a03"
+      }
+    },
+    {
+      "record": "<T06_WORK>/cache-runner-v2-final.command.json",
+      "bytes": 9591,
+      "sha256": "d90c9e8fcdecdd714300fe64a95945f2502cdea1b29754a3a7378b8d5f672182",
+      "exit_code": 0,
+      "elapsed_seconds": 11.401098799997271,
+      "tests_run": 51,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 8745,
+        "sha256": "69293ab32bab5141b5e99156b9213cb4d7c0d41015e5d61727ca4854dc9d30e6"
+      }
+    },
+    {
+      "record": "<T06_WORK>/cache-bat-component-02.command.json",
+      "bytes": 861,
+      "sha256": "4059297967fd005e649573e78ada3485be57d6fb03090ea758d42db2206c069e",
+      "exit_code": 0,
+      "elapsed_seconds": 12.488790200000949,
+      "tests_run": null,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 145,
+        "sha256": "cc6e8e51f988682d60d706c00f7ce95713754cfac836a7d1fd63e7126a1df68f"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "record": "<T06_WORK>/cache-probe-ps51-final.command.json",
+      "bytes": 1067,
+      "sha256": "4db5801c45223a5f58805ab24e6e7dafab74ea4a65b8efd5c55e645f89b5f654",
+      "exit_code": 0,
+      "elapsed_seconds": 2.3128254000002926,
+      "tests_run": null,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "record": "<T06_WORK>/cache-probe-ps7-final.command.json",
+      "bytes": 1111,
+      "sha256": "18516c15e965b1a21cd5473fe3962757c68f922bfa1b1545ffd56ec027f6f710",
+      "exit_code": 0,
+      "elapsed_seconds": 1.1411370999994688,
+      "tests_run": null,
+      "failures": 0,
+      "skips": 0,
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "actual_repaired_fixture": {
+    "receipt": {
+      "path": "<T06_WORK>/oracle-repair/bat-positive-02/result.json",
+      "bytes": 68895,
+      "sha256": "d7ed7a13a5d9893d799f56dd0a67f180e6e090f92faee1db3d209c49d2e2fdb4"
+    },
+    "status": "PASS_DEVELOPER_NEGATIVE_COMPONENT",
+    "source_guard_passed": true,
+    "BAT_exit_code": 3,
+    "dependency_code": "converter_not_found",
+    "written_count": 0,
+    "engine_invocation_record_absent": true,
+    "conversion_started": false,
+    "windows_directory_identities_before": {
+      "Microsoft": {
+        "device": 7216129139090590660,
+        "inode": 12947848929467044
+      },
+      "Microsoft/Windows": {
+        "device": 7216129139090590660,
+        "inode": 7881299348675277
+      },
+      "Microsoft/Windows/Caches": {
+        "device": 7216129139090590660,
+        "inode": 11540474045913807
+      }
+    },
+    "windows_directory_identities_after": {
+      "Microsoft": {
+        "device": 7216129139090590660,
+        "inode": 12947848929467044
+      },
+      "Microsoft/Windows": {
+        "device": 7216129139090590660,
+        "inode": 7881299348675277
+      },
+      "Microsoft/Windows/Caches": {
+        "device": 7216129139090590660,
+        "inode": 11540474045913807
+      }
+    },
+    "Windows_cache_empty": true,
+    "manager_marker": {
+      "directories": {
+        "Python": {
+          "device": 7216129139090590660,
+          "inode": 10977524092492513
+        },
+        "Python/_cache": {
+          "device": 7216129139090590660,
+          "inode": 11540474045913838
+        }
+      },
+      "relative": "Python/_cache/last_welcome.txt",
+      "bytes": 163,
+      "sha256": "00d966115a1caee96a100850b228846c8f58afdb13560cb639a324646fbea174",
+      "version": "26.4",
+      "links": 1,
+      "device": 7216129139090590660,
+      "inode": 12103423999335156
+    },
+    "reference": {
+      "kind": "VERIFIED_INSTALLED_ONLY_MANAGER_CACHE_REFERENCE",
+      "reference_probes": 1,
+      "manager_package_family": "PythonSoftwareFoundation.PythonManager_3847v3x7pw1km",
+      "manager_package_version": "26.4.240.0",
+      "manager_package_full_name": "PythonSoftwareFoundation.PythonManager_26.4.240.0_x64__3847v3x7pw1km",
+      "manager_sha256_before": "734faa1a06444a60b189d78f206243da05314787b70c9be28e266e2b434d13d8",
+      "manager_sha256_after": "734faa1a06444a60b189d78f206243da05314787b70c9be28e266e2b434d13d8",
+      "listing_command": [
+        "list",
+        "--format=exe"
+      ],
+      "actual_listing_pid": 6616,
+      "actual_exit_code": 0,
+      "package_identity_verified": true,
+      "parent_environment_unchanged": true,
+      "runtime_acquisition_attempted": false,
+      "supplied_to_application": false,
+      "marker_matches_actual_same_run_reference_bytes": true,
+      "reference_raw": {
+        "path": "<T06_WORK>/oracle-repair/bat-positive-02/cwd/manager-cache-reference/reference.json",
+        "bytes": 5036,
+        "sha256": "51bf8f49593977f199aac78ca112df2f30fff9f30d7fd5f8cc06d2f54ff03b4d"
+      }
+    },
+    "limitation": "Developer negative conversion fixture with owned redirected LOCALAPPDATA and controlled developer PATH; not existing-owner Store or automatic setup acceptance."
+  },
+  "syntax_analysis": [
+    {
+      "path": "<T06_WORK>/oracle-repair/probe-ps51-final.json",
+      "bytes": 190,
+      "sha256": "0a17e3e694719c7ecfda1c4eda8817d41beeafe10cc9f2d92c044f9311c17d5b",
+      "host_version": "5.1.26100.9711",
+      "syntax_errors": 0,
+      "scoped_findings": 0
+    },
+    {
+      "path": "<T06_WORK>/oracle-repair/probe-ps7-final.json",
+      "bytes": 116,
+      "sha256": "d5780f81d8f644a9fca46400a4d1960ce1d2dea80a408133e7d99cf476e12954",
+      "host_version": "7.6.5",
+      "syntax_errors": 0,
+      "scoped_findings": 0
+    }
+  ],
+  "preserved_exploration": {
+    "first_external_review_driver": {
+      "path": "<T06_WORK>/oracle-repair/bat-positive/result.json",
+      "bytes": 49424,
+      "sha256": "70f01e0e37f5ea062f318974a4106f26a193e5dba81ea183ae2866e2b75f3846"
+    },
+    "failure": "External driver used a nonexistent validator function name after the maintained BAT case and reference completed. No product failure or pass is invented.",
+    "fix": "Driver02 calls the actual validate_conversion_bat_diagnostics function and uses a fresh fixture.",
+    "initial_direct_units": "10 cache and10 runtime-receipt units passed before adding the actual junction control and explicit nested schema2. Their outputs were direct tool transcripts only, not the final preserved test receipts."
+  },
+  "privacy_and_measurement": {
+    "raw_reports_remain_external": true,
+    "public_output_contains_only_compact_normalized_summaries_and_original_byte_hashes": true,
+    "native_stdout_stderr_original_totals_not_relabelled": true,
+    "encoded_commands_in_new_public_receipt": false,
+    "normalization": "No full raw stdout, stderr, private paths or encoded script bodies are copied here. Original command/report bytes remain external; listed lengths/hashes identify those original bytes.",
+    "limits": "Current actual bound-list stdout is empty and stderr contains the nonprivate welcome text. A future normalized native listing with path substitutions must retain original byte counts/hashes separately from redacted text lengths."
+  },
+  "review": "Independent kit and native reviewers reported no remaining actionable finding after inspecting the final source, final11+10+51focused outputs, both syntax/analysis reports, actual BAT/reference/consumer and retained original failure.",
+  "publication_native_owner_gate": "NOT_RUN_BLOCKED",
+  "whitespace_check": {
+    "command": [
+      "git",
+      "-c",
+      "core.whitespace=cr-at-eol",
+      "diff",
+      "--check"
+    ],
+    "exit_code": 0
+  },
+  "frozen_source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "frozen_source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9"
+}

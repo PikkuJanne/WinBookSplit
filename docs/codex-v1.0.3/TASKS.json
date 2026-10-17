@@ -148,7 +148,7 @@
       "depends_on": [
         "T05"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "brief": "tasks/06-T06.md",
       "acceptance_ids": [
         "STORE-031",
@@ -157,6 +157,25 @@
         "STORE-034",
         "STORE-035",
         "STORE-036"
+      ],
+      "completion_scope": "Source/package/CI and consolidated native-kit preparation only. Frozen R and final assets/kit are independently verified; exact generated command, actual blocked schema2 return/offline refusal, exact-ZIP labelled developer PDF/policy rehearsal and Windows11/authored Calibre regressions are recorded. Actual existing owner Windows10 Store/fresh automatic setup and enforced organization-policy denial remain NOT_RUN/BLOCKED at T07. No publication/tag.",
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json",
+        "evidence/T06-baseline.json",
+        "evidence/T06-cache-repair.json",
+        "evidence/T06-ci.json",
+        "evidence/T06-conversion-final.json",
+        "evidence/T06-final-package-review.json",
+        "evidence/T06-final-package.json",
+        "evidence/T06-native11.json",
+        "evidence/T06-package-review.json",
+        "evidence/T06-package.json",
+        "evidence/T06-policy.json",
+        "evidence/T06-source-equivalence.json",
+        "evidence/T06-source-review.json",
+        "evidence/T06-suites.json",
+        "OWNER_KIT.md"
       ]
     },
     {

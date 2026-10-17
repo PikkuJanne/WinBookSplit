@@ -1,0 +1,1311 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "status": "PASS_PACKAGE_AND_TOOLING_SCOPE_ONLY",
+  "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+  "package_and_kit_byte_audit": {
+    "task": "T06",
+    "kind": "INDEPENDENT_GIT_BLOB_AND_KIT_ARCHIVE_BYTE_AUDIT",
+    "success": true,
+    "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9",
+    "distribution_assets": {
+      "release-manifest.json": {
+        "bytes": 16593,
+        "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+      },
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+      },
+      "WinBookSplit-v1.0.3.zip": {
+        "bytes": 932894,
+        "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      }
+    },
+    "allowlisted_members": [
+      {
+        "bytes": 6267,
+        "git_blob": "47dea25781241ccd5d2545d6aa47b57dbdd1fcf7",
+        "git_mode": "100644",
+        "path": "CHANGELOG.md",
+        "scope": "support_source",
+        "sha256": "730343ffb6c0ebe8d739adc5e69ad9462c03ceb4878cd31f166a12b52c2d9b40"
+      },
+      {
+        "bytes": 1839,
+        "git_blob": "ae6ca5a934283bec164b0f1aa6928396c1c9a15c",
+        "git_mode": "100644",
+        "path": "CONTRIBUTING.md",
+        "scope": "support_source",
+        "sha256": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8"
+      },
+      {
+        "bytes": 863,
+        "git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a",
+        "git_mode": "100644",
+        "path": "Export-WinBookSplitDiagnostics.ps1",
+        "scope": "runtime",
+        "sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e"
+      },
+      {
+        "bytes": 1070,
+        "git_blob": "d8cca2639474e791c0aaa4d77aac79d8c8900359",
+        "git_mode": "100644",
+        "path": "LICENSE",
+        "scope": "support_source",
+        "sha256": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477"
+      },
+      {
+        "bytes": 14130,
+        "git_blob": "f1f59154399cb1541a1e87b9d158dcf563e56570",
+        "git_mode": "100644",
+        "path": "README.md",
+        "scope": "support_source",
+        "sha256": "b13e2ff92e8f76cf1975fa4ea31cc01570e6c939b6269a0d342df51ab2c82e70"
+      },
+      {
+        "bytes": 5196,
+        "git_blob": "2becaab36c890d0d4fb526e19249607962326e2a",
+        "git_mode": "100644",
+        "path": "SECURITY.md",
+        "scope": "support_source",
+        "sha256": "3a488780ad454f02fcae8822e503641eedddbda8800f7492dd502d536a768ac5"
+      },
+      {
+        "bytes": 938,
+        "git_blob": "c07c2b5fb54089f11019f18055f850c6884660a4",
+        "git_mode": "100644",
+        "path": "Setup-WinBookSplit.bat",
+        "scope": "runtime",
+        "sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500"
+      },
+      {
+        "bytes": 7110,
+        "git_blob": "004d06f96e3947fbbc2b44059e14974749e1d402",
+        "git_mode": "100644",
+        "path": "Setup-WinBookSplit.ps1",
+        "scope": "runtime",
+        "sha256": "b82a7861a9e520a4f5d00073d49ebafb06cfd396ea24b5e48ef13d761c0315a9"
+      },
+      {
+        "bytes": 2754,
+        "git_blob": "95dfd72fae9086c91da9a244f37ff4fba239060d",
+        "git_mode": "100644",
+        "path": "THIRD_PARTY_NOTICES.md",
+        "scope": "support_source",
+        "sha256": "782e08a51031e58c7526b1076d18037f30a1f3c795ca1b16a270c8da0856fbe8"
+      },
+      {
+        "bytes": 6,
+        "git_blob": "21e8796a09d4f26935ffc4879147879a153f0193",
+        "git_mode": "100644",
+        "path": "VERSION",
+        "scope": "runtime",
+        "sha256": "f5e5c9534532840fcd45bb002e69ed85c61dba2753450e26b448b7df1481e24d"
+      },
+      {
+        "bytes": 1145,
+        "git_blob": "e47e0d09da554fcf9865d453e4caf65a03839e4a",
+        "git_mode": "100644",
+        "path": "WinBookSplit.bat",
+        "scope": "runtime",
+        "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893"
+      },
+      {
+        "bytes": 370070,
+        "git_blob": "26bbd71d5c7de3a117756579d8b05306fa803a48",
+        "git_mode": "100644",
+        "path": "WinBookSplit.ico",
+        "scope": "support_source",
+        "sha256": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42"
+      },
+      {
+        "bytes": 69485,
+        "git_blob": "d83b80b9c6b67a3296e6e564938b91fee6484aa1",
+        "git_mode": "100644",
+        "path": "WinBookSplit.ps1",
+        "scope": "runtime",
+        "sha256": "fb4be7e8104f21fb6c7e9aba6e5c838bfcdb8841f834e67b53c66b8f03786332"
+      },
+      {
+        "bytes": 3352,
+        "git_blob": "12cd8ea2230884951233b7c36eb06541359f8419",
+        "git_mode": "100644",
+        "path": "docs/EBOOK_SUPPORT.md",
+        "scope": "support_source",
+        "sha256": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44"
+      },
+      {
+        "bytes": 3344,
+        "git_blob": "c7f348f935090452cb72892e722244f95e452621",
+        "git_mode": "100644",
+        "path": "docs/PDF_FIDELITY.md",
+        "scope": "support_source",
+        "sha256": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e"
+      },
+      {
+        "bytes": 4143,
+        "git_blob": "ca765694e9f1bf4a6e64ff94ab836a7f910cee35",
+        "git_mode": "100644",
+        "path": "docs/PDF_POLICY.md",
+        "scope": "support_source",
+        "sha256": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318"
+      },
+      {
+        "bytes": 13423,
+        "git_blob": "09a20d285f8181ec768f316fa6f01c3fc4ddf3f4",
+        "git_mode": "100644",
+        "path": "docs/SETUP.md",
+        "scope": "support_source",
+        "sha256": "f08edbbc2ebe8b4fa5e54aba46ff3e56d2288899f31a472f8e1589d39b055684"
+      },
+      {
+        "bytes": 6306,
+        "git_blob": "c37d652b4c1ca92bcb5d36ce9033ae011192bf11",
+        "git_mode": "100644",
+        "path": "docs/SUPPORT_DIAGNOSTICS.md",
+        "scope": "support_source",
+        "sha256": "0a5ef958186a5c258816a0dd299b23560d7fb3ad8fcd2984b35444d0348a11f6"
+      },
+      {
+        "bytes": 8210,
+        "git_blob": "82a09ef2b93701dc34d549bdda07a4e5d277bac2",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Compatibility.json",
+        "scope": "runtime",
+        "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+      },
+      {
+        "bytes": 16904,
+        "git_blob": "a6aaa1cf036b749269db8cf8cd1fbbd801ae6eac",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Compatibility.ps1",
+        "scope": "runtime",
+        "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+      },
+      {
+        "bytes": 34881,
+        "git_blob": "3a2cace33012a99450bd7f5ba27fe44ef2998c0c",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Diagnostics.ps1",
+        "scope": "runtime",
+        "sha256": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5"
+      },
+      {
+        "bytes": 13060,
+        "git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Logging.ps1",
+        "scope": "runtime",
+        "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+      },
+      {
+        "bytes": 1581,
+        "git_blob": "7acc3498b6ea420f31042fb94f12f2ab8b5f01a0",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Outcomes.json",
+        "scope": "runtime",
+        "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+      },
+      {
+        "bytes": 4142,
+        "git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Paths.ps1",
+        "scope": "runtime",
+        "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+      },
+      {
+        "bytes": 44221,
+        "git_blob": "2239f06292ba16d35e84a3471caa9cc171539483",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Process.ps1",
+        "scope": "runtime",
+        "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      {
+        "bytes": 58979,
+        "git_blob": "d9a82fedae50c53b748731cccfa6d56456cae038",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Runtime.ps1",
+        "scope": "runtime",
+        "sha256": "2206b938b6a8f9790ab848f2f5e50904d2dea99ee2ee300a545ad621b75768c7"
+      },
+      {
+        "bytes": 32153,
+        "git_blob": "3b9292b93d33bb617300699c1e6a83b287b988cb",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Setup.ps1",
+        "scope": "runtime",
+        "sha256": "c2be57f1a1d44d34ff0bfef3d7844fc4f144ea2ddd7c8c563b3930583bea2d4e"
+      },
+      {
+        "bytes": 27250,
+        "git_blob": "e2c7c4b35c8c03b328a9db65d0e7b3b655ee3c4a",
+        "git_mode": "100644",
+        "path": "engine/WinBookSplit.Support.ps1",
+        "scope": "runtime",
+        "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+      },
+      {
+        "bytes": 20075,
+        "git_blob": "d10376bf3ddf5895caee155327462903611b54ae",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_compatibility.py",
+        "scope": "runtime",
+        "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+      },
+      {
+        "bytes": 27985,
+        "git_blob": "c4be44b33a2ae7712d702ed7e353f58845361016",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_conversion.py",
+        "scope": "runtime",
+        "sha256": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2"
+      },
+      {
+        "bytes": 101647,
+        "git_blob": "caed3e271b2294b515872bf6209e2b83e3aeb3c3",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_engine.py",
+        "scope": "runtime",
+        "sha256": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523"
+      },
+      {
+        "bytes": 14965,
+        "git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_job.py",
+        "scope": "runtime",
+        "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581"
+      },
+      {
+        "bytes": 10933,
+        "git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a",
+        "git_mode": "100644",
+        "path": "engine/winbooksplit_windows.py",
+        "scope": "runtime",
+        "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      {
+        "bytes": 255,
+        "git_blob": "5358828318fc8c9291a38ec52e89baf228db7cbe",
+        "git_mode": "100644",
+        "path": "requirements.txt",
+        "scope": "runtime",
+        "sha256": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+      }
+    ],
+    "member_count": 34,
+    "all_members_equal_R_git_blobs": true,
+    "two_builds_all_three_assets_identical": true,
+    "kit_archive": {
+      "bytes": 1559722,
+      "sha256": "e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc"
+    },
+    "kit_bindings_sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b",
+    "kit_source": {
+      "fixtures_payload_sha256": "fd81ec3ed4ea9e3b4e7833f24ad44204f1b426e6bb4d4450229a714d019cae82",
+      "helpers_payload_sha256": "39bae154024628f600ba6f3bf134da66a86944fb765be343f75d800a743b6f29",
+      "mode": "COMMITTED",
+      "repository_observation": null,
+      "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "source_tree": "ea0db1cc5f5494b508f140deaf25eff87a7e39d9"
+    },
+    "kit_member_count": 35,
+    "kit_zip_equals_generated_directory": true,
+    "kit_archive_members": {
+      "README.txt": {
+        "bytes": 507,
+        "sha256": "733ed7f3138365c51a61a4d3fdeb04fd5585503679320e976fa65bb4beedfc48"
+      },
+      "Run-Windows10.cmd": {
+        "bytes": 237,
+        "sha256": "e4a4bdf98c1560ed095020eb5ae05330a05568c4fc9490e8f76b0bac673b3dd8"
+      },
+      "Run-Windows10.ps1": {
+        "bytes": 21119,
+        "sha256": "d0891f9e9b20fcdb1b79c23fc19fcb52c3345bbd282cc269759b2e51009b9acc"
+      },
+      "assets/SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "795410aa2a76ef75e9f4d37c1edb36435c640a7296dd87ab9efd05b3aa5d8ba9"
+      },
+      "assets/WinBookSplit-v1.0.3.zip": {
+        "bytes": 932894,
+        "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      },
+      "assets/release-manifest.json": {
+        "bytes": 16593,
+        "sha256": "d0bda3a3fdecca0c090f2e9454e4d1b896dd20a72a8bbf779369dedaa5a38f21"
+      },
+      "engine/WinBookSplit.Compatibility.json": {
+        "bytes": 8210,
+        "sha256": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582"
+      },
+      "engine/WinBookSplit.Compatibility.ps1": {
+        "bytes": 16904,
+        "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c"
+      },
+      "engine/WinBookSplit.Diagnostics.ps1": {
+        "bytes": 34881,
+        "sha256": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5"
+      },
+      "engine/WinBookSplit.Logging.ps1": {
+        "bytes": 13060,
+        "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6"
+      },
+      "engine/WinBookSplit.Outcomes.json": {
+        "bytes": 1581,
+        "sha256": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29"
+      },
+      "engine/WinBookSplit.Paths.ps1": {
+        "bytes": 4142,
+        "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e"
+      },
+      "engine/WinBookSplit.Process.ps1": {
+        "bytes": 44221,
+        "sha256": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be"
+      },
+      "engine/WinBookSplit.Runtime.ps1": {
+        "bytes": 58979,
+        "sha256": "2206b938b6a8f9790ab848f2f5e50904d2dea99ee2ee300a545ad621b75768c7"
+      },
+      "engine/WinBookSplit.Support.ps1": {
+        "bytes": 27250,
+        "sha256": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb"
+      },
+      "engine/winbooksplit_compatibility.py": {
+        "bytes": 20075,
+        "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13"
+      },
+      "engine/winbooksplit_windows.py": {
+        "bytes": 10933,
+        "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      "fixtures/flat-6.pdf": {
+        "bytes": 5127,
+        "sha256": "a3ada3779ffc7d33a594c45c082069edb3a857bdb1807aa716cee2d1c785b1dd"
+      },
+      "fixtures/native-fixtures.json": {
+        "bytes": 1984,
+        "sha256": "995e8101f1694d85024b7dc391dde2e7190bc6a75a1d3645554ac0a35d56b3bf"
+      },
+      "fixtures/nested-12.pdf": {
+        "bytes": 10094,
+        "sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+      },
+      "fixtures/original-three-chapters.azw3": {
+        "bytes": 12844,
+        "sha256": "f81b87e9e5df9955fcf20c549f4538041772c00836665945dd37329a860046f3"
+      },
+      "fixtures/original-three-chapters.epub": {
+        "bytes": 3244,
+        "sha256": "7d57343db032da37d142209ac8e7046f24bd9e7c04712753fd6f55f86187a32c"
+      },
+      "fixtures/simple-10.pdf": {
+        "bytes": 8211,
+        "sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+      },
+      "kit-bindings.json": {
+        "bytes": 6460,
+        "sha256": "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b"
+      },
+      "kit-manifest.json": {
+        "bytes": 5381,
+        "sha256": "bf33a35188b92adb44536112f3233b3c5b6bff9fa9ebdd5186b41a395fd19309"
+      },
+      "tests/cli/Probe-Help.ps1": {
+        "bytes": 350,
+        "sha256": "e38816e791d027fa89a389d0722eb954b6066165fe8a13b6e30b25353b35032c"
+      },
+      "tests/compatibility/validate_setup_remedy.py": {
+        "bytes": 3090,
+        "sha256": "7722f2c51d59e9f5f46c874a89281e8909e24812ea8bc3001549368f0942cd98"
+      },
+      "tests/process/session_child.py": {
+        "bytes": 3370,
+        "sha256": "4a0d4e4b4acdef966ede22984a304c6677b726f6062cc6b9cb2cad1a5ba305eb"
+      },
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": {
+        "bytes": 78577,
+        "sha256": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69"
+      },
+      "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": {
+        "bytes": 3236,
+        "sha256": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679"
+      },
+      "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1": {
+        "bytes": 36523,
+        "sha256": "1059f97369cd7b620c6f955f9d799e8034e11516606bf1f9e709eea59e5148fd"
+      },
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": {
+        "bytes": 46618,
+        "sha256": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4"
+      },
+      "tools/compatibility/kit_builder.py": {
+        "bytes": 28995,
+        "sha256": "d5235ca46a5b13413a30ddc8f9c3313e13b48daba40d741d433398d82ff4ef4d"
+      },
+      "tools/compatibility/native_smoke.py": {
+        "bytes": 69909,
+        "sha256": "95b5c5f022ba9e7b7726f365b814db16c7aae0547a6d01ced9e5ca1bc7469729"
+      },
+      "tools/release/frozen_assets.py": {
+        "bytes": 19085,
+        "sha256": "37625e5bc35c3236d1a323fe7f447fd1ee1b17ac21905ba9da183f3ed8b4ddc9"
+      }
+    },
+    "generated_cmd_explicit_scenario": "store-existing",
+    "generated_cmd_provisions_prerequisites": false,
+    "launch_command": "& (Join-Path $env:USERPROFILE 'Downloads\\WinBookSplit-v103-native-kit-243d31e\\Run-Windows10.cmd')",
+    "meaning": "Authenticates package and kit bytes only. Native Windows10 Store acceptance remains NOT_RUN."
+  },
+  "exact_launch": {
+    "command": "& (Join-Path $env:USERPROFILE 'Downloads\\WinBookSplit-v103-native-kit-243d31e\\Run-Windows10.cmd')",
+    "actual_host": "Windows11 build26300 inboxPS5.1.26100.9711",
+    "default_cmd_exit": 1,
+    "default_cmd_failure_stage": "os",
+    "windows11_dryrun_exit": 1,
+    "windows11_dryrun_failure_stage": "independent_existing_inventory",
+    "meaning": "Actual default command and separately flagged dryrun test failure behavior. Neither passes owner Windows10 acceptance."
+  },
+  "returned_schema2_byte_audit": {
+    "kind": "INDEPENDENT_BLOCKED_RETURN_BYTE_AUDIT_NOT_ACCEPTANCE",
+    "success": true,
+    "source_commit": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+    "zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+    "returned_archive_sha256": "6338317753927c9dd59bbc3804334c226b9ce61c2380d7ebf526dc57b6f78efe",
+    "report_status": "blocked",
+    "failure": {
+      "message": "Existing Store registration is absent or ambiguous; Python fallback acquisition is disabled.",
+      "stage": "independent_existing_inventory"
+    },
+    "run_id": "store_645538ba22f643208918a0c3a12ee274",
+    "host": {
+      "execution_kind": "native",
+      "owner_desktop": false,
+      "os": "Windows 11",
+      "build": 26300,
+      "architecture": "x64",
+      "powershell_version": "5.1.26100.9711"
+    },
+    "fallback_acquisition": {
+      "policy": "disabled_before_discovery",
+      "attempted": false,
+      "used": false
+    },
+    "inventory": {
+      "purpose": "verification_only",
+      "supplied_to_application": false
+    },
+    "members": [
+      {
+        "path": "registration.json",
+        "bytes": 4004,
+        "sha256": "de8088d4a7e23aa989b67416c59df4c457208b143d818f23f9638c158fe87e40",
+        "record_count": 1
+      },
+      {
+        "path": "discovery.json",
+        "bytes": 372,
+        "sha256": "826e462910de04c56f1fd6226a85735e5f2d3450744b26bd7a28f92b45bf5263",
+        "record_count": 1
+      },
+      {
+        "path": "setup.json",
+        "bytes": 368,
+        "sha256": "ff165440c9ad1c371bbea86cc7be77e0d2469999e6f9557095a219b63dbaf1b7",
+        "record_count": 1
+      },
+      {
+        "path": "bat.json",
+        "bytes": 432,
+        "sha256": "8b4454b2f879135e116872b7bbc9947de89789e7907e2dd37dcca3b45e5b934c",
+        "record_count": 1
+      },
+      {
+        "path": "pdf_validation.json",
+        "bytes": 548,
+        "sha256": "50ca7a3b693c29ac010d8ab7a9589275a284b5d053e6613226e69f5b8d9300db",
+        "record_count": 1
+      },
+      {
+        "path": "preservation.json",
+        "bytes": 1316,
+        "sha256": "0425ac567d8b690554697c3df75220455b1551046a7333590e34a0c14bd0b8ca",
+        "record_count": 1
+      }
+    ],
+    "meaning": "All returned bytes and envelopes agree. This blocked report cannot satisfy native acceptance."
+  },
+  "offline_checker": {
+    "exit_code": 2,
+    "result": "{\"status\": \"BLOCKED\", \"reason\": \"[WinError 2] The system cannot find the file specified: '<USER>\\\\\\\\.cache\\\\\\\\WBS-Native-d8714b006afe43df80d1faabf42bae22\\\\\\\\native-store-report.json'\"}",
+    "meaning": "Expected refusal of actual blocked report. No status/host/receipt was edited to obtain a pass."
+  },
+  "exact_zip_developer_rehearsal": {
+    "scope": "EXACT_ZIP_EXPLICIT_OFFLINE_DEVELOPER_FIXTURE_NOT_STORE_ACCEPTANCE",
+    "meaning": "Explicit offline developer setup followed by healthy automatic no-op. No fresh Store or owner Windows10 acceptance.",
+    "success": true,
+    "raw_receipt": {
+      "bytes": 322539,
+      "sha256": "f4e4d862167ae3436d4908d9d10f411aea31cd45dd40dcc40ce9bdef55dd32ae"
+    },
+    "extraction_receipt": {
+      "bytes": 6036,
+      "sha256": "6d20e008e7f59e801d65af6b685976823b4be286422dcc4ffc7cb2decaf93879"
+    },
+    "all_34_payload_data_leases_held_and_final_hashes_match": true,
+    "stages": [
+      {
+        "stage": "EXPLICIT_OFFLINE_DEVELOPER_SETUP_NOT_STORE",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-InputFormat",
+          "Text",
+          "-OutputFormat",
+          "Text",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\Setup-WinBookSplit.ps1",
+          "-NonInteractive",
+          "-PythonPath",
+          "<EXISTING_DEVELOPER_TOOLS>\\runtimes\\python-3.14.8-amd64\\python.exe",
+          "-Wheelhouse",
+          "<EXISTING_DEVELOPER_TOOLS>\\setup-tests-05-01\\wheelhouse"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work",
+        "exit_code": 0,
+        "elapsed_seconds": 16.252748399999998,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 13546,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "82064222d5700b8d763000d8e7cd62d5ed1fd4bb31af815bee59777ff2255a1d",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "automatic_healthy_noop_not_fresh_store_setup",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-InputFormat",
+          "Text",
+          "-OutputFormat",
+          "Text",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\Setup-WinBookSplit.ps1",
+          "-NonInteractive"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work",
+        "exit_code": 0,
+        "elapsed_seconds": 3.9713293,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 4502,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "573ddd30b348ee0c2e0a0f53518364a90063afe8d9269e33750a8bdb1b08c8b7",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "healthy_readonly_check",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-InputFormat",
+          "Text",
+          "-OutputFormat",
+          "Text",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\Setup-WinBookSplit.ps1",
+          "-NonInteractive",
+          "-Check"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work",
+        "exit_code": 0,
+        "elapsed_seconds": 4.1727069,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 4502,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "279e78ed2f507009943f9cabd7becba6eb4c32a626cd2b8b04ca1defca0f4420",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "prepare_store_pdf_recipes_tooling_only",
+        "command": [
+          "<T06_WORK>\\developer-application\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<T07_KIT>\\tools\\compatibility\\native_smoke.py",
+          "prepare-store",
+          "--application-root",
+          "<T06_WORK>\\developer-application",
+          "--fixture-root",
+          "<T07_KIT>\\fixtures",
+          "--work-root",
+          "<T06_WORK>\\exact-pdf-work\\cases",
+          "--python-path",
+          "<T06_WORK>\\developer-application\\.venv\\Scripts\\python.exe",
+          "--documents-root",
+          "<USER>\\Documents",
+          "--policy-sha256",
+          "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+          "--output",
+          "<T06_WORK>\\exact-pdf-work\\plan.json"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work",
+        "exit_code": 0,
+        "elapsed_seconds": 0.6163213,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 0,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "manual",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\WinBookSplit.ps1",
+          "-InputFile",
+          "<T06_WORK>\\exact-pdf-work\\cases\\manual\\Authored \u00c5\u65e5.pdf",
+          "-OutputDirectory",
+          "<T06_WORK>\\exact-pdf-work\\cases\\manual\\output",
+          "-Mode",
+          "Manual",
+          "-StartPages",
+          "1,4,7",
+          "-NonInteractive"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work\\cases\\manual\\unrelated-cwd",
+        "exit_code": 0,
+        "elapsed_seconds": 5.8651604,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 5998,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "d7dc9575dc1ad958ba9dd1492ee8becde5837317f256afde521d84cae3ad4daa",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "auto1",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\WinBookSplit.ps1",
+          "-InputFile",
+          "<T06_WORK>\\exact-pdf-work\\cases\\auto1\\Authored \u00c5\u65e5.pdf",
+          "-OutputDirectory",
+          "<T06_WORK>\\exact-pdf-work\\cases\\auto1\\output",
+          "-Mode",
+          "Auto",
+          "-BookmarkLevel",
+          "1",
+          "-NonInteractive"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work\\cases\\auto1\\unrelated-cwd",
+        "exit_code": 0,
+        "elapsed_seconds": 5.1470614,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 6993,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "4f7b7904267dfb995cd9003e5c2f232cfae9b8f3b270a1a1c7d77b8165b3644a",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "auto2",
+        "command": [
+          "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<T06_WORK>\\developer-application\\WinBookSplit.ps1",
+          "-InputFile",
+          "<T06_WORK>\\exact-pdf-work\\cases\\auto2\\Authored \u00c5\u65e5.pdf",
+          "-OutputDirectory",
+          "<T06_WORK>\\exact-pdf-work\\cases\\auto2\\output",
+          "-Mode",
+          "Auto",
+          "-BookmarkLevel",
+          "2",
+          "-NonInteractive"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work\\cases\\auto2\\unrelated-cwd",
+        "exit_code": 0,
+        "elapsed_seconds": 5.9886928,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 9310,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "fc5556f196b01f31ed37d7dd576db70da12ecbf9cde8f5f6352d428790dae841",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "bat",
+        "command": [
+          "C:\\WINDOWS\\system32\\cmd.exe",
+          "/d",
+          "/v:off",
+          "/c",
+          "<T06_WORK>\\exact-pdf-work\\cases\\bat\\ordinary-bat.cmd"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work\\cases\\bat\\unrelated-cwd",
+        "exit_code": 0,
+        "elapsed_seconds": 5.3419482,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 6748,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "b359c62c6718d6d6b7e3e9848b389c6f075af11fff4a623dc95853d65f8929fa",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "stage": "validate_full_page_coverage_and_preservation",
+        "command": [
+          "<T06_WORK>\\developer-application\\.venv\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<T07_KIT>\\tools\\compatibility\\native_smoke.py",
+          "validate-store",
+          "--plan",
+          "<T06_WORK>\\exact-pdf-work\\plan.json",
+          "--process-report",
+          "<T06_WORK>\\exact-pdf-work\\process.json",
+          "--output",
+          "<T06_WORK>\\exact-pdf-work\\oracle.json"
+        ],
+        "cwd": "<T06_WORK>\\exact-pdf-work",
+        "exit_code": 0,
+        "elapsed_seconds": 0.7002727,
+        "safe_stop_and_drain": true,
+        "controller_environment_restored": true,
+        "stdout_total_bytes": 0,
+        "stderr_total_bytes": 0,
+        "raw_stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "raw_stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "oracle_receipt": {
+      "bytes": 254382,
+      "sha256": "ce982c8bdd5ff2966d22e6f8498a5dbfc027551545f04886fff3f6d1c8d2882d"
+    },
+    "source_unchanged": true,
+    "cases": [
+      {
+        "id": "manual",
+        "status": "PASS",
+        "exit_code": 0,
+        "written_count": 3,
+        "full_page_coverage": true,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "source_path": "<T06_WORK>\\exact-pdf-work\\cases\\manual\\Authored \u00c5\u65e5.pdf",
+        "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+      },
+      {
+        "id": "auto1",
+        "status": "PASS",
+        "exit_code": 0,
+        "written_count": 3,
+        "full_page_coverage": true,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            8
+          ],
+          [
+            8,
+            12
+          ]
+        ],
+        "source_path": "<T06_WORK>\\exact-pdf-work\\cases\\auto1\\Authored \u00c5\u65e5.pdf",
+        "source_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+      },
+      {
+        "id": "auto2",
+        "status": "PASS",
+        "exit_code": 0,
+        "written_count": 6,
+        "full_page_coverage": true,
+        "expected_ranges": [
+          [
+            0,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            8
+          ],
+          [
+            8,
+            10
+          ],
+          [
+            10,
+            12
+          ]
+        ],
+        "source_path": "<T06_WORK>\\exact-pdf-work\\cases\\auto2\\Authored \u00c5\u65e5.pdf",
+        "source_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245"
+      },
+      {
+        "id": "bat",
+        "status": "PASS",
+        "exit_code": 0,
+        "written_count": 3,
+        "full_page_coverage": true,
+        "expected_ranges": [
+          [
+            0,
+            3
+          ],
+          [
+            3,
+            6
+          ],
+          [
+            6,
+            10
+          ]
+        ],
+        "source_path": "<T06_WORK>\\exact-pdf-work\\cases\\bat\\Authored \u00c5\u65e5.pdf",
+        "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5"
+      }
+    ],
+    "policy_component": {
+      "status": "PASS",
+      "scope": "OWNED_EXACT_EXTRACTION_HEALTHY_VENV",
+      "direct_remotesigned_denied": true,
+      "marked_setup_bat_noop": true,
+      "exact_formatter_action_noop": true,
+      "source_bytes_and_marks_preserved": true,
+      "venv_unchanged": true,
+      "inbox_policy_unchanged": true,
+      "organization_policy_denial": {
+        "status": "NOT_RUN",
+        "reason": "No real enforced organization-policy denial has been demonstrated."
+      }
+    },
+    "actual_policy_records_separately_validated": true,
+    "raw_policy_redacted_receipt": {
+      "bytes": 27134,
+      "sha256": "a34d084dc79b54e2856e53d2b8c64f034ff5b966a480dea7a46cdbb8f4270c1d"
+    }
+  },
+  "commands": [
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "tools/release/build_package.py",
+        "build",
+        "--repo",
+        "<WORKSPACE>",
+        "--commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--output",
+        "<T06_WORK>\\assets"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 5.48106320000079,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 922,
+        "sha256": "3aab348985bd7c6ef544f7127eeb6310cd3a22d186f463771401067133c2cdcb"
+      },
+      "stdout": {
+        "bytes": 82,
+        "sha256": "605f371133d2f5b7cd3eed7b1ea936be23ee8f7ca88880d4f9e823d6e5d4a9ed"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "tools/release/build_package.py",
+        "verify",
+        "--repo",
+        "<WORKSPACE>",
+        "--commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--output",
+        "<T06_WORK>\\assets"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 6.181612500000483,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 924,
+        "sha256": "658b5f4ad950ad407e7de7c964be298af50164540faf3775119b1e5b42cd3a62"
+      },
+      "stdout": {
+        "bytes": 82,
+        "sha256": "605f371133d2f5b7cd3eed7b1ea936be23ee8f7ca88880d4f9e823d6e5d4a9ed"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "tools/release/build_package.py",
+        "build",
+        "--repo",
+        "<WORKSPACE>",
+        "--commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--output",
+        "<T06_WORK>\\assets-repeat"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 6.2333030000008876,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 931,
+        "sha256": "1306f390b6bed12f52fac9abd073b813d977ff99fc12c60c310e3010ca3be382"
+      },
+      "stdout": {
+        "bytes": 82,
+        "sha256": "605f371133d2f5b7cd3eed7b1ea936be23ee8f7ca88880d4f9e823d6e5d4a9ed"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "tools/compatibility/kit_builder.py",
+        "build",
+        "--scenario",
+        "store-existing",
+        "--repository-root",
+        "<WORKSPACE>",
+        "--assets-root",
+        "<T06_WORK>\\assets",
+        "--fixture-root",
+        "<USER>\\WBS-T06-81aac18e11\\fixtures",
+        "--core-path",
+        "<WORKSPACE>\\tools\\compatibility\\Invoke-NativeAcceptance.ps1",
+        "--oracle-path",
+        "<WORKSPACE>\\tools\\compatibility\\native_smoke.py",
+        "--verifier-path",
+        "<WORKSPACE>\\tools\\release\\frozen_assets.py",
+        "--output",
+        "<T07_KIT>"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 2.492043199999898,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 1377,
+        "sha256": "a9226c39136dae05bd2d24053433a6b91f7ff204888cb828495b3d4b4234b169"
+      },
+      "stdout": {
+        "bytes": 64,
+        "sha256": "87532ee02ef6dbcd16cc5d32eec470f141599629ac22711637cc4d4f901980d2"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<T06_WORK>\\launch-command.ps1"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 1,
+      "elapsed_seconds": 5.43607890000203,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 945,
+        "sha256": "bcc67aa6b3cea60e41cee7a2bb76d8fbe8656abdee8ba63d287ea85d3d455d44"
+      },
+      "stdout": {
+        "bytes": 193,
+        "sha256": "ec6af3b94778fbbcb37424a5e1ec6bb8c8476fe135ef0b7572bcb506cef2a6cc"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<T07_KIT>\\Run-Windows10.ps1",
+        "-AllowWindows11DryRun",
+        "-Execution",
+        "AGENT_LAUNCHED"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 1,
+      "elapsed_seconds": 7.897377000001143,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 1042,
+        "sha256": "cb7cf524cfc000814dfb8b633a4032a8d619f350e2a32620a1c3922a4618bf1b"
+      },
+      "stdout": {
+        "bytes": 199,
+        "sha256": "c56e2204f318534d2d9b5981f386720c92f8bc113a71ef72584479d6f41b7eb5"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "<T07_KIT>\\tools\\compatibility\\kit_builder.py",
+        "verify-extract",
+        "--kit-root",
+        "<T07_KIT>",
+        "--destination",
+        "<T06_WORK>\\developer-application",
+        "--output",
+        "<T06_WORK>\\developer-extraction.json",
+        "--bindings-sha256",
+        "446ef20b5aad8462f413ab6c43df12baa8c6d46211e921c4933bea3c3e3e818b"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 0.840242300000682,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 1199,
+        "sha256": "77afaf15034ac437d2618b1d016b626db13e9cee1dc147160c5cc8d4c6507cb6"
+      },
+      "stdout": {
+        "bytes": 65,
+        "sha256": "fd95e11939262f48c462b4b017ec2a35d9aa7b395dd1bfe4b6832fa359929fe2"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+        "-NoProfile",
+        "-NonInteractive",
+        "-ExecutionPolicy",
+        "RemoteSigned",
+        "-File",
+        "<T06_WORK>\\Rehearse-ExactPdf.ps1",
+        "-RepositoryRoot",
+        "<WORKSPACE>",
+        "-KitRoot",
+        "<T07_KIT>",
+        "-ApplicationRoot",
+        "<T06_WORK>\\developer-application",
+        "-ExtractionReceipt",
+        "<T06_WORK>\\developer-extraction.json",
+        "-DeveloperBase",
+        "<EXISTING_DEVELOPER_TOOLS>\\runtimes\\python-3.14.8-amd64\\python.exe",
+        "-Wheelhouse",
+        "<EXISTING_DEVELOPER_TOOLS>\\setup-tests-05-01\\wheelhouse",
+        "-WorkRoot",
+        "<T06_WORK>\\exact-pdf-work",
+        "-ReportPath",
+        "<T06_WORK>\\exact-pdf-rehearsal.json"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 70.78072930000053,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 1525,
+        "sha256": "4e893fa54b00b8715409644f4c0b11b0dde64aee8405d8d5a17ddbddb386a098"
+      },
+      "stdout": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "<T06_WORK>\\audit_return.py",
+        "<USER>\\.cache\\WBS-Native-d8714b006afe43df80d1faabf42bae22\\native-store-result.zip",
+        "--commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--zip-sha256",
+        "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+        "--output",
+        "<T06_WORK>\\returned-byte-audit.json"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 0,
+      "elapsed_seconds": 0.20136990000173682,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 3039,
+        "sha256": "5ea6afe008f612e8ed481299bf53c0c7f30f351d922b50ea2a5081785ba109ab"
+      },
+      "stdout": {
+        "bytes": 1864,
+        "sha256": "e6385a5b5d4a39bbe5470c35a36c4c6d49eec08a0eac205cf242044e6e60152d"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "argv": [
+        "<EXISTING_DEVELOPER_TOOLS>\\dev14\\Scripts\\python.exe",
+        "-I",
+        "-B",
+        "tools/codex-v1.0.3/check_native_store_report.py",
+        "<USER>\\.cache\\WBS-Native-d8714b006afe43df80d1faabf42bae22\\store-return\\native-store-report.json",
+        "--expected-commit",
+        "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+        "--expected-zip-sha256",
+        "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      ],
+      "cwd": "<WORKSPACE>",
+      "exit_code": 2,
+      "elapsed_seconds": 0.15855670000019018,
+      "timed_out": false,
+      "raw_command_receipt": {
+        "bytes": 1042,
+        "sha256": "51c4a52ff68ad49a8d64afe3e1ab9117b76ede931e44dee9cd86669a3297aea0"
+      },
+      "stdout": {
+        "bytes": 68,
+        "sha256": "571ef501907893ac8d5f21912da95c60d189ad35a47ee53180bba9e9a1274bc4"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "external_driver_sources": {
+    "run_record.py": {
+      "bytes": 1706,
+      "sha256": "d234677445124dcbffabcb59ad28ecb7361ba82e49834cc9b4609f6dc83603bb"
+    },
+    "audit_package.py": {
+      "bytes": 3333,
+      "sha256": "14f9aba9c6c0b8af658643e44d64bc36995e56ca15dc30b1e87e474d9383cd2b"
+    },
+    "audit_return.py": {
+      "bytes": 3002,
+      "sha256": "3151d554d9816d78255018398db33732e3a725537c76d71c846c6369a9fa8e60"
+    },
+    "Rehearse-ExactPdf.ps1": {
+      "bytes": 5985,
+      "sha256": "8751d27d97991416e8dfede5d8382689323c255e9b2c591a1d617056f0d048e1"
+    },
+    "launch-command.ps1": {
+      "bytes": 117,
+      "sha256": "f2f74aa68fbc61651bfeb6bf8544c035e17d61acbad6a37833f5da76c9517d5a"
+    }
+  },
+  "exploratory_outcomes": [
+    {
+      "stage": "developer_extraction_first_invocation",
+      "result": "Developer controller omitted required -I -B; maintained verifier rejected before extraction. Correct isolated invocation passed; both command/stream receipts retained. No Store acceptance input changed.",
+      "command_receipt": {
+        "bytes": 1149,
+        "sha256": "e81a916eba6e6798da1cf0ca9d779f4437541722416a3058c9fb00b966f419b4"
+      }
+    },
+    {
+      "stage": "offline_checker_first_invocation",
+      "result": "Developer controller initially pointed at parent instead of actual store-return report directory; checker refused missing path. Correct path separately returned native gate not executed/passed, exit2; actual blocked report unchanged.",
+      "command_receipt": {
+        "bytes": 1161,
+        "sha256": "51b9104248dc3faa5c73b73323ae4546801822c6113cc87c8fb971850dc30e37"
+      }
+    }
+  ],
+  "not_run": [
+    "actual existing-owner Windows10 Store automatic discovery/setup/BAT",
+    "fresh automatic Store setup",
+    "real enforced organization-policy denial",
+    "physical Explorer drag/drop",
+    "publication/tag/anonymous new release bytes"
+  ]
+}

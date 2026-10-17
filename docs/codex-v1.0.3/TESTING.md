@@ -1,5 +1,30 @@
 # Testing: prove the route, not just the algorithm
 
+T06 freezes committed source R and exact assets, with one generated owner
+launch/report action in `OWNER_KIT.md`. Its default command must fail on a
+non-target OS, and its separately flagged Windows11 self-test must block before
+fallback/extraction/bootstrap when no compatible existing Store runtime is
+verified. Check all seven returned members, six envelope hashes and run/source/
+ZIP correlation independently; the offline checker must still refuse a blocked
+report. Test execution and raw streams stay distinct from sanitized evidence.
+
+The exact-ZIP developer PDF rehearsal uses explicit offline setup followed by
+automatic healthy no-op/read-only Check. It verifies all four page recipes and
+the local authored MOTW/RemoteSigned/remedy component with payload data leases
+held. It does not establish fresh automatic Store setup or enforced organization
+policy. Windows11 and authored Calibre EPUB/AZW3 characterization are separate.
+
+An actual T06 full conversion run exposed the official Manager's informational
+welcome-cache write in a redirected missing-converter fixture. The repaired
+test-only nested cache schema2 preserves the empty Windows cache chain and
+held identities, and admits only the bounded ordinary single-link welcome marker
+whose exact bytes match a separate same-run verified installed-only Manager
+listing. All other paths/links/content/provenance fail. This observation is never
+application/setup selection input. Historical reports and the legacy native
+report schema stay unchanged. Broad R1 execution remains labelled R1; explicit
+Git-blob equality for all production/kit helpers, final delta checks, full
+conversion and final-source CI document the subsequent source freeze honestly.
+
 T05 adds a separate store-existing route, schema2 no-substitution/attempt gate,
 bounded UTF8 collector, actual negative launch controls with positive controls,
 failed diagnostic return ZIPs and new automatic application PDF recipes. The

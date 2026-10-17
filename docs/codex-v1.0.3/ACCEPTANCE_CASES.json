@@ -409,48 +409,78 @@
       "task": "T06",
       "name": "Package source",
       "expected": "Freeze committed source R and complete distribution ZIP; record exact hashes and allowlisted members.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "Committed R, VERSION 1.0.3 and two identical complete allowlisted builds; final manifests/kit bind R, not later docs checkpoint."
     },
     {
       "id": "STORE-032",
       "task": "T06",
       "name": "Only intended files",
       "expected": "No private report, test dependency, prebuilt venv, Python archive or handoff tool in production ZIP.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "All 34 distribution members independently equal raw R Git blobs; no private report, test dependency, runtime, prebuilt venv or handoff helper ships."
     },
     {
       "id": "STORE-033",
       "task": "T06",
       "name": "Kit self-test",
       "expected": "Validate exact owner launch command, no-fallback failure behavior, report schema, artifact hashes and stdout/stderr capture.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "Exact final owner command actually refused non-target Windows11 OS; separate no-input dryrun returned truthful blocked schema2 before fallback/bootstrap. Seven members/six envelopes/hashes independently audited; separate offline checker actual exit2. This passes tooling self-test only, not native Windows10 acceptance."
     },
     {
       "id": "STORE-034",
       "task": "T06",
       "name": "Authored workflow",
       "expected": "Prepare manual/Auto1/Auto2 and ordinary BAT inputs with independent page/coverage/source validation.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "Original authored fixtures and final exact-ZIP developer PDF/policy rehearsal passed all four full-page/source/neighbor/no-overwrite oracles and independent15-output reopening. Initial venv creation was explicit offline developer setup; automatic second setup was healthy no-op, not fresh Store acceptance."
     },
     {
       "id": "STORE-035",
       "task": "T06",
       "name": "Native11 retention",
       "expected": "Run short actual Windows11 regression and authored EPUB/AZW3 smoke with existing Calibre; do not relabel as owner Store proof.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "Actual independent Windows11 PS5.1/PS7 native checks truthfully reject unchanged 3.14.7 below the floor; R1 execution is labelled and product equality to R proved. Complete maintained R EPUB/AZW3 positive/direct/invalid/BAT characterization passed with approved existing Calibre 9.15.0."
     },
     {
       "id": "STORE-036",
       "task": "T06",
       "name": "Minimal handoff",
       "expected": "One consolidated existing-desktop launch/report handoff if needed, not repeated screenshots/install steps; unavailable desktop explicitly BLOCKED.",
-      "status": "NOT_RUN",
-      "required": true
+      "status": "PASS",
+      "required": true,
+      "evidence": [
+        "evidence/T06.md",
+        "evidence/T06.json"
+      ],
+      "result_scope": "One final validated kit/command/unchanged returned-ZIP action in OWNER_KIT.md. Actual Store/owner Windows10/fresh automatic setup and enforced organization-policy denial remain NOT_RUN/BLOCKED. No repeated broad owner diagnostics or substituted runtime evidence."
     },
     {
       "id": "STORE-037",

@@ -1,0 +1,334 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "evidence_kind": "INDEPENDENT_FROZEN_PACKAGE_AND_RETURN_REVIEW",
+  "status": "PASS_SCOPED_BYTES_AND_DEVELOPER_WORKFLOW",
+  "source_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+  "source_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+  "review_findings": [],
+  "distribution": {
+    "assets": {
+      "release-manifest.json": {
+        "bytes": 16593,
+        "sha256": "663ffac7fd380097e0823375b36850a3fd17a860ddc40736a8fbac527abcfa3d"
+      },
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "a88d0eea9735482299e4554a85cbbf4c77ae038807bb3705f4db4dbf45b29e8f"
+      },
+      "WinBookSplit-v1.0.3.zip": {
+        "bytes": 932894,
+        "sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+      }
+    },
+    "member_count": 34,
+    "exact_R_allowlist": true,
+    "every_member_compared_to_sanitized_bounded_R_git_blob": true,
+    "strict_raw_archive_recipe_validated_against_R_payload": true,
+    "manifest_file_hashes_source_tree_and_unsigned_flag_verified": true,
+    "SHA256SUMS_exactly_verified": true,
+    "three_assets_identical_to_separate_repeat_build": true,
+    "production_contains_no_native_kit_test_fixture_prebuilt_environment_or_runtime": true
+  },
+  "kit": {
+    "archive": {
+      "bytes": 1559722,
+      "sha256": "124d5de05d66bd3b85a28b99673a0b5fe4278fb19576c406ea10a82f9aacf283"
+    },
+    "build_receipt": {
+      "bytes": 6888,
+      "sha256": "704f4fb5505a9919e8c7cf017e76fe153918e64da17c8c74807f3e2b81f84a46"
+    },
+    "bindings": {
+      "bytes": 6460,
+      "sha256": "365795e1159728ddc1c06cc89db102f8c80d1ac0971664c8eeba68eaf0481a33"
+    },
+    "mode": "COMMITTED",
+    "source_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+    "members": 35,
+    "helpers_compared_to_R_blobs": 21,
+    "all_zip_directory_build_receipt_members_and_bytes_match": true,
+    "production_asset_pins_match_frozen_assets": true,
+    "generated_CMD_explicit_scenario": "store-existing",
+    "generated_CMD_provisioning_or_runtime_parameter": false,
+    "launch_command": "& (Join-Path $env:USERPROFILE 'Downloads\\WinBookSplit-v103-native-kit-3e507c8\\Run-Windows10.cmd')"
+  },
+  "actual_launch_and_checker_records": [
+    {
+      "record": "<T06_WORK>/owner-exact-command.command.json",
+      "record_sha256": "5c6a0c417edf57b339bd833af9cbaa276a63b4cfc9d8bc7dbf2d1902b79f5b2c",
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_seconds": 8.113539300000411,
+      "stdout": {
+        "bytes": 193,
+        "sha256": "6d9bae2344292717735741ca6337801214ebfe85da84e9722d1b337cb62ea6a6"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "record": "<T06_WORK>/store-win11-block.command.json",
+      "record_sha256": "e99d810017126523804a2d62f18c2cc9399e01cdc25456241dc6140f680c3a72",
+      "exit_code": 1,
+      "timed_out": false,
+      "elapsed_seconds": 13.859028799997759,
+      "stdout": {
+        "bytes": 199,
+        "sha256": "b09441dcc54751cb1752efa067f6e67933d6b4d5b9046e5be58c2f0a6bdcaa86"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    },
+    {
+      "record": "<T06_WORK>/offline-gate-expected-block.command.json",
+      "record_sha256": "c3f4eb63a8f4cb3b8eca0f0f6232d4e0982f5a96cec4db4132849020f9a6018d",
+      "exit_code": 2,
+      "timed_out": false,
+      "elapsed_seconds": 0.2751581000011356,
+      "stdout": {
+        "bytes": 68,
+        "sha256": "571ef501907893ac8d5f21912da95c60d189ad35a47ee53180bba9e9a1274bc4"
+      },
+      "stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    }
+  ],
+  "default_exact_command_result": {
+    "status": "EXPECTED_OS_REFUSAL_ONLY",
+    "exit_code": 1,
+    "archive": {
+      "bytes": 4235,
+      "sha256": "7a1f3a12977a7b35696932f8e4692f983a871e804676fc9e4a2c7922d957356d"
+    },
+    "schema_version": 1,
+    "first_stage": "os",
+    "later_stages": "NOT_RUN",
+    "limitation": "Exact generated invocation was executed on Windows11 and denied before kit_identity. This does not demonstrate a successful Windows10 launch or application execution."
+  },
+  "actual_windows11_store_route": {
+    "status": "BLOCKED",
+    "evidence_kind": "AGENT_LAUNCHED_WINDOWS11_DRY_RUN",
+    "archive": {
+      "bytes": 10915,
+      "sha256": "0bc8b66d68132621e314e7a58a0e286f246a1c4db6e539633cc5a9fbdea6c362"
+    },
+    "schema_version": 2,
+    "members": 7,
+    "all_six_artifact_hashes_envelope_identities_and_summaries_verified": true,
+    "expected_source_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+    "expected_zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+    "failure_stage": "independent_existing_inventory",
+    "reason": "Existing Store registration absent or ambiguous; fallback disabled.",
+    "fallback_acquisition": {
+      "policy": "disabled_before_discovery",
+      "attempted": false,
+      "used": false
+    },
+    "independent_inventory_used_as_application_input": false,
+    "all_forbidden_substitution_fields_false": true,
+    "all_later_receipt_stages": "NOT_RUN",
+    "offline_checker_exit_code": 2,
+    "offline_checker_reason": "native gate not executed/passed",
+    "limitation": "A consistent blocked schema2 return is not passing native Store evidence."
+  },
+  "exact_pdf_developer_rehearsal": {
+    "status": "PASS_WITH_EXPLICIT_SCOPE",
+    "kind": "EXACT_ZIP_EXPLICIT_OFFLINE_DEVELOPER_FIXTURE_NOT_STORE_ACCEPTANCE",
+    "source_commit": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+    "zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+    "actual_bounded_exit_zero_processes": 9,
+    "setup": "Explicit offline developer PythonPath/Wheelhouse, followed by automatic healthy no-op and read-only Check.",
+    "application_modes": "Manual/Auto1/Auto2/ordinary BAT after the fixture venv exists; recipe processes contain no PythonPath.",
+    "version_observed": "1.0.3",
+    "python_observed": "3.14.8",
+    "independent_reopened_cases": [
+      {
+        "id": "manual",
+        "status": "PASS_READ_ONLY_REOPEN",
+        "physical_pages": 10,
+        "chapter_count": 3,
+        "chapter_page_counts": [
+          3,
+          3,
+          4
+        ],
+        "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "output_sha256": [
+          "231c1997d5506e64a1df58102bdc1713e24f60ba67ee7f1b3521aeb86c7d9d0f",
+          "a6d295bd2c87192a39cf11ba008c7998965ab912d477f74eec6d426ef0343942",
+          "55d0697183a0c06689861cc4c8df4daa45dd3e4ef134836eae1dcd802ed54508"
+        ],
+        "source_content_sequence_sha256": "919cad3c95a1b41315cf2c69b199968806dbb81098d7eaafcc201212e83e47e3",
+        "output_content_sequence_sha256": "919cad3c95a1b41315cf2c69b199968806dbb81098d7eaafcc201212e83e47e3",
+        "source_fixture_identity_verified": true,
+        "all_nonempty": true,
+        "complete_ordered_coverage": true,
+        "manifest_bytes_and_output_hashes_verified": true
+      },
+      {
+        "id": "auto1",
+        "status": "PASS_READ_ONLY_REOPEN",
+        "physical_pages": 12,
+        "chapter_count": 3,
+        "chapter_page_counts": [
+          2,
+          6,
+          4
+        ],
+        "source_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "output_sha256": [
+          "d818e0e6b9e114bf09c786ff33f74c74a89156bc689ada05fdd6793b468e25c3",
+          "5fd7a6c1e2e514fbb905902f37172a5c0777c92327af333e46dab3e6fd20ba8b",
+          "b2322d51f3a866bb902d367c33251b21e43820aceb35875644b5835dec6224b7"
+        ],
+        "source_content_sequence_sha256": "c707e81d4b4f02ef6fb736998d3c61b4190e3ce79ebb3fe0837f9f73b5ff8dc9",
+        "output_content_sequence_sha256": "c707e81d4b4f02ef6fb736998d3c61b4190e3ce79ebb3fe0837f9f73b5ff8dc9",
+        "source_fixture_identity_verified": true,
+        "all_nonempty": true,
+        "complete_ordered_coverage": true,
+        "manifest_bytes_and_output_hashes_verified": true
+      },
+      {
+        "id": "auto2",
+        "status": "PASS_READ_ONLY_REOPEN",
+        "physical_pages": 12,
+        "chapter_count": 6,
+        "chapter_page_counts": [
+          2,
+          1,
+          3,
+          2,
+          2,
+          2
+        ],
+        "source_sha256": "a4cd8731da7ff93e25bec5181481a42ed7f1bd6c2dfe6818e2c4f061df35d245",
+        "output_sha256": [
+          "d818e0e6b9e114bf09c786ff33f74c74a89156bc689ada05fdd6793b468e25c3",
+          "a506ea2a06c80f452430bdb765069c54d58a1e08ac81ae51b40d45eb0fb8447f",
+          "86a6434e8ce0a765cc2ef846b39fa2ed7cbff66452c0b383ee3d39ae4d74eb63",
+          "34acd3267779ccc3c1c700c2627f639d488f08802d5a011740664531e6141bb8",
+          "fbd3372a187422cb2195c2d5ae091162f72d3a7ecec892baa520a246ef0adc9c",
+          "4a59a049a664680b6879940aeca7ffd497eac0bf470cee77e70060fc05bec3d7"
+        ],
+        "source_content_sequence_sha256": "c707e81d4b4f02ef6fb736998d3c61b4190e3ce79ebb3fe0837f9f73b5ff8dc9",
+        "output_content_sequence_sha256": "c707e81d4b4f02ef6fb736998d3c61b4190e3ce79ebb3fe0837f9f73b5ff8dc9",
+        "source_fixture_identity_verified": true,
+        "all_nonempty": true,
+        "complete_ordered_coverage": true,
+        "manifest_bytes_and_output_hashes_verified": true
+      },
+      {
+        "id": "bat",
+        "status": "PASS_READ_ONLY_REOPEN",
+        "physical_pages": 10,
+        "chapter_count": 3,
+        "chapter_page_counts": [
+          3,
+          3,
+          4
+        ],
+        "source_sha256": "e5331ca3852d0581aece3b72f590537b344961840e553c9a6e6ce298f1023ac5",
+        "output_sha256": [
+          "441ba3e96f57521335f5a29a06e8d1ee77e8581b7e1184bde8ec2b65c2f744c6",
+          "84dde3ed3c17603650926bcc261cb2e4b1b9f8c56a57e5002f1bd8b836007301",
+          "870694ab6755bd3052a2fab818cdd79e348bb6d623bd380d93863652923f51a5"
+        ],
+        "source_content_sequence_sha256": "919cad3c95a1b41315cf2c69b199968806dbb81098d7eaafcc201212e83e47e3",
+        "output_content_sequence_sha256": "919cad3c95a1b41315cf2c69b199968806dbb81098d7eaafcc201212e83e47e3",
+        "source_fixture_identity_verified": true,
+        "all_nonempty": true,
+        "complete_ordered_coverage": true,
+        "manifest_bytes_and_output_hashes_verified": true
+      }
+    ],
+    "policy_component_status": "PASS",
+    "organization_policy_denial": "NOT_RUN",
+    "maintained_redaction_and_both_policy_record_validators": "PASS",
+    "redacted_policy_receipt": {
+      "bytes": 26972,
+      "sha256": "aa763c24848da35ee7f344ec7fb46755cc7ff23efa95684d895d1bd5dbf93e5b"
+    },
+    "normalizer": {
+      "bytes": 871,
+      "sha256": "fc32523cb1aa3f4ab2fca4bc357840ea559893df84c75289e9aaa29a5beb342c"
+    },
+    "limitation": "Explicit developer setup is not fresh automatic Store setup, owner Windows10 acceptance or real enforced organization-policy denial."
+  },
+  "preserved_exploratory_failure": {
+    "receipt": {
+      "bytes": 306687,
+      "sha256": "edf641432edd8fde173445c99ce1bb506cd1b6e077ffd282dc139fa12eedd8cc"
+    },
+    "overall_success": false,
+    "pdf_oracle_success": true,
+    "cause": "External developer driver omitted Invoke-NativeDiscoveryCollector import; policy stage failed.",
+    "resolution": "Import added to external driver; final run used a fresh exact extraction. Frozen source, assets and kit were unchanged.",
+    "no_failed_run_relabelled_as_pass": true
+  },
+  "external_review_inputs": [
+    {
+      "path": "<T06_WORK>/audit_package.py",
+      "bytes": 3333,
+      "sha256": "d18b72c9155c63949be07b672bac39194de907f63709fee96a77cd74db27471e"
+    },
+    {
+      "path": "<T06_WORK>/audit_return.py",
+      "bytes": 3002,
+      "sha256": "3151d554d9816d78255018398db33732e3a725537c76d71c846c6369a9fa8e60"
+    },
+    {
+      "path": "<T06_WORK>/package-byte-audit.json",
+      "bytes": 16663,
+      "sha256": "90675b1d8efbe8a16735d2e5e8594241e4aa1108c7287f6bf0a9af6502c53876"
+    },
+    {
+      "path": "<T06_WORK>/returned-byte-audit.json",
+      "bytes": 2167,
+      "sha256": "eea68f5afd6e270ac684b76dca39ee8872994bb3270c61f89e2fe2b9c1185a8d"
+    },
+    {
+      "path": "<T06_WORK>/Rehearse-ExactPdf.ps1",
+      "bytes": 5985,
+      "sha256": "8751d27d97991416e8dfede5d8382689323c255e9b2c591a1d617056f0d048e1"
+    },
+    {
+      "path": "<T06_WORK>/exact-pdf-rehearsal.json",
+      "bytes": 306687,
+      "sha256": "edf641432edd8fde173445c99ce1bb506cd1b6e077ffd282dc139fa12eedd8cc"
+    },
+    {
+      "path": "<T06_WORK>/exact-pdf-rehearsal-final.json",
+      "bytes": 321451,
+      "sha256": "f86b8af686d9c17cfa048276205383b1aabe421995729042ef67b77cd0d33973"
+    },
+    {
+      "path": "<T06_WORK>/developer-extraction-final.json",
+      "bytes": 6035,
+      "sha256": "b91436f3b18138986191484533611fbc825164b1052e1a20584c00ec3db74de0"
+    },
+    {
+      "path": "<T06_WORK>/Review-RedactExactPolicy.ps1",
+      "bytes": 871,
+      "sha256": "fc32523cb1aa3f4ab2fca4bc357840ea559893df84c75289e9aaa29a5beb342c"
+    },
+    {
+      "path": "<T06_WORK>/exact-policy-redacted.json",
+      "bytes": 26972,
+      "sha256": "aa763c24848da35ee7f344ec7fb46755cc7ff23efa95684d895d1bd5dbf93e5b"
+    }
+  ],
+  "limits": [
+    "No actual existing Store interpreter was installed, replaced, copied or injected into automatic acceptance.",
+    "This review does not clear owner Windows10 existing-Store/fresh automatic setup/BAT or enforced organization-policy gates.",
+    "No published tag or asset was created or changed by this review.",
+    "Only the new review receipt and explicitly requested external normalization source/result were written."
+  ],
+  "source_or_frozen_asset_mutation": false
+}

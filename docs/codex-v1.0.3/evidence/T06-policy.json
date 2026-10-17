@@ -1,0 +1,722 @@
+{
+  "schema_version": 1,
+  "task": "T06",
+  "scope": "Local policy component and focused consistency/tooling checks only",
+  "source": {
+    "release_source_R": "3e507c8b654dca037d2287dafbc4a1603223e9ff",
+    "source_tree": "a8ea09d4239a1acc7b7905c327fb8ccfad10f24e",
+    "copied_product_payload_members": 34,
+    "copied_product_payload_matches_R_git_blobs": true,
+    "focused_final_source_matches_R_git_blobs": true,
+    "package_limitation": "Product component rehearsal copied the allowlisted working files before R; subsequent Git-blob comparison proves those product bytes equal R. It did not consume the frozen distribution ZIP."
+  },
+  "product_rehearsal": {
+    "scope": "EXPLICIT_OFFLINE_DEVELOPER_FIXTURE_NOT_STORE_OR_FRESH_AUTOMATIC_ACCEPTANCE",
+    "success": true,
+    "steps": [
+      {
+        "id": "explicit-offline-developer-setup",
+        "command": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<POLICY_WORK>\\application\\Setup-WinBookSplit.ps1",
+          "-PythonPath",
+          "<DEV_PYTHON_3148>",
+          "-Wheelhouse",
+          "<EXTERNAL_DEV_TOOLS>\\setup-tests-05-01\\wheelhouse",
+          "-NonInteractive"
+        ],
+        "exit_code": 0,
+        "stdout_sha256": "f2f3d284e5b2530b2c842945aa8da4259ef12a06eeb53803b9664121e04ce708",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      },
+      {
+        "id": "actual-product-policy-component",
+        "command": [
+          "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
+          "-NoProfile",
+          "-NonInteractive",
+          "-InputFormat",
+          "Text",
+          "-OutputFormat",
+          "Text",
+          "-ExecutionPolicy",
+          "Bypass",
+          "-File",
+          "<POLICY_WORK>\\policy-component.ps1",
+          "-Root",
+          "<WORKSPACE>",
+          "-App",
+          "<POLICY_WORK>\\application",
+          "-Work",
+          "<POLICY_WORK>\\component-work",
+          "-Output",
+          "<POLICY_WORK>\\policy-component.json"
+        ],
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+      }
+    ],
+    "developer_python": "<DEV_PYTHON_3148>",
+    "version": "3.14.8 (tags/v3.14.8:8e6e75d, Sep 30 2026, 18:19:33) [MSC v.1944 64 bit (AMD64)]",
+    "payload_source": {
+      "CHANGELOG.md": "730343ffb6c0ebe8d739adc5e69ad9462c03ceb4878cd31f166a12b52c2d9b40",
+      "CONTRIBUTING.md": "ff6832da3868f76d2cd75bfb0c4f0448fa7f8fe740d3505ca6472b7f885ce1d8",
+      "Export-WinBookSplitDiagnostics.ps1": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+      "LICENSE": "714ffa7a21614e637d7dbb17a2e86e4575d7ecd2b6d36b5b67ab3fdcc4193477",
+      "README.md": "b13e2ff92e8f76cf1975fa4ea31cc01570e6c939b6269a0d342df51ab2c82e70",
+      "SECURITY.md": "3a488780ad454f02fcae8822e503641eedddbda8800f7492dd502d536a768ac5",
+      "Setup-WinBookSplit.bat": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+      "Setup-WinBookSplit.ps1": "b82a7861a9e520a4f5d00073d49ebafb06cfd396ea24b5e48ef13d761c0315a9",
+      "THIRD_PARTY_NOTICES.md": "782e08a51031e58c7526b1076d18037f30a1f3c795ca1b16a270c8da0856fbe8",
+      "VERSION": "f5e5c9534532840fcd45bb002e69ed85c61dba2753450e26b448b7df1481e24d",
+      "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "WinBookSplit.ico": "0d7df83ea710192bf568e3347af4551640058407e121a03f5d50d627e548dc42",
+      "WinBookSplit.ps1": "fb4be7e8104f21fb6c7e9aba6e5c838bfcdb8841f834e67b53c66b8f03786332",
+      "docs/EBOOK_SUPPORT.md": "613c3ee61c4af13179ddf2e667ab10a5003db2052a93e54bc654d0229f713b44",
+      "docs/PDF_FIDELITY.md": "f0d445aec94f5803b36c500d604729c8590866b04c09ef2eaa26fa8fd4f15b5e",
+      "docs/PDF_POLICY.md": "dafe562a27d08a7e92c48d0594d952be4aca4a9e952e6aded32b629f7d7a0318",
+      "docs/SETUP.md": "f08edbbc2ebe8b4fa5e54aba46ff3e56d2288899f31a472f8e1589d39b055684",
+      "docs/SUPPORT_DIAGNOSTICS.md": "0a5ef958186a5c258816a0dd299b23560d7fb3ad8fcd2984b35444d0348a11f6",
+      "engine/WinBookSplit.Compatibility.json": "57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582",
+      "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+      "engine/WinBookSplit.Diagnostics.ps1": "a08ce57c5b16770dcc73f949b65aa64d45c6d35ebd7d4e10bbd31e03613895c5",
+      "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "engine/WinBookSplit.Outcomes.json": "1028630521b98fcd8119b0d8cdc976bb5ce9adba8c9a9319b0ef93869cca0c29",
+      "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "engine/WinBookSplit.Process.ps1": "0c8f42cf6f8ce532bddb9ddfec707de8c37aa21b4277e381aa2caedefbd112be",
+      "engine/WinBookSplit.Runtime.ps1": "2206b938b6a8f9790ab848f2f5e50904d2dea99ee2ee300a545ad621b75768c7",
+      "engine/WinBookSplit.Setup.ps1": "c2be57f1a1d44d34ff0bfef3d7844fc4f144ea2ddd7c8c563b3930583bea2d4e",
+      "engine/WinBookSplit.Support.ps1": "c697d766b7ce5132062e28c89e80b8a46ea8e3436b754bdd896371dc99e259bb",
+      "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "engine/winbooksplit_conversion.py": "a44ddc8cc10aa47117f2d4a8d5b20ace170f1bb40318869adf1fdb5547a2abc2",
+      "engine/winbooksplit_engine.py": "23d54468d144e8db66eb9fdad866b8878297c92e180d8ff5f3200e3778d5c523",
+      "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "requirements.txt": "05586027dc3183cb6692520d0402e98fcd938fe112eabbc0875853a35d734cf3"
+    },
+    "helpers": {
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4",
+      "tools/compatibility/Invoke-NativeAcceptance.ps1": "14d040684de780631565ad76f9e885b4a6885000f335403591527a1a474dcd69",
+      "tools/compatibility/Invoke-NativeDiscoveryCollector.ps1": "a18e24b3e8b2579ebf9da17821304016c78303147b062d8ce9c09a05c6263679",
+      "tools/codex-v1.0.3/check_native_store_report.py": "00358761754ebdc4b9cad182014faeae9f87000d48de1228f5d0174cd236e6ed"
+    },
+    "result_sha256": "35e8ff915aa8c1b70c29f2dca7add64707a795b01dcfbb7fd2f4759b206b485c",
+    "redacted_result_sha256": "3c159e13cbbc70e0a82d061b145d283ded9e59c27ddf5e95ec4735fe07999a5a",
+    "all_payload_file_leases_held": true,
+    "returned_policy_records_offline_check": "PASS",
+    "native_owner_store": "NOT_RUN",
+    "organization_policy_denial": "NOT_RUN"
+  },
+  "actual_returned_policy_component": {
+    "records": [
+      {
+        "inbox_policy": {
+          "scopes": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "Bypass",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ],
+          "effective": "Bypass"
+        },
+        "stage": "before",
+        "role": "policy_observation"
+      },
+      {
+        "note": "ZoneId=3 is authored only on this owned extraction; package data bytes are unchanged.",
+        "marks": [
+          {
+            "path": "<APP>\\WinBookSplit.ps1",
+            "sha256": "fb4be7e8104f21fb6c7e9aba6e5c838bfcdb8841f834e67b53c66b8f03786332",
+            "ads": "[ZoneTransfer]\r\nZoneId=3\r\n"
+          },
+          {
+            "path": "<APP>\\Setup-WinBookSplit.ps1",
+            "sha256": "b82a7861a9e520a4f5d00073d49ebafb06cfd396ea24b5e48ef13d761c0315a9",
+            "ads": "[ZoneTransfer]\r\nZoneId=3\r\n"
+          }
+        ],
+        "stage": "authored_motw",
+        "role": "policy_observation"
+      },
+      {
+        "environment": {},
+        "process": {
+          "probe": {
+            "Pid": 19040,
+            "ExitCode": 1,
+            "TimedOut": false,
+            "Cancelled": false,
+            "ParentStopped": true,
+            "DescendantsStopped": true,
+            "StreamsComplete": true,
+            "JobAssigned": true,
+            "StartError": null,
+            "StopError": null,
+            "StreamError": null,
+            "ResultError": null,
+            "InteractionError": null,
+            "InputError": null,
+            "Stdout": "",
+            "Stderr": "File <APP>\\WinBookSplit.ps1 cannot be loaded. The file \r\n<APP>\\WinBookSplit.ps1 is not digitally signed. You \r\ncannot run this script on the current system. For more information about running scripts and setting execution policy, \r\nsee about_Execution_Policies at https:/go.microsoft.com/fwlink/?LinkID=135170.\r\n    + CategoryInfo          : SecurityError: (:) [], ParentContainsErrorRecordException\r\n    + FullyQualifiedErrorId : UnauthorizedAccess\r\n",
+            "HumanStdout": "",
+            "StdoutTotalBytes": 0,
+            "StderrTotalBytes": 577,
+            "InteractionCount": 0,
+            "InteractionTotalBytes": 0,
+            "QueuedReplyCount": 0,
+            "ReplyCount": 0,
+            "ReplyTotalBytes": 0,
+            "StdoutTruncated": false,
+            "StderrTruncated": false,
+            "InputWriterStopped": true,
+            "PackageIdentityVerified": false,
+            "PackageFullName": null,
+            "ImagePath": null,
+            "ResultRecords": [],
+            "ElapsedSeconds": 1.1461854999999999,
+            "redacted_stream_bytes": {
+              "stderr": 451,
+              "stdout": 0
+            },
+            "raw_stream_sha256": {
+              "stderr": "5649818f529e550fac7c74c8b65da6198bd1a4e3f6f7ff057eb85c9869e17c6a",
+              "stdout": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          },
+          "command": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-InputFormat",
+            "Text",
+            "-OutputFormat",
+            "Text",
+            "-ExecutionPolicy",
+            "RemoteSigned",
+            "-File",
+            "<APP>\\WinBookSplit.ps1",
+            "-Version"
+          ],
+          "cwd": "<WORK>",
+          "answers": [],
+          "environment_before_after_restored": true,
+          "failure": null
+        },
+        "stage": "direct_file_remotesigned",
+        "role": "expected_policy_denial"
+      },
+      {
+        "environment": {},
+        "process": {
+          "probe": {
+            "Pid": 19832,
+            "ExitCode": 0,
+            "TimedOut": false,
+            "Cancelled": false,
+            "ParentStopped": true,
+            "DescendantsStopped": true,
+            "StreamsComplete": true,
+            "JobAssigned": true,
+            "StartError": null,
+            "StopError": null,
+            "StreamError": null,
+            "ResultError": null,
+            "InteractionError": null,
+            "InputError": null,
+            "Stdout": "Application .venv is healthy; no setup changes or package downloads were needed.\nDiscovery: supported; stage=verified; source=application_venv\nPython selection: <APP>\\.venv\\Scripts\\python.exe (3.14.8; application_venv)\n[SETUP] {\"protocol\":\"winbooksplit.setup\",\"schema_version\":1,\"status\":\"success\",\"code\":\"setup_ready\",\"exit_code\":0,\"message\":\"Application .venv is healthy; no setup changes or package downloads were needed.\",\"check\":true,\"changed\":false,\"environment_path\":\"<APP>\\\\.venv\",\"backup_path\":null,\"incomplete_path\":null,\"rollback_status\":\"not_needed\",\"selected_python\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"selected_version\":\"3.14.8\",\"pypdf_version\":\"6.20.0\",\"operations\":[],\"attempts\":[{\"Path\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"Source\":\"application_venv\",\"Stage\":\"verified\",\"Accepted\":true,\"Reason\":\"supported\",\"Message\":\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\",\"Probe\":{\"Pid\":524,\"ExitCode\":0,\"TimedOut\":false,\"Cancelled\":false,\"ParentStopped\":true,\"DescendantsStopped\":true,\"StreamsComplete\":true,\"JobAssigned\":true,\"StartError\":null,\"StopError\":null,\"StreamError\":null,\"ResultError\":null,\"InteractionError\":null,\"InputError\":null,\"Stdout\":\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\\r\\n\",\"Stderr\":\"\",\"HumanStdout\":\"\",\"StdoutTotalBytes\":858,\"StderrTotalBytes\":0,\"InteractionCount\":0,\"InteractionTotalBytes\":0,\"QueuedReplyCount\":0,\"ReplyCount\":0,\"ReplyTotalBytes\":0,\"StdoutTruncated\":false,\"StderrTruncated\":false,\"InputWriterStopped\":true,\"PackageIdentityVerified\":false,\"PackageFullName\":null,\"ImagePath\":null,\"ResultRecords\":[\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\"],\"ElapsedSeconds\":0.4265732},\"ObservedVersion\":\"3.14.8\",\"IdentityVerified\":true}],\"observed_python\":null,\"observed_version\":null,\"observed_source\":null,\"action\":null,\"action_shell\":null,\"reason\":\"supported\",\"stage\":\"verified\",\"source\":\"application_venv\",\"rejections\":[],\"display_message\":null,\"host\":{\"executable\":\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"executable_status\":\"observed\",\"version\":\"5.1.26100.9711\",\"edition\":\"Desktop\",\"execution_policy\":{\"status\":\"observed\",\"effective\":\"Bypass\",\"scopes\":[{\"scope\":\"MachinePolicy\",\"policy\":\"Undefined\"},{\"scope\":\"UserPolicy\",\"policy\":\"Undefined\"},{\"scope\":\"Process\",\"policy\":\"Bypass\"},{\"scope\":\"CurrentUser\",\"policy\":\"Undefined\"},{\"scope\":\"LocalMachine\",\"policy\":\"Undefined\"}],\"reason_code\":null}}}\n",
+            "Stderr": "",
+            "HumanStdout": "Application .venv is healthy; no setup changes or package downloads were needed.\nDiscovery: supported; stage=verified; source=application_venv\nPython selection: <APP>\\.venv\\Scripts\\python.exe (3.14.8; application_venv)\n[SETUP] {\"protocol\":\"winbooksplit.setup\",\"schema_version\":1,\"status\":\"success\",\"code\":\"setup_ready\",\"exit_code\":0,\"message\":\"Application .venv is healthy; no setup changes or package downloads were needed.\",\"check\":true,\"changed\":false,\"environment_path\":\"<APP>\\\\.venv\",\"backup_path\":null,\"incomplete_path\":null,\"rollback_status\":\"not_needed\",\"selected_python\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"selected_version\":\"3.14.8\",\"pypdf_version\":\"6.20.0\",\"operations\":[],\"attempts\":[{\"Path\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"Source\":\"application_venv\",\"Stage\":\"verified\",\"Accepted\":true,\"Reason\":\"supported\",\"Message\":\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\",\"Probe\":{\"Pid\":524,\"ExitCode\":0,\"TimedOut\":false,\"Cancelled\":false,\"ParentStopped\":true,\"DescendantsStopped\":true,\"StreamsComplete\":true,\"JobAssigned\":true,\"StartError\":null,\"StopError\":null,\"StreamError\":null,\"ResultError\":null,\"InteractionError\":null,\"InputError\":null,\"Stdout\":\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\\r\\n\",\"Stderr\":\"\",\"HumanStdout\":\"\",\"StdoutTotalBytes\":858,\"StderrTotalBytes\":0,\"InteractionCount\":0,\"InteractionTotalBytes\":0,\"QueuedReplyCount\":0,\"ReplyCount\":0,\"ReplyTotalBytes\":0,\"StdoutTruncated\":false,\"StderrTruncated\":false,\"InputWriterStopped\":true,\"PackageIdentityVerified\":false,\"PackageFullName\":null,\"ImagePath\":null,\"ResultRecords\":[\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\"],\"ElapsedSeconds\":0.4265732},\"ObservedVersion\":\"3.14.8\",\"IdentityVerified\":true}],\"observed_python\":null,\"observed_version\":null,\"observed_source\":null,\"action\":null,\"action_shell\":null,\"reason\":\"supported\",\"stage\":\"verified\",\"source\":\"application_venv\",\"rejections\":[],\"display_message\":null,\"host\":{\"executable\":\"C:\\\\WINDOWS\\\\System32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"executable_status\":\"observed\",\"version\":\"5.1.26100.9711\",\"edition\":\"Desktop\",\"execution_policy\":{\"status\":\"observed\",\"effective\":\"Bypass\",\"scopes\":[{\"scope\":\"MachinePolicy\",\"policy\":\"Undefined\"},{\"scope\":\"UserPolicy\",\"policy\":\"Undefined\"},{\"scope\":\"Process\",\"policy\":\"Bypass\"},{\"scope\":\"CurrentUser\",\"policy\":\"Undefined\"},{\"scope\":\"LocalMachine\",\"policy\":\"Undefined\"}],\"reason_code\":null}}}\n",
+            "StdoutTotalBytes": 4556,
+            "StderrTotalBytes": 0,
+            "InteractionCount": 0,
+            "InteractionTotalBytes": 0,
+            "QueuedReplyCount": 0,
+            "ReplyCount": 0,
+            "ReplyTotalBytes": 0,
+            "StdoutTruncated": false,
+            "StderrTruncated": false,
+            "InputWriterStopped": true,
+            "PackageIdentityVerified": false,
+            "PackageFullName": null,
+            "ImagePath": null,
+            "ResultRecords": [],
+            "ElapsedSeconds": 3.5951524,
+            "redacted_stream_bytes": {
+              "stderr": 0,
+              "stdout": 3977
+            },
+            "raw_stream_sha256": {
+              "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stdout": "029fa1124b74ce4c8c06c440e73772c982a23d17495052059aeb4a6a89bdfb38"
+            }
+          },
+          "command": [
+            "C:\\WINDOWS\\system32\\cmd.exe",
+            "/d",
+            "/v:off",
+            "/c",
+            "<WORK>\\policy-setup-check.cmd"
+          ],
+          "cwd": "<WORK>",
+          "answers": [],
+          "environment_before_after_restored": true,
+          "failure": null
+        },
+        "stage": "marked_setup_bat_check",
+        "role": "application"
+      },
+      {
+        "action": "& 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<APP>\\Setup-WinBookSplit.ps1' -NonInteractive",
+        "environment": {},
+        "stage": "exact_automatic_formatter_action",
+        "note": "Actual shared formatter output executed unchanged on the healthy venv; no fresh remediation or package installation is claimed.",
+        "role": "application",
+        "process": {
+          "protocol": "winbooksplit.native-discovery-collector",
+          "schema_version": 1,
+          "controller": {
+            "powershell_version": "5.1.26100.9711",
+            "edition": "Desktop"
+          },
+          "command": [
+            "C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe",
+            "-NoProfile",
+            "-NonInteractive",
+            "-InputFormat",
+            "Text",
+            "-OutputFormat",
+            "Text",
+            "-ExecutionPolicy",
+            "Bypass",
+            "-File",
+            "<WORK>\\policy-exact-action.ps1"
+          ],
+          "cwd": "<WORK>",
+          "timeout_seconds": 120,
+          "capture_limit_bytes": 1048576,
+          "encoding": "utf-8",
+          "status": "PASS",
+          "reason": "complete",
+          "exit_code": 0,
+          "collector_error": null,
+          "probe": {
+            "Pid": 19788,
+            "ExitCode": 0,
+            "TimedOut": false,
+            "Cancelled": false,
+            "ParentStopped": true,
+            "DescendantsStopped": true,
+            "StreamsComplete": true,
+            "JobAssigned": true,
+            "StartError": null,
+            "StopError": null,
+            "StreamError": null,
+            "ResultError": null,
+            "InteractionError": null,
+            "InputError": null,
+            "Stdout": "[EXACT_ACTION] & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<APP>\\Setup-WinBookSplit.ps1' -NonInteractive\nApplication .venv is healthy; no setup changes or package downloads were needed.\nDiscovery: supported; stage=verified; source=application_venv\nPython selection: <APP>\\.venv\\Scripts\\python.exe (3.14.8; application_venv)\n[SETUP] {\"protocol\":\"winbooksplit.setup\",\"schema_version\":1,\"status\":\"success\",\"code\":\"setup_ready\",\"exit_code\":0,\"message\":\"Application .venv is healthy; no setup changes or package downloads were needed.\",\"check\":false,\"changed\":false,\"environment_path\":\"<APP>\\\\.venv\",\"backup_path\":null,\"incomplete_path\":null,\"rollback_status\":\"not_needed\",\"selected_python\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"selected_version\":\"3.14.8\",\"pypdf_version\":\"6.20.0\",\"operations\":[],\"attempts\":[{\"Path\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"Source\":\"application_venv\",\"Stage\":\"verified\",\"Accepted\":true,\"Reason\":\"supported\",\"Message\":\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\",\"Probe\":{\"Pid\":12720,\"ExitCode\":0,\"TimedOut\":false,\"Cancelled\":false,\"ParentStopped\":true,\"DescendantsStopped\":true,\"StreamsComplete\":true,\"JobAssigned\":true,\"StartError\":null,\"StopError\":null,\"StreamError\":null,\"ResultError\":null,\"InteractionError\":null,\"InputError\":null,\"Stdout\":\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\\r\\n\",\"Stderr\":\"\",\"HumanStdout\":\"\",\"StdoutTotalBytes\":858,\"StderrTotalBytes\":0,\"InteractionCount\":0,\"InteractionTotalBytes\":0,\"QueuedReplyCount\":0,\"ReplyCount\":0,\"ReplyTotalBytes\":0,\"StdoutTruncated\":false,\"StderrTruncated\":false,\"InputWriterStopped\":true,\"PackageIdentityVerified\":false,\"PackageFullName\":null,\"ImagePath\":null,\"ResultRecords\":[\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\"],\"ElapsedSeconds\":0.42530219999999996},\"ObservedVersion\":\"3.14.8\",\"IdentityVerified\":true}],\"observed_python\":null,\"observed_version\":null,\"observed_source\":null,\"action\":null,\"action_shell\":null,\"reason\":\"supported\",\"stage\":\"verified\",\"source\":\"application_venv\",\"rejections\":[],\"display_message\":null,\"host\":{\"executable\":\"C:\\\\WINDOWS\\\\system32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"executable_status\":\"observed\",\"version\":\"5.1.26100.9711\",\"edition\":\"Desktop\",\"execution_policy\":{\"status\":\"observed\",\"effective\":\"Bypass\",\"scopes\":[{\"scope\":\"MachinePolicy\",\"policy\":\"Undefined\"},{\"scope\":\"UserPolicy\",\"policy\":\"Undefined\"},{\"scope\":\"Process\",\"policy\":\"Bypass\"},{\"scope\":\"CurrentUser\",\"policy\":\"Undefined\"},{\"scope\":\"LocalMachine\",\"policy\":\"Undefined\"}],\"reason_code\":null}}}\n",
+            "Stderr": "",
+            "HumanStdout": "[EXACT_ACTION] & 'C:\\WINDOWS\\system32\\WindowsPowerShell\\v1.0\\powershell.exe' -NoProfile -ExecutionPolicy Bypass -File '<APP>\\Setup-WinBookSplit.ps1' -NonInteractive\nApplication .venv is healthy; no setup changes or package downloads were needed.\nDiscovery: supported; stage=verified; source=application_venv\nPython selection: <APP>\\.venv\\Scripts\\python.exe (3.14.8; application_venv)\n[SETUP] {\"protocol\":\"winbooksplit.setup\",\"schema_version\":1,\"status\":\"success\",\"code\":\"setup_ready\",\"exit_code\":0,\"message\":\"Application .venv is healthy; no setup changes or package downloads were needed.\",\"check\":false,\"changed\":false,\"environment_path\":\"<APP>\\\\.venv\",\"backup_path\":null,\"incomplete_path\":null,\"rollback_status\":\"not_needed\",\"selected_python\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"selected_version\":\"3.14.8\",\"pypdf_version\":\"6.20.0\",\"operations\":[],\"attempts\":[{\"Path\":\"<APP>\\\\.venv\\\\Scripts\\\\python.exe\",\"Source\":\"application_venv\",\"Stage\":\"verified\",\"Accepted\":true,\"Reason\":\"supported\",\"Message\":\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\",\"Probe\":{\"Pid\":12720,\"ExitCode\":0,\"TimedOut\":false,\"Cancelled\":false,\"ParentStopped\":true,\"DescendantsStopped\":true,\"StreamsComplete\":true,\"JobAssigned\":true,\"StartError\":null,\"StopError\":null,\"StreamError\":null,\"ResultError\":null,\"InteractionError\":null,\"InputError\":null,\"Stdout\":\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\\r\\n\",\"Stderr\":\"\",\"HumanStdout\":\"\",\"StdoutTotalBytes\":858,\"StderrTotalBytes\":0,\"InteractionCount\":0,\"InteractionTotalBytes\":0,\"QueuedReplyCount\":0,\"ReplyCount\":0,\"ReplyTotalBytes\":0,\"StdoutTruncated\":false,\"StderrTruncated\":false,\"InputWriterStopped\":true,\"PackageIdentityVerified\":false,\"PackageFullName\":null,\"ImagePath\":null,\"ResultRecords\":[\"{\\\"protocol\\\": \\\"winbooksplit.runtime\\\", \\\"schema_version\\\": 1, \\\"ok\\\": true, \\\"executable\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Scripts\\\\\\\\python.exe\\\", \\\"version\\\": \\\"3.14.8\\\", \\\"version_info\\\": [3, 14, 8], \\\"releaselevel\\\": \\\"final\\\", \\\"serial\\\": 0, \\\"implementation\\\": \\\"cpython\\\", \\\"platform\\\": \\\"win32\\\", \\\"machine\\\": \\\"AMD64\\\", \\\"bits\\\": 64, \\\"gil_disabled\\\": false, \\\"isolated\\\": true, \\\"dont_write_bytecode\\\": true, \\\"policy_version\\\": 3, \\\"policy_sha256\\\": \\\"57811a77c837bd891750ea126d19c876e0ad7099793b490445d126720baf4582\\\", \\\"reason\\\": \\\"supported\\\", \\\"message\\\": \\\"Python 3.14.8 is accepted by compatibility policy 3. Locked pypdf 6.20.0 imported from this interpreter\\u0027s package roots.\\\", \\\"pypdf_version\\\": \\\"6.20.0\\\", \\\"pypdf_path\\\": \\\"<APP>\\\\\\\\.venv\\\\\\\\Lib\\\\\\\\site-packages\\\\\\\\pypdf\\\\\\\\__init__.py\\\"}\"],\"ElapsedSeconds\":0.42530219999999996},\"ObservedVersion\":\"3.14.8\",\"IdentityVerified\":true}],\"observed_python\":null,\"observed_version\":null,\"observed_source\":null,\"action\":null,\"action_shell\":null,\"reason\":\"supported\",\"stage\":\"verified\",\"source\":\"application_venv\",\"rejections\":[],\"display_message\":null,\"host\":{\"executable\":\"C:\\\\WINDOWS\\\\system32\\\\WindowsPowerShell\\\\v1.0\\\\powershell.exe\",\"executable_status\":\"observed\",\"version\":\"5.1.26100.9711\",\"edition\":\"Desktop\",\"execution_policy\":{\"status\":\"observed\",\"effective\":\"Bypass\",\"scopes\":[{\"scope\":\"MachinePolicy\",\"policy\":\"Undefined\"},{\"scope\":\"UserPolicy\",\"policy\":\"Undefined\"},{\"scope\":\"Process\",\"policy\":\"Bypass\"},{\"scope\":\"CurrentUser\",\"policy\":\"Undefined\"},{\"scope\":\"LocalMachine\",\"policy\":\"Undefined\"}],\"reason_code\":null}}}\n",
+            "StdoutTotalBytes": 4797,
+            "StderrTotalBytes": 0,
+            "InteractionCount": 0,
+            "InteractionTotalBytes": 0,
+            "QueuedReplyCount": 0,
+            "ReplyCount": 0,
+            "ReplyTotalBytes": 0,
+            "StdoutTruncated": false,
+            "StderrTruncated": false,
+            "InputWriterStopped": true,
+            "PackageIdentityVerified": false,
+            "PackageFullName": null,
+            "ImagePath": null,
+            "ResultRecords": [],
+            "ElapsedSeconds": 4.4678942,
+            "redacted_stream_bytes": {
+              "stderr": 0,
+              "stdout": 4155
+            },
+            "raw_stream_sha256": {
+              "stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+              "stdout": "9c713bcc87781043aeac99b06cfb65f389c8ba8c237ee5e099e27705f5054570"
+            }
+          },
+          "environment_before_after_restored": true,
+          "failure": null
+        }
+      },
+      {
+        "inbox_policy": {
+          "scopes": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "Bypass",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ],
+          "effective": "Bypass"
+        },
+        "stage": "after",
+        "role": "policy_observation"
+      }
+    ],
+    "component": {
+      "status": "PASS",
+      "scope": "OWNED_EXACT_EXTRACTION_HEALTHY_VENV",
+      "direct_remotesigned_denied": true,
+      "marked_setup_bat_noop": true,
+      "exact_formatter_action_noop": true,
+      "source_bytes_and_marks_preserved": true,
+      "venv_unchanged": true,
+      "inbox_policy_unchanged": true,
+      "organization_policy_denial": {
+        "status": "NOT_RUN",
+        "reason": "No real enforced organization-policy denial has been demonstrated."
+      }
+    }
+  },
+  "final_focused_checks": {
+    "scope": "FINAL_SCOPED_POLICY_TOOLING_CHECKS_NOT_NATIVE_STORE_ACCEPTANCE",
+    "success": true,
+    "source_before": {
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4",
+      "tools/codex-v1.0.3/check_native_store_report.py": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+      "tools/codex-v1.0.3/tests/test_native_gate.py": "10e1c2cb3f32bd28b556e7fc7fb382294a42b54873145727c55f573de9217655",
+      "tests/python/test_store_gate.py": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+      "tests/compatibility/Probe-StoreExisting.ps1": "8e0d290442ae39bfed3289280d2abf8427de23243b2dfbd5b109df67bf06ec8e",
+      "tests/python/test_native_store_scenario.py": "ea91716084cf969e84c5fcfbe79c741b89c105beb685195694bf1cffb7120013"
+    },
+    "source_after": {
+      "tools/compatibility/Invoke-StoreExistingAcceptance.ps1": "5bed81a43aef660c40dba60e152bfd331c27304acb60a1e9c36c167bfc1957d4",
+      "tools/codex-v1.0.3/check_native_store_report.py": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+      "tools/codex-v1.0.3/tests/test_native_gate.py": "10e1c2cb3f32bd28b556e7fc7fb382294a42b54873145727c55f573de9217655",
+      "tests/python/test_store_gate.py": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+      "tests/compatibility/Probe-StoreExisting.ps1": "8e0d290442ae39bfed3289280d2abf8427de23243b2dfbd5b109df67bf06ec8e",
+      "tests/python/test_native_store_scenario.py": "ea91716084cf969e84c5fcfbe79c741b89c105beb685195694bf1cffb7120013"
+    },
+    "steps": [
+      {
+        "id": "native-gate",
+        "command": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tools/codex-v1.0.3/tests",
+          "-p",
+          "test_native_gate.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "89b6ecce7e9a45876fd30adbfca67e6aa89cb1c837a9bafc3a6a8a10f7910654"
+      },
+      {
+        "id": "store-gate",
+        "command": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/python",
+          "-p",
+          "test_store_gate.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "ef543f34bdf0be227d0d9a92a33259eb47b70e4ee080a60f05a1061ac525ac94"
+      },
+      {
+        "id": "native-store-scenario",
+        "command": [
+          "<DEV_PYTHON_3148>",
+          "-I",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "tests/python",
+          "-p",
+          "test_native_store_scenario.py",
+          "-v"
+        ],
+        "exit_code": 0,
+        "stdout_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stderr_sha256": "8aa4d0c7ddddfd721dc5dbbd8ab42d1537f563f9733d99b7e8951d817415ae78"
+      }
+    ]
+  },
+  "focused_results": {
+    "native_gate": {
+      "tests": 68,
+      "passed": 67,
+      "skipped": 1,
+      "skip_reason": "symlink capability unavailable"
+    },
+    "store_gate": {
+      "tests": 13,
+      "passed": 13
+    },
+    "native_store_scenario": {
+      "tests": 4,
+      "passed": 4
+    },
+    "actual_controls": "Inbox authored MOTW direct -File refusal, marked setup BAT and unchanged automatic formatter Action, strict marked-file leases, and independent returned-record validator. PS7 verifies policy-domain refusal without writing marks."
+  },
+  "syntax_and_scoped_analysis": [
+    {
+      "scope": "T06_POLICY_FOCUSED_SYNTAX_AND_SCOPED_ANALYSIS",
+      "rows": [
+        {
+          "path": "tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+          "findings": [],
+          "parse_errors": []
+        },
+        {
+          "path": "tests/compatibility/Probe-StoreExisting.ps1",
+          "findings": [],
+          "parse_errors": []
+        }
+      ],
+      "shell": "5.1.26100.9711"
+    },
+    {
+      "shell": "7.6.5",
+      "rows": [
+        {
+          "path": "tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+          "parse_errors": [],
+          "findings": []
+        },
+        {
+          "path": "tests/compatibility/Probe-StoreExisting.ps1",
+          "parse_errors": [],
+          "findings": []
+        }
+      ],
+      "scope": "T06_POLICY_FOCUSED_SYNTAX_AND_SCOPED_ANALYSIS"
+    }
+  ],
+  "independent_review": {
+    "status": "NO_ACTIONABLE_FINDINGS",
+    "reviewer": "source_ci_review agent",
+    "reviewed": "Source/argv/no-runtime/no-policy-retry/strict lease/stream receipt correlation; reviewer separately validated actual returned policy records.",
+    "actual_redacted_receipt_sha256": "3c159e13cbbc70e0a82d061b145d283ded9e59c27ddf5e95ec4735fe07999a5a"
+  },
+  "original_local_receipt_identities": [
+    {
+      "path": "<POLICY_WORK>\\rehearsal.json",
+      "bytes": 6623,
+      "sha256": "8b976453091a24e2a39546b7cdb80d4027fe706dc1456cf03781c1d030cc69d9"
+    },
+    {
+      "path": "<POLICY_WORK>\\policy-component.json",
+      "bytes": 28090,
+      "sha256": "35e8ff915aa8c1b70c29f2dca7add64707a795b01dcfbb7fd2f4759b206b485c"
+    },
+    {
+      "path": "<POLICY_WORK>\\policy-component.json.redacted.json",
+      "bytes": 25544,
+      "sha256": "3c159e13cbbc70e0a82d061b145d283ded9e59c27ddf5e95ec4735fe07999a5a"
+    },
+    {
+      "path": "<POLICY_WORK>\\focused-checks.json",
+      "bytes": 15172,
+      "sha256": "bf366a3af466f8fb2db23b722afabd9f7d7c0b9f98caa3a036297c699ecc80b1"
+    },
+    {
+      "path": "<POLICY_WORK>\\analysis-ps51.json",
+      "bytes": 703,
+      "sha256": "062fc1157c8f7cc6117440e4287b2f271123070e594512aa5e01cad1dfc19dc4"
+    },
+    {
+      "path": "<POLICY_WORK>\\analysis-ps7.json",
+      "bytes": 366,
+      "sha256": "8d0293e3eae1ac655d014b1241c6bc65da82d77fbecf1228baca014dbe7cc1f0"
+    },
+    {
+      "path": "<POLICY_WORK>\\explicit-offline-developer-setup-stdout.bin",
+      "bytes": 13602,
+      "sha256": "f2f3d284e5b2530b2c842945aa8da4259ef12a06eeb53803b9664121e04ce708"
+    },
+    {
+      "path": "<POLICY_WORK>\\explicit-offline-developer-setup-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\actual-product-policy-component-stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\actual-product-policy-component-stderr.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\rehearse.py",
+      "bytes": 5365,
+      "sha256": "06f5620d0624928f03c168a5a278003ada288776b051e03c879953561c180a31"
+    },
+    {
+      "path": "<POLICY_WORK>\\focused-checks.py",
+      "bytes": 2006,
+      "sha256": "630d0a14d9d032a81e056d9b28f11e16455f48e724d888572f3b498e8256b9d9"
+    },
+    {
+      "path": "<POLICY_WORK>\\analyze.ps1",
+      "bytes": 1214,
+      "sha256": "d853db02204da5998cac3e1ca500196c81b4ab1ef4bdcf522ef45e79b5cb8eb6"
+    },
+    {
+      "path": "<POLICY_WORK>\\native-gate-stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\native-gate-stderr.bin",
+      "bytes": 8257,
+      "sha256": "89b6ecce7e9a45876fd30adbfca67e6aa89cb1c837a9bafc3a6a8a10f7910654"
+    },
+    {
+      "path": "<POLICY_WORK>\\store-gate-stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\store-gate-stderr.bin",
+      "bytes": 2465,
+      "sha256": "ef543f34bdf0be227d0d9a92a33259eb47b70e4ee080a60f05a1061ac525ac94"
+    },
+    {
+      "path": "<POLICY_WORK>\\native-store-scenario-stdout.bin",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "<POLICY_WORK>\\native-store-scenario-stderr.bin",
+      "bytes": 772,
+      "sha256": "8aa4d0c7ddddfd721dc5dbbd8ab42d1537f563f9733d99b7e8951d817415ae78"
+    }
+  ],
+  "exploratory_failures": [
+    {
+      "status": "FAIL_EXPLORATORY_RETAINED",
+      "reason": "Initial authored inbox policy control failed due to inherited module-search autoload; explicit inbox Security import repaired it.",
+      "originals": [
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-0x_aisqj\\driver.json",
+          "bytes": 2130,
+          "sha256": "870f15ed936152970514dc3bdbc4512973aa53d2e7eb086c5edf0199373ee0ca"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-0x_aisqj\\driver-failure.json",
+          "bytes": 1490,
+          "sha256": "4b6f69f40023cb314a305b6b91ad08865426c16392859522dc005f9f748982df"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-0x_aisqj\\report.json",
+          "bytes": 2444,
+          "sha256": "559de21c7ec184660416c2197a1cbfde1a2aba5634ead774759c27f74663239d"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-0x_aisqj\\stdout.bin",
+          "bytes": 851,
+          "sha256": "6cdb35f727402fc34bb0658d0b1e74dbab1157f3879ee87e154cb3dd3190228e"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-0x_aisqj\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    },
+    {
+      "status": "FAIL_EXPLORATORY_RETAINED",
+      "reason": "Exploratory PS7 driver completed controls but source-change guard rejected an overlapping helper edit; not a final pass.",
+      "originals": [
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-5an5d_56\\driver.json",
+          "bytes": 2189,
+          "sha256": "fc9db81a9a85ce0062d978ec8521909a8ec2812a7ae347d1033c33d9294d9882"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-5an5d_56\\driver-failure.json",
+          "bytes": 2236,
+          "sha256": "2def6c6ccdad2f2384c81b02e9329fccee405192bf289f23052f49cfeaa754a2"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-5an5d_56\\report.json",
+          "bytes": 2204,
+          "sha256": "931043af59b738559f0c3bff460d5434b76042f868f3a47209726ddc35b5ae0c"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-5an5d_56\\stdout.bin",
+          "bytes": 858,
+          "sha256": "fae447db58e46cd2bf65ee29db8f4e1eb53cace4cade86682d71b79a2c496034"
+        },
+        {
+          "path": "<TEMP>\\wbs-store-scenario-controls-5an5d_56\\stderr.bin",
+          "bytes": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "Explicit offline developer setup created the owned fixture venv; no fresh automatic Store acceptance is claimed.",
+    "The component itself supplies no Python/runtime input and creates/copies/clones no interpreter or venv; its setup operations are healthy no-ops.",
+    "Authored ZoneId=3 marks remain on only the two owned fixture entry scripts, with their original data bytes unchanged.",
+    "Real enforced organization-policy denial, actual Store registration/owner Windows10 and exact-ZIP native Store acceptance remain NOT_RUN/BLOCKED.",
+    "The local policy checker cannot clear the separate enforced organization-policy requirement; it requires that component to retain NOT_RUN for that claim.",
+    "Initial product rehearsal predates final checker-only argv/negative stream tightening; the final checker separately accepted the same retained product receipts and final maintained controls repeat the tightened checker."
+  ],
+  "preservation": "No desktop Python/Manager install/update, global package/PATH/alias/policy change, private document, old report/release/tag/asset mutation or publication."
+}
