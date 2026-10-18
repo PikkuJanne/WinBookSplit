@@ -2,9 +2,11 @@ WINBOOKSPLIT: WINDOWS 10 TEST
 
 Use the original Windows 10 computer where WinBookSplit could not find Python.
 This bundle runs the checks for you. You do not need to type any commands.
+This new security repair candidate needs a fresh test of its changed bytes.
+The earlier accepted report still applies to the old candidate.
 
 1. COPY
-   Copy WinBookSplit-Windows10-Test-243d31e.zip to that computer's Downloads.
+   Copy WinBookSplit-Windows10-Test-afd75b4.zip to that computer's Downloads.
 
 2. EXTRACT
    Right-click the ZIP, choose Extract All, then click Extract.

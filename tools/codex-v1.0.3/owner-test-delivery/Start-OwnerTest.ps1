@@ -118,11 +118,11 @@ function Invoke-OwnerDelivery {
     $results = $stderr = $null; $exitCode = 2
     try {
         $Root = [IO.Path]::GetFullPath($Root)
-        $originalZip = [IO.Path]::Combine($Root, 'WinBookSplit-v103-native-kit-243d31e.zip')
+        $originalZip = [IO.Path]::Combine($Root, 'WinBookSplit-v103-native-kit-afd75b4.zip')
         $kit = [IO.Path]::Combine($Root, 'kit')
         $archiveStream = [IO.File]::Open($originalZip, [IO.FileMode]::Open, [IO.FileAccess]::Read, [IO.FileShare]::Read)
-        if ($archiveStream.Length -ne 1559722 -or
-            (Get-OwnerDeliveryStreamHash $archiveStream) -cne 'e2f2a36a727edec378b891f5b125a18bea89dc8e41946719ac8b8a6d2e1837fc') {
+        if ($archiveStream.Length -ne 1564435 -or
+            (Get-OwnerDeliveryStreamHash $archiveStream) -cne 'af4bf7107149f33c3a8d139f4ca5302d1427b7549dc982ee97a2572585ea49fb') {
             throw 'The supplied test kit is incomplete or changed. Use the original transferred bundle.'
         }
         $archiveStream.Position = 0
