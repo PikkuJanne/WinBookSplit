@@ -1,0 +1,2961 @@
+{
+  "application_matrix_source_comparison": {
+    "13": {
+      "exact_final_hash_count": 222,
+      "late_correction_prior_source_count": 3,
+      "late_correction_prior_source_paths": [
+        "tests/python/test_native_smoke.py",
+        "tests/python/test_store_gate.py",
+        "tools/compatibility/native_smoke.py"
+      ],
+      "late_correction_source_details": [
+        {
+          "final_commit_raw_sha256": "d061405a86c066c1f3269595cbf27c244bb6550736f0d29c2d41d0f9f1fef3d4",
+          "path": "tests/python/test_native_smoke.py",
+          "prior_commit_raw_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b"
+        },
+        {
+          "final_commit_raw_sha256": "b45e57c0e13fc4624d335dbd2d6278af12dd7a34e06e7e99e4f3b17996cbed9c",
+          "path": "tests/python/test_store_gate.py",
+          "prior_commit_raw_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc"
+        },
+        {
+          "final_commit_raw_sha256": "7d38381275483b3ffa5bae9aa7afd7f51908179940fc5198d1cf3daecd0211af",
+          "path": "tools/compatibility/native_smoke.py",
+          "prior_commit_raw_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23"
+        }
+      ],
+      "limitation": "Pre-correction working-tree application matrix; not rerun at committed F. Line ending variants are byte differences, not exact-byte test equivalence.",
+      "line_ending_only_count": 0,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "package_not_recorded_paths": [
+        "WinBookSplit.ico"
+      ],
+      "package_recorded_exact_final_count": 33,
+      "recorded_base_commit": "b2ab77ed4fb28986d3ab9798c6de788af50476ec",
+      "recorded_base_tree": "795cba33e2c03ce4341b0f3d005bfc3412d31cff",
+      "recorded_success": true,
+      "recorded_tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "report_sha256": "c3d9041624df4490dee206b57714032f34a74a9d045304b77e2f70180d115beb",
+      "source_unchanged_recorded": true,
+      "unexplained_count": 0
+    },
+    "14": {
+      "exact_final_hash_count": 222,
+      "late_correction_prior_source_count": 3,
+      "late_correction_prior_source_paths": [
+        "tests/python/test_native_smoke.py",
+        "tests/python/test_store_gate.py",
+        "tools/compatibility/native_smoke.py"
+      ],
+      "late_correction_source_details": [
+        {
+          "final_commit_raw_sha256": "d061405a86c066c1f3269595cbf27c244bb6550736f0d29c2d41d0f9f1fef3d4",
+          "path": "tests/python/test_native_smoke.py",
+          "prior_commit_raw_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b"
+        },
+        {
+          "final_commit_raw_sha256": "b45e57c0e13fc4624d335dbd2d6278af12dd7a34e06e7e99e4f3b17996cbed9c",
+          "path": "tests/python/test_store_gate.py",
+          "prior_commit_raw_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc"
+        },
+        {
+          "final_commit_raw_sha256": "7d38381275483b3ffa5bae9aa7afd7f51908179940fc5198d1cf3daecd0211af",
+          "path": "tools/compatibility/native_smoke.py",
+          "prior_commit_raw_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23"
+        }
+      ],
+      "limitation": "Pre-correction working-tree application matrix; not rerun at committed F. Line ending variants are byte differences, not exact-byte test equivalence.",
+      "line_ending_only_count": 0,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "package_not_recorded_paths": [
+        "WinBookSplit.ico"
+      ],
+      "package_recorded_exact_final_count": 33,
+      "recorded_base_commit": "b2ab77ed4fb28986d3ab9798c6de788af50476ec",
+      "recorded_base_tree": "795cba33e2c03ce4341b0f3d005bfc3412d31cff",
+      "recorded_success": true,
+      "recorded_tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "report_sha256": "1fafca0d3fa22f54aca48cdcaf012528cfaf268fb9f4bcab8b89aca6402e3e97",
+      "source_unchanged_recorded": true,
+      "unexplained_count": 0
+    },
+    "15": {
+      "exact_final_hash_count": 222,
+      "late_correction_prior_source_count": 3,
+      "late_correction_prior_source_paths": [
+        "tests/python/test_native_smoke.py",
+        "tests/python/test_store_gate.py",
+        "tools/compatibility/native_smoke.py"
+      ],
+      "late_correction_source_details": [
+        {
+          "final_commit_raw_sha256": "d061405a86c066c1f3269595cbf27c244bb6550736f0d29c2d41d0f9f1fef3d4",
+          "path": "tests/python/test_native_smoke.py",
+          "prior_commit_raw_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "3c8be8a16ce6ed54d622d20f51e972ce6bc72d4149baf3ac0998680a24351b9b"
+        },
+        {
+          "final_commit_raw_sha256": "b45e57c0e13fc4624d335dbd2d6278af12dd7a34e06e7e99e4f3b17996cbed9c",
+          "path": "tests/python/test_store_gate.py",
+          "prior_commit_raw_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "8d4c27068b219dcd306ba9b6cdaa782ec274faf49ca7501554e3a929419cc9fc"
+        },
+        {
+          "final_commit_raw_sha256": "7d38381275483b3ffa5bae9aa7afd7f51908179940fc5198d1cf3daecd0211af",
+          "path": "tools/compatibility/native_smoke.py",
+          "prior_commit_raw_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23",
+          "prior_exact_raw_match": true,
+          "prior_line_ending_variant_match": false,
+          "recorded_sha256": "26ab3b410dda9a8088fe85e765616fdc503d20155ef2b68ecf38d01dcb81de23"
+        }
+      ],
+      "limitation": "Pre-correction working-tree application matrix; not rerun at committed F. Line ending variants are byte differences, not exact-byte test equivalence.",
+      "line_ending_only_count": 0,
+      "not_run": [
+        "interactive preview UI",
+        "in-person console interaction",
+        "human Explorer drag/drop",
+        "arbitrary ebooks/DRM/system-wide network isolation",
+        "release-package checks"
+      ],
+      "package_not_recorded_paths": [
+        "WinBookSplit.ico"
+      ],
+      "package_recorded_exact_final_count": 33,
+      "recorded_base_commit": "b2ab77ed4fb28986d3ab9798c6de788af50476ec",
+      "recorded_base_tree": "795cba33e2c03ce4341b0f3d005bfc3412d31cff",
+      "recorded_success": true,
+      "recorded_tested_paths_digest": "0cc07f59cc9bd0606db8039be3bd2123f83a8eac8d15c2d57e0303f1b0c2d128",
+      "report_sha256": "d4d42fbcd5cc2555b3fc430bf9c3dc108613ca6b371c8f026f584fe045ce6557",
+      "source_unchanged_recorded": true,
+      "unexplained_count": 0
+    }
+  },
+  "audit_kind": "INDEPENDENT_STDLIB_READ_ONLY_BYTES_AND_METADATA",
+  "checks": [
+    {
+      "check": "final_tree",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:.github/workflows/windows-ci.yml",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:.gitignore",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:LICENSE",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Setup-WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Setup-WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:VERSION",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.ico",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/PLAN_ORACLES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Setup.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:requirements-dev.txt",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/Invoke-ShellTests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/PSScriptAnalyzerSettings.psd1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/characterize_original.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/expected_original.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/characterize_level1.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/characterize_level2.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/characterize_cli.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/validate_cli_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-NativeKit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-StoreExisting.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/application_matrix.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/runtime-lock.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/characterize_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/generate_ebook_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/Probe-Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/characterize_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/characterize_document_policy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/generate_document_policy_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/validate_document_policy_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/behavior.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/characterize_ebooks.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/validate_ebooks_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/extraction/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/extraction/characterize_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/failures/fail_python.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/characterize_faults.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/characterize_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/cross_host.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/invariants.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_cross_host_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_faults_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/worker.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/characterize_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/generate_fidelity_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/render_pdfium.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/validate_fidelity_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fixtures/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fixtures/generate_pdf_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/characterize_launcher.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/validate_launcher_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/characterize_manual.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/current_launchers.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/interaction_receipts.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/OwnedConverter.cs",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/characterize_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/fault_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/validate_outcomes_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/output/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/output/characterize_output.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/paths/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/paths/characterize_paths.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/plans/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/plans/characterize_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Compatibility.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Discovery.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/FailureProbe.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Harness.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/HarnessSupport.psm1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Launcher.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Logging.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Manager.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Outcome.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Process.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Runtime.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Session.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Setup.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/StoreDiscovery.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Support.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Version.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/Probe-Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/characterize_process.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/fake_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/native_child.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/validate_process_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/console_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/session_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_reports.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_cli_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_console_manifest.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_converter_cache.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_cross_host_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_document_policy_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebook_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebook_behavior.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebooks_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fault_invariants.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fault_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_faults_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fidelity_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_filenames.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_final_zip_ps7.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_interaction_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_interactive.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_launcher_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_level1.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_level2.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_manual.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_discovery_collector.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_fixture_preparation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_kit.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_store_scenario.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_outcomes_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_output.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_pdf_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_pdf_policy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_preview.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_process_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_release_package.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_release_security.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_runner.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_runtime_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_store_gate.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_support_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ux_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_version.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_warnings.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/run_tests.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/Observe-ManagerCache.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/characterize_runtime.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/converter_cache.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/validate_runtime_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/characterize_support.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/validate_support_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/characterize_ux.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/validate_ux_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/check_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/validate_reports.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/check_sync.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/handoff_common.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/validate_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/build_owner_test_bundle.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/check_handoff.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/check_native_store_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/owner-test-delivery/Start-OwnerTest.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/tests/test_handoff.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/tests/test_native_gate.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-FinalZipPs7.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/final_zip_ps7.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/kit_builder.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/prepare_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/build_package.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/payload.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_batch_consumed",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:.github/workflows/windows-ci.yml",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:.gitignore",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:LICENSE",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Setup-WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:Setup-WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:VERSION",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.ico",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/ACCEPTANCE_CASES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/PLAN_ORACLES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.0/SUPPORT_AND_SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:docs/codex-v1.0.2/RUNTIME_POLICY_CASES.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Setup.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:requirements-dev.txt",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/Invoke-ShellTests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/PSScriptAnalyzerSettings.psd1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/characterize_original.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/baseline/expected_original.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/characterize_level1.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/bookmarks/characterize_level2.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/characterize_cli.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/cli/validate_cli_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-NativeKit.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/Probe-StoreExisting.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/application_matrix.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/runtime-lock.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/characterize_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/conversion/generate_ebook_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/Probe-Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/diagnostics/characterize_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/characterize_document_policy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/generate_document_policy_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/document_policy/validate_document_policy_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/behavior.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/characterize_ebooks.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ebooks/validate_ebooks_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/extraction/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/extraction/characterize_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/failures/fail_python.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/characterize_faults.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/characterize_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/cross_host.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/invariants.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_cross_host_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_faults_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/validate_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/faults/worker.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/characterize_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/generate_fidelity_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/render_pdfium.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fidelity/validate_fidelity_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fixtures/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/fixtures/generate_pdf_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/characterize_launcher.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/launcher/validate_launcher_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/characterize_manual.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/current_launchers.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/manual/interaction_receipts.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/OwnedConverter.cs",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/characterize_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/fault_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/outcomes/validate_outcomes_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/output/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/output/characterize_output.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/paths/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/paths/characterize_paths.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/plans/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/plans/characterize_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Compatibility.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Discovery.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/FailureProbe.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Harness.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/HarnessSupport.psm1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Launcher.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Logging.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Manager.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Outcome.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Process.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Runtime.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Session.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Setup.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/StoreDiscovery.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Support.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/powershell/Version.Tests.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/Probe-Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/characterize_process.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/fake_engine.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/native_child.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/process/validate_process_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/console_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/session_receipt_fixture.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ci_reports.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_cli_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_console_manifest.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_converter_cache.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_cross_host_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_diagnostics.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_document_policy_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebook_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebook_behavior.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ebooks_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_extraction.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fault_invariants.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fault_isolation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_faults_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_fidelity_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_filenames.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_final_zip_ps7.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_interaction_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_interactive.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_launcher_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_level1.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_level2.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_manual.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_discovery_collector.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_fixture_preparation.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_kit.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_native_store_scenario.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_outcomes.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_outcomes_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_output.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_pdf_fidelity.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_pdf_policy.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_preview.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_process_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_release_package.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_release_security.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_runner.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_runtime_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_store_gate.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_support_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_ux_receipt.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_version.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/python/test_warnings.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/run_tests.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/Observe-ManagerCache.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/characterize_runtime.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/converter_cache.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/runtime/validate_runtime_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/characterize_support.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/support/validate_support_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/characterize_ux.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tests/ux/validate_ux_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/bootstrap.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/check_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/ci/validate_reports.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/check_sync.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/handoff_common.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-handoff/validate_plan.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/build_owner_test_bundle.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/check_handoff.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/check_native_store_report.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/owner-test-delivery/Start-OwnerTest.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/tests/test_handoff.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/codex-v1.0.3/tests/test_native_gate.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-FinalZipPs7.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/final_zip_ps7.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/kit_builder.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/compatibility/prepare_fixtures.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/README.md",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/build_package.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "raw_git_blob_type:tools/release/payload.json",
+      "passed": true
+    },
+    {
+      "check": "raw_git_batch_consumed",
+      "passed": true
+    },
+    {
+      "check": "package_three_expected_assets",
+      "passed": true
+    },
+    {
+      "check": "independent_build_asset_sets",
+      "passed": true
+    },
+    {
+      "check": "independent_build_all_asset_bytes_equal",
+      "passed": true
+    },
+    {
+      "check": "zip_unique:WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "zip_finite_literal_members:WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "package_34_members",
+      "passed": true
+    },
+    {
+      "check": "package_manifest_34_members",
+      "passed": true
+    },
+    {
+      "check": "package_members_equal_manifest",
+      "passed": true
+    },
+    {
+      "check": "manifest_final_source",
+      "passed": true
+    },
+    {
+      "check": "package_archive_pin",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:LICENSE",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:LICENSE",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:README.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:README.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:Setup-WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:Setup-WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:Setup-WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:Setup-WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:VERSION",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:VERSION",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:WinBookSplit.ico",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:WinBookSplit.ico",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Setup.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Setup.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "package_raw_git:requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:tools/release/build_package.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:tools/release/payload.json",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:tools/ci/check_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_raw_git:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "manifest_four_builder_tool_pins",
+      "passed": true
+    },
+    {
+      "check": "checksums:WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "checksums:release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "new_policy4_exact_wheel",
+      "passed": true
+    },
+    {
+      "check": "python_floors_preserved",
+      "passed": true
+    },
+    {
+      "check": "new_requirement_exact_wheel",
+      "passed": true
+    },
+    {
+      "check": "manifest_new_dependency_pin",
+      "passed": true
+    },
+    {
+      "check": "zip_unique:WinBookSplit-v103-native-kit-afd75b4.zip",
+      "passed": true
+    },
+    {
+      "check": "zip_finite_literal_members:WinBookSplit-v103-native-kit-afd75b4.zip",
+      "passed": true
+    },
+    {
+      "check": "kit_35_members",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_34_pins",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_member_set",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:README.txt",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:README.txt",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:Run-Windows10.cmd",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:Run-Windows10.cmd",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:Run-Windows10.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:Run-Windows10.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:assets/SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:assets/SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:assets/WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:assets/WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:assets/release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:assets/release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/flat-6.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/flat-6.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/native-fixtures.json",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/native-fixtures.json",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/nested-12.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/nested-12.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/original-three-chapters.azw3",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/original-three-chapters.azw3",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/original-three-chapters.epub",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/original-three-chapters.epub",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:fixtures/simple-10.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:fixtures/simple-10.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:kit-bindings.json",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:kit-bindings.json",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/kit_builder.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/kit_builder.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_pin:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "kit_directory_zip:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "kit_manifest_directory_zip",
+      "passed": true
+    },
+    {
+      "check": "kit_bindings_pin",
+      "passed": true
+    },
+    {
+      "check": "kit_21_helpers",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tests/cli/Probe-Help.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/Invoke-NativeDiscoveryCollector.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/Invoke-StoreExistingAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/kit_builder.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "kit_helper_raw_git:tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "kit_six_fixtures",
+      "passed": true
+    },
+    {
+      "check": "fixture_receipt_exact_six_bindings",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:flat-6.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:native-fixtures.json",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:nested-12.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:original-three-chapters.azw3",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:original-three-chapters.epub",
+      "passed": true
+    },
+    {
+      "check": "kit_fixture_pin:simple-10.pdf",
+      "passed": true
+    },
+    {
+      "check": "kit_exact_production_asset:SHA256SUMS.txt",
+      "passed": true
+    },
+    {
+      "check": "kit_exact_production_asset:WinBookSplit-v1.0.3.zip",
+      "passed": true
+    },
+    {
+      "check": "kit_exact_production_asset:release-manifest.json",
+      "passed": true
+    },
+    {
+      "check": "kit_final_source:kit",
+      "passed": true
+    },
+    {
+      "check": "kit_final_source:production",
+      "passed": true
+    },
+    {
+      "check": "kit_committed_mode",
+      "passed": true
+    },
+    {
+      "check": "kit_new_wheel_prerequisite_metadata",
+      "passed": true
+    },
+    {
+      "check": "default_launcher_exact_no_selection",
+      "passed": true
+    },
+    {
+      "check": "default_script_store_scenario",
+      "passed": true
+    },
+    {
+      "check": "store_dispatch_precedes_legacy_acquisition",
+      "passed": true
+    },
+    {
+      "check": "store_dispatch_returns",
+      "passed": true
+    },
+    {
+      "check": "store_rejects_controller_runtime_inputs",
+      "passed": true
+    },
+    {
+      "check": "store_disabled_fallback_declaration",
+      "passed": true
+    },
+    {
+      "check": "kit_bundles_no_runtime_or_wheel",
+      "passed": true
+    },
+    {
+      "check": "retained_official_wheel_exact_pin",
+      "passed": true
+    },
+    {
+      "check": "zip_unique:pypdf-6.21.1-py3-none-any.whl",
+      "passed": true
+    },
+    {
+      "check": "zip_finite_literal_members:pypdf-6.21.1-py3-none-any.whl",
+      "passed": true
+    },
+    {
+      "check": "retained_wheel_single_metadata",
+      "passed": true
+    },
+    {
+      "check": "retained_wheel_package_metadata",
+      "passed": true
+    },
+    {
+      "check": "retained_wheel_pure_python_tag",
+      "passed": true
+    },
+    {
+      "check": "matrix_prior_differences_are_late_correction:13",
+      "passed": true
+    },
+    {
+      "check": "matrix_no_unexplained_source_differences:13",
+      "passed": true
+    },
+    {
+      "check": "matrix_recorded_package_paths_exact_final:13",
+      "passed": true
+    },
+    {
+      "check": "matrix_only_package_icon_not_recorded:13",
+      "passed": true
+    },
+    {
+      "check": "matrix_prior_differences_are_late_correction:14",
+      "passed": true
+    },
+    {
+      "check": "matrix_no_unexplained_source_differences:14",
+      "passed": true
+    },
+    {
+      "check": "matrix_recorded_package_paths_exact_final:14",
+      "passed": true
+    },
+    {
+      "check": "matrix_only_package_icon_not_recorded:14",
+      "passed": true
+    },
+    {
+      "check": "matrix_prior_differences_are_late_correction:15",
+      "passed": true
+    },
+    {
+      "check": "matrix_no_unexplained_source_differences:15",
+      "passed": true
+    },
+    {
+      "check": "matrix_recorded_package_paths_exact_final:15",
+      "passed": true
+    },
+    {
+      "check": "matrix_only_package_icon_not_recorded:15",
+      "passed": true
+    }
+  ],
+  "checks_count": 681,
+  "kit": {
+    "archive": {
+      "bytes": 1564435,
+      "sha256": "af4bf7107149f33c3a8d139f4ca5302d1427b7549dc982ee97a2572585ea49fb"
+    },
+    "bindings_sha256": "1d9677add6f4237edf850006f783161b33b59df9175547cc3625a94c5f971fe9",
+    "default_launcher_supplies_no_runtime_or_provisioning": true,
+    "fallback_disabled_static_review": true,
+    "fixtures": 6,
+    "helpers": 21,
+    "manifest_pins": 34,
+    "members": 35,
+    "scenario": "store-existing"
+  },
+  "limits": [
+    "No application, native acceptance, archive code, fixture, or delivered helper was executed.",
+    "Static byte/metadata review does not establish native acceptance or policy denial.",
+    "Existing owner T07/frozen R receipts remain unchanged and do not accept the new candidate."
+  ],
+  "package": {
+    "assets": {
+      "SHA256SUMS.txt": {
+        "bytes": 178,
+        "sha256": "67a41d8fc33c57614866992bc24a52081bc1eac341dedfd96facb15bbf9abb73"
+      },
+      "WinBookSplit-v1.0.3.zip": {
+        "bytes": 935676,
+        "sha256": "216c310e395a098e085f8c3a4db994a2c94072e58bc5982234fad1e5db7b9359"
+      },
+      "release-manifest.json": {
+        "bytes": 16594,
+        "sha256": "78613d69ccc876a043947156476673e522ba4103fd82d8800e47b2a408397ab2"
+      }
+    },
+    "builder_tool_pins": 4,
+    "independent_builds_byte_equal": true,
+    "manifest_pins": 34,
+    "members": 34,
+    "signed": false
+  },
+  "result": "PASS",
+  "schema_version": 1,
+  "source_commit": "afd75b4f41ab7135e13fbb40818ade9e47daba03",
+  "source_tree": "08812489efdfb9921f87dca5ceba2c3ab5b37a67",
+  "wheel": {
+    "actual_archive_inspected": true,
+    "archive_identity": {
+      "bytes": 405134,
+      "sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
+    },
+    "metadata_name": "pypdf",
+    "metadata_version": "6.21.1",
+    "pin": {
+      "bytes": 405134,
+      "name": "pypdf-6.21.1-py3-none-any.whl",
+      "sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b",
+      "url": "https://files.pythonhosted.org/packages/85/e6/24c944e473c34e818cf1b98085796fcd780465ecfe17663f2bf8fee1958b/pypdf-6.21.1-py3-none-any.whl",
+      "version": "6.21.1"
+    },
+    "pin_metadata_verified": true,
+    "tag": [
+      "py3-none-any"
+    ]
+  }
+}

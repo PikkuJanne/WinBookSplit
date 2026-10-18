@@ -8,14 +8,16 @@ tests pass under new isolated 3.13.16/3.14.8/3.15.0 environments with 6.21.1.
 Keep full supported-runtime, PDF, Calibre, both-shell, origin/hash/setup and CI
 evidence source-bound. Changed package bytes require a new freeze and exact-ZIP
 native acceptance; original R's accepted T07 is preserved only for its own bytes.
-See tasks/08-T08-security-repair.md and the new implementation evidence.
+See tasks/08-T08-security-repair.md and implementation/correction/final candidate
+evidence. OWNER_SECURITY_REPAIR.md identifies the new exact-ZIP handoff.
 
-Current native result: T07 STORE-037 through STORE-042 PASS for the unchanged
+Original native result: T07 STORE-037 through STORE-042 PASS for the unchanged
 actual owner Windows10 Store return at frozen R/exact production ZIP. Review and
 offline checker results are in evidence/T07-owner-return.md/JSON and independent
-audit JSON. The owner need not repeat the accepted test. Actual enforced-policy
-STORE-024 remains NOT_RUN; T08 publication stays BLOCKED and final security review
-is pending. The T02-T06 checkpoint observations below describe their historical
+audit JSON. The owner need not repeat that unchanged test. The new security
+candidate requires fresh exact-byte Store evidence, currently NOT_RUN. Actual
+enforced-policy STORE-024 remains NOT_RUN; T08 publication stays BLOCKED pending
+the real required gates. The T02-T06 observations below describe their historical
 component/tooling scope; they do not retract or substitute for the T07 result.
 
 T06 freezes committed source R and exact assets, with one generated owner

@@ -1,39 +1,49 @@
 # Status
 
-The first broad run exposed a standalone historical-export policy-loading error,
-now corrected with 47 focused passing tests. See
-evidence/T08-security-repair-correction.md/JSON. The provisional 9f7e081 assets
-are retained and must be superseded by corrected-source CI/manifest/kit bindings.
-Both first broad aggregates are non-passing; their child results and source-
-change limits are recorded honestly. Final candidate receipts follow separately.
+State: **Authorized pypdf security repair and independent new-candidate
+preparation COMPLETE; T08 publication BLOCKED by missing native evidence.**
 
-State: **Security repair implemented; new candidate preparation in progress.**
-The owner explicitly authorized the separate pypdf repair on 18 October 2026.
-The exact 6.21.1 lock, policy 4, necessary maintained pins/tests and current docs
-are updated. Three parser guard regressions have expected old-version RED and
-pass with earlier filter/BAT guards on all three supported targets. The full application
-matrix passes on 3.13.16/3.14.8/3.15.0 with both shells and actual Calibre 9.15.0.
-See evidence/T08-security-repair.md/JSON. Shared broad suites and final exact-source
-CI/package/kit receipts follow separately; no pending check is called a pass.
+The owner explicitly authorized this separate repair on 18 October 2026. The
+current lock is pypdf 6.21.1/policy 4. Python/Calibre floors and production engine,
+discovery, setup, origin, process and file protections remain intact. The final
+candidate receipt records actual completed broad/CI/native-component results,
+source maps, earlier failures and limits; none is general security clearance.
 
-T07 remains COMPLETE for original R 243d31e/exact old ZIP only. Its owner
-Windows10 Store acceptance is preserved and must not be repeated unchanged.
-Evidence/T07-owner-return.md/JSON and its 79-check audit remain immutable.
-Original OWNER_KIT.md/OWNER_TRANSFER.md and frozen archives remain intact.
-The changed security candidate needs its own committed freeze, exact package and
-fresh native acceptance. A new validated transferable bundle must identify the
-new bytes clearly before a necessary owner retest is requested.
+Product candidate F is afd75b4f41ab7135e13fbb40818ade9e47daba03, tree
+08812489efdfb9921f87dca5ceba2c3ab5b37a67. Exact ZIP is 935676 bytes, SHA256
+216c310e395a098e085f8c3a4db994a2c94072e58bc5982234fad1e5db7b9359. The final
+manifest and committed kit bind F. Original broad failures and provisional
+9f7e081 artifacts/cancelled CI remain preserved; final F results supersede them.
 
-T04 remains IMPLEMENTED_PENDING_NATIVE. STORE-024 actual enforced organization-
-policy denial remains NOT_RUN; local authored MOTW evidence is separate and
-cannot clear it. No already-enforced target or new receipt was supplied.
-T08 publication remains BLOCKED; STORE-043 through STORE-048 remain NOT_RUN.
-No publication/tag/main merge, desktop Python/Manager change, PATH/alias/policy
-change, historical release mutation or acceptance promotion occurred.
+The new transferable carrier is WinBookSplit-Windows10-Test-afd75b4.zip,
+3157973 bytes, SHA256
+c9672265f3a2b5a3653e9c36967f8f64a83bd8ac3799489ecdf412b92d0a18a3.
+Two builds match. Its actual Windows11 refusal/unchanged failure-report-copy
+rehearsal and independent carrier review are complete, with no Store acceptance
+claim. OWNER_SECURITY_REPAIR.md has four owner steps, START-TEST.cmd and one
+SEND-THIS-REPORT.zip return. New F actual Windows10 Store acceptance is NOT_RUN.
 
-The older T08-gate-review/recheck/continuation and security-candidate-review
-records describe their historical frozen 6.20.0/review-only checkpoints. Their
-scope-pending statements predate the explicit owner answer. The new 6.21.1 source
-addresses the reviewed dependency issue; old R does not gain that fix or clearance.
-All prior receipts and original R/tree/ZIP/kit/carrier bindings remain preserved.
-Follow tasks/08-T08-security-repair.md and NEXT_SESSION.md for the current task.
+T07 stays COMPLETE/STORE-037 through STORE-042 PASS only for original R243d31e
+and its exact old ZIP. The unchanged accepted owner return/79-check audit,
+OWNER_KIT/OWNER_TRANSFER contracts, archives and installations remain intact.
+Do not repeat unchanged original R or transfer its acceptance to new bytes.
+
+T04 remains IMPLEMENTED_PENDING_NATIVE. STORE-024 genuine already-enforced
+organization-policy denial remains NOT_RUN; no authorized enforced target or
+genuine new denial receipt exists. The new Store kit still keeps it NOT_RUN.
+Authored local MOTW and policy simulations cannot clear it. T08 publication is
+BLOCKED; STORE-043 through STORE-048 stay NOT_RUN. All 48 acceptance statuses
+and T01-T07 records remain unchanged. Scripts are unsigned.
+
+Fresh old tags/release bodies/asset metadata remain equal, with no v1.0.3 release
+or tag. No publish/tag/main merge, settings/force operation or desktop runtime,
+Manager, PATH/alias/persistent-policy change occurred. Only new isolated developer
+environments and owned test copies/application venvs were created. Historical
+T08 gate-review/security-scope-pending records retain their earlier context;
+the scope question is now explicitly answered and the new candidate is distinct.
+
+Follow evidence/T08-security-repair-candidate.md/JSON,
+evidence/T08-security-repair-artifact-audit.json and NEXT_SESSION.md. The ordinary
+documentation checkpoint push/live equality belongs in the external handover;
+it does not change F or establish final-main/release acceptance. STOP here after
+that clean synchronized checkpoint, pending actual new native evidence.

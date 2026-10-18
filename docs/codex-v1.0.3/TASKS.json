@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "Separately authorized 18 October 2026 pypdf 6.21.1 implementation complete and independently reviewed. New guard tests and all three supported-runtime application matrices pass. Broad-suite results, exact-source CI and new candidate freeze/package/kit receipts follow separately. Original T07 PASS applies only to original R/exact ZIP; changed bytes require fresh native acceptance. STORE-024 NOT_RUN; T08 publication BLOCKED; STORE-043 through STORE-048 NOT_RUN. No acceptance promotion. First broad run found one standalone legacy-export error; corrected and 47 focused tests pass. Provisional 9f7e081 assets retained; final corrected-source CI/package/kit bindings pending.",
+      "completion_scope": "Separately authorized pypdf6.21.1 repair and independent new-candidate preparation COMPLETE at Fafd75b4. Actual final broad/CI/source-bound Windows11 developer regressions, guarded reproducible package/kit/carrier, 681check independent audit and real launcher/failure-return rehearsal are recorded in final candidate receipts with honest limits. Initial broad failures/provisional9f artifacts and cancelledCI retained. Original T07 COMPLETE/PASS only originalR/exactZIP, unchanged. NewF actual Windows10 Store acceptance NOT_RUN; STORE024 genuine enforced-policy denial NOT_RUN. T04 IMPLEMENTED_PENDING_NATIVE; T08 publication BLOCKED; STORE043..048 NOT_RUN; no acceptance promotion/publish/tag/mainmerge. One new validated carrier/START-TEST.cmd/SEND-THIS-REPORT.zip flow is ready; do not rerun unchanged oldR.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -247,7 +247,11 @@
         "evidence/T08-security-repair.md",
         "evidence/T08-security-repair.json",
         "evidence/T08-security-repair-correction.md",
-        "evidence/T08-security-repair-correction.json"
+        "evidence/T08-security-repair-correction.json",
+        "OWNER_SECURITY_REPAIR.md",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "evidence/T08-security-repair-artifact-audit.json"
       ]
     }
   ],

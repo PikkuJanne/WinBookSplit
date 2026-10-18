@@ -593,15 +593,18 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     },
     {
       "id": "STORE-044",
       "task": "T08",
       "name": "Tested commit/tag",
-      "expected": "Passing reviewed source merged/tagged as v1.0.3 at tested R; version/docs/package consistent; no retag or changed ZIP.",
+      "expected": "Passing reviewed source merged/tagged as v1.0.3 at the accepted immutable candidate commit; version/docs/package consistent; no retag or changed ZIP.",
       "status": "NOT_RUN",
       "required": true,
       "evidence": [
@@ -610,9 +613,12 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     },
     {
       "id": "STORE-045",
@@ -627,9 +633,12 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     },
     {
       "id": "STORE-046",
@@ -644,9 +653,12 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     },
     {
       "id": "STORE-047",
@@ -661,9 +673,12 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     },
     {
       "id": "STORE-048",
@@ -678,9 +693,12 @@
         "evidence/T08-gate-recheck.md",
         "evidence/T08-gate-recheck.json",
         "evidence/T08-gate-continuation.md",
-        "evidence/T08-gate-continuation.json"
+        "evidence/T08-gate-continuation.json",
+        "evidence/T08-security-repair-candidate.md",
+        "evidence/T08-security-repair-candidate.json",
+        "OWNER_SECURITY_REPAIR.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED: accepted T07 owner Store evidence reconfirmed unchanged; STORE-024 actual enforced organization-policy denial still missing. Technical security review completed but retained pypdf 6.20.0 parser exposure leaves release disposition unresolved/BLOCKED. No publish/tag/main merge. Old-release metadata comparison does not establish anonymous asset bytes or final release closure."
+      "result_scope": "NOT_RUN/BLOCKED: separately authorized pypdf6.21.1 repair/newF preparation complete with actual source-bound checks and frozen newbytes. Original T07 PASS stays originalR/exactoldZIP only. NewF actualWindows10 Store acceptance and STORE024 genuine enforced-policy denial remain NOT_RUN. Authored local MOTW/mockedpolicy/static audit/failure-report delivery cannot substitute. No publish/tag/mainmerge; fresh old-release metadata comparison is not anonymous asset bytes or final-main/release closure."
     }
   ]
 }

@@ -30,3 +30,13 @@ failures, skips and remaining native work in evidence/T08-security-repair.md/JSO
 Update active STATUS/TASKS/NEXT_SESSION after the task. Stage intended files only,
 commit/push normally and verify clean HEAD against freshly queried live origin.
 Stop after the completed independent checkpoint with exact continuation.
+
+## Independent preparation checkpoint
+
+Implementation/correction, final exact source checks and independent candidate
+preparation are complete at Fafd75b4. See ../evidence/T08-security-repair-candidate.md
+and JSON plus the unchanged 681-check audit. ../OWNER_SECURITY_REPAIR.md is the
+new candidate's one validated owner handoff; original owner contracts stay old.
+This subtask completion does not complete publication or accept changed bytes.
+New F actual Store native acceptance and genuine STORE-024 remain NOT_RUN;
+T08 publication remains BLOCKED. NEXT_SESSION.md routes the next gate review.
