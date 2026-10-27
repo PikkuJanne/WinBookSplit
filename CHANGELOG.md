@@ -1,24 +1,24 @@
 # Changelog
 
-## 1.0.3 — candidate, publication blocked
+## 1.0.3
 
 - Repairs automatic discovery of official Microsoft Store Python Install Manager
   registrations, validates each official channel's complete identity tuple, and
   resolves its verified package-bound entry point to existing concrete runtimes.
 - Keeps regular x64 Python 3.13.16+, 3.14.8+ and 3.15.0+ support, reviewed security
   floors, isolated package-origin checks and authoritative explicit/app-venv setup.
-- Updates the exact pypdf lock to 6.21.1 and its reviewed wheel SHA256 for
-  upstream array/dictionary, content-stream, form-field and JPEG fixes, retaining
-  existing package-origin, filter and process guards. This changed candidate
-  requires a new committed freeze and exact-byte native acceptance.
+- Updates the exact pypdf lock to 6.21.3 and its reviewed wheel SHA256 for
+  upstream parser/resource fixes, including the document-wide cross-reference
+  stream budget, retaining existing package-origin, filter and process guards.
 - Reports rejected manager, listing, interpreter and package routes distinctly,
   retaining bounded local technical records and complete setup/repair actions.
 - Adds an existing-Store native verification route that blocks before fallback
   acquisition and rejects runtime substitution or contradictory process evidence.
-  The frozen distribution and separate returned-receipt checker remain required.
+  Retains frozen-distribution bindings and a separate checker for native receipts.
 - Preserves the accepted earlier frozen Windows 10 existing-Store result for
-  its original bytes. Native acceptance of this changed candidate and actual
-  enforced organization-policy denial remain pending before publication. See the
+  its original bytes. Under the owner's 27 October decision, a fresh Windows10
+  Store run of the final ZIP and real company-policy testing remain untested;
+  the release does not claim those passes. See the
   [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
 
 ## 1.0.2

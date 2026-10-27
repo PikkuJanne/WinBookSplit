@@ -20,7 +20,7 @@ The shared shell harness imports only the selected versioned manifests.
 
 Three separate application jobs use the exact test targets in
 `tests/compatibility/runtime-lock.json`: 3.13.16, 3.14.8 and 3.15.0. Each uses its own
-runtime environment containing only pypdf 6.21.1 and optional pip; a distinct
+runtime environment containing only pypdf 6.21.3 and optional pip; a distinct
 3.14.8 driver generates authored fixtures with the development dependencies.
 The shared application route runs the existing nine stdlib/pypdf unit modules
 and eight PDF/native wrapper cases under both shell hosts. The 3.15 runtime

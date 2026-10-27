@@ -1,5 +1,16 @@
 # T08 - proposed minimal security follow-up after 27 October review
 
+## Latest authority and active work
+
+The owner ordered completion on 27 October and closed all further owner work.
+OWNER_DECISION_20261027.md supersedes earlier manual-test/publication blockers in
+this brief. Implement/test623, freeze and verify newbytes, complete reviewed
+ordinaryintegration/tag/publication/anonymousbytes/finalmainclosure. Freshowner
+Windows10Store and genuinecompany-policy scenarios remain NOT_RUN/owner-waived,
+not PASS; disclose them and retain all guards. Do not request another owner run.
+This task is now IN_PROGRESS; historical/proposed details below retain context.
+
+
 Status: **REMEDIAL_SCOPE_REVIEWED; NOT_IMPLEMENTED/NOT_TESTED/NOT_ACCEPTED**.
 This is the next separate task, not an acceptance waiver or an implemented patch.
 The current checkpoint only reviews the returned packet and current gates.

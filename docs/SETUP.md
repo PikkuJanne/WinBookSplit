@@ -3,7 +3,7 @@
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
 from one of the accepted branches below. The application uses plain **pypdf
-6.21.1**; EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.15.0**.
+6.21.3**; EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.15.0**.
 Developer renderers, Pester and fixture packages are not application requirements.
 Final-release platform evidence belongs to the exact release archive; these
 setup instructions do not certify an untested ZIP or a clean operating system.
@@ -121,11 +121,11 @@ are not promised to be portable.
 
 ## Offline package setup
 
-Place the exact reviewed file `pypdf-6.21.1-py3-none-any.whl` in an ordinary local
+Place the exact reviewed file `pypdf-6.21.3-py3-none-any.whl` in an ordinary local
 wheelhouse directory. Its SHA-256 must be:
 
 ```text
-553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b
+c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e
 ```
 
 Then run:
@@ -182,7 +182,7 @@ Windows binaries are unavailable in the reviewed catalog. End users are not
 required to compile Python, so these branches are excluded. Prereleases,
 free-threaded builds, PyPy and 32-bit/ARM processes are also excluded. Unlisted
 minors such as 3.16 are not yet validated for this release; that reason does not
-label an unknown minor insecure. The exact pypdf 6.21.1 lock and Calibre 9.15.0 check remain
+label an unknown minor insecure. The exact pypdf 6.21.3 lock and Calibre 9.15.0 check remain
 separate from Python's multi-minor policy.
 
 For processing, an explicit `-PythonPath` is authoritative, followed by an existing
@@ -216,15 +216,17 @@ for operating-system servicing options.
 
 Public release assets are listed on the
 [GitHub releases page](https://github.com/PikkuJanne/WinBookSplit/releases).
-After v1.0.3 acceptance and publication, use the named `WinBookSplit-v1.0.3.zip`,
+For v1.0.3 installation, use the named `WinBookSplit-v1.0.3.zip`,
 `release-manifest.json` and `SHA256SUMS.txt` from the same public release. GitHub's automatic
 **Source code (zip)** and tarball are source checkouts, not the accepted runtime
 distribution. The named ZIP contains no Python/Calibre runtime, wheel or `.venv`.
 Exact-package native results are recorded in the
 [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
-This v1.0.3 candidate remains blocked on the existing Windows 10 Store automatic
-setup/BAT and remaining native policy gates. An unpublished candidate or
-source-test report is not release certification.
+The earlier Windows10 Store result covers its original package. The owner
+closed further manual testing for v1.0.3: the final dependency-updated ZIP's
+Windows10 Store run and genuine company-enforced script-policy scenario remain
+untested. Agent verification and these limits are recorded separately. Enforced
+organization controls still apply. Source tests alone are not native acceptance.
 
 Compute the archive's hash before extraction, replacing this example path:
 

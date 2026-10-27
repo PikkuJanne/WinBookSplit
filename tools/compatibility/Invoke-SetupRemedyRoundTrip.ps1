@@ -304,7 +304,7 @@ foreach($hostKind in $hostKinds){foreach($state in @('fresh','stale')){
             $setup=Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] '
             if($IncludeSecurityControls){Assert-RemedyActualChildHost $setup @($inboxBaseline) $inbox}
             if($exact.text-cne $route.emitted_action -or -not $exact.ast_literal_verified -or $run.probe.ExitCode-ne 0 -or
-                $setup.exit_code-ne 0 -or $setup.code-cne 'setup_complete' -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.1'){throw 'Exact emitted remedy did not create selected315 locked runtime.'}
+                $setup.exit_code-ne 0 -or $setup.code-cne 'setup_complete' -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.3'){throw 'Exact emitted remedy did not create selected315 locked runtime.'}
             $route.setup=$setup
             if($state-ceq 'stale'){Assert-RemedyEnvironmentHashes $setup.backup_path $old}
         }else{
@@ -416,7 +416,7 @@ if($IncludeSecurityControls){
                     Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $route.old_environment
                 }else{
                     $expected=if($stage-cin @('fresh','repair')){'setup_complete'}else{'setup_ready'}
-                    if($run.probe.ExitCode-ne 0 -or $setup.exit_code-ne 0 -or $setup.code-cne $expected -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.1'){throw 'Marked BAT actual setup/Check/no-op/zeroargs/Repair differs.'}
+                    if($run.probe.ExitCode-ne 0 -or $setup.exit_code-ne 0 -or $setup.code-cne $expected -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.3'){throw 'Marked BAT actual setup/Check/no-op/zeroargs/Repair differs.'}
                     if($stage-ceq 'repair'){Assert-RemedyEnvironmentHashes $setup.backup_path $route.old_environment}
                 }
             }

@@ -212,7 +212,7 @@
       "depends_on": [
         "T07"
       ],
-      "status": "BLOCKED",
+      "status": "IN_PROGRESS",
       "brief": "tasks/08-T08.md",
       "acceptance_ids": [
         "STORE-043",
@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "27Oct owner return reviewed:377554bytes/hash436441f5 binds OLD R243d31e/ZIP70a76bd0/pypdf6.20.0, not Fafd75b4/ZIP216c310e/6.21.1. ExpectedFcheckerexit2 source mismatch; oldRconsistencyexit0;171independentchecks166pass/5expectedFfail, no internal packet defect. OriginalT07 accepted receipts and all48statuses unchanged. NewFStore NOT_RUN; genuineSTORE024 NOT_RUN. Current GHSA-x3rh-gjgm-fmqc affects F6.21.1; hold anotherFownerrun pending security disposition. Minimal6.21.3followup metadata/scope reviewed only, not implemented/tested/accepted. T04 IMPLEMENTED_PENDING_NATIVE; T08publicationBLOCKED/STORE043..048NOT_RUN. No product, lock, native target, archive or publication change.",
+      "completion_scope": "Owner27Octexecutiveorderclosesallfurtherownerwork. Minimal623repair, agentverification, newfreeze, immutablepackageandfullv1.0.3releaseclosure IN_PROGRESS. ManualfinalZIPWin10Store/genuinecompany-policy remainNOT_RUN/ownerwaived; nofabricatedpass/noownerrequest. PreserveoriginalT07/R/F. Automatedquality/security/CI/byte/publicmainchecksremainmandatory.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -257,7 +257,11 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "tasks/08-T08-security-followup.md"
+        "tasks/08-T08-security-followup.md",
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-security-followup-implementation.md",
+        "evidence/T08-security-followup-implementation.json",
+        "evidence/T08-security-followup-focused.json"
       ]
     }
   ],

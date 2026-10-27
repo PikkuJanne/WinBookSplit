@@ -1,5 +1,13 @@
 # Focused implementation specification
 
+Current 27 October follow-up selects exact official pypdf6.21.3/policy5 for the
+reviewed xref-stream budget and parser resource fixes. Shared engine/discovery/
+setup/origin/process/file implementations and Python/Calibre floors remain intact.
+OWNER_DECISION_20261027.md closes further owner work; unavailable manual final-ZIP
+Store/company-policy checks remain NOT_RUN/owner-waived. Old accepted T07 applies
+only to its original bytes. Complete all feasible agent checks and truthful public
+release verification; do not request another owner run or change validators.
+
 This is a repair specification, not a prevalidated Windows patch. Reuse the
 existing functions and supervisor. Inspect all call sites and package allowlists
 before editing. Avoid adding a second independent runtime resolver or test-only

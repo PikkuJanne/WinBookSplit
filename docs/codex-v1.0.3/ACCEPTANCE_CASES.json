@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "meaning": "T01-T06 PASS and result_scope retain their recorded historical baseline/component/tooling scope. Current T07 STORE-037 through STORE-042 PASS means reviewed actual unchanged owner Windows10 Store native acceptance for frozen R/exact production ZIP, not inferred from earlier Windows11/developer results. STORE-024 actual enforced organization-policy denial remains NOT_RUN/DEFERRED_NATIVE; T08 remains BLOCKED.",
+  "meaning": "T01-T07 historical passes retain their recorded source/scope; originalT07 is only originalR/exactoldZIP. Latest owner executive order waives further manual publication prerequisites, preserving NOT_RUN for unavailable scenarios. New finaldependency, agentverification and publicrelease receipts are separate; current implementation/release work IN_PROGRESS.",
   "cases": [
     {
       "id": "STORE-001",
@@ -319,14 +319,20 @@
       "name": "Policy/privacy preservation",
       "expected": "Process-scoped invocation, MOTW preservation, enforced policy denial and safe local diagnostics remain; no global changes.",
       "status": "DEFERRED_NATIVE",
-      "required": true,
+      "required": false,
       "evidence": [
         "evidence/T04.md",
         "evidence/T04.json",
         "evidence/T08-gate-review.md",
-        "evidence/T08-gate-review.json"
+        "evidence/T08-gate-review.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "Scoped component/labelled developer-fixture results only; actual Windows11/python.org 3.14.7 independently reached and truthfully rejected. No compatible automatic/Store/owner Windows10 acceptance. Enforced organization-policy denial remains NOT_RUN/deferred T07."
+      "result_scope": "NOT_RUN / owner-waived under27Octoberdecision. Original authoredMOTW/mockpolicy results retain their limits; no genuine enforced-policy pass claimed. All agent-native setup/remedy/refusal checks still required.",
+      "owner_waiver": {
+        "date": "2026-10-27",
+        "authority": "OWNER_DECISION_20261027.md",
+        "scope": "Genuine company-enforced policy test not required for v1.0.3 publication; remains NOT_RUN. Guard/refusal behavior retained."
+      }
     },
     {
       "id": "STORE-025",
@@ -584,7 +590,7 @@
       "id": "STORE-043",
       "task": "T08",
       "name": "Release gate",
-      "expected": "All required acceptance evidence reviewed; native actual Store gate passed for exact immutable candidate bytes.",
+      "expected": "Required agent/security/source/package evidence reviewed and passing; owner-closed manual scenarios explicitly recorded NOT_RUN/waived with disclosed limits under OWNER_DECISION_20261027.md.",
       "status": "NOT_RUN",
       "required": true,
       "evidence": [
@@ -601,9 +607,10 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     },
     {
       "id": "STORE-044",
@@ -626,9 +633,10 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     },
     {
       "id": "STORE-045",
@@ -651,9 +659,10 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     },
     {
       "id": "STORE-046",
@@ -676,9 +685,10 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     },
     {
       "id": "STORE-047",
@@ -701,9 +711,10 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     },
     {
       "id": "STORE-048",
@@ -726,9 +737,11 @@
         "evidence/T08-owner-return-20261027.json",
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
-        "evidence/T08-remedial-scope-20261027.json"
+        "evidence/T08-remedial-scope-20261027.json",
+        "OWNER_DECISION_20261027.md"
       ],
-      "result_scope": "NOT_RUN/BLOCKED:27Oct returned packet consistently tests originalR/oldZIP/pypdf6.20.0, not F; expectedFchecker rejects source mismatch. OriginalT07 PASS unchanged, no promotion. NewF nativeStore and genuineSTORE024 remainNOT_RUN. Current relevant upstream6.21.1 exposure independently confirmed; hold anotherFowner run. Proposed6.21.3metadata/scope is not implementation/testing/acceptance/securityclearance. No publish/tag/mainmerge; oldmetadata and priorCI success do not establish release closure."
+      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
     }
-  ]
+  ],
+  "owner_decision": "OWNER_DECISION_20261027.md closes further owner work: final-ZIP owner Store and genuine enforced-policy evidence remain NOT_RUN/owner-waived publication prerequisites; no fabricatedpass. All feasible agent quality/source/byte/publicverification remain required."
 }

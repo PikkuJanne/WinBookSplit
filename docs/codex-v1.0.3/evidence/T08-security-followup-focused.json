@@ -1,0 +1,253 @@
+{
+  "apis": [
+    "PdfReader(..., xref_stream_maximum_entries=3)",
+    "PdfReader._read_pdf15_xref_stream with per-reader reduced state limit3/count2"
+  ],
+  "green": [
+    {
+      "command": [
+        "<OUT>/dev14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<OUT>/focused_security.py",
+        "--case",
+        "all-security",
+        "--report",
+        "<OUT>/security-green-dev14-final.json"
+      ],
+      "environment": "dev14",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "installed_reader_equals_official_wheel": true,
+      "installed_reader_sha256": "662b516d7a417475940d9f1d1361413b4057e74ad302b5782e78c5ff0188480a",
+      "pypdf_version": "6.21.3",
+      "python_version": "3.14.8",
+      "receipt": "security-green-dev14-final.json",
+      "receipt_identity": {
+        "bytes": 4607,
+        "sha256": "e5cd2f53459adef26ab8dca87708c22286186ebe912160a4af62432a2194d43a"
+      },
+      "skipped": 0,
+      "tests_run": 11
+    },
+    {
+      "command": [
+        "<OUT>/runtime13/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<OUT>/focused_security.py",
+        "--case",
+        "all-security",
+        "--report",
+        "<OUT>/security-green-runtime13.json"
+      ],
+      "environment": "runtime13",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "installed_reader_equals_official_wheel": true,
+      "installed_reader_sha256": "662b516d7a417475940d9f1d1361413b4057e74ad302b5782e78c5ff0188480a",
+      "pypdf_version": "6.21.3",
+      "python_version": "3.13.16",
+      "receipt": "security-green-runtime13.json",
+      "receipt_identity": {
+        "bytes": 4616,
+        "sha256": "f3653cb12001b96231a60e8694350e3f125215b3a53c4311f818ffeb6ee57451"
+      },
+      "skipped": 0,
+      "tests_run": 11
+    },
+    {
+      "command": [
+        "<OUT>/runtime14/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<OUT>/focused_security.py",
+        "--case",
+        "all-security",
+        "--report",
+        "<OUT>/security-green-runtime14.json"
+      ],
+      "environment": "runtime14",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "installed_reader_equals_official_wheel": true,
+      "installed_reader_sha256": "662b516d7a417475940d9f1d1361413b4057e74ad302b5782e78c5ff0188480a",
+      "pypdf_version": "6.21.3",
+      "python_version": "3.14.8",
+      "receipt": "security-green-runtime14.json",
+      "receipt_identity": {
+        "bytes": 4615,
+        "sha256": "245e3e3fe6eca6066e565cde581007bfa374af28c494c750c4e92f82d9b9cb66"
+      },
+      "skipped": 0,
+      "tests_run": 11
+    },
+    {
+      "command": [
+        "<OUT>/runtime15/Scripts/python.exe",
+        "-I",
+        "-B",
+        "<OUT>/focused_security.py",
+        "--case",
+        "all-security",
+        "--report",
+        "<OUT>/security-green-runtime15.json"
+      ],
+      "environment": "runtime15",
+      "errors": 0,
+      "exit_code": 0,
+      "failures": 0,
+      "installed_reader_equals_official_wheel": true,
+      "installed_reader_sha256": "662b516d7a417475940d9f1d1361413b4057e74ad302b5782e78c5ff0188480a",
+      "pypdf_version": "6.21.3",
+      "python_version": "3.15.0",
+      "receipt": "security-green-runtime15.json",
+      "receipt_identity": {
+        "bytes": 4615,
+        "sha256": "5287e2e3daca3e0dff51c41e592da14171064912ec7d2c4e51fea5bf4edbf724"
+      },
+      "skipped": 0,
+      "tests_run": 11
+    }
+  ],
+  "harness_identity": {
+    "bytes": 4008,
+    "sha256": "ba03361a7ee1dc554b31d798c2fb5ea600c21e082c1a27e4efd02349661dcdb2"
+  },
+  "helper": {
+    "compression": "none",
+    "fixtures": [
+      {
+        "bytes": 240,
+        "latest_xref_offset": 110,
+        "sha256": "8cd08d6983076d1254aea35124b41ad48d1eebe0faef6902747f9f6a45b59b38",
+        "stream_entry_counts": [
+          2
+        ]
+      },
+      {
+        "bytes": 241,
+        "latest_xref_offset": 110,
+        "sha256": "04b26260414ce37b3b68d7e339c41c7292f06f1a05e7797431c6d31a4273367d",
+        "stream_entry_counts": [
+          3
+        ]
+      },
+      {
+        "bytes": 242,
+        "latest_xref_offset": 110,
+        "sha256": "da37c96ae7afd1985e57aa1d597f99d9084fc2568673ab3559e082173507aeb2",
+        "stream_entry_counts": [
+          4
+        ]
+      },
+      {
+        "bytes": 360,
+        "latest_xref_offset": 220,
+        "sha256": "39239d7182ecacbd3587bf920a13233b9223672d5ea1e4c76bfa59eb049c2d6e",
+        "stream_entry_counts": [
+          2,
+          2
+        ]
+      }
+    ],
+    "maximum_entries_per_stream": 4,
+    "maximum_fixture_bytes_observed": 360,
+    "maximum_streams": 2,
+    "name": "small_xref_stream_pdf",
+    "path": "tests/python/test_release_security.py"
+  },
+  "kind": "BOUNDED_SECURITY_FOLLOWUP_RED_GREEN",
+  "limits": [
+    "No large or hostile allocation/memory-exhaustion experiment.",
+    "Authored parser/BAT regressions, not native Store/policy or general security acceptance.",
+    "No production engine/runtime guard changed; no base/user dependency changed.",
+    "No historical R/F/export receipt altered; explicit6.20.0+6.21.1 export contracts preserved."
+  ],
+  "meaning": [
+    "Old dependency consumes the second tiny xref stream despite reduced aggregate budget; current dependency rejects before entry insertion.",
+    "Public constructor accepts3entries and rejects4entries with reducedbudget3 in both strictmodes.",
+    "Nonstrict /Prev exhaustion logs a warning and halts the older stream; it does not reject the whole constructor.",
+    "Boundary4 accepts both2entry streams; same-reader reread resets aggregatecount and fresh-reader default remains2000000.",
+    "All earlier parser guards and three actual authored BAT shadow/exit/literal-argv controls remain passing."
+  ],
+  "red": {
+    "command": [
+      "<OLD6211_ENV>/Scripts/python.exe",
+      "-I",
+      "-B",
+      "<OUT>/focused_security.py",
+      "--case",
+      "xref-accumulation",
+      "--report",
+      "<OUT>/xref-red-6211-final.json"
+    ],
+    "errors": 0,
+    "exit_code": 1,
+    "expected_reason": "LimitReachedError not raised after the same tiny document-wide entry limit3/count2 control.",
+    "failures": 1,
+    "installed_reader_equals_official_wheel": true,
+    "installed_reader_sha256": "e1413d68c72e386019c518882b7632d260ea203b4c521cb9c823a923a86e8d83",
+    "pypdf_version": "6.21.1",
+    "python_version": "3.14.8",
+    "receipt": "xref-red-6211-final.json",
+    "receipt_identity": {
+      "bytes": 3666,
+      "sha256": "9e17763c877f6b40a7f692abc5a3804925fd0a74b6029eb782a5d121ca2766e6"
+    },
+    "skipped": 0,
+    "tests_run": 1
+  },
+  "retained_preliminary_receipts": [
+    "xref-red-6211.json",
+    "security-green-dev14.json"
+  ],
+  "schema_version": 1,
+  "source_state": "Pre-freeze working tree, nine intended maintained test files only; root binds final committed source separately.",
+  "test_file_identities": {
+    "tests/powershell/Compatibility.Tests.ps1": {
+      "bytes": 19123,
+      "sha256": "b34d9b072c5d9b0d54b2be529215289955bf6ede45966c22aa13022ec83762d9"
+    },
+    "tests/powershell/Support.Tests.ps1": {
+      "bytes": 20336,
+      "sha256": "549c21b68899536111b6b464f6c7b47a883ffdb64d695bae6b249d1029d590d7"
+    },
+    "tests/python/console_receipt_fixture.py": {
+      "bytes": 4736,
+      "sha256": "2ecc584ff11319f42568e6153b873e3cd266b1f8d9f9a23877cac0950f71a07f"
+    },
+    "tests/python/test_ci_package_inputs.py": {
+      "bytes": 21745,
+      "sha256": "763bd6716929824f1d005480092c70da2a55445742ca66b1e2453fe9b043efdd"
+    },
+    "tests/python/test_compatibility.py": {
+      "bytes": 35166,
+      "sha256": "3c0fc40a933e03071ca959d208862f88e2438d2f885880cacf1f34cc1f57b1c5"
+    },
+    "tests/python/test_final_zip_ps7.py": {
+      "bytes": 15565,
+      "sha256": "07367a5c6aca531e92ee5733755e13c65f86d927fc6c28c74927952bfb923d37"
+    },
+    "tests/python/test_native_smoke.py": {
+      "bytes": 32816,
+      "sha256": "ea56ba8942e1024959c18694f3312f42a1eb912400e54b4c1835fedcc59542ff"
+    },
+    "tests/python/test_release_security.py": {
+      "bytes": 10938,
+      "sha256": "5c6c5540e60d7cc253d22c6a1b59a83d60de51f7e582736b1520797c036e1512"
+    },
+    "tests/python/test_runner.py": {
+      "bytes": 154110,
+      "sha256": "69281f2e31957b695b315187552c9c7bddd5800f001365ea961ac24b356662fe"
+    }
+  },
+  "test_source_sha256": "5c6c5540e60d7cc253d22c6a1b59a83d60de51f7e582736b1520797c036e1512",
+  "upstream_sources": [
+    "https://github.com/py-pdf/pypdf/pull/4269",
+    "https://raw.githubusercontent.com/py-pdf/pypdf/6.21.3/pypdf/_reader.py"
+  ]
+}

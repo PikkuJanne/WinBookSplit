@@ -2,6 +2,15 @@
 
 ## Active v1.0.3 Store discovery repair
 
+The owner's 27 October 2026 executive order closes further owner work for this
+version and directs completion. Follow docs/codex-v1.0.3/OWNER_DECISION_20261027.md:
+finish the minimal 6.21.3 dependency repair, agent verification and v1.0.3 release.
+Fresh final-ZIP owner Windows10, real company-policy and other unavailable manual
+scenarios remain NOT_RUN/owner-waived publication prerequisites, never fabricated
+passes. Do not request another owner run. This latest instruction supersedes
+earlier mandatory owner-return blockers below; all automated quality, source/byte,
+security, privacy, Git and publication verification requirements remain in force.
+
 The owner's 18 October 2026 explicit answer authorizes the separate minimal
 pypdf security repair and preparation of a new candidate for fresh native
 acceptance. Follow `docs/codex-v1.0.3/tasks/08-T08-security-repair.md` and current

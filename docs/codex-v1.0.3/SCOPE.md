@@ -2,6 +2,12 @@
 
 ## Required outcome
 
+The 27 October owner decision closes further owner work and directs the agent to
+finish the 6.21.3 repair and v1.0.3 publication. OWNER_DECISION_20261027.md defines
+the narrowly waived manual publication prerequisites and required disclosure.
+Keep missing scenarios NOT_RUN/owner-waived; complete all feasible agent work.
+That decision supersedes earlier owner-test blockers in this historical routing.
+
 Repair automatic discovery of an existing Microsoft Store Python Install Manager
 installation and its regular x64 Python runtime on Windows 10. Preserve Win11,
 regular supported 3.13/3.14/3.15 runtimes, the BAT shortcuts, PS5.1 console entry,

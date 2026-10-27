@@ -8,13 +8,37 @@ import sys
 import tempfile
 import unittest
 
-from pypdf import apply_configuration, get_configuration
-from pypdf.errors import LimitReachedError
+from pypdf import PdfReader, apply_configuration, get_configuration
+from pypdf.errors import LimitReachedError, PdfReadError
 from pypdf.filters import decode_stream_data
 from pypdf.generic import (ArrayObject, ContentStream, DecodedStreamObject,
                            DictionaryObject, EncodedStreamObject, NameObject)
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+def small_xref_stream_pdf(counts):
+    """Authored parser fixtures only: at most two streams/four tiny entries each."""
+    if not 1 <= len(counts) <= 2 or any(type(count) is not int or not 1 <= count <= 4 for count in counts):
+        raise ValueError('Only bounded positive xref entry counts are test inputs')
+    data = bytearray(b'%PDF-1.5\n1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n'
+                     b'2 0 obj\n<< /Type /Pages /Kids [] /Count 0 >>\nendobj\n')
+    previous = None
+    for number, count in enumerate(counts, 1):
+        offset = len(data)
+        first = number * 10
+        fields = (f'/Type /XRef /Size {first + count} /Root 1 0 R '
+                  f'/Index [{first} {count}] /W [1 0 0] /Length {count}')
+        if previous is not None:
+            fields += f' /Prev {previous}'
+        data.extend(f'{90 + number} 0 obj\n<< {fields} >>\nstream\n'.encode('ascii'))
+        data.extend(b'\x02' * count)
+        data.extend(b'\nendstream\nendobj\n')
+        previous = offset
+    data.extend(f'startxref\n{previous}\n%%EOF\n'.encode('ascii'))
+    if len(data) >= 1024:
+        raise AssertionError('The authored xref fixture must remain smaller than 1 KiB')
+    return bytes(data), previous
 
 
 class StreamResourceGuardTests(unittest.TestCase):
@@ -49,6 +73,49 @@ class StreamResourceGuardTests(unittest.TestCase):
             with self.assertRaisesRegex(LimitReachedError, 'maximum number of tokens per stream'):
                 operations(b'q Q q Q')
         self.assertEqual(get_configuration().stream_parsing_work_maximum_count, original)
+
+    def test_xref_stream_entry_budget_has_small_constructor_boundary_controls(self):
+        at_limit, _ = small_xref_stream_pdf((3,))
+        over_limit, _ = small_xref_stream_pdf((4,))
+        for strict in (False, True):
+            with self.subTest(strict=strict):
+                reader = PdfReader(BytesIO(at_limit), strict=strict, xref_stream_maximum_entries=3)
+                self.assertEqual(sorted(reader.xref_objStm), [10, 11, 12])
+                self.assertEqual(reader._xref_stream_entry_count, 3)
+                with self.assertRaisesRegex(PdfReadError, r'Maximum XRef stream entry limit reached: 4 > 3'):
+                    PdfReader(BytesIO(over_limit), strict=strict, xref_stream_maximum_entries=3)
+
+    def test_xref_stream_document_budget_accumulates_before_inserting_entries(self):
+        first, _ = small_xref_stream_pdf((2,))
+        second, offset = small_xref_stream_pdf((2, 2))
+        reader = PdfReader(BytesIO(first))
+        self.assertEqual(sorted(reader.xref_objStm), [10, 11])
+        # Reduce only this reader's budget. Setting the same tiny state on the
+        # old dependency proves its parser ignores the missing document guard.
+        reader._xref_stream_maximum_entries = 3
+        reader._xref_stream_entry_count = 2
+        stream = BytesIO(second)
+        stream.seek(offset + 1)
+        with self.assertRaisesRegex(LimitReachedError, r'Maximum XRef stream entry limit reached: 4 > 3'):
+            reader._read_pdf15_xref_stream(stream)
+        self.assertEqual(sorted(reader.xref_objStm), [10, 11])
+
+    def test_xref_stream_prev_budget_and_defaults_reset_for_each_document(self):
+        document, _ = small_xref_stream_pdf((2, 2))
+        with self.assertLogs('pypdf', level='WARNING') as logged:
+            limited = PdfReader(BytesIO(document), xref_stream_maximum_entries=3)
+        self.assertEqual(sorted(limited.xref_objStm), [20, 21])
+        self.assertTrue(any('Maximum XRef stream entry limit reached: 4 > 3' in line for line in logged.output))
+        boundary = PdfReader(BytesIO(document), xref_stream_maximum_entries=4)
+        self.assertEqual(sorted(boundary.xref_objStm), [10, 11, 20, 21])
+        self.assertEqual(boundary._xref_stream_entry_count, 4)
+        with self.assertLogs('pypdf', level='WARNING') as reread:
+            boundary.read(BytesIO(document))
+        self.assertTrue(all('Overwriting cache for' in line for line in reread.output))
+        self.assertEqual(boundary._xref_stream_entry_count, 4)
+        restored = PdfReader(BytesIO(document))
+        self.assertEqual(restored._xref_stream_maximum_entries, 2_000_000)
+        self.assertEqual(restored._xref_stream_entry_count, 4)
 
     def test_many_filters_reject_without_large_allocation(self):
         stream = EncodedStreamObject()

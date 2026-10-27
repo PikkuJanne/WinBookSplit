@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": 4,
-  "reviewed_on": "2026-10-18",
+  "policy_version": 5,
+  "reviewed_on": "2026-10-27",
   "python": {
     "implementation": "cpython",
     "platform": "win32",
@@ -40,8 +40,8 @@
     ]
   },
   "pypdf": {
-    "version": "6.21.1",
-    "wheel_sha256": "553e2d42f5bb3bb2a785a7d3de8ef90bb7df74b5413eff5a7b4388007ea9254b"
+    "version": "6.21.3",
+    "wheel_sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e"
   },
   "calibre": {
     "version": "9.15.0"
@@ -136,33 +136,53 @@
     },
     {
       "id": "PypdfMetadata",
-      "url": "https://pypi.org/pypi/pypdf/6.21.1/json",
-      "relevance": "Exact non-yanked pypdf 6.21.1 wheel hash and Python >=3.9 feasibility metadata verified on 2026-10-18; metadata is not application test or security-clearance evidence."
+      "url": "https://pypi.org/pypi/pypdf/6.21.3/json",
+      "relevance": "Exact non-yanked pypdf 6.21.3 wheel hash, 409554-byte size and Python >=3.9 feasibility metadata verified on 2026-10-27. Internal METADATA matches the official digest; BSD license bytes equal the retained 6.21.1 wheel. Metadata is not application test or security-clearance evidence."
     },
     {
       "id": "PypdfMultipleFilters",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f",
-      "relevance": "The October 9 multiple-filter memory-consumption advisory was patched in 6.20.0; 6.21.1 retains that fix. Preserve the separate exact package lock and existing guards."
+      "relevance": "The October 9 multiple-filter memory-consumption advisory was patched in 6.20.0; 6.21.3 retains that fix. Preserve the separate exact package lock and existing guards."
     },
     {
       "id": "PypdfArrayDictionary",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57",
-      "relevance": "Large-array/dictionary parsing memory consumption affects versions below 6.21.0. Upstream identifies 6.21.0 as fixed; selected 6.21.1 includes the parser-limit fields. Small reduced-limit checks are separate dependency evidence, not full application or memory-sandbox acceptance."
+      "relevance": "Large-array/dictionary parsing memory consumption affects versions below 6.21.0. Upstream identifies 6.21.0 as fixed; selected 6.21.3 retains the parser-limit fields. Small reduced-limit checks are separate dependency evidence, not full application or memory-sandbox acceptance."
     },
     {
       "id": "PypdfContentParsing",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c",
-      "relevance": "Many-small-operation content-stream parsing memory consumption affects versions below 6.21.0. Selected 6.21.1 includes the upstream parsing-work budget. Explicit developer operations parsing does not establish application reachability or universal protection."
+      "relevance": "Many-small-operation content-stream parsing memory consumption affects versions below 6.21.0. Selected 6.21.3 retains the upstream parsing-work budget. Explicit developer operations parsing does not establish application reachability or universal protection."
     },
     {
       "id": "PypdfFormFields",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7",
-      "relevance": "Advisory prose identifies the form-field entry/depth fix in 6.21.0. Its patched-version field is inconsistent with its affected range and prose; that discrepancy remains recorded in historical T08 gate-review evidence. Selected 6.21.1 includes form-field limit fields; no production form-field API call or comprehensive exemption is claimed."
+      "relevance": "Advisory prose identifies the form-field entry/depth fix in 6.21.0. Its patched-version field is inconsistent with its affected range and prose; that discrepancy remains recorded in historical T08 gate-review evidence. Selected 6.21.3 retains form-field limit fields; no production form-field API call or comprehensive exemption is claimed."
     },
     {
       "id": "PypdfJpegLoading",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv",
-      "relevance": "The JPEG image-loading advisory affects versions below 6.21.1 and names 6.21.1 as fixed. The exact selected wheel includes that release; production does not call image-extraction APIs, which is not a general hostile-document exemption."
+      "relevance": "The JPEG image-loading advisory affects versions below 6.21.1 and names 6.21.1 as fixed. Selected 6.21.3 retains that fix; production does not call image-extraction APIs, which is not a general hostile-document exemption."
+    },
+    {
+      "id": "PypdfXrefStreams",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-x3rh-gjgm-fmqc",
+      "relevance": "Published 2026-10-27: cross-reference stream parsing memory consumption affects versions below 6.21.3, fixed in 6.21.3. Reader initialization reaches this parser before application structural preflight; preserve exact dependency, process and origin guards. This does not establish an OS memory sandbox."
+    },
+    {
+      "id": "PypdfXrefBudgetFix",
+      "url": "https://github.com/py-pdf/pypdf/pull/4269",
+      "relevance": "Merged 2026-10-27 and released in 6.21.3: adds a document-wide cross-reference stream entry budget and rejects negative Index counts. Meaningful small positive and reduced-limit controls belong in separate regression evidence."
+    },
+    {
+      "id": "Pypdf6212Security",
+      "url": "https://github.com/py-pdf/pypdf/releases/tag/6.21.2",
+      "relevance": "The 2026-10-21 release lists fixes for repeated full-file loads (4240) and standard xref table size (4239), later than former 6.21.1. Selected 6.21.3 includes these changes; retained older candidate acceptance does not transfer to changed bytes."
+    },
+    {
+      "id": "Pypdf6213Security",
+      "url": "https://github.com/py-pdf/pypdf/releases/tag/6.21.3",
+      "relevance": "The 2026-10-27 release lists the xref-stream budget (4269), bounded error-message changes (4265), and validated page counts after decryption (4270). Release metadata alone is not application compatibility, native acceptance or general security clearance."
     },
     {
       "id": "CalibreWindows",
@@ -177,7 +197,7 @@
     {
       "id": "CalibreAdvisories",
       "url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100",
-      "relevance": "All 21 published advisory records inspected on the review date exclude 9.15.0 from their affected ranges; recheck at release."
+      "relevance": "The retained 2026-10-12 advisory review inspected 21 published records and excluded 9.15.0 from their affected ranges. This pypdf-only policy revision does not claim a new Calibre advisory review; recheck at release."
     }
   ]
 }

@@ -1,5 +1,14 @@
 # Existing Store-installation release gate
 
+## Current owner decision
+
+OWNER_DECISION_20261027.md closes further owner work for v1.0.3. The fresh final-ZIP
+owner Store and genuine company-policy scenarios below remain NOT_RUN/owner-waived
+publication prerequisites. Preserve their original technical contract/checker and
+old T07 acceptance; do not turn developer results into a Store PASS. Complete all
+feasible agent/native developer checks and disclose unavailable manual scenarios.
+Do not send the owner another test kit or request another run.
+
 ## Human work: one launch and one returned report, when needed
 
 Prefer authorized agent access to the actual Windows 10 desktop. Otherwise

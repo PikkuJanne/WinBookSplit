@@ -75,7 +75,7 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
         $before = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
         $loaded = Get-WinBookSplitCompatibilityPolicy $path
         $loaded.schema_version | Should -Be 1
-        $loaded.policy_version | Should -Be 4
+        $loaded.policy_version | Should -Be 5
         $loaded.python.branches.Count | Should -Be 3
         (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash | Should -BeExactly $before
     }

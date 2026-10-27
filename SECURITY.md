@@ -33,7 +33,7 @@ every accepted interpreter or document secure. The patched 3.11/3.12 releases
 are source-only and lack a patched official Windows binary in the reviewed
 catalog, so those branches are excluded from this application policy.
 
-pypdf is separately locked to 6.21.1 and its reviewed wheel SHA256,
+pypdf is separately locked to 6.21.3 and its reviewed wheel SHA256,
 retaining the upstream
 [multiple-filter fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f).
 Optional ebook conversion remains locked to Calibre 9.15.0. Do not bypass
@@ -43,7 +43,7 @@ through `Setup-WinBookSplit.bat` or the complete process-host command. The
 scripts are unsigned; Internet marks remain intact and persistent execution
 policy is unchanged. Enforced organization controls still apply.
 
-The 18 October 2026 dependency repair selects 6.21.1 for upstream fixes to
+The earlier 18 October review covered upstream fixes to
 excessive memory consumption while parsing
 [arrays/dictionaries](https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57)
 and [content streams](https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c)
@@ -60,10 +60,15 @@ memory use or establish full application or native acceptance.
 WinBookSplit reads PDF structures and content streams. Its production code does
 not call form-field retrieval or image extraction APIs; that limited observation
 does not prove hostile documents harmless. Bounded child-process supervision
-is not a memory or network sandbox. The changed dependency requires a new frozen
-package and exact-byte native acceptance before release; earlier accepted
-receipts remain evidence only for their original bytes. The reviewed fixes do
-not establish general security clearance for the application or documents.
+is not a memory or network sandbox. The 27 October update selects 6.21.3 for
+the upstream [cross-reference stream entry budget](https://github.com/py-pdf/pypdf/security/advisories/GHSA-x3rh-gjgm-fmqc)
+and the preceding [xref table runtime fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-gmh7-3g9r-mjh5).
+Reader initialization occurs before the application's structural preflight, so
+those dependency limits remain necessary. Earlier accepted receipts cover only
+their original bytes. The owner closed further manual acceptance for v1.0.3;
+fresh final-package Windows10 Store and genuine company-policy testing remain
+untested and are disclosed. The reviewed fixes do not establish general security
+clearance for the application or documents.
 
 Windows 10 22H2 compatibility does not extend Microsoft's servicing lifecycle.
 Standard Home/Pro support

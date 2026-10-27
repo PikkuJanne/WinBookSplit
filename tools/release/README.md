@@ -1,5 +1,13 @@
 # Build and inspect a WinBookSplit v1.0.3 package
 
+The owner's latest [27 October decision](../../docs/codex-v1.0.3/OWNER_DECISION_20261027.md)
+closes further owner work. Earlier mandatory-owner/policy wording below describes
+the original gate contract; unavailable final-ZIP ownerStore and genuinecompany-
+policy scenarios now remain NOT_RUN/owner-waived with disclosed release limits.
+All agent/source/CI/package/anonymousbyte/main verification remains mandatory.
+Do not request another owner run or change the native checker to invent a pass.
+
+
 This developer tool builds three local assets from an explicit full commit:
 `WinBookSplit-v1.0.3.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
 It does not create a tag, upload, sign or publish. An unpublished candidate is
@@ -80,7 +88,7 @@ recommended patches, blocked patches, exclusions and the exact policy hash.
 The source-test targets 3.13.16, 3.14.8 and 3.15.0 are not patch-equality gates.
 Later stable patches are accepted numerically only within these reviewed branches;
 unlisted minors are not yet validated and are not labeled insecure. pypdf
-6.21.1 and its reviewed wheel SHA remain separately controlled, and the selected
+6.21.3 and its reviewed wheel SHA remain separately controlled, and the selected
 requirements must agree with the policy. Calibre remains separately installed.
 The manifest's builder Python/Git strings identify what actually built those
 bytes; they do not narrow application acceptance to that Python patch.

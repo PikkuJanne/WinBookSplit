@@ -1,5 +1,14 @@
 # Testing: prove the route, not just the algorithm
 
+The 27 October executive order closes further owner testing. Follow
+OWNER_DECISION_20261027.md: unavailable final-ZIP ownerStore and genuine company-
+policy checks remain NOT_RUN/owner-waived, not PASS. Required agent verification
+continues with official pypdf6.21.3/policy5, bounded xref-budget regressions, all
+supported runtimes, both shells, authored Calibre, setup/BAT/remedy/MOTW and CI.
+Do not ask the owner to run another kit. Older scope descriptions below retain
+their historical source/checkpoint meaning and are superseded for publication
+only by the documented owner exceptions.
+
 For the separately authorized 18 October security repair, maintain the three
 small array/dictionary/content parsing regressions in test_release_security.py:
 boundary positives, reduced-limit rejection and default restoration. The old

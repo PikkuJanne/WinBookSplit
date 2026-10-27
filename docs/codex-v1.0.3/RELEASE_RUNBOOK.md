@@ -2,6 +2,12 @@
 
 ## Gates
 
+The latest OWNER_DECISION_20261027.md supersedes the earlier mandatory fresh owner
+and genuine enforced-policy requirements below. Those unavailable manual scenarios
+remain NOT_RUN/owner-waived, with release disclosure. Do not wait for, request or
+fabricate another owner return. The final dependency-updated package must pass all
+feasible agent regressions, source review, CI, frozen-byte and public verification.
+
 All T01-T07 acceptance requirements must pass with actual recorded scope, except
 optional observations explicitly labelled as such. In particular require:
 

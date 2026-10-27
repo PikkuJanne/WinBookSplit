@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "scope": "AUTHORIZED623REPAIR_IMPLEMENTATION_SOURCE_CHECKPOINT_NOT_FINAL_RELEASE_RECEIPT",
+  "recorded_utc": "2026-10-27T15:08:07.165554+00:00",
+  "initial_checkpoint": "1822811b8191dbc69280efd0864bbb3f05601e8c",
+  "owner_authority": "OWNER_DECISION_20261027.md",
+  "pin": {
+    "version": "6.21.3",
+    "policy_version": 5,
+    "wheel_bytes": 409554,
+    "wheel_sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e"
+  },
+  "scope_of_change": "Exact dependency/policy and necessary current tests/tool/docs only; engine/discovery/setup/origin/process/file guard implementations unchanged.",
+  "runtime_and_calibre_floors_unchanged": true,
+  "focused_regression": {
+    "old_6211": "Bounded behavioral RED; missing cumulativebudget fails expected LimitReachedError control, no largeinput/memoryexperiment.",
+    "new_6213": "11security/BAT tests PASS on each3.13.16/3.14.8/3.15.0 plusdev14; no failures/errors/skips.",
+    "test_source_sha256": "5c6c5540e60d7cc253d22c6a1b59a83d60de51f7e582736b1520797c036e1512",
+    "non_strict_prev_limit": "Reader logs limit and stops older xref stream; not wholeconstructorfailure.",
+    "raw_receipts": [
+      {
+        "name": "xref-red-6211-final.json",
+        "bytes": 3666,
+        "sha256": "9e17763c877f6b40a7f692abc5a3804925fd0a74b6029eb782a5d121ca2766e6"
+      },
+      {
+        "name": "xref-red-6211.json",
+        "bytes": 3665,
+        "sha256": "6fa32aa57e7595b5cdc70023676652f93415653e3d2c80741182c9fd3bf37ca9"
+      }
+    ],
+    "public_summary": {
+      "path": "evidence/T08-security-followup-focused.json",
+      "bytes": 8533,
+      "sha256": "4ebf709f5232234b44aaf565000800c52d57f046be0ee5a4ea6def1137e3c9d0"
+    },
+    "raw_summary": {
+      "name": "focused-security-summary.json",
+      "bytes": 8786,
+      "sha256": "a064040280af1001fdf3c539b1e89c305ec40ee9f07388c197b24c123964d366"
+    }
+  },
+  "environment_preparation": {
+    "bounded_commands": 20,
+    "exit_codes": "all0",
+    "targets": [
+      "3.13.16",
+      "3.14.8",
+      "3.15.0"
+    ],
+    "runtime_packages": "pip+pypdf6.21.3 only",
+    "base_parent_environment_and_requirements_preserved": true,
+    "receipt": {
+      "name": "environment-preparation.json",
+      "bytes": 2691748,
+      "sha256": "2b2de3279ff564a56263e445c854530f1894992836de0039bbf216c9d4815a57"
+    },
+    "prior_isolated_shell_tools": "Hashvalidated Pester6.2.0 and ScriptAnalyzer1.25.0; no global install."
+  },
+  "independent_static_review": "CLEAN after SETUPofflinewheelhash and releasewording corrections; all guard/floor/history limits retained.",
+  "broad_CI_package_native_publication": "IN_PROGRESS; no pass claimed at sourcefreeze. Followup receipt binds committedsource/runtimeCI/package/publicverification.",
+  "owner_manual_scenarios": {
+    "fresh_finalZIP_Windows10Store": "NOT_RUN/OWNER_WAIVED",
+    "genuine_company_policy": "NOT_RUN/OWNER_WAIVED",
+    "physical_Explorer_interaction": "NOT_RUN/OWNER_CLOSED"
+  },
+  "original_T07_R_F": "Unchanged; originalpass not transferred to changedbytes.",
+  "no_owner_requests": true,
+  "published_tag_main_merge": false,
+  "checkpoint_rule": "Record implementation commit/tree in subsequent receipts/external handover, never recursively in its own record."
+}
