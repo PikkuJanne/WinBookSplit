@@ -1,0 +1,307 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "kind": "OWNER_RETURN_CANDIDATE_BINDING_AND_CURRENT_GATE_REVIEW",
+  "review_date": "2026-10-27",
+  "recorded_utc": "2026-10-27T14:38:03.655075+00:00",
+  "initial_checkpoint": "e5c1e00df4ba9260b43a73bdf7cbef3199e34092",
+  "branch": "codex/v1.0.3-store-discovery",
+  "decision": "REJECT_FOR_NEW_F_ACCEPTANCE_INTERNALLY_CONSISTENT_OLD_R_RUN",
+  "input": {
+    "name": "SEND-THIS-REPORT.zip",
+    "bytes": 377554,
+    "sha256": "436441f5967ef752a69e93f0e22d022651ae405ec360d93542ccbd51fd5093b5"
+  },
+  "run_id": "store_4193de4d051e48918918a5647c9cd918",
+  "observed_source": "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+  "observed_zip_sha256": "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de",
+  "observed_dependency": {
+    "pypdf": "6.20.0",
+    "policy_version": 3
+  },
+  "expected_source_F": "afd75b4f41ab7135e13fbb40818ade9e47daba03",
+  "expected_tree_F": "08812489efdfb9921f87dca5ceba2c3ab5b37a67",
+  "expected_zip_sha256_F": "216c310e395a098e085f8c3a4db994a2c94072e58bc5982234fad1e5db7b9359",
+  "expected_dependency_F": {
+    "pypdf": "6.21.1",
+    "policy_version": 4
+  },
+  "members": [
+    {
+      "name": "native-store-report.json",
+      "bytes": 4119,
+      "compressed_bytes": 4124,
+      "crc": 3573033965
+    },
+    {
+      "name": "registration.json",
+      "bytes": 12994,
+      "compressed_bytes": 12999,
+      "crc": 2259765267
+    },
+    {
+      "name": "discovery.json",
+      "bytes": 26310,
+      "compressed_bytes": 26315,
+      "crc": 2750655623
+    },
+    {
+      "name": "setup.json",
+      "bytes": 62967,
+      "compressed_bytes": 62977,
+      "crc": 4004941398
+    },
+    {
+      "name": "bat.json",
+      "bytes": 15774,
+      "compressed_bytes": 15779,
+      "crc": 3226511306
+    },
+    {
+      "name": "pdf_validation.json",
+      "bytes": 219665,
+      "compressed_bytes": 219700,
+      "crc": 1761403302
+    },
+    {
+      "name": "preservation.json",
+      "bytes": 34878,
+      "compressed_bytes": 34888,
+      "crc": 1482982654
+    }
+  ],
+  "maintained_checker_expected_F": {
+    "argv": [
+      "<USER>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "<WORKSPACE>\\tools\\codex-v1.0.3\\check_native_store_report.py",
+      "<EXTERNAL_REVIEW>\\packet\\native-store-report.json",
+      "--expected-commit",
+      "afd75b4f41ab7135e13fbb40818ade9e47daba03",
+      "--expected-zip-sha256",
+      "216c310e395a098e085f8c3a4db994a2c94072e58bc5982234fad1e5db7b9359"
+    ],
+    "exit_code": 2,
+    "stdout": "{\"status\": \"BLOCKED\", \"reason\": \"source commit mismatch\"}\r\n",
+    "stderr": "",
+    "checker_sha256": "257cfa9d79ea5fe2779de5572ac634ecc4569d85eee05c65a91a91d9ab7267bb",
+    "checker_bytes_equal_raw_F": true,
+    "input_zip_sha256": "436441f5967ef752a69e93f0e22d022651ae405ec360d93542ccbd51fd5093b5"
+  },
+  "maintained_checker_declared_old_R": {
+    "argv": [
+      "<USER>\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "-I",
+      "-B",
+      "<WORKSPACE>\\tools\\codex-v1.0.3\\check_native_store_report.py",
+      "<EXTERNAL_REVIEW>\\packet\\native-store-report.json",
+      "--expected-commit",
+      "243d31ee03efac35dc6f7e88c0c1dfd1203081ed",
+      "--expected-zip-sha256",
+      "70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de"
+    ],
+    "exit_code": 0,
+    "stdout": "{\"status\": \"CONSISTENT_NATIVE_REPORT\", \"run_id\": \"store_4193de4d051e48918918a5647c9cd918\", \"source_commit\": \"243d31ee03efac35dc6f7e88c0c1dfd1203081ed\", \"zip_sha256\": \"70a76bd04f5645e195972bf075ff53d651c9993696a40065241390805d2ee1de\", \"receipt_count\": 6, \"limitation\": \"Checks declarations and receipt bytes, not physical execution truth. Review native receipts and application validators.\"}\r\n",
+    "stderr": "",
+    "scope": "Offline old-R consistency only; does not accept newF or rerun target."
+  },
+  "checker_scope": "Trusted repository code/stdlib offline JSON review only; no returned command or target application executed. Old-R consistency does not accept F.",
+  "offline_review_python": "3.12.14",
+  "independent_review": {
+    "checks": 171,
+    "passed": 166,
+    "expected_F_failures": 5,
+    "packet_internal_inconsistencies": 0,
+    "unique_bounded_probes_reviewed": 25,
+    "application_routes": 11,
+    "extraction_pins_match_raw_old_R": 34,
+    "native_pdfs_reopened_on_review_host": false,
+    "native_oracle_rerun_on_review_host": false
+  },
+  "carrier_integrity": {
+    "bundle": {
+      "name": "WinBookSplit-Windows10-Test-afd75b4.zip",
+      "bytes": 3157973,
+      "sha256": "c9672265f3a2b5a3653e9c36967f8f64a83bd8ac3799489ecdf412b92d0a18a3"
+    },
+    "production": {
+      "assets": {
+        "SHA256SUMS.txt": {
+          "bytes": 178,
+          "sha256": "67a41d8fc33c57614866992bc24a52081bc1eac341dedfd96facb15bbf9abb73"
+        },
+        "WinBookSplit-v1.0.3.zip": {
+          "bytes": 935676,
+          "sha256": "216c310e395a098e085f8c3a4db994a2c94072e58bc5982234fad1e5db7b9359"
+        },
+        "release-manifest.json": {
+          "bytes": 16594,
+          "sha256": "78613d69ccc876a043947156476673e522ba4103fd82d8800e47b2a408397ab2"
+        }
+      },
+      "payload_sha256": "44eeab6bc83d621abced2189834b970e02ad0ca0a11f803612ebcd505542642a",
+      "policy_sha256": "b1f74d6b986bda316cb6b2e96db9bafb3d4186485a60d6f2b1f8653bd53971d6",
+      "source_commit": "afd75b4f41ab7135e13fbb40818ade9e47daba03",
+      "source_tree": "08812489efdfb9921f87dca5ceba2c3ab5b37a67",
+      "version": "1.0.3"
+    },
+    "kit": {
+      "fixtures_payload_sha256": "fd81ec3ed4ea9e3b4e7833f24ad44204f1b426e6bb4d4450229a714d019cae82",
+      "helpers_payload_sha256": "8d397fb661eeacfe31c77001ed56c5ed48db202e448eacf5a1b2526fdd78ca59",
+      "mode": "COMMITTED",
+      "repository_observation": null,
+      "source_commit": "afd75b4f41ab7135e13fbb40818ade9e47daba03",
+      "source_tree": "08812489efdfb9921f87dca5ceba2c3ab5b37a67"
+    },
+    "bindings_sha256": "1d9677add6f4237edf850006f783161b33b59df9175547cc3625a94c5f971fe9",
+    "expected_F_carrier_intact": true,
+    "read_only": true,
+    "recommendation": "HOLD further F native test pending current dependency security disposition; bytes preserved."
+  },
+  "current_security": {
+    "status": "RELEASE_RELEVANT_EXPOSURE_CONFIRMED_STATIC_PATH",
+    "advisory": "GHSA-x3rh-gjgm-fmqc",
+    "published_date": "2026-10-27",
+    "affected": "<6.21.3",
+    "patched": ">=6.21.3",
+    "selected_F_affected": true,
+    "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-x3rh-gjgm-fmqc",
+    "fix_url": "https://github.com/py-pdf/pypdf/pull/4269",
+    "application_path": "F PolicyPdfReader superclass initialization at winbooksplit_conversion.py:217 precedes preflight:218; official6.21.1 source reaches xref parsing during initialization.",
+    "limits": "Static release-relevance assessment; no exploit/memory test or application execution. Narrow unrelated encrypted/strict/labels triggers not asserted reachable.",
+    "owner_F_run_recommendation": "HOLD until security disposition; do not request a repeat now."
+  },
+  "proposed_followup": {
+    "scope_file": "tasks/08-T08-security-followup.md",
+    "status": "CANDIDATE_IDENTIFIED_NOT_IMPLEMENTED_TESTED_OR_ACCEPTED",
+    "wheel": {
+      "version": "6.21.3",
+      "filename": "pypdf-6.21.3-py3-none-any.whl",
+      "url": "https://files.pythonhosted.org/packages/50/e2/84ba4c41a3ceb69de4f4066a784eb34ecbf97e3a315152e17d7ea17ef499/pypdf-6.21.3-py3-none-any.whl",
+      "bytes": 409554,
+      "sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e",
+      "yanked": false,
+      "upload_time_utc": "2026-10-27T12:16:50.585561Z",
+      "requires_python": ">=3.9",
+      "license_expression": "BSD-3-Clause",
+      "extras_proposed": false,
+      "pypi_vulnerabilities": [],
+      "metadata_response_bytes": 9370,
+      "metadata_response_sha256": "0ca911aa9b9f8aec89a91d7416ebcc1b1a26f54dd5276a4452055dc1d5b1b53f",
+      "wheel_inspection": {
+        "members": 64,
+        "metadata": {
+          "entry": "pypdf-6.21.3.dist-info/METADATA",
+          "bytes": 7639,
+          "sha256": "773c7c7a093d1ed8bb5d027cc6f61964710f7071ecd59d789d877124fe6ca513"
+        },
+        "metadata_headers": [
+          "Name: pypdf",
+          "Version: 6.21.3",
+          "Requires-Python: >=3.9",
+          "License-Expression: BSD-3-Clause"
+        ],
+        "license": {
+          "entry": "pypdf-6.21.3.dist-info/licenses/LICENSE",
+          "bytes": 1605,
+          "sha256": "a97ac230e5f33ef10a5367a850eb01f91f1a0b064e34742c7794d2294557f524"
+        }
+      }
+    },
+    "license_bytes_equal_retained_6211": true,
+    "package_execution_install_test_or_repo_pin_change": false,
+    "acceptance_or_security_clearance": false
+  },
+  "fresh_context_summary": {
+    "old_tag_release_metadata_preserved": true,
+    "v1_0_3_absent": true,
+    "main": "4cc6b00b99685607f3214e731edaaec7d65926df",
+    "F_CI": "39080999392 completed/success, four jobs",
+    "initial_checkpoint_CI": "39082515555 completed/success, four jobs",
+    "scope": "Fresh metadata observation of prior CI; no new suite/anonymous release asset verification."
+  },
+  "gates": {
+    "old_T07": "COMPLETE original R/old exactZIP only; unchanged original accepted return/run/audit",
+    "new_F_native": "NOT_RUN; this packet binds oldR",
+    "STORE_024": "NOT_RUN; no genuine enforced-policy evidence, MachinePolicy/UserPolicyUndefined",
+    "T04": "IMPLEMENTED_PENDING_NATIVE",
+    "T08": "BLOCKED",
+    "STORE_043_through_STORE_048": "NOT_RUN",
+    "security_F": "UNRESOLVED/BLOCKED by current verified exposure"
+  },
+  "public_audits_and_raw_identities": [
+    {
+      "raw_external": {
+        "name": "independent-audit.json",
+        "bytes": 31829,
+        "sha256": "3561326ecc4cd7efecfd71a0f496d93fda8cff0305b93d2047a9bac57d3c9dce"
+      },
+      "public": {
+        "path": "evidence/T08-owner-return-20261027-audit.json",
+        "bytes": 31829,
+        "sha256": "3561326ecc4cd7efecfd71a0f496d93fda8cff0305b93d2047a9bac57d3c9dce"
+      },
+      "representation": "UTF8 LF canonical JSON; gate context additionally condenses upstream text as stated."
+    },
+    {
+      "raw_external": {
+        "name": "gate-context-audit.json",
+        "bytes": 28963,
+        "sha256": "9594f7b0510c72f3fd7d9f590356b647c9abcba7013ae46333f664c082ee07fb"
+      },
+      "public": {
+        "path": "evidence/T08-gate-context-20261027.json",
+        "bytes": 24313,
+        "sha256": "43f42db85142ebe3c1928a707e917455896b67ed03d0a6d7ee2d98953368703f"
+      },
+      "representation": "UTF8 LF canonical JSON; gate context additionally condenses upstream text as stated."
+    },
+    {
+      "raw_external": {
+        "name": "remedial-scope.json",
+        "bytes": 7255,
+        "sha256": "8b7e0116b80f295709aae591d59e6b204ff3dc2fd94ecbae6eebc94729a1f3d2"
+      },
+      "public": {
+        "path": "evidence/T08-remedial-scope-20261027.json",
+        "bytes": 7115,
+        "sha256": "33078d7cf3cfba79312065f14177e0d905931d0640245b05d8879c9abaacb344"
+      },
+      "representation": "UTF8 LF canonical JSON; gate context additionally condenses upstream text as stated."
+    }
+  ],
+  "raw_receipts": [
+    {
+      "name": "inventory.json",
+      "bytes": 1290,
+      "sha256": "287e0498d647b605f0461f05532a46ec24f9cefc4da76664c507698a6e5d07b9"
+    },
+    {
+      "name": "checker.json",
+      "bytes": 853,
+      "sha256": "dda86595565bc0269dd93e610e39bd1031f37c33687609ca13a15e459c1eebb4"
+    },
+    {
+      "name": "checker-old-R.json",
+      "bytes": 1069,
+      "sha256": "14292a6ebe595a9b919815cfc84b5701353cb3f4992f22cb2307d977af7a13a4"
+    },
+    {
+      "name": "carrier-recheck.json",
+      "bytes": 1666,
+      "sha256": "04b04d55925c79b1cdc67f96ba9513cb3d67ef53d2932b817d1872808ea65324"
+    }
+  ],
+  "preservation": {
+    "supplied_zip_unchanged": true,
+    "original_T07_evidence_unchanged": true,
+    "frozen_R_F_archives_and_owner_contracts_unchanged": true,
+    "product_tool_lock_changes": false,
+    "target_runtime_manager_policy_PATH_alias_changes": false,
+    "publication_tag_main_merge_or_settings_changes": false,
+    "attached_text_treated_as_instructions": false
+  },
+  "acceptance_statuses_changed": false,
+  "checkpoint_rule": "Record documentation/evidence only; normal commit/push; verify cleanHEAD=freshliveorigin; checkpoint SHA external, then STOP with exact next task prompt."
+}

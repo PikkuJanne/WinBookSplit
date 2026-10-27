@@ -222,7 +222,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "Separately authorized pypdf6.21.1 repair and independent new-candidate preparation COMPLETE at Fafd75b4. Actual final broad/CI/source-bound Windows11 developer regressions, guarded reproducible package/kit/carrier, 681check independent audit and real launcher/failure-return rehearsal are recorded in final candidate receipts with honest limits. Initial broad failures/provisional9f artifacts and cancelledCI retained. Original T07 COMPLETE/PASS only originalR/exactZIP, unchanged. NewF actual Windows10 Store acceptance NOT_RUN; STORE024 genuine enforced-policy denial NOT_RUN. T04 IMPLEMENTED_PENDING_NATIVE; T08 publication BLOCKED; STORE043..048 NOT_RUN; no acceptance promotion/publish/tag/mainmerge. One new validated carrier/START-TEST.cmd/SEND-THIS-REPORT.zip flow is ready; do not rerun unchanged oldR.",
+      "completion_scope": "27Oct owner return reviewed:377554bytes/hash436441f5 binds OLD R243d31e/ZIP70a76bd0/pypdf6.20.0, not Fafd75b4/ZIP216c310e/6.21.1. ExpectedFcheckerexit2 source mismatch; oldRconsistencyexit0;171independentchecks166pass/5expectedFfail, no internal packet defect. OriginalT07 accepted receipts and all48statuses unchanged. NewFStore NOT_RUN; genuineSTORE024 NOT_RUN. Current GHSA-x3rh-gjgm-fmqc affects F6.21.1; hold anotherFownerrun pending security disposition. Minimal6.21.3followup metadata/scope reviewed only, not implemented/tested/accepted. T04 IMPLEMENTED_PENDING_NATIVE; T08publicationBLOCKED/STORE043..048NOT_RUN. No product, lock, native target, archive or publication change.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -251,7 +251,13 @@
         "OWNER_SECURITY_REPAIR.md",
         "evidence/T08-security-repair-candidate.md",
         "evidence/T08-security-repair-candidate.json",
-        "evidence/T08-security-repair-artifact-audit.json"
+        "evidence/T08-security-repair-artifact-audit.json",
+        "evidence/T08-owner-return-20261027.md",
+        "evidence/T08-owner-return-20261027.json",
+        "evidence/T08-owner-return-20261027-audit.json",
+        "evidence/T08-gate-context-20261027.json",
+        "evidence/T08-remedial-scope-20261027.json",
+        "tasks/08-T08-security-followup.md"
       ]
     }
   ],

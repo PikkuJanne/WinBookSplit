@@ -1,5 +1,11 @@
 # New security candidate: one Windows 10 test
 
+> **27 October hold:** preserve this archived F bundle, but do not run another
+> owner test with it now. The new return identifies old R, and current upstream
+> evidence identifies a parser issue in F's pypdf6.21.1. See
+> evidence/T08-owner-return-20261027.md and tasks/08-T08-security-followup.md.
+> The steps below describe the retained Oct18 handoff; no fresh F run is requested.
+
 The owner authorized the pypdf security repair on 18 October 2026. This candidate
 uses pypdf 6.21.1. The accepted T07 report remains valid for the original R/ZIP;
 it cannot accept these changed bytes. This is one necessary new-candidate test.

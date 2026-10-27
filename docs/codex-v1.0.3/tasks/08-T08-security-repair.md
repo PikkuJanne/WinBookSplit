@@ -40,3 +40,12 @@ new candidate's one validated owner handoff; original owner contracts stay old.
 This subtask completion does not complete publication or accept changed bytes.
 New F actual Store native acceptance and genuine STORE-024 remain NOT_RUN;
 T08 publication remains BLOCKED. NEXT_SESSION.md routes the next gate review.
+
+## 27 October gate review update
+
+The new supplied packet tests old R/pypdf6.20.0, not F. All original T07 statuses
+remain unchanged; new F native acceptance and genuine STORE-024 remain NOT_RUN.
+Current upstream xref-stream evidence affects F's6.21.1 before application
+preflight. Hold another F owner test. See ../evidence/T08-owner-return-20261027.md/JSON
+and 08-T08-security-followup.md for the reviewed proposed next minimal task.
+No production pin, frozen archive or acceptance was changed by this gate review.
