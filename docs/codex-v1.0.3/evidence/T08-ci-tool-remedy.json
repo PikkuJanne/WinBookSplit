@@ -1,0 +1,193 @@
+{
+  "actual_bootstrap_rehearsal": {
+    "command": [
+      "<OUT>/dev14/Scripts/python.exe",
+      "-I",
+      "-B",
+      "tools/ci/bootstrap.py",
+      "--tool-root",
+      "<OUT>/ci-tools-rehearsal",
+      "--report",
+      "<OUT>/ci-tools-rehearsal.json"
+    ],
+    "exit_code": 0,
+    "observed_at": "2026-10-27T15:28:03.019342+00:00",
+    "packages": [
+      {
+        "acquisition_url": "https://www.powershellgallery.com/api/v2/package/Pester/6.2.0",
+        "all_declared_hashes_rechecked": true,
+        "archive_bytes": 465109,
+        "archive_sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+        "expanded_bytes": 1607437,
+        "files": 21,
+        "name": "Pester",
+        "new_member_closure_matches_previously_reviewed_isolated_tools": true,
+        "prior_tools_usage": "Comparison only after fresh verified acquisition; never bootstrap input/fallback.",
+        "version": "6.2.0"
+      },
+      {
+        "acquisition_url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg",
+        "all_declared_hashes_rechecked": true,
+        "archive_bytes": 14658674,
+        "archive_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+        "expanded_bytes": 299357415,
+        "files": 53,
+        "name": "PSScriptAnalyzer",
+        "new_member_closure_matches_previously_reviewed_isolated_tools": true,
+        "prior_tools_usage": "Comparison only after fresh verified acquisition; never bootstrap input/fallback.",
+        "version": "1.25.0"
+      }
+    ],
+    "receipt_identity": {
+      "bytes": 10067,
+      "sha256": "1ca40f96181d47a202893e4a51b8856c6eca78fd2c238e5fc906a8349ad5ff65"
+    },
+    "success": true
+  },
+  "diagnostic_limit": "All three official URLs returned200 during later local probes. The hosted404 is observed; a permanent or universal outage is not established.",
+  "failure": {
+    "actual_failed_component": "Pinned PSScriptAnalyzer1.25.0 Gallery API acquisition returned HTTP404",
+    "conclusion": "failure",
+    "hosted_shells": "PS5.1/PS7 SKIPPED; required reports absent and reference validator exit1.",
+    "raw_failed_step_log_identity": {
+      "bytes": 5874,
+      "sha256": "eb05e482fb9c4d453689cccc6c8b85b1bb7de1236666b232c523802b9c6c61da"
+    },
+    "raw_review_identity": {
+      "bytes": 36743,
+      "sha256": "446d4c89c44a6590025f8f9fb91cbf44e73c7e2586ea32bf4d51c2b12570052b"
+    },
+    "reference_python": "713 tests PASS; this does not satisfy skipped shell checks.",
+    "run_id": 40528250903,
+    "run_url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40528250903"
+  },
+  "focused_tests": {
+    "command": [
+      "<OUT>/dev14/Scripts/python.exe",
+      "-I",
+      "-B",
+      "tests/python/test_ci_bootstrap.py"
+    ],
+    "errors": 0,
+    "exit_code": 0,
+    "failures": 0,
+    "new_controls": [
+      "Exact reviewed official URLs, timeout60 and readMAX_PACKAGE+1.",
+      "HTTP404 and wrong SHA stop with no alternate origin or analyzer destination."
+    ],
+    "preliminary_observation": "Initial8PASS emitted an authored HTTPError fixture ResourceWarning; fixture now explicitly closed. Final8PASS has no warning; earlier raw output preserved.",
+    "retained_controls": [
+      "Hash rejection before writes",
+      "Ordinary bounded ZIP closure",
+      "Traversal/link/Windows alias rejection",
+      "No existing-root/network adoption"
+    ],
+    "skipped": 0,
+    "stderr_identity": {
+      "bytes": 1419,
+      "sha256": "08a1a8e792e190b58e14e655d4ff3b5009e2cb5dc0e25f7a0b4a61b1974207ab"
+    },
+    "stdout_identity": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "tests_run": 8
+  },
+  "kind": "CI_TOOL_OFFICIAL_SAME_BYTES_ACQUISITION_REMEDY",
+  "limits": [
+    "Acquisition/extraction only; downloaded module code was not imported or executed by this rehearsal.",
+    "No global module install, execution-policy change, CI rerun/cancellation/push or application/package/pypdf pin change.",
+    "Source H hostedCI must actually pass; this local remediation does not turn sourceG failure into success.",
+    "Native Store/enforced-policy/release gates are unaffected."
+  ],
+  "official_release": {
+    "asset_bytes": 14658674,
+    "asset_digest": "sha256:14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+    "asset_id": 378129172,
+    "asset_name": "PSScriptAnalyzer.1.25.0.nupkg",
+    "asset_url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg",
+    "published_at": "2026-03-20T19:39:32Z",
+    "raw_metadata_identity": {
+      "bytes": 8188,
+      "sha256": "11e8f47cad0577b62035c102512a4feb34b343c52365a907b0bc1840c26bd6d7"
+    },
+    "release_id": 299568140,
+    "tag": "1.25.0",
+    "url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/tag/1.25.0"
+  },
+  "official_source_probes": [
+    {
+      "bytes": 14658674,
+      "download_preserved": true,
+      "expected_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "final_url_without_query": "https://cdn.powershellgallery.com/packages/psscriptanalyzer.1.25.0.nupkg",
+      "matches_reviewed_archive": true,
+      "read_bound": 67108865,
+      "sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "source": "gallery",
+      "status": 200,
+      "timeout_seconds": 60,
+      "url": "https://www.powershellgallery.com/api/v2/package/PSScriptAnalyzer/1.25.0"
+    },
+    {
+      "bytes": 14658674,
+      "download_preserved": true,
+      "expected_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "final_url_without_query": "https://cdn.powershellgallery.com/packages/psscriptanalyzer.1.25.0.nupkg",
+      "matches_reviewed_archive": true,
+      "read_bound": 67108865,
+      "sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "source": "gallery-cdn",
+      "status": 200,
+      "timeout_seconds": 60,
+      "url": "https://cdn.powershellgallery.com/packages/psscriptanalyzer.1.25.0.nupkg"
+    },
+    {
+      "bytes": 14658674,
+      "download_preserved": true,
+      "expected_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "final_url_without_query": "https://release-assets.githubusercontent.com/github-production-release-asset/33149177/ef18bfcc-323f-4b96-ad78-15afff7cb06a",
+      "matches_reviewed_archive": true,
+      "read_bound": 67108865,
+      "sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+      "source": "official-github",
+      "status": 200,
+      "timeout_seconds": 60,
+      "url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg"
+    }
+  ],
+  "probe_receipt_identity": {
+    "bytes": 2358,
+    "sha256": "1919d8673f1ff9e183d3e9897ca3fcc60a51f3d0edc9e3fe72a1c0ce12337d42"
+  },
+  "remedy": {
+    "actual_lock_location": "tools/ci/bootstrap.py:PACKAGES; no separate tool lockfile exists.",
+    "cache_adoption_added": false,
+    "changed_paths": [
+      "tools/ci/bootstrap.py",
+      "tests/python/test_ci_bootstrap.py"
+    ],
+    "fallback_added": false,
+    "guard_checks": {
+      "extract_package_ast_identical": true,
+      "initial_external_tool_report_path_guard_ast_identical": true,
+      "main_isolation_and_external_report_guards_ast_identical": true,
+      "package_member_expansion_bounds_identical": true
+    },
+    "same_versions_and_archive_sha256": true,
+    "selected_url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg",
+    "source_file_identities": {
+      "tests/python/test_ci_bootstrap.py": {
+        "bytes": 8461,
+        "sha256": "3eca130f40595a645abfa9acc402379528e14ed903bcd3625c08a9d4be5a96b6"
+      },
+      "tools/ci/bootstrap.py": {
+        "bytes": 6367,
+        "sha256": "474d41910bf9900417adcaecc539eb0e1ff2b8fe7882d00e2b14c22292a73ab6"
+      }
+    }
+  },
+  "schema_version": 1,
+  "source_G": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+  "status": "IMPLEMENTED_FOCUSED_AND_LOCAL_ACQUISITION_REHEARSAL_PASS_HOSTED_REVALIDATION_REQUIRED"
+}

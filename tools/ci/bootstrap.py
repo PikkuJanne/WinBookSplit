@@ -12,10 +12,12 @@ from urllib.request import Request, urlopen
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
-# Reviewed official Gallery package bytes; never substitute inbox/global modules.
+# Reviewed official package bytes and locations; never substitute inbox/global modules.
 PACKAGES = (
-    ("Pester", "6.2.0", "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239"),
-    ("PSScriptAnalyzer", "1.25.0", "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60"),
+    ("Pester", "6.2.0", "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+     "https://www.powershellgallery.com/api/v2/package/Pester/6.2.0"),
+    ("PSScriptAnalyzer", "1.25.0", "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+     "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg"),
 )
 MAX_PACKAGE = 64 * 1024 * 1024
 # Reviewed PSScriptAnalyzer 1.25.0 expands to 299,357,415 bytes (53 members).
@@ -70,8 +72,7 @@ def bootstrap(tool_root, report, observations=None):
     tool_root.mkdir()
     if observations is None:
         observations = []
-    for name, version, expected in PACKAGES:
-        url = f"https://www.powershellgallery.com/api/v2/package/{name}/{version}"
+    for name, version, expected, url in PACKAGES:
         observation = {"name": name, "version": version, "url": url,
                        "expected_sha256": expected, "state": "download_attempted"}
         observations.append(observation)

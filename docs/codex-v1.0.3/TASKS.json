@@ -261,7 +261,9 @@
         "OWNER_DECISION_20261027.md",
         "evidence/T08-security-followup-implementation.md",
         "evidence/T08-security-followup-implementation.json",
-        "evidence/T08-security-followup-focused.json"
+        "evidence/T08-security-followup-focused.json",
+        "evidence/T08-ci-tool-remedy.md",
+        "evidence/T08-ci-tool-remedy.json"
       ]
     }
   ],

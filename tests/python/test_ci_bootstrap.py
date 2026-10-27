@@ -7,6 +7,7 @@ import stat
 import tempfile
 import unittest
 from unittest.mock import patch
+from urllib.error import HTTPError
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -29,6 +30,62 @@ def archive(members):
 
 
 class BootstrapTests(unittest.TestCase):
+    def test_bootstrap_uses_reviewed_official_locations_with_bounded_requests(self):
+        expected_urls = ["https://www.powershellgallery.com/api/v2/package/Pester/6.2.0",
+                         "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg"]
+        payloads = {name: archive([(name + '.psd1', b'Authored module manifest')])
+                    for name, _, _, _ in bootstrap.PACKAGES}
+        packages = tuple((name, version, sha256(payloads[name]).hexdigest(), url)
+                         for name, version, _, url in bootstrap.PACKAGES)
+        requests, reads = [], []
+
+        class Response(io.BytesIO):
+            def read(self, size=-1):
+                reads.append(size)
+                return super().read(size)
+
+        def download(request, *, timeout):
+            requests.append(request.full_url)
+            self.assertEqual(timeout, 60)
+            self.assertEqual(request.full_url, expected_urls[len(requests) - 1])
+            return Response(payloads[packages[len(requests) - 1][0]])
+
+        with tempfile.TemporaryDirectory() as work, patch.object(bootstrap, 'PACKAGES', packages), \
+                patch.object(bootstrap, 'urlopen', side_effect=download):
+            result = bootstrap.bootstrap(Path(work) / 'tools', Path(work) / 'report.json')
+        self.assertTrue(result['success'])
+        self.assertEqual(requests, expected_urls)
+        self.assertEqual(reads, [bootstrap.MAX_PACKAGE + 1] * 2)
+        self.assertTrue(all(row['state'] == 'verified_and_extracted' for row in result['packages']))
+
+    def test_official_download_http_or_hash_failure_does_not_try_another_origin(self):
+        payloads = {name: archive([(name + '.psd1', b'Authored module manifest')])
+                    for name, _, _, _ in bootstrap.PACKAGES}
+        packages = tuple((name, version, sha256(payloads[name]).hexdigest(), url)
+                         for name, version, _, url in bootstrap.PACKAGES)
+        for failure in ('http', 'hash'):
+            calls = []
+
+            def download(request, *, timeout):
+                calls.append(request.full_url)
+                if len(calls) == 1:
+                    return io.BytesIO(payloads['Pester'])
+                self.assertEqual(request.full_url, packages[1][3])
+                if failure == 'http':
+                    error = HTTPError(request.full_url, 404, 'Authored unavailable origin', None, io.BytesIO())
+                    error.close()
+                    raise error
+                return io.BytesIO(archive([('PSScriptAnalyzer.psd1', b'Wrong authored bytes')]))
+
+            with self.subTest(failure=failure), tempfile.TemporaryDirectory() as work, \
+                    patch.object(bootstrap, 'PACKAGES', packages), patch.object(bootstrap, 'urlopen', side_effect=download):
+                root = Path(work) / 'tools'
+                with self.assertRaises(HTTPError if failure == 'http' else ValueError):
+                    bootstrap.bootstrap(root, Path(work) / 'report.json')
+                self.assertEqual(calls, [row[3] for row in packages])
+                self.assertFalse((root / 'PSScriptAnalyzer').exists())
+                self.assertEqual((root / 'Pester/6.2.0/Pester.psd1').read_bytes(), b'Authored module manifest')
+
     def test_matching_bytes_extract_only_declared_ordinary_members(self):
         data = archive([("Pester.psd1", b"Authored manifest"), ("bin/helper.txt", b"Owned helper")])
         with tempfile.TemporaryDirectory() as work:

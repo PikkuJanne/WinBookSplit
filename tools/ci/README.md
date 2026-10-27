@@ -13,8 +13,9 @@ required historical blob. No historical test is skipped or weakened.
 
 Regular x64 CPython 3.14.8 creates a fresh temporary venv. `requirements-dev.txt`
 and `requirements.txt` are installed with required hashes and binary wheels.
-`bootstrap.py` downloads exact developer modules from the official PowerShell
-Gallery, checks fixed package SHA256 values before bounded ordinary-file
+`bootstrap.py` downloads Pester from the official PowerShell Gallery and
+PSScriptAnalyzer from its official PowerShell GitHub release, checking the same
+reviewed package SHA256 values before bounded ordinary-file
 extraction, and leaves global module, trust and execution-policy settings alone.
 The shared shell harness imports only the selected versioned manifests.
 
