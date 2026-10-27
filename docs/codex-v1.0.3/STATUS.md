@@ -1,22 +1,32 @@
 # Status
 
-State: **IN_PROGRESS - completing v1.0.3 under the owner's 27 October order.**
+**Complete: WinBookSplit v1.0.3 is published. No owner work remains.**
 
-The owner has closed further manual work and directed the agent to finish.
-OWNER_DECISION_20261027.md records the precise release exceptions: fresh final-ZIP
-owner Windows10 Store, genuine company-policy and unavailable manual actions stay
-NOT_RUN/owner-waived. No other quality/security/source/byte requirement is waived.
-Do not request another owner test. Original accepted T07/R/F/archives remain intact.
+[Public release](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.3)
 
-The project is being updated to verified official pypdf6.21.3/policy5. Python and
-Calibre floors and runtime/discovery/setup/origin/process/file guards stay intact.
-A bounded regression reproduced the missing xref budget in6.21.1; finalnewversion
-and complete agent tests/CI/package/publication receipts are still IN_PROGRESS.
-Pending checks are not PASS. The owner's separately updated globalpackage is not
-an application test and is left untouched.
+The project and release use pypdf 6.21.3, policy version 5. The immutable release
+tag points to `7c5f7afeef9b09733ee8853d6df5d86c42d9c726`. The ZIP contains 938,143 bytes and has
+SHA256 `ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20`.
 
-Next: complete reviewed source, agentchecks, exactsourceCI, newcommittedfreeze,
-immutableproductionassets, nativeWin11exactZIPcomponents, reviewednormalmain
-integration, fixedv1.0.3tag, publicrelease, anonymousbyteverification, preserved
-oldreleases and cleanmainsynchronization. All unavailable manualscenarios mustbe
-disclosed. No publicrelease/tag/mainmerge has occurred at this checkpoint.
+All feasible agent checks passed: supported Python/application/Calibre checks on
+Windows 11, both PowerShell suites, final-source CI, two identical builds,
+independent reviews and anonymous public asset verification. The earlier CI
+acquisition failure remains recorded as a failure; the same-version, same-hash
+official GitHub tool URL repaired it, and final-source CI passed all four jobs.
+See [final evidence](evidence/T08-final-release.md) for actual sources and limits.
+
+Under the [owner decision](OWNER_DECISION_20261027.md), fresh final-ZIP Windows 10
+Store acceptance, genuine company-enforced policy denial and unavailable physical
+Explorer actions remain **NOT_RUN / owner-waived**. They are disclosed in the
+release notes. Original T07 acceptance applies only to original R and its old ZIP.
+Scripts are unsigned. No unavailable test has been promoted to PASS.
+
+T04 is complete with the unperformed company-policy scenario waived. T08 and its
+release cases are complete under the updated criteria. There is no pending T09.
+Old releases, frozen R/F archives, owner contracts and accepted receipts remain
+unchanged.
+
+Before this documentation closure, clean local main matched freshly queried live
+main and the scoped branch at the release source. The subsequent documentation-only
+commit leaves the tag and packaged bytes unchanged. Its own hash and actual final
+synchronization are checked externally after commit/push, avoiding self-reference.

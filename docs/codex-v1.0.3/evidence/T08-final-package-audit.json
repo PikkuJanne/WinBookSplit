@@ -1,0 +1,485 @@
+{
+  "schema_version": 1,
+  "audit_kind": "READ_ONLY_H_FROZEN_ASSETS_AND_G_H_EVIDENCE_EQUIVALENCE",
+  "recorded_utc": "2026-10-27T15:38:55.320718+00:00",
+  "source_G": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+  "source_H": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+  "source_H_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+  "result": "PASS",
+  "check_count": 85,
+  "failed_checks": [],
+  "checks": [
+    {
+      "check": "source_H_tree",
+      "passed": true
+    },
+    {
+      "check": "assets-H-one_WinBookSplit-v1.0.3.zip_identity",
+      "passed": true
+    },
+    {
+      "check": "assets-H-two_WinBookSplit-v1.0.3.zip_identity",
+      "passed": true
+    },
+    {
+      "check": "assets-H-one_release-manifest.json_identity",
+      "passed": true
+    },
+    {
+      "check": "assets-H-two_release-manifest.json_identity",
+      "passed": true
+    },
+    {
+      "check": "assets-H-one_SHA256SUMS.txt_identity",
+      "passed": true
+    },
+    {
+      "check": "assets-H-two_SHA256SUMS.txt_identity",
+      "passed": true
+    },
+    {
+      "check": "both_H_asset_sets_byte_identical",
+      "passed": true
+    },
+    {
+      "check": "product_H_byte_identical_G",
+      "passed": true
+    },
+    {
+      "check": "H_manifest_source_tree_version",
+      "passed": true
+    },
+    {
+      "check": "H_manifest_canonical",
+      "passed": true
+    },
+    {
+      "check": "manifest_payload_digest",
+      "passed": true
+    },
+    {
+      "check": "exact_34_payload_allowlist",
+      "passed": true
+    },
+    {
+      "check": "zip_recipe_regular_sorted_members",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_CHANGELOG.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_CONTRIBUTING.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_Export-WinBookSplitDiagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_LICENSE",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_README.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_SECURITY.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_Setup-WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_Setup-WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_THIRD_PARTY_NOTICES.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_VERSION",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_WinBookSplit.bat",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_WinBookSplit.ico",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_WinBookSplit.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_docs/EBOOK_SUPPORT.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_docs/PDF_FIDELITY.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_docs/PDF_POLICY.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_docs/SETUP.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_docs/SUPPORT_DIAGNOSTICS.md",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Compatibility.json",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Compatibility.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Outcomes.json",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Paths.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Setup.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/winbooksplit_compatibility.py",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/winbooksplit_conversion.py",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/winbooksplit_engine.py",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "payload_H_G_Git_zip_requirements.txt",
+      "passed": true
+    },
+    {
+      "check": "exact_four_builder_pins",
+      "passed": true
+    },
+    {
+      "check": "builder_H_raw_clone_pin_tools/release/build_package.py",
+      "passed": true
+    },
+    {
+      "check": "builder_H_raw_clone_pin_tools/release/payload.json",
+      "passed": true
+    },
+    {
+      "check": "builder_H_raw_clone_pin_tools/ci/check_package_inputs.py",
+      "passed": true
+    },
+    {
+      "check": "builder_H_raw_clone_pin_tools/release/frozen_assets.py",
+      "passed": true
+    },
+    {
+      "check": "H_checksums_zip_manifest",
+      "passed": true
+    },
+    {
+      "check": "H_manifest_archive_data",
+      "passed": true
+    },
+    {
+      "check": "python-G.json_recorded_source_G_success",
+      "passed": true
+    },
+    {
+      "check": "python-G.json_222_exact_H_3_explained_G_paths",
+      "passed": true
+    },
+    {
+      "check": "shell-G.json_recorded_source_G_success",
+      "passed": true
+    },
+    {
+      "check": "shell-G.json_222_exact_H_3_explained_G_paths",
+      "passed": true
+    },
+    {
+      "check": "runtime13-application-G.json_recorded_source_G_success",
+      "passed": true
+    },
+    {
+      "check": "runtime13-application-G.json_222_exact_H_3_explained_G_paths",
+      "passed": true
+    },
+    {
+      "check": "runtime14-application-G.json_recorded_source_G_success",
+      "passed": true
+    },
+    {
+      "check": "runtime14-application-G.json_222_exact_H_3_explained_G_paths",
+      "passed": true
+    },
+    {
+      "check": "runtime15-application-G.json_recorded_source_G_success",
+      "passed": true
+    },
+    {
+      "check": "runtime15-application-G.json_222_exact_H_3_explained_G_paths",
+      "passed": true
+    },
+    {
+      "check": "native_G_231_source_binding_H_equivalence",
+      "passed": true
+    },
+    {
+      "check": "native_G_all34_master_payload_bytes_exact_H",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_tools/compatibility/native_smoke.py",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_tests/compatibility/validate_setup_remedy.py",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_tests/process/session_child.py",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/WinBookSplit.Process.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/WinBookSplit.Logging.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/WinBookSplit.Diagnostics.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/WinBookSplit.Support.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/WinBookSplit.Runtime.ps1",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/winbooksplit_job.py",
+      "passed": true
+    },
+    {
+      "check": "native_helper_G_equals_H_engine/winbooksplit_windows.py",
+      "passed": true
+    },
+    {
+      "check": "native_1432_check_review_recorded_G_only",
+      "passed": true
+    },
+    {
+      "check": "ordinary_processing_BAT_G_observed_not_H_rerun",
+      "passed": true
+    },
+    {
+      "check": "release_notes_source_H_and_exact_zip",
+      "passed": true
+    },
+    {
+      "check": "release_notes_waived_not_run_unsigned_limits",
+      "passed": true
+    },
+    {
+      "check": "H_build_verify_four_recorded_successes",
+      "passed": true
+    },
+    {
+      "check": "prior_package_G_independent_audit_exact",
+      "passed": true
+    }
+  ],
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.3.zip",
+      "bytes": 938143,
+      "sha256": "ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20"
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 16594,
+      "sha256": "7d6481284a01d07ec611a61d3da8ca0216d28706333e10991551a6daf8ec43b2"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "4f84e29411c47aee79f76d9e984aa6e6bcd6c3c7056fd2690374bde8d7affe10"
+    }
+  ],
+  "five_local_G_reports": [
+    {
+      "report": "python-G.json",
+      "bytes": 174094,
+      "sha256": "a0fe19dd3998157ea9314ab988ae14cdc9b6d83b40400fa46da0d9b9e2e23a6b",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_unchanged_recorded": true,
+      "source_paths": 225,
+      "exact_H": 222,
+      "prior_G_paths": [
+        "tests/python/test_ci_bootstrap.py",
+        "tools/ci/bootstrap.py",
+        "tools/ci/README.md"
+      ],
+      "unexplained_paths": [],
+      "scope": "Actual local G execution. H source map differs in three CI-tool acquisition/documentation/test paths; this is not an H local-suite rerun."
+    },
+    {
+      "report": "shell-G.json",
+      "bytes": 1213558,
+      "sha256": "ad2e5ba1edab6bc34b6764add78f4dc41dda014cd2607b94bedab57e3d6fcd23",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_unchanged_recorded": true,
+      "source_paths": 225,
+      "exact_H": 222,
+      "prior_G_paths": [
+        "tests/python/test_ci_bootstrap.py",
+        "tools/ci/bootstrap.py",
+        "tools/ci/README.md"
+      ],
+      "unexplained_paths": [],
+      "scope": "Actual local G execution. H source map differs in three CI-tool acquisition/documentation/test paths; this is not an H local-suite rerun."
+    },
+    {
+      "report": "runtime13-application-G.json",
+      "bytes": 771628,
+      "sha256": "39732b25a5441b9a010ceb8a52501b64b34222f83e7d1a857924963c1d33eb96",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_unchanged_recorded": true,
+      "source_paths": 225,
+      "exact_H": 222,
+      "prior_G_paths": [
+        "tests/python/test_ci_bootstrap.py",
+        "tools/ci/bootstrap.py",
+        "tools/ci/README.md"
+      ],
+      "unexplained_paths": [],
+      "scope": "Actual local G execution. H source map differs in three CI-tool acquisition/documentation/test paths; this is not an H local-suite rerun."
+    },
+    {
+      "report": "runtime14-application-G.json",
+      "bytes": 771453,
+      "sha256": "a853ed6c616c131765aacb0db8d376a0cb88f6c39d8d562a0cac36904f4e5d25",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_unchanged_recorded": true,
+      "source_paths": 225,
+      "exact_H": 222,
+      "prior_G_paths": [
+        "tests/python/test_ci_bootstrap.py",
+        "tools/ci/bootstrap.py",
+        "tools/ci/README.md"
+      ],
+      "unexplained_paths": [],
+      "scope": "Actual local G execution. H source map differs in three CI-tool acquisition/documentation/test paths; this is not an H local-suite rerun."
+    },
+    {
+      "report": "runtime15-application-G.json",
+      "bytes": 771530,
+      "sha256": "40a7ac79f01d84242633962c9de605694f6d36d4635b554cd24ca1b4c53d035f",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_unchanged_recorded": true,
+      "source_paths": 225,
+      "exact_H": 222,
+      "prior_G_paths": [
+        "tests/python/test_ci_bootstrap.py",
+        "tools/ci/bootstrap.py",
+        "tools/ci/README.md"
+      ],
+      "unexplained_paths": [],
+      "scope": "Actual local G execution. H source map differs in three CI-tool acquisition/documentation/test paths; this is not an H local-suite rerun."
+    }
+  ],
+  "native_G_source_equivalence": {
+    "source_paths": 231,
+    "exact_H": 228,
+    "prior_G_paths": [
+      "tests/python/test_ci_bootstrap.py",
+      "tools/ci/README.md",
+      "tools/ci/bootstrap.py"
+    ],
+    "unexplained_paths": [],
+    "master_payload_exact_H": 34,
+    "reviewed_invoked_helpers_exact_H": [
+      "tools/compatibility/Invoke-SetupRemedyRoundTrip.ps1",
+      "tools/compatibility/Invoke-NativeAcceptance.ps1",
+      "tools/compatibility/native_smoke.py",
+      "tests/compatibility/validate_setup_remedy.py",
+      "tests/process/session_child.py",
+      "engine/WinBookSplit.Process.ps1",
+      "engine/WinBookSplit.Logging.ps1",
+      "engine/WinBookSplit.Diagnostics.ps1",
+      "engine/WinBookSplit.Support.ps1",
+      "engine/WinBookSplit.Runtime.ps1",
+      "engine/winbooksplit_job.py",
+      "engine/winbooksplit_windows.py"
+    ]
+  },
+  "H_hosted_CI": "PENDING_AT_THIS_AUDIT; actual passing exact-H workflow/report validation required before publication",
+  "limits": [
+    "No app, builder, helper or attached code was executed. Only standard-library data/ZIP/hash review and bounded raw Git reads were used.",
+    "G local Python713, both-shell Pester252 each, three Windows11/Calibre matrices and native/ordinary-BAT evidence retain recorded G scope. They are not relabelled H executions.",
+    "Only the three explained CI-tool acquisition/test/docs paths differ in the recorded225/231source maps. All34payload members and reviewed actual native helpers are byte-identical G/H.",
+    "H manifests/checksums bind H; product ZIP remains exact G tested bytes. Source H still requires actual successful CI after its acquisition fix.",
+    "Missing final owner Windows10 existing-Store, real enforced-policy and unavailable physical human actions remain NOT_RUN/owner-waived, not PASS."
+  ]
+}

@@ -1,6 +1,14 @@
 # WinBookSplit working agreement
 
-## Active v1.0.3 Store discovery repair
+## v1.0.3 release complete
+
+WinBookSplit v1.0.3 is published at tested source
+`7c5f7afeef9b09733ee8853d6df5d86c42d9c726`. Read
+`docs/codex-v1.0.3/STATUS.md` and
+`docs/codex-v1.0.3/evidence/T08-final-release.md` for final evidence.
+No owner work or T09 remains. Preserve the tag and its assets; start further
+maintenance only on a new owner request. The authority and safety agreement
+below is retained for reference.
 
 The owner's 27 October 2026 executive order closes further owner work for this
 version and directs completion. Follow docs/codex-v1.0.3/OWNER_DECISION_20261027.md:

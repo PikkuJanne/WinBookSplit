@@ -1,0 +1,55 @@
+{
+  "scope": "BOUNDED_OUTER_JOB_FOR_ONE_OWNED_EXACT_G_UNMODIFIED_PROCESSING_BAT",
+  "source_G": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+  "success": true,
+  "outer_exit_code": 0,
+  "outer_job_assigned_before_resume": true,
+  "outer_descendants_stopped": true,
+  "outer_streams_complete": true,
+  "raw_outer": {
+    "name": "ordinary-processing-bat-G-outer.json",
+    "bytes": 1733,
+    "sha256": "02226cedcfa7b55bda3868b54d574227c3b14ff501b6217d72e068cf674d5da4"
+  },
+  "raw_native": {
+    "name": "ordinary-processing-bat-result.json",
+    "bytes": 63669,
+    "sha256": "0d461b56542e101291560e208260bcb74a20b4dda120c933a6533bbef7daae64"
+  },
+  "driver_sources": [
+    {
+      "name": "ordinary-processing-bat-G.ps1",
+      "bytes": 9779,
+      "sha256": "86d5b667415351516e307ecf5c1cc70a1d5bb27c3df8132ad6f3ebf2b06e2de1"
+    },
+    {
+      "name": "run_ordinary_bat_G_driver.py",
+      "bytes": 6323,
+      "sha256": "9b9eb63a3259ed8c1663bbe2f50aea3b15b410c8442e8de0443f6db87f102e0e"
+    }
+  ],
+  "limits": [
+    "Actual original processingBAT/PS1 and healthy owned6.21.3venv; no selected runtime or injected PATH/USERPROFILE/LOCALAPPDATA.",
+    "The maintained native child transport keeps its normal Python-isolation flags; this is explicit developer regression, never untouched Store acceptance.",
+    "Scripted console answers and CMD execution are automated; no physical Explorer action.",
+    "Existing Documents entries are compared by directory-entry metadata only; no private document contents are read. New owned output and console are retained."
+  ],
+  "actual_scope": "Actual unmodified processing BAT on owned exact-G package copy/healthyvenv; explicit developer fixture, no Store or physical Explorer acceptance",
+  "physical_pages": 10,
+  "written_count": 3,
+  "preservation": {
+    "source_unchanged": true,
+    "internet_marks_unchanged": true,
+    "input_unchanged": true,
+    "neighbor_unchanged": true,
+    "venv_unchanged": true,
+    "parent_PATH_unchanged": true,
+    "policies_unchanged": true,
+    "existing_documents_entries_unchanged": true,
+    "new_owned_documents_members": [
+      "WBS-G-BAT-6d5f63a43df54861a81dd9a53e1f1aea_20261027-153054_69199d4de48d41848ec44275f73cad37",
+      ".WinBookSplit-console-471bc46ff19c407aac277202738be2b5"
+    ]
+  },
+  "error": null
+}

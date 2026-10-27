@@ -89,7 +89,7 @@
       "depends_on": [
         "T03"
       ],
-      "status": "IMPLEMENTED_PENDING_NATIVE",
+      "status": "COMPLETE",
       "brief": "tasks/04-T04.md",
       "acceptance_ids": [
         "STORE-019",
@@ -99,7 +99,7 @@
         "STORE-023",
         "STORE-024"
       ],
-      "completion_scope": "Setup/diagnostic components and labelled explicit developer command/BAT/no-op/repair/MOTW/privacy checks. Actual enforced organization-policy denial NOT_RUN at T07. Actual Windows11 automatic runtime remains unchanged 3.14.7 security-floor rejection, not compatible automatic acceptance. Store/owner exact-ZIP Windows10 gate NOT_RUN at T07.",
+      "completion_scope": "Setup/diagnostic components and labelled explicit developer command/BAT/no-op/repair/MOTW/privacy checks. Actual enforced organization-policy denial NOT_RUN at T07. Actual Windows11 automatic runtime remains unchanged 3.14.7 security-floor rejection, not compatible automatic acceptance. Store/owner exact-ZIP Windows10 gate NOT_RUN at T07. Latest27Octownerdecision removes genuineSTORE024 asmandatorypublicationprerequisite: remainsNOT_RUN/owner-waived, notPASS. Requiredagentcomponents pass; no nativeGPOclaim.",
       "evidence": [
         "evidence/T04.md",
         "evidence/T04.json",
@@ -112,7 +112,9 @@
         "evidence/T04-shell.json",
         "evidence/T04-recipes-ps51.json",
         "evidence/T04-recipes-ps7.json",
-        "evidence/T04-recipes-originals.json"
+        "evidence/T04-recipes-originals.json",
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-native-audit.json"
       ]
     },
     {
@@ -212,7 +214,7 @@
       "depends_on": [
         "T07"
       ],
-      "status": "IN_PROGRESS",
+      "status": "COMPLETE",
       "brief": "tasks/08-T08.md",
       "acceptance_ids": [
         "STORE-043",
@@ -222,7 +224,7 @@
         "STORE-047",
         "STORE-048"
       ],
-      "completion_scope": "Owner27Octexecutiveorderclosesallfurtherownerwork. Minimal623repair, agentverification, newfreeze, immutablepackageandfullv1.0.3releaseclosure IN_PROGRESS. ManualfinalZIPWin10Store/genuinecompany-policy remainNOT_RUN/ownerwaived; nofabricatedpass/noownerrequest. PreserveoriginalT07/R/F. Automatedquality/security/CI/byte/publicmainchecksremainmandatory.",
+      "completion_scope": "v1.0.3publicnon-draftnon-prerelease at testedH7c5f7af. Requiredagentquality/source/security/CI/nativeWin11/package/anonymousbytes pass; preservedoldreleases/tags/assets. OriginalT07 remains oldR-only. UnavailablefinalZIPownerWin10Store/realcompanypolicy/physicalExplorer remainNOT_RUN owner-waived withdisclosure. Actualpre-Ccleanmain=live/scopedHverified; Cdocsclosure/tagHfixed; post-CsyncPENDINGexternalverification. No ownerwork/T09 pending.",
       "evidence": [
         "evidence/T08.md",
         "evidence/T08.json",
@@ -263,7 +265,15 @@
         "evidence/T08-security-followup-implementation.json",
         "evidence/T08-security-followup-focused.json",
         "evidence/T08-ci-tool-remedy.md",
-        "evidence/T08-ci-tool-remedy.json"
+        "evidence/T08-ci-tool-remedy.json",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-ci.json",
+        "evidence/T08-final-package-audit.json",
+        "evidence/T08-final-runtime-matrix.json",
+        "evidence/T08-final-native-audit.json",
+        "evidence/T08-final-processing-bat.json",
+        "evidence/T08-final-public-verification.json"
       ]
     }
   ],

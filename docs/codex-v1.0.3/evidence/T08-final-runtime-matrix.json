@@ -1,0 +1,221 @@
+{
+  "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+  "source_tree": "ef47226c12b7a9c24f5b190cf5be9bddcccb1629",
+  "scope": "EXPLICIT_RUNTIME_ONLY_WINDOWS11_SOURCE_G_APPLICATION_MATRIX_WITH_ACTUAL_CALIBRE",
+  "success": true,
+  "source_file_count": 225,
+  "source_manifest_matches_raw_G": true,
+  "source_files_preserved": true,
+  "source_clone_clean": true,
+  "parent_environment_preserved": true,
+  "cases": [
+    {
+      "id": "runtime13",
+      "success": true,
+      "runtime_version": "3.13.16",
+      "pypdf_version": "6.21.3",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_file_count": 225,
+      "source_unchanged": true,
+      "runtime_only_units": {
+        "tests_run": 150,
+        "errors": 0,
+        "failures": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "application_case_count": 10,
+      "native_probe_count": 21,
+      "actual_calibre_status": "PASS",
+      "actual_calibre_scope": "actual locked Calibre EPUB/AZW3 with selected application Python",
+      "actual_calibre_version": "9.15.0",
+      "actual_calibre_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "hosts": [
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "5.1.26100.9711"
+        },
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "7.6.6"
+        }
+      ],
+      "application_copy_member_count": 21,
+      "application_copy_preserved": true,
+      "inputs_preserved": true,
+      "outer_exit_code": 0,
+      "outer_elapsed_seconds": 262.5756990999216,
+      "outer_job_assigned_before_resume": true,
+      "outer_descendants_stopped": true,
+      "outer_streams_complete": true,
+      "outer_stdout": {
+        "bytes": 110,
+        "sha256": "4e6c4e914704fd4cab1ef7a5aa7bb62f6a376eca4940cc4c6ec65e3566a2c3f9",
+        "capture_truncated": false,
+        "error": null
+      },
+      "outer_stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "capture_truncated": false,
+        "error": null
+      },
+      "raw_report": {
+        "name": "runtime13-application-G.json",
+        "bytes": 771628,
+        "sha256": "39732b25a5441b9a010ceb8a52501b64b34222f83e7d1a857924963c1d33eb96"
+      },
+      "raw_process_receipt": {
+        "name": "runtime13-application-G-process.json",
+        "bytes": 27715,
+        "sha256": "fb7a5f15491c3a2894c2ca79e5611526494cbf909f5c72aa6f37f16af21a92df"
+      }
+    },
+    {
+      "id": "runtime14",
+      "success": true,
+      "runtime_version": "3.14.8",
+      "pypdf_version": "6.21.3",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_file_count": 225,
+      "source_unchanged": true,
+      "runtime_only_units": {
+        "tests_run": 150,
+        "errors": 0,
+        "failures": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "application_case_count": 10,
+      "native_probe_count": 21,
+      "actual_calibre_status": "PASS",
+      "actual_calibre_scope": "actual locked Calibre EPUB/AZW3 with selected application Python",
+      "actual_calibre_version": "9.15.0",
+      "actual_calibre_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "hosts": [
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "5.1.26100.9711"
+        },
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "7.6.6"
+        }
+      ],
+      "application_copy_member_count": 21,
+      "application_copy_preserved": true,
+      "inputs_preserved": true,
+      "outer_exit_code": 0,
+      "outer_elapsed_seconds": 262.68757000006735,
+      "outer_job_assigned_before_resume": true,
+      "outer_descendants_stopped": true,
+      "outer_streams_complete": true,
+      "outer_stdout": {
+        "bytes": 110,
+        "sha256": "67531b0514c84d06e82067bc3993c2ce42860a629de5542d7b3af4d589bb19c3",
+        "capture_truncated": false,
+        "error": null
+      },
+      "outer_stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "capture_truncated": false,
+        "error": null
+      },
+      "raw_report": {
+        "name": "runtime14-application-G.json",
+        "bytes": 771453,
+        "sha256": "a853ed6c616c131765aacb0db8d376a0cb88f6c39d8d562a0cac36904f4e5d25"
+      },
+      "raw_process_receipt": {
+        "name": "runtime14-application-G-process.json",
+        "bytes": 27716,
+        "sha256": "d039818d220bad12b6b30b8d8cff3020d1a8e45436ca56d41ffb5313f8f87a1d"
+      }
+    },
+    {
+      "id": "runtime15",
+      "success": true,
+      "runtime_version": "3.15.0",
+      "pypdf_version": "6.21.3",
+      "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+      "source_file_count": 225,
+      "source_unchanged": true,
+      "runtime_only_units": {
+        "tests_run": 150,
+        "errors": 0,
+        "failures": 0,
+        "expected_failures": 0,
+        "unexpected_successes": 0,
+        "skipped": [],
+        "success": true
+      },
+      "application_case_count": 10,
+      "native_probe_count": 21,
+      "actual_calibre_status": "PASS",
+      "actual_calibre_scope": "actual locked Calibre EPUB/AZW3 with selected application Python",
+      "actual_calibre_version": "9.15.0",
+      "actual_calibre_sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+      "hosts": [
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "5.1.26100.9711"
+        },
+        {
+          "caption": "Microsoft Windows 11 Pro",
+          "build": "26300",
+          "shell_version": "7.6.6"
+        }
+      ],
+      "application_copy_member_count": 21,
+      "application_copy_preserved": true,
+      "inputs_preserved": true,
+      "outer_exit_code": 0,
+      "outer_elapsed_seconds": 219.41778379993048,
+      "outer_job_assigned_before_resume": true,
+      "outer_descendants_stopped": true,
+      "outer_streams_complete": true,
+      "outer_stdout": {
+        "bytes": 110,
+        "sha256": "4d3469eada57f2de5892762e481b1d8dfe76fd9a9691c1fd519701639ad3e769",
+        "capture_truncated": false,
+        "error": null
+      },
+      "outer_stderr": {
+        "bytes": 0,
+        "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "capture_truncated": false,
+        "error": null
+      },
+      "raw_report": {
+        "name": "runtime15-application-G.json",
+        "bytes": 771530,
+        "sha256": "40a7ac79f01d84242633962c9de605694f6d36d4635b554cd24ca1b4c53d035f"
+      },
+      "raw_process_receipt": {
+        "name": "runtime15-application-G-process.json",
+        "bytes": 27716,
+        "sha256": "edadc9bde6f15036d334f33ba2c7ed2c570a888b4038e8462974752ac1dd5286"
+      }
+    }
+  ],
+  "limits": [
+    "No owner Store or Windows10 execution is claimed.",
+    "No genuine enforced organization-policy denial is claimed.",
+    "Explicit per-runtime environments and child fixture controls are developer regression inputs."
+  ],
+  "raw_outer_receipt": {
+    "name": "application-matrices-G.json",
+    "bytes": 111770,
+    "sha256": "84259b7da05c03792cba0f1e508e2e6a722467c7e6159a6fed9157422f223cf1"
+  }
+}

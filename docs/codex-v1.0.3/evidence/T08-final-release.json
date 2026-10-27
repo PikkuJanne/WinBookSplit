@@ -1,0 +1,420 @@
+{
+  "schema_version": 1,
+  "task": "T08",
+  "status": "COMPLETE_WITH_DISCLOSED_OWNER_WAIVED_MANUAL_SCENARIOS",
+  "recorded_utc": "2026-10-27T15:55:52.698513+00:00",
+  "version": "1.0.3",
+  "owner_authority": "OWNER_DECISION_20261027.md",
+  "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+  "source_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+  "tag": "v1.0.3",
+  "tag_peeled_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+  "release": {
+    "id": 425671826,
+    "html_url": "https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.3",
+    "tag_name": "v1.0.3",
+    "target_commitish": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+    "draft": false,
+    "prerelease": false,
+    "published_at": "2026-10-27T15:53:12Z"
+  },
+  "assets": [
+    {
+      "name": "WinBookSplit-v1.0.3.zip",
+      "bytes": 938143,
+      "sha256": "ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20"
+    },
+    {
+      "name": "release-manifest.json",
+      "bytes": 16594,
+      "sha256": "7d6481284a01d07ec611a61d3da8ca0216d28706333e10991551a6daf8ec43b2"
+    },
+    {
+      "name": "SHA256SUMS.txt",
+      "bytes": 178,
+      "sha256": "4f84e29411c47aee79f76d9e984aa6e6bcd6c3c7056fd2690374bde8d7affe10"
+    }
+  ],
+  "scripts_signed": false,
+  "dependency": {
+    "pypdf": "6.21.3",
+    "policy_version": 5,
+    "wheel_bytes": 409554,
+    "wheel_sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e",
+    "scope": "Reviewed selected-version known resource fixes; no universal security clearance or sandbox claim."
+  },
+  "hosted_H": {
+    "run_id": 40532432470,
+    "status": "completed",
+    "conclusion": "success",
+    "jobs": 4,
+    "python_tests": 715,
+    "artifact_validators": 4,
+    "scope": "Actual Windows Server2025 hosted reports, PDF-only application jobs; actual OS/hosts in full CI receipt."
+  },
+  "local_G": {
+    "source_commit": "74efe6b3f3da43053f2a67d2941db009c0be54ed",
+    "python_tests": 713,
+    "python_report": {
+      "name": "python-G.json",
+      "bytes": 174094,
+      "sha256": "a0fe19dd3998157ea9314ab988ae14cdc9b6d83b40400fa46da0d9b9e2e23a6b"
+    },
+    "shell_report": {
+      "name": "shell-G.json",
+      "bytes": 1213558,
+      "sha256": "ad2e5ba1edab6bc34b6764add78f4dc41dda014cd2607b94bedab57e3d6fcd23"
+    },
+    "shell": [
+      {
+        "host": {
+          "version": "5.1.26100.9711",
+          "edition": "Desktop",
+          "clr": "4.0.30319.42000",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "pester": {
+          "total": 252,
+          "failed_cases": [],
+          "not_run": 0,
+          "failed_containers": 0,
+          "passed": 252,
+          "skipped": 0,
+          "failed_blocks": [],
+          "failed": 0,
+          "result": "Passed",
+          "failed_container_errors": []
+        },
+        "syntax_files": 35,
+        "scoped_analysis_files": 34,
+        "outcomes": 73,
+        "legacy_analysis_is_acceptance_pass": false
+      },
+      {
+        "host": {
+          "version": "7.6.6",
+          "edition": "Core",
+          "clr": "10.0.12",
+          "execution_policy": [
+            {
+              "policy": "Undefined",
+              "scope": "MachinePolicy"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "UserPolicy"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "Process"
+            },
+            {
+              "policy": "Undefined",
+              "scope": "CurrentUser"
+            },
+            {
+              "policy": "RemoteSigned",
+              "scope": "LocalMachine"
+            }
+          ]
+        },
+        "pester": {
+          "passed": 252,
+          "not_run": 0,
+          "total": 252,
+          "failed_containers": 0,
+          "failed_container_errors": [],
+          "failed_cases": [],
+          "skipped": 0,
+          "failed_blocks": [],
+          "result": "Passed",
+          "failed": 0
+        },
+        "syntax_files": 35,
+        "scoped_analysis_files": 34,
+        "outcomes": 73,
+        "legacy_analysis_is_acceptance_pass": false
+      }
+    ],
+    "matrix": "Three supported regularx64 Python targets;150runtimeunits,10PDF/Calibrecases,21nativeprobes each; actualCalibre915 underWin11/inbox5.1+PS7.6.6.",
+    "exact_ZIP_components": "4setup/remedycases16steps+3markedSetupBATroutes21steps+2MOCKEDpolicyrefusals;1432checkindependentauditPASS.",
+    "ordinary_processing_BAT": "UnmodifiedactualBAT/PS1,healthy315+623appvenv,unrelatedcwd,no runtime/environmentoverride;exit0/empty stderr;3outputs/all10pages.",
+    "equivalence_to_H": "HZIP is byte-identical to G;34payload and actualnativehelpers identical.225source maps have222rawH and3known priorGCI-tool paths;231nativebinding has228rawH plus those3. Localtests retainGscope, HCI independently tests actualH.",
+    "not_claimed": [
+      "Fresh finalZIP ownerWindows10 Store",
+      "Genuine enforcedcompanypolicy",
+      "Physical Explorer/human interaction"
+    ]
+  },
+  "builds": {
+    "two_independent_asset_sets_equal": true,
+    "four_build_verify_commands": [
+      {
+        "argv": [
+          "<EXTERNAL_RELEASE>\\dev14\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<EXTERNAL_RELEASE>\\source-H\\tools\\release\\build_package.py",
+          "build",
+          "--repo",
+          "<EXTERNAL_RELEASE>\\source-H",
+          "--commit",
+          "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "--output",
+          "<EXTERNAL_RELEASE>\\assets-H-one"
+        ],
+        "timeout_seconds": 180,
+        "duration_seconds": 8.079000000027008,
+        "exit_code": 0,
+        "stdout": "PACKAGE_PASSED: ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20\r\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "<EXTERNAL_RELEASE>\\dev14\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<EXTERNAL_RELEASE>\\source-H\\tools\\release\\build_package.py",
+          "verify",
+          "--repo",
+          "<EXTERNAL_RELEASE>\\source-H",
+          "--commit",
+          "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "--output",
+          "<EXTERNAL_RELEASE>\\assets-H-one"
+        ],
+        "timeout_seconds": 180,
+        "duration_seconds": 7.812000000034459,
+        "exit_code": 0,
+        "stdout": "PACKAGE_PASSED: ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20\r\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "<EXTERNAL_RELEASE>\\dev14\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<EXTERNAL_RELEASE>\\source-H\\tools\\release\\build_package.py",
+          "build",
+          "--repo",
+          "<EXTERNAL_RELEASE>\\source-H",
+          "--commit",
+          "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "--output",
+          "<EXTERNAL_RELEASE>\\assets-H-two"
+        ],
+        "timeout_seconds": 180,
+        "duration_seconds": 7.968999999924563,
+        "exit_code": 0,
+        "stdout": "PACKAGE_PASSED: ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20\r\n",
+        "stderr": ""
+      },
+      {
+        "argv": [
+          "<EXTERNAL_RELEASE>\\dev14\\Scripts\\python.exe",
+          "-I",
+          "-B",
+          "<EXTERNAL_RELEASE>\\source-H\\tools\\release\\build_package.py",
+          "verify",
+          "--repo",
+          "<EXTERNAL_RELEASE>\\source-H",
+          "--commit",
+          "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "--output",
+          "<EXTERNAL_RELEASE>\\assets-H-two"
+        ],
+        "timeout_seconds": 180,
+        "duration_seconds": 7.703000000095926,
+        "exit_code": 0,
+        "stdout": "PACKAGE_PASSED: ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20\r\n",
+        "stderr": ""
+      }
+    ],
+    "payload_members": 34,
+    "independent_package_checks": 85
+  },
+  "earlier_G_CI_failure": {
+    "run_id": 40528250903,
+    "conclusion": "failure",
+    "cause": "GalleryAPI HTTP404 acquiring lockedPSScriptAnalyzer1.25.0;hostedshellsSKIPPED/referencevalidatorfailed.713Python+3appjobsPASS.",
+    "repair": "Sameversion/hash officialPowerShellGitHubreleaseURL; nofallback/guardrelaxation;8focusedtests+freshbootstrappassed; actualHhostedcheckscompleted.",
+    "receipt": {
+      "name": "ci-G-review.json",
+      "bytes": 36743,
+      "sha256": "446d4c89c44a6590025f8f9fb91cbf44e73c7e2586ea32bf4d51c2b12570052b"
+    }
+  },
+  "known_security_review": {
+    "receipt": {
+      "name": "pypdf623-current-security-review.json",
+      "bytes": 9082,
+      "sha256": "c39312dfff5b586b6332605ea0f037d6505d088d18161bab6897931f6f3b87e7"
+    },
+    "result": "Freshofficialmetadata:623nonyanked/unchangedhash, outsideall7reviewedaffectedranges. Verifieddefaultxrefentrybudget; boundedRED/GREEN recorded. No exploit/memoryexhaustion or universalclearance."
+  },
+  "manual_exceptions": {
+    "fresh_finalZIP_owner_Windows10_Store": "NOT_RUN/OWNER_WAIVED",
+    "genuine_company_enforced_policy_denial_STORE024": "NOT_RUN/OWNER_WAIVED",
+    "unavailable_physical_Explorer_actions": "NOT_RUN/OWNER_CLOSED",
+    "original_T07": "Unchanged originalR243d31e/exactoldZIP only; never applied to H."
+  },
+  "public_verification": {
+    "anonymous_new_assets": 3,
+    "anonymous_preserved_old_assets": 9,
+    "old_tags_release_bodies_metadata": "Preserved against recorded baseline",
+    "new_notes_verified_against_reviewed_body": true,
+    "frozen_asset_verifier_exit": 0
+  },
+  "durable_local_assets": {
+    "historical_prepublication_snapshot": {
+      "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+      "directory": "<DOWNLOADS>/WinBookSplit-v1.0.3-final-7c5f7af",
+      "exclusive_copies_byte_equal": true,
+      "files": [
+        {
+          "name": "WinBookSplit-v1.0.3.zip",
+          "bytes": 938143,
+          "sha256": "ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20"
+        },
+        {
+          "name": "release-manifest.json",
+          "bytes": 16594,
+          "sha256": "7d6481284a01d07ec611a61d3da8ca0216d28706333e10991551a6daf8ec43b2"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "bytes": 178,
+          "sha256": "4f84e29411c47aee79f76d9e984aa6e6bcd6c3c7056fd2690374bde8d7affe10"
+        }
+      ],
+      "status": "Prepared final assets; publicationverificationpending; no ownertestrequested."
+    },
+    "scope": "Provenance-only prepared local snapshot. Its then-pending publication status is historical; the actual final public verification receipt above supersedes that status."
+  },
+  "audit_exports": [
+    {
+      "raw_external": {
+        "name": "ci-H-review.json",
+        "bytes": 42186,
+        "sha256": "04b32549ce6e4556866e6f90d301ffaca9f6ed714b9972f3505de2fdcd5a213d"
+      },
+      "public": {
+        "name": "T08-final-ci.json",
+        "bytes": 42186,
+        "sha256": "04b32549ce6e4556866e6f90d301ffaca9f6ed714b9972f3505de2fdcd5a213d"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    },
+    {
+      "raw_external": {
+        "name": "package-H-equivalence-audit.json",
+        "bytes": 14264,
+        "sha256": "65fbde3aafcfb48a88bfc278df8d2746916b01c48e836cf8a498769635668e71"
+      },
+      "public": {
+        "name": "T08-final-package-audit.json",
+        "bytes": 14264,
+        "sha256": "65fbde3aafcfb48a88bfc278df8d2746916b01c48e836cf8a498769635668e71"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    },
+    {
+      "raw_external": {
+        "name": "application-matrix-G-review.json",
+        "bytes": 7570,
+        "sha256": "f066382e9aeea9f10345c8f77614ca8487496b8f4557f4b78f8409c8a6c585ee"
+      },
+      "public": {
+        "name": "T08-final-runtime-matrix.json",
+        "bytes": 7570,
+        "sha256": "f066382e9aeea9f10345c8f77614ca8487496b8f4557f4b78f8409c8a6c585ee"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    },
+    {
+      "raw_external": {
+        "name": "native-G-independent-review.json",
+        "bytes": 123870,
+        "sha256": "4ca102c51c29fa8a55ed4798b4a214526ebc3a6181af423320bff0e822f3e717"
+      },
+      "public": {
+        "name": "T08-final-native-audit.json",
+        "bytes": 123870,
+        "sha256": "4ca102c51c29fa8a55ed4798b4a214526ebc3a6181af423320bff0e822f3e717"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    },
+    {
+      "raw_external": {
+        "name": "ordinary-processing-bat-G-review.json",
+        "bytes": 2303,
+        "sha256": "a90ee461a4dac3ab6d68647df09a9638cac3b47fa81728f9d6e61b2caa60ea83"
+      },
+      "public": {
+        "name": "T08-final-processing-bat.json",
+        "bytes": 2303,
+        "sha256": "a90ee461a4dac3ab6d68647df09a9638cac3b47fa81728f9d6e61b2caa60ea83"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    },
+    {
+      "raw_external": {
+        "name": "public-release-verification.json",
+        "bytes": 14538,
+        "sha256": "7679d43f1cfa53991432fe1eed582e34fd72a4e6ebdf24384c22ac2c6bcb3644"
+      },
+      "public": {
+        "name": "T08-final-public-verification.json",
+        "bytes": 14538,
+        "sha256": "7679d43f1cfa53991432fe1eed582e34fd72a4e6ebdf24384c22ac2c6bcb3644"
+      },
+      "scope": "Public UTF8/LF/tokenized representation; raw external byte identity retained separately."
+    }
+  ],
+  "root_privacy_and_safety": "No private documents, desktopPython/Manager/globalpackage/PATH/alias/persistentpolicy change; only newowned developer/appfixture environments. Noforce/stash/history/settings/spending change.",
+  "preclosure_synchronization_H": {
+    "raw_external": {
+      "name": "preclosure-sync-H.json",
+      "bytes": 27594,
+      "sha256": "57f36874370ca5c141737e5838972cc1e81978a032e7e9dd36a7bea18e439b4d"
+    },
+    "recorded_utc": "2026-10-27T15:54:07.649352+00:00",
+    "status": "PASS",
+    "local_branch": "main",
+    "local_head": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+    "local_clean": true,
+    "live_refs": {
+      "refs/heads/codex/v1.0.3-store-discovery": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+      "refs/heads/main": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+      "refs/tags/v1.0.3^{}": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726"
+    },
+    "writer_rechecked_before_any_closure_write": true,
+    "scope": "Actual clean local main H and freshly queried live main/scoped branch/tag H before C. Post-C commit/push synchronization is pending external verification."
+  },
+  "postclosure_synchronization_C": {
+    "status": "PENDING_EXTERNAL_VERIFICATION",
+    "scope": "Only the later observed normal C commit/push and clean local main/live main/scoped branch equality may establish final C synchronization."
+  },
+  "closure_rule": "Documentation-only C follows releaseH. Tag/assets remain H. Pre-C H synchronization is actual. C commit/push synchronization remains pending external verification; no C hash or future success is self-embedded."
+}

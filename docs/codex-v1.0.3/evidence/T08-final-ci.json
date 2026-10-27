@@ -1,0 +1,1203 @@
+{
+  "artifacts": [
+    {
+      "api_size_in_bytes": 54618,
+      "application": {
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "conversion": {
+          "scope": null,
+          "status": "NOT_REQUESTED"
+        },
+        "conversion_scope": "NOT_REQUESTED: application matrix PDF cases only",
+        "errors": 0,
+        "expected_failures": 0,
+        "failures": 0,
+        "hosts": [
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "4.0.30319.42000",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "5.1.26100.33648",
+            "version": "10.0.26100"
+          },
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "10.0.13",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "7.6.7",
+            "version": "10.0.26100"
+          }
+        ],
+        "not_asserted": [
+          "native Windows 10",
+          "human Explorer drag/drop",
+          "interactive console acceptance",
+          "arbitrary ebooks or private documents"
+        ],
+        "not_run": [
+          "interactive preview UI",
+          "in-person console interaction",
+          "human Explorer drag/drop",
+          "arbitrary ebooks/DRM/system-wide network isolation",
+          "release-package checks"
+        ],
+        "pypdf": "6.21.3",
+        "runtime_only_unit_tests": 150,
+        "scope": null,
+        "skipped": [],
+        "unexpected_successes": 0,
+        "version": "3.13.16"
+      },
+      "artifact_api_digest": "sha256:3dcc25c16c36e912e6ff264f1c8fd7731f8ee92101375701b90e32df26f7f946",
+      "artifact_id": 12747287818,
+      "artifact_name": "windows-application-3.13.16-7c5f7afeef9b09733ee8853d6df5d86c42d9c726-1",
+      "download": {
+        "bytes": 54618,
+        "sha256": "3dcc25c16c36e912e6ff264f1c8fd7731f8ee92101375701b90e32df26f7f946"
+      },
+      "missing_required_reports": [],
+      "os": {
+        "architecture": "64-bit",
+        "build": "26100",
+        "caption": "Microsoft Windows Server 2025 Datacenter",
+        "clr": "10.0.13",
+        "image_os": "win25-vs2026",
+        "image_version": "20261021.278.1",
+        "powershell": "7.6.7",
+        "process_bits": 64,
+        "product_type": 3,
+        "run_attempt": "1",
+        "run_id": "40532432470",
+        "schema_version": 1,
+        "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+        "version": "10.0.26100"
+      },
+      "package_source_pin_count": 35,
+      "report_identities": {
+        "application.json": {
+          "bytes": 486376,
+          "sha256": "c7235bd8f2d1c316b43b21ff6a22305a111797433ec055eb0b373ec12497a034"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9690969fec1741d14e598df27b7ff9e231addc36d188acad9b85976d6ea59a5d"
+        },
+        "package-inputs.json": {
+          "bytes": 12382,
+          "sha256": "b2d96dc7ae20cefa224b30d5a97dd500e1448219c2b60d170fb9b930c2f58d0e"
+        }
+      },
+      "source_comparisons": {
+        "application.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        }
+      },
+      "validator": {
+        "exit_code": 0,
+        "python_version": "3.13.16",
+        "role": "application",
+        "source_file_sha256": {
+          "tests/compatibility/application_matrix.py": "86c5431f6c1fc1375ada9cef6e56bc83004b5d038710a9114b473eab8bb8b44e",
+          "tests/compatibility/runtime-lock.json": "9cb25737d29a5312816b3406ad7f3e25af0ac6607be01f314d3d7dc49c01f84a",
+          "tools/ci/bootstrap.py": "474d41910bf9900417adcaecc539eb0e1ff2b8fe7882d00e2b14c22292a73ab6",
+          "tools/ci/validate_reports.py": "5d9d637586fb146ca9e5dc47f40718f81b95b957496a10f34b02a78eed5ad487"
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "CI_REPORTS_PASSED: os.json, package-inputs.json, application.json"
+      }
+    },
+    {
+      "api_size_in_bytes": 54600,
+      "application": {
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "conversion": {
+          "scope": null,
+          "status": "NOT_REQUESTED"
+        },
+        "conversion_scope": "NOT_REQUESTED: application matrix PDF cases only",
+        "errors": 0,
+        "expected_failures": 0,
+        "failures": 0,
+        "hosts": [
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "4.0.30319.42000",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "5.1.26100.33648",
+            "version": "10.0.26100"
+          },
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "10.0.13",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "7.6.7",
+            "version": "10.0.26100"
+          }
+        ],
+        "not_asserted": [
+          "native Windows 10",
+          "human Explorer drag/drop",
+          "interactive console acceptance",
+          "arbitrary ebooks or private documents"
+        ],
+        "not_run": [
+          "interactive preview UI",
+          "in-person console interaction",
+          "human Explorer drag/drop",
+          "arbitrary ebooks/DRM/system-wide network isolation",
+          "release-package checks"
+        ],
+        "pypdf": "6.21.3",
+        "runtime_only_unit_tests": 150,
+        "scope": null,
+        "skipped": [],
+        "unexpected_successes": 0,
+        "version": "3.14.8"
+      },
+      "artifact_api_digest": "sha256:2609b11a71aa09c761d3b4af2350f8b22b1efec8c88bfdd1ff8f9c435ed49fbd",
+      "artifact_id": 12746792443,
+      "artifact_name": "windows-application-3.14.8-7c5f7afeef9b09733ee8853d6df5d86c42d9c726-1",
+      "download": {
+        "bytes": 54600,
+        "sha256": "2609b11a71aa09c761d3b4af2350f8b22b1efec8c88bfdd1ff8f9c435ed49fbd"
+      },
+      "missing_required_reports": [],
+      "os": {
+        "architecture": "64-bit",
+        "build": "26100",
+        "caption": "Microsoft Windows Server 2025 Datacenter",
+        "clr": "10.0.13",
+        "image_os": "win25-vs2026",
+        "image_version": "20261021.278.1",
+        "powershell": "7.6.7",
+        "process_bits": 64,
+        "product_type": 3,
+        "run_attempt": "1",
+        "run_id": "40532432470",
+        "schema_version": 1,
+        "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+        "version": "10.0.26100"
+      },
+      "package_source_pin_count": 35,
+      "report_identities": {
+        "application.json": {
+          "bytes": 486218,
+          "sha256": "139578dbd646e994e68f8b390f39e20250b11f1f1080fd0a8f2236fc7573d80d"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9690969fec1741d14e598df27b7ff9e231addc36d188acad9b85976d6ea59a5d"
+        },
+        "package-inputs.json": {
+          "bytes": 12382,
+          "sha256": "b2d96dc7ae20cefa224b30d5a97dd500e1448219c2b60d170fb9b930c2f58d0e"
+        }
+      },
+      "source_comparisons": {
+        "application.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        }
+      },
+      "validator": {
+        "exit_code": 0,
+        "python_version": "3.14.8",
+        "role": "application",
+        "source_file_sha256": {
+          "tests/compatibility/application_matrix.py": "86c5431f6c1fc1375ada9cef6e56bc83004b5d038710a9114b473eab8bb8b44e",
+          "tests/compatibility/runtime-lock.json": "9cb25737d29a5312816b3406ad7f3e25af0ac6607be01f314d3d7dc49c01f84a",
+          "tools/ci/bootstrap.py": "474d41910bf9900417adcaecc539eb0e1ff2b8fe7882d00e2b14c22292a73ab6",
+          "tools/ci/validate_reports.py": "5d9d637586fb146ca9e5dc47f40718f81b95b957496a10f34b02a78eed5ad487"
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "CI_REPORTS_PASSED: os.json, package-inputs.json, application.json"
+      }
+    },
+    {
+      "api_size_in_bytes": 54610,
+      "application": {
+        "cases": [
+          {
+            "id": "manual-front-matter",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level1",
+            "status": "PASS"
+          },
+          {
+            "id": "auto-level2",
+            "status": "PASS"
+          },
+          {
+            "id": "late-invalid-token",
+            "status": "PASS"
+          },
+          {
+            "id": "no-bookmarks",
+            "status": "PASS"
+          },
+          {
+            "id": "zero-page",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS5",
+            "status": "PASS"
+          },
+          {
+            "id": "wrapper-PS7",
+            "status": "PASS"
+          }
+        ],
+        "conversion": {
+          "scope": null,
+          "status": "NOT_REQUESTED"
+        },
+        "conversion_scope": "NOT_REQUESTED: application matrix PDF cases only",
+        "errors": 0,
+        "expected_failures": 0,
+        "failures": 0,
+        "hosts": [
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "4.0.30319.42000",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "5.1.26100.33648",
+            "version": "10.0.26100"
+          },
+          {
+            "architecture": "64-bit",
+            "build": "26100",
+            "caption": "Microsoft Windows Server 2025 Datacenter",
+            "clr": "10.0.13",
+            "product_type": 3,
+            "shell_executable": "<PATH>",
+            "shell_version": "7.6.7",
+            "version": "10.0.26100"
+          }
+        ],
+        "not_asserted": [
+          "native Windows 10",
+          "human Explorer drag/drop",
+          "interactive console acceptance",
+          "arbitrary ebooks or private documents"
+        ],
+        "not_run": [
+          "interactive preview UI",
+          "in-person console interaction",
+          "human Explorer drag/drop",
+          "arbitrary ebooks/DRM/system-wide network isolation",
+          "release-package checks"
+        ],
+        "pypdf": "6.21.3",
+        "runtime_only_unit_tests": 150,
+        "scope": null,
+        "skipped": [],
+        "unexpected_successes": 0,
+        "version": "3.15.0"
+      },
+      "artifact_api_digest": "sha256:7e8322b2f2f0019acaa059599a07fdf36f2a6aafe11c8e2b6e9ab52dc710ba06",
+      "artifact_id": 12747002785,
+      "artifact_name": "windows-application-3.15.0-7c5f7afeef9b09733ee8853d6df5d86c42d9c726-1",
+      "download": {
+        "bytes": 54610,
+        "sha256": "7e8322b2f2f0019acaa059599a07fdf36f2a6aafe11c8e2b6e9ab52dc710ba06"
+      },
+      "missing_required_reports": [],
+      "os": {
+        "architecture": "64-bit",
+        "build": "26100",
+        "caption": "Microsoft Windows Server 2025 Datacenter",
+        "clr": "10.0.13",
+        "image_os": "win25-vs2026",
+        "image_version": "20261021.278.1",
+        "powershell": "7.6.7",
+        "process_bits": 64,
+        "product_type": 3,
+        "run_attempt": "1",
+        "run_id": "40532432470",
+        "schema_version": 1,
+        "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+        "version": "10.0.26100"
+      },
+      "package_source_pin_count": 35,
+      "report_identities": {
+        "application.json": {
+          "bytes": 486210,
+          "sha256": "e966df47a25d96e9e19abc3579f077f7eb4b62a9f5d7d3e30543299ec0c7fc7e"
+        },
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9690969fec1741d14e598df27b7ff9e231addc36d188acad9b85976d6ea59a5d"
+        },
+        "package-inputs.json": {
+          "bytes": 12382,
+          "sha256": "b2d96dc7ae20cefa224b30d5a97dd500e1448219c2b60d170fb9b930c2f58d0e"
+        }
+      },
+      "source_comparisons": {
+        "application.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        }
+      },
+      "validator": {
+        "exit_code": 0,
+        "python_version": "3.15.0",
+        "role": "application",
+        "source_file_sha256": {
+          "tests/compatibility/application_matrix.py": "86c5431f6c1fc1375ada9cef6e56bc83004b5d038710a9114b473eab8bb8b44e",
+          "tests/compatibility/runtime-lock.json": "9cb25737d29a5312816b3406ad7f3e25af0ac6607be01f314d3d7dc49c01f84a",
+          "tools/ci/bootstrap.py": "474d41910bf9900417adcaecc539eb0e1ff2b8fe7882d00e2b14c22292a73ab6",
+          "tools/ci/validate_reports.py": "5d9d637586fb146ca9e5dc47f40718f81b95b957496a10f34b02a78eed5ad487"
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "CI_REPORTS_PASSED: os.json, package-inputs.json, application.json"
+      }
+    },
+    {
+      "api_size_in_bytes": 106852,
+      "artifact_api_digest": "sha256:f0cfe5d127f1542aaa2261b2751384e46af1db6b1c419b497d69c01f5b0b915a",
+      "artifact_id": 12747876741,
+      "artifact_name": "windows-reference-7c5f7afeef9b09733ee8853d6df5d86c42d9c726-1",
+      "bootstrap": {
+        "exit_code": 0,
+        "packages": [
+          {
+            "expected_sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+            "file_closure_matches_independent_local_rehearsal": true,
+            "file_count": 21,
+            "name": "Pester",
+            "package_bytes": 465109,
+            "package_sha256": "e6ac7418d4f12500269aaca58ae56cf1caafbbf1afa2cec334e289d1cf50a239",
+            "state": "verified_and_extracted",
+            "url": "https://www.powershellgallery.com/api/v2/package/Pester/6.2.0",
+            "version": "6.2.0"
+          },
+          {
+            "expected_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "file_closure_matches_independent_local_rehearsal": true,
+            "file_count": 53,
+            "name": "PSScriptAnalyzer",
+            "package_bytes": 14658674,
+            "package_sha256": "14e634c828eb98efb9f40b2918ba90f139ed5eccdf663a2a747736d996995d60",
+            "state": "verified_and_extracted",
+            "url": "https://github.com/PowerShell/PSScriptAnalyzer/releases/download/1.25.0/PSScriptAnalyzer.1.25.0.nupkg",
+            "version": "1.25.0"
+          }
+        ],
+        "result": "CI_TOOL_BOOTSTRAP_PASSED",
+        "source_H_lock_and_official_analyzer_URL_verified": true,
+        "success": true
+      },
+      "download": {
+        "bytes": 106852,
+        "sha256": "f0cfe5d127f1542aaa2261b2751384e46af1db6b1c419b497d69c01f5b0b915a"
+      },
+      "missing_required_reports": [],
+      "os": {
+        "architecture": "64-bit",
+        "build": "26100",
+        "caption": "Microsoft Windows Server 2025 Datacenter",
+        "clr": "10.0.13",
+        "image_os": "win25-vs2026",
+        "image_version": "20261021.278.1",
+        "powershell": "7.6.7",
+        "process_bits": 64,
+        "product_type": 3,
+        "run_attempt": "1",
+        "run_id": "40532432470",
+        "schema_version": 1,
+        "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+        "version": "10.0.26100"
+      },
+      "package_source_pin_count": 35,
+      "python": {
+        "elapsed_seconds": 461.032,
+        "not_run": [
+          "interactive preview UI",
+          "in-person console interaction",
+          "human Explorer drag/drop",
+          "arbitrary ebooks/DRM/system-wide network isolation",
+          "release-package checks"
+        ],
+        "ok_line": true,
+        "skip_line_present": false,
+        "tests_run": 715
+      },
+      "report_identities": {
+        "os.json": {
+          "bytes": 439,
+          "sha256": "9690969fec1741d14e598df27b7ff9e231addc36d188acad9b85976d6ea59a5d"
+        },
+        "package-inputs.json": {
+          "bytes": 12382,
+          "sha256": "b2d96dc7ae20cefa224b30d5a97dd500e1448219c2b60d170fb9b930c2f58d0e"
+        },
+        "python.json": {
+          "bytes": 174377,
+          "sha256": "172b84db3b6b2da7965b70871cc03e632a0b20d76a77cfb385e18115c33e93fd"
+        },
+        "shell-ps51.json": {
+          "bytes": 1083068,
+          "sha256": "1df870fab44669447187a8cfde1cd40c5c51d1ed7f6cd1ab6d12ebc5f8707b46"
+        },
+        "shell-ps7.json": {
+          "bytes": 158179,
+          "sha256": "e72793171ed6cd1441e56c122ad72b182e237496d47a54a1660ec5773d237f66"
+        },
+        "tools-bootstrap.json": {
+          "bytes": 10067,
+          "sha256": "f4d8c55b63e98f9fc3dd7517b0b15d341fe2c339e83f870a2718acb68ddac13a"
+        }
+      },
+      "shell": {
+        "shell-ps51.json": {
+          "analysis_files": 34,
+          "analysis_findings": 0,
+          "host": {
+            "clr": "4.0.30319.42000",
+            "edition": "Desktop",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "Unrestricted",
+                "scope": "LocalMachine"
+              }
+            ],
+            "version": "5.1.26100.33648"
+          },
+          "not_run": [
+            "interactive preview UI",
+            "in-person console interaction",
+            "human Explorer drag/drop",
+            "arbitrary ebooks/DRM/system-wide network isolation",
+            "release-package checks"
+          ],
+          "pester": {
+            "failed": 0,
+            "failed_blocks": [],
+            "failed_cases": [],
+            "failed_container_errors": [],
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 252,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 252
+          },
+          "syntax_errors": 0,
+          "syntax_files": 35
+        },
+        "shell-ps7.json": {
+          "analysis_files": 34,
+          "analysis_findings": 0,
+          "host": {
+            "clr": "10.0.13",
+            "edition": "Core",
+            "execution_policy": [
+              {
+                "policy": "Undefined",
+                "scope": "MachinePolicy"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "UserPolicy"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "Process"
+              },
+              {
+                "policy": "Undefined",
+                "scope": "CurrentUser"
+              },
+              {
+                "policy": "RemoteSigned",
+                "scope": "LocalMachine"
+              }
+            ],
+            "version": "7.6.7"
+          },
+          "not_run": [
+            "interactive preview UI",
+            "in-person console interaction",
+            "human Explorer drag/drop",
+            "arbitrary ebooks/DRM/system-wide network isolation",
+            "release-package checks"
+          ],
+          "pester": {
+            "failed": 0,
+            "failed_blocks": [],
+            "failed_cases": [],
+            "failed_container_errors": [],
+            "failed_containers": 0,
+            "not_run": 0,
+            "passed": 252,
+            "result": "Passed",
+            "skipped": 0,
+            "total": 252
+          },
+          "syntax_errors": 0,
+          "syntax_files": 35
+        }
+      },
+      "source_comparisons": {
+        "python.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        },
+        "shell-ps51.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        },
+        "shell-ps7.json": {
+          "base_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+          "base_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902",
+          "exact_raw_git_paths": 225,
+          "line_ending_only_paths": [],
+          "source_unchanged": true,
+          "tested_paths_digest": "11d5ace2bd479b0a9621d8eeb5b56e98d2264a8147800a47c2c653003bc1d388",
+          "unexplained_paths": []
+        }
+      },
+      "validator": {
+        "exit_code": 0,
+        "python_version": null,
+        "role": "reference",
+        "source_file_sha256": {
+          "tests/compatibility/application_matrix.py": "86c5431f6c1fc1375ada9cef6e56bc83004b5d038710a9114b473eab8bb8b44e",
+          "tests/compatibility/runtime-lock.json": "9cb25737d29a5312816b3406ad7f3e25af0ac6607be01f314d3d7dc49c01f84a",
+          "tools/ci/bootstrap.py": "474d41910bf9900417adcaecc539eb0e1ff2b8fe7882d00e2b14c22292a73ab6",
+          "tools/ci/validate_reports.py": "5d9d637586fb146ca9e5dc47f40718f81b95b957496a10f34b02a78eed5ad487"
+        },
+        "stderr_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout": "CI_REPORTS_PASSED: os.json, package-inputs.json, python.json, shell-ps51.json, shell-ps7.json, tools-bootstrap.json"
+      }
+    }
+  ],
+  "kind": "FINAL_H_HOSTED_CI_REPORT_REVIEW",
+  "limits": [
+    "Hosted jobs execute Windows Server 2025; this is not native Windows 10/11 existing-Store acceptance.",
+    "Application matrices are PDF-only in CI; Calibre conversion cases are not established by these jobs.",
+    "No actual enforced organization-policy denial is established.",
+    "No package publication or anonymous public asset verification is established."
+  ],
+  "raw_external_root": "<OUT>/ci-H",
+  "review_result": "PASS",
+  "run": {
+    "conclusion": "success",
+    "createdAt": "2026-10-27T15:35:09Z",
+    "databaseId": 40532432470,
+    "event": "push",
+    "headSha": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+    "jobs": [
+      {
+        "completedAt": "2026-10-27T15:43:16Z",
+        "conclusion": "success",
+        "databaseId": 122288573006,
+        "name": "Application 3.15.0 (Windows Server 2025)",
+        "startedAt": "2026-10-27T15:38:21Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T15:38:23Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T15:38:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:34Z",
+            "conclusion": "success",
+            "name": "Checkout tested source",
+            "number": 2,
+            "startedAt": "2026-10-27T15:38:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:21Z",
+            "conclusion": "success",
+            "name": "Set up exact fixture-driver Python",
+            "number": 3,
+            "startedAt": "2026-10-27T15:38:34Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:40:00Z",
+            "conclusion": "success",
+            "name": "Set up exact application test target",
+            "number": 4,
+            "startedAt": "2026-10-27T15:39:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:40:18Z",
+            "conclusion": "success",
+            "name": "Create separate owned driver and runtime environments",
+            "number": 5,
+            "startedAt": "2026-10-27T15:40:00Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:40:22Z",
+            "conclusion": "success",
+            "name": "Check source and runtime-matrix coverage",
+            "number": 6,
+            "startedAt": "2026-10-27T15:40:18Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:09Z",
+            "conclusion": "success",
+            "name": "Run actual runtime-only application matrix",
+            "number": 7,
+            "startedAt": "2026-10-27T15:40:22Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:10Z",
+            "conclusion": "success",
+            "name": "Require all source-bound application reports",
+            "number": 8,
+            "startedAt": "2026-10-27T15:43:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:11Z",
+            "conclusion": "success",
+            "name": "Preserve declared application reports",
+            "number": 9,
+            "startedAt": "2026-10-27T15:43:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:11Z",
+            "conclusion": "success",
+            "name": "Post Set up exact application test target",
+            "number": 16,
+            "startedAt": "2026-10-27T15:43:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:12Z",
+            "conclusion": "success",
+            "name": "Post Set up exact fixture-driver Python",
+            "number": 17,
+            "startedAt": "2026-10-27T15:43:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:14Z",
+            "conclusion": "success",
+            "name": "Post Checkout tested source",
+            "number": 18,
+            "startedAt": "2026-10-27T15:43:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:43:14Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-10-27T15:43:14Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40532432470/job/122288573006"
+      },
+      {
+        "completedAt": "2026-10-27T15:38:19Z",
+        "conclusion": "success",
+        "databaseId": 122288573260,
+        "name": "Application 3.14.8 (Windows Server 2025)",
+        "startedAt": "2026-10-27T15:35:12Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T15:35:14Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T15:35:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:35:23Z",
+            "conclusion": "success",
+            "name": "Checkout tested source",
+            "number": 2,
+            "startedAt": "2026-10-27T15:35:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:06Z",
+            "conclusion": "success",
+            "name": "Set up exact fixture-driver Python",
+            "number": 3,
+            "startedAt": "2026-10-27T15:35:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:06Z",
+            "conclusion": "success",
+            "name": "Set up exact application test target",
+            "number": 4,
+            "startedAt": "2026-10-27T15:36:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:21Z",
+            "conclusion": "success",
+            "name": "Create separate owned driver and runtime environments",
+            "number": 5,
+            "startedAt": "2026-10-27T15:36:06Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:25Z",
+            "conclusion": "success",
+            "name": "Check source and runtime-matrix coverage",
+            "number": 6,
+            "startedAt": "2026-10-27T15:36:21Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:12Z",
+            "conclusion": "success",
+            "name": "Run actual runtime-only application matrix",
+            "number": 7,
+            "startedAt": "2026-10-27T15:36:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:13Z",
+            "conclusion": "success",
+            "name": "Require all source-bound application reports",
+            "number": 8,
+            "startedAt": "2026-10-27T15:38:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:14Z",
+            "conclusion": "success",
+            "name": "Preserve declared application reports",
+            "number": 9,
+            "startedAt": "2026-10-27T15:38:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:14Z",
+            "conclusion": "success",
+            "name": "Post Set up exact application test target",
+            "number": 16,
+            "startedAt": "2026-10-27T15:38:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:15Z",
+            "conclusion": "success",
+            "name": "Post Set up exact fixture-driver Python",
+            "number": 17,
+            "startedAt": "2026-10-27T15:38:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:17Z",
+            "conclusion": "success",
+            "name": "Post Checkout tested source",
+            "number": 18,
+            "startedAt": "2026-10-27T15:38:15Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:38:17Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-10-27T15:38:17Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40532432470/job/122288573260"
+      },
+      {
+        "completedAt": "2026-10-27T15:49:59Z",
+        "conclusion": "success",
+        "databaseId": 122288573261,
+        "name": "Python and PowerShell regression (Windows Server 2025)",
+        "startedAt": "2026-10-27T15:35:12Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T15:35:13Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T15:35:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:35:24Z",
+            "conclusion": "success",
+            "name": "Checkout tested source",
+            "number": 2,
+            "startedAt": "2026-10-27T15:35:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:35:25Z",
+            "conclusion": "success",
+            "name": "Create owned report directory",
+            "number": 3,
+            "startedAt": "2026-10-27T15:35:24Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:01Z",
+            "conclusion": "success",
+            "name": "Set up exact regular x64 Python",
+            "number": 4,
+            "startedAt": "2026-10-27T15:35:25Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:07Z",
+            "conclusion": "success",
+            "name": "Install hash-pinned development dependencies in a fresh venv",
+            "number": 5,
+            "startedAt": "2026-10-27T15:36:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:10Z",
+            "conclusion": "success",
+            "name": "Bootstrap exact isolated shell tools",
+            "number": 6,
+            "startedAt": "2026-10-27T15:36:07Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:12Z",
+            "conclusion": "success",
+            "name": "Check committed package prerequisites without building a package",
+            "number": 7,
+            "startedAt": "2026-10-27T15:36:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:44:01Z",
+            "conclusion": "success",
+            "name": "Python regression through the shared runner",
+            "number": 8,
+            "startedAt": "2026-10-27T15:36:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:47:53Z",
+            "conclusion": "success",
+            "name": "Windows PowerShell 5.1 syntax, scoped analysis and Pester",
+            "number": 9,
+            "startedAt": "2026-10-27T15:44:01Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:53Z",
+            "conclusion": "success",
+            "name": "PowerShell 7 syntax, scoped analysis and Pester",
+            "number": 10,
+            "startedAt": "2026-10-27T15:47:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:53Z",
+            "conclusion": "success",
+            "name": "Require all source-bound reference reports",
+            "number": 11,
+            "startedAt": "2026-10-27T15:49:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:55Z",
+            "conclusion": "success",
+            "name": "Preserve only declared synthetic test and prerequisite reports",
+            "number": 12,
+            "startedAt": "2026-10-27T15:49:53Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:55Z",
+            "conclusion": "success",
+            "name": "Post Set up exact regular x64 Python",
+            "number": 23,
+            "startedAt": "2026-10-27T15:49:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:57Z",
+            "conclusion": "success",
+            "name": "Post Checkout tested source",
+            "number": 24,
+            "startedAt": "2026-10-27T15:49:55Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:49:57Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 25,
+            "startedAt": "2026-10-27T15:49:57Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40532432470/job/122288573261"
+      },
+      {
+        "completedAt": "2026-10-27T15:39:18Z",
+        "conclusion": "success",
+        "databaseId": 122288573669,
+        "name": "Application 3.13.16 (Windows Server 2025)",
+        "startedAt": "2026-10-27T15:35:12Z",
+        "status": "completed",
+        "steps": [
+          {
+            "completedAt": "2026-10-27T15:35:13Z",
+            "conclusion": "success",
+            "name": "Set up job",
+            "number": 1,
+            "startedAt": "2026-10-27T15:35:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:35:23Z",
+            "conclusion": "success",
+            "name": "Checkout tested source",
+            "number": 2,
+            "startedAt": "2026-10-27T15:35:13Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:09Z",
+            "conclusion": "success",
+            "name": "Set up exact fixture-driver Python",
+            "number": 3,
+            "startedAt": "2026-10-27T15:35:23Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:10Z",
+            "conclusion": "success",
+            "name": "Set up exact application test target",
+            "number": 4,
+            "startedAt": "2026-10-27T15:36:09Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:27Z",
+            "conclusion": "success",
+            "name": "Create separate owned driver and runtime environments",
+            "number": 5,
+            "startedAt": "2026-10-27T15:36:10Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:36:30Z",
+            "conclusion": "success",
+            "name": "Check source and runtime-matrix coverage",
+            "number": 6,
+            "startedAt": "2026-10-27T15:36:27Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:11Z",
+            "conclusion": "success",
+            "name": "Run actual runtime-only application matrix",
+            "number": 7,
+            "startedAt": "2026-10-27T15:36:30Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:12Z",
+            "conclusion": "success",
+            "name": "Require all source-bound application reports",
+            "number": 8,
+            "startedAt": "2026-10-27T15:39:11Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:14Z",
+            "conclusion": "success",
+            "name": "Preserve declared application reports",
+            "number": 9,
+            "startedAt": "2026-10-27T15:39:12Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:14Z",
+            "conclusion": "success",
+            "name": "Post Set up exact application test target",
+            "number": 16,
+            "startedAt": "2026-10-27T15:39:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:14Z",
+            "conclusion": "success",
+            "name": "Post Set up exact fixture-driver Python",
+            "number": 17,
+            "startedAt": "2026-10-27T15:39:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:16Z",
+            "conclusion": "success",
+            "name": "Post Checkout tested source",
+            "number": 18,
+            "startedAt": "2026-10-27T15:39:14Z",
+            "status": "completed"
+          },
+          {
+            "completedAt": "2026-10-27T15:39:16Z",
+            "conclusion": "success",
+            "name": "Complete job",
+            "number": 19,
+            "startedAt": "2026-10-27T15:39:16Z",
+            "status": "completed"
+          }
+        ],
+        "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40532432470/job/122288573669"
+      }
+    ],
+    "status": "completed",
+    "updatedAt": "2026-10-27T15:50:00Z",
+    "url": "https://github.com/PikkuJanne/WinBookSplit/actions/runs/40532432470",
+    "workflowName": "Windows CI"
+  },
+  "schema_version": 1,
+  "source_commit": "7c5f7afeef9b09733ee8853d6df5d86c42d9c726",
+  "source_tree": "9d321cf13be478638d2e864c1fe1724a63bd8902"
+}

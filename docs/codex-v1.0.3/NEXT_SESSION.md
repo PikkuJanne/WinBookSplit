@@ -1,15 +1,16 @@
-# Continuation while final v1.0.3 work is active
+# v1.0.3 complete - no active task
 
-OWNER_DECISION_20261027.md is the latest owner instruction: finish agentwork;
-request no more owner tests. Keep unavailable final-ZIP ownerWindows10Store,
-genuine company-policy and manual actions NOT_RUN/owner-waived, never PASS.
-OriginalT07/R/F and accepted receipts/archives remain unchanged. Complete all
-feasible agent/security/source/package/CI/publicverification and finalmainclosure.
+[Public release](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.3)
 
-Current task: tasks/08-T08-security-followup.md, exactofficialpypdf6.21.3/policy5,
-reviewed27Oct. Activeimplementation/verification/publication is IN_PROGRESS;
-actual outcomes and sourceidentities belong in the new followup receipts.
+Immutable release source: `7c5f7afeef9b09733ee8853d6df5d86c42d9c726`.
+ZIP SHA256: `ba80fc35e0262f7f422dc1596d887e4a8207ec4ede94b754800b994084da4d20`.
+
+No owner testing or T09 remains. Read [final evidence](evidence/T08-final-release.md)
+and [the owner decision](OWNER_DECISION_20261027.md) for completed checks and the
+manual scenarios that remain NOT_RUN / owner-waived.
+
+## Exact future-maintenance continuation
 
 ```text
-Continue final v1.0.3 work in D:\projects\WinBookSplit-main on codex/v1.0.3-store-discovery. Read AGENTS.md, active SCOPE/STATUS/NEXT_SESSION/TASKS, OWNER_DECISION_20261027.md, the security-followup task, TESTING/NATIVE_ACCEPTANCE/RELEASE_RUNBOOK and current evidence. Inspect actualGit/liveorigin and preservechanges. Finish the minimal623repair, meaningfulboundedregressions, allsupportedruntime/nativeWin11/Calibre/shell/setupchecks, exactsourceCI and immutablepackage; complete reviewedordinarymainintegration/tag/publicnonprereleaserelease, anonymousmatchingassets, oldreleasepreservation and cleanfinalmain. Keepownerwaivedmanualscenarios NOT_RUN withdisclosure; do not requestanotherownerrun or fabricateevidence. PreserveoldR/F/T07andpublishedhistory; noforce/settings/runtimepolicy/PATHchanges. Followcurrentcheckpointreceipts/sourceidentities, do not restartfinishedchecks withoutcause, and finish authorizedagentwork.
+v1.0.3 is complete. Before newly requested work in D:\projects\WinBookSplit-main, read AGENTS.md, current STATUS/TASKS and final release evidence, then inspect actual Git and live origin. Preserve the immutable v1.0.3 tag/source 7c5f7afeef9b09733ee8853d6df5d86c42d9c726, its published assets, all earlier releases, frozen R/F, T07 receipts and owner installations. Keep owner-waived manual scenarios NOT_RUN; do not invent passes or request another closed v1.0.3 owner test. Start another task, version or release only after a new owner request. Retain dependency-origin checks, security floors, process/file guards and Git protections. No force push, settings change, spending or mutation of immutable release assets.
 ```

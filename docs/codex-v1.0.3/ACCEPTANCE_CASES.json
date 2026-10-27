@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "meaning": "T01-T07 historical passes retain their recorded source/scope; originalT07 is only originalR/exactoldZIP. Latest owner executive order waives further manual publication prerequisites, preserving NOT_RUN for unavailable scenarios. New finaldependency, agentverification and publicrelease receipts are separate; current implementation/release work IN_PROGRESS.",
+  "meaning": "HistoricalT01-T07passes retainoriginalsource/scope; originalT07 onlyR/exactoldZIP. STORE024 staysNOT_RUN owner-waived/optional. RequiredT08releasecases043-048 PASS underlatestOWNER_DECISION_20261027 withactualagent/publicevidence anddisclosedmanualexceptions. No unavailabletestpromotedPASS.",
   "cases": [
     {
       "id": "STORE-001",
@@ -318,7 +318,7 @@
       "task": "T04",
       "name": "Policy/privacy preservation",
       "expected": "Process-scoped invocation, MOTW preservation, enforced policy denial and safe local diagnostics remain; no global changes.",
-      "status": "DEFERRED_NATIVE",
+      "status": "NOT_RUN",
       "required": false,
       "evidence": [
         "evidence/T04.md",
@@ -591,7 +591,7 @@
       "task": "T08",
       "name": "Release gate",
       "expected": "Required agent/security/source/package evidence reviewed and passing; owner-closed manual scenarios explicitly recorded NOT_RUN/waived with disclosed limits under OWNER_DECISION_20261027.md.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -608,16 +608,19 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     },
     {
       "id": "STORE-044",
       "task": "T08",
       "name": "Tested commit/tag",
       "expected": "Passing reviewed source merged/tagged as v1.0.3 at the accepted immutable candidate commit; version/docs/package consistent; no retag or changed ZIP.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -634,16 +637,19 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     },
     {
       "id": "STORE-045",
       "task": "T08",
       "name": "Public assets",
       "expected": "Publish non-draft/non-prerelease release with frozen ZIP, manifest, checksum and truthful limits.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -660,16 +666,19 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     },
     {
       "id": "STORE-046",
       "task": "T08",
       "name": "Anonymous byte verification",
       "expected": "Unauthenticated downloads match accepted hashes; tag peeled commit verified; mismatch blocks completion.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -686,16 +695,19 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     },
     {
       "id": "STORE-047",
       "task": "T08",
       "name": "Old releases preserved",
       "expected": "Verify existing v1.0.0-v1.0.2 tags and assets unchanged; no force-push/settings/history edits.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -712,16 +724,19 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     },
     {
       "id": "STORE-048",
       "task": "T08",
       "name": "Synced closure",
       "expected": "Record closure evidence and exact usable launcher/setup instructions; local main clean and equal to freshly queried live main.",
-      "status": "NOT_RUN",
+      "status": "PASS",
       "required": true,
       "evidence": [
         "evidence/T08.md",
@@ -738,9 +753,12 @@
         "evidence/T08-owner-return-20261027-audit.json",
         "evidence/T08-gate-context-20261027.json",
         "evidence/T08-remedial-scope-20261027.json",
-        "OWNER_DECISION_20261027.md"
+        "OWNER_DECISION_20261027.md",
+        "evidence/T08-final-release.md",
+        "evidence/T08-final-release.json",
+        "evidence/T08-final-public-verification.json"
       ],
-      "result_scope": "IN_PROGRESS: ownerclosedmanualwork27Oct; unavailable final-ZIP Windows10Store/realGPO remainNOT_RUN owner-waived and mustbedisclosed. Implement623, passagentchecks+CI, newfreeze/package, reviewednormalintegration/tag/publication/anonymousbytes/finalmainsync. No publicationpass claimed yet."
+      "result_scope": "COMPLETE underOWNER_DECISION_20261027: testedH/tagH/frozen3assets, actual4jobCI/nativeWin11+supportedruntimeproof, publicnon-draftnon-prerelease, anonymous3new+9oldbytes andfixedtag/oldhistorypreserved. Actual pre-C clean local main equals freshly queried live main/scoped branch H; STORE048 PASS applies to this observed H state. Documentation C synchronization is PENDING external verification after commit/push. UnavailableownerStore/GPO/Explorer remainNOT_RUN owner-waived, neverPASS."
     }
   ],
   "owner_decision": "OWNER_DECISION_20261027.md closes further owner work: final-ZIP owner Store and genuine enforced-policy evidence remain NOT_RUN/owner-waived publication prerequisites; no fabricatedpass. All feasible agent quality/source/byte/publicverification remain required."
