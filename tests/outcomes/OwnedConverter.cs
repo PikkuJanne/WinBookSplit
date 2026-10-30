@@ -7,7 +7,7 @@ using System.Threading;
 public static class OwnedConverter {
     public static int Main(string[] args) {
         if (args.Length == 1 && args[0] == "--version") {
-            Console.WriteLine("ebook-convert.exe (calibre 9.15.0)");
+            Console.WriteLine("ebook-convert.exe (calibre 9.17.0)");
             return 0;
         }
         string receipt = Environment.GetEnvironmentVariable("WBS_OUTCOME_RECEIPT");

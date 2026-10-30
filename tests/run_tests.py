@@ -68,7 +68,7 @@ CONVERSION_REAL_IDS = {host + "-" + fmt + "-" + retention for host in ("PS51", "
                        for fmt in ("epub", "azw3") for retention in ("default", "keep")}
 CONVERSION_INVALID_IDS = {host + "-" + kind for host in ("PS51", "PS7")
                           for kind in ("missing", "empty", "corrupt", "zero-page")}
-CONVERSION_CALIBRE_SHA256 = "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
+CONVERSION_CALIBRE_SHA256 = "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea"
 PATH_LITERAL_IDS = {"PS51-literal", "PS7-literal", "BAT-literal"}
 PATH_REJECTION_IDS = {host + "-" + case for host in ("PS51", "PS7")
                       for case in ("directory-pdf", "provider-pdf", "corrupt-pdf", "unreadable-held-file")}
@@ -793,7 +793,7 @@ def validate_conversion_bat_diagnostics(bat: dict) -> None:
             or log.parent.name != ".WinBookSplit-console-" + receipt["owner"]["run_id"] \
             or receipt.get("confirmed_plan", "missing") is not None or receipt["run_manifest"].get("plan", "missing") is not None \
             or receipt["run_manifest"]["runtime_versions"].get("calibre", "missing") is not None \
-            or "Calibre 9.15.0" not in stdout or "-CalibrePath" not in stdout:
+            or "Calibre 9.17.0" not in stdout or "-CalibrePath" not in stdout:
         raise ValueError("BAT dependency diagnostics have false ownership, plan, converter or guidance")
     interaction = launchers.interactions.capture(text)
     if bat.get("interaction") != interaction or any(events != [] for events in interaction.values()) \
@@ -821,11 +821,11 @@ def validate_conversion_report(child: dict, requested_shells: list[str], calibre
         raise ValueError("Conversion report requires every M2-T03 acceptance and preservation promise")
     calibre = child.get("calibre")
     if not isinstance(calibre, dict) or os.path.normcase(calibre.get("path", "")) != os.path.normcase(calibre_path) \
-            or calibre.get("version") != "9.15.0" or calibre.get("sha256") != CONVERSION_CALIBRE_SHA256 \
+            or calibre.get("version") != "9.17.0" or calibre.get("sha256") != CONVERSION_CALIBRE_SHA256 \
             or type(calibre.get("size_bytes")) is not int or calibre["size_bytes"] != 36104 \
             or not isinstance(calibre.get("version_observation"), dict) \
             or calibre["version_observation"].get("exit_code") != 0 \
-            or "calibre 9.15.0" not in calibre["version_observation"].get("stdout", ""):
+            or "calibre 9.17.0" not in calibre["version_observation"].get("stdout", ""):
         raise ValueError("Conversion acceptance requires the actual pinned external Calibre executable")
     provenance = child.get("fixture_provenance")
     if not isinstance(provenance, dict) or provenance.get("kind") != "original-offline-ebook-fixtures" \

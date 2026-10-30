@@ -79,8 +79,8 @@ def rejected_details(executable, version, reason):
 
 
 def selected_converter(source):
-    probe = native_probe("ebook-convert.exe (calibre 9.15.0)\r\nCreated by: Kovid Goyal <kovid@kovidgoyal.net>\r\n")
-    return {"Path": CALIBRE, "Version": "9.15.0", "Source": source, "Probe": probe,
+    probe = native_probe("ebook-convert.exe (calibre 9.17.0)\r\nCreated by: Kovid Goyal <kovid@kovidgoyal.net>\r\n")
+    return {"Path": CALIBRE, "Version": "9.17.0", "Source": source, "Probe": probe,
             "Attempts": [{"Path": CALIBRE, "Source": source, "Accepted": True,
                           "Message": "Supported converter version.", "Probe": deepcopy(probe)}]}
 
@@ -140,8 +140,8 @@ def valid_report():
               "input_and_neighbor_unchanged": True, "machine_settings_unchanged": True, "owned_temp_removed": True,
               "immutable_original_commit": "0de84f367f9bd5ddfa3f408a9c29505d7a39633f",
               "tested_path_sha256": source_map, "case_count": 33,
-              "calibre": {"path": CALIBRE, "version": "9.15.0",
-                          "sha256": "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"}}
+              "calibre": {"path": CALIBRE, "version": "9.17.0",
+                          "sha256": "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea"}}
     groups = {
         "python_failure_cases": ("python_failure", ("missing", "non-python", "wrong-version", "missing-pypdf", "wrong-pypdf")),
         "python_selection_cases": ("python_selection", ("explicit-literal", "app-venv", "multiple-path", "py-launcher-listing")),
@@ -223,7 +223,7 @@ def valid_report():
                 error = {"Code": ("setup_required" if kind in {"missing-pypdf", "wrong-pypdf"} else "runtime_invalid") if category == "python_failure" else
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
                 guidance = (f"Reviewed Python policy {validator.console.RUNTIME_POLICY['pypdf']['version']} -PythonPath Setup-WinBookSplit.ps1 .venv " + candidate if category == "python_failure"
-                            else "Calibre 9.15.0 -CalibrePath")
+                            else "Calibre 9.17.0 -CalibrePath")
                 case.update(dependency_error=error, candidate_path=candidate, exit_code=3,
                             stdout="Dependency preflight failed " + guidance + "\n[DEPENDENCY-ERROR] " + json.dumps(error) + "\n",
                             preflight_before_output=True, output_base_before=[], output_base_after=[],
@@ -502,7 +502,7 @@ class RuntimeReceiptTests(unittest.TestCase):
             "unknown cleanup": lambda r: success(r).update(owned_outputs_removed=False),
             "PDF probes Calibre": lambda r: r["pdf_without_calibre_cases"][0]["dependency_selection"].update(Converter=selected_converter("explicit")),
             "wrong converter": lambda r: converter_case(r)["dependency_selection"]["Converter"].update(Version="9.14.0"),
-            "converter trailing spoof": lambda r: converter_case(r)["dependency_selection"]["Converter"]["Probe"].update(Stdout="ebook-convert.exe (calibre 9.15.0)\nEVIL"),
+            "converter trailing spoof": lambda r: converter_case(r)["dependency_selection"]["Converter"]["Probe"].update(Stdout="ebook-convert.exe (calibre 9.17.0)\nEVIL"),
             "ebook snapshot lost": lambda r: converter_case(r)["writer_result"].pop("original_ebook_identity"),
             "conversion workspace retained": lambda r: converter_case(r)["writer_result"]["conversion"]["workspace_cleanup"].update(retained_staging="unknown"),
             "reference absent": lambda r: r.pop("independent_real_conversion_reference"),

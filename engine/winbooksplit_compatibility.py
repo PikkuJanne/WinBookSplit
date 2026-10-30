@@ -161,10 +161,18 @@ def _validate_policy(policy):
              and type(policy["pypdf"]["version"]) is str, "Invalid locked pypdf version.")
     _require(type(policy["pypdf"]["wheel_sha256"]) is str
              and re.fullmatch(r"[0-9a-f]{64}", policy["pypdf"]["wheel_sha256"]), "Invalid locked pypdf wheel SHA256.")
-    _object(policy["calibre"], ("version",), "Calibre policy")
-    _require(type(policy["calibre"]["version"]) is str
-             and _version(policy["calibre"]["version"]) is not None, "Invalid locked Calibre version.")
+    _object(policy["calibre"], ("minimum_version",), "Calibre policy")
+    _require(type(policy["calibre"]["minimum_version"]) is str
+             and _version(policy["calibre"]["minimum_version"]) is not None
+             and all(part <= 65535 for part in _version(policy["calibre"]["minimum_version"])), "Invalid minimum Calibre version.")
     return policy
+
+
+def calibre_version_supported(version, policy):
+    """Accept canonical stable numeric releases at or above the security floor."""
+    observed = _version(version) if type(version) is str else None
+    minimum = _version(policy["calibre"]["minimum_version"])
+    return observed is not None and minimum is not None and all(part <= 65535 for part in (*observed, *minimum)) and observed >= minimum
 
 
 def _read_policy(path=None):

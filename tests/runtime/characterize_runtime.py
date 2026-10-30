@@ -107,7 +107,7 @@ public class Stub {
         }
         if (args.Length==1 && args[0]=="--version") {
             Mark("WBS_VERSION_MARKER"); Mark("WBS_DECOY_MARKER");
-            Console.WriteLine("ebook-convert.exe (calibre " + (Environment.GetEnvironmentVariable("WBS_STUB_VERSION") ?? "9.15.0") + ")"); return 0;
+            Console.WriteLine("ebook-convert.exe (calibre " + (Environment.GetEnvironmentVariable("WBS_STUB_VERSION") ?? "9.17.0") + ")"); return 0;
         }
         Mark("WBS_NATIVE_MARKER"); Mark("WBS_DECOY_MARKER");
         if (args.Length>1 && args[0]!="-I") Mark("WBS_CONVERSION_MARKER");
@@ -370,7 +370,7 @@ class Cases:
                             launchers.RUNTIME_POLICY["pypdf"]["version"] in process["stdout"],
                             "Python failure attempted converter or omitted explicit local setup guidance")
                 else:
-                    require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"], "Converter failure omitted actionable exact setup guidance")
+                    require("Calibre 9.17.0" in process["stdout"] and "-CalibrePath" in process["stdout"], "Converter failure omitted actionable exact setup guidance")
                 record = {"dependency_error": errors[0], "candidate_path": candidate if category == "python_failure" else str(converter_path) if converter_path else None,
                     "preflight_before_output": True, "output_base_before": output_before, "output_base_after": [],
                     "conversion_started": False, "converter_version_marker_absent": not version_marker.exists(),
@@ -400,7 +400,7 @@ class Cases:
                 if ebook:
                     checked, members = conversion.check_publication(base, execution, self.reference["page_content_sha256"])
                     require(dependency[0]["Converter"]["Path"] == str(self.calibre)
-                            and dependency[0]["Converter"]["Version"] == "9.15.0"
+                            and dependency[0]["Converter"]["Version"] == "9.17.0"
                             and dependency[0]["Converter"]["Source"] == expected_converter_source,
                             "Actual chosen portable converter differs")
                 else:
@@ -515,7 +515,7 @@ def characterize(work, shells, calibre):
         "positive_decoy_controls": cases.controls, "unsupported_real_python_observation": cases.wrong_observation,
         "supported_real_python_observation": cases.python_observation,
         "independent_real_conversion_reference": cases.reference,
-        "calibre": {"path": str(calibre), "version": "9.15.0", "sha256": digest(calibre)},
+        "calibre": {"path": str(calibre), "version": "9.17.0", "sha256": digest(calibre)},
         "source_unchanged": True, "baseline_guards_preserved": True, "input_and_neighbor_unchanged": True,
         "machine_settings_unchanged": True, "immutable_original_commit": history.ORIGINAL_COMMIT,
         "tested_path_sha256": source_before, "environment": {"python": sys.version, "python_executable": sys.executable,

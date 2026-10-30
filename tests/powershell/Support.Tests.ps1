@@ -11,7 +11,7 @@ BeforeAll {
         return [ordered]@{
             protocol='winbooksplit.run'; version=1; run_id=('a'*32); application_version=$script:supportApplicationVersion
             started_utc='2026-10-10T00:00:00.0000000Z'; finished_utc='2026-10-10T00:00:01.0000000Z'; diagnostics_finalized=$true
-            runtime_versions=[ordered]@{ powershell='5.1.26100.9444'; python='3.14.8'; pypdf='6.21.3'; calibre=$null }
+            runtime_versions=[ordered]@{ powershell='5.1.26100.9444'; python='3.14.8'; pypdf='6.21.4'; calibre=$null }
             settings=[ordered]@{ mode='manual'; input_kind='pdf'; preview=$false; non_interactive=$true; no_pause=$true; keep_converted_pdf=$false
                 conversion_timeout=120; process_timeout=300; normalized_inputs=@{ starts=@(1,3); authored_secret=$secret } }
             source_identity=@{ path=('C:\private\'+$secret+'.pdf'); resolved_path=$secret; sha256=$secret; size_bytes=100; binding=$secret }
@@ -135,6 +135,17 @@ Describe 'Explicit allowlisted support diagnostic export' {
                 $fixture=New-SupportFixture; $fixture.runtime_versions[$name]=$value
                 Assert-SupportRejected $fixture
             }
+        }
+    }
+    It 'preserves supported later stable Calibre versions while refusing unsafe version text' {
+        foreach ($version in @('9.17.0','9.17.1','9.18.0','9.100.0','10.0.0')) {
+            $fixture=New-SupportFixture; $fixture.runtime_versions.calibre=$version
+            $summary=Export-WinBookSplitSupportSummary (Write-SupportFixture $fixture) (New-SupportDestination)
+            $summary.runtime_versions.calibre | Should -BeExactly $version
+        }
+        foreach ($version in @('9.16.99','9.17.0rc1','09.17.0','9.017.0','9.17.00','65536.0.0')) {
+            $fixture=New-SupportFixture; $fixture.runtime_versions.calibre=$version
+            Assert-SupportRejected $fixture
         }
     }
     It 'rejects coerced booleans and numbers and secret enum values in the selected settings' {

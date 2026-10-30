@@ -222,32 +222,48 @@ Describe 'M2 converter version preflight' -Tag 'AC-045' {
         }
         Should-Invoke -CommandName Get-WinBookSplitPathCandidates -Times 0 -Exactly
     }
-    It 'requires the exact converter version even when the version command succeeds' {
+    It 'rejects a converter below the security minimum even when its probe succeeds' {
         Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe 'ebook-convert.exe (calibre 9.14.0)' }
         { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
     }
     It 'accepts a supported complete version record and retains its actual probe' {
-        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)' }
+        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)' }
         $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython
-        $result.Version | Should-Be -Expected '9.15.0'
+        $result.Version | Should-Be -Expected '9.17.0'
         $result.Source | Should-Be -Expected 'explicit'
         $result.Probe.ExitCode | Should-Be -Expected 0
         $result.Attempts[0].Accepted | Should-BeTrue
     }
+    It 'accepts synthetic later stable converters numerically without changing probe guards' {
+        foreach ($version in @('9.17.1','9.18.0','9.100.0','10.0.0')) {
+            $script:laterConverterBanner='ebook-convert.exe (calibre '+$version+')'
+            Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:laterConverterBanner }
+            $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython
+            $result.Version | Should-Be -Expected $version
+            $result.Attempts[0].Accepted | Should-BeTrue
+        }
+    }
+    It 'rejects prerelease malformed noncanonical and oversized version banners' {
+        foreach ($version in @('9.17.0rc1','9.17.0-dev','09.17.0','9.017.0','9.17.00','9.17.0.1','1000001.0.0')) {
+            $script:badConverterBanner='ebook-convert.exe (calibre '+$version+')'
+            Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:badConverterBanner }
+            { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
+        }
+    }
     It 'rejects extra output after an otherwise supported converter version' {
-        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe "ebook-convert.exe (calibre 9.15.0)`nextra record" }
+        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe "ebook-convert.exe (calibre 9.17.0)`nextra record" }
         { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
     }
     It 'accepts the exact two-line banner observed from the real pinned converter' {
-        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe "ebook-convert.exe (calibre 9.15.0)`r`nCreated by: Kovid Goyal <kovid@kovidgoyal.net>`r`n" }
+        Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe "ebook-convert.exe (calibre 9.17.0)`r`nCreated by: Kovid Goyal <kovid@kovidgoyal.net>`r`n" }
         $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython
-        $result.Version | Should-Be -Expected '9.15.0'
-        $result.Probe.Stdout | Should-Be -Expected "ebook-convert.exe (calibre 9.15.0)`r`nCreated by: Kovid Goyal <kovid@kovidgoyal.net>`r`n"
+        $result.Version | Should-Be -Expected '9.17.0'
+        $result.Probe.Stdout | Should-Be -Expected "ebook-convert.exe (calibre 9.17.0)`r`nCreated by: Kovid Goyal <kovid@kovidgoyal.net>`r`n"
     }
     It 'rejects unrelated text or an altered creator following the supported version' {
         foreach ($tail in @('Created by: unrelated control', 'Created by: Kovid Goyal <wrong@example.invalid>',
                             "Created by: Kovid Goyal <kovid@kovidgoyal.net>`r`nextra record")) {
-            $script:extraBanner="ebook-convert.exe (calibre 9.15.0)`r`n"+$tail+"`r`n"
+            $script:extraBanner="ebook-convert.exe (calibre 9.17.0)`r`n"+$tail+"`r`n"
             Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe $script:extraBanner }
             { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
         }
@@ -266,7 +282,7 @@ Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETI
         $script:converterControl=$ControlKind
         Mock Get-WinBookSplitPathCandidates { return @($script:converterFirst,$script:converterSecond) }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)'
             if ($Path -eq $script:converterFirst) {
                 switch ($script:converterControl) {
                     'parent' { $probe.ParentStopped=$false }
@@ -296,7 +312,7 @@ Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETI
         $script:converterControl=$ControlKind
         Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)'
             switch ($script:converterControl) {
                 'parent' { $probe.ParentStopped=$false }
                 'descendant' { $probe.DescendantsStopped=$false }
@@ -321,7 +337,7 @@ Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETI
         $script:converterControl=$ControlKind
         Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)'
             $probe.DescendantsStopped=$false
             if ($script:converterControl -eq 'timeout') { $probe.TimedOut=$true } else { $probe.Cancelled=$true }
             $script:converterUnsafeProbe=$probe
@@ -344,7 +360,7 @@ Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETI
         $script:converterControl=$ControlKind
         Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
         Mock Invoke-WinBookSplitRuntimeProbe {
-            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.15.0)'
+            $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)'
             if ($script:converterControl -eq 'timeout') { $probe.TimedOut=$true } else { $probe.Cancelled=$true }
             $script:converterInterruptedProbe=$probe
             return $probe

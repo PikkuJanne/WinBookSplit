@@ -1,7 +1,7 @@
 # Original conversion fixtures
 
 `generate_ebook_fixtures.py` authors a tiny offline EPUB with three original
-chapters, a navigation table and an NCX table. Calibre 9.15.0 then converts that
+chapters, a navigation table and an NCX table. Calibre 9.17.0 then converts that
 EPUB to a genuine AZW3. The generated book text is MIT-licensed test material;
 no private book or existing document is used. There are no remote resources,
 scripts or external links in the EPUB.
@@ -26,7 +26,7 @@ missing-converter failure. It supplies scripted manual starts `2,3`; conversion
 uses exactly `--output-profile tablet`. These fixtures demonstrate the reviewed
 profile's actual behavior without claiming that it improves every ebook layout.
 The BAT failure must contain the actual `converter_not_found` dependency record
-and exact-version guidance, return 3, and retain authenticated console diagnostics
+and minimum-version guidance, return 3, and retain authenticated console diagnostics
 without invoking the engine or writing chapters.
 It preserves the source and neighbor; successful discovery is tested separately.
 Only this negative case redirects child `LOCALAPPDATA` to an owned directory

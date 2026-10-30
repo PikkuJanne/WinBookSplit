@@ -16,7 +16,7 @@ PDF checks. Ordinary Store first-launch setup/resume, its repeat/network check,
 Windows 10 and the private supplied book remain **NOT_RUN**. Human testing is out
 of scope under the owner's latest order; no owner test, sign-off or report is
 required. These limits are separate from historical v1.0.3 acceptance. Scripts
-are unsigned; enforced organization controls still apply. Setup uses reviewed pypdf **6.21.3** in this
+are unsigned; enforced organization controls still apply. Setup uses reviewed pypdf **6.21.4** in this
 copy's own environment; no global pypdf installation is required.
 
 The first public release,
@@ -32,8 +32,14 @@ semantic version.
 | Windows target | Windows 10 **22H2 x64** and Windows 11 x64; ordinary local filesystem paths |
 | PowerShell | Inbox Windows PowerShell **5.1**; **7.6.6** is the tested PowerShell 7 host |
 | Python | Regular GIL Windows x64 CPython **3.15.0 or later stable 3.15 patch**, **3.14.8 or later stable 3.14 patch**, or **3.13.16 or later stable 3.13 patch** |
-| pypdf | Plain **6.21.3**, controlled by its separate package version and SHA-256 lock |
-| Calibre | Windows x64 **9.15.0**, needed only for EPUB/AZW3 |
+| pypdf | Plain **6.21.4**, controlled by its separate package version and SHA-256 lock |
+| Calibre | Windows x64 **9.17.0 or newer stable release**, needed only for EPUB/AZW3 |
+
+Setup installs the locked pypdf library automatically after consent; its internal
+version is separate from the installed Python version. PDF-only processing does
+not need Calibre. Calibre uses a security minimum, so an existing newer stable
+release does not need a downgrade. Exact converter binaries recorded in test
+evidence are reproducible test targets, not application patch requirements.
 
 The exact source-test interpreters are **3.13.16, 3.14.8 and 3.15.0**. Later stable
 patches in those three branches are accepted numerically by the shipped policy; acceptance is

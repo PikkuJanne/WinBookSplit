@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Execute the exact setup Action from four authored native dependency failures.
+Execute the exact readiness-check Action after four authored dependency failures.
 .DESCRIPTION
 Uses the existing native process/job/stream transport and reopened-PDF oracle.
 Only fresh owned copies receive test ADS or environments. Results are private
@@ -64,6 +64,8 @@ function Copy-RemedyApplicationMember {
     return $hash
 }
 Assert-RemedySourceBinding
+. (Join-Path $RepositoryRoot 'engine\WinBookSplit.Compatibility.ps1')
+$expectedPypdfVersion=(Get-WinBookSplitCompatibilityPolicy -PolicyPath (Join-Path $ApplicationSourceRoot 'engine\WinBookSplit.Compatibility.json')).pypdf.version
 if((Get-NativeAcceptanceFileHash $AuthoredPdf 8388608).sha256-cne $AuthoredPdfSha256){throw 'Authored PDF pin differs.'}
 function Write-RemedyFixtureText {
     param([string]$Path,[string]$Text)
@@ -176,6 +178,9 @@ try{
     }elseif($p.mode-ceq 'bat'){
         & ([string]$p.bat_path) @([string[]]$p.setup_arguments)
         $childExit=$LASTEXITCODE
+    }elseif($p.mode-ceq 'check'){
+        & ([string]$p.host_path) @('-NoProfile','-ExecutionPolicy','Bypass','-File',[string]$p.setup_path,'-Check','-NonInteractive')
+        $childExit=$LASTEXITCODE
     }elseif($p.mode-ceq 'action'){
         $tokens=$errors=$null
         $ast=[Management.Automation.Language.Parser]::ParseInput([string]$p.action,[ref]$tokens,[ref]$errors)
@@ -221,7 +226,7 @@ $work=New-NativeAcceptanceDirectory ([IO.Path]::Combine($WorkParent,'T6-'+[guid]
 $report=[ordered]@{protocol='winbooksplit.setup-remedy-roundtrip';schema_version=1;success=$false;
     scope='Actual owned-copy Windows native tests; source-bound, not final-ZIP or Explorer acceptance';
     started_utc=[datetime]::UtcNow.ToString('o');source_binding=$binding;cases=@();source_files_unchanged=$false;
-    os=Get-NativeAcceptanceOs -AllowWindows11DryRun;security_controls=@();include_security_controls=[bool]$IncludeSecurityControls}
+    os=Get-NativeAcceptanceOs -AllowWindows11DryRun;security_controls=@();include_security_controls=[bool]$IncludeSecurityControls;locked_pypdf_version=$expectedPypdfVersion}
 $members=@('VERSION','WinBookSplit.ps1','WinBookSplit.bat','Setup-WinBookSplit.ps1','Setup-WinBookSplit.bat','requirements.txt','Export-WinBookSplitDiagnostics.ps1')
 $members+=@(Get-ChildItem -LiteralPath (Join-Path $ApplicationSourceRoot 'engine') -File|ForEach-Object{'engine\'+$_.Name})
 try{
@@ -237,6 +242,8 @@ foreach($hostKind in $hostKinds){foreach($state in @('fresh','stale')){
     }
     $marks=@(Set-RemedyInternetMarks $app)
     $inputPdf=Join-Path $case '-Authored input [1].pdf';[IO.File]::Copy($AuthoredPdf,$inputPdf,$false)
+    $documentPrefix=[IO.Path]::GetDirectoryName([IO.Path]::GetFullPath($inputPdf))+'\'
+    if([IO.Path]::GetFullPath($Python315).StartsWith($documentPrefix,[StringComparison]::OrdinalIgnoreCase)){throw 'Explicit fixture base must be outside the original document directory.'}
     $output=New-NativeAcceptanceDirectory (Join-Path $case 'output')
     $cwd=if($state-ceq 'fresh'){$system}else{New-NativeAcceptanceDirectory (Join-Path $case 'unrelated-cwd')}
     $adapter=Join-Path $case 'parent.ps1';Write-RemedyFixtureText $adapter $parent
@@ -264,9 +271,13 @@ foreach($hostKind in $hostKinds){foreach($state in @('fresh','stale')){
         old_environment=$old;steps=@();operation_arguments=$operation;original_source_sha256=$AuthoredPdfSha256;
         environment_fixture=$(if($state-ceq 'fresh'){'ACTUAL_BARE315'}elseif([string]::IsNullOrEmpty($StalePython)){'AUTHORED_BROKEN_VENV; no legacy Python execution'}else{'ACTUAL_STALE3147'})}
     $report.cases+=@($route)
-    foreach($stage in @('direct','before','action','retry')){
+    foreach($stage in @('direct','before','readiness','action','retry')){
         Assert-RemedySourceBinding
-        $payload.mode=if($stage-ceq 'direct'){'direct'}elseif($stage-ceq 'action'){'action'}else{'operation'}
+        $payload.mode=if($stage-ceq 'direct'){'direct'}elseif($stage-ceq 'readiness'){'check'}elseif($stage-ceq 'action'){'action'}else{'operation'}
+        # Capture the noninteractive remedy; the later healthy retry still asks
+        # for confirmation of the original split request.
+        $payload.operation_arguments=@($operation)
+        if($stage-ceq 'before'){$payload.operation_arguments+='-NonInteractive'}
         $payloadPath=Join-Path $case ($stage+'-payload.json');Write-NativeAcceptanceJson $payloadPath $payload
         $answers=@();if($stage-ceq 'retry'){$answers=@('Y','N')}
         $hostPath=if($hostKind-ceq 'PS51'){$inbox}else{$PowerShell7}
@@ -291,20 +302,30 @@ foreach($hostKind in $hostKinds){foreach($state in @('fresh','stale')){
         }elseif($stage-ceq 'before'){
             $outcome=Get-NativeAcceptanceFrame $run.probe.Stdout '[OUTCOME] '
             if($run.probe.ExitCode-ne 3 -or $outcome.exit_code-ne 3 -or $outcome.written_count-ne 0){throw 'Original dependency failure differs.'}
-            $lines=@($run.probe.Stdout.Split("`n")|Where-Object{$_.StartsWith('Action (PowerShell): ')})
-            if($lines.Count-ne 1){throw 'Exact emitted Action was not present once.'}
-            $payload.action=$lines[0].Substring('Action (PowerShell): '.Length).TrimEnd([char]13)
-            $route.emitted_action=$payload.action
+            if($run.probe.Stdout.Contains('[SETUP] ') -or $run.probe.Stdout.Contains('into this copy of WinBookSplit now?')){throw 'Noninteractive remedy unexpectedly prompted or ran setup.'}
+            $dependency=Get-NativeAcceptanceFrame $run.probe.Stdout '[DEPENDENCY-ERROR] '
             if($state-ceq 'stale'){
-                if(-not[string]::IsNullOrEmpty($StalePython) -and -not $run.probe.Stdout.Contains('3.14.7; application_venv')){throw 'Actual stale selected identity was not reported.'}
+                if(-not[string]::IsNullOrEmpty($StalePython) -and @($dependency.Attempts|Where-Object{$_['Source']-ceq 'application_venv' -and $_['IdentityVerified'] -and $_['ObservedVersion']-ceq '3.14.7'}).Count-ne 1){throw 'Actual stale selected identity was not reported.'}
                 Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $old
-            }elseif(-not $run.probe.Stdout.Contains('3.15.0; ')-or [IO.Directory]::Exists((Join-Path $app '.venv'))){throw 'Actual bare identity was absent or processing installed a venv.'}
+            }elseif(@($dependency.Attempts|Where-Object{$_['IdentityVerified'] -and $_['ObservedVersion']-ceq '3.15.0' -and $_['Reason']-ceq 'missing_pypdf' -and $_['Path']-ceq $Python315}).Count-ne 1 -or [IO.Directory]::Exists((Join-Path $app '.venv'))){throw 'Actual bare identity was absent or processing installed a venv.'}
+        }elseif($stage-ceq 'readiness'){
+            $check=Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] '
+            $expected=if($state-ceq 'stale'){'setup_repair_required'}else{'setup_required'}
+            if($run.probe.ExitCode-ne 3 -or $check.exit_code-ne 3 -or $check.code-cne $expected -or
+                $check.status-cne 'failed' -or -not $check.check -or $check.changed -or $check.operations.Count-ne 0 -or
+                $check.action_shell-cne 'PowerShell' -or [string]::IsNullOrWhiteSpace($check.action)){throw 'Read-only readiness did not emit one valid setup Action.'}
+            $payload.action=[string]$check.action;$route.emitted_action=$payload.action
+            $route.emitted_action_origin='Setup-WinBookSplit.ps1 -Check -NonInteractive [SETUP].action'
+            $route.readiness_document_scope='Public Check has no document argument; original processing InputFile is unchanged and the strict Action base is outside its directory.'
+            $route.readiness=$check
+            if($state-ceq 'stale'){Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $old}
+            elseif([IO.Directory]::Exists((Join-Path $app '.venv'))){throw 'Read-only readiness created an environment.'}
         }elseif($stage-ceq 'action'){
             $exact=Get-NativeAcceptanceFrame $run.probe.Stdout '[EXACT_ACTION] '
             $setup=Get-NativeAcceptanceFrame $run.probe.Stdout '[SETUP] '
             if($IncludeSecurityControls){Assert-RemedyActualChildHost $setup @($inboxBaseline) $inbox}
             if($exact.text-cne $route.emitted_action -or -not $exact.ast_literal_verified -or $run.probe.ExitCode-ne 0 -or
-                $setup.exit_code-ne 0 -or $setup.code-cne 'setup_complete' -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.3'){throw 'Exact emitted remedy did not create selected315 locked runtime.'}
+                $setup.exit_code-ne 0 -or $setup.code-cne 'setup_complete' -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne $expectedPypdfVersion){throw 'Exact emitted remedy did not create selected315 locked runtime.'}
             $route.setup=$setup
             if($state-ceq 'stale'){Assert-RemedyEnvironmentHashes $setup.backup_path $old}
         }else{
@@ -416,7 +437,7 @@ if($IncludeSecurityControls){
                     Assert-RemedyEnvironmentHashes (Join-Path $app '.venv') $route.old_environment
                 }else{
                     $expected=if($stage-cin @('fresh','repair')){'setup_complete'}else{'setup_ready'}
-                    if($run.probe.ExitCode-ne 0 -or $setup.exit_code-ne 0 -or $setup.code-cne $expected -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne '6.21.3'){throw 'Marked BAT actual setup/Check/no-op/zeroargs/Repair differs.'}
+                    if($run.probe.ExitCode-ne 0 -or $setup.exit_code-ne 0 -or $setup.code-cne $expected -or $setup.selected_version-cne '3.15.0' -or $setup.pypdf_version-cne $expectedPypdfVersion){throw 'Marked BAT actual setup/Check/no-op/zeroargs/Repair differs.'}
                     if($stage-ceq 'repair'){Assert-RemedyEnvironmentHashes $setup.backup_path $route.old_environment}
                 }
             }

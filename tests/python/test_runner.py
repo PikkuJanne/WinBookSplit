@@ -298,7 +298,7 @@ def complete_conversion_bat_failure():
             "dependency_success_record_absent": True, "conversion_started": False, "written_count": 0, "setup_guidance_verified": True,
             "dependency_error": dependency, "terminal_outcome": outcome, "input_path": source, "source_observation": observed,
             "console_path": log, "console_log_text": text, "console_log_sha256": digest, "console_evidence": receipt,
-            "stdout": "Action: Select trusted Calibre 9.15.0 with -CalibrePath\r\nLog: " + log + "\r\n[OUTCOME] " + json.dumps(outcome) + "\r\n",
+            "stdout": "Action: Select trusted Calibre 9.17.0 with -CalibrePath\r\nLog: " + log + "\r\n[OUTCOME] " + json.dumps(outcome) + "\r\n",
             "interaction": {key: [] for key in ("engine_invocations", "requests", "replies", "displayed_plans")}, "process_summaries": [],
             "converter_absence_environment": {"schema_version": 2, "child_local_app_data_isolated": True, "windows_cache_inventory_unchanged": True,
                 "ordinary_directory_guards_unchanged": True,
@@ -395,9 +395,9 @@ def complete_conversion_report(hosts, calibre):
                         "page_count": 3 if fmt == "epub" else 4, "sha256": "b" * 64, "size_bytes": 2048,
                         "page_content_sha256": [f"{index:064x}" for index in range(1, (3 if fmt == "epub" else 4) + 1)]} for fmt in ("epub", "azw3")}
     return {"schema_version": 1, "task_id": "M2-T03", "result": "CONVERSION_REGRESSION_PASSED", "success": True, "exit_code": 0,
-            "acceptance_ids": runner.CONVERSION_ACCEPTANCE_IDS, "calibre": {"path": calibre, "version": "9.15.0",
+            "acceptance_ids": runner.CONVERSION_ACCEPTANCE_IDS, "calibre": {"path": calibre, "version": "9.17.0",
             "sha256": runner.CONVERSION_CALIBRE_SHA256, "size_bytes": 36104,
-            "version_observation": {"exit_code": 0, "stdout": "ebook-convert.exe (calibre 9.15.0)"}},
+            "version_observation": {"exit_code": 0, "stdout": "ebook-convert.exe (calibre 9.17.0)"}},
             "fixture_provenance": provenance, "reference_conversions": references,
             "host_cases": [{"id": host, "passed": True, "shell_executable": hosts[index], "host_major": 5 if host == "PS51" else 7,
                             "host_version": "5.1.26100.9444" if host == "PS51" else "7.6.6", "exit_code": 0, "syntax_error_count": 0,
@@ -514,13 +514,13 @@ class RunnerTests(unittest.TestCase):
                 ("BAT wrong owner", lambda data: data["bat_missing_converter_case"]["console_evidence"]["owner"].__setitem__("run_id", "d" * 32)),
                 ("BAT wrong manifest outcome", lambda data: bat_manifest_change(data, "outcome", {"code": "split_complete"})),
                 ("BAT wrong source binding", lambda data: bat_manifest_change(data, "source_identity", {"path": "C:/unexpected.epub", "binding": "metadata_only", "sha256": None, "size_bytes": 1024})),
-                ("BAT unsupported recorded runtime", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.2", "pypdf": "6.21.3", "calibre": None})),
+                ("BAT unsupported recorded runtime", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.2", "pypdf": "6.21.4", "calibre": None})),
                 ("BAT duplicate dependency frame", lambda data: bat_log_change(data, "[DEPENDENCY-ERROR] " + json.dumps(data["bat_missing_converter_case"]["dependency_error"]) + "\r\n")),
                 ("BAT contradictory dependency frame", lambda data: bat_log_change(data, '[DEPENDENCY-ERROR] {"Code":"runtime_invalid","Attempts":[]}\r\n')),
                 ("BAT duplicate outcome footer", lambda data: bat_log_change(data, "[OPERATION-OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
                 ("BAT engine log frame", lambda data: bat_log_change(data, '[ENGINE] {"arguments":[]}\r\n')),
                 ("BAT native process summary", lambda data: bat_log_change(data, '[PROCESS] {}\r\n')),
-                ("BAT false converter acceptance", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.21.3", "calibre": "9.15.0"})),
+                ("BAT false converter acceptance", lambda data: bat_manifest_change(data, "runtime_versions", {"powershell": "5.1.26100.9444", "python": "3.14.8", "pypdf": "6.21.4", "calibre": "9.17.0"})),
                 ("BAT duplicate terminal outcome", lambda data: data["bat_missing_converter_case"].__setitem__("stdout", data["bat_missing_converter_case"]["stdout"] + "[OUTCOME] " + json.dumps(data["bat_missing_converter_case"]["terminal_outcome"]) + "\r\n")),
                 ("BAT changed isolated cache identity", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_after"]["Microsoft"].__setitem__("inode", 99)),
                 ("BAT unexpected isolation directory", lambda data: data["bat_missing_converter_case"]["converter_absence_environment"]["cache_directory_identities_before"].__setitem__("Programs", {"device": 1, "inode": 9})),
@@ -1765,13 +1765,13 @@ class RunnerTests(unittest.TestCase):
         with tempfile.TemporaryDirectory(prefix="wbs-setup-wheel-runner-") as directory:
             work = Path(directory)
             wheel_bytes = b"Synthetic test wheel only; not installation acceptance."
-            lock = {"version": "6.21.3", "wheel_sha256": runner.sha256(wheel_bytes)}
+            lock = {"version": "6.21.4", "wheel_sha256": runner.sha256(wheel_bytes)}
             observed = {}
 
             def download(argv, cwd, **kwargs):
                 observed.update(command=argv, cwd=cwd, environment=kwargs["environment"])
                 destination = Path(argv[argv.index("--dest") + 1])
-                (destination / "pypdf-6.21.3-py3-none-any.whl").write_bytes(wheel_bytes)
+                (destination / "pypdf-6.21.4-py3-none-any.whl").write_bytes(wheel_bytes)
                 return {"exit_code": 0, "stdout": "Synthetic downloader result", "stderr": ""}
 
             with patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": "", "PIP_INDEX_URL": "https://invalid.example",
@@ -1798,14 +1798,14 @@ class RunnerTests(unittest.TestCase):
             work = Path(directory)
             wheelhouse = work / "provided"
             wheelhouse.mkdir()
-            wheel = wheelhouse / "pypdf-6.21.3-py3-none-any.whl"
+            wheel = wheelhouse / "pypdf-6.21.4-py3-none-any.whl"
             wheel.write_bytes(b"Synthetic wheel fixture")
             for digest, accepted in ((runner.sha256(wheel.read_bytes()), True), ("0" * 64, False)):
                 with self.subTest(accepted=accepted), patch.dict(os.environ, {"WBS_TEST_WHEELHOUSE": str(wheelhouse)}), \
                         patch.object(runner.importlib.util, "spec_from_file_location"), \
                         patch.object(runner.importlib.util, "module_from_spec") as module, \
                         patch.object(runner, "run_command") as download:
-                    module.return_value.load_policy.return_value = {"pypdf": {"version": "6.21.3", "wheel_sha256": digest}}
+                    module.return_value.load_policy.return_value = {"pypdf": {"version": "6.21.4", "wheel_sha256": digest}}
                     stamp = wheel.stat().st_mtime_ns
                     selected, step = runner.prepare_setup_test_wheel(work)
                     self.assertEqual(step["exit_code"] == 0, accepted)

@@ -201,11 +201,11 @@ def runtime(record) -> dict:
 def converter(record, calibre_path: str) -> dict:
     record = mapping(record, "selected converter")
     same_path(record.get("Path"), calibre_path, "converter: actual requested executable")
-    require(record.get("Version") == "9.15.0" and record.get("Source") in {"explicit", "PATH", "known_location"},
+    require(record.get("Version") == "9.17.0" and record.get("Source") in {"explicit", "PATH", "known_location"},
             "converter: exact version and trusted provenance required")
     selected_probe = probe(record.get("Probe"), success=True)
     flag(selected_probe, "StderrTruncated", False)
-    require(re.fullmatch(r"ebook-convert(?:\.exe)? \(calibre 9\.15\.0\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?",
+    require(re.fullmatch(r"ebook-convert(?:\.exe)? \(calibre 9\.17\.0\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?",
                          selected_probe["Stdout"]) is not None,
             "converter: native version banner missing")
     attempts = record.get("Attempts")
@@ -482,7 +482,7 @@ def failure_case(case: dict, supported_version: str, unsupported_version: str) -
         else:
             require(attempts[0].get("Probe") is None, "failure: missing interpreter was executed")
     else:
-        require("Calibre 9.15.0" in case["stdout"] and "-CalibrePath" in case["stdout"],
+        require("Calibre 9.17.0" in case["stdout"] and "-CalibrePath" in case["stdout"],
                 "failure: converter setup guidance missing")
         if case["kind"] == "wrong-version":
             require(attempts[0].get("Probe") is not None and attempts[0]["Probe"]["ExitCode"] == 0 and
@@ -688,8 +688,8 @@ def validate_runtime_report(child, requested_shells, calibre_path) -> None:
                 "host: actual observation frame differs")
     calibre = mapping(child.get("calibre"), "actual Calibre")
     same_path(calibre.get("path"), calibre_path, "Calibre requested path")
-    require(calibre.get("version") == "9.15.0" and
-            calibre.get("sha256") == "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d",
+    require(calibre.get("version") == "9.17.0" and
+            calibre.get("sha256") == "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea",
             "runtime: pinned actual Calibre identity required")
     groups = {field: case_set(child, field) for field in CASE_KINDS}
     require(type(child.get("case_count")) is int and child["case_count"] == sum(len(g) for g in groups.values()) == 33,

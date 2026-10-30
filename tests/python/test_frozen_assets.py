@@ -124,7 +124,8 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
         self.assertEqual(contract["python"]["excluded_branches"], policy["excluded_python_branches"])
         self.assertEqual(contract["python"]["policy_sha256"], sha256(policy_bytes).hexdigest())
         self.assertEqual(contract["pypdf"]["wheel_sha256"], policy["pypdf"]["wheel_sha256"])
-        self.assertEqual(contract["calibre"]["version"], policy["calibre"]["version"])
+        self.assertEqual(contract["calibre"]["minimum_version"], policy["calibre"]["minimum_version"])
+        self.assertNotIn("version", contract["calibre"])
         self.assertEqual(contract["windows"]["supported"], ["Windows 10 22H2 x64", "Windows 11 x64"])
         self.assertEqual(self.manifest["builder"]["python"], sys.version.split()[0])
         self.assertEqual(contract, frozen.dependency_metadata(policy_bytes, self.base_payload["requirements.txt"]))
@@ -142,7 +143,8 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
             lambda value: value["dependencies"]["python"].update(policy_sha256="0" * 64),
             lambda value: value["dependencies"]["pypdf"].update(wheel_sha256="0" * 64),
             lambda value: value["dependencies"]["windows"].update(supported=["Windows 11 x64"]),
-            lambda value: value["dependencies"]["calibre"].update(version="9.14.0"))
+            lambda value: value["dependencies"]["calibre"].update(minimum_version="9.14.0"),
+            lambda value: value["dependencies"]["calibre"].update(version="9.17.0"))
         for mutation in mutations:
             value = deepcopy(self.manifest)
             mutation(value)

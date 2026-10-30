@@ -14,7 +14,9 @@ publication status are recorded in the linked repair evidence.
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
 from one of the accepted branches below. The application uses plain **pypdf
-6.21.3**; EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.15.0**.
+6.21.4**, installed by application-local setup; this is separate from the Python
+version. EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.17.0
+or newer stable release**. An existing newer stable Calibre does not need a downgrade.
 Developer renderers, Pester and fixture packages are not application requirements.
 Final-release platform evidence belongs to the exact release archive; these
 setup instructions do not certify an untested ZIP or a clean operating system.
@@ -161,11 +163,11 @@ are not promised to be portable.
 
 ## Offline package setup
 
-Place the exact reviewed file `pypdf-6.21.3-py3-none-any.whl` in an ordinary local
+Place the exact reviewed file `pypdf-6.21.4-py3-none-any.whl` in an ordinary local
 wheelhouse directory. Its SHA-256 must be:
 
 ```text
-c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e
+33e4fb41ca352810eb4e9838aa0d82d6888a5f8bf682f43e99cce5faa666255c
 ```
 
 Then run:
@@ -222,7 +224,8 @@ Windows binaries are unavailable in the reviewed catalog. End users are not
 required to compile Python, so these branches are excluded. Prereleases,
 free-threaded builds, PyPy and 32-bit/ARM processes are also excluded. Unlisted
 minors such as 3.16 are not yet validated for this release; that reason does not
-label an unknown minor insecure. The exact pypdf 6.21.3 lock and Calibre 9.15.0 check remain
+label an unknown minor insecure. The exact pypdf 6.21.4 lock and numeric Calibre
+9.17.0 security minimum remain
 separate from Python's multi-minor policy.
 
 For processing, an explicit `-PythonPath` is authoritative, followed by an existing
@@ -236,12 +239,15 @@ do not remove the guards.
 
 ## Calibre, unsigned scripts and Windows servicing
 
-For ebooks, install [Calibre 9.15.0](https://download.calibre-ebook.com/9.15.0/)
-separately and use the application's `-CalibrePath` when its trusted
+For ebooks, use [stable Calibre 9.17.0 or newer](https://calibre-ebook.com/download_windows64)
+and use the application's `-CalibrePath` when its trusted
 `ebook-convert.exe` is outside automatic discovery. PDF-only processing does not
 inspect or require Calibre. WinBookSplit runs with your account's privileges;
 dependency validation is not an OS network sandbox for Calibre/plugins or
 external ebook resources.
+
+Exact Calibre versions and executable hashes in test evidence identify test
+targets and do not impose a production patch-equality restriction.
 
 The scripts are unsigned. If Windows or organization policy blocks execution,
 follow that policy. Do not elevate or apply a global execution-policy change.

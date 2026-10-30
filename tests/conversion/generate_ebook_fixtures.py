@@ -17,8 +17,8 @@ import subprocess
 import zipfile
 
 
-EXPECTED_CALIBRE_VERSION = "9.15.0"
-EXPECTED_CALIBRE_SHA256 = "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
+EXPECTED_CALIBRE_VERSION = "9.17.0"
+EXPECTED_CALIBRE_SHA256 = "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea"
 CHAPTER_MARKERS = ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"]
 CHAPTER_TITLES = ["Chapter One", "Chapter Two", "Chapter Three"]
 
@@ -88,7 +88,7 @@ def generate(directory, calibre):
     directory = Path(directory).resolve()
     calibre = Path(calibre).resolve(strict=True)
     if not calibre.is_file() or digest(calibre) != EXPECTED_CALIBRE_SHA256:
-        raise RuntimeError("Fixture generation requires the recorded trusted Calibre 9.15.0 executable bytes")
+        raise RuntimeError("Fixture generation requires the recorded trusted Calibre 9.17.0 executable bytes")
     directory.mkdir(parents=True, exist_ok=True)
     if any(directory.iterdir()):
         raise RuntimeError("Fixture destination must be a new or empty owned directory")

@@ -75,7 +75,7 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
         $before = (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash
         $loaded = Get-WinBookSplitCompatibilityPolicy $path
         $loaded.schema_version | Should -Be 1
-        $loaded.policy_version | Should -Be 5
+        $loaded.policy_version | Should -Be 6
         $loaded.python.branches.Count | Should -Be 3
         (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash | Should -BeExactly $before
     }
@@ -133,7 +133,7 @@ Describe 'V101 malformed policy fails closed' -Tag 'V101-AC-013' {
             { param($p) $p.excluded_python_branches[0].minor=14 },
             { param($p) $p.excluded_python_branches+=@($p.excluded_python_branches[0]) },
             { param($p) $p.pypdf.version='6.20' }, { param($p) $p.pypdf.wheel_sha256=('A'*64) },
-            { param($p) $p.calibre.version=$true }
+            { param($p) $p.calibre.minimum_version=$true }
         )
         foreach ($mutate in $mutations) {
             $policy = Copy-CompatibilityPolicy; & $mutate $policy

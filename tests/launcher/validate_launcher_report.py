@@ -263,7 +263,7 @@ def validate_launcher_report(report, requested_shells, calibre):
         need(all(manifest[name] == value for name, value in row["application_sha256"].items()), "Copied application differs from tested source bytes")
     fixtures, refs = report.get("fixture_provenance"), report.get("real_conversion_references")
     need(isinstance(fixtures, dict) and fixtures.get("authored_original") is True and fixtures.get("remote_resources") is False
-         and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.15.0"
+         and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.17.0"
          and fixtures.get("azw3_generation", {}).get("exit_code") == 0, "Offline genuine EPUB/AZW3 provenance absent")
     need(isinstance(refs, dict) and set(refs) == {"epub", "azw3"}, "Independent converter controls absent")
     for fmt, reference in refs.items():

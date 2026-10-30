@@ -25,7 +25,7 @@ APPLICATION = ("VERSION", "WinBookSplit.ps1", "WinBookSplit.bat", "Export-WinBoo
     "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py",
     "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
     "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
-CALIBRE_SHA256 = "f46a01c9b8cd392e1190ce2e50a2a5a48b326c8c3eab670bbcd8b298bede501d"
+CALIBRE_SHA256 = "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea"
 
 
 def load(name, path):
@@ -585,11 +585,11 @@ def validate_ebooks_report(report, requested_shell_paths, requested_calibre_path
          and provenance.get("chapter_markers") == MARKERS and provenance.get("chapter_titles") == TITLES,
          "Original authored provenance changed/missing")
     calibre, renderer = report.get("calibre", {}), report.get("renderer", {})
-    need(calibre == provenance.get("calibre") and calibre.get("path") == requested_calibre_path and calibre.get("version") == "9.15.0"
+    need(calibre == provenance.get("calibre") and calibre.get("path") == requested_calibre_path and calibre.get("version") == "9.17.0"
          and calibre.get("sha256") == CALIBRE_SHA256 and renderer.get("path") == requested_renderer_path and renderer.get("version") == "26.07.0"
          and valid_hash(renderer.get("sha256")), "Actual pinned converter/renderer identity differs")
     validate_process(calibre.get("version_observation"), command=[requested_calibre_path, "--version"])
-    need("calibre 9.15.0" in calibre["version_observation"]["stdout"], "Pinned native Calibre version output missing")
+    need("calibre 9.17.0" in calibre["version_observation"]["stdout"], "Pinned native Calibre version output missing")
     validate_process(renderer.get("probe"), command=[requested_renderer_path, "-v"])
     need("pdftoppm version 26.07.0" in renderer["probe"]["stderr"], "Pinned actual renderer version output missing")
     files = {item["format"]: item for item in provenance["files"]}

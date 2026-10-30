@@ -12,7 +12,7 @@ minors remain unvalidated. Use .\Setup-WinBookSplit.bat -NonInteractive to prepa
 the application-local environment with its locked pypdf. Host execution policy
 is process-scoped; enforced organization controls still apply. An interactive
 launch can prepare the application .venv once after explicit consent, then
-resume. Preview and NonInteractive never install. Ebooks require locked Calibre.
+resume. Preview and NonInteractive never install. Ebooks require supported stable Calibre.
 See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
@@ -344,7 +344,7 @@ function Get-WinBookSplitDependencySummary {
     elseif ($code -cin @('converter_invalid', 'converter_not_found')) {
         $reason = 'converter_unavailable'; $message = 'A compatible trusted Calibre converter was not found.'
         $summaryStage='converter';$summarySource='converter'
-        $action = 'Select trusted Calibre ' + $policy['calibre']['version'] + ' ebook-convert.exe with -CalibrePath, then retry.'
+        $action = 'Select trusted stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer ebook-convert.exe with -CalibrePath, then retry.'
     }
     else {
         $basePath = $null

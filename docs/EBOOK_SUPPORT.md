@@ -8,9 +8,12 @@ Published v1.0.3 assets retain their original bytes and behavior. Ebook DRM and
 unrelated document/process restrictions remain unchanged.
 
 WinBookSplit converts an EPUB or AZW3 to PDF using the selected installed
-Calibre `ebook-convert.exe` (tested with 9.15.0), then splits that generated PDF through the
+Calibre `ebook-convert.exe` (stable 9.17.0 or newer), then splits that generated PDF through the
 same validated physical-page plan used for PDF inputs. The original ebook is
 an immutable input. The outputs are PDF chapters. Install Calibre separately.
+The numeric security minimum permits later stable releases. Exact converter
+versions and binary hashes in evidence identify the tested target, rather than
+requiring users to install that precise patch.
 The interactive application can prepare the locked PDF
 package with explicit consent and resume the original request, as described in
 [setup](SETUP.md). Preview and NonInteractive runs never prompt or install.

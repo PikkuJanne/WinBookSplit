@@ -26,10 +26,10 @@ def synthetic_probe():
             "Stdout": "", "Stderr": "", "StdoutTotalBytes": 0, "StderrTotalBytes": 0, "ElapsedSeconds": 0.2}
 
 
-def synthetic_export(pypdf_version="6.21.3"):
+def synthetic_export(pypdf_version="6.21.4"):
     oracle = {"protocol": "winbooksplit.native-oracle", "schema_version": 1, "success": True,
               "plan_sha256": "a" * 64, "application_version": "1.0.1", "policy_sha256": "b" * 64,
-              "runtime_versions": {"python": "3.15.0", "pypdf": pypdf_version, "calibre": "9.15.0"},
+              "runtime_versions": {"python": "3.15.0", "pypdf": pypdf_version, "calibre": "9.17.0"},
               "source_unchanged": True, "cases": [{"id": name, "status": "PASS", "exit_code": 0, "error_code": None} for name in smoke.CASE_IDS],
               "limits": ["No Explorer gesture was performed.", "All native artifacts are preserved locally."]}
     policies = [{"scope": scope, "policy": "Bypass" if scope == "Process" else "Undefined"}
@@ -212,7 +212,7 @@ class PureOracleControls(unittest.TestCase):
         self.assertEqual(result["execution"], "USER_LAUNCHED_AUTOMATED")
 
     def test_standalone_export_accepts_coherent_historical_and_current_package_versions(self):
-        for version in ("6.20.0", "6.21.1", "6.21.3"):
+        for version in ("6.20.0", "6.21.1", "6.21.4"):
             raw = synthetic_export(pypdf_version=version)
             with self.subTest(version=version), patch.object(smoke, "RUNTIME_POLICY", None):
                 result = smoke.export_report(raw)
@@ -224,7 +224,7 @@ class PureOracleControls(unittest.TestCase):
 
     def test_standalone_export_rejects_header_and_child_package_version_mismatches(self):
         for version, other in (("6.20.0", "6.21.1"), ("6.21.1", "6.20.0"),
-                               ("6.21.1", "6.21.3"), ("6.21.3", "6.21.1")):
+                               ("6.21.1", "6.21.4"), ("6.21.4", "6.21.1")):
             for target in ("header", "child", "broken-child"):
                 raw = synthetic_export(pypdf_version=version)
                 if target == "header":
@@ -414,7 +414,7 @@ class PublicationOracleControls(unittest.TestCase):
         self.run_id = "a" * 32
         self.final = self.base / ("Original_" + self.run_id)
         self.final.mkdir()
-        smoke.RUNTIME_POLICY = {"pypdf": {"version": "6.21.3"}}
+        smoke.RUNTIME_POLICY = {"pypdf": {"version": "6.21.4"}}
         source = self.base / "source.pdf"
         writer = PdfWriter()
         for width in (101, 102, 103):
@@ -431,7 +431,7 @@ class PublicationOracleControls(unittest.TestCase):
             reader = PdfReader(source)
             for page in reader.pages[start:end]:
                 writer.add_page(page)
-            writer.add_metadata({"/Title": title, "/Creator": "WinBookSplit", "/Producer": "WinBookSplit 1.0.1 (pypdf 6.21.3)"})
+            writer.add_metadata({"/Title": title, "/Creator": "WinBookSplit", "/Producer": "WinBookSplit 1.0.1 (pypdf 6.21.4)"})
             writer.add_outline_item(title, 0)
             with target.open("xb") as stream:
                 writer.write(stream)

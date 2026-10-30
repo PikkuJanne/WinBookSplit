@@ -1,7 +1,7 @@
 # Runtime and converter acceptance
 
 Run this layer with the explicit fresh developer Python, both supported shell
-paths, an external new report and the recorded Calibre 9.15.0 executable:
+paths, an external new report and the recorded Calibre 9.17.0 executable:
 
 ```powershell
 & $DeveloperPython -I -B tests/run_tests.py --layer runtime --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --report $NewExternalReport

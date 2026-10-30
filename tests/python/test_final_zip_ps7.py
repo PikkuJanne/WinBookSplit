@@ -43,7 +43,7 @@ class Ps7BindingControls(unittest.TestCase):
             for index in range(count):writer.add_blank_page(width=101+index,height=113)
             with (fixtures/name).open('xb') as stream:writer.write(stream)
             self.bindings['fixtures'][name]={'sha256':sha256((fixtures/name).read_bytes()).hexdigest()}
-        self.runtime={'executable':str(self.python),'version':'3.14.8','pypdf_version':'6.21.3','pypdf_path':str(self.package)}
+        self.runtime={'executable':str(self.python),'version':'3.14.8','pypdf_version':'6.21.4','pypdf_path':str(self.package)}
         self.original={'python_path':str(self.python),'runtime':self.runtime}
         self.prior={'os':{'Caption':'Microsoft Windows 11 Pro','Version':'10.0.26300','BuildNumber':'26300',
                     'ProductType':1,'processor_architectures':[9],'os_bits':64,'process_bits':64}}
@@ -53,7 +53,7 @@ class Ps7BindingControls(unittest.TestCase):
         self.context=(self.bindings,self.original,self.app,[],smoke,windows,self.prior)
 
     def prepare(self):
-        with patch.object(adapter,'context',return_value=self.context),patch.object(smoke,'compatibility',SimpleNamespace(validate_interpreter=lambda record,policy:{'ok':True})),patch.object(smoke,'RUNTIME_POLICY',{'pypdf':{'version':'6.21.3'}}):
+        with patch.object(adapter,'context',return_value=self.context),patch.object(smoke,'compatibility',SimpleNamespace(validate_interpreter=lambda record,policy:{'ok':True})),patch.object(smoke,'RUNTIME_POLICY',{'pypdf':{'version':'6.21.4'}}):
             return adapter.prepare(self.args)
 
     def test_positive_controlled_prepare_preserves_prior_os_and_actual_fixture_bytes(self):

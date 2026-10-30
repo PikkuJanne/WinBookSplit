@@ -1,7 +1,7 @@
 # Actual Windows CLI acceptance
 
 Run with the pinned developer Python, both explicit supported hosts, the recorded
-real Calibre 9.15.0 executable and a new external report:
+real Calibre 9.17.0 executable and a new external report:
 
 ```powershell
 & $DeveloperPython -I -B tests/run_tests.py --layer cli --shell-path $PS51 --shell-path $PS7 --calibre-path $Calibre --report $NewExternalReport

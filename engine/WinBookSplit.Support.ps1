@@ -219,7 +219,7 @@ function ConvertTo-WinBookSplitSupportSummary {
     $versions = [ordered]@{}
     . (Join-Path $PSScriptRoot 'WinBookSplit.Compatibility.ps1')
     $compatibility = Get-WinBookSplitCompatibilityPolicy
-    $pins = @{ pypdf=@($compatibility['pypdf']['version']); calibre=@($compatibility['calibre']['version']) }
+    $pins = @{ pypdf=@($compatibility['pypdf']['version']) }
     foreach ($name in @('powershell','python','pypdf','calibre')) {
         $value = Get-WinBookSplitSupportField $runtime $name
         $versions[$name] = $null
@@ -232,6 +232,10 @@ function ConvertTo-WinBookSplitSupportSummary {
             elseif ($name -ceq 'python') {
                 $decision = Test-WinBookSplitPythonVersion -Version $value -Policy $compatibility
                 if (-not $decision.Ok) { throw 'Invalid diagnostic Python version for the shipped compatibility policy.' }
+                $versions[$name] = $value
+            }
+            elseif ($name -ceq 'calibre') {
+                if (-not (Test-WinBookSplitCalibreVersion -Version $value -Policy $compatibility)) { throw 'Invalid diagnostic Calibre version for the shipped compatibility policy.' }
                 $versions[$name] = $value
             }
             else { $versions[$name] = Get-WinBookSplitSupportToken $value $pins[$name] }

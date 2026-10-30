@@ -81,8 +81,18 @@ fixtures and outputs remain local. A prerequisite or process failure produces
 FAIL/BLOCKED/NOT_RUN evidence and never counts as a pass. Enforced organization
 signing rules require an approved route and are never retried through encoded code.
 
-The legacy finite cases cover Version/help, installation, Check/no-op, actual setup BAT on Internet-marked scripts, exact emitted PowerShell Action execution, preserved broken-environment Repair, RemoteSigned direct-script denial, observed child/parent policy scopes, manual and both Auto modes, a later first start, repeat publication, Preview, invalid input, missing bookmarks, cancellation, missing Python/pypdf, genuine EPUB/AZW3 keep/discard, and the byte-identical processing BAT's one/two-source forwarding. The maintained remedy regression uses authenticated copies of the exact extracted ZIP members and original authored PDFs. It requires no owner Python 3.14 or PowerShell 7 installation. Optional reviewed PS7 is supplied only for agent workstation coverage. Timeout, cancellation, failed-legacy-launcher and mocked organization-policy controls retain explicit controlled/simulation labels. A mocked organization refusal
+The legacy finite cases cover Version/help, installation, Check/no-op, actual setup BAT on Internet-marked scripts, exact emitted PowerShell Action execution, preserved broken-environment Repair, RemoteSigned direct-script denial, observed child/parent policy scopes, manual and both Auto modes, a later first start, repeat publication, Preview, invalid input, missing bookmarks, cancellation, missing Python/pypdf, genuine EPUB/AZW3 keep/discard, and the byte-identical processing BAT's one/two-source forwarding. The maintained remedy regression uses authenticated copies of the exact extracted ZIP members and original authored PDFs. Its noninteractive processing probe preserves the dependency failure without offering setup. A separate actual `Setup-WinBookSplit.ps1 -Check -NonInteractive` emits the structured Action; the harness requires no changes or setup operations, validates every literal command element, executes that exact text, and retries the unchanged original split request with interactive plan confirmation. Public Check has no document argument; the processing probe retains the original input path and the expected Action base is required to be outside its directory. These are explicit developer fixtures, not ordinary discovery or consent/resume acceptance. No owner Python or PowerShell installation is requested. Optional reviewed PS7 is supplied only for agent workstation coverage. Timeout, cancellation, failed-legacy-launcher and mocked organization-policy controls retain explicit controlled/simulation labels. A mocked organization refusal
 is a guard control, not a claim that real organization enforcement was tested. Physical pages, exact source/fixture hashes, selected interpreter/package origins, console ownership and complete process stop/drain are validated before PASS.
+
+The remedy harness reads its expected pypdf version through the authenticated
+application's strict compatibility policy; historical dependency pins are not
+substituted for the selected package source.
+
+The older `kit_builder.py` acquisition recipes retain their historical pypdf
+6.21.3 and Calibre 9.15.0 pins, as do their already built kits. Those recipes are
+outside current release acceptance and are not used to provision its test tools.
+Current checks use the newly frozen application and separately authenticated
+6.21.4/9.17.0 tools; no archived kit is rebuilt or relabelled.
 
 BAT cases retain its actual default Documents directory and authenticate only emitted owned paths. The Explorer path is unchanged; no repeated manual sign-off is requested. The harness retains all raw work and performs no recursive acceptance-work cleanup.
 

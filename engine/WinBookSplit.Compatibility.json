@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
-  "policy_version": 5,
-  "reviewed_on": "2026-10-27",
+  "policy_version": 6,
+  "reviewed_on": "2026-10-30",
   "python": {
     "implementation": "cpython",
     "platform": "win32",
@@ -40,11 +40,11 @@
     ]
   },
   "pypdf": {
-    "version": "6.21.3",
-    "wheel_sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e"
+    "version": "6.21.4",
+    "wheel_sha256": "33e4fb41ca352810eb4e9838aa0d82d6888a5f8bf682f43e99cce5faa666255c"
   },
   "calibre": {
-    "version": "9.15.0"
+    "minimum_version": "9.17.0"
   },
   "excluded_python_branches": [
     {
@@ -136,33 +136,33 @@
     },
     {
       "id": "PypdfMetadata",
-      "url": "https://pypi.org/pypi/pypdf/6.21.3/json",
-      "relevance": "Exact non-yanked pypdf 6.21.3 wheel hash, 409554-byte size and Python >=3.9 feasibility metadata verified on 2026-10-27. Internal METADATA matches the official digest; BSD license bytes equal the retained 6.21.1 wheel. Metadata is not application test or security-clearance evidence."
+      "url": "https://pypi.org/pypi/pypdf/6.21.4/json",
+      "relevance": "Exact non-yanked pypdf 6.21.4 official wheel SHA256 and 410430-byte size verified on 2026-10-30. Runtime Python requirements and earlier dependency security guards are preserved; metadata alone is not native acceptance or security clearance."
     },
     {
       "id": "PypdfMultipleFilters",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f",
-      "relevance": "The October 9 multiple-filter memory-consumption advisory was patched in 6.20.0; 6.21.3 retains that fix. Preserve the separate exact package lock and existing guards."
+      "relevance": "The October 9 multiple-filter memory-consumption advisory was patched in 6.20.0; 6.21.4 retains that fix. Preserve the separate exact package lock and existing guards."
     },
     {
       "id": "PypdfArrayDictionary",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-f54x-cmq8-qg57",
-      "relevance": "Large-array/dictionary parsing memory consumption affects versions below 6.21.0. Upstream identifies 6.21.0 as fixed; selected 6.21.3 retains the parser-limit fields. Small reduced-limit checks are separate dependency evidence, not full application or memory-sandbox acceptance."
+      "relevance": "Large-array/dictionary parsing memory consumption affects versions below 6.21.0. Upstream identifies 6.21.0 as fixed; selected 6.21.4 retains the parser-limit fields. Small reduced-limit checks are separate dependency evidence, not full application or memory-sandbox acceptance."
     },
     {
       "id": "PypdfContentParsing",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cgf9-327m-v77c",
-      "relevance": "Many-small-operation content-stream parsing memory consumption affects versions below 6.21.0. Selected 6.21.3 retains the upstream parsing-work budget. Explicit developer operations parsing does not establish application reachability or universal protection."
+      "relevance": "Many-small-operation content-stream parsing memory consumption affects versions below 6.21.0. Selected 6.21.4 retains the upstream parsing-work budget. Explicit developer operations parsing does not establish application reachability or universal protection."
     },
     {
       "id": "PypdfFormFields",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-6vvc-x485-93v7",
-      "relevance": "Advisory prose identifies the form-field entry/depth fix in 6.21.0. Its patched-version field is inconsistent with its affected range and prose; that discrepancy remains recorded in historical T08 gate-review evidence. Selected 6.21.3 retains form-field limit fields; no production form-field API call or comprehensive exemption is claimed."
+      "relevance": "Advisory prose identifies the form-field entry/depth fix in 6.21.0. Its patched-version field is inconsistent with its affected range and prose; that discrepancy remains recorded in historical T08 gate-review evidence. Selected 6.21.4 retains form-field limit fields; no production form-field API call or comprehensive exemption is claimed."
     },
     {
       "id": "PypdfJpegLoading",
       "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5hx5-vpf9-5wcv",
-      "relevance": "The JPEG image-loading advisory affects versions below 6.21.1 and names 6.21.1 as fixed. Selected 6.21.3 retains that fix; production does not call image-extraction APIs, which is not a general hostile-document exemption."
+      "relevance": "The JPEG image-loading advisory affects versions below 6.21.1 and names 6.21.1 as fixed. Selected 6.21.4 retains that fix; production does not call image-extraction APIs, which is not a general hostile-document exemption."
     },
     {
       "id": "PypdfXrefStreams",
@@ -177,7 +177,7 @@
     {
       "id": "Pypdf6212Security",
       "url": "https://github.com/py-pdf/pypdf/releases/tag/6.21.2",
-      "relevance": "The 2026-10-21 release lists fixes for repeated full-file loads (4240) and standard xref table size (4239), later than former 6.21.1. Selected 6.21.3 includes these changes; retained older candidate acceptance does not transfer to changed bytes."
+      "relevance": "The 2026-10-21 release lists fixes for repeated full-file loads (4240) and standard xref table size (4239), later than former 6.21.1. Selected 6.21.4 includes these changes; retained older candidate acceptance does not transfer to changed bytes."
     },
     {
       "id": "Pypdf6213Security",
@@ -197,7 +197,42 @@
     {
       "id": "CalibreAdvisories",
       "url": "https://api.github.com/repos/kovidgoyal/calibre/security-advisories?per_page=100",
-      "relevance": "The retained 2026-10-12 advisory review inspected 21 published records and excluded 9.15.0 from their affected ranges. This pypdf-only policy revision does not claim a new Calibre advisory review; recheck at release."
+      "relevance": "The historical 2026-10-12 review remains evidence only for its original scope. The 2026-10-30 review identifies seven October 23 advisories; local ebook HTML decoding is affected through 9.16.0 and fixed in 9.17.0. Server/log advisories do not by themselves establish local CLI reachability. Use the new numeric minimum and preserve process/path guards."
+    },
+    {
+      "id": "PypdfXrefTrailerEOF",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-5849-834g-hvw5",
+      "relevance": "Published 2026-10-28: incomplete standard xref trailer search may loop in versions below 6.21.4; fixed in 6.21.4. Reader initialization occurs before application structural preflight."
+    },
+    {
+      "id": "PypdfPageFlattenBudget",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-cggf-277g-3q54",
+      "relevance": "Published 2026-10-28: page-tree shared-resource flattening may consume large memory below 6.21.4; fixed in 6.21.4. Application physical-page access uses reader.pages; bounds are not an OS memory sandbox."
+    },
+    {
+      "id": "PypdfDictionaryCloneCycle",
+      "url": "https://github.com/py-pdf/pypdf/security/advisories/GHSA-mfr5-77xh-9j7h",
+      "relevance": "Published 2026-10-28: DictionaryObject cloning cycle detection can loop below 6.21.4; fixed in 6.21.4. Chapter writing calls add_page and projected-annotation clone."
+    },
+    {
+      "id": "Pypdf6214Security",
+      "url": "https://github.com/py-pdf/pypdf/releases/tag/6.21.4",
+      "relevance": "The 2026-10-28 release contains the xref EOF, page-attribute flattening budget and dictionary source-cycle fixes. Earlier 6.21.3 source/package receipts retain their original byte scope."
+    },
+    {
+      "id": "CalibreHtmlEntityDecoder",
+      "url": "https://github.com/kovidgoyal/calibre/security/advisories/GHSA-j84x-7j7f-vwx9",
+      "relevance": "Published 2026-10-23: HTML entity decoder heap overwrite affects versions through 9.16.0, fixed in 9.17.0. Unconditional OEB item decoding is relevant to local EPUB/AZW3 conversion. Accept stable numeric 9.17.0 or newer; separately recorded exact test binary hashes do not restrict production to that patch."
+    },
+    {
+      "id": "Calibre917Windows",
+      "url": "https://calibre-ebook.com/download_windows64",
+      "relevance": "Verified on 2026-10-30: official stable Windows x64 download is 9.17.0 and its prerequisite is Windows 10 version 1809 or newer. Official portable installer bytes were authenticated separately before bounded application-local test extraction; exact executable hashes are QA provenance, not production patch-equality gates."
+    },
+    {
+      "id": "Calibre917Installer",
+      "url": "https://raw.githubusercontent.com/kovidgoyal/calibre/v9.17.0/bypy/windows/wix-template.xml",
+      "relevance": "The exact 9.17.0 MSI source permits Windows builds 10240 or newer; the current download page states Windows 10 version 1809 or newer. These are upstream prerequisite observations, not a native WinBookSplit Windows 10 acceptance claim."
     }
   ]
 }

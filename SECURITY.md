@@ -41,10 +41,10 @@ every accepted interpreter or document secure. The patched 3.11/3.12 releases
 are source-only and lack a patched official Windows binary in the reviewed
 catalog, so those branches are excluded from this application policy.
 
-pypdf is separately locked to 6.21.3 and its reviewed wheel SHA256,
+pypdf is separately locked to 6.21.4 and its reviewed wheel SHA256,
 retaining the upstream
 [multiple-filter fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f).
-Optional ebook conversion remains locked to Calibre 9.15.0. Do not bypass
+Optional ebook conversion accepts stable Calibre 9.17.0 or newer. Do not bypass
 origin, document-feature, encryption, process or cleanup checks to resolve a
 dependency error. Use the consent offer or explicit [application-local setup](docs/SETUP.md)
 through `Setup-WinBookSplit.bat` or the complete process-host command. Empty-password
@@ -53,6 +53,20 @@ entry, guessing or DRM removal. Source files are never externally decrypted or
 resaved, and chapter PDFs are unencrypted without the ignored opening view. The
 scripts are unsigned; Internet marks remain intact and persistent execution
 policy is unchanged. Enforced organization controls still apply.
+
+The 30 October update selects pypdf 6.21.4 for the newly published
+[xref-trailer EOF loop](https://github.com/py-pdf/pypdf/security/advisories/GHSA-5849-834g-hvw5),
+[page-tree resource consumption](https://github.com/py-pdf/pypdf/security/advisories/GHSA-cggf-277g-3q54)
+and [dictionary-cloning cycle](https://github.com/py-pdf/pypdf/security/advisories/GHSA-mfr5-77xh-9j7h)
+fixes. Reader initialization, physical-page access and chapter cloning use the
+relevant library paths. The earlier dependency guards remain necessary.
+
+Calibre 9.17.0 is the security minimum for the
+[HTML entity decoder heap overwrite](https://github.com/kovidgoyal/calibre/security/advisories/GHSA-j84x-7j7f-vwx9),
+which affects versions through 9.16.0 and can be reached during local ebook
+conversion. Later stable numeric versions are accepted with the existing path,
+banner and process checks. Calibre remains optional for PDF-only use. A recorded
+exact test binary is not a requirement to downgrade another supported release.
 
 The earlier 18 October review covered upstream fixes to
 excessive memory consumption while parsing
@@ -82,7 +96,8 @@ untested and are disclosed. The owner's subsequent repair order removes all
 human testing and owner sign-off from active scope. Unavailable ordinary Store,
 Windows 10 and other native scenarios remain NOT_RUN evidence limits with no
 owner action required; explicit-runtime or component passes do not prove them.
-Version 1.0.4 preserves these dependency locks and security floors. Its
+Version 1.0.4 preserves hash-locked setup and Python security floors while applying
+the current dependency repairs described above. Its
 exact-source/package results, publication status and limits are in the
 [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 The reviewed fixes do not establish general security

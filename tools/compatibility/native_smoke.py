@@ -229,7 +229,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
     versions, settings, logged = record.get("runtime_versions", {}), record.get("settings", {}), record.get("log", {})
     need(python_version_supported(versions.get("python")) and versions.get("pypdf") == RUNTIME_POLICY["pypdf"]["version"]
          and isinstance(versions.get("powershell"), str) and versions["powershell"].startswith(("5.1.", "7."))
-         and versions.get("calibre") in {None, RUNTIME_POLICY["calibre"]["version"]}, "Local run runtime versions differ")
+         and (versions.get("calibre") is None or compatibility.calibre_version_supported(versions["calibre"], RUNTIME_POLICY)), "Local run runtime versions differ")
     if expected_python_version is not None:
         need(versions.get("python") == expected_python_version, "Local run Python differs from the selected probe")
     need(settings.get("mode") == outcome.get("mode") and settings.get("input_kind") in {"pdf", "epub", "azw3"}
@@ -420,7 +420,7 @@ def fixture_catalog(root):
         need(isinstance(row, dict) and Path(row.get("name", "")).name == row.get("name") and row["name"], "fixture_name_invalid")
         actual = observation(root / row["name"])
         need(actual["sha256"] == row.get("sha256") and actual["size_bytes"] == row.get("size_bytes"), "fixture_hash_mismatch")
-    need(catalog.get("calibre", {}).get("version") == RUNTIME_POLICY["calibre"]["version"]
+    need(compatibility.calibre_version_supported(catalog.get("calibre", {}).get("version"), RUNTIME_POLICY)
          and catalog.get("azw3_generation", {}).get("exit_code") == 0
          and catalog["azw3_generation"].get("job_assigned_before_resume") is True
          and catalog["azw3_generation"].get("descendants_stopped") is True, "genuine_azw3_missing")
@@ -522,7 +522,7 @@ def prepare(args):
     need(tuple(case["id"] for case in cases) == CASE_IDS, "planned_case_members_differ")
     return {"protocol": "winbooksplit.native-plan", "schema_version": 1, "application_version": APP_VERSION, "application_root": str(app), "fixture_root": str(args.fixture_root),
             "work_root": str(work), "python_path": str(args.python_path), "bare_python_path": str(bare), "calibre_path": str(calibre), "documents_root": str(documents),
-            "policy_sha256": args.policy_sha256, "runtime": runtime, "application_files": sources, "immutable_files": immutable,
+            "policy_sha256": args.policy_sha256, "runtime": runtime, "calibre_version": fixtures["calibre"]["version"], "application_files": sources, "immutable_files": immutable,
             "fixture_manifest": observation(args.fixture_root / "native-fixtures.json"), "fixture_files": [observation(args.fixture_root / row["name"]) for row in fixtures["files"].values()], "cases": cases}
 
 
@@ -554,6 +554,8 @@ def validate(plan, raw, plan_digest):
     runtime = plan["runtime"]
     need(compatibility.validate_interpreter(runtime, RUNTIME_POLICY)["ok"] and runtime.get("policy_sha256") == RUNTIME_POLICY_SHA256
          and runtime.get("pypdf_version") == RUNTIME_POLICY["pypdf"]["version"], "planned_runtime_invalid")
+    need(compatibility.calibre_version_supported(plan.get("calibre_version"), RUNTIME_POLICY)
+         and plan["calibre_version"] == fixture_catalog(Path(plan["fixture_root"]))["calibre"]["version"], "planned_converter_version_invalid")
     references, allowed_bases, results, publications = {}, {}, [], set()
     for case, row in zip(plan["cases"], rows):
         identifier = case["id"]
@@ -645,7 +647,7 @@ def validate(plan, raw, plan_digest):
                     result.update(status="FAIL", error_code="output_base_members_differ")
     return {"protocol": "winbooksplit.native-oracle", "schema_version": 1, "success": all(row["status"] == "PASS" for row in results),
             "plan_sha256": plan_digest, "application_version": APP_VERSION, "policy_sha256": RUNTIME_POLICY_SHA256,
-            "runtime_versions": {"python": runtime["version"], "pypdf": runtime["pypdf_version"], "calibre": RUNTIME_POLICY["calibre"]["version"]},
+            "runtime_versions": {"python": runtime["version"], "pypdf": runtime["pypdf_version"], "calibre": plan["calibre_version"]},
             "source_unchanged": True, "cases": results, "limits": ["No Explorer gesture was performed.", "All native artifacts are preserved locally."]}
 
 

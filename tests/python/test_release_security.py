@@ -8,13 +8,58 @@ import sys
 import tempfile
 import unittest
 
-from pypdf import PdfReader, apply_configuration, get_configuration
+from pypdf import PdfReader, PdfWriter, apply_configuration, get_configuration
 from pypdf.errors import LimitReachedError, PdfReadError
 from pypdf.filters import decode_stream_data
 from pypdf.generic import (ArrayObject, ContentStream, DecodedStreamObject,
-                           DictionaryObject, EncodedStreamObject, NameObject)
+                           DictionaryObject, EncodedStreamObject, NameObject, TextStringObject)
 
 ROOT = Path(__file__).resolve().parents[2]
+
+
+class BoundedReadStream(BytesIO):
+    """Stop a broken parser after finite tiny reads, without a hanging child."""
+    def __init__(self, data):
+        if len(data) > 2048:
+            raise ValueError('Only tiny authored parser inputs are allowed')
+        super().__init__(data)
+        self.remaining_reads = 4096
+
+    def read(self, size=-1):
+        self.remaining_reads -= 1
+        if self.remaining_reads < 0:
+            raise AssertionError('Authored parser read budget exhausted')
+        return super().read(size)
+
+
+class BoundedCloneObjects(list):
+    """Bound destination growth while exercising the real dictionary cloner."""
+    def append(self, value):
+        if len(self) >= 32:
+            raise AssertionError('Authored dictionary clone object budget exhausted')
+        super().append(value)
+
+
+def tiny_shared_page_pdf():
+    """Three physical references copy five entries each, with no large resource."""
+    objects = (
+        b'<< /Type /Catalog /Pages 2 0 R >>',
+        b'<< /Type /Pages /Count 3 /Kids [3 0 R 3 0 R 3 0 R] /MediaBox [0 0 20 20] /Resources << >> >>',
+        b'<< /Type /Page /Parent 2 0 R /Marker (authored) >>',
+    )
+    result = bytearray(b'%PDF-1.4\n')
+    offsets = []
+    for number, body in enumerate(objects, 1):
+        offsets.append(len(result))
+        result.extend(str(number).encode('ascii') + b' 0 obj\n' + body + b'\nendobj\n')
+    start = len(result)
+    result.extend(b'xref\n0 4\n0000000000 65535 f \n')
+    for offset in offsets:
+        result.extend(f'{offset:010} 00000 n \n'.encode('ascii'))
+    result.extend(f'trailer\n<< /Root 1 0 R /Size 4 >>\nstartxref\n{start}\n%%EOF\n'.encode('ascii'))
+    if len(result) > 1024:
+        raise AssertionError('Authored shared page fixture must remain below 1 KiB')
+    return bytes(result)
 
 
 def small_xref_stream_pdf(counts):
@@ -42,6 +87,56 @@ def small_xref_stream_pdf(counts):
 
 
 class StreamResourceGuardTests(unittest.TestCase):
+    def test_standard_xref_missing_trailer_rejects_before_finite_read_watchdog(self):
+        # Upstream security fix: https://github.com/py-pdf/pypdf/pull/4289
+        # This tiny incomplete section reproduces the EOF loop, while the
+        # watchdog makes the old dependency fail without consuming unbounded work.
+        prefix = b'%PDF-1.4\nstartxref\n28\n%%EOF\n'
+        self.assertEqual(len(prefix), 28)
+        stream = BoundedReadStream(prefix + b'xref\n1 0\nend')
+        with self.assertRaisesRegex(PdfReadError, r'Xref parsing stuck at position'):
+            PdfReader(stream)
+        self.assertGreater(stream.remaining_reads, 0)
+        control = PdfReader(BoundedReadStream(tiny_shared_page_pdf()))
+        self.assertEqual(len(control.pages), 3)
+
+    def test_page_tree_copied_entries_have_a_small_document_budget_boundary(self):
+        # Upstream security fix: https://github.com/py-pdf/pypdf/pull/4290
+        original = getattr(get_configuration(), 'page_tree_maximum_page_entries', None)
+        self.assertEqual(original, 2_000_000)
+        document = tiny_shared_page_pdf()
+        with apply_configuration(page_tree_maximum_page_entries=15):
+            pages = list(PdfReader(BytesIO(document)).pages)
+            self.assertEqual(len(pages), 3)
+            self.assertTrue(all(set(page) == {'/Type', '/Parent', '/Marker', '/MediaBox', '/Resources'}
+                                and page['/Marker'] == 'authored' for page in pages))
+        with apply_configuration(page_tree_maximum_page_entries=14):
+            reader = PdfReader(BytesIO(document))
+            with self.assertRaisesRegex(LimitReachedError, 'Maximum page tree page entry limit exceeded'):
+                len(reader.pages)
+        self.assertEqual(get_configuration().page_tree_maximum_page_entries, original)
+        self.assertEqual(len(PdfReader(BytesIO(document)).pages), 3)
+
+    def test_dictionary_clone_tracks_source_cycles_with_bounded_destination(self):
+        # Upstream security fix: https://github.com/py-pdf/pypdf/pull/4288
+        source = PdfWriter()
+        nodes = [DictionaryObject({NameObject('/T'): TextStringObject(label)})
+                 for label in ('entry', 'second', 'third')]
+        references = [source._add_object(node) for node in nodes]
+        nodes[0][NameObject('/N')] = references[1]
+        nodes[1][NameObject('/N')] = references[2]
+        nodes[2][NameObject('/N')] = references[1]
+        destination = PdfWriter()
+        destination._objects = BoundedCloneObjects(destination._objects)
+        cloned = nodes[0].clone(destination, force_duplicate=True)
+        self.assertIsInstance(cloned, DictionaryObject)
+        self.assertEqual(cloned['/T'], 'entry')
+        self.assertEqual(cloned['/N']['/T'], 'second')
+        self.assertLess(len(destination._objects), 32)
+        self.assertEqual([node['/T'] for node in nodes], ['entry', 'second', 'third'])
+        self.assertEqual([node.raw_get('/N') for node in nodes],
+                         [references[1], references[2], references[1]])
+
     def test_array_parser_bounds_elements_and_restores_configuration(self):
         original = get_configuration().array_maximum_element_count
         self.assertEqual(original, 100_000)

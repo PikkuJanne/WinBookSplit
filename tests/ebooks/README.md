@@ -2,7 +2,7 @@
 
 `--layer ebooks` runs the inherited conversion stage and this M4-T04 companion.
 The companion uses both explicit Windows PowerShell 5.1 and PowerShell 7 hosts,
-the recorded Calibre 9.15.0 executable, and developer Poppler 26.07.0. It creates
+the recorded Calibre 9.17.0 executable, and developer Poppler 26.07.0. It creates
 only original EPUB material and a genuine unencrypted AZW3 generated from it.
 
 Four actual `Auto` level 1 runs retain the complete generated PDF; the second

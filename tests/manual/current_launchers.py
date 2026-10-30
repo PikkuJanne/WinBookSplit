@@ -174,7 +174,7 @@ def validate_console_evidence(receipt, outcome, log_sha256, *, source_path=None,
     versions, settings, logged = record.get("runtime_versions", {}), record.get("settings", {}), record.get("log", {})
     need(python_version_supported(versions.get("python")) and versions.get("pypdf") == RUNTIME_POLICY["pypdf"]["version"]
          and isinstance(versions.get("powershell"), str) and versions["powershell"].startswith(("5.1.", "7."))
-         and versions.get("calibre") in {None, "9.15.0"}, "Local run runtime versions differ")
+         and (versions.get("calibre") is None or compatibility.calibre_version_supported(versions["calibre"], RUNTIME_POLICY)), "Local run runtime versions differ")
     if expected_python_version is not None:
         need(versions.get("python") == expected_python_version, "Local run Python differs from the selected probe")
     need(settings.get("mode") == outcome.get("mode") and settings.get("input_kind") in {"pdf", "epub", "azw3"}

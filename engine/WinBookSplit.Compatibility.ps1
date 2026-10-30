@@ -104,8 +104,22 @@ function Assert-WinBookSplitCompatibilityPolicy {
     Assert-WinBookSplitCompatibilityKeys $Policy.pypdf @('version','wheel_sha256') 'pypdf policy'
     if ($null -eq (ConvertTo-WinBookSplitCompatibilityVersion $Policy.pypdf.version)) { throw 'Invalid locked pypdf version.' }
     if ($Policy.pypdf.wheel_sha256 -isnot [string] -or $Policy.pypdf.wheel_sha256 -cnotmatch '\A[0-9a-f]{64}\z') { throw 'Invalid locked pypdf wheel SHA256.' }
-    Assert-WinBookSplitCompatibilityKeys $Policy.calibre @('version') 'Calibre policy'
-    if ($null -eq (ConvertTo-WinBookSplitCompatibilityVersion $Policy.calibre.version)) { throw 'Invalid locked Calibre version.' }
+    Assert-WinBookSplitCompatibilityKeys $Policy.calibre @('minimum_version') 'Calibre policy'
+    $calibreMinimum = ConvertTo-WinBookSplitCompatibilityVersion $Policy.calibre.minimum_version
+    if ($null -eq $calibreMinimum -or @($calibreMinimum | Where-Object { $_ -gt 65535 }).Count -ne 0) { throw 'Invalid minimum Calibre version.' }
+}
+
+function Test-WinBookSplitCalibreVersion {
+    param($Version, $Policy)
+    $observed = ConvertTo-WinBookSplitCompatibilityVersion $Version
+    $minimum = ConvertTo-WinBookSplitCompatibilityVersion $Policy.calibre.minimum_version
+    if ($null -eq $observed -or $null -eq $minimum) { return $false }
+    if (@($observed | Where-Object { $_ -gt 65535 }).Count -ne 0 -or @($minimum | Where-Object { $_ -gt 65535 }).Count -ne 0) { return $false }
+    for ($index = 0; $index -lt 3; $index++) {
+        if ($observed[$index] -gt $minimum[$index]) { return $true }
+        if ($observed[$index] -lt $minimum[$index]) { return $false }
+    }
+    return $true
 }
 
 function Get-WinBookSplitCompatibilityPolicy {

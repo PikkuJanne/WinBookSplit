@@ -2,6 +2,13 @@
 
 ## 1.0.4
 
+- Updates the automatically installed, hash-locked pypdf library to 6.21.4 for
+  upstream xref-trailer EOF, page-tree resource and dictionary-cloning fixes.
+  Python's existing supported branches and security floors remain unchanged.
+- Replaces the former Calibre 9.15.0 equality requirement with a numeric security
+  minimum of 9.17.0, accepting later stable releases for optional EPUB/AZW3
+  conversion. PDF-only use remains independent of Calibre. Exact QA converter
+  versions and hashes identify test targets, not user patch requirements.
 - Interactive processing offers existing application-local setup or explicit
   backup-preserving repair once, proceeds only after consent, then rechecks the
   app environment and resumes the original request. Preview, noninteractive

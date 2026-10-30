@@ -178,7 +178,7 @@ def validate_run_manifest(manifest, row):
     need('-PythonPath' in parameters and selected['Path'] == parameters[parameters.index('-PythonPath') + 1],
          'Support selected Python differs from explicit native argument')
     need(runtime == {'powershell': row['host_version'], 'python': selected['Version'], 'pypdf': console.RUNTIME_POLICY['pypdf']['version'],
-                     'calibre': '9.15.0' if row['input_kind'] != 'pdf' else None}, 'Run manifest versions differ from resolved runtimes')
+                     'calibre': '9.17.0' if row['input_kind'] != 'pdf' else None}, 'Run manifest versions differ from resolved runtimes')
     original = row['source_observations_before']['source']
     source = manifest.get('source_identity')
     processed = row.get('expected_plan') is not None
@@ -357,7 +357,7 @@ def validate_summary(summary, manifest):
          'Support runtime whitelist differs')
     need(versions['powershell'] in {'5.1', '7'} and console.python_version_supported(versions['python'])
          and versions['pypdf'] == console.RUNTIME_POLICY['pypdf']['version']
-         and versions['calibre'] in {'9.15.0', None}
+         and versions['calibre'] in {'9.17.0', None}
          and re.fullmatch(r'(?:5\.1|7)\.\d+(?:\.\d+){0,2}', manifest['runtime_versions']['powershell']),
          'Support runtime includes an unsupported or private token')
     settings = summary['settings']
@@ -494,7 +494,7 @@ def validate_support_report(report, shells, calibre, *, cleanup_complete=True):
          'Real format/reference converter evidence missing')
     provenance = report.get('fixture_provenance')
     need(isinstance(provenance, dict) and provenance.get('authored_original') is True and provenance.get('remote_resources') is False
-         and provenance.get('calibre', {}).get('path') == calibre and provenance['calibre'].get('version') == '9.15.0'
+         and provenance.get('calibre', {}).get('path') == calibre and provenance['calibre'].get('version') == '9.17.0'
          and provenance.get('azw3_generation', {}).get('exit_code') == 0, 'Authored offline EPUB/genuine AZW3 provenance incomplete')
     for fmt, reference in refs.items():
         need(reference.get('process', {}).get('exit_code') == 0 and reference['process'].get('argv', [None])[0] == calibre

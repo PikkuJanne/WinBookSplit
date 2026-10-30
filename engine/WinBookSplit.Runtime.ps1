@@ -832,7 +832,7 @@ function Test-WinBookSplitConverterCandidate {
             throw 'The converter did not return a complete ebook-convert version probe.'
         }
         $version = $Matches[1]
-        if ($version -cne $policy['calibre']['version']) { throw ('Expected locked Calibre ' + $policy['calibre']['version'] + '; observed ' + $version + '.') }
+        if (-not (Test-WinBookSplitCalibreVersion -Version $version -Policy $policy)) { throw ('Expected stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer; observed ' + $version + '.') }
         $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Message = 'Supported converter version.'; Probe = $probe })
         return [pscustomobject]@{ Path = $path; Version = $version; Source = $Source; Probe = $probe; Attempts = @($Attempts.ToArray()) }
     } catch {
@@ -849,7 +849,7 @@ function Resolve-WinBookSplitConverter {
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
     catch { throw (New-WinBookSplitDependencyError 'converter_invalid' ('Compatibility policy could not be loaded: ' + $_.Exception.Message) $attempts 'malformed_policy') }
-    $guidance = 'Select trusted Calibre ' + $policy['calibre']['version'] + ' ebook-convert.exe with -CalibrePath, a trusted PATH entry, or a standard install; PDF-only processing does not require Calibre.'
+    $guidance = 'Select trusted stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer ebook-convert.exe with -CalibrePath, a trusted PATH entry, or a standard install; PDF-only processing does not require Calibre.'
     if (-not [string]::IsNullOrWhiteSpace($CalibrePath)) {
         $selected = Test-WinBookSplitConverterCandidate $CalibrePath 'explicit' $root $attempts $TimeoutSeconds
         if ($selected) { return $selected }

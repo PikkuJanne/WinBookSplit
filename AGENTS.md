@@ -20,7 +20,13 @@ publishes only its frozen accepted bytes under the direct continuation authority
 Preserve all old tags, assets and evidence; follow ordinary review/protection rules.
 
 Preserve the PowerShell/Python/pypdf/Calibre architecture, completed Store-Python
-discovery repair, dependency locks/security floors and unrelated safety checks.
+discovery repair, dependency lock/hash safeguards, Python security floors and
+unrelated safety checks. The owner's checkpoint-7 clarification authorizes the
+minimal current security repair: Setup automatically installs locked pypdf 6.21.4;
+optional Calibre uses a numeric 9.17.0 security minimum and accepts later stable
+versions, replacing the former exact-9.15.0 restriction. Existing Python support
+is preserved. Exact converter binaries in tests are provenance targets, not
+production patch-equality gates. Re-freeze and verify the changed source/package.
 The earlier blanket rejection of encrypted PDFs is superseded: support ordinary
 empty-password authentication, accurately reject inputs needing a nonempty
 password, and narrowly validate benign local PDF opening destinations. Likewise,

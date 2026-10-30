@@ -167,7 +167,9 @@ run. The full layer runs this manual regression route, corrected
 Level 1/2 bookmark routes, shared-plan acceptance, diagnostics, output transactions,
 path acceptance, real conversion, dependency preflight and process supervision after the units and both shell stages.
 Conversion/runtime/full requires an explicit absolute converter with the pinned Calibre
-9.15.0 bytes. PDF-only targeted layers do not require or probe Calibre.
+9.17.0 test-target bytes. This QA provenance pin is separate from the production
+numeric security minimum, which accepts 9.17.0 and later stable releases.
+PDF-only targeted layers do not require or probe Calibre.
 
 The bookmark layer executes corrected BM-01/02/05/08 targets, five bounded
 normalization cases, 150 seeded Level 1 plans and ten real writer samples. Its

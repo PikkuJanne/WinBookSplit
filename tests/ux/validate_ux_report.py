@@ -409,7 +409,7 @@ def validate_ux_report(report, requested_shells, calibre):
     need(report.get("case_count") == len(cases) + len(working), "UX native case count differs")
     fixtures = report.get("fixture_provenance", {})
     need(fixtures.get("authored_original") is True and fixtures.get("remote_resources") is False
-         and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.15.0"
+         and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.17.0"
          and fixtures.get("azw3_generation", {}).get("exit_code") == 0, "Real offline ebook fixture provenance missing")
     references = report.get("real_conversion_references")
     need(isinstance(references, dict) and set(references) == {"epub", "azw3"}, "Independent real conversion references missing")

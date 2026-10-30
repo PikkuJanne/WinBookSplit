@@ -214,7 +214,7 @@ def make_fake_converter(work, ps51):
 using System.IO;
 public class FakeConverter {
     public static int Main(string[] args) {
-        if (args.Length == 1 && args[0] == "--version") { Console.WriteLine("ebook-convert.exe (calibre 9.15.0)"); return 0; }
+        if (args.Length == 1 && args[0] == "--version") { Console.WriteLine("ebook-convert.exe (calibre 9.17.0)"); return 0; }
         if (args.Length < 2) return 3;
         string mode = Environment.GetEnvironmentVariable("WBS_FAKE_MODE");
         if (mode == "empty") File.WriteAllBytes(args[1], new byte[0]);
@@ -352,7 +352,7 @@ def launcher_case(identifier, shell, source, base, cwd, wrapper, calibre, refere
                             and isinstance(dependency_errors[0].get("Attempts"), list)
                             and all(item.get("Accepted") is False and item.get("Probe") is None for item in dependency_errors[0]["Attempts"]),
                             "Actual BAT missing converter lacks one authenticated dependency preflight failure")
-                    require("Calibre 9.15.0" in process["stdout"] and "-CalibrePath" in process["stdout"]
+                    require("Calibre 9.17.0" in process["stdout"] and "-CalibrePath" in process["stdout"]
                             and all(marker not in process["stdout"] + text for marker in ("[ENGINE]", "[CONVERSION]", "[DEPENDENCY] "))
                             and not any(line.startswith("{") for line in text.splitlines()),
                             "Actual BAT missing converter omitted precise guidance or started processing")

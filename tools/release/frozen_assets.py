@@ -193,8 +193,9 @@ def dependency_metadata(policy_bytes: bytes, requirements_bytes: bytes) -> dict:
         if type(pypdf) is not dict or set(pypdf) != {"version", "wheel_sha256"} \
                 or type(pypdf["version"]) is not str or not VERSION.fullmatch(pypdf["version"]) \
                 or type(pypdf["wheel_sha256"]) is not str or not SHA256.fullmatch(pypdf["wheel_sha256"]) \
-                or type(calibre) is not dict or set(calibre) != {"version"} \
-                or type(calibre["version"]) is not str or not VERSION.fullmatch(calibre["version"]):
+                or type(calibre) is not dict or set(calibre) != {"minimum_version"} \
+                or type(calibre["minimum_version"]) is not str or not VERSION.fullmatch(calibre["minimum_version"]) \
+                or any(int(part) > 65535 for part in calibre["minimum_version"].split(".")):
             raise PackageError("invalid_dependency_policy")
         requirement = "pypdf==" + pypdf["version"] + " --hash=sha256:" + pypdf["wheel_sha256"]
         lines = [line.strip() for line in requirements_bytes.decode("utf-8-sig", errors="strict").splitlines()
@@ -209,7 +210,7 @@ def dependency_metadata(policy_bytes: bytes, requirements_bytes: bytes) -> dict:
                        "policy_schema_version": policy["schema_version"], "policy_version": policy["policy_version"],
                        **python, "excluded_branches": excluded},
             "pypdf": {"version": pypdf["version"], "wheel_sha256": pypdf["wheel_sha256"], "requirement": requirement, "bundled": False},
-            "calibre": {"version": calibre["version"], "required_for": ["epub", "azw3"], "bundled": False}}
+            "calibre": {"minimum_version": calibre["minimum_version"], "required_for": ["epub", "azw3"], "bundled": False}}
     except (KeyError, TypeError, ValueError, UnicodeError, RecursionError) as error:
         raise PackageError("invalid_dependency_policy") from error
 

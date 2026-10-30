@@ -242,7 +242,7 @@ def validate_cli_report(report, requested_shells, calibre):
         need(all(manifest[name] == digest for name, digest in row["application_sha256"].items()), "Actual copied CLI bytes differ from tested source manifest")
     fixtures = report.get("fixture_provenance")
     need(isinstance(fixtures, dict) and fixtures.get("authored_original") is True and fixtures.get("remote_resources") is False
-        and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.15.0"
+        and fixtures.get("calibre", {}).get("path") == calibre and fixtures["calibre"].get("version") == "9.17.0"
         and fixtures.get("azw3_generation", {}).get("exit_code") == 0, "Actual offline EPUB/genuine AZW3 provenance absent")
     refs = report.get("real_conversion_references")
     need(isinstance(refs, dict) and set(refs) == {"epub", "azw3"}, "Independent real conversion references absent")

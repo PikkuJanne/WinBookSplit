@@ -205,7 +205,7 @@ Describe 'Consent and resume application components (SYNTHETIC runtime/setup sea
         $script:firstRunExplicit = 'C:\SYNTHETIC Python [base] & trusted\python.exe'
         $script:firstRunReady = [pscustomobject]@{
             Path = (Join-Path $script:firstRunApp '.venv\Scripts\python.exe')
-            Version = '3.15.0'; Source = 'application_venv'; PypdfVersion = '6.21.3'
+            Version = '3.15.0'; Source = 'application_venv'; PypdfVersion = '6.21.4'
         }
         $script:firstRunInitialFailure = New-FirstRunDependencyFailure
         $script:firstRunSetup = New-FirstRunSetupResult
