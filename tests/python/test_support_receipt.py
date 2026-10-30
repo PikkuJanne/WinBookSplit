@@ -101,7 +101,42 @@ def summary(manifest):
             'log': {key: manifest['log'][key] for key in ('max_bytes', 'body_limit_bytes', 'bytes_written', 'limit_reached')}}
 
 
+def synthetic_refusal_manifest(code='password_required', *, status='error', exit_code=7, written_count=0):
+    """Invented null-plan PDF refusal; no native exporter execution."""
+    manifest = synthetic_success()['run_manifest']
+    manifest['plan'] = None
+    manifest['source_identity'].update(binding='metadata_only', sha256=None)
+    manifest['settings']['normalized_inputs'] = None
+    frame = manifest['engine_result']
+    frame.update(status=status, code=code, exit_code=exit_code, written_count=written_count, plan=None, execution=None)
+    manifest['outcome'].update(status=status, code=code, exit_code=exit_code, written_count=written_count,
+                               final_directory=None, engine_result=deepcopy(frame))
+    return manifest
+
+
 class SupportReceiptTests(unittest.TestCase):
+    def test_null_plan_pdf_refusals_preserve_actual_status_and_specific_codes(self):
+        for code, status, exit_code in (('unsupported_document', 'unsupported', 7), ('password_required', 'error', 7),
+                                       ('unsupported_encryption', 'error', 7), ('encryption_backend_missing', 'error', 3)):
+            manifest = synthetic_refusal_manifest(code, status=status, exit_code=exit_code)
+            clean = summary(manifest)
+            with self.subTest(code=code):
+                validator.validate_summary(clean, manifest)
+                self.assertEqual(clean['outcome'], {'status': status, 'code': code,
+                                                  'exit_code': exit_code, 'written_count': 0})
+                self.assertIsNone(clean['plan'])
+
+    def test_resealed_pdf_refusal_status_exit_count_and_backend_swaps_reject(self):
+        for values in ({'status': 'success'}, {'status': 'preview'}, {'status': 'read_error'}, {'status': 'unsupported'},
+                       {'status': 'cancelled'}, {'exit_code': 3}, {'exit_code': 0}, {'written_count': 1},
+                       {'code': 'unsupported_encryption', 'status': 'unsupported'},
+                       {'code': 'encryption_backend_missing', 'exit_code': 3, 'status': 'unsupported'}):
+            manifest = synthetic_refusal_manifest(**values)
+            # Summary and source agree after resealing; semantic code/status guards must still reject.
+            manifest = validator.strict_json(compact(manifest))
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                validator.validate_summary(validator.strict_json(compact(summary(manifest))), manifest)
+
     def test_synthetic_second_branch_manifest_binds_to_its_full_selected_probe(self):
         row = synthetic_success()
         row['selected_runtime'] = runtime_fixture.selected_runtime(row['selected_runtime']['Path'], 'explicit', '3.13.16')
@@ -266,7 +301,8 @@ class SupportReceiptTests(unittest.TestCase):
 
     def test_fidelity_warning_categories_are_explicit_and_unknown_tokens_reject(self):
         categories = {'cross_chapter_link_dropped': 'navigation', 'navigation_link_dropped': 'navigation',
-                      'article_navigation_dropped': 'navigation', 'annotation_dropped': 'annotation',
+                      'article_navigation_dropped': 'navigation', 'opening_destination_ignored': 'navigation',
+                      'annotation_dropped': 'annotation',
                       'annotation_relation_dropped': 'annotation', 'metadata_omitted': 'metadata',
                       'metadata_normalized': 'metadata'}
         manifest = synthetic_success()['run_manifest']
@@ -276,10 +312,15 @@ class SupportReceiptTests(unittest.TestCase):
         clean['warnings']['planning'] = [{'code': code, 'category': category} for code, category in categories.items()]
         validator.validate_summary(clean, manifest)
         for index, code in enumerate(categories):
-            bad = deepcopy(clean)
-            bad['warnings']['planning'][index]['category'] = 'bookmark'
-            with self.subTest(code=code), self.assertRaises(ValueError):
-                validator.validate_summary(validator.strict_json(compact(bad)), manifest)
+            for wrong_category in ('bookmark', 'MOCK_PRIVATE_CATEGORY'):
+                bad = deepcopy(clean)
+                bad['warnings']['planning'][index]['category'] = wrong_category
+                with self.subTest(code=code, category=wrong_category), self.assertRaises(ValueError):
+                    validator.validate_summary(validator.strict_json(compact(bad)), manifest)
+        bad = deepcopy(clean)
+        bad['warnings']['planning'][list(categories).index('opening_destination_ignored')]['message'] = 'MOCK_PRIVATE_WARNING_TEXT'
+        with self.assertRaises(ValueError):
+            validator.validate_summary(validator.strict_json(compact(bad)), manifest)
         # Input and summary agree on the unknown token; fixed schema still rejects it.
         manifest['warnings']['planning'][0]['code'] = 'unknown_navigation_token'
         clean['warnings']['planning'][0]['code'] = 'unknown_navigation_token'

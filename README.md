@@ -7,15 +7,16 @@ installed Calibre, then use the same splitter. The source file is unchanged.
 This branch contains the **unpublished 30 October functional repair**: interactive
 setup with consent and continuation, empty-password PDF access and narrowly
 validated local opening views. The application version remains **1.0.3**; the
-published v1.0.3 tag and assets contain earlier bytes and are unchanged. No new
-release is published or authorized. See the
+published v1.0.3 tag and assets contain earlier bytes and are unchanged. This
+verification checkpoint publishes no release. See the
 [repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
 
 The repaired engine and explicit healthy Windows launches have passed authored
 PDF checks. Ordinary Store first-launch setup/resume, its repeat/network check,
-Windows 10 and the private supplied book remain **NOT_RUN**. These limits are
-separate from historical v1.0.3 acceptance. Scripts are unsigned; enforced
-organization controls still apply. Setup uses reviewed pypdf **6.21.3** in this
+Windows 10 and the private supplied book remain **NOT_RUN**. Human testing is out
+of scope under the owner's latest order; no owner test, sign-off or report is
+required. These limits are separate from historical v1.0.3 acceptance. Scripts
+are unsigned; enforced organization controls still apply. Setup uses reviewed pypdf **6.21.3** in this
 copy's own environment; no global pypdf installation is required.
 
 The first public release,

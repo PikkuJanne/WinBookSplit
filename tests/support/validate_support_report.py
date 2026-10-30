@@ -401,6 +401,7 @@ def validate_summary(summary, manifest):
                          'outline_limit'), 'bookmark'),
         'output_handle_close_failed': 'output',
         'cross_chapter_link_dropped': 'navigation', 'navigation_link_dropped': 'navigation', 'article_navigation_dropped': 'navigation',
+        'opening_destination_ignored': 'navigation',
         'annotation_dropped': 'annotation', 'annotation_relation_dropped': 'annotation',
         'metadata_omitted': 'metadata', 'metadata_normalized': 'metadata',
     }

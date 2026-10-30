@@ -1,14 +1,14 @@
 # Unsupported-document policy acceptance
 
-This is the historical M4-T02 matrix, not the functional repair's encryption
-acceptance. Its maintained producer/validator still places empty-password input
-in `UNSUPPORTED` and requires `unsupported_document` for passworded inputs.
-Those expectations contradict the repaired application and have not been migrated
-or rerun here. Do not use this route, or the `full` layer containing it, to claim
-a current encryption pass. Use `tests/python/test_functional_pdf_repair.py` and
-`test_pdf_policy.py` plus the exact-package/native evidence linked from
-[STATUS_NEXT](../../docs/functional-repair/STATUS_NEXT.md). Preserve the original
-matrix and receipts as historical evidence; never restore blanket bans to fit them.
+The current producer/validator migrates the M4-T02 route to the repaired PDF
+contract. Empty-password execution and preview are positive cases; genuine
+nonempty-password inputs require `password_required` / 7. Rejected-input support
+exports use the password-required fixture. The original matrix and receipts stay
+historical; no production ban is restored to satisfy obsolete expectations.
+Current execution results belong to the checkpoint evidence linked from
+[STATUS_NEXT](../../docs/functional-repair/STATUS_NEXT.md), not this description.
+Human/owner tests, sign-off and report requests are out of scope under the latest
+owner order. Missing native scenarios remain NOT_RUN, with no owner action required.
 
 `characterize_document_policy.py` uses 25 original generated PDF fixtures. It
 starts 30 application controls in each actual supported PowerShell host and
@@ -31,9 +31,13 @@ marker fits inside the 120-point page. The immutable baseline fixtures retain
 their earlier 12-point labels; this generated-fixture QA correction does not
 rewrite the baseline reproduction or its provenance.
 
-Unsupported inputs must return `unsupported_document`/7 with no extraction,
+Unsupported feature inputs must return `unsupported_document`/7 with no extraction,
 plan, interaction request, chapter/staging publication, or fallback. Malformed
-inputs retain their declared native 6 result. Ordinary rejected runs may keep
+inputs retain their declared native 6 result. Genuine nonempty-password inputs
+return `password_required`/7 with the same no-output requirements. Empty-password
+inputs must produce complete reopened output; their Preview must cover every
+physical page without writing chapters or disk diagnostics. New chapter PDFs
+are unencrypted. Ordinary rejected runs may keep
 their authenticated local log and finalized metadata-only run record; rejected
 Preview controls must write nothing. Both actual rejected run exports must
 contain only the allowlisted redacted summary.

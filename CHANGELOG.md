@@ -14,9 +14,15 @@
   actions, source/output/process safety and dependency locks/floors remain guarded.
 - These changes belong to the repair branch and unpublished test packages.
   Published v1.0.3 and earlier tags/assets are unchanged. Ordinary Store first-run,
-  repeat/network, Windows 10 and private-book acceptance remain NOT_RUN; no new
-  release or publication is authorized. See the
+  repeat/network, Windows 10 and private-book acceptance remain NOT_RUN. The latest
+  owner order removes all human testing, sign-off and owner report requests;
+  this verification checkpoint does not publish a release. See the
   [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+- Migrates the automated native document-policy harness to accept empty-password
+  files, validate their preview/output and report genuine nonempty-password inputs
+  as `password_required`. Rejected-input support exports use the password-required
+  fixture. Historical reports remain unchanged; current execution results are
+  recorded separately in checkpoint evidence.
 
 ## 1.0.3
 

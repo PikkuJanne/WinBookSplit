@@ -7,7 +7,9 @@ application-local setup, followed by continuation of the original request.
 Published v1.0.3 assets remain unchanged and do not contain this repair. Ordinary
 Store first-launch setup/resume, repeat/network observation and Windows 10 repair
 acceptance remain NOT_RUN; component checks and explicit healthy launches are
-separate evidence. No new release is authorized.
+separate evidence. The owner's latest order excludes all human testing; no owner
+run, sign-off or report is required. This verification checkpoint publishes no
+release.
 
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython

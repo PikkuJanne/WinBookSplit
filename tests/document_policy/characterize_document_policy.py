@@ -49,7 +49,8 @@ def publication(base, frame):
         outputs.append({'filename': item['filename'], 'sha256': cli.digest(target), 'bytes': target.stat().st_size,
             'page_ids': [int(page['/WBSFixturePage']) for page in reader.pages],
             'content_sha256': conversion.page_content(reader), 'page_actions_absent': all('/AA' not in page for page in reader.pages),
-            'inert_action_marker_absent': b'ORIGINAL_INERT_POLICY_ACTION' not in target.read_bytes()})
+            'inert_action_marker_absent': b'ORIGINAL_INERT_POLICY_ACTION' not in target.read_bytes(),
+            'is_encrypted': reader.is_encrypted, 'catalog_openaction_absent': '/OpenAction' not in reader.root_object})
     return {'publication': outputs, 'publication_manifest': validator.support.strict_json(raw), 'publication_manifest_raw': raw,
             'publication_manifest_sha256': cli.digest(manifest_path), 'publication_members': sorted(members)}
 
@@ -110,7 +111,7 @@ def application_case(work, host, kind, sources, *, batch=False):
         wrapper_text, wrapper_sha = validator.WRAPPER, cli.digest(wrapper)
         parameters = [str(source)]
         command = [str(system / 'System32/cmd.exe'), '/d', '/v:off', '/c', str(wrapper)]
-        answers = 'M\n1,3\nY\nN\n' if kind == 'ordinary-manual' else 'M\n'
+        answers = 'M\n1,3\nY\nN\n' if validator.expected_exit(kind) == 0 else 'M\n'
     else:
         parameters = ['-InputFile', str(source), '-OutputDirectory', str(base), '-PythonPath', sys.executable,
                       '-Mode', 'Manual' if mode == 'manual' else 'Auto']
@@ -156,7 +157,7 @@ def application_case(work, host, kind, sources, *, batch=False):
             record.update(publication(base, frame))
         # Validate all no-write and native evidence before acquiring any cleanup permission.
         validator.validate_case(record, cleanup_complete=False)
-        if kind == 'encrypted-owner-empty' and not batch:
+        if kind == 'encrypted-user' and not batch:
             require(log is not None, 'Rejected input has no finalized local export source')
             export_case(record, app, log, environment)
         if frame and frame.get('execution'):
@@ -200,7 +201,8 @@ def characterize(work, shells):
                    'Signature dictionary/field detection only; no cryptographic signature-validity proof.',
                    'BAT remains shipped bytes; three exact copied PowerShell parameter defaults provide pinned runtime/output and suppress pause.',
                    'Policy rejections may persist authenticated console diagnostics; no extraction, working-PDF, plan, publication or fallback.',
-                   'Ordinary and page-AA controls verify reopened physical-page identities/content and unchanged source/neighbor/prior files.']}
+                   'Ordinary, empty-password and page-AA controls verify reopened physical-page identities/content and unchanged source/neighbor/prior files.',
+                   'Readable empty-password Preview validates a complete plan without writes; genuine password refusal provides the redacted null-plan export.']}
 
 
 def main():

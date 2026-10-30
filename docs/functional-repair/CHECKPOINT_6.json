@@ -1,0 +1,422 @@
+{
+  "checkpoint": 6,
+  "date": "2026-10-30",
+  "scope": "Agent-only native document-policy harness migration and active owner-authority reconciliation; production unchanged",
+  "authority": {
+    "owner_followup": "Human testing is out of scope; repair ends in publication",
+    "human_testing": "OUT_OF_SCOPE",
+    "owner_action_required": false,
+    "publication_in_repair_scope": true,
+    "this_checkpoint_publication": false,
+    "one_checkpoint_per_chat": true,
+    "future_release": "Next unused patch after fresh live verification; current observed candidate v1.0.4",
+    "preserve_existing_releases_tags_assets": true
+  },
+  "source": {
+    "base_commit": "15519da527e092c19be7e839a86f71893fdeba7d",
+    "base_tree": "6dda8a7a7b6954507d615f7b7a1fd130528092de",
+    "branch": "codex/functional-repair",
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "starting_clean_local_equals_fresh_live": true,
+    "tested_scope": "Recorded working bytes over base commit, before checkpoint evidence/status edits; raw report binds232files, final staged Git blob identities below",
+    "changed_test_tool_files": {
+      "tests/document_policy/characterize_document_policy.py": {
+        "working_sha256": "3e2148ecfd83571643e585b6681789bb7d2a6e6d3b8fe37b8bf22e012bb9a3f5",
+        "working_bytes": 15988,
+        "staged_git_blob": "f219a7187de4e387eb0d0af5b2a70696c374004d",
+        "git_blob_sha256": "3e2148ecfd83571643e585b6681789bb7d2a6e6d3b8fe37b8bf22e012bb9a3f5",
+        "git_blob_bytes": 15988,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tests/document_policy/generate_document_policy_fixtures.py": {
+        "working_sha256": "0794ad8e42b3a19cc0608e3d9fcaa95957552a3dddf87494ed15a1c866b88826",
+        "working_bytes": 9819,
+        "staged_git_blob": "f059a81cf29156b5a87b2457960b8b0294d5440d",
+        "git_blob_sha256": "0794ad8e42b3a19cc0608e3d9fcaa95957552a3dddf87494ed15a1c866b88826",
+        "git_blob_bytes": 9819,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tests/document_policy/validate_document_policy_report.py": {
+        "working_sha256": "08a7442e6c3d8a17d7db94edb55c9a4b3d8f67d2bba534e6b16c03f8b26ab882",
+        "working_bytes": 28541,
+        "staged_git_blob": "55c291930ead2fcc3ff8abbe66f1c642e3208523",
+        "git_blob_sha256": "08a7442e6c3d8a17d7db94edb55c9a4b3d8f67d2bba534e6b16c03f8b26ab882",
+        "git_blob_bytes": 28541,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tests/python/test_document_policy_receipt.py": {
+        "working_sha256": "9843a77f31830196a18c1a6cb9e8173f96800ffe0e797b147b6b5d2542ab4588",
+        "working_bytes": 25692,
+        "staged_git_blob": "10dbb00f291fdd598ec39d35f26c8ca126a722a4",
+        "git_blob_sha256": "9843a77f31830196a18c1a6cb9e8173f96800ffe0e797b147b6b5d2542ab4588",
+        "git_blob_bytes": 25692,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tests/python/test_support_receipt.py": {
+        "working_sha256": "55cffd8b6eab0bc65a2b3d2ab7ccfd75ef6ba1da569fa8d4e6285cdc047ca59a",
+        "working_bytes": 23475,
+        "staged_git_blob": "98bfd966d9d7b4bc718624b62203fcdcef4dec75",
+        "git_blob_sha256": "f6d3a28a9bec916d6dde3d00d4eed8f243156c1f2a6d4069cc090de9b674a1b7",
+        "git_blob_bytes": 23130,
+        "working_equals_git_blob": false,
+        "only_crlf_normalization": true
+      },
+      "tests/run_tests.py": {
+        "working_sha256": "db50a83e707fc6caa3a542f8300eb6c9366b27013826894c45eb4976e5322b89",
+        "working_bytes": 144632,
+        "staged_git_blob": "b0f3ae2c9d45054dd733e9ae1f1affee8af11bb6",
+        "git_blob_sha256": "511163020f82adf6a709c6d4b41c8296f05136cbc11319ec44f1f63d3ca058b8",
+        "git_blob_bytes": 142732,
+        "working_equals_git_blob": false,
+        "only_crlf_normalization": true
+      },
+      "tests/support/validate_support_report.py": {
+        "working_sha256": "8a67a25446af816c363f7d9960c8f5e0d26caf72c85e8b3a967286abbe8868fb",
+        "working_bytes": 41512,
+        "staged_git_blob": "b5da35c3345bec7039543a0230247d6d4f69b42c",
+        "git_blob_sha256": "8a67a25446af816c363f7d9960c8f5e0d26caf72c85e8b3a967286abbe8868fb",
+        "git_blob_bytes": 41512,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      }
+    },
+    "test_tool_map_sha256": "ed6c5f2f18f2751faac44df7de58840011d1eab76f178cd0a77c0b82fe117c7c",
+    "native_source_binding": {
+      "base_commit": "15519da527e092c19be7e839a86f71893fdeba7d",
+      "base_tree": "6dda8a7a7b6954507d615f7b7a1fd130528092de",
+      "external_snapshot_equal": true,
+      "outer_child_current_equal": true,
+      "tested_file_count": 232,
+      "tested_paths_digest": "0941251b1e8f48cf6db1de1bafbb56a50fe485266713e0fdd7d21ae5685ad957"
+    },
+    "runtime_members_unchanged": {
+      "Export-WinBookSplitDiagnostics.ps1": {
+        "working_sha256": "6b19567d1f92344d583444015234ccd52620af22fe308c7559a22e6c255f598e",
+        "base_git_blob": "a4a01fc6a9de17c8abe130aa1c013d01b2105f2a"
+      },
+      "Setup-WinBookSplit.bat": {
+        "working_sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+        "base_git_blob": "c07c2b5fb54089f11019f18055f850c6884660a4"
+      },
+      "Setup-WinBookSplit.ps1": {
+        "working_sha256": "6ede80d5761793177c41ead7ba68dd95570e2ec4bad9a33a08277937e21cff77",
+        "base_git_blob": "491b2887790905022c5bebe70d6548a4378bbbf1"
+      },
+      "VERSION": {
+        "working_sha256": "fc1c281f1d0879bb81d24496eb278296d469a4c7d78565b035a14b51eab620b3",
+        "base_git_blob": "21e8796a09d4f26935ffc4879147879a153f0193"
+      },
+      "WinBookSplit.bat": {
+        "working_sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+        "base_git_blob": "e47e0d09da554fcf9865d453e4caf65a03839e4a"
+      },
+      "WinBookSplit.ps1": {
+        "working_sha256": "e655c3e649677464c4eb478f3b02ea17def632cb81869d00a007a781c1d728ee",
+        "base_git_blob": "b994d003a5f9c0fcbaa6a3d32567898f0a2a3904"
+      },
+      "engine/WinBookSplit.Compatibility.json": {
+        "working_sha256": "590e5aa1712c3eb4e1e01ece0558c1c65ef4020572ac27b00743078aec168c2b",
+        "base_git_blob": "b81e74dc081fea30f4827411966124c8d9bf86a7"
+      },
+      "engine/WinBookSplit.Compatibility.ps1": {
+        "working_sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+        "base_git_blob": "a6aaa1cf036b749269db8cf8cd1fbbd801ae6eac"
+      },
+      "engine/WinBookSplit.Diagnostics.ps1": {
+        "working_sha256": "1d91b78c6841ee211cb5b4ec613812f2bd4957c0ae899b2ee25a4f3239750749",
+        "base_git_blob": "9479f9b63e9d6ca6cef5e8b56ce23929a41131ce"
+      },
+      "engine/WinBookSplit.Logging.ps1": {
+        "working_sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "base_git_blob": "307fd1052d1eeae56dec71ab2be83d2ed5640611"
+      },
+      "engine/WinBookSplit.Outcomes.json": {
+        "working_sha256": "e8d23e5f470b430ed0c8230f6df93643de59bf12d21396205286a810cb29a0c7",
+        "base_git_blob": "ba040a900c135b6e467c5a4ba421ee20dbe98050"
+      },
+      "engine/WinBookSplit.Paths.ps1": {
+        "working_sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "base_git_blob": "83cf333eaa173160c1acff17d1456916a8bbb33c"
+      },
+      "engine/WinBookSplit.Process.ps1": {
+        "working_sha256": "92f0487157f8205118e2417d4ab1abc08c26ea6884b2b022ee4eeb98747e0142",
+        "base_git_blob": "2239f06292ba16d35e84a3471caa9cc171539483"
+      },
+      "engine/WinBookSplit.Runtime.ps1": {
+        "working_sha256": "5babe7d501f896f9d81a97730c95109bcb57738b48ef13e87bb95d9a7ee1964d",
+        "base_git_blob": "d84a14eded5acfdc343860de8193c638cf179c1d"
+      },
+      "engine/WinBookSplit.Setup.ps1": {
+        "working_sha256": "37a83cda8e80536ad5ed32b70d84e4153c33b34638b1c150af949b67286995bb",
+        "base_git_blob": "bd2aaf461a18afc91b580be2caf37357b4e9fad8"
+      },
+      "engine/WinBookSplit.Support.ps1": {
+        "working_sha256": "3b936b46ab8796f1dd1bcae3d98930b0e72e3d333ea364e4f99001cee2ef1755",
+        "base_git_blob": "201d8940ac506f0ff9189806deae4bd5608749f8"
+      },
+      "engine/winbooksplit_compatibility.py": {
+        "working_sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+        "base_git_blob": "d10376bf3ddf5895caee155327462903611b54ae"
+      },
+      "engine/winbooksplit_conversion.py": {
+        "working_sha256": "a2938ff6b136d7d93bd25c69a78ed8f56bcfcf3ee1fd400967e40679e7fe4661",
+        "base_git_blob": "decbdd51212ce75e1833f79c205e5b86b92b54b7"
+      },
+      "engine/winbooksplit_engine.py": {
+        "working_sha256": "28bc047e35a35099b978daf7c04022626faa8340aa0a6c5ce7dce413a8bcaf51",
+        "base_git_blob": "5d7d5752acfe1361758def7a60503f07998d19a0"
+      },
+      "engine/winbooksplit_job.py": {
+        "working_sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+        "base_git_blob": "5dab3cf28f6f88cdc4ae3056cc2b0fa258a7452f"
+      },
+      "engine/winbooksplit_windows.py": {
+        "working_sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+        "base_git_blob": "bd6f79553330ce69a1f9ec3733df3dc98d0f3b4a"
+      },
+      "requirements.txt": {
+        "working_sha256": "7a50c2fd97b4c2d2e2aed4e0cc30cd406dd3a153abc911467b724d11fcf9cc83",
+        "base_git_blob": "2408dde626cb6e7d92af3c50997684d9e36cf5d2"
+      }
+    },
+    "final_commit_binding": "Final scoped commit/push and clean live comparison reported externally after commit to avoid self-reference"
+  },
+  "environment": {
+    "os": "Windows11 Pro build26300",
+    "python": "3.14.8 regular x64",
+    "pypdf": "6.21.3",
+    "powershell": [
+      "5.1.26100.9711",
+      "7.6.6"
+    ],
+    "driver": "Pre-existing developer runtime, explicit authored-native harness only; never ordinary Store setup configuration",
+    "no_runtime_provisioning_app_venv_precreation_or_global_change": true
+  },
+  "results": {
+    "baseline_native": {
+      "status": "FAIL_EXPECTED_OBSOLETE_HARNESS",
+      "completed_controls": 4,
+      "last_case": "PS51-encrypted-user",
+      "actual_status": "error",
+      "actual_code": "password_required",
+      "actual_exit": 7,
+      "error": "Unsupported input falsely prepared, published, retried or succeeded"
+    },
+    "final_native": {
+      "status": "PASS",
+      "seconds": 271.831611399999,
+      "actual_application_controls": 73,
+      "actual_exports": 2,
+      "total_controls": 75,
+      "by_host": {
+        "BAT": 13,
+        "PS51": 30,
+        "PS7": 30
+      },
+      "authored_fixtures": 25,
+      "empty_password_execution_routes": 3,
+      "empty_password_preview_routes": 2,
+      "password_required_routes": 5,
+      "password_contract": {
+        "status": "error",
+        "code": "password_required",
+        "exit_code": 7
+      },
+      "source_stable": true,
+      "source_process_cleanup_export_guards": "PASS",
+      "child_report_raw_sha256": "aecb318d834a0fad4b999e6d5d0d88c4a10d40c725b61c2c905c9bd557161a33",
+      "scope": "Actual explicit existing-driver PS5.1/PS7/BAT controls; not ordinary Store first-run/Win10/private-book acceptance"
+    },
+    "receipt_units": {
+      "document_policy": {
+        "methods": 22,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.067
+      },
+      "support": {
+        "methods": 18,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0,
+        "seconds": 0.097
+      },
+      "scope": "Corrected final synthetic receipt/mutation controls, never native execution claims"
+    },
+    "focused_regressions": {
+      "scope": "SELECTED_RUNNER_DOCUMENT_POLICY_AND_EXISTING_PDF_POLICY_FUNCTIONAL_UNITS_NOT_STORE_SETUP",
+      "names": [
+        "test_runner.RunnerTests.test_document_policy_absent_malformed_and_partial_receipts_fail_closed",
+        "test_runner.RunnerTests.test_document_policy_attachment_calls_strict_validator_with_cleanup_required",
+        "test_runner.RunnerTests.test_document_policy_main_requires_distinct_existing_hosts_without_converter_or_renderer",
+        "test_runner.RunnerTests.test_document_policy_readme_and_policy_are_bound_in_source_manifest",
+        "test_runner.RunnerTests.test_document_policy_target_forwards_only_both_hosts_and_propagates_native_failure",
+        "test_pdf_policy",
+        "test_functional_pdf_repair"
+      ],
+      "tests_run": 47,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "success": true,
+      "seconds": 39.26313889999983,
+      "source_stable": true
+    },
+    "independent_completed_receipt_audit": {
+      "status": "PASS",
+      "strict_validator": "PASS",
+      "native_tests_rerun": false,
+      "tested_paths": 232,
+      "tested_paths_digest": "0941251b1e8f48cf6db1de1bafbb56a50fe485266713e0fdd7d21ae5685ad957"
+    },
+    "source_review_and_whitespace": "PASS; independent review, no runtime/production diff"
+  },
+  "intermediate_attempts": [
+    "First receipt-unit run22methods:21PASS/1ERROR from an invented unsupported/password_required fixture; not a production export defect.",
+    "Intermediate22/18green receipts used the same wrong unsupported status and a speculative shared predicate broadening; retained as nonfinal, then reverted.",
+    "Direct actual PS5.1 export succeeded0 with error/password_required7. An exploratory driver assertion expecting failure was wrong; its script/stdout/summary remain outside Git.",
+    "Final fixtures/native guard use actual error/password_required7. Production exporter and shared unsupported-status predicate remain unchanged; only the missing opening_destination_ignored navigation token was added to the shared test oracle."
+  ],
+  "preservation": {
+    "production_runtime_members": 22,
+    "all_runtime_files_unchanged": true,
+    "dependencies_floors_version_unchanged": true,
+    "historical_evidence_untouched": true,
+    "new_distribution_built": false,
+    "checkpoint5_artifacts_and_checkpoint4_kit_preserved": true,
+    "published_releases": 4,
+    "published_assets": 12,
+    "next_patch_v1.0.4_observed_unused": true,
+    "publication": "No release/tag/asset mutation in this checkpoint; eventual publication authorized under direct owner continuation"
+  },
+  "limits": {
+    "human_testing": "OUT_OF_SCOPE; no request, sign-off or owner report required",
+    "ordinary_Store_first_run_resume_repeat_network": "NOT_RUN; no supported natural Store prerequisites on current host",
+    "Windows10": "NOT_RUN; no accessible agent target",
+    "private_book": "NOT_RUN; unavailable",
+    "full_suite_Calibre_runtime_matrix_new_package": "NOT_RUN in this focused harness checkpoint; prior receipts retain original scopes"
+  },
+  "receipts": [
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\baseline-native.json",
+      "bytes": 525722,
+      "sha256": "66f0729735ab274d0c4513de00344509b5eeced410a3f44c3bccac02370c8fff"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\baseline-native.txt",
+      "bytes": 179,
+      "sha256": "620a95d40a3d7521480ae27bab84b518788cce0cbea6347176d89b8f9107f590"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\run-native.py",
+      "bytes": 1726,
+      "sha256": "fae0b51f07af1a61696648cf4b67bc1ee11bdad4dd0a27387b11b0d2762ba011"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-native-runner.json",
+      "bytes": 3924677,
+      "sha256": "c57177ed7e12db6f794c4db3561f4c46ec3e6e67b2ce60c3807f6f13f3293ef6"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-native-process.json",
+      "bytes": 4383,
+      "sha256": "b5a1d9cbbda4fc8d818b6430bb719d6889ff2f1fb9b8a61a5f1de6aa86e3a20b"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-native.stdout",
+      "bytes": 110,
+      "sha256": "d233429208ede0b84385dfda5624c52cbfebdd40b7dda6e4a1ea8e1398e69773"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-native.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\receipt-unit-first.txt",
+      "bytes": 2216,
+      "sha256": "c40967180fa61de8fd47723b611534283f77a75f1e08033f8d3d38eea7b19ba8"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\receipt-unit-second.txt",
+      "bytes": 126,
+      "sha256": "6886e6f884f89c8fb45e438bc8b236eca039ab308c15582fc162329d2856d23c"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\receipt-unit-final.txt",
+      "bytes": 126,
+      "sha256": "fd3425e0a48897b07ba9a84559f8f95729b6beb4c053914d2de82725a9f6ef61"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\support-receipt-unit-first.txt",
+      "bytes": 122,
+      "sha256": "d3817dcc1425101296939a70f040c3a95425b0fdb4f9c0cfe4d5983d000655d7"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\support-receipt-unit-final.txt",
+      "bytes": 122,
+      "sha256": "4ac65480ba8e1284bfe260fba55b5f1b5bf6425eb8ed0a30a8d4c48a5067cae5"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\initial-export-status-assumption.py",
+      "bytes": 1815,
+      "sha256": "2cb9c3103422f13755fd526eb30e120e967412186ea2e080bb60b601a40a6dd5"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\ps51-actual-export.stdout",
+      "bytes": 156,
+      "sha256": "9b03258ef1e9780256f08d807ad17194735f948a1a4ed5eda8c870f1504394c7"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\ps51-actual-export.stderr",
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\ps51-actual-password-summary.json",
+      "bytes": 1504,
+      "sha256": "62bf697b9221b99095e9b928af332c5c6ffc1a7cf7d924aa5abf5a6af57cd6f5"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-focused-checks.py",
+      "bytes": 1792,
+      "sha256": "96b5287cd107c57021e083a5255a4faf0066fc7ae9a74b756cc7d5ee8417747b"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-focused-results.json",
+      "bytes": 2647,
+      "sha256": "edb72b96042bc0fd0abbcf22691590cb420cd1c7ed72b04ae1851f8118895c88"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\final-focused-tests.txt",
+      "bytes": 8824,
+      "sha256": "85c6dec54fad158bb7e13cb283a7c258b7df4d5376b0279ed30715de4f82826d"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-independent-audit-0bbff1b1d1ea4da09d81bbac4c742fc1\\audit-native.py",
+      "bytes": 11121,
+      "sha256": "311c073d9dcb646fd54984bce5cba965a69b4faafea64c0f9b0f4e7a50345dd7"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-independent-audit-0bbff1b1d1ea4da09d81bbac4c742fc1\\audit-native.json",
+      "bytes": 1883,
+      "sha256": "2f7426b0adf46a57eba0422914bce3d73301c3786ff40255a4fc08585373b737"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\live-release-inventory.json",
+      "bytes": 1790,
+      "sha256": "8c42cdc67d9da8eebe3ab57fea87229d4611c2c5a78dbeade306765311671dc0"
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp6-20261030\\live-tag-refs.txt",
+      "bytes": 476,
+      "sha256": "c1c37213e739a029af2d5cec82470ab8b0897035de7e11e5eda4954fa50ab7ef"
+    }
+  ],
+  "synchronization": "Normal scoped commit/push then clean HEAD versus freshly queried live branch verified externally in final handover; no self-referential hash"
+}

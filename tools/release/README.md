@@ -1,12 +1,18 @@
 # Build and inspect a local WinBookSplit package
 
 Current authority is the [functional repair](../../docs/functional-repair/STATUS_NEXT.md).
-No release, tag or publication is authorized. The unchanged builder retains
+The owner's subsequent direct follow-up authorizes eventual publication after
+agent verification and a future source/package freeze, using the next unused
+patch after live verification. The instruction pack alone is not publication
+authority. Checkpoint 6 performs no release, tag, version change or publication.
+All human tests, owner sign-off and report requests are out of scope; unavailable
+native cases remain NOT_RUN with no owner action required. The unchanged builder
+retains
 VERSION `1.0.3` and its existing filenames; new repair archives are **unpublished
 test artifacts**, distinct from the immutable public v1.0.3 asset. Keep them in
 new external folders with their source-bound manifests/checksums. Do not replace,
 relabel or upload any published bytes. Historical v1.0.3 waivers and release
-instructions do not waive the repair's ordinary first-run acceptance.
+instructions retain their original evidence scope and create no owner tasks.
 
 This developer tool builds three local assets from an explicit full commit:
 `WinBookSplit-v1.0.3.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
@@ -62,9 +68,11 @@ documentation before building; record the tested ZIP hash and source commit/tree
 Freshly extract it, compare every member with Git and run affected workflows.
 The repair's ordinary Store setup/consent/resume and repeat must use natural
 discovery, without supplied/private Python, prebuilt app environment or PATH
-injection. Reuse the single pretested checkpoint-4 kit on a qualifying machine;
-its package binding remains its original source/hash. A newer test ZIP is not
-silently substituted into that kit. Missing prerequisites stay NOT_RUN.
+injection. Reuse the single pretested checkpoint-4 kit only on an agent-accessible
+qualifying machine; do not request a human run, sign-off or report. Missing
+prerequisites remain NOT_RUN evidence limits rather than pending owner work.
+The kit's package binding remains its original source/hash. A newer test ZIP is
+not silently substituted into that kit.
 Independent explicit-runtime Windows/Calibre/component checks retain their
 separate evidence scopes. Neither source tests nor earlier ZIP results establish
 a new archive's native acceptance.

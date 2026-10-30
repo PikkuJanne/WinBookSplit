@@ -46,12 +46,12 @@ def reseal(row):
 def synthetic_rejection(*, preview=False):
     directory = ROOT / 'synthetic-policy-control-not-a-native-run'
     source, base, cwd = str(directory / 'b/source.pdf'), str(directory / 'o'), str(directory / 'c')
-    kind = 'encrypted-owner-empty' + ('-preview' if preview else '')
-    frame = {'protocol': 'winbooksplit.result', 'version': 1, 'mode': 'manual', 'status': 'unsupported',
-             'code': 'unsupported_document', 'exit_code': 7, 'written_count': 0, 'execution': None, 'plan': None,
+    kind = 'encrypted-user' + ('-preview' if preview else '')
+    frame = {'protocol': 'winbooksplit.result', 'version': 1, 'mode': 'manual', 'status': 'error',
+             'code': 'password_required', 'exit_code': 7, 'written_count': 0, 'execution': None, 'plan': None,
              'fallback_modes': [], 'warnings': [], 'diagnostic': None}
-    final = {'protocol': 'winbooksplit.outcome', 'version': 1, 'mode': 'manual', 'status': 'unsupported',
-             'code': 'unsupported_document', 'exit_code': 7, 'written_count': 0, 'final_directory': None, 'engine_result': frame}
+    final = {'protocol': 'winbooksplit.outcome', 'version': 1, 'mode': 'manual', 'status': 'error',
+             'code': 'password_required', 'exit_code': 7, 'written_count': 0, 'final_directory': None, 'engine_result': frame}
     identity = {'sha256': 'a' * 64, 'size_bytes': 100, 'device': 1, 'inode': 2, 'attributes': 1}
     observed = {name: deepcopy(identity) for name in ('source', 'neighbor', 'prior')}
     parameters = ['-InputFile', source, '-OutputDirectory', base, '-PythonPath', str(directory / 'python.exe'),
@@ -61,7 +61,7 @@ def synthetic_rejection(*, preview=False):
                'ExitCode': 7, 'ResultRecordCount': 1}
     invocation = {'path': str(directory / 'python.exe'), 'arguments': ['-I', '-B', '-X', 'utf8',
                   str(directory / 'a/engine/winbooksplit_engine.py'), source, base, 'manual', '1,3']}
-    row = {'id': 'PS51-' + kind, 'kind': kind, 'fixture_kind': 'encrypted-owner-empty', 'host_id': 'PS51', 'mode': 'manual',
+    row = {'id': 'PS51-' + kind, 'kind': kind, 'fixture_kind': 'encrypted-user', 'host_id': 'PS51', 'mode': 'manual',
            'source_read_only_observed': True, 'input_path': source, 'output_base': base, 'cwd': cwd,
            'source_observations_before': observed, 'source_observations_after': deepcopy(observed),
            'source_observations_after_cleanup': deepcopy(observed), 'output_members_after_cleanup': ['prior-output.pdf'], 'passed': True,
@@ -75,6 +75,49 @@ def synthetic_rejection(*, preview=False):
            'publication': None, 'console_log': None if preview else '', 'console_evidence': None, 'log_sha256': None,
            'engine_records': [], 'process_summaries': [] if preview else [process],
            'interaction': None if preview else {'engine_invocations': [invocation], 'requests': [], 'replies': [], 'displayed_plans': []}}
+    reseal(row)
+    return row
+
+
+def synthetic_success(*, preview=False):
+    """Invented independent four-page oracle; no application or native run."""
+    row = synthetic_rejection(preview=preview)
+    kind = 'encrypted-owner-empty' + ('-preview' if preview else '')
+    row.update(id='PS51-' + kind, kind=kind, fixture_kind='encrypted-owner-empty', exit_code=0)
+    source = {'path': row['input_path'], 'sha256': 'a' * 64, 'size_bytes': 100, 'binding': 'reader_snapshot'}
+    plan = {'mode': 'manual', 'total_pages': 4, 'ranges': [[0, 2], [2, 4]],
+            'coverage': {'complete': True, 'covered_pages': 4, 'section_count': 2},
+            'normalized_inputs': {'manual_starts': [1, 3]}, 'source_identity': source}
+    plan['entries'] = [{'sequence': index, 'title': 'Authored section ' + str(index), 'start': start, 'end': end,
+                        'parent_id': None, 'reason': 'manual', 'filename': str(index) + '.pdf', 'warnings': []}
+                       for index, (start, end) in enumerate(((0, 2), (2, 4)), 1)]
+    frame = row['outcome']['engine_result']
+    frame.update(status='preview' if preview else 'success', code='preview_complete' if preview else 'split_complete',
+                 exit_code=0, written_count=0 if preview else 2, plan=deepcopy(plan))
+    row['outcome'].update(status=frame['status'], code=frame['code'], exit_code=0, written_count=frame['written_count'])
+    row['expected_content_sha256'] = [str(number) * 64 for number in (1, 2, 3, 4)]
+    if not preview:
+        directory = str(Path(row['output_base']) / 'complete')
+        outputs = [{**deepcopy(entry), 'page_count': 2, 'size_bytes': 100, 'sha256': str(index) * 64}
+                   for index, entry in enumerate(plan['entries'], 5)]
+        manifest = {'schema_version': 1, 'status': 'complete', 'mode': 'manual', 'run_id': 'b' * 32,
+                    'final_directory': directory, 'written_count': 2, 'total_pages': 4,
+                    'source_identity': deepcopy(source), 'coverage': deepcopy(plan['coverage']), 'outputs': outputs}
+        frame['execution'] = {**deepcopy(manifest), 'manifest_filename': 'WinBookSplit_Manifest.json',
+                              'manifest': deepcopy(manifest)}
+        row['outcome']['final_directory'] = directory
+        row['process_summaries'][0]['ExitCode'] = 0
+        row['publication'] = [{'filename': output['filename'], 'sha256': output['sha256'], 'bytes': 100,
+                               'page_ids': list(range(start + 1, end + 1)),
+                               'content_sha256': row['expected_content_sha256'][start:end],
+                               'page_actions_absent': True, 'inert_action_marker_absent': True,
+                               'is_encrypted': False, 'catalog_openaction_absent': True}
+                              for output, (start, end) in zip(outputs, ((0, 2), (2, 4)))]
+        raw = compact(manifest)
+        row.update(publication_manifest=manifest, publication_manifest_raw=raw, publication_manifest_sha256=sha256(raw.encode()).hexdigest(),
+                   publication_members=['.WinBookSplit-owner.json', 'WinBookSplit_Manifest.json', '1.pdf', '2.pdf'],
+                   output_members_after=['prior-output.pdf', row['console_directory_name'], 'complete'],
+                   display='Output: ' + directory + '\nDone.\n')
     reseal(row)
     return row
 
@@ -122,6 +165,93 @@ def synthetic_deep_outline():
 
 
 class DocumentPolicyReceiptTests(unittest.TestCase):
+    def test_empty_password_execution_and_preview_require_exact_positive_contracts(self):
+        self.assertEqual(guard.expected_exit('encrypted-user'), 7)
+        self.assertEqual(guard.expected_exit('encrypted-owner-empty'), 0)
+        for preview in (False, True):
+            with self.subTest(preview=preview):
+                guard.validate_case(synthetic_success(preview=preview))
+
+    def test_resealed_password_refusal_rejects_obsolete_or_unrelated_categories(self):
+        for code, exit_code in (('unsupported_document', 7), ('unsupported_encryption', 7),
+                                ('encryption_backend_missing', 3), ('invalid_document', 6)):
+            row = synthetic_rejection()
+            row['outcome']['engine_result'].update(code=code, exit_code=exit_code)
+            row['outcome'].update(code=code, exit_code=exit_code)
+            row['exit_code'] = exit_code
+            row['process_summaries'][0]['ExitCode'] = exit_code
+            reseal(row)
+            with self.subTest(code=code), self.assertRaises(ValueError):
+                guard.validate_case(row)
+        row = synthetic_rejection()
+        row['outcome']['engine_result']['status'] = 'unsupported'
+        row['outcome']['status'] = 'unsupported'
+        reseal(row)
+        with self.assertRaises(ValueError):
+            guard.validate_case(row)
+
+    def test_resealed_empty_password_cannot_claim_a_password_or_policy_refusal(self):
+        for preview in (False, True):
+            for code in ('password_required', 'unsupported_document'):
+                row = synthetic_rejection(preview=preview)
+                kind = 'encrypted-owner-empty' + ('-preview' if preview else '')
+                row.update(id='PS51-' + kind, kind=kind, fixture_kind='encrypted-owner-empty')
+                row['outcome']['engine_result']['code'] = code
+                row['outcome']['code'] = code
+                if code == 'unsupported_document':
+                    row['outcome']['engine_result']['status'] = 'unsupported'
+                    row['outcome']['status'] = 'unsupported'
+                reseal(row)
+                with self.subTest(preview=preview, code=code), self.assertRaises(ValueError):
+                    guard.validate_case(row)
+
+    def test_resealed_readable_preview_rejects_execution_labels_or_written_claims(self):
+        for values in ({'status': 'success'}, {'code': 'split_complete'}, {'written_count': 2},
+                       {'execution': {}}, {'plan': None}):
+            row = synthetic_success(preview=True)
+            row['outcome']['engine_result'].update(values)
+            for key in ('status', 'code', 'written_count'):
+                row['outcome'][key] = row['outcome']['engine_result'][key]
+            reseal(row)
+            with self.subTest(values=values), self.assertRaises(ValueError):
+                guard.validate_case(row)
+
+    def test_readable_preview_cannot_persist_or_claim_publication(self):
+        for change in (lambda r: r['output_members_after'].append('invented-chapter.pdf'),
+                       lambda r: r.update(publication=[]),
+                       lambda r: r['outcome'].update(final_directory=str(Path(r['output_base']) / 'invented')),
+                       lambda r: r.update(console_evidence={'state': 'finalized'}),
+                       lambda r: r.update(log_sha256='f' * 64)):
+            row = synthetic_success(preview=True)
+            change(row)
+            reseal(row)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                guard.validate_case(row)
+
+    def test_resealed_positive_preview_requires_complete_plan_and_captured_source(self):
+        for change in (lambda p: p.update(total_pages=3), lambda p: p.update(mode='1'),
+                       lambda p: p['coverage'].update(covered_pages=3), lambda p: p['coverage'].update(complete=1),
+                       lambda p: p.update(ranges=[[0, 1], [2, 4]]), lambda p: p['entries'][0].update(start=1),
+                       lambda p: p['source_identity'].update(sha256='b' * 64),
+                       lambda p: p['source_identity'].update(size_bytes=101)):
+            row = synthetic_success(preview=True)
+            change(row['outcome']['engine_result']['plan'])
+            reseal(row)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                guard.validate_case(row)
+
+    def test_reopened_empty_password_chapters_require_plain_catalogs_and_page_identity(self):
+        for change in (lambda p: p[0].update(is_encrypted=True), lambda p: p[0].pop('is_encrypted'),
+                       lambda p: p[0].update(catalog_openaction_absent=False),
+                       lambda p: p[0].pop('catalog_openaction_absent'),
+                       lambda p: p[0].update(page_ids=[2, 1]),
+                       lambda p: p[0].update(content_sha256=['2' * 64, '1' * 64])):
+            row = synthetic_success()
+            change(row['publication'])
+            reseal(row)
+            with self.subTest(change=change), self.assertRaises(ValueError):
+                guard.validate_case(row)
+
     def test_metadata_only_rejection_and_no_write_preview_are_valid_synthetic_controls(self):
         for preview in (False, True):
             guard.validate_case(synthetic_rejection(preview=preview))
@@ -266,6 +396,19 @@ class DocumentPolicyReceiptTests(unittest.TestCase):
             exported['stdout_sha256'] = sha256(exported['stdout'].encode()).hexdigest()
             with self.subTest(field=field), self.assertRaises(ValueError):
                 guard.validate_export(exported, application)
+
+    def test_resealed_refused_export_cannot_use_readable_source_or_obsolete_password_code(self):
+        application = synthetic_rejection()
+        application.update(id='PS51-encrypted-owner-empty', kind='encrypted-owner-empty', fixture_kind='encrypted-owner-empty')
+        reseal(application)
+        with self.assertRaises(ValueError):
+            guard.validate_export(synthetic_export(application), application)
+        application = synthetic_rejection()
+        application['outcome']['code'] = 'unsupported_document'
+        application['outcome']['engine_result']['code'] = 'unsupported_document'
+        reseal(application)
+        with self.assertRaises(ValueError):
+            guard.validate_export(synthetic_export(application), application)
 
 
 if __name__ == '__main__':

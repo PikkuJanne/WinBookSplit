@@ -3,20 +3,25 @@
 Current work is the [functional repair](../docs/functional-repair/STATUS_NEXT.md).
 Checkpoints 2 and 3 implement the PDF and consent/setup/resume repairs. Use
 `python/test_functional_pdf_repair.py`, `python/test_pdf_policy.py`, the fixed
-application roster and `powershell/FirstRun.Tests.ps1` for their current contracts.
+application roster, migrated native `--layer document-policy` route and
+`powershell/FirstRun.Tests.ps1` for their current contracts.
 Checkpoint evidence separates actual native checks from synthetic components.
 Ordinary supported-Store first run/repeat/network, Windows 10 and the private book
-remain NOT_RUN until actually executed. Reuse the single pretested checkpoint-4
-kit for qualifying ordinary acceptance; no selected/private runtime or prebuilt
-ordinary app environment is permitted.
+remain NOT_RUN until actually executed. The owner's latest order removes all human
+testing, owner sign-off and report requests from scope. No owner action is required
+for unavailable cases. The preserved checkpoint-4 kit may be reused only on an
+agent-accessible qualifying machine; no selected/private runtime or prebuilt
+ordinary app environment is permitted. Its original package binding is unchanged.
 
-The legacy `--layer document-policy` producer/validator still expects blanket
-encryption rejection, including empty-password input and the old generic
-password error. It has not been migrated or rerun for this repair and cannot
-certify current encryption behavior. `--layer full` includes that legacy stage;
-do not claim a current full pass or restore the obsolete bans to satisfy it.
-Its historical reports retain their original scope. See
-[document-policy limits](document_policy/README.md).
+The migrated `--layer document-policy` producer/validator uses 25 authored
+fixtures, 73 application controls across PS5.1/PS7/BAT and two rejected-input
+exports. Empty-password execution and preview are positive cases; genuine
+nonempty-password input requires `password_required` / 7. The refused-input export
+uses that password-required fixture. Current checkpoint evidence records actual
+execution; this description alone is not a pass claim. `--layer full` includes
+this stage, but a focused stage pass does not establish a full-suite pass.
+Historical reports retain their original scope. See the
+[document-policy matrix](document_policy/README.md).
 
 Reuse the [v1.0.3 test recipes](../docs/codex-v1.0.3/TESTING.md) where applicable
 and use an explicit trusted isolated developer interpreter. Historical
@@ -85,11 +90,13 @@ above. It is not an accepted processing runtime or an owner-kit prerequisite.
 The runtime validator refuses a missing or substituted control. Every report must be a
 new absolute path outside the checkout. Existing reports are refused, and
 reports containing commands or local paths should stay outside Git. Commit only
-the reviewed current summary with hashes in `docs/codex-v1.0.3/evidence/`.
-Use the finite [native kit](../tools/compatibility/README.md) for exact frozen
-release-package workstation acceptance. Server CI, source layers and synthetic
-controls do not substitute for the final Windows 10/11 gates. Historical milestone
-notes below describe the inherited regression layers, not active release routing.
+the reviewed current summary with hashes in `docs/functional-repair/`.
+The finite [native kit](../tools/compatibility/README.md) remains available for
+agent-accessible exact-package checks under its original binding. Server CI,
+source layers and synthetic controls do not prove unexecuted Windows 10/11
+scenarios. Missing scenarios remain NOT_RUN without creating a human-testing gate.
+Historical milestone notes below describe inherited regression layers; their
+human/owner-testing requirements are superseded and are not active tasks.
 
 M4-T01 adds `--layer fidelity` as the nineteenth full stage. Fidelity/full
 requires both supported shell paths, the absolute development-only Poppler
@@ -101,14 +108,15 @@ native Windows evidence; it does not reopen or certify human testing.
 
 M4-T02 adds `--layer document-policy` as the twentieth full stage. The targeted
 route requires both explicit supported shell paths and needs no converter or
-renderer flags. Its historical matrix uses authored PDFs to check blanket
-encrypted/unsupported-feature rejection, bounded malformed-input failure and ordinary positive controls under
+renderer flags. Its current matrix uses authored PDFs to check empty-password
+success, specific nonempty-password failure, unsupported features, bounded
+malformed-input failure and ordinary positive controls under
 actual hosts and BAT. A strict independent child validator binds native status,
 source and output preservation, finalized diagnostics and owned cleanup. See
 `document_policy/README.md` for the exact matrix and evidence limits. API/unit
 guards and synthetic receipt mutations remain distinct from native acceptance;
-this route does not reopen human or GUI testing. Its encryption expectations are
-obsolete for the functional repair, as described at the top of this page.
+this route does not include human or GUI testing. Historical passes cover their
+original bytes; checkpoint evidence binds new runs to the migrated harness.
 
 M4-T03 adds `--layer faults`. Its targeted route runs the existing paths,
 process and outcomes suites once, followed by combined mid-write isolation,
@@ -298,8 +306,9 @@ and batch verifies engine resolution and selected paths. Level 1 regression
 checks exercise corrected front-matter/outline planning directly. Level 2 checks
 exercise parent boundaries and selected-level rejection.
 Shared-plan checks exercise the callable preview and captured-source writer.
-Full UX/Explorer, expanded Calibre compatibility and conversion from the
-extracted release package remain separate mandatory later checks. The local
+The former full UX/Explorer human requirements are historical and out of scope.
+Expanded automated Calibre compatibility and extracted-package conversion retain
+their separate executed evidence scopes. The local
 conversion route covers the two original fixtures on the pinned converter.
 The Windows CI workflow uses this same runner for the Python layer and separate
 shell-layer invocations under Windows PowerShell 5.1 and PowerShell 7. It uses

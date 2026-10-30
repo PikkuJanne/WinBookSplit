@@ -78,9 +78,12 @@ Reader initialization occurs before the application's structural preflight, so
 those dependency limits remain necessary. Earlier accepted receipts cover only
 their original bytes. The owner closed further manual acceptance for v1.0.3;
 fresh final-package Windows10 Store and genuine company-policy testing remain
-untested and are disclosed. Those historical waivers do not satisfy the active
-functional repair's ordinary Store first-run requirement. No new publication is
-authorized; current results and limits are in the
+untested and are disclosed. The owner's subsequent repair order removes all
+human testing and owner sign-off from active scope. Unavailable ordinary Store,
+Windows 10 and other native scenarios remain NOT_RUN evidence limits with no
+owner action required; explicit-runtime or component passes do not prove them.
+The current verification checkpoint performs no publication; results and limits
+are in the
 [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 The reviewed fixes do not establish general security
 clearance for the application or documents.

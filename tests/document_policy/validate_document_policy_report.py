@@ -24,6 +24,7 @@ console = load('wbs_policy_receipt_console', ROOT / 'tests/manual/current_launch
 support = load('wbs_policy_receipt_support', ROOT / 'tests/support/validate_support_report.py')
 APPLICATION = support.APPLICATION
 PS_KINDS = ('ordinary-manual', 'ordinary-level1', 'ordinary-level2', 'page-aa-exclusion',
+            'encrypted-user', 'encrypted-owner-empty',
             *fixtures.UNSUPPORTED, *fixtures.MALFORMED,
             'encrypted-user-preview', 'encrypted-owner-empty-preview', 'xfa-interactive')
 BAT_KINDS = ('ordinary-manual', 'encrypted-user', 'encrypted-owner-empty', 'acroform', 'signature-perms',
@@ -52,7 +53,7 @@ def mode_for(kind):
 
 def expected_exit(kind):
     fixture = fixture_kind(kind)
-    return 7 if fixture in fixtures.UNSUPPORTED else 6 if fixture in fixtures.MALFORMED else 0
+    return 7 if fixture == 'encrypted-user' or fixture in fixtures.UNSUPPORTED else 6 if fixture in fixtures.MALFORMED else 0
 
 
 def controlled_powershell(raw):
@@ -89,7 +90,9 @@ def validate_result(frame, kind):
          and frame.get('fallback_modes') == [],
          'Sole typed terminal policy result absent or contradictory')
     if expected == 7:
-        need(frame.get('status') == 'unsupported' and frame.get('code') == 'unsupported_document'
+        code = 'password_required' if fixture_kind(kind) == 'encrypted-user' else 'unsupported_document'
+        status = 'error' if code == 'password_required' else 'unsupported'
+        need(frame.get('status') == status and frame.get('code') == code
              and frame['written_count'] == 0 and frame.get('execution') is None and frame.get('plan') is None,
              'Unsupported input falsely prepared, published, retried or succeeded')
     elif expected == 6:
@@ -102,6 +105,10 @@ def validate_result(frame, kind):
         need((frame.get('status'), frame.get('code')) in allowed and frame['written_count'] == 0
              and frame.get('execution') is None and frame.get('plan') is None,
              'Malformed/pathological document lost its bounded declared failure')
+    elif kind.endswith('-preview'):
+        need(frame.get('status') == 'preview' and frame.get('code') == 'preview_complete'
+             and frame['written_count'] == 0 and frame.get('execution') is None
+             and isinstance(frame.get('plan'), dict), 'Readable Preview falsely rejected or published output')
     else:
         need(frame.get('status') == 'success' and frame.get('code') == 'split_complete'
              and frame['written_count'] == len(RANGES[mode_for(kind)]) and isinstance(frame.get('execution'), dict)
@@ -118,18 +125,33 @@ def validate_result(frame, kind):
          'PDF preflight acquired conversion/staging/working-PDF ownership')
 
 
-def validate_publication(row, frame):
-    plan, execution = frame['plan'], frame['execution']
+def validate_plan(row, frame):
+    plan = frame['plan']
     bounds = RANGES[row['mode']]
     source = row['source_observations_before']['source']
+    entries = plan.get('entries')
+    need(isinstance(entries, list) and len(entries) == len(bounds)
+         and all(isinstance(entry, dict) and all(type(entry.get(key)) is int for key in ('start', 'end', 'sequence'))
+                 for entry in entries), 'Physical plan entries missing or untyped')
     need(plan.get('mode') == row['mode'] and type(plan.get('total_pages')) is int and plan['total_pages'] == 4
-         and plan.get('ranges') == bounds and [[entry['start'], entry['end']] for entry in plan.get('entries', [])] == bounds
+         and plan.get('ranges') == bounds and [[entry['start'], entry['end']] for entry in entries] == bounds
+         and all(type(value) is int for selected in plan['ranges'] for value in selected)
+         and [entry['sequence'] for entry in entries] == list(range(1, len(bounds) + 1))
          and plan.get('coverage') == {'complete': True, 'covered_pages': 4, 'section_count': len(bounds)}
          and plan['coverage']['complete'] is True and all(type(plan['coverage'][key]) is int for key in ('covered_pages', 'section_count')),
          'Ordinary plan omitted, duplicated or crossed physical pages')
-    need(plan.get('source_identity', {}).get('sha256') == source['sha256']
-         and plan['source_identity'].get('size_bytes') == source['size_bytes']
-         and execution.get('source_identity') == plan['source_identity']
+    identity = plan.get('source_identity')
+    need(isinstance(identity, dict) and identity.get('sha256') == source['sha256']
+         and type(identity.get('size_bytes')) is int and identity['size_bytes'] == source['size_bytes']
+         and identity.get('path') == row['input_path'] and identity.get('binding') == 'reader_snapshot',
+         'Plan changed captured source identity')
+
+
+def validate_publication(row, frame):
+    validate_plan(row, frame)
+    plan, execution = frame['plan'], frame['execution']
+    bounds = RANGES[row['mode']]
+    need(execution.get('source_identity') == plan['source_identity']
          and execution.get('mode') == plan['mode'] and execution.get('coverage') == plan['coverage']
          and execution.get('total_pages') == 4 and execution.get('written_count') == len(bounds)
          and execution.get('final_directory') == row['outcome']['final_directory']
@@ -149,7 +171,8 @@ def validate_publication(row, frame):
              and opened.get('filename') == output['filename'] and opened.get('sha256') == output['sha256']
              and opened.get('bytes') == output['size_bytes'] and opened.get('page_ids') == list(range(selected[0] + 1, selected[1] + 1))
              and opened.get('content_sha256') == expected_content[selected[0]:selected[1]]
-             and opened.get('page_actions_absent') is True and opened.get('inert_action_marker_absent') is True,
+             and opened.get('page_actions_absent') is True and opened.get('inert_action_marker_absent') is True
+             and opened.get('is_encrypted') is False and opened.get('catalog_openaction_absent') is True,
              'Ordinary reopened output bytes/content/order or page-AA exclusion differs')
     need(row.get('publication_manifest') == execution.get('manifest') == support.strict_json(row['publication_manifest_raw'])
          and sha256(row['publication_manifest_raw'].encode()).hexdigest() == row['publication_manifest_sha256'],
@@ -181,7 +204,7 @@ def validate_case(row, *, cleanup_complete=True):
         need(row.get('modifications') == MODIFICATIONS and row.get('wrapper_text') == WRAPPER
              and row.get('wrapper_sha256') == sha256(WRAPPER.encode('ascii')).hexdigest(), 'BAT declared source/wrapper seam differs')
         command = [row['cmd_executable'], '/d', '/v:off', '/c', str(directory / 'invoke.cmd')]
-        need(row.get('stdin') == 'PIPE_UTF8' and row.get('stdin_utf8') == ('M\n1,3\nY\nN\n' if kind == 'ordinary-manual' else 'M\n'),
+        need(row.get('stdin') == 'PIPE_UTF8' and row.get('stdin_utf8') == ('M\n1,3\nY\nN\n' if expected_exit(kind) == 0 else 'M\n'),
              'BAT literal menu/consent recipe changed')
         need(row.get('parameters') == [source_path], 'BAT changed the one literal input argument')
     else:
@@ -212,10 +235,10 @@ def validate_case(row, *, cleanup_complete=True):
     if preview:
         need(row.get('console_evidence') is None and row.get('console_log') is None and row.get('log_sha256') is None
              and row.get('engine_records') == [] and row.get('process_summaries') == []
-             and row['output_members_after'] == ['prior-output.pdf'], 'Rejected Preview created persisted diagnostics/output')
+             and row['output_members_after'] == ['prior-output.pdf'], 'Preview created persisted diagnostics/output')
         need(not any(token in combined for token in ('[WBS-INTERACTION] ', '[INTERACTION-REPLY] ',
              'Write these chapter PDFs', 'Enter manual start pages', 'Open the completed folder')),
-             'Rejected Preview solicited processing/consent')
+             'Preview solicited processing/consent')
     else:
         text = row.get('console_log')
         need(isinstance(text, str) and sha256(text.encode()).hexdigest() == row.get('log_sha256')
@@ -264,6 +287,11 @@ def validate_case(row, *, cleanup_complete=True):
                  and manifest['source_identity'].get('sha256') is None, 'Rejected preflight falsely claimed a captured/extracted plan')
         need(set(row['output_members_after']) == {'prior-output.pdf'} | (set() if preview else {row['console_directory_name']}),
              'Rejected input created output staging/chapter/final directory')
+    elif preview:
+        validate_plan(row, frame)
+        need(final.get('final_directory') is None and row.get('publication') is None
+             and 'Done.' not in row['stdout'] and 'Output: ' not in row['stdout'],
+             'Readable Preview falsely claimed publication/completion')
     else:
         validate_publication(row, frame)
         need('Done.' in row['stdout'] and 'Output: ' + final['final_directory'] in row['stdout'], 'Ordinary truthful completion absent')
@@ -274,6 +302,11 @@ def validate_case(row, *, cleanup_complete=True):
 
 
 def validate_export(row, application):
+    need(application.get('kind') == 'encrypted-user' and application.get('fixture_kind') == 'encrypted-user'
+         and application.get('host_id') in {'PS51', 'PS7'}
+         and all(application.get('outcome', {}).get(key) == value for key, value in
+                 {'status': 'error', 'code': 'password_required', 'exit_code': 7, 'written_count': 0}.items()),
+         'Refused export source is not the genuine password-required input')
     need(row.get('id') == application['host_id'] + '-unsupported-export' and row.get('application_case_id') == application['id'],
          'Explicit unsupported/null-plan export source binding differs')
     directory = Path(application['input_path']).parent.parent
@@ -293,7 +326,7 @@ def validate_export(row, application):
     need(actual == [expected] and all(type(actual[0][key]) is int for key in ('version', 'exit_code', 'written_count')),
          'Actual explicit export result protocol/type differs')
     need(row['summary']['plan'] is None and row['summary']['outcome'] ==
-         {'status': 'unsupported', 'code': 'unsupported_document', 'exit_code': 7, 'written_count': 0},
+         {'status': 'error', 'code': 'password_required', 'exit_code': 7, 'written_count': 0},
          'Unsupported metadata-only export invented a plan or positive output')
     need(all(secret not in raw for secret in (application['input_path'], fixtures.USER_PASSWORD, fixtures.OWNER_PASSWORD,
          'Original authored fixture author', 'WBS-POLICY-PAGE-', 'ORIGINAL_INERT_POLICY_')), 'Support export leaked fixture/private data')
@@ -348,5 +381,5 @@ def validate_document_policy_report(report, requested_shell_paths, *, cleanup_co
     need({row.get('id') for row in exports} == {'PS51-unsupported-export', 'PS7-unsupported-export'}, 'Two actual unsupported exports missing')
     for exported in exports:
         application = next(row for row in cases if row['id'] == exported['application_case_id'])
-        need(application['kind'] == 'encrypted-owner-empty' and application['host_id'] in {'PS51', 'PS7'}, 'Wrong null-plan export input selected')
+        need(application['kind'] == 'encrypted-user' and application['host_id'] in {'PS51', 'PS7'}, 'Wrong null-plan export input selected')
         validate_export(exported, application)

@@ -1768,7 +1768,7 @@ def execute(args: argparse.Namespace) -> dict:
             for shell in args.shell_path:
                 command.extend(["--shell-path", str(shell)])
             step = {"name": "document-policy-regression", "requested_shell_paths": [str(shell) for shell in args.shell_path],
-                    "meaning": "Authored encrypted, unsupported-feature and malformed PDF rejection, ordinary positive controls and explicit redacted records under both hosts and BAT",
+                    "meaning": "Authored empty-password execution/preview, specific password refusal, unsupported/malformed PDF controls and redacted records under both hosts and BAT",
                     **run_command(command, work, environment=environment, timeout=600)}
             attach_child_report(step, child_report, "document-policy")
             steps.append(step)

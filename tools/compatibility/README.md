@@ -1,18 +1,25 @@
 # Finite native package acceptance kit
 
 For the active [functional repair](../../docs/functional-repair/STATUS_NEXT.md),
-reuse the single pretested `WinBookSplit-Functional-Native-Checkpoint4.zip` in
-Downloads. Its `START-HERE.bat` and numbered guide return one redacted
+preserve the single pretested `WinBookSplit-Functional-Native-Checkpoint4.zip` in
+Downloads. The latest direct owner order removes all human testing, owner sign-off
+and return-report requests. No owner action is required. Reuse is limited to an
+agent-accessible qualifying machine; unavailable native cases stay NOT_RUN and
+do not become a human-testing blocker. Its `START-HERE.bat` and numbered guide
+return one redacted
 `SEND-THIS-REPORT.zip`, including failures/missing prerequisites. It binds the
 checkpoint-4 source/archive and verifies ordinary BAT consent/setup/resume plus
 repeat, without provisioning Python, supplying a selected runtime, injecting PATH
 or prebuilding the ordinary app environment. Network activity stays NOT_RUN
 without a trace. A new documentation-only archive does not change that kit's
-binding or establish new Store acceptance. No publication is authorized.
+binding or establish new Store acceptance. Checkpoint 6 performs no publication;
+eventual publication uses the later direct authority and a future source/package
+freeze.
 
 The remainder describes the historical v1.0.3 kit and its separate scenarios,
 not a requirement to restart T07 or an authorization to acquire a private runtime
-for the functional repair. Historical results/specs keep their original scope.
+for the functional repair. Its human-testing requirements are superseded, not
+pending tasks. Historical results/specs keep their original scope.
 
 This developer tool builds a self-contained kit for one exact distribution ZIP
 on regular Windows 10 22H2 x64. It carries the frozen release assets, authored
@@ -20,7 +27,7 @@ fixtures and authenticated helpers. GitHub's automatic source archive does not
 substitute for the distribution. Owner startup uses inbox PowerShell without
 application Python or Git. The v1.0.3 T06 evidence records the frozen candidate
 and exact delivered launch-command checks; T05 source/component checks alone
-do not certify those archive bytes. T07 owns the remaining Windows 10 Store gate.
+do not certify those archive bytes. T07 held the original Windows 10 Store gate.
 
 The builder defaults to `--scenario store-existing`. Its generated
 `Run-Windows10.cmd` explicitly selects that scenario without provisioning. After
@@ -37,7 +44,8 @@ The Store report and its six receipt envelopes use schema 2. The offline
 `tools/codex-v1.0.3/check_native_store_report.py` additionally rejects attempted
 fallback even when unused, supplied/copied/cloned/injected runtimes, inventory
 used as application selection, and old schemas. These consistency checks do not
-attest native execution. Actual Windows 10 owner acceptance remains required.
+attest native execution. The original contract required actual Windows 10 owner
+acceptance; the latest repair order removes that human-testing requirement.
 Store-existing returns the printed `native-store-result.zip`, including sanitized
 completed/failure receipts. Its raw working extraction, venv and outputs remain
 local. Retain a blocked return for diagnosis; never edit it into a passing report.

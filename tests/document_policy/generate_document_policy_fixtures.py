@@ -17,7 +17,7 @@ KINDS = ('ordinary', 'page-aa-exclusion', 'encrypted-user', 'encrypted-owner-emp
          'catalog-openaction', 'catalog-aa', 'catalog-javascript', 'embedded-attachment', 'portfolio',
          'page-fileattachment', 'page-3d', 'rich-media', 'catalog-associated-file', 'page-associated-file',
          'malformed-header', 'truncated', 'zero-pages', 'deep-outline', 'page-tree-cycle')
-UNSUPPORTED = KINDS[2:20]
+UNSUPPORTED = KINDS[4:20]
 MALFORMED = KINDS[20:]
 # Authored fixture credentials are generation inputs only, never app arguments.
 USER_PASSWORD = 'WBS-authored-test-open-731'
@@ -168,7 +168,10 @@ def generate_fixtures(directory):
             stream_file.write(data)
         files[kind] = path
         observations[kind] = {'filename': path.name, 'sha256': sha256(data).hexdigest(), 'bytes': len(data),
-            'expected': 'unsupported_document' if kind in UNSUPPORTED else 'bounded_invalid' if kind in MALFORMED else 'ordinary_or_defined_exclusion',
+            'expected': 'password_required' if kind == 'encrypted-user' else
+                        'readable_empty_password' if kind == 'encrypted-owner-empty' else
+                        'unsupported_document' if kind in UNSUPPORTED else
+                        'bounded_invalid' if kind in MALFORMED else 'ordinary_or_defined_exclusion',
             'encrypted': kind.startswith('encrypted-'), 'structural_signature_only': kind in {'signature-widget', 'signature-perms', 'orphan-signature'},
             'source_actions_inert': True, 'fixture_private_data': False}
     provenance = {'protocol': 'winbooksplit.document-policy-fixtures', 'version': 1, 'private_data': False,

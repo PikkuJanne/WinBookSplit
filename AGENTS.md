@@ -7,6 +7,17 @@ The owner's new request authorizes the focused functional repair described in
 evidence first, then the applicable source/tests and instructions. The v1.0.3
 records below describe completed historical work, not the active task queue.
 
+The owner's subsequent direct continuation removes all human testing from this
+repair and authorizes agent-only completion and eventual publication after
+automated verification and a future source/package freeze. Do not request owner,
+human, Explorer/GUI or manual tests, sign-off, screenshots, reports or kit returns;
+none is pending owner work or a completion blocker. Unavailable native scenarios
+remain honestly NOT_RUN, with no owner action required. The instruction pack alone
+does not authorize publication; the direct follow-up supplies that authority.
+Checkpoint 6 migrates the native document-policy harness and records verification;
+it performs no release, tag, version change or publication. A future release must
+use the next unused patch after live verification and preserve all old bytes.
+
 Preserve the PowerShell/Python/pypdf/Calibre architecture, completed Store-Python
 discovery repair, dependency locks/security floors and unrelated safety checks.
 The earlier blanket rejection of encrypted PDFs is superseded: support ordinary
@@ -19,7 +30,8 @@ noninteractive runs must neither prompt nor install. Checkpoints 2 and 3 impleme
 these behaviors; their component and healthy-runtime checks do not establish
 ordinary Store first-run acceptance. See the current status for actual results.
 
-Work one checkpoint per chat. Preserve checkpoint 1's genuine failing application
+The direct continuation lifts the previous checkpoint-5 stop. Work one checkpoint
+per chat. Preserve checkpoint 1's genuine failing application
 regressions and diagnosis as historical evidence; never restore obsolete bans
 to make old expectations pass. After each checkpoint,
 run relevant tests, update the single short STATUS_NEXT file and evidence,
@@ -29,9 +41,10 @@ local HEAD against the freshly queried remote branch, hand over and stop.
 Do not provision a private Python fallback, pre-create the test application's
 environment, inject a runtime into ordinary discovery, or put the private book
 or its outputs in Git. Missing native prerequisites remain NOT_RUN. Preserve
-all published tags/assets and historical evidence. No new release publication
-is authorized by the attached instruction pack; ordinary first-run acceptance
-must pass before publication can be considered under separate authority.
+all published tags/assets and historical evidence. Agent-accessible ordinary
+first-run checks must use their true natural-discovery path; component or explicit
+runtime checks cannot stand in for them. Missing prerequisites are evidence limits,
+not a request for a human run. This checkpoint does not publish a release.
 
 The active repair preserves immutable inputs, complete physical-page partitions,
 no-overwrite output, ownership-limited cleanup, bounded processes and both streams,
@@ -45,8 +58,9 @@ and consent path; package acceptance still belongs to the exact tested bytes.
 
 Everything below records the completed v1.0.3 work and its original routing.
 Its task queue, processing-time installation prohibition, owner waivers and release
-authority do not govern the active functional repair. Do not restart that queue,
-edit historical specs/evidence, or infer another publication authorization.
+authority and human-testing requirements do not govern the active functional
+repair. Do not restart that queue or edit historical specs/evidence. Publication
+authority comes only from the direct follow-up recorded above.
 Use the active section and STATUS_NEXT.md first; shared safety requirements remain.
 
 WinBookSplit v1.0.3 is published at tested source
