@@ -103,6 +103,8 @@ BeforeAll {
 param([string]$Control)
 $ErrorActionPreference='Stop'
 [Console]::OutputEncoding=New-Object Text.UTF8Encoding($false)
+# The Python test controller may inherit a PS7 module path into this inbox host.
+Import-Module (Join-Path $PSHOME 'Modules\Microsoft.PowerShell.Security\Microsoft.PowerShell.Security.psd1') -Scope Local -ErrorAction Stop
 $p=[IO.File]::ReadAllText($Control)|ConvertFrom-Json
 $before=@(Get-ExecutionPolicy -List | ForEach-Object {@{scope=$_.Scope.ToString();policy=$_.ExecutionPolicy.ToString()}})
 Write-Host ('[POLICY_BEFORE] '+($before|ConvertTo-Json -Compress))

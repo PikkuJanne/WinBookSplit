@@ -1,0 +1,925 @@
+{
+  "checkpoint": 4,
+  "date": "2026-10-30",
+  "scope": "Workflow/exact unpublished package verification; ordinary Store acceptance pending native prerequisites; no publication",
+  "source_binding": {
+    "starting_commit": "ca29d143cf104e6802eeededbb42b817db051845",
+    "starting_tree": "cd1803383c0f57ea1bbd4fdd29b6e1aa35a3b6d0",
+    "starting_clean_local_equals_live": true,
+    "branch": "codex/functional-repair",
+    "origin": "https://github.com/PikkuJanne/WinBookSplit.git",
+    "package_source_commit": "7837503e7cbab27d0bd6c8bf90e95460581158d8",
+    "package_source_tree": "331c8599fd882e0114d578eb974d0943b4c162f0",
+    "package_delta": "Three shipped relative documentation links changed to explicit repository URLs; no application bytes changed",
+    "changed_tool_test_working_bytes": {
+      "tests/powershell/Setup.Tests.ps1": {
+        "sha256": "85772563b3487eda373a6286878d752c9f122873d776de84946650b32dd4ddff",
+        "size_bytes": 57330,
+        "git_blob": "f45e86728de0c9b807c0933e234b9930cd6924f4",
+        "git_blob_sha256": "04ee0bc6a8acde5cd49d7140c2ef678406f806ed6d3372ef9192719a5f75ef4a",
+        "git_blob_bytes": 56524,
+        "working_equals_git_blob": false,
+        "only_crlf_normalization": true
+      },
+      "tools/compatibility/Invoke-FunctionalAcceptance.ps1": {
+        "sha256": "6546e252beec5cea86f26fa4a1b477eb83d8e77d71915b4bd4c7ffd8ac5e51ef",
+        "size_bytes": 21090,
+        "git_blob": "4b142a298a9592b4b4b60a8b5b703ad61dc6b1f3",
+        "git_blob_sha256": "6546e252beec5cea86f26fa4a1b477eb83d8e77d71915b4bd4c7ffd8ac5e51ef",
+        "git_blob_bytes": 21090,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tools/compatibility/build_functional_kit.py": {
+        "sha256": "87330092c5590804adf1b91b704af519f244561495578aab496eca640cccf2fc",
+        "size_bytes": 6070,
+        "git_blob": "3600e23dd887032e9ad9a3028f61de7c6f884642",
+        "git_blob_sha256": "87330092c5590804adf1b91b704af519f244561495578aab496eca640cccf2fc",
+        "git_blob_bytes": 6070,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tools/compatibility/functional_oracle.py": {
+        "sha256": "a53154ce9a952c8cafc080c53a2cd3797c8f45c1666ecd3719e6f85ef131da92",
+        "size_bytes": 2698,
+        "git_blob": "daf75442e2316ee65f86118040d6c57001bb38a2",
+        "git_blob_sha256": "a53154ce9a952c8cafc080c53a2cd3797c8f45c1666ecd3719e6f85ef131da92",
+        "git_blob_bytes": 2698,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      },
+      "tests/python/test_functional_native_kit.py": {
+        "sha256": "5318180c5ee366e4134ab43282b551c7b9ff726bd33ddccdb21d493d08d573ba",
+        "size_bytes": 4032,
+        "git_blob": "dc03ae4aed1b82cc5d862f54d1e96eb7df27e768",
+        "git_blob_sha256": "5318180c5ee366e4134ab43282b551c7b9ff726bd33ddccdb21d493d08d573ba",
+        "git_blob_bytes": 4032,
+        "working_equals_git_blob": true,
+        "only_crlf_normalization": false
+      }
+    },
+    "changed_tool_test_map_sha256": "10fa7fb4f74f0d817da09ce886d4654242ad00923551002f27a67ffc8098f234",
+    "code_map_basis": "Tested physical working bytes plus commit-independent staged Git blob identities; Setup.Tests.ps1 keeps CRLF in working copy and LF in Git. Documentation excluded to avoid self-reference."
+  },
+  "instruction_zip_sha256": "f33ab17eab774f4a65cf6e008949012e810cb0c10ce4c9bb9796f0d6524dc70d",
+  "environment": {
+    "os": "Microsoft Windows11 Pro build26300",
+    "developer_python": "3.14.8 regular x64",
+    "pypdf": "6.21.3",
+    "driver": "Pre-existing developer environment, never ordinary discovery input",
+    "powershell_hosts": [
+      "5.1.26100.9711",
+      "7.6.5",
+      "7.6.6"
+    ],
+    "natural_manager_channel": "python.org",
+    "natural_manager_version": "26.4.240.0",
+    "natural_python": "3.14.7",
+    "unchanged_floor": "3.14.8"
+  },
+  "package": {
+    "publication": "UNPUBLISHED LOCAL CHECKPOINT TEST ARTIFACT; not published v1.0.3 asset",
+    "archive": {
+      "bytes": 960774,
+      "name": "WinBookSplit-v1.0.3.zip",
+      "sha256": "451cd7659fac0b95fc033cebb3bca2798057a19332284021f69cf52ce2ea5dd3"
+    },
+    "manifest": {
+      "sha256": "ba28c8b111185cd87c7c635fe7d4c24fd0ab4e411afba27d9ac0327f9c384d75",
+      "size_bytes": 16633
+    },
+    "payload_sha256": "d4aff46bb81a23df993d477321c86cef1c083b39254811bad13c88747cd8087e",
+    "member_count": 34,
+    "archive_and_extracted_git_blob_exact": true,
+    "checkout_exact": 21,
+    "checkout_crlf_only_differences": 13,
+    "independent_member_map_sha256": "1bae7a86e31f30486ad1e7ae4689ba2e8d097e122ebc4448d44938c107cd9866",
+    "build_and_verify": "PASS",
+    "original_failures": [
+      "builder_source_mismatch: exact committed LF builder files materialized externally, original guard unchanged",
+      "unshipped_document_link: three documentation link targets repaired in scoped source freeze"
+    ],
+    "pypdf": {
+      "bundled": false,
+      "requirement": "pypdf==6.21.3 --hash=sha256:c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e",
+      "version": "6.21.3",
+      "wheel_sha256": "c8ca4d9a360dbd5d4b9bb7a8389e2a9ae6a106bee722b496f918040ba2daa17e"
+    }
+  },
+  "results": {
+    "packaged_functional_engine": {
+      "tests_run": 11,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 27.883347900000444,
+      "success": true,
+      "test_harness": "D:\\projects\\WinBookSplit-main\\tests\\python\\test_functional_pdf_repair.py",
+      "test_harness_sha256": "6f489123059a07f88815444b2ca73d12d4831af620d7596c7118e9ef826d8b7e",
+      "test_engine": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\fresh-extracted-application\\engine\\winbooksplit_engine.py",
+      "binding": "Rebind existing trusted harness engine/policy/ROOT globals to fresh exact payload; no payload edits"
+    },
+    "packaged_explicit_healthy_application": {
+      "status": "PASS",
+      "launches": 6,
+      "hosts": {
+        "5.1.26100.9711": 2,
+        "7.6.5": 2,
+        "7.6.6": 2
+      },
+      "scope": "Exact package PS launches with explicit existing developer runtime / NonInteractive; NOT Store cold start",
+      "independent_expected_markers": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "ranges": [
+        [
+          0,
+          2
+        ],
+        [
+          2,
+          4
+        ],
+        [
+          4,
+          6
+        ]
+      ],
+      "chapters_per_run": 3,
+      "app_venv_created": false,
+      "source_prior_previous_outputs_preserved": true,
+      "application_payload_unchanged": true
+    },
+    "package_guards": {
+      "status": "PASS",
+      "methods": 26,
+      "seconds": 305.534
+    },
+    "native_oracle_real_output_runs": {
+      "status": "PASS",
+      "runs": 6,
+      "tampered_expected_controls_rejected": 3
+    },
+    "native_oracle_units": {
+      "status": "PASS",
+      "methods": 6,
+      "seconds": 5.478,
+      "scope": "Actual engine outputs and deliberate source/page-order/encryption/range/warning mutations; not Store acceptance"
+    },
+    "kit_analysis": {
+      "analysis_findings": [],
+      "findings_count": 0,
+      "host_version": "7.6.5",
+      "parser_errors": [],
+      "file_sha256": "6546e252beec5cea86f26fa4a1b477eb83d8e77d71915b4bd4c7ffd8ac5e51ef"
+    },
+    "ordinary_source_bat": {
+      "outcomes": [
+        {
+          "protocol": "winbooksplit.outcome",
+          "version": 1,
+          "status": "failed",
+          "code": "runtime_not_found",
+          "message": "Python 3.14.7 is excluded by the reviewed security policy; the branch security floor is 3.14.8. See CVE12003, Changelog314, OpenSSL20260929, OpenSSL3148.",
+          "exit_code": 3,
+          "mode": "",
+          "written_count": 0,
+          "final_directory": null,
+          "engine_result": null
+        }
+      ],
+      "source_sha256_before": "8cfddae2ffd8d38dbfcede1423d130f3e549bf5fb415183b46f2e0023fe2f2c4",
+      "exit_code": 3,
+      "result": "NOT_RUN",
+      "scope": "NATIVE_UNCHANGED_BAT_NATURAL_DISCOVERY_NO_PROVISIONING",
+      "source_sha256_after": "8cfddae2ffd8d38dbfcede1423d130f3e549bf5fb415183b46f2e0023fe2f2c4",
+      "app_venv_exists_after": false,
+      "prerequisite": "No naturally discoverable supported base Python; observed=installed_runtimes_listed,manager_entry_rejected,manager_registered,python_security_floor,rejected_entry_point"
+    },
+    "kit_rehearsal": {
+      "status": "PASS",
+      "scope": "TOOLING_REHEARSAL_AND_REPORT_AUDIT_NOT_STORE_ACCEPTANCE",
+      "actual_start_exit": 3,
+      "native_workflow_status": "NOT_RUN",
+      "source_commit": "7837503e7cbab27d0bd6c8bf90e95460581158d8",
+      "package_sha256": "451cd7659fac0b95fc033cebb3bca2798057a19332284021f69cf52ce2ea5dd3",
+      "one_redacted_report_member": true,
+      "source_application_prior_environment_preserved": true,
+      "no_app_venv": true,
+      "ordinary_packaged_bat_exit": 3,
+      "reason": "existing Store registration absent; naturally discovered python.org3.14.7 below3.14.8 floor",
+      "kit": {
+        "path": "%TEMP%\\WinBookSplit-Functional-Native-Checkpoint4-tested.zip",
+        "sha256": "8068d08b0f1207bee9c0cbbee2b644386847601844b2840d01cbb77f70f7758f"
+      },
+      "report_zip": {
+        "path": "%TEMP%\\WBS-functional-cp4-kit-tested-fresh\\RUN-6a0853cfd841480bb8e240e8081fe410\\SEND-THIS-REPORT.zip",
+        "sha256": "5bdfaca1e4de7d60503494396d38da64fac03ce74bc01eed0a5ec87063be8dd4"
+      },
+      "return_report_sha256": "06b33b24bc7ec6ba1abc37144d791313ffc18b060aeb533cb1ac09e77297700a"
+    },
+    "durable_kit_independent_audit": {
+      "status": "PASS",
+      "scope": "INDEPENDENT_DURABLE_KIT_BYTE_AND_RETURN_REPORT_AUDIT_NOT_NATIVE_ACCEPTANCE",
+      "kit_sha256": "8068d08b0f1207bee9c0cbbee2b644386847601844b2840d01cbb77f70f7758f",
+      "kit_bytes": 1578321,
+      "member_count": 27,
+      "binding_sha256": "b56af8c69c7e38b70419afe60e3f0ce8278ee209f9113468c2fe0e290c189124",
+      "bound_helper_count": 24,
+      "actual_current_controller_and_oracle_match": true,
+      "native_source_commit": "7837503e7cbab27d0bd6c8bf90e95460581158d8",
+      "return_status": "NOT_RUN",
+      "return_report_sha256": "06b33b24bc7ec6ba1abc37144d791313ffc18b060aeb533cb1ac09e77297700a"
+    },
+    "application_units": {
+      "errors": 0,
+      "expected_failures": 0,
+      "failures": 0,
+      "isolated": true,
+      "loading_error": null,
+      "modules": [
+        {
+          "name": "test_compatibility",
+          "test_count": 46
+        },
+        {
+          "name": "test_filenames",
+          "test_count": 14
+        },
+        {
+          "name": "test_interactive",
+          "test_count": 14
+        },
+        {
+          "name": "test_pdf_policy",
+          "test_count": 31
+        },
+        {
+          "name": "test_functional_pdf_repair",
+          "test_count": 11
+        },
+        {
+          "name": "test_pdf_fidelity",
+          "test_count": 11
+        },
+        {
+          "name": "test_conversion",
+          "test_count": 18
+        },
+        {
+          "name": "test_outcomes",
+          "test_count": 11
+        },
+        {
+          "name": "test_version",
+          "test_count": 5
+        },
+        {
+          "name": "test_warnings",
+          "test_count": 10
+        }
+      ],
+      "no_bytecode": true,
+      "protocol": "winbooksplit.application-units",
+      "python_executable": "%TEMP%\\WBS-623-finish-q6dwc7hk\\dev14\\Scripts\\python.exe",
+      "python_version": "3.14.8",
+      "required_modules": [
+        "test_compatibility",
+        "test_filenames",
+        "test_interactive",
+        "test_pdf_policy",
+        "test_functional_pdf_repair",
+        "test_pdf_fidelity",
+        "test_conversion",
+        "test_outcomes",
+        "test_version",
+        "test_warnings"
+      ],
+      "scope": "Fixed runtime-only units; mocked boundary/API records remain synthetic tests",
+      "skipped": [],
+      "success": true,
+      "tests_run": 171,
+      "unexpected_successes": 0,
+      "version": 1
+    },
+    "planning_output_ebook_fault_units": {
+      "tests": 172,
+      "failures": 0,
+      "errors": 0,
+      "skips": 0,
+      "seconds": 80.923,
+      "modules": [
+        "test_manual",
+        "test_level1",
+        "test_level2",
+        "test_plan",
+        "test_preview",
+        "test_output",
+        "test_diagnostics",
+        "test_ebook_assets",
+        "test_ebook_behavior",
+        "test_converter_cache",
+        "test_fault_invariants",
+        "test_fault_isolation"
+      ]
+    },
+    "regression_source": {
+      "source_commit": "ca29d143cf104e6802eeededbb42b817db051845",
+      "source_tree": "cd1803383c0f57ea1bbd4fdd29b6e1aa35a3b6d0",
+      "boundary": "Existing developer driver only, no new Python; regressions and explicit offline setup fixtures are separate from ordinary Store first-run acceptance. Source clone materialized with exact root checkout bytes before tests and production hash equality asserted.",
+      "production_file_map": {
+        "WinBookSplit.ps1": "e655c3e649677464c4eb478f3b02ea17def632cb81869d00a007a781c1d728ee",
+        "WinBookSplit.bat": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+        "Setup-WinBookSplit.ps1": "6ede80d5761793177c41ead7ba68dd95570e2ec4bad9a33a08277937e21cff77",
+        "Setup-WinBookSplit.bat": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+        "requirements.txt": "7a50c2fd97b4c2d2e2aed4e0cc30cd406dd3a153abc911467b724d11fcf9cc83",
+        "engine/WinBookSplit.Compatibility.json": "590e5aa1712c3eb4e1e01ece0558c1c65ef4020572ac27b00743078aec168c2b",
+        "engine/WinBookSplit.Compatibility.ps1": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+        "engine/WinBookSplit.Diagnostics.ps1": "1d91b78c6841ee211cb5b4ec613812f2bd4957c0ae899b2ee25a4f3239750749",
+        "engine/WinBookSplit.Logging.ps1": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+        "engine/WinBookSplit.Outcomes.json": "e8d23e5f470b430ed0c8230f6df93643de59bf12d21396205286a810cb29a0c7",
+        "engine/WinBookSplit.Paths.ps1": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+        "engine/WinBookSplit.Process.ps1": "92f0487157f8205118e2417d4ab1abc08c26ea6884b2b022ee4eeb98747e0142",
+        "engine/WinBookSplit.Runtime.ps1": "5babe7d501f896f9d81a97730c95109bcb57738b48ef13e87bb95d9a7ee1964d",
+        "engine/WinBookSplit.Setup.ps1": "37a83cda8e80536ad5ed32b70d84e4153c33b34638b1c150af949b67286995bb",
+        "engine/WinBookSplit.Support.ps1": "3b936b46ab8796f1dd1bcae3d98930b0e72e3d333ea364e4f99001cee2ef1755",
+        "engine/winbooksplit_compatibility.py": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+        "engine/winbooksplit_conversion.py": "a2938ff6b136d7d93bd25c69a78ed8f56bcfcf3ee1fd400967e40679e7fe4661",
+        "engine/winbooksplit_engine.py": "28bc047e35a35099b978daf7c04022626faa8340aa0a6c5ce7dce413a8bcaf51",
+        "engine/winbooksplit_job.py": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+        "engine/winbooksplit_windows.py": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a"
+      },
+      "original_source_unchanged": true,
+      "corrected_source_unchanged": true,
+      "final_recipe_source_unchanged": true
+    },
+    "powershell_component_runs": {
+      "ps51-components": {
+        "host": "5.1.26100.9711",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 215,
+        "passed": 188,
+        "failed": 27,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 215,
+        "failed_tests": [
+          "V101 independent discovery and optional-listing failures.excludes the document directory during separate read-only setup-base discovery",
+          "V101 independent discovery and optional-listing failures.retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+          "V101 independent discovery and optional-listing failures.treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+          "V101 independent discovery and optional-listing failures.keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+          "V101 independent discovery and optional-listing failures.preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+          "V101 independent discovery and optional-listing failures.does not execute an unregistered PATH file merely named pymanager.exe",
+          "V101 independent discovery and optional-listing failures.deduplicates the same concrete interpreter listed by two sources and direct PATH",
+          "T03 manager resolution contracts (SYNTHETIC registration/listing seams).independently rejects a listed executable whose child reports another identity",
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.executes the actual printed Check action verbatim, then repeats it as a healthy no-op",
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.forwards all setup BAT options and exits from unrelated Unicode CWD while preserving an explicitly repaired old environment",
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.retains real MOTW through RemoteSigned direct denial and process-only BAT Check invocation",
+          "V102 local setup host and policy observations.observes the actual current host and policy scopes without changing them",
+          "V102 local setup host and policy observations.reports a diagnostic query failure as unavailable with no partial or guessed scopes",
+          "V102 local setup host and policy observations.keeps simulated organization effective signing distinct from child Process Bypass",
+          "V101 damaged environment authority and ownership-limited rollback.fails an actually unwritable owned app root with actionable per-user guidance and no environment",
+          "Explicit allowlisted support diagnostic export.exports a dependency refusal with null accepted versions without exposing the local diagnosis",
+          "Explicit allowlisted support diagnostic export.exports only safe fields and preserves an original containing secrets in every discarded detail",
+          "Explicit allowlisted support diagnostic export.exports distinct PDF authentication refusal tokens without private document details",
+          "Explicit allowlisted support diagnostic export.rejects private strings in runtime versions including apparently numeric versions outside the trusted pins",
+          "Explicit allowlisted support diagnostic export.rejects coerced booleans and numbers and secret enum values in the selected settings",
+          "Explicit allowlisted support diagnostic export.normalizes portable PowerShell versions to fixed buckets and accepts the actual timeout limits",
+          "Explicit allowlisted support diagnostic export.rejects unknown warning tokens and conflicting parser severities while discarding warning messages",
+          "Explicit allowlisted support diagnostic export.rejects false success and contradictory status code count or exit bindings",
+          "Explicit allowlisted support diagnostic export.rejects omissions overlaps empty ranges and invalid coverage in the physical page partition",
+          "Explicit allowlisted support diagnostic export.rejects missing unknown future and unfinished root schemas before creating a summary",
+          "Explicit allowlisted support diagnostic export.never overwrites an existing destination or the source through direct or case aliases",
+          "Explicit allowlisted support diagnostic export.rejects an existing destination hardlink while preserving both original names"
+        ]
+      },
+      "ps7-components": {
+        "host": "7.6.6",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 215,
+        "passed": 207,
+        "failed": 8,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 215,
+        "failed_tests": [
+          "V101 independent discovery and optional-listing failures.excludes the document directory during separate read-only setup-base discovery",
+          "V101 independent discovery and optional-listing failures.retains the original unknown -0 exit-2 diagnostics and still selects an actual PATH interpreter",
+          "V101 independent discovery and optional-listing failures.treats empty or malformed optional listings as bounded failures alongside a real PATH success",
+          "V101 independent discovery and optional-listing failures.keeps safely stopped optional timeouts informative but makes cancellation and unproved shutdown fatal",
+          "V101 independent discovery and optional-listing failures.preserves actual PATH success after a safely stopped listed-interpreter timeout but retains fatal interruption rules",
+          "V101 independent discovery and optional-listing failures.does not execute an unregistered PATH file merely named pymanager.exe",
+          "V101 independent discovery and optional-listing failures.deduplicates the same concrete interpreter listed by two sources and direct PATH",
+          "T03 manager resolution contracts (SYNTHETIC registration/listing seams).independently rejects a listed executable whose child reports another identity"
+        ]
+      },
+      "ps51-first-run-corrected": {
+        "host": "5.1.26100.9711",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 38,
+        "passed": 38,
+        "failed": 0,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 38,
+        "failed_tests": [],
+        "test_files": [
+          "FirstRun.Tests.ps1"
+        ]
+      },
+      "ps51-failed-scopes-corrected": {
+        "host": "5.1.26100.9711",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 87,
+        "passed": 84,
+        "failed": 3,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 87,
+        "failed_tests": [
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.executes the actual printed Check action verbatim, then repeats it as a healthy no-op",
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.forwards all setup BAT options and exits from unrelated Unicode CWD while preserving an explicitly repaired old environment",
+          "T04 exact emitted setup and native BAT contracts in explicit developer fixtures.retains real MOTW through RemoteSigned direct denial and process-only BAT Check invocation"
+        ],
+        "test_files": [
+          "Discovery.Tests.ps1",
+          "Setup.Tests.ps1",
+          "Support.Tests.ps1"
+        ]
+      },
+      "ps7-first-run-corrected": {
+        "host": "7.6.6",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 38,
+        "passed": 38,
+        "failed": 0,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 38,
+        "failed_tests": [],
+        "test_files": [
+          "FirstRun.Tests.ps1"
+        ]
+      },
+      "ps7-failed-scopes-corrected": {
+        "host": "7.6.6",
+        "scope": "CP4_FIRST_RUN_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "total": 40,
+        "passed": 40,
+        "failed": 0,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 0,
+        "executed": 40,
+        "failed_tests": [],
+        "test_files": [
+          "Discovery.Tests.ps1"
+        ]
+      },
+      "ps51-three-final": {
+        "host": "5.1.26100.9711",
+        "scope": "CP4_FOCUSED_THREE_SETUP_RECIPE_TESTS_EXPLICIT_FIXTURES_NOT_ORDINARY_FIRST_RUN",
+        "total": 27,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 24,
+        "executed": 3,
+        "failed_tests": []
+      },
+      "ps7-three-final": {
+        "host": "7.6.6",
+        "scope": "CP4_FOCUSED_THREE_SETUP_RECIPE_TESTS_EXPLICIT_FIXTURES_NOT_ORDINARY_FIRST_RUN",
+        "total": 27,
+        "passed": 3,
+        "failed": 0,
+        "skipped": 0,
+        "failed_containers": 0,
+        "filtered_not_run": 24,
+        "executed": 3,
+        "failed_tests": []
+      }
+    },
+    "native_manual": {
+      "result": "MANUAL_REGRESSION_PASSED",
+      "success": true,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "seeded_property_cases": {
+        "seed": 20261009,
+        "count": 250,
+        "passed": true
+      },
+      "not_run": [
+        "full corrected Level 1/2 acceptance (separate layers)",
+        "Explorer",
+        "Calibre conversion",
+        "release-package acceptance"
+      ]
+    },
+    "native_ebooks": {
+      "result": "EBOOK_REGRESSION_PASSED",
+      "success": true,
+      "case_count": 10,
+      "application_cases": 4,
+      "failure_cases": 4,
+      "canary_cases": 2,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "limits": [
+        "Only authored self-contained EPUB and genuine generated unencrypted AZW3 are included.",
+        "Default-profile references are diagnostics; the shipped application always uses tablet.",
+        "Loopback observation is not OS network denial, a sandbox, or proof about arbitrary external converters/plugins.",
+        "No private documents, DRM removal, native ebook chapter output, installation, GUI, human or CI claims."
+      ]
+    },
+    "native_process": {
+      "result": "PROCESS_REGRESSION_PASSED",
+      "success": true,
+      "case_count": 35,
+      "source_unchanged": true,
+      "owned_temp_removed": true,
+      "not_run": [
+        "human Ctrl+C/Explorer",
+        "clean OS",
+        "release package",
+        "arbitrary unsupported encoding"
+      ],
+      "limits": [
+        "Timeout/cancel controls use a finite authored child and grandchild; cancellation is injected via a token.",
+        "Native supervisor controls and controlled engine failure substitutes are distinguished from three real Unicode/title PDF splits.",
+        "BAT wrapper supplies literal environment-variable data with delayed expansion disabled; original BAT bytes are unchanged.",
+        "Only emitted authenticated application paths are removed; no private Documents enumeration or processing."
+      ]
+    },
+    "first_native_process_failure": {
+      "error": "Owned tree never reached authored PID control: %TEMP%\\P-fqqhhejq\\PS51-native\\detached-pipe-child.json",
+      "last_case_id": "PS51-detached-pipe",
+      "process": {
+        "Pid": 11520,
+        "ExitCode": 1,
+        "TimedOut": true,
+        "Cancelled": false,
+        "ParentStopped": true,
+        "DescendantsStopped": true,
+        "StreamsComplete": true,
+        "JobAssigned": true,
+        "StartError": null,
+        "StopError": null,
+        "StreamError": null,
+        "ResultError": null,
+        "InteractionError": null,
+        "InputError": null,
+        "Stdout": "",
+        "Stderr": "",
+        "HumanStdout": "",
+        "StdoutTotalBytes": 0,
+        "StderrTotalBytes": 0,
+        "InteractionCount": 0,
+        "InteractionTotalBytes": 0,
+        "QueuedReplyCount": 0,
+        "ReplyCount": 0,
+        "ReplyTotalBytes": 0,
+        "StdoutTruncated": false,
+        "StderrTruncated": false,
+        "InputWriterStopped": true,
+        "PackageIdentityVerified": false,
+        "PackageFullName": null,
+        "ImagePath": null,
+        "ResultRecords": [],
+        "ElapsedSeconds": 1.0286454
+      },
+      "note": "Original heavy-parallel attempt retained; unchanged sequential35-control rerun passes without timeout or expectation changes."
+    },
+    "helper_change": {
+      "size_bytes": 57330,
+      "before_sha256": "139b652d6327932ca72df471f87ebf2f853f7ba273c50b50a02ff3cf88945df9",
+      "scope": "Generated read-only test recipe explicit actual-host Security import only; no production behavior or assertion changed.",
+      "path": "tests/powershell/Setup.Tests.ps1",
+      "after_sha256": "85772563b3487eda373a6286878d752c9f122873d776de84946650b32dd4ddff"
+    },
+    "helper_analysis": {
+      "findings": [],
+      "path": "tests/powershell/Setup.Tests.ps1",
+      "tool": "PSScriptAnalyzer",
+      "version": "1.25.0",
+      "count": 0
+    },
+    "recipe_failure_diagnosis": {
+      "status": "REPRODUCED_AND_TEST_HELPER_REPAIRED",
+      "actual_read_only_replay_exit": 1,
+      "stdout_empty": true,
+      "observed_error": "CouldNotAutoloadMatchingModule Microsoft.PowerShell.Security at generated recipe Get-ExecutionPolicy before application action",
+      "parent_environment": "Inherited Codex PS7 module search path; no environment normalization for final reruns",
+      "final_tests": "Three executed per host PASS; 24 other Setup methods per host filtered NOT_RUN",
+      "source_delta": {
+        "size_bytes": 57330,
+        "before_sha256": "139b652d6327932ca72df471f87ebf2f853f7ba273c50b50a02ff3cf88945df9",
+        "scope": "Generated read-only test recipe explicit actual-host Security import only; no production behavior or assertion changed.",
+        "path": "tests/powershell/Setup.Tests.ps1",
+        "after_sha256": "85772563b3487eda373a6286878d752c9f122873d776de84946650b32dd4ddff"
+      }
+    }
+  },
+  "native_kit": {
+    "path": "%USERPROFILE%/Downloads/WinBookSplit-Functional-Native-Checkpoint4.zip",
+    "sha256": "8068d08b0f1207bee9c0cbbee2b644386847601844b2840d01cbb77f70f7758f",
+    "size_bytes": 1578321,
+    "bindings_sha256": "b56af8c69c7e38b70419afe60e3f0ce8278ee209f9113468c2fe0e290c189124",
+    "launcher": "START-HERE.bat",
+    "return": "SEND-THIS-REPORT.zip",
+    "status": "TOOLING_LAUNCH_REPORT_REHEARSED / NATIVE_WORKFLOW_NOT_RUN",
+    "prior_failures_retained": [
+      "Empty pause reply rejected by existing session helper",
+      "Failure reason needed literal message serialization",
+      "Output guard needed to permit finite legitimate failure-console diagnostic directory"
+    ]
+  },
+  "not_run": [
+    "Naturally discovered supported existing Store Python with no pypdf: ordinary BAT consent/setup/resume then repeated BAT success",
+    "Repeated ordinary BAT zero package-network activity trace",
+    "Native Windows10 workflow",
+    "Private supplied335-page book/independentAuto1Auto2/render comparison",
+    "New release/publication (not authorized)"
+  ],
+  "preserved_git_paths": {
+    "VERSION": {
+      "sha256": "fc1c281f1d0879bb81d24496eb278296d469a4c7d78565b035a14b51eab620b3",
+      "size_bytes": 7
+    },
+    "requirements.txt": {
+      "sha256": "7a50c2fd97b4c2d2e2aed4e0cc30cd406dd3a153abc911467b724d11fcf9cc83",
+      "size_bytes": 258
+    },
+    "WinBookSplit.bat": {
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "size_bytes": 1145
+    },
+    "Setup-WinBookSplit.bat": {
+      "sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+      "size_bytes": 938
+    },
+    "WinBookSplit.ps1": {
+      "sha256": "e655c3e649677464c4eb478f3b02ea17def632cb81869d00a007a781c1d728ee",
+      "size_bytes": 77139
+    },
+    "Setup-WinBookSplit.ps1": {
+      "sha256": "6ede80d5761793177c41ead7ba68dd95570e2ec4bad9a33a08277937e21cff77",
+      "size_bytes": 7252
+    },
+    "engine/WinBookSplit.Compatibility.json": {
+      "sha256": "590e5aa1712c3eb4e1e01ece0558c1c65ef4020572ac27b00743078aec168c2b",
+      "size_bytes": 11997
+    },
+    "engine/WinBookSplit.Compatibility.ps1": {
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+      "size_bytes": 16904
+    },
+    "engine/WinBookSplit.Diagnostics.ps1": {
+      "sha256": "1d91b78c6841ee211cb5b4ec613812f2bd4957c0ae899b2ee25a4f3239750749",
+      "size_bytes": 35502
+    },
+    "engine/WinBookSplit.Logging.ps1": {
+      "sha256": "4ef50b5be24efbb4c59178766b6648d05a0e1ade09a0cd63a6ca404a0eb4cfe6",
+      "size_bytes": 13060
+    },
+    "engine/WinBookSplit.Outcomes.json": {
+      "sha256": "e8d23e5f470b430ed0c8230f6df93643de59bf12d21396205286a810cb29a0c7",
+      "size_bytes": 1897
+    },
+    "engine/WinBookSplit.Paths.ps1": {
+      "sha256": "f85982b67ba3f4af62c3f488fef3207aaae128f6b53cb1a537e8af77e973106e",
+      "size_bytes": 4142
+    },
+    "engine/WinBookSplit.Process.ps1": {
+      "sha256": "92f0487157f8205118e2417d4ab1abc08c26ea6884b2b022ee4eeb98747e0142",
+      "size_bytes": 44819
+    },
+    "engine/WinBookSplit.Runtime.ps1": {
+      "sha256": "5babe7d501f896f9d81a97730c95109bcb57738b48ef13e87bb95d9a7ee1964d",
+      "size_bytes": 61521
+    },
+    "engine/WinBookSplit.Setup.ps1": {
+      "sha256": "37a83cda8e80536ad5ed32b70d84e4153c33b34638b1c150af949b67286995bb",
+      "size_bytes": 32676
+    },
+    "engine/WinBookSplit.Support.ps1": {
+      "sha256": "3b936b46ab8796f1dd1bcae3d98930b0e72e3d333ea364e4f99001cee2ef1755",
+      "size_bytes": 27310
+    },
+    "engine/winbooksplit_compatibility.py": {
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "size_bytes": 20075
+    },
+    "engine/winbooksplit_conversion.py": {
+      "sha256": "a2938ff6b136d7d93bd25c69a78ed8f56bcfcf3ee1fd400967e40679e7fe4661",
+      "size_bytes": 39119
+    },
+    "engine/winbooksplit_engine.py": {
+      "sha256": "28bc047e35a35099b978daf7c04022626faa8340aa0a6c5ce7dce413a8bcaf51",
+      "size_bytes": 101756
+    },
+    "engine/winbooksplit_job.py": {
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "size_bytes": 14965
+    },
+    "engine/winbooksplit_windows.py": {
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "size_bytes": 10933
+    }
+  },
+  "synchronization": "Final intended-files commit/push and clean HEAD versus freshly queried live branch verified externally in handover; no self-referential commit identity",
+  "receipts": [
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-root-2d5f845b75c24b00aa8e50f58a68f648\\environment-and-ordinary.json",
+      "sha256": "be8b36ef917baa2048b51f21db4a67135a283b78dd96213569a64848e9d7073f",
+      "size_bytes": 1808
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-root-2d5f845b75c24b00aa8e50f58a68f648\\ordinary-first-run.txt",
+      "sha256": "c563dc0e98bd7f8cf467442b9e0ff8bd31dd5b150eadfa660399c3048c16d8c6",
+      "size_bytes": 206
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-root-2d5f845b75c24b00aa8e50f58a68f648\\independent-kit-audit.json",
+      "sha256": "fe3a1053da2828f55b77118125604eb044b8c84ac6b669374bcde48b1f79735f",
+      "size_bytes": 619
+    },
+    {
+      "path": "%TEMP%\\WBS-first-run-9q3aans4\\evidence.json",
+      "sha256": "dc9623a381379f1f482bff560befd9b339bd74121ef41cc8c17c618e7c986c1d",
+      "size_bytes": 26400
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\package-review-summary.json",
+      "sha256": "27611a1cee2fde3561227cea9945dde4f49d0ae5a2d3cea1e332e059ef46c640",
+      "size_bytes": 8948
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\package-audit-and-healthy.json",
+      "sha256": "421b06fa9e2857dcef6726496c3c51ef2137adb23a4ae34e7277a5cf4deefb1b",
+      "size_bytes": 92081
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\native-oracle-real-output.json",
+      "sha256": "1e19a9ed7f4f5b02f25d04c0a4274e28eebd0b8cf774c1798359919a36750983",
+      "size_bytes": 6471
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\release-package-tests.txt",
+      "sha256": "4a9c3406b0c4aa30055ea70bfc67a14842b761bdce9d2265617b91279900dd1d",
+      "size_bytes": 132
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\build.txt",
+      "sha256": "c3343787776dba89a8557b7bfc539601712c13d816e299a888f713ae7744a061",
+      "size_bytes": 41
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\build-committed.txt",
+      "sha256": "d8cfd1e3d9cad0dca5a55e03faea2813ec4357c4c4c249e99b02fec419eff0b7",
+      "size_bytes": 41
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\unshipped-document-links.json",
+      "sha256": "52d1364c2127289644616843f2cf996e31919f606e830efa32de6154f252ddb2",
+      "size_bytes": 463
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-package-6130d7916065476db29c14124ab8c162\\builder-byte-comparison.json",
+      "sha256": "636e14494a016edc414680f9bff4a2ebc7070d9dda3823bd610245d7b5e7c0b4",
+      "size_bytes": 1378
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-checks\\analysis-and-tests.json",
+      "sha256": "bf84c884d62da8f722d6ba6d7259f2927c8368d09aaf4f271e24bd42a105c0fb",
+      "size_bytes": 135
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-checks\\analysis-final.json",
+      "sha256": "2fae2409e661a5db1c5b70e0b01268d46481106f5db395f9361db8e9ee5153b9",
+      "size_bytes": 195
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-checks\\oracle-tests.txt",
+      "sha256": "823dd1897206e0d7b9dc8d6731bde43015f08950d933dc3a44c4c947a303e27f",
+      "size_bytes": 931
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-checks\\launcher-report-audit.json",
+      "sha256": "cc668692b943ceb54c8f1af732b6dff009e5a8a1fb6d41949c235e3f0cbf7943",
+      "size_bytes": 1145
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-tested-fresh\\start-rehearsal.json",
+      "sha256": "d2ffa70cf04eb90553c81eeeb9c3debeac5fbca4a790243d2e8a3f10736020c4",
+      "size_bytes": 885
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-tested-fresh\\RUN-6a0853cfd841480bb8e240e8081fe410\\functional-report.json",
+      "sha256": "06b33b24bc7ec6ba1abc37144d791313ffc18b060aeb533cb1ac09e77297700a",
+      "size_bytes": 17531
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-kit-tested-fresh\\RUN-6a0853cfd841480bb8e240e8081fe410\\SEND-THIS-REPORT.zip",
+      "sha256": "5bdfaca1e4de7d60503494396d38da64fac03ce74bc01eed0a5ec87063be8dd4",
+      "size_bytes": 3741
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\compact-results.json",
+      "sha256": "153c98de8b05b283735e97b0922060c09547258049e8415eb23b1ea1bbe14c32",
+      "size_bytes": 33524
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\summary.json",
+      "sha256": "82738ddf39fe05a04af4f4992f715f9a52e206a5bc7071ea46e871c928621ec5",
+      "size_bytes": 37958
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\corrected-summary.json",
+      "sha256": "68944b08a89e6e4a52b17ded7e3b9d7ab2ab8c1c1f6dcb570a1ae4da3bc5cc3a",
+      "size_bytes": 8515
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\final-recipe-summary.json",
+      "sha256": "a9cc75c2efb2680b2c12e59c41ae2c90669a1ed0f692a5b03983e1ea6773d22c",
+      "size_bytes": 5202
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps51-components.json",
+      "sha256": "ec45136a5449565e7eb6f8b51a9e33d786c4fa932bf05f6d97e38b6fca3620fc",
+      "size_bytes": 13285
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps7-components.json",
+      "sha256": "bb70f3f148df5b58d1c5011173f91075990692befcd9153a79d226d557f892d8",
+      "size_bytes": 2328
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps51-first-run-corrected.json",
+      "sha256": "8aa08e3eef59ce0ef948e8ebc2914432939463638d688f557f6cd28a0da00539",
+      "size_bytes": 476
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps7-first-run-corrected.json",
+      "sha256": "afcbf8be7b80fb297bd0572b06c03856b3aa32439f39f426a3e3d736160e911b",
+      "size_bytes": 353
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps51-failed-scopes-corrected.json",
+      "sha256": "15084aff0f2abb17b08719298b21ce02b83afc25f6d2b3b4d06d5383ad90babf",
+      "size_bytes": 1874
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps7-failed-scopes-corrected.json",
+      "sha256": "b7c411ac457821d89b2b9e72f05c1a1f496ebec996752770336e9f9ecd00fb50",
+      "size_bytes": 354
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps51-three-final.json",
+      "sha256": "d139879f0aea1b986253d65ee6ebbfbf53c8af86bd2d6b854345b7127ea971a4",
+      "size_bytes": 298
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\ps7-three-final.json",
+      "sha256": "ea9768a456416beb2ca3d2266ba4b500799a4615a208b57e6867eabc489f7829",
+      "size_bytes": 243
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\native-manual.json",
+      "sha256": "3b424ba7c794d25b10a34d7c25afc44c06db73cabfaf07b128f826da9977f2f4",
+      "size_bytes": 692208
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\native-ebooks.json",
+      "sha256": "958710f187bdc465d84a4d9e042784d92ebb14328a776ce1bfad11dfefcb0d68",
+      "size_bytes": 3223231
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\native-process.json",
+      "sha256": "f183a229d0402a68ca7e5a395ad9dcb7131851c569c2396f09da090288e47c23",
+      "size_bytes": 2014525
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\native-process-sequential.json",
+      "sha256": "6a79af5063565fc151a399734a814c0b423e453c8bb15ea5fff47c5090decfe0",
+      "size_bytes": 5350468
+    },
+    {
+      "path": "%TEMP%\\WBS-functional-cp4-regressions-1568ca9035be494f820d089f08e01295\\recipe-readonly.json",
+      "sha256": "318b74ef98ded5ff50c55e2dd114f8d1a2855a224b9688e779e0615110d09228",
+      "size_bytes": 1724
+    }
+  ]
+}
