@@ -1,6 +1,6 @@
 # EPUB and AZW3 conversion
 
-For the [30 October functional repair](functional-repair/STATUS_NEXT.md),
+For the [30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md),
 converted-PDF validation must use the same readable-PDF access rules as direct
 input. The earlier unencrypted-only PDF restriction below is superseded as a
 repair requirement; support is not yet implemented at checkpoint 1. Ebook DRM

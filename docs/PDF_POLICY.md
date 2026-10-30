@@ -1,6 +1,6 @@
 # Supported PDF inputs and rejection policy
 
-The [30 October functional repair](functional-repair/STATUS_NEXT.md) supersedes
+The [30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md) supersedes
 the blanket encryption and benign local opening-destination exclusions below
 as implementation requirements. This page still describes the v1.0.3 baseline
 until the PDF repair checkpoint updates it; the new support is not yet delivered.
