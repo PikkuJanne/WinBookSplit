@@ -10,8 +10,9 @@ Requires regular GIL Windows x64 CPython 3.15.0 or later stable 3.15 patch,
 3.14.8 or later stable 3.14 patch, or 3.13.16 or later stable 3.13 patch. Unknown
 minors remain unvalidated. Use .\Setup-WinBookSplit.bat -NonInteractive to prepare
 the application-local environment with its locked pypdf. Host execution policy
-is process-scoped; enforced organization controls still apply. Processing never
-installs dependencies. Ebooks also require the locked Calibre version.
+is process-scoped; enforced organization controls still apply. An interactive
+launch can prepare the application .venv once after explicit consent, then
+resume. Preview and NonInteractive never install. Ebooks require locked Calibre.
 See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
@@ -137,6 +138,7 @@ function Draw-Header {
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Runtime.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Process.ps1')
 . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Logging.ps1')
+. (Join-Path $PSScriptRoot 'engine\WinBookSplit.Setup.ps1')
 
 function New-WinBookSplitFailure {
     param([string]$Code, [string]$Message)
@@ -236,6 +238,20 @@ function ConvertTo-WinBookSplitDisplayText {
 function Get-WinBookSplitDependencySummary {
     param([Parameter(Mandatory = $true)][Exception]$Failure,
           [Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$PythonPath, [string]$DocumentPath)
+    if ($Failure.Data.Contains('SetupResult')) {
+        # Preserve the actual installation/rollback failure, including pip's
+        # diagnostic. It is not another missing-interpreter discovery result.
+        return [pscustomobject]@{ Reason = [string]$Failure.Data['Code']; Message = $Failure.Message;
+            Action = 'Inspect the setup result above; preserve retained environments before retrying explicit setup.';
+            ActionShell = $null; ActionIsCommand = $false; Stage = 'setup'; Source = 'application';
+            Rejections = @(); ObservedPath = $null; ObservedVersion = $null; ObservedSource = $null }
+    }
+    if ($Failure.Data['Code'] -ceq 'cancelled') {
+        return [pscustomobject]@{ Reason = 'cancelled'; Message = $Failure.Message;
+            Action = 'Retry when ready; no split output was written.'; ActionShell = $null; ActionIsCommand = $false;
+            Stage = 'setup'; Source = 'application'; Rejections = @();
+            ObservedPath = $null; ObservedVersion = $null; ObservedSource = $null }
+    }
     # Only validated reason codes choose human text. Raw paths, probe streams and
     # exception messages remain in the local diagnostic record.
     $code = ''; if ($Failure.Data.Contains('Code')) { $code = [string]$Failure.Data['Code'] }
@@ -244,7 +260,7 @@ function Get-WinBookSplitDependencySummary {
     try {
         $trustedRoot = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
         $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($trustedRoot, 'engine', 'WinBookSplit.Compatibility.json'))
-    } catch { }
+    } catch { Write-Verbose 'The compatibility policy was unavailable for the dependency summary.' }
     $failureReason = ''; if ($Failure.Data.Contains('Reason') -and $Failure.Data['Reason'] -is [string]) { $failureReason = $Failure.Data['Reason'] }
     $discovery = Get-WinBookSplitDiscoverySummary -Attempts $attempts -Policy $policy -Code $code -FailureReason $failureReason
     $reason = $discovery.Reason; $source = $discovery.Source
@@ -357,6 +373,85 @@ function Get-WinBookSplitDependencySummary {
     return [pscustomobject]@{ Reason = $reason; Message = $message; Action = $action; ActionShell = $actionShell; ActionIsCommand = $actionIsCommand;
         Stage = $summaryStage; Source = $summarySource; Rejections = $discovery.Rejections;
         ObservedPath = $observedPath; ObservedVersion = $observedVersion; ObservedSource = $observedSource }
+}
+
+function Resolve-WinBookSplitProcessingRuntime {
+    param([Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$PythonPath,
+          [string]$DocumentPath, [switch]$NonInteractive, [switch]$Preview)
+    try {
+        return (Resolve-WinBookSplitRuntime -ApplicationRoot $ApplicationRoot -PythonPath $PythonPath -DocumentPath $DocumentPath)
+    }
+    catch {
+        $failure = $_.Exception
+        if ($NonInteractive -or $Preview -or -not $failure.Data.Contains('Code') -or
+            ($failure.Data.Contains('FatalDiscovery') -and $failure.Data['FatalDiscovery'])) { throw }
+        $code = [string]$failure.Data['Code']
+        if ($code -cnotin @('setup_required', 'runtime_invalid')) { throw }
+        $attempts = @($failure.Data['Attempts'])
+        $repair = @($attempts | Where-Object { $_.Source -ceq 'application_venv' }).Count -gt 0
+        # Explicit runtime failures keep their authority. Only an explicit path
+        # inside this copy's .venv may be repaired as that same environment.
+        $setupPython = $PythonPath
+        if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
+            $venvPrefix = [IO.Path]::Combine([IO.Path]::GetFullPath($ApplicationRoot), '.venv') + '\'
+            $repair = [IO.Path]::GetFullPath($PythonPath).StartsWith($venvPrefix, [StringComparison]::OrdinalIgnoreCase)
+            if ($repair) { $setupPython = $null }
+        }
+        $discovery = Get-WinBookSplitDiscoverySummary -Attempts $attempts -Code $code -FailureReason $failure.Data['Reason']
+        if ($discovery.Reason -ceq 'malformed_policy' -or ($code -ceq 'runtime_invalid' -and -not $repair)) { throw }
+        $prompt = 'First-time setup is required. Download and install the PDF component into this copy of WinBookSplit now? [Y/N]'
+        if ($repair) {
+            $prompt = 'This copy''s application .venv needs repair. Preserve it in a backup and download/install the PDF component here now? [Y/N]'
+        }
+        $answer = Read-WinBookSplitSessionLine $null $prompt
+        if ($null -eq $answer -or $answer.Trim() -inotmatch '\A(?:y|yes)\z') {
+            throw (New-WinBookSplitFailure 'cancelled' 'Local setup was declined or cancelled; no split output was written.')
+        }
+        Write-Host 'Preparing the application .venv and locked PDF component; setup and validation may take a few minutes.' -ForegroundColor Cyan
+        # The original source/options stay in the caller. No engine, console
+        # records or interpreter leases exist yet. Automatic setup discovers its
+        # own base; never forward a controller-selected implicit interpreter.
+        try {
+            $setupResult = Invoke-WinBookSplitSetup -ApplicationRoot $ApplicationRoot -PythonPath $setupPython -DocumentPath $DocumentPath -NonInteractive -Repair:$repair
+        }
+        catch {
+            $setupResult = [pscustomobject]@{ protocol = 'winbooksplit.setup'; schema_version = 1;
+                status = 'failed'; code = 'setup_failed'; exit_code = 6; message = $_.Exception.Message }
+        }
+        $script:processingSetupResult = $setupResult
+        Write-Host ('[SETUP] ' + ($setupResult | ConvertTo-Json -Depth 16 -Compress))
+        $setupFailure = New-WinBookSplitFailure 'setup_failed' 'Setup returned an invalid final result; processing was not started.'
+        $setupFailure.Data['SetupResult'] = $setupResult
+        if ($null -eq $setupResult -or $setupResult.protocol -cne 'winbooksplit.setup' -or
+            $setupResult.schema_version -isnot [int] -or $setupResult.schema_version -ne 1 -or
+            -not (Test-SplitInteger $setupResult.exit_code) -or $setupResult.message -isnot [string] -or
+            [string]::IsNullOrWhiteSpace($setupResult.message)) { throw $setupFailure }
+        Write-Host (ConvertTo-WinBookSplitDisplayText $setupResult.message)
+        if ($setupResult.status -ceq 'success' -and $setupResult.code -cin @('setup_complete', 'setup_ready') -and $setupResult.exit_code -eq 0) {
+            Write-Host 'Setup is ready. Resuming the original request with a fresh runtime check.' -ForegroundColor Cyan
+            # Consent selected this copy's app environment, including when an
+            # explicit base was supplied. Do not probe that stale base again.
+            $ready = Resolve-WinBookSplitRuntime -ApplicationRoot $ApplicationRoot -DocumentPath $DocumentPath
+            if ($ready.Source -cne 'application_venv') {
+                $setupFailure = New-WinBookSplitFailure 'setup_failed' 'Setup completed, but its application .venv is no longer available; processing was not started.'
+                $setupFailure.Data['SetupResult'] = $setupResult
+                throw $setupFailure
+            }
+            return $ready
+        }
+        if ($setupResult.code -cnotin @('setup_required', 'setup_repair_required', 'setup_source_invalid',
+            'setup_busy', 'setup_failed', 'setup_rollback_failed', 'setup_cancelled', 'setup_timeout',
+            'runtime_invalid', 'runtime_not_found', 'processor_cancelled', 'processor_timeout', 'processor_failed')) { throw $setupFailure }
+        $expectedStatus = 'failed'
+        if ($setupResult.code -cin @('setup_cancelled', 'processor_cancelled')) { $expectedStatus = 'cancelled' }
+        elseif ($setupResult.code -cin @('setup_timeout', 'processor_timeout')) { $expectedStatus = 'timeout' }
+        try { $expectedExit = Get-SplitExitCode -Code $setupResult.code }
+        catch { throw $setupFailure }
+        if ($setupResult.status -cne $expectedStatus -or $expectedExit -eq 0 -or $setupResult.exit_code -ne $expectedExit) { throw $setupFailure }
+        $setupFailure = New-WinBookSplitFailure $setupResult.code $setupResult.message
+        $setupFailure.Data['SetupResult'] = $setupResult
+        throw $setupFailure
+    }
 }
 
 function Open-WinBookSplitConsoleRecords {
@@ -695,6 +790,7 @@ $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
 # Validate dependencies before starting conversion or processing.
 # The selected absolute interpreter is also used for every engine attempt.
 $runtime = $null
+$script:processingSetupResult = $null
 $converter = $null
 $converterExe = $null
 $script:consoleLogWriter = $null
@@ -705,7 +801,7 @@ $script:sourceObservation = $null
 $script:runStartedUtc = [DateTime]::UtcNow.ToString('o')
 $consoleDir = $null; $consoleRunId = $null; $logFile = $null
 try {
-    $runtime = Resolve-WinBookSplitRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile
+    $runtime = Resolve-WinBookSplitProcessingRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile -NonInteractive:$NonInteractive -Preview:$Preview
     $pythonExe = $runtime.Path
     if ($inputExt -ne ".pdf") {
         $converter = Resolve-WinBookSplitConverter -ApplicationRoot $PSScriptRoot -CalibrePath $CalibrePath -DocumentPath $InputFile
@@ -718,8 +814,8 @@ catch {
     $failureCode = 'runtime_invalid'
     if ($preflightFailure.Data.Contains('Code')) { $failureCode = [string]$preflightFailure.Data['Code'] }
     $failureStatus = 'failed'
-    if ($failureCode -eq 'processor_cancelled') { $failureStatus = 'cancelled' }
-    elseif ($failureCode -eq 'processor_timeout') { $failureStatus = 'timeout' }
+    if ($failureCode -cin @('cancelled', 'processor_cancelled', 'setup_cancelled')) { $failureStatus = 'cancelled' }
+    elseif ($failureCode -cin @('processor_timeout', 'setup_timeout')) { $failureStatus = 'timeout' }
     $outcome = New-WinBookSplitOutcome -Status $failureStatus -Code $failureCode -Message $preflightFailure.Message
     $dependencyFrame = $null
     if ($preflightFailure.Data.Contains('Code')) {
@@ -756,6 +852,7 @@ catch {
             $script:consoleLogWriter = $records.Writer; $script:closedConsoleLogWriter = $records.Writer
             $script:consoleRecordLeases = $records.Leases
             $script:consoleLogWriter.WriteLine('[DEPENDENCY-MESSAGE] ' + (ConvertTo-Json -InputObject $preflightFailure.Message -Compress))
+            if ($null -ne $script:processingSetupResult) { $script:consoleLogWriter.WriteLine('[SETUP] ' + ($script:processingSetupResult | ConvertTo-Json -Depth 16 -Compress)) }
             if ($null -ne $dependencyFrame) { $script:consoleLogWriter.WriteLine($dependencyFrame) }
             Complete-WinBookSplitConsoleLog -Outcome $outcome
         }
@@ -966,6 +1063,7 @@ try {
 
 # 1. Initial TUI, shows original book metadata
 $script:consoleLogWriter.WriteLine('[DEPENDENCY] ' + (@{ Runtime = $runtime; Converter = $converter } | ConvertTo-Json -Depth 12 -Compress))
+if ($null -ne $script:processingSetupResult) { $script:consoleLogWriter.WriteLine('[SETUP] ' + ($script:processingSetupResult | ConvertTo-Json -Depth 16 -Compress)) }
 $runtimeLine = 'Python: ' + $runtime.Path + ' (' + $runtime.Version + '; ' + $runtime.Source + ')'
 $pypdfLine = 'pypdf: ' + $runtime.PypdfVersion + ' (' + $runtime.PypdfPath + ')'
 foreach ($line in @($runtimeLine, $pypdfLine)) {

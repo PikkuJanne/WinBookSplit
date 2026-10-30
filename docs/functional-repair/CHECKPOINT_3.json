@@ -1,0 +1,430 @@
+{
+  "checkpoint": 3,
+  "date": "2026-10-30",
+  "scope": "Consent-based application-local setup/repair and original request continuation; no publication",
+  "source_binding": {
+    "baseline_commit": "47d054728b009caab0ec35fd7b6ce908c5ec9985",
+    "baseline_tree": "022b54e6542567cf4a09db2c44b2f1379314f073",
+    "scope": "Final changed production/test/tool working-file bytes; docs excluded to avoid self-reference",
+    "files": {
+      "Setup-WinBookSplit.ps1": {
+        "sha256": "6ede80d5761793177c41ead7ba68dd95570e2ec4bad9a33a08277937e21cff77",
+        "size_bytes": 7252
+      },
+      "WinBookSplit.ps1": {
+        "sha256": "e655c3e649677464c4eb478f3b02ea17def632cb81869d00a007a781c1d728ee",
+        "size_bytes": 77139
+      },
+      "engine/WinBookSplit.Outcomes.json": {
+        "sha256": "e8d23e5f470b430ed0c8230f6df93643de59bf12d21396205286a810cb29a0c7",
+        "size_bytes": 1897
+      },
+      "engine/WinBookSplit.Runtime.ps1": {
+        "sha256": "5babe7d501f896f9d81a97730c95109bcb57738b48ef13e87bb95d9a7ee1964d",
+        "size_bytes": 61521
+      },
+      "engine/WinBookSplit.Setup.ps1": {
+        "sha256": "37a83cda8e80536ad5ed32b70d84e4153c33b34638b1c150af949b67286995bb",
+        "size_bytes": 32676
+      },
+      "tests/powershell/Discovery.Tests.ps1": {
+        "sha256": "2167991508742c34558b753caa208f3d433e385f038c4c451a4e7c84cda217eb",
+        "size_bytes": 54996
+      },
+      "tests/powershell/FirstRun.Tests.ps1": {
+        "sha256": "7414b5963e6ba8b14c08d6ec9ef82d48701b67ff91ec605ed2271535ce7b6449",
+        "size_bytes": 27637
+      },
+      "tests/powershell/Outcome.Tests.ps1": {
+        "sha256": "6d61585c3432e90fd18d03e793e9cd267437667dc0e12539ff3484eb6e829869",
+        "size_bytes": 52716
+      },
+      "tests/python/test_native_smoke.py": {
+        "sha256": "e493fc000f3484e6f3a3c77b94c8e90fef144dcdee9e6651c6e306f0aabaeb86",
+        "size_bytes": 34022
+      },
+      "tests/python/test_outcomes.py": {
+        "sha256": "54c37979f3a1c1652eb99f42a77a7b8371df21d1c40a1cc98f7f79a8acda7bb8",
+        "size_bytes": 11605
+      },
+      "tests/python/test_runtime_receipt.py": {
+        "sha256": "07dcbfbb66e1a83cba79238102844adbb83787acd024ac3c359f74b86d491a98",
+        "size_bytes": 41607
+      },
+      "tests/runtime/characterize_runtime.py": {
+        "sha256": "c1f5e81a4026cdb48445bc48f3f759e0f8a1e0b1a1da589f409601cd0d65e5fb",
+        "size_bytes": 41733
+      },
+      "tests/runtime/validate_runtime_report.py": {
+        "sha256": "eb444065ac5a89e66a35fd73c0c40879a106839660fc63e928051bc6d1c06ce8",
+        "size_bytes": 52124
+      },
+      "tools/compatibility/native_smoke.py": {
+        "sha256": "996e56424b22e134b2f8c1541b2ef42794f4d003191ada3577de6971a811c350",
+        "size_bytes": 71050
+      }
+    },
+    "manifest_sha256": "a3c1114abeaacd7d143d64788c41a0701995f032c414d073657f8f921fb12734"
+  },
+  "environment": {
+    "platform": "Windows-11-10.0.26300-SP0",
+    "python": "3.14.8",
+    "bits": 64,
+    "pypdf": "6.21.3",
+    "test_driver": "Pre-existing developer environment; never ordinary-discovery input",
+    "pester": "6.2.0",
+    "analyzer": "1.25.0"
+  },
+  "results": {
+    "first_run_components": [
+      {
+        "errors": [],
+        "passed": 38,
+        "failed_containers": 0,
+        "host": "5.1.26100.9711",
+        "skipped": 0,
+        "scope": "SYNTHETIC_FIRST_RUN_COMPONENTS_NOT_NATIVE_ACCEPTANCE",
+        "total": 38,
+        "failed": 0
+      },
+      {
+        "scope": "SYNTHETIC_FIRST_RUN_COMPONENTS_NOT_NATIVE_ACCEPTANCE",
+        "host": "7.6.5",
+        "total": 38,
+        "errors": [],
+        "failed_containers": 0,
+        "passed": 38,
+        "skipped": 0,
+        "failed": 0
+      }
+    ],
+    "wider_ps_components_original_failed": [
+      {
+        "total": 177,
+        "errors": [
+          {
+            "errors": [
+              "Expected strings to be the same, but they were different.\nExpected length: 15\nActual length:   14\nStrings differ at index 0.\nExpected: 'runtime_invalid'\nBut was:  'setup_required'\n           ^"
+            ],
+            "name": "T03 compatible base without pypdf (actual isolated children).keeps an actual package-free app venv authoritative instead of using a competing manager"
+          }
+        ],
+        "container_errors": [],
+        "failed_containers": 0,
+        "passed": 176,
+        "skipped": 0,
+        "scope": "CP3_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "host": "5.1.26100.9711",
+        "failed": 1
+      },
+      {
+        "container_errors": [],
+        "total": 177,
+        "host": "7.6.6",
+        "failed_containers": 0,
+        "errors": [
+          {
+            "name": "T03 compatible base without pypdf (actual isolated children).keeps an actual package-free app venv authoritative instead of using a competing manager",
+            "errors": [
+              "Expected strings to be the same, but they were different.\nExpected length: 15\nActual length:   14\nStrings differ at index 0.\nExpected: 'runtime_invalid'\nBut was:  'setup_required'\n           ^"
+            ]
+          }
+        ],
+        "skipped": 0,
+        "scope": "CP3_RUNTIME_DISCOVERY_SETUP_OUTCOME_SUPPORT_COMPONENTS_EXPLICIT_DEVELOPER_TOOLS_OFFLINE_WHEEL_NOT_ORDINARY_FIRST_RUN",
+        "passed": 176,
+        "failed": 1
+      }
+    ],
+    "final_discovery_components": [
+      {
+        "total": 40,
+        "errors": [],
+        "container_errors": [],
+        "failed_containers": 0,
+        "passed": 40,
+        "skipped": 0,
+        "scope": "CP3_FINAL_DISCOVERY_COMPONENTS_EXPLICIT_DEVELOPER_DRIVER_NOT_ORDINARY_FIRST_RUN",
+        "host": "5.1.26100.9711",
+        "failed": 0
+      },
+      {
+        "passed": 40,
+        "failed": 0,
+        "total": 40,
+        "errors": [],
+        "scope": "CP3_FINAL_DISCOVERY_COMPONENTS_EXPLICIT_DEVELOPER_DRIVER_NOT_ORDINARY_FIRST_RUN",
+        "failed_containers": 0,
+        "container_errors": [],
+        "host": "7.6.6",
+        "skipped": 0
+      }
+    ],
+    "runtime_native_receipt_components": {
+      "scope": "CHECKPOINT3_CURRENT_RUNTIME_NATIVE_CLASSIFICATION_AND_SYNTHETIC_RECEIPT_ORACLE_UNITS",
+      "status": "PASS",
+      "tests_run": 46,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0,
+      "seconds": 4.157,
+      "interpreter": "%TEMP%\\WBS-623-finish-q6dwc7hk\\dev14\\Scripts\\python.exe",
+      "python_version": "3.14.8",
+      "pypdf_version": "6.21.3",
+      "command": "python.exe -I -B -c 'import sys,unittest;sys.path.insert(0,r\"D:\\projects\\WinBookSplit-main\\tests\\python\");suite=unittest.TestSuite(unittest.defaultTestLoader.loadTestsFromName(name) for name in (\"test_runtime_receipt\",\"test_native_smoke\"));result=unittest.TextTestRunner(verbosity=2).run(suite);sys.exit(not result.wasSuccessful())'",
+      "raw_receipt": "tests.txt",
+      "raw_sha256": "79390806e439651be7889a8a4fa3122e24ff770a575631afa2043817728546c6",
+      "limits": [
+        "Synthetic receipt/oracle tests do not demonstrate native BAT preparation/resume or Store acceptance",
+        "No historical report bytes changed and no package or runtime provisioned"
+      ],
+      "files": [
+        {
+          "size_bytes": 41733,
+          "sha256": "c1f5e81a4026cdb48445bc48f3f759e0f8a1e0b1a1da589f409601cd0d65e5fb",
+          "path": "tests/runtime/characterize_runtime.py"
+        },
+        {
+          "size_bytes": 52124,
+          "sha256": "eb444065ac5a89e66a35fd73c0c40879a106839660fc63e928051bc6d1c06ce8",
+          "path": "tests/runtime/validate_runtime_report.py"
+        },
+        {
+          "size_bytes": 41607,
+          "sha256": "07dcbfbb66e1a83cba79238102844adbb83787acd024ac3c359f74b86d491a98",
+          "path": "tests/python/test_runtime_receipt.py"
+        },
+        {
+          "size_bytes": 71050,
+          "sha256": "996e56424b22e134b2f8c1541b2ef42794f4d003191ada3577de6971a811c350",
+          "path": "tools/compatibility/native_smoke.py"
+        },
+        {
+          "size_bytes": 34022,
+          "sha256": "e493fc000f3484e6f3a3c77b94c8e90fef144dcdee9e6651c6e306f0aabaeb86",
+          "path": "tests/python/test_native_smoke.py"
+        }
+      ]
+    },
+    "python_package_support_runner": {
+      "tests": 94,
+      "seconds": 258.305,
+      "status": "PASS",
+      "modules": [
+        "test_ci_package_inputs",
+        "test_support_receipt",
+        "test_runner",
+        "test_ci_reports"
+      ]
+    }
+  },
+  "pdf_application_roster": {
+    "methods": 171,
+    "seconds": 117.164,
+    "status": "PASS",
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0,
+    "boundary": "Starting outcome map loaded before concurrent PS/contract edits; five engine Python files unchanged. Final changed map tested separately."
+  },
+  "final_outcome_contract": {
+    "methods": 11,
+    "seconds": 2.59,
+    "status": "PASS",
+    "boundary": "Overlaps roster; do not add as unique tests"
+  },
+  "native_ordinary_bat": {
+    "missing_package_acceptance": "NOT_RUN",
+    "test_skipped": 1,
+    "test_failures": 0,
+    "observed_outer_code": "runtime_not_found",
+    "observed_exit": 3,
+    "observed_python": "3.14.7",
+    "reason": "python_security_floor",
+    "no_substitution": true,
+    "source_application_bytes_preserved": true,
+    "app_venv_created": false,
+    "chapters_created": false
+  },
+  "preserved_git_paths": {
+    "VERSION": {
+      "sha256": "fc1c281f1d0879bb81d24496eb278296d469a4c7d78565b035a14b51eab620b3",
+      "size_bytes": 7
+    },
+    "requirements.txt": {
+      "sha256": "7a50c2fd97b4c2d2e2aed4e0cc30cd406dd3a153abc911467b724d11fcf9cc83",
+      "size_bytes": 258
+    },
+    "WinBookSplit.bat": {
+      "sha256": "c48e10b06e1177c723488944bcc0280ff4b51d1cc6d2f138206e6e3cab482893",
+      "size_bytes": 1145
+    },
+    "Setup-WinBookSplit.bat": {
+      "sha256": "b756dffa3e4eb1b5adb04d4bc06ae1bd87718b42ca42183572dc6ef820fa6500",
+      "size_bytes": 938
+    },
+    "engine/WinBookSplit.Compatibility.json": {
+      "sha256": "590e5aa1712c3eb4e1e01ece0558c1c65ef4020572ac27b00743078aec168c2b",
+      "size_bytes": 11997
+    },
+    "engine/WinBookSplit.Compatibility.ps1": {
+      "sha256": "4bbe991381875090d63b6d9d2b5b49e151a4bbaf5bbcd6a350dab58133c1350c",
+      "size_bytes": 16904
+    },
+    "engine/winbooksplit_compatibility.py": {
+      "sha256": "8db5eff1e97d370c3a233d1fbd30b968c5121b3871ad2814a56f084e154d2d13",
+      "size_bytes": 20075
+    },
+    "engine/winbooksplit_conversion.py": {
+      "sha256": "a2938ff6b136d7d93bd25c69a78ed8f56bcfcf3ee1fd400967e40679e7fe4661",
+      "size_bytes": 39119
+    },
+    "engine/winbooksplit_engine.py": {
+      "sha256": "28bc047e35a35099b978daf7c04022626faa8340aa0a6c5ce7dce413a8bcaf51",
+      "size_bytes": 101756
+    },
+    "engine/winbooksplit_job.py": {
+      "sha256": "8d8882a03a90c750ad2375743eddffcd3f48ec9387c6acf1ea5b64e4a6a10581",
+      "size_bytes": 14965
+    },
+    "engine/winbooksplit_windows.py": {
+      "sha256": "9dbb862d045829bdf024a1c70bc139eea0663722fa5b857e38307b6a4182235a",
+      "size_bytes": 10933
+    }
+  },
+  "not_run": [
+    "Supported natural-discovery ordinary consent/install/resume",
+    "Existing Store cold-start and second-run package-network observation",
+    "Windows10 native workflow",
+    "Exact distribution ZIP acceptance",
+    "Private supplied book"
+  ],
+  "receipts": [
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/baseline-ps51.json",
+      "sha256": "612453c48e3e43066e8cfa3cbe602a9852a6ec4c9cc50695de5dcafe4dda4e52",
+      "size_bytes": 816
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/baseline-ps7.json",
+      "sha256": "0e2f8f30b895266db30af57b9eb60d327acfb005ad93edd0c423f2d08d22b4c5",
+      "size_bytes": 626
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/first-expanded-ps7.json",
+      "sha256": "cbccf9f624ea5643374c61bd85388a72ff96f1019c60c18d96b6bea8f69bc50c",
+      "size_bytes": 637
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/final-ps51-v3.json",
+      "sha256": "ec0939711d9e3257b35fae67127219325039de9d53ee77d3c7fdcb0b9be287e0",
+      "size_bytes": 253
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/final-ps7-v3.json",
+      "sha256": "77cecea32920c1f21ce8540458f28b209616f1ea3499251f0f5fbd051b0a542b",
+      "size_bytes": 201
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-first-run-components-20261030/first-run-analysis-v3.json",
+      "sha256": "aef02089fe5044bb9f84ea853b61ac11c1d0c0d0eb7733133576d9b07ec1e081",
+      "size_bytes": 91
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/ps51.json",
+      "sha256": "a22edfe34b49bdcc4790dcca73f45d7e75bc34094a3e97a70af519cb8ef11317",
+      "size_bytes": 940
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/ps7.json",
+      "sha256": "dffeedd9b908759583f3c987f263eeb03ba8a126e54b5f565e563a2f43886d87",
+      "size_bytes": 718
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/ps51.txt",
+      "sha256": "c4dadba57b0442fecb914ae2cffc1a7976216b1052a701b1d0c8698b458cff78",
+      "size_bytes": 20243
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/ps7.txt",
+      "sha256": "692c85c7808a61d217d491fc3d4e36bc55c6e90208d8b8d97e17ed106df26937",
+      "size_bytes": 20186
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/python-runner-support.txt",
+      "sha256": "a25999685a1a17f4644fd0a1ceaa290e9b81fed1e36d6b6a803bec675c080ce7",
+      "size_bytes": 16237
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/final-discovery-ps51.json",
+      "sha256": "f2e295351044479985054e27178438822cd658a09681f5dbf0d4a13aedc6e273",
+      "size_bytes": 339
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/final-discovery-ps7.json",
+      "sha256": "6ecb15742b39942d7e0aedda99cd44db0abb38e54b79db6e9d9bc590ea177d22",
+      "size_bytes": 255
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-suites-20261030/final-discovery-analysis.json",
+      "sha256": "500d967c3285e182c5e6276b20c5fa9342f0ce82f4ae1bd7dcb627cee9419080",
+      "size_bytes": 93
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-runtime-propagation-fb2b52aaf55d4b8a8e5ae6ae850f3fe6/report.json",
+      "sha256": "2cd8d6308adc01c0c19e33f9df236af4603921165fd8646745b4f8166eade693",
+      "size_bytes": 1973
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-runtime-propagation-fb2b52aaf55d4b8a8e5ae6ae850f3fe6/tests.txt",
+      "sha256": "79390806e439651be7889a8a4fa3122e24ff770a575631afa2043817728546c6",
+      "size_bytes": 7762
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-final-analysis-120198eb64eb46d1af0331920ebbb4ce/analysis.json",
+      "sha256": "562275162f020ea3256babccdd567ca6a47f38b6ee7180ca7a9e481aaf64c310",
+      "size_bytes": 1472
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-final-analysis-120198eb64eb46d1af0331920ebbb4ce/review.json",
+      "sha256": "1b7a4b832a8436ab1c1731d6e8d2b9564040f8355f4a7754584fabdac207b838",
+      "size_bytes": 2463
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-document-guard-ca2142ea59da44ada0d47a3ee98feb02/report.json",
+      "sha256": "65c9813336eb0f23bc1189d2522622c54ac5663293325c345b2ef32d7d027a36",
+      "size_bytes": 653
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-pdf-20261030-dbd30f46/run.json",
+      "sha256": "647f1d550b90e4e7f6a8ef11300bf83e9d0d8b045b4117c2e72b15c3fc808840",
+      "size_bytes": 584
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-final-python-20261030-05e2d368/run.json",
+      "sha256": "c1062456e004a9b9b59509d31758f1c35871c1d1e992c7e1bd949a22bdf8ebdb",
+      "size_bytes": 700
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-native-final-20261030-84868181/run.json",
+      "sha256": "404b972b3fe9d13556c5af668b4887f9193b54cfb1e692de3166d03b89cec713",
+      "size_bytes": 3554
+    },
+    {
+      "path": "%TEMP%/WBS-first-run-t7ap4c72/evidence.json",
+      "sha256": "6d3a317cfdae4bda54add8851c4f3830c28baba7f91c6c6c1117693d3c9c90a4",
+      "size_bytes": 26358
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-python-receipt-index-1542fa38.json",
+      "sha256": "c826aa3f195216229df9eac4972d6c1f47ee0a8ef8a552f02878b136990852da",
+      "size_bytes": 3868
+    },
+    {
+      "path": "%TEMP%/WBS-functional-cp3-healthy-20261030-yah5p9xc/evidence.json",
+      "sha256": "bb4f2849f5539c4d30dd463ffde0cdf20b7196f94c07acadecda2f21a8998024",
+      "size_bytes": 28684
+    }
+  ],
+  "synchronization": "Final scoped commit/push and clean HEAD versus freshly queried remote are verified externally in handover; no self-referential hash."
+}

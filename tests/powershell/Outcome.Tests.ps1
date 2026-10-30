@@ -515,6 +515,8 @@ Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
             invalid_arguments=2; invalid_mode=2; invalid_start_pages=2; input_invalid=2; output_base_invalid=2;
             output_path_too_long=2; output_destination_changed=2; source_output_alias=2;
             dependency_missing=3; runtime_invalid=3; runtime_not_found=3; converter_invalid=3; converter_not_found=3; processor_start_failed=3; encryption_backend_missing=3;
+            setup_required=3; setup_repair_required=3; setup_source_invalid=3; setup_busy=6; setup_failed=6;
+            setup_rollback_failed=6; setup_cancelled=130; setup_timeout=130;
             conversion_start_failed=4; conversion_failed=4; conversion_output_invalid=4; conversion_cleanup_failed=4;
             conversion_source_changed=4; conversion_ownership_failed=4;
             no_bookmarks=5; no_usable_bookmarks=5; no_bookmarks_at_level=5;

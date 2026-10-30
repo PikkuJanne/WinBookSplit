@@ -1,41 +1,49 @@
-# Functional repair — checkpoint 2
+# Functional repair — checkpoint 3
 
-Active owner request: 30 October 2026. Checkpoint 2 PDF repair is IMPLEMENTED /
-TESTED: ordinary empty-password authentication and authenticated-reader reuse,
-strict benign local opening destinations, one ignored-view warning, and distinct
-password/backend/handler failures. Obsolete blanket-ban tests were replaced.
+Active owner request: 30 October 2026. Checkpoint 3 consent/setup/resume is
+IMPLEMENTED / COMPONENT-TESTED: one explicit interactive offer, existing local
+setup/backup-preserving repair, checked final status, fresh app-runtime
+resolution and continuation with the caller's original source/options. Healthy
+launches skip setup. Decline/EOF/cancel/failure stop; no setup/retry loop or
+hidden global-runtime fallback. Preview/noninteractive/readiness checks neither
+prompt nor install. Verified package failures report `setup_required` / exit 3.
 
-Final Windows 11 / CPython 3.14.8 / locked pypdf 6.21.3 application roster:
-171 PASS, no skips. Wider planning/output/security/report checks: 223 PASS.
-Outcome/support components: 56 PASS on each actual PS5.1 and PS7 host; configured
-analysis: zero findings. Earlier failures and exact source/receipt boundaries
-remain in [checkpoint evidence](CHECKPOINT_2.md) and [byte map](CHECKPOINT_2.json).
+Final FirstRun components: 38 PASS on each actual PS5.1 and PS7 host. PDF
+application roster: 171 PASS; final changed outcome contract: 11 PASS separately.
+Active runtime/native receipt contracts require the new package classification:
+46 PASS; package/support/runner checks: 94 PASS. Wider 177-case run retained its
+one obsolete assertion failure; corrected Discovery reruns: 40 PASS per host.
+Configured analysis: zero findings. Exact source/receipt boundaries,
+earlier failures and wider checks are in [evidence](CHECKPOINT_3.md) and the
+[byte map](CHECKPOINT_3.json).
 
-Setup/consent/resume changes are checkpoint 3 and have not started. The native
-first-run/Store/exact-ZIP/private-book scenarios remain NOT_RUN. Natural
-discovery still finds below-floor Python 3.14.7; no private fallback or test-app
-environment was provisioned. Discovery repair, dependency locks/security floors,
-source/output safety, historical evidence and published releases are preserved.
-No publication is authorized. After this checkpoint's normal commit/push and
-clean live-branch verification, report the receipt in the handover and stop.
+Ordinary native consent/install/resume, existing Store, exact-ZIP and private-book
+acceptance remain NOT_RUN. Final ordinary BAT still rejects naturally discovered
+Python 3.14.7 below the unchanged 3.14.8 floor (exit 3); no substitute runtime or
+prebuilt ordinary-test app environment was supplied. PDF repairs, Store discovery,
+locks/floors, safety guards, published releases and historical evidence remain
+preserved. No publication is authorized. After normal commit/push and clean
+live-branch verification, hand over and STOP; checkpoint 4 is a separate chat.
 
 Next exact task:
 
 ```text
-Continue checkpoint 3 on codex/functional-repair in PikkuJanne/WinBookSplit.
-Read AGENTS.md, docs/functional-repair/STATUS_NEXT.md, CHECKPOINT_1.md and
-CHECKPOINT_2.md, then the repair pack's CODEX_TASK.md checkpoint 3 (owner's
-Downloads ZIP; SHA256 in the checkpoint evidence). Inspect local/live Git state.
-Reuse the existing application-local setup/repair: one explicit interactive
-consent offer when a verified supported Python lacks required pypdf, then check
-setup, re-resolve the runtime and resume the original literal source/options.
-Preserve decline/EOF/cancellation/failure behavior and backup-preserving repair;
-permit only one setup/retry cycle. Preview/read-only/noninteractive runs must
-neither prompt nor install and must accurately report setup_required/exit 3.
-Keep checkpoint-2 PDF behavior, Store discovery, locks/floors and safety guards.
+Continue checkpoint 4 on codex/functional-repair in PikkuJanne/WinBookSplit.
+Read AGENTS.md, docs/functional-repair/STATUS_NEXT.md and CHECKPOINT_1.md through
+CHECKPOINT_3.md/JSON, then the repair pack's CODEX_TASK.md checkpoint 4 and
+ACCEPTANCE.md (owner's Downloads ZIP; SHA256 in the evidence). Inspect clean
+local/live Git state. Verify the user workflow and exact packaged bytes using
+existing tests/native tools: normal BAT, naturally discovered supported existing
+Store Python, fresh app with no pypdf/.venv, combined empty-password/local-view
+fixture, consent/setup/resume, independent page/order/source/output validation,
+then repeat with no setup/download. Preserve decline/cancel/failure/read-only
+behavior, repaired PDF support, Store discovery, locks/floors and safety guards.
 Do not provision a private Python, pre-create the ordinary-test app environment,
-inject a runtime into ordinary discovery or publish. Missing native prerequisites
-stay NOT_RUN. Run relevant tests, record actual evidence, update this short
-status, commit intended paths, push normally, verify clean HEAD equals the
-freshly queried live branch, give the checkpoint-4 handover and STOP.
+inject PATH/runtime/PythonPath or silently substitute another acceptance route.
+Missing native prerequisites and unavailable private-book/Windows10 cases stay
+NOT_RUN. Complete feasible checks and use one pretested consolidated native kit
+if needed; do not turn mocks into acceptance. No publication or new release is
+authorized. Record actual source/package/test evidence, update this short status,
+commit intended files, push normally, verify clean HEAD equals freshly queried
+live branch, give the checkpoint-5 handover and STOP.
 ```

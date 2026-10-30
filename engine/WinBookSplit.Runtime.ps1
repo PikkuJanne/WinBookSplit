@@ -622,7 +622,26 @@ function Get-WinBookSplitPathCandidates {
 }
 
 function New-WinBookSplitDependencyError {
-    param([string]$Code, [string]$Message, $Attempts, [string]$Reason)
+    param([string]$Code, [string]$Message, $Attempts, [string]$Reason, $Policy, [string]$ApplicationRoot)
+    if ($null -ne $Policy -and $Code -cin @('runtime_invalid', 'runtime_not_found')) {
+        $summary = Get-WinBookSplitDiscoverySummary -Attempts $Attempts.ToArray() -Policy $Policy -Code $Code -FailureReason $Reason
+        $relevant = $summary.Relevant
+        if ($summary.Reason -cin @('missing_pypdf', 'pypdf_version_mismatch', 'pypdf_origin_invalid') -and
+            $summary.Stage -ceq 'package' -and $null -ne $summary.ObservedVersion -and
+            $null -ne $relevant -and $relevant.IdentityVerified -is [bool] -and $relevant.IdentityVerified -and
+            (Test-WinBookSplitPythonVersion -Version $summary.ObservedVersion -Policy $Policy).Ok) {
+            $Code = 'setup_required'
+            $repair = $summary.Source -ceq 'application_venv'
+            $basePath = $null
+            if ($summary.Source -ceq 'explicit') {
+                $venvPrefix = [IO.Path]::Combine($ApplicationRoot, '.venv') + '\'
+                $repair = [IO.Path]::GetFullPath($summary.ObservedPath).StartsWith($venvPrefix, [StringComparison]::OrdinalIgnoreCase)
+                if (-not $repair) { $basePath = $summary.ObservedPath }
+            }
+            $Message = 'Supported Python is available, but the required locked pypdf package is not ready. PowerShell setup: ' +
+                (Get-WinBookSplitSetupCommand -ApplicationRoot $ApplicationRoot -PythonPath $basePath -Repair:$repair)
+        }
+    }
     $error = New-Object InvalidOperationException($Message)
     $error.Data['Code'] = $Code; $error.Data['Attempts'] = @($Attempts.ToArray())
     if (-not [string]::IsNullOrEmpty($Reason)) { $error.Data['Reason'] = $Reason }
@@ -739,12 +758,14 @@ function Resolve-WinBookSplitRuntime {
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
     catch { throw (New-WinBookSplitDependencyError 'runtime_invalid' ('Shipped compatibility policy is missing or invalid: ' + $_.Exception.Message) $attempts 'malformed_policy') }
+    $failurePolicy = $null
+    if (-not $InterpreterOnly) { $failurePolicy = $policy }
     $setup = 'Use ' + (Get-WinBookSplitPythonPolicyDescription -Policy $policy) + ' and locked pypdf ' + $policy['pypdf']['version'] + '. Select a trusted -PythonPath or create the application .venv. PowerShell setup: ' + (Get-WinBookSplitSetupCommand -ApplicationRoot $root)
 
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         $selected = Test-WinBookSplitPythonCandidate $PythonPath 'explicit' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Python preflight failed for '$PythonPath': " + $attempts[-1].Message + ' ' + $setup) $attempts)
+        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Python preflight failed for '$PythonPath': " + $attempts[-1].Message + ' ' + $setup) $attempts -Policy $failurePolicy -ApplicationRoot $root)
     }
     $venv = [IO.Path]::Combine($root, '.venv')
     $venvExists = $true
@@ -767,11 +788,11 @@ function Resolve-WinBookSplitRuntime {
         }
         $selected = Test-WinBookSplitPythonCandidate $candidate 'application_venv' $root $attempts $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' PowerShell repair: ' + (Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair)) $attempts)
+        throw (New-WinBookSplitDependencyError 'runtime_invalid' ("Application .venv preflight failed for '$candidate': " + $attempts[-1].Message + ' PowerShell repair: ' + (Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair)) $attempts -Policy $failurePolicy -ApplicationRoot $root)
     }
     $selected = Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $policy -TimeoutSeconds $TimeoutSeconds -InterpreterOnly:$InterpreterOnly
     if ($selected) { return $selected }
-    throw (New-WinBookSplitDependencyError 'runtime_not_found' ('No compatible trusted Python was found. ' + $setup) $attempts)
+    throw (New-WinBookSplitDependencyError 'runtime_not_found' ('No compatible trusted Python was found. ' + $setup) $attempts -Policy $failurePolicy -ApplicationRoot $root)
 }
 
 function Find-WinBookSplitSetupBase {

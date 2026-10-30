@@ -358,7 +358,9 @@ class Cases:
             if expected_failure:
                 require(not any(base.iterdir()), "Dependency failure created output/console/stage members")
                 errors = prefixed_json(process["stdout"], "[DEPENDENCY-ERROR] ")
-                require(len(errors) == 1 and errors[0]["Code"] in {"runtime_invalid", "runtime_not_found", "converter_invalid", "converter_not_found"}, "Dependency failure omitted its actual rejection metadata")
+                expected_code = ("setup_required" if kind in {"missing-pypdf", "wrong-pypdf"} else "runtime_invalid") if category == "python_failure" else (
+                    "converter_invalid" if kind == "wrong-version" else "converter_not_found")
+                require(len(errors) == 1 and errors[0]["Code"] == expected_code, "Dependency failure omitted or mislabeled its actual rejection metadata")
                 require("Dependency preflight failed" in process["stdout"] and "Done." not in process["stdout"]
                         and "[Writing]" not in process["stdout"] and "[CONVERSION]" not in process["stdout"]
                         and "[ENGINE] " not in process["stdout"] and "[DEPENDENCY] " not in process["stdout"], "Dependency failure announced processing/success")

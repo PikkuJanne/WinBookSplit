@@ -23,7 +23,8 @@ from types import SimpleNamespace
 MAX_JSON = 16 * 1024 * 1024
 NO_BOOKMARK_EXIT = 5
 NEGATIVE_CODES = {"preview": "preview_complete", "invalid-manual": "invalid_arguments",
-                  "no-bookmarks": "no_bookmarks", "cancel-plan": "processing_cancelled"}
+                  "no-bookmarks": "no_bookmarks", "cancel-plan": "processing_cancelled",
+                  "missing-python": "runtime_invalid", "missing-pypdf": "setup_required"}
 CASE_IDS = ("ref-epub", "ref-azw3", "manual", "manual-first", "auto1", "auto2",
             "repeat", "preview", "invalid-manual", "no-bookmarks", "cancel-plan",
             "missing-python", "missing-pypdf", "epub-discard", "epub-keep",
@@ -588,7 +589,7 @@ def validate(plan, raw, plan_digest):
                 validate_negative_outcome(identifier, final)
                 if identifier.startswith("missing-"):
                     need(final["status"] == "failed" and final["written_count"] == 0 and final["final_directory"] is None
-                         and final["code"] in {"runtime_invalid", "runtime_not_found"}, "dependency_failure_differ")
+                         and final["code"] == NEGATIVE_CODES[identifier], "dependency_failure_differ")
                     dependency = fixed_frame(stdout, "[DEPENDENCY-ERROR] ")
                     need(dependency.get("Code") == final["code"] and dependency.get("Attempts"), "dependency_frame_missing")
                     if identifier == "missing-pypdf":

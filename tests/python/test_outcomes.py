@@ -56,18 +56,19 @@ class OutcomeTests(unittest.TestCase):
             2: ("invalid_arguments", "invalid_mode", "invalid_start_pages", "input_invalid",
                 "output_base_invalid", "output_path_too_long", "output_destination_changed", "source_output_alias"),
             3: ("dependency_missing", "runtime_invalid", "runtime_not_found", "converter_invalid",
-                "converter_not_found", "processor_start_failed", "encryption_backend_missing"),
+                "converter_not_found", "processor_start_failed", "encryption_backend_missing",
+                "setup_required", "setup_repair_required", "setup_source_invalid"),
             4: ("conversion_start_failed", "conversion_failed", "conversion_output_invalid",
                 "conversion_cleanup_failed", "conversion_source_changed", "conversion_ownership_failed"),
             5: ("no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"),
-            6: ("invalid_document", "invalid_outline", "unreadable_document", "invalid_plan",
+            6: ("setup_busy", "setup_failed", "setup_rollback_failed", "invalid_document", "invalid_outline", "unreadable_document", "invalid_plan",
                 "invalid_prepared_split", "source_changed", "output_exists", "invalid_execution",
                 "output_write_failed", "output_validation_failed", "output_ownership_failed",
                 "output_manifest_failed", "output_publish_failed", "output_handle_close_failed",
                 "processor_protocol_failed", "console_setup_failed", "console_finalize_failed", "processor_failed"),
             7: ("unsupported_document", "password_required", "unsupported_encryption"),
             130: ("output_cancelled", "conversion_cancelled", "conversion_timeout", "processing_cancelled",
-                  "processor_cancelled", "processor_timeout", "cancelled"),
+                  "processor_cancelled", "processor_timeout", "cancelled", "setup_cancelled", "setup_timeout"),
         }
         self.assertEqual(set(engine.EXIT_CODES), {code for codes in expected.values() for code in codes})
         for exit_code, codes in expected.items():

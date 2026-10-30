@@ -358,6 +358,15 @@ class PureOracleControls(unittest.TestCase):
                 with self.subTest(identifier=identifier, delta=delta), self.assertRaises(smoke.OracleError):
                     smoke.validate_negative_outcome(identifier, {**final, **delta})
 
+    def test_missing_package_requires_setup_code_without_relabeling_missing_python(self):
+        for identifier, expected, wrong in (("missing-pypdf", "setup_required", ("runtime_invalid", "runtime_not_found")),
+                                             ("missing-python", "runtime_invalid", ("setup_required", "runtime_not_found"))):
+            final = {"code":expected, "written_count":0, "final_directory":None}
+            smoke.validate_negative_outcome(identifier, final)
+            for code in wrong:
+                with self.subTest(identifier=identifier, code=code), self.assertRaises(smoke.OracleError):
+                    smoke.validate_negative_outcome(identifier, {**final, "code":code})
+
     def test_negative_engine_result_requires_no_execution_and_correct_stage(self):
         for identifier, status, code in (("no-bookmarks", "no_plan", "no_bookmarks"),
                                          ("cancel-plan", "cancelled", "processing_cancelled")):

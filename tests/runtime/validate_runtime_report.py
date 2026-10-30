@@ -402,7 +402,7 @@ def failure_case(case: dict, supported_version: str, unsupported_version: str) -
     require("dependency_selection" not in case and "engine_invocation" not in case and "writer_result" not in case,
             "failure: engine execution contradicts preflight rejection")
     error = mapping(case.get("dependency_error"), "dependency error")
-    expected_code = "runtime_invalid" if case["category"] == "python_failure" else (
+    expected_code = ("setup_required" if case["kind"] in {"missing-pypdf", "wrong-pypdf"} else "runtime_invalid") if case["category"] == "python_failure" else (
         "converter_invalid" if case["kind"] == "wrong-version" else "converter_not_found")
     require(error.get("Code") == expected_code, "failure: wrong dependency category")
     if case["category"] == "converter_failure" and case["kind"] in {"missing", "book-cwd-decoys"}:

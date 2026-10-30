@@ -6,7 +6,8 @@ Selects a trusted policy-supported base Python without requiring pypdf first.
 Accepts regular GIL Windows x64 CPython 3.15.0 and later stable 3.15 patches,
 3.14.8+ within 3.14, or 3.13.16+ within 3.13; unknown minors remain unvalidated.
 Setup creates a fresh .venv and installs only the separately hash-locked runtime
-requirement. Processing never runs installation. No activation, elevation,
+requirement. Interactive processing may invoke this same setup after consent.
+No activation, elevation,
 global packages/PATH change or global execution-policy change is required.
 .PARAMETER PythonPath
 Trusted absolute base Python executable. Discovery is read-only when omitted.

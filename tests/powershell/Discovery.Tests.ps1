@@ -660,7 +660,7 @@ Describe 'T03 compatible base without pypdf (actual isolated children)' -Tag 'ST
             $base.Probe.StreamsComplete | Should -BeTrue
             $failure = $null
             try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app } catch { $failure = $_.Exception }
-            $failure.Data['Code'] | Should -BeExactly 'runtime_not_found'
+            $failure.Data['Code'] | Should -BeExactly 'setup_required'
             $attempt = @($failure.Data['Attempts'] | Where-Object { $_.Source -eq 'manager' })
             $attempt.Count | Should -Be 1
             $attempt[0].Reason | Should -BeExactly 'missing_pypdf'
@@ -690,7 +690,7 @@ Describe 'T03 compatible base without pypdf (actual isolated children)' -Tag 'ST
         $selected.Probe.StreamsComplete | Should -BeTrue
         $failure = $null
         try { $null = Resolve-WinBookSplitRuntime -ApplicationRoot $app } catch { $failure = $_.Exception }
-        $failure.Data['Code'] | Should -BeExactly 'runtime_invalid'
+        $failure.Data['Code'] | Should -BeExactly 'setup_required'
         $failure.Data['Attempts'][0].Source | Should -BeExactly 'application_venv'
         $failure.Data['Attempts'][0].Reason | Should -BeExactly 'missing_pypdf'
         $failure.Data['Attempts'][0].IdentityVerified | Should -BeTrue

@@ -184,7 +184,7 @@ function Get-WinBookSplitSetupPackageSource {
 
 function Invoke-WinBookSplitSetup {
     param([Parameter(Mandatory=$true)][string]$ApplicationRoot, [string]$PythonPath,
-        [switch]$Check, [switch]$NonInteractive, [string]$Wheelhouse, [switch]$Repair,
+        [switch]$Check, [switch]$NonInteractive, [string]$Wheelhouse, [switch]$Repair, [string]$DocumentPath,
         [ValidateRange(0.05,3600)][double]$TimeoutSeconds=300,
         [Threading.CancellationToken]$CancellationToken=[Threading.CancellationToken]::None)
     $operations=New-Object 'Collections.Generic.List[object]'
@@ -242,7 +242,7 @@ function Invoke-WinBookSplitSetup {
                     $result.observed_version=$rejected.ObservedVersion
                 }
                 $hintBase=$null
-                try { $hintBase=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $policy -PythonPath $PythonPath }
+                try { $hintBase=Find-WinBookSplitSetupBase -ApplicationRoot $root -Policy $policy -PythonPath $PythonPath -DocumentPath $DocumentPath }
                 catch { if (Test-WinBookSplitInterruption $_.Exception) { throw } }
                 $hintPath=$null;if($hintBase){$hintPath=$hintBase.Path}
                 $result.action=Get-WinBookSplitSetupCommand -ApplicationRoot $root -Repair -PythonPath $hintPath -Wheelhouse $Wheelhouse
@@ -269,7 +269,7 @@ function Invoke-WinBookSplitSetup {
         }
         if (-not $exists -and $Check) {
             try {
-                $ready=Resolve-WinBookSplitRuntime -ApplicationRoot $root -PythonPath $PythonPath -TimeoutSeconds $probeTimeout
+                $ready=Resolve-WinBookSplitRuntime -ApplicationRoot $root -PythonPath $PythonPath -DocumentPath $DocumentPath -TimeoutSeconds $probeTimeout
                 $result.status='success';$result.code='setup_ready';$result.exit_code=0;$result.message='Processing dependencies are ready; Check made no setup changes.'
                 $result.selected_python=$ready.Path;$result.selected_version=$ready.Version;$result.pypdf_version=$ready.PypdfVersion
                 $result.source=$ready.Source
@@ -285,7 +285,7 @@ function Invoke-WinBookSplitSetup {
             $base=Test-WinBookSplitPythonCandidate $explicit 'explicit' $root $attempts $probeTimeout -InterpreterOnly
             if (-not $base) { throw (New-WinBookSplitSetupError 'runtime_invalid' ('The selected base interpreter failed preflight. '+$attempts[$attempts.Count-1].Message+' '+$guidance)) }
         } else {
-            $base=Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -Attempts $attempts -Policy $policy -TimeoutSeconds $probeTimeout -InterpreterOnly -ExcludedDirectories @($venv) -ExcludedDirectoryPrefixes $preservedPrefixes
+            $base=Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $policy -TimeoutSeconds $probeTimeout -InterpreterOnly -ExcludedDirectories @($venv) -ExcludedDirectoryPrefixes $preservedPrefixes
             if (-not $base) { throw (New-WinBookSplitSetupError 'runtime_not_found' ('No compatible trusted base Python was found. '+$guidance)) }
         }
         $result.selected_python=$base.Path;$result.selected_version=$base.Version

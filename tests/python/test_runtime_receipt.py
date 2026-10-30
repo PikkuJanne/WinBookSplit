@@ -220,7 +220,7 @@ def valid_report():
                 elif kind == "book-cwd-decoys":
                     attempts = [{"Path": filename, "Source": "PATH", "Accepted": False,
                                  "Message": "Excluded automatic candidate", "Probe": None} for filename in case["decoy_sha256"]]
-                error = {"Code": "runtime_invalid" if category == "python_failure" else
+                error = {"Code": ("setup_required" if kind in {"missing-pypdf", "wrong-pypdf"} else "runtime_invalid") if category == "python_failure" else
                          "converter_invalid" if kind == "wrong-version" else "converter_not_found", "Attempts": attempts}
                 guidance = (f"Reviewed Python policy {validator.console.RUNTIME_POLICY['pypdf']['version']} -PythonPath Setup-WinBookSplit.ps1 .venv " + candidate if category == "python_failure"
                             else "Calibre 9.15.0 -CalibrePath")
@@ -312,6 +312,20 @@ class RuntimeReceiptTests(unittest.TestCase):
 
     def test_complete_synthetic_receipt_is_structurally_accepted(self):
         self.validate(valid_report())
+
+    def test_package_failures_require_setup_code_and_interpreter_failures_keep_runtime_code(self):
+        report = valid_report()
+        for case in report["python_failure_cases"]:
+            package_failure = case["kind"] in {"missing-pypdf", "wrong-pypdf"}
+            self.assertEqual(case["dependency_error"]["Code"], "setup_required" if package_failure else "runtime_invalid")
+            wrong_codes = ("runtime_invalid", "runtime_not_found") if package_failure else ("setup_required",)
+            for code in wrong_codes:
+                with self.subTest(kind=case["kind"], code=code):
+                    changed = deepcopy(case)
+                    changed["dependency_error"]["Code"] = code
+                    changed["stdout"] = changed["stdout"].split("[DEPENDENCY-ERROR] ")[0] + "[DEPENDENCY-ERROR] " + json.dumps(changed["dependency_error"]) + "\n"
+                    with self.assertRaisesRegex(ValueError, "wrong dependency category"):
+                        validator.failure_case(changed, "3.14.8", "3.12.14")
 
     def test_converter_absence_cache_proof_rejects_omissions_and_corruption(self):
         def absence(report): return report["converter_failure_cases"][0]["converter_absence_environment"]
