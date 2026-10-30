@@ -4,11 +4,11 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This branch contains the **unpublished 30 October functional repair**: interactive
-setup with consent and continuation, empty-password PDF access and narrowly
-validated local opening views. The application version remains **1.0.3**; the
-published v1.0.3 tag and assets contain earlier bytes and are unchanged. This
-verification checkpoint publishes no release. See the
+Version **1.0.4** contains the 30 October functional repair: interactive setup
+with consent and continuation, empty-password PDF access and narrowly validated
+local opening views. The published v1.0.3 tag and assets contain earlier bytes
+and are unchanged. Exact-source/package verification and publication status are
+recorded in the
 [repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
 
 The repaired engine and explicit healthy Windows launches have passed authored
@@ -43,8 +43,10 @@ The [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0
 records actual source/package checks and owner-waived manual scenarios separately.
 The [public releases](https://github.com/PikkuJanne/WinBookSplit/releases) retain
 their original named ZIPs, manifests and checksums; published v1.0.3 does not
-include this repair. Local repair ZIPs are unpublished test artifacts bound to
-their recorded source commits. A complete source-code ZIP with the entry points,
+include this repair. Earlier checkpoint ZIPs remain unpublished test artifacts
+bound to their recorded source commits. The 1.0.4 distribution uses
+`WinBookSplit-v1.0.4.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
+A complete source-code ZIP with the entry points,
 `VERSION`, requirements and `engine` files uses the same first-run path. A source
 archive's format alone does not explain a setup failure, and source tests alone
 do not certify an exact distribution ZIP.

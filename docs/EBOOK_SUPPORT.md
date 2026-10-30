@@ -1,7 +1,7 @@
 # EPUB and AZW3 conversion
 
-This describes the
-[unpublished 30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+This describes version 1.0.4 and its
+[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 Converted PDFs use the same access and document policy as direct PDF inputs,
 including empty-password authentication and narrowly ignored local opening views.
 Published v1.0.3 assets retain their original bytes and behavior. Ebook DRM and

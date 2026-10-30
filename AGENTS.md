@@ -14,9 +14,10 @@ human, Explorer/GUI or manual tests, sign-off, screenshots, reports or kit retur
 none is pending owner work or a completion blocker. Unavailable native scenarios
 remain honestly NOT_RUN, with no owner action required. The instruction pack alone
 does not authorize publication; the direct follow-up supplies that authority.
-Checkpoint 6 migrates the native document-policy harness and records verification;
-it performs no release, tag, version change or publication. A future release must
-use the next unused patch after live verification and preserve all old bytes.
+Checkpoint 6 completed the native document-policy harness migration. Checkpoint 7
+prepares and verifies the next unused patch, v1.0.4 after live confirmation, then
+publishes only its frozen accepted bytes under the direct continuation authority.
+Preserve all old tags, assets and evidence; follow ordinary review/protection rules.
 
 Preserve the PowerShell/Python/pypdf/Calibre architecture, completed Store-Python
 discovery repair, dependency locks/security floors and unrelated safety checks.
@@ -44,7 +45,8 @@ or its outputs in Git. Missing native prerequisites remain NOT_RUN. Preserve
 all published tags/assets and historical evidence. Agent-accessible ordinary
 first-run checks must use their true natural-discovery path; component or explicit
 runtime checks cannot stand in for them. Missing prerequisites are evidence limits,
-not a request for a human run. This checkpoint does not publish a release.
+not a request for a human run. Checkpoint 7 includes publication after agent checks,
+source/package freeze and exact-byte acceptance; no further owner approval is due.
 
 The active repair preserves immutable inputs, complete physical-page partitions,
 no-overwrite output, ownership-limited cleanup, bounded processes and both streams,

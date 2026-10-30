@@ -3,7 +3,7 @@
 WinBookSplit copies PDF page content and resources; it does not render text pages
 into images or add OCR. Image-only scans can be split with manual physical start
 pages. Automatic modes require actual PDF outline destinations. This describes
-the [unpublished functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md);
+version 1.0.4 and its [functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md);
 published v1.0.3 assets retain their original bytes and behavior.
 
 Each chapter receives a new document title and a bookmark pointing to its first

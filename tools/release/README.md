@@ -1,24 +1,27 @@
 # Build and inspect a local WinBookSplit package
 
 Current authority is the [functional repair](../../docs/functional-repair/STATUS_NEXT.md).
-The owner's subsequent direct follow-up authorizes eventual publication after
-agent verification and a future source/package freeze, using the next unused
-patch after live verification. The instruction pack alone is not publication
-authority. Checkpoint 6 performs no release, tag, version change or publication.
+The owner's subsequent direct follow-up authorizes publication after agent
+verification and a committed source/package freeze. Checkpoint 7 coordinates
+version 1.0.4 after live verification that it is the next unused patch. The
+instruction pack alone is not publication authority.
 All human tests, owner sign-off and report requests are out of scope; unavailable
-native cases remain NOT_RUN with no owner action required. The unchanged builder
-retains
-VERSION `1.0.3` and its existing filenames; new repair archives are **unpublished
-test artifacts**, distinct from the immutable public v1.0.3 asset. Keep them in
-new external folders with their source-bound manifests/checksums. Do not replace,
-relabel or upload any published bytes. Historical v1.0.3 waivers and release
+native cases remain NOT_RUN with no owner action required. The maintained builder
+and allowlist use VERSION `1.0.4`. Earlier checkpoint archives remain unpublished
+test artifacts with their original source/hash bindings, distinct from the
+immutable public v1.0.3 asset. Keep each build in a new external folder with its
+source-bound manifest/checksums. Do not replace or relabel published bytes.
+Historical v1.0.3 waivers and release
 instructions retain their original evidence scope and create no owner tasks.
 
 This developer tool builds three local assets from an explicit full commit:
-`WinBookSplit-v1.0.3.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
+`WinBookSplit-v1.0.4.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
 It does not create a tag, upload, sign or publish. An unpublished candidate is
 separate from source freeze, exact-package native acceptance and public release
-verification in the [v1.0.3 release runbook](../../docs/codex-v1.0.3/RELEASE_RUNBOOK.md).
+verification. Reuse applicable safeguards from the
+[historical release runbook](../../docs/codex-v1.0.3/RELEASE_RUNBOOK.md) under the
+current repair authority; its version-specific gates and human routing retain
+their original historical scope.
 
 Run with a trusted Python, Git and the builder files from the intended source
 commit. The builder, `payload.json`, reused CI input checker and
@@ -53,12 +56,12 @@ $SourceRoot = 'D:\projects\WinBookSplit-main'
 $Builder = Join-Path $SourceRoot 'tools\release\build_package.py'
 $SourceCommit = (& git -C $SourceRoot rev-parse HEAD).Trim()
 if ($LASTEXITCODE -ne 0) { throw 'Cannot resolve the intended committed source' }
-$CandidateAssets = 'C:\LocalBuilds\WinBookSplit-v1.0.3-candidate-01'
+$CandidateAssets = 'C:\LocalBuilds\WinBookSplit-v1.0.4-candidate-01'
 & $BuildPython -I -B $Builder build --repo $SourceRoot --commit $SourceCommit --output $CandidateAssets
 if ($LASTEXITCODE -ne 0) { throw 'Package build failed' }
 & $BuildPython -I -B $Builder verify --repo $SourceRoot --commit $SourceCommit --output $CandidateAssets
 if ($LASTEXITCODE -ne 0) { throw 'Package verification failed' }
-Get-FileHash -LiteralPath (Join-Path $CandidateAssets 'WinBookSplit-v1.0.3.zip') -Algorithm SHA256
+Get-FileHash -LiteralPath (Join-Path $CandidateAssets 'WinBookSplit-v1.0.4.zip') -Algorithm SHA256
 Get-FileHash -LiteralPath (Join-Path $CandidateAssets 'release-manifest.json') -Algorithm SHA256
 ```
 
@@ -120,10 +123,13 @@ documented in [SETUP](../../docs/SETUP.md), with process-only policy where permi
 enforced organization controls and unsigned-script limits remain binding.
 
 Hashes detect changes against a trusted value; they do not authenticate an
-unsigned publisher. Any future publication requires separate authority and
-successful relevant acceptance before the release runbook applies. Preserve all
+unsigned publisher. The direct owner continuation supplies publication authority;
+publication still requires successful relevant agent verification, a committed
+source freeze and acceptance of the exact new-version bytes. Preserve all
 published v1.0.0 through v1.0.3 tags/assets and historical evidence. Building or
-verifying a local repair ZIP does not authorize publication.
+verifying a local repair ZIP alone does not establish release completion. Verify
+the public final release, peeled tag/source, anonymously downloaded asset hashes
+and final synchronized main under normal passing-review/protection rules.
 
 Targeted tests reuse real authored temporary Git repositories and deliberately
 mutated assets:

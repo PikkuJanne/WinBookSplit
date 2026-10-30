@@ -1,15 +1,15 @@
 # Set up WinBookSplit
 
-These instructions describe the
-[unpublished 30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+These instructions describe version 1.0.4 and its
+[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 It preserves Store-manager discovery and adds interactive consent to the existing
 application-local setup, followed by continuation of the original request.
 Published v1.0.3 assets remain unchanged and do not contain this repair. Ordinary
 Store first-launch setup/resume, repeat/network observation and Windows 10 repair
 acceptance remain NOT_RUN; component checks and explicit healthy launches are
 separate evidence. The owner's latest order excludes all human testing; no owner
-run, sign-off or report is required. This verification checkpoint publishes no
-release.
+run, sign-off or report is required. Exact-source/package verification and
+publication status are recorded in the linked repair evidence.
 
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
@@ -256,18 +256,18 @@ for operating-system servicing options.
 
 Public release assets are listed on the
 [GitHub releases page](https://github.com/PikkuJanne/WinBookSplit/releases).
-The published v1.0.3 `WinBookSplit-v1.0.3.zip`, `release-manifest.json` and
-`SHA256SUMS.txt` identify its original bytes, without this repair. Local repair
-archives use the existing builder's filename but are unpublished test artifacts;
-their source commit and hashes are recorded in repair evidence. Never replace or
-relabel the public release with them.
+The version 1.0.4 distribution has three assets: `WinBookSplit-v1.0.4.zip`,
+`release-manifest.json` and `SHA256SUMS.txt`. The manifest identifies its committed
+source and each allowlisted member. Published v1.0.3 assets retain their original
+bytes without this repair. Earlier checkpoint archives remain unpublished test
+artifacts with their original source/hash bindings; never relabel them as 1.0.4.
 
 GitHub's automatic **Source code (zip)** and tarball are source checkouts. When
 all required entry points, `VERSION`, requirements and `engine` files are present,
 they use the same first-run coordinator as the distribution. Such an archive is
 not thereby the exact tested distribution, but its format is not evidence of a
 different setup requirement. Neither archive contains a Python/Calibre runtime,
-wheel or `.venv`. Repaired test-package checks and remaining native prerequisites
+wheel or `.venv`. Exact-package checks and remaining native prerequisites
 are recorded in the
 [functional-repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
 Historical checks of published v1.0.3 belong to its
@@ -281,7 +281,7 @@ organization controls still apply. Source tests alone are not native acceptance.
 Compute the archive's hash before extraction, replacing this example path:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.3.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.4.zip' -Algorithm SHA256
 ```
 
 Compare all 64 hexadecimal digits with the intended publisher's checksum. Stop

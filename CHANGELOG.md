@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased functional repair
+## 1.0.4
 
 - Interactive processing offers existing application-local setup or explicit
   backup-preserving repair once, proceeds only after consent, then rechecks the
@@ -12,11 +12,12 @@
 - Ignores bounded validated local initial views with one categorized warning;
   chapter PDFs are unencrypted without the opening action. Active/malformed
   actions, source/output/process safety and dependency locks/floors remain guarded.
-- These changes belong to the repair branch and unpublished test packages.
-  Published v1.0.3 and earlier tags/assets are unchanged. Ordinary Store first-run,
+- Updates the application version, maintained package builder and allowlist to
+  1.0.4. Published v1.0.3 and earlier tags/assets are unchanged. Earlier checkpoint
+  test packages retain their original source/hash bindings. Ordinary Store first-run,
   repeat/network, Windows 10 and private-book acceptance remain NOT_RUN. The latest
   owner order removes all human testing, sign-off and owner report requests;
-  this verification checkpoint does not publish a release. See the
+  exact-source/package verification and publication status are recorded in the
   [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 - Migrates the automated native document-policy harness to accept empty-password
   files, validate their preview/output and report genuine nonempty-password inputs

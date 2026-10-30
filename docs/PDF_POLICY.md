@@ -1,9 +1,9 @@
 # Supported PDF inputs and rejection policy
 
-This policy describes the
-[unpublished 30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+This policy describes version 1.0.4 and its
+[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 The immutable published v1.0.3 assets retain their earlier behavior; they have not
-been replaced by the repaired branch or its local test packages.
+been replaced by the 1.0.4 distribution or earlier local test packages.
 
 WinBookSplit accepts ordinary unencrypted PDFs and encrypted PDFs that the
 supported library opens with an empty password. The same preflight applies to

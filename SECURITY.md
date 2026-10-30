@@ -82,8 +82,8 @@ untested and are disclosed. The owner's subsequent repair order removes all
 human testing and owner sign-off from active scope. Unavailable ordinary Store,
 Windows 10 and other native scenarios remain NOT_RUN evidence limits with no
 owner action required; explicit-runtime or component passes do not prove them.
-The current verification checkpoint performs no publication; results and limits
-are in the
+Version 1.0.4 preserves these dependency locks and security floors. Its
+exact-source/package results, publication status and limits are in the
 [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
 The reviewed fixes do not establish general security
 clearance for the application or documents.

@@ -24,8 +24,8 @@ SPEC.loader.exec_module(checker)
 ASSET_SPEC = importlib.util.spec_from_file_location("wbs_frozen_assets", ROOT / BUILDER_PATHS[3])
 assets = importlib.util.module_from_spec(ASSET_SPEC)
 ASSET_SPEC.loader.exec_module(assets)
-VERSION = "1.0.3"
-ZIP_NAME = "WinBookSplit-v1.0.3.zip"
+VERSION = "1.0.4"
+ZIP_NAME = "WinBookSplit-v1.0.4.zip"
 ASSET_NAMES = (ZIP_NAME, "release-manifest.json", "SHA256SUMS.txt")
 INCOMPLETE = ".package-incomplete"
 TIMESTAMP = assets.TIMESTAMP
