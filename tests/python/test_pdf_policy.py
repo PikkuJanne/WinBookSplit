@@ -12,8 +12,9 @@ from unittest.mock import patch
 
 from pypdf import PdfReader, PdfWriter
 from pypdf._encryption import Encryption
-from pypdf.generic import (ArrayObject, BooleanObject, DecodedStreamObject,
-    DictionaryObject, FloatObject, NameObject, NullObject, NumberObject, TextStringObject)
+from pypdf.errors import DependencyError
+from pypdf.generic import (ArrayObject, BooleanObject, ByteStringObject, DecodedStreamObject,
+    DictionaryObject, FloatObject, IndirectObject, NameObject, NullObject, NumberObject, TextStringObject)
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -112,7 +113,8 @@ class PdfPolicyTests(unittest.TestCase):
             result = engine.run_split(source, self.output, mode, "1,3", preview=preview)
         writer.assert_not_called()
         self.assertEqual(result["code"], code)
-        self.assertEqual(result["exit_code"], 7 if code == "unsupported_document" else 6)
+        self.assertEqual(result["exit_code"], engine.EXIT_CODES[code])
+        self.assertNotEqual(result["exit_code"], 0)
         self.assertEqual(result["written_count"], 0)
         self.assertIsNone(result["execution"])
         self.assertEqual(result["fallback_modes"], ())
@@ -121,35 +123,247 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertEqual(list(self.output.iterdir()), [self.neighbor])
         return result
 
-    def test_encrypted_inputs_never_read_verify_or_decrypt_even_empty_password(self):
-        for empty_password in (False, True):
-            writer = authored_writer()
-            writer.encrypt("" if empty_password else "Original authored open credential",
-                "Original authored owner credential", algorithm="RC4-128")
-            source = self.source(writer, "encrypted-" + str(empty_password))
-            with patch.object(Encryption, "read", side_effect=AssertionError("Encryption.read must not run")) as read, \
-                    patch.object(Encryption, "verify", side_effect=AssertionError("Encryption.verify must not run")) as verify, \
-                    patch.object(PdfReader, "decrypt", side_effect=AssertionError("PdfReader.decrypt must not run")) as decrypt:
-                for mode in ("manual", "1", "2"):
-                    with self.subTest(empty_password=empty_password, mode=mode):
-                        result = self.assert_rejected_before_writer(source, mode=mode)
-                        self.assertEqual(result["status"], "unsupported")
-                self.assert_rejected_before_writer(source, preview=True)
-                interaction = StringIO()
+    def test_empty_password_rc4_128_is_readable_and_source_encryption_is_unchanged(self):
+        writer = authored_writer()
+        writer.encrypt("", "Original authored owner credential", algorithm="RC4-128")
+        source = self.source(writer, "empty-password-rc4-128")
+        original = source.read_bytes()
+        for mode in ("manual", "1", "2"):
+            with self.subTest(mode=mode), redirect_stdout(StringIO()):
+                preview = engine.run_split(source, self.output, mode, "1,3", preview=True)
+                result = engine.run_split(source, self.output, mode, "1,3")
+            self.assertEqual((preview["code"], preview["exit_code"]), ("preview_complete", 0))
+            self.assertEqual((result["code"], result["exit_code"]), ("split_complete", 0))
+            observed = []
+            for entry in result["execution"]["outputs"]:
+                chapter = PdfReader(Path(result["execution"]["final_directory"]) / entry["filename"])
+                self.assertFalse(chapter.is_encrypted)
+                observed.extend(page.get_contents().get_data() for page in chapter.pages)
+            self.assertEqual(observed, [b"% ORIGINAL_POLICY_PAGE_" + str(n).encode() + b"\n" for n in range(1, 5)])
+            self.assertEqual(source.read_bytes(), original)
+            self.assertTrue(PdfReader(BytesIO(original)).is_encrypted)
+        self.assertEqual(policy._validate_pdf(original, str(source))["page_count"], 4)
+
+    def test_nonempty_password_is_refused_consistently_without_writer_or_interaction(self):
+        writer = authored_writer()
+        writer.encrypt("Original authored open credential", "Original authored owner credential", algorithm="RC4-128")
+        source = self.source(writer, "nonempty-password-rc4-128")
+        original = source.read_bytes()
+        for mode in ("manual", "1", "2"):
+            for preview in (False, True):
+                with self.subTest(mode=mode, preview=preview):
+                    self.assert_rejected_before_writer(source, "password_required", mode=mode, preview=preview)
+        interaction = StringIO()
+        with redirect_stdout(StringIO()):
+            result = engine.run_interactive_split(source, self.output, "manual", "1,3",
+                session="a" * 32, input_stream=BytesIO(), output_stream=interaction)
+        self.assertEqual(result["code"], "password_required")
+        self.assertNotEqual(result["exit_code"], 0)
+        self.assertEqual(result["written_count"], 0)
+        self.assertIsNone(result["execution"])
+        self.assertEqual(interaction.getvalue(), "")
+        with self.assertRaises(policy.ConversionError) as conversion:
+            policy._validate_pdf(original, str(source))
+        self.assertEqual(conversion.exception.code, "password_required")
+        self.assertEqual(source.read_bytes(), original)
+        self.assertEqual(list(self.output.iterdir()), [self.neighbor])
+
+    def test_reader_uses_library_empty_password_authentication_once(self):
+        self.assertNotIn("_handle_encryption", policy.PolicyPdfReader.__dict__)
+        for password, indirect_numbers in (("", False), ("Original authored secret", False), ("", True)):
+            with self.subTest(empty=password == "", indirect_numbers=indirect_numbers):
+                writer = authored_writer()
+                writer.encrypt(password, "Original authored owner", algorithm="RC4-40")
+                if indirect_numbers:
+                    for field in ("/R", "/Length"):
+                        writer._encrypt_entry[NameObject(field)] = writer._add_object(writer._encrypt_entry[field])
+                data = encoded(writer)
+                with patch.object(Encryption, "verify", autospec=True, side_effect=Encryption.verify) as verify:
+                    if password:
+                        with self.assertRaises(policy.PdfPolicyError) as caught:
+                            policy.PolicyPdfReader(BytesIO(data))
+                        self.assertEqual(caught.exception.code, "password_required")
+                    else:
+                        reader = policy.PolicyPdfReader(BytesIO(data))
+                        self.assertTrue(reader.is_encrypted)
+                        self.assertEqual(len(reader.pages), 4)
+                self.assertEqual(verify.call_count, 1)
+                self.assertIn(verify.call_args.args[1], (b"", ""))
+
+    def test_encryption_handler_backend_and_corruption_have_distinct_outcomes(self):
+        for defect, expected in (("handler", "unsupported_encryption"), ("data", "invalid_document"),
+                                 ("owner-data", "invalid_document"), ("user-data", "invalid_document"),
+                                 ("key-length", "invalid_document"), ("revision", "invalid_document"),
+                                 ("backend", "encryption_backend_missing")):
+            with self.subTest(defect=defect):
+                writer = authored_writer()
+                writer.encrypt("", "Original authored owner", algorithm="RC4-40")
+                if defect == "handler":
+                    writer._encrypt_entry[NameObject("/Filter")] = NameObject("/OriginalUnsupportedHandler")
+                elif defect == "data":
+                    writer._encrypt_entry[NameObject("/R")] = NullObject()
+                elif defect in ("owner-data", "user-data"):
+                    writer._encrypt_entry[NameObject("/O" if defect == "owner-data" else "/U")] = ByteStringObject(b"short")
+                elif defect == "key-length":
+                    writer._encrypt_entry[NameObject("/Length")] = NumberObject(-1)
+                elif defect == "revision":
+                    writer._encrypt_entry[NameObject("/R")] = NumberObject(-1)
+                source = self.source(writer, "encryption-" + defect)
+                if defect == "backend":
+                    with patch.object(Encryption, "read", side_effect=DependencyError("Synthetic unavailable backend")):
+                        self.assert_rejected_before_writer(source, expected)
+                        with self.assertRaises(policy.ConversionError) as converted:
+                            policy._validate_pdf(source.read_bytes(), str(source))
+                else:
+                    self.assert_rejected_before_writer(source, expected)
+                    with self.assertRaises(policy.ConversionError) as converted:
+                        policy._validate_pdf(source.read_bytes(), str(source))
+                self.assertEqual(converted.exception.code,
+                    "conversion_output_invalid" if expected == "invalid_document" else expected)
+
+    def test_benign_indirect_local_opening_destinations_are_warned_once_and_omitted(self):
+        destinations = {"Fit": (), "FitB": (), "FitH": (NullObject(),), "FitBH": (NumberObject(25),),
+            "FitV": (FloatObject(-10.5),), "FitBV": (NullObject(),),
+            "FitR": tuple(NumberObject(n) for n in (10, 20, 80, 100)),
+            "XYZ": (NullObject(), NumberObject(100), FloatObject(0.75))}
+        for kind, parameters in destinations.items():
+            with self.subTest(kind=kind):
+                writer = authored_writer()
+                destination = writer._add_object(ArrayObject([writer.pages[1].indirect_reference,
+                    NameObject("/" + kind), *parameters]))
+                writer.root_object[NameObject("/OpenAction")] = writer._add_object(dictionary(
+                    Type=NameObject("/Action"), S=NameObject("/GoTo"), D=destination))
+                source = self.source(writer, "local-opening-" + kind)
+                original = source.read_bytes()
                 with redirect_stdout(StringIO()):
-                    result = engine.run_interactive_split(source, self.output, "manual", "1,3",
-                        session="a" * 32, input_stream=BytesIO(), output_stream=interaction)
-                self.assertEqual(result["code"], "unsupported_document")
-                self.assertEqual(result["exit_code"], 7)
-                self.assertEqual(result["written_count"], 0)
-                self.assertIsNone(result["execution"])
-                self.assertEqual(interaction.getvalue(), "")
-                with self.assertRaises(policy.ConversionError) as conversion:
-                    policy._validate_pdf(source.read_bytes(), str(source))
-                self.assertEqual(conversion.exception.code, "unsupported_document")
-                read.assert_not_called()
-                verify.assert_not_called()
-                decrypt.assert_not_called()
+                    result = engine.run_split(source, self.output, "manual", "1,3")
+                self.assertEqual((result["code"], result["exit_code"]), ("split_complete", 0), result["message"])
+                self.assertEqual(sum(item["code"] == "opening_destination_ignored" for item in result["warnings"]), 1)
+                observed = []
+                for entry in result["execution"]["outputs"]:
+                    chapter = PdfReader(Path(result["execution"]["final_directory"]) / entry["filename"])
+                    self.assertNotIn("/OpenAction", chapter.root_object)
+                    observed.extend(page.get_contents().get_data() for page in chapter.pages)
+                self.assertEqual(observed, [b"% ORIGINAL_POLICY_PAGE_" + str(n).encode() + b"\n" for n in range(1, 5)])
+                self.assertEqual(source.read_bytes(), original)
+
+    def test_local_named_opening_destinations_resolve_without_executing_actions(self):
+        for representation in ("legacy-name", "name-tree-string"):
+            with self.subTest(representation=representation):
+                writer = authored_writer()
+                destination = ArrayObject([writer.pages[1].indirect_reference, NameObject("/Fit")])
+                if representation == "legacy-name":
+                    writer.root_object[NameObject("/Dests")] = dictionary(OriginalOpening=destination)
+                    action = NameObject("/OriginalOpening")
+                else:
+                    writer.root_object[NameObject("/Names")] = dictionary(Dests=writer._add_object(dictionary(
+                        Names=ArrayObject([TextStringObject("OriginalOpening"), writer._add_object(dictionary(D=destination))]))))
+                    action = TextStringObject("OriginalOpening")
+                writer.root_object[NameObject("/OpenAction")] = dictionary(S=NameObject("/GoTo"), D=action)
+                source = self.source(writer, representation)
+                original = source.read_bytes()
+                with redirect_stdout(StringIO()):
+                    result = engine.run_split(source, self.output, "manual", "1,3", preview=True)
+                self.assertEqual((result["code"], result["exit_code"]), ("preview_complete", 0), result["message"])
+                self.assertEqual(sum(item["code"] == "opening_destination_ignored" for item in result["warnings"]), 1)
+                self.assertEqual(source.read_bytes(), original)
+                self.assertEqual(list(self.output.iterdir()), [self.neighbor])
+
+    def test_opening_action_exception_rejects_active_types_chains_and_extra_fields(self):
+        for kind in ("/JavaScript", "/Launch", "/GoToR", "/GoToE", "/URI", "next", "extra", "wrong-type",
+                     "string-action", "string-type"):
+            with self.subTest(kind=kind):
+                writer = authored_writer()
+                action = dictionary(S=NameObject("/GoTo"),
+                    D=ArrayObject([writer.pages[0].indirect_reference, NameObject("/Fit")]))
+                if kind.startswith("/"):
+                    action[NameObject("/S")] = NameObject(kind)
+                elif kind == "next":
+                    action[NameObject("/Next")] = dictionary(S=NameObject("/JavaScript"),
+                        JS=TextStringObject("/* inert authored negative control */"))
+                elif kind == "extra":
+                    action[NameObject("/OriginalUnrecognizedField")] = NullObject()
+                elif kind == "string-action":
+                    action[NameObject("/S")] = TextStringObject("/GoTo")
+                elif kind == "string-type":
+                    action[NameObject("/Type")] = TextStringObject("/Action")
+                else:
+                    action[NameObject("/Type")] = NameObject("/OriginalWrongType")
+                writer.root_object[NameObject("/OpenAction")] = writer._add_object(action)
+                self.assert_rejected_before_writer(self.source(writer, "opening-active-" + kind.replace("/", "")))
+
+    def test_opening_action_exception_rejects_nonlocal_and_malformed_destinations(self):
+        for defect in ("page-index", "non-page", "off-tree-page", "unknown-fit", "string-fit", "missing-coordinate", "extra-coordinate",
+                       "text-coordinate", "boolean-coordinate", "negative-zoom", "reversed-rectangle", "zero-area-rectangle",
+                       "missing-name", "ambiguous-name", "cyclic-name", "active-name-limits"):
+            with self.subTest(defect=defect):
+                writer = authored_writer()
+                page = writer.pages[0].indirect_reference
+                destination = ArrayObject([page, NameObject("/Fit")])
+                if defect == "page-index":
+                    destination[0] = NumberObject(0)
+                elif defect == "non-page":
+                    destination[0] = writer._pages
+                elif defect == "off-tree-page":
+                    destination[0] = writer._add_object(dictionary(Type=NameObject("/Page")))
+                elif defect == "unknown-fit":
+                    destination[1] = NameObject("/OriginalUnknownFit")
+                elif defect == "string-fit":
+                    destination[1] = TextStringObject("/Fit")
+                elif defect == "missing-coordinate":
+                    destination[1] = NameObject("/XYZ")
+                elif defect == "extra-coordinate":
+                    destination.append(NumberObject(1))
+                elif defect in ("text-coordinate", "boolean-coordinate"):
+                    destination = ArrayObject([page, NameObject("/FitH"),
+                        TextStringObject("not a coordinate") if defect == "text-coordinate" else BooleanObject(True)])
+                elif defect == "negative-zoom":
+                    destination = ArrayObject([page, NameObject("/XYZ"), NullObject(), NullObject(), FloatObject(-0.75)])
+                elif defect in ("reversed-rectangle", "zero-area-rectangle"):
+                    destination = ArrayObject([page, NameObject("/FitR"), *[NumberObject(n) for n in
+                        ((80, 20, 10, 100) if defect == "reversed-rectangle" else (10, 20, 10, 100))]])
+                else:
+                    destination = TextStringObject("OriginalMissingOpening")
+                    if defect == "ambiguous-name":
+                        writer.root_object[NameObject("/Names")] = dictionary(Dests=dictionary(Names=ArrayObject([
+                            destination, ArrayObject([page, NameObject("/Fit")]),
+                            destination, ArrayObject([writer.pages[1].indirect_reference, NameObject("/Fit")]) ])))
+                    elif defect == "cyclic-name":
+                        names = writer._add_object(dictionary())
+                        names.get_object()[NameObject("/Kids")] = ArrayObject([names])
+                        writer.root_object[NameObject("/Names")] = dictionary(Dests=names)
+                    elif defect == "active-name-limits":
+                        writer.root_object[NameObject("/Names")] = dictionary(Dests=dictionary(
+                            Names=ArrayObject([destination, ArrayObject([page, NameObject("/Fit")])]),
+                            Limits=dictionary(S=NameObject("/JavaScript"), JS=TextStringObject("/* inert authored control */"))))
+                writer.root_object[NameObject("/OpenAction")] = dictionary(S=NameObject("/GoTo"), D=destination)
+                result = self.assert_rejected_before_writer(self.source(writer, "opening-invalid-" + defect))
+                self.assertNotIn("opening_destination_ignored", {item["code"] for item in result["warnings"]})
+
+    def test_accepted_opening_action_cannot_hide_same_action_in_copied_resources(self):
+        writer = authored_writer()
+        action = writer._add_object(dictionary(S=NameObject("/GoTo"),
+            D=ArrayObject([writer.pages[0].indirect_reference, NameObject("/Fit")])))
+        writer.root_object[NameObject("/OpenAction")] = action
+        writer.pages[0][NameObject("/Resources")] = dictionary(OriginalCopiedAction=action)
+        self.assert_rejected_before_writer(self.source(writer, "opening-action-resource-alias"))
+
+    def test_opening_destination_indirect_alias_depth_and_cycles_are_bounded(self):
+        for defect in ("deep", "cycle"):
+            with self.subTest(defect=defect):
+                writer = authored_writer()
+                reference = writer._add_object(ArrayObject([writer.pages[0].indirect_reference, NameObject("/Fit")]))
+                if defect == "deep":
+                    for _ in range(policy.MAX_PDF_FEATURE_DEPTH + 2):
+                        # Author actual indirect aliases without _add_object's deduplication.
+                        writer._objects.append(reference)
+                        reference = IndirectObject(len(writer._objects), 0, writer)
+                else:
+                    writer._objects.append(NullObject())
+                    reference = IndirectObject(len(writer._objects), 0, writer)
+                    writer._objects[-1] = reference
+                writer.root_object[NameObject("/OpenAction")] = reference
+                self.assert_rejected_before_writer(self.source(writer, "opening-reference-" + defect))
 
     def test_catalog_feature_presence_is_rejected_even_if_null_or_malformed(self):
         for key in ("/AcroForm", "/Perms", "/Collection", "/OpenAction", "/AA", "/AF"):

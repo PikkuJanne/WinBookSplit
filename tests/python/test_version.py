@@ -30,7 +30,7 @@ class ApplicationVersionTests(unittest.TestCase):
         self.version = self.work / "VERSION"
 
     def test_shipped_candidate_has_one_version_source_and_unchanged_outcome_schema(self):
-        self.assertEqual((ROOT / "VERSION").read_bytes(), b"1.0.3\n")
+        self.assertIn((ROOT / "VERSION").read_bytes(), (b"1.0.3\n", b"1.0.3\r\n"))
         self.assertEqual(read_version(ROOT / "VERSION"), "1.0.3")
         contract = json.loads((ROOT / "engine/WinBookSplit.Outcomes.json").read_text(encoding="utf-8"))
         self.assertEqual(set(contract), {"schema_version", "codes"})

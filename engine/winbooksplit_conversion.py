@@ -14,7 +14,9 @@ import time
 from types import MappingProxyType
 
 from pypdf import PdfReader
-from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject, NumberObject
+from pypdf.errors import DependencyError, FileNotDecryptedError, PdfReadError
+from pypdf.generic import (ArrayObject, ByteStringObject, DictionaryObject, IndirectObject,
+                          NameObject, NullObject, NumberObject, StreamObject, TextStringObject)
 
 
 MAX_PDF_SNAPSHOT_BYTES = 512 * 1024 * 1024
@@ -29,6 +31,9 @@ PDF_ACTION_TYPES = frozenset({"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread",
 STATIC_ANNOTATION_FIELDS = frozenset({"/Type", "/Subtype", "/Rect", "/Contents", "/NM", "/M", "/F", "/C", "/CA", "/BS",
     "/Border", "/AP", "/AS", "/T", "/Open", "/Name", "/Subj", "/QuadPoints", "/InkList", "/L", "/LE", "/IC",
     "/RD", "/IT", "/CL", "/Rotate", "/DA", "/Q", "/DS", "/RC", "/CreationDate", "/State", "/StateModel", "/Vertices"})
+OPENING_DESTINATION_FITS = {"/XYZ": 3, "/Fit": 0, "/FitH": 1, "/FitV": 1,
+                            "/FitR": 4, "/FitB": 0, "/FitBH": 1, "/FitBV": 1}
+MAX_OPENING_DESTINATION_NODES = 10000
 
 
 class PdfPolicyError(ValueError):
@@ -48,6 +53,176 @@ def _invalid_pdf(message):
 
 def _pdf_value(value):
     return value.get_object() if isinstance(value, IndirectObject) else value
+
+
+def _pdf_access_failure(error):
+    if isinstance(error, FileNotDecryptedError):
+        raise PdfPolicyError("password_required", "This PDF requires a nonempty password. Password entry is not supported.") from error
+    if isinstance(error, DependencyError):
+        raise PdfPolicyError("encryption_backend_missing", "The PDF encryption backend is unavailable in this runtime.") from error
+    if isinstance(error, NotImplementedError):
+        raise PdfPolicyError("unsupported_encryption", "The PDF security handler or encryption algorithm is not supported.") from error
+    raise PdfPolicyError("invalid_document", "The PDF encryption data or document structure is invalid.") from error
+
+
+def _validate_pdf_encryption(reader):
+    """Do not misreport a malformed Standard dictionary as a secret password.
+
+    pypdf can return NOT_DECRYPTED for truncated credentials or invalid key
+    lengths. Check their public PDF representation, without managing keys or
+    repeating authentication. Other security handlers remain pypdf's decision.
+    """
+    if not reader.is_encrypted:
+        return
+    encryption = reader.trailer.get("/Encrypt").get_object()
+    if not isinstance(encryption, DictionaryObject) or isinstance(encryption, StreamObject):
+        _invalid_pdf("The PDF encryption dictionary is invalid.")
+    try:
+        revision = _opening_value(reader, encryption.get("/R"))
+        length = _opening_value(reader, encryption.get("/Length", 40))
+    except PdfPolicyError as error:
+        raise PdfPolicyError("invalid_document", "The PDF encryption parameters contain an invalid local reference.") from error
+    if not isinstance(revision, int) or isinstance(revision, bool) or revision < 2 \
+            or not isinstance(length, int) or isinstance(length, bool) or length < 40 or length > 256 or length % 8:
+        _invalid_pdf("The PDF encryption revision or key length is invalid.")
+    if revision > 6:
+        raise PdfPolicyError("unsupported_encryption", "The PDF encryption revision is not supported.")
+    if revision == 2 and length != 40 or revision in (3, 4) and length > 128 or revision in (5, 6) and length != 256:
+        _invalid_pdf("The PDF encryption key length disagrees with its revision.")
+    required = {"/O": 32, "/U": 32} if revision < 5 else {"/O": 48, "/U": 48, "/OE": 32, "/UE": 32, "/Perms": 16}
+    for field, size in required.items():
+        value = encryption.get(field)
+        if not isinstance(value, (ByteStringObject, TextStringObject)) or len(value.original_bytes) != size:
+            _invalid_pdf("The PDF encryption credentials have an invalid representation or length.")
+
+
+def _accessible_pdf_catalog(reader):
+    """Use actual access, never is_encrypted, to recognize authentication.
+
+    The supported PdfReader constructor already tries the empty password once.
+    Reading its catalog preserves that result, including on captured readers;
+    another decrypt call could reset an already-authenticated reader's key.
+    """
+    try:
+        _validate_pdf_encryption(reader)
+        return reader.root_object
+    except (FileNotDecryptedError, DependencyError, NotImplementedError, PdfReadError) as error:
+        _pdf_access_failure(error)
+
+
+def _opening_value(reader, value):
+    """Resolve only local references with a finite chain and no cycles."""
+    visited = set()
+    while isinstance(value, IndirectObject):
+        identity = (value.idnum, value.generation)
+        if value.pdf is not reader or identity in visited or len(visited) >= MAX_PDF_FEATURE_DEPTH:
+            _unsupported_pdf("The opening destination contains an invalid or excessive reference chain.")
+        visited.add(identity)
+        try:
+            value = value.get_object()
+        except (AttributeError, RecursionError, PdfReadError) as error:
+            raise PdfPolicyError("unsupported_document", "The opening destination contains an unreadable local reference.") from error
+    return value
+
+
+def _opening_named_destination(reader, catalog, target):
+    """Look up a local name without invoking pypdf's recursive name-tree API."""
+    names = _opening_value(reader, catalog.get("/Names"))
+    modern = names.get("/Dests") if isinstance(names, DictionaryObject) else None
+    legacy = catalog.get("/Dests")
+    if legacy is not None and modern is not None:
+        _unsupported_pdf("The opening destination has ambiguous local name definitions.")
+    root = legacy if legacy is not None else modern
+    pending, visited, destinations, scheduled = [(root, 0)], set(), {}, 1
+    while pending:
+        value, depth = pending.pop()
+        node = _opening_value(reader, value)
+        if not isinstance(node, DictionaryObject) or isinstance(node, StreamObject) or id(node) in visited:
+            _unsupported_pdf("The opening destination has a malformed or cyclic local name tree.")
+        visited.add(id(node))
+        if depth > MAX_PDF_PAGE_TREE_DEPTH or len(visited) > MAX_OPENING_DESTINATION_NODES:
+            _unsupported_pdf("The opening destination name tree exceeds the inspection limit.")
+        if legacy is not None:
+            pairs = node.items()
+        else:
+            if set(node) - {"/Kids", "/Names", "/Limits"} or ("/Kids" in node) == ("/Names" in node):
+                _unsupported_pdf("The opening destination has ambiguous local name-tree children.")
+            if "/Limits" in node:
+                limits = _opening_value(reader, node.get("/Limits"))
+                if not isinstance(limits, ArrayObject) or len(limits) != 2:
+                    _unsupported_pdf("The opening destination has invalid local name-tree limits.")
+                limits = [_opening_value(reader, item) for item in limits]
+                if not all(isinstance(item, (TextStringObject, ByteStringObject)) for item in limits) \
+                        or limits[0].original_bytes > limits[1].original_bytes:
+                    _unsupported_pdf("The opening destination has invalid local name-tree limits.")
+            if "/Kids" in node:
+                kids = _opening_value(reader, node.get("/Kids"))
+                if not isinstance(kids, ArrayObject) or len(kids) > MAX_OPENING_DESTINATION_NODES:
+                    _unsupported_pdf("The opening destination has an invalid local name-tree child list.")
+                scheduled += len(kids)
+                if scheduled > MAX_OPENING_DESTINATION_NODES:
+                    _unsupported_pdf("The opening destination name tree exceeds the inspection limit.")
+                pending.extend((kid, depth + 1) for kid in kids)
+                continue
+            entries = _opening_value(reader, node.get("/Names"))
+            if not isinstance(entries, ArrayObject) or len(entries) % 2 or len(entries) > MAX_OPENING_DESTINATION_NODES * 2:
+                _unsupported_pdf("The opening destination has an invalid local name list.")
+            pairs = zip(entries[::2], entries[1::2])
+        if len(node) > MAX_OPENING_DESTINATION_NODES:
+            _unsupported_pdf("The opening destination has too many local names.")
+        for key, destination in pairs:
+            key = _opening_value(reader, key)
+            key_types = (NameObject,) if legacy is not None else (TextStringObject, ByteStringObject)
+            if not isinstance(key, key_types) or key in destinations:
+                _unsupported_pdf("The opening destination has invalid or duplicate local names.")
+            destinations[key] = destination
+            if len(destinations) > MAX_OPENING_DESTINATION_NODES:
+                _unsupported_pdf("The opening destination has too many local names.")
+    if target not in destinations:
+        _unsupported_pdf("The opening destination does not resolve to a local name.")
+    value = _opening_value(reader, destinations[target])
+    if isinstance(value, DictionaryObject) and not isinstance(value, StreamObject) and set(value) == {"/D"}:
+        value = _opening_value(reader, value.get("/D"))
+    return value
+
+
+def _validate_opening_destination(reader, catalog, physical_page_ids):
+    value = _opening_value(reader, catalog.get("/OpenAction"))
+    if isinstance(value, DictionaryObject):
+        action = _opening_value(reader, value.get("/S"))
+        kind = _opening_value(reader, value.get("/Type"))
+        if isinstance(value, StreamObject) or set(value) - {"/Type", "/S", "/D"} or not {"/S", "/D"} <= set(value) \
+                or not isinstance(action, NameObject) or action != "/GoTo" \
+                or "/Type" in value and (not isinstance(kind, NameObject) or kind != "/Action"):
+            _unsupported_pdf("Only a local GoTo opening destination without additional actions is supported.")
+        value = _opening_value(reader, value.get("/D"))
+        if isinstance(value, (NameObject, TextStringObject, ByteStringObject)):
+            value = _opening_named_destination(reader, catalog, value)
+    if not isinstance(value, ArrayObject) or len(value) < 2:
+        _unsupported_pdf("The opening destination must be a valid local destination array.")
+    reference, fit = value[:2]
+    fit = _opening_value(reader, fit)
+    if not isinstance(reference, IndirectObject) or reference.pdf is not reader \
+            or id(_opening_value(reader, reference)) not in physical_page_ids \
+            or not isinstance(fit, NameObject) or fit not in OPENING_DESTINATION_FITS \
+            or len(value) != OPENING_DESTINATION_FITS[fit] + 2:
+        _unsupported_pdf("The opening destination has an invalid local page or view type.")
+    arguments = []
+    for raw in value[2:]:
+        argument = _opening_value(reader, raw)
+        if isinstance(argument, NullObject) and fit != "/FitR":
+            arguments.append(None)
+            continue
+        try:
+            finite = isinstance(argument, (int, float)) and not isinstance(argument, bool) and math.isfinite(argument)
+        except OverflowError:
+            finite = False
+        if not finite:
+            _unsupported_pdf("The opening destination has invalid view parameters.")
+        arguments.append(argument)
+    if fit == "/XYZ" and arguments[2] is not None and arguments[2] < 0 \
+            or fit == "/FitR" and (arguments[2] <= arguments[0] or arguments[3] <= arguments[1]):
+        _unsupported_pdf("The opening destination has an invalid zoom or view rectangle.")
 
 
 def _bounded_pdf_snapshot(stream):
@@ -116,14 +291,13 @@ def _preflight_page_tree(catalog):
 
 
 def _preflight_pdf_features(reader):
-    catalog = reader.root_object
+    catalog = _accessible_pdf_catalog(reader)
     if not isinstance(catalog, DictionaryObject) or catalog.get("/Type") != "/Catalog":
         _invalid_pdf("The PDF catalog is not a valid document dictionary.")
     for key, message in (
         ("/AcroForm", "Interactive AcroForm/XFA documents are not supported."),
         ("/Perms", "Signed or permission-signature documents are not supported."),
         ("/Collection", "PDF portfolios are not supported."),
-        ("/OpenAction", "Document opening actions or destinations are not supported."),
         ("/AA", "Document-level additional actions are not supported."),
         ("/AF", "Associated or embedded document attachments are not supported."),
     ):
@@ -134,6 +308,8 @@ def _preflight_pdf_features(reader):
         _unsupported_pdf("Document scripts and embedded-file name trees are not supported.")
     pages, page_tree_ids = _preflight_page_tree(catalog)
     physical_page_ids = {id(page) for page in pages}
+    if "/OpenAction" in catalog:
+        _validate_opening_destination(reader, catalog, physical_page_ids)
     forbidden_annotations = ("/Widget", "/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D")
     projected_annotations, examined_annotations = [], 0
     for page in pages:
@@ -190,7 +366,9 @@ def _preflight_pdf_features(reader):
             # their tested warnings remain separate from catalog policy.
             skipped = set()
             if node is catalog:
-                skipped.update({"/Outlines", "/Dests"})
+                # Ignore this validated catalog edge only. The same action in
+                # copied resources must still pass the normal action rejection.
+                skipped.update({"/Outlines", "/Dests", "/OpenAction"})
             if node is names:
                 skipped.add("/Dests")
             if id(node) in physical_page_ids:
@@ -208,13 +386,18 @@ def _preflight_pdf_features(reader):
 
 class PolicyPdfReader(PdfReader):
     """Pinned pypdf reader guard shared by direct and converted PDF inputs."""
-    def _handle_encryption(self, password):
-        # pypdf6.19 otherwise reads encryption and tries verify(b'') in __init__.
-        # Reject at its hook before Encryption.read/verify/decrypt is reached.
-        _unsupported_pdf("Encrypted PDFs are not supported. No decryption is attempted.")
-
     def __init__(self, stream, strict=False):
-        super().__init__(_bounded_pdf_snapshot(stream), strict=strict, root_object_recovery_limit=4096)
+        snapshot = _bounded_pdf_snapshot(stream)
+        try:
+            super().__init__(snapshot, strict=strict, root_object_recovery_limit=4096)
+        except (DependencyError, NotImplementedError) as error:
+            _pdf_access_failure(error)
+        except PdfReadError as error:
+            # Preserve ordinary damaged-file handling; a parsed /Encrypt entry
+            # specifically identifies a corrupt encryption setup.
+            if "/Encrypt" in getattr(self, "trailer", {}):
+                _pdf_access_failure(error)
+            raise
         _preflight_pdf_features(self)
 
 
@@ -396,7 +579,8 @@ def _validate_pdf(data, path):
                 "size_bytes": len(data), "page_count": count, "binding": "reader_snapshot",
                 "page_content_sha256": contents}
     except PdfPolicyError as error:
-        code = "unsupported_document" if error.code == "unsupported_document" else "conversion_output_invalid"
+        code = error.code if error.code in {"unsupported_document", "password_required", "unsupported_encryption",
+                                           "encryption_backend_missing"} else "conversion_output_invalid"
         raise ConversionError(code, str(error)) from error
     except Exception as error:
         raise ConversionError("conversion_output_invalid", "Cannot validate the converted PDF: " + str(error)) from error

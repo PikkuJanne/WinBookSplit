@@ -2,7 +2,7 @@
 
 Inputs are authored equivalents of the owner's repair-pack fixtures. They contain
 only six synthetic page markers, never any part of the private regression book.
-These tests assert the required behavior and intentionally fail before repair.
+These tests exercise the actual opener, planner, writer and held-plan handshake.
 The ignored initial-view warning contract is one `opening_destination_ignored`
 record per plan, independent of other outline or fidelity warnings.
 """
@@ -15,6 +15,9 @@ import json
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
+
+from pypdf._encryption import Encryption
 
 from pypdf import PdfReader, PdfWriter
 from pypdf.generic import (ArrayObject, DecodedStreamObject, DictionaryObject,
@@ -203,25 +206,30 @@ class FunctionalPdfRepairTests(unittest.TestCase):
             self.assertEqual({path.name for path in output.iterdir()}, {"prior-output.txt"})
 
     def test_authenticated_still_encrypted_captured_reader_can_plan_preview_and_execute(self):
-        for mode in ("manual", "1", "2"):
-            with self.subTest(mode=mode):
-                source, output, original = self.case("empty_password_rc4--captured--" + mode)
-                reader = PdfReader(BytesIO(original))
-                self.assertTrue(reader.decrypt(""))
-                self.assertTrue(reader.is_encrypted)
-                self.assertEqual(len(reader.pages), 6)
-                try:
-                    with redirect_stdout(StringIO()):
-                        prepared = engine.prepare_split(source, mode, "1,3,5", output_base=output, _captured_reader=reader)
-                        self.assertIs(prepared._reader, reader)
-                        self.assert_plan(engine.preview_plan(prepared), mode, original)
-                        result = engine._complete_prepared_split(prepared, output)
-                    self.assert_outputs(result, source, output, original, mode)
-                except Exception:
-                    self.assertEqual({path.name for path in output.iterdir()}, {"prior-output.txt"})
-                    raise
-                finally:
-                    self.assert_preserved(source, output, original)
+        for case in ("empty_password_rc4", "empty_password_and_local_goto"):
+            for mode in ("manual", "1", "2"):
+                with self.subTest(case=case, mode=mode):
+                    self.assert_captured_reader_reuse(case, mode)
+
+    def assert_captured_reader_reuse(self, case, mode):
+        source, output, original = self.case(case + "--captured--" + mode)
+        reader = PdfReader(BytesIO(original))
+        self.assertTrue(reader.decrypt(""))
+        self.assertTrue(reader.is_encrypted)
+        self.assertEqual(len(reader.pages), 6)
+        try:
+            with patch.object(Encryption, "verify", side_effect=AssertionError("Captured readers must not be reauthenticated")), \
+                    redirect_stdout(StringIO()):
+                prepared = engine.prepare_split(source, mode, "1,3,5", output_base=output, _captured_reader=reader)
+                self.assertIs(prepared._reader, reader)
+                self.assert_plan(engine.preview_plan(prepared), mode, original)
+                result = engine._complete_prepared_split(prepared, output)
+            self.assert_outputs(result, source, output, original, mode)
+        except Exception:
+            self.assertEqual({path.name for path in output.iterdir()}, {"prior-output.txt"})
+            raise
+        finally:
+            self.assert_preserved(source, output, original)
 
     def test_interactive_readable_inputs_reuse_plan_and_execute_after_confirmation(self):
         for case in ("plain", "empty_password_rc4", "local_goto", "empty_password_and_local_goto"):
@@ -233,6 +241,8 @@ class FunctionalPdfRepairTests(unittest.TestCase):
                         input_stream=dialogue, output_stream=dialogue)
                 self.assert_outputs(result, source, output, original, "manual")
                 self.assertEqual([event["stage"] for event in dialogue.events], ["input_ready", "plan_ready"])
+                if case in ("local_goto", "empty_password_and_local_goto"):
+                    self.assertEqual(sum(item["code"] == "opening_destination_ignored" for item in result["warnings"]), 1)
 
     def test_converted_pdf_validation_uses_same_readable_input_policy(self):
         for case in ("plain", "empty_password_rc4", "local_goto", "destination_array", "empty_password_and_local_goto"):

@@ -424,7 +424,8 @@ function ConvertFrom-SplitResult {
                 'output_destination_changed', 'converter_not_found',
                 'conversion_start_failed', 'conversion_failed', 'conversion_output_invalid',
                 'conversion_timeout', 'conversion_cancelled', 'conversion_cleanup_failed',
-                'conversion_source_changed', 'conversion_ownership_failed')) { throw 'Invalid failure result.' }
+                'conversion_source_changed', 'conversion_ownership_failed',
+                'password_required', 'unsupported_encryption', 'encryption_backend_missing')) { throw 'Invalid failure result.' }
         }
         'cancelled' {
             if ($ExitCode -ne 130 -or $result.code -cnotin @('output_cancelled', 'conversion_cancelled',

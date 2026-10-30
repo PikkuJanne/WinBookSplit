@@ -866,6 +866,9 @@ def _chapter_annotations(reader, start, end, named):
 def _add_fidelity_warnings(reader, data):
     named = _preflight_bookmark_trees(reader, include_outline=False)
     _, totals = _source_metadata(reader)
+    if "/OpenAction" in reader.root_object:
+        data["warnings"].append({"code": "opening_destination_ignored", "source_order": None, "depth": None,
+            "message": "The validated local opening view is ignored; chapter PDFs omit it."})
     examined = 0
     for entry in data["entries"]:
         _, counts, count = _chapter_annotations(reader, entry["start"], entry["end"], named)
@@ -892,8 +895,6 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
     reader = _captured_reader if _captured_reader is not None else \
         PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
     if _captured_reader is not None:
-        if reader.is_encrypted:
-            _pdf_policy._unsupported_pdf("Encrypted PDFs are not supported. No decryption is attempted.")
         _pdf_policy._preflight_pdf_features(reader)
     pages = len(reader.pages)
     if mode == "manual":

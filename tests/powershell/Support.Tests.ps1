@@ -94,7 +94,7 @@ Describe 'Explicit allowlisted support diagnostic export' {
     }
     It 'exports only fixed PDF fidelity warning tokens without private metadata or annotation text' {
         foreach ($row in @(@('cross_chapter_link_dropped','navigation'),@('navigation_link_dropped','navigation'),
-                @('article_navigation_dropped','navigation'),@('annotation_dropped','annotation'),
+                @('article_navigation_dropped','navigation'),@('opening_destination_ignored','navigation'),@('annotation_dropped','annotation'),
                 @('annotation_relation_dropped','annotation'),@('metadata_omitted','metadata'),@('metadata_normalized','metadata'))) {
             $fixture=New-SupportFixture
             $fixture.warnings.planning=@(@{ code=$row[0]; message=$secret; source_order=0; depth=0; title=$secret; author=$secret })
@@ -114,6 +114,19 @@ Describe 'Explicit allowlisted support diagnostic export' {
             $summary.outcome.exit_code | Should -Be $row[2]
             $summary.outcome.written_count | Should -Be 0
             $summary.plan | Should -BeNullOrEmpty
+        }
+    }
+    It 'exports distinct PDF authentication refusal tokens without private document details' {
+        foreach ($row in @(@('password_required',7),@('unsupported_encryption',7),@('encryption_backend_missing',3))) {
+            $fixture=New-SupportFixture; $fixture.plan=$null
+            $fixture.outcome.status='error'; $fixture.outcome.code=$row[0]; $fixture.outcome.exit_code=$row[1]; $fixture.outcome.written_count=0
+            $summary=Export-WinBookSplitSupportSummary (Write-SupportFixture $fixture) (New-SupportDestination)
+            $summary.outcome.status | Should -BeExactly 'error'
+            $summary.outcome.code | Should -BeExactly $row[0]
+            $summary.outcome.exit_code | Should -Be $row[1]
+            $summary.outcome.written_count | Should -Be 0
+            ($summary | ConvertTo-Json -Depth 32 -Compress) | Should -Not -Match $secret
+            $fixture.outcome.exit_code=0; Assert-SupportRejected $fixture
         }
     }
     It 'rejects private strings in runtime versions including apparently numeric versions outside the trusted pins' {

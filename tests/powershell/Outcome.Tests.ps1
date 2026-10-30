@@ -514,7 +514,7 @@ Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
             split_complete=0; preview_complete=0;
             invalid_arguments=2; invalid_mode=2; invalid_start_pages=2; input_invalid=2; output_base_invalid=2;
             output_path_too_long=2; output_destination_changed=2; source_output_alias=2;
-            dependency_missing=3; runtime_invalid=3; runtime_not_found=3; converter_invalid=3; converter_not_found=3; processor_start_failed=3;
+            dependency_missing=3; runtime_invalid=3; runtime_not_found=3; converter_invalid=3; converter_not_found=3; processor_start_failed=3; encryption_backend_missing=3;
             conversion_start_failed=4; conversion_failed=4; conversion_output_invalid=4; conversion_cleanup_failed=4;
             conversion_source_changed=4; conversion_ownership_failed=4;
             no_bookmarks=5; no_usable_bookmarks=5; no_bookmarks_at_level=5;
@@ -522,7 +522,7 @@ Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
             source_changed=6; output_exists=6; invalid_execution=6; output_write_failed=6; output_validation_failed=6;
             output_ownership_failed=6; output_manifest_failed=6; output_publish_failed=6; output_handle_close_failed=6;
             processor_protocol_failed=6; console_setup_failed=6; console_finalize_failed=6; processor_failed=6;
-            unsupported_document=7;
+            unsupported_document=7; password_required=7; unsupported_encryption=7;
             output_cancelled=130; conversion_cancelled=130; conversion_timeout=130; processing_cancelled=130;
             processor_cancelled=130; processor_timeout=130; cancelled=130
         }
@@ -544,6 +544,20 @@ Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
             { ConvertFrom-SplitResult ($result | ConvertTo-Json -Depth 100 -Compress) 130 'manual' } | Should-Throw
             $result.status=$case[0]; $result.execution=New-AuthoredExecution; $result.written_count=1
             { ConvertFrom-SplitResult ($result | ConvertTo-Json -Depth 100 -Compress) 130 'manual' } | Should-Throw
+        }
+    }
+    It 'preserves distinct PDF authentication failures and rejects mismatched exits or output claims' {
+        foreach ($case in @(@('password_required',7), @('unsupported_encryption',7), @('encryption_backend_missing',3))) {
+            $result = New-AuthoredResult 'error' $case[0] $case[1]
+            $json = $result | ConvertTo-Json -Depth 100 -Compress
+            $decoded = ConvertFrom-SplitResult $json $case[1] 'manual'
+            $decoded.code | Should-Be -Expected $case[0]
+            $decoded.status | Should-Be -Expected 'error'
+            { ConvertFrom-SplitResult $json 6 'manual' } | Should-Throw
+            $result.status='unsupported'
+            { ConvertFrom-SplitResult ($result | ConvertTo-Json -Depth 100 -Compress) $case[1] 'manual' } | Should-Throw
+            $result.status='error'; $result.execution=New-AuthoredExecution; $result.written_count=1
+            { ConvertFrom-SplitResult ($result | ConvertTo-Json -Depth 100 -Compress) $case[1] 'manual' } | Should-Throw
         }
     }
     It 'keeps primary conversion cancellation or timeout through failed cleanup' {

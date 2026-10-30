@@ -1,0 +1,250 @@
+{
+  "checkpoint": 2,
+  "date": "2026-10-30",
+  "scope": "PDF authentication/local opening view repair only; no setup or publication",
+  "source_binding": {
+    "baseline_commit": "bf8dff4725ce748f50bac466d117957264450d19",
+    "baseline_tree": "45a62949ed8ac3ff02d95f3159942d9a273f38b9",
+    "scope": "Final checkpoint-2 production and changed test working-file bytes; documentation excluded to avoid self-reference",
+    "files": {
+      "engine/WinBookSplit.Diagnostics.ps1": {
+        "sha256": "1d91b78c6841ee211cb5b4ec613812f2bd4957c0ae899b2ee25a4f3239750749",
+        "size_bytes": 35502
+      },
+      "engine/WinBookSplit.Outcomes.json": {
+        "sha256": "fd346fb6e7d2ecedb93bb9be143c3bd62e04d398cae29b05698f73f132dbe730",
+        "size_bytes": 1679
+      },
+      "engine/WinBookSplit.Support.ps1": {
+        "sha256": "3b936b46ab8796f1dd1bcae3d98930b0e72e3d333ea364e4f99001cee2ef1755",
+        "size_bytes": 27310
+      },
+      "engine/winbooksplit_conversion.py": {
+        "sha256": "a2938ff6b136d7d93bd25c69a78ed8f56bcfcf3ee1fd400967e40679e7fe4661",
+        "size_bytes": 39119
+      },
+      "engine/winbooksplit_engine.py": {
+        "sha256": "28bc047e35a35099b978daf7c04022626faa8340aa0a6c5ce7dce413a8bcaf51",
+        "size_bytes": 101756
+      },
+      "tests/powershell/Outcome.Tests.ps1": {
+        "sha256": "0f8cee3bc79de5963b3d1e6b363315b674f42bf7888ed603097f2cabf7769c62",
+        "size_bytes": 52528
+      },
+      "tests/powershell/Support.Tests.ps1": {
+        "sha256": "29beb735cf4a74bbc3662fab24ecb72d6526ab789a695b63dc6656303395d290",
+        "size_bytes": 21614
+      },
+      "tests/python/test_conversion.py": {
+        "sha256": "03f7abbdec364234ccb3ed4cf60f385e37172a16f82b2c472b75c8f048fcd950",
+        "size_bytes": 23718
+      },
+      "tests/python/test_functional_pdf_repair.py": {
+        "sha256": "6f489123059a07f88815444b2ca73d12d4831af620d7596c7118e9ef826d8b7e",
+        "size_bytes": 14929
+      },
+      "tests/python/test_outcomes.py": {
+        "sha256": "0ef8b1dde5bd559304ed9baf3902057a43abb1ac88b2ad2adf66c5a000a6e414",
+        "size_bytes": 11431
+      },
+      "tests/python/test_pdf_policy.py": {
+        "sha256": "f5e09819f2fdbcd57e9e88328eb5c8802d995aa3f42c0322e7791cf5eca28f10",
+        "size_bytes": 52819
+      },
+      "tests/python/test_version.py": {
+        "sha256": "7f6b8ad4da3ad4bc8419b9053fd7adc1e9e643fada49eb044e7a3b6fedf8cc17",
+        "size_bytes": 6034
+      }
+    },
+    "manifest_sha256": "e2570a1a3347ecbc1ca8e4ae2d3335e9900d6e9e40c945f18b8de64a7c3c02ff"
+  },
+  "environment": {
+    "os": "Windows-11-10.0.26300-SP0",
+    "python": "3.14.8",
+    "pypdf": "6.21.3",
+    "driver": "pre-existing developer environment; never ordinary discovery input"
+  },
+  "final_application_units": {
+    "errors": 0,
+    "expected_failures": 0,
+    "failures": 0,
+    "isolated": true,
+    "loading_error": null,
+    "modules": [
+      {
+        "name": "test_compatibility",
+        "test_count": 46
+      },
+      {
+        "name": "test_filenames",
+        "test_count": 14
+      },
+      {
+        "name": "test_interactive",
+        "test_count": 14
+      },
+      {
+        "name": "test_pdf_policy",
+        "test_count": 31
+      },
+      {
+        "name": "test_functional_pdf_repair",
+        "test_count": 11
+      },
+      {
+        "name": "test_pdf_fidelity",
+        "test_count": 11
+      },
+      {
+        "name": "test_conversion",
+        "test_count": 18
+      },
+      {
+        "name": "test_outcomes",
+        "test_count": 11
+      },
+      {
+        "name": "test_version",
+        "test_count": 5
+      },
+      {
+        "name": "test_warnings",
+        "test_count": 10
+      }
+    ],
+    "no_bytecode": true,
+    "protocol": "winbooksplit.application-units",
+    "python_version": "3.14.8",
+    "required_modules": [
+      "test_compatibility",
+      "test_filenames",
+      "test_interactive",
+      "test_pdf_policy",
+      "test_functional_pdf_repair",
+      "test_pdf_fidelity",
+      "test_conversion",
+      "test_outcomes",
+      "test_version",
+      "test_warnings"
+    ],
+    "scope": "Fixed runtime-only units; mocked boundary/API records remain synthetic tests",
+    "skipped": [],
+    "success": true,
+    "tests_run": 171,
+    "unexpected_successes": 0,
+    "version": 1
+  },
+  "broader_initial_implementation_checks": {
+    "tests": 223,
+    "exit_code": 0,
+    "scope": "planning/output/security/report modules; before final narrow PDF validation refinements"
+  },
+  "powershell_components": [
+    {
+      "errors": [],
+      "passed": 56,
+      "failed_containers": 0,
+      "host": "5.1.26100.9711",
+      "skipped": 0,
+      "scope": "FOCUSED_PDF_OUTCOME_PROTOCOL_AND_SUPPORT_EXPORT_COMPONENTS",
+      "total": 56,
+      "failed": 0
+    },
+    {
+      "failed": 0,
+      "total": 56,
+      "scope": "FOCUSED_PDF_OUTCOME_PROTOCOL_AND_SUPPORT_EXPORT_COMPONENTS",
+      "host": "7.6.5",
+      "skipped": 0,
+      "passed": 56,
+      "errors": [],
+      "failed_containers": 0
+    }
+  ],
+  "configured_analysis": {
+    "version": "1.25.0",
+    "settings": "tests/PSScriptAnalyzerSettings.psd1",
+    "findings": [],
+    "paths": [
+      "engine\\WinBookSplit.Diagnostics.ps1",
+      "engine\\WinBookSplit.Support.ps1",
+      "tests\\powershell\\Outcome.Tests.ps1",
+      "tests\\powershell\\Support.Tests.ps1"
+    ],
+    "count": 0,
+    "tool": "PSScriptAnalyzer"
+  },
+  "initial_application_roster": {
+    "tests": 171,
+    "failures": 3,
+    "errors": 0,
+    "exit_code": 1,
+    "reasons": [
+      "two raw indirect-alias classifications repaired",
+      "existing LF-only VERSION assertion corrected for accepted CRLF checkout"
+    ]
+  },
+  "not_run": [
+    "checkpoint-3 first-run consent/setup/resume",
+    "native existing-Store acceptance",
+    "native Windows10",
+    "exact distribution ZIP",
+    "private book",
+    "new real-Calibre run",
+    "AES interoperability"
+  ],
+  "receipts_root": "%TEMP%",
+  "receipts": {
+    "WBS-functional-repair-checkpoint2-20261030/application-units.txt": {
+      "sha256": "2746b28a2a7acbce3da2c34a5a6010b97b868a1658af6ea5de20e3fe0bbd3c88",
+      "size_bytes": 51644
+    },
+    "WBS-functional-repair-checkpoint2-20261030/application-units-final.txt": {
+      "sha256": "c907fe9dc6a7dedf8385cac78a1057dc85c7f6dd141550bc915f42aa7e01accb",
+      "size_bytes": 48459
+    },
+    "WBS-functional-repair-checkpoint2-20261030/planning-output-security.txt": {
+      "sha256": "88240020e56c257631925e6c1dfc0a013c88609658e62dd2b8149edf208900b3",
+      "size_bytes": 41387
+    },
+    "WBS-functional-repair-checkpoint2-protocol/ps51.txt": {
+      "sha256": "e1f3da352d0d3f59c96826fa0c4a795088ead9e5a3bbed63b55ef7af50d9692c",
+      "size_bytes": 6232
+    },
+    "WBS-functional-repair-checkpoint2-protocol/ps7.txt": {
+      "sha256": "354d70590e94905b907a6ffe2cc1dd6216b4bb0f591ce39e601d2ed5a513d73b",
+      "size_bytes": 6226
+    },
+    "WBS-functional-repair-checkpoint2-protocol/ps51.json": {
+      "sha256": "3222ac692ed06bb8b3fdf2189b96e89aafdc6038d2f1a24480f4338eef45e986",
+      "size_bytes": 259
+    },
+    "WBS-functional-repair-checkpoint2-protocol/ps7.json": {
+      "sha256": "6e6f9d225c692445dc2b633a07dd8b5c845ded9bf51a4bf8a4d2e9a01de694cb",
+      "size_bytes": 207
+    },
+    "WBS-functional-repair-checkpoint2-protocol/analysis-configured.json": {
+      "sha256": "dad354f1dd5a7ee2a8514307944707bd9f65ae1dd83ee2dcdf236b0cf9417c3a",
+      "size_bytes": 341
+    },
+    "WBS-functional-cp2-agent-20261030/functional_pdf_repair-final-confirmed.txt": {
+      "sha256": "fdcbd8b14a17bcb2cbd7365f5c1830f240df11549d71c1d86addffdf311c8d30",
+      "size_bytes": 1887
+    },
+    "WBS-functional-cp2-agent-20261030/conversion-final-confirmed.txt": {
+      "sha256": "bae344bfc7779be11dd38603b26d52b3147593bf5478ba48c8702c405d1b20c4",
+      "size_bytes": 433
+    },
+    "WBS-functional-cp2-agent-20261030/pdf_policy-final-indirect-scalars.txt": {
+      "sha256": "74dd0fa9ddfc1a5f7b03c9e84403add1acca87c7f55cb18ada96492d10304f17",
+      "size_bytes": 382
+    }
+  },
+  "preserved": [
+    "setup/discovery",
+    "dependency locks/security floors",
+    "source/output safety",
+    "historical evidence",
+    "published tags/assets"
+  ]
+}

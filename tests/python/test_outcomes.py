@@ -56,7 +56,7 @@ class OutcomeTests(unittest.TestCase):
             2: ("invalid_arguments", "invalid_mode", "invalid_start_pages", "input_invalid",
                 "output_base_invalid", "output_path_too_long", "output_destination_changed", "source_output_alias"),
             3: ("dependency_missing", "runtime_invalid", "runtime_not_found", "converter_invalid",
-                "converter_not_found", "processor_start_failed"),
+                "converter_not_found", "processor_start_failed", "encryption_backend_missing"),
             4: ("conversion_start_failed", "conversion_failed", "conversion_output_invalid",
                 "conversion_cleanup_failed", "conversion_source_changed", "conversion_ownership_failed"),
             5: ("no_bookmarks", "no_usable_bookmarks", "no_bookmarks_at_level"),
@@ -65,7 +65,7 @@ class OutcomeTests(unittest.TestCase):
                 "output_write_failed", "output_validation_failed", "output_ownership_failed",
                 "output_manifest_failed", "output_publish_failed", "output_handle_close_failed",
                 "processor_protocol_failed", "console_setup_failed", "console_finalize_failed", "processor_failed"),
-            7: ("unsupported_document",),
+            7: ("unsupported_document", "password_required", "unsupported_encryption"),
             130: ("output_cancelled", "conversion_cancelled", "conversion_timeout", "processing_cancelled",
                   "processor_cancelled", "processor_timeout", "cancelled"),
         }

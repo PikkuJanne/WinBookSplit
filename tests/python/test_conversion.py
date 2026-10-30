@@ -190,13 +190,13 @@ class ConversionHelperTests(unittest.TestCase):
         finally:
             os.chmod(self.source, stat.S_IREAD | stat.S_IWRITE)
 
-    def test_ac041_zero_exit_missing_empty_corrupt_zero_page_and_encrypted_outputs_rejected(self):
+    def test_ac041_zero_exit_missing_empty_corrupt_and_zero_page_outputs_rejected(self):
         for action, template in (("missing", pdf_bytes()), ("empty", pdf_bytes()), ("corrupt", pdf_bytes()),
-                                 ("valid", pdf_bytes(0)), ("valid", pdf_bytes(encrypted=True))):
+                                 ("valid", pdf_bytes(0))):
             with self.subTest(action=action, template_sha=sha256(template).hexdigest()):
                 self.action = action
                 self.template.write_bytes(template)
-                expected_code = "unsupported_document" if (action == "valid" and PdfReader(BytesIO(template)).is_encrypted) else "conversion_output_invalid"
+                expected_code = "conversion_output_invalid"
                 with self.assertRaises(conversion.ConversionError) as caught:
                     self.convert()
                 self.assertEqual(caught.exception.code, expected_code)
@@ -210,6 +210,21 @@ class ConversionHelperTests(unittest.TestCase):
                 self.assertEqual(saved["code"], expected_code)
                 self.assertEqual(saved["conversion"]["exit_code"], 0)
                 self.assert_cleaned()
+
+    def test_empty_password_converter_output_is_validated_without_resaving_source_bytes(self):
+        template = pdf_bytes(encrypted=True)
+        self.template.write_bytes(template)
+        result = self.convert()
+        self.assertEqual(result.pdf_bytes, template)
+        self.assertEqual(result.generated_pdf_identity["sha256"], sha256(template).hexdigest())
+        self.assertEqual(result.generated_pdf_identity["page_count"], 3)
+        reader = PdfReader(BytesIO(result.pdf_bytes))
+        self.assertTrue(reader.is_encrypted)
+        self.assertTrue(reader.decrypt(""))
+        self.assertEqual([int(page["/SyntheticPageID"]) for page in reader.pages], [1, 2, 3])
+        self.assertEqual(result.generated_pdf_identity["page_content_sha256"],
+            tuple(sha256(page.get_contents().get_data()).hexdigest() for page in reader.pages))
+        self.assert_cleaned()
 
     def test_nonzero_converter_exit_rejects_even_a_readable_positive_pdf(self):
         self.action = "nonzero"
