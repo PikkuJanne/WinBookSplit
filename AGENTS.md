@@ -2,6 +2,13 @@
 
 ## Active maintenance: 30 October 2026 functional repair
 
+Checkpoint 7 is complete: public v1.0.4 uses tested source
+`22745a9d4361a77817754d28c9499cbf8fb33532`. Read
+`docs/functional-repair/STATUS_NEXT.md` and CHECKPOINT_7/JSON for closure evidence.
+There is no pending checkpoint or owner testing. Preserve v1.0.4 and all earlier
+tags/assets; further maintenance requires a new owner request. The repair
+authority below is retained as the completed working agreement.
+
 The owner's new request authorizes the focused functional repair described in
 `docs/functional-repair/STATUS_NEXT.md`. Read that file and its linked checkpoint
 evidence first, then the applicable source/tests and instructions. The v1.0.3
