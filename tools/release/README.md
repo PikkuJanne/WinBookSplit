@@ -1,12 +1,12 @@
-# Build and inspect a WinBookSplit v1.0.3 package
+# Build and inspect a local WinBookSplit package
 
-The owner's latest [27 October decision](../../docs/codex-v1.0.3/OWNER_DECISION_20261027.md)
-closes further owner work. Earlier mandatory-owner/policy wording below describes
-the original gate contract; unavailable final-ZIP ownerStore and genuinecompany-
-policy scenarios now remain NOT_RUN/owner-waived with disclosed release limits.
-All agent/source/CI/package/anonymousbyte/main verification remains mandatory.
-Do not request another owner run or change the native checker to invent a pass.
-
+Current authority is the [functional repair](../../docs/functional-repair/STATUS_NEXT.md).
+No release, tag or publication is authorized. The unchanged builder retains
+VERSION `1.0.3` and its existing filenames; new repair archives are **unpublished
+test artifacts**, distinct from the immutable public v1.0.3 asset. Keep them in
+new external folders with their source-bound manifests/checksums. Do not replace,
+relabel or upload any published bytes. Historical v1.0.3 waivers and release
+instructions do not waive the repair's ordinary first-run acceptance.
 
 This developer tool builds three local assets from an explicit full commit:
 `WinBookSplit-v1.0.3.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
@@ -57,15 +57,17 @@ Get-FileHash -LiteralPath (Join-Path $CandidateAssets 'release-manifest.json') -
 ```
 
 Check the source SHA before building: `HEAD` here is resolved by the operator,
-and the builder accepts only the full lowercase commit ID. Final builds must
-use the frozen source commit **R** containing VERSION `1.0.3`, as required by
-STORE-031. T06 freezes the candidate on the scoped branch; T08 must preserve those
-accepted bytes when bringing R to final main. T07 tests that exact ZIP on the
-owner's existing Windows 10 Store installation through automatic discovery,
-normal setup BAT and ordinary application BAT without a supplied or private
-runtime. Independent Windows 11 and authored EPUB/AZW3 regression, Internet-marked
-script behavior and enforced-policy checks retain their separate evidence scopes.
-A source test or earlier candidate ZIP does not satisfy those native gates.
+and the builder accepts only the full lowercase commit ID. Commit intended
+documentation before building; record the tested ZIP hash and source commit/tree.
+Freshly extract it, compare every member with Git and run affected workflows.
+The repair's ordinary Store setup/consent/resume and repeat must use natural
+discovery, without supplied/private Python, prebuilt app environment or PATH
+injection. Reuse the single pretested checkpoint-4 kit on a qualifying machine;
+its package binding remains its original source/hash. A newer test ZIP is not
+silently substituted into that kit. Missing prerequisites stay NOT_RUN.
+Independent explicit-runtime Windows/Calibre/component checks retain their
+separate evidence scopes. Neither source tests nor earlier ZIP results establish
+a new archive's native acceptance.
 
 ZIP entries use sorted paths, no directory entries, stored bytes, a fixed
 1980-01-01 timestamp and regular-file 0644 attributes. Independent verification
@@ -100,19 +102,20 @@ payload code. The native kit records its own helper/fixture identities separatel
 and uses the existing guarded extraction/process APIs. It does not become an
 application payload or an alternative release builder.
 
-After acceptance and publication, use the named `WinBookSplit-v1.0.3.zip` from
-the accepted public release;
-GitHub's automatic source ZIP or tarball is a source checkout, not the tested
-runtime distribution. Setup uses the BAT or complete OS-known host invocation
+The public `WinBookSplit-v1.0.3.zip` remains the historical release without these
+functional repairs. GitHub's source ZIP/tarball of the repaired commit contains
+the same required application files and uses the same consent/setup/resume path
+when kept together in a writable local folder. It is a source checkout rather
+than the exact verified distribution. Archive type alone does not explain a
+first-run failure. Setup uses the BAT or complete OS-known host invocation
 documented in [SETUP](../../docs/SETUP.md), with process-only policy where permitted;
 enforced organization controls and unsigned-script limits remain binding.
 
 Hashes detect changes against a trusted value; they do not authenticate an
-unsigned publisher. Exact-package Windows/Calibre checks and anonymous public
-download/byte verification remain required by the runbook. Historical v1.0.0
-through v1.0.2 build evidence, tags and assets remain unchanged. The v1.0.3
-candidate is unpublished while the existing-Store and remaining policy gates
-are blocked; building it does not authorize publication.
+unsigned publisher. Any future publication requires separate authority and
+successful relevant acceptance before the release runbook applies. Preserve all
+published v1.0.0 through v1.0.3 tags/assets and historical evidence. Building or
+verifying a local repair ZIP does not authorize publication.
 
 Targeted tests reuse real authored temporary Git repositories and deliberately
 mutated assets:

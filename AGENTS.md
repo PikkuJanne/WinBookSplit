@@ -15,12 +15,13 @@ password, and narrowly validate benign local PDF opening destinations. Likewise,
 the earlier prohibition on all processing-time preparation is superseded only
 for an interactive user's explicit consent to the existing application-local
 setup/repair, followed by resuming the original request. Read-only, preview and
-noninteractive runs must neither prompt nor install. These are repair acceptance
-requirements; checkpoint 1 does not yet implement them.
+noninteractive runs must neither prompt nor install. Checkpoints 2 and 3 implement
+these behaviors; their component and healthy-runtime checks do not establish
+ordinary Store first-run acceptance. See the current status for actual results.
 
-Work one checkpoint per chat. Checkpoint 1 adds genuine failing application
-regressions and diagnosis before production edits; keep failures visible rather
-than changing expectations to preserve obsolete bans. After each checkpoint,
+Work one checkpoint per chat. Preserve checkpoint 1's genuine failing application
+regressions and diagnosis as historical evidence; never restore obsolete bans
+to make old expectations pass. After each checkpoint,
 run relevant tests, update the single short STATUS_NEXT file and evidence,
 commit intended files only on a scoped branch, push normally, verify a clean
 local HEAD against the freshly queried remote branch, hand over and stop.
@@ -32,7 +33,21 @@ all published tags/assets and historical evidence. No new release publication
 is authorized by the attached instruction pack; ordinary first-run acceptance
 must pass before publication can be considered under separate authority.
 
-## v1.0.3 release complete
+The active repair preserves immutable inputs, complete physical-page partitions,
+no-overwrite output, ownership-limited cleanup, bounded processes and both streams,
+dependency-origin validation, nonzero failures, privacy and ordinary Git guards.
+Do not evaluate document text or paths as shell code. Retain the existing tests
+and package tool/allowlist; bind each new unpublished test ZIP to committed source.
+Source archives containing the required application files use the same entry points
+and consent path; package acceptance still belongs to the exact tested bytes.
+
+## Historical v1.0.3 agreement and completed release
+
+Everything below records the completed v1.0.3 work and its original routing.
+Its task queue, processing-time installation prohibition, owner waivers and release
+authority do not govern the active functional repair. Do not restart that queue,
+edit historical specs/evidence, or infer another publication authorization.
+Use the active section and STATUS_NEXT.md first; shared safety requirements remain.
 
 WinBookSplit v1.0.3 is published at tested source
 `7c5f7afeef9b09733ee8853d6df5d86c42d9c726`. Read

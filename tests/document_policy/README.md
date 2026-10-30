@@ -1,5 +1,15 @@
 # Unsupported-document policy acceptance
 
+This is the historical M4-T02 matrix, not the functional repair's encryption
+acceptance. Its maintained producer/validator still places empty-password input
+in `UNSUPPORTED` and requires `unsupported_document` for passworded inputs.
+Those expectations contradict the repaired application and have not been migrated
+or rerun here. Do not use this route, or the `full` layer containing it, to claim
+a current encryption pass. Use `tests/python/test_functional_pdf_repair.py` and
+`test_pdf_policy.py` plus the exact-package/native evidence linked from
+[STATUS_NEXT](../../docs/functional-repair/STATUS_NEXT.md). Preserve the original
+matrix and receipts as historical evidence; never restore blanket bans to fit them.
+
 `characterize_document_policy.py` uses 25 original generated PDF fixtures. It
 starts 30 application controls in each actual supported PowerShell host and
 13 through the shipped batch launcher, then exports one rejected-input run

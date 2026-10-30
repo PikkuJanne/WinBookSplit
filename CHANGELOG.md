@@ -1,5 +1,23 @@
 # Changelog
 
+## Unreleased functional repair
+
+- Interactive processing offers existing application-local setup or explicit
+  backup-preserving repair once, proceeds only after consent, then rechecks the
+  app environment and resumes the original request. Preview, noninteractive
+  processing and readiness checks neither prompt nor install.
+- Accepts PDFs through ordinary empty-password authentication; distinguishes
+  nonempty-password requirements, unsupported encryption, missing crypto backend
+  and malformed input. No password-entry or DRM-removal feature is added.
+- Ignores bounded validated local initial views with one categorized warning;
+  chapter PDFs are unencrypted without the opening action. Active/malformed
+  actions, source/output/process safety and dependency locks/floors remain guarded.
+- These changes belong to the repair branch and unpublished test packages.
+  Published v1.0.3 and earlier tags/assets are unchanged. Ordinary Store first-run,
+  repeat/network, Windows 10 and private-book acceptance remain NOT_RUN; no new
+  release or publication is authorized. See the
+  [repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+
 ## 1.0.3
 
 - Repairs automatic discovery of official Microsoft Store Python Install Manager

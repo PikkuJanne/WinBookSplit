@@ -29,6 +29,11 @@ failure message and structured probe details in the same local log and manifest.
 If those records cannot be saved safely, the console prints the full diagnostic
 frame and preserves the original failure or cancellation exit code. Any partial
 records remain available; saving diagnostics never starts installation.
+Interactive processing offers local setup/repair separately, before engine
+resources are held. After consent, setup progress and the structured setup result
+are displayed; a failed preparation retains its actual failure in local diagnostics
+and does not start splitting. Preview, noninteractive processing and read-only
+checks never prompt or install. See [setup](SETUP.md).
 When no validated terminal plan or explicitly confirmed plan is available,
 the record uses a null plan and `metadata_only` source identity with no invented
 hash. A displayed pending plan alone is not confirmation. An available validated

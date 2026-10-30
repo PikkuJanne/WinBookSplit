@@ -1,13 +1,24 @@
 # Local verification
 
 Current work is the [functional repair](../docs/functional-repair/STATUS_NEXT.md).
-Checkpoint 1 adds desired-behavior application regressions that intentionally
-fail against unrepaired source. See its checkpoint evidence for focused commands,
-actual failures and native prerequisites. Obsolete encryption/setup assertions
-are baseline behavior to replace in the relevant repair checkpoint, not reasons
-to preserve the defects. The completed v1.0.3 contract below remains historical.
+Checkpoints 2 and 3 implement the PDF and consent/setup/resume repairs. Use
+`python/test_functional_pdf_repair.py`, `python/test_pdf_policy.py`, the fixed
+application roster and `powershell/FirstRun.Tests.ps1` for their current contracts.
+Checkpoint evidence separates actual native checks from synthetic components.
+Ordinary supported-Store first run/repeat/network, Windows 10 and the private book
+remain NOT_RUN until actually executed. Reuse the single pretested checkpoint-4
+kit for qualifying ordinary acceptance; no selected/private runtime or prebuilt
+ordinary app environment is permitted.
 
-Follow the active [v1.0.3 testing contract](../docs/codex-v1.0.3/TESTING.md)
+The legacy `--layer document-policy` producer/validator still expects blanket
+encryption rejection, including empty-password input and the old generic
+password error. It has not been migrated or rerun for this repair and cannot
+certify current encryption behavior. `--layer full` includes that legacy stage;
+do not claim a current full pass or restore the obsolete bans to satisfy it.
+Its historical reports retain their original scope. See
+[document-policy limits](document_policy/README.md).
+
+Reuse the [v1.0.3 test recipes](../docs/codex-v1.0.3/TESTING.md) where applicable
 and use an explicit trusted isolated developer interpreter. Historical
 v1.0.0-v1.0.2 reports retain their original scope. Run the same entry point from any
 working directory; it resolves the trusted repository from its own location.
@@ -48,7 +59,9 @@ an existing offline fixture, set `WBS_TEST_WHEELHOUSE` to an absolute directory
 containing that exact wheel; its hash is checked and the supplied directory is
 preserved. Failure to prepare it fails the run before any shell pass can be
 claimed. The preparation is a separately recorded step, bringing full to 23
-steps. This is developer test setup; the ordinary application never installs.
+steps. This is developer test setup, separate from the ordinary application's
+explicit consent-based local preparation. Read-only, preview and noninteractive
+application paths never prompt or install.
 
 ```powershell
 $TestPython = 'C:\Tools\WinBookSplit\.venv-dev\Scripts\python.exe'
@@ -88,13 +101,14 @@ native Windows evidence; it does not reopen or certify human testing.
 
 M4-T02 adds `--layer document-policy` as the twentieth full stage. The targeted
 route requires both explicit supported shell paths and needs no converter or
-renderer flags. It uses authored PDFs to check encrypted/unsupported-feature
-rejection, bounded malformed-input failure and ordinary positive controls under
+renderer flags. Its historical matrix uses authored PDFs to check blanket
+encrypted/unsupported-feature rejection, bounded malformed-input failure and ordinary positive controls under
 actual hosts and BAT. A strict independent child validator binds native status,
 source and output preservation, finalized diagnostics and owned cleanup. See
 `document_policy/README.md` for the exact matrix and evidence limits. API/unit
 guards and synthetic receipt mutations remain distinct from native acceptance;
-this route does not reopen human or GUI testing.
+this route does not reopen human or GUI testing. Its encryption expectations are
+obsolete for the functional repair, as described at the top of this page.
 
 M4-T03 adds `--layer faults`. Its targeted route runs the existing paths,
 process and outcomes suites once, followed by combined mid-write isolation,

@@ -1,17 +1,20 @@
 # EPUB and AZW3 conversion
 
-For the [30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md),
-converted-PDF validation must use the same readable-PDF access rules as direct
-input. The earlier unencrypted-only PDF restriction below is superseded as a
-repair requirement; support is not yet implemented at checkpoint 1. Ebook DRM
-and unrelated document/process restrictions remain unchanged.
+This describes the
+[unpublished 30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+Converted PDFs use the same access and document policy as direct PDF inputs,
+including empty-password authentication and narrowly ignored local opening views.
+Published v1.0.3 assets retain their original bytes and behavior. Ebook DRM and
+unrelated document/process restrictions remain unchanged.
 
 WinBookSplit converts an EPUB or AZW3 to PDF using the selected installed
 Calibre `ebook-convert.exe` (tested with 9.15.0), then splits that generated PDF through the
 same validated physical-page plan used for PDF inputs. The original ebook is
-an immutable input. The outputs are PDF chapters. Install the documented
-dependencies before processing; WinBookSplit does not download dependencies
-or upload documents.
+an immutable input. The outputs are PDF chapters. Install Calibre separately.
+The interactive application can prepare the locked PDF
+package with explicit consent and resume the original request, as described in
+[setup](SETUP.md). Preview and NonInteractive runs never prompt or install.
+WinBookSplit does not upload documents.
 
 The application invokes the resolved executable with separate literal arguments:
 
@@ -38,7 +41,12 @@ and previous run directories are preserved.
 
 A converter failure returns a nonzero result with the conversion diagnostic;
 zero converter status alone does not establish success. The generated file must
-be new, nonempty, readable, unencrypted and contain positive physical pages.
+be new, nonempty, readable under the shared [PDF policy](PDF_POLICY.md), and contain
+positive physical pages. Empty-password encrypted output can be accepted;
+password-required, unsupported-encryption and missing-backend failures retain
+their specific outcomes. New chapter PDFs are unencrypted and omit any ignored
+opening view. The retained full converted PDF, when requested, is the converter's
+output and is not rewritten by the chapter writer.
 The application records exact converter arguments, status, bounded output and
 owned cleanup. Read the console/run diagnostics when a malformed or unsupported
 ebook fails. DRM removal and native ebook output are outside scope.

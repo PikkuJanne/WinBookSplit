@@ -1,12 +1,13 @@
 # Set up WinBookSplit
 
-The [30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md) requires
-interactive first launch to offer the existing application-local setup with
-explicit consent and resume the original operation. That behavior is not yet
-implemented at checkpoint 1. The v1.0.3 statement below that processing never
-installs is a baseline description, not a prohibition on this requested repair.
-Read-only, preview and noninteractive operations must continue without prompts
-or installation.
+These instructions describe the
+[unpublished 30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+It preserves Store-manager discovery and adds interactive consent to the existing
+application-local setup, followed by continuation of the original request.
+Published v1.0.3 assets remain unchanged and do not contain this repair. Ordinary
+Store first-launch setup/resume, repeat/network observation and Windows 10 repair
+acceptance remain NOT_RUN; component checks and explicit healthy launches are
+separate evidence. No new release is authorized.
 
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
@@ -16,7 +17,7 @@ Developer renderers, Pester and fixture packages are not application requirement
 Final-release platform evidence belongs to the exact release archive; these
 setup instructions do not certify an untested ZIP or a clean operating system.
 
-## Set up once
+## First launch
 
 Extract the complete application to a short, writable per-user folder, such as
 `C:\Users\YourName\Tools\WinBookSplit`. Keep the entry points, `VERSION`,
@@ -30,7 +31,33 @@ are [3.15.0](https://www.python.org/downloads/release/python-3150/),
 [3.13.16](https://www.python.org/downloads/release/python-31316/); later accepted
 stable patches do not need to match those test versions.
 
-Open PowerShell in the extracted application directory and run one command:
+Drop one supported file onto `WinBookSplit.bat`, or open the BAT and enter the
+literal file path. If a supported verified Python is available but the required
+pypdf package is missing, has the wrong version or has an untrusted import origin,
+the interactive launch offers application-local setup once:
+
+```text
+First-time setup is required. Download and install the PDF component into this copy of WinBookSplit now? [Y/N]
+```
+
+Only `Y` or `Yes` proceeds. No, blank input, EOF and cancellation stop without
+installation or chapter output. Setup shows progress and its actual result,
+then a fresh runtime check must select this copy's validated `.venv` before the
+original document and options continue. Do not restart or redrop the source.
+Failure stops the request; there is no repeated setup loop or fallback to another
+runtime. An unhealthy existing `.venv` has a separate explicit repair-and-backup
+choice, described below. A healthy launch does not download or reinstall packages.
+
+`-Preview`, `-NonInteractive` processing and read-only `-Check` do not prompt or
+install. A verified supported interpreter with a missing, wrong-version or
+untrusted-origin required package returns `setup_required` / exit 3, with the
+package reason and an actionable setup command. Missing or rejected interpreters
+retain their runtime-specific failure. Read-only checks never execute the remedy.
+
+## Optional advance setup
+
+To prepare dependencies before opening a document, open PowerShell in the
+extracted application directory and run:
 
 ```powershell
 .\Setup-WinBookSplit.bat -NonInteractive
@@ -60,8 +87,9 @@ absolute executable path. Replace this example with your trusted installation:
 ```
 
 No environment activation, administrator session, global package installation
-or PATH change is needed. Setup installs neither Python nor Calibre. Processing
-through the BAT or PowerShell entry point never installs dependencies.
+or PATH change is needed. Setup installs neither Python nor Calibre. Interactive
+processing uses this same setup only after explicit consent; it does not introduce
+a second package installer.
 
 ## Check without making changes
 
@@ -103,8 +131,10 @@ keep it private.
 ## Repair an unhealthy application environment
 
 An existing broken or incompatible `.venv` is preserved by default. Processing
-does not silently fall back around it, and ordinary setup does not replace it.
-To authorize repair, select a compatible base outside the application `.venv`:
+does not silently fall back around it, and setup without repair authorization
+does not replace it. The interactive application offers one explicit choice to
+preserve it in a backup and repair locally. To authorize repair in advance,
+select a compatible base outside the application `.venv`:
 
 ```powershell
 .\Setup-WinBookSplit.bat -PythonPath 'C:\Tools\Python\python.exe' -Repair -NonInteractive
@@ -224,11 +254,21 @@ for operating-system servicing options.
 
 Public release assets are listed on the
 [GitHub releases page](https://github.com/PikkuJanne/WinBookSplit/releases).
-For v1.0.3 installation, use the named `WinBookSplit-v1.0.3.zip`,
-`release-manifest.json` and `SHA256SUMS.txt` from the same public release. GitHub's automatic
-**Source code (zip)** and tarball are source checkouts, not the accepted runtime
-distribution. The named ZIP contains no Python/Calibre runtime, wheel or `.venv`.
-Exact-package native results are recorded in the
+The published v1.0.3 `WinBookSplit-v1.0.3.zip`, `release-manifest.json` and
+`SHA256SUMS.txt` identify its original bytes, without this repair. Local repair
+archives use the existing builder's filename but are unpublished test artifacts;
+their source commit and hashes are recorded in repair evidence. Never replace or
+relabel the public release with them.
+
+GitHub's automatic **Source code (zip)** and tarball are source checkouts. When
+all required entry points, `VERSION`, requirements and `engine` files are present,
+they use the same first-run coordinator as the distribution. Such an archive is
+not thereby the exact tested distribution, but its format is not evidence of a
+different setup requirement. Neither archive contains a Python/Calibre runtime,
+wheel or `.venv`. Repaired test-package checks and remaining native prerequisites
+are recorded in the
+[functional-repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
+Historical checks of published v1.0.3 belong to its
 [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
 The earlier Windows10 Store result covers its original package. The owner
 closed further manual testing for v1.0.3: the final dependency-updated ZIP's

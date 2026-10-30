@@ -4,16 +4,19 @@ Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
 physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
 installed Calibre, then use the same splitter. The source file is unchanged.
 
-This is **v1.0.3**, with repaired package discovery, identity validation and
-installed-runtime resolution for the official Python Install Manager. Setup
-installs the reviewed pypdf **6.21.3** into the application's own environment;
-you do not need to manage a separate global pypdf installation.
+This branch contains the **unpublished 30 October functional repair**: interactive
+setup with consent and continuation, empty-password PDF access and narrowly
+validated local opening views. The application version remains **1.0.3**; the
+published v1.0.3 tag and assets contain earlier bytes and are unchanged. No new
+release is published or authorized. See the
+[repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
 
-The earlier Windows10 Store test applies to its original package. The owner
-closed further manual testing for this release: a fresh final-package Windows10
-Store run and genuine company-enforced script-policy testing remain untested.
-These limits are documented alongside agent verification in the release evidence.
-Scripts are unsigned; enforced organization controls still apply.
+The repaired engine and explicit healthy Windows launches have passed authored
+PDF checks. Ordinary Store first-launch setup/resume, its repeat/network check,
+Windows 10 and the private supplied book remain **NOT_RUN**. These limits are
+separate from historical v1.0.3 acceptance. Scripts are unsigned; enforced
+organization controls still apply. Setup uses reviewed pypdf **6.21.3** in this
+copy's own environment; no global pypdf installation is required.
 
 The first public release,
 [v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
@@ -37,11 +40,13 @@ not a claim that each patch has been tested. Windows 11 source checks and
 Windows Server 2025 CI are distinct from final-package Windows 10 acceptance.
 The [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence)
 records actual source/package checks and owner-waived manual scenarios separately.
-For installation, use the named `WinBookSplit-v1.0.3.zip`, manifest
-and checksums from the same [public release](https://github.com/PikkuJanne/WinBookSplit/releases).
-GitHub's automatic **Source code (zip)** or tarball is a source
-checkout, not the accepted distribution. Source-test results alone do not
-certify a final release package.
+The [public releases](https://github.com/PikkuJanne/WinBookSplit/releases) retain
+their original named ZIPs, manifests and checksums; published v1.0.3 does not
+include this repair. Local repair ZIPs are unpublished test artifacts bound to
+their recorded source commits. A complete source-code ZIP with the entry points,
+`VERSION`, requirements and `engine` files uses the same first-run path. A source
+archive's format alone does not explain a setup failure, and source tests alone
+do not certify an exact distribution ZIP.
 
 The [shipped policy](engine/WinBookSplit.Compatibility.json) rejects prereleases,
 free-threaded Python, PyPy, 32-bit/ARM processes and unlisted minor branches,
@@ -61,26 +66,42 @@ WinBookSplit does not require an ESU purchase or change Windows servicing settin
 
 | Input | Behavior and output |
 | --- | --- |
-| Ordinary unencrypted PDF | Copies selected page content/resources to chapter PDFs; image-only scans work with manual starts |
+| Ordinary or empty-password PDF | Copies selected page content/resources to chapter PDFs; image-only scans work with manual starts |
 | EPUB | Calibre converts it to a working PDF; chapters use that PDF's physical pages and outline |
 | Genuine, unencrypted AZW3/KF8 | Same conversion flow; layout and page count can differ from EPUB |
 
 Automatic modes require actual outline destinations. There is no OCR, inferred
 chapter detection, native ebook output, password interface or DRM removal.
-Encrypted PDFs are rejected even when an empty password would open them.
+The library attempts an empty password once. Readable empty-password PDFs are
+supported; files needing a nonempty password return `password_required` (exit 7).
+There is no password prompt or guessing. Unsupported encryption and unavailable
+backends have separate errors; AES interoperability is not claimed. A valid
+bounded local opening destination is ignored with one warning and is not copied
+into chapters. Other active actions remain restricted.
 Forms/XFA, signed PDFs and unsupported active document features are rejected or
 handled by the narrow documented exclusions. See [PDF policy](docs/PDF_POLICY.md),
 [fidelity and navigation](docs/PDF_FIDELITY.md) and [ebook conversion](docs/EBOOK_SUPPORT.md).
 These checks do not make the application a document sanitizer or security sandbox.
 
-## Set up once
+## First launch and optional advance setup
 
 Keep the entry points, `VERSION`, requirements and `engine` folder together in
 a writable per-user folder. Use an existing accepted Python installation,
 including regular x64 Python 3.15; no precisely matching patch or downgrade is
 required. If Python is absent, obtain it separately from
-[Python.org](https://www.python.org/downloads/windows/). From the application
-directory in PowerShell, run:
+[Python.org](https://www.python.org/downloads/windows/).
+
+Drop a supported file onto `WinBookSplit.bat` or open the BAT and enter its path.
+When a verified supported Python needs the locked PDF package, the interactive
+launch offers setup once. Answer `Y` or `Yes` to use the existing application-local
+setup, validate the new `.venv`, and resume the original source and options without
+redropping the file. Decline, blank input, EOF or cancellation stops without
+installation. An unhealthy application `.venv` requires explicit consent to
+backup-preserving repair; setup failure stops the request without a retry loop.
+Healthy launches do not reinstall packages.
+
+To prepare dependencies before opening a document, run from the application
+directory in PowerShell:
 
 ```powershell
 .\Setup-WinBookSplit.bat -NonInteractive
@@ -102,8 +123,10 @@ pypdf package from PyPI. Use `-PythonPath` for a concrete trusted base interpret
 `-Check` for read-only diagnosis, `-Wheelhouse` for the reviewed offline wheel,
 and explicit `-Repair` for an unhealthy environment. See [setup](docs/SETUP.md)
 for the full commands and preservation behavior. Install Calibre separately for
-ebooks. Processing never installs dependencies or changes global execution
-policy. The application and scripts are unsigned.
+ebooks. Preview, NonInteractive processing and read-only `-Check` never prompt
+or install. Missing or invalid required packages report `setup_required` / exit 3
+with a setup action; a missing or rejected interpreter remains a runtime failure.
+No launch changes global execution policy. The application and scripts are unsigned.
 
 ## Use the console
 
@@ -185,7 +208,8 @@ conversion and cleanup; it cannot be combined with `-KeepConvertedPdf`.
 Use `-OutputDirectory` for an **existing output base**, `-PythonPath` for an
 explicit trusted absolute Python executable, or `-CalibrePath` for the trusted
 absolute `ebook-convert.exe`. An invalid explicit path or broken application
-`.venv` fails instead of silently selecting another runtime. `-ConversionTimeout`
+`.venv` fails instead of silently selecting another runtime; interactive repair
+requires the explicit consent described above. `-ConversionTimeout`
 is 1–86400 seconds (default 1800); `-ProcessTimeout` is 1–172800 seconds
 (default the larger of 3600 and conversion timeout plus 1800). Both process
 streams are bounded and drained; cancellation/deadlines preserve a nonzero result.
@@ -200,11 +224,15 @@ labels. Existing output, neighboring files and the source are not overwritten.
 Chapters are reopened and counted before publication. A successful run contains
 `WinBookSplit_Manifest.json`; ebook retention adds `WinBookSplit_Converted.pdf`
 separately from the chapter count. Complete PDF metadata, outlines, signatures,
-annotations and cross-chapter links are not preserved generally; review the
+annotations and cross-chapter links are not preserved generally. New chapter PDFs
+are unencrypted and omit the ignored opening view; the source remains unchanged.
+Encryption access is separate from permissions; this repair adds no per-operation
+permission enforcement. Review the
 documented fidelity limits and warnings.
 
 Ordinary console runs use a separate `.WinBookSplit-console-<run-id>` directory
 under the output base for `console.log` and, when finalized, `WinBookSplit_Run.json`.
+Interactive dependency preflight can offer the single consent/setup cycle above.
 Dependency failures show a brief reason and one setup action; the local log
 retains technical details. If diagnostics cannot be reserved safely, the failure
 frame stays on the console with the original nonzero status. Preview and early
@@ -218,11 +246,11 @@ a problem. No upload or export is automatic.
 | --- | --- |
 | 0 | Successful execution, validated preview or version query |
 | 2 | Invalid input, arguments or path |
-| 3 | Dependency setup failure |
+| 3 | Runtime/package prerequisite, setup required or missing encryption backend |
 | 4 | Ebook conversion failure |
 | 5 | No usable plan at the requested bookmark level |
-| 6 | PDF/output failure, including incomplete diagnostic finalization |
-| 7 | Unsupported document feature |
+| 6 | PDF/output or setup/rollback failure, including incomplete diagnostic finalization |
+| 7 | Unsupported document/encryption or nonempty password required |
 | 130 | Cancellation or deadline |
 
 PowerShell errors before the script runs use the host's own status. Missing or
@@ -236,7 +264,8 @@ retain the original and inspect the stated reason. For missing dependencies, use
 untrusted runtime just to suppress an error.
 
 WinBookSplit runs with your account's privileges. It does not upload documents,
-add telemetry or auto-install packages. Ebook resources and Calibre plugins are
+add telemetry or install packages without explicit setup authorization or
+interactive consent. Ebook resources and Calibre plugins are
 not isolated by an OS network sandbox; prefer self-contained ebooks. See
 [security reporting](SECURITY.md), [contributing](CONTRIBUTING.md),
 [changes](CHANGELOG.md) and [third-party notices](THIRD_PARTY_NOTICES.md).

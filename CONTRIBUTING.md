@@ -22,6 +22,13 @@ Unit/syntax results are not end-to-end Windows, Calibre, GUI or package results.
 Generated fixtures belong in the test recipe, not private-document check-ins.
 
 Update user guidance when behavior changes. Avoid broader compatibility claims,
-new frameworks, dependency auto-installation, uploads/telemetry, OCR inference,
+new frameworks, silent dependency installation, uploads/telemetry, OCR inference,
 DRM removal, installers or a website. Dependency updates need primary-source
-review and affected regression evidence. Keep license/attribution notices intact.
+review and affected regression evidence. Preserve interactive consent-based
+application-local setup/repair and original-request continuation; preview,
+noninteractive runs and readiness checks must neither prompt nor install.
+Keep empty-password PDF access and narrowly validated ignored opening views,
+with precise password/encryption failures and all unrelated policy guards.
+Historical specs describe their original bytes; current behavior follows the
+[active repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+Keep license/attribution notices intact.

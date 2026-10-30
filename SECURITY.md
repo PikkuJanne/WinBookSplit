@@ -2,14 +2,22 @@
 
 WinBookSplit, Python/pypdf and optional Calibre run with the current user's
 privileges. WinBookSplit is not a security sandbox or a general PDF sanitizer.
-Its tested conservative policy rejects encrypted and unsupported documents and
-omits narrowly documented relationships/actions with warnings. That does not
+Its PDF policy permits ordinary empty-password authentication and rejects files
+that require a nonempty password, unsupported encryption and other excluded
+features with specific outcomes. Bounded validated local opening views are ignored
+with a warning, without executing actions; other documented navigation omissions
+also produce warnings. That does not
 prove every hostile file is safe. Use trusted dependency installations and
 self-contained ebooks; Calibre/plugins and ebook resources are not isolated by
 an OS network-denial mechanism.
 
-The application does not upload documents, add telemetry, install dependencies
-while processing, request elevation or change global execution policy. Sources
+Interactive processing can offer the existing application-local setup or explicit
+backup-preserving repair once. Only affirmative user consent permits changes,
+followed by a fresh runtime check and continuation of the original request.
+Preview, noninteractive processing and read-only checks neither prompt nor install.
+Setup uses an existing accepted Python and the hash-locked pypdf package; it does
+not install Python or Calibre or modify global packages/PATH. The application does
+not upload documents, add telemetry, request elevation or change global execution policy. Sources
 are immutable inputs; new output directories and cleanup use run ownership.
 Local diagnostics may contain sensitive paths, titles, messages and source
 identities. Keep them private and review any [redacted support summary](docs/SUPPORT_DIAGNOSTICS.md)
@@ -38,8 +46,11 @@ retaining the upstream
 [multiple-filter fix](https://github.com/py-pdf/pypdf/security/advisories/GHSA-7mh2-4gg2-979f).
 Optional ebook conversion remains locked to Calibre 9.15.0. Do not bypass
 origin, document-feature, encryption, process or cleanup checks to resolve a
-dependency error. Run the explicit [application-local setup](docs/SETUP.md)
-through `Setup-WinBookSplit.bat` or the complete process-host command. The
+dependency error. Use the consent offer or explicit [application-local setup](docs/SETUP.md)
+through `Setup-WinBookSplit.bat` or the complete process-host command. Empty-password
+access is not per-operation PDF-permission enforcement; there is no nonempty-password
+entry, guessing or DRM removal. Source files are never externally decrypted or
+resaved, and chapter PDFs are unencrypted without the ignored opening view. The
 scripts are unsigned; Internet marks remain intact and persistent execution
 policy is unchanged. Enforced organization controls still apply.
 
@@ -67,7 +78,11 @@ Reader initialization occurs before the application's structural preflight, so
 those dependency limits remain necessary. Earlier accepted receipts cover only
 their original bytes. The owner closed further manual acceptance for v1.0.3;
 fresh final-package Windows10 Store and genuine company-policy testing remain
-untested and are disclosed. The reviewed fixes do not establish general security
+untested and are disclosed. Those historical waivers do not satisfy the active
+functional repair's ordinary Store first-run requirement. No new publication is
+authorized; current results and limits are in the
+[repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+The reviewed fixes do not establish general security
 clearance for the application or documents.
 
 Windows 10 22H2 compatibility does not extend Microsoft's servicing lifecycle.

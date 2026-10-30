@@ -1,5 +1,19 @@
 # Finite native package acceptance kit
 
+For the active [functional repair](../../docs/functional-repair/STATUS_NEXT.md),
+reuse the single pretested `WinBookSplit-Functional-Native-Checkpoint4.zip` in
+Downloads. Its `START-HERE.bat` and numbered guide return one redacted
+`SEND-THIS-REPORT.zip`, including failures/missing prerequisites. It binds the
+checkpoint-4 source/archive and verifies ordinary BAT consent/setup/resume plus
+repeat, without provisioning Python, supplying a selected runtime, injecting PATH
+or prebuilding the ordinary app environment. Network activity stays NOT_RUN
+without a trace. A new documentation-only archive does not change that kit's
+binding or establish new Store acceptance. No publication is authorized.
+
+The remainder describes the historical v1.0.3 kit and its separate scenarios,
+not a requirement to restart T07 or an authorization to acquire a private runtime
+for the functional repair. Historical results/specs keep their original scope.
+
 This developer tool builds a self-contained kit for one exact distribution ZIP
 on regular Windows 10 22H2 x64. It carries the frozen release assets, authored
 fixtures and authenticated helpers. GitHub's automatic source archive does not

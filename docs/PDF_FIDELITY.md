@@ -2,7 +2,9 @@
 
 WinBookSplit copies PDF page content and resources; it does not render text pages
 into images or add OCR. Image-only scans can be split with manual physical start
-pages. Automatic modes require actual PDF outline destinations.
+pages. Automatic modes require actual PDF outline destinations. This describes
+the [unpublished functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md);
+published v1.0.3 assets retain their original bytes and behavior.
 
 Each chapter receives a new document title and a bookmark pointing to its first
 page. Their text uses the safe chapter filename label, without its sequence
@@ -12,6 +14,15 @@ is recorded as a `Source: ...` subject when available. Source text is bounded an
 control characters are normalized. Creator/producer identify WinBookSplit and
 its PDF library. Other source metadata, signatures and the original document
 catalog are not promised to survive.
+
+An empty-password encrypted PDF can be read through ordinary library
+authentication. Its source bytes remain unchanged and new chapter PDFs are
+unencrypted. Authentication is separate from permissions; this repair adds no
+per-operation permission enforcement or nonempty-password entry feature. AES
+interoperability is not claimed. A narrowly validated local opening view is
+ignored with one `opening_destination_ignored` warning per plan, never executed
+and never copied to output catalogs. Active, chained, remote or malformed opening
+actions remain rejected under the [PDF policy](PDF_POLICY.md).
 
 Supported local page links are rebuilt against the pages in each chapter. This
 includes tested explicit `/Dest`, `/GoTo` action and named destinations that
