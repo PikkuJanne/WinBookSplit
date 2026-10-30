@@ -1,5 +1,37 @@
 # WinBookSplit working agreement
 
+## Active maintenance: 30 October 2026 functional repair
+
+The owner's new request authorizes the focused functional repair described in
+`docs/functional-repair/STATUS_NEXT.md`. Read that file and its linked checkpoint
+evidence first, then the applicable source/tests and instructions. The v1.0.3
+records below describe completed historical work, not the active task queue.
+
+Preserve the PowerShell/Python/pypdf/Calibre architecture, completed Store-Python
+discovery repair, dependency locks/security floors and unrelated safety checks.
+The earlier blanket rejection of encrypted PDFs is superseded: support ordinary
+empty-password authentication, accurately reject inputs needing a nonempty
+password, and narrowly validate benign local PDF opening destinations. Likewise,
+the earlier prohibition on all processing-time preparation is superseded only
+for an interactive user's explicit consent to the existing application-local
+setup/repair, followed by resuming the original request. Read-only, preview and
+noninteractive runs must neither prompt nor install. These are repair acceptance
+requirements; checkpoint 1 does not yet implement them.
+
+Work one checkpoint per chat. Checkpoint 1 adds genuine failing application
+regressions and diagnosis before production edits; keep failures visible rather
+than changing expectations to preserve obsolete bans. After each checkpoint,
+run relevant tests, update the single short STATUS_NEXT file and evidence,
+commit intended files only on a scoped branch, push normally, verify a clean
+local HEAD against the freshly queried remote branch, hand over and stop.
+
+Do not provision a private Python fallback, pre-create the test application's
+environment, inject a runtime into ordinary discovery, or put the private book
+or its outputs in Git. Missing native prerequisites remain NOT_RUN. Preserve
+all published tags/assets and historical evidence. No new release publication
+is authorized by the attached instruction pack; ordinary first-run acceptance
+must pass before publication can be considered under separate authority.
+
 ## v1.0.3 release complete
 
 WinBookSplit v1.0.3 is published at tested source

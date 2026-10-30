@@ -1,5 +1,11 @@
 # EPUB and AZW3 conversion
 
+For the [30 October functional repair](functional-repair/STATUS_NEXT.md),
+converted-PDF validation must use the same readable-PDF access rules as direct
+input. The earlier unencrypted-only PDF restriction below is superseded as a
+repair requirement; support is not yet implemented at checkpoint 1. Ebook DRM
+and unrelated document/process restrictions remain unchanged.
+
 WinBookSplit converts an EPUB or AZW3 to PDF using the selected installed
 Calibre `ebook-convert.exe` (tested with 9.15.0), then splits that generated PDF through the
 same validated physical-page plan used for PDF inputs. The original ebook is

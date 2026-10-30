@@ -24,7 +24,7 @@ from unittest.mock import patch
 
 ROOT = Path(__file__).resolve().parents[2]
 UNIT_MODULES = (
-    "test_compatibility", "test_filenames", "test_interactive", "test_pdf_policy",
+    "test_compatibility", "test_filenames", "test_interactive", "test_pdf_policy", "test_functional_pdf_repair",
     "test_pdf_fidelity", "test_conversion", "test_outcomes", "test_version", "test_warnings",
 )
 RESULT_LIMIT = 8 * 1024 * 1024

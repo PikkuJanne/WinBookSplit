@@ -1844,7 +1844,7 @@ class ApplicationRouteTests(unittest.TestCase):
 
     def test_fixed_runtime_only_modules_have_no_developer_fixture_suite(self):
         self.assertEqual(runner.APPLICATION_UNIT_MODULES, self.matrix.UNIT_MODULES)
-        self.assertEqual(len(set(runner.APPLICATION_UNIT_MODULES)), 9)
+        self.assertEqual(len(set(runner.APPLICATION_UNIT_MODULES)), 10)
         self.assertNotIn("test_runner", runner.APPLICATION_UNIT_MODULES)
         self.assertNotIn("test_package_inputs", runner.APPLICATION_UNIT_MODULES)
 
@@ -1887,8 +1887,8 @@ class ApplicationRouteTests(unittest.TestCase):
             status = runner.application_unit_suite()
         self.assertEqual(status, 1)
         record = json.loads(output.getvalue().removeprefix("[APPLICATION-UNITS] "))
-        self.assertEqual(record["tests_run"], 9)
-        self.assertEqual(len(record["skipped"]), 9)
+        self.assertEqual(record["tests_run"], 10)
+        self.assertEqual(len(record["skipped"]), 10)
         self.assertFalse(record["success"])
 
     def test_native_process_requires_whole_tree_input_writer_and_exact_streams(self):
@@ -1910,7 +1910,7 @@ class ApplicationRouteTests(unittest.TestCase):
         good = {"protocol": "winbooksplit.application-units", "version": 1, "success": True,
                 "required_modules": list(self.matrix.UNIT_MODULES),
                 "modules": [{"name": name, "test_count": 1} for name in self.matrix.UNIT_MODULES],
-                "tests_run": 9, "failures": 0, "errors": 0, "expected_failures": 0, "unexpected_successes": 0,
+                "tests_run": 10, "failures": 0, "errors": 0, "expected_failures": 0, "unexpected_successes": 0,
                 "skipped": [], "loading_error": None, "python_executable": str(candidate), "python_version": "3.13.16",
                 "isolated": True, "no_bytecode": True}
         self.matrix.validate_units(good, candidate, "3.13.16")

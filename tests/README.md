@@ -1,5 +1,12 @@
 # Local verification
 
+Current work is the [functional repair](../docs/functional-repair/STATUS_NEXT.md).
+Checkpoint 1 adds desired-behavior application regressions that intentionally
+fail against unrepaired source. See its checkpoint evidence for focused commands,
+actual failures and native prerequisites. Obsolete encryption/setup assertions
+are baseline behavior to replace in the relevant repair checkpoint, not reasons
+to preserve the defects. The completed v1.0.3 contract below remains historical.
+
 Follow the active [v1.0.3 testing contract](../docs/codex-v1.0.3/TESTING.md)
 and use an explicit trusted isolated developer interpreter. Historical
 v1.0.0-v1.0.2 reports retain their original scope. Run the same entry point from any
@@ -12,7 +19,7 @@ the application interpreter. Run it once for each exact source-test target
 pypdf (and optional pip). Numeric same-branch patch acceptance is a separate
 policy test; an unavailable later patch is not relabeled as an actual run. Supply
 both actual shell hosts. Fixture generation and PDF inspection stay on the
-developer Python; the explicit application Python runs a fixed nine-module
+developer Python; the explicit application Python runs a fixed ten-module
 stdlib/pypdf unit set and real manual, Auto1, Auto2 and failure cases. Both native
 PowerShell wrappers run the copied 22-file application with that same candidate.
 

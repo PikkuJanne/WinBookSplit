@@ -1,5 +1,13 @@
 # Set up WinBookSplit
 
+The [30 October functional repair](functional-repair/STATUS_NEXT.md) requires
+interactive first launch to offer the existing application-local setup with
+explicit consent and resume the original operation. That behavior is not yet
+implemented at checkpoint 1. The v1.0.3 statement below that processing never
+installs is a baseline description, not a prohibition on this requested repair.
+Read-only, preview and noninteractive operations must continue without prompts
+or installation.
+
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
 PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
 from one of the accepted branches below. The application uses plain **pypdf

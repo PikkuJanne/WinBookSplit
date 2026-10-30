@@ -76,11 +76,11 @@ class RequiredReportControls(unittest.TestCase):
             with self.assertRaises(ValueError): self.check()
 
     def test_application_target_partial_cases_and_workstation_substitution_fail(self):
-        roster=('test_compatibility','test_filenames','test_interactive','test_pdf_policy','test_pdf_fidelity','test_conversion','test_outcomes','test_version','test_warnings')
+        roster=('test_compatibility','test_filenames','test_interactive','test_pdf_policy','test_functional_pdf_repair','test_pdf_fidelity','test_conversion','test_outcomes','test_version','test_warnings')
         candidate=str(Path('C:/synthetic-runtime/python.exe'))
         units={'protocol':'winbooksplit.application-units','version':1,'success':True,'required_modules':list(roster),
                'modules':[{'name':name,'test_count':1} for name in roster],'python_executable':candidate,'isolated':True,'no_bytecode':True,'loading_error':None,
-               'python_version':'3.13.16','tests_run':9,'skipped':[], 'failures':0,'errors':0,'expected_failures':0,'unexpected_successes':0}
+               'python_version':'3.13.16','tests_run':10,'skipped':[], 'failures':0,'errors':0,'expected_failures':0,'unexpected_successes':0}
         cases=[{'id':name,'status':'PASS'} for name in ('manual-front-matter','auto-level1','auto-level2','late-invalid-token','no-bookmarks','zero-page','wrapper-PS5','wrapper-PS7')]
         matrix={'success':True,'cleanup_safe':True,'timed_out':False,'application_runtime':{'candidate':candidate,'full_probe':{'version':'3.13.16'}},
                 'runtime_only_units':units,'hosts':[{'product_type':3,'build':'26100','shell_version':'5.1.26100.33438'},{'product_type':3,'build':'26100','shell_version':'7.6.6'}],'cases':cases}

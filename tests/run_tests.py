@@ -30,7 +30,7 @@ ROOT = Path(__file__).resolve().parents[1]
 SCRIPT = Path(__file__).resolve()
 ACCEPTANCE_IDS = ["AC-009", "AC-010"]
 APPLICATION_UNIT_MODULES = (
-    "test_compatibility", "test_filenames", "test_interactive", "test_pdf_policy",
+    "test_compatibility", "test_filenames", "test_interactive", "test_pdf_policy", "test_functional_pdf_repair",
     "test_pdf_fidelity", "test_conversion", "test_outcomes", "test_version", "test_warnings",
 )
 MANUAL_ACCEPTANCE_IDS = [f"AC-{number:03}" for number in range(13, 19)]

@@ -23,7 +23,7 @@ Three separate application jobs use the exact test targets in
 `tests/compatibility/runtime-lock.json`: 3.13.16, 3.14.8 and 3.15.0. Each uses its own
 runtime environment containing only pypdf 6.21.3 and optional pip; a distinct
 3.14.8 driver generates authored fixtures with the development dependencies.
-The shared application route runs the existing nine stdlib/pypdf unit modules
+The shared application route runs the ten stdlib/pypdf unit modules
 and eight PDF/native wrapper cases under both shell hosts. The 3.15 runtime
 contains no fixture or renderer dependencies. This bounded Server route explicitly
 omits Calibre; actual EPUB/AZW3 and native OS gates remain separate. Numeric
