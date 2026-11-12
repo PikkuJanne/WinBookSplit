@@ -126,7 +126,8 @@ class PreviewTests(unittest.TestCase):
                 patch.object(engine, "execute_split", side_effect=AssertionError("Ebook preview cannot write")) as execute:
             result = engine.run_split(source, self.base, "manual", "1,3", calibre_path="owned-calibre.exe", preview=True)
         prepare.assert_called_once_with(source, "manual", "1,3", output_base=self.base,
-            calibre_path="owned-calibre.exe", keep_converted_pdf=False, conversion_timeout=1800)
+            calibre_path="owned-calibre.exe", keep_converted_pdf=False, conversion_timeout=1800,
+            managed_calibre=False)
         execute.assert_not_called()
         self.assertEqual(result["status"], "preview")
         self.assertEqual(result["plan"]["original_ebook_identity"], original)

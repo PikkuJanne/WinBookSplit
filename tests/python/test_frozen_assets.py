@@ -113,7 +113,8 @@ print(json.dumps({'source_commit':manifest['source_commit'],'count':len(payload)
             cwd=self.work, env=environment, stdin=subprocess.DEVNULL,
             stdout=subprocess.PIPE, stderr=subprocess.PIPE, timeout=20, check=False)
         self.assertEqual(observed.returncode, 0, observed.stderr)
-        self.assertEqual(json.loads(observed.stdout), {"source_commit": self.commit, "count": 34})
+        self.assertEqual(json.loads(observed.stdout),
+                         {"source_commit": self.commit, "count": len(self.base_payload)})
 
     def test_dependency_contract_keeps_policy_ranges_separate_from_build_runtime(self):
         policy_bytes = self.base_payload["engine/WinBookSplit.Compatibility.json"]
