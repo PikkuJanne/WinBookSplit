@@ -640,14 +640,58 @@ class PdfPolicyTests(unittest.TestCase):
         for chapter in chapters:
             self.assertNotIn(script_content, chapter.stream.getvalue())
 
+    def test_malformed_optional_resource_edges_preserve_aliased_font(self):
+        for key in ("/A", "/AA", "/JS", "/OriginalAction"):
+            with self.subTest(key=key):
+                writer = inherited_writer()
+                resources = writer._pages.get_object()["/Resources"]
+                font = resources["/Font"].raw_get("/F1")
+                typed_action = key == "/OriginalAction"
+                resources[NameObject(key)] = writer._add_object(dictionary(S=NameObject("/JavaScript"), JS=font)) \
+                    if typed_action else font
+
+                result, chapters = self.split_and_reopen(self.source(writer, "optional-edge-to-font-" + key[1:]),
+                                                        "pdf_action_omitted")
+                self.assertEqual("pdf_javascript_omitted" in {warning["code"] for warning in result["warnings"]}, typed_action)
+                pages = [page for chapter in chapters for page in chapter.pages]
+                self.assertEqual(len(pages), 4)
+                for index, page in enumerate(pages, 1):
+                    self.assertEqual(page.extract_text().strip(), f"ORIGINAL_INHERITED_PAGE_{index:02}")
+                    self.assertEqual(page["/Resources"]["/Font"]["/F1"]["/BaseFont"], "/Helvetica")
+                    self.assertNotIn(key, page["/Resources"])
+
+    def test_resource_dictionary_containing_only_script_preserves_page_graphics(self):
+        writer = authored_writer()
+        script_content = b"AUTHORED_SOLE_RESOURCE_SCRIPT_NEVER_EXECUTED\n"
+        script = DecodedStreamObject()
+        script.set_data(script_content)
+        script_reference = writer._add_object(script)
+        first = writer.pages[0]
+        first[NameObject("/Resources")] = dictionary(JS=script_reference)
+        content = first["/Contents"]
+        drawing = b"q 1 0 0 rg 10 10 30 30 re f Q\n"
+        content.set_data(content.get_data() + drawing)
+        writer.pages[3][NameObject("/Resources")] = dictionary(OriginalScriptAlias=script_reference)
+
+        _, chapters = self.split_and_reopen(self.source(writer, "sole-resource-script"), "pdf_javascript_omitted")
+        self.assertEqual(chapters[0].pages[0].get_contents().get_data(), b"% ORIGINAL_POLICY_PAGE_1\n" + drawing)
+        self.assertEqual(chapters[0].pages[0]["/Resources"], {})
+        self.assertNotIn("/OriginalScriptAlias", chapters[1].pages[1]["/Resources"])
+        for chapter in chapters:
+            self.assertNotIn(script_content, chapter.stream.getvalue())
+
     def test_optional_stream_edges_preserve_image_pixels_and_page_text(self):
         writer = inherited_writer()
         pixels = bytes((255, 0, 0, 0, 0, 255))
+        attachment_content = b"AUTHORED_IMAGE_ATTACHMENT_NEVER_EXTRACTED\n"
+        attachment = DecodedStreamObject()
+        attachment.set_data(attachment_content)
         image = DecodedStreamObject()
         image.set_data(pixels)
         image.update(dictionary(Type=NameObject("/XObject"), Subtype=NameObject("/Image"),
             Width=NumberObject(2), Height=NumberObject(1), BitsPerComponent=NumberObject(8),
-            ColorSpace=NameObject("/DeviceRGB"), A=dictionary(D=writer.pages[3].indirect_reference)))
+            ColorSpace=NameObject("/DeviceRGB"), A=dictionary(D=writer.pages[3].indirect_reference),
+            EF=dictionary(F=writer._add_object(attachment))))
         writer._pages.get_object()["/Resources"][NameObject("/XObject")] = dictionary(
             AuditImage=writer._add_object(image.flate_encode()))
         script_content = b"AUTHORED_PAGE_STREAM_SCRIPT_NEVER_EXECUTED\n"
@@ -662,12 +706,14 @@ class PdfPolicyTests(unittest.TestCase):
         second[NameObject("/Contents")] = ArrayObject([second.raw_get("/Contents")])
 
         result, chapters = self.split_and_reopen(self.source(writer, "optional-image-and-content-stream-edges"))
-        self.assertTrue({"pdf_action_omitted", "pdf_javascript_omitted"} <= {warning["code"] for warning in result["warnings"]})
+        self.assertTrue({"pdf_action_omitted", "pdf_javascript_omitted", "pdf_attachment_omitted"} <=
+                        {warning["code"] for warning in result["warnings"]})
         pages = [page for chapter in chapters for page in chapter.pages]
         for index, page in enumerate(pages, 1):
             self.assertEqual(page.extract_text().strip(), f"ORIGINAL_INHERITED_PAGE_{index:02}")
         copied = pages[0]["/Resources"]["/XObject"]["/AuditImage"]
         self.assertNotIn("/A", copied)
+        self.assertNotIn("/EF", copied)
         self.assertEqual((copied["/Width"], copied["/Height"], copied["/BitsPerComponent"], copied["/ColorSpace"]),
             (2, 1, 8, "/DeviceRGB"))
         self.assertEqual(copied.get_data(), pixels)
@@ -675,6 +721,7 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertNotIn("/JS", pages[1]["/Contents"][0].get_object())
         for chapter in chapters:
             self.assertNotIn(script_content, chapter.stream.getvalue())
+            self.assertNotIn(attachment_content, chapter.stream.getvalue())
 
     def test_type3_charprocs_preserve_glyph_named_js(self):
         writer = inherited_writer()
