@@ -427,6 +427,13 @@ def valid_digest(value: object) -> bool:
 def validate_output_execution(result: dict) -> None:
     """Each current successful writer receipt names a distinct complete run."""
     run_id, final, manifest = result.get("run_id"), result.get("final_directory"), result.get("manifest")
+    expected = {"schema_version": 1, "status": "complete", **{key: result.get(key) for key in
+                ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}
+    if "pdf_forms" in result:
+        spec = importlib.util.spec_from_file_location("wbs_writer_manifest", ROOT / "tests/manual/characterize_manual.py")
+        helper = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(helper)
+        expected = helper.expected_output_manifest(result)
     if type(result.get("schema_version")) is not int or result["schema_version"] != 1 or result.get("status") != "complete" \
             or not isinstance(run_id, str) or len(run_id) != 32 or any(character not in "0123456789abcdef" for character in run_id) \
             or not isinstance(final, str) or not Path(final).is_absolute() \
@@ -436,9 +443,7 @@ def validate_output_execution(result: dict) -> None:
             or not isinstance(result.get("outputs"), list) or not result["outputs"] \
             or any(not isinstance(item, dict) or not valid_digest(item.get("sha256"))
                    or type(item.get("size_bytes")) is not int or item["size_bytes"] < 1 for item in result["outputs"]) \
-            or not isinstance(manifest, dict) or type(manifest.get("schema_version")) is not int \
-            or manifest != {"schema_version": 1, "status": "complete", **{key: result.get(key) for key in
-                ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}:
+            or not isinstance(manifest, dict) or type(manifest.get("schema_version")) is not int or manifest != expected:
         raise ValueError("Current writer evidence requires a unique complete run and matching manifest/digest/size records")
 
 

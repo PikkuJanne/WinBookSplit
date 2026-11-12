@@ -125,8 +125,7 @@ def success(row, fixture, base):
     owner = text_member(observed, ".WinBookSplit-owner.json", publication.get("owner_text"))
     need(owner == {"schema_version": 1, "kind": "run", "run_id": run_id}, "Published owner not authenticated")
     manifest = text_member(observed, "WinBookSplit_Manifest.json", publication.get("manifest_text"))
-    expected = {"schema_version": 1, "status": "complete", **{key: execution.get(key) for key in
-                ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}
+    expected = console.manual.expected_output_manifest(execution, plan=result["plan"])
     need(manifest == expected and execution.get("manifest") == manifest
          and execution.get("manifest_filename") == "WinBookSplit_Manifest.json", "Manifest/terminal execution differs")
     outputs, reopened = execution.get("outputs"), publication.get("reopened")

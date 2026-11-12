@@ -183,8 +183,7 @@ def native_binding(case, host):
         need(hashes({"pdf": output.get("sha256")}) and output["sha256"] == entry.get("sha256")
             and type(entry.get("size_bytes")) is int and entry["size_bytes"] > 0 and entry.get("page_count") == 2,
             "Reopened output bytes/count differ from completion manifest")
-    expected_manifest = {"schema_version": 1, "status": "complete", **{key: execution[key] for key in
-        ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}}
+    expected_manifest = console.manual.expected_output_manifest(execution, plan=plan)
     need(execution.get("manifest") == expected_manifest and execution.get("manifest_filename") == "WinBookSplit_Manifest.json",
         "Actual output completion manifest differs from execution")
     publication = case.get("publication_observation")

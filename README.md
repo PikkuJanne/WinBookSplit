@@ -126,12 +126,12 @@ policy or remove Internet marks. A complete PowerShell-host alternative is:
 
 Enforced organization controls still apply; follow them if execution is denied.
 
-Setup creates an application-local `.venv` and downloads only the hash-locked
+Python setup creates an application-local `.venv` and downloads only the hash-locked
 pypdf package from PyPI. Use `-PythonPath` for a concrete trusted base interpreter,
 `-Check` for read-only diagnosis, `-Wheelhouse` for the reviewed offline wheel,
 and explicit `-Repair` for an unhealthy environment. See [setup](docs/SETUP.md)
-for the full commands and preservation behavior. Install Calibre separately for
-ebooks. Preview, NonInteractive processing and read-only `-Check` never prompt
+for the full commands and preservation behavior, including advance Calibre setup
+for ebooks. Preview, NonInteractive processing and read-only `-Check` never prompt
 or install. Missing or invalid required packages report `setup_required` / exit 3
 with a setup action; a missing or rejected interpreter remains a runtime failure.
 No launch changes global execution policy. The application and scripts are unsigned.

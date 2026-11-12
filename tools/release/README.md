@@ -61,12 +61,11 @@ and the builder accepts only the full lowercase commit ID. Commit intended
 documentation before building; record the tested ZIP hash and source commit/tree.
 Freshly extract it, compare every member with Git and run affected workflows.
 The repair's ordinary Store setup/consent/resume and repeat must use natural
-discovery, without supplied/private Python, prebuilt app environment or PATH
-injection. Reuse the single pretested checkpoint-4 kit only on an agent-accessible
-qualifying machine; do not request a human run, sign-off or report. Missing
-prerequisites remain NOT_RUN evidence limits rather than pending owner work.
-The kit's package binding remains its original source/hash. A newer test ZIP is
-not silently substituted into that kit.
+discovery with the actual installed interpreter and a fresh app extraction.
+Record unavailable native prerequisites as NOT_RUN. The current
+[form](../../tests/document_policy/README.md) and
+[ebook](../../tests/ebooks/README.md) drivers verify actual outputs from the
+frozen application archive.
 Independent explicit-runtime Windows/Calibre/component checks retain their
 separate evidence scopes. Neither source tests nor earlier ZIP results establish
 a new archive's native acceptance.

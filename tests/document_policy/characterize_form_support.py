@@ -471,7 +471,8 @@ def main():
     application = args.app_root.resolve(strict=True)
     application_paths = policy.support.validator.APPLICATION
     if args.checkpoint_2:
-        application_paths = tuple(name for name in application_paths if name != 'engine/winbooksplit_forms.py')
+        later_helpers = {'engine/winbooksplit_forms.py', 'engine/winbooksplit_calibre.py', 'engine/WinBookSplit.Calibre.ps1'}
+        application_paths = tuple(name for name in application_paths if name not in later_helpers)
     if args.secondary_python_path:
         require(args.secondary_python_path.is_absolute() and args.secondary_python_path.is_file(),
                 'Supply an absolute existing PDFium Python executable')

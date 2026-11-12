@@ -130,6 +130,7 @@ def application_case(work, host, fmt, kind, source_template, base, prior, refere
             except behavior.NativeFailure as error:
                 LAST_CASE.update(error.process)
                 raise
+        require(config.before == config.after, "Application probe or conversion changed the inherited Calibre state")
         LAST_CASE.update(observed, calibre_environment=config.receipt())
         final = cli.outcome(observed["stdout"])
         LAST_CASE["outcome"] = final

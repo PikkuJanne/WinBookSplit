@@ -77,8 +77,8 @@ def application_receipt(app, manifest_path):
         require(value == entry["sha256"], "Extracted application does not match its release manifest")
         files[entry["path"]] = value
     require(set(support.validator.APPLICATION) <= files.keys(), "Release manifest lacks a required application file")
-    return {"files": files, "manifest_sha256": cli.digest(manifest_path), "source_commit": manifest["source_commit"],
-            "source_tree": manifest["source_tree"]}
+    return {"files": files, "manifest_sha256": cli.digest(manifest_path), "zip_sha256": manifest["archive"]["sha256"],
+            "source_commit": manifest["source_commit"], "source_tree": manifest["source_tree"]}
 
 
 def environment_for(work, shell, scope, candidate=None, proxy=None):

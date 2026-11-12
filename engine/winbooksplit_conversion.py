@@ -1691,7 +1691,10 @@ def _transient_calibre_state(windows, names=CALIBRE_STATE_NAMES):
         raise ConversionError("conversion_ownership_failed", "Temporary Calibre state needs an ordinary local directory.")
     with ExitStack() as ancestors:
         try:
-            guards = [ancestors.enter_context(windows.DirectoryGuard(path)) for path in (*reversed(base.parents), base)]
+            # Keep the shared OS temporary path stable without blocking other
+            # programs that atomically replace unrelated files in its folders.
+            guards = [ancestors.enter_context(windows.WritableStateDirectoryGuard(path))
+                      for path in (*reversed(base.parents), base)]
             for guard in guards:
                 guard.assert_unchanged()
             root = Path(mkdtemp(prefix=".WinBookSplit-Calibre-", dir=base))

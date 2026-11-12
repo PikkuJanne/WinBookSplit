@@ -27,6 +27,7 @@ make skipped, duplicated, reordered or leaked pages detectable.
 | XFA | Distinguish empty markers from nonempty XFA. Detection-only sentinel cannot pass as converted. Genuine hybrid/dynamic XFA acceptance requires genuine renderer evidence, not ordinary-page copying. |
 | Signatures/corruption | Copy readable page content and disclose loss of signature validity. A signature widget with reproducible appearance retains its visible content. Required malformed/cyclic graphs terminate clearly. Authored signature dictionaries establish structural behavior only. |
 | Existing successes | v1.0.4 empty-password PDFs, local opening destinations, plain/scanned PDFs, EPUB/AZW3, setup consent, Store discovery, Unicode/literal paths and no-overwrite stay working. |
+| Ebook setup and conversion | On the exact ZIP, exercise existing and explicit converters, rejection without fallback, consented official download and resume, offline preparation beside an older converter, reuse with the network unavailable, cancel, read-only checks, and genuine conversion failure. Verify illustrated Unicode EPUB chapter text, images, outline and complete converted-page coverage. Include actual AZW3 and a PDF with no converter. |
 
 ## Visual and semantic checks
 

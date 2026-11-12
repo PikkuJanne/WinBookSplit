@@ -29,8 +29,9 @@ If no suitable installed or managed converter is available, an interactive ebook
 run offers to prepare the reviewed Calibre Portable package once. Consent
 authorizes downloading and verifying that exact package, unpacking it into
 `%LOCALAPPDATA%\WinBookSplit\Calibre`, and resuming the original ebook request.
-The application verifies the stored portable tree on reuse. Its managed
-configuration and caches are separate from other Calibre installations.
+The application verifies the stored portable tree on reuse. Calibre version
+checks and ebook conversion use isolated configuration and caches to preserve
+existing installations' settings and plugins.
 
 Use `Setup-WinBookSplit.bat -Calibre -NonInteractive` for explicit unattended
 preparation. Add `-CalibreInstaller <absolute-path>` to use the reviewed
