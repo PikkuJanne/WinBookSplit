@@ -141,6 +141,13 @@ def _opening_value(reader, value):
     return value
 
 
+def _optional_pdf_value(reader, value):
+    try:
+        return _opening_value(reader, value)
+    except (ValueError, TypeError, IndexError, KeyError, OSError, NotImplementedError, RecursionError):
+        return None
+
+
 def _opening_named_destination(reader, catalog, target):
     """Look up a local name without invoking pypdf's recursive name-tree API."""
     names = _opening_value(reader, catalog.get("/Names"))
@@ -720,10 +727,7 @@ class _OmittedPdfFeatures:
         self.truncated = False
 
     def value(self, raw):
-        try:
-            return _opening_value(self.reader, raw)
-        except (PdfPolicyError, ValueError, TypeError, IndexError, KeyError, OSError, NotImplementedError, RecursionError):
-            return None
+        return _optional_pdf_value(self.reader, raw)
 
     def edge(self, node, key, role):
         if key in node:
@@ -995,6 +999,26 @@ class PolicyPdfReader(PdfReader):
                 _pdf_access_failure(error)
             raise
         _preflight_pdf_features(self)
+
+    def _build_outline_item(self, node):
+        if "/A" not in node:
+            return super()._build_outline_item(node)
+        # pypdf assumes a bookmark action is a dictionary. Provide only a
+        # resolved local GoTo to its destination builder, leaving the original
+        # node available for the planner's malformed/external-action warning.
+        record = DictionaryObject({key: value for key, value in node.items() if key in {"/Title", "/C", "/F", "/Count"}})
+        action = _optional_pdf_value(self, node.get("/A"))
+        kind = _optional_pdf_value(self, action.get("/S")) if _plain_dictionary(action) else None
+        if isinstance(kind, NameObject) and kind == "/GoTo":
+            record[NameObject("/A")] = DictionaryObject({
+                key: kind if key == "/S" else value for key, value in action.items() if key in {"/S", "/D"}})
+        item = super()._build_outline_item(record)
+        if item is not None:
+            item.node = node
+            reference = getattr(node, "indirect_reference", None)
+            if reference is not None:
+                item.indirect_reference = reference
+        return item
 
 
 def validate_chapter_graph(reader):

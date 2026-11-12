@@ -887,6 +887,26 @@ class PdfPolicyTests(unittest.TestCase):
             self.assertTrue(all("/AA" not in page for page in pages))
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
 
+    def test_malformed_optional_bookmark_action_does_not_hide_valid_siblings(self):
+        writer = authored_writer()
+        malformed = writer.add_outline_item("Malformed optional action", 1).get_object()
+        malformed[NameObject("/A")] = NumberObject(17)
+        source = self.source(writer, "malformed-bookmark-action")
+        original = source.read_bytes()
+        for mode, expected in (("1", ((0, 2), (2, 4))),
+                               ("2", ((0, 1), (1, 2), (2, 3), (3, 4)))):
+            with self.subTest(mode=mode), redirect_stdout(StringIO()):
+                result = engine.run_split(source, self.output, mode)
+                self.assertEqual(result["exit_code"], 0, result["message"])
+                self.assertEqual(result["plan"]["ranges"], expected)
+                self.assertTrue({"pdf_action_omitted", "invalid_destination"} <=
+                                {warning["code"] for warning in result["warnings"]})
+                paths = [Path(result["execution"]["final_directory"]) / row["filename"]
+                         for row in result["execution"]["outputs"]]
+                self.assertEqual([page.get_contents().get_data() for path in paths for page in PdfReader(path).pages],
+                                 [page.get_contents().get_data() for page in PdfReader(BytesIO(original)).pages])
+        self.assertEqual(source.read_bytes(), original)
+
     def test_malformed_outline_stays_a_planning_error_and_manual_remains_available(self):
         writer = authored_writer()
         root = writer._add_object(dictionary(Type=NameObject("/Outlines"), Count=NumberObject(1100)))
