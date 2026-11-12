@@ -131,6 +131,7 @@ OMITTED_KEYS = {'/AA', '/AF', '/AFRelationship', '/Collection', '/EF', '/Embedde
 OMITTED_TYPES = {'/EmbeddedFile', '/Filespec', '/Sig', '/DocTimeStamp'}
 OMITTED_ACTIONS = {'/JavaScript', '/URI', '/Launch', '/GoToR', '/GoToE', '/SubmitForm',
                    '/ResetForm', '/ImportData', '/Rendition', '/RichMediaExecute'}
+RESOURCE_NAME_MAPS = {'/ExtGState', '/ColorSpace', '/Pattern', '/Shading', '/XObject', '/Font', '/Properties'}
 SECONDARY_CASES = {'controls', 'missing_appearance', 'stale_appearance', 'multiline_readonly', 'multiselect',
                    'multiselect_missing_appearance', 'combo_missing_appearance', 'winansi_missing_appearance',
                    'rotated_crop', 'transformed_appearance', 'signature_visible'}
@@ -207,8 +208,24 @@ def inspect_serialization(reader, chapter, pages, outside_values):
     markers, page_count = set(), 0
     forbidden_bytes = {value.encode('utf-8') for value in outside_values}
     forbidden_bytes.update(fixtures.winansi_literal(value).encode('ascii') for value in outside_values)
-    for generation, number in sorted(ids):
-        value = reader.get_object(IndirectObject(number, generation, reader))
+    objects = [reader.get_object(IndirectObject(number, generation, reader)) for generation, number in sorted(ids)]
+    name_maps = set()
+    pending = list(objects)
+    while pending:
+        node = pending.pop()
+        if isinstance(node, DictionaryObject):
+            resources = node.get('/Resources')
+            if resources is not None:
+                resources = resources.get_object()
+                if isinstance(resources, DictionaryObject):
+                    for key in RESOURCE_NAME_MAPS & resources.keys():
+                        names = resources[key]
+                        if isinstance(names, DictionaryObject):
+                            name_maps.add(id(names))
+            pending.extend(node.values())
+        elif isinstance(node, ArrayObject):
+            pending.extend(node)
+    for value in objects:
         if isinstance(value, DictionaryObject) and value.get("/Type") == "/Page":
             page_count += 1
         pending = [value]
@@ -217,16 +234,17 @@ def inspect_serialization(reader, chapter, pages, outside_values):
             if isinstance(value, DictionaryObject):
                 require(value.get("/Subtype") != "/Widget" and not {"/AcroForm", "/XFA", "/FT"}.intersection(value),
                         "Serialized form/widget data survived chapter export")
-                require(not OMITTED_KEYS.intersection(value)
-                        and value.get('/Type') not in OMITTED_TYPES
-                        and value.get('/S') not in OMITTED_ACTIONS
-                        and value.get('/Subtype') != '/FileAttachment',
-                        'Serialized attachment, executable action or relationship survived chapter export')
-                action = value if value.get('/Type') == '/Action' else value.get('/A')
-                if action is not None:
-                    action = action.get_object()
-                    require(isinstance(action, DictionaryObject) and action.get('/S') == '/GoTo'
-                            and '/Next' not in action, 'Serialized action is not a projected local destination')
+                if id(value) not in name_maps:
+                    require(not OMITTED_KEYS.intersection(value)
+                            and value.get('/Type') not in OMITTED_TYPES
+                            and value.get('/S') not in OMITTED_ACTIONS
+                            and value.get('/Subtype') != '/FileAttachment',
+                            'Serialized attachment, executable action or relationship survived chapter export')
+                    action = value if value.get('/Type') == '/Action' else value.get('/A')
+                    if action is not None:
+                        action = action.get_object()
+                        require(isinstance(action, DictionaryObject) and action.get('/S') == '/GoTo'
+                                and '/Next' not in action, 'Serialized action is not a projected local destination')
                 pending.extend(value.values())
                 if isinstance(value, StreamObject):
                     data = value.get_data()
@@ -333,6 +351,13 @@ def inspect_outputs(renderer, secondary, case_dir, base, result, case, source, r
                 if case['kind'] == 'page_and_annotation_actions':
                     require(any(item.get_object().get('/Subtype') == '/Square' for item in page['/Annots']),
                             'Static square annotation was dropped along with its action')
+                if case['kind'] == 'encrypted_form_and_features':
+                    drawing = resources['/XObject']['/A']
+                    require(drawing.get('/Subtype') == '/Form' and '/JS' in drawing['/Resources']['/Font']
+                            and not {'/A', '/AA', '/JS'} & drawing.keys(),
+                            'Action removal changed a legitimate resource-map name or retained executable edges')
+                    require(any(item.get_object().get('/Subtype') == '/Square' and '/JS' not in item.get_object()
+                                for item in page['/Annots']), 'Static annotation artwork or script omission was lost')
             for name, _, _ in renderers:
                 inspect_pixels(open_rgb(references[name][page_number - 1]), open_rgb(chapter_renders[name][local]),
                                open_rgb(source_renders[name][page_number - 1]) if name in source_renders else None,

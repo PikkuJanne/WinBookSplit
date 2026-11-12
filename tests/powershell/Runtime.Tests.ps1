@@ -236,12 +236,17 @@ Describe 'M2 converter version preflight' -Tag 'AC-045' {
         [IO.File]::WriteAllText($script:nextConverter, 'Owned mock executable never launched.')
         Mock Get-WinBookSplitPathCandidates { return @($TestPython) }
         Mock Get-WinBookSplitRegisteredConverterPaths { return @($script:nextConverter) }
+        Mock Get-WinBookSplitKnownConverterPaths { }
         Mock Assert-WinBookSplitConverterExecutableIdentity { }
         Mock Invoke-WinBookSplitRuntimeProbe {
             if ($Path -eq $TestPython) { return (New-CompleteProbe 'ebook-convert.exe (calibre 9.14.0)') }
             return (New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)')
         }
-        $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot
+        # TestDrive is under the runner's temporary working directory. Use the
+        # application directory so the registry fixture passes the CWD guard.
+        Push-Location -LiteralPath $RepositoryRoot
+        try { $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot }
+        finally { Pop-Location }
         $result.Source | Should-Be -Expected 'registry'
         $result.Attempts[0].Reason | Should-Be -Expected 'converter_version_unsupported'
         $result.Attempts[0].Version | Should-Be -Expected '9.14.0'

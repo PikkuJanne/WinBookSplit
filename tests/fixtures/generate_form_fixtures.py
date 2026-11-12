@@ -29,11 +29,15 @@ ATTACHMENT_MARKER = 'WBS-SYNTHETIC-OMITTED-PAYLOAD-618'
 ATTACHMENT_NAME = 'authored-attachment-never-extract.txt'
 FEATURE_MARKERS = (SCRIPT_MARKER, ATTACHMENT_MARKER, ATTACHMENT_NAME)
 FORM_ACTION_MARKER = 'WBS_SYNTHETIC_ACTION_DO_NOT_EXECUTE'
+RESOURCE_SCRIPT_MARKER = 'WBS-SYNTHETIC-RESOURCE-SCRIPT-322'
+ANNOTATION_SCRIPT_MARKER = 'WBS-SYNTHETIC-ANNOTATION-SCRIPT-459'
+RESOURCE_ARTWORK = 'DRAWN-FORM-77'
 PRIVATE_FORM_MARKERS = {
     'hidden_fields': ('HIDDEN-FORM-SECRET-61', 'NOVIEW-FORM-SECRET-29', 'DETACHED-FORM-SECRET-73'),
     'signature_visible': ('SYNTHETIC-NOT-A-REAL-SIGNATURE',),
     'stale_appearance': ('STALE-VALUE',),
     'form_action': (FORM_ACTION_MARKER,),
+    'encrypted_form_and_features': (RESOURCE_SCRIPT_MARKER, ANNOTATION_SCRIPT_MARKER),
 }
 FORM_CASES = (
     'text', 'controls', 'shared_field', 'missing_appearance', 'stale_appearance',
@@ -234,6 +238,33 @@ def attach_annotation(writer, page, subtype, rect, **entries):
     writer.pages[page].setdefault(name('/Annots'), ArrayObject()).append(writer._add_object(obj))
 
 
+def add_resource_action_fixture(writer, expected, event_script):
+    """Exercise omitted actions on required artwork and on a static annotation."""
+    for target in (writer, expected):
+        artwork = appearance(target, RESOURCE_ARTWORK, 160, 32)
+        normal = artwork.get_object()
+        fonts = normal['/Resources']['/Font']
+        fonts[name('/JS')] = fonts.pop('/F0')
+        normal.set_data(normal.get_data().replace(b'/F0 ', b'/JS '))
+        resources = target.pages[1]['/Resources']
+        resources['/XObject'][name('/A')] = artwork
+        add_static_drawing(target, 1, 'q 1 0 0 1 72 370 cm /A Do Q\n')
+
+        annotation = {'AP': pdf_dict(N=appearance(target, 'Annotation artwork', 160, 32))}
+        if target is writer:
+            resource_payload = DecodedStreamObject()
+            resource_payload.set_data(f'/* {RESOURCE_SCRIPT_MARKER} */\n'.encode('ascii'))
+            resource_script = writer._add_object(resource_payload)
+            annotation_script = writer._add_object(TextStringObject(f'/* {ANNOTATION_SCRIPT_MARKER} */'))
+            normal.update(pdf_dict(A=writer.pages[0].indirect_reference, AA=pdf_dict(O=event_script),
+                                   JS=resource_script))
+            annotation['JS'] = annotation_script
+            early_resources = writer.pages[0]['/Resources']
+            early_resources[name('/FixtureResourceScriptAlias')] = resource_script
+            early_resources[name('/FixtureAnnotationScriptAlias')] = annotation_script
+        attach_annotation(target, 1, '/Square', [250, 370, 410, 402], **annotation)
+
+
 def add_optional_features(writer, expected, kind, widget=None):
     script, file_spec = None, None
     add_image_and_layer(writer)
@@ -311,6 +342,8 @@ def add_optional_features(writer, expected, kind, widget=None):
                                                     F=pdf_dict(S=name('/ResetForm')))
         form(writer)[name('/CO')] = ArrayObject([widget])
         writer.root_object[name('/AF')] = ArrayObject([file_spec])
+    if kind == 'encrypted_form_and_features':
+        add_resource_action_fixture(writer, expected, script)
 
 
 def make_case(kind: str):
@@ -532,6 +565,8 @@ def make_case(kind: str):
         if kind == 'encrypted_metadata_and_features':
             form(w)
         add_optional_features(w, expected, kind, widget)
+        if kind == 'encrypted_form_and_features':
+            texts['2'].append(RESOURCE_ARTWORK)
         if kind in ('encrypted_metadata_and_features', 'encrypted_form_and_features'):
             w.encrypt(user_password='', owner_password='synthetic-owner', algorithm='RC4-40')
     elif kind != 'plain':

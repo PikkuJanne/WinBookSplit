@@ -56,6 +56,7 @@ OMITTED_PAGE_FIELDS = frozenset({"/A", "/AA", "/AF", "/Annots", "/B", "/Collecti
     "/Metadata", "/Names", "/OpenAction", "/Parent", "/Perms", "/PieceInfo", "/PresSteps", "/StructParents", "/Thumb", "/Trans"})
 MEDIA_ANNOTATIONS = frozenset({"/RichMedia", "/Screen", "/Movie", "/Sound", "/3D"})
 RESOURCE_NAME_MAPS = frozenset({"/ExtGState", "/ColorSpace", "/Pattern", "/Shading", "/XObject", "/Font", "/Properties"})
+RESOURCE_ACTION_EDGES = {"/A": "action", "/AA": "events", "/JS": "script_payload"}
 RENDERING_RESOURCE_OPERATORS = {b"Do": ("/XObject", 0), b"Tf": ("/Font", 0), b"gs": ("/ExtGState", 0),
     b"CS": ("/ColorSpace", 0), b"cs": ("/ColorSpace", 0), b"SCN": ("/Pattern", -1), b"scn": ("/Pattern", -1),
     b"sh": ("/Shading", 0), b"BDC": ("/Properties", 1), b"DP": ("/Properties", 1)}
@@ -747,8 +748,8 @@ class ChapterGraph:
         action = self.optional_value(node.get("/S"), omit=False)
         subtype = self.optional_value(node.get("/Subtype"), omit=False)
         field_kind = self.optional_value(node.get("/FT"), omit=False)
-        if isinstance(action, NameObject) and action == "/JavaScript" or not named_entries and "/JS" in node \
-                and set(node) <= {"/Type", "/S", "/JS", "/Next"}:
+        if isinstance(action, NameObject) and action == "/JavaScript" or not named_entries and _plain_dictionary(node) \
+                and "/JS" in node and set(node) <= {"/Type", "/S", "/JS", "/Next"}:
             return "pdf_javascript_omitted"
         if kind == "/Action" or isinstance(action, NameObject) and action in PDF_ACTION_TYPES:
             return "pdf_action_omitted"
@@ -767,6 +768,8 @@ class ChapterGraph:
             return "names"
         if context == "appearances":
             return "appearance_states"
+        if context != "names" and key == "/CharProcs" and self.optional_value(node.get("/Subtype")) == "/Type3":
+            return "names"
         if context != "names" and key == "/Resources" and isinstance(node, DictionaryObject):
             return "resources"
         return "value"
@@ -828,7 +831,15 @@ class ChapterGraph:
         self._projected[identity] = result
 
         if isinstance(node, DictionaryObject):
+            stream = isinstance(node, StreamObject)
             for key, child in node.items():
+                if key in RESOURCE_ACTION_EDGES and (context == "resources" or stream):
+                    if not isinstance(child, NullObject):
+                        role = RESOURCE_ACTION_EDGES[key]
+                        self.warnings.add("pdf_javascript_omitted" if role == "script_payload" else "pdf_action_omitted")
+                        if self.omitted_inspector is not None:
+                            self.omitted_inspector.edge(node, key, role)
+                    continue
                 if key == "/AF" and not named_entries:
                     self.note_omitted(child, "pdf_attachment_omitted")
                     if self.omitted_inspector is not None:
@@ -841,13 +852,13 @@ class ChapterGraph:
                 value = self._project(child, depth + 1, self._context(node, context, key), annotation)
                 if target is not None and value is not None:
                     target[key] = value
+            if stream and self._resolve(node.get("/Subtype")) == "/Form":
+                self._validate_graphics_resources(node, node.get("/Resources"))
         else:
             for child in node:
                 value = self._project(child, depth + 1, "value", annotation)
                 if target is not None:
                     target.append(NullObject() if value is None else value)
-        if isinstance(node, StreamObject) and self._resolve(node.get("/Subtype")) == "/Form":
-            self._validate_graphics_resources(node, node.get("/Resources"))
         return result
 
     def project(self, value, *, annotation=False, context="value"):
@@ -1308,6 +1319,7 @@ def _preflight_pdf_features(reader):
             omitted.edge(annotation, "/AA", "events")
             omitted.edge(annotation, "/AF", "associated_files")
             omitted.edge(annotation, "/EF", "file_streams")
+            omitted.edge(annotation, "/JS", "script_payload")
             if subtype == "/FileAttachment":
                 graph.warnings.add("pdf_attachment_omitted")
                 omitted.edge(annotation, "/FS", "file_spec")

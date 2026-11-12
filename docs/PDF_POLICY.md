@@ -48,6 +48,11 @@ working PDF is a separate, unchanged copy of the converter output.
 | Signature dictionaries and catalog permissions | OMIT_WITH_WARNING | Chapter PDFs carry no signature validity from the source. Visible signature widgets require reproducible appearances. |
 | Nonempty XFA, required form/widget appearances unavailable, malformed required page/form structures or a required graphics edge to a document catalog or page tree | GENUINE_PROCESSING_FAILURE | Give a specific error and publish no partial chapters. |
 
+Optional action and script entries in page resources and graphics streams are
+omitted along with their script payloads. Graphics resource names, appearance
+state names and Type 3 glyph names remain usable, including names such as `/A`
+and `/JS`.
+
 Nonempty XFA returns `xfa_rendering_required`, including in hybrid documents.
 An unavailable required appearance returns `form_appearance_required`. Both use
 `unsupported_document`, exit **7**. The splitter uses saved values and omits

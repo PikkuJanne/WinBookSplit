@@ -566,6 +566,143 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertEqual(copied["/S"], "/Transparency")
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
 
+    def test_optional_edges_are_omitted_from_used_form_xobjects_and_resources(self):
+        form_content = b"q /JS Do Q 1 0 0 rg 0 0 20 20 re f\n"
+        child_content = b"0 0 1 rg 20 20 10 10 re f\n"
+        script_content = b"AUTHORED_OPTIONAL_SCRIPT_PAYLOAD_NEVER_EXECUTED\n"
+        bounds = ArrayObject([NumberObject(n) for n in (0, 0, 40, 40)])
+        for kind, key, warning in (
+                ("form-malformed", "/A", "pdf_action_omitted"),
+                ("resource-malformed", "/A", "pdf_action_omitted"),
+                ("form-unknown", "/A", "pdf_action_omitted"),
+                ("form-additional", "/AA", "pdf_javascript_omitted"),
+                ("form-script", "/JS", "pdf_javascript_omitted")):
+            with self.subTest(kind=kind):
+                writer = authored_writer()
+                first, last = writer.pages[0], writer.pages[3]
+                child = DecodedStreamObject()
+                child.set_data(child_content)
+                child.update(dictionary(Type=NameObject("/XObject"), Subtype=NameObject("/Form"), BBox=bounds))
+                form = DecodedStreamObject()
+                form.set_data(form_content)
+                form.update(dictionary(Type=NameObject("/XObject"), Subtype=NameObject("/Form"), BBox=bounds,
+                    Resources=dictionary(XObject=dictionary(JS=writer._add_object(child)))))
+                resources = dictionary(XObject=dictionary(A=writer._add_object(form)))
+                first[NameObject("/Resources")] = resources
+                first["/Contents"].set_data(first["/Contents"].get_data() + b"q /A Do Q\n")
+                target = resources if kind == "resource-malformed" else form
+                if kind.endswith("malformed"):
+                    optional = writer._add_object(dictionary(D=last.indirect_reference))
+                elif kind == "form-unknown":
+                    optional = writer._add_object(dictionary(S=NameObject("/UnrecognizedAction"),
+                        OriginalOptional=TextStringObject("AUTHORED_UNKNOWN_OPTIONAL_ACTION")))
+                else:
+                    script = DecodedStreamObject()
+                    script.set_data(script_content)
+                    script_reference = writer._add_object(script)
+                    # An unused alias elsewhere must not copy the skipped script into a different chapter.
+                    last[NameObject("/Resources")] = dictionary(Properties=dictionary(OriginalScriptAlias=script_reference))
+                    optional = script_reference if kind == "form-script" else writer._add_object(dictionary(
+                        O=writer._add_object(dictionary(Type=NameObject("/Action"), S=NameObject("/JavaScript"), JS=script_reference))))
+                target[NameObject(key)] = optional
+
+                _, chapters = self.split_and_reopen(self.source(writer, "nested-optional-" + kind), warning)
+                self.assertEqual([len(chapter.pages) for chapter in chapters], [2, 2])
+                copied_resources = chapters[0].pages[0]["/Resources"]
+                copied_form = copied_resources["/XObject"]["/A"]
+                self.assertTrue({"/A", "/AA", "/JS"}.isdisjoint(copied_resources))
+                self.assertTrue({"/A", "/AA", "/JS"}.isdisjoint(copied_form))
+                self.assertEqual(copied_form.get_data(), form_content)
+                self.assertEqual(copied_form["/Resources"]["/XObject"]["/JS"].get_data(), child_content)
+                last_properties = chapters[1].pages[1]["/Resources"].get("/Properties", {})
+                self.assertNotIn("/OriginalScriptAlias", last_properties)
+                for chapter in chapters:
+                    self.assertNotIn(script_content, chapter.stream.getvalue())
+                    self.assertNotIn(b"AUTHORED_UNKNOWN_OPTIONAL_ACTION", chapter.stream.getvalue())
+
+    def test_standalone_annotation_script_and_alias_are_omitted(self):
+        writer = authored_writer()
+        script = DecodedStreamObject()
+        script_content = b"AUTHORED_ANNOTATION_SCRIPT_PAYLOAD_NEVER_EXECUTED\n"
+        script.set_data(script_content)
+        script_reference = writer._add_object(script)
+        note = dictionary(Type=NameObject("/Annot"), Subtype=NameObject("/Text"),
+            Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]),
+            Contents=TextStringObject("Visible authored note"), JS=script_reference)
+        writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(note)])
+        writer.pages[3][NameObject("/Resources")] = dictionary(Properties=dictionary(OriginalScriptAlias=script_reference))
+
+        _, chapters = self.split_and_reopen(self.source(writer, "annotation-standalone-script"), "pdf_javascript_omitted")
+        copied = chapters[0].pages[0]["/Annots"][0].get_object()
+        self.assertEqual(copied["/Contents"], "Visible authored note")
+        self.assertNotIn("/JS", copied)
+        self.assertNotIn("/OriginalScriptAlias", chapters[1].pages[1]["/Resources"].get("/Properties", {}))
+        for chapter in chapters:
+            self.assertNotIn(script_content, chapter.stream.getvalue())
+
+    def test_optional_stream_edges_preserve_image_pixels_and_page_text(self):
+        writer = inherited_writer()
+        pixels = bytes((255, 0, 0, 0, 0, 255))
+        image = DecodedStreamObject()
+        image.set_data(pixels)
+        image.update(dictionary(Type=NameObject("/XObject"), Subtype=NameObject("/Image"),
+            Width=NumberObject(2), Height=NumberObject(1), BitsPerComponent=NumberObject(8),
+            ColorSpace=NameObject("/DeviceRGB"), A=dictionary(D=writer.pages[3].indirect_reference)))
+        writer._pages.get_object()["/Resources"][NameObject("/XObject")] = dictionary(
+            AuditImage=writer._add_object(image.flate_encode()))
+        script_content = b"AUTHORED_PAGE_STREAM_SCRIPT_NEVER_EXECUTED\n"
+        script = DecodedStreamObject()
+        script.set_data(script_content)
+        script_reference = writer._add_object(script)
+        first, second = writer.pages[0], writer.pages[1]
+        first_contents = first["/Contents"]
+        first_contents.set_data(first_contents.get_data() + b"q 40 0 0 20 20 200 cm /AuditImage Do Q\n")
+        first_contents[NameObject("/JS")] = script_reference
+        second["/Contents"][NameObject("/JS")] = script_reference
+        second[NameObject("/Contents")] = ArrayObject([second.raw_get("/Contents")])
+
+        result, chapters = self.split_and_reopen(self.source(writer, "optional-image-and-content-stream-edges"))
+        self.assertTrue({"pdf_action_omitted", "pdf_javascript_omitted"} <= {warning["code"] for warning in result["warnings"]})
+        pages = [page for chapter in chapters for page in chapter.pages]
+        for index, page in enumerate(pages, 1):
+            self.assertEqual(page.extract_text().strip(), f"ORIGINAL_INHERITED_PAGE_{index:02}")
+        copied = pages[0]["/Resources"]["/XObject"]["/AuditImage"]
+        self.assertNotIn("/A", copied)
+        self.assertEqual((copied["/Width"], copied["/Height"], copied["/BitsPerComponent"], copied["/ColorSpace"]),
+            (2, 1, 8, "/DeviceRGB"))
+        self.assertEqual(copied.get_data(), pixels)
+        self.assertNotIn("/JS", pages[0]["/Contents"])
+        self.assertNotIn("/JS", pages[1]["/Contents"][0].get_object())
+        for chapter in chapters:
+            self.assertNotIn(script_content, chapter.stream.getvalue())
+
+    def test_type3_charprocs_preserve_glyph_named_js(self):
+        writer = inherited_writer()
+        glyph = DecodedStreamObject()
+        glyph_content = b"600 0 0 0 600 700 d1\n60 20 500 600 re f\n"
+        glyph.set_data(glyph_content)
+        font = dictionary(Type=NameObject("/Font"), Subtype=NameObject("/Type3"),
+            FontBBox=ArrayObject([NumberObject(n) for n in (0, 0, 600, 700)]),
+            FontMatrix=ArrayObject([FloatObject(n) for n in (0.001, 0, 0, 0.001, 0, 0)]),
+            CharProcs=dictionary(JS=writer._add_object(glyph)),
+            Encoding=dictionary(Type=NameObject("/Encoding"), Differences=ArrayObject([NumberObject(65), NameObject("/JS")])),
+            FirstChar=NumberObject(65), LastChar=NumberObject(65), Widths=ArrayObject([NumberObject(600)]),
+            Resources=dictionary())
+        writer._pages.get_object()["/Resources"]["/Font"][NameObject("/GlyphTest")] = writer._add_object(font)
+        content = writer.pages[0]["/Contents"]
+        content.set_data(content.get_data() + b"BT /GlyphTest 36 Tf 20 210 Td (A) Tj ET\n")
+
+        result, chapters = self.split_and_reopen(self.source(writer, "type3-glyph-named-js"))
+        self.assertNotIn("pdf_javascript_omitted", {warning["code"] for warning in result["warnings"]})
+        pages = [page for chapter in chapters for page in chapter.pages]
+        self.assertEqual(len(pages), 4)
+        for index, page in enumerate(pages, 1):
+            self.assertIn(f"ORIGINAL_INHERITED_PAGE_{index:02}", page.extract_text())
+        copied = pages[0]["/Resources"]["/Font"]["/GlyphTest"]
+        self.assertEqual(copied["/Encoding"]["/Differences"], [65, "/JS"])
+        self.assertEqual(set(copied["/CharProcs"]), {"/JS"})
+        self.assertEqual(copied["/CharProcs"]["/JS"].get_data(), glyph_content)
+
     def test_indirect_feature_names_are_classified_for_split_and_conversion(self):
         cases = [("resource", "/Type", value) for value in ("/Action", "/Sig", "/EmbeddedFile")]
         cases += [("resource", "/S", value) for value in ("/URI", "/GoToR", "/JavaScript")]
