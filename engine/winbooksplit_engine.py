@@ -89,8 +89,8 @@ if __name__ == "__main__":
 
 try:
     from pypdf import PageObject, PdfReader, PdfWriter, __version__ as PYPDF_VERSION
-    from pypdf.generic import (ArrayObject, DictionaryObject, FloatObject, IndirectObject, NameObject,
-                               NullObject, TextStringObject)
+    from pypdf.generic import (ArrayObject, DecodedStreamObject, DictionaryObject, FloatObject, IndirectObject,
+                               NameObject, NullObject, NumberObject, StreamObject, TextStringObject)
 except ImportError as error:
     if __name__ != "__main__":
         raise
@@ -436,6 +436,8 @@ def normalize_outline(reader, outline, total_pages, *, named_targets=None):
         raise _outline_failure("malformed_outline", "The outline must be a list.")
     records, warnings = [], []
     visited_lists, visited_nodes = {id(outline)}, set()
+    exclusions = getattr(reader, "_chapter_graph_excluded", None)
+    graph = _pdf_policy.ChapterGraph(reader, excluded=exclusions) if exclusions else None
     stack = [{"items": iter(outline), "depth": 1, "lineage": [], "parent_id": None, "last_id": None}]
     examined = 0
     while stack:
@@ -479,6 +481,9 @@ def normalize_outline(reader, outline, total_pages, *, named_targets=None):
         visited_nodes.add(id(node))
         try:
             title = getattr(node, "title", node.get("/Title", "Untitled"))
+            raw = getattr(node, "node", None)
+            if graph is not None and isinstance(raw, dict) and "/Title" in raw:
+                title = graph._resolve(raw.get("/Title"))
             if isinstance(title, str) and title.strip():
                 record["title"] = title
             problem = _raw_destination_problem(node, named_targets or {})
@@ -703,8 +708,7 @@ class PreparedSplit:
 
 
 MAX_PDF_ANNOTATIONS = 10000
-STATIC_ANNOTATIONS = {"/Text", "/Highlight", "/Square"}
-ANNOTATION_ACTIONS = _pdf_policy.PDF_ACTION_TYPES
+STATIC_ANNOTATIONS = _pdf_policy.STATIC_ANNOTATION_SUBTYPES
 ANNOTATION_FIELDS = _pdf_policy.STATIC_ANNOTATION_FIELDS
 DESTINATION_FITS = {"/Fit": 0, "/FitB": 0, "/FitH": 1, "/FitV": 1, "/FitBH": 1, "/FitBV": 1, "/XYZ": 3, "/FitR": 4}
 FIDELITY_MESSAGES = {
@@ -715,6 +719,18 @@ FIDELITY_MESSAGES = {
     "article_navigation_dropped": "Document article-thread navigation is omitted.",
     "metadata_omitted": "Unreadable or non-text source author/title metadata is omitted.",
     "metadata_normalized": "Source author/title metadata is bounded and has unsafe controls removed."}
+PDF_FEATURE_WARNINGS = {
+    "pdf_action_omitted": "Unsupported PDF actions were omitted from the chapter copies.",
+    "pdf_attachment_omitted": "Embedded attachments or attachment relationships were omitted from the chapter copies.",
+    "pdf_form_data_omitted": "Nonvisual form data was omitted from the chapter copies.",
+    "pdf_javascript_omitted": "PDF JavaScript was omitted from the chapter copies.",
+    "pdf_media_omitted": "Interactive multimedia was omitted from the chapter copies.",
+    "pdf_name_tree_omitted": "Optional name-tree metadata was omitted from the chapter copies.",
+    "pdf_opening_action_omitted": "An unsupported opening action or view was omitted from the chapter copies.",
+    "pdf_optional_metadata_omitted": "Optional metadata exceeded the inspection limit and was omitted from the chapter copies.",
+    "pdf_portfolio_omitted": "Portfolio navigation was omitted. The split covers the source PDF's physical pages.",
+    "pdf_signature_omitted": "Signature information or document permissions were omitted. Chapter copies do not carry the original PDF's digital signature validity.",
+}
 
 
 def _metadata_text(value):
@@ -726,12 +742,13 @@ def _metadata_text(value):
 
 def _source_metadata(reader):
     metadata, counts = {}, {}
+    graph = _pdf_policy.ChapterGraph(reader, excluded=getattr(reader, "_chapter_graph_excluded", None))
     try:
         original = getattr(reader, "metadata", None) or {}
         for field in ("/Author", "/Title"):
             if field not in original:
                 continue
-            value = _pdf_object(original[field])
+            value = graph._resolve(original.get(field))
             safe = _metadata_text(value)
             if not safe:
                 counts["metadata_omitted"] = counts.get("metadata_omitted", 0) + 1
@@ -744,24 +761,27 @@ def _source_metadata(reader):
     return metadata, counts
 
 
-def _destination_details(reader, value, named):
-    value = _pdf_object(value)
+def _destination_details(reader, value, named, graph):
+    value = graph.optional_value(value)
     if isinstance(value, str):
-        value = _pdf_object(named.get(value))
+        value = graph.optional_value(named.get(value))
     if isinstance(value, dict):
-        value = _pdf_object(value.get("/D"))
+        value = graph.optional_value(value.get("/D"))
     if not isinstance(value, (list, tuple)) or len(value) < 2:
         return None
     reference, fit = value[:2]
     if not isinstance(reference, IndirectObject) or reference.pdf is not reader or not isinstance(fit, str) or fit not in DESTINATION_FITS \
             or len(value) != DESTINATION_FITS[fit] + 2:
         return None
-    page = reader.get_page_number(reference.get_object())
+    target = graph.optional_value(reference)
+    if not isinstance(target, DictionaryObject):
+        return None
+    page = reader.get_page_number(target)
     if type(page) is not int or not 0 <= page < len(reader.pages) or reader.pages[page].indirect_reference != reference:
         return None
     args = []
     for raw in value[2:]:
-        raw = _pdf_object(raw)
+        raw = graph.optional_value(raw)
         if isinstance(raw, NullObject):
             if fit == "/FitR":
                 return None
@@ -773,42 +793,46 @@ def _destination_details(reader, value, named):
     return page, str(fit), args
 
 
-def _inert_annotation_value(value):
-    """Bound cloning of permitted annotation fields; reject hidden page/catalog refs."""
-    pending, seen, count = [(value, 0)], set(), 0
-    while pending:
-        item, depth = pending.pop()
-        item = _pdf_object(item)
-        count += 1
-        if count > MAX_PDF_ANNOTATIONS or depth > MAX_OUTLINE_DEPTH:
-            return False
-        if isinstance(item, (dict, list)):
-            if id(item) in seen:
-                continue
-            seen.add(id(item))
-            if isinstance(item, dict):
-                kind = _pdf_object(item.get("/Type"))
-                action = _pdf_object(item.get("/S"))
-                if (isinstance(kind, str) and kind in {"/Page", "/Pages", "/Catalog", "/Action"}) \
-                        or (isinstance(action, str) and action in ANNOTATION_ACTIONS) \
-                        or any(key in item for key in ("/AA", "/A", "/JS", "/Next")):
-                    return False
-                pending.extend((child, depth + 1) for child in item.values())
-            else:
-                pending.extend((child, depth + 1) for child in item)
-    return True
+def _normal_annotation_appearance(graph, annotation):
+    appearance = graph.optional_value(annotation.get("/AP"))
+    if not isinstance(appearance, DictionaryObject):
+        return None
+    raw = appearance.get("/N")
+    normal = graph.optional_value(raw)
+    if isinstance(normal, DictionaryObject) and not isinstance(normal, StreamObject):
+        state = graph.optional_value(annotation.get("/AS"))
+        raw = normal.get(state) if isinstance(state, NameObject) else None
+        normal = graph.optional_value(raw)
+    return raw if isinstance(normal, StreamObject) and graph.project(raw, annotation=True) is not None else None
 
 
-def _finite_coordinates(value, *, multiple):
-    value = _pdf_object(value)
+def _attachment_icon(name):
+    """Create an inert vector icon for an attachment with no authored appearance."""
+    outlines = {
+        "/Graph": b"3 4 13 13 re S 5 6 m 8 10 l 10 8 l 14 14 l S",
+        "/Paperclip": b"7 5 m 12 14 l 14 16 17 14 16 12 c 12 5 l 9 0 3 3 5 7 c 10 15 l S",
+        "/Tag": b"3 11 m 11 18 l 17 12 l 17 5 l 10 5 l h B 13 12 2 2 re S",
+        "/PushPin": b"6 17 m 14 17 l 13 14 l 12 14 l 12 10 l 15 7 l 5 7 l 8 10 l 8 14 l 7 14 l h B 10 7 m 10 2 l S",
+    }
+    appearance = DecodedStreamObject()
+    appearance.update({NameObject("/Type"): NameObject("/XObject"), NameObject("/Subtype"): NameObject("/Form"),
+        NameObject("/BBox"): ArrayObject(NumberObject(value) for value in (0, 0, 20, 20)),
+        NameObject("/Resources"): DictionaryObject()})
+    appearance.set_data(b"q 0.18 G 0.95 0.78 0.24 rg 1.1 w 1 J 1 j " + outlines.get(name, outlines["/PushPin"]) + b" Q\n")
+    return appearance
+
+
+def _finite_coordinates(value, graph, *, multiple):
+    value = graph.optional_value(value)
     return isinstance(value, (list, tuple)) and 0 < len(value) <= MAX_PDF_ANNOTATIONS \
-        and len(value) % multiple == 0 and all(isinstance(_pdf_object(item), (int, float))
-            and not isinstance(_pdf_object(item), bool) and math.isfinite(_pdf_object(item)) for item in value)
+        and len(value) % multiple == 0 and all(isinstance(item, (int, float)) and not isinstance(item, bool)
+            and math.isfinite(item) for item in map(graph.optional_value, value))
 
 
 def _chapter_annotations(reader, start, end, named):
     """Describe only the permitted static subset and local destinations, without mutation."""
     records, counts, examined = [], {}, 0
+    graph = _pdf_policy.ChapterGraph(reader, excluded=getattr(reader, "_chapter_graph_excluded", None))
     def warn(code):
         counts[code] = counts.get(code, 0) + 1
     for page_index in range(start, end):
@@ -819,7 +843,7 @@ def _chapter_annotations(reader, start, end, named):
             warn("article_navigation_dropped")
         if "/AA" in page:
             warn("navigation_link_dropped")
-        annotations = _pdf_object(page.get("/Annots", []))
+        annotations = graph.optional_value(page.get("/Annots", []))
         if not isinstance(annotations, list):
             warn("annotation_dropped")
             continue
@@ -827,37 +851,53 @@ def _chapter_annotations(reader, start, end, named):
             examined += 1
             if examined > MAX_PDF_ANNOTATIONS:
                 raise PlanError("invalid_document", "PDF annotations exceed the bounded inspection limit.")
-            annotation = _pdf_object(raw)
+            annotation = graph.optional_value(raw)
             if not isinstance(annotation, dict):
                 warn("annotation_dropped")
                 continue
-            subtype, destination = _pdf_object(annotation.get("/Subtype")), None
-            rect = _pdf_object(annotation.get("/Rect"))
-            if not isinstance(rect, (list, tuple)) or len(rect) != 4 or not _finite_coordinates(rect, multiple=4) \
-                    or (subtype == "/Highlight" and not _finite_coordinates(annotation.get("/QuadPoints"), multiple=8)):
+            subtype, destination = graph.optional_value(annotation.get("/Subtype")), None
+            if not isinstance(subtype, NameObject):
+                warn("annotation_dropped")
+                continue
+            rect = graph.optional_value(annotation.get("/Rect"))
+            if not isinstance(rect, (list, tuple)) or len(rect) != 4 or not _finite_coordinates(rect, graph, multiple=4) \
+                    or (subtype == "/Highlight" and not _finite_coordinates(annotation.get("/QuadPoints"), graph, multiple=8)):
                 warn("annotation_dropped")
                 continue
             projected = {key: value for key, value in annotation.items() if key in ANNOTATION_FIELDS}
             if subtype == "/Link":
-                action = _pdf_object(annotation.get("/A"))
-                if "/AA" in annotation or ("/A" in annotation and "/Dest" in annotation) or \
-                        ("/A" in annotation and (not isinstance(action, dict) or _pdf_object(action.get("/S")) != "/GoTo" or "/Next" in action)):
-                    warn("navigation_link_dropped")
-                    continue
-                destination = _destination_details(reader, action.get("/D") if isinstance(action, dict) else annotation.get("/Dest"), named)
+                target = annotation.get("/Dest")
+                if "/Dest" not in annotation:
+                    action = graph.optional_value(annotation.get("/A"), omit=False)
+                    if isinstance(action, DictionaryObject) and graph.optional_value(action.get("/S")) == "/GoTo":
+                        target = action.get("/D")
+                destination = _destination_details(reader, target, named, graph)
                 if destination is None:
                     warn("navigation_link_dropped")
                     continue
                 if not start <= destination[0] < end:
                     warn("cross_chapter_link_dropped")
                     continue
-            elif not isinstance(subtype, str) or subtype not in STATIC_ANNOTATIONS or "/A" in annotation or "/AA" in annotation:
+            elif subtype == "/FileAttachment" or subtype in _pdf_policy.MEDIA_ANNOTATIONS:
+                normal = _normal_annotation_appearance(graph, annotation)
+                if normal is None and subtype != "/FileAttachment":
+                    warn("annotation_dropped")
+                    continue
+                if normal is None:
+                    icon = graph._resolve(annotation.get("/Name"))
+                    normal = _attachment_icon(str(icon) if isinstance(icon, NameObject) else "/PushPin")
+                projected[NameObject("/Subtype")] = NameObject("/Stamp")
+                projected[NameObject("/AP")] = DictionaryObject({NameObject("/N"): normal})
+                projected.pop("/AS", None)
+                projected.pop("/Name", None)
+            elif subtype not in STATIC_ANNOTATIONS:
                 warn("annotation_dropped")
                 continue
-            if not _inert_annotation_value(projected):
+            if subtype in STATIC_ANNOTATIONS | {"/Link"} and "/AP" in projected \
+                    and _normal_annotation_appearance(graph, annotation) is None:
                 warn("annotation_dropped")
                 continue
-            if set(annotation) - ANNOTATION_FIELDS - {"/P", "/Dest", "/A"}:
+            if set(annotation) - ANNOTATION_FIELDS - {"/P", "/Dest", "/A", "/AA", "/AF", "/FS"}:
                 warn("annotation_relation_dropped")
             records.append((page_index - start, projected, destination))
     return records, counts, examined
@@ -866,9 +906,12 @@ def _chapter_annotations(reader, start, end, named):
 def _add_fidelity_warnings(reader, data):
     named = _preflight_bookmark_trees(reader, include_outline=False)
     _, totals = _source_metadata(reader)
-    if "/OpenAction" in reader.root_object:
+    if getattr(reader, "_chapter_opening_destination", False):
         data["warnings"].append({"code": "opening_destination_ignored", "source_order": None, "depth": None,
             "message": "The validated local opening view is ignored; chapter PDFs omit it."})
+    data["warnings"].extend({"code": code, "source_order": None, "depth": None,
+                             "message": PDF_FEATURE_WARNINGS[code]}
+                            for code in sorted(getattr(reader, "_chapter_graph_warnings", ())))
     examined = 0
     for entry in data["entries"]:
         _, counts, count = _chapter_annotations(reader, entry["start"], entry["end"], named)
@@ -894,7 +937,7 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
         raise PlanError("invalid_prepared_split", "Use one captured reader or byte snapshot, not both.")
     reader = _captured_reader if _captured_reader is not None else \
         PdfReader(input_path if _pdf_bytes is None else BytesIO(_pdf_bytes))
-    if _captured_reader is not None:
+    if _captured_reader is not None and not isinstance(reader, _pdf_policy.PolicyPdfReader):
         _pdf_policy._preflight_pdf_features(reader)
     pages = len(reader.pages)
     if mode == "manual":
@@ -924,6 +967,8 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
         data.update(original_ebook_identity=original, conversion=conversion,
                     keep_converted_pdf=_conversion_metadata["keep_converted_pdf"])
         naming_source = original["path"]
+    if hasattr(reader, "_pdf_forms"):
+        data["pdf_forms"] = reader._pdf_forms
     _add_fidelity_warnings(reader, data)
     plan = validate_plan({**data, "source_identity": source})
     if output_base is not None:
@@ -1266,7 +1311,7 @@ class OutputRun:
             raise OutputError("output_handle_close_failed", "Cannot close output handles: " + "; ".join(errors)[:2048])
 
 
-def _validate_output(path, entry):
+def _validate_output(path, entry, *, chapter=True):
     try:
         reader = PdfReader(path)
         if len(reader.pages) != entry["end"] - entry["start"] or len(reader.pages) < 1:
@@ -1274,6 +1319,8 @@ def _validate_output(path, entry):
         # Force page objects to be resolved before publication.
         for page in reader.pages:
             page.get_object()
+        if chapter:
+            _pdf_policy.validate_chapter_graph(reader)
         data = Path(path).read_bytes()
         return {"page_count": len(reader.pages), "sha256": sha256(data).hexdigest(), "size_bytes": len(data)}
     except Exception as error:
@@ -1353,7 +1400,7 @@ def execute_split(prepared, output_dir):
             name = "WinBookSplit_Converted.pdf"
             run.write_owned(name, data)
             path = os.path.join(run.stage, name)
-            retained_intermediate = {"filename": name, **_validate_output(path, {"start": 0, "end": plan["total_pages"]})}
+            retained_intermediate = {"filename": name, **_validate_output(path, {"start": 0, "end": plan["total_pages"]}, chapter=False)}
             if retained_intermediate["sha256"] != plan["source_identity"]["sha256"] or retained_intermediate["size_bytes"] != len(data):
                 raise OutputError("output_validation_failed", "Retained converted PDF disagrees with the captured reader.")
         outputs = []
@@ -1375,6 +1422,8 @@ def execute_split(prepared, output_dir):
                         "final_directory": final_directory, "mode": plan["mode"],
                         "total_pages": plan["total_pages"], "source_identity": plan["source_identity"],
                         "coverage": plan["coverage"], "written_count": len(outputs), "outputs": outputs}
+            if "pdf_forms" in plan:
+                manifest["pdf_forms"] = plan["pdf_forms"]
             if "conversion" in plan:
                 manifest.update(original_ebook_identity=plan["original_ebook_identity"],
                                 conversion=plan["conversion"], retained_intermediate=retained_intermediate)
@@ -1477,7 +1526,7 @@ def _planning_failure(mode, error):
                                              "invalid_start_pages", "invalid_mode"} else "error"
     else:
         status, code = "read_error", "unreadable_document"
-    return _split_result(mode, status, code, str(error), warnings)
+    return _split_result(mode, status, code, str(error), warnings, diagnostic=getattr(error, "diagnostic", None))
 
 
 def _log_conversion(conversion):
@@ -1688,9 +1737,14 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
             raise PlanError("invalid_document", "The PDF must contain at least one physical page.")
         source = {"path": os.path.abspath(os.fspath(pdf_path)), "resolved_path": os.path.realpath(pdf_path),
                   "sha256": sha256(data).hexdigest(), "size_bytes": len(data), "binding": "reader_snapshot"}
+        viewer_omissions = {"pdf_action_omitted", "pdf_javascript_omitted", "pdf_attachment_omitted",
+                            "pdf_media_omitted", "pdf_portfolio_omitted", "pdf_name_tree_omitted",
+                            "pdf_opening_action_omitted", "pdf_optional_metadata_omitted"}
+        can_open_working_pdf = is_ebook and not viewer_omissions.intersection(
+            getattr(reader, "_chapter_graph_warnings", ()))
         while True:
             if mode == "manual":
-                payload = {"total_pages": pages, "source_identity": source, "can_request_working_pdf": is_ebook,
+                payload = {"total_pages": pages, "source_identity": source, "can_request_working_pdf": can_open_working_pdf,
                            "manual_starts_supplied": isinstance(manual_data, str) and bool(manual_data)}
                 if metadata is not None:
                     payload.update(original_ebook_identity=metadata["original_ebook_identity"],
@@ -1698,12 +1752,12 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
                 reply = exchange.request("input_ready", mode, **payload)
                 action = _interactive_action(reply, {"starts", "request_working_pdf", "cancel"})
                 if action == "request_working_pdf":
-                    if not is_ebook:
-                        raise PlanError("invalid_arguments", "A working converted PDF is available only for ebooks.")
+                    if not can_open_working_pdf:
+                        raise PlanError("invalid_arguments", "The viewer cannot open this working PDF.")
                     working = OutputRun(output_dir, input_path)
                     working.write_owned("WinBookSplit_Working.pdf", data)
                     path = os.path.join(working.stage, "WinBookSplit_Working.pdf")
-                    observed = _validate_output(path, {"start": 0, "end": pages})
+                    observed = _validate_output(path, {"start": 0, "end": pages}, chapter=False)
                     if observed["sha256"] != source["sha256"] or observed["size_bytes"] != len(data):
                         raise PlanError("output_validation_failed", "The working PDF differs from the captured reader.")
                     working_identity = {"path": path, "resolved_path": os.path.realpath(path),
@@ -1795,21 +1849,26 @@ def _print_split_result(result):
 def write_slice(reader, start, end, out_path, on_created=None):
     log(f"    [Writing] {os.path.basename(out_path)}")
     writer = PdfWriter()
+    writer.pdf_header = reader.pdf_header
+    graph = _pdf_policy.ChapterGraph(reader, writer=writer, excluded=getattr(reader, "_chapter_graph_excluded", None))
+    writer.root_object.update(graph.optional_content(reader.root_object))
     for p in range(start, end):
-        # A shallow view prevents pypdf's automatic link pairing from inspecting
-        # the links that this writer explicitly rebuilds. Never edit the source.
-        page = PageObject(reader, reader.pages[p].indirect_reference)
-        # The held flattened view includes effective inherited resources/boxes/
-        # rotation; the original indirect dictionary may omit these attributes.
-        page.update(reader.pages[p])
-        page.pop("/Annots", None)
-        page.pop("/B", None)
-        page.pop("/AA", None)
-        writer.add_page(page, excluded_keys=("/Annots", "/B", "/AA"))
+        # Effective resources/boxes/rotation are held by the flattened reader
+        # view. Only the projected rendering graph enters the fresh writer.
+        page = PageObject()
+        page[NameObject("/Type")] = NameObject("/Page")
+        chapter_page = writer.add_page(page, excluded_keys=("/Annots",))
+        # The projection is already writer-owned. Cloning it in add_page
+        # would duplicate streams inside content arrays and orphan objects.
+        chapter_page.update(graph.page_values(reader.pages[p]))
     named = _preflight_bookmark_trees(reader, include_outline=False)
     records, _, _ = _chapter_annotations(reader, start, end, named)
     for page_index, projected, destination in records:
-        annotation = DictionaryObject(projected).clone(writer)
+        annotation = DictionaryObject()
+        for key, value in projected.items():
+            copied = graph.project(value, annotation=True, context="appearances" if key == "/AP" else "value")
+            if copied is not None:
+                annotation[key] = copied
         if destination is not None:
             target, fit, args = destination
             annotation[NameObject("/Dest")] = ArrayObject([writer.pages[target - start].indirect_reference, NameObject(fit),
@@ -1824,7 +1883,8 @@ def write_slice(reader, start, end, out_path, on_created=None):
     if "/Title" in original:
         metadata["/Subject"] = "Source: " + original["/Title"]
     writer.add_metadata(metadata)
-    writer.add_outline_item(title, 0)
+    writer.add_outline_item_dict(DictionaryObject({NameObject("/Title"): TextStringObject(title),
+        NameObject("/Dest"): ArrayObject([writer.pages[0].indirect_reference, NameObject("/Fit")])}))
     with open(out_path, "xb") as f:
         if on_created is not None:
             on_created(out_path, f)

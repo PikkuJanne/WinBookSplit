@@ -17,7 +17,20 @@ KINDS = ('ordinary', 'page-aa-exclusion', 'encrypted-user', 'encrypted-owner-emp
          'catalog-openaction', 'catalog-aa', 'catalog-javascript', 'embedded-attachment', 'portfolio',
          'page-fileattachment', 'page-3d', 'rich-media', 'catalog-associated-file', 'page-associated-file',
          'malformed-header', 'truncated', 'zero-pages', 'deep-outline', 'page-tree-cycle')
-UNSUPPORTED = KINDS[4:20]
+UNSUPPORTED = ('acroform', 'xfa', 'signature-widget', 'orphan-widget', 'orphan-signature')
+OMISSIONS = {
+    'signature-perms': ('pdf_signature_omitted',),
+    'catalog-openaction': ('pdf_opening_action_omitted', 'pdf_javascript_omitted'),
+    'catalog-aa': ('pdf_action_omitted', 'pdf_javascript_omitted'),
+    'catalog-javascript': ('pdf_javascript_omitted',),
+    'embedded-attachment': ('pdf_attachment_omitted',),
+    'portfolio': ('pdf_portfolio_omitted',),
+    'page-fileattachment': ('pdf_attachment_omitted',),
+    'page-3d': ('pdf_media_omitted',),
+    'rich-media': ('pdf_media_omitted',),
+    'catalog-associated-file': ('pdf_attachment_omitted',),
+    'page-associated-file': ('pdf_attachment_omitted',),
+}
 MALFORMED = KINDS[20:]
 # Authored fixture credentials are generation inputs only, never app arguments.
 USER_PASSWORD = 'WBS-authored-test-open-731'
@@ -171,6 +184,7 @@ def generate_fixtures(directory):
             'expected': 'password_required' if kind == 'encrypted-user' else
                         'readable_empty_password' if kind == 'encrypted-owner-empty' else
                         'unsupported_document' if kind in UNSUPPORTED else
+                        'page_output_with_omissions' if kind in OMISSIONS else
                         'bounded_invalid' if kind in MALFORMED else 'ordinary_or_defined_exclusion',
             'encrypted': kind.startswith('encrypted-'), 'structural_signature_only': kind in {'signature-widget', 'signature-perms', 'orphan-signature'},
             'source_actions_inert': True, 'fixture_private_data': False}

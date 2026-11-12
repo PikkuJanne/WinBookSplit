@@ -1,14 +1,13 @@
-# Unsupported-document policy acceptance
+# PDF page-copy policy acceptance
 
-The current producer/validator migrates the M4-T02 route to the repaired PDF
-contract. Empty-password execution and preview are positive cases; genuine
+The current producer/validator exercises the repaired PDF contract through the
+M4-T02 route. Empty-password execution and preview are positive cases. Genuine
 nonempty-password inputs require `password_required` / 7. Rejected-input support
 exports use the password-required fixture. The original matrix and receipts stay
-historical; no production ban is restored to satisfy obsolete expectations.
-Current execution results belong to the checkpoint evidence linked from
-[STATUS_NEXT](../../docs/functional-repair/STATUS_NEXT.md), not this description.
-Human/owner tests, sign-off and report requests are out of scope under the latest
-owner order. Missing native scenarios remain NOT_RUN, with no owner action required.
+historical. The current checkpoint results are linked from
+[form support status](../../docs/forms-support/STATUS_NEXT.md). The separate
+`characterize_form_support.py --checkpoint-2` route checks harmless form metadata
+and combined optional features, including comparison of rendered regions.
 
 `characterize_document_policy.py` uses 25 original generated PDF fixtures. It
 starts 30 application controls in each actual supported PowerShell host and
@@ -31,13 +30,15 @@ marker fits inside the 120-point page. The immutable baseline fixtures retain
 their earlier 12-point labels; this generated-fixture QA correction does not
 rewrite the baseline reproduction or its provenance.
 
-Unsupported feature inputs must return `unsupported_document`/7 with no extraction,
-plan, interaction request, chapter/staging publication, or fallback. Malformed
-inputs retain their declared native 6 result. Genuine nonempty-password inputs
-return `password_required`/7 with the same no-output requirements. Empty-password
-inputs must produce complete reopened output; their Preview must cover every
-physical page without writing chapters or disk diagnostics. New chapter PDFs
-are unencrypted. Ordinary rejected runs may keep
+Optional actions, attachments, portfolio metadata and unbound signatures
+must produce complete reopened chapters with the corresponding warnings and
+omitted objects. XFA and widget inputs awaiting verified static rendering
+must return `unsupported_document`/7 with no plan, interaction request,
+publication or fallback. Malformed inputs retain their declared native 6 result.
+Genuine nonempty-password inputs return `password_required`/7 with the same
+no-output requirements. Empty-password inputs must produce complete reopened
+output. Their Preview must cover every physical page without writing chapters or
+disk diagnostics. New chapter PDFs are unencrypted. Rejected processing runs may keep
 their authenticated local log and finalized metadata-only run record; rejected
 Preview controls must write nothing. Both actual rejected run exports must
 contain only the allowlisted redacted summary.

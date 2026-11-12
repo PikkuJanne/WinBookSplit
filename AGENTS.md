@@ -10,14 +10,18 @@ inspecting local and live Git state and reading root/nested instructions,
 [acceptance](docs/forms-support/ACCEPTANCE.md). Treat earlier release records
 and routing below as historical evidence. Preserve existing work and evidence.
 
-The blanket AcroForm and Widget prohibitions are superseded for validated
-harmless metadata and ordinary AcroForms. Preserve visible current values and
-geometry before removing widget data, and disclose static, non-fillable chapter
-output. Distinguish genuine XFA and fail specifically when complete rendering
-cannot be verified. Keep the signature, unrelated active-content, dependency
-lock and origin, Store discovery, first-run consent, immutable input, no-overwrite,
-complete page coverage, bounded process, owned cleanup, and privacy protections.
-Use natural discovery for ordinary Store first-run evidence.
+The owner's scope correction includes PDFs with optional document behavior and
+attachments in the same v1.0.5 checkpoints. Follow the [PDF policy](docs/PDF_POLICY.md)
+for required visual content, excluded behavior and genuine processing failures.
+Use fresh chapter catalogs, preserve usable local navigation and visible content,
+and omit executable actions, attachment payloads and signature data with accurate
+warnings. Chapter copies do not carry source signature validity. Preserve visible
+current form values and geometry before removing widget data and disclose static,
+non-fillable output. Distinguish genuine XFA and fail specifically when complete
+rendering cannot be verified. Keep dependency lock and origin, Store discovery,
+first-run consent, immutable input, no-overwrite, complete page coverage, bounded
+processes, owned cleanup and privacy. Use natural discovery for ordinary Store
+first-run evidence.
 
 Complete one checkpoint per chat. Run relevant automated application tests with
 available native Windows hosts, record results and unavailable cases as `NOT_RUN`,

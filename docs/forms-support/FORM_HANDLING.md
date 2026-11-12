@@ -14,7 +14,7 @@ AcroForm field tree and every page's Widget annotations.
 | Ordinary non-signature field/widget tree | Normalize visible values to static page content. |
 | Orphan widget with locally resolvable field data | Recover only unambiguous field relationships or flatten its validated appearance; do not discard it as an empty form. |
 | Hidden/nonvisual data-only fields | Do not expose hidden values on pages. Drop nonvisual form data from static chapters with a count-only notice. |
-| Actual signature/permissions structure | Retain the current separately documented policy; never claim cryptographic validity survives splitting. |
+| Signature or permissions structure | Omit signature validity data with a warning. Preserve a visible signature widget's static appearance when reproducible. |
 | XFA null/empty array/empty stream, no dynamic content | Treat as an empty marker after type checks; do not imply genuine XFA was rendered. |
 | Nonempty XFA with no verified complete static rendering | Distinct `xfa_rendering_required`/equivalent reason; no success from page-shell copying. |
 | Malformed, cyclic or excessive field/widget structures | A specific bounded failure, no crash/hang or published partial results. |
@@ -64,11 +64,11 @@ needed for that visual content, not the parent form tree or unrelated pages.
 
 1. Open with the existing accessible/empty-password reader behavior.
 2. Inspect and classify actual form structures without triggering the old blanket
-   rejection. Keep unrelated feature checks.
+   rejection. Apply the shared PDF page-copy policy to optional document features.
 3. Resolve a single source-bound form plan shared by preview/execution; maintain
    original physical page mapping and original source identity.
 4. On a private working representation, preserve/generate visible appearances;
-   validate resources and form-specific actions before copying.
+   validate resources and omit form-specific action edges before copying.
 5. Paint those appearances into their pages; only then remove widgets/form data.
    Do not delete unrelated links or static annotations.
 6. Use the existing chapter partition and safe writer. Ensure later annotation
@@ -83,16 +83,16 @@ later necessary appearance checks. No second blanket ban should undo support.
 
 ## 4. Actions and signatures
 
-Never execute form calculations, JavaScript, submit/reset/import actions, launch
-actions or network requests. Form-only action metadata and calculation-order
-links may be omitted from the static output with a clear warning because the
-output is explicitly noninteractive. This does not authorize disabling global
-active-content, signatures, attachments, output ownership or resource protections.
-Keep required refusal paths for unrelated active documents.
+Treat the saved field values and their visible appearances as the source of
+truth. Omit form calculations, JavaScript, submit/reset/import actions, launch
+actions and calculation-order links. The application performs no document action
+or network request. An appearance that depends on unavailable recalculation
+remains a processing failure. Chapter copies omit signature data and warn that
+the source signature's validity does not transfer to them.
 
 Only the validated static representation should reach the general page-copy
-traversal. Do not simply skip `/AcroForm` everywhere; that can conceal unhandled
-widgets, signature fields or active references. Do not recursively copy whole
+traversal. Classify `/AcroForm` and page widgets before omitting form trees.
+Do not recursively copy whole
 field trees/resources into each chapter. Hidden field values and content of
 other chapters must not leak into serialized output objects.
 

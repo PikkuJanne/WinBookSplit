@@ -40,9 +40,60 @@ MATRIX = (
     ("BAT", "controls", "Manual"),
     ("PS51", "orphan_widget", "Manual"),
 )
+CHECKPOINT_2_MATRIX = (
+    ('PS51', 'acroform_null', 'Manual'),
+    ('PS51', 'acroform_empty', 'Auto1'),
+    ('PS7', 'fields_empty', 'Auto2'),
+    ('PS7', 'resource_only', 'Manual'),
+    ('PS51', 'xfa_null', 'Auto1'),
+    ('PS7', 'xfa_empty_array', 'Auto2'),
+    ('PS51', 'resource_only', 'Preview'),
+    ('PS7', 'xfa_detection_only', 'Manual'),
+    ('PS51', 'fields_malformed', 'Manual'),
+    ('PS7', 'field_cycle', 'Preview'),
+    ('PS51', 'empty_feature_trees', 'Manual'),
+    ('PS7', 'document_javascript', 'Auto1'),
+    ('PS51', 'document_attachment', 'Auto2'),
+    ('BAT', 'script_and_attachment', 'Manual'),
+    ('PS51', 'associated_attachment', 'Manual'),
+    ('PS7', 'page_and_annotation_actions', 'Auto2'),
+    ('PS51', 'named_navigation_and_features', 'Auto1'),
+    ('PS7', 'named_navigation_and_features', 'Auto2'),
+    ('BAT', 'named_navigation_and_features', 'Manual'),
+    ('PS7', 'named_navigation_and_features', 'Preview'),
+    ('PS51', 'broken_omitted_branches', 'Manual'),
+    ('PS7', 'payload_aliases', 'Manual'),
+    ('BAT', 'encrypted_metadata_and_features', 'Manual'),
+    ('PS7', 'form_and_features', 'Manual'),
+    ('PS51', 'encrypted_form_and_features', 'Preview'),
+)
+EXPECTED_FAILURES = {
+    'xfa_detection_only': ('unsupported_document', 'xfa_rendering_required'),
+    'fields_malformed': ('invalid_document', 'malformed_form'),
+    'field_cycle': ('invalid_document', 'malformed_form'),
+    'form_and_features': ('unsupported_document', 'form_appearance_required'),
+    'encrypted_form_and_features': ('unsupported_document', 'form_appearance_required'),
+}
+FEATURE_WARNINGS = {
+    'empty_feature_trees': set(),
+    'document_javascript': {'pdf_javascript_omitted'},
+    'document_attachment': {'pdf_attachment_omitted'},
+    'script_and_attachment': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'associated_attachment': {'pdf_attachment_omitted'},
+    'page_and_annotation_actions': {'pdf_javascript_omitted'},
+    'named_navigation_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'payload_aliases': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'encrypted_metadata_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'broken_omitted_branches': set(),
+}
 RANGES = {"Manual": [[0, 2], [2, 4]], "Auto1": [[0, 1], [1, 2], [2, 3], [3, 4]],
           "Auto2": [[0, 1], [1, 2], [2, 3], [3, 4]]}
 PAGE_MARKER = re.compile(rb"SOURCE-PAGE-(\d+)\b")
+OMITTED_KEYS = {'/AA', '/AF', '/AFRelationship', '/Collection', '/EF', '/EmbeddedFiles', '/FS',
+                '/JavaScript', '/JS', '/OpenAction', '/Perms'}
+OMITTED_TYPES = {'/EmbeddedFile', '/Filespec', '/Sig', '/DocTimeStamp'}
+OMITTED_ACTIONS = {'/JavaScript', '/URI', '/Launch', '/GoToR', '/GoToE', '/SubmitForm',
+                   '/ResetForm', '/ImportData', '/Rendition', '/RichMediaExecute'}
 
 
 def render(renderer, source, prefix, receipts):
@@ -87,7 +138,7 @@ def check_reference_oracle(renderer, work, sources, receipts):
     return {"blank_regions_detected": len(tiles), "opposite_button_pairs_detected": 2}
 
 
-def inspect_serialization(reader, chapter, pages, outside_values):
+def inspect_serialization(reader, chapter, pages, outside_values, *, feature_case):
     """Count every serialized page and inspect streams even if unreachable."""
     ids = {(generation, number) for generation, rows in reader.xref.items() for number in rows if number}
     ids.update((0, number) for number in reader.xref_objStm)
@@ -102,6 +153,17 @@ def inspect_serialization(reader, chapter, pages, outside_values):
             if isinstance(value, DictionaryObject):
                 require(value.get("/Subtype") != "/Widget" and not {"/AcroForm", "/XFA", "/FT"}.intersection(value),
                         "Serialized form/widget data survived chapter export")
+                if feature_case:
+                    require(not OMITTED_KEYS.intersection(value)
+                            and value.get('/Type') not in OMITTED_TYPES
+                            and value.get('/S') not in OMITTED_ACTIONS
+                            and value.get('/Subtype') != '/FileAttachment',
+                            'Serialized attachment, executable action or relationship survived chapter export')
+                    action = value if value.get('/Type') == '/Action' else value.get('/A')
+                    if action is not None:
+                        action = action.get_object()
+                        require(isinstance(action, DictionaryObject) and action.get('/S') == '/GoTo'
+                                and '/Next' not in action, 'Serialized action is not a projected local destination')
                 pending.extend(value.values())
                 if isinstance(value, StreamObject):
                     data = value.get_data()
@@ -130,6 +192,7 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
     reference_renders = render(renderer, reference, case_dir / "reference", case["renders"])
     require(len(reference_renders) == len(expected.pages) == 4, "Wrong reference page count")
     all_values = {item for labels in values.values() for item in labels}
+    feature_case = case['kind'] in fixtures.FEATURE_CASES
     for row in execution["outputs"]:
         start, end = row["start"], row["end"]
         chapter = final / row["filename"]
@@ -138,7 +201,11 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
         chapter_renders = render(renderer, chapter, case_dir / f"chapter-{start}", case["renders"])
         require(len(reader.pages) == len(chapter_renders) == len(pages), "Wrong reopened chapter page count")
         inside_values = {item for page in pages for item in values.get(str(page), ())}
-        record = {"range": [start, end], "regions": [], **inspect_serialization(reader, chapter, pages, all_values - inside_values)}
+        forbidden = all_values - inside_values
+        if feature_case:
+            forbidden.update(fixtures.FEATURE_MARKERS)
+        record = {"range": [start, end], "regions": [], **inspect_serialization(
+            reader, chapter, pages, forbidden, feature_case=feature_case)}
         case["outputs"].append(record)
         for local, page_number in enumerate(pages):
             page = reader.pages[local]
@@ -147,6 +214,25 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
                     "Missing, reordered or foreign page marker")
             require(all(item in text for item in values.get(str(page_number), ())), "Expected visible form text is missing")
             require(geometry(page) == geometry(expected.pages[page_number - 1]), "Page geometry changed")
+            if feature_case and page_number == 2:
+                resources = page['/Resources']
+                layer = resources['/Properties'].raw_get('/FixtureLayer')
+                require(resources['/XObject']['/FixtureImage'].get('/Subtype') == '/Image'
+                        and layer in reader.root_object['/OCProperties']['/OCGs'],
+                        'Image or optional-content group is missing')
+                if case['kind'] == 'named_navigation_and_features':
+                    links = [item.get_object() for item in page['/Annots']
+                             if item.get_object().get('/Subtype') == '/Link']
+                    require(len(links) == 1 and links[0]['/Dest'][0] == page.indirect_reference,
+                            'Named local link did not resolve to the copied physical page')
+                if case['kind'] == 'associated_attachment':
+                    stamps = [item.get_object() for item in page['/Annots']
+                              if item.get_object().get('/Subtype') == '/Stamp']
+                    require(len(stamps) == 1 and '/N' in stamps[0]['/AP'],
+                            'Visible attachment artwork did not survive as a static annotation')
+                if case['kind'] == 'page_and_annotation_actions':
+                    require(any(item.get_object().get('/Subtype') == '/Square' for item in page['/Annots']),
+                            'Static square annotation was dropped along with its action')
             with Image.open(reference_renders[page_number - 1]) as expected_image, Image.open(chapter_renders[local]) as observed_image:
                 require(expected_image.size == observed_image.size, "Rendered page size changed")
                 target, actual = expected_image.convert("RGB"), observed_image.convert("RGB")
@@ -160,19 +246,22 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
                         f"Reference page pixels changed on source page {page_number}")
 
 
-def run_case(application, runtime, renderer, work, host, kind, mode, sources, case):
-    directory = work / f"{host['id']}-{kind}"
+def run_case(application, runtime, renderer, work, host, kind, mode, sources, case, *, checkpoint_2):
+    directory = work / f"{host['id']}-{kind}-{mode}"
     directory.mkdir()
     base = directory / "output"
     base.mkdir()
     prior = base / "prior-output.txt"
     prior.write_bytes(b"Preserve earlier output\n")
+    neighbor = directory / 'neighbor.txt'
+    neighbor.write_bytes(b'Preserve neighboring source files\n')
     source = directory / "Original synthetic Å [1] & input.pdf"
     reference, values, regions = sources[kind]
     shutil.copyfile(reference["source"], source)
     environment = policy.support.controlled_environment(directory, host["shell_executable"])
     script = application / "WinBookSplit.ps1"
     batch = host["id"] == "BAT"
+    preview = mode == 'Preview'
     if batch:
         app_copy = directory / "app"
         for name in policy.support.validator.APPLICATION:
@@ -192,27 +281,55 @@ def run_case(application, runtime, renderer, work, host, kind, mode, sources, ca
         command = [host["shell_executable"], "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "RemoteSigned",
                    "-File", str(script), "-InputFile", str(source), "-OutputDirectory", str(base),
                    "-PythonPath", str(runtime), "-NonInteractive", "-Mode", "Manual" if mode == "Manual" else "Auto"]
-        command += ["-StartPages", "1,3"] if mode == "Manual" else ["-BookmarkLevel", mode[-1]]
+        command += ["-StartPages", "1,3"] if mode == "Manual" else ["-BookmarkLevel", "1" if preview else mode[-1]]
+        if preview:
+            command.append('-Preview')
     with policy.paths.read_only_source(source):
         before = cli.identity(source)
+        neighbor_before = cli.identity(neighbor)
+        prior_before = cli.identity(prior)
+        input_members = {path.name for path in directory.iterdir()}
         case["source_before"] = before
         process = (policy.prompted.run_prompted(command, directory, environment, "M\n1,3\nY\nN\n") if batch
                    else cli.run_unavailable_stdin(command, directory, environment))
         case["process"] = process
         case["source_after"] = cli.identity(source)
         require(before == case["source_after"], "Read-only input identity changed")
-        require(prior.read_bytes() == b"Preserve earlier output\n", "Earlier output changed")
+        require(cli.identity(neighbor) == neighbor_before and cli.identity(prior) == prior_before,
+                'Earlier output or neighboring source changed')
+        require({path.name for path in directory.iterdir()} == input_members,
+                'Unexpected file appeared next to the source or launcher')
         outcome = cli.outcome(process["stdout"])
         case["outcome"] = outcome
         log, frames, _, log_hash = cli.console_records(process["stdout"], base)
         case.update(engine_frames=frames, log_sha256=log_hash)
         result = outcome.get("engine_result")
-        if process["exit_code"]:
+        if process["exit_code"] or preview:
             remaining = {path.name for path in base.iterdir()}
-            require(remaining == {prior.name, *([log.parent.name] if log else [])},
-                    "Rejected document left chapter or staging output")
+            diagnostic = (result or {}).get('diagnostic') or {}
+            record = diagnostic.get('record_path')
+            allowed = {prior.name, *([log.parent.name] if log else [])}
+            if record and Path(record).parent.parent == base and Path(record).parent.name.startswith('.WinBookSplit-failed-'):
+                allowed.add(Path(record).parent.name)
+            require(remaining == allowed,
+                    "Preview or rejected document left chapter or staging output")
             require(result and result["written_count"] == 0 and result["execution"] is None,
-                    "Rejected document reported output")
+                    "Preview or rejected document reported output")
+        if checkpoint_2 and kind in EXPECTED_FAILURES:
+            code, reason = EXPECTED_FAILURES[kind]
+            require(result and result['code'] == code and process['exit_code'] == result['exit_code'] != 0
+                    and result.get('diagnostic', {}).get('reason') == reason,
+                    f'Expected {code}/{reason}, observed {result}')
+            return
+        if kind in FEATURE_WARNINGS and result and process['exit_code'] == 0:
+            actual = {entry['code'] for entry in result['warnings']}
+            specific = {'pdf_javascript_omitted', 'pdf_attachment_omitted'}
+            require(actual & specific == FEATURE_WARNINGS[kind], f'Wrong feature-specific warnings: {actual}')
+        if preview:
+            require(process['exit_code'] == 0 and result and result['code'] == 'preview_complete'
+                    and result['plan']['source_identity']['sha256'] == before['sha256']
+                    and result['plan']['ranges'] == RANGES['Auto1'], 'Expected a complete no-write preview plan')
+            return
         require(process["exit_code"] == 0 and result and result["code"] == "split_complete",
                 f"Expected static split success, got {process['exit_code']}: "
                 + (result["code"] + ": " + result["message"] if result else str(outcome)))
@@ -226,7 +343,8 @@ def main():
     parser.add_argument("--shell-path", type=Path, action="append", required=True)
     parser.add_argument("--renderer-path", type=Path, required=True)
     parser.add_argument("--report", type=Path, required=True)
-    parser.add_argument("--case", choices=sorted({kind for _, kind, _ in MATRIX}), action="append")
+    parser.add_argument('--checkpoint-2', action='store_true', help='Run harmless-form and optional-feature cases')
+    parser.add_argument("--case", choices=sorted({kind for _, kind, _ in MATRIX + CHECKPOINT_2_MATRIX}), action="append")
     args = parser.parse_args()
     require(os.name == "nt" and sys.flags.isolated and sys.dont_write_bytecode, "Use Windows and developer Python -I -B")
     require(pypdf_version == "6.21.4", "Developer pypdf does not match the v1.0.4 lock")
@@ -252,7 +370,9 @@ def main():
         "windows": platform.win32_ver(), "shells": hosts, "application_runtime": runtime_probe,
         "renderer": cli.run_unavailable_stdin([str(args.renderer_path), "-v"], work, os.environ.copy()), "cases": [],
     }
-    selected = [row for row in MATRIX if not args.case or row[1] in args.case]
+    matrix = CHECKPOINT_2_MATRIX if args.checkpoint_2 else MATRIX
+    selected = [row for row in matrix if not args.case or row[1] in args.case]
+    require(selected, 'No cases match this matrix')
     sources = {}
     for kind in sorted({kind for _, kind, _ in selected}):
         source, reference, values, regions = fixtures.make_case(kind)
@@ -267,7 +387,8 @@ def main():
         case = {"host": host, "kind": kind, "mode": mode, "outputs": [], "renders": [],
                 "static_reference_sha256": cli.digest(sources[kind][0]["static"])}
         try:
-            run_case(application, args.application_python_path, args.renderer_path, work, hosts[host], kind, mode, sources, case)
+            run_case(application, args.application_python_path, args.renderer_path, work, hosts[host], kind, mode,
+                     sources, case, checkpoint_2=args.checkpoint_2)
         except Exception as error:
             case["failure"] = str(error)
             print(f"FAIL {host} {kind} {mode}: {error}", flush=True)

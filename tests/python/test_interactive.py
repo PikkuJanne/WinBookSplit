@@ -13,7 +13,7 @@ import unittest
 from unittest.mock import patch
 
 from pypdf import PdfReader, PdfWriter
-from pypdf.generic import NameObject, NumberObject
+from pypdf.generic import DictionaryObject, NameObject, NumberObject, TextStringObject
 
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -21,10 +21,11 @@ ENGINE = ROOT / "engine/winbooksplit_engine.py"
 spec = importlib.util.spec_from_file_location("wbs_interactive_engine", ENGINE)
 engine = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(engine)
+policy_reader = engine.PdfReader
 SESSION = "a" * 32
 
 
-def pdf_bytes(pages=6, bookmarks=False):
+def pdf_bytes(pages=6, bookmarks=False, script=False):
     writer = PdfWriter()
     for number in range(1, pages + 1):
         page = writer.add_blank_page(width=100, height=100)
@@ -32,6 +33,14 @@ def pdf_bytes(pages=6, bookmarks=False):
     if bookmarks:
         writer.add_outline_item("Authored Å title", 1)
         writer.add_outline_item("Authored second title", 4)
+    if script:
+        action_text = writer._add_object(TextStringObject("/* authored inactive viewer guard marker */ void 0;"))
+        writer.root_object[NameObject("/OpenAction")] = DictionaryObject({
+            NameObject("/S"): NameObject("/JavaScript"),
+            NameObject("/JS"): action_text,
+        })
+        writer.metadata = None
+        writer._info = writer._add_object(DictionaryObject({NameObject("/Title"): action_text}))
     stream = BytesIO()
     writer.write(stream)
     return stream.getvalue()
@@ -102,7 +111,7 @@ class InteractiveTests(unittest.TestCase):
             def output_reader(path, *args, **kwargs):
                 if Path(path) == self.source:
                     raise AssertionError("Cannot reopen source after consent")
-                return PdfReader(path, *args, **kwargs)
+                return policy_reader(path, *args, **kwargs)
             with patch.object(engine, "prepare_split", side_effect=AssertionError("Cannot reprepare after consent")), \
                     patch.object(engine, "plan_manual_starts", side_effect=AssertionError("Cannot replan after consent")), \
                     patch.object(engine, "PdfReader", side_effect=output_reader):
@@ -122,7 +131,7 @@ class InteractiveTests(unittest.TestCase):
 
         with patch.object(engine, "prepare_split", side_effect=prepare), \
                 patch.object(engine, "execute_split", side_effect=execute), \
-                patch.object(engine, "PdfReader", wraps=PdfReader) as source_reader:
+                patch.object(engine, "PdfReader", wraps=policy_reader) as source_reader:
             result, events = self.run_dialogue(answer)
         self.assertEqual(source_reader.call_count, 1)
         self.assertEqual(result["status"], "success")
@@ -165,7 +174,7 @@ class InteractiveTests(unittest.TestCase):
             if event["stage"] == "input_ready":
                 return {"action": "starts", "starts": "1,3,5"}
             return {"action": "execute", "plan_sha256": event["plan_sha256"]}
-        with patch.object(engine, "PdfReader", wraps=PdfReader) as reader, \
+        with patch.object(engine, "PdfReader", wraps=policy_reader) as reader, \
                 patch.object(engine, "prepare_split", wraps=engine.prepare_split) as prepare:
             result, events = self.run_dialogue(answer, mode="2")
         self.assertEqual(sum(call.args[0] == self.source for call in reader.call_args_list), 1)
@@ -242,10 +251,10 @@ class InteractiveTests(unittest.TestCase):
             execute.assert_not_called()
             self.assert_no_output()
 
-    def converted_snapshot(self):
+    def converted_snapshot(self, *, script=False):
         self.source = self.work / "Authored book.epub"
         self.source.write_bytes(b"Authored conversion boundary, never claimed as a real Calibre fixture\n")
-        data = pdf_bytes()
+        data = pdf_bytes(script=script)
         path = self.work / "already-cleaned-conversion.pdf"
         original = {"path": str(self.source), "resolved_path": str(self.source), "binding": "ebook_snapshot",
                     "size_bytes": self.source.stat().st_size, "sha256": sha256(self.source.read_bytes()).hexdigest()}
@@ -254,6 +263,30 @@ class InteractiveTests(unittest.TestCase):
         return SimpleNamespace(pdf_bytes=data, original_source_identity=original, generated_pdf_identity=generated,
                                conversion={"generated_pdf_identity": generated, "original_source_identity": original,
                                            "workspace_cleanup": {"cleanup_complete": True, "retained_staging": None}})
+
+    def test_converted_pdf_with_document_actions_can_split_without_offering_its_raw_viewer_copy(self):
+        converted = self.converted_snapshot(script=True)
+        with patch.object(engine, "_convert_ebook_snapshot", return_value=converted):
+            result, events = self.run_dialogue(lambda event: {"action": "request_working_pdf"})
+            self.assertEqual([event["stage"] for event in events], ["input_ready"])
+            self.assertFalse(events[0]["can_request_working_pdf"])
+            self.assertEqual(result["code"], "invalid_arguments")
+            self.assert_no_output()
+
+            def answer(event):
+                if event["stage"] == "input_ready":
+                    self.assertFalse(event["can_request_working_pdf"])
+                    return {"action": "starts", "starts": "1,3"}
+                return {"action": "execute", "plan_sha256": event["plan_sha256"]}
+
+            result, events = self.run_dialogue(answer)
+        self.assertEqual([event["stage"] for event in events], ["input_ready", "plan_ready"])
+        self.assertEqual((result["code"], result["written_count"]), ("split_complete", 2))
+        self.assertIn("pdf_javascript_omitted", {item["code"] for item in result["warnings"]})
+        for output in result["execution"]["outputs"]:
+            chapter = PdfReader(Path(result["execution"]["final_directory"], output["filename"]))
+            self.assertNotIn("/Names", chapter.root_object)
+            self.assertNotIn("/Subject", chapter.metadata)
 
     def test_ac061_requested_working_pdf_remains_readable_through_starts_and_consent_then_cleans(self):
         for confirm in (False, True):

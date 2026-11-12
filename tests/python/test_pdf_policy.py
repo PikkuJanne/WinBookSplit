@@ -108,6 +108,7 @@ class PdfPolicyTests(unittest.TestCase):
 
     def assert_rejected_before_writer(self, source, code="unsupported_document", mode="manual", preview=False):
         before = sha256(source.read_bytes()).hexdigest()
+        prior = set(self.output.iterdir())
         with patch.object(engine, "write_slice", side_effect=AssertionError("Policy failure must precede chapter writer")) as writer, \
                 redirect_stdout(StringIO()):
             result = engine.run_split(source, self.output, mode, "1,3", preview=preview)
@@ -120,8 +121,23 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertEqual(result["fallback_modes"], ())
         self.assertIsNone(result.get("plan"))
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
-        self.assertEqual(list(self.output.iterdir()), [self.neighbor])
+        self.assertEqual(set(self.output.iterdir()), prior)
         return result
+
+    def split_and_reopen(self, source, warning=None):
+        original = source.read_bytes()
+        with redirect_stdout(StringIO()):
+            result = engine.run_split(source, self.output, "manual", "1,3")
+        self.assertEqual((result["code"], result["exit_code"]), ("split_complete", 0), result["message"])
+        if warning is not None:
+            self.assertIn(warning, {item["code"] for item in result["warnings"]})
+        final = Path(result["execution"]["final_directory"])
+        chapters = [PdfReader(final / item["filename"]) for item in result["execution"]["outputs"]]
+        self.assertEqual([page.get_contents().get_data() for chapter in chapters for page in chapter.pages],
+                         [page.get_contents().get_data() for page in PdfReader(BytesIO(original)).pages])
+        self.assertEqual(source.read_bytes(), original)
+        self.assertEqual(self.neighbor.read_bytes(), b"Preserve authored earlier output\n")
+        return result, chapters
 
     def test_empty_password_rc4_128_is_readable_and_source_encryption_is_unchanged(self):
         writer = authored_writer()
@@ -269,7 +285,7 @@ class PdfPolicyTests(unittest.TestCase):
                 self.assertEqual(source.read_bytes(), original)
                 self.assertEqual(list(self.output.iterdir()), [self.neighbor])
 
-    def test_opening_action_exception_rejects_active_types_chains_and_extra_fields(self):
+    def test_active_and_invalid_opening_actions_are_omitted(self):
         for kind in ("/JavaScript", "/Launch", "/GoToR", "/GoToE", "/URI", "next", "extra", "wrong-type",
                      "string-action", "string-type"):
             with self.subTest(kind=kind):
@@ -290,9 +306,12 @@ class PdfPolicyTests(unittest.TestCase):
                 else:
                     action[NameObject("/Type")] = NameObject("/OriginalWrongType")
                 writer.root_object[NameObject("/OpenAction")] = writer._add_object(action)
-                self.assert_rejected_before_writer(self.source(writer, "opening-active-" + kind.replace("/", "")))
+                result, chapters = self.split_and_reopen(
+                    self.source(writer, "opening-active-" + kind.replace("/", "")), "pdf_opening_action_omitted")
+                self.assertTrue(all("/OpenAction" not in chapter.root_object for chapter in chapters))
+                self.assertNotIn("opening_destination_ignored", {item["code"] for item in result["warnings"]})
 
-    def test_opening_action_exception_rejects_nonlocal_and_malformed_destinations(self):
+    def test_opening_action_omits_nonlocal_or_malformed_destinations(self):
         for defect in ("page-index", "non-page", "off-tree-page", "unknown-fit", "string-fit", "missing-coordinate", "extra-coordinate",
                        "text-coordinate", "boolean-coordinate", "negative-zoom", "reversed-rectangle", "zero-area-rectangle",
                        "missing-name", "ambiguous-name", "cyclic-name", "active-name-limits"):
@@ -337,7 +356,12 @@ class PdfPolicyTests(unittest.TestCase):
                             Names=ArrayObject([destination, ArrayObject([page, NameObject("/Fit")])]),
                             Limits=dictionary(S=NameObject("/JavaScript"), JS=TextStringObject("/* inert authored control */"))))
                 writer.root_object[NameObject("/OpenAction")] = dictionary(S=NameObject("/GoTo"), D=destination)
-                result = self.assert_rejected_before_writer(self.source(writer, "opening-invalid-" + defect))
+                source = self.source(writer, "opening-invalid-" + defect)
+                if defect in ("ambiguous-name", "cyclic-name"):
+                    result = self.assert_rejected_before_writer(source, "invalid_outline")
+                else:
+                    result, chapters = self.split_and_reopen(source, "pdf_opening_action_omitted")
+                    self.assertTrue(all("/OpenAction" not in chapter.root_object for chapter in chapters))
                 self.assertNotIn("opening_destination_ignored", {item["code"] for item in result["warnings"]})
 
     def test_accepted_opening_action_cannot_hide_same_action_in_copied_resources(self):
@@ -346,7 +370,8 @@ class PdfPolicyTests(unittest.TestCase):
             D=ArrayObject([writer.pages[0].indirect_reference, NameObject("/Fit")])))
         writer.root_object[NameObject("/OpenAction")] = action
         writer.pages[0][NameObject("/Resources")] = dictionary(OriginalCopiedAction=action)
-        self.assert_rejected_before_writer(self.source(writer, "opening-action-resource-alias"))
+        _, chapters = self.split_and_reopen(self.source(writer, "opening-action-resource-alias"), "opening_destination_ignored")
+        self.assertNotIn("/OriginalCopiedAction", chapters[0].pages[0]["/Resources"])
 
     def test_opening_destination_indirect_alias_depth_and_cycles_are_bounded(self):
         for defect in ("deep", "cycle"):
@@ -363,33 +388,74 @@ class PdfPolicyTests(unittest.TestCase):
                     reference = IndirectObject(len(writer._objects), 0, writer)
                     writer._objects[-1] = reference
                 writer.root_object[NameObject("/OpenAction")] = reference
-                self.assert_rejected_before_writer(self.source(writer, "opening-reference-" + defect))
+                _, chapters = self.split_and_reopen(self.source(writer, "opening-reference-" + defect),
+                                                   "pdf_opening_action_omitted")
+                self.assertTrue(all("/OpenAction" not in chapter.root_object for chapter in chapters))
 
-    def test_catalog_feature_presence_is_rejected_even_if_null_or_malformed(self):
+    def test_null_catalog_features_do_not_affect_page_output(self):
         for key in ("/AcroForm", "/Perms", "/Collection", "/OpenAction", "/AA", "/AF"):
             with self.subTest(key=key):
                 writer = authored_writer()
                 writer.root_object[NameObject(key)] = NullObject()
-                self.assert_rejected_before_writer(self.source(writer, "catalog-" + key[1:]))
+                _, chapters = self.split_and_reopen(self.source(writer, "catalog-" + key[1:]))
+                self.assertTrue(all(key not in chapter.root_object for chapter in chapters))
         for key in ("/JavaScript", "/EmbeddedFiles"):
             with self.subTest(names_key=key):
                 writer = authored_writer()
                 writer.root_object[NameObject("/Names")] = DictionaryObject({NameObject(key): NullObject()})
-                self.assert_rejected_before_writer(self.source(writer, "names-" + key[1:]))
+                _, chapters = self.split_and_reopen(self.source(writer, "names-" + key[1:]))
+                self.assertTrue(all(key not in chapter.root_object.get("/Names", {}) for chapter in chapters))
 
-    def test_widgets_signatures_attachments_and_multimedia_without_catalog_are_rejected(self):
-        for subtype in ("/Widget", "/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D"):
+    def test_empty_xfa_stream_is_harmless_metadata(self):
+        writer = authored_writer()
+        stream = DecodedStreamObject()
+        stream.set_data(b"")
+        writer.root_object[NameObject("/AcroForm")] = dictionary(Fields=ArrayObject(), XFA=writer._add_object(stream))
+        result, chapters = self.split_and_reopen(self.source(writer, "empty-xfa-stream"))
+        self.assertEqual(result["plan"]["pdf_forms"]["kind"], "metadata_only")
+        self.assertEqual(result["plan"]["pdf_forms"]["xfa"], "empty")
+        self.assertTrue(all("/AcroForm" not in chapter.root_object for chapter in chapters))
+
+    def test_data_only_field_and_hidden_value_aliases_are_omitted(self):
+        writer = authored_writer()
+        value = writer._add_object(TextStringObject("SYNTHETIC-NONVISUAL-VALUE"))
+        field = writer._add_object(dictionary(FT=NameObject("/Tx"), T=TextStringObject("SYNTHETIC-FIELD-NAME"), V=value))
+        writer.root_object[NameObject("/AcroForm")] = dictionary(Fields=ArrayObject([field]))
+        writer.pages[0][NameObject("/Resources")] = dictionary(OriginalFieldAlias=field, OriginalValueAlias=value)
+        result, chapters = self.split_and_reopen(self.source(writer, "data-only-field"), "pdf_form_data_omitted")
+        self.assertEqual(result["plan"]["pdf_forms"]["kind"], "data_only")
+        self.assertEqual(result["plan"]["pdf_forms"]["field_count"], 1)
+        self.assertEqual(result["plan"]["pdf_forms"]["widget_count"], 0)
+        for chapter in chapters:
+            self.assertNotIn("/AcroForm", chapter.root_object)
+            self.assertNotIn(b"SYNTHETIC-NONVISUAL-VALUE", chapter.stream.getvalue())
+            self.assertNotIn(b"SYNTHETIC-FIELD-NAME", chapter.stream.getvalue())
+
+    def test_unflattened_widget_requires_appearance_preservation(self):
+        writer = authored_writer()
+        annotation = dictionary(Type=NameObject("/Annot"), Subtype=NameObject("/Widget"),
+            FT=NameObject("/Tx"), Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]))
+        writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
+        result = self.assert_rejected_before_writer(self.source(writer, "annotation-widget"))
+        self.assertEqual(result["diagnostic"]["reason"], "form_appearance_required")
+
+    def test_optional_annotations_and_associated_files_are_projected(self):
+        for subtype in ("/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D"):
             with self.subTest(subtype=subtype):
                 writer = authored_writer()
                 annotation = dictionary(Type=NameObject("/Annot"), Subtype=NameObject(subtype),
                     Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]))
                 writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
-                self.assert_rejected_before_writer(self.source(writer, "annotation-" + subtype[1:]))
+                warning = "pdf_attachment_omitted" if subtype == "/FileAttachment" else "pdf_media_omitted"
+                _, chapters = self.split_and_reopen(self.source(writer, "annotation-" + subtype[1:]), warning)
+                annotations = chapters[0].pages[0].get("/Annots", [])
+                self.assertTrue(all(item.get_object().get("/Subtype") != subtype for item in annotations))
         writer = authored_writer()
         writer.pages[0][NameObject("/AF")] = ArrayObject()
-        self.assert_rejected_before_writer(self.source(writer, "page-associated-file"))
+        _, chapters = self.split_and_reopen(self.source(writer, "page-associated-file"))
+        self.assertNotIn("/AF", chapters[0].pages[0])
 
-    def test_copied_static_appearance_rejects_nested_signature_and_attachment_shapes(self):
+    def test_copied_static_appearance_omits_nested_signature_and_attachment_shapes(self):
         features = {"signature": signature_structure(), "embedded": embedded_structure(),
             "ef": dictionary(EF=dictionary(F=TextStringObject("Original inert marker"))),
             "af": dictionary(AF=ArrayObject())}
@@ -405,7 +471,13 @@ class PdfPolicyTests(unittest.TestCase):
                     Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]),
                     AP=dictionary(N=writer._add_object(appearance)))
                 writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
-                self.assert_rejected_before_writer(self.source(writer, "appearance-" + label))
+                _, chapters = self.split_and_reopen(self.source(writer, "appearance-" + label))
+                copied = chapters[0].pages[0]["/Annots"][0].get_object()["/AP"]["/N"]
+                self.assertEqual(copied.get_data(), b"q Q\n")
+                if label == "af":
+                    self.assertNotIn("/AF", copied["/Resources"]["/OriginalFeature"])
+                else:
+                    self.assertNotIn("/OriginalFeature", copied["/Resources"])
 
     def test_copied_resource_keys_do_not_inherit_page_or_catalog_exclusions(self):
         for key in ("/Parent", "/P", "/AA", "/Outlines", "/Dests", "/B", "/Annots"):
@@ -413,7 +485,8 @@ class PdfPolicyTests(unittest.TestCase):
                 writer = authored_writer()
                 resource = DictionaryObject({NameObject(key): writer._add_object(embedded_structure())})
                 writer.pages[0][NameObject("/Resources")] = dictionary(OriginalResource=writer._add_object(resource))
-                self.assert_rejected_before_writer(self.source(writer, "resource-" + key[1:]))
+                _, chapters = self.split_and_reopen(self.source(writer, "resource-" + key[1:]), "pdf_attachment_omitted")
+                self.assertNotIn(key, chapters[0].pages[0]["/Resources"]["/OriginalResource"])
 
     def test_off_tree_page_typed_copied_resource_does_not_hide_actions(self):
         writer = authored_writer()
@@ -433,7 +506,7 @@ class PdfPolicyTests(unittest.TestCase):
                 result = self.assert_rejected_before_writer(source)
                 self.assertEqual(result["status"], "unsupported")
 
-    def test_copied_resource_actions_are_rejected_but_transparency_is_preserved(self):
+    def test_copied_resource_actions_are_omitted_and_transparency_is_preserved(self):
         actions = {"typed-uri": dictionary(Type=NameObject("/Action"), S=NameObject("/URI"),
                 URI=TextStringObject("https://example.invalid/original-inert-policy-fixture")),
             "untyped-uri": dictionary(S=NameObject("/URI"),
@@ -445,9 +518,8 @@ class PdfPolicyTests(unittest.TestCase):
                 writer = authored_writer()
                 writer.pages[0][NameObject("/Resources")] = dictionary(OriginalAuthoredResource=writer._add_object(action))
                 source = self.source(writer, "copied-action-" + kind)
-                with patch.object(engine, "OutputRun", side_effect=AssertionError("Policy must precede output reservation")) as reserve:
-                    self.assert_rejected_before_writer(source)
-                reserve.assert_not_called()
+                _, chapters = self.split_and_reopen(source, "pdf_action_omitted")
+                self.assertNotIn("/OriginalAuthoredResource", chapters[0].pages[0]["/Resources"])
         writer = authored_writer()
         transparency = dictionary(Type=NameObject("/Group"), S=NameObject("/Transparency"))
         writer.pages[0][NameObject("/Resources")] = dictionary(OriginalAuthoredResource=writer._add_object(transparency))
@@ -462,7 +534,7 @@ class PdfPolicyTests(unittest.TestCase):
         self.assertEqual(copied["/S"], "/Transparency")
         self.assertEqual(before, sha256(source.read_bytes()).hexdigest())
 
-    def test_indirect_feature_names_are_rejected_before_reservation_and_conversion_acceptance(self):
+    def test_indirect_feature_names_are_classified_for_split_and_conversion(self):
         cases = [("resource", "/Type", value) for value in ("/Action", "/Sig", "/EmbeddedFile")]
         cases += [("resource", "/S", value) for value in ("/URI", "/GoToR", "/JavaScript")]
         cases += [("resource", "/FT", "/Sig"), ("annotation", "/FT", "/Sig"), ("annotation", "/Type", "/Sig")]
@@ -479,15 +551,20 @@ class PdfPolicyTests(unittest.TestCase):
                     feature[NameObject("/Rect")] = ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)])
                     writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(feature)])
                 source = self.source(writer, "indirect-feature-" + str(index))
-                with patch.object(engine, "OutputRun", side_effect=AssertionError("Policy must precede reservation")) as reserve:
+                if value == "/Widget":
                     result = self.assert_rejected_before_writer(source)
-                self.assertEqual(result["status"], "unsupported")
-                reserve.assert_not_called()
-                with self.assertRaises(policy.ConversionError) as converted:
-                    policy._validate_pdf(source.read_bytes(), str(source))
-                self.assertEqual(converted.exception.code, "unsupported_document")
+                    self.assertEqual(result["diagnostic"]["reason"], "form_appearance_required")
+                    with self.assertRaises(policy.ConversionError) as converted:
+                        policy._validate_pdf(source.read_bytes(), str(source))
+                    self.assertEqual(converted.exception.code, "unsupported_document")
+                else:
+                    _, chapters = self.split_and_reopen(source)
+                    self.assertEqual(policy._validate_pdf(source.read_bytes(), str(source))["page_count"], 4)
+                    self.assertNotIn("/OriginalResource", chapters[0].pages[0].get("/Resources", {}))
+                    self.assertTrue(all(item.get_object().get("/Subtype") != value
+                        for item in chapters[0].pages[0].get("/Annots", [])))
 
-    def test_indirect_projected_action_page_and_catalog_names_are_warned_and_dropped(self):
+    def test_projected_appearance_omits_indirect_actions_and_document_backlinks(self):
         for field, value in (("/Type", "/Action"), ("/S", "/URI"), ("/S", "/GoToR"),
                 ("/Type", "/Page"), ("/Type", "/Pages"), ("/Type", "/Catalog")):
             with self.subTest(field=field, value=value):
@@ -509,13 +586,11 @@ class PdfPolicyTests(unittest.TestCase):
                 output.mkdir()
                 with redirect_stdout(StringIO()):
                     prepared = engine.prepare_split(source, "manual", "1,3", output_base=output)
-                    self.assertIn("annotation_dropped", {warning["code"] for warning in prepared.plan["warnings"]})
                     execution = engine.execute_split(prepared, output)
                 chapter_pages = []
                 for item in execution["outputs"]:
                     reader = PdfReader(Path(execution["final_directory"]) / item["filename"])
                     chapter_pages.extend(reader.pages)
-                    self.assertTrue(all(not page.get("/Annots") for page in reader.pages))
                     page_objects = 0
                     for generation, objects in reader.xref.items():
                         for identity in objects:
@@ -611,7 +686,7 @@ class PdfPolicyTests(unittest.TestCase):
                 self.assertEqual(neighbor.read_bytes(), b"Preserve original inherited-field output neighbor\n")
         self.assertEqual(source.read_bytes(), original)
 
-    def test_inherited_copied_resources_reject_document_backlinks_and_actions(self):
+    def test_inherited_resources_reject_backlinks_and_omit_actions(self):
         for kind in ("physical-page", "page-tree", "catalog", "typed-action", "uri", "remote"):
             with self.subTest(kind=kind):
                 writer = inherited_writer()
@@ -624,9 +699,11 @@ class PdfPolicyTests(unittest.TestCase):
                         F=TextStringObject("original-inert-never-open.pdf")))}[kind]
                 writer._pages.get_object()[NameObject("/Resources")] = dictionary(OriginalAuthoredResource=target)
                 source = self.source(writer, "inherited-resource-" + kind)
-                with patch.object(engine, "OutputRun", side_effect=AssertionError("Policy must precede output reservation")) as reserve:
+                if kind in ("physical-page", "page-tree", "catalog"):
                     self.assert_rejected_before_writer(source)
-                reserve.assert_not_called()
+                else:
+                    _, chapters = self.split_and_reopen(source, "pdf_action_omitted")
+                    self.assertNotIn("/OriginalAuthoredResource", chapters[0].pages[0]["/Resources"])
 
     def test_malformed_raw_children_counts_and_aliases_are_not_silently_skipped(self):
         def mutate(writer, kind):
@@ -727,13 +804,14 @@ class PdfPolicyTests(unittest.TestCase):
 
     def test_unchecked_captured_reader_cannot_bypass_preflight_before_page_extraction(self):
         writer = authored_writer()
-        writer.root_object[NameObject("/AcroForm")] = NullObject()
+        writer.root_object[NameObject("/AcroForm")] = dictionary(Fields=TextStringObject("Malformed fields"))
         source = self.source(writer, "unchecked-captured-reader")
         reader = PdfReader(source)
         with patch.object(PdfReader, "_flatten", side_effect=AssertionError("Policy must precede extraction")) as flatten:
             with self.assertRaises(policy.PdfPolicyError) as failure:
                 engine.prepare_split(source, "manual", "1,3", _captured_reader=reader)
-        self.assertEqual(failure.exception.code, "unsupported_document")
+        self.assertEqual(failure.exception.code, "invalid_document")
+        self.assertEqual(failure.exception.diagnostic["reason"], "malformed_form")
         flatten.assert_not_called()
 
     def test_ordinary_static_form_appearance_is_retained_without_form_catalog(self):
@@ -770,6 +848,16 @@ class PdfPolicyTests(unittest.TestCase):
         writer._pages.get_object()[NameObject("/Kids")] = ArrayObject([child])
         writer._pages.get_object()[NameObject("/Count")] = NumberObject(1)
         self.assert_rejected_before_writer(self.source(writer, "deep-pages"), "invalid_document")
+
+    def test_staged_chapter_rejects_an_unreferenced_attachment_payload(self):
+        writer = authored_writer()
+        payload = embedded_structure()
+        writer._add_object(payload)
+        source = self.source(writer, "unreferenced-payload")
+        with self.assertRaises(engine.OutputError) as failure:
+            engine._validate_output(source, {"start": 0, "end": 4})
+        self.assertEqual(failure.exception.code, "output_validation_failed")
+        self.assertIn("unreferenced serialized objects", str(failure.exception))
 
     def test_ordinary_shared_resources_and_defined_page_action_exclusion_remain_allowed(self):
         writer = authored_writer()

@@ -85,11 +85,13 @@ The library attempts an empty password once. Readable empty-password PDFs are
 supported; files needing a nonempty password return `password_required` (exit 7).
 There is no password prompt or guessing. Unsupported encryption and unavailable
 backends have separate errors; AES interoperability is not claimed. A valid
-bounded local opening destination is ignored with one warning and is not copied
-into chapters. Other active actions remain restricted.
-Forms/XFA, signed PDFs and unsupported active document features are rejected or
-handled by the narrow documented exclusions. See [PDF policy](docs/PDF_POLICY.md),
-[fidelity and navigation](docs/PDF_FIDELITY.md) and [ebook conversion](docs/EBOOK_SUPPORT.md).
+bounded local opening destination is ignored with one warning.
+In the v1.0.5 development branch, chapter copies omit JavaScript, other executable
+actions, embedded attachments, portfolio behavior and signature validity data.
+Visible attachment appearances and supported navigation are preserved. The
+current checkpoint accepts harmless form metadata and requires verified rendering
+before it can split pages with visible form fields or genuine XFA.
+[PDF policy](docs/PDF_POLICY.md) · [Fidelity and navigation](docs/PDF_FIDELITY.md) · [Ebook conversion](docs/EBOOK_SUPPORT.md)
 These checks do not make the application a document sanitizer or security sandbox.
 
 ## First launch and optional advance setup

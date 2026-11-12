@@ -222,15 +222,16 @@ class PdfFidelityTests(unittest.TestCase):
         self.assertTrue({"metadata_omitted", "metadata_normalized"} <= {item["code"] for item in result["warnings"]})
         self.assertEqual(engine._metadata_text("Å日本\ud800\u200b\x00"), "Å日本")
 
-    def test_catalog_opening_action_is_rejected_before_output(self):
+    def test_catalog_opening_script_is_omitted_from_chapters(self):
         source = authored_pdf(self.work / "catalog.pdf", catalog=True)
         original = source.read_bytes()
-        with patch.object(engine, "OutputRun") as reserve, patch.object(engine, "write_slice") as write, redirect_stdout(StringIO()):
-            result = engine.run_split(source, self.output, "1")
-        self.assertEqual((result["status"], result["code"], result["exit_code"]), ("unsupported", "unsupported_document", 7))
-        self.assertEqual(result["written_count"], 0)
-        reserve.assert_not_called()
-        write.assert_not_called()
+        result, outputs = self.run_job(source=source)
+        self.assertIn("pdf_javascript_omitted", {warning["code"] for warning in result["warnings"]})
+        self.assertEqual(result["written_count"], 2)
+        for _, reader in outputs:
+            self.assertNotIn("/OpenAction", reader.root_object)
+            self.assertNotIn(b"Authored inert catalog sentinel", reader.stream.getvalue())
+            self.assertTrue(all("/B" not in page for page in reader.pages))
         self.assertEqual(source.read_bytes(), original)
 
     def test_annotation_inspection_limit_fails_before_output_and_preserves_input(self):
@@ -290,10 +291,11 @@ class PdfFidelityTests(unittest.TestCase):
         authored_pdf(replacement, metadata_bad=True)
         self.source.write_bytes(replacement.read_bytes())
         reopened = []
+        policy_reader = engine.PdfReader
         def reopen_output(path):
             self.assertNotEqual(Path(path), self.source, "Never reopen the replaced source")
             reopened.append(Path(path))
-            return PdfReader(path)
+            return policy_reader(path)
         with patch.object(engine, "PdfReader", side_effect=reopen_output), redirect_stdout(StringIO()):
             execution = engine.execute_split(prepared, self.output)
         self.assertEqual(len(reopened), 2)

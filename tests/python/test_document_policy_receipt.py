@@ -110,7 +110,7 @@ def synthetic_success(*, preview=False):
         row['publication'] = [{'filename': output['filename'], 'sha256': output['sha256'], 'bytes': 100,
                                'page_ids': list(range(start + 1, end + 1)),
                                'content_sha256': row['expected_content_sha256'][start:end],
-                               'page_actions_absent': True, 'inert_action_marker_absent': True,
+                               'page_actions_absent': True, 'omitted_objects_absent': True,
                                'is_encrypted': False, 'catalog_openaction_absent': True}
                               for output, (start, end) in zip(outputs, ((0, 2), (2, 4)))]
         raw = compact(manifest)

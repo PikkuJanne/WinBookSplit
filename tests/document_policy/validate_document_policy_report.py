@@ -25,7 +25,7 @@ support = load('wbs_policy_receipt_support', ROOT / 'tests/support/validate_supp
 APPLICATION = support.APPLICATION
 PS_KINDS = ('ordinary-manual', 'ordinary-level1', 'ordinary-level2', 'page-aa-exclusion',
             'encrypted-user', 'encrypted-owner-empty',
-            *fixtures.UNSUPPORTED, *fixtures.MALFORMED,
+            *fixtures.UNSUPPORTED, *fixtures.OMISSIONS, *fixtures.MALFORMED,
             'encrypted-user-preview', 'encrypted-owner-empty-preview', 'xfa-interactive')
 BAT_KINDS = ('ordinary-manual', 'encrypted-user', 'encrypted-owner-empty', 'acroform', 'signature-perms',
              'orphan-widget', 'orphan-signature', 'catalog-openaction', 'embedded-attachment',
@@ -171,7 +171,7 @@ def validate_publication(row, frame):
              and opened.get('filename') == output['filename'] and opened.get('sha256') == output['sha256']
              and opened.get('bytes') == output['size_bytes'] and opened.get('page_ids') == list(range(selected[0] + 1, selected[1] + 1))
              and opened.get('content_sha256') == expected_content[selected[0]:selected[1]]
-             and opened.get('page_actions_absent') is True and opened.get('inert_action_marker_absent') is True
+             and opened.get('page_actions_absent') is True and opened.get('omitted_objects_absent') is True
              and opened.get('is_encrypted') is False and opened.get('catalog_openaction_absent') is True,
              'Ordinary reopened output bytes/content/order or page-AA exclusion differs')
     need(row.get('publication_manifest') == execution.get('manifest') == support.strict_json(row['publication_manifest_raw'])
@@ -295,6 +295,9 @@ def validate_case(row, *, cleanup_complete=True):
     else:
         validate_publication(row, frame)
         need('Done.' in row['stdout'] and 'Output: ' + final['final_directory'] in row['stdout'], 'Ordinary truthful completion absent')
+        for code in fixtures.OMISSIONS.get(fixture_kind(kind), ()):
+            need(sum(item.get('code') == code for item in frame['warnings']) == 1
+                 and code in row['stdout'], 'Page output lost the visible warning for ' + code)
         if kind == 'page-aa-exclusion':
             need(any(item.get('code') == 'navigation_link_dropped' for item in frame.get('warnings', []))
                  and '[WARNING] navigation_link_dropped:' in row['stdout'] and 'navigation_link_dropped' in combined,

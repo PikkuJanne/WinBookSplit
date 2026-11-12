@@ -630,7 +630,7 @@ function Invoke-WinBookSplitInteractiveEngine {
                 'input_ready' {
                     if ($currentMode -cne 'manual' -or $nextStage -cne 'initial' -or
                         $event.can_request_working_pdf -isnot [bool] -or
-                        $event.can_request_working_pdf -ne ($inputExt -ne '.pdf') -or
+                        ($event.can_request_working_pdf -and $inputExt -eq '.pdf') -or
                         $event.manual_starts_supplied -isnot [bool] -or
                         $event.manual_starts_supplied -ne (-not [string]::IsNullOrEmpty($SuppliedStarts)) -or
                         -not (Test-SplitInteger $event.total_pages) -or $event.total_pages -lt 1) {
@@ -643,18 +643,21 @@ function Invoke-WinBookSplitInteractiveEngine {
                     }
                     $capturedSource, $capturedPages = $event.source_identity, $event.total_pages
                     $open = 'N'
-                    if ($event.can_request_working_pdf) {
+                    if ($inputExt -ne '.pdf') {
                         Assert-SplitPreviewSourceIdentity $event.original_ebook_identity 'ebook_snapshot'
                         if (-not [StringComparer]::OrdinalIgnoreCase.Equals($event.original_ebook_identity.path, $InputFile)) {
                             throw 'The manual ebook identity differs from the selected input.'
                         }
                         Write-Host ('Converted PDF: ' + $event.total_pages + ' physical pages. Use these numbers, not ebook locations.') -ForegroundColor Yellow
-                        do {
-                            $open = Read-WinBookSplitSessionLine $session 'Open the generated PDF? [O] open, [N] continue, [C] cancel'
-                            if ($null -eq $open -or [string]::IsNullOrWhiteSpace($open)) { $open = 'C' }
-                            $open = $open.Trim().ToUpperInvariant()
-                            if ($open -cnotin @('O', 'N', 'C')) { Write-Host 'Choose exactly O, N or C.' }
-                        } while ($open -cnotin @('O', 'N', 'C'))
+                        if ($event.can_request_working_pdf) {
+                            do {
+                                $open = Read-WinBookSplitSessionLine $session 'Open the generated PDF? [O] open, [N] continue, [C] cancel'
+                                if ($null -eq $open -or [string]::IsNullOrWhiteSpace($open)) { $open = 'C' }
+                                $open = $open.Trim().ToUpperInvariant()
+                                if ($open -cnotin @('O', 'N', 'C')) { Write-Host 'Choose exactly O, N or C.' }
+                            } while ($open -cnotin @('O', 'N', 'C'))
+                        }
+                        else { Write-Host 'The generated PDF contains document behavior omitted from chapters. Viewer opening is unavailable.' -ForegroundColor Yellow }
                     }
                     if ($open -ceq 'O') { $reply.action = 'request_working_pdf'; $nextStage = 'working' }
                     elseif ($open -ceq 'N') {

@@ -256,14 +256,18 @@ class FunctionalPdfRepairTests(unittest.TestCase):
                     self.assert_preserved(source, output, original)
                     self.assertEqual({path.name for path in output.iterdir()}, {"prior-output.txt"})
 
-    def test_active_or_malformed_opening_actions_remain_rejected(self):
+    def test_active_or_malformed_opening_actions_are_omitted(self):
         for case in ("javascript_open_action", "chained_goto_javascript", "remote_goto", "malformed_local_goto"):
             with self.subTest(case=case):
                 source, output, original = self.case(case)
                 with redirect_stdout(StringIO()):
                     result = engine.run_split(source, output, "manual", "1,3,5")
-                self.assert_preserved(source, output, original, result)
-                self.assertEqual((result["code"], result["exit_code"]), ("unsupported_document", 7))
+                self.assert_outputs(result, source, output, original, "manual")
+                warnings = {item["code"] for item in result["warnings"]}
+                self.assertIn("pdf_opening_action_omitted", warnings)
+                self.assertNotIn("opening_destination_ignored", warnings)
+                if case in ("javascript_open_action", "chained_goto_javascript"):
+                    self.assertIn("pdf_javascript_omitted", warnings)
 
     def test_nonempty_password_is_reported_as_password_required_without_output(self):
         source, output, original = self.case("nonempty_password")

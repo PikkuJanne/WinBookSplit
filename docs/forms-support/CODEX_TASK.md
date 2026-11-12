@@ -6,8 +6,11 @@ A user can split an ordinary PDF that happens to contain empty AcroForm metadata
 or real standard form fields, without editing the file externally, printing it
 to PDF, upgrading Python manually, or toggling a hidden unsafe flag. Static chapter
 outputs retain the visible form content. Empty-password and local opening-view
-support from v1.0.4 continues working. Actual XFA and actual signed-document limits
-are explained accurately; no blank or incomplete chapter is accepted as success.
+support from v1.0.4 continues working. Chapter output keeps readable physical pages
+when the input has optional scripts, actions, attachments or portfolio metadata.
+It retains supported navigation and static appearances, omits executable and
+attachment behavior, and discloses signature limitations. Unverified XFA and
+other unavailable required visual content cannot produce successful chapters.
 
 This is an incremental document-handling feature. Keep PowerShell/BAT, the Python
 engine, the shared policy/setup/process/output infrastructure, and optional Calibre.
@@ -52,8 +55,16 @@ password requirements, unsupported form appearance and XFA rendering needs.
 Preserve existing exit-code contracts where possible by using reason/detail codes
 inside `unsupported_document` or `invalid_document`; avoid a protocol rewrite.
 
-Deliverable: all harmless-container positives pass through normal preview and
-splitting, while genuine fields are routed to normalization rather than discarded.
+Reproduce the v1.0.4 name-tree refusal with separate authored JavaScript and
+attachment fixtures. Audit the remaining presence-only bans and implement the
+page-copy policy for optional document features. Check actual chapter bytes for
+retained graphics/navigation and excluded objects, including shared references
+and malformed or cyclic omitted branches. Keep widget-bearing inputs gated until
+checkpoint 3 can preserve their visible form content.
+
+Deliverable: harmless form metadata and ordinary optional-feature positives pass
+through normal preview and splitting, with verified written chapters. The audit
+records omissions and genuine failures in the active PDF policy.
 
 ## 3. Preserve ordinary AcroForm content in static chapters
 
@@ -85,6 +96,11 @@ Nonempty XFA is not an ordinary AcroForm promise. Do not add a runtime renderer
 unless it is justified, packaged, isolated and tested against genuine XFA output.
 Unrenderable or unverified XFA must return an XFA-specific reason, not success
 with placeholder pages. State this boundary explicitly in release notes.
+
+Run the same chapter-copy path for forms with saved values and optional scripts,
+attachments and named navigation, including empty-password inputs. Preserve
+visible signature appearances where reproducible and omit signature validity
+metadata from chapter copies.
 
 Deliverable: real static chapter PDFs, not merely successful classification.
 

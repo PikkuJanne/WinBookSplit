@@ -404,6 +404,10 @@ def validate_summary(summary, manifest):
         'opening_destination_ignored': 'navigation',
         'annotation_dropped': 'annotation', 'annotation_relation_dropped': 'annotation',
         'metadata_omitted': 'metadata', 'metadata_normalized': 'metadata',
+        **dict.fromkeys(('pdf_action_omitted', 'pdf_javascript_omitted', 'pdf_attachment_omitted',
+                         'pdf_signature_omitted', 'pdf_media_omitted', 'pdf_portfolio_omitted',
+                         'pdf_name_tree_omitted', 'pdf_opening_action_omitted', 'pdf_form_data_omitted',
+                         'pdf_optional_metadata_omitted'), 'pdf_feature'),
     }
     need(isinstance(manifest['warnings']['planning'], list)
          and all(isinstance(item, dict) and isinstance(item.get('code'), str) and item['code'] in planning_categories

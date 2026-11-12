@@ -18,12 +18,23 @@ from pypdf.generic import (ArrayObject, BooleanObject, DecodedStreamObject,
     DictionaryObject, FloatObject, NameObject, NullObject, NumberObject,
     TextStringObject)
 
+FEATURE_CASES = (
+    'empty_feature_trees', 'document_javascript', 'document_attachment',
+    'script_and_attachment', 'associated_attachment', 'page_and_annotation_actions',
+    'named_navigation_and_features', 'broken_omitted_branches', 'payload_aliases',
+    'form_and_features', 'encrypted_metadata_and_features', 'encrypted_form_and_features',
+)
+SCRIPT_MARKER = 'WBS-SYNTHETIC-OMITTED-SCRIPT-407'
+ATTACHMENT_MARKER = 'WBS-SYNTHETIC-OMITTED-PAYLOAD-618'
+ATTACHMENT_NAME = 'authored-attachment-never-extract.txt'
+FEATURE_MARKERS = (SCRIPT_MARKER, ATTACHMENT_MARKER, ATTACHMENT_NAME)
+
 CASES = (
     'plain', 'acroform_null', 'acroform_empty', 'fields_empty', 'resource_only',
     'text', 'controls', 'shared_field', 'missing_appearance', 'stale_appearance',
     'orphan_widget', 'rotated_crop', 'form_action', 'xfa_null', 'xfa_empty_array',
     'xfa_detection_only', 'fields_malformed', 'field_cycle',
-    'signature_structure', 'encrypted_form',
+    'signature_structure', 'encrypted_form', *FEATURE_CASES,
 )
 NEGATIVE = {'xfa_detection_only', 'fields_malformed', 'field_cycle', 'signature_structure'}
 
@@ -154,6 +165,112 @@ def paint_reference(w: PdfWriter, page_index: int, label: str, rect,
     page[name('/Contents')] = ArrayObject(list(old) + [extra] if isinstance(old, ArrayObject) else [old, extra])
 
 
+def pdf_dict(**entries):
+    return DictionaryObject({name('/' + key): value for key, value in entries.items()})
+
+
+def add_image_and_layer(writer):
+    """Use a real image resource inside a visible optional-content group."""
+    layer = writer._add_object(pdf_dict(Type=name('/OCG'), Name=TextStringObject('Fixture artwork')))
+    layers = ArrayObject([layer])
+    writer.root_object[name('/OCProperties')] = pdf_dict(OCGs=layers, D=pdf_dict(Order=layers, ON=layers))
+    image = DecodedStreamObject()
+    image.set_data(bytes([23, 101, 211, 242, 160, 24, 215, 55, 29, 13, 144, 68]))
+    image.update(pdf_dict(Type=name('/XObject'), Subtype=name('/Image'), Width=NumberObject(2),
+                          Height=NumberObject(2), ColorSpace=name('/DeviceRGB'), BitsPerComponent=NumberObject(8)))
+    page = writer.pages[1]
+    resources = page['/Resources']
+    resources.setdefault(name('/XObject'), DictionaryObject()).get_object()[name('/FixtureImage')] = writer._add_object(image)
+    resources[name('/Properties')] = pdf_dict(FixtureLayer=layer)
+    graphics = DecodedStreamObject()
+    graphics.set_data(b'/OC /FixtureLayer BDC q 32 0 0 32 72 430 cm /FixtureImage Do Q EMC\n')
+    original = page.get('/Contents')
+    streams = list(original) if isinstance(original, ArrayObject) else [original]
+    page[name('/Contents')] = ArrayObject([*streams, writer._add_object(graphics)])
+
+
+def attach_annotation(writer, page, subtype, rect, **entries):
+    obj = pdf_dict(Type=name('/Annot'), Subtype=name(subtype), Rect=arr(rect),
+                   P=writer.pages[page].indirect_reference, **entries)
+    writer.pages[page].setdefault(name('/Annots'), ArrayObject()).append(writer._add_object(obj))
+
+
+def add_optional_features(writer, expected, kind, widget=None):
+    script, file_spec = None, None
+    add_image_and_layer(writer)
+    add_image_and_layer(expected)
+    if kind == 'named_navigation_and_features':
+        target = ArrayObject([writer.pages[1].indirect_reference, name('/Fit')])
+        writer.add_named_destination_array(TextStringObject('LocalTarget'), target)
+        writer.root_object['/Outlines']['/First'][name('/A')] = pdf_dict(
+            S=name('/GoTo'), D=TextStringObject('LocalTarget'))
+        writer.root_object['/Outlines']['/First']['/First'][name('/A')] = pdf_dict(
+            S=name('/GoTo'), D=TextStringObject('LocalTarget'))
+        # Both links stay inside the same chapter for Manual, Auto1 and Auto2.
+        attach_annotation(writer, 1, '/Link', [250, 600, 320, 620], Dest=TextStringObject('LocalTarget'))
+        attach_annotation(expected, 1, '/Link', [250, 600, 320, 620],
+                          Dest=ArrayObject([expected.pages[1].indirect_reference, name('/Fit')]))
+    names = writer.root_object.setdefault(name('/Names'), DictionaryObject()).get_object()
+    combined = {'script_and_attachment', 'named_navigation_and_features', 'payload_aliases',
+                'form_and_features', 'encrypted_metadata_and_features', 'encrypted_form_and_features'}
+    if kind in combined | {'document_javascript', 'page_and_annotation_actions'}:
+        script_text = TextStringObject(f'/* {SCRIPT_MARKER} */')
+        if kind == 'payload_aliases':
+            script_data = DecodedStreamObject()
+            script_data.set_data(script_text.encode('ascii'))
+            script_text = writer._add_object(script_data)
+        script = writer._add_object(pdf_dict(Type=name('/Action'), S=name('/JavaScript'),
+                                             JS=script_text))
+        names[name('/JavaScript')] = pdf_dict(Names=ArrayObject([TextStringObject('AuthoredScript'), script]))
+    if kind in combined | {'document_attachment', 'associated_attachment'}:
+        payload = DecodedStreamObject()
+        payload[name('/Type')] = name('/EmbeddedFile')
+        payload.set_data((ATTACHMENT_MARKER + '\n').encode('ascii'))
+        file_spec = writer._add_object(pdf_dict(Type=name('/Filespec'), F=TextStringObject(ATTACHMENT_NAME),
+            EF=pdf_dict(F=writer._add_object(payload)), AFRelationship=name('/Supplement')))
+        names[name('/EmbeddedFiles')] = pdf_dict(Names=ArrayObject([TextStringObject(ATTACHMENT_NAME), file_spec]))
+    if kind == 'empty_feature_trees':
+        names[name('/JavaScript')] = pdf_dict(Names=ArrayObject())
+        names[name('/EmbeddedFiles')] = DictionaryObject()
+    if kind == 'associated_attachment':
+        writer.root_object[name('/AF')] = ArrayObject([file_spec])
+        writer.pages[1][name('/AF')] = ArrayObject([file_spec])
+        rect = [72, 370, 232, 402]
+        attach_annotation(writer, 1, '/FileAttachment', rect, F=NumberObject(4), FS=file_spec,
+                          AP=pdf_dict(N=appearance(writer, 'Attachment artwork', 160, 32)))
+        paint_reference(expected, 1, 'Attachment artwork', rect)
+    if kind == 'page_and_annotation_actions':
+        writer.root_object[name('/OpenAction')] = script
+        writer.pages[0][name('/AA')] = pdf_dict(O=script)
+        # This annotation's static artwork remains visible after removing the action.
+        rect = [72, 370, 232, 402]
+        attach_annotation(writer, 1, '/Square', rect, AP=pdf_dict(N=appearance(writer, 'Annotation artwork', 160, 32)),
+                          AA=pdf_dict(E=script))
+        attach_annotation(expected, 1, '/Square', rect,
+                          AP=pdf_dict(N=appearance(expected, 'Annotation artwork', 160, 32)))
+        # Ordinary printed words can look like PDF keys and still must remain visible.
+        for current in (writer, expected):
+            paint_reference(current, 3, '/JavaScript /EmbeddedFiles', [72, 370, 332, 402])
+    if kind == 'broken_omitted_branches':
+        branch = writer._add_object(DictionaryObject())
+        branch.get_object()[name('/Kids')] = ArrayObject([branch])
+        names[name('/JavaScript')] = branch
+        names[name('/EmbeddedFiles')] = TextStringObject('Unreadable attachment name tree')
+        writer.pages[0][name('/AA')] = branch
+    if kind == 'payload_aliases':
+        writer.pages[0]['/Resources'][name('/FixtureAlias')] = ArrayObject([script, script_text, file_spec])
+        rect = [72, 370, 232, 402]
+        source_ap = appearance(writer, 'Annotation artwork', 160, 32)
+        source_ap.get_object()['/Resources'][name('/FixtureAlias')] = file_spec.get_object()['/EF'].raw_get('/F')
+        attach_annotation(writer, 2, '/Square', rect, AP=pdf_dict(N=source_ap))
+        attach_annotation(expected, 2, '/Square', rect,
+                          AP=pdf_dict(N=appearance(expected, 'Annotation artwork', 160, 32)))
+    if widget is not None:
+        widget.get_object()[name('/AA')] = pdf_dict(K=script)
+        form(writer)[name('/CO')] = ArrayObject([widget])
+        writer.root_object[name('/AF')] = ArrayObject([file_spec])
+
+
 def make_case(kind: str):
     w, expected = base_writer(), base_writer()
     texts, regions = {}, []
@@ -248,6 +365,13 @@ def make_case(kind: str):
             name('/SubFilter'):name('/adbe.pkcs7.detached'),name('/ByteRange'):arr([0,1,2,3]),
             name('/Contents'):TextStringObject('SYNTHETIC-NOT-A-REAL-SIGNATURE')})
         add_widget(w,1,'/Sig','signature',w._add_object(sig),[72,500,332,532])
+    elif kind in FEATURE_CASES:
+        widget = text() if kind in ('form_and_features', 'encrypted_form_and_features') else None
+        if kind == 'encrypted_metadata_and_features':
+            form(w)
+        add_optional_features(w, expected, kind, widget)
+        if kind in ('encrypted_metadata_and_features', 'encrypted_form_and_features'):
+            w.encrypt(user_password='', owner_password='synthetic-owner', algorithm='RC4-40')
     elif kind != 'plain':
         raise ValueError(kind)
     return w, expected, texts, regions

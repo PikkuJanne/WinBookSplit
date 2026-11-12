@@ -3,8 +3,7 @@
 WinBookSplit copies PDF page content and resources; it does not render text pages
 into images or add OCR. Image-only scans can be split with manual physical start
 pages. Automatic modes require actual PDF outline destinations. This describes
-version 1.0.4 and its [functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md);
-published v1.0.3 assets retain their original bytes and behavior.
+the chapter-copy behavior in development for v1.0.5.
 
 Each chapter receives a new document title and a bookmark pointing to its first
 page. Their text uses the safe chapter filename label, without its sequence
@@ -21,8 +20,8 @@ unencrypted. Authentication is separate from permissions; this repair adds no
 per-operation permission enforcement or nonempty-password entry feature. AES
 interoperability is not claimed. A narrowly validated local opening view is
 ignored with one `opening_destination_ignored` warning per plan, never executed
-and never copied to output catalogs. Active, chained, remote or malformed opening
-actions remain rejected under the [PDF policy](PDF_POLICY.md).
+and never copied to output catalogs. Active, chained, remote and malformed
+opening actions are omitted with a warning. [PDF policy](PDF_POLICY.md)
 
 Supported local page links are rebuilt against the pages in each chapter. This
 includes tested explicit `/Dest`, `/GoTo` action and named destinations that
@@ -36,12 +35,12 @@ Additional page actions are omitted with `navigation_link_dropped`; their page
 references are not copied into another chapter.
 
 Tested static `/Text`, `/Highlight` and `/Square` annotations retain their
-appearance data. Unsupported or malformed annotations and excluded relationships produce categorized
-warnings. Popup/reply relationships and document actions are not a general
-preservation promise. Interactive forms, signatures, attachments, portfolios
-and active document behavior are rejected as described in the
-[supported-input policy](PDF_POLICY.md). Do not depend on the splitter to preserve
-them or to sanitize untrusted documents.
+appearance data. Chapter copies also retain supported static attachment and
+multimedia appearances. The chapter catalog excludes executable behavior,
+attachment payloads, portfolio metadata and source signature validity.
+Layer configuration needed for visible content is carried into the new catalog.
+Warnings describe excluded behavior. The current checkpoint accepts empty form
+metadata and stops on widgets until their visible contents can be preserved.
 
 The acceptance fixtures are original generated documents containing text,
 vectors, embedded images, genuine image-only pages, rotations, crop boxes,

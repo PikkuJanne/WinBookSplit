@@ -22,9 +22,10 @@ make skipped, duplicated, reordered or leaked pages detectable.
 | Hierarchy | Shared field with two widgets in separate chapters; nested names; same leaf name under different parents; orphan widget. No outside-chapter data serialized. |
 | Geometry | CropBox offset, rotation, nonzero appearance BBox/Matrix, appearance resource collision. No double translation/rotation or clipped value. |
 | Nonvisual data | Hidden widgets and data-only fields. Do not print secret values or disclose them in diagnostics. Report omitted interactivity/data without values. |
-| Scripts/actions | Form-only scripts and submit/reset actions never execute and do not survive static export; unrelated unsupported active structures remain protected. |
+| Scripts/actions and attachments | Authored JavaScript and EmbeddedFiles trees alone, together, empty or cyclic; catalog/page/annotation actions and associated files; file-attachment icons and custom appearances; saved form values with actions and attachments; empty-password combined case. Verify retained text, graphics and local navigation and inspect all serialized objects for omitted behavior/payloads. |
+| Navigation/layers | Named destinations and bookmarks alongside excluded trees; supported local links and visible optional-content state survive. Exercise preview and captured-reader reuse. |
 | XFA | Distinguish empty markers from nonempty XFA. Detection-only sentinel cannot pass as converted. Genuine hybrid/dynamic XFA acceptance requires genuine renderer evidence, not ordinary-page copying. |
-| Signatures/corruption | Actual signed-document policy retained; malformed/cyclic structures terminate clearly and leave no successful output. Do not claim signature validation from a toy dictionary. |
+| Signatures/corruption | Copy readable page content and disclose loss of signature validity. A signature widget with reproducible appearance retains its visible content. Required malformed/cyclic graphs terminate clearly. Authored signature dictionaries establish structural behavior only. |
 | Existing successes | v1.0.4 empty-password PDFs, local opening destinations, plain/scanned PDFs, EPUB/AZW3, setup consent, Store discovery, Unicode/literal paths and no-overwrite stay working. |
 
 ## Visual and semantic checks

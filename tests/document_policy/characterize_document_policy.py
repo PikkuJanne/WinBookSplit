@@ -14,6 +14,7 @@ import sys
 import tempfile
 
 from pypdf import PdfReader
+from pypdf.generic import ArrayObject, DictionaryObject, IndirectObject, StreamObject, TextStringObject
 
 ROOT = Path(__file__).resolve().parents[2]
 
@@ -35,6 +36,31 @@ conversion, launchers, runner, require = support.conversion, support.launchers, 
 COMPLETED_CASES, EXPORT_CASES, LAST_CASE = [], [], None
 
 
+def omitted_objects_absent(reader):
+    omitted_types = {'/Action', '/EmbeddedFile', '/Filespec', '/Sig'}
+    omitted_subtypes = {'/FileAttachment', '/Widget', '/3D', '/RichMedia'}
+    omitted_keys = {'/AA', '/AF', '/AcroForm', '/Collection', '/EF', '/EmbeddedFiles', '/JavaScript', '/JS', '/Perms'}
+    payload_markers = (b'ORIGINAL_INERT_POLICY_ATTACHMENT', b'ORIGINAL_INERT_POLICY_3D')
+    references = {(number, generation) for generation, numbers in reader.xref.items() for number in numbers
+                  if number and not reader.xref_free_entry.get(generation, {}).get(number)}
+    references.update((number, 0) for number in reader.xref_objStm)
+    pending = [reader.get_object(IndirectObject(number, generation, reader)) for number, generation in references]
+    while pending:
+        obj = pending.pop()
+        if isinstance(obj, DictionaryObject):
+            if (obj.get('/Type') in omitted_types or obj.get('/Subtype') in omitted_subtypes
+                    or obj.get('/S') == '/JavaScript' or omitted_keys.intersection(obj)):
+                return False
+            if isinstance(obj, StreamObject) and any(marker in obj.get_data() for marker in payload_markers):
+                return False
+            pending.extend(obj.values())
+        elif isinstance(obj, ArrayObject):
+            pending.extend(obj)
+        elif isinstance(obj, TextStringObject) and obj.startswith('/* ORIGINAL_INERT_POLICY_ACTION */'):
+            return False
+    return True
+
+
 def publication(base, frame):
     execution = frame['execution']
     final = Path(execution['final_directory'])
@@ -49,7 +75,7 @@ def publication(base, frame):
         outputs.append({'filename': item['filename'], 'sha256': cli.digest(target), 'bytes': target.stat().st_size,
             'page_ids': [int(page['/WBSFixturePage']) for page in reader.pages],
             'content_sha256': conversion.page_content(reader), 'page_actions_absent': all('/AA' not in page for page in reader.pages),
-            'inert_action_marker_absent': b'ORIGINAL_INERT_POLICY_ACTION' not in target.read_bytes(),
+            'omitted_objects_absent': omitted_objects_absent(reader),
             'is_encrypted': reader.is_encrypted, 'catalog_openaction_absent': '/OpenAction' not in reader.root_object})
     return {'publication': outputs, 'publication_manifest': validator.support.strict_json(raw), 'publication_manifest_raw': raw,
             'publication_manifest_sha256': cli.digest(manifest_path), 'publication_members': sorted(members)}
@@ -198,10 +224,10 @@ def characterize(work, shells):
         'batch_original_powershell_raw_base64': b64encode((ROOT / 'WinBookSplit.ps1').read_bytes()).decode('ascii'),
         'human_or_GUI_tested': False, 'environment': {'python': sys.version, 'python_executable': sys.executable, 'pypdf': history.pypdf.__version__},
         'limits': ['Generated original inert PDF fixtures only; no private input, human, Explorer or GUI evidence.',
-                   'Signature dictionary/field detection only; no cryptographic signature-validity proof.',
+                   'Authored signature dictionary/field structures; cryptographic signature validity was not tested.',
                    'BAT remains shipped bytes; three exact copied PowerShell parameter defaults provide pinned runtime/output and suppress pause.',
                    'Policy rejections may persist authenticated console diagnostics; no extraction, working-PDF, plan, publication or fallback.',
-                   'Ordinary, empty-password and page-AA controls verify reopened physical-page identities/content and unchanged source/neighbor/prior files.',
+                   'Positive controls verify reopened page identities/content, omitted objects and unchanged source/neighbor/prior files.',
                    'Readable empty-password Preview validates a complete plan without writes; genuine password refusal provides the redacted null-plan export.']}
 
 

@@ -1,11 +1,8 @@
 # EPUB and AZW3 conversion
 
-This describes version 1.0.4 and its
-[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
-Converted PDFs use the same access and document policy as direct PDF inputs,
-including empty-password authentication and narrowly ignored local opening views.
-Published v1.0.3 assets retain their original bytes and behavior. Ebook DRM and
-unrelated document/process restrictions remain unchanged.
+Converted PDFs use the same access and chapter-copy policy as direct PDF inputs,
+including empty-password authentication. Chapter copies omit optional executable
+actions and embedded attachments with warnings. [PDF policy](PDF_POLICY.md)
 
 WinBookSplit converts an EPUB or AZW3 to PDF using the selected installed
 Calibre `ebook-convert.exe` (stable 9.17.0 or newer), then splits that generated PDF through the
@@ -38,9 +35,10 @@ Use `-KeepConvertedPdf` to retain `WinBookSplit_Converted.pdf` inside the new
 successful run directory for inspection. It is listed separately from chapters
 in the manifest. Default execution removes the owned intermediate after capture.
 Plan-only conversion creates temporary PDF data without publishing chapters.
-Interactive manual selection opens the generated PDF only when requested; its
-preview remains available until that selection ends. Files beside the ebook
-and previous run directories are preserved.
+Interactive manual selection offers to open the generated PDF when the working
+copy has no detected document behavior excluded from chapters. Its viewer copy
+remains available until that selection ends. Files beside the ebook and previous
+run directories are preserved.
 
 A converter failure returns a nonzero result with the conversion diagnostic;
 zero converter status alone does not establish success. The generated file must

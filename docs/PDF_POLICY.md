@@ -1,9 +1,7 @@
 # Supported PDF inputs and rejection policy
 
-This policy describes version 1.0.4 and its
-[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
-The immutable published v1.0.3 assets retain their earlier behavior; they have not
-been replaced by the 1.0.4 distribution or earlier local test packages.
+This policy describes the chapter-copy behavior in development for v1.0.5.
+Published v1.0.4 and earlier packages retain their original behavior.
 
 WinBookSplit accepts ordinary unencrypted PDFs and encrypted PDFs that the
 supported library opens with an empty password. The same preflight applies to
@@ -30,45 +28,30 @@ is not claimed. Authentication establishes access, not document permissions;
 there is no new per-operation permission-enforcement feature. New chapter PDFs
 are unencrypted; source encryption is not copied into them.
 
-A catalog `/OpenAction` may be ignored only when it is a bounded validated local
-destination array, or an exact local `/GoTo` dictionary with a valid local target
-and no extra action fields. Direct/indirect references, local physical-page
-membership, view arity/parameters and any local named-destination resolution must
-validate. The ignored view produces one `opening_destination_ignored` warning
-per plan and is absent from new output catalogs. It is inspected as data and
-never executed. This exception applies only to that validated catalog edge; the
-same action referenced from copied resources still receives normal policy checks.
+## Page-copy policy
 
-The following detected structures return `unsupported_document`, exit **7**:
+The splitter creates a fresh chapter catalog, copies the page graph and rebuilds
+supported local navigation. It never runs document actions, extracts attachments,
+or opens external URLs. Optional behavior is omitted from the chapters and
+reported in the plan and local run record. Warnings describe structures detected
+without claiming a count for skipped branches. An explicitly retained converted
+working PDF is a separate, unchanged copy of the converter output.
 
-- AcroForm and XFA, widgets, signature fields/dictionaries and catalog signature
-  permissions. Signature fixtures establish structure detection, not signature
-  authenticity or cryptographic verification.
-- Opening actions outside the narrow local-view exception, including JavaScript,
-  Launch, URI, remote/embedded GoTo, `/Next` chains, extra action fields and
-  malformed or ambiguous destinations; catalog additional actions, JavaScript
-  name trees and detected active actions in copied page resources.
-- Embedded-file name trees, file-attachment annotations, associated files and
-  portfolios; detected embedded-file/signature objects in retained annotation
-  appearances and resources.
-- Rich media, Screen, Movie, Sound and 3D annotations.
-- Page resources or other copied page fields that reference a document catalog
-  or physical page tree. Such references can otherwise clone pages outside the
-  selected chapter into hidden output objects.
-  The scan includes Resources, MediaBox, CropBox and Rotate supplied by validated
-  page-tree ancestors; the writer uses their effective captured page values.
+| Restriction reviewed | Handling | Result |
+| --- | --- | --- |
+| Page content, embedded fonts/images, Form XObjects, inherited page attributes and layer visibility | PRESERVE | Keep the graphics and their required resources. |
+| Named destinations, outline destinations, supported in-chapter local links and static annotations | PRESERVE | Resolve supported navigation against physical pages and rebuild it for each chapter. |
+| Empty AcroForm or XFA metadata | PRESERVE | Keep the pages and omit the unused catalog data. |
+| File-attachment annotations and supported multimedia poster appearances | FLATTEN | Keep the static appearance and remove attachment/media behavior. |
+| JavaScript name trees, opening/additional actions, executable actions, remote or malformed links and article navigation | OMIT_WITH_WARNING | Ignore optional action branches. A validated local opening view keeps its existing warning. |
+| EmbeddedFiles trees, associated files, file specifications, portfolio metadata, and multimedia without a static appearance | OMIT_WITH_WARNING | Split the physical pages only. Documents stored solely in a portfolio's attachments are excluded. |
+| Signature dictionaries and catalog permissions | OMIT_WITH_WARNING | Chapter PDFs carry no signature validity from the source. Visible signature widgets require reproducible appearances. |
+| Nonempty XFA, required form/widget appearances unavailable, malformed required page/form structures or a required graphics edge to a document catalog or page tree | GENUINE_PROCESSING_FAILURE | Give a specific error and publish no partial chapters. |
 
-Presence of the other listed catalog features is conservatively rejected even if
-their value is empty. There is no promise to preserve a signature or interactive form.
-Actions are inspected as PDF data and never executed.
-
-Some excluded navigation has a narrower existing policy: page additional actions,
-article threads, external or malformed links and annotation relationships are
-omitted with visible categorized warnings. Static annotation values that contain
-hidden page/catalog/action references are dropped by the annotation guard.
-The original outline and named destinations are used for planning and supported
-local link resolution, then rebuilt. Broken outlines keep their existing planning
-errors, warnings and explicit fallback choices. See [PDF fidelity](PDF_FIDELITY.md).
+The current checkpoint gates widget-bearing inputs until static form normalization
+is verified. Nonempty XFA requires verified complete rendering, including in
+hybrid documents. Broken outlines keep their planning errors, warnings and
+explicit fallback choices. See [PDF fidelity](PDF_FIDELITY.md).
 
 Unreadable or truncated PDFs return `unreadable_document`, exit **6**. Invalid
 page trees and zero-page PDFs return `invalid_document`, exit **6**; invalid
