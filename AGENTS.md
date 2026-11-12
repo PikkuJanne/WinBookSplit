@@ -1,6 +1,37 @@
 # WinBookSplit working agreement
 
-## Active maintenance: 30 October 2026 functional repair
+## Active maintenance — v1.0.5 form support
+
+The owner's 12 November 2026 request authorizes the five checkpoints in
+[the form-support task](docs/forms-support/CODEX_TASK.md). Start each chat by
+inspecting local and live Git state and reading root/nested instructions,
+[current status](docs/forms-support/STATUS_NEXT.md), its linked checkpoint,
+[form handling](docs/forms-support/FORM_HANDLING.md), and
+[acceptance](docs/forms-support/ACCEPTANCE.md). Treat earlier release records
+and routing below as historical evidence. Preserve existing work and evidence.
+
+The blanket AcroForm and Widget prohibitions are superseded for validated
+harmless metadata and ordinary AcroForms. Preserve visible current values and
+geometry before removing widget data, and disclose static, non-fillable chapter
+output. Distinguish genuine XFA and fail specifically when complete rendering
+cannot be verified. Keep the signature, unrelated active-content, dependency
+lock and origin, Store discovery, first-run consent, immutable input, no-overwrite,
+complete page coverage, bounded process, owned cleanup, and privacy protections.
+Use natural discovery for ordinary Store first-run evidence.
+
+Complete one checkpoint per chat. Run relevant automated application tests with
+available native Windows hosts, record results and unavailable cases as `NOT_RUN`,
+and update the active status and checkpoint evidence. Human tests, screenshots,
+kit returns, manual field inspection, and owner sign-off are outside this workflow.
+Commit intended paths only on a scoped branch, push normally, verify clean local
+HEAD against the fresh remote SHA, and hand over with the exact next prompt.
+
+Publish only v1.0.5 after automated acceptance of the exact frozen package and
+live confirmation that the tag and release are available. Preserve v1.0.4 and
+all earlier tags and assets. Respect repository protections and stop publication
+on a conflicting v1.0.5 without selecting a substitute version.
+
+## Historical 30 October 2026 functional repair
 
 Checkpoint 7 is complete: public v1.0.4 uses tested source
 `22745a9d4361a77817754d28c9499cbf8fb33532`. Read
