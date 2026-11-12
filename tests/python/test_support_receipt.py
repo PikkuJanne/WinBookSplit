@@ -309,7 +309,8 @@ class SupportReceiptTests(unittest.TestCase):
                       'pdf_attachment_omitted': 'pdf_feature', 'pdf_signature_omitted': 'pdf_feature',
                       'pdf_media_omitted': 'pdf_feature', 'pdf_portfolio_omitted': 'pdf_feature',
                       'pdf_name_tree_omitted': 'pdf_feature', 'pdf_opening_action_omitted': 'pdf_feature',
-                      'pdf_form_data_omitted': 'pdf_feature', 'pdf_optional_metadata_omitted': 'pdf_feature'}
+                      'pdf_form_data_omitted': 'pdf_feature', 'pdf_optional_metadata_omitted': 'pdf_feature',
+                      'pdf_form_flattened': 'pdf_feature'}
         manifest = synthetic_success()['run_manifest']
         manifest['warnings']['planning'] = [{'code': code, 'source_order': None, 'depth': None,
                                             'message': 'MOCK_PRIVATE_WARNING_TEXT'} for code in categories]

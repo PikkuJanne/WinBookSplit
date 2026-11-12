@@ -431,13 +431,45 @@ class PdfPolicyTests(unittest.TestCase):
             self.assertNotIn(b"SYNTHETIC-NONVISUAL-VALUE", chapter.stream.getvalue())
             self.assertNotIn(b"SYNTHETIC-FIELD-NAME", chapter.stream.getvalue())
 
-    def test_unflattened_widget_requires_appearance_preservation(self):
+    def test_filled_widget_without_available_appearance_font_requires_preservation(self):
         writer = authored_writer()
         annotation = dictionary(Type=NameObject("/Annot"), Subtype=NameObject("/Widget"),
-            FT=NameObject("/Tx"), Rect=ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)]))
+            FT=NameObject("/Tx"), V=TextStringObject("PRIVATE-AUTHORED-VALUE"),
+            DA=TextStringObject("/Unavailable 12 Tf 0 g"),
+            Rect=ArrayObject([NumberObject(n) for n in (10, 10, 110, 40)]))
         writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(annotation)])
         result = self.assert_rejected_before_writer(self.source(writer, "annotation-widget"))
         self.assertEqual(result["diagnostic"]["reason"], "form_appearance_required")
+        self.assertNotIn("PRIVATE-AUTHORED-VALUE", str(result))
+
+    def test_converted_pdf_with_filled_widget_uses_the_static_chapter_writer(self):
+        writer = authored_writer()
+        font = writer._add_object(dictionary(Type=NameObject("/Font"), Subtype=NameObject("/Type1"),
+                                             BaseFont=NameObject("/Helvetica")))
+        page = writer.pages[1]
+        field = writer._add_object(dictionary(Type=NameObject("/Annot"), Subtype=NameObject("/Widget"),
+            FT=NameObject("/Tx"), T=TextStringObject("authored"), V=TextStringObject("CONVERTED-VALUE-77"),
+            Rect=ArrayObject([NumberObject(n) for n in (10, 10, 190, 40)])))
+        page[NameObject("/Annots")] = ArrayObject([field])
+        writer.root_object[NameObject("/AcroForm")] = dictionary(Fields=ArrayObject([field]),
+            DA=TextStringObject("/F0 12 Tf 0 g"), DR=dictionary(Font=dictionary(F0=font)))
+        writer.encrypt("", "authored converted owner", algorithm="RC4-128")
+        pdf_bytes = encoded(writer)
+        generated = policy._validate_pdf(pdf_bytes, str(self.work / "generated.pdf"))
+        original = {"path": str(self.work / "original.epub"), "sha256": sha256(b"Original ebook").hexdigest()}
+        with redirect_stdout(StringIO()):
+            prepared = engine.prepare_split(generated["path"], "manual", "1,3", output_base=self.output,
+                _pdf_bytes=pdf_bytes, _conversion_metadata={"original_ebook_identity": original,
+                    "conversion": {"generated_pdf_identity": generated}, "keep_converted_pdf": True})
+            result = engine.execute_split(prepared, self.output)
+        self.assertEqual(prepared.plan["source_identity"]["sha256"], sha256(pdf_bytes).hexdigest())
+        self.assertIn("pdf_form_flattened", {warning["code"] for warning in prepared.plan["warnings"]})
+        final = Path(result["final_directory"])
+        self.assertEqual((final / result["retained_intermediate"]["filename"]).read_bytes(), pdf_bytes)
+        readers = [PdfReader(final / row["filename"]) for row in result["outputs"]]
+        self.assertEqual([len(reader.pages) for reader in readers], [2, 2])
+        self.assertIn("CONVERTED-VALUE-77", readers[0].pages[1].extract_text())
+        self.assertTrue(all("/AcroForm" not in reader.root_object and not reader.is_encrypted for reader in readers))
 
     def test_optional_annotations_and_associated_files_are_projected(self):
         for subtype in ("/FileAttachment", "/RichMedia", "/Screen", "/Movie", "/Sound", "/3D"):
@@ -549,6 +581,10 @@ class PdfPolicyTests(unittest.TestCase):
                     writer.pages[0][NameObject("/Resources")] = dictionary(OriginalResource=writer._add_object(feature))
                 else:
                     feature[NameObject("/Rect")] = ArrayObject([NumberObject(n) for n in (10, 10, 30, 30)])
+                    if value == "/Widget":
+                        feature[NameObject("/FT")] = NameObject("/Tx")
+                        feature[NameObject("/V")] = TextStringObject("Authored value lacking a reproducible appearance")
+                        feature[NameObject("/DA")] = TextStringObject("/Unavailable 12 Tf 0 g")
                     writer.pages[0][NameObject("/Annots")] = ArrayObject([writer._add_object(feature)])
                 source = self.source(writer, "indirect-feature-" + str(index))
                 if value == "/Widget":

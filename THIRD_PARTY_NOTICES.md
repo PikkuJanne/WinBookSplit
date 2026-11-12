@@ -9,16 +9,16 @@ This does not relicense third-party components.
 The application distribution does not bundle a Python interpreter, pypdf wheel,
 PowerShell installation or Calibre binaries. Setup may download the hash-locked
 pypdf wheel into the application-local environment as an explicit user action,
-or use a separately obtained reviewed offline wheel. Requirements and executable
-paths refer to separately installed components. Their upstream license terms
-continue to apply to those installations.
+or use a separately obtained reviewed offline wheel. Consented ebook setup can
+download and unpack the reviewed official Calibre Portable package or use its
+exact offline installer bytes. Upstream license terms apply to those components.
 
 | Component used by WinBookSplit | Upstream license and primary source |
 | --- | --- |
 | CPython 3.13, 3.14 and 3.15 (tested 3.13.16 / 3.14.8 / 3.15.0) | PSF License Version 2 and incorporated-software notices: [3.13](https://docs.python.org/3.13/license.html), [3.14](https://docs.python.org/3.14/license.html), [3.15](https://docs.python.org/3.15/license.html) |
 | pypdf 6.21.4 | [BSD 3-Clause license](https://github.com/py-pdf/pypdf/blob/6.21.4/LICENSE); [pinned package declaration](https://github.com/py-pdf/pypdf/blob/6.21.4/pyproject.toml) |
 | PowerShell 7.6.6 | [MIT license, Microsoft Corporation](https://github.com/PowerShell/PowerShell/blob/v7.6.6/LICENSE.txt) |
-| Calibre 9.17.0, for EPUB/AZW3 | [GNU GPL version 3](https://github.com/kovidgoyal/calibre/blob/v9.17.0/LICENSE) |
+| Calibre 9.17.0 and later stable releases for EPUB/AZW3. Managed Portable uses 9.18.0. | [GNU GPL version 3](https://github.com/kovidgoyal/calibre/blob/v9.18.0/LICENSE) |
 
 Windows PowerShell 5.1 is a Windows component governed by the applicable Windows
 terms; the PowerShell 7 MIT notice is not a license for Windows or its inbox shell.

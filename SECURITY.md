@@ -15,10 +15,13 @@ Interactive processing can offer the existing application-local setup or explici
 backup-preserving repair once. Only affirmative user consent permits changes,
 followed by a fresh runtime check and continuation of the original request.
 Preview, noninteractive processing and read-only checks neither prompt nor install.
-Setup uses an existing accepted Python and the hash-locked pypdf package; it does
-not install Python or Calibre or modify global packages/PATH. The application does
-not upload documents, add telemetry, request elevation or change global execution policy. Sources
-are immutable inputs; new output directories and cleanup use run ownership.
+Python setup uses an existing accepted interpreter and the hash-locked pypdf
+package. Ebook preparation uses the official Calibre Portable package pinned
+by size, SHA-256 and SHA-512. WinBookSplit unpacks the verified data resource
+without running the installer and checks the extracted tree before reuse.
+Preparation requires consent or explicit Calibre setup. It leaves the installed
+Python and Calibre copies, global packages, PATH and execution policy intact.
+Sources are immutable inputs. New output directories and cleanup use run ownership.
 Local diagnostics may contain sensitive paths, titles, messages and source
 identities. Keep them private and review any [redacted support summary](docs/SUPPORT_DIAGNOSTICS.md)
 before sharing it.
@@ -96,10 +99,9 @@ untested and are disclosed. The owner's subsequent repair order removes all
 human testing and owner sign-off from active scope. Unavailable ordinary Store,
 Windows 10 and other native scenarios remain NOT_RUN evidence limits with no
 owner action required; explicit-runtime or component passes do not prove them.
-Version 1.0.4 preserves hash-locked setup and Python security floors while applying
-the current dependency repairs described above. Its
-exact-source/package results, publication status and limits are in the
-[repair status](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
+Version 1.0.5 uses the hash-locked setup and Python security floors described
+above. Its exact-source/package results, publication status and limits are in the
+[form support status](https://github.com/PikkuJanne/WinBookSplit/blob/main/docs/forms-support/STATUS_NEXT.md).
 The reviewed fixes do not establish general security
 clearance for the application or documents.
 

@@ -25,7 +25,7 @@ EXPORT_KINDS = ('success', 'failed', 'cancelled', 'incomplete', 'no-plan', 'reda
 APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
                'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Diagnostics.ps1', 'engine/WinBookSplit.Runtime.ps1',
                'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1', 'engine/WinBookSplit.Outcomes.json',
-               'engine/winbooksplit_engine.py', 'engine/winbooksplit_windows.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_job.py',
+               'engine/winbooksplit_engine.py', 'engine/winbooksplit_windows.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_forms.py', 'engine/winbooksplit_calibre.py', 'engine/WinBookSplit.Calibre.ps1', 'engine/winbooksplit_job.py',
     "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
     "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")
 SCALAR_SETTINGS = ('mode', 'input_kind', 'preview', 'non_interactive', 'no_pause', 'keep_converted_pdf', 'conversion_timeout', 'process_timeout')
@@ -407,7 +407,7 @@ def validate_summary(summary, manifest):
         **dict.fromkeys(('pdf_action_omitted', 'pdf_javascript_omitted', 'pdf_attachment_omitted',
                          'pdf_signature_omitted', 'pdf_media_omitted', 'pdf_portfolio_omitted',
                          'pdf_name_tree_omitted', 'pdf_opening_action_omitted', 'pdf_form_data_omitted',
-                         'pdf_optional_metadata_omitted'), 'pdf_feature'),
+                         'pdf_optional_metadata_omitted', 'pdf_form_flattened'), 'pdf_feature'),
     }
     need(isinstance(manifest['warnings']['planning'], list)
          and all(isinstance(item, dict) and isinstance(item.get('code'), str) and item['code'] in planning_categories

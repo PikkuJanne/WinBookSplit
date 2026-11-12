@@ -1,23 +1,17 @@
 # WinBookSplit
 
 Split a local PDF into chapter PDFs on Windows, using existing bookmarks or
-physical page starts. EPUB and AZW3 inputs are converted to PDF with separately
-installed Calibre, then use the same splitter. The source file is unchanged.
+physical page starts. EPUB and AZW3 inputs use local Calibre conversion and the
+same PDF splitter. The source file is unchanged.
 
-Version **1.0.4** contains the 30 October functional repair: interactive setup
-with consent and continuation, empty-password PDF access and narrowly validated
-local opening views. The published v1.0.3 tag and assets contain earlier bytes
-and are unchanged. Exact-source/package verification and publication status are
-recorded in the
-[repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
+Version **1.0.5** preserves supported AcroForm appearances and saved values as
+static page content. Chapter copies are non-fillable. The splitter omits optional
+document actions, attachment payloads and source signature validity data.
+[PDF policy](docs/PDF_POLICY.md)
 
-The repaired engine and explicit healthy Windows launches have passed authored
-PDF checks. Ordinary Store first-launch setup/resume, its repeat/network check,
-Windows 10 and the private supplied book remain **NOT_RUN**. Human testing is out
-of scope under the owner's latest order; no owner test, sign-off or report is
-required. These limits are separate from historical v1.0.3 acceptance. Scripts
-are unsigned; enforced organization controls still apply. Setup uses reviewed pypdf **6.21.4** in this
-copy's own environment; no global pypdf installation is required.
+Setup installs reviewed pypdf **6.21.4** in this copy's own environment. Scripts
+are unsigned and enforced organization controls still apply.
+[Setup](docs/SETUP.md)
 
 The first public release,
 [v1.0.0](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.0), was
@@ -30,10 +24,10 @@ semantic version.
 | Component | Compatibility scope |
 | --- | --- |
 | Windows target | Windows 10 **22H2 x64** and Windows 11 x64; ordinary local filesystem paths |
-| PowerShell | Inbox Windows PowerShell **5.1**; **7.6.6** is the tested PowerShell 7 host |
+| PowerShell | Inbox Windows PowerShell **5.1** and tested PowerShell **7.6.9** |
 | Python | Regular GIL Windows x64 CPython **3.15.0 or later stable 3.15 patch**, **3.14.8 or later stable 3.14 patch**, or **3.13.16 or later stable 3.13 patch** |
 | pypdf | Plain **6.21.4**, controlled by its separate package version and SHA-256 lock |
-| Calibre | Windows x64 **9.17.0 or newer stable release**, needed only for EPUB/AZW3 |
+| Calibre | Windows x64 **9.17.0 or newer stable release** for EPUB/AZW3. Interactive runs can prepare Calibre Portable with consent. |
 
 Setup installs the locked pypdf library automatically after consent; its internal
 version is separate from the installed Python version. PDF-only processing does
@@ -41,17 +35,22 @@ not need Calibre. Calibre uses a security minimum, so an existing newer stable
 release does not need a downgrade. Exact converter binaries recorded in test
 evidence are reproducible test targets, not application patch requirements.
 
+For EPUB and AZW3, WinBookSplit looks for a verified installed converter and
+then a verified managed copy. A custom or portable converter can be selected
+with `-CalibrePath`. If neither automatic route succeeds, an interactive run
+offers to prepare the reviewed official Calibre Portable distribution in local
+application data and resumes the same ebook after successful preparation.
+Preview and noninteractive splitting perform discovery only.
+[Ebook conversion and advance setup](docs/EBOOK_SUPPORT.md)
+
 The exact source-test interpreters are **3.13.16, 3.14.8 and 3.15.0**. Later stable
 patches in those three branches are accepted numerically by the shipped policy; acceptance is
 not a claim that each patch has been tested. Windows 11 source checks and
 Windows Server 2025 CI are distinct from final-package Windows 10 acceptance.
 The [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence)
 records actual source/package checks and owner-waived manual scenarios separately.
-The [public releases](https://github.com/PikkuJanne/WinBookSplit/releases) retain
-their original named ZIPs, manifests and checksums; published v1.0.3 does not
-include this repair. Earlier checkpoint ZIPs remain unpublished test artifacts
-bound to their recorded source commits. The 1.0.4 distribution uses
-`WinBookSplit-v1.0.4.zip`, `release-manifest.json` and `SHA256SUMS.txt`.
+The 1.0.5 distribution uses `WinBookSplit-v1.0.5.zip`, `release-manifest.json`
+and `SHA256SUMS.txt`. [Public releases](https://github.com/PikkuJanne/WinBookSplit/releases)
 A complete source-code ZIP with the entry points,
 `VERSION`, requirements and `engine` files uses the same first-run path. A source
 archive's format alone does not explain a setup failure, and source tests alone
@@ -86,11 +85,9 @@ supported; files needing a nonempty password return `password_required` (exit 7)
 There is no password prompt or guessing. Unsupported encryption and unavailable
 backends have separate errors; AES interoperability is not claimed. A valid
 bounded local opening destination is ignored with one warning.
-In the v1.0.5 development branch, chapter copies omit JavaScript, other executable
-actions, embedded attachments, portfolio behavior and signature validity data.
-Visible attachment appearances and supported navigation are preserved. The
-current checkpoint accepts harmless form metadata and requires verified rendering
-before it can split pages with visible form fields or genuine XFA.
+Ordinary AcroForms and harmless empty form metadata are supported. The splitter
+requires verified visible content. It returns a specific error for genuine XFA
+or an appearance that it cannot reproduce.
 [PDF policy](docs/PDF_POLICY.md) · [Fidelity and navigation](docs/PDF_FIDELITY.md) · [Ebook conversion](docs/EBOOK_SUPPORT.md)
 These checks do not make the application a document sanitizer or security sandbox.
 

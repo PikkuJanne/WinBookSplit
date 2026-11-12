@@ -100,9 +100,9 @@ def published_directory(base, evidence):
 
 
 def published_outputs(base, generator, evidence):
-    execution = execution_record(evidence)
+    result = result_record(evidence)
+    execution = result.get("execution") if result.get("protocol") == "winbooksplit.result" else result
     if execution is None:
-        result = result_record(evidence)
         require(result.get("status") != "success" and result.get("written_count") == 0,
                 "Failure cannot claim a successful run")
         return []
@@ -118,9 +118,30 @@ def published_outputs(base, generator, evidence):
             "Published run contains unexpected or reparse members")
     owner = json.loads((directory / ".WinBookSplit-owner.json").read_text(encoding="utf-8"))
     require(owner == {"schema_version": 1, "kind": "run", "run_id": execution["run_id"]}, "Run owner differs")
+    forms = execution.get("pdf_forms")
+    counts = {"field_count", "widget_count", "orphan_widget_count", "signature_field_count"}
+    require(isinstance(forms, dict) and all(type(forms.get(key)) is int and forms[key] >= 0 for key in counts)
+            and forms.get("xfa") in {"absent", "empty"} and forms.get("kind") in {"none", "metadata_only", "data_only", "acroform"},
+            "Successful execution is missing the bounded PDF form summary")
+    if forms["widget_count"]:
+        widget_counts = {"flattened_widget_count", "omitted_widget_count", "nonvisual_field_count"}
+        require(set(forms) == counts | widget_counts | {"kind", "xfa"} and forms["kind"] == "acroform"
+                and all(type(forms.get(key)) is int and forms[key] >= 0 for key in widget_counts)
+                and forms["flattened_widget_count"] + forms["omitted_widget_count"] == forms["widget_count"]
+                and forms["orphan_widget_count"] <= forms["widget_count"]
+                and forms["nonvisual_field_count"] <= forms["field_count"],
+                "Successful execution has inconsistent PDF widget counts")
+    else:
+        require(set(forms) == counts | {"kind", "xfa"} and forms["orphan_widget_count"] == 0
+                and (forms["kind"] == "data_only" if forms["field_count"] else forms["kind"] in {"none", "metadata_only"}),
+                "Successful execution has inconsistent PDF field counts")
+    require(forms["signature_field_count"] <= forms["field_count"], "Successful execution has inconsistent signature field counts")
+    if result.get("protocol") == "winbooksplit.result":
+        require(isinstance(result.get("plan"), dict) and result["plan"].get("pdf_forms") == forms,
+                "Execution changed the source-bound PDF form summary")
     manifest = json.loads((directory / "WinBookSplit_Manifest.json").read_text(encoding="utf-8"))
     require(manifest == {"schema_version": 1, "status": "complete", **{key: execution[key] for key in
-            ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}},
+            ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs", "pdf_forms")}},
             "Manifest differs from actual successful execution")
     require(execution.get("manifest") == manifest, "Returned manifest differs from the on-disk manifest")
     records = history.outputs(directory, generator)

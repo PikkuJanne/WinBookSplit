@@ -92,6 +92,8 @@ def widget(writer, signed=False):
     value = dictionary({'/Type': name('/Annot'), '/Subtype': name('/Widget'), '/Rect': array([10, 10, 80, 30]),
         '/FT': name('/Sig' if signed else '/Tx'), '/T': text('Authored policy field'), '/P': writer.pages[0].indirect_reference})
     value[name('/V')] = signature(writer) if signed else text('Authored field value')
+    if not signed:
+        value[name('/DA')] = text('/Unavailable 12 Tf 0 g')
     reference = writer._add_object(value)
     writer.pages[0][name('/Annots')] = ArrayObject([reference])
     return reference

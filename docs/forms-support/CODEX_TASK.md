@@ -157,10 +157,16 @@ Commit/push only intended changes, use normal review/merge and repository protec
 Verify final clean local main against a freshly fetched/live remote. A later
 closure-doc commit need not rewrite the tested release tag.
 
+## EPUB and AZW3 correction
+
+Exercise genuine Calibre conversion with an original EPUB containing multiple
+chapters, navigation, images and Unicode. Verify existing and custom
+installations, consent-based managed preparation and resume, reuse, declined
+or unavailable preparation, and PDF-only independence. Bind the supported
+official Portable download to reviewed hashes.
+
 ## Work cadence
 
-Keep the existing one-checkpoint-per-chat agreement when applicable. Each checkpoint
-ends with tested code/docs, a scoped commit, normal push, verified sync and a plain
-handover naming changed behavior, tests, limits and the exact next command/prompt.
-There is no new scope-approval loop between these authorized implementation steps.
-Do not let checkpointing degenerate into repeated planning without implementation.
+The owner directed completion of checkpoints 3 through 5 and the EPUB correction
+in one chat. Keep the evidence for each checkpoint and proceed through
+verification and publication without an intermediate handover or approval request.

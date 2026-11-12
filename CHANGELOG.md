@@ -1,5 +1,20 @@
 # Changelog
 
+## 1.0.5
+
+- Preserves supported saved AcroForm values and widget appearances as static
+  page content. Chapter copies are non-fillable. Empty form metadata is supported.
+- Copies page graphics and supported local navigation while omitting executable
+  actions, attachment payloads and portfolio behavior with warnings. Preserves
+  usable attachment appearances and reproducible signature artwork. Original
+  signature validity does not transfer to chapter copies.
+- Returns distinct errors for genuine XFA and unavailable required appearances.
+  Preserves empty-password access, consent-based local setup and locked pypdf.
+- Discovers verified installed Calibre across PATH, Windows registration and
+  standard folders. Interactive EPUB/AZW3 processing can prepare a verified
+  local Portable copy with consent and resume the original request. Explicit
+  setup also supports the reviewed installer offline.
+
 ## 1.0.4
 
 - Updates the automatically installed, hash-locked pypdf library to 6.21.4 for

@@ -723,6 +723,7 @@ PDF_FEATURE_WARNINGS = {
     "pdf_action_omitted": "Unsupported PDF actions were omitted from the chapter copies.",
     "pdf_attachment_omitted": "Embedded attachments or attachment relationships were omitted from the chapter copies.",
     "pdf_form_data_omitted": "Nonvisual form data was omitted from the chapter copies.",
+    "pdf_form_flattened": "Form fields will be preserved as static page content; chapter copies will not be fillable.",
     "pdf_javascript_omitted": "PDF JavaScript was omitted from the chapter copies.",
     "pdf_media_omitted": "Interactive multimedia was omitted from the chapter copies.",
     "pdf_name_tree_omitted": "Optional name-tree metadata was omitted from the chapter copies.",
@@ -833,6 +834,7 @@ def _chapter_annotations(reader, start, end, named):
     """Describe only the permitted static subset and local destinations, without mutation."""
     records, counts, examined = [], {}, 0
     graph = _pdf_policy.ChapterGraph(reader, excluded=getattr(reader, "_chapter_graph_excluded", None))
+    widget_ids = getattr(reader, "_chapter_widget_ids", ())
     def warn(code):
         counts[code] = counts.get(code, 0) + 1
     for page_index in range(start, end):
@@ -851,6 +853,8 @@ def _chapter_annotations(reader, start, end, named):
             examined += 1
             if examined > MAX_PDF_ANNOTATIONS:
                 raise PlanError("invalid_document", "PDF annotations exceed the bounded inspection limit.")
+            if widget_ids and id(graph.optional_value(raw, omit=False)) in widget_ids:
+                continue  # Visible widgets have already been prepared as page graphics.
             annotation = graph.optional_value(raw)
             if not isinstance(annotation, dict):
                 warn("annotation_dropped")
@@ -982,13 +986,14 @@ def prepare_split(input_path, mode, manual_data=None, *, output_base=None, _pdf_
 
 
 def prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_path,
-                  keep_converted_pdf=False, conversion_timeout=1800):
+                  keep_converted_pdf=False, conversion_timeout=1800, managed_calibre=False):
     """Convert in a flat owned workspace; return only a captured immutable PDF job."""
     if not isinstance(mode, str) or mode not in {"manual", "1", "2"}:
         raise PlanError("invalid_mode", "Choose manual, Level 1 or Level 2 splitting.")
     if not isinstance(keep_converted_pdf, bool):
         raise PlanError("invalid_prepared_split", "Intermediate retention must be an explicit Boolean.")
-    converted = _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout)
+    converted = _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout,
+                                        managed_calibre=managed_calibre)
     metadata = {"original_ebook_identity": converted.original_source_identity,
                 "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
     return prepare_split(converted.generated_pdf_identity["path"], mode, manual_data,
@@ -996,7 +1001,7 @@ def prepare_ebook(input_path, mode, manual_data=None, *, output_base, calibre_pa
                          _conversion_metadata=metadata)
 
 
-def _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout):
+def _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_timeout, *, managed_calibre=False):
     """Share the existing converter and its completed safe cleanup with the UI."""
     path = Path(__file__).resolve().with_name("winbooksplit_conversion.py")
     spec = importlib.util.spec_from_file_location("_winbooksplit_conversion", path)
@@ -1007,7 +1012,7 @@ def _convert_ebook_snapshot(input_path, output_base, calibre_path, conversion_ti
     spec.loader.exec_module(module)
     converted = module.convert_ebook(input_path, calibre_path, output_base,
                               new_run=OutputRun, record_failure=_failed_run,
-                              timeout_seconds=conversion_timeout)
+                              timeout_seconds=conversion_timeout, managed_calibre=managed_calibre)
     _log_conversion(converted.conversion)
     return converted
 
@@ -1543,7 +1548,8 @@ def _log_conversion(conversion):
 
 
 @_capture_parser_warnings
-def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False, conversion_timeout=1800, preview=False):
+def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=None, keep_converted_pdf=False,
+              conversion_timeout=1800, preview=False, managed_calibre=False):
     """Return a frozen diagnostic for planning and writing, without implicit retries."""
     try:
         if not isinstance(preview, bool) or preview and keep_converted_pdf:
@@ -1552,8 +1558,11 @@ def run_split(input_path, output_dir, mode, manual_data=None, *, calibre_path=No
         if Path(input_path).suffix.lower() in {".epub", ".azw3"}:
             prepared = prepare_ebook(input_path, mode, manual_data, output_base=output_dir,
                                      calibre_path=calibre_path, keep_converted_pdf=keep_converted_pdf,
-                                     conversion_timeout=conversion_timeout)
+                                     conversion_timeout=conversion_timeout, managed_calibre=managed_calibre)
         else:
+            if managed_calibre:
+                return _split_result(mode, "invalid_input", "invalid_arguments",
+                                     "Managed Calibre applies only to EPUB or AZW3 conversion.")
             if keep_converted_pdf:
                 return _split_result(mode, "invalid_input", "invalid_arguments",
                                      "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
@@ -1711,7 +1720,8 @@ def _finish_working_pdf(run, identity, result):
 
 @_capture_parser_warnings
 def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, session, calibre_path=None,
-                          keep_converted_pdf=False, conversion_timeout=1800, input_stream=None, output_stream=None):
+                          keep_converted_pdf=False, conversion_timeout=1800, input_stream=None, output_stream=None,
+                          managed_calibre=False):
     """Keep one captured reader and each explicitly chosen plan in this process."""
     working, working_identity, result, metadata, known_plan = None, None, None, None, None
     input_stream = sys.stdin.buffer if input_stream is None else input_stream
@@ -1721,11 +1731,14 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
         if not isinstance(mode, str) or mode not in {"manual", "1", "2"} or not isinstance(keep_converted_pdf, bool):
             raise PlanError("invalid_arguments", "Choose a valid interactive mode and explicit retention Boolean.")
         is_ebook = Path(input_path).suffix.lower() in {".epub", ".azw3"}
+        if not is_ebook and managed_calibre:
+            raise PlanError("invalid_arguments", "Managed Calibre applies only to EPUB or AZW3 conversion.")
         if not is_ebook and keep_converted_pdf:
             raise PlanError("invalid_arguments", "KeepConvertedPdf applies only to EPUB or AZW3 conversion.")
         pdf_path = input_path
         if is_ebook:
-            converted = _convert_ebook_snapshot(input_path, output_dir, calibre_path, conversion_timeout)
+            converted = _convert_ebook_snapshot(input_path, output_dir, calibre_path, conversion_timeout,
+                                                managed_calibre=managed_calibre)
             pdf_path = converted.generated_pdf_identity["path"]
             metadata = {"original_ebook_identity": converted.original_source_identity,
                         "conversion": converted.conversion, "keep_converted_pdf": keep_converted_pdf}
@@ -1739,7 +1752,7 @@ def run_interactive_split(input_path, output_dir, mode, manual_data=None, *, ses
                   "sha256": sha256(data).hexdigest(), "size_bytes": len(data), "binding": "reader_snapshot"}
         viewer_omissions = {"pdf_action_omitted", "pdf_javascript_omitted", "pdf_attachment_omitted",
                             "pdf_media_omitted", "pdf_portfolio_omitted", "pdf_name_tree_omitted",
-                            "pdf_opening_action_omitted", "pdf_optional_metadata_omitted"}
+                            "pdf_opening_action_omitted", "pdf_optional_metadata_omitted", "pdf_form_flattened"}
         can_open_working_pdf = is_ebook and not viewer_omissions.intersection(
             getattr(reader, "_chapter_graph_warnings", ()))
         while True:
@@ -1852,6 +1865,7 @@ def write_slice(reader, start, end, out_path, on_created=None):
     writer.pdf_header = reader.pdf_header
     graph = _pdf_policy.ChapterGraph(reader, writer=writer, excluded=getattr(reader, "_chapter_graph_excluded", None))
     writer.root_object.update(graph.optional_content(reader.root_object))
+    static_pages = getattr(reader, "_static_form_pages", {})
     for p in range(start, end):
         # Effective resources/boxes/rotation are held by the flattened reader
         # view. Only the projected rendering graph enters the fresh writer.
@@ -1860,7 +1874,7 @@ def write_slice(reader, start, end, out_path, on_created=None):
         chapter_page = writer.add_page(page, excluded_keys=("/Annots",))
         # The projection is already writer-owned. Cloning it in add_page
         # would duplicate streams inside content arrays and orphan objects.
-        chapter_page.update(graph.page_values(reader.pages[p]))
+        chapter_page.update(graph.page_values(static_pages.get(p, reader.pages[p])))
     named = _preflight_bookmark_trees(reader, include_outline=False)
     records, _, _ = _chapter_annotations(reader, start, end, named)
     for page_index, projected, destination in records:
@@ -1908,6 +1922,9 @@ def main():
             option = extras[index]
             if option == "--keep-converted-pdf" and "keep_converted_pdf" not in options:
                 options["keep_converted_pdf"] = True
+                index += 1
+            elif option == "--managed-calibre" and "managed_calibre" not in options:
+                options["managed_calibre"] = True
                 index += 1
             elif option == "--preview" and "preview" not in options:
                 options["preview"] = True

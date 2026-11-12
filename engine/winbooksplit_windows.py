@@ -13,6 +13,7 @@ _GENERIC_READ = 0x80000000
 _READ_ATTRIBUTES = 0x0080
 _DELETE = 0x00010000
 _SHARE_READ = 0x00000001
+_SHARE_WRITE = 0x00000002
 _OPEN_EXISTING = 3
 _BACKUP_SEMANTICS = 0x02000000
 _OPEN_REPARSE_POINT = 0x00200000
@@ -233,6 +234,14 @@ class DirectoryGuard(_PathGuard):
             raise ctypes.WinError(ctypes.get_last_error())
         self.path = target
         return self.path
+
+
+class WritableStateDirectoryGuard(DirectoryGuard):
+    """Retain directory identity while a child can replace files inside it."""
+
+    # Calibre atomically replaces settings within the managed state directory.
+    # The directory itself still cannot be deleted or renamed through this handle.
+    _share_mode = _SHARE_READ | _SHARE_WRITE
 
 
 class FileGuard(_PathGuard):

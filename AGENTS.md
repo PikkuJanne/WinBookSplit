@@ -23,12 +23,19 @@ first-run consent, immutable input, no-overwrite, complete page coverage, bounde
 processes, owned cleanup and privacy. Use natural discovery for ordinary Store
 first-run evidence.
 
-Complete one checkpoint per chat. Run relevant automated application tests with
+The owner's same-thread EPUB correction requires working local EPUB and AZW3
+conversion. Use verified Calibre discovery and one interactive consent decision
+when managed preparation is needed. Preserve existing installations. Verify
+the official pinned Portable artifact, resume the original ebook request and
+check actual chapter output before publishing v1.0.5.
+
+The owner's direct continuation authorizes completing all remaining checkpoints
+in one chat. Run relevant automated application tests with
 available native Windows hosts, record results and unavailable cases as `NOT_RUN`,
 and update the active status and checkpoint evidence. Human tests, screenshots,
 kit returns, manual field inspection, and owner sign-off are outside this workflow.
 Commit intended paths only on a scoped branch, push normally, verify clean local
-HEAD against the fresh remote SHA, and hand over with the exact next prompt.
+HEAD against the fresh remote SHA, and continue through verified publication.
 
 Publish only v1.0.5 after automated acceptance of the exact frozen package and
 live confirmation that the tag and release are available. Preserve v1.0.4 and

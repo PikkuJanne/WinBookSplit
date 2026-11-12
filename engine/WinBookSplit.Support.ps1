@@ -303,7 +303,7 @@ function ConvertTo-WinBookSplitSupportSummary {
     $bookmarkCodes = @('invalid_destination','external_destination','destination_error','duplicate_destination','outline_reordered','duplicate_parent_subtree','invalid_parent_subtree','child_outside_parent','malformed_outline','outline_cycle','outline_limit','output_handle_close_failed','cross_chapter_link_dropped','navigation_link_dropped','annotation_dropped','annotation_relation_dropped','article_navigation_dropped','metadata_omitted','metadata_normalized','opening_destination_ignored')
     $pdfFeatureCodes = @('pdf_action_omitted','pdf_javascript_omitted','pdf_attachment_omitted','pdf_signature_omitted','pdf_media_omitted',
         'pdf_portfolio_omitted','pdf_name_tree_omitted','pdf_opening_action_omitted','pdf_form_data_omitted',
-        'pdf_optional_metadata_omitted')
+        'pdf_optional_metadata_omitted','pdf_form_flattened')
     foreach ($warning in $planning) {
         $warningCode = Get-WinBookSplitSupportToken (Get-WinBookSplitSupportField $warning 'code') ($bookmarkCodes + $pdfFeatureCodes)
         $category = 'bookmark'; if ($warningCode -ceq 'output_handle_close_failed') { $category = 'output' }

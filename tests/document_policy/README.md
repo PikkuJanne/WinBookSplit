@@ -4,10 +4,8 @@ The current producer/validator exercises the repaired PDF contract through the
 M4-T02 route. Empty-password execution and preview are positive cases. Genuine
 nonempty-password inputs require `password_required` / 7. Rejected-input support
 exports use the password-required fixture. The original matrix and receipts stay
-historical. The current checkpoint results are linked from
-[form support status](../../docs/forms-support/STATUS_NEXT.md). The separate
-`characterize_form_support.py --checkpoint-2` route checks harmless form metadata
-and combined optional features, including comparison of rendered regions.
+historical. The current results are linked from the
+[form support status](../../docs/forms-support/STATUS_NEXT.md).
 
 `characterize_document_policy.py` uses 25 original generated PDF fixtures. It
 starts 30 application controls in each actual supported PowerShell host and
@@ -32,8 +30,9 @@ rewrite the baseline reproduction or its provenance.
 
 Optional actions, attachments, portfolio metadata and unbound signatures
 must produce complete reopened chapters with the corresponding warnings and
-omitted objects. XFA and widget inputs awaiting verified static rendering
-must return `unsupported_document`/7 with no plan, interaction request,
+omitted objects. The XFA detection sentinel and widgets with deliberately
+unavailable required appearances must return `unsupported_document`/7 with a
+specific rendering reason, zero output and no plan, interaction request,
 publication or fallback. Malformed inputs retain their declared native 6 result.
 Genuine nonempty-password inputs return `password_required`/7 with the same
 no-output requirements. Empty-password inputs must produce complete reopened
@@ -62,3 +61,28 @@ python -I -B tests/run_tests.py --layer document-policy --report <new-external-r
 
 The integrated full runner includes this route as stage 20. The report must
 pass `validate_document_policy_report` before it can support a pass claim.
+
+## Static form output
+
+`characterize_form_support.py` runs the form acceptance matrix through Windows
+PowerShell, PowerShell 7 and the batch launcher. The default matrix covers
+ordinary PDFs, harmless form metadata, static form output and optional document
+features in Manual, Auto1, Auto2 and Preview. It reopens every chapter, checks
+physical page order and field text, scans serialized objects for omitted data,
+and compares each field region to an independent static reference. Poppler
+renders the authored source, the reference and the chapter. Supply the optional
+developer PDFium interpreter for additional comparisons of controls, generated
+appearances, rotated/cropped pages and transformed appearance geometry.
+
+```powershell
+& $DevPython -I -B tests/document_policy/characterize_form_support.py `
+  --app-root $FreshExtraction --application-python-path $RuntimePython `
+  --shell-path $PS51 --shell-path $PS7 --renderer-path $Poppler `
+  --secondary-python-path $PDFiumPython --report $ExternalReport
+```
+
+Omit `--app-root` to use the checkout. Use `--form-cases` for the focused
+current matrix, or repeat `--case` to select named fixtures. The historical
+`--checkpoint-2` matrix expects the earlier widget gate and requires that
+checkpoint's application. The explicit runtime in these routes isolates the
+PDF checks. Ordinary first-run discovery has its own evidence.

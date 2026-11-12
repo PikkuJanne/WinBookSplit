@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "version": "1.0.4",
+  "version": "1.0.5",
   "paths": [
     "CHANGELOG.md",
     "CONTRIBUTING.md",
@@ -20,6 +20,7 @@
     "docs/PDF_POLICY.md",
     "docs/SETUP.md",
     "docs/SUPPORT_DIAGNOSTICS.md",
+    "engine/WinBookSplit.Calibre.ps1",
     "engine/WinBookSplit.Compatibility.json",
     "engine/WinBookSplit.Compatibility.ps1",
     "engine/WinBookSplit.Diagnostics.ps1",
@@ -30,9 +31,11 @@
     "engine/WinBookSplit.Runtime.ps1",
     "engine/WinBookSplit.Setup.ps1",
     "engine/WinBookSplit.Support.ps1",
+    "engine/winbooksplit_calibre.py",
     "engine/winbooksplit_compatibility.py",
     "engine/winbooksplit_conversion.py",
     "engine/winbooksplit_engine.py",
+    "engine/winbooksplit_forms.py",
     "engine/winbooksplit_job.py",
     "engine/winbooksplit_windows.py",
     "requirements.txt"

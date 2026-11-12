@@ -1,7 +1,6 @@
 # Supported PDF inputs and rejection policy
 
-This policy describes the chapter-copy behavior in development for v1.0.5.
-Published v1.0.4 and earlier packages retain their original behavior.
+This policy describes the chapter-copy behavior in v1.0.5.
 
 WinBookSplit accepts ordinary unencrypted PDFs and encrypted PDFs that the
 supported library opens with an empty password. The same preflight applies to
@@ -42,16 +41,18 @@ working PDF is a separate, unchanged copy of the converter output.
 | Page content, embedded fonts/images, Form XObjects, inherited page attributes and layer visibility | PRESERVE | Keep the graphics and their required resources. |
 | Named destinations, outline destinations, supported in-chapter local links and static annotations | PRESERVE | Resolve supported navigation against physical pages and rebuild it for each chapter. |
 | Empty AcroForm or XFA metadata | PRESERVE | Keep the pages and omit the unused catalog data. |
+| Visible ordinary AcroForm fields and reproducible signature widgets | FLATTEN | Preserve saved values and geometry in static page content. Chapter copies are non-fillable. |
 | File-attachment annotations and supported multimedia poster appearances | FLATTEN | Keep the static appearance and remove attachment/media behavior. |
 | JavaScript name trees, opening/additional actions, executable actions, remote or malformed links and article navigation | OMIT_WITH_WARNING | Ignore optional action branches. A validated local opening view keeps its existing warning. |
 | EmbeddedFiles trees, associated files, file specifications, portfolio metadata, and multimedia without a static appearance | OMIT_WITH_WARNING | Split the physical pages only. Documents stored solely in a portfolio's attachments are excluded. |
 | Signature dictionaries and catalog permissions | OMIT_WITH_WARNING | Chapter PDFs carry no signature validity from the source. Visible signature widgets require reproducible appearances. |
 | Nonempty XFA, required form/widget appearances unavailable, malformed required page/form structures or a required graphics edge to a document catalog or page tree | GENUINE_PROCESSING_FAILURE | Give a specific error and publish no partial chapters. |
 
-The current checkpoint gates widget-bearing inputs until static form normalization
-is verified. Nonempty XFA requires verified complete rendering, including in
-hybrid documents. Broken outlines keep their planning errors, warnings and
-explicit fallback choices. See [PDF fidelity](PDF_FIDELITY.md).
+Nonempty XFA returns `xfa_rendering_required`, including in hybrid documents.
+An unavailable required appearance returns `form_appearance_required`. Both use
+`unsupported_document`, exit **7**. The splitter uses saved values and omits
+form calculation, validation and formatting scripts. Broken outlines keep
+their planning errors, warnings and explicit fallback choices. [PDF fidelity](PDF_FIDELITY.md)
 
 Unreadable or truncated PDFs return `unreadable_document`, exit **6**. Invalid
 page trees and zero-page PDFs return `invalid_document`, exit **6**; invalid

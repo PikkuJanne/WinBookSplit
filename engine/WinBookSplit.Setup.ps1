@@ -88,6 +88,16 @@ namespace WinBookSplitSetup {
                 Path=target; AssertUnchanged();
             } finally { Marshal.FreeHGlobal(buffer); }
         }
+        public void DeleteEmpty() {
+            AssertUnchanged();
+            IntPtr disposition=Marshal.AllocHGlobal(1);
+            try {
+                Marshal.WriteByte(disposition,1);
+                if (!SetFileInformationByHandle(handle,4,disposition,1))
+                    throw new Win32Exception(Marshal.GetLastWin32Error());
+                Dispose();
+            } finally { Marshal.FreeHGlobal(disposition); }
+        }
         public void Dispose() { if (handle!=null) { handle.Dispose(); handle=null; } }
     }
 }

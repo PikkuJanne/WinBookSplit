@@ -7,7 +7,7 @@ actions and embedded attachments with warnings. [PDF policy](PDF_POLICY.md)
 WinBookSplit converts an EPUB or AZW3 to PDF using the selected installed
 Calibre `ebook-convert.exe` (stable 9.17.0 or newer), then splits that generated PDF through the
 same validated physical-page plan used for PDF inputs. The original ebook is
-an immutable input. The outputs are PDF chapters. Install Calibre separately.
+an immutable input. The outputs are PDF chapters.
 The numeric security minimum permits later stable releases. Exact converter
 versions and binary hashes in evidence identify the tested target, rather than
 requiring users to install that precise patch.
@@ -15,6 +15,30 @@ The interactive application can prepare the locked PDF
 package with explicit consent and resume the original request, as described in
 [setup](SETUP.md). Preview and NonInteractive runs never prompt or install.
 WinBookSplit does not upload documents.
+
+## Find or prepare Calibre
+
+Automatic discovery checks trusted PATH entries, Calibre's Windows installation
+registration and standard Windows folders. Candidates must identify as the
+publisher-signed converter and pass a bounded version probe. A rejected candidate
+does not prevent discovery from trying the next candidate. The console or local
+diagnostic records the reason, path and observed version when available.
+`-CalibrePath` selects one trusted executable and reports its own failure.
+
+If no suitable installed or managed converter is available, an interactive ebook
+run offers to prepare the reviewed Calibre Portable package once. Consent
+authorizes downloading and verifying that exact package, unpacking it into
+`%LOCALAPPDATA%\WinBookSplit\Calibre`, and resuming the original ebook request.
+The application verifies the stored portable tree on reuse. Its managed
+configuration and caches are separate from other Calibre installations.
+
+Use `Setup-WinBookSplit.bat -Calibre -NonInteractive` for explicit unattended
+preparation. Add `-CalibreInstaller <absolute-path>` to use the reviewed
+`calibre-portable-installer-9.18.0.exe` offline. `-Calibre -Check -NonInteractive`
+performs read-only discovery. The official Portable package is pinned separately
+from the compatibility minimum for existing installations.
+[Calibre 9.18.0 downloads](https://download.calibre-ebook.com/9.18.0/) ·
+[Calibre release metadata](https://github.com/kovidgoyal/calibre/releases/tag/v9.18.0)
 
 The application invokes the resolved executable with separate literal arguments:
 

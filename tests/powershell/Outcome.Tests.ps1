@@ -269,12 +269,13 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
             $failure.Data['Attempts']=@([pscustomobject]@{Path='C:\Synthetic rejected Calibre\ebook-convert.exe';Source='explicit';Accepted=$false;
                 Message='SYNTHETIC missing converter fixture';Probe=$null})
             $summary=Get-WinBookSplitDependencySummary -Failure $failure -ApplicationRoot $RepositoryRoot
-            $summary.Reason | Should-Be -Expected 'converter_unavailable'
+            $summary.Reason | Should-Be -Expected $code
+            $summary.Message | Should-Be -Expected 'PRIVATE converter detail'
             $summary.ObservedPath | Should -BeNullOrEmpty
             $summary.ObservedVersion | Should -BeNullOrEmpty
             $summary.ObservedSource | Should -BeNullOrEmpty
             $summary.Action | Should-MatchString -Expected 'Calibre'
-            $summary.Action | Should -Not -Match 'Setup-WinBookSplit|PythonPath|PRIVATE'
+            $summary.Action | Should -Not -Match 'PythonPath|PRIVATE'
         }
         Should-Invoke Find-WinBookSplitSetupBase -Times 0 -Exactly
         foreach ($code in @('processor_cancelled','processor_timeout')) {
@@ -301,7 +302,7 @@ Describe 'V101 concise dependency guidance from controlled subordinate reasons' 
 Describe 'M3 explicit plan-only engine protocol' -Tag 'AC-054', 'AC-055', 'AC-056' {
     It 'keeps application version separate from the outcome protocol contract' {
         @($script:splitOutcomeContract.PSObject.Properties.Name) -contains 'application_version' | Should-Be -Expected $false
-        (Get-Content -LiteralPath (Join-Path $RepositoryRoot 'VERSION') -Raw).Trim() | Should-Be -Expected '1.0.4'
+        (Get-Content -LiteralPath (Join-Path $RepositoryRoot 'VERSION') -Raw).Trim() | Should-Be -Expected '1.0.5'
         Get-SplitExitCode 'preview_complete' | Should-Be -Expected 0
     }
     It 'accepts a complete ordered preview only when explicitly requested' {
@@ -515,6 +516,7 @@ Describe 'M3 independently pinned structured outcomes' -Tag 'AC-050', 'AC-052' {
             invalid_arguments=2; invalid_mode=2; invalid_start_pages=2; input_invalid=2; output_base_invalid=2;
             output_path_too_long=2; output_destination_changed=2; source_output_alias=2;
             dependency_missing=3; runtime_invalid=3; runtime_not_found=3; converter_invalid=3; converter_not_found=3; processor_start_failed=3; encryption_backend_missing=3;
+            converter_download_failed=3; converter_integrity_failed=3; converter_managed_invalid=3; converter_setup_failed=3;
             setup_required=3; setup_repair_required=3; setup_source_invalid=3; setup_busy=6; setup_failed=6;
             setup_rollback_failed=6; setup_cancelled=130; setup_timeout=130;
             conversion_start_failed=4; conversion_failed=4; conversion_output_invalid=4; conversion_cleanup_failed=4;

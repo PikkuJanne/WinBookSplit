@@ -1,22 +1,16 @@
 # Set up WinBookSplit
 
-These instructions describe version 1.0.4 and its
-[30 October functional repair](https://github.com/PikkuJanne/WinBookSplit/blob/codex/functional-repair/docs/functional-repair/STATUS_NEXT.md).
-It preserves Store-manager discovery and adds interactive consent to the existing
-application-local setup, followed by continuation of the original request.
-Published v1.0.3 assets remain unchanged and do not contain this repair. Ordinary
-Store first-launch setup/resume, repeat/network observation and Windows 10 repair
-acceptance remain NOT_RUN; component checks and explicit healthy launches are
-separate evidence. The owner's latest order excludes all human testing; no owner
-run, sign-off or report is required. Exact-source/package verification and
-publication status are recorded in the linked repair evidence.
+These instructions describe version 1.0.5. Interactive processing can prepare
+the application-local environment with explicit consent and then resume the
+original request. Package tests and their Windows and Store coverage are
+recorded in the [form support evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/forms-support).
 
 Use Windows 10 **22H2 x64** or Windows 11 x64 with inbox Windows PowerShell 5.1.
-PowerShell 7.6.6 is also a tested host. Install a regular GIL Windows x64 CPython
+PowerShell 7.6.9 is also a tested host. Install a regular GIL Windows x64 CPython
 from one of the accepted branches below. The application uses plain **pypdf
 6.21.4**, installed by application-local setup; this is separate from the Python
-version. EPUB/AZW3 also require separately installed Windows x64 **Calibre 9.17.0
-or newer stable release**. An existing newer stable Calibre does not need a downgrade.
+version. EPUB/AZW3 use Windows x64 **Calibre 9.17.0 or a newer stable release**.
+An interactive ebook run can prepare the reviewed Portable package with consent.
 Developer renderers, Pester and fixture packages are not application requirements.
 Final-release platform evidence belongs to the exact release archive; these
 setup instructions do not certify an untested ZIP or a clean operating system.
@@ -91,9 +85,8 @@ absolute executable path. Replace this example with your trusted installation:
 ```
 
 No environment activation, administrator session, global package installation
-or PATH change is needed. Setup installs neither Python nor Calibre. Interactive
-processing uses this same setup only after explicit consent; it does not introduce
-a second package installer.
+or PATH change is needed. Python must already be available. Interactive
+processing uses this same Python environment setup after explicit consent.
 
 ## Check without making changes
 
@@ -239,12 +232,19 @@ do not remove the guards.
 
 ## Calibre, unsigned scripts and Windows servicing
 
-For ebooks, use [stable Calibre 9.17.0 or newer](https://calibre-ebook.com/download_windows64)
-and use the application's `-CalibrePath` when its trusted
-`ebook-convert.exe` is outside automatic discovery. PDF-only processing does not
-inspect or require Calibre. WinBookSplit runs with your account's privileges;
-dependency validation is not an OS network sandbox for Calibre/plugins or
-external ebook resources.
+An interactive EPUB or AZW3 run uses a suitable installed or managed Calibre
+converter when one is available. If preparation is needed, answer the consent
+prompt to prepare the reviewed official Portable package and resume your ebook.
+Use `-CalibrePath` to select a trusted converter explicitly. PDF-only processing
+does not inspect or require Calibre. [Ebook conversion](EBOOK_SUPPORT.md)
+
+For advance setup or offline use:
+
+```powershell
+.\Setup-WinBookSplit.bat -Calibre -Check -NonInteractive
+.\Setup-WinBookSplit.bat -Calibre -NonInteractive
+.\Setup-WinBookSplit.bat -Calibre -NonInteractive -CalibreInstaller 'C:\Downloads\calibre-portable-installer-9.18.0.exe'
+```
 
 Exact Calibre versions and executable hashes in test evidence identify test
 targets and do not impose a production patch-equality restriction.
@@ -262,11 +262,9 @@ for operating-system servicing options.
 
 Public release assets are listed on the
 [GitHub releases page](https://github.com/PikkuJanne/WinBookSplit/releases).
-The version 1.0.4 distribution has three assets: `WinBookSplit-v1.0.4.zip`,
+The version 1.0.5 distribution contains `WinBookSplit-v1.0.5.zip`,
 `release-manifest.json` and `SHA256SUMS.txt`. The manifest identifies its committed
-source and each allowlisted member. Published v1.0.3 assets retain their original
-bytes without this repair. Earlier checkpoint archives remain unpublished test
-artifacts with their original source/hash bindings; never relabel them as 1.0.4.
+source and each allowlisted member.
 
 GitHub's automatic **Source code (zip)** and tarball are source checkouts. When
 all required entry points, `VERSION`, requirements and `engine` files are present,
@@ -275,7 +273,7 @@ not thereby the exact tested distribution, but its format is not evidence of a
 different setup requirement. Neither archive contains a Python/Calibre runtime,
 wheel or `.venv`. Exact-package checks and remaining native prerequisites
 are recorded in the
-[functional-repair evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/functional-repair/docs/functional-repair).
+[form support evidence](https://github.com/PikkuJanne/WinBookSplit/tree/main/docs/forms-support).
 Historical checks of published v1.0.3 belong to its
 [v1.0.3 evidence](https://github.com/PikkuJanne/WinBookSplit/tree/codex/v1.0.3-store-discovery/docs/codex-v1.0.3/evidence).
 The earlier Windows10 Store result covers its original package. The owner
@@ -287,7 +285,7 @@ organization controls still apply. Source tests alone are not native acceptance.
 Compute the archive's hash before extraction, replacing this example path:
 
 ```powershell
-Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.4.zip' -Algorithm SHA256
+Get-FileHash -LiteralPath 'C:\Downloads\WinBookSplit-v1.0.5.zip' -Algorithm SHA256
 ```
 
 Compare all 64 hexadecimal digits with the intended publisher's checksum. Stop

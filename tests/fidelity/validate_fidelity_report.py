@@ -12,7 +12,7 @@ HEX = re.compile(r'[0-9a-f]{64}\Z')
 APPLICATION = ('VERSION', 'WinBookSplit.ps1', 'WinBookSplit.bat', 'Export-WinBookSplitDiagnostics.ps1', 'requirements.txt',
     'engine/WinBookSplit.Runtime.ps1', 'engine/WinBookSplit.Process.ps1', 'engine/WinBookSplit.Diagnostics.ps1',
     'engine/WinBookSplit.Paths.ps1', 'engine/WinBookSplit.Logging.ps1', 'engine/WinBookSplit.Support.ps1',
-    'engine/WinBookSplit.Outcomes.json', 'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py',
+    'engine/WinBookSplit.Outcomes.json', 'engine/winbooksplit_engine.py', 'engine/winbooksplit_conversion.py', 'engine/winbooksplit_forms.py', 'engine/winbooksplit_calibre.py', 'engine/WinBookSplit.Calibre.ps1',
     'engine/winbooksplit_windows.py', 'engine/winbooksplit_job.py',
     "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
     "engine/winbooksplit_compatibility.py", "Setup-WinBookSplit.ps1", "engine/WinBookSplit.Setup.ps1")

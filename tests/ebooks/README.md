@@ -29,3 +29,29 @@ commands, streams, hashes, identities, plans, native status, cleanup and source
 maps. Any assertion or unproved process shutdown retains authored workspaces.
 This is automated native/render evidence, with no human, GUI, CI, installation,
 upload, DRM removal or native ebook chapter-output claim.
+
+## Managed converter setup and reuse
+
+`characterize_managed_calibre.py` runs the application against an authored EPUB
+with three Unicode chapter titles, two table-of-contents representations and a
+different embedded RGB image on each chapter page. The chapter oracle reopens
+the actual generated PDF and the chapters, checks every physical page and
+compares text, geometry, content and decoded drawn images. Automatic splitting
+must follow the real generated outline. Manual splitting uses generated PDF
+page numbers. The existing-converter matrix also runs a genuine AZW3 created
+from the authored EPUB by Calibre.
+
+Pass `--app-root` for the fresh package extraction and `--package-manifest`
+for the matching release manifest. Supply the application runtime, both Windows
+PowerShell hosts and a real suitable `--existing-calibre-path`. The optional
+`--online` case gives the real product one affirmative preparation response.
+The repeat case uses a closed loopback proxy for the setup client and checks the
+selected installation and earlier chapter output. An actual
+`--older-calibre-path` and the official verified `--calibre-installer` enable
+the older-installation and offline setup case. Without those inputs, the
+corresponding receipt records `NOT_RUN`. The test gives child processes an
+owned local application-data scope and leaves the old installation outside it.
+
+Use a new absolute `--report` outside the checkout. The report retains process
+arguments and streams, outcomes, chapter receipts and setup configuration
+identities. Use repeated `--case` switches for focused reruns.

@@ -95,6 +95,10 @@ def validate_result(frame, kind):
         need(frame.get('status') == status and frame.get('code') == code
              and frame['written_count'] == 0 and frame.get('execution') is None and frame.get('plan') is None,
              'Unsupported input falsely prepared, published, retried or succeeded')
+        if fixture_kind(kind) in fixtures.UNSUPPORTED:
+            reason = 'xfa_rendering_required' if fixture_kind(kind) == 'xfa' else 'form_appearance_required'
+            need(isinstance(frame.get('diagnostic'), dict) and frame['diagnostic'].get('reason') == reason,
+                 'Required appearance failure lost its specific diagnostic')
     elif expected == 6:
         if kind == 'zero-pages':
             allowed = {('invalid_input', 'invalid_document')}

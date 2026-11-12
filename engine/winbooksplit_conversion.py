@@ -1,8 +1,11 @@
 """Bounded Calibre conversion inside an existing flat, ledger-owned workspace."""
 
 from collections.abc import Mapping
+from contextlib import ExitStack, contextmanager
 from copy import copy
 from dataclasses import dataclass
+from decimal import Decimal
+from functools import lru_cache
 from hashlib import sha256
 import importlib.util
 from io import BytesIO
@@ -10,15 +13,20 @@ from itertools import islice
 import math
 import os
 from pathlib import Path
+import re
+import shutil
 import stat
+import sys
+from tempfile import gettempdir, mkdtemp
 import threading
 import time
 from types import MappingProxyType
 
 from pypdf import PdfReader
 from pypdf.errors import DependencyError, FileNotDecryptedError, PdfReadError
-from pypdf.generic import (ArrayObject, BooleanObject, ByteStringObject, ContentStream, DictionaryObject, IndirectObject,
-                          NameObject, NullObject, NumberObject, StreamObject, TextStringObject)
+from pypdf.generic import (ArrayObject, BooleanObject, ByteStringObject, ContentStream, DecodedStreamObject,
+                          DictionaryObject, IndirectObject, NameObject, NullObject, NumberObject, StreamObject,
+                          TextStringObject)
 
 
 MAX_PDF_SNAPSHOT_BYTES = 512 * 1024 * 1024
@@ -28,6 +36,12 @@ MAX_PDF_PAGES = 100000
 MAX_PDF_FEATURE_DEPTH = 128
 MAX_PDF_FEATURE_NODES = 200000
 MAX_PDF_FORM_NODES = 20000
+FORM_INHERITED_FIELDS = frozenset({"/FT", "/Ff", "/V", "/DA", "/DR", "/Q", "/Opt", "/I", "/TI", "/MaxLen", "/RV", "/AA"})
+FORM_PRIVATE_FIELDS = frozenset({"/V", "/DV", "/RV", "/Opt", "/T", "/TU", "/TM", "/I"})
+FORM_APPEARANCE_KEYS = frozenset({"/Type", "/Subtype", "/FormType", "/BBox", "/Matrix", "/Resources", "/Group",
+                                  "/OC", "/Filter", "/DecodeParms"})
+FORM_OMITTED_EDGES = (("/A", "action"), ("/AA", "events"), ("/AF", "associated_files"),
+                      ("/EF", "file_streams"), ("/JS", "script_payload"))
 MAX_OMITTED_FEATURE_NODES = 20000
 PDF_ACTION_TYPES = frozenset({"/GoTo", "/GoToR", "/GoToE", "/Launch", "/Thread", "/URI", "/Sound", "/Movie", "/Hide",
     "/Named", "/SubmitForm", "/ResetForm", "/ImportData", "/JavaScript", "/SetOCGState", "/Rendition", "/Trans",
@@ -274,8 +288,19 @@ def _plain_dictionary(value):
     return isinstance(value, DictionaryObject) and not isinstance(value, StreamObject)
 
 
+@dataclass(frozen=True)
+class _FormStructure:
+    summary: dict
+    form: DictionaryObject
+    omitted_edges: list
+    private_refs: list
+    owners: dict
+    fields: set
+    widgets: dict
+
+
 def _classify_pdf_forms(reader, catalog, page_widgets):
-    """Classify only structural metadata; never read or log current field values."""
+    """Classify the field tree without interpreting saved values."""
     form = _form_value(reader, catalog.get("/AcroForm"))
     metadata = form is not None and not isinstance(form, NullObject)
     roots, xfa, action_edges, form_refs = (), "absent", [], []
@@ -295,7 +320,8 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
         if need_appearances is not None and not isinstance(need_appearances, (BooleanObject, NullObject)):
             _form_error("The PDF AcroForm appearance flag is not a Boolean.")
         roots = fields if isinstance(fields, ArrayObject) else ()
-        form_refs.extend((catalog.get("/AcroForm"), form.get("/Fields")))
+        form_refs.append(catalog.get("/AcroForm"))
+        form_refs.extend(form.get(key) for key in ("/Fields", "/CO", "/XFA") if key in form)
         if "/XFA" in form:
             payload = _form_value(reader, form.get("/XFA"))
             if not isinstance(payload, (ArrayObject, NullObject, StreamObject)):
@@ -309,17 +335,14 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
                 raise PdfPolicyError("unsupported_document", "This PDF requires verified XFA rendering.",
                                      reason="xfa_rendering_required") from error
             xfa = "rendering_required" if nonempty else "empty"
-        if "/A" in form:
-            action_edges.append(("action", form.get("/A")))
-        if "/AA" in form:
-            action_edges.append(("events", form.get("/AA")))
+        action_edges.extend((role, form.get(key)) for key, role in FORM_OMITTED_EDGES if key in form)
 
     # Walk only downward Kids edges. Parent backlinks are validated but don't
     # count as a cycle. The same widget can be named here and in a page array.
     if len(roots) + len(page_widgets) > MAX_PDF_FORM_NODES:
         _form_error("The PDF form exceeds the supported field and widget limit.")
     pending = [(value, None, 0, False) for value in reversed(roots)]
-    active, owners, widgets, fields, signatures = set(), {}, set(), set(), set()
+    active, owners, widgets, fields, signatures = set(), {}, {}, set(), set()
     scheduled = len(pending)
     while pending:
         raw, owner, depth, finish = pending.pop()
@@ -339,7 +362,7 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
             continue
         owners[identity] = owner
         active.add(identity)
-        form_refs.extend(node.get(key) for key in ("/V", "/DV", "/RV", "/Opt") if key in node)
+        form_refs.extend(node.get(key) for key in FORM_PRIVATE_FIELDS if key in node)
         parent = _form_value(reader, node.get("/Parent"))
         if parent is not None and not isinstance(parent, NullObject) and parent is not owner:
             _form_error("A PDF form field has an inconsistent parent reference.")
@@ -348,7 +371,7 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
         if object_type in ("/Page", "/Pages", "/Catalog", "/Action") or object_type == "/Annot" and subtype != "/Widget":
             _form_error("The PDF form field list references an unrelated PDF object.")
         if subtype == "/Widget":
-            widgets.add(identity)
+            widgets[identity] = node
             # A pure widget may inherit its field from a separate parent.
             if any(key in node for key in ("/FT", "/T", "/V", "/Kids")) or owner is None:
                 fields.add(identity)
@@ -358,15 +381,13 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
             signatures.add(identity)
             if "/V" in node:
                 action_edges.append(("signature", node.get("/V")))
-        if "/A" in node:
-            action_edges.append(("action", node.get("/A")))
-        if "/AA" in node:
-            action_edges.append(("events", node.get("/AA")))
+        action_edges.extend((role, node.get(key)) for key, role in FORM_OMITTED_EDGES if key in node)
         kids = _form_value(reader, node.get("/Kids"))
         if kids is not None and not isinstance(kids, (ArrayObject, NullObject)):
             _form_error("A PDF form field's children are not an array.")
         pending.append((node, owner, depth, True))
         if isinstance(kids, ArrayObject):
+            form_refs.append(node.get("/Kids"))
             scheduled += len(kids)
             if scheduled > MAX_PDF_FORM_NODES:
                 _form_error("The PDF form exceeds the supported field and widget limit.")
@@ -378,6 +399,7 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
         if identity in widgets:
             continue
         orphan_count += 1
+        widgets[identity] = widget
         # Follow only orphan parent links here. Don't infer field values or
         # silently treat detached widgets as harmless AcroForm metadata.
         chain, node = set(), widget
@@ -385,17 +407,18 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
             if (not _plain_dictionary(node) or node is form or node is catalog
                     or id(node) in chain or len(chain) >= MAX_PDF_FEATURE_DEPTH):
                 _form_error("A PDF widget has a malformed or cyclic field parent chain.")
+            if _form_value(reader, node.get("/Type")) in ("/Page", "/Pages", "/Catalog", "/Action"):
+                _form_error("A PDF widget references an unrelated object as its field parent.")
             chain.add(id(node))
+            form_refs.append(getattr(node, "indirect_reference", None))
+            form_refs.extend(node.get(key) for key in FORM_PRIVATE_FIELDS if key in node)
             if id(node) != identity or any(key in node for key in ("/FT", "/T", "/V")):
                 fields.add(id(node))
             if _form_value(reader, node.get("/FT")) == "/Sig":
                 signatures.add(id(node))
                 if "/V" in node:
                     action_edges.append(("signature", node.get("/V")))
-            if "/A" in node:
-                action_edges.append(("action", node.get("/A")))
-            if "/AA" in node:
-                action_edges.append(("events", node.get("/AA")))
+            action_edges.extend((role, node.get(key)) for key, role in FORM_OMITTED_EDGES if key in node)
             if id(node) in owners:
                 break
             node = _form_value(reader, node.get("/Parent"))
@@ -403,7 +426,7 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
         if scheduled > MAX_PDF_FORM_NODES:
             _form_error("The PDF form exceeds the supported field and widget limit.")
 
-    widget_count = len(widgets) + orphan_count
+    widget_count = len(widgets)
     if xfa == "rendering_required":
         kind = "xfa"
     elif widget_count:
@@ -414,8 +437,202 @@ def _classify_pdf_forms(reader, catalog, page_widgets):
         kind = "metadata_only"
     else:
         kind = "none"
-    return {"kind": kind, "field_count": len(fields), "widget_count": widget_count,
-            "orphan_widget_count": orphan_count, "signature_field_count": len(signatures), "xfa": xfa}, action_edges, form_refs
+    summary = {"kind": kind, "field_count": len(fields), "widget_count": widget_count,
+               "orphan_widget_count": orphan_count, "signature_field_count": len(signatures), "xfa": xfa}
+    return _FormStructure(summary, form if metadata else DictionaryObject(), action_edges, form_refs, owners, fields, widgets)
+
+
+@lru_cache(maxsize=1)
+def _appearance_helper():
+    path = Path(__file__).resolve().with_name("winbooksplit_forms.py")
+    spec = importlib.util.spec_from_file_location("_winbooksplit_forms", path)
+    module = importlib.util.module_from_spec(spec)
+    sys.modules[spec.name] = module
+    spec.loader.exec_module(module)
+    return module
+
+
+def _exclude_form_references(reader, structure, omitted):
+    """Protect form data and original appearances even when aliased into resources."""
+    pending = [(raw, "data") for raw in structure.private_refs]
+    pending.extend((node.get("/AP"), "appearance") for node in structure.widgets.values())
+    seen, examined = set(), 0
+    while pending:
+        raw, role = pending.pop()
+        if not isinstance(raw, (IndirectObject, DictionaryObject, ArrayObject)):
+            continue
+        omitted.exclude(raw, "pdf_form_data_omitted")
+        node = _optional_pdf_value(reader, raw)
+        omitted.exclude(getattr(node, "indirect_reference", None), "pdf_form_data_omitted")
+        identity = (id(node), role)
+        if identity in seen:
+            continue
+        seen.add(identity)
+        if len(seen) > MAX_PDF_FEATURE_NODES:
+            _form_error("The PDF form data graph exceeds the supported inspection limit.")
+        children = ()
+        if role == "data" and isinstance(node, ArrayObject):
+            children = ((value, "data") for value in node)
+        if role == "appearance" and _plain_dictionary(node):
+            children = ((node.get(key), "state") for key in ("/N", "/R", "/D"))
+        if role == "state" and _plain_dictionary(node):
+            children = ((value, "stream") for value in node.values())
+        for child in children:
+            examined += 1
+            if examined > MAX_PDF_FEATURE_NODES:
+                _form_error("The PDF form data graph exceeds the supported inspection limit.")
+            pending.append(child)
+
+
+def _widget_inheritance(reader, widget, structure):
+    inherited, visited, node = {}, set(), widget
+    while node is not None and not isinstance(node, NullObject):
+        if not _plain_dictionary(node) or id(node) in visited or len(visited) >= MAX_PDF_FEATURE_DEPTH:
+            _form_error("A PDF widget has a malformed or cyclic field parent chain.")
+        visited.add(id(node))
+        for key in FORM_INHERITED_FIELDS - inherited.keys():
+            if key in node:
+                value = (_optional_pdf_value if key == "/AA" else _form_value)(reader, node.get(key))
+                if value is not None and not isinstance(value, NullObject):
+                    inherited[key] = value
+        if node is not widget and "/Kids" not in inherited and "/Kids" in node:
+            inherited["/Kids"] = _form_value(reader, node.get("/Kids"))
+        owner = structure.owners.get(id(node))
+        node = owner if owner is not None else _form_value(reader, node.get("/Parent"))
+    for key in {"/DA", "/DR", "/Q"} - inherited.keys():
+        if key in structure.form:
+            inherited[key] = _form_value(reader, structure.form.get(key))
+    return inherited, visited
+
+
+def _appearance_required(message, forms):
+    return PdfPolicyError("unsupported_document", message, reason="form_appearance_required", forms=forms)
+
+
+def _geometry_numbers(reader, raw, count, forms):
+    value = _form_value(reader, raw)
+    if isinstance(value, ArrayObject) and len(value) == count:
+        resolved = [_form_value(reader, item) for item in value]
+        if all(isinstance(item, (int, float)) and not isinstance(item, bool) and abs(item) <= 10**12
+               and math.isfinite(item) for item in resolved):
+            return tuple(float(item) for item in resolved)
+    raise _appearance_required("A visible form widget has invalid appearance geometry.", forms)
+
+
+def _appearance_placement(reader, stream, rect, rotation, forms):
+    x0, y0, x1, y1 = _geometry_numbers(reader, stream.get("/BBox"), 4, forms)
+    if not x0 < x1 or not y0 < y1:
+        raise _appearance_required("A visible form appearance has an empty or reversed bounding box.", forms)
+    if "/Matrix" in stream:
+        a, b, c, d, e, f = _geometry_numbers(reader, stream.get("/Matrix"), 6, forms)
+    else:
+        a, b, c, d, e, f = 1, 0, 0, 1, 0, 0
+    xs = [a*x + c*y + e for x in (x0, x1) for y in (y0, y1)]
+    ys = [b*x + d*y + f for x in (x0, x1) for y in (y0, y1)]
+    if a*d == b*c or max(xs) <= min(xs) or max(ys) <= min(ys):
+        raise _appearance_required("A visible form appearance has a degenerate transformation.", forms)
+    left, bottom, right, top = rect
+    sx, sy = (right-left)/(max(xs)-min(xs)), (top-bottom)/(max(ys)-min(ys))
+    tx, ty = left-sx*min(xs), bottom-sy*min(ys)
+    if rotation:
+        # NoRotate counter-rotates the widget in page user space about its
+        # upper-left corner. The page's own rotation still applies as usual.
+        ca, sa = {90: (0, 1), 180: (-1, 0), 270: (0, -1)}[rotation]
+        dx, dy = tx-left, ty-top
+        placement = (ca*sx, sa*sx, -sa*sy, ca*sy, ca*dx-sa*dy+left, sa*dx+ca*dy+top)
+    else:
+        placement = (sx, 0, 0, sy, tx, ty)
+    if min(sx, sy) < 10**-12 or not all(math.isfinite(value) and abs(value) <= 10**12 for value in placement):
+        raise _appearance_required("A visible form appearance has an unrepresentable placement.", forms)
+    return " ".join(format(Decimal(str(value)), "f") if value else "0" for value in placement)
+
+
+def _widget_appearance_stream(reader, appearance, forms):
+    stream = _form_value(reader, appearance)
+    if not isinstance(stream, StreamObject) or "/F" in stream and not isinstance(
+            _form_value(reader, stream.get("/F")), NullObject):
+        raise _appearance_required("A visible form appearance does not have locally available graphics.", forms)
+    subtype = _form_value(reader, stream.get("/Subtype"))
+    if subtype is not None and subtype != "/Form":
+        raise _appearance_required("A visible form appearance is not a form graphics stream.", forms)
+    if "/FormType" in stream and _form_value(reader, stream.get("/FormType")) != 1:
+        raise _appearance_required("A visible form appearance uses an unsupported graphics stream type.", forms)
+    private = type(stream)()
+    private._data = stream._data
+    private.update({key: value for key, value in stream.items() if key in FORM_APPEARANCE_KEYS})
+    private[NameObject("/Type")] = NameObject("/XObject")
+    private[NameObject("/Subtype")] = NameObject("/Form")
+    return private
+
+
+def _validate_page_overlay_boundary(reader, contents, forms):
+    depth = text = marks = 0
+    for index, (_, operator) in enumerate(ContentStream(contents, reader).operations):
+        if index >= MAX_PDF_FEATURE_NODES:
+            raise _appearance_required("Page graphics exceed the safe form overlay inspection limit.", forms)
+        depth += (operator == b"q") - (operator == b"Q")
+        text += (operator == b"BT") - (operator == b"ET")
+        marks += (operator in {b"BMC", b"BDC"}) - (operator == b"EMC")
+        if min(depth, text, marks) < 0 or text > 1:
+            break
+    if depth or text or marks:
+        raise _appearance_required("A form page has unbalanced graphics that cannot be safely overlaid.", forms)
+
+
+def _overlay_resource_names(reader, resources, category, prefix, entries, forms):
+    if all(value is None for value in entries):
+        return [None] * len(entries)
+    existing = _form_value(reader, resources.get(category))
+    if isinstance(existing, NullObject):
+        existing = None
+    if existing is not None and not _plain_dictionary(existing):
+        raise _appearance_required("A form page has an invalid graphics resource map.", forms)
+    names = DictionaryObject(existing or {})
+    assigned, candidate = [], 0
+    for value in entries:
+        if value is None:
+            assigned.append(None)
+            continue
+        while NameObject(f"/{prefix}{candidate}") in names:
+            candidate += 1
+        name = NameObject(f"/{prefix}{candidate}")
+        names[name] = value
+        assigned.append(name)
+        candidate += 1
+    resources[NameObject(category)] = names
+    return assigned
+
+
+def _static_form_page(reader, page, resources, drawings, forms):
+    """Prepare a private page view for the existing chapter graph projector."""
+    page_view = DictionaryObject(page)
+    output_resources = DictionaryObject(resources)
+    content = _form_value(reader, page.get("/Contents"))
+    original = page.get("/Contents")
+    overlays = []
+    if content is not None and not isinstance(content, NullObject):
+        if not isinstance(content, (ArrayObject, StreamObject)):
+            raise _appearance_required("A form page does not have usable graphics content.", forms)
+        _validate_page_overlay_boundary(reader, content, forms)
+        prefix = DecodedStreamObject()
+        prefix.set_data(b"q\n")
+        overlays = [prefix, *(list(content) if isinstance(content, ArrayObject) else [original])]
+    commands = ["Q\n"] if overlays else []
+    appearances = _overlay_resource_names(reader, output_resources, "/XObject", "WBSForm",
+                                          [item[0] for item in drawings], forms)
+    layers = _overlay_resource_names(reader, output_resources, "/Properties", "WBSWidgetLayer",
+                                     [item[2] for item in drawings], forms)
+    for (_, placement, _), appearance, layer in zip(drawings, appearances, layers):
+        if layer is not None:
+            commands.append(f"/OC {layer} BDC\n")
+        commands.append(f"q {placement} cm {appearance} Do Q\n")
+        if layer is not None:
+            commands.append("EMC\n")
+    suffix = DecodedStreamObject()
+    suffix.set_data("".join(commands).encode("ascii"))
+    page_view[NameObject("/Resources")] = output_resources
+    page_view[NameObject("/Contents")] = ArrayObject([*overlays, suffix])
+    return page_view
 
 
 def _bounded_pdf_snapshot(stream):
@@ -496,8 +713,14 @@ class ChapterGraph:
 
     def note_omitted(self, value, code):
         self.warnings.add(code)
+        self.exclude(value, code)
+
+    def exclude(self, value, code):
         if isinstance(value, IndirectObject) and value.pdf is self.reader:
-            self.excluded.setdefault((value.idnum, value.generation), code)
+            identity = (value.idnum, value.generation)
+            previous = self.excluded.get(identity)
+            if previous is None or previous == "pdf_form_data_omitted":
+                self.excluded[identity] = code
 
     def _resolve(self, value, *, omit=True):
         aliases = set()
@@ -533,6 +756,8 @@ class ChapterGraph:
             return "pdf_attachment_omitted"
         if kind in ("/Sig", "/DocTimeStamp") or field_kind == "/Sig" or {"/ByteRange", "/Contents"} <= node.keys():
             return "pdf_signature_omitted"
+        if subtype == "/Widget":
+            return "pdf_form_data_omitted"
         if isinstance(subtype, NameObject) and subtype in MEDIA_ANNOTATIONS:
             return "pdf_media_omitted"
         return None
@@ -680,6 +905,70 @@ class ChapterGraph:
                             and "/Resources" not in child:
                         pending.append(child)
 
+    def validate_widget_graphics(self, appearance, page_resources):
+        """Require local resources for drawing operators used by the selected appearance."""
+        device_spaces = {"/DeviceGray", "/DeviceRGB", "/DeviceCMYK", "/Pattern", "/G", "/RGB", "/CMYK"}
+        pending, active, visited, count = [(appearance, page_resources, False)], set(), set(), 0
+        while pending:
+            stream, inherited, finish = pending.pop()
+            resources = self._resolve(stream.get("/Resources")) if "/Resources" in stream else inherited
+            if isinstance(resources, NullObject):
+                resources = inherited
+            identity = (id(stream), id(resources))
+            if finish:
+                active.remove(identity)
+                continue
+            if identity in active or len(active) >= MAX_PDF_FEATURE_DEPTH:
+                _invalid_pdf("A form appearance has cyclic or excessive graphics dependencies.")
+            if identity in visited:
+                continue
+            if not _plain_dictionary(resources):
+                _invalid_pdf("A form appearance has an invalid graphics resource map.")
+            active.add(identity)
+            visited.add(identity)
+            pending.append((stream, inherited, True))
+            if "/F" in stream and not isinstance(self._resolve(stream.get("/F")), NullObject):
+                _invalid_pdf("A form appearance refers to external graphics data.")
+            if "/OC" in stream:
+                self.validate_widget_layer(stream.get("/OC"))
+            for operands, operator in ContentStream(stream, self.reader).operations:
+                count += 1
+                if count > MAX_PDF_FEATURE_NODES:
+                    _invalid_pdf("Form appearance graphics exceed the supported inspection limit.")
+                slot = RENDERING_RESOURCE_OPERATORS.get(operator)
+                if operator == b"INLINE IMAGE":
+                    settings = operands.get("settings", {})
+                    name = settings.get("/CS", settings.get("/ColorSpace"))
+                    slot, operands = ("/ColorSpace", 0), (name,)
+                if slot is None or not operands or slot[1] >= len(operands):
+                    continue
+                category, index = slot
+                name = operands[index]
+                if not isinstance(name, NameObject) or category == "/ColorSpace" and name in device_spaces:
+                    continue
+                entries = self._resolve(resources.get(category))
+                entry = self._resolve(entries.get(name)) if _plain_dictionary(entries) else None
+                if entry is None or isinstance(entry, NullObject) or isinstance(entry, DictionaryObject) and self._omission(
+                        entry, self._resolve(entry.get("/Type"))):
+                    _invalid_pdf("A form appearance refers to an unavailable graphics resource.")
+                if operator == b"Do":
+                    subtype = self._resolve(entry.get("/Subtype")) if isinstance(entry, StreamObject) else None
+                    if subtype not in ("/Form", "/Image"):
+                        _invalid_pdf("A form appearance has an invalid XObject resource.")
+                    if subtype == "/Form":
+                        pending.append((entry, resources, False))
+
+    def validate_widget_layer(self, raw):
+        layer = self._resolve(raw)
+        if isinstance(layer, NullObject):
+            return None
+        if not _plain_dictionary(layer):
+            _invalid_pdf("A form appearance has an unavailable optional-content layer.")
+        kind = self._resolve(layer.get("/Type"))
+        if kind not in ("/OCG", "/OCMD") and not (kind is None and {"/OCGs", "/VE"} & layer.keys()):
+            _invalid_pdf("A form appearance has an invalid optional-content layer.")
+        return raw
+
     def page_values(self, page):
         values = {}
         for key, value in page.items():
@@ -736,8 +1025,7 @@ class _OmittedPdfFeatures:
     def exclude(self, raw, code):
         # Name trees may themselves be empty. A generic warning is added only
         # for malformed metadata or when the copying path encounters its alias.
-        if isinstance(raw, IndirectObject) and raw.pdf is self.reader:
-            self.graph.excluded.setdefault((raw.idnum, raw.generation), code)
+        self.graph.exclude(raw, code)
 
     def children(self, role, values):
         for item in values:
@@ -867,6 +1155,97 @@ class _OmittedPdfFeatures:
                                     else "pdf_name_tree_omitted")
 
 
+def _validate_prepared_appearance(reader, graph, appearance, private, resources, layer, forms):
+    try:
+        source = _form_value(reader, appearance)
+        for reference in (appearance, getattr(source, "indirect_reference", None)):
+            if isinstance(reference, IndirectObject):
+                code = graph.excluded.get((reference.idnum, reference.generation))
+                if code not in (None, "pdf_form_data_omitted"):
+                    _invalid_pdf("A form appearance aliases an omitted payload.")
+        if graph._omission(source, graph.optional_value(source.get("/Type"))) or graph.project(private) is None:
+            _invalid_pdf("A form appearance refers to omitted document functionality.")
+        if layer is not None:
+            graph.validate_widget_layer(layer)
+        graph.validate_widget_graphics(private, resources)
+    except (PdfPolicyError, PdfReadError, ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError,
+            NotImplementedError, OSError, RecursionError) as error:
+        raise _appearance_required("A visible form appearance needs local graphics or resources that cannot be reproduced.",
+                                   forms) from error
+
+
+def _prepare_static_forms(reader, structure, page_widgets, graph):
+    pages, prepared, visible_fields = {}, [], set()
+    forms = structure.summary
+    if not forms["widget_count"]:
+        return pages, prepared
+    helper = _appearance_helper() if page_widgets else None
+    resolve = lambda value: _form_value(reader, value)
+    for index, widgets in page_widgets.items():
+        page = reader.pages[index]
+        resources = resolve(page.get("/Resources"))
+        if resources is None or isinstance(resources, NullObject):
+            resources = DictionaryObject()
+        if not _plain_dictionary(resources):
+            raise _appearance_required("A page with form widgets has invalid graphics resources.", forms)
+        drawings = []
+        for widget in widgets:
+            flags = resolve(widget.get("/F"))
+            if flags is None or isinstance(flags, NullObject):
+                flags = 0
+            if not isinstance(flags, int) or isinstance(flags, bool) or not 0 <= flags < 1 << 32:
+                _form_error("A PDF widget has invalid annotation flags.")
+            if flags & (2 | 32):
+                continue  # Hidden and NoView fields contribute no screen appearance.
+            x0, y0, x1, y1 = _geometry_numbers(reader, widget.get("/Rect"), 4, forms)
+            rect = (min(x0, x1), min(y0, y1), max(x0, x1), max(y0, y1))
+            if x0 == x1 or y0 == y1:
+                continue
+            inherited, ancestry = _widget_inheritance(reader, widget, structure)
+            try:
+                appearance = helper.build_widget_appearance(reader, widget, inherited, structure.form, resolve,
+                                                            page_resources=resources)
+            except helper.AppearanceError as error:
+                raise _appearance_required(str(error), forms) from error
+            if appearance is None:
+                continue
+            private = _widget_appearance_stream(reader, appearance, forms)
+            source_appearance = resolve(appearance)
+            for key, role in FORM_OMITTED_EDGES:
+                graph.omitted_inspector.edge(source_appearance, key, role)
+            rotation = 0
+            if flags & 16:
+                rotation = resolve(page.get("/Rotate", 0))
+                if not isinstance(rotation, int) or isinstance(rotation, bool) or rotation % 90:
+                    raise _appearance_required("A nonrotating form widget has invalid page rotation.", forms)
+                rotation %= 360
+            placement = _appearance_placement(reader, private, rect, rotation, forms)
+            layer = widget.get("/OC")
+            if isinstance(resolve(layer), NullObject):
+                layer = None
+            binding = (appearance, private, resources, layer)
+            _validate_prepared_appearance(reader, graph, *binding, forms)
+            drawings.append((private, placement, layer))
+            prepared.append(binding)
+            visible_fields.update(ancestry)
+        if drawings:
+            try:
+                pages[index] = _static_form_page(reader, page, resources, drawings, forms)
+            except PdfPolicyError:
+                raise
+            except (PdfReadError, ValueError, TypeError, KeyError, AttributeError, IndexError, OverflowError,
+                    NotImplementedError, OSError, RecursionError) as error:
+                raise _appearance_required("Page graphics could not be prepared for the static form overlay.", forms) from error
+    forms["flattened_widget_count"] = len(prepared)
+    forms["omitted_widget_count"] = forms["widget_count"] - len(prepared)
+    forms["nonvisual_field_count"] = len(structure.fields - visible_fields)
+    if prepared:
+        graph.warnings.add("pdf_form_flattened")
+    if forms["omitted_widget_count"] or forms["nonvisual_field_count"]:
+        graph.warnings.add("pdf_form_data_omitted")
+    return pages, prepared
+
+
 def _preflight_pdf_features(reader):
     catalog = _accessible_pdf_catalog(reader)
     if not _plain_dictionary(catalog) or catalog.get("/Type") != "/Catalog":
@@ -899,9 +1278,9 @@ def _preflight_pdf_features(reader):
         else:
             opening_destination = True
 
-    projected_annotations, page_widgets, widget_ids = [], [], set()
+    projected_annotations, page_widgets, widget_ids = [], {}, set()
     examined_annotations = 0
-    for page in pages:
+    for page_index, page in enumerate(pages):
         omitted.edge(page, "/A", "action")
         omitted.edge(page, "/AA", "events")
         omitted.edge(page, "/AF", "associated_files")
@@ -923,7 +1302,7 @@ def _preflight_pdf_features(reader):
                 if identity in widget_ids:
                     _form_error("A PDF widget is listed more than once in the physical page annotations.")
                 widget_ids.add(identity)
-                page_widgets.append(annotation)
+                page_widgets.setdefault(page_index, []).append(annotation)
                 continue
             omitted.edge(annotation, "/A", "local_action" if subtype == "/Link" else "action")
             omitted.edge(annotation, "/AA", "events")
@@ -940,45 +1319,46 @@ def _preflight_pdf_features(reader):
             if isinstance(subtype, NameObject) and subtype in STATIC_ANNOTATION_SUBTYPES | MEDIA_ANNOTATIONS | {"/Link", "/FileAttachment"}:
                 projected_annotations.extend((key, value) for key, value in annotation.items() if key in STATIC_ANNOTATION_FIELDS)
 
-    forms, action_edges, form_refs = _classify_pdf_forms(reader, catalog, page_widgets)
+    structure = _classify_pdf_forms(reader, catalog, [widget for widgets in page_widgets.values() for widget in widgets])
+    forms = structure.summary
     if forms["kind"] == "xfa":
         raise PdfPolicyError("unsupported_document",
                              "This PDF requires verified XFA rendering before its pages can be split.",
                              reason="xfa_rendering_required", forms=forms)
-    if forms["widget_count"]:
-        raise PdfPolicyError("unsupported_document",
-                             "The visible appearance of this PDF's form widgets must be preserved before splitting.",
-                             reason="form_appearance_required", forms=forms)
     if forms["kind"] == "data_only":
         graph.warnings.add("pdf_form_data_omitted")
     if forms["signature_field_count"]:
         graph.warnings.add("pdf_signature_omitted")
-    for reference in form_refs:
-        omitted.exclude(reference, "pdf_form_data_omitted")
-    for role, value in action_edges:
+    _exclude_form_references(reader, structure, omitted)
+    for role, value in structure.omitted_edges:
         omitted.children(role, (value,))
     omitted.inspect()
+    static_pages, appearances = _prepare_static_forms(reader, structure, page_widgets, graph)
 
     # Inspect only graphs that can contribute to a chapter. Catalog entries
     # such as name trees, permissions and portfolios aren't page resources.
-    alias_count = len(graph.excluded)
+    original_exclusions = dict(graph.excluded)
     graph.optional_content(catalog)
-    for page in reader.pages:
-        graph.page_values(page)
+    for index, page in enumerate(reader.pages):
+        graph.page_values(static_pages.get(index, page))
     for key, value in projected_annotations:
         graph.project(value, annotation=True, context="appearances" if key == "/AP" else "value")
     omitted.inspect()
-    if len(graph.excluded) != alias_count:
+    if graph.excluded != original_exclusions:
         # Some payload identities become known only inside a rendering
         # resource. Recheck dependencies with the complete exclusion map.
         graph._projected.clear()
         graph.omitted_inspector = None
         graph.optional_content(catalog)
-        for page in reader.pages:
-            graph.page_values(page)
+        for binding in appearances:
+            _validate_prepared_appearance(reader, graph, *binding, forms)
+        for index, page in enumerate(reader.pages):
+            graph.page_values(static_pages.get(index, page))
         for key, value in projected_annotations:
             graph.project(value, annotation=True, context="appearances" if key == "/AP" else "value")
     reader._pdf_forms = MappingProxyType(forms)
+    reader._static_form_pages = MappingProxyType(static_pages)
+    reader._chapter_widget_ids = frozenset(widget_ids)
     reader._chapter_graph_excluded = MappingProxyType(dict(graph.excluded))
     reader._chapter_graph_warnings = frozenset(graph.warnings)
     reader._chapter_opening_destination = opening_destination
@@ -1026,7 +1406,7 @@ def validate_chapter_graph(reader):
     if not hasattr(reader, "_chapter_graph_warnings"):
         _preflight_pdf_features(reader)
     catalog = reader.root_object
-    if reader.is_encrypted or reader._chapter_graph_warnings or any(key in catalog for key in
+    if reader.is_encrypted or reader._chapter_graph_warnings or reader._chapter_widget_ids or any(key in catalog for key in
             ("/AcroForm", "/OpenAction", "/AA", "/AF", "/Collection", "/Perms", "/Names")):
         _invalid_pdf("A staged chapter retained excluded PDF functionality.")
     for page in reader.pages:
@@ -1034,7 +1414,8 @@ def validate_chapter_graph(reader):
             _invalid_pdf("A staged chapter retained an excluded page relationship.")
         for raw in page.get("/Annots", ()):
             annotation = _pdf_value(raw)
-            if not isinstance(annotation, DictionaryObject) or any(key in annotation for key in ("/A", "/AA", "/AF", "/EF", "/FS")):
+            if not isinstance(annotation, DictionaryObject) or _pdf_value(annotation.get("/Subtype")) == "/Widget" \
+                    or any(key in annotation for key in ("/A", "/AA", "/AF", "/EF", "/FS")):
                 _invalid_pdf("A staged chapter retained an excluded annotation relationship.")
     pending = [(reader.trailer, 0)]
     reachable, seen = set(), set()
@@ -1257,8 +1638,143 @@ def _cleanup_workspace(run):
         raise OSError("The conversion workspace remains after cleanup.")
 
 
+CALIBRE_STATE_NAMES = ("Config", "Cache", "Temp")
+
+
+def _calibre_child_environment(state, temporary=None):
+    environment = {key: value for key, value in os.environ.items() if not key.casefold().startswith("calibre_")}
+    environment.update(PYTHONUTF8="1", PYTHONIOENCODING="utf-8:backslashreplace",
+                       CALIBRE_CONFIG_DIRECTORY=str(state / "Config"), CALIBRE_CACHE_DIRECTORY=str(state / "Cache"),
+                       CALIBRE_TEMP_DIR=str(temporary if temporary is not None else state / "Temp"))
+    return environment
+
+
+def _remove_transient_calibre_state(stage, created):
+    stage.assert_unchanged()
+    root = Path(stage.path)
+    children = []
+    for child in root.iterdir():
+        observed = child.lstat()
+        if child.name not in created or (observed.st_dev, observed.st_ino) != created[child.name]:
+            raise OSError("The temporary Calibre state contains an unowned member.")
+        children.append(child)
+    if len(children) != len(created):
+        raise OSError("The temporary Calibre state contains an unexpected member.")
+    count = 0
+    for child in children:
+        pending = [child]
+        while pending:
+            path = pending.pop()
+            info = path.lstat()
+            count += 1
+            if count > MAX_PDF_FEATURE_NODES or info.st_file_attributes & stat.FILE_ATTRIBUTE_REPARSE_POINT:
+                raise OSError("Temporary Calibre state is excessive or contains a reparse point.")
+            if stat.S_ISDIR(info.st_mode):
+                for entry in path.iterdir():
+                    if len(pending) >= MAX_PDF_FEATURE_NODES:
+                        raise OSError("Temporary Calibre state exceeds the inspection limit.")
+                    pending.append(entry)
+            elif not stat.S_ISREG(info.st_mode):
+                raise OSError("Temporary Calibre state contains a nonordinary file.")
+        if not child.resolve(strict=True).is_relative_to(root.resolve(strict=True)) or not child.is_dir():
+            raise OSError("A temporary Calibre state directory no longer belongs to this run.")
+    for child in children:
+        stage.assert_unchanged()
+        shutil.rmtree(child)
+    stage.delete()
+
+
+@contextmanager
+def _transient_calibre_state(windows, names=CALIBRE_STATE_NAMES):
+    base = Path(gettempdir())
+    if not base.is_absolute() or not re.fullmatch(r"[a-zA-Z]:", base.drive):
+        raise ConversionError("conversion_ownership_failed", "Temporary Calibre state needs an ordinary local directory.")
+    with ExitStack() as ancestors:
+        try:
+            guards = [ancestors.enter_context(windows.DirectoryGuard(path)) for path in (*reversed(base.parents), base)]
+            for guard in guards:
+                guard.assert_unchanged()
+            root = Path(mkdtemp(prefix=".WinBookSplit-Calibre-", dir=base))
+            stage = ancestors.enter_context(windows.DirectoryGuard(root, delete_access=True))
+        except OSError as error:
+            raise ConversionError("conversion_ownership_failed", "Cannot reserve temporary Calibre state: " + str(error)) from error
+        created, failure = {}, None
+        try:
+            with ExitStack() as state_leases:
+                for name in names:
+                    stage.assert_unchanged()
+                    path = root / name
+                    path.mkdir()
+                    guard = state_leases.enter_context(windows.WritableStateDirectoryGuard(path))
+                    created[name] = guard.stat_identity
+                yield root
+        except ConversionError as error:
+            failure = error
+            if not error.tree_stopped:
+                error.diagnostic = {**(error.diagnostic or {}), "retained_calibre_state": str(root)}
+            raise
+        finally:
+            if failure is None or failure.tree_stopped:
+                try:
+                    _remove_transient_calibre_state(stage, created)
+                except OSError as error:
+                    diagnostic = {"retained_calibre_state": str(root)}
+                    if failure is not None:
+                        diagnostic.update(failure.diagnostic or {})
+                        diagnostic.setdefault("primary_code", failure.code)
+                        diagnostic.setdefault("primary_message", str(failure))
+                    raise ConversionError("conversion_cleanup_failed", "Cannot clean temporary Calibre state: " + str(error),
+                                          diagnostic=diagnostic, conversion=failure.conversion if failure else None) from error
+
+
+@contextmanager
+def _converter_environment(converter_path, managed, windows):
+    if not managed:
+        with _transient_calibre_state(windows) as state:
+            yield _calibre_child_environment(state)
+        return
+    local = Path(os.environ.get("LOCALAPPDATA", ""))
+    managed_root = local / "WinBookSplit" / "Calibre"
+    executable = Path(converter_path)
+    try:
+        if not local.is_absolute() or not re.fullmatch(r"[a-zA-Z]:", local.drive):
+            raise ValueError("The per-user application data path is unavailable.")
+        relative = executable.relative_to(managed_root)
+        if len(relative.parts) != 3 or relative.parts[1].casefold() != "calibre" \
+                or relative.name.casefold() != "ebook-convert.exe" or not re.fullmatch(
+                    r"(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)\.(?:0|[1-9][0-9]*)-[a-f0-9]{32}", relative.parts[0]):
+            raise ValueError("The selected converter is outside the managed installation layout.")
+    except ValueError as error:
+        raise ConversionError("conversion_ownership_failed", str(error)) from error
+
+    state_root = managed_root / "State"
+    state = state_root / relative.parts[0]
+    with ExitStack() as leases:
+        try:
+            directories = (*reversed(executable.parent.parents), executable.parent)
+            guards = [leases.enter_context(windows.DirectoryGuard(path)) for path in directories]
+            guards.append(leases.enter_context(windows.FileGuard(executable)))
+            state_paths = (state_root, state, state / "Config", state / "Cache")
+            for index, path in enumerate(state_paths):
+                for guard in guards:
+                    guard.assert_unchanged()
+                path.mkdir(exist_ok=True)
+                guard_type = windows.DirectoryGuard if index < 2 else windows.WritableStateDirectoryGuard
+                guards.append(leases.enter_context(guard_type(path)))
+            for guard in guards:
+                guard.assert_unchanged()
+        except (OSError, ValueError) as error:
+            raise ConversionError("conversion_ownership_failed", "Cannot safely use the managed Calibre state: " +
+                                  str(error)) from error
+        # Calibre's PDF renderer expands EPUB members below its temporary
+        # directory. A deep installation-relative temp path can exceed the
+        # renderer's Windows path handling even though config/cache work there.
+        with _transient_calibre_state(windows, ("Temp",)) as scratch:
+            yield _calibre_child_environment(state, scratch / "Temp")
+
+
 def convert_ebook(source_path, converter_path, output_base, *, new_run, timeout_seconds=1800,
-                  process_factory=None, record_failure=None):
+                  process_factory=None, record_failure=None, managed_calibre=False):
     """Return immutable validated bytes after removing the conversion workspace.
 
     new_run is the existing OutputRun constructor. record_failure may delegate
@@ -1270,6 +1786,8 @@ def convert_ebook(source_path, converter_path, output_base, *, new_run, timeout_
     if isinstance(timeout_seconds, bool) or not isinstance(timeout_seconds, (int, float)) \
             or not math.isfinite(timeout_seconds) or timeout_seconds <= 0:
         raise ConversionError("conversion_failed", "Conversion timeout must be a positive finite number of seconds.")
+    if not isinstance(managed_calibre, bool):
+        raise ConversionError("conversion_failed", "Managed converter selection must be a Boolean.")
     source_path = os.path.abspath(os.fspath(source_path))
     try:
         converter_path = os.fspath(converter_path)
@@ -1286,6 +1804,8 @@ def convert_ebook(source_path, converter_path, output_base, *, new_run, timeout_
     factory = process_factory or _default_process_factory
     run, source_guard, failure, result = None, None, None, None
     conversion = {"converter_path": converter_path, "output_profile": "tablet", "timeout_seconds": timeout_seconds}
+    if managed_calibre:
+        conversion["managed_calibre"] = True
     diagnostic = None
     try:
         run = new_run(output_base, source_path)
@@ -1302,9 +1822,9 @@ def convert_ebook(source_path, converter_path, output_base, *, new_run, timeout_
             guard.assert_unchanged()
         argv = (converter_path, source_path, path, "--output-profile", "tablet")
         try:
-            conversion.update(_run_converter(argv, cwd=run.stage,
-                env={**os.environ, "PYTHONUTF8": "1", "PYTHONIOENCODING": "utf-8:backslashreplace"},
-                timeout_seconds=timeout_seconds, process_factory=factory))
+            with _converter_environment(converter_path, managed_calibre, run.windows) as environment:
+                conversion.update(_run_converter(argv, cwd=run.stage, env=environment,
+                    timeout_seconds=timeout_seconds, process_factory=factory))
         except ConversionError as error:
             error.conversion = _freeze({**conversion, **error.conversion})
             raise

@@ -359,7 +359,7 @@ def common_case(case: dict, hosts: dict[str, dict], source_map: dict) -> None:
                       "engine/WinBookSplit.Paths.ps1", "engine/WinBookSplit.Diagnostics.ps1",
                       "engine/WinBookSplit.Runtime.ps1", "engine/winbooksplit_engine.py",
                       "engine/WinBookSplit.Process.ps1", "engine/WinBookSplit.Outcomes.json",
-                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py",
+                      "engine/winbooksplit_windows.py", "engine/winbooksplit_conversion.py", "engine/winbooksplit_forms.py", "engine/winbooksplit_calibre.py", "engine/WinBookSplit.Calibre.ps1",
                       "engine/winbooksplit_job.py", "engine/WinBookSplit.Logging.ps1",
                       "engine/WinBookSplit.Support.ps1", "Export-WinBookSplitDiagnostics.ps1",
                       "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",

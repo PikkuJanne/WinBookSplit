@@ -2,8 +2,7 @@
 
 WinBookSplit copies PDF page content and resources; it does not render text pages
 into images or add OCR. Image-only scans can be split with manual physical start
-pages. Automatic modes require actual PDF outline destinations. This describes
-the chapter-copy behavior in development for v1.0.5.
+pages. Automatic modes require actual PDF outline destinations.
 
 Each chapter receives a new document title and a bookmark pointing to its first
 page. Their text uses the safe chapter filename label, without its sequence
@@ -39,8 +38,11 @@ appearance data. Chapter copies also retain supported static attachment and
 multimedia appearances. The chapter catalog excludes executable behavior,
 attachment payloads, portfolio metadata and source signature validity.
 Layer configuration needed for visible content is carried into the new catalog.
-Warnings describe excluded behavior. The current checkpoint accepts empty form
-metadata and stops on widgets until their visible contents can be preserved.
+Visible ordinary AcroForm appearances become page content. Chapter copies are
+non-fillable. The splitter uses saved field values and keeps visible geometry
+and supported text and vector appearance. A reproducible signature appearance
+can be included as artwork. The source signature's validity does not transfer.
+Warnings describe excluded behavior. [PDF policy](PDF_POLICY.md)
 
 The acceptance fixtures are original generated documents containing text,
 vectors, embedded images, genuine image-only pages, rotations, crop boxes,

@@ -22,6 +22,11 @@ Installation is offline and hash-locked; there is no online fallback.
 .PARAMETER Repair
 Explicitly preserve a broken .venv in a unique backup before creating a fresh one.
 Healthy environments are unchanged. The backup is not overwritten or deleted.
+.PARAMETER Calibre
+Check or prepare the converter for EPUB/AZW3. NonInteractive explicitly authorizes
+managed preparation when discovery finds no suitable existing converter.
+.PARAMETER CalibreInstaller
+Use the exact reviewed official Portable installer offline when preparing Calibre.
 .EXAMPLE
 .\Setup-WinBookSplit.bat
 .EXAMPLE
@@ -35,7 +40,8 @@ compatibility requirements are in docs/SETUP.md. Output includes a structured
 #>
 
 [CmdletBinding()]
-param([string]$PythonPath, [switch]$Check, [switch]$NonInteractive, [string]$Wheelhouse, [switch]$Repair)
+param([string]$PythonPath, [switch]$Check, [switch]$NonInteractive, [string]$Wheelhouse, [switch]$Repair,
+      [switch]$Calibre, [string]$CalibreInstaller)
 
 # Machine outcomes and path diagnostics use UTF-8 through every launcher.
 [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding($false)
@@ -74,6 +80,54 @@ function Get-WinBookSplitSetupHostObservation {
         $observation.execution_policy=[ordered]@{status='observed';effective=$effective;scopes=$records;reason_code=$null}
     } catch { Write-Verbose 'Execution-policy observation was unavailable; preserving the setup outcome.' }
     return [pscustomobject]$observation
+}
+
+if ($Calibre -or $PSBoundParameters.ContainsKey('CalibreInstaller')) {
+    $calibreCode = 'converter_setup_failed'
+    $calibreExit = 3
+    $selected = $null
+    $changed = $false
+    try {
+        if (-not $Calibre -or $Repair -or $PSBoundParameters.ContainsKey('Wheelhouse') -or
+            ($Check -and $PSBoundParameters.ContainsKey('CalibreInstaller')) -or
+            ($PSBoundParameters.ContainsKey('CalibreInstaller') -and [string]::IsNullOrWhiteSpace($CalibreInstaller))) {
+            throw 'Use -Calibre by itself for this setup mode. -CalibreInstaller is only for preparation.'
+        }
+        . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Setup.ps1')
+        . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Calibre.ps1')
+        $base = Resolve-WinBookSplitRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -InterpreterOnly
+        $discovery = @{ApplicationRoot=$PSScriptRoot; ManagedPythonPath=$base.Path}
+        try { $selected = Resolve-WinBookSplitConverter @discovery }
+        catch {
+            if ($Check -or $_.Exception.Data['Code'] -cne 'converter_not_found') { throw }
+            if (-not $NonInteractive) {
+                $answer = Read-Host 'Prepare the verified Calibre Portable converter for WinBookSplit now? [Y/N]'
+                if ($null -eq $answer -or $answer.Trim() -inotmatch '\A(?:y|yes)\z') {
+                    throw (New-WinBookSplitCalibreFailure 'cancelled' 'Calibre preparation was declined or cancelled.')
+                }
+            }
+            $preparation = Invoke-WinBookSplitCalibreSetup -ApplicationRoot $PSScriptRoot -PythonPath $base.Path -InstallerPath $CalibreInstaller -Discovery $discovery
+            $selected = $preparation.converter
+            $changed = $preparation.changed
+        }
+        $calibreCode = 'ready'
+        $calibreExit = 0
+        $message = 'Calibre ' + $selected.Version + ' is ready at ' + $selected.Path
+    } catch {
+        if ($_.Exception.Data.Contains('Code')) {
+            $calibreCode = [string]$_.Exception.Data['Code']
+            $calibreExit = Get-SplitExitCode $calibreCode
+        }
+        $message = $_.Exception.Message
+    }
+    $converterPath = $null; $converterVersion = $null; $converterSource = $null
+    if ($null -ne $selected) {
+        $converterPath = $selected.Path; $converterVersion = $selected.Version; $converterSource = $selected.Source
+    }
+    Write-Host ([regex]::Replace($message,'[\x00-\x1f\x7f-\x9f\u2028\u2029]',{param($m) '\u{0:x4}' -f [int][char]$m.Value}))
+    Write-Host ('[CALIBRE-SETUP] ' + (@{code=$calibreCode; exit_code=$calibreExit; changed=$changed; message=$message;
+        path=$converterPath; version=$converterVersion; source=$converterSource} | ConvertTo-Json -Compress))
+    exit $calibreExit
 }
 
 try {

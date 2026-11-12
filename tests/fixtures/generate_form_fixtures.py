@@ -28,15 +28,34 @@ SCRIPT_MARKER = 'WBS-SYNTHETIC-OMITTED-SCRIPT-407'
 ATTACHMENT_MARKER = 'WBS-SYNTHETIC-OMITTED-PAYLOAD-618'
 ATTACHMENT_NAME = 'authored-attachment-never-extract.txt'
 FEATURE_MARKERS = (SCRIPT_MARKER, ATTACHMENT_MARKER, ATTACHMENT_NAME)
+FORM_ACTION_MARKER = 'WBS_SYNTHETIC_ACTION_DO_NOT_EXECUTE'
+PRIVATE_FORM_MARKERS = {
+    'hidden_fields': ('HIDDEN-FORM-SECRET-61', 'NOVIEW-FORM-SECRET-29', 'DETACHED-FORM-SECRET-73'),
+    'signature_visible': ('SYNTHETIC-NOT-A-REAL-SIGNATURE',),
+    'stale_appearance': ('STALE-VALUE',),
+    'form_action': (FORM_ACTION_MARKER,),
+}
+FORM_CASES = (
+    'text', 'controls', 'shared_field', 'missing_appearance', 'stale_appearance',
+    'orphan_widget', 'rotated_crop', 'form_action', 'encrypted_form',
+    'multiline_readonly', 'multiselect', 'multiselect_missing_appearance', 'combo_missing_appearance',
+    'winansi_missing_appearance', 'hierarchy', 'transformed_appearance',
+    'hidden_fields', 'signature_visible', 'button_stale_state',
+    'form_and_features', 'encrypted_form_and_features',
+)
 
 CASES = (
     'plain', 'acroform_null', 'acroform_empty', 'fields_empty', 'resource_only',
     'text', 'controls', 'shared_field', 'missing_appearance', 'stale_appearance',
     'orphan_widget', 'rotated_crop', 'form_action', 'xfa_null', 'xfa_empty_array',
     'xfa_detection_only', 'fields_malformed', 'field_cycle',
-    'signature_structure', 'encrypted_form', *FEATURE_CASES,
+    'signature_structure', 'encrypted_form', *FEATURE_CASES, 'multiline_readonly',
+    'multiselect', 'multiselect_missing_appearance', 'combo_missing_appearance', 'winansi_missing_appearance',
+    'hierarchy', 'transformed_appearance', 'hidden_fields',
+    'signature_visible', 'button_stale_state', 'missing_appearance_font',
 )
-NEGATIVE = {'xfa_detection_only', 'fields_malformed', 'field_cycle', 'signature_structure'}
+NEGATIVE = {'xfa_detection_only', 'fields_malformed', 'field_cycle', 'signature_structure',
+            'missing_appearance_font'}
 
 
 def name(s: str) -> NameObject:
@@ -49,6 +68,10 @@ def arr(values) -> ArrayObject:
 
 def literal(value: str) -> str:
     return value.replace('\\', '\\\\').replace('(', '\\(').replace(')', '\\)')
+
+
+def winansi_literal(value: str) -> str:
+    return ''.join(literal(chr(byte)) if 32 <= byte < 127 else f'\\{byte:03o}' for byte in value.encode('cp1252'))
 
 
 def base_writer() -> PdfWriter:
@@ -146,7 +169,7 @@ def add_widget(w: PdfWriter, page_index: int, field_type: str | None,
 
 
 def paint_reference(w: PdfWriter, page_index: int, label: str, rect,
-                    mark: str | None = None):
+                    mark: str | None = None, commands: str | None = None):
     # Independent expected static representation: direct invocation of original
     # artwork at a known fixture coordinate, no field reader or flattener used.
     page = w.pages[page_index]
@@ -156,13 +179,29 @@ def paint_reference(w: PdfWriter, page_index: int, label: str, rect,
     objects = resources['/XObject']
     key = name(f'/Expected{len(objects) + 1}')
     x0, y0, x1, y1 = rect
-    objects[key] = appearance(w, label, x1-x0, y1-y0, mark)
+    artwork = appearance(w, label, x1-x0, y1-y0, mark)
+    if commands is not None:
+        artwork.get_object().set_data(commands.encode('ascii'))
+    objects[key] = artwork
     content = DecodedStreamObject()
     content.set_data(f'q 1 0 0 1 {x0} {y0} cm {key} Do Q\n'.encode('ascii'))
     extra = w._add_object(content)
     old = page.get('/Contents')
     # Retain all old streams without changing source page artwork.
     page[name('/Contents')] = ArrayObject(list(old) + [extra] if isinstance(old, ArrayObject) else [old, extra])
+
+
+def add_static_drawing(writer, page_index, content):
+    page = writer.pages[page_index]
+    resources = page['/Resources']
+    font_map = resources['/Font']
+    if '/FStatic' not in font_map:
+        font_map[name('/FStatic')] = font_ref(writer)
+    drawing = DecodedStreamObject()
+    drawing.set_data(content.encode('ascii'))
+    old = page.get('/Contents')
+    page[name('/Contents')] = ArrayObject([*(list(old) if isinstance(old, ArrayObject) else [old]),
+                                           writer._add_object(drawing)])
 
 
 def pdf_dict(**entries):
@@ -199,7 +238,7 @@ def add_optional_features(writer, expected, kind, widget=None):
     script, file_spec = None, None
     add_image_and_layer(writer)
     add_image_and_layer(expected)
-    if kind == 'named_navigation_and_features':
+    if kind in {'named_navigation_and_features', 'form_and_features', 'encrypted_form_and_features'}:
         target = ArrayObject([writer.pages[1].indirect_reference, name('/Fit')])
         writer.add_named_destination_array(TextStringObject('LocalTarget'), target)
         writer.root_object['/Outlines']['/First'][name('/A')] = pdf_dict(
@@ -210,6 +249,8 @@ def add_optional_features(writer, expected, kind, widget=None):
         attach_annotation(writer, 1, '/Link', [250, 600, 320, 620], Dest=TextStringObject('LocalTarget'))
         attach_annotation(expected, 1, '/Link', [250, 600, 320, 620],
                           Dest=ArrayObject([expected.pages[1].indirect_reference, name('/Fit')]))
+        if widget is not None:
+            writer.root_object[name('/OpenAction')] = pdf_dict(S=name('/GoTo'), D=TextStringObject('LocalTarget'))
     names = writer.root_object.setdefault(name('/Names'), DictionaryObject()).get_object()
     combined = {'script_and_attachment', 'named_navigation_and_features', 'payload_aliases',
                 'form_and_features', 'encrypted_metadata_and_features', 'encrypted_form_and_features'}
@@ -266,7 +307,8 @@ def add_optional_features(writer, expected, kind, widget=None):
         attach_annotation(expected, 2, '/Square', rect,
                           AP=pdf_dict(N=appearance(expected, 'Annotation artwork', 160, 32)))
     if widget is not None:
-        widget.get_object()[name('/AA')] = pdf_dict(K=script)
+        widget.get_object()[name('/AA')] = pdf_dict(K=script, V=pdf_dict(S=name('/SubmitForm')),
+                                                    F=pdf_dict(S=name('/ResetForm')))
         form(writer)[name('/CO')] = ArrayObject([widget])
         writer.root_object[name('/AF')] = ArrayObject([file_spec])
 
@@ -306,7 +348,7 @@ def make_case(kind: str):
                 writer.pages[1].rotate(90)
         if kind == 'form_action':
             ref.get_object()[name('/AA')] = DictionaryObject({name('/K'): DictionaryObject({
-                name('/S'): name('/JavaScript'), name('/JS'): TextStringObject('/* WBS_SYNTHETIC_ACTION_DO_NOT_EXECUTE */')})})
+                name('/S'): name('/JavaScript'), name('/JS'): TextStringObject(f'/* {FORM_ACTION_MARKER} */')})})
         if kind == 'encrypted_form':
             w.encrypt(user_password='', owner_password='synthetic-owner', algorithm='RC4-40')
     elif kind == 'controls':
@@ -345,6 +387,116 @@ def make_case(kind: str):
             ref=add_widget(w,page,None,None,None,rect,appearance(w,'SHARED-VALUE'),parent=parent,register=False)
             obj['/Kids'].append(ref);paint_reference(expected,page,'SHARED-VALUE',rect)
             texts[str(page+1)]=['SHARED-VALUE'];regions.append({'page':page+1,'rect_pdf':rect})
+    elif kind == 'multiline_readonly':
+        rect = [72, 474, 332, 536]
+        lines = ['MULTILINE-FIRST-57', 'MULTILINE-SECOND-38']
+        ref = add_widget(w, 1, '/Tx', 'read-only-lines', TextStringObject('\n'.join(lines)), rect)
+        ref.get_object()[name('/Ff')] = NumberObject((1 << 12) | 1)
+        paint_reference(expected, 1, '', rect, commands=
+            f'q 1 g 0 0 260 62 re f 0 G 1 w 0.5 0.5 259 61 re S Q\n'
+            f'BT /F0 12 Tf 0 g 8 42 Td ({lines[0]}) Tj ET\n'
+            f'BT /F0 12 Tf 0 g 8 27.6 Td ({lines[1]}) Tj ET\n')
+        texts['2'] = lines
+        regions.append({'page': 2, 'rect_pdf': rect})
+        blank = [72, 420, 332, 452]
+        ref = add_widget(w, 1, '/Tx', 'read-only-blank', TextStringObject(''), blank, appearance(w))
+        ref.get_object()[name('/Ff')] = NumberObject(1)
+        paint_reference(expected, 1, '', blank)
+        regions.append({'page': 2, 'rect_pdf': blank})
+    elif kind in ('multiselect', 'multiselect_missing_appearance'):
+        rect = [72, 462, 332, 532]
+        labels = ['List Alpha', 'List Beta', 'List Gamma']
+        exports = ['export-alpha', 'export-beta', 'export-gamma']
+        if kind == 'multiselect':
+            marks = ('0.15 0.3 0.7 rg 2 48 256 17 re f 2 14 256 17 re f '
+                     '1 g BT /F0 12 Tf 8 52 Td (List Alpha) Tj ET '
+                     '0 g BT /F0 12 Tf 8 35 Td (List Beta) Tj ET '
+                     '1 g BT /F0 12 Tf 8 18 Td (List Gamma) Tj ET')
+        else:
+            marks = ('0.75 0.85 1 rg 2 48 256 14.4 re f 2 19.2 256 14.4 re f '
+                     '0 g BT /F0 12 Tf 8 50 Td (List Alpha) Tj '
+                     '0 -14.4 Td (List Beta) Tj 0 -14.4 Td (List Gamma) Tj ET')
+        drawing = 'q 1 g 0 0 260 70 re f 0 G 0.5 0.5 259 69 re S ' + marks + ' Q\n'
+        art = None
+        if kind == 'multiselect':
+            art = appearance(w, width=260, height=70)
+            art.get_object().set_data(drawing.encode('ascii'))
+        ref = add_widget(w, 1, '/Ch', 'select-many', ArrayObject([TextStringObject(exports[index]) for index in (0, 2)]),
+                         rect, art)
+        ref.get_object().update(pdf_dict(Ff=NumberObject(1 << 21), I=ArrayObject([NumberObject(0), NumberObject(2)]),
+            Opt=ArrayObject([ArrayObject([TextStringObject(key), TextStringObject(label)])
+                             for key, label in zip(exports, labels)])))
+        add_static_drawing(expected, 1, 'q 1 0 0 1 72 462 cm ' + drawing.replace('/F0', '/FStatic') + 'Q\n')
+        texts['2'] = labels
+        regions.append({'page': 2, 'rect_pdf': rect})
+    elif kind == 'combo_missing_appearance':
+        rect = [72, 500, 332, 532]
+        ref = add_widget(w, 1, '/Ch', 'city', TextStringObject('export-turku'), rect)
+        ref.get_object().update(pdf_dict(Ff=NumberObject(1 << 17),
+            Opt=ArrayObject([ArrayObject([TextStringObject('export-berlin'), TextStringObject('Berlin')]),
+                             ArrayObject([TextStringObject('export-turku'), TextStringObject('Turku')])])))
+        paint_reference(expected, 1, 'Turku', rect)
+        texts['2'] = ['Turku']
+        regions.append({'page': 2, 'rect_pdf': rect})
+    elif kind == 'winansi_missing_appearance':
+        rect = [72, 500, 332, 532]
+        label = 'Mikä Café'
+        add_widget(w, 1, '/Tx', 'winansi', TextStringObject(label), rect)
+        form(w)['/DR']['/Font']['/F0'][name('/Encoding')] = name('/WinAnsiEncoding')
+        add_static_drawing(expected, 1, f'q 1 g 72 500 260 32 re f 0 G 1 w 72.5 500.5 259 31 re S '
+                                       f'BT /FStatic 12 Tf 0 g 80 510 Td ({winansi_literal(label)}) Tj ET Q\n')
+        expected.pages[1]['/Resources']['/Font']['/FStatic'][name('/Encoding')] = name('/WinAnsiEncoding')
+        texts['2'] = [label]
+        regions.append({'page': 2, 'rect_pdf': rect})
+    elif kind == 'hierarchy':
+        for page, branch in ((1, 'north'), (2, 'south')):
+            label = f'BRANCH-{branch.upper()}-19'
+            rect = [72, 500, 332, 532]
+            node = pdf_dict(FT=name('/Tx'), T=TextStringObject(branch), DA=TextStringObject('/F0 12 Tf 0 g'),
+                            Kids=ArrayObject())
+            parent = w._add_object(node)
+            form(w)['/Fields'].append(parent)
+            widget = add_widget(w, page, None, 'same-leaf', TextStringObject(label), rect,
+                                appearance(w, label), parent=parent, register=False)
+            node['/Kids'].append(widget)
+            paint_reference(expected, page, label, rect)
+            texts[str(page+1)] = [label]
+            regions.append({'page': page+1, 'rect_pdf': rect})
+    elif kind == 'transformed_appearance':
+        label = 'TRANSFORMED-VALUE-84'
+        rect = [72, 500, 332, 532]
+        art = appearance(w, label)
+        stream = art.get_object()
+        stream.set_data(b'q 0.5 0 0 0.5 10 20 cm\n' + stream.get_data() + b'Q\n')
+        stream.update(pdf_dict(BBox=arr([10, 20, 140, 36]), Matrix=arr([2, 0, 0, 2, -10, 15])))
+        add_widget(w, 1, '/Tx', 'transformed', TextStringObject(label), rect, art)
+        paint_reference(expected, 1, label, rect)
+        for writer in (w, expected):
+            page = writer.pages[1]
+            page['/Resources']['/Font'][name('/F0')] = writer._add_object(
+                pdf_dict(Type=name('/Font'), Subtype=name('/Type1'), BaseFont=name('/Courier')))
+            add_static_drawing(writer, 1, 'BT /F0 10 Tf 72 448 Td (PAGE-RESOURCE-COLLISION) Tj ET\n')
+        texts['2'] = [label, 'PAGE-RESOURCE-COLLISION']
+        regions.append({'page': 2, 'rect_pdf': rect})
+    elif kind == 'hidden_fields':
+        for page, flag, value in ((1, 2, PRIVATE_FORM_MARKERS[kind][0]), (2, 32, PRIVATE_FORM_MARKERS[kind][1])):
+            saved = w._add_object(TextStringObject(value))
+            ap = appearance(w, value)
+            ref = add_widget(w, page, '/Tx', f'hidden-{page}', saved, [72, 500, 332, 532], ap)
+            ref.get_object()[name('/F')] = NumberObject(flag)
+            w.pages[0]['/Resources'][name(f'/HiddenValueAlias{page}')] = saved
+            w.pages[0]['/Resources'][name(f'/HiddenAppearanceAlias{page}')] = ap
+        detached = w._add_object(TextStringObject(PRIVATE_FORM_MARKERS[kind][2]))
+        form(w)['/Fields'].append(w._add_object(pdf_dict(FT=name('/Tx'), T=TextStringObject('detached'), V=detached)))
+        w.pages[0]['/Resources'][name('/DetachedValueAlias')] = detached
+        text(page=3, title='visible-public', value='VISIBLE-FORM-VALUE-11')
+    elif kind == 'button_stale_state':
+        rect = [72, 492, 94, 514]
+        states = pdf_dict(Off=appearance(w, width=22, height=22, mark='off'),
+                          Chosen=appearance(w, width=22, height=22, mark='on'))
+        add_widget(w, 1, '/Btn', 'stale-state', name('/Chosen'), rect, states, state='/Off')
+        paint_reference(expected, 1, '', rect, 'on')
+        regions.append({'page': 2, 'rect_pdf': rect})
     elif kind in ('xfa_null','xfa_empty_array','xfa_detection_only'):
         f=form(w)
         if kind == 'xfa_null':
@@ -359,12 +511,22 @@ def make_case(kind: str):
     elif kind == 'field_cycle':
         obj=DictionaryObject({name('/T'):TextStringObject('cycle'),name('/Kids'):ArrayObject()})
         ref=w._add_object(obj);obj['/Kids'].append(ref);form(w)['/Fields'].append(ref)
-    elif kind == 'signature_structure':
-        # This is structural rejection coverage, not a valid cryptographic signature.
+    elif kind in ('signature_structure', 'signature_visible'):
+        # These are structural fixtures, without a cryptographically valid signature.
         sig=DictionaryObject({name('/Type'):name('/Sig'),name('/Filter'):name('/Adobe.PPKLite'),
             name('/SubFilter'):name('/adbe.pkcs7.detached'),name('/ByteRange'):arr([0,1,2,3]),
             name('/Contents'):TextStringObject('SYNTHETIC-NOT-A-REAL-SIGNATURE')})
-        add_widget(w,1,'/Sig','signature',w._add_object(sig),[72,500,332,532])
+        rect = [72, 500, 332, 532]
+        label = 'VISIBLE-SIGNATURE-ARTWORK'
+        add_widget(w, 1, '/Sig', 'signature', w._add_object(sig), rect,
+                   appearance(w, label) if kind == 'signature_visible' else None)
+        if kind == 'signature_visible':
+            paint_reference(expected, 1, label, rect)
+            texts['2'] = [label]
+            regions.append({'page': 2, 'rect_pdf': rect})
+    elif kind == 'missing_appearance_font':
+        ref = text(page=3, missing=True)
+        ref.get_object()[name('/DA')] = TextStringObject('/UnavailableFont 12 Tf 0 g')
     elif kind in FEATURE_CASES:
         widget = text() if kind in ('form_and_features', 'encrypted_form_and_features') else None
         if kind == 'encrypted_metadata_and_features':

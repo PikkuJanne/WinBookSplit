@@ -51,13 +51,13 @@ class PackageInputTests(unittest.TestCase):
     def test_current_committed_inputs_and_helper_closure_are_bound(self):
         result = checker.validate_inputs(self.repo, self.commit)
         self.assertTrue(result["success"])
-        self.assertEqual((result["runtime_count"], result["support_source_count"]), (22, 13))
+        self.assertEqual((result["runtime_count"], result["support_source_count"]), (25, 13))
         self.assertEqual(result["source_commit"], self.commit)
         self.assertEqual(result["source_tree"], self.git("rev-parse", "HEAD^{tree}"))
         self.assertFalse(result["working_tree_inputs_used"])
         self.assertFalse(result["package_built"])
         self.assertEqual({row["path"] for row in result["files"]}, set(checker.INPUT_PATHS))
-        self.assertEqual(result["application_version"], "1.0.4")
+        self.assertEqual(result["application_version"], "1.0.5")
         dependencies = result["runtime_sibling_dependencies"]
         for consumer in ("WinBookSplit.ps1", "engine/winbooksplit_engine.py", "engine/WinBookSplit.Support.ps1"):
             self.assertIn("VERSION", dependencies[consumer])
@@ -67,6 +67,9 @@ class PackageInputTests(unittest.TestCase):
         self.assertIn("engine/WinBookSplit.Compatibility.ps1", dependencies["engine/WinBookSplit.Runtime.ps1"])
         self.assertIn("engine/WinBookSplit.Compatibility.json", dependencies["engine/WinBookSplit.Compatibility.ps1"])
         self.assertIn("engine/winbooksplit_job.py", dependencies["engine/winbooksplit_conversion.py"])
+        self.assertIn("engine/winbooksplit_forms.py", dependencies["engine/winbooksplit_conversion.py"])
+        self.assertIn("engine/WinBookSplit.Calibre.ps1", dependencies["WinBookSplit.ps1"])
+        self.assertIn("engine/WinBookSplit.Calibre.ps1", dependencies["Setup-WinBookSplit.ps1"])
         self.assertIn("engine/WinBookSplit.Support.ps1", dependencies["Export-WinBookSplitDiagnostics.ps1"])
         self.assertIn("engine/WinBookSplit.Setup.ps1", dependencies["Setup-WinBookSplit.ps1"])
         self.assertEqual(dependencies["Setup-WinBookSplit.bat"], ["Setup-WinBookSplit.ps1"])

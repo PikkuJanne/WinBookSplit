@@ -57,6 +57,7 @@ class OutcomeTests(unittest.TestCase):
                 "output_base_invalid", "output_path_too_long", "output_destination_changed", "source_output_alias"),
             3: ("dependency_missing", "runtime_invalid", "runtime_not_found", "converter_invalid",
                 "converter_not_found", "processor_start_failed", "encryption_backend_missing",
+                "converter_download_failed", "converter_integrity_failed", "converter_managed_invalid", "converter_setup_failed",
                 "setup_required", "setup_repair_required", "setup_source_invalid"),
             4: ("conversion_start_failed", "conversion_failed", "conversion_output_invalid",
                 "conversion_cleanup_failed", "conversion_source_changed", "conversion_ownership_failed"),

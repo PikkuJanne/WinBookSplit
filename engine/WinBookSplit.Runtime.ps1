@@ -817,54 +817,204 @@ function Find-WinBookSplitSetupBase {
     return (Resolve-WinBookSplitAutomaticPython -ApplicationRoot $root -DocumentPath $DocumentPath -Attempts $attempts -Policy $Policy -TimeoutSeconds 2 -InterpreterOnly -ExcludedDirectories @($venv) -ExcludedDirectoryPrefixes $prefixes)
 }
 
+function Add-WinBookSplitConverterAttempt {
+    param($Attempts, [string]$Path, [string]$Source, [string]$Stage, [string]$Reason, [string]$Message,
+          $Version, $Probe, [switch]$Accepted)
+    $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Stage = $Stage; Accepted = [bool]$Accepted;
+        Reason = $Reason; Message = $Message; Version = $Version; Probe = $Probe })
+}
+
+function Get-WinBookSplitRegisteredConverterPaths {
+    param($Attempts)
+    # The official machine installer records the physical executable and
+    # install directory in these keys. Never interpret a registered command.
+    $locations = @(
+        @{Key='SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\ebook-convert.exe'; Value=''; Directory=$false},
+        @{Key='SOFTWARE\calibre 64bit\Installer'; Value='InstallPath'; Directory=$true},
+        @{Key='SOFTWARE\calibre\Installer'; Value='InstallPath'; Directory=$true}
+    )
+    foreach ($view in @([Microsoft.Win32.RegistryView]::Registry64, [Microsoft.Win32.RegistryView]::Registry32)) {
+        $hive = $null
+        try {
+            $hive = [Microsoft.Win32.RegistryKey]::OpenBaseKey([Microsoft.Win32.RegistryHive]::LocalMachine, $view)
+            foreach ($location in $locations) {
+                $key = $null; $raw = $null
+                try {
+                    $key = $hive.OpenSubKey($location.Key, $false)
+                    if ($null -eq $key) { continue }
+                    $raw = $key.GetValue($location.Value, $null, [Microsoft.Win32.RegistryValueOptions]::DoNotExpandEnvironmentNames)
+                    if ($null -eq $raw) { continue }
+                    if ($raw -isnot [string] -or $raw.Length -gt 4096 -or $raw -notmatch '\A[A-Za-z]:[\\/]' -or
+                        $raw -match '[\x00-\x1f"*?<>|]' -or $raw.Substring(2).Contains(':')) {
+                        throw 'The Calibre installation registration does not contain an ordinary absolute local path.'
+                    }
+                    if ($location.Directory) { [IO.Path]::Combine($raw, 'ebook-convert.exe') }
+                    elseif ([IO.Path]::GetFileName($raw) -ieq 'ebook-convert.exe') { $raw }
+                    else { throw 'The Calibre App Paths registration does not identify ebook-convert.exe.' }
+                } catch {
+                    $registeredPath = ''; if ($raw -is [string] -and $raw.Length -le 4096) { $registeredPath = $raw }
+                    Add-WinBookSplitConverterAttempt $Attempts $registeredPath 'registry' 'entry' 'converter_path_rejected' $_.Exception.Message
+                } finally {
+                    if ($null -ne $key) { $key.Dispose() }
+                }
+            }
+        } catch {
+            Add-WinBookSplitConverterAttempt $Attempts '' 'registry' 'entry' 'converter_path_rejected' 'Calibre installation metadata could not be read.'
+        } finally {
+            if ($null -ne $hive) { $hive.Dispose() }
+        }
+    }
+}
+
+function Get-WinBookSplitKnownConverterPaths {
+    foreach ($folder in @([Environment+SpecialFolder]::ProgramFiles, [Environment+SpecialFolder]::ProgramFilesX86)) {
+        $directory = [Environment]::GetFolderPath($folder)
+        if ($directory) { [IO.Path]::Combine($directory, 'Calibre2', 'ebook-convert.exe') }
+    }
+    $directory = $env:LOCALAPPDATA
+    if ([string]::IsNullOrWhiteSpace($directory)) {
+        $directory = [Environment]::GetFolderPath([Environment+SpecialFolder]::LocalApplicationData)
+    }
+    if ($directory) { [IO.Path]::Combine($directory, 'Programs', 'Calibre', 'ebook-convert.exe') }
+}
+
+function Assert-WinBookSplitConverterExecutableIdentity {
+    param([string]$Path)
+    $metadata = [Diagnostics.FileVersionInfo]::GetVersionInfo($Path)
+    if ($metadata.OriginalFilename -ine 'ebook-convert.exe' -or $metadata.ProductName -ine 'calibre' -or
+        $metadata.CompanyName -ine 'calibre-ebook.com') {
+        throw 'The installed executable does not identify itself as Calibre ebook-convert.exe.'
+    }
+    $signature = Get-AuthenticodeSignature -LiteralPath $Path -ErrorAction Stop
+    if ($signature.Status -ne 'Valid' -or $null -eq $signature.SignerCertificate -or
+        $signature.SignerCertificate.GetNameInfo([Security.Cryptography.X509Certificates.X509NameType]::SimpleName, $false) -cne 'Kovid Goyal') {
+        throw 'The installed converter does not have a valid official Calibre signature.'
+    }
+}
+
 function Test-WinBookSplitConverterCandidate {
-    param([string]$Path, [string]$Source, [string]$ApplicationRoot, $Attempts, [double]$TimeoutSeconds)
-    $probe = $null
+    param([string]$Path, [string]$Source, [string]$ApplicationRoot, $Attempts, [double]$TimeoutSeconds,
+          $Policy, [string]$DocumentPath)
+    $probe = $null; $version = $null; $stage = 'entry'; $reason = 'converter_path_rejected'; $trusted = $Path
     try {
-        $path = Get-WinBookSplitTrustedPath $Path -Automatic:($Source -in @('PATH', 'known_location'))
-        $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($ApplicationRoot, 'engine', 'WinBookSplit.Compatibility.json'))
-        $probe = Invoke-WinBookSplitRuntimeProbe $path @('--version') $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        $trusted = Get-WinBookSplitTrustedPath -Path $Path -Automatic:($Source -ne 'explicit')
+        if ($Source -in @('registry','known_location') -and
+            -not (Test-WinBookSplitAutomaticPath $trusted $ApplicationRoot $DocumentPath)) {
+            throw 'Document-directory or unrelated-CWD candidate excluded.'
+        }
+        if ($Source -in @('PATH','registry','known_location')) {
+            $stage = 'signature'
+            Assert-WinBookSplitConverterExecutableIdentity -Path $trusted
+        }
+        $stage = 'probe'; $reason = 'converter_probe_failed'
+        if (Get-Command -Name Invoke-WinBookSplitCalibreVersionProbe -CommandType Function -ErrorAction SilentlyContinue) {
+            $probe = Invoke-WinBookSplitCalibreVersionProbe -Path $trusted -ApplicationRoot $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        }
+        else {
+            $probe = Invoke-WinBookSplitRuntimeProbe $trusted @('--version') $ApplicationRoot -TimeoutSeconds $TimeoutSeconds
+        }
         Assert-WinBookSplitDiscoveryStopped $probe
-        Assert-WinBookSplitProbeNotInterrupted $probe
-        if ($probe.ExitCode -ne 0 -or $probe.TimedOut -or $probe.Cancelled -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
-            $probe.StartError -or $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated -or
-            $probe.Stdout -cnotmatch '\Aebook-convert(?:\.exe)? \(calibre ([0-9]+\.[0-9]+\.[0-9]+)\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?\z') {
+        if ($null -ne $probe -and ($probe.Cancelled -or ($probe.TimedOut -and $Source -eq 'explicit'))) {
+            Assert-WinBookSplitProbeNotInterrupted $probe
+        }
+        if ($null -ne $probe -and $probe.TimedOut) {
+            $reason = 'converter_probe_timeout'
+            throw 'The converter version probe timed out and its owned process tree stopped.'
+        }
+        if ($null -eq $probe) { throw 'The converter did not return a version probe record.' }
+        if ($probe.StartError) { throw 'The converter executable could not be launched for version validation.' }
+        if ($null -ne $probe.ExitCode -and $probe.ExitCode -ne 0) {
+            throw ('The converter version probe returned exit code ' + $probe.ExitCode + '.')
+        }
+        if ($null -eq $probe.ExitCode -or -not $probe.ParentStopped -or -not $probe.DescendantsStopped -or -not $probe.JobAssigned -or -not $probe.StreamsComplete -or
+            $probe.StopError -or $probe.StreamError -or $probe.StdoutTruncated -or $probe.StderrTruncated -or
+            -not [string]::IsNullOrWhiteSpace($probe.Stderr) -or
+            $probe.Stdout -cnotmatch '\Aebook-convert(?:\.exe)? \(calibre ([0-9][0-9A-Za-z.+-]{0,39})\)(?:\r?\nCreated by: Kovid Goyal <kovid@kovidgoyal\.net>)?(?:\r?\n)?\z') {
             throw 'The converter did not return a complete ebook-convert version probe.'
         }
         $version = $Matches[1]
-        if (-not (Test-WinBookSplitCalibreVersion -Version $version -Policy $policy)) { throw ('Expected stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer; observed ' + $version + '.') }
-        $Attempts.Add([pscustomobject]@{ Path = $path; Source = $Source; Accepted = $true; Message = 'Supported converter version.'; Probe = $probe })
-        return [pscustomobject]@{ Path = $path; Version = $version; Source = $Source; Probe = $probe; Attempts = @($Attempts.ToArray()) }
+        $stage = 'version'; $reason = 'converter_version_unsupported'
+        if (-not (Test-WinBookSplitCalibreVersion -Version $version -Policy $Policy)) { throw ('Expected stable Calibre ' + $Policy['calibre']['minimum_version'] + ' or newer. Observed ' + $version + '.') }
+        Add-WinBookSplitConverterAttempt $Attempts $trusted $Source 'verified' 'converter_supported' 'Supported converter version.' $version $probe -Accepted
+        return [pscustomobject]@{ Path = $trusted; Version = $version; Source = $Source; Probe = $probe; Attempts = @($Attempts.ToArray()) }
     } catch {
-        if (Test-WinBookSplitInterruption $_.Exception) { throw }
-        $Attempts.Add([pscustomobject]@{ Path = $Path; Source = $Source; Accepted = $false; Message = $_.Exception.Message; Probe = $probe })
+        $failure = $_.Exception
+        $base = $failure.GetBaseException()
+        if ($stage -eq 'entry' -and ($base -is [IO.FileNotFoundException] -or $base -is [IO.DirectoryNotFoundException])) {
+            $reason = 'converter_missing'
+        }
+        if (Test-WinBookSplitInterruption $failure) {
+            Add-WinBookSplitConverterAttempt $Attempts $trusted $Source $stage $reason $failure.Message $version $probe
+            $failure.Data['Attempts'] = @($Attempts.ToArray())
+            throw
+        }
+        Add-WinBookSplitConverterAttempt $Attempts $trusted $Source $stage $reason $failure.Message $version $probe
         return $null
     }
 }
 
 function Resolve-WinBookSplitConverter {
     param([Parameter(Mandatory = $true)][string]$ApplicationRoot, [string]$CalibrePath,
-          [string]$DocumentPath, [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 10)
+          [string]$DocumentPath, [ValidateRange(0.05, 60)][double]$TimeoutSeconds = 10,
+          [string]$ManagedPythonPath)
     $root = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
     $attempts = New-Object 'System.Collections.Generic.List[object]'
     try { $policy = Get-WinBookSplitCompatibilityPolicy -PolicyPath ([IO.Path]::Combine($root, 'engine', 'WinBookSplit.Compatibility.json')) }
     catch { throw (New-WinBookSplitDependencyError 'converter_invalid' ('Compatibility policy could not be loaded: ' + $_.Exception.Message) $attempts 'malformed_policy') }
-    $guidance = 'Select trusted stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer ebook-convert.exe with -CalibrePath, a trusted PATH entry, or a standard install; PDF-only processing does not require Calibre.'
-    if (-not [string]::IsNullOrWhiteSpace($CalibrePath)) {
-        $selected = Test-WinBookSplitConverterCandidate $CalibrePath 'explicit' $root $attempts $TimeoutSeconds
+    $guidance = 'Use stable Calibre ' + $policy['calibre']['minimum_version'] +
+        ' or newer. Select a trusted custom converter with -CalibrePath. An interactive ebook run can offer local preparation.'
+    if ($PSBoundParameters.ContainsKey('CalibrePath')) {
+        $selected = Test-WinBookSplitConverterCandidate $CalibrePath 'explicit' $root $attempts $TimeoutSeconds $policy $DocumentPath
         if ($selected) { return $selected }
-        throw (New-WinBookSplitDependencyError 'converter_invalid' ("Converter preflight failed for '$CalibrePath': " + $attempts[-1].Message + ' ' + $guidance) $attempts)
+        $observed = $attempts[-1]
+        throw (New-WinBookSplitDependencyError 'converter_invalid' ("Converter preflight failed for '$CalibrePath': " + $observed.Message + ' ' + $guidance) $attempts $observed.Reason)
     }
-    foreach ($candidate in @(Get-WinBookSplitPathCandidates 'ebook-convert.exe' $root $DocumentPath $attempts)) {
-        $selected = Test-WinBookSplitConverterCandidate $candidate 'PATH' $root $attempts $TimeoutSeconds
-        if ($selected) { return $selected }
-    }
-    foreach ($candidate in @('C:\Program Files\Calibre2\ebook-convert.exe', 'C:\Program Files (x86)\Calibre2\ebook-convert.exe',
-                            [IO.Path]::Combine($env:LOCALAPPDATA, 'Programs\Calibre\ebook-convert.exe'))) {
-        if ([IO.File]::Exists($candidate) -and (Test-WinBookSplitAutomaticPath $candidate $root $DocumentPath)) {
-            $selected = Test-WinBookSplitConverterCandidate $candidate 'known_location' $root $attempts $TimeoutSeconds
+    $fromPath = @()
+    try { $fromPath = @(Get-WinBookSplitPathCandidates 'ebook-convert.exe' $root $DocumentPath $attempts) }
+    catch { Add-WinBookSplitConverterAttempt $attempts '' 'PATH' 'entry' 'converter_path_rejected' $_.Exception.Message }
+    $seen = New-Object 'System.Collections.Generic.HashSet[string]' ([StringComparer]::OrdinalIgnoreCase)
+    $clock = [Diagnostics.Stopwatch]::StartNew()
+    $deadline = [Math]::Min(60, [Math]::Max(10, $TimeoutSeconds * 3))
+    foreach ($source in @('PATH','registry','known_location')) {
+        switch ($source) {
+            'PATH' { $paths = $fromPath }
+            'registry' { $paths = @(Get-WinBookSplitRegisteredConverterPaths $attempts) }
+            'known_location' { $paths = @(Get-WinBookSplitKnownConverterPaths) }
+        }
+        foreach ($candidate in $paths) {
+            if (-not $seen.Add($candidate)) { continue }
+            $remaining = $deadline - $clock.Elapsed.TotalSeconds
+            if ($remaining -lt 0.05) {
+                Add-WinBookSplitConverterAttempt $attempts $candidate $source 'probe' 'converter_probe_timeout' 'The overall installed-converter discovery deadline was reached.'
+                break
+            }
+            $selected = Test-WinBookSplitConverterCandidate $candidate $source $root $attempts ([Math]::Min($TimeoutSeconds, $remaining)) $policy $DocumentPath
             if ($selected) { return $selected }
         }
     }
-    throw (New-WinBookSplitDependencyError 'converter_not_found' ('No compatible trusted converter was found. ' + $guidance) $attempts)
+    if ($ManagedPythonPath -and (Get-Command -Name Get-WinBookSplitManagedConverterPath -CommandType Function -ErrorAction SilentlyContinue)) {
+        $managed = $null
+        try { $managed = Get-WinBookSplitManagedConverterPath -ApplicationRoot $root -PythonPath $ManagedPythonPath }
+        catch {
+            if (Test-WinBookSplitInterruption $_.Exception) { throw }
+            Add-WinBookSplitConverterAttempt $attempts '' 'managed' 'identity' 'converter_path_rejected' $_.Exception.Message
+        }
+        if ($managed) {
+            $selected = Test-WinBookSplitConverterCandidate $managed 'managed' $root $attempts $TimeoutSeconds $policy $DocumentPath
+            if ($selected) { return $selected }
+        }
+    }
+    $observed = $attempts | Where-Object { $_.Reason -in @('converter_version_unsupported','converter_probe_failed','converter_probe_timeout') } | Select-Object -First 1
+    if ($null -eq $observed) {
+        $observed = $attempts | Where-Object { $_.Reason -in @('converter_path_rejected','rejected_entry_point') } | Select-Object -First 1
+    }
+    $reason = 'converter_missing'
+    $message = 'No installed or verified managed Calibre converter was found.'
+    if ($null -ne $observed) {
+        $reason = $observed.Reason
+        if ($reason -eq 'rejected_entry_point') { $reason = 'converter_path_rejected' }
+        $message = $observed.Message
+        if ($observed.Path) { $message = "Calibre candidate '$($observed.Path)': " + $message }
+    }
+    throw (New-WinBookSplitDependencyError 'converter_not_found' ($message + ' ' + $guidance) $attempts $reason)
 }

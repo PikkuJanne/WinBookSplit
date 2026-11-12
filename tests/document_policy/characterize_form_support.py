@@ -4,6 +4,7 @@ from __future__ import annotations
 import argparse
 import importlib.util
 import json
+import math
 import os
 from pathlib import Path
 import platform
@@ -31,7 +32,7 @@ def load(name, path):
 policy = load("wbs_form_native_policy", "tests/document_policy/characterize_document_policy.py")
 fixtures = load("wbs_form_fixtures", "tests/fixtures/generate_form_fixtures.py")
 cli, require = policy.cli, policy.require
-MATRIX = (
+BASELINE_MATRIX = (
     ("PS51", "plain", "Manual"),
     ("PS7", "plain", "Auto2"),
     ("BAT", "plain", "Manual"),
@@ -67,10 +68,44 @@ CHECKPOINT_2_MATRIX = (
     ('PS7', 'form_and_features', 'Manual'),
     ('PS51', 'encrypted_form_and_features', 'Preview'),
 )
+FORM_MATRIX = (
+    ('PS51', 'text', 'Manual'),
+    ('PS7', 'text', 'Auto2'),
+    ('BAT', 'controls', 'Manual'),
+    ('PS7', 'controls', 'Auto2'),
+    ('PS51', 'shared_field', 'Auto1'),
+    ('PS7', 'missing_appearance', 'Manual'),
+    ('PS51', 'stale_appearance', 'Auto2'),
+    ('PS51', 'orphan_widget', 'Manual'),
+    ('PS7', 'rotated_crop', 'Auto2'),
+    ('PS51', 'form_action', 'Manual'),
+    ('PS7', 'encrypted_form', 'Auto1'),
+    ('BAT', 'encrypted_form_and_features', 'Manual'),
+    ('PS7', 'form_and_features', 'Auto2'),
+    ('PS51', 'multiline_readonly', 'Manual'),
+    ('PS7', 'multiselect', 'Auto1'),
+    ('PS51', 'multiselect_missing_appearance', 'Auto2'),
+    ('PS7', 'combo_missing_appearance', 'Manual'),
+    ('PS51', 'winansi_missing_appearance', 'Manual'),
+    ('PS51', 'hierarchy', 'Auto2'),
+    ('PS7', 'transformed_appearance', 'Manual'),
+    ('PS51', 'hidden_fields', 'Auto1'),
+    ('PS7', 'signature_visible', 'Auto2'),
+    ('PS51', 'button_stale_state', 'Manual'),
+    ('PS7', 'signature_structure', 'Manual'),
+    ('PS51', 'missing_appearance_font', 'Preview'),
+    ('PS7', 'missing_appearance_font', 'Manual'),
+)
+MATRIX = tuple(dict.fromkeys(BASELINE_MATRIX + CHECKPOINT_2_MATRIX + FORM_MATRIX))
 EXPECTED_FAILURES = {
     'xfa_detection_only': ('unsupported_document', 'xfa_rendering_required'),
     'fields_malformed': ('invalid_document', 'malformed_form'),
     'field_cycle': ('invalid_document', 'malformed_form'),
+    'signature_structure': ('unsupported_document', 'form_appearance_required'),
+    'missing_appearance_font': ('unsupported_document', 'form_appearance_required'),
+}
+CHECKPOINT_2_FAILURES = {
+    **EXPECTED_FAILURES,
     'form_and_features': ('unsupported_document', 'form_appearance_required'),
     'encrypted_form_and_features': ('unsupported_document', 'form_appearance_required'),
 }
@@ -84,6 +119,8 @@ FEATURE_WARNINGS = {
     'named_navigation_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
     'payload_aliases': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
     'encrypted_metadata_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'form_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
+    'encrypted_form_and_features': {'pdf_javascript_omitted', 'pdf_attachment_omitted'},
     'broken_omitted_branches': set(),
 }
 RANGES = {"Manual": [[0, 2], [2, 4]], "Auto1": [[0, 1], [1, 2], [2, 3], [3, 4]],
@@ -94,27 +131,52 @@ OMITTED_KEYS = {'/AA', '/AF', '/AFRelationship', '/Collection', '/EF', '/Embedde
 OMITTED_TYPES = {'/EmbeddedFile', '/Filespec', '/Sig', '/DocTimeStamp'}
 OMITTED_ACTIONS = {'/JavaScript', '/URI', '/Launch', '/GoToR', '/GoToE', '/SubmitForm',
                    '/ResetForm', '/ImportData', '/Rendition', '/RichMediaExecute'}
+SECONDARY_CASES = {'controls', 'missing_appearance', 'stale_appearance', 'multiline_readonly', 'multiselect',
+                   'multiselect_missing_appearance', 'combo_missing_appearance', 'winansi_missing_appearance',
+                   'rotated_crop', 'transformed_appearance', 'signature_visible'}
 
 
-def render(renderer, source, prefix, receipts):
+def render(renderer, source, prefix, receipts, *, secondary=False):
+    command = ([str(renderer), "-I", "-B", str(ROOT / 'tests/fidelity/render_pdfium.py'),
+                "--input", str(source), "--output-prefix", str(prefix)] if secondary else
+               [str(renderer), "-r", "72", "-cropbox", "-png", str(source), str(prefix)])
     process = cli.run_unavailable_stdin(
-        [str(renderer), "-r", "72", "-cropbox", "-png", str(source), str(prefix)],
-        prefix.parent, os.environ.copy(),
+        command, prefix.parent, os.environ.copy(),
     )
-    receipts.append(process)
-    require(process["exit_code"] == 0, "Poppler render failed: " + process["stderr"])
+    renderer_name = "PDFium" if secondary else "Poppler"
+    require(process["exit_code"] == 0, renderer_name + " render failed: " + process["stderr"])
     paths = prefix.parent.glob(prefix.name + "-*.png")
-    return sorted(paths, key=lambda path: int(path.stem.rsplit("-", 1)[1]))
+    ordered = sorted(paths, key=lambda path: int(path.stem.rsplit("-", 1)[1]))
+    receipts.append({"renderer": renderer_name, "process": process,
+                     "images": {path.name: cli.digest(path) for path in ordered}})
+    return ordered
 
 
 def geometry(page):
     return list(page.mediabox), list(page.cropbox), page.rotation
 
 
-def region(image, rect):
-    # Checkpoint 1 seeds use an unrotated, zero-origin CropBox and render at 72 DPI.
-    left, bottom, right, top = rect
-    return image.crop((left, image.height - top, right, image.height - bottom))
+def region(image, rect, page=None):
+    """Map source PDF points to the 72 DPI rendered CropBox coordinates."""
+    left, bottom, right, top = (float(x) for x in page.cropbox) if page is not None else (0, 0, *image.size)
+    width, height = right - left, top - bottom
+    rotation = page.rotation % 360 if page is not None else 0
+    x0, y0, x1, y1 = rect
+    def point(x, y):
+        x, y = x - left, y - bottom
+        if rotation == 90:
+            return y, x
+        if rotation == 180:
+            return width - x, y
+        if rotation == 270:
+            return height - y, width - x
+        return x, height - y
+    corners = [point(x, y) for x in (x0, x1) for y in (y0, y1)]
+    xs, ys = zip(*corners)
+    crop = (math.floor(min(xs)), math.floor(min(ys)), math.ceil(max(xs)), math.ceil(max(ys)))
+    require(0 <= crop[0] < crop[2] <= image.width and 0 <= crop[1] < crop[3] <= image.height,
+            'Field region lies outside its rendered CropBox')
+    return image.crop(crop)
 
 
 def check_reference_oracle(renderer, work, sources, receipts):
@@ -138,11 +200,13 @@ def check_reference_oracle(renderer, work, sources, receipts):
     return {"blank_regions_detected": len(tiles), "opposite_button_pairs_detected": 2}
 
 
-def inspect_serialization(reader, chapter, pages, outside_values, *, feature_case):
+def inspect_serialization(reader, chapter, pages, outside_values):
     """Count every serialized page and inspect streams even if unreachable."""
     ids = {(generation, number) for generation, rows in reader.xref.items() for number in rows if number}
     ids.update((0, number) for number in reader.xref_objStm)
     markers, page_count = set(), 0
+    forbidden_bytes = {value.encode('utf-8') for value in outside_values}
+    forbidden_bytes.update(fixtures.winansi_literal(value).encode('ascii') for value in outside_values)
     for generation, number in sorted(ids):
         value = reader.get_object(IndirectObject(number, generation, reader))
         if isinstance(value, DictionaryObject) and value.get("/Type") == "/Page":
@@ -153,22 +217,21 @@ def inspect_serialization(reader, chapter, pages, outside_values, *, feature_cas
             if isinstance(value, DictionaryObject):
                 require(value.get("/Subtype") != "/Widget" and not {"/AcroForm", "/XFA", "/FT"}.intersection(value),
                         "Serialized form/widget data survived chapter export")
-                if feature_case:
-                    require(not OMITTED_KEYS.intersection(value)
-                            and value.get('/Type') not in OMITTED_TYPES
-                            and value.get('/S') not in OMITTED_ACTIONS
-                            and value.get('/Subtype') != '/FileAttachment',
-                            'Serialized attachment, executable action or relationship survived chapter export')
-                    action = value if value.get('/Type') == '/Action' else value.get('/A')
-                    if action is not None:
-                        action = action.get_object()
-                        require(isinstance(action, DictionaryObject) and action.get('/S') == '/GoTo'
-                                and '/Next' not in action, 'Serialized action is not a projected local destination')
+                require(not OMITTED_KEYS.intersection(value)
+                        and value.get('/Type') not in OMITTED_TYPES
+                        and value.get('/S') not in OMITTED_ACTIONS
+                        and value.get('/Subtype') != '/FileAttachment',
+                        'Serialized attachment, executable action or relationship survived chapter export')
+                action = value if value.get('/Type') == '/Action' else value.get('/A')
+                if action is not None:
+                    action = action.get_object()
+                    require(isinstance(action, DictionaryObject) and action.get('/S') == '/GoTo'
+                            and '/Next' not in action, 'Serialized action is not a projected local destination')
                 pending.extend(value.values())
                 if isinstance(value, StreamObject):
                     data = value.get_data()
                     markers.update(int(marker) for marker in PAGE_MARKER.findall(data))
-                    require(all(item.encode("ascii") not in data for item in outside_values),
+                    require(all(item not in data for item in forbidden_bytes),
                             "Outside-chapter value survived in a decoded stream")
             elif isinstance(value, ArrayObject):
                 pending.extend(value)
@@ -179,7 +242,32 @@ def inspect_serialization(reader, chapter, pages, outside_values, *, feature_cas
     return {"page_objects": page_count, "page_markers": sorted(markers), "sha256": cli.digest(chapter)}
 
 
-def inspect_outputs(renderer, case_dir, base, result, case, reference, values, regions, source_hash):
+def inspect_pixels(target, actual, source_image, expected_page, page_number, fields, record, renderer_name):
+    require(target.size == actual.size, "Rendered page size changed")
+    for field in fields:
+        if field["page"] != page_number:
+            continue
+        rect = field["rect_pdf"]
+        expected = region(target, rect, expected_page)
+        observed = region(actual, rect, expected_page)
+        difference = ImageChops.difference(expected, observed).getbbox()
+        source_difference = None
+        if source_image is not None:
+            require(source_image.size == target.size, "Rendered source geometry changed")
+            source_difference = ImageChops.difference(expected, region(source_image, rect, expected_page)).getbbox()
+        record["regions"].append({**field, "renderer": renderer_name, "difference_bbox": difference,
+                                  "source_difference_bbox": source_difference})
+        require(difference is None, f"{renderer_name} field region changed on source page {page_number}: {rect}")
+    require(ImageChops.difference(target, actual).getbbox() is None,
+            f"{renderer_name} reference page pixels changed on source page {page_number}")
+
+
+def open_rgb(path):
+    with Image.open(path) as image:
+        return image.convert("RGB")
+
+
+def inspect_outputs(renderer, secondary, case_dir, base, result, case, source, reference, values, regions, source_hash):
     execution = result["execution"]
     start_end = [[row["start"], row["end"]] for row in execution["outputs"]]
     require(start_end == RANGES[case["mode"]] and result["written_count"] == len(start_end),
@@ -189,8 +277,18 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
     members = {".WinBookSplit-owner.json", "WinBookSplit_Manifest.json", *[row["filename"] for row in execution["outputs"]]}
     require(final.parent == base and {path.name for path in final.iterdir()} == members, "Unexpected chapter directory contents")
     expected = PdfReader(reference)
-    reference_renders = render(renderer, reference, case_dir / "reference", case["renders"])
-    require(len(reference_renders) == len(expected.pages) == 4, "Wrong reference page count")
+    renderers = [('Poppler', renderer, False)]
+    if secondary and case['kind'] in SECONDARY_CASES:
+        renderers.append(('PDFium', secondary, True))
+    references, source_renders = {}, {}
+    for name, executable, is_secondary in renderers:
+        references[name] = render(executable, reference, case_dir / f"reference-{name}", case["renders"],
+                                  secondary=is_secondary)
+        require(len(references[name]) == len(expected.pages) == 4, "Wrong reference page count")
+        if case['kind'] in fixtures.FORM_CASES:
+            source_renders[name] = render(executable, source, case_dir / f"source-{name}", case["renders"],
+                                          secondary=is_secondary)
+            require(len(source_renders[name]) == 4, "Wrong rendered source page count")
     all_values = {item for labels in values.values() for item in labels}
     feature_case = case['kind'] in fixtures.FEATURE_CASES
     for row in execution["outputs"]:
@@ -198,14 +296,16 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
         chapter = final / row["filename"]
         reader = PdfReader(chapter)
         pages = list(range(start + 1, end + 1))
-        chapter_renders = render(renderer, chapter, case_dir / f"chapter-{start}", case["renders"])
-        require(len(reader.pages) == len(chapter_renders) == len(pages), "Wrong reopened chapter page count")
+        chapter_renders = {}
+        for name, executable, is_secondary in renderers:
+            chapter_renders[name] = render(executable, chapter, case_dir / f"chapter-{start}-{name}", case["renders"],
+                                           secondary=is_secondary)
+            require(len(reader.pages) == len(chapter_renders[name]) == len(pages), "Wrong reopened chapter page count")
         inside_values = {item for page in pages for item in values.get(str(page), ())}
-        forbidden = all_values - inside_values
+        forbidden = (all_values - inside_values) | set(fixtures.PRIVATE_FORM_MARKERS.get(case['kind'], ()))
         if feature_case:
             forbidden.update(fixtures.FEATURE_MARKERS)
-        record = {"range": [start, end], "regions": [], **inspect_serialization(
-            reader, chapter, pages, forbidden, feature_case=feature_case)}
+        record = {"range": [start, end], "regions": [], **inspect_serialization(reader, chapter, pages, forbidden)}
         case["outputs"].append(record)
         for local, page_number in enumerate(pages):
             page = reader.pages[local]
@@ -220,7 +320,7 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
                 require(resources['/XObject']['/FixtureImage'].get('/Subtype') == '/Image'
                         and layer in reader.root_object['/OCProperties']['/OCGs'],
                         'Image or optional-content group is missing')
-                if case['kind'] == 'named_navigation_and_features':
+                if case['kind'] in {'named_navigation_and_features', 'form_and_features', 'encrypted_form_and_features'}:
                     links = [item.get_object() for item in page['/Annots']
                              if item.get_object().get('/Subtype') == '/Link']
                     require(len(links) == 1 and links[0]['/Dest'][0] == page.indirect_reference,
@@ -233,20 +333,14 @@ def inspect_outputs(renderer, case_dir, base, result, case, reference, values, r
                 if case['kind'] == 'page_and_annotation_actions':
                     require(any(item.get_object().get('/Subtype') == '/Square' for item in page['/Annots']),
                             'Static square annotation was dropped along with its action')
-            with Image.open(reference_renders[page_number - 1]) as expected_image, Image.open(chapter_renders[local]) as observed_image:
-                require(expected_image.size == observed_image.size, "Rendered page size changed")
-                target, actual = expected_image.convert("RGB"), observed_image.convert("RGB")
-                for field in regions:
-                    if field["page"] == page_number:
-                        rect = field["rect_pdf"]
-                        difference = ImageChops.difference(region(target, rect), region(actual, rect)).getbbox()
-                        record["regions"].append({**field, "difference_bbox": difference})
-                        require(difference is None, f"Field region changed on source page {page_number}: {rect}")
-                require(ImageChops.difference(target, actual).getbbox() is None,
-                        f"Reference page pixels changed on source page {page_number}")
+            for name, _, _ in renderers:
+                inspect_pixels(open_rgb(references[name][page_number - 1]), open_rgb(chapter_renders[name][local]),
+                               open_rgb(source_renders[name][page_number - 1]) if name in source_renders else None,
+                               expected.pages[page_number - 1], page_number, regions, record, name)
 
 
-def run_case(application, runtime, renderer, work, host, kind, mode, sources, case, *, checkpoint_2):
+def run_case(application, application_paths, runtime, renderer, secondary, work, host, kind, mode, sources, case,
+             *, checkpoint_2):
     directory = work / f"{host['id']}-{kind}-{mode}"
     directory.mkdir()
     base = directory / "output"
@@ -264,7 +358,7 @@ def run_case(application, runtime, renderer, work, host, kind, mode, sources, ca
     preview = mode == 'Preview'
     if batch:
         app_copy = directory / "app"
-        for name in policy.support.validator.APPLICATION:
+        for name in application_paths:
             path = app_copy / name
             path.parent.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(application / name, path)
@@ -315,16 +409,33 @@ def run_case(application, runtime, renderer, work, host, kind, mode, sources, ca
                     "Preview or rejected document left chapter or staging output")
             require(result and result["written_count"] == 0 and result["execution"] is None,
                     "Preview or rejected document reported output")
-        if checkpoint_2 and kind in EXPECTED_FAILURES:
-            code, reason = EXPECTED_FAILURES[kind]
+        failures = CHECKPOINT_2_FAILURES if checkpoint_2 else EXPECTED_FAILURES
+        if kind in failures:
+            code, reason = failures[kind]
             require(result and result['code'] == code and process['exit_code'] == result['exit_code'] != 0
-                    and result.get('diagnostic', {}).get('reason') == reason,
+                    and (result.get('diagnostic') or {}).get('reason') == reason,
                     f'Expected {code}/{reason}, observed {result}')
             return
-        if kind in FEATURE_WARNINGS and result and process['exit_code'] == 0:
+        if result and process['exit_code'] == 0:
             actual = {entry['code'] for entry in result['warnings']}
-            specific = {'pdf_javascript_omitted', 'pdf_attachment_omitted'}
-            require(actual & specific == FEATURE_WARNINGS[kind], f'Wrong feature-specific warnings: {actual}')
+            if kind in FEATURE_WARNINGS:
+                specific = {'pdf_javascript_omitted', 'pdf_attachment_omitted'}
+                require(actual & specific == FEATURE_WARNINGS[kind], f'Wrong feature-specific warnings: {actual}')
+            if kind in fixtures.FORM_CASES:
+                warning = [entry['message'] for entry in result['warnings'] if entry['code'] == 'pdf_form_flattened']
+                require(warning == ['Form fields will be preserved as static page content; chapter copies will not be fillable.'],
+                        'Missing static-form disclosure')
+                if kind == 'hidden_fields':
+                    require('pdf_form_data_omitted' in actual, 'Missing nonvisual form data disclosure')
+                if kind == 'signature_visible':
+                    require('pdf_signature_omitted' in actual, 'Missing source signature disclosure')
+                if kind in {'form_and_features', 'encrypted_form_and_features'}:
+                    require('opening_destination_ignored' in actual, 'Local opening destination lost its expected notice')
+        private_values = fixtures.PRIVATE_FORM_MARKERS.get(kind, ())
+        if private_values:
+            diagnostic_material = json.dumps(outcome, ensure_ascii=False) + process["stdout"] + process["stderr"]
+            require(all(value not in diagnostic_material for value in private_values),
+                    'Excluded form data escaped into native diagnostics')
         if preview:
             require(process['exit_code'] == 0 and result and result['code'] == 'preview_complete'
                     and result['plan']['source_identity']['sha256'] == before['sha256']
@@ -333,7 +444,8 @@ def run_case(application, runtime, renderer, work, host, kind, mode, sources, ca
         require(process["exit_code"] == 0 and result and result["code"] == "split_complete",
                 f"Expected static split success, got {process['exit_code']}: "
                 + (result["code"] + ": " + result["message"] if result else str(outcome)))
-        inspect_outputs(renderer, directory, base, result, case, reference["static"], values, regions, before["sha256"])
+        inspect_outputs(renderer, secondary, directory, base, result, case, source, reference["static"], values,
+                        regions, before["sha256"])
 
 
 def main():
@@ -342,18 +454,27 @@ def main():
     parser.add_argument("--application-python-path", type=Path, required=True)
     parser.add_argument("--shell-path", type=Path, action="append", required=True)
     parser.add_argument("--renderer-path", type=Path, required=True)
+    parser.add_argument("--secondary-python-path", type=Path, help="Isolated developer Python with PDFium")
     parser.add_argument("--report", type=Path, required=True)
-    parser.add_argument('--checkpoint-2', action='store_true', help='Run harmless-form and optional-feature cases')
+    selection = parser.add_mutually_exclusive_group()
+    selection.add_argument('--checkpoint-2', action='store_true', help='Run the historical checkpoint 2 matrix')
+    selection.add_argument('--form-cases', action='store_true', help='Run only the static form acceptance cases')
     parser.add_argument("--case", choices=sorted({kind for _, kind, _ in MATRIX + CHECKPOINT_2_MATRIX}), action="append")
     args = parser.parse_args()
     require(os.name == "nt" and sys.flags.isolated and sys.dont_write_bytecode, "Use Windows and developer Python -I -B")
-    require(pypdf_version == "6.21.4", "Developer pypdf does not match the v1.0.4 lock")
+    require(pypdf_version == "6.21.4", "Developer pypdf does not match the application lock")
     require(len(args.shell_path) == 2 and all(path.is_absolute() and path.is_file()
             for path in [*args.shell_path, args.renderer_path, args.application_python_path]),
             "Supply both shell executables, the application Python and Poppler as absolute paths")
     report_path = policy.runner.new_external_path(args.report)
     work = Path(tempfile.mkdtemp(prefix="WBS-forms-")).resolve()
     application = args.app_root.resolve(strict=True)
+    application_paths = policy.support.validator.APPLICATION
+    if args.checkpoint_2:
+        application_paths = tuple(name for name in application_paths if name != 'engine/winbooksplit_forms.py')
+    if args.secondary_python_path:
+        require(args.secondary_python_path.is_absolute() and args.secondary_python_path.is_file(),
+                'Supply an absolute existing PDFium Python executable')
     probe = cli.process_tests.host_probe(work)
     hosts = {host["id"]: host for host in (policy.paths.host_observation(shell, work, probe)
                                          for shell in args.shell_path)}
@@ -365,12 +486,19 @@ def main():
             "Application pypdf does not match the pinned developer version")
     report = {
         "workspace": str(work), "application": str(application),
-        "application_sha256": {name: cli.digest(application / name) for name in policy.support.validator.APPLICATION},
+        "application_sha256": {name: cli.digest(application / name) for name in application_paths},
         "checkout_head": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "windows": platform.win32_ver(), "shells": hosts, "application_runtime": runtime_probe,
         "renderer": cli.run_unavailable_stdin([str(args.renderer_path), "-v"], work, os.environ.copy()), "cases": [],
     }
-    matrix = CHECKPOINT_2_MATRIX if args.checkpoint_2 else MATRIX
+    if args.secondary_python_path:
+        report["secondary_renderer"] = cli.run_unavailable_stdin(
+            [str(args.secondary_python_path), '-I', '-B', str(ROOT / 'tests/fidelity/render_pdfium.py'), '--probe'],
+            work, os.environ.copy())
+        require(report["secondary_renderer"]["exit_code"] == 0, "Secondary PDFium renderer unavailable")
+    else:
+        report["secondary_renderer"] = "NOT_RUN"
+    matrix = CHECKPOINT_2_MATRIX if args.checkpoint_2 else FORM_MATRIX if args.form_cases else MATRIX
     selected = [row for row in matrix if not args.case or row[1] in args.case]
     require(selected, 'No cases match this matrix')
     sources = {}
@@ -387,8 +515,9 @@ def main():
         case = {"host": host, "kind": kind, "mode": mode, "outputs": [], "renders": [],
                 "static_reference_sha256": cli.digest(sources[kind][0]["static"])}
         try:
-            run_case(application, args.application_python_path, args.renderer_path, work, hosts[host], kind, mode,
-                     sources, case, checkpoint_2=args.checkpoint_2)
+            run_case(application, application_paths, args.application_python_path, args.renderer_path,
+                     args.secondary_python_path, work, hosts[host], kind, mode, sources, case,
+                     checkpoint_2=args.checkpoint_2)
         except Exception as error:
             case["failure"] = str(error)
             print(f"FAIL {host} {kind} {mode}: {error}", flush=True)

@@ -3,6 +3,9 @@
 Split a local PDF, EPUB or AZW3 into chapter PDFs without changing its source.
 .DESCRIPTION
 Preserves every physical PDF page using the existing Python/pypdf planner.
+Preserves supported AcroForm values as static page content. Chapter PDFs are
+non-fillable and omit executable actions, attachments and signature validity data.
+Genuine XFA and unavailable required appearances return specific PDF errors.
 Without Mode, select a method interactively. Scripted calls supply Mode plus
 BookmarkLevel or StartPages. NonInteractive and Preview require complete choices.
 EPUB/AZW3 analysis uses Calibre in an owned temporary workspace, even for Preview.
@@ -13,6 +16,7 @@ the application-local environment with its locked pypdf. Host execution policy
 is process-scoped; enforced organization controls still apply. An interactive
 launch can prepare the application .venv once after explicit consent, then
 resume. Preview and NonInteractive never install. Ebooks require supported stable Calibre.
+An interactive ebook run can prepare verified Calibre Portable with consent.
 See docs/SETUP.md and docs/SUPPORT_DIAGNOSTICS.md for setup/support.
 .PARAMETER InputFile
 One literal local PDF, EPUB or AZW3 source file. Missing interactive input is
@@ -256,6 +260,21 @@ function Get-WinBookSplitDependencySummary {
     # exception messages remain in the local diagnostic record.
     $code = ''; if ($Failure.Data.Contains('Code')) { $code = [string]$Failure.Data['Code'] }
     $attempts = @(); if ($Failure.Data.Contains('Attempts')) { $attempts = @($Failure.Data['Attempts']) }
+    if ($code -cin @('converter_invalid','converter_not_found','converter_download_failed','converter_integrity_failed',
+            'converter_managed_invalid','converter_setup_failed')) {
+        $reason = $code
+        if ($Failure.Data.Contains('Reason')) { $reason = [string]$Failure.Data['Reason'] }
+        $observed = $attempts | Where-Object {
+            $_.PSObject.Properties.Name -ccontains 'Reason' -and $_.Reason -ceq $reason
+        } | Select-Object -Last 1
+        $action = 'Use -CalibrePath for a trusted installation or run Setup-WinBookSplit.bat -Calibre -NonInteractive.'
+        if ($code -ceq 'converter_download_failed') {
+            $action = 'Retry with HTTPS access or supply the reviewed installer with Setup-WinBookSplit.bat -Calibre -CalibreInstaller.'
+        }
+        return [pscustomobject]@{ Reason = $reason; Message = $Failure.Message; Action = $action; ActionIsCommand = $false;
+            ActionShell = $null; Stage = 'converter'; Source = 'converter'; Rejections = $attempts;
+            ObservedPath = $null; ObservedVersion = $null; ObservedSource = $null; ObservedConverter = $observed }
+    }
     $policy = $null
     try {
         $trustedRoot = Get-WinBookSplitTrustedPath -Path $ApplicationRoot -Directory
@@ -265,11 +284,6 @@ function Get-WinBookSplitDependencySummary {
     $discovery = Get-WinBookSplitDiscoverySummary -Attempts $attempts -Policy $policy -Code $code -FailureReason $failureReason
     $reason = $discovery.Reason; $source = $discovery.Source
     $observedPath = $discovery.ObservedPath; $observedVersion = $discovery.ObservedVersion; $observedSource = $discovery.ObservedSource
-    if ($code -cin @('converter_invalid','converter_not_found')) {
-        # Converter candidates also have explicit/PATH sources; those paths
-        # cannot identify the already selected Python interpreter.
-        $observedPath = $null; $observedVersion = $null; $observedSource = $null
-    }
     $ownVenv = $false; $preservedBase = $false
     if (-not [string]::IsNullOrWhiteSpace($PythonPath)) {
         try {
@@ -340,11 +354,6 @@ function Get-WinBookSplitDependencySummary {
     elseif ($reason -ceq 'malformed_policy') {
         $summaryStage='policy';$summarySource='application'
         $action = 'Extract a fresh trusted application copy before retrying.'
-    }
-    elseif ($code -cin @('converter_invalid', 'converter_not_found')) {
-        $reason = 'converter_unavailable'; $message = 'A compatible trusted Calibre converter was not found.'
-        $summaryStage='converter';$summarySource='converter'
-        $action = 'Select trusted stable Calibre ' + $policy['calibre']['minimum_version'] + ' or newer ebook-convert.exe with -CalibrePath, then retry.'
     }
     else {
         $basePath = $null
@@ -794,6 +803,7 @@ $inputExt = [System.IO.Path]::GetExtension($InputFile).ToLower()
 # The selected absolute interpreter is also used for every engine attempt.
 $runtime = $null
 $script:processingSetupResult = $null
+$calibreSetupResult = $null
 $converter = $null
 $converterExe = $null
 $script:consoleLogWriter = $null
@@ -807,7 +817,34 @@ try {
     $runtime = Resolve-WinBookSplitProcessingRuntime -ApplicationRoot $PSScriptRoot -PythonPath $PythonPath -DocumentPath $InputFile -NonInteractive:$NonInteractive -Preview:$Preview
     $pythonExe = $runtime.Path
     if ($inputExt -ne ".pdf") {
-        $converter = Resolve-WinBookSplitConverter -ApplicationRoot $PSScriptRoot -CalibrePath $CalibrePath -DocumentPath $InputFile
+        . (Join-Path $PSScriptRoot 'engine\WinBookSplit.Calibre.ps1')
+        $discovery = @{ApplicationRoot = $PSScriptRoot; DocumentPath = $InputFile; ManagedPythonPath = $pythonExe}
+        $explicitConverter = $PSBoundParameters.ContainsKey('CalibrePath')
+        if ($explicitConverter) { $discovery.CalibrePath = $CalibrePath }
+        try { $converter = Resolve-WinBookSplitConverter @discovery }
+        catch {
+            $discoveryFailure = $_.Exception
+            if ($Preview -or $NonInteractive -or $explicitConverter -or $discoveryFailure.Data['Code'] -cne 'converter_not_found') { throw }
+            Write-Host (ConvertTo-WinBookSplitDisplayText $discoveryFailure.Message) -ForegroundColor Yellow
+            $answer = Read-WinBookSplitSessionLine $null 'Prepare the verified Calibre Portable converter for WinBookSplit now? [Y/N]'
+            if ($null -eq $answer) { throw }
+            if ($answer.Trim() -inotmatch '\A(?:y|yes)\z') {
+                $declined = New-WinBookSplitFailure 'cancelled' 'Calibre preparation was declined or cancelled.'
+                $declined.Data['Attempts'] = $discoveryFailure.Data['Attempts']
+                throw $declined
+            }
+            Write-Host 'Preparing Calibre Portable in your local WinBookSplit folder. This may take a few minutes.' -ForegroundColor Cyan
+            try {
+                $calibreSetupResult = Invoke-WinBookSplitCalibreSetup -ApplicationRoot $PSScriptRoot -PythonPath $pythonExe -Discovery $discovery
+                $converter = $calibreSetupResult.converter
+            }
+            catch {
+                if (-not $_.Exception.Data.Contains('Code')) { $_.Exception.Data['Code'] = 'converter_setup_failed' }
+                if (-not $_.Exception.Data.Contains('Attempts')) { $_.Exception.Data['Attempts'] = $discoveryFailure.Data['Attempts'] }
+                throw
+            }
+            Write-Host 'Calibre is ready. Resuming the original ebook request.' -ForegroundColor Cyan
+        }
         $converterExe = $converter.Path
     }
     elseif ($KeepConvertedPdf) { throw (New-WinBookSplitFailure 'invalid_arguments' 'KeepConvertedPdf applies only to EPUB or AZW3 conversion.') }
@@ -839,6 +876,12 @@ catch {
             if ($null -ne $summary.ObservedVersion) { $displayVersion = $summary.ObservedVersion }
             elseif ($null -ne $runtime) { $displayVersion = $runtime.Version }
             Write-Host (ConvertTo-WinBookSplitDisplayText ('Python selection: ' + $displayPath + ' (' + $displayVersion + '; ' + $displaySource + ')')) -ForegroundColor Gray
+        }
+        if ($summary.PSObject.Properties.Name -ccontains 'ObservedConverter' -and $null -ne $summary.ObservedConverter) {
+            $candidate = $summary.ObservedConverter
+            $candidateVersion = 'version unavailable'
+            if ($candidate.PSObject.Properties.Name -ccontains 'Version' -and $candidate.Version) { $candidateVersion = $candidate.Version }
+            Write-Host (ConvertTo-WinBookSplitDisplayText ('Calibre candidate: ' + $candidate.Path + ' (' + $candidateVersion + ')')) -ForegroundColor Gray
         }
         Write-Host ('[!] Dependency preflight failed: ' + (ConvertTo-WinBookSplitDisplayText $summary.Message)) -ForegroundColor Red
         Write-Host ('Discovery: ' + $summary.Reason + '; stage=' + $summary.Stage + '; source=' + $summary.Source) -ForegroundColor Gray
@@ -935,6 +978,7 @@ function Run-PythonSplitter ($mode, $manualData, [bool]$PlanOnly = $false, [bool
     if ($Interactive) { $sessionId = [Guid]::NewGuid().ToString('N'); $engineArguments += @('--interactive', $sessionId) }
     if ($InputFile -match '\.(epub|azw3)$') {
         $engineArguments += @('--calibre-path', $converterExe, '--conversion-timeout', [string]$ConversionTimeout)
+        if ($converter.Source -ceq 'managed') { $engineArguments += '--managed-calibre' }
         if ($KeepConvertedPdf) { $engineArguments += '--keep-converted-pdf' }
     }
     $script:consoleLogWriter.WriteLine('[ENGINE] ' + (@{ path = $pythonExe; arguments = @($engineArguments) } | ConvertTo-Json -Compress))
@@ -1067,6 +1111,9 @@ try {
 # 1. Initial TUI, shows original book metadata
 $script:consoleLogWriter.WriteLine('[DEPENDENCY] ' + (@{ Runtime = $runtime; Converter = $converter } | ConvertTo-Json -Depth 12 -Compress))
 if ($null -ne $script:processingSetupResult) { $script:consoleLogWriter.WriteLine('[SETUP] ' + ($script:processingSetupResult | ConvertTo-Json -Depth 16 -Compress)) }
+if ($null -ne $calibreSetupResult) {
+    $script:consoleLogWriter.WriteLine('[CALIBRE-SETUP] ' + (@{code='ready'; changed=$calibreSetupResult.changed; version=$converter.Version} | ConvertTo-Json -Compress))
+}
 $runtimeLine = 'Python: ' + $runtime.Path + ' (' + $runtime.Version + '; ' + $runtime.Source + ')'
 $pypdfLine = 'pypdf: ' + $runtime.PypdfVersion + ' (' + $runtime.PypdfPath + ')'
 foreach ($line in @($runtimeLine, $pypdfLine)) {

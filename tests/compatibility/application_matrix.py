@@ -265,7 +265,7 @@ def execute_matrix(application_python, shells, work, *, calibre=None):
         app = work / "application"
         copied = process.copy_application(app)
         evidence["application_copy"] = {"path": str(app), "source_sha256": copied, "member_count": len(copied)}
-        require(len(copied) == 21, "Application fixture must contain the complete 21-file shipped closure")
+        require(len(copied) == 24, "Application fixture must contain the complete 24-file shipped closure")
         policy_path = app / "engine/WinBookSplit.Compatibility.json"
         policy, policy_sha = compatibility.load_policy(policy_path), digest(policy_path)
         evidence["policy"] = {"path": str(policy_path), "sha256": policy_sha, "policy_version": policy["policy_version"]}

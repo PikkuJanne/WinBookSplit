@@ -21,9 +21,10 @@ RUNTIME_PATHS = (
     "engine/WinBookSplit.Diagnostics.ps1", "engine/WinBookSplit.Paths.ps1",
     "engine/WinBookSplit.Logging.ps1", "engine/WinBookSplit.Support.ps1", "engine/WinBookSplit.Setup.ps1",
     "engine/WinBookSplit.Compatibility.ps1", "engine/WinBookSplit.Compatibility.json",
+    "engine/WinBookSplit.Calibre.ps1", "engine/winbooksplit_calibre.py",
     "engine/WinBookSplit.Outcomes.json", "engine/winbooksplit_engine.py",
     "engine/winbooksplit_compatibility.py",
-    "engine/winbooksplit_conversion.py", "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py",
+    "engine/winbooksplit_conversion.py", "engine/winbooksplit_forms.py", "engine/winbooksplit_windows.py", "engine/winbooksplit_job.py",
 )
 # Current user/support source prerequisites, not the future M5 package payload.
 SUPPORT_PATHS = (

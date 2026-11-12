@@ -224,7 +224,56 @@ Describe 'M2 converter version preflight' -Tag 'AC-045' {
     }
     It 'rejects a converter below the security minimum even when its probe succeeds' {
         Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe 'ebook-convert.exe (calibre 9.14.0)' }
-        { Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython } | Should-Throw
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath $TestPython; throw 'Expected converter rejection' }
+        catch {
+            $_.Exception.Data['Reason'] | Should-Be -Expected 'converter_version_unsupported'
+            $_.Exception.Data['Attempts'][0].Version | Should-Be -Expected '9.14.0'
+            $_.Exception.Data['Attempts'][0].Path | Should-Be -Expected $TestPython
+        }
+    }
+    It 'retains an unsupported automatic candidate and selects a verified installation registration' {
+        $script:nextConverter = Join-Path $TestDrive 'ebook-convert.exe'
+        [IO.File]::WriteAllText($script:nextConverter, 'Owned mock executable never launched.')
+        Mock Get-WinBookSplitPathCandidates { return @($TestPython) }
+        Mock Get-WinBookSplitRegisteredConverterPaths { return @($script:nextConverter) }
+        Mock Assert-WinBookSplitConverterExecutableIdentity { }
+        Mock Invoke-WinBookSplitRuntimeProbe {
+            if ($Path -eq $TestPython) { return (New-CompleteProbe 'ebook-convert.exe (calibre 9.14.0)') }
+            return (New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)')
+        }
+        $result=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot
+        $result.Source | Should-Be -Expected 'registry'
+        $result.Attempts[0].Reason | Should-Be -Expected 'converter_version_unsupported'
+        $result.Attempts[0].Version | Should-Be -Expected '9.14.0'
+        $result.Attempts[1].Path | Should-Be -Expected $script:nextConverter
+        Should-Invoke Assert-WinBookSplitConverterExecutableIdentity -Times 2 -Exactly
+    }
+    It 'rejects an unrelated <CandidateSource> target before probing and keeps the reason' -ForEach @(
+        @{ CandidateSource='PATH' }, @{ CandidateSource='registry' }, @{ CandidateSource='known_location' }
+    ) {
+        $script:converterDecoySource=$CandidateSource
+        Mock Get-WinBookSplitPathCandidates { if ($script:converterDecoySource -eq 'PATH') { return @($TestPython) } }
+        Mock Get-WinBookSplitRegisteredConverterPaths { if ($script:converterDecoySource -eq 'registry') { return @($TestPython) } }
+        Mock Get-WinBookSplitKnownConverterPaths { if ($script:converterDecoySource -eq 'known_location') { return @($TestPython) } }
+        Mock Invoke-WinBookSplitRuntimeProbe { throw 'An unverified automatic target was launched.' }
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot; throw 'Expected converter rejection' }
+        catch {
+            $_.Exception.Data['Code'] | Should-Be -Expected 'converter_not_found'
+            $_.Exception.Data['Reason'] | Should-Be -Expected 'converter_path_rejected'
+            $_.Exception.Data['Attempts'][0].Stage | Should-Be -Expected 'signature'
+            $_.Exception.Data['Attempts'][0].Source | Should-Be -Expected $CandidateSource
+            $_.Exception.Data['Attempts'][0].Path | Should-Be -Expected $TestPython
+        }
+        Should-Invoke Invoke-WinBookSplitRuntimeProbe -Times 0 -Exactly
+    }
+    It 'treats an explicitly empty converter selection as authoritative' {
+        Mock Get-WinBookSplitPathCandidates { throw 'Automatic fallback must not occur.' }
+        try { $null=Resolve-WinBookSplitConverter -ApplicationRoot $RepositoryRoot -CalibrePath ''; throw 'Expected converter rejection' }
+        catch {
+            $_.Exception.Data['Code'] | Should-Be -Expected 'converter_invalid'
+            $_.Exception.Data['Reason'] | Should-Be -Expected 'converter_path_rejected'
+        }
+        Should-Invoke Get-WinBookSplitPathCandidates -Times 0 -Exactly
     }
     It 'accepts a supported complete version record and retains its actual probe' {
         Mock Invoke-WinBookSplitRuntimeProbe { New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)' }
@@ -281,6 +330,7 @@ Describe 'V101 converter stop proof' -Tag 'AC-056','V101-CONVERTER-STOP-SYNTHETI
         [IO.File]::WriteAllText($script:converterSecond,'Owned ordinary second candidate; never executed.')
         $script:converterControl=$ControlKind
         Mock Get-WinBookSplitPathCandidates { return @($script:converterFirst,$script:converterSecond) }
+        Mock Assert-WinBookSplitConverterExecutableIdentity { } # Test the independent probe shutdown gate.
         Mock Invoke-WinBookSplitRuntimeProbe {
             $probe=New-CompleteProbe 'ebook-convert.exe (calibre 9.17.0)'
             if ($Path -eq $script:converterFirst) {

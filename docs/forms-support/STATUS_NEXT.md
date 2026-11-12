@@ -7,21 +7,8 @@ metadata passes. Chapter copies retain supported page graphics and navigation
 while omitting optional actions, attachments, portfolio behavior and signature
 validity data. Genuine XFA requires verified rendering.
 
-Next is checkpoint 3 of [CODEX_TASK.md](CODEX_TASK.md). Preserve ordinary
-AcroForm appearances and saved values in static chapter PDFs, including the
-combined form/script/attachment cases. The release target remains v1.0.5.
-
-No owner action is needed. Continue with this prompt:
-
-> Continue PikkuJanne/WinBookSplit v1.0.5 form support in the actual checkout at
-> D:\projects\WinBookSplit-main on codex/forms-v1.0.5. Read AGENTS.md and
-> docs/forms-support/STATUS_NEXT.md and its linked CHECKPOINT_2.md evidence,
-> FORM_HANDLING.md, ACCEPTANCE.md, and docs/PDF_POLICY.md. Complete checkpoint
-> 3 only. Preserve saved AcroForm values and geometry as static chapter content,
-> including reproducible signature appearances. Exercise filled forms combined
-> with scripts and attachments, including empty-password encryption, through
-> actual application launches and rendered field-region checks. Preserve the
-> checkpoint 2 page-copy omissions, navigation and warnings. Keep distinct
-> errors for unverified XFA and unavailable required appearances. Record actual
-> automated results and NOT_RUN coverage, commit and push intended paths, verify
-> the live branch matches clean local HEAD, then hand over and stop.
+The owner directed completion of checkpoints 3 through 5 in one chat.
+The active work preserves ordinary AcroForm appearances and saved values,
+corrects Calibre discovery and first-use preparation for EPUB and AZW3, verifies
+the exact v1.0.5 distribution, and publishes the accepted package.
+[Remaining checkpoints](CODEX_TASK.md)

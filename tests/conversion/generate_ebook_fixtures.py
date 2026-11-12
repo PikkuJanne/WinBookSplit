@@ -13,36 +13,64 @@ from datetime import datetime, timezone
 from hashlib import sha256
 import json
 from pathlib import Path
+from struct import pack
 import subprocess
 import zipfile
+import zlib
 
 
 EXPECTED_CALIBRE_VERSION = "9.17.0"
 EXPECTED_CALIBRE_SHA256 = "c71723b25a566e3f17763a02184d9241dd948c017330ed979fa475ab6dac4bea"
 CHAPTER_MARKERS = ["WBS-PAGE-001", "WBS-PAGE-002", "WBS-PAGE-003"]
 CHAPTER_TITLES = ["Chapter One", "Chapter Two", "Chapter Three"]
+RICH_CHAPTERS = (
+    ("Mikä luoto", "WBS-RICH-PAGE-001", "Åland och café", (205, 52, 44)),
+    ("Café au port", "WBS-RICH-PAGE-002", "Göteborg et Québec", (42, 155, 94)),
+    ("Über dem Meer", "WBS-RICH-PAGE-003", "Köln und Zürich", (48, 92, 209)),
+)
 
 
 def digest(path):
     return sha256(path.read_bytes()).hexdigest()
 
 
-def authored_epub(path):
+def chapter_png(rgb):
+    """Encode a small original RGB swatch with a contrasting edge."""
+    def chunk(kind, data):
+        return pack(">I", len(data)) + kind + data + pack(">I", zlib.crc32(kind + data))
+    width, height = 32, 24
+    border = bytes((244, 239, 218))
+    fill = border * 2 + bytes(rgb) * (width - 4) + border * 2
+    rows = (b"\0" + border * width) * 2 + (b"\0" + fill) * (height - 4) + (b"\0" + border * width) * 2
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress(rows)) + chunk(b"IEND", b""))
+
+
+def authored_epub(path, *, rich=False):
     """Write reproducible EPUB 3 bytes, including EPUB 2 NCX compatibility."""
-    chapters = []
-    for number, (title, marker) in enumerate(zip(CHAPTER_TITLES, CHAPTER_MARKERS), 1):
+    chapters, images = [], []
+    labels = [(title, marker) for title, marker, _, _ in RICH_CHAPTERS] if rich else zip(CHAPTER_TITLES, CHAPTER_MARKERS)
+    titles = []
+    for number, (title, marker) in enumerate(labels, 1):
+        titles.append(title)
+        detail = '<p>The three small chapters contain no images, scripts, links to remote resources, or private source material.</p>'
+        if rich:
+            _, _, text, rgb = RICH_CHAPTERS[number - 1]
+            detail = f'<p>{text}</p><p><img src="art-{number}.png" alt="Original color swatch" width="160" height="120"/></p>'
+            images.append((f'OEBPS/art-{number}.png', chapter_png(rgb)))
         chapters.append((f"OEBPS/chapter{number}.xhtml", f'''<?xml version="1.0" encoding="utf-8"?>
 <html xmlns="http://www.w3.org/1999/xhtml"><head><title>{title}</title>
 <link rel="stylesheet" href="style.css" type="text/css"/></head><body>
 <h1>{title}</h1><p class="marker">{marker}</p>
 <p>This chapter is original WinBookSplit test material. Its visible marker identifies the authored chapter.</p>
-<p>The three small chapters contain no images, scripts, links to remote resources, or private source material.</p>
+{detail}
 </body></html>'''))
     items = "".join(f'<item id="c{n}" href="chapter{n}.xhtml" media-type="application/xhtml+xml"/>' for n in range(1, 4))
+    items += "".join(f'<item id="art{n}" href="art-{n}.png" media-type="image/png"/>' for n in range(1, len(images) + 1))
     spine = "".join(f'<itemref idref="c{n}"/>' for n in range(1, 4))
-    nav_links = "".join(f'<li><a href="chapter{n}.xhtml">{title}</a></li>' for n, title in enumerate(CHAPTER_TITLES, 1))
+    nav_links = "".join(f'<li><a href="chapter{n}.xhtml">{title}</a></li>' for n, title in enumerate(titles, 1))
     ncx_links = "".join(f'<navPoint id="n{n}" playOrder="{n}"><navLabel><text>{title}</text></navLabel><content src="chapter{n}.xhtml"/></navPoint>'
-                        for n, title in enumerate(CHAPTER_TITLES, 1))
+                        for n, title in enumerate(titles, 1))
     files = [
         ("mimetype", "application/epub+zip"),
         ("META-INF/container.xml", '''<?xml version="1.0"?>
@@ -65,13 +93,14 @@ def authored_epub(path):
 <docTitle><text>Original WinBookSplit Three Chapters</text></docTitle><navMap>{ncx_links}</navMap></ncx>'''),
         ("OEBPS/style.css", "body { font-family: serif; } h1 { page-break-before: always; } .marker { font-size: 24pt; font-weight: bold; }"),
         *chapters,
+        *images,
     ]
     with path.open("xb") as stream, zipfile.ZipFile(stream, "w") as archive:
         for name, text in files:
             info = zipfile.ZipInfo(name, date_time=(2000, 1, 1, 0, 0, 0))
             info.compress_type = zipfile.ZIP_STORED if name == "mimetype" else zipfile.ZIP_DEFLATED
             info.external_attr = 0o100644 << 16
-            archive.writestr(info, text.encode("utf-8"))
+            archive.writestr(info, text.encode("utf-8") if isinstance(text, str) else text)
     return path
 
 

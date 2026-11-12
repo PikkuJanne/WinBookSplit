@@ -385,7 +385,8 @@ def launchers(work, fixtures, generator, shells, cases):
             require(final.parent == documents and final.name.startswith(source.stem + "_")
                     and final.resolve(strict=True) == final and not history.is_reparse(final), "Launcher final path lost owned input prefix")
             manifest = json.loads((final / "WinBookSplit_Manifest.json").read_text(encoding="utf-8"))
-            execution = {key: manifest[key] for key in ("run_id", "final_directory", "mode", "total_pages", "source_identity", "coverage", "written_count", "outputs")}
+            execution = {key: manifest[key] for key in ("run_id", "final_directory", "mode", "total_pages",
+                         "source_identity", "coverage", "written_count", "outputs", "pdf_forms")}
             execution.update(manifest_filename="WinBookSplit_Manifest.json", manifest=manifest)
             actual = manual.published_outputs(documents, generator, execution)
             require(actual == references[oracle_id], "Actual launcher bytes/page identities differ from corrected reference")
