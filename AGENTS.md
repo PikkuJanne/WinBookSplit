@@ -1,46 +1,21 @@
 # WinBookSplit working agreement
 
-## Active maintenance — v1.0.5 form support
+## Historical 12 November 2026 form and ebook repair
 
-The owner's 12 November 2026 request authorizes the five checkpoints in
-[the form-support task](docs/forms-support/CODEX_TASK.md). Start each chat by
-inspecting local and live Git state and reading root/nested instructions,
-[current status](docs/forms-support/STATUS_NEXT.md), its linked checkpoint,
-[form handling](docs/forms-support/FORM_HANDLING.md), and
-[acceptance](docs/forms-support/ACCEPTANCE.md). Treat earlier release records
-and routing below as historical evidence. Preserve existing work and evidence.
+All five checkpoints are complete. Public v1.0.5 uses tested source
+`56dc118313cd610bde4cbb578f46e9acbb273610`. The
+[form and ebook repair status](docs/forms-support/STATUS_NEXT.md) links the
+implementation, exact package acceptance and publication evidence. Further
+maintenance requires a new owner request. Preserve v1.0.5 and all earlier
+tags, assets and evidence.
 
-The owner's scope correction includes PDFs with optional document behavior and
-attachments in the same v1.0.5 checkpoints. Follow the [PDF policy](docs/PDF_POLICY.md)
-for required visual content, excluded behavior and genuine processing failures.
-Use fresh chapter catalogs, preserve usable local navigation and visible content,
-and omit executable actions, attachment payloads and signature data with accurate
-warnings. Chapter copies do not carry source signature validity. Preserve visible
-current form values and geometry before removing widget data and disclose static,
-non-fillable output. Distinguish genuine XFA and fail specifically when complete
-rendering cannot be verified. Keep dependency lock and origin, Store discovery,
-first-run consent, immutable input, no-overwrite, complete page coverage, bounded
-processes, owned cleanup and privacy. Use natural discovery for ordinary Store
-first-run evidence.
-
-The owner's same-thread EPUB correction requires working local EPUB and AZW3
-conversion. Use verified Calibre discovery and one interactive consent decision
-when managed preparation is needed. Preserve existing installations. Verify
-the official pinned Portable artifact, resume the original ebook request and
-check actual chapter output before publishing v1.0.5.
-
-The owner's direct continuation authorizes completing all remaining checkpoints
-in one chat. Run relevant automated application tests with
-available native Windows hosts, record results and unavailable cases as `NOT_RUN`,
-and update the active status and checkpoint evidence. Human tests, screenshots,
-kit returns, manual field inspection, and owner sign-off are outside this workflow.
-Commit intended paths only on a scoped branch, push normally, verify clean local
-HEAD against the fresh remote SHA, and continue through verified publication.
-
-Publish only v1.0.5 after automated acceptance of the exact frozen package and
-live confirmation that the tag and release are available. Preserve v1.0.4 and
-all earlier tags and assets. Respect repository protections and stop publication
-on a conflicting v1.0.5 without selecting a substitute version.
+The completed repair preserved saved AcroForm values and geometry as static
+chapter graphics. It retained usable local navigation, omitted executable
+behavior and embedded attachment data, and returned a specific error when
+genuine XFA rendering could not be verified. Local EPUB and AZW3 processing
+uses verified Calibre discovery and consent-based preparation of the pinned
+official Portable package, with existing installations preserved. See the
+[PDF policy](docs/PDF_POLICY.md) and [ebook guide](docs/EBOOK_SUPPORT.md).
 
 ## Historical 30 October 2026 functional repair
 

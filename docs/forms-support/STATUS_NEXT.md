@@ -1,14 +1,15 @@
 # Form support status
 
-Checkpoint 2 is complete on `codex/forms-v1.0.5`. The
-[checkpoint evidence](CHECKPOINT_2.md) records the v1.0.4 name-tree refusal and
-verified chapter output from the unpublished test ZIP. Harmless AcroForm
-metadata passes. Chapter copies retain supported page graphics and navigation
-while omitting optional actions, attachments, portfolio behavior and signature
-validity data. Genuine XFA requires verified rendering.
+WinBookSplit v1.0.5 is published from frozen source
+`56dc118313cd610bde4cbb578f46e9acbb273610`. All five checkpoints are
+complete. The [public release](https://github.com/PikkuJanne/WinBookSplit/releases/tag/v1.0.5)
+contains the exact tested ZIP and its verification files.
 
-The owner directed completion of checkpoints 3 through 5 in one chat.
-The active work preserves ordinary AcroForm appearances and saved values,
-corrects Calibre discovery and first-use preparation for EPUB and AZW3, verifies
-the exact v1.0.5 distribution, and publishes the accepted package.
-[Remaining checkpoints](CODEX_TASK.md)
+- [Implementation and reproduction](CHECKPOINT_3.md) covers saved AcroForm
+  values, optional PDF behavior, and verified Calibre discovery and preparation.
+- [Exact package acceptance](CHECKPOINT_4.md) covers the native Windows 11
+  results, real PDF/EPUB/AZW3 chapter output and unavailable scenarios.
+- [Publication evidence](CHECKPOINT_5.md) covers Windows CI, the annotated tag,
+  anonymous download verification, and preservation of v1.0.0 through v1.0.4.
+
+Further maintenance requires a new owner request.
